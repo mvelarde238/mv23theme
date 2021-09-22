@@ -27,6 +27,7 @@ require_once( 'fields/progress-circle.php' );
 require_once( 'fields/progress-bar.php' );
 require_once( 'fields/icon-and-text.php' );
 require_once( 'fields/slider.php' );
+require_once( 'fields/template-part.php' );
 include( locate_template( 'inc/ultimate-fields/componentes/utils/more-components.php' ) );
 
 $componentes = [
@@ -40,6 +41,7 @@ $componentes = [
 	['name' => 'Icono y texto', 'variable'=>$icon_and_text],
 	['name' => 'Slider', 'variable'=>$slider],
 	['name' => 'Componente Reusable', 'variable'=>$componente_reusable],
+	['name' => 'Template Part', 'variable'=>$template_part]
 ];
 
 include( locate_template( 'inc/ultimate-fields/componentes/utils/edit-components.php' ) );

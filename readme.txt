@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.45 21-09-22
+-  Template Part Component
+
 23.8.45 21-09-13
 - Slider component has layout setting
 - Icon and text component -> font-size just if icon element is selected
