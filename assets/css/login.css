@@ -1,0 +1,14 @@
+.login{
+  background-color: #fff;
+}
+.login h1 a {
+  background: url(../images/login-logo.png) no-repeat top center;
+  width: 326px;
+  height: 67px;
+  text-indent: -9999px;
+  overflow: hidden;
+  padding-bottom: 15px;
+  display: block; }
+
+/*.login #backtoblog a, .login #nav a{*/
+  /*color: #fff; }*/

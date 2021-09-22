@@ -1,0 +1,31 @@
+.user-menu
+	ul
+		padding-left: 0
+		margin: 0
+	li
+		display: block
+		width: 100%
+		list-style-type: none
+		&.current_page_item,
+		&.current-post-ancestor,
+		&.current-menu-item,
+		&.current-menu-parent
+			a
+				color: #fff !important
+				background: linear-gradient(to right, $tertiary-color 0%,$primary-color 100%)
+				text-shadow: 0 0 3px rgba(0,0,0,.3)
+	a
+		width: 100%
+		display: block
+		padding: 10px 8px
+		border-bottom: 1px solid rgba($primary-color,.3)
+		font-weight: 800 !important
+		color: $secondary-color !important
+		font-size: 13px
+		&:hover
+			color: #fff !important
+			background: linear-gradient(to right, $tertiary-color 0%,$primary-color 100%)
+			text-shadow: 0 0 3px rgba(0,0,0,.3)
+	i
+		// font-size: 21px
+		margin-right: 8px

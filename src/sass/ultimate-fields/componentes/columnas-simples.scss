@@ -1,0 +1,17 @@
+.columnas-simples{
+	&>div{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	$i: 1;
+	$nth-cols : 12;
+    @while $i <= $nth-cols {
+		$perc: unquote((100 / ($nth-cols / $i)) + "%");
+		.width-#{$i}{
+			width: #{$perc};
+		}
+		$i: $i + 1;
+	}
+} 

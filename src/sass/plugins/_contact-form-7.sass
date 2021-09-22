@@ -1,0 +1,54 @@
+div.wpcf7	
+	span.wpcf7-not-valid-tip
+		// font-size: 17px
+		text-align: right
+		margin-top: -5px
+
+	.ajax-loader
+    	width: 30px
+    	height: 64px
+    	background-repeat: no-repeat
+    	background-position: center
+
+
+div.wpcf7-validation-errors, 
+div.wpcf7-acceptance-missing
+    border: 2px solid $primary-color
+
+
+.cf7-submit-wrapper
+	position: relative
+
+	input[type='submit']:focus
+		outline: 0
+
+	.ajax-loader
+		position: absolute
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+		height: 100% !important
+		width: 100% !important
+		margin: auto !important
+		border-radius: 0
+		text-align: center
+		background: #000 url('assets/images/loading.gif') center no-repeat
+		&:before
+			display: none
+
+
+
+.grecaptcha-badge-wrapper
+	height: 60px
+	display: inline-block
+	background-color: #4A90E2
+	border-radius: 4px 
+	overflow: hidden
+	margin-right: 20px
+	// transform-origin: top right
+	// transform: scale(0.78)
+
+	.grecaptcha-badge
+		position: static !important
+		box-shadow: none !important

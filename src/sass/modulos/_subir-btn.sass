@@ -1,0 +1,37 @@
+.subir-btn
+	position: fixed
+	bottom: 314px
+	right: 15px
+	z-index: 89
+	width: 50px
+	height: 50px
+	border: 0
+	border-radius: 50%
+	background-color: #fff
+	box-shadow: 0 0 15px rgba(0,0,0,.2)
+	color: $primary-color
+	transition: 500ms all
+	outline: 0
+	text-align: center
+	display: flex
+	align-items: center
+	justify-content: center
+	text-decoration: none
+	i
+		font-size: 30px
+		pointer-events: none
+
+	// &:hover
+	// 	background-color: $secondary-color
+	// 	color: #fff
+	// 	text-decoration: none
+
+	&[data-state="hidden"]
+		right: -50px
+		opacity: 0
+
+
+
+@media only screen and (max-width: 768px)
+	.subir-btn
+		bottom: 80px

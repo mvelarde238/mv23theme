@@ -1,0 +1,55 @@
+<?php
+$tipo = $componente['__type'];
+$componentes = $componente['componentes'];
+$actions = (isset($componente['actions'])) ? $componente['actions'] : null;
+$aspect_ratio = ( isset($componente['aspect_ratio']) && $componente['aspect_ratio'] != 'default' ) ? $componente['aspect_ratio'] : '';
+
+$components_margin = (!empty($componente['components_margin'])) ? $componente['components_margin'] : null;
+$components_margin_attrs = ( $components_margin && $components_margin != 20) ? 'data-setmargin='.$components_margin : '';
+
+// video implementation
+$video_url = null;
+$videos = $componente['bgvideo'];
+$video_id = (is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
+if($video_id) {
+	$video_url = wp_get_attachment_url($video_id);
+	$video_opacity = (isset($componente['video_opacity']) && $componente['video_opacity'] ) ? $componente['video_opacity'] : 100;
+	$video_style = ($video_opacity != 100) ? 'style="opacity:'.($video_opacity/100).';"' : ''; 
+}
+$has_video = ($video_url) ? 'has-video-background' : '';
+// end video implementation
+
+$classes_array = format_classes(array(
+	'componente',
+	'card',
+	get_color_scheme($componente),
+	$componente['class'],
+	$has_video,
+	$aspect_ratio
+));
+
+if( isset($componente['content_alignment']) && $componente['content_alignment'] != 'flex-start' && !empty($componente['content_alignment']) ) array_push($classes_array, 'alignment-'.$componente['content_alignment']);
+
+$attributes = generate_attributes($componente, $classes_array);
+?>
+<div <?=$attributes?> <?=$components_margin_attrs?>>
+	<?php if ($video_id): ?>
+		<video <?=$video_style?> width="100%" loop muted="muted"><source src="<?=$video_url?>">Your browser does not support the video tag.</video>
+	<?php endif ?>
+	<?php echo generate_actions_code($componente); ?>
+	<?php if ( is_array($actions) && count($actions)>0 ):
+		foreach ($actions as $action) {
+			if ($action['trigger'] == 'click' && $action['action'] == 'open-video-popup') {
+				if ($video_id):
+		        	echo '<a class="cover-all zoom-video" href="'.$video_url.'"></a>';
+		        endif;
+			}
+		}
+	endif; ?>
+	<div class="card__components">
+		<?php foreach ($componentes as $componente ) { 
+			$path = get_template_directory().'/inc/ultimate-fields/componentes/views/'.$componente['__type'].'.php';
+			include $path;
+		} ?>
+	</div>
+</div>  

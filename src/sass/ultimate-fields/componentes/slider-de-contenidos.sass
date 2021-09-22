@@ -1,0 +1,117 @@
+.componente-slider-de-contenidos
+	position: relative
+
+	.columnas-simples
+		padding-right: 0
+		padding-left: 0
+
+	.tns-outer
+		position: relative
+
+
+
+	.tns-controls
+
+	button[data-controls="prev"],
+	button[data-controls="next"]
+		position: absolute
+		border: 1px solid $secondary-color
+		width: 37px
+		height: 37px
+		line-height: 37px
+		padding: 0
+		background-color: #f1f1f1
+		border-radius: 50%
+		display: flex
+		align-items: center
+		justify-content: center
+		i
+			font-size: 28px
+			width: 37px
+			color: $secondary-color
+	button[data-controls="prev"]
+		left: -20px
+		i
+			padding-right: 4px
+	button[data-controls="next"]
+		right: -20px
+		i
+			padding-left: 4px
+
+	&[data-controls-position='top'] .tns-controls button
+		top: 8px
+	&[data-controls-position='center'] .tns-controls button
+		top: 0
+		bottom: 0
+		margin: auto
+	&[data-controls-position='bottom'] .tns-controls button
+		bottom: 0px
+
+
+
+
+
+
+	.tns-nav
+		display: flex
+		flex-wrap: wrap
+		justify-content: center
+		align-items: center
+		padding: 0 60px
+		background-color: #F1F1F1
+		button
+			font-size: 18px
+			line-height: 1
+
+	&[data-show-title='0'] .tns-nav
+		button
+			background-color: #808080
+			height: 6px
+			width: 6px
+			border-radius: 50%
+			border: 0
+			margin: 10px
+			padding: 0
+			outline: 0
+
+			&.tns-nav-active
+				background-color: $secondary-color
+				transform: scale(1.8)
+				position: relative
+
+				&:before
+					content: ''
+					position: absolute
+					top: -2px
+					left: -2px
+					width: 10px
+					height: 10px
+					border: 1px solid $secondary-color
+					border-radius: 50%
+
+
+	&[data-show-title='1'] .tns-nav
+		button
+			background-color: transparent
+			border: 0
+			margin: 0 10px
+			padding: 18px 15px
+			outline: 0
+
+			&.tns-nav-active
+				background-color: $secondary-color
+				position: relative
+				color: #fff
+
+
+
+
+
+
+
+// abajo de...
+@media only screen and (max-width: 1024px)
+	.componente-slider-de-contenidos	
+		.tns-nav
+			button
+				font-size: 15px

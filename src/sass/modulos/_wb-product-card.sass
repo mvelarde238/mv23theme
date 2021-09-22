@@ -1,0 +1,66 @@
+.wb-product-card
+	padding-top: 60px
+	position: relative
+
+	&__secondary-image
+		min-height: 500px
+		background-size: cover
+		background-position: center
+		display: flex
+		align-items: flex-end
+		padding-top: 60px
+	&__image
+		position: absolute
+		top: 0
+		right: 60px
+		width: calc( 100% - (450px + 60px) )
+		height: calc( 100% - 60px)
+		display: flex
+		img
+			margin: auto 0
+			max-height: 620px
+	&__content
+		background-color: #fff
+		padding: 40px 15px
+		border-radius: 40px 0 40px 0
+		margin: 0 60px -80px 60px
+		max-width: calc(450px - 120px)
+		width: 90%
+	&__footer
+		max-width: 450px
+		background-color: $primary-color
+		min-height: 150px
+		border-radius: 0 0 40px 0
+		text-align: center
+		padding: 100px 15px 15px 15px
+	&__share
+		position: absolute
+		bottom: 0
+		right: 0
+	.socialshare
+		display: none
+
+
+@media only screen and (max-width: 500px)
+	.wb-product-card
+		&__secondary-image
+			display: block
+		&__image
+			position: relative
+			width: 200px
+			height: 200px
+			right: 0
+			margin: auto
+			margin-bottom: -30px
+			border-radius: 50%
+			overflow: hidden
+			z-index: 91
+			img
+				margin: 0
+		&__content
+			position: relative
+			z-index: 89
+			margin: 0 15px -80px 15px
+			max-width: initial
+		&__share
+			position: static

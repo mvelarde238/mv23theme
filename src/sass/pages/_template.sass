@@ -1,0 +1,45 @@
+.main
+	width: 100%
+	
+.main-content
+	display: flex 
+
+	.sidebar
+		width: 200px
+
+	&--sidebar-right
+		.main
+			width: calc(100% - 200px)
+			padding-right: 30px
+
+
+	&--sidebar-left
+		.main
+			width: calc(100% - 200px)
+			padding-left: 30px
+			order: 1
+
+		.sidebar
+			order: 0
+
+
+@media #{$medium-and-down}
+	.main-content
+		flex-wrap: wrap
+	
+		.sidebar
+			width: 100%
+	
+		&--sidebar-right
+			.main
+				width: 100%
+				padding-right: 0
+				
+		&--sidebar-left
+			.main
+				width: 100%
+				padding-left: 0
+				order: 0
+	
+			.sidebar
+				order: 1

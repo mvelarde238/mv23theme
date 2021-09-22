@@ -1,0 +1,85 @@
+.card.componente
+	position: relative
+	display: flex
+	// background-color: #f1f1f1
+	// height: 100%
+
+	&.alignment-center
+		align-items: center
+	&.alignment-flex-end
+		flex-wrap: wrap
+		align-items: flex-end
+	&.alignment-space-between .card__components
+		display: flex
+		flex-wrap: wrap
+		align-content: space-between
+		&>div
+			width: 100%
+
+	.card__components
+		width: 100%
+
+	.componente
+		position: relative
+		z-index: 23
+
+	&[style*='border-radius']
+		overflow: hidden
+
+	&[class*='aspect-ratio']
+		&:before
+			content: ''
+			width: 1px
+			margin-left: -1px
+			float: left
+			height: 0
+		&:after
+			content: ''
+			display: table
+			clear: both
+
+	&.aspect-ratio-16-9:before
+		padding-bottom: 9% / 16% * 100%
+		// padding-bottom: percentage(9/16)
+		// padding-top: 591.44px / 1127.34px * 100%
+	&.aspect-ratio-1-1:before
+		padding-bottom: 100%
+	&.aspect-ratio-4-3:before
+		padding-bottom: 3% / 4% * 100%
+	&.aspect-ratio-2-1:before
+		padding-bottom: 50%
+	&.aspect-ratio-2_5-1:before
+		padding-bottom: 1% / 2.5% * 100%
+	&.aspect-ratio-3-4:before
+		padding-bottom: 4% / 3% * 100%
+	&.aspect-ratio-9-16:before
+		padding-bottom: 16% / 9% * 100%
+	&.aspect-ratio-1-2:before
+		padding-bottom: 200%
+	&.aspect-ratio-1-2_5:before
+		padding-bottom: 2.5% / 1% * 100%
+
+	.cover-all
+		&:hover
+			background-color: rgba(0,0,0,.5)
+			&:before
+				content: "\f08e"
+				font: normal normal normal 14px/1 FontAwesome
+				font-size: 23px
+
+	&.has-video-background
+		overflow: hidden
+		background-color: #000
+		video
+			position: absolute
+			top: 0
+			left: 0
+			right: 0
+			bottom: 0
+			margin: auto
+			min-height: 100%
+			// width: auto
+
+.card.width-12
+	.card.componente
+		min-height: 400px

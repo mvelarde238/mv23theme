@@ -1,0 +1,53 @@
+.post-card
+	position: relative
+
+	&--style1 &__imagen
+		padding-top: 60%
+		background-color: #f1f1f1
+		background-size: cover
+		background-position: center
+		background-repeat: no-repeat
+		border: 1px solid #efefef
+		position: relative
+		margin-bottom: 15px
+		transition: 200ms all
+		div
+			position: absolute
+			top: 0
+			width: 100%
+			height: 100%
+			background-color: rgba($primary-color,.6)
+			display: flex
+			align-items: center
+			justify-content: center
+			flex-direction: column
+			color: #fff
+			opacity: 0
+			transition: 200ms all
+		i
+			font-size: 56px
+			margin-bottom: 40%
+			transition: 500ms all
+
+	&--style1 &__title
+		font-weight: bold
+		font-size: 16px
+
+	&--style1 &__date
+		text-transform: uppercase
+		margin-bottom: 0
+		font-size: 15px
+		i
+			font-size: 20px
+			vertical-align: bottom
+
+	&--style1 &__link
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+
+
+	&--style1:hover &__imagen
+		box-shadow: 0 0 15px rgba(0,0,0,0.2)

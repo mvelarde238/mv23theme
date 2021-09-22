@@ -1,0 +1,63 @@
+.page-module
+    padding: 90px 0
+    
+
+.componente
+	// no quiero ponerle esto a todos los componentes
+	// agregado con js:
+	// position: relative 
+	margin: $components-margin
+	display: block
+	box-sizing: border-box
+
+	.cover-all
+		position: absolute
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		margin: auto
+		z-index: 125
+		display: flex
+		align-items: center
+		justify-content: center
+		transition: 300ms all
+		text-decoration: none
+
+// siguiente configuración
+// falla cuando se le quitan
+// los margenes right y left 
+// al componente:
+// .componente
+// 	margin: 15px 30px
+// 	display: inline-block
+// 	width: calc(100% - 60px)
+// 	box-sizing: border-box
+
+.full-width
+	width: 100vw
+	position: relative
+	left: 50%
+	right: 50%
+	margin-left: -50vw !important
+	margin-right: -50vw !important
+
+.add-padding
+	padding: 20px
+
+[data-animation]
+	animation-duration: 1s
+	animation-fill-mode: both
+
+
+@media #{$medium-and-down}
+	// .page-module}
+		// padding: 30px 0
+
+	.componente
+		margin: 15px 15px
+		// width: calc(100% - 30px)
+
+@media #{$small-and-down}
+	.page-module
+    	// overflow: hidden

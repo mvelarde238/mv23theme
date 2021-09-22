@@ -1,0 +1,133 @@
+// html
+	// overflow-x: hidden
+
+body
+	overflow-x: hidden
+	// &.no-scroll
+	// 	width: calc(100% - 15px)
+	// 	overflow: hidden
+	// 	.header
+	// 		left: -9px
+
+#content
+	overflow: hidden
+
+.mt0
+	margin-top: 0
+
+.text-color-2
+    color: #fff
+    h1,h2,h3,h4,h5,h6
+        color: #fff
+    a
+        color: #fff
+    // .special-title-1
+    // 	&:before,
+    // 	&:after
+    // 		background-color: #fff
+
+.text-color-1
+    color: #000
+    h1,h2,h3,h4,h5,h6
+        color: #000
+    a:not(.btn)
+    	color: $primary-color
+
+.material-icons
+	font-size: inherit
+	vertical-align: sub
+
+.wp-caption
+	display: inline-block
+	text-align: center
+	&-text
+		display: block
+ 
+.parallax
+	background-attachment: fixed
+
+h1,h2,h3,h4,h5,h6,p
+	&:last-child
+		margin-bottom: 0
+
+// .special-title-1
+// 	color: #fff
+// 	border-bottom: 1px solid $primary-color
+// 	position: relative
+// 	margin-bottom: 15px
+// 	h1,h2,h3,h4,h5,h6,p
+// 		padding: 2px 15px
+// 		margin: 0
+// 		display: inline-block
+// 		background-color: $primary-color
+// 		color: #fff
+// 	a
+// 		color: #fff
+
+span[style*="font-size"]
+	line-height: normal
+
+.img-full-width
+	width: 100%
+
+.align-items-center
+	display: flex
+	align-content: center
+	justify-content: center
+	flex-direction: column
+
+
+
+
+
+@media #{$large-and-up}
+	.module-add-border
+		position: relative
+		&:before
+			content: ''
+			position: absolute
+			height: 100%
+			left: 0
+			right: 0
+			margin: auto
+			top: 0
+			width: 1px
+			background-color: #000
+
+@media #{$medium-and-up}
+	.border-right-1
+		border-right: 1px solid
+
+@media #{$medium-and-down}
+	.add-margin-top-in-mobile
+		margin-top: 15px !important
+	.add-margin-left-in-mobile
+		margin-left: 15px !important
+	.add-margin-right-in-mobile
+		margin-right: 15px !important
+	.add-margin-bottom-in-mobile
+		margin-bottom: 15px !important
+	.hide-br br
+		display: none
+
+@media #{$medium-only}
+	.center-on-tablet *
+		text-align: center !important
+	.left-on-tablet *
+		text-align: left !important
+	.right-on-tablet *
+		text-align: right !important
+	.hide-br-tablet br
+		display: none
+
+@media #{$small-and-down}
+	.movil-img-full-width
+		width: 100%	
+	.center-on-mobile *
+		text-align: center !important
+	.left-on-mobile *
+		text-align: left !important
+	.right-on-mobile *
+		text-align: right !important
+	.hide-br-mobile br
+		display: none

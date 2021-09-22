@@ -1,0 +1,18 @@
+@import "materialize/components/color";
+@import "materialize/components/variables";
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300');
+
+body#tinymce.wp-editor {
+	font-family: 'Roboto', sans-serif;
+  	line-height: 160%;
+  	font-size: 17px;
+  	font-weight: 300;
+	@import "materialize/components/typography";
+	@import "materialize/components/global";
+	@import "materialize/components/buttons";
+	@import "modulos/blockquote";
+	@import "modulos/buttons";
+	@import "modulos/global";
+	@import "modulos/gallery";
+}

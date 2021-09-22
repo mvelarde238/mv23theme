@@ -1,0 +1,32 @@
+.logos-grid
+	display: flex
+	flex-wrap: wrap
+	justify-content: center
+	align-items: center
+
+	&__item
+		// width: 16%
+		margin-bottom: 20px
+		text-align: center
+		position: relative
+
+		img
+			max-height: 350px
+
+		&__link
+			position: absolute
+			width: 100%
+			height: 100%
+			top: 0
+			left: 0
+
+
+@media only screen and (max-width: 768px)
+	.logos-grid
+		&__item
+			width: 33%
+
+@media only screen and (max-width: 486px)
+	.logos-grid
+		&__item
+			width: 50%

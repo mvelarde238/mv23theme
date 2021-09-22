@@ -1,0 +1,56 @@
+.servicios-list
+	display: flex
+	flex-wrap: wrap
+	justify-content: center
+	padding: 0
+	margin: 0
+	margin-top: -80px
+	list-style-type: none
+	justify-content: space-around
+	position: relative
+	z-index: 56
+	background: transparent url('http://posicionarweb.cl/mv23/wp-content/uploads/2020/09/america.png') center bottom no-repeat 
+	background-size: auto 62%
+
+	&__item
+		width: 32%
+		padding: 30px 30px 60px 30px
+		text-align: center
+		margin-bottom: 15px
+		border-top: 20px solid #fff
+		position: relative
+
+		.btn
+			background-color: #fff
+			position: absolute
+			left: 30px
+			bottom: 30px
+			width: calc( 100% - 60px )
+
+	h5 
+		margin-top: 0
+		text-transform: uppercase
+
+
+
+
+@media only screen and (max-width: 1024px)
+	.servicios-list
+		background: transparent url('') center bottom no-repeat
+		&__item
+			width: 48%
+
+@media only screen and (max-width: 768px)
+	.servicios-list
+		&__item
+			width: 100%
+
+
+@media only screen and (max-width: 425px)
+	.servicios-list
+		&__item
+			padding: 15px 15px 60px 15px
+			.btn
+				left: 15px
+				bottom: 15px
+				width: calc( 100% - 30px )

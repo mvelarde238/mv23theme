@@ -1,0 +1,90 @@
+// @font-face {
+//     font-family: "mykefa";
+//     src: local(My Kefa Bold),
+//         url("#{$font-path}kefa/Kefa.ttc") format("woff");
+//     font-weight: 700;
+// }
+
+// @font-face {
+//     font-family: "mymyriad";
+//     src: local(My Myriad Bold),
+//         url("#{$font-path}myriad-pro/MyriadPro-Bold.otf") format("woff");
+//     font-weight: 700;
+// }
+
+// @font-face {
+//     font-family: "myathelas";
+//     src: local(My Athelas),
+//         url("#{$font-path}athelas/Athelas.ttc") format("woff");
+//     font-weight: 400;
+// }
+
+// @font-face {
+//     font-family: "myathelas-bold";
+//     src: local(My Athelas Bold),
+//         url("#{$font-path}athelas/athelas-bold.ttf") format("woff");
+//     font-weight: 700;
+// }
+
+// @import url('https://fonts.googleapis.com/css?family=Rubika:wght@300,400;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;900&display=swap');
+// @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700,800');
+// @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:400,500&family=Roboto:300');
+// @import url('https://fonts.googleapis.com/css?family=Titillium+Web:400;600&display=swap');
+.mplus-rounded { font-family: "M PLUS Rounded 1c"; line-height: 1; font-weight: 500; }
+
+a {
+  color: $secondary-color;
+  text-decoration: underline;
+}
+
+html{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 160%;
+  color: #000;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 500;
+  color: $secondary-color;
+}
+
+// Header Styles
+// h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: normal; }
+h1 { font-size: $h1-fontsize; line-height: 140%; margin: 0 0 ($h1-fontsize / 1) 0;}
+h2 { font-size: $h2-fontsize; line-height: 140%; margin: 0 0 ($h2-fontsize / 1) 0;}
+h3 { font-size: $h3-fontsize; line-height: 140%; margin: 0 0 ($h3-fontsize / 1) 0;}
+h4 { font-size: $h4-fontsize; line-height: 140%; margin: 0 0 ($h4-fontsize / 1) 0;}
+h5 { font-size: $h5-fontsize; line-height: 140%; margin: 0 0 ($h5-fontsize / 1) 0;}
+h6 { font-size: $h6-fontsize; line-height: 140%; margin: 0 0 ($h6-fontsize / 1) 0;}
+
+// Text Styles
+em { font-style: italic; }
+// b,strong { font-weight: 700; font-family: "myathelas-bold"; }
+small { font-size: 75%; }
+.light { font-weight: 300; }
+.thin { font-weight: 200; }
+
+p{
+  margin-top: 0;
+  margin-bottom: 22px;
+}
+
+// .flow-text{
+//   font-weight: 300;
+//   $i: 0;
+//   @while $i <= $intervals {
+//     @media only screen and (min-width : 360 + ($i * $interval-size)) {
+//       font-size: 1.2rem * (1 + (.02 * $i));
+//     }
+//     $i: $i + 1;
+//   }
+
+//   // Handle below 360px screen
+//   @media only screen and (max-width: 360px) {
+//     font-size: 1.2rem;
+//   }
+// }

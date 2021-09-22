@@ -1,0 +1,15 @@
+mv23 changelog-------------------------
+
+- this.$groups.sortable | comented handle
+- focusFirstField | comented
+
+22-05-2021
+- (repeater.js) connectWith: '.uf-repeater-groups' | added | move group anywhere, move but don't work group element
+- (group.js) delete: function() { | added | confirm function
+- (group.js, group.php) implementation of copy and paste
+
+01-06-2021
+- (repeater.js) handle: '> .uf-group-header > .uf-group-number, > .uf-group-number', | added | move group in layout table too
+
+22-06-2021
+- (Options.php) register_rest_route -> give error ultimate-fields/v2/options le falta el argumento permission_callback necesario

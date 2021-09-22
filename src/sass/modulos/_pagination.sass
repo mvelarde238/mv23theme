@@ -1,0 +1,41 @@
+ul.page-numbers
+	padding: 0 0 40px 0
+	padding-left: 0
+	margin: 0 auto
+	display: flex
+	justify-content: center
+	position: relative
+	z-index: 56
+	color: $secondary-color
+
+	li
+		list-style-type: none !important
+		
+		a
+			border: 2px solid $secondary-color
+			color: $secondary-color
+			width: 36px
+			line-height: 36px
+			text-align: center
+			display: inline-block
+			margin-right: 5px
+			background-color: #fff
+
+			&:hover
+				background-color: $secondary-color
+				color: #fff
+
+	.current
+		width: 36px
+		line-height: 36px
+		text-align: center
+		display: inline-block
+		margin-right: 5px
+		color: #fff
+		border: 2px solid $secondary-color
+		background-color: $secondary-color
+
+	.next
+		line-height: 36px
+		border: 2px solid $secondary-color
+		width: 36px

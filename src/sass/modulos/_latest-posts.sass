@@ -1,0 +1,97 @@
+.wp-admin .latest-posts
+	*
+		box-sizing: border-box
+	.ui-draggable-dragging
+		opacity: .8
+		z-index: 88888
+	.posts-listing__item
+		&:not(.static)
+			cursor: move
+		&:nth-child(3),
+		&:nth-child(5),
+		&:nth-child(9)
+			width: 49%
+		&__link
+			display: none
+		&:hover .posts-listing__item__select
+			opacity: 1
+	.posts-listing__item__select
+		position: absolute
+		top: 40px
+		bottom: 0
+		margin: auto
+		left: 3%
+		width: 94%
+		z-index: 345
+		height: 70px
+		opacity: 0
+		transition: 500ms all
+	.posts-listing__item.ui-state-active
+		opacity: 0
+
+
+
+
+
+.latest-posts
+	.posts-listing__item
+		&:nth-child(3)
+			margin-right: 0
+			width: 49.33%
+			background-color: $primary-color
+			align-items: flex-start
+			padding: 50px 90px
+
+			.posts-listing__item__content
+				color: #fff
+
+		&:nth-child(4)
+			width: 49.33%
+			float: left
+
+		&:nth-child(5)
+			width: 49.33%
+			height: 670px
+			float: right
+			h3
+				font-size: 26px
+
+		&:nth-child(6),
+		&:nth-child(7)
+			float: left
+			margin-right: 1.33%
+			width: 24%
+			height: 330px
+
+		&:nth-child(8)
+			width: 49.33%
+		&:nth-child(9)
+			margin-right: 0
+
+
+
+
+
+
+@media only screen and (max-width: 1024px)
+	.latest-posts
+		.posts-listing__item
+			&:nth-child(3),
+			&:nth-child(8)
+				margin-right: 1.33%
+			&:nth-child(6),
+			&:nth-child(7)
+				width: 49.33%
+
+
+
+@media only screen and (max-width: 625px)
+	.latest-posts
+		.posts-listing__item
+			&:nth-child(3),
+			&:nth-child(4),
+			&:nth-child(5),
+			&:nth-child(7),
+			&:nth-child(6),
+			&:nth-child(8)
+				width: 100%
