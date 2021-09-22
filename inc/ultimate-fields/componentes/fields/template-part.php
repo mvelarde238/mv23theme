@@ -4,7 +4,8 @@ use Ultimate_Fields\Container\Repeater_Group;
 
 $fields = array( 
     Field::create( 'tab', 'Contenido' ),
-    Field::create( 'text', 'content', 'Ruta del archivo dentro de '.get_stylesheet_directory_uri().'/templates/' )->set_suffix('.php'),
+    Field::create( 'text', 'content', 'Ruta del archivo dentro de:' )->set_prefix(get_stylesheet_directory_uri().'/templates/')->set_suffix('.php')->set_attr( array('class' => 'short-input'
+    )),
 );
 
 $template_part_args = array(
