@@ -12,5 +12,5 @@ $classes_array = format_classes(array(
 $attributes = generate_attributes($componente, $classes_array);
 ?>
 <div <?=$attributes?>>
-	<?php if($content) echo get_template_part($content); ?>
+	<?php if($content) echo get_template_part('templates/'.$content); ?>
 </div>

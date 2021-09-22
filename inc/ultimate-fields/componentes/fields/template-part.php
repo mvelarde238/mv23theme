@@ -4,7 +4,7 @@ use Ultimate_Fields\Container\Repeater_Group;
 
 $fields = array( 
     Field::create( 'tab', 'Contenido' ),
-    Field::create( 'text', 'content', 'Ruta del archivo dentro del theme' )->set_prefix( get_stylesheet_directory_uri().'/' )->set_suffix('.php'),
+    Field::create( 'text', 'content', 'Ruta del archivo dentro de '.get_stylesheet_directory_uri().'/templates/' )->set_suffix('.php'),
 );
 
 $template_part_args = array(
