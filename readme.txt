@@ -5,6 +5,7 @@ CHANGELOG
 - Columnas dont open in popup
 - title_template configuration for icon and text & Text Editor
 - Intentando crear un inner tab for UI...
+- No funcionó el xab :(
 
 23.8.46 21-09-22
 - GIT Implementation

@@ -85,6 +85,7 @@ $fields = array(
         ->add_dependency_group()
         ->add_dependency('istyle','circle-outline','=')
         ->add_dependency('ihas_bgc'),
+
     Field::create( 'section', 'Texto' ),
     Field::create( 'wysiwyg', 'content' )->hide_label()->set_rows( 5 )->set_width(100),
     Field::create( 'checkbox', 'center-all' )->set_text( 'Centrar icono y texto' )->hide_label(),
@@ -104,6 +105,8 @@ $fields = array(
 $it_responsive_settings = array(
     Field::create( 'tab', 'Responsive' ),
     Field::create( 'checkbox', 'hide-icon-on-mobile' )->set_text( 'Ocultar Icono en moviles' )->hide_label(),
+    Field::create( 'xab', 'Responsive2' ),
+    Field::create( 'checkbox', 'hide-icon-on-mobile2' )->set_text( 'Ocultar Icono en moviles2' )->hide_label(),
 );
 
 $icon_and_text_args = array(

@@ -21,6 +21,7 @@
 			args = args || {};
 
 			this.set( 'tabs', {} );
+			this.set( 'xabs', {} );
 			this.set( 'fields', new UltimateFields.Field.Collection( args.fields || this.get( 'fields' ) || [] ) );
 
 			// Proxy some settings to the fields
@@ -34,6 +35,8 @@
 		 */
 		setDatastore: function( datastore ) {
 			var that = this,
+				xabs = new UltimateFields.Field.Collection,
+				xab,
 				tabs = new UltimateFields.Field.Collection,
 				tab;
 
@@ -44,13 +47,24 @@
 				if( ! ( field instanceof UltimateFields.Field.Tab.Model ) )
 					return;
 
+				if( ! ( field instanceof UltimateFields.Field.Xab.Model ) )
+					return;
+
 				if( window.location.hash.replace( '#', '' ) == field.get( 'name' ) ) {
 					that.datastore.set( '__tab', field.get( 'name' ) );
+				}
+
+				if( window.location.hash.replace( '#', '' ) == field.get( 'name' ) ) {
+					that.datastore.set( '__xab', field.get( 'name' ) );
 				}
 			});
 
 			if( ! datastore.get( '__tab' ) && ( tab = this.get( 'fields' ).findWhere({ type: 'Tab' }) ) ) {
 				datastore.set( '__tab', tab.get( 'name' ) );
+			}
+
+			if( ! datastore.get( '__xab' ) && ( xab = this.get( 'fields' ).findWhere({ type: 'Xab' }) ) ) {
+				datastore.set( '__xab', xab.get( 'name' ) );
 			}
 
 			// Send the datastore to the fields
@@ -63,6 +77,13 @@
 					// Save the field within the tabs
 					tabs.add( field );
 				}
+
+				if( 'Xab'== field.get( 'type' ) ) {
+					that.get( 'xabs' )[ field.get( 'name' ) ] = field.get( 'visible' );
+
+					// Save the field within the tabs
+					xabs.add( field );
+				}
 			});
 
 			// When a tab gets invalidated, we should switch away from it (if possible)
@@ -72,6 +93,15 @@
 				if( tab.get( 'name' ) == currentTab ) {
 					// ToDo: Don't simply switch to the first tab, but the first avaiable
 					datastore.set( '__tab', tabs.at( 0 ).get( 'name' ) );
+				}
+			});
+
+			xabs.on( 'change:visible', function( xab ) {
+				var currentInnerTab = datastore.get( '__xab' );
+
+				if( xab.get( 'name' ) == currentInnerTab ) {
+					// ToDo: Don't simply switch to the first tab, but the first avaiable
+					datastore.set( '__xab', xabs.at( 0 ).get( 'name' ) );
 				}
 			});
 
@@ -106,6 +136,8 @@
 		 */
 		validate: function() {
 			var errors      = [],
+				xabs        = this.get( 'xabs' ),
+				invalidXabs = [];
 				tabs        = this.get( 'tabs' ),
 				invalidTabs = [];
 
@@ -124,15 +156,23 @@
 					return;
 				}
 
+				if( field.get( 'xab' ) && ! xabs[ field.get( 'xab' ) ] ) {
+					return;
+				}
+
 				state = field.validate();
 
 				if( 'undefined' != typeof state ) {
 					var tab;
+					var xab;
 
 					errors.push( state );
 
 					if( ( tab = field.get( 'tab' ) ) && ! ( tab in invalidTabs ) ) {
 						invalidTabs[ tab ] = 1;
+					}
+					if( ( xab = field.get( 'xab' ) ) && ! ( xab in invalidXabs ) ) {
+						invalidXabs[ xab ] = 1;
 					}
 				}
 			});
@@ -143,6 +183,10 @@
 			// Save the tabs as (in)valid
 			_.each( this.get( 'fields' ).where({ type: 'Tab' }), function( tab ) {
 				tab.set( 'invalidTab', tab.get( 'name' ) in invalidTabs );
+			});
+
+			_.each( this.get( 'fields' ).where({ type: 'Xab' }), function( xab ) {
+				xab.set( 'invalidInnerTab', xab.get( 'name' ) in invalidXabs );
 			});
 
 			if( errors.length ) {
@@ -217,6 +261,8 @@
 		 */
 		addFields: function( $container, options ) {
 			var that = this,
+				xabsAdded = false,
+				$xabs,
 				tabsAdded = false,
 				$tabs,
 				grid;
@@ -241,6 +287,7 @@
 			options = _.extend( {
 				// An indicator whether tabs should be added to the fields div
 				tabs: true,
+				xabs: true,
 
 				// Use the correct input wrapper for the field
 				wrap: UltimateFields.Field[
@@ -269,6 +316,18 @@
 					return that.addInlineTab( model, $container );
 				}
 
+				if( model instanceof UltimateFields.Field.Xab.Model ) {
+					if( ! options.xabs ) {
+						return;
+					}
+
+					if( ! xabsAdded ) {
+						xabsAdded = $xabs = that.createXabsElement( $container );
+					}
+
+					return that.addInlineInnerTab( model, $container );
+				}
+
 				// Sections have a special wrap
 				if( model instanceof UltimateFields.Field.Section.Model ) {
 					wrap = UltimateFields.Field.Section.Wrap;
@@ -288,7 +347,7 @@
 				container: this,
 				layout:    layout,
 				fields:    that.fieldViews,
-				tabs:      $tabs || this.$popupTabs || false
+				xabs:      $xabs || this.$popupXabs || false
 			})
 		},
 
@@ -301,6 +360,14 @@
 				.appendTo( $container );
 
 			return this.$tabs;
+		},
+
+		createXabsElement: function( $container ) {
+			this.$xabs = $( '<div class="uf-xab-wrapper" />' )
+				.append( this.getXabs() )
+				.appendTo( $container );
+
+			return this.$xabs;
 		},
 
 		/**
@@ -346,6 +413,46 @@
 			return tabs;
 		},
 
+		getXabs: function() {
+			var that  = this,
+				xabs  = [],
+				views = [];
+
+			this.model.get( 'fields' ).each(function( field ){
+				var xab;
+
+				if( ! ( field instanceof UltimateFields.Field.Xab.Model ) )
+					return;
+
+				xab = new UltimateFields.Xab({
+					model: field
+				});
+
+				that.model.get( 'xabs' )[ field.get( 'name' ) ] = field.get( 'visible' );
+				field.on( 'change:visible', function() {
+					that.model.get( 'xabs' )[ field.get( 'name' ) ] = field.get( 'visible' );
+				});
+
+				xabs.push( xab.$el );
+				views.push( xab );
+
+				if( ! that.tabHasVisibleFields( field ) ) {
+					xab.$el.addClass( 'uf-xab-hidden' )
+				}
+			});
+
+			// Check tabs when valus change
+			this.model.datastore.on( 'change', function() {
+				_.each( views, function( xab ) {
+					var has = that.xabHasVisibleFields( xab.model );
+
+					xab.$el[ has ? 'removeClass' : 'addClass' ]( 'uf-xab-hidden' );
+				});
+			});
+
+			return xabs;
+		},
+
 		/**
 		 * Adds an inline tab, which will be visible in responsive mode.
 		 */
@@ -374,6 +481,31 @@
 			});
 		},
 
+		addInlineInnerTab: function( model, $container ) {
+			var that = this,
+				tmpl = UltimateFields.template( 'inline-xab' ),
+				$xab = $( tmpl( model.toJSON() ) );
+
+			$container.append( $xab );
+			$xab.on( 'click', '.uf-button', function() {
+				model.datastore.set( '__xab', model.get( 'name' ) );
+			});
+
+			model.datastore.on( 'change:__xab', function() {
+				model.datastore.get( '__xab' ) == model.get( 'name' )
+					? $xab.find( 'button' ).attr( 'disabled', 'disabled' )
+					: $xab.find( 'button' ).attr( 'disabled', false )
+			});
+
+			model.on( 'change:visible', function() {
+				$xab[
+					model.get( 'visible' )
+						? 'removeClass'
+						: 'addClass'
+				]( 'uf-inline-xab-disabled' );
+			});
+		},
+
 		/**
 		 * Checks if any of the fields, which belong in a tab are visible.
 		 */
@@ -382,6 +514,19 @@
 				has  = false;
 
 			_.each( this.model.get( 'fields' ).where({ tab: tab.get( 'name' ) }), function( field ) {
+				if( field.get( 'visible' ) ) {
+					has = true;
+				}
+			});
+
+			return has;
+		},
+
+		xabHasVisibleFields: function( xab ) {
+			var that = this,
+				has  = false;
+
+			_.each( this.model.get( 'fields' ).where({ xab: xab.get( 'name' ) }), function( field ) {
 				if( field.get( 'visible' ) ) {
 					has = true;
 				}
@@ -499,6 +644,10 @@
 		 * Indicates whether the container supports inline tabs.
 		 */
 		allowsInlineTabs: function() {
+			return true;
+		},
+
+		allowsInlineXabs: function() {
 			return true;
 		}
 	});

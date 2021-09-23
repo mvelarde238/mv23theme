@@ -63,6 +63,7 @@ abstract class Field {
 	 * @var string
 	 */
 	protected $tab = '';
+	protected $xab = '';
 
 	/**
 	 * Holds the default value of the field, which will be used if nothing
@@ -301,6 +302,7 @@ abstract class Field {
 		);
 
 		if( $this->tab )                $data[ 'tab' ]                = $this->tab;
+		if( $this->xab )                $data[ 'xab' ]                = $this->xab;
 		if( $this->required )           $data[ 'required' ]           = $this->required;
 		if( $this->validation_message ) $data[ 'validation_message' ] = $this->validation_message;
 		if( $this->validation_rule )    $data[ 'validation_rule' ]    = $this->validation_rule;
@@ -624,6 +626,12 @@ abstract class Field {
 		return $this;
 	}
 
+	public function set_xab( $xab ) {
+		$this->xab = $xab;
+
+		return $this;
+	}
+
 	/**
 	 * Returns the tab of the field.
 	 *
@@ -633,6 +641,10 @@ abstract class Field {
 	 */
 	public function get_tab() {
 		return $this->tab;
+	}
+
+	public function get_xab() {
+		return $this->xab;
 	}
 
 	public function required( $regex = true, $validation_message = '' ) {

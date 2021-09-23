@@ -20,7 +20,7 @@
 			// Save the args (not a model)
 			this.args = $.extend( {
 				mainPoint: 500,
-				gridSelector: '.uf-field, .uf-section, .uf-tab-wrapper, .uf-inline-tab'
+				gridSelector: '.uf-field, .uf-section, .uf-tab-wrapper, .uf-inline-tab, .uf-inline-xab'
 			}, args || {} );
 
 			// Add a proper callback
@@ -79,6 +79,19 @@
 					this.$el.addClass( 'uf-fields-inline-tabs' );
 				}
 			}
+
+			// Change xabs
+			if( this.args.xabs && this.args.container.allowsInlineXabs() ) {
+				this.args.xabs
+					.removeClass( 'uf-xabs-layout-' + ( 'rows' == layout ? 'grid' : 'rows' ) )
+					.addClass( 'uf-xabs-layout-' + layout );
+
+				if( w > this.args.mainPoint ) {
+					this.$el.removeClass( 'uf-fields-inline-xabs' );
+				} else {
+					this.$el.addClass( 'uf-fields-inline-xabs' );
+				}
+			}
 		},
 
 		startGrid: function() {
@@ -92,6 +105,7 @@
 			if( this.args.container ) {
 				this.args.container.model.get( 'fields' ).on( 'change:visible', triggerResizers );
 				this.args.container.model.datastore.on( 'change:__tab', triggerResizers );
+				this.args.container.model.datastore.on( 'change:__xab', triggerResizers );
 			}
 
 			// Save the flag
@@ -109,6 +123,10 @@
 				var $el = $( this ), elTop, elLeft;
 
 				if( $el.hasClass( 'uf-tab-wrapper' ) || $el.hasClass( 'uf-inline-section' ) ) {
+					top = left = undefined;
+					return;
+				}
+				if( $el.hasClass( 'uf-xab-wrapper' ) || $el.hasClass( 'uf-inline-section' ) ) {
 					top = left = undefined;
 					return;
 				}
@@ -140,6 +158,10 @@
 
 		adjustTabs: function( $tabs ) {
 			this.$args.tabs = $tabs;
+			this.update();
+		},
+		adjustXabs: function( $xabs ) {
+			this.$args.xabs = $xabs;
 			this.update();
 		}
 	}, {

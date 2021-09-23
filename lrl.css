@@ -1,0 +1,82 @@
+.uf-inner-tab {
+  display: inline-block;
+  background: #f0f0f0;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 34px;
+  text-decoration: none;
+  vertical-align: top;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  margin-bottom: -1px;
+  margin-right: 6px;
+  margin-top: 3px;
+  color: #444; }
+  .uf-inner-tab-wrapper {
+    border-bottom: 1px solid #ccc;
+    font-size: 0;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    box-sizing: border-box; }
+    .uf-fields-inline-tabs > .uf-inner-tab-wrapper {
+      display: none; }
+  .uf-boxed-fields .uf-inner-tab {
+    border-color: #ddd; }
+  .uf-inner-tab:focus {
+    box-shadow: none; }
+  .uf-inner-tab:hover {
+    color: #222; }
+  .uf-boxed-fields > .uf-inner-tab:hover {
+    background: #fff; }
+  .uf-inner-tab-active {
+    color: #000;
+    background: none;
+    border-bottom-color: #f1f1f1; }
+  .uf-inner-tab.disabled {
+    color: #bbb;
+    background: #f9f9f9;
+    cursor: default; }
+  .uf-inner-tab-hidden {
+    display: none; }
+  .uf-inner-tab-invalid {
+    background: #DC4141;
+    color: #fff; }
+  .uf-inner-tab-invalid.uf-inner-tab-active {
+    background: inherit;
+    color: #DC4141; }
+  .uf-inner-tab-text, .uf-inner-tab-icon {
+    display: inline-block;
+    vertical-align: middle; }
+  .uf-inner-tab-icon {
+    margin-right: 5px; }
+
+.uf-boxed-fields .uf-inner-tab {
+  border-color: #ddd; }
+  .uf-boxed-fields .uf-inner-tab-wrapper {
+    background: #eee;
+    border-bottom-color: #ddd;
+    margin-bottom: 0; }
+  .uf-boxed-fields .uf-inner-tab-active {
+    background: #fff;
+    border-bottom-color: #fff; }
+
+.uf-inline-tab {
+  background: #fafafa;
+  border-top: 1px solid #ddd;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  width: 100%;
+  display: none; }
+  .uf-inline-tab.top-row {
+    border-top: none; }
+  .uf-fields-inline-tabs .uf-inline-tab {
+    display: flex; }
+  .uf-inline-tab h3 {
+    margin: 0; }
+  .uf-inline-tab-disabled,
+  .uf-fields-inline-tabs .uf-inline-tab-disabled {
+    display: none; }

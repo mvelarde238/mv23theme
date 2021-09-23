@@ -557,6 +557,10 @@ class Post_Type extends Controller {
 					continue;
 				}
 
+				if( is_a( $field, Field\Xab::class ) || is_a( $field, Field\Section::class ) ) {
+					continue;
+				}
+
 				# Add as a revision field
 				$revision_fields[ $field->get_name() ] = $field->get_label();
 

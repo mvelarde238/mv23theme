@@ -351,7 +351,7 @@ class Core {
 		wp_register_script( 'uf-field-time',            $js . 'field/time.js',             array( 'uf-field', 'uf-field-date', 'uf-timepicker' ), $v );
 		wp_register_script( 'uf-field-datetime',        $js . 'field/datetime.js',         array( 'uf-field', 'uf-field-date', 'uf-timepicker' ), $v );
 		wp_register_script( 'uf-field-font',            $js . 'field/font.js',             array( 'uf-field', 'uf-overlay', 'uf-pagination' ), $v );
-		wp_register_script( 'uf-field-icon',            $js . 'field/icon.js',             array( 'uf-field', 'uf-overlay', 'uf-tab' ), $v );
+		wp_register_script( 'uf-field-icon',            $js . 'field/icon.js',             array( 'uf-field', 'uf-overlay', 'uf-tab', 'uf-xab' ), $v );
 		wp_register_script( 'uf-field-sidebar',         $js . 'field/sidebar.js',          array( 'uf-field' ), $v );
 		wp_register_script( 'uf-field-map',             $js . 'field/map.js',              array( 'uf-field', 'uf-gmaps' ), $v );
 		wp_register_script( 'uf-field-map-multiple',    $js . 'field/map_multiple.js',     array( 'uf-field', 'uf-gmaps' ), $v );
@@ -359,6 +359,7 @@ class Core {
 		wp_register_script( 'uf-field-embed',           $js . 'field/embed.js',            array( 'uf-field' ), $v );
 		wp_register_script( 'uf-field-layout',          $js . 'field/layout.js',           array( 'uf-field', 'uf-field-repeater', 'uf-layout' ), $v );
 		wp_register_script( 'uf-tab',                   $js . 'tab.js',                    array( 'uf-field' ), $v );
+		wp_register_script( 'uf-xab',             $js . 'xab.js',              array( 'uf-field' ), $v );
 		wp_register_script( 'uf-initialize',            $js . 'initialize.js',             array( 'uf-core', 'uf-container', 'uf-field' ), $v );
 		wp_register_script( 'uf-shortcode',             $js . 'shortcode.js',              array( 'uf-core' ), $v );
 		wp_register_script( 'uf-layout',                $js . 'layout.js',                 array( 'uf-field', 'jquery-ui-sortable', 'uf-container-layout-group' ), $v );

@@ -49,6 +49,9 @@
 				if( ( 'changed' in e ) && ( '__tab' in e.changed ) )
 					return;
 
+				if( ( 'changed' in e ) && ( '__xab' in e.changed ) )
+					return;
+
 				that.exportToDatastore();
 				that.calcGroupCounts();
 			});

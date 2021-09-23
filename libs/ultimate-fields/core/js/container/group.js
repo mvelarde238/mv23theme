@@ -32,6 +32,9 @@
 			if( '__tab' in newData )
 				delete newData.__tab;
 
+			if( '__xab' in newData )
+				delete newData.__xab;
+
 			this.realDatastore.set( newData );
 			delete this.datastore;
 			this.setDatastore( this.realDatastore );
@@ -473,7 +476,8 @@
 
 			this.$fields = this.$el.find( '.uf-fields' );
 			this.addFields( this.$fields, {
-				tabs: false
+				tabs: false,
+				xabs: false
 			});
 
 			this.focusFirstField();
@@ -585,6 +589,9 @@
 		 * Indicates whether the container supports inline tabs.
 		 */
 		allowsInlineTabs() {
+			return false;
+		},
+		allowsInlineXabs() {
 			return false;
 		}
 	});

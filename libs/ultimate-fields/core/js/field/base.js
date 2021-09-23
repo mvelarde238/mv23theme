@@ -12,6 +12,7 @@
 			required:             false,
 			hide_label:           false,
 			tab:                  false,
+			xab:                  false,
 			field_width:          100,
 			description:          '',
 			default_value:        '',
@@ -332,6 +333,9 @@
 			this.model.datastore.on( 'change:__tab', function() {
 				that.toggle();
 			});
+			this.model.datastore.on( 'change:__xab', function() {
+				that.toggle();
+			});
 		},
 
 		/**
@@ -368,9 +372,14 @@
 			var that    = this,
 				visible = this.model.get( 'visible' ),
 				tab     = this.model.get( 'tab' ),
+				xab     = this.model.get( 'xab' ),
 				method;
 
 			if( tab && ( tab != this.model.datastore.get( '__tab' ) ) ) {
+				visible = false;
+			}
+
+			if( xab && ( xab != this.model.datastore.get( '__xab' ) ) ) {
 				visible = false;
 			}
 
@@ -551,6 +560,41 @@
 		})
 	}
 
+	field.Xab = {
+		Model: field.Model.extend({
+			/**
+			 * Even when requested, prevents the xab from having a value.
+			 */
+			useDefaultValueIfNeeded: function() {},
+		}),
+
+		View: field.View.extend({
+			render: function() {
+				var that = this, datastore, model, view;
+
+				datastore = new UltimateFields.Datastore({
+					__xab: this.model.get( 'name' )
+				});
+
+				model = new Backbone.Model({
+					visible:     true,
+					name:        this.model.get( 'name' ),
+					label:       this.model.get( 'label' ),
+					description: this.model.get( 'description' ),
+					icon:        this.model.get( 'icon' ),
+				});
+
+				model.datastore = datastore;
+
+				view = new UltimateFields.Xab({
+					model: model
+				});
+
+				view.$el.appendTo( this.$el );
+			}
+		})
+	}
+
 	field.Section = {
 		Model: field.Model.extend({
 			defaults: _.extend( {
@@ -584,6 +628,9 @@
 				this.model.datastore.on( 'change:__tab', function() {
 					that.toggle();
 				});
+				this.model.datastore.on( 'change:__xab', function() {
+					that.toggle();
+				});
 			},
 
 			/**
@@ -593,9 +640,14 @@
 				var that    = this,
 					visible = this.model.get( 'visible' ),
 					tab     = this.model.get( 'tab' ),
+					xab     = this.model.get( 'xab' ),
 					method;
 
 				if( tab && ( tab != this.model.datastore.get( '__tab' ) ) ) {
+					visible = false;
+				}
+
+				if( xab && ( xab != this.model.datastore.get( '__xab' ) ) ) {
 					visible = false;
 				}
 

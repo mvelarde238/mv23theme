@@ -99,6 +99,7 @@
 		 */
 		isValid: function() {
 			var errors = [],
+				xabs   = this.get( 'xabs' ),
 				tabs   = this.get( 'tabs' );
 
 			this.get( 'fields' ).each( function( field ) {
@@ -106,6 +107,10 @@
 
 				// If the fields' tab is invisible, the field is invisible too
 				if( field.get( 'tab' ) && ! tabs[ field.get( 'tab' ) ] ) {
+					return;
+				}
+
+				if( field.get( 'xab' ) && ! xabs[ field.get( 'xab' ) ] ) {
 					return;
 				}
 

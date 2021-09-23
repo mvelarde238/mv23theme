@@ -84,6 +84,8 @@
 			this.rows.on( 'change sort destroy remove', function( e ) {
 				if( e && ( 'changed' in e ) && ( '__tab' in e.changed ) )
 					return;
+				if( e && ( 'changed' in e ) && ( '__xab' in e.changed ) )
+					return;
 
 				that.setValue( that.rows.toJSON() );
 				that.calcGroupCounts();

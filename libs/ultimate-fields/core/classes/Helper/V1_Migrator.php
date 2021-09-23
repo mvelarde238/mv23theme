@@ -111,6 +111,7 @@ class V1_Migrator {
 		foreach( $source as $raw ) {
 			switch( $raw[ 'type' ] ) {
 				case 'tab_start':   $field = self::add_tab( $raw );         break;
+				case 'xab_start':   $field = self::add_xab( $raw );         break;
 				case 'separator':   $field = self::add_separator( $raw );   break;
 				case 'text':        $field = self::add_text( $raw );        break;
 				case 'textarea':    $field = self::add_textarea( $raw );    break;
@@ -157,6 +158,25 @@ class V1_Migrator {
 		}
 
 		return $tab;
+	}
+
+	protected static function add_xab( $source ) {
+		$label = $source[ 'title' ];
+		$xab   = Field::create( 'xab', sanitize_title( $label ), $label );
+
+		if( isset( $source[ 'description' ] ) && $source[ 'description' ] ) {
+			$xab->set_description( $source[ 'description' ] );
+		}
+
+		if( isset( $source[ 'icon_type' ] ) ) {
+			if( 'font' == $source[ 'icon_type' ] ) {
+				$xab->set_icon( $source[ 'icon_class' ] );
+			} else {
+				// files are not supported anymore
+			}
+		}
+
+		return $xab;
 	}
 
 	/**

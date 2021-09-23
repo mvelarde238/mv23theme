@@ -178,7 +178,9 @@
 				$title   = this.$el.find( '.uf-overlay-header h2' ),
 				view     = this.views[ this.views.length - 1 ].view,
 				$tabs    = ( 'function' == typeof view.getTabs ) ? view.getTabs() : false,
+				$xabs    = ( 'function' == typeof view.getXabs ) ? view.getXabs() : false,
 				$oldTabs = $title.siblings( '.uf-tab-wrapper' ),
+				$oldXabs = $title.siblings( '.uf-xab-wrapper' ),
 				lastScreen, i = 1;
 
 			$title.empty();
@@ -204,6 +206,10 @@
 				$( this ).remove();
 			});
 
+			$oldXabs.fadeOut( 300, function() {
+				$( this ).remove();
+			});
+
 			if( $tabs.length ) {
 				var $wrap;
 
@@ -219,6 +225,23 @@
 				$title.after( $wrap );
 			} else {
 				that.$el.removeClass( 'uf-overlay-has-tabs' );
+			}
+
+			if( $xabs.length ) {
+				var $wrap;
+
+				if( 'function' == typeof view.getXabsWrapper ) {
+					$wrap = view.getXabsWrapper();
+				} else {
+					$wrap = $( '<div class="uf-xab-wrapper" />' ).append( $xabs );
+				}
+
+				that.$el.addClass( 'uf-overlay-has-xabs' );
+
+				// append new xabs
+				$title.after( $wrap );
+			} else {
+				that.$el.removeClass( 'uf-overlay-has-xabs' );
 			}
 		},
 

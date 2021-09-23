@@ -96,6 +96,10 @@
 				this.$tabs.addClass( 'uf-menu-tab-wrapper' );
 			}
 
+			if( this.$xabs ) {
+				this.$xabs.addClass( 'uf-menu-xab-wrapper' );
+			}
+
  			this.initializeHiddenField();
 		},
 
@@ -118,6 +122,9 @@
 		 * Indicates whether the container supports inline tabs.
 		 */
 		allowsInlineTabs() {
+			return false;
+		},
+		allowsInlineXabs() {
 			return false;
 		}
 	});
@@ -174,7 +181,8 @@
 
  			// Add normal fields and initialize the hidden field
  			this.addFields( null, {
-				tabs: false
+				tabs: false,
+				xabs: false,
 			});
 		},
 

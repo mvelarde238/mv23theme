@@ -220,6 +220,28 @@
     .uf-overlay-header .uf-tab-wrapper.uf-tabs-layout-rows.uf-fields-label-250 {
       padding-left: 250px; }
 
+.uf-overlay-header {
+  top: 0;
+  border-bottom: 1px solid #ddd;
+  transition: padding-bottom .4s ease; }
+  .uf-overlay-header .uf-xab-wrapper {
+    position: absolute;
+    left: 10px;
+    bottom: -1px;
+    margin-bottom: 0; }
+    .uf-overlay-header .uf-xab-wrapper .uf-xab-active {
+      background: #fff;
+      border-bottom: 1px solid #fff; }
+  .uf-overlay-header .uf-xab-wrapper.uf-xabs-layout-rows {
+    margin-left: -10px;
+    background: #e4e4e4;
+    border-top: 1px solid #cdcdcd;
+    padding-left: 20%; }
+    .uf-overlay-header .uf-xab-wrapper.uf-xabs-layout-rows.uf-fields-label-200 {
+      padding-left: 210px; }
+    .uf-overlay-header .uf-xab-wrapper.uf-xabs-layout-rows.uf-fields-label-250 {
+      padding-left: 250px; }
+
 .uf-overlay-title {
   padding: 0 16px;
   font-size: 22px;
@@ -319,6 +341,12 @@
 .uf-overlay-has-tabs .uf-overlay-body {
   top: 92px; }
 
+.uf-overlay-has-xabs .uf-overlay-header {
+  padding-bottom: 41px; }
+
+.uf-overlay-has-xabs .uf-overlay-body {
+  top: 92px; }
+
 .uf-overlay .form-table {
   margin: 10px 30px; }
 
@@ -391,6 +419,10 @@
   .uf-overlay-header .uf-tab-icon {
     margin-right: 0; }
   .uf-overlay-header .uf-tab-text {
+    display: none; } }
+  .uf-overlay-header .uf-xab-icon {
+    margin-right: 0; }
+  .uf-overlay-header .uf-xab-text {
     display: none; } }
 
 /**
@@ -534,6 +566,9 @@
   .uf-boxed-fields .uf-field-layout-grid + .uf-tab-wrapper {
     border-top: 1px solid #ddd;
     margin-bottom: -1px; }
+  .uf-boxed-fields .uf-field-layout-grid + .uf-xab-wrapper {
+    border-top: 1px solid #ddd;
+    margin-bottom: -1px; }
 
 .uf-fields-label-200 > .uf-field-layout-row > .uf-field-label {
   flex: 0 0 210px;
@@ -558,6 +593,9 @@
   flex: 0 0 calc(100% - 250px); }
 
 .uf-fields-label-250.uf-fields-layout-rows > .uf-tab-wrapper > .uf-tab:first-child {
+  margin-left: 250px; }
+
+.uf-fields-label-250.uf-fields-layout-rows > .uf-xab-wrapper > .uf-xab:first-child {
   margin-left: 250px; }
 
 .uf-existing-message .uf-field-input-wrap {
@@ -2850,6 +2888,10 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   margin-left: 0;
   padding-left: 20%; }
 
+.uf-boxed-fields.uf-fields-layout-rows > .uf-xab-wrapper {
+  margin-left: 0;
+  padding-left: 20%; }
+
 .uf-container-description {
   padding: 0 12px;
   background: #eee;
@@ -2863,6 +2905,12 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   box-sizing: border-box;
   padding-left: 210px; }
   .uf-fields-label-200.uf-fields-layout-rows > .uf-tab-wrapper .uf-tab:first-child {
+    margin-left: 0; }
+
+.uf-fields-label-200.uf-fields-layout-rows > .uf-xab-wrapper {
+  box-sizing: border-box;
+  padding-left: 210px; }
+  .uf-fields-label-200.uf-fields-layout-rows > .uf-xab-wrapper .uf-xab:first-child {
     margin-left: 0; }
 
 /**
@@ -2949,6 +2997,16 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   .uf-media-tabs .uf-tab-active {
     border-bottom-color: #efefef; }
   .uf-media-tabs .uf-tab-active:hover {
+    background: none; }
+
+.uf-media-xabs {
+  box-sizing: border-box;
+  padding-top: 15px; }
+  .uf-media-xabs .uf-xab {
+    border-bottom: 1px solid #ccc; }
+  .uf-media-xabs .uf-xab-active {
+    border-bottom-color: #efefef; }
+  .uf-media-xabs .uf-xab-active:hover {
     background: none; }
 
 .uf-media-setting {
@@ -3040,6 +3098,9 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 .uf-menu-container .uf-tab-active {
   border-bottom-color: #fff; }
 
+.uf-menu-container .uf-xab-active {
+  border-bottom-color: #fff; }
+
 .uf-menu-item-error .menu-item-handle {
   border-left: 5px solid #DC4141; }
 
@@ -3083,9 +3144,19 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 .uf-shortcode-media-ui .nav-tab-wrapper {
   height: 34px; }
 
+.uf-shortcode-media-ui .nav-xab-wrapper {
+  height: 34px; }
+
 .uf-shortcode-media-ui .uf-nav-tab {
   color: #444; }
   .uf-shortcode-media-ui .uf-nav-tab-active {
+    background: #fff;
+    border-bottom-color: #fff;
+    padding-bottom: 5px; }
+
+.uf-shortcode-media-ui .uf-nav-xab {
+  color: #444; }
+  .uf-shortcode-media-ui .uf-nav-xab-active {
     background: #fff;
     border-bottom-color: #fff;
     padding-bottom: 5px; }
@@ -3199,3 +3270,88 @@ h2.uf-add-term-title {
   height: auto;
   outline: 0;
 }
+
+
+
+.uf-xab {
+  display: inline-block;
+  background: #f0f0f0;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 34px;
+  text-decoration: none;
+  vertical-align: top;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  margin-bottom: -1px;
+  margin-right: 6px;
+  margin-top: 3px;
+  color: #444; }
+  .uf-xab-wrapper {
+    border-bottom: 1px solid #ccc;
+    font-size: 0;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    box-sizing: border-box; }
+    .uf-fields-inline-xabs > .uf-xab-wrapper {
+      display: none; }
+  .uf-boxed-fields .uf-xab {
+    border-color: #ddd; }
+  .uf-xab:focus {
+    box-shadow: none; }
+  .uf-xab:hover {
+    color: #222; }
+  .uf-boxed-fields > .uf-xab:hover {
+    background: #fff; }
+  .uf-xab-active {
+    color: #000;
+    background: none;
+    border-bottom-color: #f1f1f1; }
+  .uf-xab.disabled {
+    color: #bbb;
+    background: #f9f9f9;
+    cursor: default; }
+  .uf-xab-hidden {
+    display: none; }
+  .uf-xab-invalid {
+    background: #DC4141;
+    color: #fff; }
+  .uf-xab-invalid.uf-xab-active {
+    background: inherit;
+    color: #DC4141; }
+  .uf-xab-text, .uf-xab-icon {
+    display: inline-block;
+    vertical-align: middle; }
+  .uf-xab-icon {
+    margin-right: 5px; }
+
+.uf-boxed-fields .uf-xab {
+  border-color: #ddd; }
+  .uf-boxed-fields .uf-xab-wrapper {
+    background: #eee;
+    border-bottom-color: #ddd;
+    margin-bottom: 0; }
+  .uf-boxed-fields .uf-xab-active {
+    background: #fff;
+    border-bottom-color: #fff; }
+
+.uf-inline-xab {
+  background: #fafafa;
+  border-top: 1px solid #ddd;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  width: 100%;
+  display: none; }
+  .uf-inline-xab.top-row {
+    border-top: none; }
+  .uf-fields-inline-xabs .uf-inline-xab {
+    display: flex; }
+  .uf-inline-xab h3 {
+    margin: 0; }
+  .uf-inline-xab-disabled,
+  .uf-fields-inline-xabs .uf-inline-xab-disabled {
+    display: none; }

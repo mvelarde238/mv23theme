@@ -287,6 +287,7 @@ class Container {
 	public function export_fields_settings() {
 		$fields      = array();
 		$tab         = false;
+		$xab         = false;
 
 		# Go through each field and prepare it
 		foreach( $this->get_fields() as $field ) {
@@ -294,6 +295,12 @@ class Container {
 				$tab = $field->get_name();
 			} elseif( $tab ) {
 				$field->set_tab( $tab );
+			}
+
+			if( is_a( $field, Field\Xab::class ) ) {
+				$xab = $field->get_name();
+			} elseif( $xab ) {
+				$field->set_xab( $xab );
 			}
 
 			$fields[] = $field->export_field();
@@ -331,6 +338,10 @@ class Container {
 			# If a tab field, set as the first tab
 			if( is_a( $field, Field\Tab::class ) && ! isset( $data[ '__tab' ] ) ) {
 				$data[ '__tab' ] = $field->get_name();
+			}
+
+			if( is_a( $field, Field\Xab::class ) && ! isset( $data[ '__xab' ] ) ) {
+				$data[ '__xab' ] = $field->get_name();
 			}
 		}
 
@@ -386,6 +397,12 @@ class Container {
 
 		# If the field is a tab and has a description, add a message field with it
 		if( is_a( $field, Field\Tab::class ) && $field->get_description() ) {
+			$this->fields[] = Field::create( 'message', $field->get_name() . '_message' )
+				->hide_label()
+				->set_description( $field->get_description() );
+		}
+
+		if( is_a( $field, Field\Xab::class ) && $field->get_description() ) {
 			$this->fields[] = Field::create( 'message', $field->get_name() . '_message' )
 				->hide_label()
 				->set_description( $field->get_description() );
@@ -827,15 +844,35 @@ class Container {
 			}
 		}
 
+		$xabs = array();
+		$xab  = false;
+		foreach( $this->get_fields() as $field ) {
+			if( is_a( $field, Field\Xab::class ) ) {
+				$xab = $field->get_name();
+				$xabs[ $field->get_name() ] = ! $field->is_hidden();
+			} elseif( $xab ) {
+				$field->set_xab( $xab );
+			}
+		}
+
 		# Validate fields now that conditional logic is available
 		foreach( $this->get_fields() as $field ) {
 			if( is_a( $field, Field\Tab::class ) ) {
 				continue;
 			}
 
+			if( is_a( $field, Field\Xab::class ) ) {
+				continue;
+			}
+
 			# Check if the tab of the field field is visible
 			$tab = $field->get_tab();
 			if( $tab && ( ! isset( $tabs[ $tab ] ) || ! $tabs[ $tab ] ) ) {
+				continue;
+			}
+
+			$xab = $field->get_xab();
+			if( $xab && ( ! isset( $xabs[ $xab ] ) || ! $xabs[ $xab ] ) ) {
 				continue;
 			}
 
