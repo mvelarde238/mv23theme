@@ -18,12 +18,6 @@ for ($i=1; $i <= $nth_columnas; $i++) {
 }
 
 $columnas_settings_fields = $settings_fields;
-$columnas_settings_fields[] = Field::create( 'select', 'layout')->set_width( 25 )->add_options( array(
-    'layout1' => 'Estándar',
-    'layout2' => 'Fondo extendido / Contenido centrado',
-    'layout3' => 'Todo extendido',
-    'layout4' => 'Extender columnas laterales',
-));
 $columnas_settings_fields[] = Field::create( 'video', 'bgvideo', 'Video de Fondo' )->set_width( 25 );
 $columnas_settings_fields[] = Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width( 75 );
 

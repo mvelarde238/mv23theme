@@ -33,6 +33,11 @@ function generate_attributes($componente, $classes_array){
 		if ($background_styles || $border_styles || $box_shadows) array_push($classes_array, 'componente');
 	}
 	$style = ($style) ? 'style="'.$style.'"' : '';
+
+	if (isset($componente['layout'])) {
+		$layout = $componente['layout'];
+		if ($layout == 'layout2' || $layout == 'layout3' || $layout == 'layout4') array_push($classes_array, 'full-width');
+	}
 	
 	$class = generate_class_attribute($classes_array,$componente);
 	$id = generate_id_attribute($componente);

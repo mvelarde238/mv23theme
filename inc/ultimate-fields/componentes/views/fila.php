@@ -1,8 +1,7 @@
 <?php
 $tipo = $componente['__type'];
 $componentes = $componente['componentes'];
-$layout = $componente['layout'];
-$full_width_class = ($layout == 'layout2' || $layout == 'layout3') ? 'full-width' : '';
+$layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 $parallax = ( isset($componente['parallax']) && $componente['parallax'] == 1 ) ? 'parallax' : '';
 
 // video implementation
@@ -19,7 +18,6 @@ $classes_array = format_classes(array(
     'fila',
     get_color_scheme($componente),
     $componente['class'],
-    $full_width_class,
     $parallax,
     $has_video
 ));
@@ -33,6 +31,7 @@ $attributes = generate_attributes($componente, $classes_array);
     <?php 
     if ($layout == 'layout2') echo '<div class="container">';
     foreach ($componentes as $componente ) { 
+        $componente['layout'] = 'layout1';
         set_query_var( 'componente', $componente );
         get_template_part( 'inc/ultimate-fields/componentes/views/'.$componente['__type'] );
     }

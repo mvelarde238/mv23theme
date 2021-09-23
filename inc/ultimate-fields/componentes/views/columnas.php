@@ -19,7 +19,6 @@ array_push($columnas, $componente['columna_3']);
 array_push($columnas, $componente['columna_4']);
 
 $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
-$full_width_class = ($layout == 'layout2' || $layout == 'layout3' || $layout == 'layout4') ? 'full-width' : '';
 
 // video implementation
 $video_url = null;
@@ -37,7 +36,6 @@ $classes_array = format_classes(array(
     'columnas',
     get_color_scheme($componente),
     $componente['class'],
-    $full_width_class,
     $layout,
     $has_video
 ));
@@ -73,6 +71,7 @@ $attributes = generate_attributes($componente, $classes_array);
         <div <?=$column_attributes?>>
             <?php if ($column_settings['content_alignment'] == 'pinned') echo '<div class="pinned-block">'; ?>
             <?php foreach ($columnas[$i] as $components_inside) {
+                $components_inside['layout'] = 'layout1';
                 set_query_var( 'componente', $components_inside );
                 get_template_part( 'inc/ultimate-fields/componentes/views/'.$components_inside['__type'] );
             }?>

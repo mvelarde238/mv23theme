@@ -53,11 +53,6 @@ $fields = array(
 
 $content_slider_settings_fields = $settings_fields;
 $content_slider_settings_fields[] = Field::create( 'checkbox', 'extender_fondo', 'Aplicar el fondo de los items al componente' )->set_width( 25 )->set_text('Activar');
-$content_slider_settings_fields[] = Field::create( 'select', 'layout')->set_width( 33 )->add_options( array(
-            'layout1' => 'Estándar',
-            'layout2' => 'Fondo extendido / Contenido centrado',
-            'layout3' => 'Todo extendido',
-        ));
 
 $navigations_settings = array(
     Field::create( 'tab', 'Navigation' ),

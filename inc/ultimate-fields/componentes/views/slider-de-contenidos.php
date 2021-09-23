@@ -2,17 +2,14 @@
 $tipo = $componente['__type'];
 $items = $componente['content_slider'];
 $extender_fondo = $componente['extender_fondo'];
-$layout = $componente['layout'];
-$full_width_class = ($layout == 'layout2' || $layout == 'layout3') ? 'full-width' : '';
+$layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 
 $classes_array = format_classes(array(
     'componente',
     'componente-'.$tipo,
     get_color_scheme($componente),
-    $componente['class'],
-    $full_width_class
+    $componente['class']
 ));
-
 
 $show_nav = (isset($componente['show_nav']) && !empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
 $nav_position = (isset($componente['nav_position']) && !empty($componente['nav_position'])) ? $componente['nav_position'] : 0;

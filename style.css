@@ -2567,6 +2567,10 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 	text-decoration: none;
 }
 
+.componente.full-width .container {
+	max-width: 1240px;
+}
+
 .full-width {
 	width: 100vw;
 	position: relative;

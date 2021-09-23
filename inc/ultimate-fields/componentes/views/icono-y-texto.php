@@ -1,6 +1,7 @@
 <?php
 $tipo = $componente['__type'];
 $content = $componente['content'];
+$layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 $iposition = (isset($componente['iposition'])) ? 'icon--'.$componente['iposition'] : '';
 $center_all_class = (isset($componente['center-all']) && $componente['center-all'] == 1) ? 'center-all' : '';
 
@@ -45,6 +46,7 @@ $backgroundColor = ( $hasBackground ) ? 'rgba('.hexToRgb($componente['ibgc'],$co
 $attributes = generate_attributes($componente, $classes_array);
 ?>
 <div <?=$attributes?>>
+	<?php if ($layout == 'layout2') echo '<div class="container">'; ?>
 	<div <?=$icon_class?> <?=$icon_style?>>
 		<?php if ($componente['istyle']!='default') { echo '<span style="background-color:'.$backgroundColor.'">'; } else { echo '<span>'; }; ?>
 				<?php echo $element; ?>
@@ -52,4 +54,5 @@ $attributes = generate_attributes($componente, $classes_array);
 	</div>
 	<div><?php if($content) echo apply_filters('the_content', $content); ?></div>
 	<?php echo generate_actions_code($componente); ?>
+	<?php if ($layout == 'layout2') echo '</div>'; ?>
 </div>

@@ -1,6 +1,7 @@
 <?php
 $tipo = $componente['__type'];
 $items = $componente['items'];
+$layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 $show_controls = (isset($componente['show_controls']) && !empty($componente['show_controls'])) ? $componente['show_controls'] : 0;
 $show_nav = (isset($componente['show_nav']) && !empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
 $nav_position = (isset($componente['nav_position']) && !empty($componente['nav_position'])) ? $componente['nav_position'] : 'bottom';
@@ -21,6 +22,7 @@ $classes_array = format_classes(array(
 $attributes = generate_attributes($componente, $classes_array);
 ?>
 <div <?=$attributes?>>
+    <?php if ($layout == 'layout2') echo '<div class="container">'; ?>
     <div class="carrusel__slider" 
         data-show-controls="<?=$show_controls?>" 
         data-show-nav="<?=$show_nav?>"
@@ -61,4 +63,5 @@ $attributes = generate_attributes($componente, $classes_array);
             </div>
     <?php }; ?>
     </div>
+    <?php if ($layout == 'layout2') echo '</div>'; ?>
 </div> 

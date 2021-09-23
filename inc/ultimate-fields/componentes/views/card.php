@@ -3,6 +3,7 @@ $tipo = $componente['__type'];
 $componentes = $componente['componentes'];
 $actions = (isset($componente['actions'])) ? $componente['actions'] : null;
 $aspect_ratio = ( isset($componente['aspect_ratio']) && $componente['aspect_ratio'] != 'default' ) ? $componente['aspect_ratio'] : '';
+$layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 
 $components_margin = (!empty($componente['components_margin'])) ? $componente['components_margin'] : null;
 $components_margin_attrs = ( $components_margin && $components_margin != 20) ? 'data-setmargin='.$components_margin : '';
@@ -37,6 +38,7 @@ $attributes = generate_attributes($componente, $classes_array);
 		<video <?=$video_style?> width="100%" loop muted="muted"><source src="<?=$video_url?>">Your browser does not support the video tag.</video>
 	<?php endif ?>
 	<?php echo generate_actions_code($componente); ?>
+	<?php if ($layout == 'layout2') echo '<div class="container">'; ?>
 	<?php if ( is_array($actions) && count($actions)>0 ):
 		foreach ($actions as $action) {
 			if ($action['trigger'] == 'click' && $action['action'] == 'open-video-popup') {
@@ -48,8 +50,10 @@ $attributes = generate_attributes($componente, $classes_array);
 	endif; ?>
 	<div class="card__components">
 		<?php foreach ($componentes as $componente ) { 
+			$componente['layout'] = 'layout1';
 			$path = get_template_directory().'/inc/ultimate-fields/componentes/views/'.$componente['__type'].'.php';
 			include $path;
 		} ?>
 	</div>
+	<?php if ($layout == 'layout2') echo '</div>'; ?>
 </div>  

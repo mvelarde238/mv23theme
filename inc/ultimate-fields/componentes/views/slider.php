@@ -1,9 +1,7 @@
 <?php
 $slider_desktop = $componente['slider_desktop'];
 $slider_movil = $componente['slider_movil'];
-
-$layout = $componente['layout'];
-$full_width_class = ($layout == 'layout2' || $layout == 'layout3') ? 'full-width' : '';
+$layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 
 if (empty($slider_desktop) && empty($slider_movil)) return;
 
@@ -11,8 +9,7 @@ $classes_array = format_classes(array(
     'componente',
     'slider',
     get_color_scheme($componente),
-    $componente['class'],
-    $full_width_class
+    $componente['class']
 ));
 
 $attributes = generate_attributes($componente, $classes_array);

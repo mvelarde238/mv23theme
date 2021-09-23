@@ -54,6 +54,7 @@ $attributes = generate_attributes($componente, $classes_array);
         ?>
         <div <?=$column_attributes?>>
             <?php foreach ($columnas[$i] as $components_inside) {
+                $components_inside['layout'] = 'layout1';
                 set_query_var( 'componente', $components_inside );
                 get_template_part( 'inc/ultimate-fields/componentes/views/'.$components_inside['__type'] );
             }?>

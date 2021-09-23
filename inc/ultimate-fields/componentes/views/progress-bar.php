@@ -2,6 +2,7 @@
 $tipo = $componente['__type'];
 $percentage = $componente['percentage']; 
 $text = $componente['text']; 
+$layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 
 $classes_array = format_classes(array(
     'componente',
@@ -13,6 +14,7 @@ $classes_array = format_classes(array(
 $attributes = generate_attributes($componente, $classes_array);
 ?>
 <div <?=$attributes?>>
+    <?php if ($layout == 'layout2') echo '<div class="container">'; ?>
     <div>
         <?php if ($text): ?>
             <?php echo apply_filters('the_content', $text); ?>
@@ -24,4 +26,5 @@ $attributes = generate_attributes($componente, $classes_array);
     <div class="progress-bar__bg">
         <div class="progress-bar__bar" style="width: <?=$percentage?>%" data-number="<?=$percentage?>"></div>
     </div>
+    <?php if ($layout == 'layout2') echo '</div>'; ?>
 </div>

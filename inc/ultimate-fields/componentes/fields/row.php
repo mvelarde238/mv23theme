@@ -13,11 +13,6 @@ $row_fields = array(
 );
      
 $row_settings_fields = $settings_fields;
-$row_settings_fields[] = Field::create( 'select', 'layout')->set_width( 25 )->add_options( array(
-    'layout1' => 'Estándar',
-    'layout2' => 'Fondo extendido / Contenido centrado',
-    'layout3' => 'Todo extendido',
-));
 $row_settings_fields[] = Field::create( 'checkbox', 'parallax', 'Parallax' )->set_width( 25 );
 
 $row_video_settings = array(
