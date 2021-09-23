@@ -59,7 +59,7 @@ function print_icono( $atts ) {
 	</p>
 	<?php return ob_get_clean();
 }
-// add_shortcode( 'icon', 'print_icono' );
+add_shortcode( 'icon', 'print_icono' );
 
 
 

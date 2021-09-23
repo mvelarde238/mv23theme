@@ -22,7 +22,7 @@ function generate_attributes($componente, $classes_array){
 	}
 
 	if ($componente['__type']=='icono-y-texto') {
-		if ($componente['iposition'] != 'top' && $componente['ialign']) $style .= "align-items:".$componente['ialign'].";";
+		if (isset($componente['iposition']) && $componente['iposition'] != 'top' && $componente['ialign']) $style .= "align-items:".$componente['ialign'].";";
 	}
 
 	$no_padding_components = array('columnas-internas','columnas-simples','columnas','grid-de-items','column','grid__item','fila','separador');

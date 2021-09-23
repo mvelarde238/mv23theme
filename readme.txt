@@ -5,6 +5,7 @@ CHANGELOG
 - GIT Implementation
 - Template Part Component
 - Icon and text component -> font-size with both icon and image 
+- icon shortcode load again for fallback compatibility
 
 23.8.45 21-09-13
 - Slider component has layout setting
