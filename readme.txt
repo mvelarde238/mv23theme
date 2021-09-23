@@ -4,6 +4,7 @@ CHANGELOG
 23.8.47 21-09-23
 - Columnas dont open in popup
 - title_template configuration for icon and text & Text Editor
+- Intentando crear un inner tab for UI...
 
 23.8.46 21-09-22
 - GIT Implementation
