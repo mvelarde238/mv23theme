@@ -1,9 +1,10 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
-23.8.45 21-09-22
+23.8.46 21-09-22
 - GIT Implementation
 - Template Part Component
+- Icon and text component -> font-size with both icon and image 
 
 23.8.45 21-09-13
 - Slider component has layout setting
