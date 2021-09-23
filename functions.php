@@ -31,6 +31,7 @@ if( !defined('CONTENT_SLIDER') ) define ('CONTENT_SLIDER', false);
 if( !defined('ROW') ) define ('ROW', false);
 if( !defined('COLUMNAS_SIMPLES') ) define ('COLUMNAS_SIMPLES', false);
 if( !defined('ITEMS_GRID') ) define ('ITEMS_GRID', false);
+if( !defined('TEMPLATE_PART') ) define ('TEMPLATE_PART', false);
 
 require_once( 'libs/ultimate-fields/ultimate-fields.php' );
 

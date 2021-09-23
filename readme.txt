@@ -3,7 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.46 21-09-22
 - GIT Implementation
-- Template Part Component
+- Template Part Component CONSTANT
 - Icon and text component -> font-size with both icon and image 
 - icon shortcode load again for fallback compatibility
 - Layout settings load in default settings
