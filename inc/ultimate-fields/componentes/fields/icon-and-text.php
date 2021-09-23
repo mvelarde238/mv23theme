@@ -108,7 +108,8 @@ $it_responsive_settings = array(
 
 $icon_and_text_args = array(
     'edit_mode' => 'popup',
-    'fields' => array_merge($fields, $default_settings_fields, $acciones_fields, $it_responsive_settings)
+    'fields' => array_merge($fields, $default_settings_fields, $acciones_fields, $it_responsive_settings),
+    'title_template' => '<%= content %>'
 );
 
 $icon_and_text = Repeater_Group::create( 'Icono y texto', $icon_and_text_args );
