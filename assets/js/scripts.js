@@ -9028,8 +9028,8 @@ if (Vel) {
                   menuOut = false;
                 } // Right Direction
                 else if (x >= options.menuWidth / 2) {
-                    menuOut = true;
-                  }
+                  menuOut = true;
+                }
 
                 menu.css('transform', 'translateX(' + (x - options.menuWidth) + 'px)');
               } else {
@@ -9038,8 +9038,8 @@ if (Vel) {
                   menuOut = true;
                 } // Right Direction
                 else if (x >= window.innerWidth - options.menuWidth / 2) {
-                    menuOut = false;
-                  }
+                  menuOut = false;
+                }
 
                 var rightPos = x - options.menuWidth / 2;
 
@@ -13214,22 +13214,29 @@ targetBlank();
 
     $('.megamenu').appendTo('#megamenus');
     var $body = $('body'),
-        $header = $('.header');
+        $header = $('.header'),
+        timeout = null;
     $(".has-megamenu").hover(function () {
-      var megamenu = $(this).find('a').eq(0).attr('data-activates'); // Disable Scrolling
+      clearTimeout(timeout);
+      var $that = $(this);
+      timeout = setTimeout(function () {
+        var megamenu = $that.find('a').eq(0).attr('data-activates'); // Disable Scrolling
 
-      var oldWidth = $body.innerWidth();
-      $body.css('overflow', 'hidden');
-      $body.width(oldWidth);
-      $header.width(oldWidth);
-      $('.megamenu').removeClass('is-active');
-      $(this).addClass('is-active');
-      $('#' + megamenu).addClass('is-active');
+        var oldWidth = $body.innerWidth();
+        $body.css('overflow', 'hidden');
+        $body.width(oldWidth);
+        $header.width(oldWidth);
+        $('.megamenu').removeClass('is-active');
+        $that.addClass('is-active');
+        $('#' + megamenu).addClass('is-active');
 
-      if ($('.megamenu-overlay').length < 1) {
-        $body.append('<div class="megamenu-overlay"></div>');
-      }
-    }, function () {});
+        if ($('.megamenu-overlay').length < 1) {
+          $body.append('<div class="megamenu-overlay"></div>');
+        }
+      }, 250);
+    }, function () {
+      clearTimeout(timeout);
+    });
 
     function hide_main_megamenu() {
       // Reenable scrolling

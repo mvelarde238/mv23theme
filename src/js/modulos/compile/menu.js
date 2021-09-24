@@ -20,25 +20,33 @@
         $('.megamenu').appendTo('#megamenus');
 
         var $body = $('body'),
-            $header = $('.header');
+            $header = $('.header'),
+            timeout = null;
 
         $(".has-megamenu").hover(function(){ 
-            var megamenu = $(this).find('a').eq(0).attr('data-activates');
+            clearTimeout(timeout);
+            var $that = $(this);
 
-            // Disable Scrolling
-            var oldWidth = $body.innerWidth();
-            $body.css('overflow', 'hidden');
-            $body.width(oldWidth);
-            $header.width(oldWidth);
-
-            $('.megamenu').removeClass('is-active');
-            $(this).addClass('is-active');
-            $('#'+megamenu).addClass('is-active');
-
-            if ( $('.megamenu-overlay').length < 1 ) {
-                $body.append('<div class="megamenu-overlay"></div>');
-            }
-        },function(){});
+            timeout = setTimeout(function () {
+                var megamenu = $that.find('a').eq(0).attr('data-activates');
+    
+                // Disable Scrolling
+                var oldWidth = $body.innerWidth();
+                $body.css('overflow', 'hidden');
+                $body.width(oldWidth);
+                $header.width(oldWidth);
+    
+                $('.megamenu').removeClass('is-active');
+                $that.addClass('is-active');
+                $('#'+megamenu).addClass('is-active');
+    
+                if ( $('.megamenu-overlay').length < 1 ) {
+                    $body.append('<div class="megamenu-overlay"></div>');
+                }
+            }, 250);
+        },function(){
+            clearTimeout(timeout);
+        });
 
         function hide_main_megamenu(){
             // Reenable scrolling
