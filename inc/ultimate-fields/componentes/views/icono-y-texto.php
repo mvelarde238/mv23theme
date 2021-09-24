@@ -41,7 +41,7 @@ $icon_class = (!empty($classes)) ? 'class="'.implode(' ',$classes).'"' : '';
 $hasBackground = false;
 if ($componente['istyle'] == 'circle' ) $hasBackground = true;
 if ($componente['istyle'] == 'circle-outline' && $componente['ihas_bgc'] == 1 ) $hasBackground = true;
-$backgroundColor = ( $hasBackground ) ? 'rgba('.hexToRgb($componente['ibgc'],$componente['ibgc_alpha']).')' : '';
+$backgroundColor = ( $hasBackground ) ? $componente['ibgc'] : '';
 
 $attributes = generate_attributes($componente, $classes_array);
 ?>

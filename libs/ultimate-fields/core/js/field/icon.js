@@ -112,7 +112,8 @@
 		 */
 		getSelectButton: function() {
 			return new UltimateFields.Button({
-				text:     UltimateFields.L10N.localize( this.model.getValue() ? 'change-icon' : 'select-icon' ),
+				text:    '',
+				// text:     UltimateFields.L10N.localize( this.model.getValue() ? 'change-icon' : 'select-icon' ), mv23
 				icon:     'dashicons-search',
 				type:     'primary',
 				callback: _.bind( this.openPopup, this )
@@ -157,7 +158,8 @@
 
 			// Add a clear button
 			button = new UltimateFields.Button({
-				text: UltimateFields.L10N.localize( 'remove-icon' ),
+				text: '',
+				// text: UltimateFields.L10N.localize( 'remove-icon' ), mv23
 				icon: 'dashicons-no',
 				callback: function() {
 					that.model.setValue( false );

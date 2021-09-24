@@ -13,3 +13,7 @@ mv23 changelog-------------------------
 
 22-06-2021
 - (Options.php) register_rest_route -> give error ultimate-fields/v2/options le falta el argumento permission_callback necesario
+
+23-09-2021
+- (icon.js) removed texts from buttons
+- .uf-boxed-fields .uf-section{ background-color: #f0f0f0; }
