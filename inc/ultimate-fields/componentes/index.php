@@ -54,14 +54,14 @@ include( locate_template( 'inc/ultimate-fields/componentes/utils/edit-components
 // se usa en card, modulo, row 
 $componentes_field = Field::create( 'repeater', 'componentes', '' )
     ->set_chooser_type( 'dropdown' )
-    ->set_add_text('Agregar Componente')
+    ->set_add_text('Agregar')
     ->set_attr( 'style', 'background: #c8d6e4;' );
 foreach ($componentes as $c) {
     $componentes_field->add_group( $c['variable'] );
 }
 
 // se usa en columnas y columnas internas
-$columna = Field::create( 'repeater', 'columna', '' )->set_chooser_type( 'dropdown' )->set_width( 25 )->set_add_text('Agregar Componente');
+$columna = Field::create( 'repeater', 'columna', '' )->set_chooser_type( 'dropdown' )->set_width( 25 )->set_add_text('Agregar');
 foreach ($componentes as $c) {
     $columna->add_group( $c['variable'] );
 }

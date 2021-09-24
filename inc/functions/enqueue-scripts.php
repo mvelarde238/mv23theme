@@ -61,7 +61,10 @@ function mv23_admin_stuff(){
     wp_enqueue_style( 'font-awesome', FONT_AWESOME, array(), THEME_VERSION );
     $assets_url = get_template_directory_uri();
     wp_enqueue_style( 'mv23-admin-styles', $assets_url . '/assets/css/admin-styles.css', array(), THEME_VERSION);
-    wp_register_script( 'mv23-admin-scripts', $assets_url . '/assets/js/admin-scripts.js',array('jquery'),THEME_VERSION, true );
+    wp_register_script( 'mv23-admin-scripts', $assets_url . '/assets/js/admin-scripts.js',array('jquery'),THEME_VERSION, false );
+    wp_localize_script( 'mv23-admin-scripts', 'MV23_GLOBALS', array( 
+        'ajaxUrl' => admin_url( 'admin-ajax.php' )
+    ));
     wp_enqueue_script( 'mv23-admin-scripts' );
 }
 

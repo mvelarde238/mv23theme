@@ -547,6 +547,35 @@
 				return false;
 			});
 
+			// Add group from library
+			var modaltimeout = null;
+
+			$dropdown.on( 'click', '.uf-repeater-library-button', function() {
+				clearTimeout(modaltimeout);
+                modaltimeout = setTimeout(function () {
+					Modal_v23.open('components-library-modal loading', function(){
+						$.ajax({
+						    type: 'POST',
+						    dataType : "json",
+						    url: MV23_GLOBALS.ajaxUrl,
+						    data : { 
+						        action:'load_components_library'
+						    },
+						    beforeSend: function(){},
+						    success: function(response){
+						    	$('.components-library-modal').removeClass('loading');
+						        if(response.status == "success") {
+						        	Modal_v23.fillWithHTMLContent(response.content);
+						        } else {
+						        	Modal_v23.fillWithHTMLContent('<p>'+response.message+'</p>');
+						        }
+						    }
+						});
+					})
+                }, 250);
+				return false;
+			});
+
 			this.$groups.after( $dropdown );
 		},
 

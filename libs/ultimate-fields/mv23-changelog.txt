@@ -18,3 +18,7 @@ mv23 changelog-------------------------
 - (icon.js) removed texts from buttons
 - .uf-boxed-fields .uf-section{ background-color: #f0f0f0; }
 - (repeater.js) comented line 461 462 463 -> view.openPopup(); after add group/component
+
+24-09-2021
+- (templates/repeater/dropdown) add library button
+- (repeater.js) add library button click event

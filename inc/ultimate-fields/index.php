@@ -25,4 +25,5 @@ function theme_register_fields() {
 	// require_once( 'containers/shortcode-icon.php' );
 	require_once( 'containers/accordion-options.php' );
 	require_once( 'containers/archive-options.php' );
+	require_once( 'containers/components-library.php' );
 }
