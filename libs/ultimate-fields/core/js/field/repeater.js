@@ -458,9 +458,9 @@
 			});
 
 			// For popup-only groups, open the popup immediately
-			if( ! options.silent && 'popup' == model.get( 'edit_mode' ) ) {
-				view.openPopup();
-			}
+			// if( ! options.silent && 'popup' == model.get( 'edit_mode' ) ) {
+			// 	view.openPopup();
+			// }
 		},
 
 		/**

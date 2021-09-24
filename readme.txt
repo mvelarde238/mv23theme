@@ -6,6 +6,7 @@ CHANGELOG
 - title_template configuration for icon and text & Text Editor
 - Icon and Text Component -> options re-arranged
 - Megamenu delay
+- Component doesnt open when added
 
 23.8.46 21-09-22
 - GIT Implementation

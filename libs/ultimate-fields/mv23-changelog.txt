@@ -17,3 +17,4 @@ mv23 changelog-------------------------
 23-09-2021
 - (icon.js) removed texts from buttons
 - .uf-boxed-fields .uf-section{ background-color: #f0f0f0; }
+- (repeater.js) comented line 461 462 463 -> view.openPopup(); after add group/component
