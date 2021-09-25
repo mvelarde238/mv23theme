@@ -101,6 +101,7 @@ input[name="icon-selector"]:checked+label{
     align-items: center;
     justify-content: center;
     background-color: rgba(0,0,0,0.7);
+    z-index: 999999;
 
     .modalv23__content {
         width: 95%;
@@ -112,10 +113,17 @@ input[name="icon-selector"]:checked+label{
         border-radius: 8px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.23);
         padding: 15px; 
+        position: relative;
+        overflow: hidden;
     }
     &.loading .modalv23__content{
         background: #1d2327 url("../images/loading2.gif") center no-repeat; 
         background-size: 40px;
+        *{
+            transition: 500ms all;
+            opacity: 0;
+            pointer-events: none;
+        }
     }
 }
 
@@ -127,13 +135,12 @@ input[name="icon-selector"]:checked+label{
         display: flex;
         flex-wrap: wrap;
     }
-    &__item{
+    &__item-wrapper{
         width: 200px;
+    }
+    &__item{
         position: relative;
         padding: 8px;
-    }
-    &__radio{
-        display: none !important;
     }
     &__label{
         position: absolute;
@@ -147,23 +154,43 @@ input[name="icon-selector"]:checked+label{
     &__imagen{
         padding-bottom: 65%;
         border: 1px solid #333;
+        &.has-post-thumbnail{
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
     }
     &__footer{
-        button{
-            display: none;
-        }
         &>span{
             display: inline-block;
             margin-right: 15px;
         }
     }
-    &__radio:checked+div label{
+
+    &__control{
+        display: none !important;
+    }
+    &__control:checked+div label{
         border-radius: 6px;
         border-color: green;
     }
-    &__radio:checked+div &__footer{
-        button{
-            display: initial;
-        }
+    &__control+div+&__actions{
+        display: none;
+    }
+    &__control:checked+div+&__actions{
+        display: initial;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background-color: #1d2327;
+        width: 100%;
+        padding: 15px;
+        box-shadow: 0 0 8px 5px rgba(0,0,0,.2);
+        text-align: right;
+        box-sizing: border-box;
+        // button{
+        //     background-color: #1d2327;
+        //     color: silver
+        // }
     }
 }

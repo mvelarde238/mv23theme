@@ -566,6 +566,36 @@
 						    	$('.components-library-modal').removeClass('loading');
 						        if(response.status == "success") {
 						        	Modal_v23.fillWithHTMLContent(response.content);
+						        	$('.components-library-btn').click(function(ev){
+						        		ev.preventDefault();
+						        		$.ajax({
+						    				type: 'POST',
+						    				dataType : "json",
+						    				url: MV23_GLOBALS.ajaxUrl,
+						    				data : { 
+						    				    action:'component_library_action',
+						    				    post_id: $(this).attr('data-id'),
+						    				    btn_action: $(this).attr('data-action')
+						    				},
+						    				beforeSend: function(){
+						    					Modal_v23.addClass('loading');
+						    				},
+						    				success: function(response){
+						    					$('.components-library-modal').removeClass('loading');
+						    					if(response.status == "success") {
+						    						var settings = JSON.parse(response.component_data);
+						    						that.addGroup({
+														silent: false,
+														type: settings.__type,
+						    							data: settings,
+													});
+													Modal_v23.close();
+						    					} else {
+						        					Modal_v23.fillWithHTMLContent('<p>'+response.message+'</p>');
+						    					}
+						    				}
+						    			});
+						        	});
 						        } else {
 						        	Modal_v23.fillWithHTMLContent('<p>'+response.message+'</p>');
 						        }

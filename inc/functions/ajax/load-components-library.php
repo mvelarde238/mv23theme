@@ -48,3 +48,52 @@ function load_components_library() {
     }
     wp_die();
 }
+
+
+
+
+
+
+add_action("wp_ajax_component_library_action", "component_library_action");
+
+function component_library_action() {
+
+    // if ( !wp_verify_nonce( $_REQUEST['nonce'], "global-nonce")) {
+    //     exit("No naughty business please.");
+    // }
+
+    $do = true;
+
+    if ( $do ) {
+        $post_id = $_REQUEST['post_id'];
+        $btn_action = $_REQUEST['btn_action'];
+
+        if ($btn_action == 'select') {
+            $component_data = get_post_meta( $post_id, 'component_data', true );
+    
+            if ($component_data) :
+                $result['status'] = "success";
+                $result['component_data'] = $component_data;
+            else:
+                $result['status'] = "error";
+                $result['message'] = 'No se pudo encontrar la data solicitada.';
+            endif;
+        } else {
+            $result['status'] = "error";
+            $result['message'] = 'No se enviaron los parámetros correctos';
+        }
+
+    } else {
+        $result['status'] = "error";
+        $result['message'] = 'No se enviaron los parámetros correctos';
+    }
+
+    if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+        $result = json_encode($result);
+        echo $result;
+    }
+    else {
+        header("Location: ".$_SERVER["HTTP_REFERER"]);
+    }
+    wp_die();
+}
