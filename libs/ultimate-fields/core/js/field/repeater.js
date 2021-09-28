@@ -553,51 +553,39 @@
 			$dropdown.on( 'click', '.uf-repeater-library-button', function() {
 				clearTimeout(modaltimeout);
                 modaltimeout = setTimeout(function () {
-					Modal_v23.open('components-library-modal loading', function(){
+					Modal_v23.open('mv23-library-modal loading', function(){
+
+						var groups = that.model.get( 'groups' );
+						var terms = groups.map(function(item){
+							return item.id;
+						});
+
 						$.ajax({
 						    type: 'POST',
 						    dataType : "json",
 						    url: MV23_GLOBALS.ajaxUrl,
 						    data : { 
-						        action:'load_components_library'
+						        action:'load_mv23_library_gallery',
+						        terms: terms
 						    },
 						    beforeSend: function(){},
 						    success: function(response){
-						    	$('.components-library-modal').removeClass('loading');
+						    	$('.mv23-library-modal').removeClass('loading');
 						        if(response.status == "success") {
 						        	Modal_v23.fillWithHTMLContent(response.content);
-						        	$('.components-library-btn').click(function(ev){
+
+						        	$('.mv23-library-btn').click(function(ev){
 						        		ev.preventDefault();
-						        		$.ajax({
-						    				type: 'POST',
-						    				dataType : "json",
-						    				url: MV23_GLOBALS.ajaxUrl,
-						    				data : { 
-						    				    action:'component_library_action',
-						    				    post_id: $(this).attr('data-id'),
-						    				    btn_action: $(this).attr('data-action')
-						    				},
-						    				beforeSend: function(){
-						    					Modal_v23.addClass('loading');
-						    				},
-						    				success: function(response){
-						    					$('.components-library-modal').removeClass('loading');
-						    					if(response.status == "success") {
-						    						var settings = JSON.parse(response.component_data);
-						    						that.addGroup({
-														silent: false,
-														type: settings.__type,
-						    							data: settings,
-													});
-													Modal_v23.close();
-						    					} else {
-						        					Modal_v23.fillWithHTMLContent('<p>'+response.message+'</p>');
-						    					}
-						    				}
-						    			});
+						        		var $item = $(this).parents('.mv23-library__item-wrapper'),
+						        			action = $(this).attr('data-action'),
+						        			post_id = $(this).attr('data-id');
+
+						        		if (action == 'add-thumbnail') that.addThumbnail($item,post_id);
+						        		if (action == 'remove-thumbnail') that.removeThumbnail($item,post_id);
+						        		if (action == 'select' || action == 'delete') that.itemAction($item,post_id,action,that);
 						        	});
 						        } else {
-						        	Modal_v23.fillWithHTMLContent('<p>'+response.message+'</p>');
+						        	Modal_v23.fillWithHTMLContent('<div class="ajax-message"><p>'+response.message+'</p></div>');
 						        }
 						    }
 						});
@@ -607,6 +595,120 @@
 			});
 
 			this.$groups.after( $dropdown );
+		},
+
+		/**
+	 	 * select mv23_library item and append 
+	 	 */
+		itemAction: function($item,post_id,action,that){
+			$.ajax({
+				type: 'POST',
+				dataType : "json",
+				url: MV23_GLOBALS.ajaxUrl,
+				data : { 
+				    action:'mv23_library_action',
+				    post_id: post_id,
+				    btn_action: action
+				},
+				beforeSend: function(){
+					Modal_v23.addClass('loading');
+				},
+				success: function(response){
+					$('.mv23-library-modal').removeClass('loading');
+					if(response.status == "success" && action == "select") {
+						var settings = JSON.parse(response.library_item_data);
+						that.addGroup({
+							silent: false,
+							type: settings.__type,
+							data: settings,
+						});
+						Modal_v23.close();
+					
+					} else if(response.status == "success" && action == "delete") {
+						$item.remove();
+						
+					} else {
+						Modal_v23.fillWithHTMLContent('<div class="ajax-message"><p>'+response.message+'</p></div>');
+					}
+				}
+			});
+			return false;
+		},
+
+		/**
+	 	 * Adds thumbnail to mv23_library item
+	 	 */
+		addThumbnail: function($item,post_id){
+			var custom_uploader;
+
+			custom_uploader = wp.media.frames.file_frame = wp.media({
+				title: 'Selecciona una imagen',
+				button: {text: 'Seleccionar'},
+				multiple: false,
+				library: { type: 'image' }
+			});
+
+			custom_uploader.on('select', function() {
+				attachment = custom_uploader.state().get('selection').first().toJSON();
+				if (attachment.mime=='image/jpeg' || attachment.mime=='image/png' || attachment.mime=='image/gif' || attachment.mime=='image/svg+xml') {
+					var thumb_url = attachment.url;
+					$.ajax({
+						type: 'POST',
+						dataType : "json",
+						url: MV23_GLOBALS.ajaxUrl,
+						data : { 
+						    action:'mv23_library_action',
+						    post_id: post_id,
+						    btn_action: 'add-thumbnail',
+						    thumb_id: attachment.id
+						},
+						beforeSend: function(){
+							Modal_v23.addClass('loading');
+						},
+						success: function(response){
+							$('.mv23-library-modal').removeClass('loading');
+							if(response.status == "success") {
+								$item.addClass('has-post-thumbnail');
+								$item.find('.mv23-library__imagen').css('background-image','url('+thumb_url+')');
+							} else {
+								Modal_v23.fillWithHTMLContent('<div class="ajax-message"><p>'+response.message+'</p></div>');
+							}
+						}
+					});
+				}
+			});
+
+			custom_uploader.open();
+			return false;
+		},
+
+		/**
+	 	 * Remove thumbnail to mv23_library item
+	 	 */
+		removeThumbnail: function($item,post_id){
+			$.ajax({
+				type: 'POST',
+				dataType : "json",
+				url: MV23_GLOBALS.ajaxUrl,
+				data : { 
+				    action:'mv23_library_action',
+				    post_id: post_id,
+				    btn_action: 'remove-thumbnail'
+				},
+				beforeSend: function(){
+					Modal_v23.addClass('loading');
+				},
+				success: function(response){
+					$('.mv23-library-modal').removeClass('loading');
+					if(response.status == "success") {
+						$item.removeClass('has-post-thumbnail');
+						$item.find('.mv23-library__imagen').css('background-image','url()');
+					} else {
+						Modal_v23.fillWithHTMLContent('<div class="ajax-message"><p>'+response.message+'</p></div>');
+					}
+				}
+			});
+			return false;
 		},
 
 	 	/**

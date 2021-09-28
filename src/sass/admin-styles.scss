@@ -3,6 +3,10 @@
 div.mce-inline-toolbar-grp{z-index:999997 !important}
 .pac-container{z-index:999996}
 
+.media-modal{
+    z-index: 999999999;
+}
+
 // atajos de teclado
 .mce-reset.mce-fade.mce-in{z-index:999996 !important}
 .mce-floatpanel.mce-window.mce-in{z-index:999997 !important}
@@ -42,8 +46,6 @@ input[name="icon-selector"]:checked+label{
 .short-input input{
     width: auto !important;
 }
-
-
 
 /*------------------------------------------------------------*/
 /*MODAL WINDOW*/
@@ -93,15 +95,16 @@ input[name="icon-selector"]:checked+label{
 
 
 /*------------------------------------------------------------*/
-/* COMPONENTS LIBRARY MODAL*/
+/* MV23 LIBRARY MODAL*/
 /*------------------------------------------------------------*/
-.components-library-modal {
+.mv23-library-modal {
     overflow: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0,0,0,0.7);
-    z-index: 999999;
+    background-color: rgba(0,0,0,0.7);            
+    z-index: 160011;            
+    // z-index: 159999;            
 
     .modalv23__content {
         width: 95%;
@@ -125,12 +128,23 @@ input[name="icon-selector"]:checked+label{
             pointer-events: none;
         }
     }
+    .ajax-message{
+        text-align: center;
+        width: 100%;
+        &.error{
+            border-color: red;
+            background-color: transparent;
+        }
+        p{
+            font-size: 20px;
+        }
+    }
 }
 
 /*------------------------------------------------------------*/
-/* COMPONENTS LIBRARY*/
+/* MV23 LIBRARY - SELECT ITEM MODAL*/ 
 /*------------------------------------------------------------*/
-.components-library{
+.mv23-library{
     &__gallery{
         display: flex;
         flex-wrap: wrap;
@@ -154,10 +168,20 @@ input[name="icon-selector"]:checked+label{
     &__imagen{
         padding-bottom: 65%;
         border: 1px solid #333;
-        &.has-post-thumbnail{
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
+    }
+    &__item-wrapper.has-post-thumbnail &__imagen{
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    &__item-wrapper.has-post-thumbnail{
+        button[data-action='add-thumbnail']{
+            display: none;
+        }
+    }
+    &__item-wrapper:not(.has-post-thumbnail){
+        button[data-action='remove-thumbnail']{
+            display: none;
         }
     }
     &__footer{
@@ -176,9 +200,14 @@ input[name="icon-selector"]:checked+label{
     }
     &__control+div+&__actions{
         display: none;
+        button[data-action="delete"]{
+            background-color: red !important;
+            border-color: red !important;
+        }
     }
     &__control:checked+div+&__actions{
-        display: initial;
+        display: flex;
+        justify-content: space-between;
         position: absolute;
         left: 0;
         bottom: 0;
@@ -188,9 +217,37 @@ input[name="icon-selector"]:checked+label{
         box-shadow: 0 0 8px 5px rgba(0,0,0,.2);
         text-align: right;
         box-sizing: border-box;
-        // button{
-        //     background-color: #1d2327;
-        //     color: silver
-        // }
+        button:not(.button-primary){
+            background-color: #1d2327;
+            color: silver
+        }
+    }
+}
+
+/*------------------------------------------------------------*/
+/* MV23 LIBRARY - SAVE ITEM MODAL*/ 
+/*------------------------------------------------------------*/
+.mv23-library-modal.save-form-modal{
+    .modalv23__content {
+        max-width: 500px;
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+    }
+}
+.mv23-library-save-form{
+    width: 100%;
+    h2{
+        color: silver;
+        font-size: 32px;
+        text-align: center;
+        margin: 0;
+        &+p{
+            text-align: center;
+            justify-content: center;
+        }
+    }
+    form{
+        text-align: center;
     }
 }

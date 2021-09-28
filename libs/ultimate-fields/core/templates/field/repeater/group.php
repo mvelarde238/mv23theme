@@ -14,17 +14,20 @@
 		</a>
 		<div class="context-menu" style="display: none">
 			<a href="#" class="uf-group-control uf-group-control-copy" title="<?php esc_attr_e( 'Copy', 'ultimate-fields' ); ?>">
-				Copy
+				Copiar
 			</a>
 			<a href="#" class="uf-group-control uf-group-control-paste" title="<?php esc_attr_e( 'Paste', 'ultimate-fields' ); ?>">
-				Paste
+				Pegar
 			</a>
 			<a href="#" class="uf-group-control uf-group-control-duplicate" title="<?php esc_attr_e( 'Duplicate', 'ultimate-fields' ); ?>">
-				Duplicate
+				Duplicar
 				<!-- <span class="dashicons dashicons-admin-page"></span> -->
 			</a>
+			<a href="#" class="uf-group-control uf-group-control-save" title="<?php esc_attr_e( 'Save', 'ultimate-fields' ); ?>">
+				Guardar
+			</a>
 			<a href="#" class="uf-group-control uf-group-control-remove" title="<?php esc_attr_e( 'Remove', 'ultimate-fields' ); ?>">
-				Remove
+				Eliminar
 				<!-- <span class="dashicons dashicons-trash"></span> -->
 			</a>
 		</div>

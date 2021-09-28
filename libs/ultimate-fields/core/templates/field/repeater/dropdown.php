@@ -1,6 +1,4 @@
 <div class="uf-repeater-dropdown">
-	<p><b>COMPONENTES:</b></p>
-
 	<div style="zoom:.9;">
 		<select>
 			<% _.each( groups, function( group ) { %>

@@ -151,6 +151,7 @@
 				'.uf-group-control-duplicate': 'duplicate',
 				'.uf-group-control-copy': 'copy',
 				'.uf-group-control-paste': 'paste',
+				'.uf-group-control-save': 'save',
 				'.uf-group-control-open-menu': 'openContextMenu'
 			}
 
@@ -270,6 +271,61 @@
 			} else {
 				alert('There are no settings to paste.');
 			}
+		},
+
+		save: function() {
+			var settings = this.model.datastore.clone();
+			this.hideContextMenu();
+
+			var saveForm = '<div class="mv23-library-save-form">';
+			saveForm += '<h2>Guardar en la libreria</h2>';
+			saveForm += '<p>Ingrese el nombre del item:</p>';
+			saveForm += '<form action="">';
+			saveForm += '<input type="text" name="title" placeholder="Library item name...">';
+			saveForm += '<button class="button-primary" type="submit">Guardar</button>'; 
+			saveForm += '<br/>'; 
+			saveForm += '<input type="hidden" name="cat">';
+			saveForm += '<textarea style="display:none" name="settings"></textarea>'; 
+			saveForm += '</form>'; 
+			saveForm += '</div>'; 
+
+			Modal_v23.open('mv23-library-modal save-form-modal');
+			Modal_v23.fillWithHTMLContent(saveForm);
+
+			$form = $('.mv23-library-save-form form');
+			$form.find('textarea').val( JSON.stringify(settings.attributes) );
+			$form.find('input[name=cat]').val( settings.attributes.__type );
+
+			$form.on('submit',function(ev){
+				ev.preventDefault();
+				var cat = $(this).find('input[name=cat]').val(),
+					title = $(this).find('input[name=title]').val(),
+					settings = $(this).find('textarea').val();
+
+				if (title == '') {
+					alert('Ingrese un titulo para el nuevo item...');
+					return false;
+				}
+
+				$.ajax({
+					type: 'POST',
+					dataType : "json",
+					url: MV23_GLOBALS.ajaxUrl,
+					data : { 
+					    action:'mv23_library_save_item',
+					    title: title,
+					    cat: cat,
+					    settings: settings,
+					},
+					beforeSend: function(){
+						Modal_v23.addClass('loading');
+					},
+					success: function(response){
+						$('.mv23-library-modal').removeClass('loading');
+						Modal_v23.fillWithHTMLContent('<div class="ajax-message '+response.status+'"><p>'+response.message+'</p></div>');
+					}
+				});
+			})
 		},
 
 		openContextMenu: function(ev){

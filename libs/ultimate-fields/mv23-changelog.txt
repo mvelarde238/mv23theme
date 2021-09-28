@@ -5,8 +5,8 @@ mv23 changelog-------------------------
 
 22-05-2021
 - (repeater.js) connectWith: '.uf-repeater-groups' | added | move group anywhere, move but don't work group element
-- (group.js) delete: function() { | added | confirm function
-- (group.js, group.php) implementation of copy and paste
+- (js/container/group.js) delete: function() { | added | confirm function
+- (js/container/group.js, templates/repeater/group.php) implementation of copy and paste
 
 01-06-2021
 - (repeater.js) handle: '> .uf-group-header > .uf-group-number, > .uf-group-number', | added | move group in layout table too
@@ -22,3 +22,7 @@ mv23 changelog-------------------------
 24-09-2021
 - (templates/repeater/dropdown) add library button
 - (repeater.js) add library button click event
+
+27-09-2021
+- (templates/repeater/group.php, js/container/group.js, js/field/repeater.js) add save button and save function corrections
+- (assets/css/ultimate-fields.css) context menu

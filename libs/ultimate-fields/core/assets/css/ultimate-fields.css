@@ -3173,28 +3173,31 @@ h2.uf-add-term-title {
 
 /*# sourceMappingURL=ultimate-fields.css.map */
 
-.uf-group-controls{
+/*.uf-group-controls{
   position: relative;
-}
+}*/
 .uf-group-control-open-menu span{
   pointer-events: none;
 }
 .context-menu{
   position: absolute;
   top: 36px;
-  left: 0;
-  width: auto;
+  left: initial;
+  right: 0;
   z-index: 99999;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0,0,0,.15);
-  background-color: #fff;
+  background-color: #0073af;
+    display: flex;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
 }
 .context-menu a{
   display: block;
   text-decoration: none;
   padding: 5px;
-  border-bottom: 1px solid #ddd;
   width: 100%;
   height: auto;
   outline: 0;

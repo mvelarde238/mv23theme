@@ -56,7 +56,7 @@ require_once( 'inc/functions/fix-fatal-error-allowed-memory-size-error.php' );
 // require_once( 'inc/functions/maybe-redirect-archive-page.php' );
 require_once( 'inc/functions/archive-page.php' );
 require_once( 'inc/functions/remove-custom-fields-metabox.php' );
-require_once( 'inc/functions/ajax/load-components-library.php' );
+require_once( 'inc/functions/ajax/mv23-library-actions.php' );
 
 function mv23_launch_theme() {
     // launching operation cleanup
