@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.48 21-10-07
+- Removed icon meta tag from header.php
+
 23.8.47 21-09-23
 - Columnas dont open in popup
 - title_template configuration for icon and text & Text Editor
