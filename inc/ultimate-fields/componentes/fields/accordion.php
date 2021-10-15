@@ -40,10 +40,16 @@ $fields = array(
         'accordion' => 'Accordion',
         'tab' => 'Tab',
     ))->set_width(50),
-    Field::create( 'select', 'tab_style' )->add_options( array(    
-        'style1' => 'Estilo 1',
-        'style2' => 'Estilo 2',
-    ))->set_width(50)->add_dependency('desktop_template','tab','='),
+    Field::create( 'image_select', 'tab_style', 'Apariencia' )->add_options(array(
+        'style1'  => array(
+            'label' => 'Estilo 1',
+            'image' => get_template_directory_uri() . '/inc/ultimate-fields/images/tab-style-1.png'
+        ),
+        'style2'  => array(
+            'label' => 'Estilo 2',
+            'image' => get_template_directory_uri() . '/inc/ultimate-fields/images/tab-style-2.png'
+        )
+    ))->set_width(50)->add_dependency('desktop_template','tab','=')
 );
 
 $accordion_args = array(
