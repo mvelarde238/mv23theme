@@ -17,6 +17,7 @@ if( !defined('SECONDARY_COLOR') ) define ('SECONDARY_COLOR', '#2A5354');
 if( !defined('TERTIARY_COLOR') ) define ('TERTIARY_COLOR', '#CDC6BE');
 if( !defined('PAGE_HEADER_BGC') ) define ('PAGE_HEADER_BGC', '#2A5354');
 if( !defined('PAGE_HEADER_TEXT_COLOR') ) define ('PAGE_HEADER_TEXT_COLOR', 'text-color-2');
+if( !defined('HEADER_THEME') ) define ('HEADER_THEME', 'Transparente con letras negras');
 if( !defined('PAGE_HEADER_BGI') ) define ('PAGE_HEADER_BGI', 0);
 if( !defined('BORDER_RADIUS') ) define ('BORDER_RADIUS', 15);
 

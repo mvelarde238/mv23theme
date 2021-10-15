@@ -2,7 +2,7 @@
 $page_ID;
 $key = 'post';
 
-if(is_home()) {
+if(is_home() || is_404()) {
 	$page_ID = get_option( 'page_for_posts' );
 } else if (is_post_type_archive()) {
 	$archive_page_id = archive_page()->get_archive_id();

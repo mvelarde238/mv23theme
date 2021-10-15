@@ -53,7 +53,7 @@ Container::create( 'page_header' )
             'theme4' => 'Transparente con letras negras',
             'theme5' => 'blanco con letras negras',
             'theme6' => 'Corporativo con letras negras',
-        )),
+        ))->set_default_value( HEADER_THEME ),
         Field::create( 'checkbox', 'hide_logo')->set_text('Ocultar el logo')->hide_label(),
         Field::create( 'checkbox', 'hide_menu')->set_text('Ocultar el menu')->hide_label(),
         Field::create( 'checkbox', 'replace_logo')->set_text('Cambiar Logo')->hide_label(),
