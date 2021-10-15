@@ -4,6 +4,7 @@ CHANGELOG
 23.8.49 21-10-14
 - HEADER_THEME default CONSTANT
 - header.php -> 404 page inherits theme form blog page
+- Accordion component tab_style switched to image_select
 
 23.8.48 21-10-07
 - Removed icon meta tag from header.php
