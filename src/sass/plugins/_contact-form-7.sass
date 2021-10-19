@@ -18,11 +18,13 @@ div.wpcf7-acceptance-missing
 
 .cf7-submit-wrapper
 	position: relative
+	overflow: hidden
 
 	input[type='submit']:focus
 		outline: 0
 
-	.ajax-loader
+	.ajax-loader,
+	.wpcf7-spinner
 		position: absolute
 		top: 0
 		right: 0
@@ -34,6 +36,7 @@ div.wpcf7-acceptance-missing
 		border-radius: 0
 		text-align: center
 		background: #000 url('assets/images/loading.gif') center no-repeat
+		z-index: 89
 		&:before
 			display: none
 
