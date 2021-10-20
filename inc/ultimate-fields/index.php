@@ -2,7 +2,9 @@
 add_action( 'uf.init', 'theme_register_fields' );
 
 if (!is_admin()) {
+	require_once( 'utils/page-class.php' );
 	require_once( 'utils/print-modules.php' );
+	require_once( 'utils/page-settings-functions.php' );
 }
 
 function theme_register_fields() {
@@ -26,4 +28,5 @@ function theme_register_fields() {
 	require_once( 'containers/accordion-options.php' );
 	require_once( 'containers/archive-options.php' );
 	require_once( 'containers/mv23-library.php' );
+	require_once( 'containers/page-settings.php' );
 }

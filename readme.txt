@@ -1,6 +1,11 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.50 21-10-20
+- Page Header container change title -> Page Title
+- Page Settings Implementation
+- Page Class Implementation
+
 23.8.49 21-10-14
 - HEADER_THEME default CONSTANT
 - header.php -> 404 page inherits theme form blog page

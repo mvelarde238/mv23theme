@@ -8,10 +8,11 @@ Container::create( 'page_header' )
     ->add_location( 'post_type', $uf_posttypes )
     ->add_location( 'taxonomy', 'category' )
     // ->add_location( 'taxonomy', 'product_cat')
+    ->set_title('Page Title')
     ->set_layout( 'grid' )
     ->set_style( 'seamless' )
     ->add_fields(array(
-        Field::create( 'section', 'page_header_section', 'Page Header' )->set_color( 'blue' ),
+        Field::create( 'section', 'page_header_section', 'Page Title' )->set_color( 'blue' ),
         Field::create( 'tab', 'Contenido' ),
         Field::create( 'radio', 'page_header_element','Seleccione que tipo de contenido se va mostrar:')->set_orientation( 'horizontal' )->add_options( array(
             'default' => 'Título de la página',
@@ -45,17 +46,4 @@ Container::create( 'page_header' )
             '0' => 'Desactivar',
             '1' => 'Activar',
         ) )->set_orientation( 'horizontal' )->set_default_value('0'),
-        Field::create( 'tab', 'Header Options' ),
-        Field::create( 'select', 'header_theme', 'Color' )->add_options(array(
-            'theme1' => 'Transparente con letras blancas',
-            'theme2' => 'Negro con letras blancas',
-            'theme3' => 'Corporativo con letras blancas',
-            'theme4' => 'Transparente con letras negras',
-            'theme5' => 'blanco con letras negras',
-            'theme6' => 'Corporativo con letras negras',
-        ))->set_default_value( HEADER_THEME ),
-        Field::create( 'checkbox', 'hide_logo')->set_text('Ocultar el logo')->hide_label(),
-        Field::create( 'checkbox', 'hide_menu')->set_text('Ocultar el menu')->hide_label(),
-        Field::create( 'checkbox', 'replace_logo')->set_text('Cambiar Logo')->hide_label(),
-        Field::create( 'image', 'header_logo' )->hide_label()->add_dependency('replace_logo')
     ));
