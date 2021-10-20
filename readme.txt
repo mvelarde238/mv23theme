@@ -5,6 +5,7 @@ CHANGELOG
 - Page Header container change title -> Page Title
 - Page Settings Implementation
 - Page Class Implementation
+- Flickr added to rrss
 
 23.8.49 21-10-14
 - HEADER_THEME default CONSTANT

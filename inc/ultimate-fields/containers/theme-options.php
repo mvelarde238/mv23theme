@@ -24,6 +24,7 @@ Container::create( 'main_options' )
                     'behance' => 'Behance',
                     'github' => 'Github',
                     'tumblr' => 'Tumblr',
+                    'flickr' => 'Flickr',
                     'soundcloud' => 'SoundCloud',
                     'skype' => 'Skipe',
                     'linkedin' => 'Linkedin',
