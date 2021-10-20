@@ -3,15 +3,32 @@ use Ultimate_Fields\Options_Page;
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 
-$theme_options_page = Options_Page::create( 'theme-options', 'Theme Options' )->set_position( 2 );
+$logos_field_names = array();
 
-Container::create( 'main_options' ) 
-    ->add_location( 'options', $theme_options_page )
-    ->set_layout( 'grid' )
-    ->add_fields(array(
-        Field::create( 'image', 'main_logo', 'Logo Principal' )->set_width(33),
-        Field::create( 'image', 'secondary_logo', 'Logo versión 2' )->set_width(33),
-        Field::create( 'repeater', 'rrss', 'Redes Sociales' )->set_add_text('Agregar')->set_layout( 'table' )
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+$theme_options_page = Options_Page::create( 'theme-options', 'Theme Options' )->set_position( 2 );
+$main_options_fields = array();
+
+for ($i=1; $i <= LOGOS_QUANTITY; $i++) { 
+    switch ($i) {
+        case 1:
+            $field_name = 'main_logo';
+            break;
+
+        case 2:
+            $field_name = 'secondary_logo';
+            break;
+        
+        default:
+            $field_name = 'logo_v'.$i;
+            break;
+    }
+    $field_title = 'Logo Versión '.$i;
+    $logos_field_names[$field_name] = $field_title;
+    $main_options_fields[] = Field::create( 'image', $field_name, $field_title )->set_width(25);
+}
+
+$main_options_fields[] = Field::create( 'repeater', 'rrss', 'Redes Sociales' )->set_add_text('Agregar')->set_layout( 'table' )
         ->add_group('Red Social', array(
             'fields' => array(
                 Field::create( 'select', 'icon')->add_options( array(
@@ -32,8 +49,12 @@ Container::create( 'main_options' )
                 ))->set_width( 25 ),
                 Field::create( 'text', 'url' )->set_width( 75 ),
             )
-        )),
-    ));
+        ));
+
+Container::create( 'main_options' ) 
+    ->add_location( 'options', $theme_options_page )
+    ->set_layout( 'grid' )
+    ->add_fields($main_options_fields);
 
 Container::create( 'page_editor_options' ) 
     ->add_location( 'options', $theme_options_page )
@@ -45,7 +66,41 @@ Container::create( 'page_editor_options' )
         )),
     ));
 
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+$header_page = Options_Page::create( 'header', 'Header' )->set_parent( $theme_options_page );
 
+$header_fields = array(
+    Field::create( 'tab', 'Header Fijo' ),
+    Field::create( 'select', 'fixed_header_logo', 'Versión del Logo')->add_options($logos_field_names),
+    Field::create( 'complex', 'fixed_header_bgc', 'Color de fondo' )->add_fields(array(
+        Field::create( 'checkbox', 'add_bgc', 'Activar' )->set_width( 25 )->set_text('Activar')->hide_label(),
+        Field::create( 'color', 'bgc', 'Color' )->set_width( 75 )->add_dependency('add_bgc')->hide_label(),
+    )),
+    Field::create( 'select', 'fixed_header_color_scheme', 'Color del Texto' )->add_options( array(
+        'text-color-default' => 'Negro',
+        'text-color-2' => 'Blanco',
+    ))->set_default_value( 'text-color-default' ),
+
+    Field::create( 'tab', 'Header Flotante' ),
+    Field::create( 'select', 'floating_header_logo', 'Versión del Logo')->add_options($logos_field_names),
+    Field::create( 'complex', 'floating_header_bgc', 'Color de fondo' )->add_fields(array(
+        Field::create( 'checkbox', 'add_bgc', 'Activar' )->set_width( 25 )->set_text('Activar')->set_default_value(1),
+        Field::create( 'color', 'bgc', 'Color' )->set_width( 50 )->add_dependency('add_bgc')->set_default_value('#ffffff'),
+        Field::create( 'text', 'alpha', 'Transparencia' )->set_width( 25 )->add_dependency('add_bgc')->set_default_value('100')->set_description('Usar un número del 1 al 100'),
+    )),
+    Field::create( 'select', 'floating_header_color_scheme', 'Color del Texto' )->add_options( array(
+        'text-color-default' => 'Negro',
+        'text-color-2' => 'Blanco',
+    ))->set_default_value( 'text-color-default' ),
+);
+
+Container::create( 'header_options' ) 
+    ->add_location( 'options', $header_page )
+    // ->set_layout( 'grid' )
+    // ->set_style( 'seamless' )
+    ->add_fields($header_fields);
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------
 $footer_page = Options_Page::create( 'footer', 'Pie de Página' )->set_parent( $theme_options_page );
 
 $footer_fields = array(
@@ -63,7 +118,7 @@ Container::create( 'footer_options' )
     ->set_style( 'seamless' )
     ->add_fields($footer_fields);
 
-
+// -----------------------------------------------------------------------------------------------------------------------------------------------
 $custom_scripts_page = Options_Page::create( 'custom_scripts', 'Custom Scripts' )->set_parent( $theme_options_page );
 
 Container::create( 'custom_scripts_options' ) 

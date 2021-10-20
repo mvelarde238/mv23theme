@@ -7,6 +7,7 @@ CHANGELOG
 - Page Class Implementation
 - Flickr added to rrss
 - wp_body_open() hook implementation
+- Header Refactorized
 
 23.8.49 21-10-14
 - HEADER_THEME default CONSTANT

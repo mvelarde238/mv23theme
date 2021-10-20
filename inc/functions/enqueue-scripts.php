@@ -31,6 +31,9 @@ function mv23_scripts_and_styles() {
         wp_enqueue_script( 'fitty-lib', get_template_directory_uri() . '/src/js/libs/fitty.min.js', array(), THEME_VERSION, true );
         wp_register_script( 'mv23-scripts', $assets_url . '/assets/js/scripts.js', array(), THEME_VERSION, true );
 
+        $floating_header = new Floating_Header();
+        wp_localize_script( 'mv23-scripts', 'FLOATING_HEADER', $floating_header->get_options() ); 
+
         wp_localize_script( 'mv23-scripts', 'MV23_GLOBALS', array( 
             'isMobile' => wp_is_mobile(), 
             'ajaxUrl' => admin_url( 'admin-ajax.php' ), 

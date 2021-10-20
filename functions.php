@@ -20,6 +20,7 @@ if( !defined('PAGE_HEADER_TEXT_COLOR') ) define ('PAGE_HEADER_TEXT_COLOR', 'text
 if( !defined('HEADER_THEME') ) define ('HEADER_THEME', 'Transparente con letras negras');
 if( !defined('PAGE_HEADER_BGI') ) define ('PAGE_HEADER_BGI', 0);
 if( !defined('BORDER_RADIUS') ) define ('BORDER_RADIUS', 15);
+if( !defined('LOGOS_QUANTITY') ) define ('LOGOS_QUANTITY', 2);
 
 if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','post','megamenu','archive_page'));
 if( !defined('DISABLE_PAGE_HEADER_IN') ) define ('DISABLE_PAGE_HEADER_IN', array('megamenu'));
@@ -35,6 +36,9 @@ if( !defined('ITEMS_GRID') ) define ('ITEMS_GRID', false);
 if( !defined('TEMPLATE_PART') ) define ('TEMPLATE_PART', false);
 
 require_once( 'libs/ultimate-fields/ultimate-fields.php' );
+
+require_once( 'inc/classes/floating-header.php' );
+require_once( 'inc/classes/header.php' );
 
 require_once( 'inc/functions/theme.php' );
 require_once( 'inc/functions/enqueue-scripts.php' );
