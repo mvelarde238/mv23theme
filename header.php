@@ -14,5 +14,6 @@
   		<?php if ($head_scripts) echo $head_scripts; ?>
 	</head>
 	<body <?php body_class(); ?> <?php body_style(); ?>>
+		<?php if ( function_exists( 'wp_body_open' ) ) { wp_body_open(); } ?>
 		<div class="global-wrapper">
 			<?php get_template_part('inc/modulos/header'); ?>
