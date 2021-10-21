@@ -34,10 +34,12 @@ class Archive_Page {
 	 * Get archive type
 	 */
 	function get_archive_type() {
-		if (is_post_type_archive()) {
+		if (is_tax() || is_category()) {
+			return 'taxonomy';
+		} else if (is_post_type_archive()) {
 			return 'posttype';
 		} else {
-			return 'taxonomy';
+			return 'posttype';
 		}
 	}
 
@@ -57,8 +59,12 @@ class Archive_Page {
 	 * Get Post Type
 	 */
 	function get_posttype() {
-		$queried_object = get_queried_object();
-		return $queried_object->name;
+		if (is_home()) {
+			return 'post';
+		} else{
+			$queried_object = get_queried_object();
+			return $queried_object->name;
+		}
 	}
 
 	/**
@@ -165,7 +171,11 @@ class Archive_Page {
 
 		if ($appears_on == 'posttype') {
 			$connected_posttype = get_post_meta( $archive_page_id, 'connected_posttype', true );
-			$redirect = home_url($connected_posttype);
+			if ($connected_posttype == 'post') {
+				$redirect = get_permalink( get_option( 'page_for_posts' ) );
+			} else {
+				$redirect = home_url($connected_posttype);
+			}
 		}
 
 		if ($appears_on == 'taxonomy') {
@@ -224,4 +234,5 @@ class Archive_Page {
 function archive_page() {
 	return Archive_Page::instance();
 }
+
 archive_page();

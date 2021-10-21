@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.51 21-10-21
+- Archive Page Corrections in order to work for "post" posttype
+
 23.8.50 21-10-20
 - Page Header container change title -> Page Title
 - Page Settings Implementation
