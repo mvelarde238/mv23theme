@@ -18,12 +18,12 @@ class Header{
  		$this->set_class();
  	}
 
- 	public function set_overrided(){
+ 	private function set_overrided(){
  		$custom_fixed_header = get_metadata($this->page_type, $this->page_ID,'custom_fixed_header', true);
  		if ($custom_fixed_header) $this->overrided = true;
  	}
 
- 	public function set_logo(){
+ 	private function set_logo(){
  		if (get_metadata($this->page_type, $this->page_ID,'replace_logo', true)) {
 	 		$logo_id = get_metadata($this->page_type, $this->page_ID,'header_logo', true);
  		} else {
@@ -40,7 +40,7 @@ class Header{
  		endif;
  	}
 
- 	public function set_style(){
+ 	private function set_style(){
  		$style = '';
  		if ($this->overrided) {
  			$bgc = get_metadata($this->page_type, $this->page_ID,'fixed_header_bgc', true);
@@ -52,7 +52,7 @@ class Header{
 		$this->style = $style;
  	}
 
- 	public function set_class(){
+ 	private function set_class(){
  		$classes = array('header');
  		if ($this->overrided) {
  			$color = get_metadata($this->page_type, $this->page_ID,'fixed_header_color_scheme', true);

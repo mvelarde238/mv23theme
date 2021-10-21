@@ -38,8 +38,10 @@ if( !defined('TEMPLATE_PART') ) define ('TEMPLATE_PART', false);
 
 require_once( 'libs/ultimate-fields/ultimate-fields.php' );
 
+require_once( 'inc/classes/page.php' );
 require_once( 'inc/classes/floating-header.php' );
 require_once( 'inc/classes/header.php' );
+require_once( 'inc/classes/page-header.php' );
 
 require_once( 'inc/functions/theme.php' );
 require_once( 'inc/functions/enqueue-scripts.php' );
@@ -63,6 +65,7 @@ require_once( 'inc/functions/fix-fatal-error-allowed-memory-size-error.php' );
 require_once( 'inc/functions/archive-page.php' );
 require_once( 'inc/functions/remove-custom-fields-metabox.php' );
 require_once( 'inc/functions/ajax/mv23-library-actions.php' );
+require_once( 'inc/functions/body-style-tag.php' );
 
 function mv23_launch_theme() {
     // launching operation cleanup

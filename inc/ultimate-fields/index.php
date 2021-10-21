@@ -2,9 +2,7 @@
 add_action( 'uf.init', 'theme_register_fields' );
 
 if (!is_admin()) {
-	require_once( 'utils/page-class.php' );
 	require_once( 'utils/print-modules.php' );
-	require_once( 'utils/page-settings-functions.php' );
 }
 
 function theme_register_fields() {

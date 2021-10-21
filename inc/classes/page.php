@@ -12,7 +12,7 @@ class Page{
     }
 
 	function __construct(){
-		$page_ID;
+		$page_ID = null;
 		$key = 'post';
 			
 		if(is_home() || is_404()) {
