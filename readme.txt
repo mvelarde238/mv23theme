@@ -8,6 +8,7 @@ CHANGELOG
 - Flickr added to rrss
 - wp_body_open() hook implementation
 - Header Refactorized
+- minor changes: FLOATING_HEADER_BREAKPOINT, carrusel alignment, x-align-on class correction, ...
 
 23.8.49 21-10-14
 - HEADER_THEME default CONSTANT

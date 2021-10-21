@@ -11,6 +11,7 @@ Container::create( 'page_settings' )
     // ->set_layout( 'grid' )
     // ->set_style( 'seamless' )
     ->add_fields(array(
+        // Field::create( 'section', 'page_settings_section', 'Page Settings' )->set_color( 'blue' ),
         Field::create( 'tab', 'Page' ),
         Field::create( 'complex', 'page_bgc', 'Color de fondo' )->set_width( 20 )->add_fields(array(
             Field::create( 'checkbox', 'add_bgc', 'Activar' )->set_width( 25 )->set_text('Activar')->hide_label(),

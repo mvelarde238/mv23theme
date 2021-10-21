@@ -38,7 +38,7 @@ Container::create( 'page_header' )
             'layout2' => 'Fondo extendido / Contenido centrado',
             'layout1' => 'Estándar',
             'layout3' => 'Todo extendido',
-        ) ),
+        ) )->set_default_value( PAGE_HEADER_LAYOUT ),
         Field::create( 'tab', 'Fondo del módulo' ),
         Field::create( 'image', 'page_header_bgi', 'Imágen de Fondo' )->set_width( 33 )->set_default_value( PAGE_HEADER_BGI ),
         Field::create( 'color', 'page_header_bgc', 'Color de Fondo' )->set_width( 33 )->set_default_value( PAGE_HEADER_BGC ),

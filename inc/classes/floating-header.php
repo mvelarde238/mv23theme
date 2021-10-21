@@ -49,6 +49,8 @@ class Floating_Header{
 			$options['fixed_text_color'] = get_option( 'fixed_header_color_scheme' );
 		} 
 
+		$options['breakpoint'] = FLOATING_HEADER_BREAKPOINT;
+
 		$this->options = $options;
 	}
 

@@ -5,6 +5,7 @@
         // ****************************************************************************************************
         var $header = $('.header'), 
             $logo = $('.header__logo img'),
+            breakpoint = FLOATING_HEADER.breakpoint,
             initial_logo = $logo.attr('src'),
             change_logo = (initial_logo != FLOATING_HEADER.logo);
 
@@ -20,7 +21,7 @@
             element : '.header',
             init: function(){
                 var xscrollTop = $(document).scrollTop();
-                if (xscrollTop>200 && !this.isFixed) {
+                if (xscrollTop>breakpoint && !this.isFixed) {
                     this.isFixed = true;
                     floatingHeader.show();
                 } 
@@ -28,11 +29,11 @@
                 $(window).scroll(function(){
                     var xscrollTop = $(document).scrollTop();
                     
-                    if (xscrollTop>200 && !this.isFixed) {
+                    if (xscrollTop>breakpoint && !this.isFixed) {
                         this.isFixed = true;
                         floatingHeader.show();
                     } 
-                    if (xscrollTop<200 && this.isFixed) {
+                    if (xscrollTop<breakpoint && this.isFixed) {
                         this.isFixed = false;
                         floatingHeader.hide();
                     }

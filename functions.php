@@ -16,11 +16,12 @@ if( !defined('MAIN_COLOR') ) define ('MAIN_COLOR', '#F8522C');
 if( !defined('SECONDARY_COLOR') ) define ('SECONDARY_COLOR', '#2A5354');
 if( !defined('TERTIARY_COLOR') ) define ('TERTIARY_COLOR', '#CDC6BE');
 if( !defined('PAGE_HEADER_BGC') ) define ('PAGE_HEADER_BGC', '#2A5354');
+if( !defined('PAGE_HEADER_LAYOUT') ) define ('PAGE_HEADER_LAYOUT', 'layout2');
 if( !defined('PAGE_HEADER_TEXT_COLOR') ) define ('PAGE_HEADER_TEXT_COLOR', 'text-color-2');
-if( !defined('HEADER_THEME') ) define ('HEADER_THEME', 'Transparente con letras negras');
 if( !defined('PAGE_HEADER_BGI') ) define ('PAGE_HEADER_BGI', 0);
 if( !defined('BORDER_RADIUS') ) define ('BORDER_RADIUS', 15);
 if( !defined('LOGOS_QUANTITY') ) define ('LOGOS_QUANTITY', 2);
+if( !defined('FLOATING_HEADER_BREAKPOINT') ) define ('FLOATING_HEADER_BREAKPOINT', 200);
 
 if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','post','megamenu','archive_page'));
 if( !defined('DISABLE_PAGE_HEADER_IN') ) define ('DISABLE_PAGE_HEADER_IN', array('megamenu'));
