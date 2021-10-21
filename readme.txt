@@ -4,6 +4,7 @@ CHANGELOG
 23.8.51 21-10-21
 - Archive Page Corrections in order to work for "post" posttype
 - Page Header Class Implementation
+- Accordion: string replace en for titles: (),
 
 23.8.50 21-10-20
 - Page Header container change title -> Page Title

@@ -29,6 +29,9 @@ $attributes = generate_attributes($componente, $classes_array);
                 $slug = str_replace("¿", "a", $slug);
                 $slug = str_replace("Ó", "a", $slug);
                 $slug = str_replace(".", "", $slug);
+                $slug = str_replace("(", "", $slug);
+                $slug = str_replace(")", "", $slug);
+                $slug = str_replace(",", "", $slug);
 
                 $identificador = $item['identificador'];
 
