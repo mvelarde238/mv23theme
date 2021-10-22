@@ -1,6 +1,10 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.52 21-10-22
+- Header Class accepts $additional_classes
+- floating header .js change in order to get the correct logo img 
+
 23.8.51 21-10-21
 - Archive Page Corrections in order to work for "post" posttype
 - Page Header Class Implementation

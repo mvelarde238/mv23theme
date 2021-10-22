@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:400,500&family=Roboto:300");
 
-/*!
+/*! 
 Theme Name: MV23 Theme 
 Theme URI: http://mv23.com
 Description: MV23 website
 Author: Miguel Velarde
 Author URI: http://www.velarde23.com 
-Version: 8.23.46
+Version: 8.23.47
 Tags: fluid-layout, responsive-layout, accessibility-ready, translation-ready, microformats, rtl-language-support
 License: WTFPL
 License URI: http://sam.zoy.org/wtfpl/  
@@ -3315,6 +3315,8 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 .carrusel__slider {
 	display: flex;
 	align-items: center;
+	justify-content: center;
+	min-width: 100% !important;
 }
 
 .carrusel__item {
@@ -3979,7 +3981,7 @@ body {
 }
 
 .text-color-2 a {
-	color: #fff;
+	color: #fff !important;
 }
 
 .text-color-1 {
@@ -4230,68 +4232,8 @@ h2.comments-title {
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-.header.fixed[data-theme='theme1'],
-.header.fixed[data-theme='theme2'],
-.header.fixed[data-theme='theme3'] {
-	background-color: rgba(0, 0, 0, 0.5);
-}
-
-.header.fixed[data-theme='theme4'],
-.header.fixed[data-theme='theme5'],
-.header.fixed[data-theme='theme6'] {
-	background-color: #fff;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
 .header.hide-logo:not(.fixed) .header__logo {
 	opacity: 0;
-}
-
-.header[data-theme='theme1'] {
-	color: #fff;
-}
-
-.header[data-theme='theme1'] a {
-	color: #fff;
-}
-
-.header[data-theme='theme2'] {
-	background-color: #000;
-	color: #fff;
-}
-
-.header[data-theme='theme2'] a {
-	color: #fff;
-}
-
-.header[data-theme='theme3'] {
-	background-color: #F8522C;
-	color: #fff;
-}
-
-.header[data-theme='theme3'] a {
-	color: #fff;
-}
-
-.header[data-theme='theme4'] {
-	color: #000;
-}
-
-.header[data-theme='theme4'] a {
-	color: #000;
-}
-
-.header[data-theme='theme5'] {
-	background-color: #fff;
-}
-
-.header[data-theme='theme6'] {
-	background-color: #F8522C;
-	color: #000;
-}
-
-.header[data-theme='theme6'] a {
-	color: #000;
 }
 
 textarea {
@@ -5057,13 +4999,15 @@ div.wpcf7-acceptance-missing {
 
 .cf7-submit-wrapper {
 	position: relative;
+	overflow: hidden;
 }
 
 .cf7-submit-wrapper input[type='submit']:focus {
 	outline: 0;
 }
 
-.cf7-submit-wrapper .ajax-loader {
+.cf7-submit-wrapper .ajax-loader,
+.cf7-submit-wrapper .wpcf7-spinner {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -5075,9 +5019,11 @@ div.wpcf7-acceptance-missing {
 	border-radius: 0;
 	text-align: center;
 	background: #000 url("assets/images/loading.gif") center no-repeat;
+	z-index: 89;
 }
 
-.cf7-submit-wrapper .ajax-loader:before {
+.cf7-submit-wrapper .ajax-loader:before,
+.cf7-submit-wrapper .wpcf7-spinner:before {
 	display: none;
 }
 
@@ -5500,14 +5446,17 @@ div.wpcf7-acceptance-missing {
 	width: 100% !important;
 }
 
+.center-on-tablet,
 .center-on-tablet * {
 	text-align: center !important;
 }
 
+.left-on-tablet,
 .left-on-tablet * {
 	text-align: left !important;
 }
 
+.right-on-tablet,
 .right-on-tablet * {
 	text-align: right !important;
 }
@@ -6602,14 +6551,17 @@ table.responsive-table.bordered tbody tr {
 	width: 100%;
 }
 
+.center-on-mobile,
 .center-on-mobile * {
 	text-align: center !important;
 }
 
+.left-on-mobile,
 .left-on-mobile * {
 	text-align: left !important;
 }
 
+.right-on-mobile,
 .right-on-mobile * {
 	text-align: right !important;
 }
