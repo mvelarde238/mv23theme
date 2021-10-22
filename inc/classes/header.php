@@ -2,7 +2,8 @@
 class Header{
 	private $logo;
 	private $style;
-	private $class;
+	private $classes;
+	private $additional_classes = array();
 	private $overrided;
 
 	private $page_ID;
@@ -15,7 +16,7 @@ class Header{
  		$this->set_overrided();
  		$this->set_logo();
  		$this->set_style();
- 		$this->set_class();
+ 		$this->set_classes();
  	}
 
  	private function set_overrided(){
@@ -52,7 +53,11 @@ class Header{
 		$this->style = $style;
  	}
 
- 	private function set_class(){
+	public function set_additional_classes($additional_classes=array()){
+		if($additional_classes && is_array($additional_classes)) $this->additional_classes = $additional_classes;
+	}
+
+ 	private function set_classes(){
  		$classes = array('header');
  		if ($this->overrided) {
  			$color = get_metadata($this->page_type, $this->page_ID,'fixed_header_color_scheme', true);
@@ -63,7 +68,7 @@ class Header{
 
  		if(get_metadata($this->page_type, $this->page_ID,'hide_logo', true)) $classes[] = 'hide-logo';
 
- 		$this->class = 'class="'.implode(' ', $classes).'"';
+		$this->classes = $classes;
  	}
 
  	public function get_logo(){
@@ -75,6 +80,8 @@ class Header{
  	}
 
  	public function get_class(){
- 		return $this->class;
+		$classes = array_merge($this->classes, $this->additional_classes);
+		$class_attribute = 'class="'.implode(' ', $classes).'"';
+ 		return $class_attribute;
  	}
 }
