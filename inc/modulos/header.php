@@ -12,7 +12,7 @@ $header = new Header();
 	<?php endif ?>
 	<div class="header__content container">
 		<div class="header__logo">
-			<a href="<?php echo home_url(); ?>">
+			<a class="header__logo__link" href="<?php echo home_url(); ?>">
 				<?php if ( $header->get_logo() ): ?>
 					<img src="<?php echo $header->get_logo() ?>" alt="Logo <?=$blog_title?>">
 				<?php else: ?>

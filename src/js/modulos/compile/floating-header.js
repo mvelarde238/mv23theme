@@ -4,7 +4,7 @@
         // HEADER -- FIXED
         // ****************************************************************************************************
         var $header = $('.header'), 
-            $logo = $('.header__logo img'),
+            $logo = $('.header__logo__link img'),
             breakpoint = FLOATING_HEADER.breakpoint,
             initial_logo = $logo.attr('src'),
             change_logo = (initial_logo != FLOATING_HEADER.logo);
