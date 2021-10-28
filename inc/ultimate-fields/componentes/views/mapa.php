@@ -8,6 +8,9 @@ $lng = $location['latLng']['lng'];
 $icono = $componente['icono'];
 $icono = wp_get_attachment_url($icono);
 
+$height = $componente['height'];
+$height_style = ($height) ? 'style="height:'.$height.'px;"' : '';
+
 $classes_array = format_classes(array(
     'componente',
     'mapa',
@@ -20,7 +23,7 @@ $attributes = generate_attributes($componente, $classes_array);
 <div <?=$attributes?>>
     <?php if ($layout == 'layout2') echo '<div class="container">'; ?>
     <?php if($lat && $lng) : ?>
-        <div class="mapa__gmap" data-lat="<?=$lat?>" data-lng="<?=$lng?>" data-icon="<?=$icono?>"></div>
+        <div class="mapa__gmap" <?=$height_style?>  data-lat="<?=$lat?>" data-lng="<?=$lng?>" data-icon="<?=$icono?>"></div>
     <?php endif; ?>
     <?php if ($layout == 'layout2') echo '</div>'; ?>
 </div>  

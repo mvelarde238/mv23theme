@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.53 21-10-27
+- Map Component height
+
 23.8.52 21-10-22
 - Header Class accepts $additional_classes
 - floating header .js change in order to get the correct logo img 
