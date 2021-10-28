@@ -4,6 +4,7 @@ CHANGELOG
 23.8.54 21-10-28
 - Corrections in archive page to work with woo
 - page class corection to get the correct id in header archive pages
+- [posts] query object correction
 
 23.8.53 21-10-27
 - Map Component height
