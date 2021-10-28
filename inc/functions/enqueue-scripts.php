@@ -40,7 +40,8 @@ function mv23_scripts_and_styles() {
             'homeUrl' => home_url(), 
             'nonce' =>  wp_create_nonce( 'global-nonce' ),
             'userIsLoggedIn' => is_user_logged_in(),
-            'lang' => 'es_ES'
+            'lang' => 'es_ES',
+            'headerHeight' => HEADER_HEIGHT
         )); 
 
         wp_enqueue_script( 'mv23-scripts' );

@@ -1,4 +1,4 @@
-"use strict"; 
+"use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -13315,6 +13315,7 @@ targetBlank();
     // ****************************************************************************************************
     var initial_url = window.location.href.split('#')[0];
     var pageLinks = $('a[href*="#"]');
+    var headerHeight = MV23_GLOBALS.headerHeight;
 
     for (var i = 0; i < pageLinks.length; i++) {
       var href = $(pageLinks[i]).attr('href'),
@@ -13331,7 +13332,7 @@ targetBlank();
 
       if ($(href).length > 0) {
         $("html, body").animate({
-          scrollTop: $(href).offset().top - 0
+          scrollTop: $(href).offset().top - headerHeight
         }, {
           duration: 800,
           queue: false,
