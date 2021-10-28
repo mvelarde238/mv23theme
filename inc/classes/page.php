@@ -14,16 +14,25 @@ class Page{
 	function __construct(){
 		$page_ID = null;
 		$key = 'post';
-			
+
 		if(is_home() || is_404()) {
 			$page_ID = get_option( 'page_for_posts' );
-		} else if (is_post_type_archive()) {
-			$archive_page_id = archive_page()->get_archive_id();
-			$page_ID = ( !empty($archive_page_id) ) ? $archive_page_id : 0;
-			$key = 'post';
 		} else if (is_archive()) {
-			$page_ID = get_queried_object()->term_id;
-			$key = 'term';
+			$archive_page_id = archive_page()->get_archive_id();
+			if (!empty($archive_page_id)) {
+				$page_ID = $archive_page_id;
+				$key = 'post';
+			} else {
+				if (is_post_type_archive()) {
+					$page_ID = null;
+					$key = 'post';
+				} else {
+					$page_ID = get_queried_object()->term_id;
+					$key = 'term';
+				}
+			}
+		} else if (is_search()) {
+			$page_ID = null;
 		} else {
 			$page_ID = get_the_ID();
 		}
