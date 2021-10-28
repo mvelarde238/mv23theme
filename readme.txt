@@ -5,6 +5,7 @@ CHANGELOG
 - Corrections in archive page to work with woo
 - page class corection to get the correct id in header archive pages
 - [posts] query object correction
+- archive page exclude_from_search (listings) true
 
 23.8.53 21-10-27
 - Map Component height
