@@ -10,8 +10,10 @@ function print_redes_sociales( $atts ) {
 	<span class="rrss-module <?php echo $a['class']; ?>">
 		<?php if (!empty($redes_sociales)): ?>
 				<?php foreach ($redes_sociales as $red): ?>
-					<?php if ($red['url'] != ''): ?>
-						<a href="<?php echo $red['url']; ?>" target="_blank"><i class="fa fa-<?php echo $red['icon']; ?>"></i></a>
+					<?php if ($red['url'] != ''): 
+						$icon = ($red['icon'] == 'youtube') ? 'youtube-play' : $red['icon'];
+						?>
+						<a href="<?php echo $red['url']; ?>" target="_blank"><i class="fa fa-<?php echo $icon; ?>"></i></a>
 					<?php endif ?>
 				<?php endforeach ?>						
 		<?php endif ?>

@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.53 21-10-27
 - Map Component height
+- Youtube show play icon
 
 23.8.52 21-10-22
 - Header Class accepts $additional_classes
