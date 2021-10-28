@@ -180,11 +180,12 @@ class Archive_Page {
 
 		if ($appears_on == 'taxonomy') {
 			$taxonomy = get_post_meta( $archive_page_id, 'connected_taxonomy', true );
+			$tax_slug = ($taxonomy == 'product_cat') ? 'categoria-producto' : $taxonomy;
 			$terms = get_the_terms( $archive_page_id, $taxonomy );
 
 			if( !empty( $terms ) ) {
 				// redirige al primer term enlazado
-				$redirect = home_url($taxonomy.'/'.$terms[0]->slug);
+				$redirect = home_url($tax_slug.'/'.$terms[0]->slug);
 			}
 		}
 
