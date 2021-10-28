@@ -95,6 +95,7 @@ class Page_Header{
 		if ($this->get_no_padding()) $classes[] = 'no-padding';
 		if ($this->get_text_color() == 'text-color-2') $classes[] = 'text-color-2';
 		if ($this->get_parallax()) $classes[] = 'parallax';
+		if ($this->get_page_header_bgi() == null) $classes[] = 'no-image';
 		if ($this->get_classes()) $classes[] = $this->get_classes();
 
  		$this->class = 'class="'.implode(' ', $classes).'"';

@@ -6,6 +6,7 @@ CHANGELOG
 - page class corection to get the correct id in header archive pages
 - [posts] query object correction
 - archive page exclude_from_search (listings) true
+- no-image class in page-header if dosnt have background-img
 
 23.8.53 21-10-27
 - Map Component height
