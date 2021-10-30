@@ -114,3 +114,13 @@ function print_module_view($modulo){
 	</section>
 	<?php 
 }
+
+
+
+add_filter('the_content', function($content){
+	ob_start();
+	if($content) echo '<div class="page-module"><div class="componente">'.$content.'</div></div>';
+	// I would liketo add ultimate_fields_page_content() here but dosnt work
+	$filtered_content = ob_get_clean();
+	return $filtered_content;
+}, 100);
