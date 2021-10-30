@@ -17,7 +17,7 @@ $attributes = generate_attributes($componente, $classes_array);
     <?php if ($layout == 'layout2') echo '<div class="container">'; ?>
     <div>
         <?php if ($text): ?>
-            <?php echo apply_filters('the_content', $text); ?>
+            <?php echo do_shortcode(wpautop($text)); ?>
         <?php endif ?>
         <p>
             <span class="progress-bar__num"><?php echo $percentage ?></span>%

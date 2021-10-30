@@ -105,7 +105,7 @@ class Icon_And_Text_Widget extends Custom_Widget {
 					<?php if ($link != NULL) echo '<a href="'.$link.'" target="'.$target.'"></a>'; ?>
 				<?php endif ?>
 			</div>
-			<div><?php if($content) echo apply_filters('the_content', $content); ?></div>
+			<div><?php if($content) echo do_shortcode(wpautop($content)); ?></div>
 		</div>
 		<?php echo $args['after_widget'];
 	}

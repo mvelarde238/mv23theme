@@ -13,7 +13,7 @@ $main_image = get_the_post_thumbnail_url( $post_id, 'large' );
 			<?php if($main_image) echo '<img src="'.$main_image.'" >'; ?>
 		</div>
 		<div class="wb-product-card__content">
-			<?php if($product_card) echo apply_filters('the_content', $product_card); ?>
+			<?php if($product_card) echo do_shortcode(wpautop($product_card)); ?>
 		</div>		
 	</div>
 	<div class="wb-product-card__footer">

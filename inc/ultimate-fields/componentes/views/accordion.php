@@ -82,7 +82,6 @@ $attributes = generate_attributes($componente, $classes_array);
                         $contenido = ob_get_clean();
                     }
                 } else {
-                    // $contenido = apply_filters('the_content', $item['content']);
                     $contenido = '<div class="componente">'.wpautop( do_shortcode( $item['content'], false ) ).'</div>';
                 }
 

@@ -52,7 +52,7 @@ $attributes = generate_attributes($componente, $classes_array);
 				<?php echo $element; ?>
 		</span>
 	</div>
-	<div><?php if($content) echo apply_filters('the_content', $content); ?></div>
+	<div><?php if($content) echo do_shortcode(wpautop($content)); ?></div>
 	<?php echo generate_actions_code($componente); ?>
 	<?php if ($layout == 'layout2') echo '</div>'; ?>
 </div>

@@ -27,7 +27,7 @@ switch ($page_header_element) {
 			<header <?php echo $page_header->get_attributes() ?>>
 				<?php if ($layout != 'layout3') echo '<div class="container">'; ?>
 					<div class="componente">
-						<?php if($page_header_content) echo apply_filters('the_content', $page_header_content); ?>
+						<?php if($page_header_content) echo do_shortcode(wpautop($page_header_content)); ?>
 					</div>
 				<?php if ($layout != 'layout3') echo '</div>'; ?>
 			</header>

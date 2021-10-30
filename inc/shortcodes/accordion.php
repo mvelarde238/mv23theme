@@ -35,7 +35,6 @@ function print_accordion( $atts ){
                     echo ultimate_fields_page_content( str_replace('post_','',$post_id ) );
                     $contenido = ob_get_clean();
                 } else {
-                    // $contenido = apply_filters('the_content', $item['content']);
                     $contenido = wpautop( do_shortcode( $item['content'], false ) );
                 }
 
