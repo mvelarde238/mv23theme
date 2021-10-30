@@ -5,18 +5,16 @@
 	display: flex 
 
 	.sidebar
-		width: 200px
+		padding: $page-module-padding
+		width: 328px
 
 	&--sidebar-right
 		.main
-			width: calc(100% - 200px)
-			padding-right: 30px
-
+			width: calc(100% - 328px)
 
 	&--sidebar-left
 		.main
-			width: calc(100% - 200px)
-			padding-left: 30px
+			width: calc(100% - 328px)
 			order: 1
 
 		.sidebar
@@ -33,12 +31,10 @@
 		&--sidebar-right
 			.main
 				width: 100%
-				padding-right: 0
 				
 		&--sidebar-left
 			.main
 				width: 100%
-				padding-left: 0
 				order: 0
 	
 			.sidebar

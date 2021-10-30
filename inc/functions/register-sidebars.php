@@ -15,5 +15,14 @@ if (!function_exists('mv23_register_sidebars')) {
 			'before_title' => '<h4 class="widgettitle">',
 			'after_title' => '</h4>',
 		));
+		register_sidebar(array(
+			'id' => 'page_sidebar',
+			'name' => 'Sidebar para las páginas',
+			'description' => 'La página tiene que tener activada la plantilla sidebar Left o Right',
+			'before_widget' => '<div id="%1$s" class="widget componente %2$s">',
+			'after_widget' => '</div>',
+			'before_title' => '<h4 class="widgettitle">',
+			'after_title' => '</h4>',
+		));
 	}
 }

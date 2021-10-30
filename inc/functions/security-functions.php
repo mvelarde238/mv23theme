@@ -34,13 +34,13 @@ add_action( 'after_setup_theme', 'v23_disable_admin_bar' );
  * Redirect back to homepage and not allow access to
  * certain pages for not logged in users
  */
-function v23_user_check(){
-	if ( is_page_template('templates/private-page.php') && !is_user_logged_in() ) {
-		wp_redirect( home_url() );
-		exit();
-	}
-}
-add_action( 'template_redirect', 'v23_user_check' );
+// function v23_user_check(){
+// 	if ( is_page_template('templates/private-page.php') && !is_user_logged_in() ) {
+// 		wp_redirect( home_url() );
+// 		exit();
+// 	}
+// }
+// add_action( 'template_redirect', 'v23_user_check' );
 
 
 
