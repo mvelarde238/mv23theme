@@ -11,7 +11,11 @@
         // $('.dropdown-button').dropdown({constrainWidth: false, alignment: 'right', hover: true});
         $('.modal').modal({ dismissible:true,  opacity:.6,  inDuration:300,  outDuration:200, startingTop: '2%', endingTop: '5%', 
             ready: function(modal, trigger) { $(trigger).css('z-index','initial'); },
-            complete: function(modal, trigger) { $('#video-modal__video').trigger('pause').empty(); } 
+            complete: function(modal, trigger) {
+                var empty_on_close = $(modal).hasClass('empty-on-close');
+                if(empty_on_close) $(modal).find('.modal-content').empty();
+                $('#video-modal__video').trigger('pause').empty(); 
+            } 
         });
         $('.modal-trigger').modal();
         // $('select').material_select();
