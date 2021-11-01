@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.56 21-10-30
+- Modal: empty-on-close Callback
+
 23.8.55 21-10-29
 - replace all apply_filters('the_content', $content) by do_shortcode(wpautop($content))
 - oembed function to convert youtube links in oembed

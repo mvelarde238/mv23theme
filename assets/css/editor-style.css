@@ -671,7 +671,6 @@ body#tinymce.wp-editor {
   body#tinymce.wp-editor body {
     overflow-x: hidden; }
   body#tinymce.wp-editor #content {
-    min-height: 100vh;
     overflow: hidden; }
   body#tinymce.wp-editor .mt0 {
     margin-top: 0; }
@@ -680,7 +679,7 @@ body#tinymce.wp-editor {
     body#tinymce.wp-editor .text-color-2 h1, body#tinymce.wp-editor .text-color-2 h2, body#tinymce.wp-editor .text-color-2 h3, body#tinymce.wp-editor .text-color-2 h4, body#tinymce.wp-editor .text-color-2 h5, body#tinymce.wp-editor .text-color-2 h6 {
       color: #fff; }
     body#tinymce.wp-editor .text-color-2 a {
-      color: #fff; }
+      color: #fff !important; }
   body#tinymce.wp-editor .text-color-1 {
     color: #000; }
     body#tinymce.wp-editor .text-color-1 h1, body#tinymce.wp-editor .text-color-1 h2, body#tinymce.wp-editor .text-color-1 h3, body#tinymce.wp-editor .text-color-1 h4, body#tinymce.wp-editor .text-color-1 h5, body#tinymce.wp-editor .text-color-1 h6 {
@@ -736,22 +735,22 @@ body#tinymce.wp-editor {
     body#tinymce.wp-editor .hide-br br {
       display: none; } }
   @media only screen and (min-width: 601px) and (max-width: 1024px) {
-    body#tinymce.wp-editor .center-on-tablet * {
+    body#tinymce.wp-editor .center-on-tablet, body#tinymce.wp-editor .center-on-tablet * {
       text-align: center !important; }
-    body#tinymce.wp-editor .left-on-tablet * {
+    body#tinymce.wp-editor .left-on-tablet, body#tinymce.wp-editor .left-on-tablet * {
       text-align: left !important; }
-    body#tinymce.wp-editor .right-on-tablet * {
+    body#tinymce.wp-editor .right-on-tablet, body#tinymce.wp-editor .right-on-tablet * {
       text-align: right !important; }
     body#tinymce.wp-editor .hide-br-tablet br {
       display: none; } }
   @media only screen and (max-width: 600px) {
     body#tinymce.wp-editor .movil-img-full-width {
       width: 100%; }
-    body#tinymce.wp-editor .center-on-mobile * {
+    body#tinymce.wp-editor .center-on-mobile, body#tinymce.wp-editor .center-on-mobile * {
       text-align: center !important; }
-    body#tinymce.wp-editor .left-on-mobile * {
+    body#tinymce.wp-editor .left-on-mobile, body#tinymce.wp-editor .left-on-mobile * {
       text-align: left !important; }
-    body#tinymce.wp-editor .right-on-mobile * {
+    body#tinymce.wp-editor .right-on-mobile, body#tinymce.wp-editor .right-on-mobile * {
       text-align: right !important; }
     body#tinymce.wp-editor .hide-br-mobile br {
       display: none; } }

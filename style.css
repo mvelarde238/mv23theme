@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:400,500&family=Roboto:300");
 
-/*! 
+/*!
 Theme Name: MV23 Theme 
 Theme URI: http://mv23.com
 Description: MV23 website
@@ -4914,17 +4914,16 @@ a[download] span.icon {
 }
 
 .main-content .sidebar {
-	width: 200px;
+	padding: 90px 0;
+	width: 328px;
 }
 
 .main-content--sidebar-right .main {
-	width: calc(100% - 200px);
-	padding-right: 30px;
+	width: calc(100% - 328px);
 }
 
 .main-content--sidebar-left .main {
-	width: calc(100% - 200px);
-	padding-left: 30px;
+	width: calc(100% - 328px);
 	order: 1;
 }
 
@@ -6370,12 +6369,10 @@ table.responsive-table.bordered tbody tr {
 
 .main-content--sidebar-right .main {
 	width: 100%;
-	padding-right: 0;
 }
 
 .main-content--sidebar-left .main {
 	width: 100%;
-	padding-left: 0;
 	order: 0;
 }
 

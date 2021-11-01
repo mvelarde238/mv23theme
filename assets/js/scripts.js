@@ -13363,6 +13363,8 @@ targetBlank();
         $(trigger).css('z-index', 'initial');
       },
       complete: function complete(modal, trigger) {
+        var empty_on_close = $(modal).hasClass('empty-on-close');
+        if (empty_on_close) $(modal).find('.modal-content').empty();
         $('#video-modal__video').trigger('pause').empty();
       }
     });
