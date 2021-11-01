@@ -27,11 +27,13 @@ require_once( 'fields/progress-circle.php' );
 require_once( 'fields/progress-bar.php' );
 require_once( 'fields/icon-and-text.php' );
 require_once( 'fields/slider.php' );
+require_once( 'fields/image.php' );
 if(TEMPLATE_PART) require_once( 'fields/template-part.php' );
 include( locate_template( 'inc/ultimate-fields/componentes/utils/more-components.php' ) );
 
 $componentes = array(
 	array('name' => 'Editor de Texto', 'variable'=>$text_editor),
+	array('name' => 'Imágen', 'variable'=>$image),
 	array('name' => 'Separador', 'variable'=>$separador),
 	array('name' => 'Accordion', 'variable'=>$accordion),
 	array('name' => 'Carrusel', 'variable'=>$carrusel),

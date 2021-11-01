@@ -11,7 +11,7 @@ $acciones_fields = array(
     		Field::create( 'select', 'action' )->add_options( array(
 				'' => 'Seleccionar',
     			'open-page' => 'Abrir nueva página',
-                'open-image-popup' => 'Mostrar fondo en pop up',
+                'open-image-popup' => 'Mostrar imágen en pop up',
     			'open-video-popup' => 'Mostrar video en pop up'
     		))->set_width(75),
 			Field::create( 'complex', 'enlace' )->hide_label()->rows_layout()->add_fields(array(

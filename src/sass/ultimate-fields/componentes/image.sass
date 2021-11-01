@@ -1,32 +1,19 @@
-.card.componente
+.image
+	&__element
+		width: 100%
+
+.image.componente
 	position: relative
 	display: flex
 	// background-color: #f1f1f1
 	// height: 100%
 
-	&.alignment-center
-		align-items: center
-	&.alignment-flex-end
-		flex-wrap: wrap
-		align-items: flex-end
-	&.alignment-space-between .card__components
-		display: flex
-		flex-wrap: wrap
-		align-content: space-between
-		&>div
-			width: 100%
-
-	.card__components
-		width: 100%
-
-	.componente
-		position: relative
-		z-index: 23
-
 	&[style*='border-radius']
 		overflow: hidden
 
-	&[class*='aspect-ratio']
+	&[class*='aspect-ratio'] .image__element
+		background-size: cover
+		background-position: center
 		&:before
 			content: ''
 			width: 1px
@@ -38,27 +25,27 @@
 			display: table
 			clear: both
 
-	&.aspect-ratio-16-9:before
+	&.aspect-ratio-16-9 .image__element:before
 		padding-bottom: 9% / 16% * 100%
 		// padding-bottom: percentage(9/16)
 		// padding-top: 591.44px / 1127.34px * 100%
-	&.aspect-ratio-1-1:before
+	&.aspect-ratio-1-1 .image__element:before
 		padding-bottom: 100%
-	&.aspect-ratio-4-3:before
+	&.aspect-ratio-4-3 .image__element:before
 		padding-bottom: 3% / 4% * 100%
-	&.aspect-ratio-2-1:before
+	&.aspect-ratio-2-1 .image__element:before
 		padding-bottom: 50%
-	&.aspect-ratio-2_5-1:before
+	&.aspect-ratio-2_5-1 .image__element:before
 		padding-bottom: 1% / 2.5% * 100%
-	&.aspect-ratio-3-4:before
+	&.aspect-ratio-3-4 .image__element:before
 		padding-bottom: 4% / 3% * 100%
-	&.aspect-ratio-9-16:before
+	&.aspect-ratio-9-16 .image__element:before
 		padding-bottom: 16% / 9% * 100%
-	&.aspect-ratio-1-2:before
+	&.aspect-ratio-1-2 .image__element:before
 		padding-bottom: 200%
-	&.aspect-ratio-1-2_5:before
+	&.aspect-ratio-1-2_5 .image__element:before
 		padding-bottom: 2.5% / 1% * 100%
-	&.aspect-ratio-4-1:before
+	&.aspect-ratio-4-1 .image__element:before
 		padding-bottom: 1% / 4% * 100%
 
 	.cover-all
@@ -81,7 +68,3 @@
 			margin: auto
 			min-height: 100%
 			// width: auto
-
-.card.width-12
-	.card.componente
-		min-height: 400px

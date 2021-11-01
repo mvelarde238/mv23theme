@@ -13033,7 +13033,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
 (function ($, c) {
   document.addEventListener('DOMContentLoaded', function () {
     var currentVideo = null;
-    $('.card.has-video-background').hover(function () {
+    $('.has-video-background').hover(function () {
       if (currentVideo != null) {
         currentVideo.trigger('pause');
       }

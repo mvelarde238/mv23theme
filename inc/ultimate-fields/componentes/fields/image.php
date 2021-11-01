@@ -2,12 +2,14 @@
 use Ultimate_Fields\Container\Repeater_Group;
 use Ultimate_Fields\Field;
 
-$aspect_ratio_fields = array(
+$image_fields = array(
+    Field::create( 'tab', 'Contenido' ),
+    Field::create( 'image', 'image' )->hide_label(),
     Field::create( 'tab', 'Tamaño' ),
     Field::create( 'image_select', 'aspect_ratio' )->add_options(array(
         'aspect-ratio-default'  => array(
             'label' => 'default',
-            'image' => get_template_directory_uri() . '/inc/ultimate-fields/images/aspect-ratio-default.png'
+            'image' => get_template_directory_uri() . '/inc/ultimate-fields/images/aspect-ratio-default-b.png'
         ),
         'aspect-ratio-4-3'  => array(
             'label' => '4:3',
@@ -50,32 +52,23 @@ $aspect_ratio_fields = array(
             'image' => get_template_directory_uri() . '/inc/ultimate-fields/images/aspect-ratio-1-2_5.png'
         ),
     )),
-    Field::create( 'select', 'content_alignment','Alineación del Contenido')->add_options( array(
-        'flex-start' => 'Arriba',
-        'center' => 'Al centro',
-        'flex-end' => 'Abajo',
-        'space-between' => 'Distribuir'
-    ))->add_dependency('aspect_ratio','aspect-ratio-default','!='),
+    Field::create( 'select', 'alignment','Alineación de la imágen')->add_options( array(
+        'left' => 'Izquierda',
+        'center' => 'Centrar',
+        'right' => 'Derecha'
+    ))->add_dependency('aspect_ratio','aspect-ratio-default','='),
 );
 
-$videocard_fields = array(
-    Field::create( 'tab', 'Video Card' ),
+$video_fields = array(
+    Field::create( 'tab', 'Video' ),
     Field::create( 'video', 'bgvideo', 'Video de Fondo' ),
     Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 ),
 );
 
-$fields = array( 
-    Field::create( 'tab', 'Contenido' ),
-    $componentes_field,
-);
-
-$card_margenes = $margenes;
-$card_margenes[] = Field::create( 'number', 'components_margin', 'Márgenes de los componentes internos' )->enable_slider( 0, 20 )->set_default_value(20);
-
-$card_args = array(
-    'title' => 'Card',
+$image_args = array(
+    'title' => 'Imágen',
     'edit_mode' => 'popup',
-    'fields' => array_merge($fields, $aspect_ratio_fields, $videocard_fields, $acciones_fields, $settings_fields, $card_margenes, $bordes, $box_shadow, $animation)
+    'fields' => array_merge($image_fields, $acciones_fields, $video_fields, $settings_fields, $margenes, $bordes, $box_shadow, $animation)
 );
 
-$card = Repeater_Group::create( 'Card', $card_args );
+$image = Repeater_Group::create( 'Imágen', $image_args );

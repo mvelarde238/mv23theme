@@ -1,12 +1,19 @@
 <?php
 $tipo = $componente['__type'];
-$componentes = $componente['componentes'];
+$image = $componente['image'];
+if(empty($image)) return;
+$image_url = wp_get_attachment_url($image);
+$alignment = $componente['alignment'];
+
+if($componente['aspect_ratio'] == 'aspect-ratio-default'){
+	$element_style = 'text-align:'.$alignment.';';
+} else {
+	$element_style = 'background-image: url('.$image_url.');';
+}
+
 $actions = (isset($componente['actions'])) ? $componente['actions'] : null;
 $aspect_ratio = ( isset($componente['aspect_ratio']) && $componente['aspect_ratio'] != 'aspect-ratio-default' ) ? $componente['aspect_ratio'] : '';
 $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
-
-$components_margin = (!empty($componente['components_margin'])) ? $componente['components_margin'] : null;
-$components_margin_attrs = ( $components_margin && $components_margin != 20) ? 'data-setmargin='.$components_margin : '';
 
 // video implementation
 $video_url = null;
@@ -22,24 +29,26 @@ $has_video = ($video_url) ? 'has-video-background' : '';
 
 $classes_array = format_classes(array(
 	'componente',
-	'card',
+	'image',
 	get_color_scheme($componente),
 	$componente['class'],
 	$has_video,
 	$aspect_ratio
 ));
 
-if( isset($componente['content_alignment']) && $componente['content_alignment'] != 'flex-start' && !empty($componente['content_alignment']) ) array_push($classes_array, 'alignment-'.$componente['content_alignment']);
-
 $attributes = generate_attributes($componente, $classes_array);
 ?>
-<div <?=$attributes?> <?=$components_margin_attrs?>>
-	<?php if ($video_id): ?>
-		<video <?=$video_style?> width="100%" loop muted="muted"><source src="<?=$video_url?>">Your browser does not support the video tag.</video>
-	<?php endif ?>
-	<?php echo generate_actions_code($componente); ?>
+<div <?=$attributes?>>
 	<?php if ($layout == 'layout2') echo '<div class="container">'; ?>
-	<?php if ( is_array($actions) && count($actions)>0 ):
+	<div class="image__element" style="<?=$element_style?>">
+		<?php if($componente['aspect_ratio'] == 'aspect-ratio-default'): ?>
+			<img src="<?=$image_url?>" alt="">
+		<?php endif; ?>
+		<?php if ($video_id): ?>
+			<video <?=$video_style?> width="100%" loop muted="muted"><source src="<?=$video_url?>">Your browser does not support the video tag.</video>
+		<?php endif ?>
+		<?php echo generate_actions_code($componente); ?>
+		<?php if ( is_array($actions) && count($actions)>0 ):
 		foreach ($actions as $action) {
 			if ($action['trigger'] == 'click' && $action['action'] == 'open-video-popup') {
 				if ($video_id):
@@ -48,12 +57,6 @@ $attributes = generate_attributes($componente, $classes_array);
 			}
 		}
 	endif; ?>
-	<div class="card__components">
-		<?php foreach ($componentes as $componente ) { 
-			$componente['layout'] = 'layout1';
-			$path = get_template_directory().'/inc/ultimate-fields/componentes/views/'.$componente['__type'].'.php';
-			include $path;
-		} ?>
 	</div>
 	<?php if ($layout == 'layout2') echo '</div>'; ?>
 </div>  

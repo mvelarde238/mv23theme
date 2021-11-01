@@ -73,7 +73,12 @@ function generate_actions_code($componente){
                		endif;
 				}
 				if ($action['trigger'] == 'click' && $action['action'] == 'open-image-popup') { 
-					$link = wp_get_attachment_url($componente['bgi']);
+					if( $componente['__type'] == 'imagen' ){
+						$link = wp_get_attachment_url($componente['image']);
+						$link = (!empty($link)) ? $link : wp_get_attachment_url($componente['bgi']);
+					} else {
+						$link = wp_get_attachment_url($componente['bgi']);
+					}
             		if ($link):
                     	$code = '<a class="cover-all zoom" href="'.$link.'"></a>';
                		endif;
