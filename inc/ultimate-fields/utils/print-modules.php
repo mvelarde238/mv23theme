@@ -62,6 +62,13 @@ function ultimate_fields_page_content($id=null){
 
 
 function print_module_view($modulo){
+	$visibility = (isset($modulo['visibility'])) ? $modulo['visibility'] : '';
+
+    if ($visibility == 'is_private' && !current_user_can('administrator')) return;
+    if ($visibility == 'user_is_logged_in' && !is_user_logged_in() ) return;
+    if ($visibility == 'user_is_not_logged_in' && is_user_logged_in() ) return;
+	
+	// ***********************************************************************************************
 	$layout = $modulo['layout'];
 	$full_width_class = ($layout == 'layout2' || $layout == 'layout3') ? 'full-width' : '';
 	$parallax = ( isset($modulo['parallax']) && $modulo['parallax'] == 1 ) ? 'parallax' : '';

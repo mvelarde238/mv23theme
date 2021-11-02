@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.58 21-11-1
 - Correction: DISABLE_PAGE_HEADER_IN wasnt working in single.php
+- Page Module Visibility
 
 23.8.57 21-10-31
 - Image Component

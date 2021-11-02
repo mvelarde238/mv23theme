@@ -18,16 +18,24 @@ $fields = array(
 $nobug_id_and_class = $id_and_class;
 $fields = array_merge($fields,$nobug_id_and_class);
 
-$fields[] = Field::create( 'select', 'text_color', 'Color del texto' )->set_width( 33 )->add_options( array(
+$fields[] = Field::create( 'select', 'text_color', 'Color del texto' )->add_options( array(
     'text-color-default' => 'Negro',
     'text-color-2' => 'Blanco',
-))->set_default_value( 'text-color-default' );
+))->set_default_value( 'text-color-default' )->set_width( 33 );
 
-$fields[] = Field::create( 'select', 'layout')->set_width( 33 )->add_options( array(
+$fields[] = Field::create( 'select', 'visibility', 'Visibilidad')->add_options( array(
+    '' => 'Visible para todos los usuarios',
+    'user_is_logged_in' => 'Visible para usuarios registrados',
+    'user_is_not_logged_in' => 'Visible para usuarios no registrados',
+    'is_private' => 'Solo visible para usuarios admin.',
+))->set_width( 33 );
+
+$fields[] = Field::create( 'select', 'layout')->add_options( array(
     'layout1' => 'Estándar',
     'layout2' => 'Fondo extendido / Contenido centrado',
     'layout3' => 'Todo extendido',
-));
+))->set_width( 33 );
+
 $fields[] = Field::create( 'tab', 'Fondo del módulo' );
 
 $nobug_fondo_complex = $fondo_complex;
