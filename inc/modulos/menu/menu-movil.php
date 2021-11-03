@@ -1,5 +1,5 @@
 <?php 
-$logo_id = get_option( 'secondary_logo' );
+$logo_id = (LOGOS_QUANTITY == 1) ? get_option( 'main_logo' ) : get_option( 'secondary_logo' );
 $logo_url = ($logo_id) ? wp_get_attachment_image_src( $logo_id, 'full') : array(); 
 ?>
 <div id="menu-movil" class="menu-movil side-nav text-color-2">
