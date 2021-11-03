@@ -2,7 +2,7 @@
 use Ultimate_Fields\Field;
 
 $bordes = array(
-	Field::create( 'tab', 'Bordes' ),
+	// Field::create( 'tab', 'Bordes' ),
 	Field::create( 'checkbox', 'show_border' )->set_text( 'Mostrar Bordes' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
 	Field::create( 'complex', 'border' )->set_width( 25 )->add_fields(array(
 		Field::create( 'text', 'width', 'Grosor de línea' )->set_width(20)->set_suffix( 'px' )->set_default_value('1'),

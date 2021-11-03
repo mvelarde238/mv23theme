@@ -2,7 +2,7 @@
 use Ultimate_Fields\Field;
 
 $box_shadow = array(
-	Field::create( 'tab', 'Sombra' ),
+	// Field::create( 'tab', 'Sombra' ),
 	Field::create( 'checkbox', 'add_box_shadow' )->set_text( 'Agregar sombras' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
 	Field::create( 'repeater', 'box_shadow', '' )->set_add_text('Agregar')->add_group('Shadow', array(
         'fields' => array(

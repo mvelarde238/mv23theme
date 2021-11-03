@@ -8,19 +8,20 @@ $fields = array(
 );
 
 $responsive_settings = array(
-    Field::create( 'tab', 'Responsive' ),
+    // Field::create( 'tab', 'Responsive' ),
+    Field::create( 'checkbox', 'add_responsive' )->set_text( 'Cambiar alineación de textos en móviles' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
     Field::create( 'select', 'tablet_text_align','Alineación del texto en Tablets')->add_options( array(
         '' => 'Seleccionar',
         'left' => 'Izquierda',
         'center' => 'Centro',
         'right' => 'Derecha',
-    ))->set_width(50),
+    ))->set_width(50)->add_dependency('add_responsive'),
     Field::create( 'select', 'mobile_text_align','Alineación del texto en Móviles')->add_options( array(
         '' => 'Seleccionar',
         'left' => 'Izquierda',
         'center' => 'Centro',
         'right' => 'Derecha',
-    ))->set_width(50),
+    ))->set_width(50)->add_dependency('add_responsive'),
 );
 
 $text_editor_args = array(

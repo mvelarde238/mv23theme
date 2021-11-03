@@ -18,8 +18,9 @@ for ($i=1; $i <= $nth_columnas; $i++) {
 }
 
 $columnas_settings_fields = $settings_fields;
-$columnas_settings_fields[] = Field::create( 'video', 'bgvideo', 'Video de Fondo' )->set_width( 25 );
-$columnas_settings_fields[] = Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width( 75 );
+$columnas_settings_fields[] = Field::create( 'checkbox', 'add_video_bg' )->set_text( 'Agregar video de fondo' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' );
+$columnas_settings_fields[] = Field::create( 'video', 'bgvideo', 'Video de Fondo' )->set_width( 25 )->add_dependency('add_video_bg');
+$columnas_settings_fields[] = Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width( 75 )->add_dependency('add_video_bg');
 
 $columnas = Repeater_Group::create( 'Columnas' )
     ->set_title( 'Columnas' )

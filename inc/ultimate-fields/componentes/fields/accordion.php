@@ -36,6 +36,7 @@ $fields = array(
             )
         )
     ),
+    Field::create( 'tab', 'Apariencia' ),
     Field::create( 'select', 'desktop_template', 'Apariencia en Desktop' )->add_options( array(    
         'accordion' => 'Accordion',
         'tab' => 'Tab',

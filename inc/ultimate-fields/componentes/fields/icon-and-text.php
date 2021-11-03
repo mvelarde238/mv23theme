@@ -106,7 +106,7 @@ $it_responsive_settings = array(
 $icon_and_text_args = array(
     'edit_mode' => 'popup',
     'layout' => 'table',
-    'fields' => array_merge($fields, $default_settings_fields, $acciones_fields, $it_responsive_settings),
+    'fields' => array_merge($fields, $acciones_fields, $it_responsive_settings, $default_settings_fields),
     'title_template' => '<%= content %>'
 );
 
