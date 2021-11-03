@@ -4,6 +4,8 @@ CHANGELOG
 23.8.59 21-11-02
 - Page Header allow empty content when "contenido" is selected
 - if LOGOS_QTY == 1 show main_logo in mobile menu
+- Components Settings reduced to one tab
+- Accordion Icon default to none
 
 23.8.58 21-11-01
 - Correction: DISABLE_PAGE_HEADER_IN wasnt working in single.php

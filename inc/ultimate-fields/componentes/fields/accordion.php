@@ -12,6 +12,7 @@ $fields = array(
                 Field::create( 'tab', 'Título' ),
                 Field::create( 'text', 'titulo', 'Título' )->set_width( 30 ),
                 Field::create( 'radio', 'identificador','Seleccione que mostrar antes del título:')->set_orientation( 'horizontal' )->add_options( array(
+                        '' => 'Nada',
                         'icono' => 'Icono',
                         'imagen' => 'Imagen',
                 ))->set_width( 30 ),
