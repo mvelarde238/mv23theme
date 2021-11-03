@@ -22,17 +22,17 @@ switch ($page_header_element) {
 	
 	case 'contenido':
 		$page_header_content = get_metadata($key,$page_ID,'page_header_content', true);
-
-		if ($page_header_content) : ?>
-			<header <?php echo $page_header->get_attributes() ?>>
+		?>
+		<header <?php echo $page_header->get_attributes() ?>>
+			<?php if ($page_header_content) : ?>
 				<?php if ($layout != 'layout3') echo '<div class="container">'; ?>
 					<div class="componente">
 						<?php if($page_header_content) echo do_shortcode(wpautop($page_header_content)); ?>
 					</div>
 				<?php if ($layout != 'layout3') echo '</div>'; ?>
-			</header>
-			<?php 
-		endif;
+			<?php endif; ?> 
+		</header>
+		<?php
 		break;
 
 	case 'ninguno':
