@@ -23,6 +23,7 @@ if( !defined('BORDER_RADIUS') ) define ('BORDER_RADIUS', 15);
 if( !defined('LOGOS_QUANTITY') ) define ('LOGOS_QUANTITY', 2);
 if( !defined('FLOATING_HEADER_BREAKPOINT') ) define ('FLOATING_HEADER_BREAKPOINT', 200);
 if( !defined('HEADER_HEIGHT') ) define ('HEADER_HEIGHT', 0); // for anchors if header is fixed
+if( !defined('CARD_CONTENT_TYPE') ) define ('CARD_CONTENT_TYPE', 'components');
 
 if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','post','megamenu','archive_page'));
 if( !defined('DISABLE_PAGE_HEADER_IN') ) define ('DISABLE_PAGE_HEADER_IN', array('megamenu'));

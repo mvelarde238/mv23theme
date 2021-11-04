@@ -2,6 +2,18 @@
 use Ultimate_Fields\Container\Repeater_Group;
 use Ultimate_Fields\Field;
 
+$card_components_field = clone $componentes_field;
+
+$fields = array( 
+    Field::create( 'tab', 'Contenido' ),
+    Field::create('radio', 'content_type')->set_orientation('horizontal')->add_options(array(
+        'simple' => 'Simple',
+        'components' => 'Componentes'
+    ))->hide_label()->set_default_value(CARD_CONTENT_TYPE),
+    Field::create( 'wysiwyg', 'content')->hide_label()->add_dependency('content_type','simple','='),
+    $card_components_field->add_dependency('content_type','components','='),
+);
+
 $aspect_ratio_fields = array(
     Field::create( 'tab', 'Tamaño' ),
     Field::create( 'image_select', 'aspect_ratio' )->add_options(array(
@@ -64,18 +76,13 @@ $videocard_fields = array(
     Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 ),
 );
 
-$fields = array( 
-    Field::create( 'tab', 'Contenido' ),
-    $componentes_field,
-);
-
-$card_margenes = $margenes;
-$card_margenes[] = Field::create( 'number', 'components_margin', 'Márgenes de los componentes internos' )->enable_slider( 0, 20 )->set_default_value(20);
+$card_settings_fields = $settings_fields;
+$card_settings_fields[] = Field::create( 'number', 'components_margin', 'Márgenes de los componentes internos' )->enable_slider( 0, 20 )->set_default_value(20);
 
 $card_args = array(
     'title' => 'Card',
     'edit_mode' => 'popup',
-    'fields' => array_merge($fields, $aspect_ratio_fields, $videocard_fields, $acciones_fields, $settings_fields, $card_margenes, $bordes, $box_shadow, $animation)
+    'fields' => array_merge($fields, $aspect_ratio_fields, $videocard_fields, $acciones_fields, $card_settings_fields, $margenes, $bordes, $box_shadow, $animation)
 );
 
 $card = Repeater_Group::create( 'Card', $card_args );

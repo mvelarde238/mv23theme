@@ -1,6 +1,7 @@
 <?php
 $tipo = $componente['__type'];
-$componentes = $componente['componentes'];
+$content_type = (isset( $componente['content_type'] )) ? $componente['content_type'] : 'components';
+
 $actions = (isset($componente['actions'])) ? $componente['actions'] : null;
 $aspect_ratio = ( isset($componente['aspect_ratio']) && $componente['aspect_ratio'] != 'aspect-ratio-default' ) ? $componente['aspect_ratio'] : '';
 $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
@@ -49,11 +50,22 @@ $attributes = generate_attributes($componente, $classes_array);
 		}
 	endif; ?>
 	<div class="card__components">
-		<?php foreach ($componentes as $componente ) { 
-			$componente['layout'] = 'layout1';
-			$path = get_template_directory().'/inc/ultimate-fields/componentes/views/'.$componente['__type'].'.php';
-			include $path;
-		} ?>
+		<?php
+		if( $content_type == 'simple' ):
+			if( $componente['content'] ){
+				echo '<div class="editor-de-texto componente">';
+				echo do_shortcode(wpautop($componente['content']));
+				echo '</div>';
+			};
+		else: 
+			$componentes = $componente['componentes'];
+			foreach ($componentes as $componente ) { 
+				$componente['layout'] = 'layout1';
+				$path = get_template_directory().'/inc/ultimate-fields/componentes/views/'.$componente['__type'].'.php';
+				include $path;
+			} 
+		endif; 
+		?>
 	</div>
 	<?php if ($layout == 'layout2') echo '</div>'; ?>
 </div>  

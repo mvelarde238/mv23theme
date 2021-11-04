@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.60 21-11-04
+- Card Component content_type setting
+
 23.8.59 21-11-02
 - Page Header allow empty content when "contenido" is selected
 - if LOGOS_QTY == 1 show main_logo in mobile menu
