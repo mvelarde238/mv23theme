@@ -1,10 +1,9 @@
 <?php
 add_action( 'uf.init', 'theme_register_fields' );
 
-if (!is_admin()) {
-	require_once( 'utils/oembed.php' );
-	require_once( 'utils/print-modules.php' );
-}
+// if (!is_admin()) {}
+require_once( 'utils/oembed.php' );
+require_once( 'utils/print-modules.php' );
 
 function theme_register_fields() {
 	require_once( 'utils/get-secciones-reusables.php' );
