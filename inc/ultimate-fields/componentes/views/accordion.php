@@ -3,6 +3,8 @@ $tipo = $componente['__type'];
 $items = $componente['accordion'];
 $desktop_template = $componente['desktop_template'];
 $tab_style = (isset($componente['tab_style'])) ? $componente['tab_style'] : 'style1';
+$tab_settings = (isset($componente['tab_settings'])) ? $componente['tab_settings'] : array('close_first_tab'=>0);
+$data_openFirstTab = ( $tab_settings['close_first_tab'] == 1 ) ? 'data-openfirsttab="false"' : '';
 $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 
 $classes_array = format_classes(array(
@@ -17,7 +19,7 @@ $attributes = generate_attributes($componente, $classes_array);
 <div <?=$attributes?>>
     <?php if ($layout == 'layout2') echo '<div class="container">'; ?>
     <?php if (is_array($items) && count($items)>0): ?>
-        <div class="v23-togglebox <?php echo 'tab-'.$tab_style ?>" data-desktoptemplate="<?=$desktop_template?>">
+        <div class="v23-togglebox <?php echo 'tab-'.$tab_style ?>" <?=$data_openFirstTab?> data-desktoptemplate="<?=$desktop_template?>">
             <?php
             $nav = '<div class="v23-togglebox__nav">';
             $itemsbox = '<div class="v23-togglebox__items">';

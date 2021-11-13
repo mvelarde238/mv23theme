@@ -41,7 +41,7 @@ $fields = array(
     Field::create( 'select', 'desktop_template', 'Apariencia en Desktop' )->add_options( array(    
         'accordion' => 'Accordion',
         'tab' => 'Tab',
-    ))->set_width(50),
+    ))->set_width(33),
     Field::create( 'image_select', 'tab_style', 'Apariencia' )->add_options(array(
         'style1'  => array(
             'label' => 'Estilo 1',
@@ -51,7 +51,10 @@ $fields = array(
             'label' => 'Estilo 2',
             'image' => get_template_directory_uri() . '/inc/ultimate-fields/images/tab-style-2.png'
         )
-    ))->set_width(50)->add_dependency('desktop_template','tab','=')
+    ))->set_width(33)->add_dependency('desktop_template','tab','='),
+    Field::create('complex','tab_settings')->add_fields(array(
+        Field::create('checkbox','close_first_tab')->set_text('Cerrar primer tab')->hide_label()
+    ))->set_width(33)
 );
 
 $accordion_args = array(

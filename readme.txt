@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.62 21-11-13
+- Accordion Component -> update js and open first tab implementation
+
 23.8.61 21-11-09
 - ultimate_fields_page_content() load in admin for ajax use
 
