@@ -20,19 +20,11 @@
             var source = document.createElement('source');
                 
             source.setAttribute('src', videoUrl);
-            $(currentVideo).html(source);
+            // $(currentVideo).html(source);
+            currentVideo.appendChild(source);
             currentVideo.load();
             $('#video-modal').modal('open');
             currentVideo.play();
-
-            // var videoUrl = $(this).attr('href');
-            // var source = document.createElement('source');
-            // var currentVideo = document.getElementById('video-modal__video');
-                
-            // source.setAttribute('src', videoUrl);
-            // currentVideo.appendChild(source);
-            // $('#video-modal').modal('open');
-            // currentVideo.play();
         });
 
     });
