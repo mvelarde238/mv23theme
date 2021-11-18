@@ -16,13 +16,23 @@
             ev.preventDefault();
 
             var videoUrl = $(this).attr('href');
-            var source = document.createElement('source');
             var currentVideo = document.getElementById('video-modal__video');
+            var source = document.createElement('source');
                 
             source.setAttribute('src', videoUrl);
-            currentVideo.appendChild(source);
+            $(currentVideo).html(source);
+            currentVideo.load();
             $('#video-modal').modal('open');
             currentVideo.play();
+
+            // var videoUrl = $(this).attr('href');
+            // var source = document.createElement('source');
+            // var currentVideo = document.getElementById('video-modal__video');
+                
+            // source.setAttribute('src', videoUrl);
+            // currentVideo.appendChild(source);
+            // $('#video-modal').modal('open');
+            // currentVideo.play();
         });
 
     });
