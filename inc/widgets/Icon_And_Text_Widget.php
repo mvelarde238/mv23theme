@@ -41,7 +41,7 @@ class Icon_And_Text_Widget extends Custom_Widget {
 			        'circle-outline' => 'Circular y Lineal',
 			    ))->set_width(20),
 			    Field::create( 'color', 'ibgc', 'Color de Fondo')->set_width(50)->add_dependency('style','default','!='),
-			    Field::create( 'number', 'ibgc_alpha', 'Transparencia del fondo' )->set_width(50)->enable_slider( 0, 1 )->set_default_value(1)->set_step( 0.1 )->add_dependency('style','default','!='),
+			    Field::create( 'number', 'ibgc_alpha', 'Transparencia del fondo' )->set_width(50)->enable_slider( 0, 100 )->set_default_value(15)->set_step( 5 )->add_dependency('style','default','!='),
 			    Field::create( 'complex', 'ienlace' )->rows_layout()->add_fields(array(
 			        Field::create( 'radio', 'url_type','Seleccione que contenido se abrirá al hacer clic:')->set_orientation( 'horizontal' )->add_options( array(
 			                '' => 'Desactivar',
@@ -96,7 +96,7 @@ class Icon_And_Text_Widget extends Custom_Widget {
 		}
 		$target = ($enlace['new_tab'] == 1) ? '_blank' : '';
 		echo $args['before_widget']; ?>
-		<div class="icon-and-text">
+		<div class="icon-and-text icon--left">
 			<div <?=$icon_class?> <?=$icon_style?>>
 				<?php if ($iname): ?>
 					<?php if ($istyle!='default') echo '<span style="background-color:'.$backgroundColor.'">'; ?>
