@@ -12,6 +12,10 @@
             },function(){
                 $(this).find('ul.sub-menu:first').hide();
             });
+
+            $("li.menu-item:not(.is-active)").hover(function(){
+                hide_main_megamenu();
+            },function(){});
         };
 
         // ****************************************************************************************************

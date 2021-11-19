@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.64 21-11-19
 - Icon_And_Text_Widget corrections: alpha setting and left-icon class
+- Megamenu js correction: hide if hover on any item
 
 23.8.63 21-11-17
 - video-card.js correction in .zoom-video function 
