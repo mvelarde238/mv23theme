@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.65 21-11-22
+- Componente Reusable -> get_template_part() instead of get_template_directory()
+
 23.8.64 21-11-19
 - Icon_And_Text_Widget corrections: alpha setting and left-icon class
 - Megamenu js correction: hide if hover on any item
