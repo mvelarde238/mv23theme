@@ -251,13 +251,13 @@
 
 		copy: function() {
 			var settings = this.model.datastore.clone();
-			sessionStorage.setItem('copied_settings', JSON.stringify(settings.attributes));
+			localStorage.setItem('copied_settings', JSON.stringify(settings.attributes));
 			this.hideContextMenu();
 		},
 
 		paste: function() {
 			this.hideContextMenu();
-			var copied_settings = sessionStorage.getItem('copied_settings');
+			var copied_settings = localStorage.getItem('copied_settings');
 			if (copied_settings) {
 				var settings = JSON.parse(copied_settings),
 					component_type = this.model.datastore.attributes.__type;

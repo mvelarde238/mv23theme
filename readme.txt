@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.65 21-11-22
 - Componente Reusable -> get_template_part() instead of get_template_directory()
+- lib UF -> (js/container/group.js) localStorage instead os sessionStorage
 
 23.8.64 21-11-19
 - Icon_And_Text_Widget corrections: alpha setting and left-icon class

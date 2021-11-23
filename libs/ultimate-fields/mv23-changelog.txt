@@ -26,3 +26,6 @@ mv23 changelog-------------------------
 27-09-2021
 - (templates/repeater/group.php, js/container/group.js, js/field/repeater.js) add save button and save function corrections
 - (assets/css/ultimate-fields.css) context menu
+
+22-11-2021
+- (js/container/group.js) localStorage instead os sessionStorage
