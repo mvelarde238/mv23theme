@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.66 21-11-23
+- Accordion Component mobile_template
+
 23.8.65 21-11-22
 - Componente Reusable -> get_template_part() instead of get_template_directory()
 - lib UF -> (js/container/group.js) localStorage instead os sessionStorage

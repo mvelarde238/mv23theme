@@ -37,7 +37,7 @@ $fields = array(
             )
         )
     ),
-    Field::create( 'tab', 'Apariencia' ),
+    Field::create( 'tab', 'Desktop' ),
     Field::create( 'select', 'desktop_template', 'Apariencia en Desktop' )->add_options( array(    
         'accordion' => 'Accordion',
         'tab' => 'Tab',
@@ -54,6 +54,12 @@ $fields = array(
     ))->set_width(33)->add_dependency('desktop_template','tab','='),
     Field::create('complex','tab_settings')->add_fields(array(
         Field::create('checkbox','close_first_tab')->set_text('Cerrar primer tab')->hide_label()
+    ))->set_width(33)->add_dependency('desktop_template','tab','='),
+
+    Field::create( 'tab', 'Mobile' ),
+    Field::create( 'select', 'mobile_template', 'Apariencia en Móviles' )->add_options( array(    
+        'accordion' => 'Accordion',
+        'tab' => 'Tab',
     ))->set_width(33)
 );
 
