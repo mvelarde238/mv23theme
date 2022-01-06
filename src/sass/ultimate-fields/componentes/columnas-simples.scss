@@ -5,13 +5,26 @@
 		justify-content: space-between;
 	}
 
-	$i: 1;
-	$nth-cols : 12;
-    @while $i <= $nth-cols {
-		$perc: unquote((100 / ($nth-cols / $i)) + "%");
-		.width-#{$i}{
-			width: #{$perc};
+	@media #{$medium-and-up} {
+		$i: 5;
+		$nth-cols : 12;
+		@while $i <= $nth-cols {
+			$perc: unquote((100 / ($nth-cols / $i)) + "%");
+			.width-#{$i}{
+				width: #{$perc};
+			}
+			$i: $i + 1;
 		}
-		$i: $i + 1;
+	}
+	@media only screen and (min-width: 768px) {
+		$i: 1;
+		$nth-cols : 12;
+		@while $i <= 4 {
+			$perc: unquote((100 / ($nth-cols / $i)) + "%");
+			.width-#{$i}{
+				width: #{$perc};
+			}
+			$i: $i + 1;
+		}
 	}
 } 

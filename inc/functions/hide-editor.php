@@ -1,7 +1,7 @@
 <?php
 add_action( 'init', function() {
 
-    $posttypes = array('post','page');
+    $posttypes = array('post','page','product');
     $show_editor_in = get_option('show_editor_in') ? get_option('show_editor_in') : array();
 
     foreach ($posttypes as $slug){

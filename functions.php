@@ -26,6 +26,7 @@ if( !defined('HEADER_HEIGHT') ) define ('HEADER_HEIGHT', 0); // for anchors if h
 if( !defined('CARD_CONTENT_TYPE') ) define ('CARD_CONTENT_TYPE', 'components');
 
 if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','post','megamenu','archive_page'));
+if( !defined('CONTENT_BUILDER_POSTTYPES') ) define ('CONTENT_BUILDER_POSTTYPES', array());
 if( !defined('DISABLE_PAGE_HEADER_IN') ) define ('DISABLE_PAGE_HEADER_IN', array('megamenu'));
 
 if( !defined('MENU_ITEM_DATA_LOCATIONS') ) define ('MENU_ITEM_DATA_LOCATIONS', array('main-nav'));

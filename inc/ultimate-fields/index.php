@@ -20,6 +20,7 @@ function theme_register_fields() {
 	require_once( 'containers/theme-options.php' );
 	get_template_part( 'inc/ultimate-fields/containers/page-header' );
 	require_once( 'containers/page-content.php' );
+	require_once( 'containers/content-blocks.php' );
 	get_template_part( 'inc/ultimate-fields/containers/menu-item-data' );
 	require_once( 'containers/seccion-reusable.php' );
 	// require_once( 'containers/shortcode-icon.php' );

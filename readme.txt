@@ -1,6 +1,12 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.67 21-01-05
+- Content Blocks Container
+- Columnas Simples Responsive
+- hide editor in product post type
+- Theme Options show editor in product
+
 23.8.66 21-11-23
 - Accordion Component mobile_template
 

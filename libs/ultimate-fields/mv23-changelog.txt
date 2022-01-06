@@ -29,3 +29,6 @@ mv23 changelog-------------------------
 
 22-11-2021
 - (js/container/group.js) localStorage instead os sessionStorage
+
+05-01-2022
+- (core\templates\field\layout\placeholder.php) placeholder text
