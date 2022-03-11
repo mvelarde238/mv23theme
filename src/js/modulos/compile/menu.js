@@ -6,14 +6,14 @@
         // ****************************************************************************************************
 
         if (viewport.width > 768) {
-            $("li.menu-item-has-children").hover(function(){
+            $(".header li.menu-item-has-children").hover(function(){
                 $(this).find('ul.sub-menu:first').show(268);
                 hide_main_megamenu();
             },function(){
                 $(this).find('ul.sub-menu:first').hide();
             });
 
-            $("li.menu-item:not(.is-active)").hover(function(){
+            $(".header li.menu-item:not(.is-active)").hover(function(){
                 hide_main_megamenu();
             },function(){});
         };
