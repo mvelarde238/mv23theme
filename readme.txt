@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.71 22-03-14
+- Icon and text component -> font-size JUST with icon (apparently line height problem in images)
+
 23.8.70 22-03-11
 - .sub-menu hover just in header menu
 
