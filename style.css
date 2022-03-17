@@ -3448,6 +3448,10 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 	font-size: 23px;
 }
 
+.image.componente.has-video-background.aspect-ratio-default video {
+	position: static;
+}
+
 .image.componente.has-video-background {
 	overflow: hidden;
 	background-color: #000;
@@ -4899,7 +4903,7 @@ ul.page-numbers .next {
 }
 
 .video-modal {
-	background-color: transparent;
+	background-color: #000;
 }
 
 .video-modal .modal-content {

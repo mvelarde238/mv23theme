@@ -4,7 +4,13 @@ use Ultimate_Fields\Field;
 
 $image_fields = array(
     Field::create( 'tab', 'Contenido' ),
-    Field::create( 'image', 'image' )->hide_label(),
+    Field::create('radio', 'type', 'Seleccione el tipo de contenido:')->set_orientation('horizontal')->add_options(array(
+        'image' => 'Imágen',
+        'video' => 'Video'
+    )),
+    Field::create( 'image', 'image' )->hide_label()->add_dependency('type','image','='),
+    Field::create( 'video', 'bgvideo', 'Video de Fondo' )->add_dependency('type','video','='),
+    Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->add_dependency('type','video','='),
     Field::create( 'tab', 'Tamaño' ),
     Field::create( 'image_select', 'aspect_ratio' )->add_options(array(
         'aspect-ratio-default'  => array(
@@ -59,16 +65,11 @@ $image_fields = array(
     ))->add_dependency('aspect_ratio','aspect-ratio-default','='),
 );
 
-$video_fields = array(
-    Field::create( 'tab', 'Video' ),
-    Field::create( 'video', 'bgvideo', 'Video de Fondo' ),
-    Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 ),
-);
 
 $image_args = array(
-    'title' => 'Imágen',
+    'title' => 'Imágen / Video',
     'edit_mode' => 'popup',
-    'fields' => array_merge($image_fields, $acciones_fields, $video_fields, $settings_fields, $margenes, $bordes, $box_shadow, $animation)
+    'fields' => array_merge($image_fields, $acciones_fields, $settings_fields, $margenes, $bordes, $box_shadow, $animation)
 );
 
 $image = Repeater_Group::create( 'Imágen', $image_args );

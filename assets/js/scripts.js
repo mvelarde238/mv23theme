@@ -12668,7 +12668,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
   "use strict";
 
   var instances = [],
-      version = '3.8.24',
+      version = '5.8.23',
       timers = {};
   /**
    * @class  V23_ToggleBox
@@ -12685,7 +12685,6 @@ function animateWidth(elem, start, end, duration, spanElem) {
     if (!this._createInstance(el)) return;
     this.el = el; // root element
 
-    this.instance = instances.length;
     this.currentTemplate = null;
 
     this._handleOptions(options); // Bind all private methods
@@ -12718,12 +12717,25 @@ function animateWidth(elem, start, end, duration, spanElem) {
   ;
   V23_ToggleBox.prototype = {
     _handleOptions: function _handleOptions(options) {
-      this.options = options = _extend({}, options);
+      // options configured as data-attributes
+      var dataOptions = {},
+          dataHeaderHeight = this.el.dataset.headerheight,
+          dataDesktopTemplate = this.el.dataset.desktoptemplate,
+          dataMovilTemplate = this.el.dataset.moviltemplate,
+          dataOpenfirstTab = this.el.dataset.openfirsttab;
+      if (dataDesktopTemplate != undefined) dataOptions.desktopTemplate = dataDesktopTemplate;
+      if (dataMovilTemplate != undefined) dataOptions.movilTemplate = dataMovilTemplate;
+      if (dataHeaderHeight != undefined) dataOptions.headerHeight = dataHeaderHeight;
+      if (dataOpenfirstTab != undefined) dataOptions.openFirstTab = dataOpenfirstTab; // dataOptions are overriddden if options arg is passed
+
+      this.options = options = _extend(dataOptions, options); // defaults if no options are passed
+
       var defaults = {
         desktopTemplate: 'tab',
         movilTemplate: 'accordion',
         breakpoint: 768,
-        headerHeight: 0
+        headerHeight: 0,
+        openFirstTab: true
       }; // Set default options
 
       for (var name in defaults) {
@@ -12732,13 +12744,12 @@ function animateWidth(elem, start, end, duration, spanElem) {
     },
     _createInstance: function _createInstance(el) {
       for (var i = 0; i < instances.length; i++) {
-        if (instances[i] === el) {
+        if (instances[i].el === el) {
           console.log('V23 ToggleBox Error: el elemento id:' + el.id + ' | class:' + el.className + ' solo puede ser instanciado una vez.');
           return false;
         }
       }
 
-      instances.push(el);
       return true;
     },
     _saveItems: function _saveItems() {
@@ -12771,12 +12782,8 @@ function animateWidth(elem, start, end, duration, spanElem) {
       this._handle_active_class(event.target);
     },
     _handle_active_class: function _handle_active_class(btn) {
-      // for (var i = 0; i < this.items.length; i++) {
-      // 	_removeClass(this.items[i].btn, 'active');
-      // 	_removeClass(this.items[i].box, 'active');	
-      // };				
       if (btn) {
-        // method is triggered by a click event
+        // method is triggered by a user click event
         for (var i = 0; i < this.items.length; i++) {
           if (this.items[i].btn === btn) {
             if (this.currentTemplate === 'accordion') {
@@ -12798,7 +12805,17 @@ function animateWidth(elem, start, end, duration, spanElem) {
 
         ;
       } else {
-        if (this.currentTemplate != 'accordion') {
+        // method is triggered on init or on resize
+        for (var i = 0; i < this.items.length; i++) {
+          _removeClass(this.items[i].btn, 'active');
+
+          _removeClass(this.items[i].box, 'active');
+        }
+
+        ;
+        console.log(this.options.openFirstTab);
+
+        if (this.currentTemplate === 'tab' && String(this.options.openFirstTab) === 'true') {
           _addClass(this.items[0].btn, 'active');
 
           _addClass(this.items[0].box, 'active');
@@ -12857,9 +12874,11 @@ function animateWidth(elem, start, end, duration, spanElem) {
           id = "v23ToggleBox" + instances.length;
       window.addEventListener('resize', function () {
         _waitForFinalEvent(function () {
-          if (options.movilTemplate == 'tab' && options.desktopTemplate == 'tab') return;
+          if (options.movilTemplate == 'tab' && options.desktopTemplate == 'tab') return; // if( options.movilTemplate === options.desktopTemplate) return;
 
           that._handle_template();
+
+          that._handle_active_class();
         }, timeToWaitForLast, id);
       }, true);
     }
@@ -12985,17 +13004,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
     return result;
   }
 
-  ; // function _wrapAll(elementsArray, elementContainer){
-  // 	for (var ind = 0; ind < elementsArray.length; ind++) {
-  // 		elementContainer.append(elementsArray[0]);
-  // 	};
-  // };
-  // function _removeElementsByClass(className){
-  // 	var elements = document.getElementsByClassName(className);
-  // 	while(elements.length > 0){
-  // 		elements[0].parentNode.removeChild(elements[0]);
-  // 	}
-  // };
+  ;
 
   function _insertAfter(newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
@@ -13019,11 +13028,28 @@ function animateWidth(elem, start, end, duration, spanElem) {
    */
 
   V23_ToggleBox.create = function (el, options) {
-    return new V23_ToggleBox(el, options);
+    var options = options ? options : {},
+        togglebox = new V23_ToggleBox(el, options);
+
+    if (togglebox.el) {
+      instances.push(togglebox);
+    }
+
+    return togglebox;
   };
 
   V23_ToggleBox.v = function () {
     console.log(version);
+  };
+
+  V23_ToggleBox.init = function () {
+    var toggleboxes = document.getElementsByClassName('v23-togglebox');
+
+    for (var i = 0; i < toggleboxes.length; i++) {
+      V23_ToggleBox.create(toggleboxes[i]);
+    }
+
+    return instances;
   }; // Export
 
 
@@ -13031,6 +13057,32 @@ function animateWidth(elem, start, end, duration, spanElem) {
 });
 
 (function ($, c) {
+  function youtube_parser(url) {
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    var match = url.match(regExp);
+    return match && match[7].length == 11 ? match[7] : false;
+  }
+
+  function vimeo_parser(url) {
+    var regExp = /:\/\/(www\.)?vimeo.com\/(\d+)($|\/)/;
+    var match = url.match(regExp);
+    return match ? match[2] : false;
+  }
+
+  function dailymotion_parser(url) {
+    var m = url.match(/^.+dailymotion.com\/(video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/);
+
+    if (m !== null) {
+      if (m[4] !== undefined) {
+        return m[4];
+      }
+
+      return m[2];
+    }
+
+    return null;
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     var currentVideo = null;
     $('.has-video-background').hover(function () {
@@ -13046,12 +13098,55 @@ function animateWidth(elem, start, end, duration, spanElem) {
     $('body').on('click', '.zoom-video', function (ev) {
       ev.preventDefault();
       var videoUrl = $(this).attr('href');
-      var source = document.createElement('source');
+      var $videoWrapper = $('#video-modal').find('.video-responsive');
       var currentVideo = document.getElementById('video-modal__video');
-      source.setAttribute('src', videoUrl);
-      currentVideo.appendChild(source);
-      $('#video-modal').modal('open');
-      currentVideo.play();
+      var source = document.createElement('source');
+      var fuentes_externas = ['youtube', 'vimeo', 'dailymotion'];
+      var fuente_del_video = '';
+
+      for (var i = 0; i < fuentes_externas.length; i++) {
+        if (videoUrl.indexOf(fuentes_externas[i]) != -1) {
+          fuente_del_video = fuentes_externas[i];
+          break;
+        }
+      }
+
+      switch (fuente_del_video) {
+        case 'youtube':
+          var video_id = youtube_parser(videoUrl);
+
+          if (video_id) {
+            $videoWrapper.html('<iframe src="https://www.youtube.com/embed/' + video_id + '?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>');
+          }
+
+          $('#video-modal').modal('open');
+          break;
+
+        case 'vimeo':
+          var video_id = vimeo_parser(videoUrl);
+
+          if (video_id) {
+            $videoWrapper.html('<iframe src="https://player.vimeo.com/video/' + video_id + '?autoplay=1&loop=1&autopause=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+          }
+
+          $('#video-modal').modal('open');
+          break;
+
+        case 'dailymotion':
+          var video_id = dailymotion_parser(videoUrl);
+
+          if (video_id) {
+            $videoWrapper.html('<iframe frameborder="0" src="//www.dailymotion.com/embed/video/' + video_id + '" allowfullscreen></iframe>');
+          }
+
+          $('#video-modal').modal('open');
+          break;
+
+        default:
+          $videoWrapper.html('<video controls autoplay><source src="' + videoUrl + '"></video>');
+          $('#video-modal').modal('open');
+          break;
+      }
     });
   });
 })(jQuery, console.log);
@@ -13219,12 +13314,15 @@ targetBlank();
     // ****************************************************************************************************
 
     if (viewport.width > 768) {
-      $("li.menu-item-has-children").hover(function () {
+      $(".header li.menu-item-has-children").hover(function () {
         $(this).find('ul.sub-menu:first').show(268);
         hide_main_megamenu();
       }, function () {
         $(this).find('ul.sub-menu:first').hide();
       });
+      $(".header li.menu-item:not(.is-active)").hover(function () {
+        hide_main_megamenu();
+      }, function () {});
     }
 
     ; // ****************************************************************************************************
@@ -13365,7 +13463,7 @@ targetBlank();
       complete: function complete(modal, trigger) {
         var empty_on_close = $(modal).hasClass('empty-on-close');
         if (empty_on_close) $(modal).find('.modal-content').empty();
-        $('#video-modal__video').trigger('pause').empty();
+        $('#video-modal .video-responsive').html('');
       }
     });
     $('.modal-trigger').modal(); // $('select').material_select();

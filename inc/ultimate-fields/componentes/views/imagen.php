@@ -1,7 +1,10 @@
 <?php
 $tipo = $componente['__type'];
 $image = $componente['image'];
-if(empty($image)) return;
+$type = ( isset($componente['type']) ) ? $componente['type'] : 'image';
+
+if(empty($image) && count($componente['bgvideo']['videos']) < 1 ) return;
+
 $image_url = wp_get_attachment_url($image);
 $alignment = $componente['alignment'];
 
@@ -12,7 +15,7 @@ if($componente['aspect_ratio'] == 'aspect-ratio-default'){
 }
 
 $actions = (isset($componente['actions'])) ? $componente['actions'] : null;
-$aspect_ratio = ( isset($componente['aspect_ratio']) && $componente['aspect_ratio'] != 'aspect-ratio-default' ) ? $componente['aspect_ratio'] : '';
+$aspect_ratio = ( isset($componente['aspect_ratio']) && $componente['aspect_ratio'] != 'aspect-ratio-default' ) ? $componente['aspect_ratio'] : 'aspect-ratio-default';
 $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 
 // video implementation
@@ -41,7 +44,7 @@ $attributes = generate_attributes($componente, $classes_array);
 <div <?=$attributes?>>
 	<?php if ($layout == 'layout2') echo '<div class="container">'; ?>
 	<div class="image__element" style="<?=$element_style?>">
-		<?php if($componente['aspect_ratio'] == 'aspect-ratio-default'): ?>
+		<?php if( $type == 'image' && $componente['aspect_ratio'] == 'aspect-ratio-default'): ?>
 			<img src="<?=$image_url?>" alt="">
 		<?php endif; ?>
 		<?php if ($video_id): ?>

@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.74 22-03-17
 - video modal refactorization: background-color, load empty, empty on close, .zoom-video logic
+- Image Component refactorization: select type: video / image
 
 23.8.73 22-03-16
 - Theme Optiones Custom Page and reorder theme utilities (CPTS)
