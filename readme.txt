@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.73 22-03-16
 - Theme Optiones Custom Page and reorder theme utilities (CPTS)
+- Show posts count in theme options CPT's
 
 23.8.72 22-03-15
 - \inc\partials\minipost.php -> thumbnail size: medium

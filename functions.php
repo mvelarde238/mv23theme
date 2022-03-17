@@ -69,6 +69,7 @@ require_once( 'inc/functions/archive-page.php' );
 require_once( 'inc/functions/remove-custom-fields-metabox.php' );
 require_once( 'inc/functions/ajax/mv23-library-actions.php' );
 require_once( 'inc/functions/body-style-tag.php' );
+require_once( 'inc/functions/show-cpt-count-in-admin.php' );
 
 function mv23_launch_theme() {
     // launching operation cleanup
