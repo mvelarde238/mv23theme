@@ -145,7 +145,7 @@ class Archive_Page {
 			'taxonomies'          => archive_page()->supported_taxonomies,
 			'public'              => true,
 			'show_ui'             => true,
-			'show_in_menu'        => true,
+			'show_in_menu'          => 'theme-options/theme-options-admin.php',
 			'show_in_nav_menus'   => false,
 			'publicly_queryable'  => true,
 			'exclude_from_search' => true,

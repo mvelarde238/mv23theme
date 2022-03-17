@@ -1,6 +1,12 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.73 22-03-16
+- Theme Optiones Custom Page and reorder theme utilities (CPTS)
+
+23.8.72 22-03-15
+- \inc\partials\minipost.php -> thumbnail size: medium
+
 23.8.71 22-03-14
 - Icon and text component -> font-size JUST with icon (apparently line height problem in images)
 

@@ -6,7 +6,7 @@ $title = get_the_title();
 $id = get_the_ID();
 $resumen = get_the_excerpt();
 $link = get_the_permalink($id);
-$imagen = get_the_post_thumbnail_url( $id, 'large' );
+$imagen = get_the_post_thumbnail_url( $id, 'medium' );
 ?>
 <div class="post-card post-card--style1">
 	<div class="post-card__imagen" style="background-image: url(<?=$imagen?>);"></div>

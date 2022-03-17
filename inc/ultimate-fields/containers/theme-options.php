@@ -5,8 +5,32 @@ use Ultimate_Fields\Field;
 
 $logos_field_names = array();
 
+add_action( 'admin_menu', function() {
+	add_menu_page('Theme Options','Theme Options','manage_options','theme-options/theme-options-admin.php',function(){},'',4 );
+});
+
+add_filter( 'custom_menu_order', function ( $menu_ord ) {
+    global $submenu;
+    // Enable the next line to see all menu orders
+    // echo '<pre>'.print_r($submenu,true).'</pre>';
+
+    $arr = array();
+    $arr[] = $submenu['theme-options/theme-options-admin.php'][4];   
+    $arr[] = $submenu['theme-options/theme-options-admin.php'][5];   
+    $arr[] = $submenu['theme-options/theme-options-admin.php'][6];   
+    $arr[] = $submenu['theme-options/theme-options-admin.php'][7];   
+    $arr[] = $submenu['theme-options/theme-options-admin.php'][0];
+    $arr[] = $submenu['theme-options/theme-options-admin.php'][1];
+    $arr[] = $submenu['theme-options/theme-options-admin.php'][2];   
+    $arr[] = $submenu['theme-options/theme-options-admin.php'][3];   
+    $submenu['theme-options/theme-options-admin.php'] = $arr;
+
+    return $menu_ord;
+});
+
 // -----------------------------------------------------------------------------------------------------------------------------------------------
-$theme_options_page = Options_Page::create( 'theme-options', 'Theme Options' )->set_position( 2 );
+// $theme_options_page = Options_Page::create( 'theme-options', 'Theme Options' )->set_position( 2 );
+$theme_options_page = Options_Page::create( 'theme-options', 'Theme Options' )->set_parent( 'theme-options/theme-options-admin.php' );
 $main_options_fields = array();
 
 for ($i=1; $i <= LOGOS_QUANTITY; $i++) { 
@@ -70,7 +94,8 @@ Container::create( 'page_editor_options' )
     ));
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------
-$header_page = Options_Page::create( 'header', 'Header' )->set_parent( $theme_options_page );
+// $header_page = Options_Page::create( 'header', 'Header' )->set_parent( $theme_options_page );
+$header_page = Options_Page::create( 'header', 'Header' )->set_parent( 'theme-options/theme-options-admin.php' );
 
 $header_fields = array(
     Field::create( 'tab', 'Header Fijo' ),
@@ -104,7 +129,7 @@ Container::create( 'header_options' )
     ->add_fields($header_fields);
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------
-$footer_page = Options_Page::create( 'footer', 'Pie de Página' )->set_parent( $theme_options_page );
+$footer_page = Options_Page::create( 'footer', 'Pie de Página' )->set_parent( 'theme-options/theme-options-admin.php' );
 
 $footer_fields = array(
     Field::create( 'tab', 'Español' ),
@@ -122,7 +147,7 @@ Container::create( 'footer_options' )
     ->add_fields($footer_fields);
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------
-$custom_scripts_page = Options_Page::create( 'custom_scripts', 'Custom Scripts' )->set_parent( $theme_options_page );
+$custom_scripts_page = Options_Page::create( 'custom_scripts', 'Custom Scripts' )->set_parent( 'theme-options/theme-options-admin.php' );
 
 Container::create( 'custom_scripts_options' ) 
     ->add_location( 'options', $custom_scripts_page )
