@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.75 22-03-18
+- facebook share data-hashtag correction
+
 23.8.74 22-03-17
 - video modal refactorization: background-color, load empty, empty on close, .zoom-video logic
 - Image Component refactorization: select type: video / image

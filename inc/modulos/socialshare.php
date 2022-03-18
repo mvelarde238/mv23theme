@@ -1,5 +1,5 @@
 <ul class="socialshare">
-	<li><button data-sharer="facebook" data-hashtag="Wokandbox" data-url="<?php the_permalink(); ?>"><span class="fa fa-facebook"></span></button></li>
+	<li><button data-sharer="facebook" data-hashtag="<?php the_title(); ?>" data-url="<?php the_permalink(); ?>"><span class="fa fa-facebook"></span></button></li>
 	<?php if (wp_is_mobile()) { ?>
 		<li><button data-sharer="whatsapp" data-title="<?php the_title(); ?>" data-url="<?php the_permalink(); ?>"><span class="fa fa-whatsapp"></span></li>
 	<?php } else { ?>
