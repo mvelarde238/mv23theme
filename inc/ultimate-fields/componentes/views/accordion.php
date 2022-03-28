@@ -29,14 +29,8 @@ $attributes = generate_attributes($componente, $classes_array);
             $count = 0;
             foreach ($items as $item): 
                 $titulo = $item['titulo'];
-                $slug = str_replace(" ","-",strtolower($titulo));
-                $slug = str_replace("?", "b", $slug);
-                $slug = str_replace("¿", "a", $slug);
-                $slug = str_replace("Ó", "a", $slug);
-                $slug = str_replace(".", "", $slug);
-                $slug = str_replace("(", "", $slug);
-                $slug = str_replace(")", "", $slug);
-                $slug = str_replace(",", "", $slug);
+                $slug = sanitize_title($titulo);
+                if( preg_match('@[0-9]@i',$slug) ) $slug = 'tab-'.$slug;
 
                 $identificador = $item['identificador'];
 
@@ -87,7 +81,7 @@ $attributes = generate_attributes($componente, $classes_array);
                         $contenido = ob_get_clean();
                     }
                 } else {
-                    $contenido = '<div class="componente">'.wpautop( do_shortcode( $item['content'], false ) ).'</div>';
+                    $contenido = '<div class="componente">'.do_shortcode(wpautop(oembed($item['content']))).'</div>';
                 }
 
                 $nav .= '<p class="v23-togglebox__btn" data-boxid="#'.$slug.'">'.$icon_html.$titulo.'</p>';
