@@ -1,10 +1,13 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.77 22-03-29
+- Correction in oembed function (not convert links to iframe) 
+
 23.8.76 22-03-28
 - Accordion changes
 - Accordion Comp. sanitize_title() for slug
-- Oembed functions refactorization to replace url with video in accordion
+- Oembed function refactorization to replace url with video in accordion
 
 23.8.75 22-03-18
 - facebook share data-hashtag correction
