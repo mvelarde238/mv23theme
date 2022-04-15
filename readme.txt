@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.77 22-04-14
 - MV23_GLOBALS lang works with pll_current_language()
+- Correction in oembed function: pattern dosnt start with whitespace \s
 
 23.8.77 22-03-29
 - Correction in oembed function (not convert links to iframe) 

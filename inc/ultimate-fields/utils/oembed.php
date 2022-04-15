@@ -1,7 +1,7 @@
 <?php
 function oembed($post_content)
 {
-    $pattern = '@\s(http|https)://(www\.)?youtu[^\s]*@i';
+    $pattern = '@(http|https)://(www\.)?youtu[^\s]*@i';
     $matches = array();
     preg_match_all($pattern, $post_content, $matches);
 
