@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.78 22-04-20
+- (core\classes\Options_Page.php) add_metaboxes hook third param 
+
 23.8.77 22-04-14
 - MV23_GLOBALS lang works with pll_current_language()
 - Correction in oembed function: pattern dosnt start with whitespace \s

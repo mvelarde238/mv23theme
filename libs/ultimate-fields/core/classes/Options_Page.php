@@ -320,7 +320,7 @@ class Options_Page {
 		 * @param string $id The ID of the page.
 		 */
 		do_action( 'add_meta_boxes_' . $this->id, $this );
-		do_action( 'add_meta_boxes', $this->id );
+		do_action( 'add_meta_boxes', $this->id, $this );
 
 		add_screen_option( 'layout_columns', array( 'max' => 2, 'default' => 2 ) );
 
