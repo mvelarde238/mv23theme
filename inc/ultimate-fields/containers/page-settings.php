@@ -2,7 +2,8 @@
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 
-$uf_posttypes = \array_diff(UF_POSTTYPES, DISABLE_PAGE_HEADER_IN);
+// $uf_posttypes = \array_diff(UF_POSTTYPES, DISABLE_PAGE_HEADER_IN);
+$uf_posttypes = UF_POSTTYPES;
 
 Container::create( 'page_settings' )
     ->add_location( 'post_type', $uf_posttypes )
