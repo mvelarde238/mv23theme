@@ -46,6 +46,8 @@ switch ($page_header_element) {
 			elseif( is_search() ):
 				$searchkey = $_GET['s'];
 				echo '<h1 class="center">Resultados de búsqueda para: '.$searchkey.'</h1>';
+			elseif( is_404() ):
+				echo '<h1>Not Found</h1>';
 			else:
 				echo '<h1>'.get_the_title( $page_ID ).'</h1>';
 			endif; ?>
