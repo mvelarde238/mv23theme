@@ -99,7 +99,7 @@
 
   &.btn-large {
     &.halfway-fab {
-      bottom: -$button-floating-large-size / 2;
+      bottom: calc($button-floating-large-size / 2);
     }
 
     width: $button-floating-large-size;
@@ -117,7 +117,7 @@
 
     position: absolute;
     right: 24px;
-    bottom: -$button-floating-size / 2;
+    bottom: calc($button-floating-size / 2);
   }
 
   display: inline-block;
