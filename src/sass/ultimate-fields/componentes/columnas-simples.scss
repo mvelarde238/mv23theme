@@ -9,7 +9,7 @@
 		$i: 5;
 		$nth-cols : 12;
 		@while $i <= $nth-cols {
-			$perc: unquote((100 / ($nth-cols / $i)) + "%");
+			$perc: unquote(calc(100 / calc($nth-cols / $i)) + "%");
 			.width-#{$i}{
 				width: #{$perc};
 			}
@@ -20,7 +20,7 @@
 		$i: 1;
 		$nth-cols : 12;
 		@while $i <= 4 {
-			$perc: unquote((100 / ($nth-cols / $i)) + "%");
+			$perc: unquote(calc(100 / calc($nth-cols / $i)) + "%");
 			.width-#{$i}{
 				width: #{$perc};
 			}
