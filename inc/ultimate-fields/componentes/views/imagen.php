@@ -5,7 +5,7 @@ $type = ( isset($componente['type']) ) ? $componente['type'] : 'image';
 
 if(empty($image) && count($componente['bgvideo']['videos']) < 1 ) return;
 
-$image_url = wp_get_attachment_url($image);
+$image_url = wp_get_attachment_image_url( $image, IMAGE_THUMB_SIZE );
 $alignment = $componente['alignment'];
 
 if($componente['aspect_ratio'] == 'aspect-ratio-default'){

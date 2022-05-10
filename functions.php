@@ -24,6 +24,7 @@ if( !defined('LOGOS_QUANTITY') ) define ('LOGOS_QUANTITY', 2);
 if( !defined('FLOATING_HEADER_BREAKPOINT') ) define ('FLOATING_HEADER_BREAKPOINT', 200);
 if( !defined('HEADER_HEIGHT') ) define ('HEADER_HEIGHT', 0); // for anchors if header is fixed
 if( !defined('CARD_CONTENT_TYPE') ) define ('CARD_CONTENT_TYPE', 'components');
+if( !defined('IMAGE_THUMB_SIZE') ) define ('IMAGE_THUMB_SIZE', 'full');
 
 if( !defined('MOBILE_MENU_WIDTH') ) define ('MOBILE_MENU_WIDTH', 300);
 if( !defined('MOBILE_MENU_POSITION') ) define ('MOBILE_MENU_POSITION', 'left');

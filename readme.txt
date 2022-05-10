@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.84 22-05-10
+- IMAGE_THUMB_SIZE constant implementation
+
 23.8.83 22-05-09
 - Using / for division outside of calc() is deprecated
 - MOBILE_MENU_ [POSITION, WIDTH] constants implementation
