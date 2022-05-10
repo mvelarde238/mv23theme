@@ -3,6 +3,7 @@
 Author: Miguel Velarde
 URL: http://velarde23.com 
 */
+require_once( 'inc/functions/utils.php' );
 // if( !defined('WP_POST_REVISIONS') ) define ('WP_POST_REVISIONS', false);
 if( !defined('THEME_VERSION') ) define ('THEME_VERSION', '8.23');
 if( !defined('PARENT_THEME_TEST_MODE') ) define ('PARENT_THEME_TEST_MODE', false);
@@ -15,7 +16,7 @@ define ('FONT_AWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7
 if( !defined('MAIN_COLOR') ) define ('MAIN_COLOR', '#F8522C');
 if( !defined('SECONDARY_COLOR') ) define ('SECONDARY_COLOR', '#2A5354');
 if( !defined('TERTIARY_COLOR') ) define ('TERTIARY_COLOR', '#CDC6BE');
-if( !defined('PAGE_HEADER_BGC') ) define ('PAGE_HEADER_BGC', '#2A5354');
+if( !defined('PAGE_HEADER_BGC') ) define ('PAGE_HEADER_BGC', get_secondary_color());
 if( !defined('PAGE_HEADER_LAYOUT') ) define ('PAGE_HEADER_LAYOUT', 'layout2');
 if( !defined('PAGE_HEADER_TEXT_COLOR') ) define ('PAGE_HEADER_TEXT_COLOR', 'text-color-2');
 if( !defined('PAGE_HEADER_BGI') ) define ('PAGE_HEADER_BGI', 0);
@@ -25,6 +26,11 @@ if( !defined('FLOATING_HEADER_BREAKPOINT') ) define ('FLOATING_HEADER_BREAKPOINT
 if( !defined('HEADER_HEIGHT') ) define ('HEADER_HEIGHT', 0); // for anchors if header is fixed
 if( !defined('CARD_CONTENT_TYPE') ) define ('CARD_CONTENT_TYPE', 'components');
 if( !defined('IMAGE_THUMB_SIZE') ) define ('IMAGE_THUMB_SIZE', 'full');
+
+if( !defined('CF7_USE_EMAIL_TEMPLATE') ) define ('CF7_USE_EMAIL_TEMPLATE', true);
+if( !defined('CF7_EMAIL_MAIN_COLOR') ) define ('CF7_EMAIL_MAIN_COLOR', get_main_color());
+// logo url: useful if logo is svg or another not supported format in emails
+if( !defined('CF7_EMAIL_LOGO') ) define ('CF7_EMAIL_LOGO', false);
 
 if( !defined('MOBILE_MENU_WIDTH') ) define ('MOBILE_MENU_WIDTH', 300);
 if( !defined('MOBILE_MENU_POSITION') ) define ('MOBILE_MENU_POSITION', 'left');
@@ -76,6 +82,7 @@ require_once( 'inc/functions/ajax/mv23-library-actions.php' );
 require_once( 'inc/functions/body-style-tag.php' );
 require_once( 'inc/functions/show-cpt-count-in-admin.php' );
 require_once( 'inc/functions/theme-my-login-multi-language-support.php' );
+if( CF7_USE_EMAIL_TEMPLATE ) require_once( 'inc/functions/cf7-mail-template.php' );
 
 function mv23_launch_theme() {
     // launching operation cleanup

@@ -3,6 +3,11 @@ CHANGELOG
 **************************************************************************************************
 23.8.84 22-05-10
 - IMAGE_THUMB_SIZE constant implementation
+- CF7_USE_EMAIL_TEMPLATE constant implementation
+-----------------------------------------------------------------------
+- !IMPORTANT child themes need to include:
+require_once( get_template_directory() . '/inc/functions/utils.php' );
+-----------------------------------------------------------------------
 
 23.8.83 22-05-09
 - Using / for division outside of calc() is deprecated
