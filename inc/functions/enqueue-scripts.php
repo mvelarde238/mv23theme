@@ -41,7 +41,9 @@ function mv23_scripts_and_styles() {
             'nonce' =>  wp_create_nonce( 'global-nonce' ),
             'userIsLoggedIn' => is_user_logged_in(),
             'lang' => (function_exists('pll_current_language')) ? pll_current_language() : 'es_ES',
-            'headerHeight' => HEADER_HEIGHT
+            'headerHeight' => HEADER_HEIGHT,
+            'mobile_menu_width' => MOBILE_MENU_WIDTH,
+            'mobile_menu_position' => MOBILE_MENU_POSITION,
         )); 
 
         wp_enqueue_script( 'mv23-scripts' );

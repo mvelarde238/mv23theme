@@ -70,7 +70,12 @@
         // MOBILE MENU
         // ****************************************************************************************************
         
-        $('.menu-movil__btn').sideNav({ menuWidth:300, edge:'left', closeOnClick: true, draggable:false,});
+        $('.menu-movil__btn').sideNav({ 
+            menuWidth: MV23_GLOBALS.mobile_menu_width, 
+            edge: MV23_GLOBALS.mobile_menu_position, 
+            closeOnClick: true, 
+            draggable: false
+        });
         $('.menu-movil .sub-menu').css('display','none');
         $('.menu-movil li.menu-item-has-children').append('<button class="toogle-submenu"></button>');
         $('.menu-movil').on('click','.toogle-submenu',function(){

@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.83 22-05-09
 - Using / for division outside of calc() is deprecated
+- MOBILE_MENU_ [POSITION, WIDTH] constants implementation
 
 23.8.82 22-05-06
 - Page Header in 404 page
