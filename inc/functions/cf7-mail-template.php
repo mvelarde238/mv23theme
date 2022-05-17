@@ -31,8 +31,6 @@ if (!function_exists('mv23_cf7_email_template')) {
             $mail_2['body'] = $header . $body_2 . $footer;
             $contact_form->set_properties(array('mail_2' => $mail_2));
         }
-        print_r( $mail['body'] );
-        die();
     }
 }
 

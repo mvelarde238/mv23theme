@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 23.8.84 22-05-10
+- CF7_USE_EMAIL_TEMPLATE implementation: error corrections
+
+23.8.84 22-05-10
 - IMAGE_THUMB_SIZE constant implementation
 - CF7_USE_EMAIL_TEMPLATE constant implementation
 -----------------------------------------------------------------------

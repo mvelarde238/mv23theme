@@ -27,7 +27,7 @@ if( !defined('HEADER_HEIGHT') ) define ('HEADER_HEIGHT', 0); // for anchors if h
 if( !defined('CARD_CONTENT_TYPE') ) define ('CARD_CONTENT_TYPE', 'components');
 if( !defined('IMAGE_THUMB_SIZE') ) define ('IMAGE_THUMB_SIZE', 'full');
 
-if( !defined('CF7_USE_EMAIL_TEMPLATE') ) define ('CF7_USE_EMAIL_TEMPLATE', true);
+if( !defined('CF7_USE_EMAIL_TEMPLATE') ) define ('CF7_USE_EMAIL_TEMPLATE', false);
 if( !defined('CF7_EMAIL_MAIN_COLOR') ) define ('CF7_EMAIL_MAIN_COLOR', get_main_color());
 // logo url: useful if logo is svg or another not supported format in emails
 if( !defined('CF7_EMAIL_LOGO') ) define ('CF7_EMAIL_LOGO', false);
