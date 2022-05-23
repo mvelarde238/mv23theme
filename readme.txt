@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.85 22-05-23
 - Icon and text component -> font-size always (line height problem correction)
+- Map height corrections
 
 23.8.84 22-05-10
 - CF7_USE_EMAIL_TEMPLATE implementation: error corrections

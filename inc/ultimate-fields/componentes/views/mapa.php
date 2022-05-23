@@ -8,8 +8,8 @@ $lng = $location['latLng']['lng'];
 $icono = $componente['icono'];
 $icono = wp_get_attachment_url($icono);
 
-$height = $componente['height'];
-$height_style = ($height) ? 'style="height:'.$height.'px;"' : '';
+$height = (isset($componente['height']) && $componente['height']) ? $componente['height'] : 280;
+$height_style = 'style="height:'.$height.'px;"';
 
 $classes_array = format_classes(array(
     'componente',

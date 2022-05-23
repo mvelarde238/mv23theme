@@ -3578,10 +3578,6 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 	border-radius: 50%;
 }
 
-.mapa {
-	min-height: 280px;
-}
-
 .mapa__gmap {
 	height: 100%;
 	width: 100%;
