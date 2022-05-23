@@ -8,8 +8,8 @@
 
 // Project configuration
 var project       = 'mv23theme', // Nombre de proyecto, usado como nombre de archivo al momento de crear el zip
-    url           = 'mv23.com/2021/pruebas', // Local Development URL for BrowserSync. Default: './'
-    nodeModules_path = '../../../../../../../node_modules/',
+    url           = 'mv23.com', // Local Development URL for BrowserSync. Default: './'
+    nodeModules_path = '../../../../../../node_modules/',
     build         = '../', // Folder donde se guarda el zip 
     buildInclude  = [
         // Archivos que se van a guardar en el zip
@@ -44,15 +44,15 @@ var project       = 'mv23theme', // Nombre de proyecto, usado como nombre de arc
 * Dependencias
 */
 var gulp         = require(nodeModules_path+'gulp'),
-    sass         = require(nodeModules_path+'gulp-sass'),
+    sass         = require(nodeModules_path+'gulp-sass')(require('sass')),
     minifyCSS    = require(nodeModules_path+'gulp-clean-css'),
     concat       = require(nodeModules_path+'gulp-concat'),
     uglifyJs     = require(nodeModules_path+'gulp-uglify'),
     babel        = require(nodeModules_path+'gulp-babel'),
     browserSync  = require(nodeModules_path+'browser-sync'),
-    svgmin       = require(nodeModules_path+'gulp-svgmin'),
+    // svgmin       = require(nodeModules_path+'gulp-svgmin'),
     mergeQueries = require(nodeModules_path+'gulp-merge-media-queries'),
-    filelist     = require(nodeModules_path+'gulp-filelist'),
+    // filelist     = require(nodeModules_path+'gulp-filelist'),
    //  zip          = require(nodeModules_path+'gulp-zip'),
    //  runSequence  = require(nodeModules_path+'run-sequence'),
     lel = null;
