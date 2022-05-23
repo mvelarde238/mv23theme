@@ -28,7 +28,7 @@ if ($icon_element == 'icono') {
 }
 
 $icon_style = '';
-if ($icon_element == 'icono')  $icon_style .= 'font-size:'.$componente['ifontsize'].'px;';
+$icon_style .= 'font-size:'.$componente['ifontsize'].'px;';
 if($componente['icolor']) $icon_style .= 'color:'.$componente['icolor'].';';
 $icon_style .= (isset($componente['iposition']) && $componente['iposition'] == 'top' && isset($componente['itopalign']) && $componente['itopalign']) ? "text-align:".$componente['itopalign'].";" : "text-align:center;";
 $icon_style = ($icon_style) ? 'style="'.$icon_style.'"' : '';
