@@ -5,6 +5,7 @@ URL: http://velarde23.com
 */
 require_once( 'inc/functions/utils.php' );
 // if( !defined('WP_POST_REVISIONS') ) define ('WP_POST_REVISIONS', false);
+if( !defined('THEME_DIR') ) define ('THEME_DIR', __DIR__);
 if( !defined('THEME_VERSION') ) define ('THEME_VERSION', '8.23');
 if( !defined('PARENT_THEME_TEST_MODE') ) define ('PARENT_THEME_TEST_MODE', false);
 define ('IS_MOBILE', wp_is_mobile());
@@ -50,6 +51,27 @@ if( !defined('COLUMNAS_SIMPLES') ) define ('COLUMNAS_SIMPLES', false);
 if( !defined('ITEMS_GRID') ) define ('ITEMS_GRID', false);
 if( !defined('TEMPLATE_PART') ) define ('TEMPLATE_PART', false);
 
+if( !defined('LISTING_DESKTOP_COLUMNS') ) define ('LISTING_DESKTOP_COLUMNS', 2);
+if( !defined('LISTING_LAPTOP_COLUMNS') ) define ('LISTING_LAPTOP_COLUMNS', 2);
+if( !defined('LISTING_TABLET_COLUMNS') ) define ('LISTING_TABLET_COLUMNS', 2);
+if( !defined('LISTING_MOBILE_COLUMNS') ) define ('LISTING_MOBILE_COLUMNS', 1);
+if( !defined('LISTING_DESKTOP_GAP') ) define ('LISTING_DESKTOP_GAP', '50px');
+if( !defined('LISTING_LAPTOP_GAP') ) define ('LISTING_LAPTOP_GAP', '40px');
+if( !defined('LISTING_TABLET_GAP') ) define ('LISTING_TABLET_GAP', '30px');
+if( !defined('LISTING_MOBILE_GAP') ) define ('LISTING_MOBILE_GAP', '20px');
+if( !defined('ARCHIVE_SIDEBAR') ) define ('ARCHIVE_SIDEBAR', true);
+if( !defined('ARCHIVE_MAIN_CONTENT_TEMPLATE') ) define ('ARCHIVE_MAIN_CONTENT_TEMPLATE', 'main-content--sidebar-left');
+if( !defined('SEARCH_PLACEHOLDER') ) define ('SEARCH_PLACEHOLDER', array('es' => 'Buscar...', 'en' => 'Search...' ));
+
+if( !defined('USE_PORTFOLIO_CPT') ) define( 'USE_PORTFOLIO_CPT', false);
+if( !defined('LISTING_CPTS') ) define( 'LISTING_CPTS', array('post' => 'Entradas'));
+if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array());
+if( !defined('LISTING_TEMPLATES') ) define( 'LISTING_TEMPLATES', array('' => 'Estilo por defecto'));
+if( !defined('LISTING_PAGINATION_TYPES') ) define( 'LISTING_PAGINATION_TYPES', array('none' => 'Ninguno', 'classic' => 'Numérico', 'load_more' => 'Cargar más'));
+if( !defined('LISTING_POST_TEMPLATE') ) define( 'LISTING_POST_TEMPLATE', array('' => 'Estilo por defecto'));
+if( !defined('LISTING_LOADING_TEXT') ) define( 'LISTING_LOADING_TEXT', array('es' => 'Cargando...', 'en' => 'Loading...' ));
+if( !defined('LISTING_LOAD_MORE_TEXT') ) define( 'LISTING_LOAD_MORE_TEXT', array('es' => 'Cargar más...', 'en' => 'Load more...' ));
+
 require_once( 'libs/ultimate-fields/ultimate-fields.php' );
 
 require_once( 'inc/classes/page.php' );
@@ -73,7 +95,6 @@ get_template_part( 'inc/functions/theme-nav-walker' );
 require_once( 'inc/ultimate-fields/index.php' );
 require_once( 'inc/functions/include-posttypes.php' );
 require_once( 'inc/functions/include-shortcodes.php' );
-require_once( 'inc/functions/include-ajax-functions.php' );
 require_once( 'inc/functions/fix-fatal-error-allowed-memory-size-error.php' );
 // require_once( 'inc/functions/maybe-redirect-archive-page.php' );
 require_once( 'inc/functions/archive-page.php' );
@@ -83,6 +104,7 @@ require_once( 'inc/functions/body-style-tag.php' );
 require_once( 'inc/functions/show-cpt-count-in-admin.php' );
 require_once( 'inc/functions/theme-my-login-multi-language-support.php' );
 if( CF7_USE_EMAIL_TEMPLATE ) require_once( 'inc/functions/cf7-mail-template.php' );
+require_once( 'inc/functions/ajax/load-posts.php' );
 
 function mv23_launch_theme() {
     // launching operation cleanup
@@ -116,10 +138,8 @@ function mv23_launch_theme() {
     // load_theme_textdomain( 'mv23', get_template_directory() . '/translation' );
     mv23_include_posttypes();
     mv23_include_shortcodes();
-    mv23_include_ajax_functions();
 }
 
 add_action( 'after_setup_theme', 'mv23_launch_theme' );
-
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>

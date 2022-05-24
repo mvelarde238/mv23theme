@@ -1,2 +1,21 @@
-blockquote 
+blockquote
 	padding-left: 40px
+	display: flex
+	justify-content: space-between
+	margin: 0
+	&:before
+		content: ''
+		width: 74px
+		height: 74px
+		background-image: url('assets/images/blockquote.png')
+	
+	&>p
+		margin-top: 20px
+		width: calc(100% - 90px)
+	
+	&+*
+		margin-top: 20px
+
+.theme-color-2
+	blockquote:before
+		background-image: url('assets/images/blockquote2.png')

@@ -13,7 +13,9 @@
 					<?php the_content(); ?>
 					<?php echo ultimate_fields_page_content(get_the_ID()); ?>
 				</article>
-				<?php comments_template(); ?>
+				<div class="page-module pdt0"><div class="componente">
+					<?php comments_template(); ?>
+				</div></div>
 			<?php endwhile; endif; ?>
 			<?php get_template_part('inc/modulos/modals/controlador'); ?>
 		</main>

@@ -1,25 +1,20 @@
 .searchform
-	height: 30px
-	width: 100%
-	max-width: 100%
-	display: flex
-	align-items: center
+	position: relative
 
 	&__input
+		margin-bottom: 0 !important
+		padding-right: 30px !important
 		width: 100%
 		max-width: 100%
 		border: 0 !important
-		border-bottom: 1px solid $primary-color !important
-		background-color: #fff !important
 
-		&::placeholder
-			color: $primary-color
+		// &::placeholder
 
 	&__submit
+		position: absolute
+		top: 0
+		right: 0
 		background-color: transparent
 		border: 0
-		font-size: 0
 		width: 30px
-		height: 30px
-		background: url('assets/images/search.png') center no-repeat
-		background-size: 23px 23px
+		height: 100%

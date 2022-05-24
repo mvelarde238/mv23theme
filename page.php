@@ -9,7 +9,6 @@
 					<?php the_content(); ?>
 					<?php echo ultimate_fields_page_content(get_the_ID()); ?>
 				</article>
-				<?php comments_template(); ?>
 			<?php endwhile; endif; ?>
 			<?php get_template_part('inc/modulos/modals/controlador'); ?>
 		</main>

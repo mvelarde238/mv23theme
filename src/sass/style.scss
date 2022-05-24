@@ -73,9 +73,7 @@
 @import "libs/tiny-slider";
 @import "libs/colorbox";
 // @import "libs/animaciones";
-
 @import "modulos/global";   
-@import "modulos/footer";  
 @import "modulos/comentarios";
 @import "modulos/gallery";  
 @import "modulos/header";   
@@ -84,29 +82,15 @@
 @import "modulos/post";      
 @import "modulos/page-header";      
 @import	"modulos/menu/main-nav";
-@import "modulos/redes-sociales";    
-@import "modulos/posts-listing";  
+@import "modulos/grid";
 @import "modulos/post-card";
 @import "modulos/pagination"; 
 @import "modulos/subir-btn"; 
 @import	"modulos/menu/movil-nav";
 @import "modulos/modals/image-modal";
 @import "modulos/modals/video-modal";
-// @import "modulos/blockquote";
-// @import "modulos/login-modal"; 
-// @import "modulos/breadcrumbs";    
-// @import "modulos/searchform";   
-// @import "modulos/search-box";              
-// @import "modulos/sidebar";
-// @import "modulos/idiomas"; 
-@import "modulos/download-link"; 
+@import "modulos/searchform";   
+@import "modulos/blockquote"; 
 @import "modulos/buttons"; 
-
-@import "pages/blog";
-@import "pages/hentry";
-@import "pages/archive"; 
 @import "pages/template";    
-@import "pages/single-post";
-
-// @import "plugins/theme-my-login";
 @import "plugins/contact-form-7";

@@ -7,6 +7,9 @@ body
 .mt0
 	margin-top: 0
 
+.pdt0
+	padding-top: 0
+
 .text-color-2
 	color: #fff
 	h1,h2,h3,h4,h5,h6
@@ -20,10 +23,6 @@ body
 		color: #000
 	a:not(.btn)
 		color: $primary-color
-
-.material-icons
-	font-size: inherit
-	vertical-align: sub
 
 .wp-caption
 	display: inline-block
@@ -50,33 +49,7 @@ span[style*="font-size"]
 	justify-content: center
 	flex-direction: column
 
-@media #{$large-and-up}
-	.module-add-border
-		position: relative
-		&:before
-			content: ''
-			position: absolute
-			height: 100%
-			left: 0
-			right: 0
-			margin: auto
-			top: 0
-			width: 1px
-			background-color: #000
-
-@media #{$medium-and-up}
-	.border-right-1
-		border-right: 1px solid
-
 @media #{$medium-and-down}
-	.add-margin-top-in-mobile
-		margin-top: 15px !important
-	.add-margin-left-in-mobile
-		margin-left: 15px !important
-	.add-margin-right-in-mobile
-		margin-right: 15px !important
-	.add-margin-bottom-in-mobile
-		margin-bottom: 15px !important
 	.hide-br br
 		display: none
 

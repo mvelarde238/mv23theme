@@ -1,6 +1,12 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.86 22-05-24
+- Implementation of new grid in archive pages and listing component
+-----------------------------------------------------------------------
+- Important changes in several archives (css clean up, unused files and functions )
+-----------------------------------------------------------------------
+
 23.8.85 22-05-23
 - Icon and text component -> font-size always (line height problem correction)
 - Map height corrections
@@ -395,41 +401,3 @@ TO-DO
 - add set_suffix to "number" for borders
 - chequear responsive: columnas no shrink?
 - revisar todas las funciones donde se usa hex to rgb function
-
-- mover a theme specific de tierra viva:
-$dark-fixed-header-color: $secondary-color
-.header
-  &__logo 
-    margin-top: 10px
-    img
-      transition: 500ms all
-      margin-bottom: -60px
-      height: 150px
-  &.fixed &__logo 
-    margin-top: 0
-    img
-      height: 90px
-      margin-bottom: 0
-@media #{$medium-and-down}
-  .header
-    &.fixed &__logo img
-      height: 50px
-@media #{$small-and-down}
-  .header
-    &__logo img
-      height: 80px
-      margin-bottom: -40px
-
-var $globos = $('#hacemos-grid-1 .globo');
-
-        if ($globos.length > 0) {
-            for (var i = 0; i < $globos.length; i++) {
-                var bgc = $($globos[i]).css( "background-color" );
-                var $newSpan = $("<span/>").attr("style", "border-color:"+bgc).addClass("indicator");
-                $($globos[i]).append($newSpan);
-            }
-        } 
-
-.column-add-border
-  .columnas-3>div:not(:last-child)
-    border-right: 1px solid

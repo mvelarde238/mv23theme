@@ -3959,6 +3959,10 @@ body {
 	margin-top: 0;
 }
 
+.pdt0 {
+	padding-top: 0;
+}
+
 .text-color-2 {
 	color: #fff;
 }
@@ -3991,11 +3995,6 @@ body {
 
 .text-color-1 a:not(.btn):not(.btn-large):not(.btn-white) {
 	color: #F8522C;
-}
-
-.material-icons {
-	font-size: inherit;
-	vertical-align: sub;
 }
 
 .wp-caption {
@@ -4519,25 +4518,9 @@ input[type=submit]:hover {
 	background-color: rgba(0, 0, 0, 0.3);
 }
 
-.rrss-module a {
-	text-decoration: none;
-	transition: 500ms all;
-	margin: 0 8px;
-}
-
-.rrss-module a:last-child {
-	margin-right: 0;
-}
-
-.posts-listing--style1 {
+.has-columns {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
-}
-
-.posts-listing--style1 > div {
-	width: 30%;
-	margin: 0 1.6% 20px 1.6%;
 }
 
 .post-card {
@@ -4606,13 +4589,10 @@ input[type=submit]:hover {
 }
 
 ul.page-numbers {
-	padding: 0 0 40px 0;
-	padding-left: 0;
+	padding: 0;
 	margin: 0 auto;
 	display: flex;
 	justify-content: center;
-	position: relative;
-	z-index: 56;
 	color: #2A5354;
 }
 
@@ -4855,19 +4835,53 @@ ul.page-numbers .next {
 	background-color: #fff;
 }
 
-a[download] {
-	color: #2A5354;
-	text-decoration: none;
+.searchform {
+	position: relative;
 }
 
-a[download] span.icon {
-	display: inline-block;
-	width: 19px;
-	height: 20px;
-	margin-right: 10px;
-	margin-bottom: -2px;
-	background: url("assets/images/flecha-abajo.png") center no-repeat;
-	background-size: contain;
+.searchform__input {
+	margin-bottom: 0 !important;
+	padding-right: 30px !important;
+	width: 100%;
+	max-width: 100%;
+	border: 0 !important;
+}
+
+.searchform__submit {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: transparent;
+	border: 0;
+	width: 30px;
+	height: 100%;
+}
+
+blockquote {
+	padding-left: 40px;
+	display: flex;
+	justify-content: space-between;
+	margin: 0;
+}
+
+blockquote:before {
+	content: "";
+	width: 74px;
+	height: 74px;
+	background-image: url("assets/images/blockquote.png");
+}
+
+blockquote > p {
+	margin-top: 20px;
+	width: calc(100% - 90px);
+}
+
+blockquote + * {
+	margin-top: 20px;
+}
+
+.theme-color-2 blockquote:before {
+	background-image: url("assets/images/blockquote2.png");
 }
 
 .btn--main-color {
@@ -4878,23 +4892,6 @@ a[download] span.icon {
 .btn--secondary-color {
 	background-color: #2A5354;
 	color: #fff;
-}
-
-.blog .posts-listing {
-	padding: 30px 15px 0 15px;
-}
-
-.hentry-header h2 {
-	margin-bottom: 15px;
-}
-
-.hentry-header img {
-	vertical-align: middle;
-	margin-right: 8px;
-}
-
-.archive .posts-listing {
-	padding: 30px 15px 0 15px;
 }
 
 .main {
@@ -4921,54 +4918,6 @@ a[download] span.icon {
 
 .main-content--sidebar-left .sidebar {
 	order: 0;
-}
-
-.single-post .page-header,
-.single-equipo .page-header {
-	padding: 90px 15px;
-}
-
-.single-post .page-header .container,
-.single-equipo .page-header .container {
-	max-width: 1100px;
-}
-
-.single-post .main,
-.single-equipo .main {
-	max-width: 1100px;
-	margin: auto;
-	margin-top: -30px;
-	position: relative;
-	z-index: 56;
-	background-color: #fff;
-}
-
-.single-post .full-post,
-.single-post .comment-respond,
-.single-equipo .full-post,
-.single-equipo .comment-respond {
-	background-color: #fff;
-	padding: 50px;
-	margin-bottom: 30px;
-	position: relative;
-}
-
-.single-post .article-header__title h2,
-.single-equipo .article-header__title h2 {
-	margin: 0 0 10px 0;
-	color: #000;
-}
-
-.single-post .article-header__date,
-.single-equipo .article-header__date {
-	color: #CDC6BE;
-	margin-bottom: 15px;
-	font-size: 14px;
-}
-
-.single-post .must-log-in,
-.single-equipo .must-log-in {
-	text-align: center;
 }
 
 div.wpcf7 span.wpcf7-not-valid-tip {
@@ -5314,10 +5263,6 @@ div.wpcf7-acceptance-missing {
 	width: 100%;
 }
 
-.border-right-1 {
-	border-right: 1px solid;
-}
-
 }
 
 @media only screen and (min-width : 601px) and (max-width : 1024px) {
@@ -5486,6 +5431,14 @@ div.wpcf7-acceptance-missing {
 
 .hide-br-tablet br {
 	display: none;
+}
+
+.has-columns {
+	gap: var(--t-gap);
+}
+
+.has-columns > div {
+	width: calc(100% / var(--t-columns) - var(--t-gap) + var(--t-gap) / var(--t-columns));
 }
 
 }
@@ -5962,25 +5915,21 @@ div.wpcf7-acceptance-missing {
 	left: 0;
 }
 
-.module-add-border {
-	position: relative;
 }
 
-.module-add-border:before {
-	content: "";
-	position: absolute;
-	height: 100%;
-	left: 0;
-	right: 0;
-	margin: auto;
-	top: 0;
-	width: 1px;
-	background-color: #000;
+@media only screen and (min-width : 1025px) and (max-width : 1400px) {
+
+.has-columns {
+	gap: var(--l-gap);
+}
+
+.has-columns > div {
+	width: calc(100% / var(--l-columns) - var(--l-gap) + var(--l-gap) / var(--l-columns));
 }
 
 }
 
-@media only screen and (min-width : 1201px) {
+@media only screen and (min-width : 1401px) {
 
 .row .col.xl1 {
 	width: 8.3333333333%;
@@ -6210,6 +6159,14 @@ div.wpcf7-acceptance-missing {
 	left: 100%;
 }
 
+.has-columns {
+	gap: var(--d-gap);
+}
+
+.has-columns > div {
+	width: calc(100% / var(--d-columns) - var(--d-gap) + var(--d-gap) / var(--d-columns));
+}
+
 }
 
 @media only screen and (max-width: 1296px) {
@@ -6374,33 +6331,12 @@ table.responsive-table.bordered tbody tr {
 	right: -15px;
 }
 
-.add-margin-top-in-mobile {
-	margin-top: 15px !important;
-}
-
-.add-margin-left-in-mobile {
-	margin-left: 15px !important;
-}
-
-.add-margin-right-in-mobile {
-	margin-right: 15px !important;
-}
-
-.add-margin-bottom-in-mobile {
-	margin-bottom: 15px !important;
-}
-
 .hide-br br {
 	display: none;
 }
 
 .header__content {
 	padding: 10px 15px;
-}
-
-.posts-listing--style1 > div {
-	width: 46%;
-	margin: 0 2% 20px 2%;
 }
 
 .main-content {
@@ -6428,32 +6364,8 @@ table.responsive-table.bordered tbody tr {
 
 @media only screen and (max-width: 768px) {
 
-.full-post .article-header h2 {
-	font-size: 24px;
-}
-
-.full-post .article-header__title {
-	flex-wrap: wrap;
-}
-
 .subir-btn {
 	bottom: 80px;
-}
-
-.single-post .full-post,
-.single-post .comment-respond,
-.single-producto .full-post,
-.single-producto .comment-respond {
-	padding: 50px 15px;
-}
-
-}
-
-@media only screen and (max-width: 660px) {
-
-.posts-listing--style1 > div {
-	width: 100%;
-	margin: 0 0 20px 0;
 }
 
 }
@@ -6620,6 +6532,14 @@ table.responsive-table.bordered tbody tr {
 
 .hide-br-mobile br {
 	display: none;
+}
+
+.has-columns {
+	gap: var(--m-gap);
+}
+
+.has-columns > div {
+	width: calc(100% / var(--m-columns) - var(--m-gap) + var(--m-gap) / var(--m-columns));
 }
 
 }

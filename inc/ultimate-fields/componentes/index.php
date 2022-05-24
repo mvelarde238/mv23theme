@@ -28,6 +28,7 @@ require_once( 'fields/progress-bar.php' );
 require_once( 'fields/icon-and-text.php' );
 require_once( 'fields/slider.php' );
 require_once( 'fields/image.php' );
+require_once( 'fields/listing.php' );
 if(TEMPLATE_PART) require_once( 'fields/template-part.php' );
 include( locate_template( 'inc/ultimate-fields/componentes/utils/more-components.php' ) );
 
@@ -42,7 +43,8 @@ $componentes = array(
 	array('name' => 'Progress Bar', 'variable'=>$progress_bar),
 	array('name' => 'Icono y texto', 'variable'=>$icon_and_text),
 	array('name' => 'Slider', 'variable'=>$slider),
-	array('name' => 'Componente Reusable', 'variable'=>$componente_reusable)
+	array('name' => 'Componente Reusable', 'variable'=>$componente_reusable),
+	array('name' => 'Listing', 'variable'=>$listing)
 );
 
 if(TEMPLATE_PART) $componentes[] = array('name' => 'Template Part', 'variable'=>$template_part);

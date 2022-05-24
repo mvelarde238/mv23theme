@@ -199,69 +199,11 @@ if ( !function_exists('add_nav_support') ){
 		register_nav_menus(
 			array(
 				'main-nav' => __( 'Menu Principal', 'mv23' ),
-				'movil-nav' => __( 'Menu Moviles', 'mv23' ),
-				// 'user-nav' => __( 'Menu de Usuario', 'mv23' ),
+				'movil-nav' => __( 'Menu Moviles', 'mv23' )
 			)
 		);
 	}
 }
-
-
-/*********************
-RELATED POSTS FUNCTION
-*********************/
-
-/**
- * Related Posts Function (call using mv23_related_posts(); )
- *
- * @return string
- */
-function mv23_related_posts() {
-	global $post;
-	$tags = wp_get_post_categories( $post->ID );
-	if($tags) {
-		foreach( $tags as $tag ) {
-			$tag_arr .= $tag->slug . ',';
-		}
-		$args = array(
-			'category' => $tag_arr,
-			'numberposts' => 3, /* you can change this to show more */
-			'post__not_in' => array($post->ID)
-		);
-		$related_posts = get_posts( $args );
-		if($related_posts) {
-			echo '<div class="related-posts">';
-			echo '<header><h2 class="center">Otras entradas</h2></header>';
-			echo '<div class="posts-listing cf">';
-			foreach ( $related_posts as $post ) : setup_postdata( $post ); 
-				$id = $post->ID;
-				$link = get_the_permalink($latestPosts[$i]->ID);
-				$thumbnail = get_the_post_thumbnail_url( $id, 'post-thumbnail' );
-
-				$post_categories = wp_get_post_categories( $id );
-        		$cats = array();
-        		foreach($post_categories as $c){
-            		$cat = get_category( $c );
-            		$cats[] = $cat->name;
-        		}
-        		$tagList = (!empty( $cats )) ? implode(' | ', $cats) : false;
-				?>
-				<div class="posts-listing__item">
-					<div class="posts-listing__item__bgi" style="background-image: url(<?=$thumbnail?>);"></div>
-					<?php the_title('<h3>','</h3>'); ?>
-					<a class="posts-listing__item__link" href="<?php echo $link; ?>" title="<?php the_title_attribute(); ?>"></a>
-					<?php if ($tagList): ?>
-            			<div class="posts-listing__item__tag"><?php echo $tagList; ?></div>
-          			<?php endif ?>
-				</div>
-			<?php endforeach; ?>
-			</div>
-			</div>
-			<?php
-		}
-	}
-	wp_reset_postdata();
-} 
 
 /*********************
 PAGE NAVI
@@ -272,27 +214,28 @@ PAGE NAVI
  *
  * @return string
  */
-function mv23_page_navi($query=null) {
+function mv23_page_navi($query=null, $paged=null) {
 	if ($query) {
 		$wp_query = $query;
 	}else{
-  	global $wp_query;
+  		global $wp_query;
 	}
-  $bignum = 999999999;
-  echo '<div class="page-numbers-wrapper">';
-  if ( $wp_query->max_num_pages <= 1 ) return;
-  echo paginate_links( array(
-    'base'         => str_replace( $bignum, '%#%', esc_url( get_pagenum_link($bignum) ) ),
-    'format'       => '?paged=%#%',
-    'current'      => max( 1, get_query_var('paged') ),
-    'total'        => $wp_query->max_num_pages,
-    'prev_text'    => '<<',
-    'next_text'    => '>>',
-    'type'         => 'list',
-    'end_size'     => 1,
-    'mid_size'     => 2
-  ) );
-  echo '</div>';
+
+	$paged = ($paged) ? $paged : get_query_var('paged');
+
+  	$bignum = 999999999;
+  	if ( $wp_query->max_num_pages <= 1 ) return;
+  	echo paginate_links( array(
+    	'base'         => str_replace( $bignum, '%#%', esc_url( get_pagenum_link($bignum) ) ),
+    	'format'       => '?paged=%#%',
+    	'current'      => max( 1, $paged ),
+    	'total'        => $wp_query->max_num_pages,
+    	'prev_text'    => '<<',
+    	'next_text'    => '>>',
+    	'type'         => 'list',
+    	'end_size'     => 3,
+    	'mid_size'     => 3
+  	));
 }
 
 /*********************
@@ -301,7 +244,7 @@ RANDOM CLEANUP ITEMS
 
 /**
  * remove the p from around imgs 
-   http://css-tricks.com/snippets/wordpress/remove-paragraph-tags-from-around-images
+ * http://css-tricks.com/snippets/wordpress/remove-paragraph-tags-from-around-images
  *
  * @return string
  */ 
@@ -310,7 +253,7 @@ function mv23_filter_ptags_on_images($content){
 }
 
 /**
- * This removes the annoying [¡K] to a Read More link
+ * This removes the annoying [ï¿½K] to a Read More link
  *
  * @return string
  */
@@ -323,7 +266,7 @@ function mv23_excerpt_more($more) {
 
 /**
  * Remove wp-embed.min.js
-   https://wordpress.stackexchange.com/questions/211701/what-does-wp-embed-min-js-do-in-wordpress-4-4
+  * https://wordpress.stackexchange.com/questions/211701/what-does-wp-embed-min-js-do-in-wordpress-4-4
  *
  * @return string
  */
@@ -350,18 +293,4 @@ function mv23_print_indented($fn, $num_tabs=1, $params=null){
   for ($i=0 ; $i<$num_tabs ; $i++) $tabs.="\t";
     echo preg_replace("/\n/", "\n" . $tabs, substr($html, 0, - 1));
   echo "\n";
-}
-
-
-/**
- * Return the CORRECT page id
- *
- * @return id (int)
- */
-function mv23_get_the_page_ID(){
-	if (is_home()) {
-		return get_option('page_for_posts');
-	} else {
-		return get_the_ID();
-	}
 }
