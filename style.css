@@ -6,7 +6,7 @@ Theme URI: http://mv23.com
 Description: MV23 website
 Author: Miguel Velarde
 Author URI: http://www.velarde23.com 
-Version: 8.23.47
+Version: 8.23
 Tags: fluid-layout, responsive-layout, accessibility-ready, translation-ready, microformats, rtl-language-support
 License: WTFPL
 License URI: http://sam.zoy.org/wtfpl/  
@@ -4033,6 +4033,10 @@ span[style*=font-size] {
 	align-content: center;
 	justify-content: center;
 	flex-direction: column;
+}
+
+.pinned-block {
+	display: grid;
 }
 
 .comments-area {

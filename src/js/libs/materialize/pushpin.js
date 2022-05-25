@@ -10,10 +10,9 @@
     // Remove pushpin event and classes
     if (options === "remove") {
       this.each(function () {
-        if (id = $(this).data('pushpin-id')) {
-          $(window).off('scroll.' + id);
-          $(this).removeData('pushpin-id').removeClass('pin-top pinned pin-bottom').removeAttr('style');
-        }
+        var id = $(this).data('pushpin-id');
+        $(window).off('scroll.' + id);
+        $(this).removeData('pushpin-id').removeClass('pin-top pinned pin-bottom').removeAttr('style');
       });
       return false;
     }

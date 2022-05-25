@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.86 22-05-24
 - Implementation of new grid in archive pages and listing component
+- pinned block correction
 -----------------------------------------------------------------------
 - Important changes in several archives (css clean up, unused files and functions )
 -----------------------------------------------------------------------
@@ -401,3 +402,6 @@ TO-DO
 - add set_suffix to "number" for borders
 - chequear responsive: columnas no shrink?
 - revisar todas las funciones donde se usa hex to rgb function
+- woocommerce on listing component
+- filtro on listing component
+- sinle sidebar

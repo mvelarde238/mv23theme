@@ -83,34 +83,6 @@
 	    });
 
         // ****************************************************************************************************
-        // Mostrar el formulario de registro o login si hay errores
-        // ****************************************************************************************************
-
-        if ($_GET['instance']) {
-            switch ($_GET['instance']){
-                case '1': // Formulario de login, mostrar megamenu abierto:
-                    $('#menu-item-22 .megamenu-link').addClass('is-active');
-                    $('.v23-togglebox__btn[data-boxid="#login-panel"]').click();
-                    break;
-                case '2': // Formulario de registro, mostrar megamenu abierto:
-                    $('#menu-item-22 .megamenu-link').addClass('is-active');
-                    $('.v23-togglebox__btn[data-boxid="#register-panel"]').click();
-                    break;
-                // case '3':
-                    // $('#notify-availability-modal').modal('open');
-                    // break;
-            }
-        }
-
-        // ****************************************************************************************************
-        // ****************************************************************************************************
-
-        $(document).on("click", ".js-procesando", function(ev) {
-            // ev.preventDefault();
-            $('.procesando-modal').css('display','flex');
-        });
-        
-        // ****************************************************************************************************
         // ****************************************************************************************************
 
         // $('body').on('click', '.zoom', function(ev){
@@ -140,20 +112,73 @@
         // ****************************************************************************************************
         // ****************************************************************************************************
 
-        if (viewport.width > 768) {
-            $('.pinned-block').each(function() {
-                var $this = $(this);
-                var $target = $this.parent();
+        var $pinnedBlocks = $('.pinned-block');
+
+        if (viewport.width > 1024) {
+            $pinnedBlocks.each(function(){
+                var $this = $(this),
+                    $target = $this.parent();
     
                 $this.css('width',$target.css('width'));
-    
-                $this.pushpin({
-                    top: $target.offset().top,
-                    bottom: $target.offset().top + $target.outerHeight() - $this.height(),
-                    offset: header_height
-                });
+
+                if( $target.height() > $this.height() ){    
+                    $this.pushpin({
+                        top: $target.offset().top,
+                        bottom: $target.offset().top + $target.outerHeight() - $this.height(),
+                        offset: header_height
+                    });
+                }
             });
         }
+
+        window.addEventListener('resize', function(event){
+            $pinnedBlocks.each(function(){
+                var $this = $(this),
+                    $target = $this.parent();
+                
+                if (window.innerWidth > 1024) {
+                    $this.css('width',$target.css('width'));
+                } else {
+                    $this.pushpin('remove');
+                    $this.css('width', '100%');
+                }
+            });
+        });
+
+        // ****************************************************************************************************
+        // CONVERTIR ENLACES A PDF EN PDF
+        // ****************************************************************************************************
+        var is_single = $('body').hasClass('single-post');
+        
+        function convertir_links_en_pdf(links){
+            if (links.length > 0) {
+                for (var i = 0; i < links.length; i++) {
+                    var href = $(links[i]).attr('href');
+                    $(links[i]).append(' <i class="fa fa-level-down"></i>');
+                    $('<div class="pdf-responsive"><embed src="' + href + '" width="670" height="500" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"></div>').insertAfter($(links[i]).parent());
+                }
+            }
+        }
+        if (is_single) {
+            var links = $('.main').find('a[href*=".pdf"]');
+            convertir_links_en_pdf(links);
+        }
+
+        // *********************************************************************
+        // REMOVE ACTIVE IN MENU ITEMS WITH ANCHOR
+        // *********************************************************************
+        var menu_items_links = $(".main-nav li a");
+        menu_items_links.each(function () {
+            if ($(this).is('[href*="#"')) {
+                $(this).parent().removeClass('current-menu-item current-menu-ancestor');
+                // $(this).click(function () {
+                    // var current_index = $(this).parent().index(),
+                        // parent_element = $(this).closest('ul');
+                        // parent_element.find('li').not(':eq(' + current_index + ')').removeClass('current-menu-item current-menu-ancestor');
+                    // $(this).parent().addClass('current-menu-item current-menu-ancestor');
+                // })
+            }
+        })
 
         // ****************************************************************************************************
         // ****************************************************************************************************
