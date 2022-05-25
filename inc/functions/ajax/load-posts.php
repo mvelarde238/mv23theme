@@ -16,6 +16,9 @@ if( !function_exists('load_posts') ){
         $paged = $_REQUEST["paged"];
         $taxonomy = $_REQUEST["taxonomy"];
         $term = $_REQUEST["term"];
+        $search = $_REQUEST["search"];
+        $year = $_REQUEST["year"];
+        $month = $_REQUEST["month"];
         $post_template = $_REQUEST["post_template"];
         $per_page = $_REQUEST["per_page"];
 
@@ -37,6 +40,36 @@ if( !function_exists('load_posts') ){
                     'include_children' => true,
                     'operator' => 'IN'
                 ));
+            }
+
+            if ($search) {
+                $args_query['s'] =  $search;
+            }
+    
+            if ($year || $month) {
+                switch ($posttype) {
+                    case 'event':
+                        if ($year && $month) $dates = array( $year.'-'.$month.'-01 01:00:00', $year.'-'.$month.'-31 23:59:59' );
+                        if (!$month) $dates = array( $year.'-01-01 01:00:00', $year.'-12-31 23:59:59' );
+    
+                        $args_query['meta_query'] =  array(
+                            'event_start_clause' => array(
+                                'key' => '_event_start',
+                                'value' => $dates,
+                                'compare' => 'BETWEEN',
+                                'type' => 'DATE'
+                            )
+                        );
+                        $args_query['orderby'] = 'event_start_clause';
+                        break;
+                    
+                    default:
+                        $date_params = array();
+                        if($year) $date_params['year'] = $year;
+                        if($month) $date_params['month'] = $month;
+                        $args_query['date_query'] = array( $date_params );
+                        break;
+                }
             }
 
             $query = new WP_Query( $args_query ); 

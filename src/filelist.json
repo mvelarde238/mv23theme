@@ -22,6 +22,7 @@
   "js/ultimate-fields/compile/carrusel.js",
   "js/ultimate-fields/compile/columnas.js",
   "js/ultimate-fields/compile/components-wrapper.js",
+  "js/ultimate-fields/compile/listing.js",
   "js/ultimate-fields/compile/mapa.js",
   "js/ultimate-fields/compile/progress-bar.js",
   "js/ultimate-fields/compile/slider-de-contenidos.js",

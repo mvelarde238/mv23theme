@@ -1,0 +1,69 @@
+.posts-filter
+    margin-bottom: 30px
+    border-radius: 10px
+    form
+        display: flex
+        justify-content: center
+        align-items: flex-end
+    .field-wrapper
+        width: 100%
+        padding: 0 3px
+    .field-desc
+        display: block
+        color: $secondary-color
+        font-size: 13px
+        font-weight: bold
+        font-family: Montserrat,sans-serif
+    select, input
+        margin-bottom: 0 !important
+        background-color: #fff !important
+        outline: 0
+    span
+        color: $primary-color !important
+    &__submit
+        overflow: hidden
+        border-radius: 0
+        background-color: $primary-color
+        font-weight: bold
+        width: 100%
+        border: 0
+        color: #fff
+
+
+.listing[data-status='loading']
+    .posts-filter[data-status='loading']
+        position: relative
+        &:before
+            content: ''
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
+            background: transparent
+            z-index: 89
+
+    .posts-filter__submit
+        position: relative
+        &:before
+            content: ''
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
+            background: $primary-color url('assets/images/loading2.gif') center no-repeat
+            background-size: 20px 20px
+
+    
+@media only screen and (max-width: 768px)
+    .posts-filter
+        form
+            flex-wrap: wrap
+        .field-wrapper
+            width: 50%
+            margin-bottom: 15px
+            &:last-child
+                width: 100%
+        &__submit
+            width: 100%

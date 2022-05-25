@@ -63,6 +63,9 @@ if( !defined('ARCHIVE_SIDEBAR') ) define ('ARCHIVE_SIDEBAR', true);
 if( !defined('ARCHIVE_MAIN_CONTENT_TEMPLATE') ) define ('ARCHIVE_MAIN_CONTENT_TEMPLATE', 'main-content--sidebar-left');
 if( !defined('SEARCH_PLACEHOLDER') ) define ('SEARCH_PLACEHOLDER', array('es' => 'Buscar...', 'en' => 'Search...' ));
 
+if( !defined('SINGLE_SIDEBAR') ) define ('SINGLE_SIDEBAR', true);
+if( !defined('SINGLE_MAIN_CONTENT_TEMPLATE') ) define ('SINGLE_MAIN_CONTENT_TEMPLATE', 'main-content--sidebar-right');
+
 if( !defined('USE_PORTFOLIO_CPT') ) define( 'USE_PORTFOLIO_CPT', false);
 if( !defined('LISTING_CPTS') ) define( 'LISTING_CPTS', array('post' => 'Entradas'));
 if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array());

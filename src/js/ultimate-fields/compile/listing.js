@@ -4,7 +4,7 @@
     var current_lang = MV23_GLOBALS.lang;
     var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
 
-    function do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action){
+    function do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues){
         $.ajax({
             type: 'POST',
             dataType: "json",
@@ -14,11 +14,14 @@
                 nonce: MV23_GLOBALS.nonce,
                 lang: MV23_GLOBALS.lang,
                 post_template: post_template,
-                term: term,
+                term: (filterValues.areParams) ? filterValues.term : term,
                 paged: paged || 1,
                 per_page: per_page,
                 posttype : posttype,
-                taxonomy : taxonomy
+                taxonomy : taxonomy,
+                search: filterValues.search,
+                year: filterValues.year,
+                month: filterValues.month
             },
             beforeSend: function(){
                 $component.attr('data-status','loading');
@@ -44,9 +47,21 @@
         });
     }
 
+    function getFilterValues($filter){
+        var term = ($filter.length) ? $filter.find('.posts-filter__term-select').val() : '',
+            year = ($filter.length) ? $filter.find('.posts-filter__year-select').val() : '',
+            month = ($filter.length) ? $filter.find('.posts-filter__month-select').val() : '',
+            search = ($filter.length) ? $filter.find('.posts-filter__search-input').val() : '';
+
+        var areParams = (term == '' && year == '' && month == '' && search == '') ? false : true;
+
+        return {areParams:areParams, term:term, search:search, year:year, month:month}
+    };
+
     if( $components.length ){
         $components.each(function(i, e){
             var $component = $(e),
+                $filter = $component.find('.posts-filter'),
                 $listing = $component.find('.posts-listing');
     
             $component.on('click','a.page-numbers', function(event){
@@ -55,14 +70,15 @@
                     url = new URL(href),
                     paged = url.searchParams.get("paged"),
                     $pagination = $component.find('.pagination'),
-                    posttype = $pagination.attr("data-posttype"),
-                    taxonomy = $pagination.attr("data-taxonomy"),
-                    term = $pagination.attr("data-term"),
-                    post_template = $pagination.attr("post-template"),
-                    per_page = $pagination.attr("data-qty"),
-                    action = 'replace';
+                    posttype = $component.attr("data-posttype"),
+                    taxonomy = $component.attr("data-taxonomy"),
+                    term = $component.attr("data-term"),
+                    post_template = $component.attr("post-template"),
+                    per_page = $component.attr("data-qty"),
+                    action = 'replace',
+                    filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action);
+                do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues);
             });
             
             $component.on('click','.load_more_posts', function(event){
@@ -70,14 +86,30 @@
                 var $this = $(this),
                     paged = $this.attr("data-paged"),
                     $pagination = null,
-                    posttype = $this.attr("data-posttype"),
-                    taxonomy = $this.attr("data-taxonomy"),
-                    term = $this.attr("data-term"),
-                    post_template = $this.attr("post-template"),
-                    per_page = $this.attr("data-qty"),
-                    action = 'append';
+                    posttype = $component.attr("data-posttype"),
+                    taxonomy = $component.attr("data-taxonomy"),
+                    term = $component.attr("data-term"),
+                    post_template = $component.attr("post-template"),
+                    per_page = $component.attr("data-qty"),
+                    action = 'append',
+                    filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action);
+                do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues);
+            });
+            
+            $component.on('click','.posts-filter__submit',function(ev){
+                ev.preventDefault();
+                var $pagination = $component.find('.pagination'),
+                    posttype = $component.attr("data-posttype"),
+                    taxonomy = $component.attr("data-taxonomy"),
+                    term = $component.attr("data-term"),
+                    post_template = $component.attr("post-template"),
+                    per_page = $component.attr("data-qty"),
+                    paged = 1,
+                    action = 'replace',
+                    filterValues = getFilterValues($filter);
+
+                do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues);
             });
 
             $component.on('listingUpdated', function(e,data){
@@ -92,7 +124,6 @@
                     $load_more_btn.attr('data-paged', new_paged);
                 }
             });
-        });
-        
+        });   
     }
 })(jQuery,console.log);

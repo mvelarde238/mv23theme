@@ -4985,6 +4985,81 @@ div.wpcf7-acceptance-missing {
 	box-shadow: none !important;
 }
 
+.posts-filter {
+	margin-bottom: 30px;
+	border-radius: 10px;
+}
+
+.posts-filter form {
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+}
+
+.posts-filter .field-wrapper {
+	width: 100%;
+	padding: 0 3px;
+}
+
+.posts-filter .field-desc {
+	display: block;
+	color: #2A5354;
+	font-size: 13px;
+	font-weight: bold;
+	font-family: Montserrat, sans-serif;
+}
+
+.posts-filter select,
+.posts-filter input {
+	margin-bottom: 0 !important;
+	background-color: #fff !important;
+	outline: 0;
+}
+
+.posts-filter span {
+	color: #F8522C !important;
+}
+
+.posts-filter__submit {
+	overflow: hidden;
+	border-radius: 0;
+	background-color: #F8522C;
+	font-weight: bold;
+	width: 100%;
+	border: 0;
+	color: #fff;
+}
+
+.listing[data-status=loading] .posts-filter[data-status=loading] {
+	position: relative;
+}
+
+.listing[data-status=loading] .posts-filter[data-status=loading]:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	z-index: 89;
+}
+
+.listing[data-status=loading] .posts-filter__submit {
+	position: relative;
+}
+
+.listing[data-status=loading] .posts-filter__submit:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #F8522C url("assets/images/loading2.gif") center no-repeat;
+	background-size: 20px 20px;
+}
+
 @media only screen and (min-width: 600px) and (max-width: 1024px) {
 
 .hide-on-med-only {
@@ -6370,6 +6445,23 @@ table.responsive-table.bordered tbody tr {
 
 .subir-btn {
 	bottom: 80px;
+}
+
+.posts-filter form {
+	flex-wrap: wrap;
+}
+
+.posts-filter .field-wrapper {
+	width: 50%;
+	margin-bottom: 15px;
+}
+
+.posts-filter .field-wrapper:last-child {
+	width: 100%;
+}
+
+.posts-filter__submit {
+	width: 100%;
 }
 
 }

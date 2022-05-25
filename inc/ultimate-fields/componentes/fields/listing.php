@@ -51,6 +51,11 @@ $listing_fields_2 = array(
     
     Field::create( 'tab', 'Paginado'),
     Field::create( 'select', 'pagination_type', 'Paginado' )->add_dependency('show','auto','=')->add_options(LISTING_PAGINATION_TYPES)->hide_label(),
+    
+    Field::create( 'tab', 'Filter'),
+    Field::create( 'checkbox', 'filter', 'Filtro' )->set_text( 'Mostrar Filtros' )->set_width(33),
+    Field::create( 'checkbox', 'filter_show_tax', 'Categoría' )->set_text( 'Mostrar Categoría' )->add_dependency('filter')->set_width(33),
+    Field::create( 'number', 'filter_first_year', 'Primer Año en el selector' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('filter')->set_default_value(2012)->set_width(33),
 );
 
 $listing_fields = array_merge($listing_fields_1,$listing_fields_2);

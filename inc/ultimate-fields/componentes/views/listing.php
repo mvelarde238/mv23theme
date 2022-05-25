@@ -12,6 +12,8 @@ $t_gap = $componente['t_gap'].'px';
 $m_gap = $componente['m_gap'].'px';
 $post_template = $componente['post_template'];
 $list_template = $componente['list_template'];
+$taxonomy = null;
+$terms_in = null;
 
 if ($show == 'manual') {
     $posttype = '';
@@ -57,11 +59,16 @@ $classes_array = format_classes(array(
 ));
 
 $attributes = generate_attributes($componente, $classes_array);
+$query = new WP_Query( $args_query ); 
 ?>
-<div <?=$attributes?>>
-    <?php
-    $query = new WP_Query( $args_query ); 
+<div <?=$attributes?> data-posttype="<?=$posttype?>" data-taxonomy="<?=$taxonomy?>" data-term="<?=$terms_in?>" data-qty="<?=$qty?>" post-template="<?=$post_template?>">
+    <?php if($componente['filter']) {
+        $show_tax = ($componente['filter_show_tax'] && $taxonomy) ? 1 : 0;
+        $firstyear = $componente['filter_first_year'];
+        echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_tax="'.$show_tax.'" taxonomy="'.$taxonomy.'"]');
+    }; ?>
 
+    <?php
     if ($query->have_posts()) : ?>
         <div class="posts-listing posts-listing--<?=$list_template?> has-columns" style="--d-gap:<?=$d_gap?>; --l-gap:<?=$l_gap?>; --t-gap:<?=$t_gap?>; --m-gap:<?=$m_gap?>; --d-columns:<?=$items_in_desktop?>; --l-columns:<?=$items_in_laptop?>; --t-columns:<?=$items_in_tablet?>; --m-columns:<?=$items_in_mobile?>;">
             <?php while ( $query->have_posts() ) : $query->the_post();
@@ -77,7 +84,7 @@ $attributes = generate_attributes($componente, $classes_array);
                 // PAGINATION 
                 ///////////////////////////////////////////////////////////////////////////////////////////////
                 echo '<br>';
-                echo '<div class="pagination" data-posttype="'.$posttype.'" data-taxonomy="'.$taxonomy.'" data-term="'.$terms_in.'" data-qty="'.$qty.'" post-template="'.$post_template.'">';
+                echo '<div class="pagination">';
                     // mv23_page_navi($query,1); dosnt work
                     $actual_link = home_url();
                     $base = $actual_link.'/page/' .'%#%'. '%_%';
@@ -101,7 +108,7 @@ $attributes = generate_attributes($componente, $classes_array);
                 $current_lang = (function_exists('pll_current_language')) ? pll_current_language() : 'es';
 
                 echo '<br>';
-                echo '<p class="aligncenter"><button class="btn load_more_posts" data-paged="2" data-posttype="'.$posttype.'" data-taxonomy="'.$taxonomy.'" data-term="'.$terms_in.'" data-qty="'.$qty.'" post-template="'.$post_template.'">'.$load_more_text[$current_lang].'</button></p>'; 
+                echo '<p class="aligncenter"><button class="btn load_more_posts" data-paged="2">'.$load_more_text[$current_lang].'</button></p>'; 
                 break;
 
             default:
