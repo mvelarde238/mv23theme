@@ -2697,6 +2697,46 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 	padding: 18px 23px;
 }
 
+.editor-de-texto img {
+	vertical-align: middle;
+}
+
+.editor-de-texto ol {
+	counter-reset: theme-counter;
+}
+
+.editor-de-texto li {
+	list-style-type: none;
+}
+
+.editor-de-texto li:before {
+	display: inline-block;
+	margin-right: 11px;
+	margin-bottom: -4px;
+	width: 12px;
+	height: 18px;
+	margin-left: -25px;
+}
+
+.editor-de-texto ol li {
+	counter-increment: theme-counter;
+}
+
+.editor-de-texto ol li:before {
+	content: counter(theme-counter) ".";
+	font-weight: bold;
+}
+
+.editor-de-texto ul li {
+	list-style-type: none;
+}
+
+.editor-de-texto ul li:before {
+	content: "\f1d8";
+	font-family: FontAwesome;
+	font-size: 12px;
+}
+
 .posts-carrusel {
 	position: relative;
 	padding: 0 30px;

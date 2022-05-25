@@ -1,0 +1,25 @@
+.editor-de-texto
+	img
+		vertical-align: middle
+	ol
+		counter-reset: theme-counter
+	li
+		list-style-type: none
+		&:before
+			display: inline-block
+			margin-right: 11px
+			margin-bottom: -4px
+			width: 12px
+			height: 18px
+			margin-left: -25px
+	ol li
+		counter-increment: theme-counter
+		&:before
+			content: counter(theme-counter) "."
+			font-weight: bold
+	ul li
+		list-style-type: none
+		&:before
+			content: "\f1d8"
+			font-family: FontAwesome
+			font-size: 12px
