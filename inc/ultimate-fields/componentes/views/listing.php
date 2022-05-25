@@ -38,7 +38,7 @@ if ($show == 'auto') {
     );
     
     $cpt_terms = $componente[$posttype.'_terms'];
-    if( is_array($cpt_terms) && count($cpt_terms) > 0 ){
+    if( is_array($cpt_terms) && count($cpt_terms) > 0 && !empty($cpt_terms[0]) ){
         $taxonomy = get_taxonomy_by_term_id($cpt_terms[0]);
         $terms_in = implode(',',$cpt_terms);
         $args_query['tax_query'] = array(array(

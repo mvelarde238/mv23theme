@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.87 22-05-24
+- listing component: check if first array item is empty
+
 23.8.86 22-05-24
 - Implementation of new grid in archive pages and listing component
 - pinned block correction
