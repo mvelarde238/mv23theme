@@ -71,5 +71,12 @@ function mv23_admin_stuff(){
     ));
     wp_enqueue_script( 'mv23-admin-scripts' );
 }
-
 add_action('admin_head', 'mv23_admin_stuff');
+
+add_action( 'admin_enqueue_scripts', function(){
+    wp_deregister_script('uf-field-color');
+    wp_enqueue_script('colorpicker-enhancement', get_stylesheet_directory_uri() . '/assets/js/color-picker-enhancement.js', array('uf-field', 'wp-color-picker'), THEME_VERSION, false );
+    wp_localize_script( 'colorpicker-enhancement', 'COLOR_PICKER', array( 
+        'palettes' => COLOR_PICKER_PALETTES
+    ));
+});
