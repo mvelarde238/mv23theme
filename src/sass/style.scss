@@ -1,98 +1,66 @@
-// @import "modulos/test";
+// @import "test";
 
 // ******************************************************
-// MATERIALIZE
+// PARENT THEME STYLES
 // ******************************************************
-// Colors
 @import "materialize/components/color";
-
-// Variables;
 @import "materialize/components/variables";
-
-// Reset
+@import "materialize/components/overriden-variables";
 @import "materialize/components/normalize";
-
-// components
 @import "materialize/components/global";
-// @import "materialize/components/badges";
-// @import "materialize/components/icons-material-design";
 @import "materialize/components/grid";
-// @import "materialize/components/navbar";
-// @import "materialize/components/icomoon";
 @import "materialize/components/typography";
-// @import "materialize/components/transitions";
-// @import "materialize/components/cards";
-// @import "materialize/components/toast";
-// @import "materialize/components/tabs";
-// @import "materialize/components/tooltip";
 @import "materialize/components/buttons";
-// @import "materialize/components/dropdown";
-// @import "materialize/components/waves";
 @import "materialize/components/modal";
-// @import "materialize/components/collapsible";
-// @import "materialize/components/chips";
-// @import "materialize/components/materialbox";
-@import "materialize/components/forms/forms";
-// @import "materialize/components/table_of_contents";
+@import "materialize/components/forms/input-fields";
 @import "materialize/components/sideNav";
-// @import "materialize/components/preloader";
-// @import "materialize/components/slider";
-// @import "materialize/components/carousel";
-// @import "materialize/components/tapTarget";
-// @import "materialize/components/pulse";
-// @import "materialize/components/date_picker/default";
-// @import "materialize/components/date_picker/default.date";
-// @import "materialize/components/date_picker/default.time";
 
-// ******************************************************
-// ULTIMATE FIELDS
-// ******************************************************
-@import 'ultimate-fields/global';
-@import 'ultimate-fields/componentes/slider-de-contenidos';
-@import 'ultimate-fields/componentes/columnas-internas';
-@import 'ultimate-fields/componentes/columnas-simples';
-@import 'ultimate-fields/componentes/progress-circle';
-@import 'ultimate-fields/componentes/whatsapp-button';
-@import 'ultimate-fields/componentes/editor-de-texto';
-@import 'ultimate-fields/componentes/posts-carrusel';
-@import 'ultimate-fields/componentes/icon-and-text';
-@import 'ultimate-fields/componentes/progress-bar';
-@import 'ultimate-fields/componentes/items-grid';
-@import 'ultimate-fields/componentes/accordion';
-@import 'ultimate-fields/componentes/columnas';
-@import 'ultimate-fields/componentes/carrusel';
-@import 'ultimate-fields/componentes/image';
-@import 'ultimate-fields/componentes/card';
-@import 'ultimate-fields/componentes/fila';
-@import 'ultimate-fields/componentes/icon';
-@import 'ultimate-fields/componentes/mapa';
-
-// ******************************************************
-// THEME UTILS
-// ******************************************************
-@import "widgets/icon-and-text-widget";
-@import "libs/tiny-slider";
 @import "libs/colorbox";
-// @import "libs/animaciones";
-@import "modulos/global";   
+@import "libs/tiny-slider";
+
+@import "modulos/icon-and-text-widget";
+@import "modulos/image-modal";
+@import "modulos/video-modal";
+@import "modulos/blockquote";
+@import "modulos/buttons";
 @import "modulos/comentarios";
-@import "modulos/gallery";  
-@import "modulos/header";   
-@import "modulos/forms"; 
-@import "modulos/main";      
-@import "modulos/post";      
-@import "modulos/page-header";      
-@import	"modulos/menu/main-nav";
+@import "modulos/forms";
+@import "modulos/gallery";
+@import "modulos/global";
 @import "modulos/grid";
+@import "modulos/header";
+@import "modulos/main-nav";
+@import "modulos/main";
+@import "modulos/movil-nav";
+@import "modulos/page-header";
+@import "modulos/pagination";
 @import "modulos/post-card";
-@import "modulos/pagination"; 
-@import "modulos/subir-btn"; 
-@import	"modulos/menu/movil-nav";
-@import "modulos/modals/image-modal";
-@import "modulos/modals/video-modal";
-@import "modulos/searchform";   
-@import "modulos/blockquote"; 
-@import "modulos/buttons"; 
-@import "pages/template";    
+@import "modulos/post";
+@import "modulos/posts-filter";
+@import "modulos/searchform";
+@import "modulos/subir-btn";
+@import "modulos/template";
+
 @import "plugins/contact-form-7";
-@import "modulos/posts-filter"; 
+@import "plugins/theme-my-login";
+
+@import "ultimate-fields/global";
+@import "ultimate-fields/componentes/accordion";
+@import "ultimate-fields/componentes/card";
+@import "ultimate-fields/componentes/carrusel";
+@import "ultimate-fields/componentes/columnas-internas";
+@import "ultimate-fields/componentes/columnas-simples";
+@import "ultimate-fields/componentes/columnas";
+@import "ultimate-fields/componentes/editor-de-texto";
+@import "ultimate-fields/componentes/fila";
+@import "ultimate-fields/componentes/icon-and-text";
+@import "ultimate-fields/componentes/icon";
+@import "ultimate-fields/componentes/image";
+@import "ultimate-fields/componentes/items-grid";
+@import "ultimate-fields/componentes/logos-grid";
+@import "ultimate-fields/componentes/mapa";
+@import "ultimate-fields/componentes/posts-carrusel";
+@import "ultimate-fields/componentes/progress-bar";
+@import "ultimate-fields/componentes/progress-circle";
+@import "ultimate-fields/componentes/slider-de-contenidos";
+@import "ultimate-fields/componentes/whatsapp-button";

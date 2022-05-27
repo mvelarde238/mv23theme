@@ -1,37 +1,10 @@
-// @font-face {
-//     font-family: "mykefa";
-//     src: local(My Kefa Bold),
-//         url("#{$font-path}kefa/Kefa.ttc") format("woff");
-//     font-weight: 700;
-// }
-
-// @font-face {
-//     font-family: "mymyriad";
-//     src: local(My Myriad Bold),
-//         url("#{$font-path}myriad-pro/MyriadPro-Bold.otf") format("woff");
-//     font-weight: 700;
-// }
-
-// @font-face {
-//     font-family: "myathelas";
-//     src: local(My Athelas),
-//         url("#{$font-path}athelas/Athelas.ttc") format("woff");
-//     font-weight: 400;
-// }
-
-// @font-face {
-//     font-family: "myathelas-bold";
-//     src: local(My Athelas Bold),
-//         url("#{$font-path}athelas/athelas-bold.ttf") format("woff");
-//     font-weight: 700;
-// }
-
 // @import url('https://fonts.googleapis.com/css?family=Rubika:wght@300,400;700&display=swap');
 // @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;900&display=swap');
 // @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700,800');
 // @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
-@import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:400,500&family=Roboto:300');
+// @import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:400,500&family=Roboto:300');
 // @import url('https://fonts.googleapis.com/css?family=Titillium+Web:400;600&display=swap');
+@import url('#{$font-url}');
 .mplus-rounded { font-family: "M PLUS Rounded 1c"; line-height: 1; font-weight: 500; }
 
 a {
@@ -40,10 +13,7 @@ a {
 }
 
 html{
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  font-size: 17px;
-  line-height: 160%;
+  @include general-tipography-styles;
   color: #000;
 }
 h1, h2, h3, h4, h5, h6 {

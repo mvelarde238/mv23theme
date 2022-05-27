@@ -13,11 +13,8 @@ function mv23_scripts_and_styles() {
         }
 
         // register stylesheets
-        // wp_register_style('jquery-ui-datepicker','http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css');
-        // wp_enqueue_style( 'jquery-ui-datepicker' );
-
         $assets_url = (PARENT_THEME_TEST_MODE) ? get_template_directory_uri() :  get_stylesheet_directory_uri();
-        wp_register_style( 'mv23-styles', $assets_url . '/style.css', array(), THEME_VERSION, 'all' );
+        wp_register_style( 'mv23-styles', $assets_url . '/assets/css/style.css', array(), THEME_VERSION, 'all' );
         wp_enqueue_style( 'mv23-styles' );
         wp_enqueue_style( 'theme-font-awesome', FONT_AWESOME, array(), THEME_VERSION, 'all' );
 
@@ -28,7 +25,7 @@ function mv23_scripts_and_styles() {
         wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', array(), '', true);
         wp_enqueue_script('jquery');
 
-        wp_enqueue_script( 'fitty-lib', get_template_directory_uri() . '/src/js/libs/fitty.min.js', array(), THEME_VERSION, true );
+        wp_enqueue_script( 'fitty-lib', get_template_directory_uri() . '/src/js/libs/ignore/fitty.min.js', array(), THEME_VERSION, true );
         wp_register_script( 'mv23-scripts', $assets_url . '/assets/js/scripts.js', array(), THEME_VERSION, true );
 
         $floating_header = new Floating_Header();

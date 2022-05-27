@@ -7,8 +7,6 @@
         // INIT MATERIALIZE SCRIPTS
         // ****************************************************************************************************
 
-        // $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"}); 
-        // $('.dropdown-button').dropdown({constrainWidth: false, alignment: 'right', hover: true});
         $('.modal').modal({ dismissible:true,  opacity:.6,  inDuration:300,  outDuration:200, startingTop: '2%', endingTop: '5%', 
             ready: function(modal, trigger) { $(trigger).css('z-index','initial'); },
             complete: function(modal, trigger) {
@@ -18,8 +16,6 @@
             } 
         });
         $('.modal-trigger').modal();
-        // $('select').material_select();
-        // $('.carousel').carousel();
 
         // ****************************************************************************************************
         // FIT TEXT
@@ -84,13 +80,6 @@
 
         // ****************************************************************************************************
         // ****************************************************************************************************
-
-        // $('body').on('click', '.zoom', function(ev){
-        //     ev.preventDefault();
-        //     $('#image-modal').modal('open');
-        //     var fondo = $(this).attr('href'); 
-        //     $('.image-modal__box').attr('style','background-image: url('+fondo+')');
-        // });
 
         function colorbox_group(){
             $(".zoom").colorbox({

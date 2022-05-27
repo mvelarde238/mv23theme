@@ -148,7 +148,6 @@
 					_removeClass(this.items[i].box, 'active');	
 				};				
 
-				console.log(this.options.openFirstTab);
 				if (this.currentTemplate === 'tab' && String(this.options.openFirstTab) === 'true') {
 					_addClass(this.items[0].btn, 'active');
 					_addClass(this.items[0].box, 'active');	

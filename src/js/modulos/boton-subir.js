@@ -1,10 +1,5 @@
 (function($,c){      
     $(function() {
-        // $('.subir-btn').click(function(ev){ 
-        //     ev.preventDefault();
-        //     myscrollTo(document.documentElement, 0, 800); 
-        // });
-        
         // ****************************************************************************************************
         // BOTÓN SUBIR
         // When the user scrolls down 1100px from the top of the document, show the button
