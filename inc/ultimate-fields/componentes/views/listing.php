@@ -37,7 +37,7 @@ if ($show == 'auto') {
         'posts_per_page' => $qty
     );
     
-    $cpt_terms = $componente[$posttype.'_terms'];
+    $cpt_terms = ( isset($componente[$posttype.'_terms']) ) ? $componente[$posttype.'_terms'] : null;
     if( is_array($cpt_terms) && count($cpt_terms) > 0 && !empty($cpt_terms[0]) ){
         $taxonomy = get_taxonomy_by_term_id($cpt_terms[0]);
         $terms_in = implode(',',$cpt_terms);
@@ -68,7 +68,8 @@ $query = new WP_Query( $args_query );
         echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_tax="'.$show_tax.'" taxonomy="'.$taxonomy.'"]');
     }; ?>
 
-    <?php
+    <?php echo do_shortcode('[shop_messages]');
+
     if ($query->have_posts()) : ?>
         <div class="posts-listing posts-listing--<?=$list_template?> has-columns" style="--d-gap:<?=$d_gap?>; --l-gap:<?=$l_gap?>; --t-gap:<?=$t_gap?>; --m-gap:<?=$m_gap?>; --d-columns:<?=$items_in_desktop?>; --l-columns:<?=$items_in_laptop?>; --t-columns:<?=$items_in_tablet?>; --m-columns:<?=$items_in_mobile?>;">
             <?php while ( $query->have_posts() ) : $query->the_post();

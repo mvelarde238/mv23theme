@@ -4,6 +4,17 @@ use Ultimate_Fields\Container\Repeater_Group;
 
 $listing_cpts = LISTING_CPTS;
 $listing_taxonomies = LISTING_TAXONOMIES;
+$listing_templates = LISTING_TEMPLATES;
+$listing_post_template = LISTING_POST_TEMPLATE;
+
+if(WOOCOMMERCE_IS_ACTIVE){
+    $listing_cpts['product'] = 'Productos';
+    array_push($listing_taxonomies, array(
+        'cpt_slug' => 'product', 
+        'slug' => 'product_cat'
+    ));
+    $listing_post_template['woocommerce1'] = 'WooCommerce Product Basic';
+} 
 
 if(USE_PORTFOLIO_CPT){
     $listing_cpts['portfolio'] = 'Portfolio';
@@ -34,7 +45,7 @@ if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
 
 $listing_fields_2 = array( 
     Field::create( 'tab', 'List Template'),
-    Field::create( 'radio', 'list_template', 'Template' )->set_orientation( 'vertical' )->add_options(LISTING_TEMPLATES)->hide_label(),
+    Field::create( 'radio', 'list_template', 'Template' )->set_orientation( 'vertical' )->add_options($listing_templates)->hide_label(),
     Field::create( 'section', 'Cantidad de columnas' ),
     Field::create( 'number', 'items_in_desktop', 'Columnas en desktop' )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(3),
     Field::create( 'number', 'items_in_laptop', 'Columnas en laptop' )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(3),
@@ -47,7 +58,7 @@ $listing_fields_2 = array(
     Field::create( 'number', 'm_gap', 'En móviles' )->set_width( 25 )->enable_slider( 0, 100 ),
     
     Field::create( 'tab', 'Post Template'),
-    Field::create( 'radio', 'post_template', 'Template' )->set_orientation( 'vertical' )->add_options(LISTING_POST_TEMPLATE)->hide_label(),
+    Field::create( 'radio', 'post_template', 'Template' )->set_orientation( 'vertical' )->add_options($listing_post_template)->hide_label(),
     
     Field::create( 'tab', 'Paginado'),
     Field::create( 'select', 'pagination_type', 'Paginado' )->add_dependency('show','auto','=')->add_options(LISTING_PAGINATION_TYPES)->hide_label(),

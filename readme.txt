@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.90 22-05-31
+- WooCommerce Support
+
 23.8.88 22-05-27
 - COLOR_PICKER_PALETTES CONSTANT use theme main colors
 -----------------------------------------------------------------------
@@ -410,9 +413,6 @@ NOTES
 **************************************************************************************************
 TO-DO
 **************************************************************************************************
-- Megamenus
 - add set_suffix to "number" for borders
 - chequear responsive: columnas no shrink?
 - revisar todas las funciones donde se usa hex to rgb function
-- woocommerce on listing component
-- woocommerce support

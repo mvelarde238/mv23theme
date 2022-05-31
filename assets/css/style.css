@@ -4122,6 +4122,14 @@ form.cf7mls input.wpcf7-form-control.wpcf7-submit {
 	display: inline-block;
 }
 
+li.product:before {
+	display: none !important;
+}
+
+.has-columns ul.products li.product {
+	margin-bottom: 0;
+}
+
 .page-module {
 	padding: 90px 0;
 }

@@ -13,6 +13,8 @@ define ('GM_IS_ACTIVE', get_option('activate_gm'));
 define ('ULTIMATE_FIELDS_DISABLE_UI', true);
 define ('IS_MULTILANGUAGE', class_exists('Polylang') );
 define ('FONT_AWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css');
+$plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'woocommerce/woocommerce.php';
+define ('WOOCOMMERCE_IS_ACTIVE', in_array( $plugin_path, wp_get_active_and_valid_plugins() ) || in_array( $plugin_path, wp_get_active_network_plugins() ));
 
 if( !defined('MAIN_COLOR') ) define ('MAIN_COLOR', '#F8522C');
 if( !defined('SECONDARY_COLOR') ) define ('SECONDARY_COLOR', '#2A5354');
@@ -109,6 +111,7 @@ require_once( 'inc/functions/show-cpt-count-in-admin.php' );
 require_once( 'inc/functions/theme-my-login-multi-language-support.php' );
 if( CF7_USE_EMAIL_TEMPLATE ) require_once( 'inc/functions/cf7-mail-template.php' );
 require_once( 'inc/functions/ajax/load-posts.php' );
+get_template_part( 'inc/functions/woocommerce-support' );
 
 function mv23_launch_theme() {
     // launching operation cleanup
