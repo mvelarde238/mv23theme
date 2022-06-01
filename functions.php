@@ -14,7 +14,7 @@ define ('ULTIMATE_FIELDS_DISABLE_UI', true);
 define ('IS_MULTILANGUAGE', class_exists('Polylang') );
 define ('FONT_AWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css');
 $plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'woocommerce/woocommerce.php';
-define ('WOOCOMMERCE_IS_ACTIVE', in_array( $plugin_path, wp_get_active_and_valid_plugins() ) || in_array( $plugin_path, wp_get_active_network_plugins() ));
+define ('WOOCOMMERCE_IS_ACTIVE', in_array( $plugin_path, wp_get_active_and_valid_plugins() ));
 
 if( !defined('MAIN_COLOR') ) define ('MAIN_COLOR', '#F8522C');
 if( !defined('SECONDARY_COLOR') ) define ('SECONDARY_COLOR', '#2A5354');
