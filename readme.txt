@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.91 22-06-01
 - wp_get_active_network_plugins() not working
+- Only show woo shortcode when needed
 
 23.8.90 22-05-31
 - WooCommerce Support

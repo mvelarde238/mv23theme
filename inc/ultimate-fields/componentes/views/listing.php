@@ -68,7 +68,7 @@ $query = new WP_Query( $args_query );
         echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_tax="'.$show_tax.'" taxonomy="'.$taxonomy.'"]');
     }; ?>
 
-    <?php echo do_shortcode('[shop_messages]');
+    <?php if(WOOCOMMERCE_IS_ACTIVE && $posttype == 'product') echo do_shortcode('[shop_messages]');
 
     if ($query->have_posts()) : ?>
         <div class="posts-listing posts-listing--<?=$list_template?> has-columns" style="--d-gap:<?=$d_gap?>; --l-gap:<?=$l_gap?>; --t-gap:<?=$t_gap?>; --m-gap:<?=$m_gap?>; --d-columns:<?=$items_in_desktop?>; --l-columns:<?=$items_in_laptop?>; --t-columns:<?=$items_in_tablet?>; --m-columns:<?=$items_in_mobile?>;">
