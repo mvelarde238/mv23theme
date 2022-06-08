@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.92 22-06-08
+- color-picker-enhancement.js load form parent theme
+
 23.8.91 22-06-01
 - wp_get_active_network_plugins() not working
 - Only show woo shortcode when needed

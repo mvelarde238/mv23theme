@@ -61,6 +61,7 @@ add_action( 'wp_enqueue_scripts', 'mv23_scripts_and_styles',999 );
  * Enqueue ADMIN scripts and styles.
  */
 
+
 function mv23_admin_stuff(){
     wp_enqueue_style( 'font-awesome', FONT_AWESOME, array(), THEME_VERSION );
     $assets_url = get_template_directory_uri();
@@ -75,7 +76,8 @@ add_action('admin_head', 'mv23_admin_stuff');
 
 add_action( 'admin_enqueue_scripts', function(){
     wp_deregister_script('uf-field-color');
-    wp_enqueue_script('colorpicker-enhancement', get_stylesheet_directory_uri() . '/assets/js/color-picker-enhancement.js', array('uf-field', 'wp-color-picker'), THEME_VERSION, false );
+    $assets_url = get_template_directory_uri();
+    wp_enqueue_script('colorpicker-enhancement', $assets_url . '/assets/js/color-picker-enhancement.js', array('uf-field', 'wp-color-picker'), THEME_VERSION, false );
     wp_localize_script( 'colorpicker-enhancement', 'COLOR_PICKER', array( 
         'palettes' => COLOR_PICKER_PALETTES
     ));
