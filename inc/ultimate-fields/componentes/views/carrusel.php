@@ -5,11 +5,17 @@ $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 $show_controls = (isset($componente['show_controls']) && !empty($componente['show_controls'])) ? $componente['show_controls'] : 0;
 $show_nav = (isset($componente['show_nav']) && !empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
 $nav_position = (isset($componente['nav_position']) && !empty($componente['nav_position'])) ? $componente['nav_position'] : 'bottom';
+$autoplay = (isset($componente['autoplay']) && !empty($componente['autoplay'])) ? $componente['autoplay'] : 0;
 
 $items_in_mobile = $componente['items_in_mobile'];
 $items_in_tablet = $componente['items_in_tablet'];
 $items_in_laptop = $componente['items_in_laptop'];
 $items_in_desktop = $componente['items_in_desktop'];
+
+$gutter_in_mobile = (isset($componente['gutter_in_mobile'])) ? $componente['gutter_in_mobile'] : 0;
+$gutter_in_tablet = (isset($componente['gutter_in_tablet'])) ? $componente['gutter_in_tablet'] : 0;
+$gutter_in_laptop = (isset($componente['gutter_in_laptop'])) ? $componente['gutter_in_laptop'] : 0;
+$gutter_in_desktop = (isset($componente['gutter_in_desktop'])) ? $componente['gutter_in_desktop'] : 0;
 
 $classes_array = format_classes(array(
     'componente',
@@ -31,6 +37,11 @@ $attributes = generate_attributes($componente, $classes_array);
         data-tablet="<?=$items_in_tablet?>"
         data-laptop="<?=$items_in_laptop?>"
         data-desktop="<?=$items_in_desktop?>"
+        data-mobile-gutter="<?=$gutter_in_mobile?>"
+        data-tablet-gutter="<?=$gutter_in_tablet?>"
+        data-laptop-gutter="<?=$gutter_in_laptop?>"
+        data-desktop-gutter="<?=$gutter_in_desktop?>"
+        data-autoplay="<?=$autoplay?>"
         >
     <?php for ($i=0; $i < count($items); $i++) { 
         $imagen = $items[$i]['imagen'];

@@ -45,12 +45,18 @@ if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
 
 $listing_fields_2 = array( 
     Field::create( 'tab', 'List Template'),
-    Field::create( 'radio', 'list_template', 'Template' )->set_orientation( 'vertical' )->add_options($listing_templates)->hide_label(),
+    Field::create( 'radio', 'list_template', 'Template' )->set_orientation( 'horizontal' )->add_options($listing_templates)->hide_label(),
+    
+    Field::create( 'checkbox', 'show_controls' )->set_width( 33 )->set_text('Mostrar Flechas')->add_dependency('list_template','carrusel','='),
+    Field::create( 'checkbox', 'show_nav' )->set_width( 33 )->set_text('Mostrar indicadores de página')->add_dependency('list_template','carrusel','='),
+    Field::create( 'checkbox', 'autoplay' )->set_width( 33 )->set_text('Empezar automáticamente')->add_dependency('list_template','carrusel','='),
+
     Field::create( 'section', 'Cantidad de columnas' ),
     Field::create( 'number', 'items_in_desktop', 'Columnas en desktop' )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(3),
     Field::create( 'number', 'items_in_laptop', 'Columnas en laptop' )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(3),
     Field::create( 'number', 'items_in_tablet', 'Columnas en tablet' )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(2),
     Field::create( 'number', 'items_in_mobile', 'Columnas en móviles' )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(1),
+
     Field::create( 'section', 'Espacio entre las columnas' ),
     Field::create( 'number', 'd_gap', 'En desktop' )->set_width( 25 )->enable_slider( 0, 100 ),
     Field::create( 'number', 'l_gap', 'En laptop' )->set_width( 25 )->enable_slider( 0, 100 ),
@@ -60,10 +66,10 @@ $listing_fields_2 = array(
     Field::create( 'tab', 'Post Template'),
     Field::create( 'radio', 'post_template', 'Template' )->set_orientation( 'vertical' )->add_options($listing_post_template)->hide_label(),
     
-    Field::create( 'tab', 'Paginado'),
+    Field::create( 'tab', 'Paginado')->add_dependency('list_template','carrusel','!='),
     Field::create( 'select', 'pagination_type', 'Paginado' )->add_dependency('show','auto','=')->add_options(LISTING_PAGINATION_TYPES)->hide_label(),
     
-    Field::create( 'tab', 'Filter'),
+    Field::create( 'tab', 'Filter')->add_dependency('list_template','carrusel','!='),
     Field::create( 'checkbox', 'filter', 'Filtro' )->set_text( 'Mostrar Filtros' )->set_width(33),
     Field::create( 'checkbox', 'filter_show_tax', 'Categoría' )->set_text( 'Mostrar Categoría' )->add_dependency('filter')->set_width(33),
     Field::create( 'number', 'filter_first_year', 'Primer Año en el selector' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('filter')->set_default_value(2012)->set_width(33),

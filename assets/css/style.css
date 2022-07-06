@@ -3929,7 +3929,7 @@ div.wpcf7-acceptance-missing {
 	margin: auto !important;
 	border-radius: 0;
 	text-align: center;
-	background: #000 url("assets/images/loading.gif") center no-repeat;
+	background: #000 url("../images/loading.gif") center no-repeat;
 	z-index: 89;
 }
 
@@ -4562,7 +4562,7 @@ li.product:before {
 	line-height: 28px;
 	z-index: 89;
 	padding: 0;
-	background-color: #CDC6BE;
+	background-color: #F8522C;
 }
 
 .carrusel button[data-controls=prev] i,
@@ -4604,7 +4604,7 @@ li.product:before {
 }
 
 .carrusel .tns-nav button.tns-nav-active {
-	background-color: #CDC6BE;
+	background-color: #F8522C;
 	transform: scale(1.8);
 	position: relative;
 }
@@ -4616,7 +4616,7 @@ li.product:before {
 	left: -2px;
 	width: 10px;
 	height: 10px;
-	border: 1px solid #CDC6BE;
+	border: 1px solid #F8522C;
 	border-radius: 50%;
 }
 
@@ -4949,153 +4949,9 @@ li.product:before {
 	width: 100%;
 }
 
-.posts-carrusel {
-	position: relative;
-	padding: 0 30px;
-}
-
-.posts-carrusel__slider {
-	display: flex;
-}
-
-.posts-carrusel__item {
-	position: relative;
-}
-
-.posts-carrusel__link {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-}
-
-.posts-carrusel__post {
-	background-color: #F8522C;
-	background-size: cover;
-	background-position: center;
-	background-blend-mode: soft-light;
-	padding: 20px;
-	height: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	align-content: flex-end;
-	justify-content: space-between;
-	min-height: 180px;
-}
-
-.posts-carrusel__post h4 {
-	width: 100%;
-	max-width: 300px;
-	font-size: 18px;
-	color: #fff;
-	margin-bottom: 0 !important;
-}
-
-.posts-carrusel__post p {
-	color: #2A5354;
-	height: 0;
-	overflow: hidden;
-	transition: 300ms all;
-}
-
-.posts-carrusel__post i {
-	margin-right: 8px;
-}
-
-.posts-carrusel__post:hover p {
-	height: 20px;
-}
-
-.posts-carrusel .tns-outer {
-	position: relative;
-}
-
-.posts-carrusel button[data-controls=prev],
-.posts-carrusel button[data-controls=next] {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	border: 0;
-	width: 30px;
-	height: 100%;
-	z-index: 89;
-	padding: 0;
-	background-color: #F8522C;
-	transition: 300ms all;
-}
-
-.posts-carrusel button[data-controls=prev]:hover,
-.posts-carrusel button[data-controls=next]:hover {
-	background-color: #2A5354;
-}
-
-.posts-carrusel button[data-controls=prev] i,
-.posts-carrusel button[data-controls=next] i {
-	font-size: 19px;
-	width: 30px;
-	color: #fff;
-}
-
-.posts-carrusel button[data-controls=prev] {
-	left: -30px;
-}
-
-.posts-carrusel button[data-controls=next] {
-	right: -30px;
-}
-
-.posts-carrusel .tns-nav {
-	position: absolute;
-	left: 0;
-	z-index: 56;
-	width: 100%;
-	margin: auto;
-	padding: 10px;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-}
-
-.posts-carrusel .tns-nav button {
-	background-color: #808080;
-	height: 6px;
-	width: 6px;
-	border-radius: 50%;
-	border: 0;
-	margin: 0 10px;
-	padding: 0;
-	outline: 0;
-}
-
-.posts-carrusel .tns-nav button.tns-nav-active {
-	background-color: #2A5354;
-	transform: scale(1.8);
-	position: relative;
-}
-
-.posts-carrusel .tns-nav button.tns-nav-active:before {
-	content: "";
-	position: absolute;
-	top: -2px;
-	left: -2px;
-	width: 10px;
-	height: 10px;
-	border: 1px solid #2A5354;
-	border-radius: 50%;
-}
-
-.posts-carrusel.nav-position-bottom .tns-nav {
-	bottom: 0;
-}
-
-.posts-carrusel.nav-position-top .tns-nav {
-	top: 0;
-}
-
-.text-color-2 .posts-carrusel .tns-nav button:not(.tns-nav-active) {
-	background-color: #fff;
+.posts-listing .carrusel__slider {
+	align-items: flex-start;
+	justify-content: flex-start;
 }
 
 .progress-bar > div:first-child {

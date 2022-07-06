@@ -6,10 +6,10 @@ $items_in_desktop = $componente['items_in_desktop'];
 $items_in_laptop = $componente['items_in_laptop'];
 $items_in_tablet = $componente['items_in_tablet'];
 $items_in_mobile = $componente['items_in_mobile'];
-$d_gap = $componente['d_gap'].'px';
-$l_gap = $componente['l_gap'].'px';
-$t_gap = $componente['t_gap'].'px';
-$m_gap = $componente['m_gap'].'px';
+$d_gap = $componente['d_gap'];
+$l_gap = $componente['l_gap'];
+$t_gap = $componente['t_gap'];
+$m_gap = $componente['m_gap'];
 $post_template = $componente['post_template'];
 $list_template = $componente['list_template'];
 $taxonomy = null;
@@ -70,11 +70,38 @@ $query = new WP_Query( $args_query );
 
     <?php if(WOOCOMMERCE_IS_ACTIVE && $posttype == 'product') echo do_shortcode('[shop_messages]');
 
+    $css_vars = ($list_template == 'carrusel') ? ' ' : '--d-gap:'.$d_gap.'px; --l-gap:'.$l_gap.'px; --t-gap:'.$t_gap.'px; --m-gap:'.$m_gap.'px; --d-columns:'.$items_in_desktop.'; --l-columns:'.$items_in_laptop.'; --t-columns:'.$items_in_tablet.'; --m-columns:'.$items_in_mobile;
+
     if ($query->have_posts()) : ?>
-        <div class="posts-listing posts-listing--<?=$list_template?> has-columns" style="--d-gap:<?=$d_gap?>; --l-gap:<?=$l_gap?>; --t-gap:<?=$t_gap?>; --m-gap:<?=$m_gap?>; --d-columns:<?=$items_in_desktop?>; --l-columns:<?=$items_in_laptop?>; --t-columns:<?=$items_in_tablet?>; --m-columns:<?=$items_in_mobile?>;">
+        <div class="posts-listing posts-listing--<?=$list_template?> has-columns" style="<?=$css_vars?>">
+            <?php if($list_template == 'carrusel'): 
+                $show_controls = (!empty($componente['show_controls'])) ? $componente['show_controls'] : 0;
+                $show_nav = (!empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
+                $show_nav = (!empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
+                $autoplay = (!empty($componente['autoplay'])) ? $componente['autoplay'] : 0;
+                ?>
+            <div class="carrusel"><div class="carrusel__slider" 
+                data-show-controls="<?=$show_controls?>" 
+                data-show-nav="<?=$show_nav?>" 
+                data-autoplay="<?=$autoplay?>" 
+                data-nav-position="bottom"
+                data-mobile="<?=$items_in_mobile?>"
+                data-tablet="<?=$items_in_tablet?>"
+                data-laptop="<?=$items_in_laptop?>"
+                data-desktop="<?=$items_in_desktop?>"
+                data-mobile-gutter="<?=$m_gap?>"
+                data-tablet-gutter="<?=$t_gap?>"
+                data-laptop-gutter="<?=$l_gap?>"
+                data-desktop-gutter="<?=$d_gap?>">
+            <?php endif; ?>
+
             <?php while ( $query->have_posts() ) : $query->the_post();
                 get_template_part( 'inc/partials/minipost',$post_template);
             endwhile; ?>
+
+            <?php if($list_template == 'carrusel'): ?>
+                </div></div>
+            <?php endif; ?>
         </div>
     <?php endif;
 
