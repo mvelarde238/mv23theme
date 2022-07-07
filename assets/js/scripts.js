@@ -13593,7 +13593,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
       dismissible: true,
       opacity: .6,
       inDuration: 300,
-      outDuration: 200,
+      outDuration: MV23_GLOBALS.modal.outDuration,
       startingTop: '2%',
       endingTop: '5%',
       ready: function ready(modal, trigger) {

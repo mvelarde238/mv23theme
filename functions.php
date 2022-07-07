@@ -78,6 +78,8 @@ if( !defined('LISTING_POST_TEMPLATE') ) define( 'LISTING_POST_TEMPLATE', array('
 if( !defined('LISTING_LOADING_TEXT') ) define( 'LISTING_LOADING_TEXT', array('es' => 'Cargando...', 'en' => 'Loading...' ));
 if( !defined('LISTING_LOAD_MORE_TEXT') ) define( 'LISTING_LOAD_MORE_TEXT', array('es' => 'Cargar más...', 'en' => 'Load more...' ));
 
+if( !defined('MODAL_OUT_DURATION') ) define( 'MODAL_OUT_DURATION', 200);
+
 require_once( 'libs/ultimate-fields/ultimate-fields.php' );
 
 require_once( 'inc/classes/page.php' );

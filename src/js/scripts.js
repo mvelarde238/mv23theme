@@ -7,7 +7,8 @@
         // INIT MATERIALIZE SCRIPTS
         // ****************************************************************************************************
 
-        $('.modal').modal({ dismissible:true,  opacity:.6,  inDuration:300,  outDuration:200, startingTop: '2%', endingTop: '5%', 
+        $('.modal').modal({ dismissible:true,  opacity:.6, inDuration:300,  
+            outDuration: MV23_GLOBALS.modal.outDuration, startingTop: '2%', endingTop: '5%', 
             ready: function(modal, trigger) { $(trigger).css('z-index','initial'); },
             complete: function(modal, trigger) {
                 var empty_on_close = $(modal).hasClass('empty-on-close');

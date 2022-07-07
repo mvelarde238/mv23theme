@@ -42,6 +42,9 @@ function mv23_scripts_and_styles() {
             'mobile_menu_width' => MOBILE_MENU_WIDTH,
             'mobile_menu_position' => MOBILE_MENU_POSITION,
             'listing_loading_text' => LISTING_LOADING_TEXT,
+            'modal' => array(
+                'outDuration' => MODAL_OUT_DURATION
+            )
         )); 
 
         wp_enqueue_script( 'mv23-scripts' );
