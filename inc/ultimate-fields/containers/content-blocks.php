@@ -24,6 +24,7 @@ Container::create('content_blocks')
     ->add_fields(array(
         Field::create('layout', 'content_layout', 'Layout')->set_columns(12)->hide_label()->set_placeholder_text( 'Arrastre un componente aquí' )
             // ->add_group($texto_fields_group)
-            ->add_group( 'Editor de Texto', $tea ),
+            ->add_group( 'Editor de Texto', $tea )
+            ->add_group( 'Componente Reusable', $componente_reusable_args ),
     ));
     
