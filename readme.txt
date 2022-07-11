@@ -3,6 +3,8 @@ CHANGELOG
 **************************************************************************************************
 23.8.96 22-07-11
 - Content Blocks Editor use componentes reusables
+- DISABLE_PAGE_HEADER_IN in woocommerce support
+- pluggable functions in woocommerce support
 
 23.8.95 22-07-07
 - MODAL_OUT_DURATION Constant

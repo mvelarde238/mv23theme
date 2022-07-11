@@ -10,26 +10,32 @@ remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wra
 remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
 
 // main-content--sidebar-left
-add_action('woocommerce_before_main_content', function(){ ?>
-    <div id="content">
-        <?php get_template_part('inc/modulos/page-header'); ?>
-        <div class="main-content container">
-            <main class="main">
-                <div class="page-module">
-                    <div class="componente">
+if(!function_exists('theme_woocommerce_before_main_content')){
+    function theme_woocommerce_before_main_content(){ ?>
+        <div id="content">
+            <?php if( !in_array('product', DISABLE_PAGE_HEADER_IN) ) get_template_part('inc/modulos/page-header'); ?>
+            <div class="main-content container">
+                <main class="main">
+                    <div class="page-module">
+                        <div class="componente">
     <?php
-}, 10);
+    }
+}
+add_action('woocommerce_before_main_content', 'theme_woocommerce_before_main_content', 10);
 
-add_action('woocommerce_after_main_content', function() { ?>
+if(!function_exists('theme_woocommerce_after_main_content')){
+    function theme_woocommerce_after_main_content(){ ?>
+                        </div>
                     </div>
-                </div>
-            </main>
-            <!-- <div class="sidebar"><div class="page-module"><?php //dynamic_sidebar( 'sidebar_shop' ); ?></div></div> -->
-            <?php get_template_part('inc/modulos/modals/controlador'); ?>
+                </main>
+                <!-- <div class="sidebar"><div class="page-module"><?php //dynamic_sidebar( 'sidebar_shop' ); ?></div></div> -->
+                <?php get_template_part('inc/modulos/modals/controlador'); ?>
+            </div>
         </div>
-    </div>
-<?php
-}, 10);
+        <?php
+    }
+}
+add_action('woocommerce_after_main_content', 'theme_woocommerce_after_main_content', 10);
 
 // remove_action('woocommerce_sidebar','woocommerce_get_sidebar', 10);
 
