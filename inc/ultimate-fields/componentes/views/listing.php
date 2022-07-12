@@ -60,15 +60,20 @@ $classes_array = format_classes(array(
 
 $attributes = generate_attributes($componente, $classes_array);
 $query = new WP_Query( $args_query ); 
+
+if(!function_exists('post_listing_header')){
+    function post_listing_header(){ return ''; } 
+}
 ?>
 <div <?=$attributes?> data-posttype="<?=$posttype?>" data-taxonomy="<?=$taxonomy?>" data-term="<?=$terms_in?>" data-qty="<?=$qty?>" post-template="<?=$post_template?>">
     <?php if($componente['filter']) {
         $show_tax = ($componente['filter_show_tax'] && $taxonomy) ? 1 : 0;
         $firstyear = $componente['filter_first_year'];
         echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_tax="'.$show_tax.'" taxonomy="'.$taxonomy.'"]');
-    }; ?>
-
-    <?php if(WOOCOMMERCE_IS_ACTIVE && $posttype == 'product') echo do_shortcode('[shop_messages]');
+    };
+    
+    if(WOOCOMMERCE_IS_ACTIVE && $posttype == 'product') echo do_shortcode('[shop_messages]'); }
+    echo post_listing_header();
 
     $css_vars = ($list_template == 'carrusel') ? ' ' : '--d-gap:'.$d_gap.'px; --l-gap:'.$l_gap.'px; --t-gap:'.$t_gap.'px; --m-gap:'.$m_gap.'px; --d-columns:'.$items_in_desktop.'; --l-columns:'.$items_in_laptop.'; --t-columns:'.$items_in_tablet.'; --m-columns:'.$items_in_mobile;
 

@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.97 22-07-12
+- post_listing_header() pluggable function
+
 23.8.96 22-07-11
 - Content Blocks Editor use componentes reusables
 - DISABLE_PAGE_HEADER_IN in woocommerce support
