@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.98 22-07-13
 - Accordion Comp. accent color
+- template sidebars --> pinned
 
 23.8.97 22-07-12
 - post_listing_header() pluggable function

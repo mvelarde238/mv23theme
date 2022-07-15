@@ -20,9 +20,13 @@ get_header(); ?>
             <?php get_template_part('inc/modulos/modals/controlador'); ?>
         </main>
         <div class="sidebar">
-            <?php if (is_active_sidebar('page_sidebar')) : ?>
-                <?php dynamic_sidebar('page_sidebar'); ?>
-            <?php endif ?>
+			<div style="height:100%">
+				<div class="pinned-block">
+					<?php if (is_active_sidebar('page_sidebar')) : ?>
+						<?php dynamic_sidebar('page_sidebar'); ?>
+					<?php endif ?>
+				</div>
+			</div>
         </div>
     </div>
 </div>
