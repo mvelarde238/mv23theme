@@ -36,6 +36,7 @@ if( !defined('CF7_EMAIL_MAIN_COLOR') ) define ('CF7_EMAIL_MAIN_COLOR', get_main_
 // logo url: useful if logo is svg or another not supported format in emails
 if( !defined('CF7_EMAIL_LOGO') ) define ('CF7_EMAIL_LOGO', false);
 
+if( !defined('MOBILE_MENU_LOGO') ) define ('MOBILE_MENU_LOGO', 'secondary_logo');
 if( !defined('MOBILE_MENU_WIDTH') ) define ('MOBILE_MENU_WIDTH', 300);
 if( !defined('MOBILE_MENU_POSITION') ) define ('MOBILE_MENU_POSITION', 'left');
 
