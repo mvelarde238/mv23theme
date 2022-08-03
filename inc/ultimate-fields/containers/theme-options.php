@@ -52,10 +52,18 @@ for ($i=1; $i <= LOGOS_QUANTITY; $i++) {
     $main_options_fields[] = Field::create( 'image', $field_name, $field_title )->set_width(25);
 }
 
-$main_options_fields[] = Field::create( 'repeater', 'rrss', 'Redes Sociales' )->set_add_text('Agregar')->set_layout( 'table' )
+Container::create( 'main_options' ) 
+    ->add_location( 'options', $theme_options_page )
+    ->set_layout( 'grid' )
+    ->add_fields($main_options_fields);
+
+$rrss_fields = array();
+$rrss_fields[] = Field::create( 'repeater', 'rrss', 'Redes Sociales' )->set_add_text('Agregar')->hide_label()
+        // ->set_layout( 'table' )
         ->add_group('Red Social', array(
+            'title_template' => '<%= icon %> : <%= url %>',
             'fields' => array(
-                Field::create( 'select', 'icon')->add_options( array(
+                Field::create( 'select', 'icon', 'Red Social')->add_options( array(
                     '' => '--Seleccione--',
                     'facebook' => 'Facebook',
                     'twitter' => 'Twitter',
@@ -73,14 +81,17 @@ $main_options_fields[] = Field::create( 'repeater', 'rrss', 'Redes Sociales' )->
                     'linkedin' => 'Linkedin',
                     'pinterest' => 'Pinterest',
                 ))->set_width( 25 ),
-                Field::create( 'text', 'url' )->set_width( 75 ),
+                Field::create( 'text', 'url' )->set_width( 75 )->add_dependency('icon','whatsapp','!='),
+                Field::create( 'text', 'number' )->set_width( 25 )->add_dependency('icon','whatsapp','='),
+                Field::create( 'text', 'msg', 'Message' )->set_width( 50 )->add_dependency('icon','whatsapp','=')->set_default_value('Hola, necesito más información...'),
             )
         ));
 
-Container::create( 'main_options' ) 
+Container::create( 'rrss_options' ) 
     ->add_location( 'options', $theme_options_page )
     ->set_layout( 'grid' )
-    ->add_fields($main_options_fields);
+    ->set_title('Redes Sociales')
+    ->add_fields($rrss_fields);
 
 Container::create( 'page_editor_options' ) 
     ->add_location( 'options', $theme_options_page )
