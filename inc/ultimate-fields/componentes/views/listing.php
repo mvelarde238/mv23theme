@@ -77,8 +77,10 @@ if(!function_exists('post_listing_header')){
 
     $css_vars = ($list_template == 'carrusel') ? ' ' : '--d-gap:'.$d_gap.'px; --l-gap:'.$l_gap.'px; --t-gap:'.$t_gap.'px; --m-gap:'.$m_gap.'px; --d-columns:'.$items_in_desktop.'; --l-columns:'.$items_in_laptop.'; --t-columns:'.$items_in_tablet.'; --m-columns:'.$items_in_mobile;
 
-    if ($query->have_posts()) : ?>
-        <div class="posts-listing posts-listing--<?=$list_template?> has-columns" style="<?=$css_vars?>">
+    if ($query->have_posts()) : 
+        $columns_class = ($list_template == 'carrusel') ? '' : 'has-columns';
+        ?>
+        <div class="posts-listing posts-listing--<?=$list_template?> <?=$columns_class?>" style="<?=$css_vars?>">
             <?php if($list_template == 'carrusel'): 
                 $show_controls = (!empty($componente['show_controls'])) ? $componente['show_controls'] : 0;
                 $show_nav = (!empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
@@ -101,7 +103,9 @@ if(!function_exists('post_listing_header')){
             <?php endif; ?>
 
             <?php while ( $query->have_posts() ) : $query->the_post();
+                if($list_template == 'carrusel') echo '<div>';
                 get_template_part( 'inc/partials/minipost',$post_template);
+                if($list_template == 'carrusel') echo '</div>';
             endwhile; ?>
 
             <?php if($list_template == 'carrusel'): ?>

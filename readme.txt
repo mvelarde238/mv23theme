@@ -7,6 +7,7 @@ CHANGELOG
 - PAGE_HEADER_CONTENT_BUILDER
 - custom_page_header_options
 - Page Header print methods
+- Listing Compo. $list_template 'carrusel' corrections
 
 23.8.99 22-08-03
 - WhatsApp settings in rrss options
