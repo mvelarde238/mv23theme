@@ -2,6 +2,12 @@
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 
+if(!function_exists('custom_page_header_options')){
+    function custom_page_header_options(){
+        return array();
+    }
+}
+
 if(!function_exists('custom_page_headers')){
     function custom_page_headers(){
         return null;
@@ -98,4 +104,5 @@ $page_header_container = Container::create('page_header')
 
 $page_header_container->add_fields($tab_contenido);
 $page_header_container->add_fields($tab_fondo);
+$page_header_container->add_fields(custom_page_header_options());
 $page_header_container->add_fields($tab_settings);
