@@ -205,4 +205,27 @@ class Page_Header{
 			endif;
 		}
 	}
+
+	public function print_video_background(){
+		$video_background = $this->get_video_background();
+		if($video_background){
+			$videos = $video_background['files']['videos'];
+			if(is_array($videos) && count($videos) > 0){
+				// $poster = $video_background['files']['poster'];
+				$video_url = wp_get_attachment_url($videos[0]);
+				$opacity = $video_background['opacity'];
+		    	$video_style = ($opacity != 100) ? 'style="opacity:'.($opacity/100).';"' : ''; 
+		        echo '<video '.$video_style.' width="100%" autoplay loop muted="muted"><source src="'.$video_url.'">Your browser does not support the video tag.</video>';
+			}
+		}
+	}
+
+	public function print_slider(){
+		$page_ID = Page::getInstance()->get_id();
+		$key = Page::getInstance()->get_type();
+
+		$mobile_key = (constant('IS_MOBILE')) ? 'movil' : 'desktop';
+		$slider = get_metadata($key,$page_ID,'slider_'.$mobile_key, true);
+		if($slider) echo do_shortcode($slider);
+	}
 }

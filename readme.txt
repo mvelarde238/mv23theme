@@ -6,6 +6,7 @@ CHANGELOG
 - Columnas Simples item flex-grow
 - PAGE_HEADER_CONTENT_BUILDER
 - custom_page_header_options
+- Page Header print methods
 
 23.8.99 22-08-03
 - WhatsApp settings in rrss options
