@@ -1,7 +1,8 @@
 (function($,c){      
+    var header_height = 118;
+    
     $(function() {
         // var header_height = $('.header__content').height();
-        var header_height = 118;
 
         // ****************************************************************************************************
         // INIT MATERIALIZE SCRIPTS
@@ -100,6 +101,46 @@
         $('.cover-all').parent().css('position','relative');
 
         // ****************************************************************************************************
+        // CONVERTIR ENLACES A PDF EN PDF
+        // ****************************************************************************************************
+        var is_single = $('body').hasClass('single-post');
+        
+        function convertir_links_en_pdf(links){
+            if (links.length > 0) {
+                for (var i = 0; i < links.length; i++) {
+                    var href = $(links[i]).attr('href');
+                    $(links[i]).append(' <i class="fa fa-level-down"></i>');
+                    $('<div class="pdf-responsive"><embed src="' + href + '" width="670" height="500" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"></div>').insertAfter($(links[i]).parent());
+                }
+            }
+        }
+        if (is_single) {
+            var links = $('.main').find('a[href*=".pdf"]');
+            convertir_links_en_pdf(links);
+        }
+
+        // *********************************************************************
+        // REMOVE ACTIVE IN MENU ITEMS WITH ANCHOR
+        // *********************************************************************
+        var menu_items_links = $(".main-nav li a");
+        menu_items_links.each(function () {
+            if ($(this).is('[href*="#"')) {
+                $(this).parent().removeClass('current-menu-item current-menu-ancestor');
+                // $(this).click(function () {
+                    // var current_index = $(this).parent().index(),
+                        // parent_element = $(this).closest('ul');
+                        // parent_element.find('li').not(':eq(' + current_index + ')').removeClass('current-menu-item current-menu-ancestor');
+                    // $(this).parent().addClass('current-menu-item current-menu-ancestor');
+                // })
+            }
+        })
+
+        // ****************************************************************************************************
+        // ****************************************************************************************************
+    });
+
+    $(window).load(function(){
+        // ****************************************************************************************************
         // ****************************************************************************************************
 
         var $pinnedBlocks = $('.pinned-block');
@@ -134,41 +175,6 @@
                 }
             });
         });
-
-        // ****************************************************************************************************
-        // CONVERTIR ENLACES A PDF EN PDF
-        // ****************************************************************************************************
-        var is_single = $('body').hasClass('single-post');
-        
-        function convertir_links_en_pdf(links){
-            if (links.length > 0) {
-                for (var i = 0; i < links.length; i++) {
-                    var href = $(links[i]).attr('href');
-                    $(links[i]).append(' <i class="fa fa-level-down"></i>');
-                    $('<div class="pdf-responsive"><embed src="' + href + '" width="670" height="500" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"></div>').insertAfter($(links[i]).parent());
-                }
-            }
-        }
-        if (is_single) {
-            var links = $('.main').find('a[href*=".pdf"]');
-            convertir_links_en_pdf(links);
-        }
-
-        // *********************************************************************
-        // REMOVE ACTIVE IN MENU ITEMS WITH ANCHOR
-        // *********************************************************************
-        var menu_items_links = $(".main-nav li a");
-        menu_items_links.each(function () {
-            if ($(this).is('[href*="#"')) {
-                $(this).parent().removeClass('current-menu-item current-menu-ancestor');
-                // $(this).click(function () {
-                    // var current_index = $(this).parent().index(),
-                        // parent_element = $(this).closest('ul');
-                        // parent_element.find('li').not(':eq(' + current_index + ')').removeClass('current-menu-item current-menu-ancestor');
-                    // $(this).parent().addClass('current-menu-item current-menu-ancestor');
-                // })
-            }
-        })
 
         // ****************************************************************************************************
         // ****************************************************************************************************

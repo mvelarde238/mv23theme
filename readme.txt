@@ -4,6 +4,7 @@ CHANGELOG
 23.8.99 22-08-03
 - WhatsApp settings in rrss options
 - MOBILE_MENU_LOGO Constant
+- pinned block script moved to window load
 
 23.8.98 22-07-13
 - Accordion Comp. accent color

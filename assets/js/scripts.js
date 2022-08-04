@@ -13583,12 +13583,12 @@ function animateWidth(elem, start, end, duration, spanElem) {
 })(jQuery, console.log);
 
 (function ($, c) {
+  var header_height = 118;
   $(function () {
     // var header_height = $('.header__content').height();
-    var header_height = 118; // ****************************************************************************************************
+    // ****************************************************************************************************
     // INIT MATERIALIZE SCRIPTS
     // ****************************************************************************************************
-
     $('.modal').modal({
       dismissible: true,
       opacity: .6,
@@ -13681,39 +13681,6 @@ function animateWidth(elem, start, end, duration, spanElem) {
     // ****************************************************************************************************
 
     $('.cover-all').parent().css('position', 'relative'); // ****************************************************************************************************
-    // ****************************************************************************************************
-
-    var $pinnedBlocks = $('.pinned-block');
-
-    if (viewport.width > 1024) {
-      $pinnedBlocks.each(function () {
-        var $this = $(this),
-            $target = $this.parent();
-        $this.css('width', $target.css('width'));
-
-        if ($target.height() > $this.height()) {
-          $this.pushpin({
-            top: $target.offset().top,
-            bottom: $target.offset().top + $target.outerHeight() - $this.height(),
-            offset: header_height
-          });
-        }
-      });
-    }
-
-    window.addEventListener('resize', function (event) {
-      $pinnedBlocks.each(function () {
-        var $this = $(this),
-            $target = $this.parent();
-
-        if (window.innerWidth > 1024) {
-          $this.css('width', $target.css('width'));
-        } else {
-          $this.pushpin('remove');
-          $this.css('width', '100%');
-        }
-      });
-    }); // ****************************************************************************************************
     // CONVERTIR ENLACES A PDF EN PDF
     // ****************************************************************************************************
 
@@ -13747,6 +13714,42 @@ function animateWidth(elem, start, end, duration, spanElem) {
         // $(this).parent().addClass('current-menu-item current-menu-ancestor');
         // })
       }
+    }); // ****************************************************************************************************
+    // ****************************************************************************************************
+  });
+  $(window).load(function () {
+    // ****************************************************************************************************
+    // ****************************************************************************************************
+    var $pinnedBlocks = $('.pinned-block');
+
+    if (viewport.width > 1024) {
+      $pinnedBlocks.each(function () {
+        var $this = $(this),
+            $target = $this.parent();
+        $this.css('width', $target.css('width'));
+
+        if ($target.height() > $this.height()) {
+          $this.pushpin({
+            top: $target.offset().top,
+            bottom: $target.offset().top + $target.outerHeight() - $this.height(),
+            offset: header_height
+          });
+        }
+      });
+    }
+
+    window.addEventListener('resize', function (event) {
+      $pinnedBlocks.each(function () {
+        var $this = $(this),
+            $target = $this.parent();
+
+        if (window.innerWidth > 1024) {
+          $this.css('width', $target.css('width'));
+        } else {
+          $this.pushpin('remove');
+          $this.css('width', '100%');
+        }
+      });
     }); // ****************************************************************************************************
     // ****************************************************************************************************
   });
