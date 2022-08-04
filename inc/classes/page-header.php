@@ -10,6 +10,7 @@ class Page_Header{
 	private $page_header_bgi;
 	private $bgc;
 	private $classes;
+	private $video_background;
 
 	private $style;
 	private $class;
@@ -29,6 +30,7 @@ class Page_Header{
 		$this->set_parallax();
 		$this->set_page_header_bgi();
 		$this->set_bgc();
+		$this->set_video_background();
 		$this->set_id();
 		$this->set_class();
 		$this->set_style();
@@ -66,6 +68,10 @@ class Page_Header{
 		$page_header_class = get_metadata($this->page_type, $this->page_ID,'page_header_class', true);
 		$this->classes = ($page_header_class) ? $page_header_class : null;
 	}
+	private function set_video_background(){
+		$video_background = get_metadata($this->page_type, $this->page_ID,'page_header_video', true);
+		$this->video_background = ($video_background) ? $video_background : null;
+	}
 
  	private function set_style(){
  		$style = '';
@@ -96,6 +102,7 @@ class Page_Header{
 		if ($this->get_text_color() == 'text-color-2') $classes[] = 'text-color-2';
 		if ($this->get_parallax()) $classes[] = 'parallax';
 		if ($this->get_page_header_bgi() == null) $classes[] = 'no-image';
+		if ($this->get_video_background()) $classes[] = 'has-video-background';
 		if ($this->get_classes()) $classes[] = $this->get_classes();
 
  		$this->class = 'class="'.implode(' ', $classes).'"';
@@ -134,6 +141,9 @@ class Page_Header{
 	}
 	public function get_bgc(){
 		return $this->bgc;
+	}
+	public function get_video_background(){
+		return $this->video_background;
 	}
  	public function get_style(){
  		return $this->style;

@@ -48,6 +48,22 @@
 .add-padding
 	padding: 20px
 
+.has-video-background
+	overflow: hidden
+	position: relative
+	background-color: #000
+	background-image: url() !important
+	video
+		position: absolute
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
+		z-index: 1
+		min-height: 100%
+	&>*
+		position: relative
+		z-index: 56
+
 [data-animation]
 	animation-duration: 1s
 	animation-fill-mode: both
@@ -55,3 +71,8 @@
 @media #{$medium-and-down}
 	.componente
 		margin: 15px 15px
+
+@media #{$small-and-down}
+	.has-video-background
+		video
+			transform: translate(-50%, -50%) scale(2.5)

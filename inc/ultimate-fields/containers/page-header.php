@@ -38,13 +38,17 @@ if($custom_page_headers){
 
 $tab_fondo = array(
     Field::create('tab', 'Fondo'),
-    Field::create('image', 'page_header_bgi', 'Imágen de Fondo')->set_width(25)->set_default_value(PAGE_HEADER_BGI),
-    Field::create('color', 'page_header_bgc', 'Color de Fondo')->set_width(25)->set_default_value(PAGE_HEADER_BGC),
-    Field::create('select', 'page_header_text_color', 'Color del texto')->set_width(25)->add_options(array(
+    Field::create('image', 'page_header_bgi', 'Imágen de Fondo')->set_width(20)->set_default_value(PAGE_HEADER_BGI),
+    Field::create('complex', 'page_header_video')->add_fields(array(
+        Field::create( 'video', 'files', 'Video de Fondo' ),
+        Field::create( 'number', 'opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )
+    ))->set_width(20)->hide_label(),
+    Field::create('color', 'page_header_bgc', 'Color de Fondo')->set_width(20)->set_default_value(PAGE_HEADER_BGC),
+    Field::create('select', 'page_header_text_color', 'Color del texto')->set_width(20)->add_options(array(
         'text-color-2' => 'Blanco',
         'text-color-default' => 'Negro',
     ))->set_default_value(PAGE_HEADER_TEXT_COLOR),
-    Field::create('radio', 'page_header_bgi_parallax', 'Parallax')->set_width(25)->add_options(array(
+    Field::create('radio', 'page_header_bgi_parallax', 'Parallax')->set_width(20)->add_options(array(
         '0' => 'Desactivar',
         '1' => 'Activar',
     ))->set_orientation('horizontal')->set_default_value('0'),

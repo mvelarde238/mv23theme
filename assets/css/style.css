@@ -4172,6 +4172,27 @@ li.product:before {
 	padding: 20px;
 }
 
+.has-video-background {
+	overflow: hidden;
+	position: relative;
+	background-color: #000;
+	background-image: url() !important;
+}
+
+.has-video-background video {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1;
+	min-height: 100%;
+}
+
+.has-video-background > * {
+	position: relative;
+	z-index: 56;
+}
+
 [data-animation] {
 	animation-duration: 1s;
 	animation-fill-mode: both;
@@ -4499,18 +4520,7 @@ li.product:before {
 	font-size: 23px;
 }
 
-.card.componente.has-video-background {
-	overflow: hidden;
-	background-color: #000;
-}
-
 .card.componente.has-video-background video {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin: auto;
 	min-height: 100%;
 }
 
@@ -4630,26 +4640,6 @@ li.product:before {
 	justify-content: space-between;
 }
 
-.columnas.has-video-background {
-	overflow: hidden;
-	position: relative;
-	background-image: url() !important;
-}
-
-.columnas.has-video-background video {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin: auto;
-}
-
-.columnas.has-video-background .componente {
-	position: relative;
-	z-index: 56;
-}
-
 .columnas-1 {
 	display: grid;
 }
@@ -4704,26 +4694,6 @@ li.product:before {
 
 .fila {
 	display: grid;
-}
-
-.fila.has-video-background {
-	overflow: hidden;
-	position: relative;
-	background-image: url() !important;
-}
-
-.fila.has-video-background video {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin: auto;
-}
-
-.fila.has-video-background .componente {
-	position: relative;
-	z-index: 56;
 }
 
 .icon-and-text > div:first-child {
@@ -4899,18 +4869,7 @@ li.product:before {
 	position: static;
 }
 
-.image.componente.has-video-background {
-	overflow: hidden;
-	background-color: #000;
-}
-
 .image.componente.has-video-background video {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin: auto;
 	min-height: 100%;
 }
 
@@ -6620,6 +6579,10 @@ table.responsive-table.bordered tbody tr {
 
 .has-columns > div {
 	width: calc(100% / var(--m-columns) - var(--m-gap) + var(--m-gap) / var(--m-columns));
+}
+
+.has-video-background video {
+	transform: translate(-50%, -50%) scale(2.5);
 }
 
 .mobile-order-1 {
