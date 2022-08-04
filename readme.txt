@@ -4,6 +4,7 @@ CHANGELOG
 23.8.100 22-08-04
 - Page Title video background
 - Columnas Simples item flex-grow
+- PAGE_HEADER_CONTENT_BUILDER
 
 23.8.99 22-08-03
 - WhatsApp settings in rrss options

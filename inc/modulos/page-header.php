@@ -32,14 +32,9 @@ switch ($page_header_element) {
 		break;
 	
 	case 'contenido':
-		$page_header_content = get_metadata($key,$page_ID,'page_header_content', true);
-		if ($page_header_content) :
-			if ($layout != 'layout3') echo '<div class="container">';
-				echo '<div class="componente">';
-				if($page_header_content) echo do_shortcode(wpautop($page_header_content));
-				echo '</div>';
-			if ($layout != 'layout3') echo '</div>';
-		endif;
+		if ($layout != 'layout3') echo '<div class="container">';
+		$page_header->print_custom_content();
+		if ($layout != 'layout3') echo '</div>';
 		break;
 
 	case 'ninguno':

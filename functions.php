@@ -23,6 +23,7 @@ if( !defined('PAGE_HEADER_BGC') ) define ('PAGE_HEADER_BGC', get_secondary_color
 if( !defined('PAGE_HEADER_LAYOUT') ) define ('PAGE_HEADER_LAYOUT', 'layout2');
 if( !defined('PAGE_HEADER_TEXT_COLOR') ) define ('PAGE_HEADER_TEXT_COLOR', 'text-color-2');
 if( !defined('PAGE_HEADER_BGI') ) define ('PAGE_HEADER_BGI', 0);
+if( !defined('PAGE_HEADER_CONTENT_BUILDER') ) define ('PAGE_HEADER_CONTENT_BUILDER', false);
 if( !defined('BORDER_RADIUS') ) define ('BORDER_RADIUS', 15);
 if( !defined('LOGOS_QUANTITY') ) define ('LOGOS_QUANTITY', 2);
 if( !defined('FLOATING_HEADER_BREAKPOINT') ) define ('FLOATING_HEADER_BREAKPOINT', 200);
