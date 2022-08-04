@@ -102,7 +102,8 @@ class Page_Header{
 		if ($this->get_text_color() == 'text-color-2') $classes[] = 'text-color-2';
 		if ($this->get_parallax()) $classes[] = 'parallax';
 		if ($this->get_page_header_bgi() == null) $classes[] = 'no-image';
-		if ($this->get_video_background()) $classes[] = 'has-video-background';
+		$video_background = $this->get_video_background();
+		if ( is_array($video_background) && count($video_background['files']['videos']) > 0 ) $classes[] = 'has-video-background';
 		if ($this->get_classes()) $classes[] = $this->get_classes();
 
  		$this->class = 'class="'.implode(' ', $classes).'"';
