@@ -4,6 +4,9 @@
 		flex-wrap: wrap;
 		justify-content: space-between;
 	}
+	&__item{
+		flex-grow: 1;
+	}
 
 	@media #{$medium-and-up} {
 		$i: 5;

@@ -4640,6 +4640,10 @@ li.product:before {
 	justify-content: space-between;
 }
 
+.columnas-simples__item {
+	flex-grow: 1;
+}
+
 .columnas-1 {
 	display: grid;
 }
@@ -6481,6 +6485,11 @@ table.responsive-table.bordered tbody tr {
 	margin: 15px 15px;
 }
 
+.has-video-background video {
+	height: 100%;
+	width: auto;
+}
+
 .carrusel button[data-controls=prev] {
 	left: -15px;
 }
@@ -6579,10 +6588,6 @@ table.responsive-table.bordered tbody tr {
 
 .has-columns > div {
 	width: calc(100% / var(--m-columns) - var(--m-gap) + var(--m-gap) / var(--m-columns));
-}
-
-.has-video-background video {
-	transform: translate(-50%, -50%) scale(2.5);
 }
 
 .mobile-order-1 {
