@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.102 22-08-06
 - Content Layout Class
+- vars validation
 
 23.8.101 22-08-05
 - correction: Icono & Text show main color 

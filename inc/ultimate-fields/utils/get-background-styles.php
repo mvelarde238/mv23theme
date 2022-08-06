@@ -1,7 +1,7 @@
 <?php
 function get_background_styles($componente){
 	$style = '';
-	$bgi = wp_get_attachment_url($componente['bgi']);
+	$bgi = (isset($componente['bgi']) && $componente['bgi'] != '') ? wp_get_attachment_url($componente['bgi']) : '';
 
 	if (array_key_exists('color_de_fondo', $componente)) {
 	    $style .= ($componente['color_de_fondo']['add_bgc']) ? 'background-color: '.$componente['color_de_fondo']['bgc'].';' : '';
