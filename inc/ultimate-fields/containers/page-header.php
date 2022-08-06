@@ -35,20 +35,16 @@ $tab_contenido = array(
     Field::create('textarea', 'slider_desktop')->set_rows(1)->set_width(50)->add_dependency('page_header_element', 'slider', '='),
     Field::create('textarea', 'slider_movil')->set_rows(1)->set_width(50)->add_dependency('page_header_element', 'slider', '=')
 );
-if( PAGE_HEADER_CONTENT_BUILDER ){
-    $custom1_text_editor = array(
-        'title' => 'Editor de Texto',
-        'edit_mode' => 'popup',
-        'title_template' => '<%= content %>',
-        'fields' => array(
-            Field::create('wysiwyg', 'content')->hide_label()->set_rows(10)
-        ),
-        'min_width' => '3'
-    );
 
-    $content_type = Field::create('layout', 'page_header_content2')->set_columns(12)->hide_label()->set_placeholder_text( 'Arrastre un componente aquí' )
-        ->add_dependency('page_header_element', 'contenido', '=')
-        ->add_group( 'Editor de Texto', $custom1_text_editor );
+if( PAGE_HEADER_CONTENT_BUILDER ){
+    $content_type = Content_Layout::the_field(array( 
+        'slug' => 'page_header_content2', 
+        'components' => array( 'Editor de Texto', 'Imágen' ), 
+        'dependencies' => array(
+            array( 'field' => 'page_header_element', 'value' => 'contenido', 'compare' => '=' )
+        )
+    ));
+
 } else {
     $content_type = Field::create('wysiwyg', 'page_header_content')->hide_label()->set_rows(1)->add_dependency('page_header_element', 'contenido', '=');
 }

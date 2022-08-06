@@ -2,20 +2,7 @@
 use Ultimate_Fields\Container\Repeater_Group;
 use Ultimate_Fields\Field;
 
-$col_sim_componentes_field = Field::create( 'layout', 'columnas_simples', '' )->set_columns( 12 );
-
-$col_sim_componentes_field->add_group( 'Editor de Texto', $text_editor_args );
-$col_sim_componentes_field->add_group( 'Separador', $separador_args );
-$col_sim_componentes_field->add_group( 'Accordion', $accordion_args );
-$col_sim_componentes_field->add_group( 'Carrusel', $carrusel_args );
-$col_sim_componentes_field->add_group( 'Mapa', $mapa_args );
-$col_sim_componentes_field->add_group( 'Progress Circle', $progress_circle_args );
-$col_sim_componentes_field->add_group( 'Progress Bar', $progress_bar_args );
-$col_sim_componentes_field->add_group( 'Icono y texto', $icon_and_text_args );
-$col_sim_componentes_field->add_group( 'Slider', $slider_args );
-
-$col_sim_componentes_field->add_group( 'Componente Reusable', $componente_reusable_args );
-$col_sim_componentes_field->add_group( 'Card', $card_args );
+$col_sim_componentes_field = Content_Layout::the_field(array('slug' => 'columnas_simples'))->add_group( 'Card', $card_args );
 
 $fields = array( 
     Field::create( 'tab', 'Contenido' ),

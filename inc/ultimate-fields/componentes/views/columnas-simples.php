@@ -14,22 +14,5 @@ $classes_array = format_classes(array(
 $attributes = generate_attributes($componente, $classes_array);
 ?>
 <div <?=$attributes?> <?=$components_margin_attrs?>>
-    <div>
-        <?php for ($i=0; $i < count($columnas_simples); $i++) { 
-            $fila_items = $columnas_simples[$i];
-            for ($it=0; $it < count($fila_items); $it++){
-                $componente = $fila_items[$it];
-                $type = $componente['__type'];
-                $width = $componente['__width'];
-                $componente['layout'] = 'layout1';
-                ?>
-                <div class="columnas-simples__item <?=$type?> width-<?=$width?>">
-                    <?php 
-                    $path = get_template_directory().'/inc/ultimate-fields/componentes/views/'.$type.'.php';
-                    include $path; 
-                    ?>
-                </div>
-                <?php }; ?>
-        <?php }; ?>
-    </div>
+    <?php echo Content_Layout::the_content($columnas_simples); ?>
 </div>

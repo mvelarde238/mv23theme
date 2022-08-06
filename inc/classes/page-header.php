@@ -168,31 +168,9 @@ class Page_Header{
 			$page_header_content = get_metadata($key,$page_ID,'page_header_content2', true);
 			if (is_array($page_header_content) && count($page_header_content) > 0) : ?>
                 <div class="page-header__content">
-                <div class="columnas-simples">
-                    <div>
-                        <?php for ($i = 0; $i < count($page_header_content); $i++) {
-                            $fila_items = $page_header_content[$i];
-                            for ($it = 0; $it < count($fila_items); $it++) {
-                                $componente = $fila_items[$it];
-                                $type = $componente['__type'];
-                                $width = $componente['__width'];
-                                $componente['layout'] = 'layout1';
-        
-                                $componente['class'] = '';
-                                $componente['tablet_text_align'] = '';
-                                $componente['mobile_text_align'] = '';
-                                $componente['bgi'] = '';
-                                ?>
-                                <div class="columnas-simples__item <?= $type ?> width-<?= $width ?>">
-                                    <?php
-                                    $path = get_template_directory() . '/inc/ultimate-fields/componentes/views/' . $type . '.php';
-                                    include $path;
-                                    ?>
-                                </div>
-                            <?php }; ?>
-                        <?php }; ?>
-                    </div>
-                </div>
+                	<div class="columnas-simples">
+						<?php echo Content_Layout::the_content($page_header_content); ?>
+                	</div>
                 </div>
             <?php endif;
 

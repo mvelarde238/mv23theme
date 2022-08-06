@@ -33,18 +33,18 @@ if(TEMPLATE_PART) require_once( 'fields/template-part.php' );
 include( locate_template( 'inc/ultimate-fields/componentes/utils/more-components.php' ) );
 
 $componentes = array(
-	array('name' => 'Editor de Texto', 'variable'=>$text_editor),
-	array('name' => 'Imágen', 'variable'=>$image),
-	array('name' => 'Separador', 'variable'=>$separador),
-	array('name' => 'Accordion', 'variable'=>$accordion),
-	array('name' => 'Carrusel', 'variable'=>$carrusel),
-	array('name' => 'Mapa', 'variable'=>$mapa),
-	array('name' => 'Progress Circle', 'variable'=>$progress_circle),
-	array('name' => 'Progress Bar', 'variable'=>$progress_bar),
-	array('name' => 'Icono y texto', 'variable'=>$icon_and_text),
-	array('name' => 'Slider', 'variable'=>$slider),
-	array('name' => 'Componente Reusable', 'variable'=>$componente_reusable),
-	array('name' => 'Listing', 'variable'=>$listing)
+	array('name' => 'Editor de Texto', 'variable'=>$text_editor, 'args'=>$text_editor_args),
+	array('name' => 'Imágen', 'variable'=>$image, 'args'=>$image_args),
+	array('name' => 'Separador', 'variable'=>$separador, 'args'=>$separador_args),
+	array('name' => 'Accordion', 'variable'=>$accordion, 'args'=>$accordion_args),
+	array('name' => 'Carrusel', 'variable'=>$carrusel, 'args'=>$carrusel_args),
+	array('name' => 'Mapa', 'variable'=>$mapa, 'args'=>$mapa_args),
+	array('name' => 'Progress Circle', 'variable'=>$progress_circle, 'args'=>$progress_circle_args),
+	array('name' => 'Progress Bar', 'variable'=>$progress_bar, 'args'=>$progress_bar_args),
+	array('name' => 'Icono y texto', 'variable'=>$icon_and_text, 'args'=>$icon_and_text_args),
+	array('name' => 'Slider', 'variable'=>$slider, 'args'=>$slider_args),
+	array('name' => 'Componente Reusable', 'variable'=>$componente_reusable, 'args'=>$componente_reusable_args),
+	array('name' => 'Listing', 'variable'=>$listing, 'args'=>$listing_args)
 );
 
 if(TEMPLATE_PART) $componentes[] = array('name' => 'Template Part', 'variable'=>$template_part);
@@ -52,8 +52,10 @@ if(TEMPLATE_PART) $componentes[] = array('name' => 'Template Part', 'variable'=>
 include( locate_template( 'inc/ultimate-fields/componentes/utils/edit-components.php' ) );
 
 
-
 ///////////// LOS SIGUIENTES ARCHIVOS USAN LA VARIABLE $componentes
+
+require_once( 'utils/class-content-layout.php' );
+new Content_Layout($componentes);
 
 // se usa en card, modulo, row 
 $componentes_field = Field::create( 'repeater', 'componentes', '' )
