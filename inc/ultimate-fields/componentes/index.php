@@ -20,7 +20,6 @@ require_once( 'fields/componente-reusable.php' );
 require_once( 'fields/modulo-reusable.php' );
 require_once( 'fields/text-editor.php' );
 require_once( 'fields/separador.php' );
-require_once( 'fields/accordion.php' );
 require_once( 'fields/carrusel.php' );
 require_once( 'fields/mapa.php' );
 require_once( 'fields/progress-circle.php' );
@@ -36,7 +35,7 @@ $componentes = array(
 	array('name' => 'Editor de Texto', 'variable'=>$text_editor, 'args'=>$text_editor_args),
 	array('name' => 'Imágen', 'variable'=>$image, 'args'=>$image_args),
 	array('name' => 'Separador', 'variable'=>$separador, 'args'=>$separador_args),
-	array('name' => 'Accordion', 'variable'=>$accordion, 'args'=>$accordion_args),
+	// array('name' => 'Accordion', 'variable'=>$accordion, 'args'=>$accordion_args),
 	array('name' => 'Carrusel', 'variable'=>$carrusel, 'args'=>$carrusel_args),
 	array('name' => 'Mapa', 'variable'=>$mapa, 'args'=>$mapa_args),
 	array('name' => 'Progress Circle', 'variable'=>$progress_circle, 'args'=>$progress_circle_args),
@@ -59,18 +58,22 @@ new Content_Layout($componentes);
 
 // se usa en card, modulo, row 
 $componentes_field = Field::create( 'repeater', 'componentes', '' )
-    ->set_chooser_type( 'dropdown' )
-    ->set_add_text('Agregar')
-    ->set_attr( 'style', 'background: #c8d6e4;' );
+->set_chooser_type( 'dropdown' )
+->set_add_text('Agregar')
+->set_attr( 'style', 'background: #c8d6e4;' );
 foreach ($componentes as $c) {
-    $componentes_field->add_group( $c['variable'] );
+	$componentes_field->add_group( $c['variable'] );
 }
+
+require_once( 'fields/accordion.php' );
+$componentes_field->add_group($accordion);
 
 // se usa en columnas y columnas internas
 $columna = Field::create( 'repeater', 'columna', '' )->set_chooser_type( 'dropdown' )->set_width( 25 )->set_add_text('Agregar');
 foreach ($componentes as $c) {
     $columna->add_group( $c['variable'] );
 }
+$columna->add_group($accordion);
 
 require_once( 'fields/card.php' );
 $columna->add_group( $card );

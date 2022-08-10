@@ -60,6 +60,17 @@ $attributes = generate_attributes($componente, $classes_array);
                     ob_start();
                     echo ultimate_fields_page_content( str_replace('post_','',$post_id ) );
                     $contenido = ob_get_clean();
+
+                } else if( $content_element == 'layout' ) {
+                    $content_layout = $item['content_layout'];
+                    if (is_array($content_layout) && count($content_layout) > 0) :
+                        ob_start();
+                        echo '<div class="columnas-simples">';
+                        echo Content_Layout::the_content($content_layout);
+                        echo '</div>';
+                        $contenido = ob_get_clean();
+                    endif;
+
                 } else if( $content_element == 'seccion_reusable' ) {
                     $key = get_post_meta( $item['seccion_reusable'], 'section_type', true );
                     if ($key == 'modulo') {

@@ -81,6 +81,7 @@ if( !defined('LISTING_LOADING_TEXT') ) define( 'LISTING_LOADING_TEXT', array('es
 if( !defined('LISTING_LOAD_MORE_TEXT') ) define( 'LISTING_LOAD_MORE_TEXT', array('es' => 'Cargar más...', 'en' => 'Load more...' ));
 
 if( !defined('MODAL_OUT_DURATION') ) define( 'MODAL_OUT_DURATION', 200);
+if( !defined('ACCORDION_DEFAULT_CONTENT') ) define( 'ACCORDION_DEFAULT_CONTENT', 'texto');
 
 require_once( 'libs/ultimate-fields/ultimate-fields.php' );
 
