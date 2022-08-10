@@ -27,11 +27,11 @@ $fields = array(
                 )),
                 Field::create( 'tab', 'Contenido' ),
                 Field::create( 'radio', 'content_element','Seleccione que mostrar como Contenido:')->set_orientation( 'horizontal' )->add_options( array(
-                    'texto' => 'Texto',
                     'layout' => 'Editor',
+                    'texto' => 'Texto',
                     'pagina' => 'Página',
                     'seccion_reusable' => 'Seccion Reusable',
-                ))->set_default_value( ACCORDION_DEFAULT_CONTENT ),
+                )),
                 Field::create( 'wysiwyg', 'content', 'Contenido' )->add_dependency('content_element','texto','=')->hide_label()->set_rows( 30 ),
                 Content_Layout::the_field(array( 'slug' => 'content_layout', 
                     'components' => array( 'Editor de Texto', 'Imágen', 'Componente Reusable', 'Mapa' )
