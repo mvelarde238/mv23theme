@@ -12,7 +12,7 @@ if ($page_header_element != 'ninguno' && $layout == 'layout2') echo '<div class=
 
 switch ($page_header_element) {
 	case 'slider':
-		$page_header->print_custom_content();
+		$page_header->print_slider();
 		break;
 	
 	case 'contenido':
