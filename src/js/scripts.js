@@ -41,10 +41,7 @@
 
         for (var i = 0; i < toggleboxes.length; i++) {
             var el = toggleboxes[i],
-                options = { headerHeight : 118 };
-
-            if (el.dataset.desktoptemplate != undefined) options.desktopTemplate = el.dataset.desktoptemplate; 
-            if (el.dataset.moviltemplate != undefined) options.movilTemplate = el.dataset.moviltemplate;
+                options = { headerHeight : MV23_GLOBALS.headerHeight };
 
             V23_ToggleBox.create( el, options );
         }
