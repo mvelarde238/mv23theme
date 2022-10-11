@@ -82,7 +82,7 @@ $card_settings_fields[] = Field::create( 'number', 'components_margin', 'Márgen
 $card_args = array(
     'title' => 'Card',
     'edit_mode' => 'popup',
-    'fields' => array_merge($fields, $aspect_ratio_fields, $videocard_fields, $acciones_fields, $card_settings_fields, $margenes, $bordes, $box_shadow, $animation)
+    'fields' => [...$fields, ...$aspect_ratio_fields, ...$videocard_fields, ...$acciones_fields, ...$card_settings_fields, ...$margenes, ...$bordes, ...$box_shadow, ...$animation]
 );
 
 $card = Repeater_Group::create( 'Card', $card_args );

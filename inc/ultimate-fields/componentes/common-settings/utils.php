@@ -1,7 +1,7 @@
 <?php
-$default_settings_fields = array_merge(
-	$settings_fields, $margenes, $bordes, $box_shadow, $animation
-);
+$default_settings_fields = [
+	...$settings_fields, ...$margenes, ...$bordes, ...$box_shadow, ...$animation
+];
 
 
 function generate_attributes($componente, $classes_array){

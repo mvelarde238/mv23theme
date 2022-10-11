@@ -69,7 +69,7 @@ $fields = array(
 );
 
 $accordion_args = array(
-    'fields' => array_merge($fields, $default_settings_fields)
+    'fields' => [...$fields, ...$default_settings_fields]
 );
 
 $accordion = Repeater_Group::create( 'Accordion', $accordion_args );

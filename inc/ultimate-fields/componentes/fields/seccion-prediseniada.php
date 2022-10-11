@@ -28,5 +28,5 @@ $predesigned_section = Repeater_Group::create( 'Seccion Prediseñada' )
     ->set_title( 'Seccion Prediseñada' )
     ->set_edit_mode( 'popup' )
     ->add_fields( 
-        array_merge($fields, $default_settings_fields)
+        [...$fields, ...$default_settings_fields]
 );

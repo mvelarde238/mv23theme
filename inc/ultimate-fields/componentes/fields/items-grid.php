@@ -12,7 +12,7 @@ $fields = array(
     Field::create( 'repeater', 'grid_items', '' )->set_add_text('Agregar')
         ->add_group('Item', array(
             'edit_mode' => 'popup',
-            'fields' => array_merge($item_fields,$settings_fields,$bordes,$box_shadow,$animation)
+            'fields' => [...$item_fields,...$settings_fields,...$bordes,...$box_shadow,...$animation]
         ))
 );
 
@@ -31,5 +31,5 @@ $items_grid = Repeater_Group::create( 'Grid de Items' )
     ->set_title( 'Grid de Items' )
     ->set_edit_mode( 'popup' )
     ->add_fields( 
-       array_merge($fields, $responsive_settings, $settings_fields, $items_grid_margenes, $bordes, $box_shadow, $animation)
+       [...$fields, ...$responsive_settings, ...$settings_fields, ...$items_grid_margenes, ...$bordes, ...$box_shadow, ...$animation]
 );

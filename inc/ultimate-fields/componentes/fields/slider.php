@@ -9,7 +9,7 @@ $fields = array(
 );
 
 $slider_args = array(
-    'fields' => array_merge($fields, $settings_fields, $margenes, $bordes, $box_shadow, $animation)
+    'fields' => [...$fields, ...$settings_fields, ...$margenes, ...$bordes, ...$box_shadow, ...$animation]
 );
 
 $slider = Repeater_Group::create( 'Slider', $slider_args );

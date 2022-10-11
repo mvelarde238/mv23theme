@@ -9,7 +9,7 @@ $fields = array(
 
 $progress_circle_args = array(
     'edit_mode' => 'popup',
-    'fields' => array_merge($fields, $default_settings_fields)
+    'fields' => [...$fields, ...$default_settings_fields]
 );
 
 $progress_circle = Repeater_Group::create( 'Progress Circle', $progress_circle_args );

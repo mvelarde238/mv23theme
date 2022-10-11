@@ -46,7 +46,7 @@ $fields = array(
 );
 
 $carrusel_args = array(
-    'fields' => array_merge($fields, $default_settings_fields)
+    'fields' => [...$fields, ...$default_settings_fields]
 );
 
 $carrusel = Repeater_Group::create( 'Carrusel', $carrusel_args );

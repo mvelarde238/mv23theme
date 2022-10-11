@@ -15,7 +15,7 @@ $columnas_simples_margenes[] = Field::create( 'number', 'components_margin', 'MÃ
 $columnas_simples_args = array(
     'title' => 'Columnas Simples',
     'edit_mode' => 'popup',
-    'fields' => array_merge($fields, $settings_fields, $columnas_simples_margenes, $bordes, $box_shadow, $animation)
+    'fields' => [...$fields, ...$settings_fields, ...$columnas_simples_margenes, ...$bordes, ...$box_shadow, ...$animation]
 );
 
 $columnas_simples = Repeater_Group::create( 'Columnas Simples', $columnas_simples_args);

@@ -9,7 +9,7 @@ $fields = array(
 
 $separador_args = array(
     'edit_mode' => 'popup',
-    'fields' => array_merge($fields, $default_settings_fields)
+    'fields' => [...$fields, ...$default_settings_fields]
 );
 
 $separador = Repeater_Group::create( 'Separador', $separador_args );

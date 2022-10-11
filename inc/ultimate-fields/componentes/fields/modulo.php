@@ -16,7 +16,7 @@ $fields = array(
 );
 
 $nobug_id_and_class = $id_and_class;
-$fields = array_merge($fields, $nobug_id_and_class);
+$fields = [...$fields, ...$nobug_id_and_class];
 
 $fields[] = Field::create('select', 'visibility', 'Visibilidad')->add_options(array(
     '' => 'Visible para todos los usuarios',
@@ -72,7 +72,7 @@ $others = array(
     ))->set_default_value('text-color-default')->set_width(20)->add_dependency('edit_background'),
     Field::create('checkbox', 'parallax', 'Parallax')->set_width(20)->add_dependency('edit_background')
 );
-$fields = array_merge($fields, $others);
+$fields = [...$fields, ...$others];
 
 $modulos = Repeater_Group::create('Módulos')
     ->set_title('Módulo')

@@ -75,5 +75,5 @@ $content_slider = Repeater_Group::create( 'Slider de Contenidos' )
     ->set_title( 'Slider de Contenidos' )
     ->set_edit_mode( 'popup' )
     ->add_fields( 
-        array_merge($fields, $content_slider_settings_fields, $navigations_settings, $margenes, $bordes, $box_shadow, $animation)
+        [...$fields, ...$content_slider_settings_fields, ...$navigations_settings, ...$margenes, ...$bordes, ...$box_shadow, ...$animation]
 );

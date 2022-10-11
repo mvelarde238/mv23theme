@@ -11,7 +11,7 @@ $fields = array(
 $template_part_args = array(
     'title' => 'Template Part',
     'edit_mode' => 'popup',
-    'fields' => array_merge($fields, $default_settings_fields)
+    'fields' => [...$fields, ...$default_settings_fields]
 );
 
 $template_part = Repeater_Group::create( 'Template Part', $template_part_args );

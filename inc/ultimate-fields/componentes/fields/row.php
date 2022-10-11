@@ -24,5 +24,5 @@ $row = Repeater_Group::create( 'Fila' )
     ->set_title( 'Fila' )
     ->set_edit_mode( 'popup' )
     ->add_fields( 
-       array_merge($row_fields, $row_settings_fields, $row_video_settings, $box_shadow, $animation)
+       [...$row_fields, ...$row_settings_fields, ...$row_video_settings, ...$box_shadow, ...$animation]
 );

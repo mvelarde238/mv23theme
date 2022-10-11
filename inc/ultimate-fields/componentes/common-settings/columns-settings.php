@@ -12,7 +12,7 @@ $columns_settings = array(
         Field::create( 'tab', 'Fondo' ),
     );
 
-    $fondo = array_merge($fondo, $fondo_complex);
+    $fondo = [...$fondo, ...$fondo_complex];
 
     $colores = array(
         Field::create( 'tab', 'Colores' ),
@@ -53,7 +53,7 @@ $columns_settings = array(
         )),
     );
 
-    $da_fields = array_merge($fondo,$colores,$bordes,$box_shadow,$otros);
+    $da_fields = [...$fondo,...$colores,...$bordes,...$box_shadow,...$otros];
 
     Container::create( 'column_fields' )->add_fields($da_fields);
 
