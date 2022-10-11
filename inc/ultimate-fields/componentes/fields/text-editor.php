@@ -27,7 +27,7 @@ $responsive_settings = array(
 $text_editor_args = array(
     'title' => 'Editor de Texto',
     'edit_mode' => 'popup',
-    'fields' => array_merge($fields, $default_settings_fields, $responsive_settings),
+    'fields' => [...$fields, ...$default_settings_fields, ...$responsive_settings],
     'title_template' => '<%= content %>'
 );
 
