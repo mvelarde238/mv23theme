@@ -36,7 +36,7 @@ $attributes = generate_attributes($componente, $classes_array);
 ?>
 <div <?=$attributes?> <?=$components_margin_attrs?>>
 	<?php if ($video_id): ?>
-		<video <?=$video_style?> width="100%" loop muted="muted"><source src="<?=$video_url?>">Your browser does not support the video tag.</video>
+		<video <?=$video_style?> width="100%" loop muted="muted" autoplay><source src="<?=$video_url?>">Your browser does not support the video tag.</video>
 	<?php endif ?>
 	<?php echo generate_actions_code($componente); ?>
 	<?php if ($layout == 'layout2') echo '<div class="container">'; ?>

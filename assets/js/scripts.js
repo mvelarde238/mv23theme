@@ -13100,7 +13100,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
   "use strict";
 
   var instances = [],
-      version = '5.8.23',
+      version = '5.8.29',
       timers = {};
   /**
    * @class  V23_ToggleBox
@@ -13117,7 +13117,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
     if (!this._createInstance(el)) return;
     this.el = el; // root element
 
-    this.currentTemplate = null;
+    this.activeTemplate = null;
 
     this._handleOptions(options); // Bind all private methods
 
@@ -13128,6 +13128,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
       }
     }
 
+    this.nav = this.el.getElementsByClassName('v23-togglebox__nav')[0];
     this.itemsBox = this.el.getElementsByClassName('v23-togglebox__items')[0];
     this.items = [];
 
@@ -13135,8 +13136,6 @@ function animateWidth(elem, start, end, duration, spanElem) {
 
     if (this.items.length > 0) {
       this._handle_template();
-
-      this._handle_active_class();
 
       this._attach_click_events();
 
@@ -13151,28 +13150,45 @@ function animateWidth(elem, start, end, duration, spanElem) {
     _handleOptions: function _handleOptions(options) {
       // options configured as data-attributes
       var dataOptions = {},
-          dataHeaderHeight = this.el.dataset.headerheight,
-          dataDesktopTemplate = this.el.dataset.desktoptemplate,
-          dataMovilTemplate = this.el.dataset.moviltemplate,
-          dataOpenfirstTab = this.el.dataset.openfirsttab;
-      if (dataDesktopTemplate != undefined) dataOptions.desktopTemplate = dataDesktopTemplate;
-      if (dataMovilTemplate != undefined) dataOptions.movilTemplate = dataMovilTemplate;
-      if (dataHeaderHeight != undefined) dataOptions.headerHeight = dataHeaderHeight;
-      if (dataOpenfirstTab != undefined) dataOptions.openFirstTab = dataOpenfirstTab; // dataOptions are overriddden if options arg is passed
+          dataTemplate = this.el.dataset.template,
+          dataBreakpoints = this.el.dataset.breakpoints,
+          dataHeaderHeight = this.el.dataset.headerheight;
+      if (dataTemplate != undefined) dataOptions.initialTemplate = dataTemplate;
+      if (dataBreakpoints != undefined) dataOptions.breakpoints = this._handleDataBreakpoints(dataBreakpoints);
+      if (dataHeaderHeight != undefined) dataOptions.headerHeight = dataHeaderHeight; // js-options are overriddden if data-options are passed
 
-      this.options = options = _extend(dataOptions, options); // defaults if no options are passed
+      this.options = options = _extend(options, dataOptions); // defaults if no options are passed
 
       var defaults = {
-        desktopTemplate: 'tab',
-        movilTemplate: 'accordion',
-        breakpoint: 768,
-        headerHeight: 0,
-        openFirstTab: true
+        initialTemplate: 'tab',
+        breakpoints: {
+          768: {
+            template: 'accordion'
+          }
+        },
+        headerHeight: 0
       }; // Set default options
 
       for (var name in defaults) {
         !(name in options) && (options[name] = defaults[name]);
       }
+    },
+    _handleDataBreakpoints: function _handleDataBreakpoints(str) {
+      var _obj = {},
+          items = str.split(',');
+
+      if (Array.isArray(items)) {
+        items.map(function (item) {
+          if (item != '') {
+            var options = item.split('|');
+            if (Array.isArray(options) && options.length && options[0]) _obj[parseInt(options[0])] = {
+              template: options[1]
+            };
+          }
+        });
+      }
+
+      return _obj;
     },
     _createInstance: function _createInstance(el) {
       for (var i = 0; i < instances.length; i++) {
@@ -13185,8 +13201,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
       return true;
     },
     _saveItems: function _saveItems() {
-      var nav = this.el.getElementsByClassName('v23-togglebox__nav')[0];
-      var btns = nav.getElementsByClassName('v23-togglebox__btn');
+      var btns = this.el.getElementsByClassName('v23-togglebox__btn');
 
       for (var i = 0; i < btns.length; i++) {
         var boxid = btns[i].dataset.boxid;
@@ -13204,34 +13219,34 @@ function animateWidth(elem, start, end, duration, spanElem) {
       }
     },
     _attach_click_events: function _attach_click_events() {
-      for (var i = 0; i < this.items.length; i++) {
-        _on(this.items[i].btn, 'click', this._open_tab);
-      }
+      _on(this.el, 'click', this._open_tab);
     },
     _open_tab: function _open_tab(event) {
       event.preventDefault();
-
-      this._handle_active_class(event.target);
+      var item = _hasClass(event.target, 'v23-togglebox__btn') ? event.target : _findAncestor(event.target, '.v23-togglebox__btn');
+      if (item) this._handle_active_class(item);
     },
     _handle_active_class: function _handle_active_class(btn) {
       if (btn) {
         // method is triggered by a user click event
         for (var i = 0; i < this.items.length; i++) {
-          if (this.items[i].btn === btn) {
-            if (this.currentTemplate === 'accordion') {
+          var item = this.el.querySelector(this.items[i].btn.dataset.boxid);
+
+          if (this.items[i].btn.dataset.boxid === btn.dataset.boxid) {
+            if (this.activeTemplate === 'accordion') {
               _toggleClass(btn, 'active');
 
-              _toggleClass(this.items[i].box, 'active'); // _scrollTo(document.documentElement, (btn.offsetTop - this.options.headerHeight), 500);
+              _toggleClass(item, 'active'); // _scrollTo(document.documentElement, (btn.offsetTop - this.options.headerHeight), 500);
 
             } else {
               _addClass(btn, 'active');
 
-              _addClass(this.items[i].box, 'active');
+              _addClass(item, 'active');
             }
           } else {
             _removeClass(this.items[i].btn, 'active');
 
-            _removeClass(this.items[i].box, 'active');
+            _removeClass(item, 'active');
           }
         }
 
@@ -13246,7 +13261,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
 
         ;
 
-        if (this.currentTemplate === 'tab' && String(this.options.openFirstTab) === 'true') {
+        if (this.activeTemplate === 'tab') {
           _addClass(this.items[0].btn, 'active');
 
           _addClass(this.items[0].box, 'active');
@@ -13265,53 +13280,128 @@ function animateWidth(elem, start, end, duration, spanElem) {
       }
     },
     _handle_template: function _handle_template() {
-      var options = this.options,
-          breakpoint = options.breakpoint;
-      if (!(typeof breakpoint === 'number')) return;
+      var previousTemplate = this.activeTemplate,
+          template = this._get_viewport_template(_getViewportDimensions().width);
 
-      if (_getViewportDimensions().width <= breakpoint) {
-        this.el.dataset.template = this.currentTemplate = options.movilTemplate;
-      } else {
-        this.el.dataset.template = this.currentTemplate = options.desktopTemplate;
+      if (previousTemplate != template) {
+        this.el.dataset.template = this.activeTemplate = template;
+
+        for (var i = 0; i < this.items.length; i++) {
+          if (template == 'tab') this.nav.appendChild(this.items[i].btn);
+          if (template == 'accordion') _insertBefore(this.items[i].btn, this.items[i].box);
+        }
+
+        ;
+
+        this._handle_active_class();
+      }
+    },
+    _get_viewport_template: function _get_viewport_template(viewportWidth) {
+      var newTemplate = null,
+          breakpoints = this.options.breakpoints;
+
+      if (Object.keys(breakpoints).length > 0) {
+        var breakpointZones = [];
+
+        for (var bp in breakpoints) {
+          if (bp >= viewportWidth) {
+            breakpointZones.push(bp);
+          }
+        }
+
+        if (breakpointZones.length) {
+          var shortest = Math.min.apply(Math, breakpointZones);
+          newTemplate = breakpoints[shortest].template;
+        }
       }
 
-      ;
-
-      switch (this.currentTemplate) {
-        case 'tab':
-          for (var i = 0; i < this.items.length; i++) {
-            this.itemsBox.appendChild(this.items[i].box);
-          }
-
-          ;
-          break;
-
-        case 'accordion':
-          for (var it = 0; it < this.items.length; it++) {
-            _insertAfter(this.items[it].box, this.items[it].btn);
-          }
-
-          ;
-          break;
-
-        default:
-          break;
-      }
+      return newTemplate || this.options.initialTemplate;
     },
     _attach_resize_events: function _attach_resize_events() {
       var timeToWaitForLast = 100,
           that = this,
-          options = this.options,
           id = "v23ToggleBox" + instances.length;
       window.addEventListener('resize', function () {
         _waitForFinalEvent(function () {
-          if (options.movilTemplate == 'tab' && options.desktopTemplate == 'tab') return; // if( options.movilTemplate === options.desktopTemplate) return;
-
           that._handle_template();
-
-          that._handle_active_class();
         }, timeToWaitForLast, id);
       }, true);
+    },
+
+    /**
+    	* Add a New Item
+    	* @param {Object}      [options]
+    * {
+    * id:           (required) (string)
+    * btn:          (optional) (obj) { content:`` }
+    * box:          (optional) (obj) { content:`` }
+    * setActive:    (optional) (bool)
+    * afterAddItem: (optional) (function)
+    * silent:       (optional) (bool) if true there is not cloning neither adding operations
+    *                                 useful when working with models that render the view themselves
+    *                                 btn: (required) (DOMElement)
+    *                                 box: (required) (DOMElement)
+    * }
+    	*/
+    addItem: function addItem(options) {
+      if (!options.silent) {
+        if (options.id === undefined) return;
+        var newBtn = this.items[0].btn.cloneNode(true);
+        newBtn.innerHTML = options.btn && options.btn.content ? options.btn.content : 'New Item';
+        newBtn.dataset.boxid = '#' + options.id;
+        var newBox = this.items[0].box.cloneNode(true);
+        newBox.innerHTML = options.box && options.box.content ? options.box.content : 'Lorem ipsum dolor sit amet consectetur...';
+        newBox.id = options.id;
+        if (this.activeTemplate == 'tab') this.nav.appendChild(newBtn);
+        if (this.activeTemplate == 'accordion') this.itemsBox.appendChild(newBtn);
+        this.itemsBox.appendChild(newBox);
+      } else {
+        var newBtn = options.btn;
+        var newBox = options.box;
+      }
+
+      this.items.push({
+        btn: newBtn,
+        box: newBox
+      });
+      if (options.setActive) this._handle_active_class(newBtn);
+      if (typeof options.afterAddItem == 'function') options.afterAddItem(newBtn, newBox);
+    },
+
+    /**
+    	* Remove Item
+    	* @param {Object}      [options]
+    * {
+    * index:           (required) (integer) index of item to be removed
+    * setActive:       (optional) (integer) index of item to be set as active
+    * afterRemoveItem: (optional) (function)
+    * silent:          (optional) (bool) if true there is not removing operations
+    *                                 useful when working with models that manage the view themselves
+    * }
+    	*/
+    removeItem: function removeItem(options) {
+      var index = options.index;
+
+      if (index <= this.items.length && this.items.length > 1 && index >= 0) {
+        if (!options.silent) {
+          this.items[index].btn.remove();
+          this.items[index].box.remove();
+        }
+
+        var deletedItem = this.items.splice(index, 1);
+
+        if (options.setActive != undefined) {
+          if (options.setActive >= 0 && options.setActive <= this.items.length) {
+            this.items[options.setActive].btn.click();
+          }
+        } else {
+          if (this.activeTemplate == 'tab' && _hasClass(deletedItem[0].btn, 'active')) {
+            this.items[this.items.length - 1].btn.click();
+          }
+        }
+
+        if (typeof options.afterRemoveItem == 'function') options.afterRemoveItem(deletedItem);
+      }
     }
   };
 
@@ -13410,6 +13500,14 @@ function animateWidth(elem, start, end, duration, spanElem) {
 
   ;
 
+  function _findAncestor(el, selector) {
+    while ((el = el.parentElement) && !(el.matches || el.matchesSelector).call(el, selector)) {
+      ;
+    }
+
+    return el;
+  }
+
   Math.easeInOutQuad = function (t, b, c, d) {
     //t = current time
     //b = start value
@@ -13439,6 +13537,12 @@ function animateWidth(elem, start, end, duration, spanElem) {
 
   function _insertAfter(newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
+
+  ;
+
+  function _insertBefore(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode);
   }
 
   ;
@@ -13473,11 +13577,11 @@ function animateWidth(elem, start, end, duration, spanElem) {
     console.log(version);
   };
 
-  V23_ToggleBox.init = function () {
+  V23_ToggleBox.init = function (options) {
     var toggleboxes = document.getElementsByClassName('v23-togglebox');
 
     for (var i = 0; i < toggleboxes.length; i++) {
-      V23_ToggleBox.create(toggleboxes[i]);
+      V23_ToggleBox.create(toggleboxes[i], options);
     }
 
     return instances;
@@ -13515,17 +13619,14 @@ function animateWidth(elem, start, end, duration, spanElem) {
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    var currentVideo = null;
-    $('.has-video-background').hover(function () {
-      if (currentVideo != null) {
-        currentVideo.trigger('pause');
-      }
+    var currentVideo = null; // $('.has-video-background').hover(function(){
+    // 	if (currentVideo != null) { currentVideo.trigger('pause') }
+    // 	currentVideo = $(this).find('video');
+    // 	currentVideo[0].play();
+    // } , function(){
+    //     currentVideo.trigger('pause');
+    // });
 
-      currentVideo = $(this).find('video');
-      currentVideo[0].play();
-    }, function () {
-      currentVideo.trigger('pause');
-    });
     $('body').on('click', '.zoom-video', function (ev) {
       ev.preventDefault();
       var videoUrl = $(this).attr('href');
@@ -13629,10 +13730,8 @@ function animateWidth(elem, start, end, duration, spanElem) {
     for (var i = 0; i < toggleboxes.length; i++) {
       var el = toggleboxes[i],
           options = {
-        headerHeight: 118
+        headerHeight: MV23_GLOBALS.headerHeight
       };
-      if (el.dataset.desktoptemplate != undefined) options.desktopTemplate = el.dataset.desktoptemplate;
-      if (el.dataset.moviltemplate != undefined) options.movilTemplate = el.dataset.moviltemplate;
       V23_ToggleBox.create(el, options);
     } // ****************************************************************************************************
     // MOVE SCROLL IF HASH IN URL SCRIPT
