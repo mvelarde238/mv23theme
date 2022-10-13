@@ -40,16 +40,18 @@ function print_icono( $atts ) {
 	
 	$link = NULL;
 	$enlace = $a['enlace'];
-	switch ($enlace['url_type']) {
-	    case 'externa':
-	        $link = $enlace['url'];
-	        break;
-	    
-	    case 'interna':
-	        $link = get_permalink( str_replace('post_','',$enlace['post']) );
-	        break;
+	if($enlace != null){
+		switch ($enlace['url_type']) {
+		    case 'externa':
+		        $link = $enlace['url'];
+		        break;
+			
+		    case 'interna':
+		        $link = get_permalink( str_replace('post_','',$enlace['post']) );
+		        break;
+		}
 	}
-	$target = ($enlace['new_tab'] == 1) ? '_blank' : '';
+	$target = ( $enlace != null && $enlace['new_tab'] == 1) ? '_blank' : '';
 	ob_start(); ?>
 	<p <?=$class?> <?=$style?>>
 		<?php if ($a['style']!='default') { echo '<span style="background-color:'.$backgroundColor.'">'; } else { echo '<span>'; }; ?>

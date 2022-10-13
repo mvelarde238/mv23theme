@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.105 22-10-12
 - Card Component: autoplay video
+- vars validation
 
 23.8.104 22-09-01
 - v23ToggleBox.js version 6.8.23
