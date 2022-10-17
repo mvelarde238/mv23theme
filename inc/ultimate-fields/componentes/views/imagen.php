@@ -16,6 +16,7 @@ if($componente['aspect_ratio'] == 'aspect-ratio-default'){
 
 $actions = (isset($componente['actions'])) ? $componente['actions'] : null;
 $aspect_ratio = ( isset($componente['aspect_ratio']) && $componente['aspect_ratio'] != 'aspect-ratio-default' ) ? $componente['aspect_ratio'] : 'aspect-ratio-default';
+if($type == 'video' && $aspect_ratio == 'aspect-ratio-default') $aspect_ratio = 'aspect-ratio-16-9';
 $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 
 // video implementation
@@ -48,18 +49,9 @@ $attributes = generate_attributes($componente, $classes_array);
 			<img src="<?=$image_url?>" alt="">
 		<?php endif; ?>
 		<?php if ($video_id): ?>
-			<video <?=$video_style?> width="100%" loop muted="muted"><source src="<?=$video_url?>">Your browser does not support the video tag.</video>
+			<video <?=$video_style?> width="100%" autoplay loop muted="muted"><source src="<?=$video_url?>">Your browser does not support the video tag.</video>
 		<?php endif ?>
 		<?php echo generate_actions_code($componente); ?>
-		<?php if ( is_array($actions) && count($actions)>0 ):
-		foreach ($actions as $action) {
-			if ($action['trigger'] == 'click' && $action['action'] == 'open-video-popup') {
-				if ($video_id):
-		        	echo '<a class="cover-all zoom-video" href="'.$video_url.'"></a>';
-		        endif;
-			}
-		}
-	endif; ?>
 	</div>
 	<?php if ($layout == 'layout2') echo '</div>'; ?>
 </div>  

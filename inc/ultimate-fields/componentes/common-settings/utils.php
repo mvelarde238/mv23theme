@@ -83,6 +83,14 @@ function generate_actions_code($componente){
                     	$code = '<a class="cover-all zoom" href="'.$link.'"></a>';
                		endif;
 				}
+				if ($action['trigger'] == 'click' && $action['action'] == 'open-video-popup') {
+					$videos = $componente['bgvideo'];
+					$video_id = (is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
+					if ($video_id):
+						$video_url = wp_get_attachment_url($video_id);
+			        	echo '<a class="cover-all zoom-video" href="'.$video_url.'"></a>';
+			        endif;
+				}
 			}
 	endif;
 
