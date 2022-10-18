@@ -20,32 +20,20 @@ array_push($columnas, $componente['columna_4']);
 
 $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 
-// video implementation
-$video_url = null;
-$videos = (isset($componente['bgvideo'])) ? $componente['bgvideo'] : null;
-$video_id = (is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
-if($video_id) {
-    $video_url = wp_get_attachment_url($video_id);
-    $video_opacity = (isset($componente['video_opacity']) && $componente['video_opacity'] ) ? $componente['video_opacity'] : 100;
-    $video_style = ($video_opacity != 100) ? 'style="opacity:'.($video_opacity/100).';"' : ''; 
-}
-$has_video = ($video_url) ? 'has-video-background' : '';
-// end video implementation
+$video_background = video_background($componente);
 
 $classes_array = format_classes(array(
     'columnas',
     get_color_scheme($componente),
     $componente['class'],
     $layout,
-    $has_video
+    $video_background['class']
 ));
 
 $attributes = generate_attributes($componente, $classes_array);
 ?>
 <div <?=$attributes?>>
-    <?php if ($video_id): ?>
-        <video <?=$video_style?> width="100%" autoplay loop muted="muted"><source src="<?=$video_url?>">Your browser does not support the video tag.</video>
-    <?php endif; ?>
+    <?php if($video_background['code']) echo $video_background['code'] ?>
     <?php if ($layout == 'layout2' || $layout == 'layout4') echo '<div class="container">'; ?>
     <div <?=$column_width_class?>>
     <?php
@@ -65,10 +53,14 @@ $attributes = generate_attributes($componente, $classes_array);
         $color_scheme = get_color_scheme($column_settings);
         if ($color_scheme!='') array_push($clases, $color_scheme); 
 
+        $column_video_background = video_background($column_settings);
+        if($column_video_background['code']) array_push($clases, $column_video_background['class']);
+
         $column_settings['__type'] = 'column'; 
         $column_attributes = generate_attributes($column_settings, $clases);
         ?>
         <div <?=$column_attributes?>>
+            <?php if($column_video_background['code']) echo $column_video_background['code'] ?>
             <?php if ($column_settings['content_alignment'] == 'pinned') echo '<div class="pinned-block">'; ?>
             <?php foreach ($columnas[$i] as $components_inside) {
                 $components_inside['layout'] = 'layout1';

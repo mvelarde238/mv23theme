@@ -85,17 +85,7 @@ function print_module_view($modulo)
 	$full_width_class = ($layout == 'layout2' || $layout == 'layout3') ? 'full-width' : '';
 	$parallax = (isset($modulo['parallax']) && $modulo['parallax'] == 1) ? 'parallax' : '';
 
-	// video implementation
-	$video_url = null;
-	$videos = (isset($modulo['bgvideo'])) ? $modulo['bgvideo'] : null;
-	$video_id = (is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
-	if($video_id) {
-	    $video_url = wp_get_attachment_url($video_id);
-	    $video_opacity = (isset($modulo['video_opacity']) && $modulo['video_opacity'] ) ? $modulo['video_opacity'] : 100;
-	    $video_style = ($video_opacity != 100) ? 'style="opacity:'.($video_opacity/100).';"' : ''; 
-	}
-	$has_video = ($video_url) ? 'has-video-background' : '';
-	// end video implementation
+	$video_background = video_background($modulo);
 
 	$classes_array = format_classes(array(
 		'cf',
@@ -105,7 +95,7 @@ function print_module_view($modulo)
 		$modulo['class'],
 		$full_width_class,
 		$parallax,
-		$has_video
+		$video_background['class']
 	));
 
 	$content_bg = (isset($modulo['content_bg']) && $modulo['content_bg'] == 1) ? true : false;
@@ -133,9 +123,7 @@ function print_module_view($modulo)
 	// if( is_array($componentes) && count($componentes)==0 ) return;
 	?>
 	<section <?= $id ?> <?= $class ?> <?= $style ?>>
-		<?php if ($video_id): ?>
-    	    <video <?=$video_style?> width="100%" autoplay loop muted="muted"><source src="<?=$video_url?>">Your browser does not support the video tag.</video>
-    	<?php endif; ?>
+		<?php if($video_background['code']) echo $video_background['code'] ?>
 		<?php
 		if ($layout == 'layout2') echo '<div class="container">';
 		if ($content_bg) echo '<div class="' . $content_bg_class . '" style="' . $content_bg_style . '">';

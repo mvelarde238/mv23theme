@@ -17,7 +17,8 @@ $row_settings_fields[] = Field::create( 'checkbox', 'parallax', 'Parallax' )->se
 
 $row_video_settings = array(
     Field::create( 'tab', 'Video de fondo' ),
-    Field::create( 'video', 'bgvideo', 'Video de Fondo' )
+    Field::create( 'video', 'bgvideo', 'Video de Fondo' ),
+    Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )
 );
 
 $row = Repeater_Group::create( 'Fila' )

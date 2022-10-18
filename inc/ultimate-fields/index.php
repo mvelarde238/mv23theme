@@ -9,6 +9,7 @@ function theme_register_fields() {
 	require_once( 'utils/get-secciones-reusables.php' );
 	require_once( 'utils/get-color-scheme.php' );
 	require_once( 'utils/get-background-styles.php' );
+	require_once( 'utils/video-background.php' );
 	require_once( 'utils/get-margenes.php' );
 	require_once( 'utils/get-border-styles.php' );
 	require_once( 'utils/get-box-shadow.php' );

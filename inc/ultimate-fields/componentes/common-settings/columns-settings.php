@@ -14,6 +14,12 @@ $columns_settings = array(
 
     $fondo = array_merge($fondo, $fondo_complex);
 
+    $video = array(
+        Field::create( 'checkbox', 'add_video_bg' )->set_text( 'Agregar video de fondo' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
+        Field::create( 'video', 'bgvideo', 'Video de Fondo' )->add_dependency('add_video_bg'),
+        Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->add_dependency('add_video_bg')
+    );
+
     $colores = array(
         Field::create( 'tab', 'Colores' ),
         Field::create( 'complex', 'color_de_fondo' )->add_fields(array(
@@ -53,7 +59,7 @@ $columns_settings = array(
         )),
     );
 
-    $da_fields = array_merge($fondo,$colores,$bordes,$box_shadow,$otros);
+    $da_fields = array_merge($fondo,$video,$colores,$bordes,$box_shadow,$otros);
 
     Container::create( 'column_fields' )->add_fields($da_fields);
 

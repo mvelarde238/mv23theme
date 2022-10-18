@@ -19,24 +19,14 @@ $aspect_ratio = ( isset($componente['aspect_ratio']) && $componente['aspect_rati
 if($type == 'video' && $aspect_ratio == 'aspect-ratio-default') $aspect_ratio = 'aspect-ratio-16-9';
 $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 
-// video implementation
-$video_url = null;
-$videos = $componente['bgvideo'];
-$video_id = (is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
-if($video_id) {
-	$video_url = wp_get_attachment_url($video_id);
-	$video_opacity = (isset($componente['video_opacity']) && $componente['video_opacity'] ) ? $componente['video_opacity'] : 100;
-	$video_style = ($video_opacity != 100) ? 'style="opacity:'.($video_opacity/100).';"' : ''; 
-}
-$has_video = ($video_url) ? 'has-video-background' : '';
-// end video implementation
+$video_background = video_background($componente);
 
 $classes_array = format_classes(array(
 	'componente',
 	'image',
 	get_color_scheme($componente),
 	$componente['class'],
-	$has_video,
+	$video_background['class'],
 	$aspect_ratio
 ));
 
@@ -48,9 +38,7 @@ $attributes = generate_attributes($componente, $classes_array);
 		<?php if( $type == 'image' && $componente['aspect_ratio'] == 'aspect-ratio-default'): ?>
 			<img src="<?=$image_url?>" alt="">
 		<?php endif; ?>
-		<?php if ($video_id): ?>
-			<video <?=$video_style?> width="100%" autoplay loop muted="muted"><source src="<?=$video_url?>">Your browser does not support the video tag.</video>
-		<?php endif ?>
+		<?php if($video_background['code']) echo $video_background['code'] ?>
 		<?php echo generate_actions_code($componente); ?>
 	</div>
 	<?php if ($layout == 'layout2') echo '</div>'; ?>
