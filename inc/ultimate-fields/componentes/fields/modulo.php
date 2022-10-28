@@ -26,8 +26,8 @@ $fields[] = Field::create('select', 'visibility', 'Visibilidad')->add_options(ar
 ))->set_width(33);
 
 $fields[] = Field::create('select', 'layout')->add_options(array(
-    'layout1' => 'Estándar',
     'layout2' => 'Fondo extendido / Contenido centrado',
+    'layout1' => 'Estándar',
     'layout3' => 'Todo extendido',
 ))->set_width(33);
 
