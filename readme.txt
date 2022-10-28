@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.108 22-10-28
 - Modules default layout: layout2
+- sass: blockquote class correction 
 
 23.8.107 22-10-18
 - video background standarization
