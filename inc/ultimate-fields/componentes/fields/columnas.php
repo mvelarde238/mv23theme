@@ -26,5 +26,5 @@ $columnas = Repeater_Group::create( 'Columnas' )
     ->set_title( 'Columnas' )
     // ->set_edit_mode( 'popup' )
     ->add_fields( 
-       array_merge($fields, $row_settings, $columns_settings, $columnas_settings_fields, $margenes, $bordes, $box_shadow, $animation)
+       array_merge($fields, $row_settings, $columns_settings, $columnas_settings_fields, $margenes, $bordes, $box_shadow, $animation, $scroll_animation_fields)
 );

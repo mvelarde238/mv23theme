@@ -3,6 +3,13 @@ use Ultimate_Fields\Field;
 
 $animation = array(
     // Field::create( 'tab', 'Animación' ),
+    Field::create( 'checkbox', 'add_theme_clases' )->set_text( 'Agregar Clases Adicionales' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
+    Field::create( 'multiselect', 'theme_clases', 'Helpers' )->set_input_type( 'checkbox' )->set_orientation( 'horizontal' )->add_options(array(
+        'hide-br' => 'Ocultar saltos de línea en tablet y móviles',
+        'hide-br-tablet' => 'Ocultar saltos de línea en tablet',
+        'hide-br-mobile' => 'Ocultar saltos de línea en móviles',
+    ))->add_dependency('add_theme_clases'),
+    
     Field::create( 'checkbox', 'add_animation' )->set_text( 'Agregar Animación' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
     Field::create( 'select', 'animation', 'Animación' )->add_options( array(
         '' => 'Ninguna',
@@ -66,10 +73,4 @@ $animation = array(
         'transition.perspectiveRightOut' => 'perspectiveRightOut',
     ))->add_dependency('add_animation'),
     // Field::create( 'number', 'animation_delay', 'Animation delay (milisegundos)' )->set_width( 75 )->enable_slider( 0, 20000 )->set_step( 100 ) 
-    Field::create( 'checkbox', 'add_theme_clases' )->set_text( 'Agregar Clases Adicionales' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
-    Field::create( 'multiselect', 'theme_clases', 'Helpers' )->set_input_type( 'checkbox' )->set_orientation( 'horizontal' )->add_options(array(
-        'hide-br' => 'Ocultar saltos de línea en tablet y móviles',
-        'hide-br-tablet' => 'Ocultar saltos de línea en tablet',
-        'hide-br-mobile' => 'Ocultar saltos de línea en móviles',
-    ))->add_dependency('add_theme_clases'),
 );

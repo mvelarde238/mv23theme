@@ -78,6 +78,6 @@ $listing_fields_2 = array(
 $listing_fields = array_merge($listing_fields_1,$listing_fields_2);
 
 $listing_args = array(
-    'fields' => array_merge($listing_fields, $settings_fields, $margenes, $bordes, $box_shadow, $animation)
+    'fields' => array_merge($listing_fields, $settings_fields, $margenes, $bordes, $box_shadow, $animation, $scroll_animation_fields)
 );
 $listing = Repeater_Group::create( 'Listing', $listing_args );

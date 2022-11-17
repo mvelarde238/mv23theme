@@ -69,7 +69,7 @@ $image_fields = array(
 $image_args = array(
     'title' => 'Imágen / Video',
     'edit_mode' => 'popup',
-    'fields' => array_merge($image_fields, $acciones_fields, $settings_fields, $margenes, $bordes, $box_shadow, $animation)
+    'fields' => array_merge($image_fields, $acciones_fields, $settings_fields, $margenes, $bordes, $box_shadow, $animation, $scroll_animation_fields)
 );
 
 $image = Repeater_Group::create( 'Imágen', $image_args );

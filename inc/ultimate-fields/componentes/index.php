@@ -11,6 +11,7 @@ require_once( 'common-settings/fondo.php' );
 require_once( 'common-settings/id-and-class.php' );
 require_once( 'common-settings/row-settings.php' );
 require_once( 'common-settings/acciones.php' );
+require_once( 'common-settings/scroll-animations.php' );
 
 require_once( 'common-settings/columns-settings.php' );
 require_once( 'common-settings/settings-fields.php' );

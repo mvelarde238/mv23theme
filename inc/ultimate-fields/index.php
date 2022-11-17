@@ -15,6 +15,7 @@ function theme_register_fields() {
 	require_once( 'utils/get-box-shadow.php' );
 	require_once( 'utils/id-and-class-attributes.php' );
 	require_once( 'utils/animation-attributes.php' );
+	require_once( 'utils/get-scroll-animations.php' );
 
 	require_once( 'componentes/index.php' );
 

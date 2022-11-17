@@ -10,6 +10,8 @@ if( !defined('THEME_VERSION') ) define ('THEME_VERSION', '8.23');
 if( !defined('PARENT_THEME_TEST_MODE') ) define ('PARENT_THEME_TEST_MODE', false);
 define ('IS_MOBILE', wp_is_mobile());
 define ('GM_IS_ACTIVE', get_option('activate_gm'));
+define ('SCROLL_ANIMATIONS', get_option('scroll_animations')['activate']);
+define ('SCROLL_INDICATORS', get_option('scroll_animations')['activate_indicators']);
 define ('ULTIMATE_FIELDS_DISABLE_UI', true);
 define ('IS_MULTILANGUAGE', class_exists('Polylang') );
 define ('FONT_AWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css');

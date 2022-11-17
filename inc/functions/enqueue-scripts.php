@@ -21,6 +21,13 @@ function mv23_scripts_and_styles() {
         // adding scripts files in the footer
         if (GM_IS_ACTIVE) wp_enqueue_script( 'googleapis', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyB4WgG02INNI9A_3V1pxMVsstKGDX4blvc', array(), '1.0', true);
 
+        if( SCROLL_ANIMATIONS ){
+            wp_enqueue_script( 'scroll-animations', get_template_directory_uri() . '/assets/js/scrollmagic.js', array(), '1.0', false);
+            if( SCROLL_INDICATORS ){
+                wp_enqueue_script( 'scroll-indicators', 'http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"', array('scroll-animations'), '1.0', false);
+            }
+        }
+
         wp_deregister_script('jquery');
         wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', array(), '', true);
         wp_enqueue_script('jquery');

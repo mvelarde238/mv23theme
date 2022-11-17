@@ -1,8 +1,7 @@
 <?php
 $default_settings_fields = array_merge(
-	$settings_fields, $margenes, $bordes, $box_shadow, $animation
+	$settings_fields, $margenes, $bordes, $box_shadow, $animation, $scroll_animation_fields
 );
-
 
 function generate_attributes($componente, $classes_array){
 	$style = '';
@@ -43,7 +42,9 @@ function generate_attributes($componente, $classes_array){
 	$id = generate_id_attribute($componente);
 	$animationAttrs = generate_animation_attributes($componente);
 
-	$attributes = [ $id,$class,$style,$animationAttrs ];
+	if(SCROLL_ANIMATIONS) $scrollAnimations = generate_scroll_animations($componente);
+
+	$attributes = [ $id,$class,$style,$animationAttrs,$scrollAnimations ];
 	return implode(' ',array_filter($attributes));
 }
 

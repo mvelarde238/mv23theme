@@ -93,7 +93,7 @@ Container::create( 'rrss_options' )
     ->set_title('Redes Sociales')
     ->add_fields($rrss_fields);
 
-Container::create( 'page_editor_options' ) 
+Container::create( 'global_options' ) 
     ->add_location( 'options', $theme_options_page )
     ->add_fields(array(
         Field::create( 'checkbox', 'activate_gm', 'Activar Google Maps' )->set_text('Activar'),
@@ -102,6 +102,10 @@ Container::create( 'page_editor_options' )
             'page' => 'Páginas',
             'product' => 'Productos'
         )),
+        Field::create( 'complex', 'scroll_animations', 'Activar Animaciones Avanzadas' )->add_fields(array(
+            Field::create( 'checkbox', 'activate' )->set_text('Activar')->hide_label()->set_width( 50 ),
+            Field::create( 'checkbox', 'activate_indicators' )->set_text('Activar indicadores')->hide_label()->set_width( 50 )->add_dependency('activate'),
+        ))
     ));
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------
