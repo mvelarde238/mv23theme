@@ -20,8 +20,8 @@ $fields[] = Field::create( 'select', 'color_scheme', 'Color del Texto' )->set_wi
 ));
 
 $fields[] = Field::create( 'select', 'layout')->set_width( 33 )->add_options( array(
-    'layout2' => 'Fondo extendido / Contenido centrado',
     'layout1' => 'Estándar',
+    'layout2' => 'Fondo extendido / Contenido centrado',
     'layout3' => 'Todo extendido',
     'layout4' => 'Extender columnas laterales',
 ));
