@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.110 22-11-18
 - Multiple Scroll Animation
+- hide line breaks removed from global settings and moved to text editor
 
 23.8.109 22-11-17
 - Scroll Animation Settings

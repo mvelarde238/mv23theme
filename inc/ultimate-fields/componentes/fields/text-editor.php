@@ -5,6 +5,11 @@ use Ultimate_Fields\Container\Repeater_Group;
 $fields = array( 
     Field::create( 'tab', 'Contenido' ),
     Field::create( 'wysiwyg', 'content' )->hide_label()->set_rows( 20 ),
+    Field::create( 'multiselect', 'theme_clases', 'Helpers' )->set_input_type( 'checkbox' )->set_orientation( 'horizontal' )->add_options(array(
+        'hide-br' => 'Ocultar saltos de línea en tablet y móviles',
+        'hide-br-tablet' => 'Ocultar saltos de línea en tablet',
+        'hide-br-mobile' => 'Ocultar saltos de línea en móviles',
+    ))->hide_label(),
 );
 
 $responsive_settings = array(
