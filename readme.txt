@@ -5,6 +5,7 @@ CHANGELOG
 - Scroll Animation Settings
 - Inner components should have layout1 as default layout
 - added: css properties for animations
+- megamenu not apply overflow hidden to body
 
 23.8.108 22-10-28
 - Modules default layout: layout2

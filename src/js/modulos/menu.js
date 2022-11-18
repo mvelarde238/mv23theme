@@ -36,7 +36,7 @@
     
                 // Disable Scrolling
                 var oldWidth = $body.innerWidth();
-                $body.css('overflow', 'hidden');
+                // $body.css('overflow', 'hidden');
                 $body.width(oldWidth);
                 $header.width(oldWidth);
     
