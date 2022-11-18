@@ -115,14 +115,15 @@ function print_module_view($modulo)
 	$style .= ($modulo['padding']['top'] == 1) ? 'padding-top:0;' : '';
 	$style .= ($modulo['padding']['bottom'] == 1) ? 'padding-bottom:0;' : '';
 	$style = ($style) ? 'style="' . $style . '"' : '';
-
+	
 	$class = generate_class_attribute($classes_array);
 	$id = generate_id_attribute($modulo);
+	$scrollAnimations = (SCROLL_ANIMATIONS) ? generate_scroll_animations($modulo) : '';
 
 	$componentes = $modulo['componentes'];
 	// if( is_array($componentes) && count($componentes)==0 ) return;
 	?>
-	<section <?= $id ?> <?= $class ?> <?= $style ?>>
+	<section <?= $id ?> <?= $class ?> <?= $style ?> <?= $scrollAnimations ?>>
 		<?php if($video_background['code']) echo $video_background['code'] ?>
 		<?php
 		if ($layout == 'layout2') echo '<div class="container">';

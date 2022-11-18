@@ -3,39 +3,43 @@ function generate_scroll_animations($componente){
     $scroll_data_attributes = '';
 
     if( SCROLL_ANIMATIONS ){
-        if (!isset($componente['sa-settings'])) $componente['sa-settings'] = null;
-        if (!isset($componente['sa-properties-settings'])) $componente['sa-properties-settings'] = null;
+        if (!isset($componente['scroll_animations'])) $componente['scroll_animations'] = null;
         if (!isset($componente['add_scroll_animation'])) $componente['add_scroll_animation'] = false;
 
-        if( $componente['add_scroll_animation'] && $componente['sa-settings'] &&  $componente['sa-properties-settings']){
-            $settings = $componente['sa-settings'];
+        if( $componente['add_scroll_animation'] && $componente['scroll_animations']){
+            $scroll_animations = array();
 
-            $trigger_element = ($settings['trigger_element']['el'] == 'selector' ) ? $settings['trigger_element']['selector'] : 'this';
-            $scroll_data_attributes .= 'data-sa-trigger="'.$trigger_element.'" ';
-            
-            $element = ($settings['element']['el'] == 'selector' ) ? $settings['element']['selector'] : 'this';
-            $scroll_data_attributes .= 'data-sa-element="'.$element.'" ';
+            if( is_array($componente['scroll_animations']) && count($componente['scroll_animations']) > 0 ){
+                foreach ($componente['scroll_animations'] as $group) {
 
-            $scroll_data_attributes .= 'data-sa-hook="'.$settings['trigger-hook'].'" ';
-            $scroll_data_attributes .= 'data-sa-duration="'.$settings['duration'].'" ';
-            $scroll_data_attributes .= 'data-sa-offset="'.$settings['offset'].'" ';
-            $scroll_data_attributes .= 'data-sa-indicators="'.$settings['add_indicators'].'" ';
+                    $settings = $group['settings'];
+                    $trigger_element = ($settings['trigger_element']['el'] == 'selector' ) ? $settings['trigger_element']['selector'] : 'this';
+                    $element = ($settings['element']['el'] == 'selector' ) ? $settings['element']['selector'] : 'this';
 
-            // initial values
-            $from = array();
-            // if( $componente['sa-properties-settings']['initial_values_check'] ){
-                foreach ($componente['sa-properties-settings']['initial_values'] as $item) {
-                    if($item['value'] != '') $from[$item['property']] = $item['value'];
+                    $from = array();
+                    foreach ($group['animated_properties']['from'] as $item) {
+                        if($item['value'] != '') $from[$item['property']] = $item['value'];
+                    }
+
+                    $to = array();
+                    foreach ($group['animated_properties']['to'] as $item) {
+                        if($item['value'] != '') $to[$item['property']] = $item['value'];
+                    }
+
+                    array_push($scroll_animations, array(
+                        'trigger_element' => $trigger_element,
+                        'element' => $element,
+                        'trigger_hook' => $settings['trigger-hook'],
+                        'duration' => $settings['duration'],
+                        'offset' => $settings['offset'],
+                        'add_indicators' => $settings['add_indicators'],
+                        'from' => json_encode($from),
+                        'to' => json_encode($to)
+                    ));
                 }
-            // }
-            $scroll_data_attributes .= "data-sa-from='".json_encode($from)."' ";
-
-            // animated properties
-            $to = array();
-            foreach ($componente['sa-properties-settings']['properties'] as $item) {
-                if($item['value'] != '') $to[$item['property']] = $item['value'];
             }
-            $scroll_data_attributes .= "data-sa-to='".json_encode($to)."'";
+
+            $scroll_data_attributes .= "data-scroll-animations='".json_encode($scroll_animations)."'";
         }
     }
 

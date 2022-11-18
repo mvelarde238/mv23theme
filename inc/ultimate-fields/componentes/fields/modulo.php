@@ -77,7 +77,7 @@ $others = array(
     Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width( 75 )->add_dependency('add_video_bg')
 );
 
-$fields = array_merge($fields, $others);
+$fields = array_merge($fields, $others, $scroll_animation_fields);
 
 $modulos = Repeater_Group::create('Módulos')
     ->set_title('Módulo')
