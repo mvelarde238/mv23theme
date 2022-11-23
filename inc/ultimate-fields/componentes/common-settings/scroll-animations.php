@@ -64,6 +64,7 @@ array_push($scroll_animation_fields, Field::create( 'repeater', 'scroll_animatio
                 Field::create( 'text', 'duration' )->set_default_value('200')->set_width( 25 ),
                 Field::create( 'text', 'offset' )->set_default_value('100px')->set_width( 25 ),
                 Field::create( 'checkbox', 'add_indicators', 'Indicadores' )->set_text('Activar')->set_width( 25 ),
+                Field::create( 'checkbox', 'turn_off_in_mobile', 'Mobile' )->set_text('Desactivar en móviles'),
         
             ))->hide_label()
             ->rows_layout()

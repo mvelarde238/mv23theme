@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.111 22-11-23
+- Turn off scroll animations in mobile
+
 23.8.110 22-11-18
 - Multiple Scroll Animation
 - hide line breaks removed from global settings and moved to text editor
