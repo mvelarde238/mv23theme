@@ -76,8 +76,6 @@ if( !function_exists('load_posts') ){
 
             if ($query->have_posts()) :
                 $result['status'] = "success";
-                $template_file = THEME_DIR.'/inc/partials/minipost-'.$post_template.'.php';
-                $template_file = file_exists( $template_file ) ? $template_file : THEME_DIR.'/inc/partials/minipost.php';
 
                 ob_start(); 
                 while ( $query->have_posts() ) : 
@@ -87,7 +85,7 @@ if( !function_exists('load_posts') ){
                     $link = get_the_permalink($id);
                     $imagen = get_the_post_thumbnail_url( $id, 'medium' );
                     $thumb_url = ($imagen) ? $imagen : get_stylesheet_directory_uri().'/assets/images/nothumb.jpg';
-                    include($template_file);
+                    get_template_part( 'inc/partials/minipost',$post_template);
                 endwhile;
                 $result['posts'] = ob_get_clean();
 
