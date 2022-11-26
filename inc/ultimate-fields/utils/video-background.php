@@ -2,7 +2,7 @@
 function video_background($componente){
 	$video_background = array( 'url' => null, 'code' => null, 'class' => '' );
 
-    $videos = $componente['bgvideo'];
+    $videos = ( isset($componente['bgvideo']) ) ? $componente['bgvideo'] : array();
     $video_id = (isset($videos['videos']) &&  is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
     if($video_id) {
     	$video_url = wp_get_attachment_url($video_id);
