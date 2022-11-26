@@ -14,15 +14,12 @@
             show_controls = ( show_controls == '1' ) ? true : false;
             show_nav = ( show_nav == '1' ) ? true : false;
 
-            c('ato paly falses');
-
             var slider_options = {
                 container: slider[0], speed: 450, autoplayButton: false, autoplay: false, autoplayButtonOutput: false,
                 autoHeight: true, mouseDrag: false, controls: show_controls, nav: show_nav, axis: 'horizontal',
                 controlsPosition: controls_position, navPosition: nav_position,
                 controlsText: ['<i class="fa fa-caret-left"></i>','<i class="fa fa-caret-right"></i>'],
                 onInit: function(info){
-                    c('itiei');
                     if (nav_show_title == '1') {
                         $(info.navItems).each(function(i,e){
                             var title = $(info.slideItems).eq(i).attr('data-title');
@@ -34,7 +31,6 @@
 
 
             var daSlider = tns(slider_options);
-            c(daSlider);
 
             if ($(sliderDeContenidos[i]).attr('data-extended-bgi') == '1') { 
 

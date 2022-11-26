@@ -5,6 +5,7 @@ CHANGELOG
 - Include post template from child-theme if dosnt exist in parent-theme
 - bug: var was missing
 - bug: "array key dosnt exist"
+- remove console.logs
 
 23.8.111 22-11-23
 - Turn off scroll animations in mobile
