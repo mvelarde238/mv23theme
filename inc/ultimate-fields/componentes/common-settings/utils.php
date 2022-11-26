@@ -42,7 +42,7 @@ function generate_attributes($componente, $classes_array){
 	$id = generate_id_attribute($componente);
 	$animationAttrs = generate_animation_attributes($componente);
 
-	if(SCROLL_ANIMATIONS) $scrollAnimations = generate_scroll_animations($componente);
+	$scrollAnimations = (SCROLL_ANIMATIONS) ? generate_scroll_animations($componente) : '';
 
 	$attributes = [ $id,$class,$style,$animationAttrs,$scrollAnimations ];
 	return implode(' ',array_filter($attributes));

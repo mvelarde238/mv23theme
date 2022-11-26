@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.112 22-11-25
 - Include post template from child-theme if dosnt exist in parent-theme
+- bug: var was missing
 
 23.8.111 22-11-23
 - Turn off scroll animations in mobile
