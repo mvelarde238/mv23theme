@@ -6,13 +6,15 @@ $content_slider_componentes_field = clone $components_repeater;
 $content_slider_componentes_field->add_group( $columnas_internas );
 
 $content_slider = Repeater_Group::create( 'Slider de Contenidos' )
-->set_title( 'Slider de Contenidos' )
-->set_edit_mode( 'popup' )
+// ->set_title( 'Slider de Contenidos' )
+// ->set_edit_mode( 'popup' )
 ->add_fields(array(
     Field::create( 'tab', 'Contenido' ),
     Field::create( 'repeater', 'content_slider', 'Slider de Contenidos' )
         ->set_add_text('Agregar Slide')
+        ->hide_label()
         ->add_group('Item', array(
+            'edit_mode' => 'popup',
             'fields' => array(
                 Field::create( 'tab', 'Contenido' ),
                 $content_slider_componentes_field,
