@@ -1,12 +1,11 @@
 <?php
 use Ultimate_Fields\Field;
 
-$fields = array(
-    Field::create( 'tab', 'Settings' )
+$fields = array_merge(
+    array( Field::create( 'tab', 'Settings' ) ),
+    $id_and_class,
+    $fondo_complex
 );
-
-$fields = array_merge($fields,$id_and_class);
-$fields = array_merge($fields,$fondo_complex);
 
 $fields[] = Field::create( 'complex', 'color_de_fondo' )->set_width( 20 )->add_fields(array(
     Field::create( 'checkbox', 'add_bgc', 'Activar' )->set_width( 25 )->set_text('Activar')->hide_label(),

@@ -6,13 +6,9 @@ $columns_settings = array(
 	Field::create( 'tab', 'Columnas Settings' )
 );
 
-
-
     $fondo = array(
         Field::create( 'tab', 'Fondo' ),
     );
-
-    $fondo = array_merge($fondo, $fondo_complex);
 
     $video = array(
         Field::create( 'checkbox', 'add_video_bg' )->set_text( 'Agregar video de fondo' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
@@ -59,10 +55,14 @@ $columns_settings = array(
         )),
     );
 
-    $da_fields = array_merge($fondo,$video,$colores,$bordes,$box_shadow,$otros);
-
-    Container::create( 'column_fields' )->add_fields($da_fields);
-
+    Container::create( 'column_fields' )
+    ->add_fields($fondo)
+    ->add_fields($fondo_complex)
+    ->add_fields($video)
+    ->add_fields($colores)
+    ->add_fields($bordes)
+    ->add_fields($box_shadow)
+    ->add_fields($otros);
 
 
 for ($i=1; $i <= $nth_columnas; $i++) { 

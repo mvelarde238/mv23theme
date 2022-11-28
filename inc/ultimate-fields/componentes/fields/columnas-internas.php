@@ -19,8 +19,10 @@ $columnas_internas_margenes = array(
 );
 
 $columnas_internas = Repeater_Group::create( 'Columnas Internas' )
-    ->set_title( 'Columnas Internas' )
-    ->set_edit_mode( 'popup' )
-    ->add_fields( 
-        array_merge($contenido_settings, $row_settings, $settings_fields, $columns_settings, $columnas_internas_margenes, $bordes, $box_shadow, $animation, $scroll_animation_fields)
-);
+->set_title( 'Columnas Internas' )
+->set_edit_mode( 'popup' )
+->add_fields($contenido_settings)
+->add_fields($row_settings)
+->add_fields($columns_settings)
+->add_fields($columnas_internas_margenes)
+->add_fields($settings_fields_container->get_fields());

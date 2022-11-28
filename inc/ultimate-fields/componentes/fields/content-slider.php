@@ -2,10 +2,13 @@
 use Ultimate_Fields\Container\Repeater_Group;
 use Ultimate_Fields\Field;
 
-$content_slider_componentes_field = clone $componentes_field;
+$content_slider_componentes_field = clone $components_repeater;
 $content_slider_componentes_field->add_group( $columnas_internas );
 
-$fields = array(
+$content_slider = Repeater_Group::create( 'Slider de Contenidos' )
+->set_title( 'Slider de Contenidos' )
+->set_edit_mode( 'popup' )
+->add_fields(array(
     Field::create( 'tab', 'Contenido' ),
     Field::create( 'repeater', 'content_slider', 'Slider de Contenidos' )
         ->set_add_text('Agregar Slide')
@@ -49,12 +52,7 @@ $fields = array(
                 )),
             )
     )),
-);
 
-$content_slider_settings_fields = $settings_fields;
-$content_slider_settings_fields[] = Field::create( 'checkbox', 'extender_fondo', 'Aplicar el fondo de los items al componente' )->set_width( 25 )->set_text('Activar');
-
-$navigations_settings = array(
     Field::create( 'tab', 'Navigation' ),
     Field::create( 'checkbox', 'show_nav' )->set_width( 33 )->set_text('Mostrar indicadores de página')->set_default_value('1'),
     Field::create( 'select', 'nav_position', 'Posición')->set_width( 33 )->add_options( array(
@@ -69,11 +67,6 @@ $navigations_settings = array(
         'center' => 'Al centro',
         'top' => 'Arriba',
     ))->add_dependency('show_controls'),
-);
-
-$content_slider = Repeater_Group::create( 'Slider de Contenidos' )
-    ->set_title( 'Slider de Contenidos' )
-    ->set_edit_mode( 'popup' )
-    ->add_fields( 
-        array_merge($fields, $content_slider_settings_fields, $navigations_settings, $margenes, $bordes, $box_shadow, $animation)
-);
+    Field::create( 'checkbox', 'extender_fondo', 'Aplicar el fondo de los items al componente' )->set_width( 25 )->set_text('Activar')
+))
+->add_fields($settings_fields_container->get_fields());

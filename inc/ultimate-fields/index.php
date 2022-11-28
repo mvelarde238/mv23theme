@@ -1,12 +1,8 @@
 <?php
 add_action( 'uf.init', 'theme_register_fields' );
 
-// if (!is_admin()) {}
-require_once( 'utils/oembed.php' );
-require_once( 'utils/print-modules.php' );
-
-function theme_register_fields() {
-	require_once( 'utils/get-secciones-reusables.php' );
+if (!is_admin()) {
+	require_once( 'utils/oembed.php' );
 	require_once( 'utils/get-color-scheme.php' );
 	require_once( 'utils/get-background-styles.php' );
 	require_once( 'utils/video-background.php' );
@@ -16,7 +12,12 @@ function theme_register_fields() {
 	require_once( 'utils/id-and-class-attributes.php' );
 	require_once( 'utils/animation-attributes.php' );
 	require_once( 'utils/get-scroll-animations.php' );
+	require_once( 'utils/generate-attributes.php' );
+	require_once( 'utils/generate-actions-code.php' );
+	require_once( 'utils/print-modules.php' );
+}
 
+function theme_register_fields() {
 	require_once( 'componentes/index.php' );
 
 	require_once( 'containers/theme-options.php' );

@@ -8,6 +8,6 @@ Container::create( 'page_content' )
     ->set_style( 'seamless' )
     ->add_fields(array(
         Field::create( 'section', 'page_content_section', 'Page Content' )->set_color( 'blue' ),
-        Field::create( 'repeater', 'v23_modulos' )->hide_label()->set_add_text('Agregar Módulo')->set_chooser_type( 'dropdown' )->add_group($modulos)
-        ->add_group($modulo_reusable),
+        Field::create( 'repeater', 'v23_modulos' )->hide_label()->set_add_text('Agregar Módulo')->set_chooser_type( 'dropdown' )
+        ->add_group($modulos)->add_group($modulo_reusable),
     ));

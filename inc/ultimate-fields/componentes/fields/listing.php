@@ -75,9 +75,7 @@ $listing_fields_2 = array(
     Field::create( 'number', 'filter_first_year', 'Primer Año en el selector' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('filter')->set_default_value(2012)->set_width(33),
 );
 
-$listing_fields = array_merge($listing_fields_1,$listing_fields_2);
-
-$listing_args = array(
-    'fields' => array_merge($listing_fields, $settings_fields, $margenes, $bordes, $box_shadow, $animation, $scroll_animation_fields)
-);
-$listing = Repeater_Group::create( 'Listing', $listing_args );
+$listing = Repeater_Group::create( 'Listing', array())
+->add_fields($listing_fields_1)
+->add_fields($listing_fields_2)
+->add_fields($settings_fields_container->get_fields());
