@@ -1,7 +1,8 @@
 <?php
-$componentes = get_post_meta( $componente['seccion_reusable'],'componentes', true);
+$modulos = get_post_meta( $componente['seccion_reusable'],'v23_modulos', true);
 
-foreach ($componentes as $componente ) { 
-	set_query_var( 'componente', $componente );
-    get_template_part( 'inc/ultimate-fields/componentes/views/'.$componente['__type'] );
-}
+if (is_array($modulos) && count($modulos) > 0) :
+    foreach ($modulos as $modulo) :
+        print_module_view($modulo);
+    endforeach;
+endif;

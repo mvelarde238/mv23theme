@@ -4,31 +4,9 @@ function ultimate_fields_page_content($id = null)
 	$page_ID = $id;
 
 	if ($page_ID != null) {
+		
+		$modulos = get_post_meta($page_ID, 'v23_modulos', true);
 
-		if (get_post_type($page_ID) == 'seccion_reusable') {
-			$section_type = get_post_meta($page_ID, 'section_type', true);
-			if ($section_type == 'componente') {
-				$componentes = get_post_meta($page_ID, 'componentes', true);
-				$fake_module = array(
-					'componentes' => $componentes,
-					'__type' => 'modulos',
-					'layout' => 'layout1',
-					'text_color' => 'text-color-default',
-					'class' => '',
-					'bgi' => null,
-					'padding' => array(
-						'top' => 0,
-						'bottom' => 0,
-					),
-				);
-				$modulos = array($fake_module);
-			}
-			if ($section_type == 'modulo') {
-				$modulos = get_post_meta($page_ID, 'v23_modulos', true);
-			}
-		} else {
-			$modulos = get_post_meta($page_ID, 'v23_modulos', true);
-		}
 	} else { // is footer 
 		$current_lang = (function_exists('pll_current_language')) ? pll_current_language() : '';
 		if (!empty($current_lang) && $current_lang == 'en') {
