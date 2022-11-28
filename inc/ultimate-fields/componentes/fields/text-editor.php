@@ -4,7 +4,7 @@ use Ultimate_Fields\Container\Repeater_Group;
 
 $text_editor = Repeater_Group::create( 'Editor de Texto', array(
     'edit_mode' => 'popup',
-    'title_template' => '<%= content %>',
+    // 'title_template' => '<%= content %>', // breaks column width
     'fields' => array( 
         Field::create( 'tab', 'Contenido' ),
         Field::create( 'wysiwyg', 'content' )->hide_label()->set_rows( 20 ),

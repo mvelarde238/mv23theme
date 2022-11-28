@@ -26,8 +26,7 @@ class Content_Layout{
             if( is_array($args['components']) && count($args['components']) > 0 ){
                 if( !in_array($component['name'], $args['components']) ) continue;
             }
-            $component['args']['min_width'] = 3;
-            $args['groups'][$component['name']] = $component['args'];
+            array_push( $args['groups'], $component['variable'] );
         }
 
         $field = Field::create( 'layout', $args['slug'], $args['title'] )->set_columns( $args['columns'] )
@@ -41,11 +40,19 @@ class Content_Layout{
         }
 
         if(is_array($args['groups']) && count($args['groups']) > 0){
-            foreach ($args['groups'] as $component => $options) {
-                if( is_array($args['override']) && count($args['override']) > 0 && key_exists($component, $args['override'])){
-                    $options = wp_parse_args($args['override'][$component],$options);
+            foreach ($args['groups'] as $component) {
+                $options = array(
+                    'min_width' => 3,
+                    'max_width' => $component->get_maximum(),
+                    'fields' => $component->get_fields(),
+                    'edit_mode' => $component->get_edit_mode()
+                );
+
+                if( is_array($args['override']) && count($args['override']) > 0 && key_exists($component->get_id(), $args['override'])){
+                    $options = wp_parse_args( $args['override'][$component], $options );
                 }
-                $field->add_group( $component, $options );
+                
+                $field->add_group( $component->get_id(), $options);
             }
         }
     
