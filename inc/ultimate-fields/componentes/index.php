@@ -9,8 +9,8 @@ require_once( 'fields/image.php' );
 require_once( 'fields/separador.php' );
 require_once( 'fields/carrusel.php' );
 require_once( 'fields/mapa.php' );
-require_once( 'fields/progress-circle.php' );
-require_once( 'fields/progress-bar.php' );
+if(PROGRESS_CIRCLE) require_once( 'fields/progress-circle.php' );
+if(PROGRESS_BAR) require_once( 'fields/progress-bar.php' );
 require_once( 'fields/icon-and-text.php' );
 require_once( 'fields/slider.php' );
 require_once( 'fields/componente-reusable.php' );
@@ -22,13 +22,15 @@ $componentes = array(
 	array('name' => 'Separador', 'variable'=>$separador),
 	array('name' => 'Carrusel', 'variable'=>$carrusel),
 	array('name' => 'Mapa', 'variable'=>$mapa),
-	array('name' => 'Progress Circle', 'variable'=>$progress_circle),
-	array('name' => 'Progress Bar', 'variable'=>$progress_bar),
 	array('name' => 'Icono y texto', 'variable'=>$icon_and_text),
 	array('name' => 'Slider', 'variable'=>$slider),
 	array('name' => 'Componente Reusable', 'variable'=>$componente_reusable),
 	array('name' => 'Listing', 'variable'=>$listing)
 );
+
+if(PROGRESS_CIRCLE) $componentes[] = array('name' => 'Progress Circle', 'variable'=>$progress_circle);
+if(PROGRESS_BAR) $componentes[] = array('name' => 'Progress Bar', 'variable'=>$progress_bar);
+
 include( locate_template( 'inc/ultimate-fields/componentes/utils/edit-components.php' ) );
 
 // used by accordion and page_content:

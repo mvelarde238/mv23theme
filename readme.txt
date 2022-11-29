@@ -5,6 +5,8 @@ CHANGELOG
 - general custom fields optimization
 - CARD constant
 - secciones reusables post type just work with modules
+- more-components.php deleted, use edit-components.php
+- PROGRESS_BAR and PROGRESS_CIRCLE constants
 
 23.8.112 22-11-25
 - Include post template from child-theme if dosnt exist in parent-theme

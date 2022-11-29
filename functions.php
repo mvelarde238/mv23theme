@@ -57,6 +57,8 @@ if( !defined('ROW') ) define ('ROW', false);
 if( !defined('COLUMNAS_SIMPLES') ) define ('COLUMNAS_SIMPLES', false);
 if( !defined('ITEMS_GRID') ) define ('ITEMS_GRID', false);
 if( !defined('CARD') ) define ('CARD', false);
+if( !defined('PROGRESS_CIRCLE') ) define ('PROGRESS_CIRCLE', false);
+if( !defined('PROGRESS_BAR') ) define ('PROGRESS_BAR', false);
 
 if( !defined('LISTING_DESKTOP_COLUMNS') ) define ('LISTING_DESKTOP_COLUMNS', 2);
 if( !defined('LISTING_LAPTOP_COLUMNS') ) define ('LISTING_LAPTOP_COLUMNS', 2);
