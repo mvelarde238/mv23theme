@@ -55,8 +55,8 @@ $components_repeater->add_group($accordion);
 // se usa en columnas y columnas internas
 $columna = clone $components_repeater;
 $columna->set_name('columna');
-$columna->set_width(25);
-$columna->set_attr( 'style', 'background: #ffffff;' );
+// $columna->set_width(25); it's not working
+$columna->set_attr( 'style', 'background: #ffffff; width:25%' );
 if(CARD){
 	require_once( 'fields/card.php' );
 	$columna->add_group( $card );
