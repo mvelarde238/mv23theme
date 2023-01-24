@@ -35,6 +35,10 @@ $listing_fields_1 = array(
     Field::create( 'number', 'qty', 'Cantidad de posts' )->add_dependency('show','auto','=')->set_default_value(3)->set_width(25),
     Field::create( 'select', 'posttype', 'Tipo de Posts' )->add_dependency('show','auto','=')->add_options($listing_cpts)->set_width(25),
     Field::create( 'multiselect', 'post_terms', 'Categoría' )->add_terms( 'category' )->add_dependency('show','auto','=')->add_dependency('posttype','post','=')->set_width(50),
+    Field::create( 'select', 'order', 'Orden' )->add_dependency('show','auto','=')->add_options(array(
+        'DESC' => 'Descendente',
+        'ASC' => 'Ascendente'
+    ))->set_width(25),
 );
 
 if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){

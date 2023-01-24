@@ -21,6 +21,7 @@ if( !function_exists('load_posts') ){
         $month = $_REQUEST["month"];
         $post_template = $_REQUEST["post_template"];
         $per_page = $_REQUEST["per_page"];
+        $order = $_REQUEST["order"];
 
         if ( $posttype && $paged && $per_page ) {
             $paged = ($paged) ? $paged : 1;
@@ -28,6 +29,7 @@ if( !function_exists('load_posts') ){
             $args_query = array( 
                 'post_type' => $posttype, 
                 'paged' => $paged, 
+                'order' => $order,
                 'posts_per_page' => $per_page,
                 'post_status' => 'publish',
             );

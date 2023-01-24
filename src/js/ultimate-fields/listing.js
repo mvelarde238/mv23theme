@@ -4,7 +4,7 @@
     var current_lang = MV23_GLOBALS.lang;
     var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
 
-    function do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues){
+    function do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order){
         $.ajax({
             type: 'POST',
             dataType: "json",
@@ -17,6 +17,7 @@
                 term: (filterValues.areParams) ? filterValues.term : term,
                 paged: paged || 1,
                 per_page: per_page,
+                order: order,
                 posttype : posttype,
                 taxonomy : taxonomy,
                 search: filterValues.search,
@@ -75,10 +76,11 @@
                     term = $component.attr("data-term"),
                     post_template = $component.attr("post-template"),
                     per_page = $component.attr("data-qty"),
+                    order = $component.attr("data-order"),
                     action = 'replace',
                     filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues);
+                do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order);
             });
             
             $component.on('click','.load_more_posts', function(event){
@@ -91,10 +93,11 @@
                     term = $component.attr("data-term"),
                     post_template = $component.attr("post-template"),
                     per_page = $component.attr("data-qty"),
+                    order = $component.attr("data-order"),
                     action = 'append',
                     filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues);
+                do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order);
             });
             
             $component.on('click','.posts-filter__submit',function(ev){
@@ -105,11 +108,12 @@
                     term = $component.attr("data-term"),
                     post_template = $component.attr("post-template"),
                     per_page = $component.attr("data-qty"),
+                    order = $component.attr("data-order"),
                     paged = 1,
                     action = 'replace',
                     filterValues = getFilterValues($filter);
 
-                do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues);
+                do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order);
             });
 
             $component.on('listingUpdated', function(e,data){

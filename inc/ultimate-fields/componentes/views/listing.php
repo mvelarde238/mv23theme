@@ -32,9 +32,11 @@ if ($show == 'manual') {
 if ($show == 'auto') {
     $posttype = $componente['posttype'];
     $qty = (isset($componente['qty'])) ? $componente['qty'] : 3;
+    $order = (isset($componente['order'])) ? $componente['order'] : 'DESC';
     $args_query = array( 
         'post_type' => $posttype,
-        'posts_per_page' => $qty
+        'posts_per_page' => $qty,
+        'order' => $order
     );
     
     $cpt_terms = ( isset($componente[$posttype.'_terms']) ) ? $componente[$posttype.'_terms'] : null;
@@ -65,7 +67,13 @@ if(!function_exists('post_listing_header')){
     function post_listing_header($posttype){ return ''; } 
 }
 ?>
-<div <?=$attributes?> data-posttype="<?=$posttype?>" data-taxonomy="<?=$taxonomy?>" data-term="<?=$terms_in?>" data-qty="<?=$qty?>" post-template="<?=$post_template?>">
+<div <?=$attributes?> 
+    data-posttype="<?=$posttype?>" 
+    data-taxonomy="<?=$taxonomy?>" 
+    data-term="<?=$terms_in?>" 
+    data-qty="<?=$qty?>" 
+    data-order="<?=$order?>" 
+    post-template="<?=$post_template?>">
     <?php if($componente['filter']) {
         $show_tax = ($componente['filter_show_tax'] && $taxonomy) ? 1 : 0;
         $firstyear = $componente['filter_first_year'];

@@ -2731,10 +2731,11 @@ if (Vel) {
       }
     }]);
     return Modal;
-  }(); /**
-        * @static
-        * @memberof Modal
-        */
+  }();
+  /**
+   * @static
+   * @memberof Modal
+   */
   Modal._increment = 0;
 
   /**
@@ -11739,7 +11740,7 @@ targetBlank();
   var $components = $('.componente.listing');
   var current_lang = MV23_GLOBALS.lang;
   var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
-  function do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues) {
+  function do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order) {
     $.ajax({
       type: 'POST',
       dataType: "json",
@@ -11752,6 +11753,7 @@ targetBlank();
         term: filterValues.areParams ? filterValues.term : term,
         paged: paged || 1,
         per_page: per_page,
+        order: order,
         posttype: posttype,
         taxonomy: taxonomy,
         search: filterValues.search,
@@ -11817,9 +11819,10 @@ targetBlank();
           term = $component.attr("data-term"),
           post_template = $component.attr("post-template"),
           per_page = $component.attr("data-qty"),
+          order = $component.attr("data-order"),
           action = 'replace',
           filterValues = getFilterValues($filter);
-        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues);
+        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order);
       });
       $component.on('click', '.load_more_posts', function (event) {
         event.preventDefault();
@@ -11831,9 +11834,10 @@ targetBlank();
           term = $component.attr("data-term"),
           post_template = $component.attr("post-template"),
           per_page = $component.attr("data-qty"),
+          order = $component.attr("data-order"),
           action = 'append',
           filterValues = getFilterValues($filter);
-        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues);
+        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order);
       });
       $component.on('click', '.posts-filter__submit', function (ev) {
         ev.preventDefault();
@@ -11843,10 +11847,11 @@ targetBlank();
           term = $component.attr("data-term"),
           post_template = $component.attr("post-template"),
           per_page = $component.attr("data-qty"),
+          order = $component.attr("data-order"),
           paged = 1,
           action = 'replace',
           filterValues = getFilterValues($filter);
-        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues);
+        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order);
       });
       $component.on('listingUpdated', function (e, data) {
         e.preventDefault();
@@ -11984,7 +11989,6 @@ function animateWidth(elem, start, end, duration, spanElem) {
         show_nav = $(slider[0]).attr('data-show-nav');
       show_controls = show_controls == '1' ? true : false;
       show_nav = show_nav == '1' ? true : false;
-      c('ato paly falses');
       var slider_options = {
         container: slider[0],
         speed: 450,
@@ -12000,7 +12004,6 @@ function animateWidth(elem, start, end, duration, spanElem) {
         navPosition: nav_position,
         controlsText: ['<i class="fa fa-caret-left"></i>', '<i class="fa fa-caret-right"></i>'],
         onInit: function onInit(info) {
-          c('itiei');
           if (nav_show_title == '1') {
             $(info.navItems).each(function (i, e) {
               var title = $(info.slideItems).eq(i).attr('data-title');
@@ -12010,7 +12013,6 @@ function animateWidth(elem, start, end, duration, spanElem) {
         }
       };
       var daSlider = tns(slider_options);
-      c(daSlider);
       if ($(sliderDeContenidos[i]).attr('data-extended-bgi') == '1') {
         $(sliderDeContenidos[i]).attr('style', $(sliderDeContenidos[i]).find('.tns-slide-active').attr('data-style'));
         daSlider.events.on('transitionEnd', function (info, eventName) {
@@ -12250,7 +12252,8 @@ function animateWidth(elem, start, end, duration, spanElem) {
     *                                 btn: (required) (DOMElement)
     *                                 box: (required) (DOMElement)
     * }
-    	*/addItem: function addItem(options) {
+    	*/
+    addItem: function addItem(options) {
       if (!options.silent) {
         if (options.id === undefined) return;
         var newBtn = this.items[0].btn.cloneNode(true);
@@ -12283,7 +12286,8 @@ function animateWidth(elem, start, end, duration, spanElem) {
     * silent:          (optional) (bool) if true there is not removing operations
     *                                 useful when working with models that manage the view themselves
     * }
-    	*/removeItem: function removeItem(options) {
+    	*/
+    removeItem: function removeItem(options) {
       var index = options.index;
       if (index <= this.items.length && this.items.length > 1 && index >= 0) {
         if (!options.silent) {
