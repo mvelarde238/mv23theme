@@ -39,7 +39,7 @@ $tab_contenido = array(
 if( PAGE_HEADER_CONTENT_BUILDER ){
     $content_type = Content_Layout::the_field(array( 
         'slug' => 'page_header_content2', 
-        'components' => array( 'Editor de Texto', 'Imágen' ), 
+        'components' => array( 'Editor de Texto', 'Imágen', 'Separador' ), 
         'dependencies' => array(
             array( 'field' => 'page_header_element', 'value' => 'contenido', 'compare' => '=' )
         )
