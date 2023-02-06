@@ -6,6 +6,8 @@ $contenido_settings = array(
     Field::create( 'tab', 'Contenido' )
 );
 
+$columna->add_group( $columnas_simples );
+
 for ($i=1; $i <= $nth_columnas; $i++) { 
     $col = clone $columna;
     $col->set_name('columna_'.$i);
