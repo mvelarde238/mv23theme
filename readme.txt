@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.118 23-02-06
 - Load Columnas Simples in Columnas Internas
+- print html instead of string in title
 
 23.8.117 23-02-02
 - fix scroll-animations to work with -correct- items

@@ -12018,7 +12018,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
           if (nav_show_title == '1') {
             $(info.navItems).each(function (i, e) {
               var title = $(info.slideItems).eq(i).attr('data-title');
-              $(this).text(title);
+              $(this).html(title);
             });
           }
         }
