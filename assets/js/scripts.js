@@ -12013,6 +12013,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
         axis: 'horizontal',
         controlsPosition: controls_position,
         navPosition: nav_position,
+        loop: false,
         controlsText: ['<i class="fa fa-caret-left"></i>', '<i class="fa fa-caret-right"></i>'],
         onInit: function onInit(info) {
           if (nav_show_title == '1') {

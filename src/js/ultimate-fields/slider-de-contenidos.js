@@ -17,7 +17,7 @@
             var slider_options = {
                 container: slider[0], speed: 450, autoplayButton: false, autoplay: false, autoplayButtonOutput: false,
                 autoHeight: true, mouseDrag: false, controls: show_controls, nav: show_nav, axis: 'horizontal',
-                controlsPosition: controls_position, navPosition: nav_position,
+                controlsPosition: controls_position, navPosition: nav_position, loop: false,
                 controlsText: ['<i class="fa fa-caret-left"></i>','<i class="fa fa-caret-right"></i>'],
                 onInit: function(info){
                     if (nav_show_title == '1') {
