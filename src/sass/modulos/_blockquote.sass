@@ -1,21 +1,22 @@
 blockquote
-	padding-left: 40px
-	display: flex
-	justify-content: space-between
-	margin: 0
-	&:before
-		content: ''
-		width: 74px
-		height: 74px
-		background-image: url('../images/blockquote.png')
-	
-	&>p
-		margin-top: 20px
-		width: calc(100% - 90px)
-	
-	&+*
-		margin-top: 20px
+    padding-left: 90px
+    margin: 0
+    position: relative
+    &:before
+        content: ''
+        width: 74px
+        height: 74px
+        background-image: url('../images/blockquote.png')
+        position: absolute
+        top: 0
+        left: 0
+
+    &>p
+        margin-top: 20px
+
+    &+*
+        margin-top: 20px
 
 .text-color-2
-	blockquote:before
-		background-image: url('../images/blockquote2.png')
+    blockquote:before
+        background-image: url('../images/blockquote2.png')

@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.119 23-02-07
 - Set loop to false in Slider de contenidos
+- Blockquote css refactorization
 
 23.8.118 23-02-06
 - Load Columnas Simples in Columnas Internas

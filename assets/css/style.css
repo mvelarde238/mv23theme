@@ -2900,10 +2900,9 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 }
 
 blockquote {
-	padding-left: 40px;
-	display: flex;
-	justify-content: space-between;
+	padding-left: 90px;
 	margin: 0;
+	position: relative;
 }
 
 blockquote:before {
@@ -2911,11 +2910,13 @@ blockquote:before {
 	width: 74px;
 	height: 74px;
 	background-image: url("../images/blockquote.png");
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 blockquote > p {
 	margin-top: 20px;
-	width: calc(100% - 90px);
 }
 
 blockquote + * {
