@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.120 23-02-08
+- New Map Componente features: unit height and info window 
+
 23.8.119 23-02-07
 - Set loop to false in Slider de contenidos
 - Blockquote css refactorization

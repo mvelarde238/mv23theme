@@ -12,6 +12,7 @@
 		
 		<?php get_template_part('inc/modulos/menu/menu-movil'); ?>
 		<?php do_action( 'footer_code' ); ?>
+		<?php if (GM_IS_ACTIVE) echo '<script>function initMaps(){ return true; }</script>'; ?>
 		<?php wp_footer(); ?>
 		<?php $footer_scripts = get_option( 'footer_scripts' ); ?>
 		<?php if ($footer_scripts) echo $footer_scripts; ?>
