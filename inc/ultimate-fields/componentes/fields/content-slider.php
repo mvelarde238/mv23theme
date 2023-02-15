@@ -56,12 +56,13 @@ $content_slider = Repeater_Group::create( 'Slider de Contenidos' )
     )),
 
     Field::create( 'tab', 'Navigation' ),
-    Field::create( 'checkbox', 'show_nav' )->set_width( 33 )->set_text('Mostrar indicadores de página')->set_default_value('1'),
-    Field::create( 'select', 'nav_position', 'Posición')->set_width( 33 )->add_options( array(
+    Field::create( 'checkbox', 'show_nav' )->set_width( 25 )->set_text('Mostrar indicadores de página')->set_default_value('1'),
+    Field::create( 'select', 'nav_position', 'Posición')->set_width( 25 )->add_options( array(
         'bottom' => 'Abajo',
         'top' => 'Arriba',
     ))->add_dependency('show_nav'),
-    Field::create( 'checkbox', 'nav_show_title', 'Mostrar Títulos')->set_width( 33 )->set_text('Activar')->add_dependency('show_nav'),
+    Field::create( 'checkbox', 'nav_show_title', 'Mostrar Títulos')->set_width( 25 )->set_text('Activar')->add_dependency('show_nav'),
+    Field::create( 'checkbox', 'scroll_to_top', 'Scroll to top' )->set_width( 25 )->set_text('Activar'),
     Field::create( 'tab', 'Controles' ),
     Field::create( 'checkbox', 'show_controls' )->set_width( 50 )->set_text('Mostrar Flechas')->set_default_value('1'),
     Field::create( 'select', 'controls_position', 'Posición')->set_width( 50 )->add_options( array(

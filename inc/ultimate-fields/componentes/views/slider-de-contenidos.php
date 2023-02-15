@@ -2,6 +2,7 @@
 $tipo = $componente['__type'];
 $items = $componente['content_slider'];
 $extender_fondo = $componente['extender_fondo'];
+$scroll_to_top = (isset($componente['scroll_to_top'])) ? $componente['scroll_to_top'] : 0;
 $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 
 $classes_array = format_classes(array(
@@ -20,7 +21,11 @@ $controls_position = (isset($componente['controls_position']) && !empty($compone
 
 $attributes = generate_attributes($componente, $classes_array);
 ?>
-<div <?=$attributes?> data-extended-bgi="<?=$extender_fondo?>" data-show-title="<?=$nav_show_title?>" data-controls-position="<?=$controls_position?>">
+<div <?=$attributes?> 
+    data-extended-bgi="<?=$extender_fondo?>" 
+    data-show-title="<?=$nav_show_title?>" 
+    data-controls-position="<?=$controls_position?>"  
+    data-scroll-to-top="<?=$scroll_to_top?>">
     <?php if ($layout == 'layout2') echo '<div class="container">'; ?>
     <?php if (is_array($items) && count($items)>0): ?>
         <div class="slider-de-contenidos"

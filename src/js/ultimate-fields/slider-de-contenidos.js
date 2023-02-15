@@ -2,6 +2,7 @@
     document.addEventListener('DOMContentLoaded', function() {
 
         var sliderDeContenidos = $('.componente-slider-de-contenidos');
+        var headerHeight = MV23_GLOBALS.headerHeight;
 
         for (var i = 0; i < sliderDeContenidos.length; i++) {
             var slider = $(sliderDeContenidos[i]).find('.slider-de-contenidos'),
@@ -39,7 +40,13 @@
                 daSlider.events.on('transitionEnd', function (info, eventName) {
                     $(info.container).parents('.componente-slider-de-contenidos').attr('style', $(info.slideItems[info.navCurrentIndex]).attr('data-style') );
                 });
-            }         
+            }
+
+            if ($(sliderDeContenidos[i]).attr('data-scroll-to-top') == '1') { 
+                daSlider.events.on('transitionStart', function (info, eventName) {
+                    $("html, body").animate({ scrollTop: ($(info.container).offset().top - headerHeight) }, {duration: 800, queue: false, easing: 'easeOutCubic'});
+                });
+            }
         }
 
     });

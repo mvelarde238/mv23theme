@@ -1,8 +1,10 @@
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 /*
  * jQuery Easing v1.4.0 - http://gsgd.co.uk/sandbox/jquery/easing/
@@ -172,9 +174,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
       } catch (a) {
         return !1;
       }
-      for (t in e) {
-        ;
-      }
+      for (t in e);
       return void 0 === t || o.call(e, t);
     }, r.each = function (e, r, a) {
       var n,
@@ -182,16 +182,8 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         i = e.length,
         s = t(e);
       if (a) {
-        if (s) for (; i > o && (n = r.apply(e[o], a), n !== !1); o++) {
-          ;
-        } else for (o in e) {
-          if (n = r.apply(e[o], a), n === !1) break;
-        }
-      } else if (s) for (; i > o && (n = r.call(e[o], o, e[o]), n !== !1); o++) {
-        ;
-      } else for (o in e) {
-        if (n = r.call(e[o], o, e[o]), n === !1) break;
-      }
+        if (s) for (; i > o && (n = r.apply(e[o], a), n !== !1); o++);else for (o in e) if (n = r.apply(e[o], a), n === !1) break;
+      } else if (s) for (; i > o && (n = r.call(e[o], o, e[o]), n !== !1); o++);else for (o in e) if (n = r.call(e[o], o, e[o]), n === !1) break;
       return e;
     }, r.data = function (e, t, n) {
       if (void 0 === n) {
@@ -220,22 +212,14 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         l = 1,
         u = arguments.length,
         c = !1;
-      for ("boolean" == typeof s && (c = s, s = arguments[l] || {}, l++), "object" != _typeof(s) && "function" !== r.type(s) && (s = {}), l === u && (s = this, l--); u > l; l++) {
-        if (null != (o = arguments[l])) for (n in o) {
-          e = s[n], a = o[n], s !== a && (c && a && (r.isPlainObject(a) || (t = r.isArray(a))) ? (t ? (t = !1, i = e && r.isArray(e) ? e : []) : i = e && r.isPlainObject(e) ? e : {}, s[n] = r.extend(c, i, a)) : void 0 !== a && (s[n] = a));
-        }
-      }
+      for ("boolean" == typeof s && (c = s, s = arguments[l] || {}, l++), "object" != _typeof(s) && "function" !== r.type(s) && (s = {}), l === u && (s = this, l--); u > l; l++) if (null != (o = arguments[l])) for (n in o) e = s[n], a = o[n], s !== a && (c && a && (r.isPlainObject(a) || (t = r.isArray(a))) ? (t ? (t = !1, i = e && r.isArray(e) ? e : []) : i = e && r.isPlainObject(e) ? e : {}, s[n] = r.extend(c, i, a)) : void 0 !== a && (s[n] = a));
       return s;
     }, r.queue = function (e, a, n) {
       function o(e, r) {
         var a = r || [];
         return null != e && (t(Object(e)) ? !function (e, t) {
-          for (var r = +t.length, a = 0, n = e.length; r > a;) {
-            e[n++] = t[a++];
-          }
-          if (r !== r) for (; void 0 !== t[a];) {
-            e[n++] = t[a++];
-          }
+          for (var r = +t.length, a = 0, n = e.length; r > a;) e[n++] = t[a++];
+          if (r !== r) for (; void 0 !== t[a];) e[n++] = t[a++];
           return e.length = n, e;
         }(a, "string" == typeof e ? [e] : e) : [].push.call(a, e)), a;
       }
@@ -270,9 +254,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
       },
       position: function position() {
         function e() {
-          for (var e = this.offsetParent || document; e && "html" === !e.nodeType.toLowerCase && "static" === e.style.position;) {
-            e = e.offsetParent;
-          }
+          for (var e = this.offsetParent || document; e && "html" === !e.nodeType.toLowerCase && "static" === e.style.position;) e = e.offsetParent;
           return e || document;
         }
         var t = this[0],
@@ -290,9 +272,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
     };
     var a = {};
     r.expando = "velocity" + new Date().getTime(), r.uuid = 0;
-    for (var n = {}, o = n.hasOwnProperty, i = n.toString, s = "Boolean Number String Function Array Date RegExp Object Error".split(" "), l = 0; l < s.length; l++) {
-      n["[object " + s[l] + "]"] = s[l].toLowerCase();
-    }
+    for (var n = {}, o = n.hasOwnProperty, i = n.toString, s = "Boolean Number String Function Array Date RegExp Object Error".split(" "), l = 0; l < s.length; l++) n["[object " + s[l] + "]"] = s[l].toLowerCase();
     r.fn.init.prototype = r.fn, e.Velocity = {
       Utilities: r
     };
@@ -346,23 +326,17 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         return r;
       }
       function p() {
-        for (var t = 0; b > t; ++t) {
-          w[t] = l(t * x, e, a);
-        }
+        for (var t = 0; b > t; ++t) w[t] = l(t * x, e, a);
       }
       function f(t, r, n) {
         var o,
           i,
           s = 0;
-        do {
-          i = r + (n - r) / 2, o = l(i, e, a) - t, o > 0 ? n = i : r = i;
-        } while (Math.abs(o) > h && ++s < v);
+        do i = r + (n - r) / 2, o = l(i, e, a) - t, o > 0 ? n = i : r = i; while (Math.abs(o) > h && ++s < v);
         return i;
       }
       function d(t) {
-        for (var r = 0, n = 1, o = b - 1; n != o && w[n] <= t; ++n) {
-          r += x;
-        }
+        for (var r = 0, n = 1, o = b - 1; n != o && w[n] <= t; ++n) r += x;
         --n;
         var i = (t - w[n]) / (w[n + 1] - w[n]),
           s = r + i * x,
@@ -380,9 +354,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         x = 1 / (b - 1),
         S = ("Float32Array" in t);
       if (4 !== arguments.length) return !1;
-      for (var P = 0; 4 > P; ++P) {
-        if ("number" != typeof arguments[P] || isNaN(arguments[P]) || !isFinite(arguments[P])) return !1;
-      }
+      for (var P = 0; 4 > P; ++P) if ("number" != typeof arguments[P] || isNaN(arguments[P]) || !isFinite(arguments[P])) return !1;
       e = Math.min(e, 1), a = Math.min(a, 1), e = Math.max(e, 0), a = Math.max(a, 0);
       var w = S ? new Float32Array(b) : new Array(b),
         V = !1,
@@ -412,66 +384,62 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         var t = new Date().getTime(),
           r = b.State.calls.length;
         r > 1e4 && (b.State.calls = n(b.State.calls));
-        for (var o = 0; r > o; o++) {
-          if (b.State.calls[o]) {
-            var s = b.State.calls[o],
-              l = s[0],
-              u = s[2],
-              d = s[3],
-              g = !!d,
-              y = null;
-            d || (d = b.State.calls[o][3] = t - 16);
-            for (var h = Math.min((t - d) / u.duration, 1), v = 0, x = l.length; x > v; v++) {
-              var P = l[v],
-                V = P.element;
-              if (i(V)) {
-                var C = !1;
-                if (u.display !== a && null !== u.display && "none" !== u.display) {
-                  if ("flex" === u.display) {
-                    var T = ["-webkit-box", "-moz-box", "-ms-flexbox", "-webkit-flex"];
-                    f.each(T, function (e, t) {
-                      S.setPropertyValue(V, "display", t);
-                    });
-                  }
-                  S.setPropertyValue(V, "display", u.display);
+        for (var o = 0; r > o; o++) if (b.State.calls[o]) {
+          var s = b.State.calls[o],
+            l = s[0],
+            u = s[2],
+            d = s[3],
+            g = !!d,
+            y = null;
+          d || (d = b.State.calls[o][3] = t - 16);
+          for (var h = Math.min((t - d) / u.duration, 1), v = 0, x = l.length; x > v; v++) {
+            var P = l[v],
+              V = P.element;
+            if (i(V)) {
+              var C = !1;
+              if (u.display !== a && null !== u.display && "none" !== u.display) {
+                if ("flex" === u.display) {
+                  var T = ["-webkit-box", "-moz-box", "-ms-flexbox", "-webkit-flex"];
+                  f.each(T, function (e, t) {
+                    S.setPropertyValue(V, "display", t);
+                  });
                 }
-                u.visibility !== a && "hidden" !== u.visibility && S.setPropertyValue(V, "visibility", u.visibility);
-                for (var k in P) {
-                  if ("element" !== k) {
-                    var A,
-                      F = P[k],
-                      j = m.isString(F.easing) ? b.Easings[F.easing] : F.easing;
-                    if (1 === h) A = F.endValue;else {
-                      var E = F.endValue - F.startValue;
-                      if (A = F.startValue + E * j(h, u, E), !g && A === F.currentValue) continue;
-                    }
-                    if (F.currentValue = A, "tween" === k) y = A;else {
-                      if (S.Hooks.registered[k]) {
-                        var H = S.Hooks.getRoot(k),
-                          N = i(V).rootPropertyValueCache[H];
-                        N && (F.rootPropertyValue = N);
-                      }
-                      var L = S.setPropertyValue(V, k, F.currentValue + (0 === parseFloat(A) ? "" : F.unitType), F.rootPropertyValue, F.scrollData);
-                      S.Hooks.registered[k] && (i(V).rootPropertyValueCache[H] = S.Normalizations.registered[H] ? S.Normalizations.registered[H]("extract", null, L[1]) : L[1]), "transform" === L[0] && (C = !0);
-                    }
-                  }
-                }
-                u.mobileHA && i(V).transformCache.translate3d === a && (i(V).transformCache.translate3d = "(0px, 0px, 0px)", C = !0), C && S.flushTransformCache(V);
+                S.setPropertyValue(V, "display", u.display);
               }
+              u.visibility !== a && "hidden" !== u.visibility && S.setPropertyValue(V, "visibility", u.visibility);
+              for (var k in P) if ("element" !== k) {
+                var A,
+                  F = P[k],
+                  j = m.isString(F.easing) ? b.Easings[F.easing] : F.easing;
+                if (1 === h) A = F.endValue;else {
+                  var E = F.endValue - F.startValue;
+                  if (A = F.startValue + E * j(h, u, E), !g && A === F.currentValue) continue;
+                }
+                if (F.currentValue = A, "tween" === k) y = A;else {
+                  if (S.Hooks.registered[k]) {
+                    var H = S.Hooks.getRoot(k),
+                      N = i(V).rootPropertyValueCache[H];
+                    N && (F.rootPropertyValue = N);
+                  }
+                  var L = S.setPropertyValue(V, k, F.currentValue + (0 === parseFloat(A) ? "" : F.unitType), F.rootPropertyValue, F.scrollData);
+                  S.Hooks.registered[k] && (i(V).rootPropertyValueCache[H] = S.Normalizations.registered[H] ? S.Normalizations.registered[H]("extract", null, L[1]) : L[1]), "transform" === L[0] && (C = !0);
+                }
+              }
+              u.mobileHA && i(V).transformCache.translate3d === a && (i(V).transformCache.translate3d = "(0px, 0px, 0px)", C = !0), C && S.flushTransformCache(V);
             }
-            u.display !== a && "none" !== u.display && (b.State.calls[o][2].display = !1), u.visibility !== a && "hidden" !== u.visibility && (b.State.calls[o][2].visibility = !1), u.progress && u.progress.call(s[1], s[1], h, Math.max(0, d + u.duration - t), d, y), 1 === h && p(o);
           }
+          u.display !== a && "none" !== u.display && (b.State.calls[o][2].display = !1), u.visibility !== a && "hidden" !== u.visibility && (b.State.calls[o][2].visibility = !1), u.progress && u.progress.call(s[1], s[1], h, Math.max(0, d + u.duration - t), d, y), 1 === h && p(o);
         }
       }
       b.State.isTicking && w(c);
     }
     function p(e, t) {
       if (!b.State.calls[e]) return !1;
-      for (var r = b.State.calls[e][0], n = b.State.calls[e][1], o = b.State.calls[e][2], s = b.State.calls[e][4], l = !1, u = 0, c = r.length; c > u; u++) {
-        var p = r[u].element;
+      var _loop = function _loop() {
+        p = r[u].element;
         if (t || o.loop || ("none" === o.display && S.setPropertyValue(p, "display", o.display), "hidden" === o.visibility && S.setPropertyValue(p, "visibility", o.visibility)), o.loop !== !0 && (f.queue(p)[1] === a || !/\.velocityQueueEntryFlag/i.test(f.queue(p)[1])) && i(p)) {
           i(p).isAnimating = !1, i(p).rootPropertyValueCache = {};
-          var d = !1;
+          d = !1;
           f.each(S.Lists.transforms3D, function (e, t) {
             var r = /^scale/.test(t) ? 1 : 0,
               n = i(p).transformCache[t];
@@ -491,13 +459,15 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
           loop: !0,
           delay: o.delay
         })), o.queue !== !1 && f.dequeue(p, o.queue);
+      };
+      for (var r = b.State.calls[e][0], n = b.State.calls[e][1], o = b.State.calls[e][2], s = b.State.calls[e][4], l = !1, u = 0, c = r.length; c > u; u++) {
+        var p, d;
+        _loop();
       }
       b.State.calls[e] = !1;
-      for (var m = 0, y = b.State.calls.length; y > m; m++) {
-        if (b.State.calls[m] !== !1) {
-          l = !0;
-          break;
-        }
+      for (var m = 0, y = b.State.calls.length; y > m; m++) if (b.State.calls[m] !== !1) {
+        l = !0;
+        break;
       }
       l === !1 && (b.State.isTicking = !1, delete b.State.calls, b.State.calls = []);
     }
@@ -543,9 +513,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
           return t.SVGElement && e instanceof t.SVGElement;
         },
         isEmptyObject: function isEmptyObject(e) {
-          for (var t in e) {
-            return !1;
-          }
+          for (var t in e) return !1;
           return !0;
         }
       },
@@ -650,9 +618,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
           c = 0,
           p = 1e-4,
           f = .016;
-        for (e = parseFloat(e) || 500, t = parseFloat(t) || 20, n = n || null, l.tension = e, l.friction = t, o = null !== n, o ? (c = a(e, t), i = c / n * f) : i = f; s = r(s || l, i), u.push(1 + s.x), c += 16, Math.abs(s.x) > p && Math.abs(s.v) > p;) {
-          ;
-        }
+        for (e = parseFloat(e) || 500, t = parseFloat(t) || 20, n = n || null, l.tension = e, l.friction = t, o = null !== n, o ? (c = a(e, t), i = c / n * f) : i = f; s = r(s || l, i), u.push(1 + s.x), c += 16, Math.abs(s.x) > p && Math.abs(s.v) > p;);
         return o ? function (e) {
           return u[e * (u.length - 1) | 0];
         } : c;
@@ -790,64 +756,60 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         },
         register: function register() {
           9 >= d || b.State.isGingerbread || (S.Lists.transformsBase = S.Lists.transformsBase.concat(S.Lists.transforms3D));
-          for (var e = 0; e < S.Lists.transformsBase.length; e++) {
-            !function () {
-              var t = S.Lists.transformsBase[e];
-              S.Normalizations.registered[t] = function (e, r, n) {
-                switch (e) {
-                  case "name":
-                    return "transform";
-                  case "extract":
-                    return i(r) === a || i(r).transformCache[t] === a ? /^scale/i.test(t) ? 1 : 0 : i(r).transformCache[t].replace(/[()]/g, "");
-                  case "inject":
-                    var o = !1;
-                    switch (t.substr(0, t.length - 1)) {
-                      case "translate":
-                        o = !/(%|px|em|rem|vw|vh|\d)$/i.test(n);
-                        break;
-                      case "scal":
-                      case "scale":
-                        b.State.isAndroid && i(r).transformCache[t] === a && 1 > n && (n = 1), o = !/(\d)$/i.test(n);
-                        break;
-                      case "skew":
-                        o = !/(deg|\d)$/i.test(n);
-                        break;
-                      case "rotate":
-                        o = !/(deg|\d)$/i.test(n);
-                    }
-                    return o || (i(r).transformCache[t] = "(" + n + ")"), i(r).transformCache[t];
-                }
-              };
-            }();
-          }
-          for (var e = 0; e < S.Lists.colors.length; e++) {
-            !function () {
-              var t = S.Lists.colors[e];
-              S.Normalizations.registered[t] = function (e, r, n) {
-                switch (e) {
-                  case "name":
-                    return t;
-                  case "extract":
-                    var o;
-                    if (S.RegEx.wrappedValueAlreadyExtracted.test(n)) o = n;else {
-                      var i,
-                        s = {
-                          black: "rgb(0, 0, 0)",
-                          blue: "rgb(0, 0, 255)",
-                          gray: "rgb(128, 128, 128)",
-                          green: "rgb(0, 128, 0)",
-                          red: "rgb(255, 0, 0)",
-                          white: "rgb(255, 255, 255)"
-                        };
-                      /^[A-z]+$/i.test(n) ? i = s[n] !== a ? s[n] : s.black : S.RegEx.isHex.test(n) ? i = "rgb(" + S.Values.hexToRgb(n).join(" ") + ")" : /^rgba?\(/i.test(n) || (i = s.black), o = (i || n).toString().match(S.RegEx.valueUnwrap)[1].replace(/,(\s+)?/g, " ");
-                    }
-                    return 8 >= d || 3 !== o.split(" ").length || (o += " 1"), o;
-                  case "inject":
-                    return 8 >= d ? 4 === n.split(" ").length && (n = n.split(/\s+/).slice(0, 3).join(" ")) : 3 === n.split(" ").length && (n += " 1"), (8 >= d ? "rgb" : "rgba") + "(" + n.replace(/\s+/g, ",").replace(/\.(\d)+(?=,)/g, "") + ")";
-                }
-              };
-            }();
-          }
+          for (var e = 0; e < S.Lists.transformsBase.length; e++) !function () {
+            var t = S.Lists.transformsBase[e];
+            S.Normalizations.registered[t] = function (e, r, n) {
+              switch (e) {
+                case "name":
+                  return "transform";
+                case "extract":
+                  return i(r) === a || i(r).transformCache[t] === a ? /^scale/i.test(t) ? 1 : 0 : i(r).transformCache[t].replace(/[()]/g, "");
+                case "inject":
+                  var o = !1;
+                  switch (t.substr(0, t.length - 1)) {
+                    case "translate":
+                      o = !/(%|px|em|rem|vw|vh|\d)$/i.test(n);
+                      break;
+                    case "scal":
+                    case "scale":
+                      b.State.isAndroid && i(r).transformCache[t] === a && 1 > n && (n = 1), o = !/(\d)$/i.test(n);
+                      break;
+                    case "skew":
+                      o = !/(deg|\d)$/i.test(n);
+                      break;
+                    case "rotate":
+                      o = !/(deg|\d)$/i.test(n);
+                  }
+                  return o || (i(r).transformCache[t] = "(" + n + ")"), i(r).transformCache[t];
+              }
+            };
+          }();
+          for (var e = 0; e < S.Lists.colors.length; e++) !function () {
+            var t = S.Lists.colors[e];
+            S.Normalizations.registered[t] = function (e, r, n) {
+              switch (e) {
+                case "name":
+                  return t;
+                case "extract":
+                  var o;
+                  if (S.RegEx.wrappedValueAlreadyExtracted.test(n)) o = n;else {
+                    var i,
+                      s = {
+                        black: "rgb(0, 0, 0)",
+                        blue: "rgb(0, 0, 255)",
+                        gray: "rgb(128, 128, 128)",
+                        green: "rgb(0, 128, 0)",
+                        red: "rgb(255, 0, 0)",
+                        white: "rgb(255, 255, 255)"
+                      };
+                    /^[A-z]+$/i.test(n) ? i = s[n] !== a ? s[n] : s.black : S.RegEx.isHex.test(n) ? i = "rgb(" + S.Values.hexToRgb(n).join(" ") + ")" : /^rgba?\(/i.test(n) || (i = s.black), o = (i || n).toString().match(S.RegEx.valueUnwrap)[1].replace(/,(\s+)?/g, " ");
+                  }
+                  return 8 >= d || 3 !== o.split(" ").length || (o += " 1"), o;
+                case "inject":
+                  return 8 >= d ? 4 === n.split(" ").length && (n = n.split(/\s+/).slice(0, 3).join(" ")) : 3 === n.split(" ").length && (n += " 1"), (8 >= d ? "rgb" : "rgba") + "(" + n.replace(/\s+/g, ",").replace(/\.(\d)+(?=,)/g, "") + ")";
+              }
+            };
+          }();
         }
       },
       Names: {
@@ -1065,11 +1027,9 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
             if (!i(o).tweensContainer) return void f.dequeue(o, s.queue);
             "none" === i(o).opts.display && (i(o).opts.display = "auto"), "hidden" === i(o).opts.visibility && (i(o).opts.visibility = "visible"), i(o).opts.loop = !1, i(o).opts.begin = null, i(o).opts.complete = null, v.easing || delete s.easing, v.duration || delete s.duration, s = f.extend({}, i(o).opts, s);
             var E = f.extend(!0, {}, i(o).tweensContainer);
-            for (var H in E) {
-              if ("element" !== H) {
-                var N = E[H].startValue;
-                E[H].startValue = E[H].currentValue = E[H].endValue, E[H].endValue = N, m.isEmptyObject(v) || (E[H].easing = s.easing), b.debug && console.log("reverse tweensContainer (" + H + "): " + JSON.stringify(E[H]), o);
-              }
+            for (var H in E) if ("element" !== H) {
+              var N = E[H].startValue;
+              E[H].startValue = E[H].currentValue = E[H].endValue, E[H].endValue = N, m.isEmptyObject(v) || (E[H].easing = s.easing), b.debug && console.log("reverse tweensContainer (" + H + "): " + JSON.stringify(E[H]), o);
             }
             l = E;
           } else if ("start" === A) {
@@ -1194,9 +1154,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         if (!/^(stop|finish)$/i.test(y) && !f.isPlainObject(v)) {
           var C = d + 1;
           v = {};
-          for (var T = C; T < arguments.length; T++) {
-            m.isArray(arguments[T]) || !/^(fast|normal|slow)$/i.test(arguments[T]) && !/^\d/.test(arguments[T]) ? m.isString(arguments[T]) || m.isArray(arguments[T]) ? v.easing = arguments[T] : m.isFunction(arguments[T]) && (v.complete = arguments[T]) : v.duration = arguments[T];
-          }
+          for (var T = C; T < arguments.length; T++) m.isArray(arguments[T]) || !/^(fast|normal|slow)$/i.test(arguments[T]) && !/^\d/.test(arguments[T]) ? m.isString(arguments[T]) || m.isArray(arguments[T]) ? v.easing = arguments[T] : m.isFunction(arguments[T]) && (v.complete = arguments[T]) : v.duration = arguments[T];
         }
         var k = {
           promise: null,
@@ -1306,9 +1264,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
           }
           d.overflow = e.style.overflow, e.style.overflow = "hidden";
         }, l.complete = function () {
-          for (var t in d) {
-            e.style[t] = d[t];
-          }
+          for (var t in d) e.style[t] = d[t];
           c && c.call(i, i), s && s.resolver(i);
         }, b(e, p, l);
       };
@@ -1337,16 +1293,10 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
   }
   function m(a, b, c) {
     var e;
-    if (a) if (a.forEach) a.forEach(b, c);else if (a.length !== d) for (e = 0; e < a.length;) {
-      b.call(c, a[e], e, a), e++;
-    } else for (e in a) {
-      a.hasOwnProperty(e) && b.call(c, a[e], e, a);
-    }
+    if (a) if (a.forEach) a.forEach(b, c);else if (a.length !== d) for (e = 0; e < a.length;) b.call(c, a[e], e, a), e++;else for (e in a) a.hasOwnProperty(e) && b.call(c, a[e], e, a);
   }
   function n(a, b, c) {
-    for (var e = Object.keys(b), f = 0; f < e.length;) {
-      (!c || c && a[e[f]] === d) && (a[e[f]] = b[e[f]]), f++;
-    }
+    for (var e = Object.keys(b), f = 0; f < e.length;) (!c || c && a[e[f]] === d) && (a[e[f]] = b[e[f]]), f++;
     return a;
   }
   function o(a, b) {
@@ -1485,12 +1435,10 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
     b.velocity = f, b.velocityX = g, b.velocityY = h, b.direction = j;
   }
   function gb(a) {
-    for (var b = [], c = 0; c < a.pointers.length;) {
-      b[c] = {
-        clientX: h(a.pointers[c].clientX),
-        clientY: h(a.pointers[c].clientY)
-      }, c++;
-    }
+    for (var b = [], c = 0; c < a.pointers.length;) b[c] = {
+      clientX: h(a.pointers[c].clientX),
+      clientY: h(a.pointers[c].clientY)
+    }, c++;
     return {
       timeStamp: j(),
       pointers: b,
@@ -1505,9 +1453,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
       x: h(a[0].clientX),
       y: h(a[0].clientY)
     };
-    for (var c = 0, d = 0, e = 0; b > e;) {
-      c += a[e].clientX, d += a[e].clientY, e++;
-    }
+    for (var c = 0, d = 0, e = 0; b > e;) c += a[e].clientX, d += a[e].clientY, e++;
     return {
       x: h(c / b),
       y: h(d / b)
@@ -1568,12 +1514,8 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
       i = this.target;
     if (f = c.filter(function (a) {
       return v(a.target, i);
-    }), b === O) for (e = 0; e < f.length;) {
-      d[f[e].identifier] = !0, e++;
-    }
-    for (e = 0; e < g.length;) {
-      d[g[e].identifier] && h.push(g[e]), b & (Q | R) && delete d[g[e].identifier], e++;
-    }
+    }), b === O) for (e = 0; e < f.length;) d[f[e].identifier] = !0, e++;
+    for (e = 0; e < g.length;) d[g[e].identifier] && h.push(g[e]), b & (Q | R) && delete d[g[e].identifier], e++;
     return h.length ? [A(f.concat(h), "identifier", !0), h] : void 0;
   }
   function Gb() {
@@ -2088,16 +2030,12 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
           d = this.recognizers,
           e = b.curRecognizer;
         (!e || e && e.state & Vb) && (e = b.curRecognizer = null);
-        for (var f = 0; f < d.length;) {
-          c = d[f], b.stopped === jc || e && c != e && !c.canRecognizeWith(e) ? c.reset() : c.recognize(a), !e && c.state & (Sb | Tb | Ub) && (e = b.curRecognizer = c), f++;
-        }
+        for (var f = 0; f < d.length;) c = d[f], b.stopped === jc || e && c != e && !c.canRecognizeWith(e) ? c.reset() : c.recognize(a), !e && c.state & (Sb | Tb | Ub) && (e = b.curRecognizer = c), f++;
       }
     },
     get: function get(a) {
       if (a instanceof Yb) return a;
-      for (var b = this.recognizers, c = 0; c < b.length; c++) {
-        if (b[c].options.event == a) return b[c];
-      }
+      for (var b = this.recognizers, c = 0; c < b.length; c++) if (b[c].options.event == a) return b[c];
       return null;
     },
     add: function add(a) {
@@ -2129,9 +2067,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         b.type = a, b.preventDefault = function () {
           b.srcEvent.preventDefault();
         };
-        for (var d = 0; d < c.length;) {
-          c[d](b), d++;
-        }
+        for (var d = 0; d < c.length;) c[d](b), d++;
       }
     },
     destroy: function destroy() {
@@ -4328,9 +4264,7 @@ if (Vel) {
       return !(!a || !b) && (f.each([a, b], function (a, b) {
         var d = [];
         f.each(b, function (a, b) {
-          for (; b.toString().length < 5;) {
-            b = "0" + b;
-          }
+          for (; b.toString().length < 5;) b = "0" + b;
           d.push(b);
         }), c.push(d.join(""));
       }), parseFloat(c[0]) > parseFloat(c[1]));
@@ -4360,9 +4294,7 @@ if (Vel) {
         var m = h === i - 1,
           n = 0;
         l = l || b.loop, "function" == typeof b.defaultDuration ? b.defaultDuration = b.defaultDuration.call(j, j) : b.defaultDuration = parseFloat(b.defaultDuration);
-        for (var o = 0; o < b.calls.length; o++) {
-          "number" == typeof (t = b.calls[o][1]) && (n += t);
-        }
+        for (var o = 0; o < b.calls.length; o++) "number" == typeof (t = b.calls[o][1]) && (n += t);
         var p = n >= 1 ? 0 : b.calls.length ? (1 - n) / b.calls.length : 1;
         for (o = 0; o < b.calls.length; o++) {
           var q = b.calls[o],
@@ -4392,11 +4324,9 @@ if (Vel) {
             };
             v.complete = function () {
               if (l && e.Redirects[a](d, g, h, i, j, k, !0 === l || Math.max(0, l - 1)), b.reset) {
-                for (var c in b.reset) {
-                  if (b.reset.hasOwnProperty(c)) {
-                    var f = b.reset[c];
-                    void 0 !== e.CSS.Hooks.registered[c] || "string" != typeof f && "number" != typeof f || (b.reset[c] = [b.reset[c], b.reset[c]]);
-                  }
+                for (var c in b.reset) if (b.reset.hasOwnProperty(c)) {
+                  var f = b.reset[c];
+                  void 0 !== e.CSS.Hooks.registered[c] || "string" != typeof f && "number" != typeof f || (b.reset[c] = [b.reset[c], b.reset[c]]);
                 }
                 var n = {
                   duration: 0,
@@ -5151,9 +5081,7 @@ if (Vel) {
         }
       }
     };
-    for (var j in e.RegisterEffect.packagedEffects) {
-      e.RegisterEffect.packagedEffects.hasOwnProperty(j) && e.RegisterEffect(j, e.RegisterEffect.packagedEffects[j]);
-    }
+    for (var j in e.RegisterEffect.packagedEffects) e.RegisterEffect.packagedEffects.hasOwnProperty(j) && e.RegisterEffect(j, e.RegisterEffect.packagedEffects[j]);
     e.RunSequence = function (a) {
       var b = f.extend(!0, [], a);
       b.length > 1 && (f.each(b.reverse(), function (a, c) {
@@ -10330,9 +10258,7 @@ var tns = function () {
       return !(!a || !b) && (f.each([a, b], function (a, b) {
         var d = [];
         f.each(b, function (a, b) {
-          for (; b.toString().length < 5;) {
-            b = "0" + b;
-          }
+          for (; b.toString().length < 5;) b = "0" + b;
           d.push(b);
         }), c.push(d.join(""));
       }), parseFloat(c[0]) > parseFloat(c[1]));
@@ -10362,9 +10288,7 @@ var tns = function () {
         var m = h === i - 1,
           n = 0;
         l = l || b.loop, "function" == typeof b.defaultDuration ? b.defaultDuration = b.defaultDuration.call(j, j) : b.defaultDuration = parseFloat(b.defaultDuration);
-        for (var o = 0; o < b.calls.length; o++) {
-          "number" == typeof (t = b.calls[o][1]) && (n += t);
-        }
+        for (var o = 0; o < b.calls.length; o++) "number" == typeof (t = b.calls[o][1]) && (n += t);
         var p = n >= 1 ? 0 : b.calls.length ? (1 - n) / b.calls.length : 1;
         for (o = 0; o < b.calls.length; o++) {
           var q = b.calls[o],
@@ -10394,11 +10318,9 @@ var tns = function () {
             };
             v.complete = function () {
               if (l && e.Redirects[a](d, g, h, i, j, k, !0 === l || Math.max(0, l - 1)), b.reset) {
-                for (var c in b.reset) {
-                  if (b.reset.hasOwnProperty(c)) {
-                    var f = b.reset[c];
-                    void 0 !== e.CSS.Hooks.registered[c] || "string" != typeof f && "number" != typeof f || (b.reset[c] = [b.reset[c], b.reset[c]]);
-                  }
+                for (var c in b.reset) if (b.reset.hasOwnProperty(c)) {
+                  var f = b.reset[c];
+                  void 0 !== e.CSS.Hooks.registered[c] || "string" != typeof f && "number" != typeof f || (b.reset[c] = [b.reset[c], b.reset[c]]);
                 }
                 var n = {
                   duration: 0,
@@ -11153,9 +11075,7 @@ var tns = function () {
         }
       }
     };
-    for (var j in e.RegisterEffect.packagedEffects) {
-      e.RegisterEffect.packagedEffects.hasOwnProperty(j) && e.RegisterEffect(j, e.RegisterEffect.packagedEffects[j]);
-    }
+    for (var j in e.RegisterEffect.packagedEffects) e.RegisterEffect.packagedEffects.hasOwnProperty(j) && e.RegisterEffect(j, e.RegisterEffect.packagedEffects[j]);
     e.RunSequence = function (a) {
       var b = f.extend(!0, [], a);
       b.length > 1 && (f.each(b.reverse(), function (a, c) {
@@ -12001,6 +11921,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
 (function ($, c) {
   document.addEventListener('DOMContentLoaded', function () {
     var sliderDeContenidos = $('.componente-slider-de-contenidos');
+    var headerHeight = MV23_GLOBALS.headerHeight;
     for (var i = 0; i < sliderDeContenidos.length; i++) {
       var slider = $(sliderDeContenidos[i]).find('.slider-de-contenidos'),
         nav_position = $(slider[0]).attr('data-nav-position'),
@@ -12039,6 +11960,17 @@ function animateWidth(elem, start, end, duration, spanElem) {
         $(sliderDeContenidos[i]).attr('style', $(sliderDeContenidos[i]).find('.tns-slide-active').attr('data-style'));
         daSlider.events.on('transitionEnd', function (info, eventName) {
           $(info.container).parents('.componente-slider-de-contenidos').attr('style', $(info.slideItems[info.navCurrentIndex]).attr('data-style'));
+        });
+      }
+      if ($(sliderDeContenidos[i]).attr('data-scroll-to-top') == '1') {
+        daSlider.events.on('transitionStart', function (info, eventName) {
+          $("html, body").animate({
+            scrollTop: $(info.container).offset().top - headerHeight
+          }, {
+            duration: 800,
+            queue: false,
+            easing: 'easeOutCubic'
+          });
         });
       }
     }
@@ -12404,9 +12336,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
   }
   ;
   function _findAncestor(el, selector) {
-    while ((el = el.parentElement) && !(el.matches || el.matchesSelector).call(el, selector)) {
-      ;
-    }
+    while ((el = el.parentElement) && !(el.matches || el.matchesSelector).call(el, selector));
     return el;
   }
   Math.easeInOutQuad = function (t, b, c, d) {
