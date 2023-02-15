@@ -1,5 +1,5 @@
 (function($,c){      
-    var header_height = 118;
+    var header_height = parseInt( MV23_GLOBALS.headerHeight );
     
     $(function() {
         // var header_height = $('.header__content').height();

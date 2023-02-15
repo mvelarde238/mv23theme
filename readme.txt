@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.120 23-02-15
 - New Content Slider Comp. feature: scroll to top
+- Use MV23_GLOBALS.headerHeight in pinned blocks
 
 23.8.120 23-02-08
 - New Map Componente features: unit height and info window 
