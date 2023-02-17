@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.121 23-02-17
+- Use Columnas Simples Comp. in Columnas Internas, just if needed
+
 23.8.120 23-02-15
 - New Content Slider Comp. feature: scroll to top
 - Use MV23_GLOBALS.headerHeight in pinned blocks
