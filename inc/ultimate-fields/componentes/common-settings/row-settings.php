@@ -52,4 +52,12 @@ $row_settings = array(
             // 'mobile-1-1de2-1de2' => '1 + 1/2 + 1/2',
             // 'mobile-1de2-1de2-1' => '1/2 + 1/2 + 1',
         ))->add_dependency('nth_columnas','3','='),
+    Field::create( 'select', 'tablet_widths_4', 'Ancho en Tablets')->set_width( 25 )->add_options( array(
+            '' => '100%',
+            'tablet-1de2-1de2-1de2-1de2' => '1/2 + 1/2 + 1/2 + 1/2',
+        ))->add_dependency('nth_columnas','4','='),
+    Field::create( 'select', 'mobile_widths_4', 'Ancho en Móviles')->set_width( 25 )->add_options( array(
+            '' => '100%',
+            'mobile-1de2-1de2-1de2-1de2' => '1/2 + 1/2 + 1/2 + 1/2',
+        ))->add_dependency('nth_columnas','4','='),
 );

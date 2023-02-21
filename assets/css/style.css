@@ -5549,6 +5549,10 @@ li.product:before {
 	width: 33.33% !important;
 }
 
+.tablet-1de2-1de2-1de2-1de2 > div {
+	width: 50% !important;
+}
+
 .tablet-1-1de2-1de2 > div:nth-child(1) {
 	width: 100% !important;
 }
@@ -6697,6 +6701,10 @@ table.responsive-table.bordered tbody tr {
 .mobile-1de3-1de3-1de3 > div:nth-child(2),
 .mobile-1de3-1de3-1de3 > div:nth-child(3) {
 	width: 33.33% !important;
+}
+
+.mobile-1de2-1de2-1de2-1de2 > div {
+	width: 50% !important;
 }
 
 .items-grid__list.s1 > div {

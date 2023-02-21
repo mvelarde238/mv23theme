@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.122 23-02-21
+- New Row settings: widths in mobile and tablet for 4 columns
+
 23.8.121 23-02-17
 - Use Columnas Simples Comp. in Columnas Internas, just if needed
 
