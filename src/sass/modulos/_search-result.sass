@@ -1,0 +1,35 @@
+.search-result
+    display: flex
+    margin-bottom: 30px
+
+    &__thumb
+        width: 100px
+        height: 100px
+        margin: 8px
+        display: block
+        position: relative
+        border-radius: 4px
+        flex-shrink: 0
+        background-size: cover
+        background-position: center
+        &:before
+            content: ''
+            position: absolute
+            width: calc(100% + 16px)
+            height: calc(100% + 16px)
+            top: -8px
+            left: -8px
+            border: 1px solid
+            border-radius: 4px
+    
+    &__content
+        padding-left: 20px
+
+@media #{$small-and-down}
+    .search-result
+        flex-wrap: wrap
+        &__thumb
+            width: calc(100% - 16px)
+            margin-bottom: 20px
+        &__content
+            padding-left: 0
