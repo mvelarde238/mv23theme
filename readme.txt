@@ -5,6 +5,7 @@ CHANGELOG
 - fix scroll-animations: tween element could be the same as trigger element
 - scroll-animations improvement: tween element can be inner or outer
 - Image / Video Component: allow youtube video
+- scroll-animations: new css animated properties: boxShadow, borderRadius, filter
 
 23.8.122 23-02-21
 - New Row settings: widths in mobile and tablet for 4 columns
