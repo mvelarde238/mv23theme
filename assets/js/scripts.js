@@ -11888,7 +11888,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
             if (triggerElement.length) {
               for (var index = 0; index < triggerElement.length; index++) {
                 var _tgrEl = triggerElement[index];
-                var tweenElem = $(_tgrEl).find(group['element']);
+                var tweenElem = group['trigger_element'] != group['element'] ? $(_tgrEl).find(group['element']) : _tgrEl;
                 addAnimation(_tgrEl, tweenElem, group);
               }
             } else {
