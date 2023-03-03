@@ -34,12 +34,21 @@ function generate_actions_code($componente){
                		endif;
 				}
 				if ($action['trigger'] == 'click' && $action['action'] == 'open-video-popup') {
-					$videos = $componente['bgvideo'];
-					$video_id = (is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
-					if ($video_id):
-						$video_url = wp_get_attachment_url($video_id);
-			        	echo '<a class="cover-all zoom-video" href="'.$video_url.'"></a>';
-			        endif;
+					$video_source = ( isset($componente['video_source']) ) ? $componente['video_source'] : 'selfhosted';
+					if( $video_source == 'selfhosted' ){
+						$videos = $componente['bgvideo'];
+						$video_id = (is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
+						if ($video_id):
+							$video_url = wp_get_attachment_url($video_id);
+			        		echo '<a class="cover-all zoom-video" href="'.$video_url.'"></a>';
+			        	endif;
+					}
+					if( $video_source == 'youtube' ){
+						$video_url = $componente['youtube_url'];
+						if($video_url){
+							echo '<a class="cover-all zoom-video" href="'.$video_url.'"></a>';
+						}
+					}
 				}
 			}
 	endif;

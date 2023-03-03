@@ -12,7 +12,13 @@ $image = Repeater_Group::create( 'Imágen', array(
             'video' => 'Video'
         )),
         Field::create( 'image', 'image' )->hide_label()->add_dependency('type','image','='),
-        Field::create( 'video', 'bgvideo', 'Video de Fondo' )->add_dependency('type','video','='),
+
+        Field::create( 'radio', 'video_source','Seleccione el origen del video:')->set_orientation( 'horizontal' )->add_options( array(
+            'selfhosted' => 'Medios',
+            'youtube' => 'Youtube'
+        ))->add_dependency('type', 'video', '=')->set_width(50),
+        Field::create( 'text', 'youtube_url', 'URL')->add_dependency('type', 'video', '=')->add_dependency('video_source','youtube','=')->set_width(50),
+        Field::create( 'video', 'bgvideo', 'Video de Fondo' )->add_dependency('type','video','=')->add_dependency('video_source','selfhosted','=')->set_width(50),
         Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->add_dependency('type','video','='),
         Field::create( 'tab', 'Tamaño' ),
         Field::create( 'image_select', 'aspect_ratio' )->add_options(array(

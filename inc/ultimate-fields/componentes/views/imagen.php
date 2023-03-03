@@ -3,7 +3,7 @@ $tipo = $componente['__type'];
 $image = $componente['image'];
 $type = ( isset($componente['type']) ) ? $componente['type'] : 'image';
 
-if(empty($image) && count($componente['bgvideo']['videos']) < 1 ) return;
+// if(empty($image) && count($componente['bgvideo']['videos']) < 1 ) return;
 
 $image_url = wp_get_attachment_image_url( $image, IMAGE_THUMB_SIZE );
 $alignment = $componente['alignment'];

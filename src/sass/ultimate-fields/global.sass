@@ -53,13 +53,15 @@
 	position: relative
 	background-color: #000
 	background-image: url() !important
-	video
+	video, iframe
 		position: absolute
 		top: 50%
 		left: 50%
 		transform: translate(-50%, -50%)
 		z-index: 1
 		min-height: 100%
+	iframe
+		width: 100%
 	&>*
 		position: relative
 		z-index: 56

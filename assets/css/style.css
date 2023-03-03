@@ -4256,13 +4256,18 @@ li.product:before {
 	background-image: url() !important;
 }
 
-.has-video-background video {
+.has-video-background video,
+.has-video-background iframe {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 1;
 	min-height: 100%;
+}
+
+.has-video-background iframe {
+	width: 100%;
 }
 
 .has-video-background > * {
@@ -4941,11 +4946,13 @@ li.product:before {
 	font-size: 23px;
 }
 
-.image.componente.has-video-background.aspect-ratio-default video {
+.image.componente.has-video-background.aspect-ratio-default video,
+.image.componente.has-video-background.aspect-ratio-default iframe {
 	position: static;
 }
 
-.image.componente.has-video-background video {
+.image.componente.has-video-background video,
+.image.componente.has-video-background iframe {
 	min-height: 100%;
 }
 
