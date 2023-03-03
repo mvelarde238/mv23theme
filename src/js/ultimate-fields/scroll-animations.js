@@ -16,12 +16,26 @@
                         if( triggerElement.length ){
                             for (let index = 0; index < triggerElement.length; index++) {
                                 var _tgrEl = triggerElement[index];
-                                var tweenElem = ( group['trigger_element'] != group['element'] ) ? $(_tgrEl).find(group['element']) : _tgrEl;
+                                var tweenElem = ( group['trigger_element'] != group['element']['el'] ) ? $(_tgrEl).find(group['element']['el']) : _tgrEl;
                                 addAnimation(_tgrEl, tweenElem, group); 
                             }
                         } else {
-                            var tweenElem = ( group['element'] != 'this' ) ? $(elem).find(group['element']) : elem;
-                            addAnimation(triggerElement, tweenElem, group);
+                            var tweenElem = null;
+                            switch ( group['element']['key'] ) {
+                                case 'selector':
+                                    tweenElem = $(elem).find(group['element']['el']);
+                                    break;
+                                    
+                                case 'outer_selector':
+                                    tweenElem = $(group['element']['el'])[0];
+                                    break;
+
+                                default:
+                                    tweenElem = elem;
+                                    break;
+                            }
+                            console.log(group['element']['el'],tweenElem);
+                            if(tweenElem) addAnimation(triggerElement, tweenElem, group);
                         }
                     });
                 }

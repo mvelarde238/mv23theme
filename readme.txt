@@ -1,8 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
-23.8.122 23-03-03
+23.8.123 23-03-03
 - fix scroll-animations: tween element could be the same as trigger element
+- scroll-animations improvement: tween element can be inner or outer
 
 23.8.122 23-02-21
 - New Row settings: widths in mobile and tablet for 4 columns

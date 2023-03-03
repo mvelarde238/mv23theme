@@ -43,7 +43,7 @@ array_push($scroll_animation_fields, Field::create( 'repeater', 'scroll_animatio
                 Field::create( 'complex', 'trigger-element', 'Trigger Element' )->add_fields(array(
                     Field::create( 'select', 'el' )->add_options( array(
                         'this' => 'Componente',
-                        'selector' => 'Selector',
+                        'selector' => 'Elemento interno',
                     ))->hide_label()->set_width( 50 ),
                     Field::create( 'text', 'selector' )->add_dependency('el','selector','=')->hide_label()->set_width( 50 ),
                 ))->set_width( 50 ),
@@ -51,9 +51,10 @@ array_push($scroll_animation_fields, Field::create( 'repeater', 'scroll_animatio
                 Field::create( 'complex', 'element', 'Element' )->add_fields(array(
                     Field::create( 'select', 'el' )->add_options( array(
                         'this' => 'Componente',
-                        'selector' => 'Selector',
+                        'selector' => 'Elemento interno',
+                        'outer_selector' => 'Elemento externo',
                     ))->hide_label()->set_width( 50 ),
-                    Field::create( 'text', 'selector' )->add_dependency('el','selector','=')->hide_label()->set_width( 50 ),
+                    Field::create( 'text', 'selector' )->add_dependency('el','this','!=')->hide_label()->set_width( 50 ),
                 ))->set_width( 50 ),
     
                 Field::create( 'select', 'trigger-hook', 'Trigger Hook' )->add_options( array(

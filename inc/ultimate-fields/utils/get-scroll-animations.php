@@ -16,7 +16,7 @@ function generate_scroll_animations($componente){
                     if( IS_MOBILE && $settings['turn_off_in_mobile'] == 1 ) continue;           
 
                     $trigger_element = ($settings['trigger-element']['el'] == 'selector' ) ? $settings['trigger-element']['selector'] : 'this';
-                    $element = ($settings['element']['el'] == 'selector' ) ? $settings['element']['selector'] : 'this';
+                    $element = ($settings['element']['el'] == 'this' ) ? 'this' : $settings['element']['selector'];
 
                     $from = array();
                     foreach ($group['animated_properties']['from'] as $item) {
@@ -30,7 +30,7 @@ function generate_scroll_animations($componente){
 
                     array_push($scroll_animations, array(
                         'trigger_element' => $trigger_element,
-                        'element' => $element,
+                        'element' => array('key'=>$settings['element']['el'], 'el'=>$element),
                         'trigger_hook' => $settings['trigger-hook'],
                         'duration' => $settings['duration'],
                         'offset' => $settings['offset'],
