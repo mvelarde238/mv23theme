@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.124 23-03-04
 - Use LISTING_%_GAP CONTANTS in Listing Component
+- undefined key %_widths_4 correction
 
 23.8.123 23-03-03
 - fix scroll-animations: tween element could be the same as trigger element

@@ -8,10 +8,10 @@ $column_width_class = generate_class_attribute(format_classes(array(
     $componente['special_widths_3'],
     $componente['mobile_widths'],
     $componente['mobile_widths_3'],
-    $componente['mobile_widths_4'],
+    (isset($componente['mobile_widths_4'])) ? $componente['mobile_widths_4'] : '',
     $componente['tablet_widths'],
     $componente['tablet_widths_3'],
-    $componente['tablet_widths_4'],
+    (isset($componente['tablet_widths_4'])) ? $componente['tablet_widths_4'] : '',
 )));
 
 $columnas = array();
