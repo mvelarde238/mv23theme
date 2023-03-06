@@ -31,8 +31,6 @@ $componentes = array(
 if(PROGRESS_CIRCLE) $componentes[] = array('name' => 'Progress Circle', 'variable'=>$progress_circle);
 if(PROGRESS_BAR) $componentes[] = array('name' => 'Progress Bar', 'variable'=>$progress_bar);
 
-include( locate_template( 'inc/ultimate-fields/componentes/utils/edit-components.php' ) );
-
 // used by accordion and page_content:
 require_once( 'fields/modulo-reusable.php' );
 
@@ -40,6 +38,8 @@ require_once( 'fields/modulo-reusable.php' );
 
 require_once( 'utils/class-content-layout.php' );
 new Content_Layout($componentes);
+
+include( locate_template( 'inc/ultimate-fields/componentes/utils/edit-components.php' ) );
 
 // se usa en card, modulo, row 
 $components_repeater = Field::create( 'repeater', 'componentes', '' )
