@@ -39,6 +39,7 @@ $listing_fields_1 = array(
         'DESC' => 'Descendente',
         'ASC' => 'Ascendente'
     ))->set_width(25),
+    Field::create( 'number', 'offset', 'Offset' )->add_dependency('show','auto','=')->set_width(25),
 );
 
 if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){

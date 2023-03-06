@@ -33,10 +33,12 @@ if ($show == 'auto') {
     $posttype = $componente['posttype'];
     $qty = (isset($componente['qty'])) ? $componente['qty'] : 3;
     $order = (isset($componente['order'])) ? $componente['order'] : 'DESC';
+    $offset = (isset($componente['offset'])) ? $componente['offset'] : 0;
     $args_query = array( 
         'post_type' => $posttype,
         'posts_per_page' => $qty,
-        'order' => $order
+        'order' => $order,
+        'offset' => $offset
     );
     
     $cpt_terms = ( isset($componente[$posttype.'_terms']) ) ? $componente[$posttype.'_terms'] : null;

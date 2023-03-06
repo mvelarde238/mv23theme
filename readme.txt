@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.125 23-03-06
+- Listing Component: offset setting implementation
+
 23.8.124 23-03-04
 - Use LISTING_%_GAP CONTANTS in Listing Component
 - undefined key %_widths_4 correction
