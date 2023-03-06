@@ -11904,7 +11904,6 @@ function animateWidth(elem, start, end, duration, spanElem) {
                   tweenElem = elem;
                   break;
               }
-              console.log(group['element']['el'], tweenElem);
               if (tweenElem) addAnimation(triggerElement, tweenElem, group);
             }
           });
