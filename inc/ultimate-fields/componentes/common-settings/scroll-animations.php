@@ -31,7 +31,7 @@ $scroll_animation_fields = array(
 
 if( !SCROLL_ANIMATIONS ){
     array_push($scroll_animation_fields, 
-        Field::create( 'message', 'Hint_1' )->set_description('Activar animaciones avanzadas en Theme Options -> Global Options')->hide_label()->add_dependency('add_scroll_animation'),
+        Field::create( 'message', 'Hint_1' )->set_description('Activar animaciones avanzadas en Theme Options -> Global Options')->hide_label()->add_dependency('add_scroll_animation')
     );
 }
 
