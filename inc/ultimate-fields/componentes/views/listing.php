@@ -38,7 +38,8 @@ if ($show == 'auto') {
         'post_type' => $posttype,
         'posts_per_page' => $qty,
         'order' => $order,
-        'offset' => $offset
+        'offset' => $offset,
+        'post_status' => 'publish'
     );
     
     $cpt_terms = ( isset($componente[$posttype.'_terms']) ) ? $componente[$posttype.'_terms'] : null;

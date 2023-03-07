@@ -4,6 +4,7 @@ CHANGELOG
 23.8.126 23-03-07
 - Add id to main content
 - Add id to archive pages
+- Listing Component: just show published posts
 
 23.8.125 23-03-06
 - Listing Component: offset setting implementation
