@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.126 23-03-07
+- Add id to main content
+
 23.8.125 23-03-06
 - Listing Component: offset setting implementation
 - Include edit-components.php after Content_Layout initialization

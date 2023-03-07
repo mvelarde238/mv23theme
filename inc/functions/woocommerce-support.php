@@ -14,7 +14,7 @@ if(!function_exists('theme_woocommerce_before_main_content')){
     function theme_woocommerce_before_main_content(){ ?>
         <div id="content">
             <?php if( !in_array('product', DISABLE_PAGE_HEADER_IN) ) get_template_part('inc/modulos/page-header'); ?>
-            <div class="main-content container">
+            <div id="main-content" class="main-content  container">
                 <main class="main">
                     <div class="page-module">
                         <div class="componente">

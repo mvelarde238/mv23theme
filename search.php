@@ -3,7 +3,7 @@
 <div id="content">
 	<?php get_template_part('inc/modulos/page-header'); ?>
 
-	<div class="main-content container main-content--sidebar-left">
+	<div id="main-content" class="main-content  container main-content--sidebar-left">
 		<main class="main" itemtype="http://schema.org/Blog">
 			<?php if (have_posts()) : ?>
 				<div class="page-module">
