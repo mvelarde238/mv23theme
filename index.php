@@ -6,7 +6,7 @@ if(ARCHIVE_SIDEBAR) array_push($main_content_classes,ARCHIVE_MAIN_CONTENT_TEMPLA
 
 <div id="content">
 	<?php get_template_part('inc/modulos/page-header'); ?>
-	<div class="<?php echo implode(' ',$main_content_classes) ?>">
+	<div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
 		<main class="main" itemtype="http://schema.org/Blog">
 			<?php
 			$archive_page_id = archive_page()->get_archive_id();

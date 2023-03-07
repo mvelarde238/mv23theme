@@ -2,7 +2,7 @@
 
 <div id="content">
 	<?php get_template_part('inc/modulos/page-header'); ?>
-	<div class="container cf">
+	<div id="main-content" class="container cf">
 		<main class="main">
 			<article <?php post_class( 'cf main-content' ); ?>>
 				<section class="center" style="padding: 100px 0; margin: auto">

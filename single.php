@@ -10,7 +10,7 @@ if(SINGLE_SIDEBAR) array_push($main_content_classes, SINGLE_MAIN_CONTENT_TEMPLAT
 	$posttype = $queried_object->post_type;
 	if( !in_array($posttype, DISABLE_PAGE_HEADER_IN) ) get_template_part('inc/modulos/page-header'); 
 	?>
-	<div class="<?php echo implode(' ',$main_content_classes) ?>">
+	<div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
 		<main class="main">
 			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
