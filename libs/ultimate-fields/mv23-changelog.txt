@@ -33,5 +33,8 @@ mv23 changelog-------------------------
 05-01-2022
 - (core\templates\field\layout\placeholder.php) placeholder text
 
-22-04-20
+20-04-2022
 - (core\classes\Options_Page.php) add_metaboxes hook third param 
+
+08-03-2023
+- (core\js\overlay.js) remove img tag from pop up title

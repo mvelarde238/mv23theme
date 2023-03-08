@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.127 23-03-08
 - Mail added to rrss
+- (libs\uf\core\js\overlay.js) remove img tag from pop up title
 
 23.8.126 23-03-07
 - Add id to main content

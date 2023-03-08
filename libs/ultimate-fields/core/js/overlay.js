@@ -191,7 +191,7 @@
 
 			this.screens.each(function( screen ) {
 				if( i++ == that.screens.length ) {
-					$title.append( $( '<span class="current" />' ).text( screen.get( 'title' ) ) );
+					$title.append( $( '<span class="current" />' ).text( screen.get( 'title' ).replace(/<img[^>"']*((("[^"]*")|('[^']*'))[^"'>]*)*>/g,"") ) );
 				} else {
 					var $link = $( '<a href="#" class="parent" />' ).text( screen.get( 'title' ) );
 					$link.attr( 'data-back', that.screens.length - i + 1 );
