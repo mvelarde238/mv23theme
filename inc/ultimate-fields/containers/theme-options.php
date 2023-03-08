@@ -80,6 +80,7 @@ $rrss_fields[] = Field::create( 'repeater', 'rrss', 'Redes Sociales' )->set_add_
                     'skype' => 'Skipe',
                     'linkedin' => 'Linkedin',
                     'pinterest' => 'Pinterest',
+                    'envelope' => 'Mail'
                 ))->set_width( 25 ),
                 Field::create( 'text', 'url' )->set_width( 75 )->add_dependency('icon','whatsapp','!='),
                 Field::create( 'text', 'number' )->set_width( 25 )->add_dependency('icon','whatsapp','='),
