@@ -50,7 +50,7 @@ class Floating_Header{
  			$options['logo'] = $logo_url[0];
  		endif;
 
-		if ($bgc['add_bgc']) $options['style'] = 'background-color: rgba('.hexToRgb($bgc['bgc'],$bgc['alpha']).');';
+		if ($bgc && $bgc['add_bgc']) $options['style'] = 'background-color: rgba('.hexToRgb($bgc['bgc'],$bgc['alpha']).');';
 
 		if ($this->fixed_header_overrided) {
 			$options['fixed_text_color'] = get_metadata($this->page_type, $this->page_ID,'fixed_header_color_scheme', true);

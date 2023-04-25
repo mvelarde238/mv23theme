@@ -48,7 +48,7 @@ class Header{
  		} else {
  			$bgc = get_option( 'fixed_header_bgc' );
  		}
-		$style .= ($bgc['add_bgc']) ? 'background-color: '.$bgc['bgc'].';' : '';
+		$style .= ($bgc && $bgc['add_bgc']) ? 'background-color: '.$bgc['bgc'].';' : '';
 		if(!empty($style)) $style = 'style="'.$style.'"'; 
 		$this->style = $style;
  	}
