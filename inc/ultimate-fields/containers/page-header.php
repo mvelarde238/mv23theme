@@ -89,8 +89,7 @@ $tab_settings = array(
 
 $page_header_container = Container::create('page_header')
     ->add_location('post_type', $uf_posttypes)
-    ->add_location('taxonomy', 'category')
-    // ->add_location( 'taxonomy', 'product_cat')
+    ->add_location('taxonomy', UF_TAXONOMIES)
     ->set_title('Page Title')
     ->set_layout('grid')
     ->set_style('seamless')
