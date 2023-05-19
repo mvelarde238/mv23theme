@@ -50,6 +50,11 @@ if (!function_exists('default_style_formats')) {
 			    'classes' => 'mt0'
 			),
 			array(  
+			    'title' => 'Clearfix',  
+			    'selector' => 'p, h1, h2, h3, h4, h5, h6, a, img',
+			    'classes' => 'clearfix'
+			),
+			array(  
 			    'title' => 'Imagen Ancho Completo',  
 			    'selector' => 'img',
 			    'classes' => 'img-full-width'

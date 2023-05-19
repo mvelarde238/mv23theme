@@ -13,4 +13,7 @@ body#tinymce.wp-editor {
 	@import "modulos/buttons";
 	@import "modulos/global";
 	@import "modulos/gallery";
+	.clearfix {
+		clear: both;
+	}
 }
