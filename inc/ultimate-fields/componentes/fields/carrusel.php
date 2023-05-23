@@ -5,7 +5,6 @@ use Ultimate_Fields\Container\Repeater_Group;
 $carrusel = Repeater_Group::create( 'Carrusel', array(
     'fields' => array(
         Field::create( 'tab', 'Contenido' ),
-        Field::create( 'message','lel2')->set_description('Se recomienda usar imágenes del mismo tamaño.')->hide_label(),
         Field::create( 'repeater', 'items', '' )
         ->set_add_text('Agregar')
         ->add_group('Item', array(
@@ -44,6 +43,13 @@ $carrusel = Repeater_Group::create( 'Carrusel', array(
         Field::create( 'number', 'gutter_in_laptop', 'Gutter en laptop' )->set_default_value( '0' )->set_width( 25 ),
         Field::create( 'number', 'gutter_in_tablet', 'Gutter en tablet' )->set_default_value( '0' )->set_width( 25 ),
         Field::create( 'number', 'gutter_in_mobile', 'Gutter en móviles' )->set_default_value( '0' )->set_width( 25 ),
+
+        Field::create( 'section','tamanio-de-imagenes','Tamaño de imágenes'),
+        Field::create( 'select', 'imgs_height', 'Seleccionar:' )->add_options( array(
+            'auto' => 'Automático',
+            'custom' => 'Personalizar',
+        ))->set_width( 25 ),
+        Field::create( 'number', 'img_max_height', 'Tamaño de alto máximo en pixeles' )->set_default_value( '60' )->add_dependency('imgs_height','custom','=')->set_width( 25 ),
     ),
 ))
 ->add_fields($settings_fields_container->get_fields());
