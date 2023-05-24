@@ -21,8 +21,8 @@ $css_properties = array(
     'filter' => 'Image Filter',
     // 'fontSize' => 'Font Size',
     // 'yoyo' => 'YoYo',
-    // 'className' => '+=fish',
-    // 'toggle_class' => 'Toggle Class'
+    'className' => 'Toggle (+/-=class)',
+    // 'toggleClass' => 'Toggle Class' // dosnt work
 );
 
 $scroll_animation_fields = array(

@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.133 23-05-24
+- scroll-animations: new animated property: add/remove class
+
 23.8.132 23-05-23
 - Carrusel items max height
 - Listing Comp: scrolltop setting implementation
