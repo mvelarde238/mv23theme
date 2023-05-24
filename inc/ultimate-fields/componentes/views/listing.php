@@ -12,6 +12,7 @@ $t_gap = $componente['t_gap'];
 $m_gap = $componente['m_gap'];
 $post_template = $componente['post_template'];
 $list_template = $componente['list_template'];
+$scrolltop = ( isset($componente['scrolltop']) ) ? $componente['scrolltop'] : '';
 $taxonomy = null;
 $terms_in = null;
 
@@ -76,7 +77,8 @@ if(!function_exists('post_listing_header')){
     data-term="<?=$terms_in?>" 
     data-qty="<?=$qty?>" 
     data-order="<?=$order?>" 
-    post-template="<?=$post_template?>">
+    post-template="<?=$post_template?>"
+    data-scrolltop="<?=$scrolltop?>">
     <?php if($componente['filter']) {
         $show_tax = ($componente['filter_show_tax'] && $taxonomy) ? 1 : 0;
         $firstyear = $componente['filter_first_year'];

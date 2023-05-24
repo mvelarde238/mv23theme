@@ -11698,6 +11698,17 @@ targetBlank();
               response: response
             });
             $pagination && $pagination.html(response.pagination);
+            var scrolltop = $component.attr("data-scrolltop");
+            if (scrolltop) {
+              var headerHeight = MV23_GLOBALS.headerHeight;
+              $("html, body").animate({
+                scrollTop: $component.offset().top - headerHeight
+              }, {
+                duration: 800,
+                queue: false,
+                easing: 'easeOutCubic'
+              });
+            }
             break;
           case 'error':
             $listing.html('<p class="center error-msg">' + response.message + '</p>');

@@ -72,7 +72,8 @@ $listing_fields_2 = array(
     Field::create( 'radio', 'post_template', 'Template' )->set_orientation( 'vertical' )->add_options($listing_post_template)->hide_label(),
     
     Field::create( 'tab', 'Paginado')->add_dependency('list_template','carrusel','!='),
-    Field::create( 'select', 'pagination_type', 'Paginado' )->add_dependency('show','auto','=')->add_options(LISTING_PAGINATION_TYPES)->hide_label(),
+    Field::create( 'select', 'pagination_type', 'Paginado' )->add_dependency('show','auto','=')->add_options(LISTING_PAGINATION_TYPES)->hide_label()->set_width( 25 ),
+    Field::create( 'checkbox', 'scrolltop' )->set_text('Scroll to top')->add_dependency('pagination_type','classic','=')->hide_label()->set_width( 25 ),
     
     Field::create( 'tab', 'Filter')->add_dependency('list_template','carrusel','!='),
     Field::create( 'checkbox', 'filter', 'Filtro' )->set_text( 'Mostrar Filtros' )->set_width(33),

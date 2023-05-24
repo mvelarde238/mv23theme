@@ -3853,7 +3853,7 @@ ul.page-numbers .next {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: #F8522C url("assets/images/loading2.gif") center no-repeat;
+	background: #F8522C url("../images/loading2.gif") center no-repeat;
 	background-size: 20px 20px;
 }
 
