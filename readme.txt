@@ -4,6 +4,7 @@ CHANGELOG
 23.8.132 23-05-23
 - Carrusel items max height
 - Listing Comp: scrolltop setting implementation
+- Pinned block setTimeout 1s
 
 23.8.131 23-05-19
 - Add .clearfix to wysiwyg format selector

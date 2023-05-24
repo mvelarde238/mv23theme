@@ -12659,11 +12659,13 @@ function animateWidth(elem, start, end, duration, spanElem) {
           $target = $this.parent();
         $this.css('width', $target.css('width'));
         if ($target.height() > $this.height()) {
-          $this.pushpin({
-            top: $target.offset().top,
-            bottom: $target.offset().top + $target.outerHeight() - $this.height(),
-            offset: header_height
-          });
+          setTimeout(function () {
+            $this.pushpin({
+              top: $target.offset().top,
+              bottom: $target.offset().top + $target.outerHeight() - $this.height(),
+              offset: header_height
+            });
+          }, 1000);
         }
       });
     }
