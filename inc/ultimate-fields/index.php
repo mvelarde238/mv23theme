@@ -26,7 +26,8 @@ function theme_register_fields() {
 	require_once( 'containers/content-blocks.php' );
 	get_template_part( 'inc/ultimate-fields/containers/menu-item-data' );
 	require_once( 'containers/seccion-reusable.php' );
-	// require_once( 'containers/shortcode-icon.php' );
+	// require_once( 'containers/shortcode/icon.php' );
+	// require_once( 'containers/shortcode/button.php' );
 	require_once( 'containers/accordion-options.php' );
 	require_once( 'containers/archive-options.php' );
 	require_once( 'containers/mv23-library.php' );

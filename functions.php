@@ -121,6 +121,7 @@ require_once( 'inc/functions/theme-my-login-multi-language-support.php' );
 if( CF7_USE_EMAIL_TEMPLATE ) require_once( 'inc/functions/cf7-mail-template.php' );
 require_once( 'inc/functions/ajax/load-posts.php' );
 get_template_part( 'inc/functions/woocommerce-support' );
+// require_once( 'inc/functions/tinymce-buttons/button-manager.php' );
 
 function mv23_launch_theme() {
     // launching operation cleanup
