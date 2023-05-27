@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+27-05-2023
+- (assets/css/ultimate-fields.css) .uf-field[data-type='html'] textarea colors
+
+??
 - this.$groups.sortable | comented handle
 - focusFirstField | comented
 

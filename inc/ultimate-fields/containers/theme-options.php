@@ -168,8 +168,12 @@ $custom_scripts_page = Options_Page::create( 'custom_scripts', 'Custom Scripts' 
 Container::create( 'custom_scripts_options' ) 
     ->add_location( 'options', $custom_scripts_page )
     ->add_fields(array(
-        Field::create( 'textarea', 'head_scripts' ),
-        Field::create( 'textarea', 'footer_scripts' ),
+        Field::create( 'textarea', 'head_scripts' )->set_attr(array(
+            'data-type' => 'html'
+        )),
+        Field::create( 'textarea', 'footer_scripts' )->set_attr(array(
+            'data-type' => 'html'
+        )),
         Field::create( 'message', 'Hint_1' )->set_description('Usar < script >...< /script >'),
         Field::create( 'message', 'Hint_2' )->set_description('Jquery : (function($){ ... })(jQuery)'),
     ));

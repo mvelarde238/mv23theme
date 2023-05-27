@@ -16,6 +16,7 @@ require_once( 'fields/icon-and-text.php' );
 require_once( 'fields/slider.php' );
 require_once( 'fields/componente-reusable.php' );
 require_once( 'fields/listing.php' );
+require_once( 'fields/html.php' );
 
 $componentes = array(
 	array('name' => 'Editor de Texto', 'variable'=>$text_editor),
@@ -27,7 +28,8 @@ $componentes = array(
 	array('name' => 'Icono y texto', 'variable'=>$icon_and_text),
 	array('name' => 'Slider', 'variable'=>$slider),
 	array('name' => 'Componente Reusable', 'variable'=>$componente_reusable),
-	array('name' => 'Listing', 'variable'=>$listing)
+	array('name' => 'Listing', 'variable'=>$listing),
+	array('name' => 'HTML', 'variable'=>$htmlCmp),
 );
 
 if(PROGRESS_CIRCLE) $componentes[] = array('name' => 'Progress Circle', 'variable'=>$progress_circle);

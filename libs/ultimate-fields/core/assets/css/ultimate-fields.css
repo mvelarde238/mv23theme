@@ -3202,3 +3202,8 @@ h2.uf-add-term-title {
   height: auto;
   outline: 0;
 }
+
+.uf-field[data-type='html'] textarea{
+  background-color: #161616;
+  color: darkseagreen;
+}
