@@ -11517,6 +11517,9 @@ targetBlank();
       event.preventDefault();
       var href = $(this).attr('href');
       if ($(href).length > 0) {
+        history.pushState({}, null, href);
+        var e = new Event('mv23ReplaceState');
+        window.dispatchEvent(e);
         $("html, body").animate({
           scrollTop: $(href).offset().top - headerHeight
         }, {
@@ -12019,7 +12022,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
   "use strict";
 
   var instances = [],
-    version = '5.8.29',
+    version = '5.8.30',
     timers = {};
 
   /**
@@ -12035,6 +12038,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
     if (!this._createInstance(el)) return;
     this.el = el; // root element
     this.activeTemplate = null;
+    this.initialUrl = window.location.href;
     this._handleOptions(options);
 
     // Bind all private methods
@@ -12052,6 +12056,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
       this._attach_click_events();
       this._change_active_tab_if_hash_in_url();
       this._attach_resize_events();
+      this._attach_hashchange_events();
     }
   }
   ;
@@ -12141,11 +12146,12 @@ function animateWidth(elem, start, end, duration, spanElem) {
             if (this.activeTemplate === 'accordion') {
               _toggleClass(btn, 'active');
               _toggleClass(item, 'active');
-              // _scrollTo(document.documentElement, (btn.offsetTop - this.options.headerHeight), 500);
+              // _scrollTo(document.documentElement, (btn.offsetTop - MV23_GLOBALS.headerHeight), 500);
             } else {
               _addClass(btn, 'active');
               _addClass(item, 'active');
             }
+            this._handle_hash_in_url(btn.dataset.boxid);
           } else {
             _removeClass(this.items[i].btn, 'active');
             _removeClass(item, 'active');
@@ -12164,6 +12170,20 @@ function animateWidth(elem, start, end, duration, spanElem) {
           _addClass(this.items[0].box, 'active');
         }
       }
+    },
+    _handle_hash_in_url: function _handle_hash_in_url() {
+      var hash = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var urlObj = new URL(this.initialUrl);
+      urlObj.search = '';
+      urlObj.hash = '';
+      var cleanUrl = urlObj.toString();
+      history.pushState({}, null, cleanUrl + hash);
+    },
+    _attach_hashchange_events: function _attach_hashchange_events() {
+      var that = this;
+      window.addEventListener('mv23ReplaceState', function () {
+        that._change_active_tab_if_hash_in_url();
+      }, true);
     },
     _change_active_tab_if_hash_in_url: function _change_active_tab_if_hash_in_url() {
       if (window.location.hash) {

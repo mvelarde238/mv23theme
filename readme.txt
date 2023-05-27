@@ -1,6 +1,13 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.135 23-05-27
+- V23_ToggleBox version 5.8.30
+  _handle_hash_in_url() implementation
+  _attach_hashchange_events implementation
+  anchors push state and emit an event
+- Accordion comp. allow to change item id 
+
 23.8.134 23-05-26
 - Test button shortcode
 - New Button Component

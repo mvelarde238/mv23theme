@@ -21,7 +21,7 @@
 	"use strict";
 
 	var instances = [],
-		version = '5.8.29',
+		version = '5.8.30',
 		timers = {};
 
 	/**
@@ -39,6 +39,7 @@
 		
 		this.el = el; // root element
 		this.activeTemplate = null;
+		this.initialUrl = window.location.href;
 		this._handleOptions(options);
 
 		// Bind all private methods
@@ -57,7 +58,8 @@
 			this._handle_template();
 			this._attach_click_events();
 			this._change_active_tab_if_hash_in_url();
-			this._attach_resize_events();	
+			this._attach_resize_events();
+			this._attach_hashchange_events();
 		}
 	};
 
@@ -144,14 +146,15 @@
 						if (this.activeTemplate === 'accordion'){
 							_toggleClass(btn, 'active');
 							_toggleClass(item, 'active');
-							// _scrollTo(document.documentElement, (btn.offsetTop - this.options.headerHeight), 500);
+							// _scrollTo(document.documentElement, (btn.offsetTop - MV23_GLOBALS.headerHeight), 500);
 						} else {
 							_addClass(btn, 'active');
 							_addClass(item, 'active');	
 						}
+						this._handle_hash_in_url(btn.dataset.boxid);
 					} else {
 						_removeClass(this.items[i].btn, 'active');
-						_removeClass(item, 'active');	
+						_removeClass(item, 'active');
 					}
 				};				
 			} else { // method is triggered on init or on resize
@@ -165,6 +168,19 @@
 					_addClass(this.items[0].box, 'active');	
 				}
 			}
+		},
+		_handle_hash_in_url(hash = ''){
+			var urlObj = new URL(this.initialUrl);
+			urlObj.search = '';
+			urlObj.hash = '';
+			var cleanUrl = urlObj.toString();
+			history.pushState({},null,cleanUrl+hash);
+		},
+		_attach_hashchange_events(){
+			var that = this;
+			window.addEventListener('mv23ReplaceState', function(){
+				that._change_active_tab_if_hash_in_url();
+			}, true);
 		},
 		_change_active_tab_if_hash_in_url(){
 			if(window.location.hash) {

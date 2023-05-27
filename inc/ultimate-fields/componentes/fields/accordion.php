@@ -12,20 +12,21 @@ $accordion = Repeater_Group::create( 'Accordion', array(
                 'fields' => array(
                     Field::create( 'tab', 'Título' ),
                     Field::create( 'text', 'titulo', 'Título' )->set_width( 30 ),
+                    Field::create( 'text', 'itemid', 'ID' )->set_width( 15 ),
                     Field::create( 'radio', 'identificador','Seleccione que mostrar antes del título:')->set_orientation( 'horizontal' )->add_options( array(
                             '' => 'Nada',
                             'icono' => 'Icono',
                             'imagen' => 'Imagen',
-                    ))->set_width( 30 ),
-                    Field::create( 'icon', 'icon', 'Icono' )->add_set( 'font-awesome' )->set_width( 20 )->add_dependency('identificador','icono','='),
-                    Field::create( 'image', 'image', 'Imágen' )->set_width( 20 )->add_dependency('identificador','imagen','='),
-                    Field::create( 'select', 'image_size', 'Tamaño de la imágen' )->set_width( 20 )
+                    ))->set_width( 15 ),
+                    Field::create( 'icon', 'icon', 'Icono' )->add_set( 'font-awesome' )->add_dependency('identificador','icono','=')->set_width( 15 ),
+                    Field::create( 'image', 'image', 'Imágen' )->add_dependency('identificador','imagen','=')->set_width( 15 ),
+                    Field::create( 'select', 'image_size', 'Tamaño de la imágen' )
                         ->add_dependency('identificador','imagen','=')
                         ->add_dependency('../tab_style','style1','=')
                         ->add_options(array(
                             'iconsize' => 'Pequeño',
                             'auto' => 'Automático'
-                    )),
+                    ))->set_width( 15 ),
                     Field::create( 'tab', 'Contenido' ),
                     Field::create( 'radio', 'content_element','Seleccione que mostrar como Contenido:')->set_orientation( 'horizontal' )->add_options( array(
                         'layout' => 'Editor',

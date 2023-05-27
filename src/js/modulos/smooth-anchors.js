@@ -19,6 +19,9 @@
             event.preventDefault();
             var href = $(this).attr('href');
             if ($(href).length > 0) {
+                history.pushState({},null,href);
+                var e = new Event('mv23ReplaceState');
+			    window.dispatchEvent(e);
                 $("html, body").animate({ scrollTop: ($(href).offset().top - headerHeight) }, {duration: 800, queue: false, easing: 'easeOutCubic'});
             }
         });

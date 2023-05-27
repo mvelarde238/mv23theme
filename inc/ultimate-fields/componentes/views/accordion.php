@@ -31,7 +31,8 @@ $attributes = generate_attributes($componente, $classes_array);
             $count = 0;
             foreach ($items as $item): 
                 $titulo = $item['titulo'];
-                $slug = sanitize_title($titulo);
+                $itemid = (isset($item['itemid'])) ? $item['itemid'] : false;
+                $slug = ($itemid) ? $itemid : sanitize_title($titulo);
                 if( preg_match('@[0-9]@i',$slug) ) $slug = 'tab-'.$slug;
 
                 $identificador = $item['identificador'];
