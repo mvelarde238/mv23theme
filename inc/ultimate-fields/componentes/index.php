@@ -5,6 +5,7 @@ require_once( 'utils/get-secciones-reusables.php' );
 require_once( 'common-settings/index.php' );
 
 require_once( 'fields/text-editor.php' );
+require_once( 'fields/button.php' );
 require_once( 'fields/image.php' );
 require_once( 'fields/separador.php' );
 require_once( 'fields/carrusel.php' );
@@ -19,6 +20,7 @@ require_once( 'fields/listing.php' );
 $componentes = array(
 	array('name' => 'Editor de Texto', 'variable'=>$text_editor),
 	array('name' => 'Imágen', 'variable'=>$image),
+	array('name' => 'Button', 'variable'=>$button),
 	array('name' => 'Separador', 'variable'=>$separador),
 	array('name' => 'Carrusel', 'variable'=>$carrusel),
 	array('name' => 'Mapa', 'variable'=>$mapa),

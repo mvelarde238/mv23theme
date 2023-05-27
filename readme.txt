@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.134 23-05-26
 - Test button shortcode
+- New Button Component
 
 23.8.133 23-05-24
 - scroll-animations: new animated property: add/remove class
