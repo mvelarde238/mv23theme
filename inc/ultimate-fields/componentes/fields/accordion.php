@@ -36,7 +36,7 @@ $accordion = Repeater_Group::create( 'Accordion', array(
                     Field::create( 'wysiwyg', 'content', 'Contenido' )->add_dependency('content_element','texto','=')->hide_label()->set_rows( 30 ),
                     Content_Layout::the_field(array( 
                         'slug' => 'content_layout', 
-                        'components' => array( 'Editor de Texto', 'Imágen', 'Componente Reusable', 'Mapa' )
+                        'components' => array( 'Editor de Texto', 'Imágen', 'Componente Reusable', 'Mapa', 'Button' )
                     ))->add_dependency('content_element','layout','='),
                     Field::create( 'wp_objects', 'page', 'Página' )->add( 'posts', 'page' )->set_button_text( 'Selecciona la página' )->add_dependency('content_element','pagina','=')->hide_label(),
                     Field::create( 'select', 'seccion_reusable', 'Seleccionar' )->add_options($modulos_reusables)->add_dependency('content_element','seccion_reusable','=')->hide_label(),
