@@ -6674,6 +6674,10 @@ table.responsive-table.bordered tbody tr {
 	width: calc(100% / var(--m-columns) - var(--m-gap) + var(--m-gap) / var(--m-columns));
 }
 
+.posts-filter .field-wrapper {
+	width: 100%;
+}
+
 .search-result {
 	flex-wrap: wrap;
 }
