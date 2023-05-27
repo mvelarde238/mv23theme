@@ -21,12 +21,12 @@ if($type == 'link'){
             }
             break;
     }
-    $attrs = ( isset(($componente['new_tab']) && $componente['new_tab'] == 1) ? 'target="_blank"' : ''; 
+    $attrs = ( isset($componente['new_tab']) && $componente['new_tab'] == 1) ? 'target="_blank"' : ''; 
 }
 if($type == 'download'){
     if($componente['file']){
         $href = wp_get_attachment_url( $componente['file'] );
-        $attrs = ( isset(($componente['new_tab']) && $componente['new_tab'] == 1) ? 'target="_blank"' : 'download'; 
+        $attrs = ( isset($componente['new_tab']) && $componente['new_tab'] == 1) ? 'target="_blank"' : 'download'; 
     }
 }
 
