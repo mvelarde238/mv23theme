@@ -3588,21 +3588,22 @@ span[style*=font-size] {
 	width: 40px;
 	height: 40px;
 	margin-bottom: 0;
-	background-color: #F8522C;
-	color: #fff;
+	background-color: transparent;
 	border: 0;
 	position: relative;
 	display: none;
+	border: 1px solid;
+	border-radius: 4px;
 }
 
 .menu-movil__btn span {
 	position: absolute;
-	height: 2px;
+	height: 0px;
 	width: 26px;
-	background-color: #fff;
 	left: 0;
 	right: 0;
 	margin: auto;
+	border-top: 2px solid;
 	transition: 500ms all;
 }
 

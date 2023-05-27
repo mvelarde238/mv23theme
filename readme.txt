@@ -8,6 +8,7 @@ CHANGELOG
   anchors push state and emit an event
 - Accordion comp. allow to change item id 
 - HTML Component
+- Mobile Menú Button: color standarization
 
 23.8.134 23-05-26
 - Test button shortcode
