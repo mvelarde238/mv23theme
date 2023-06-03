@@ -11714,7 +11714,8 @@ targetBlank();
             }
             break;
           case 'error':
-            $listing.html('<p class="center error-msg">' + response.message + '</p>');
+            $listing.html('<p class="center posts-filter-error-msg">' + response.message + '</p>');
+            $pagination && $pagination.html('');
             break;
           default:
             c(response);

@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.136 23-06-03
 - Listing Comp: refactorize posts filter options to have default values
+- Listing Comp: clear pagination loading message on error
 
 23.8.135 23-05-27
 - V23_ToggleBox version 5.8.30
