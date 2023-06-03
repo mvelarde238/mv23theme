@@ -209,6 +209,7 @@ class Select extends Field {
 					$options[ $category->term_id ] = esc_html( $category->cat_name );
 				}
 			} else {
+				if( $this->get_input_type() == 'select' ) $options = array('--Selecciona--');
 				$terms = get_terms('taxonomy='.$this->taxonomy.'&hide_empty=1&depth=1');
 				foreach($terms as $term) {
 					$options[ $term->term_id ] = esc_html( $term->name );

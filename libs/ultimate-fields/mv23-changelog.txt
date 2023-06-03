@@ -1,5 +1,8 @@
 mv23 changelog-------------------------
 
+03-06-2023
+- (core/classes/Field/Select.php) Add "--seleccionar--" as first option to give an empty option
+
 27-05-2023
 - (assets/css/ultimate-fields.css) .uf-field[data-type='html'] textarea colors
 

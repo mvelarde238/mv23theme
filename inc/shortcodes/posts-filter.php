@@ -4,7 +4,11 @@ function print_posts_filter( $atts ) {
         'posttype' => 'posts',
         'firstyear' => 2012,
         'show_tax' => 1,
-        'taxonomy' => null
+        'show_month' => 1,
+        'show_year' => 1,
+        'taxonomy' => null,
+        'default_term' => '',
+        'default_year' => ''
     ), $atts );
 
     $current_year = date('Y');
@@ -42,11 +46,12 @@ function print_posts_filter( $atts ) {
                 <select class="posts-filter__term-select">
                     <option value=""><?php echo $all[$current_lang] ?></option>
                     <?php foreach ($categories as $cat): ?>
-                        <option value="<?php echo $cat->term_id ?>"><?php echo $cat->name ?></option>
+                        <option value="<?php echo $cat->term_id ?>" <?php selected( $a['default_term'], $cat->term_id, true) ?>><?php echo $cat->name ?></option>
                     <?php endforeach ?>
                 </select>
             </div>
             <?php endif; ?>
+            <?php if ($a['show_month']) : ?>
             <div class="field-wrapper">
                 <span class="field-desc"><?php echo $month[$current_lang] ?></span>
                 <select class="posts-filter__month-select">
@@ -57,15 +62,18 @@ function print_posts_filter( $atts ) {
                     }?>
                 </select>
             </div>
+            <?php endif; ?>
+            <?php if ($a['show_year']) : ?>
             <div class="field-wrapper">
                 <span class="field-desc"><?php echo $year[$current_lang] ?></span>
                 <select name="Y" class="posts-filter__year-select">
                     <option value=""><?php echo $allm[$current_lang] ?></option>
                     <?php for ($i=$current_year; $i >= $first_year ; $i--) { ?>
-                        <option value="<?=$i?>"><?=$i?></option>
+                        <option value="<?=$i?>" <?php selected( $a['default_year'], $i, true) ?>><?=$i?></option>
                     <?php } ?>
                 </select>
             </div>
+            <?php endif; ?>
             <div class="field-wrapper">
                 <input type="hidden" value="<?=$a['posttype']?>" class="posts-filter__posttype">
                 <input type="hidden" value="<?=$a['taxonomy']?>" class="posts-filter__taxonomy">

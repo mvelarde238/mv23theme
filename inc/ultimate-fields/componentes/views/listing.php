@@ -80,9 +80,28 @@ if(!function_exists('post_listing_header')){
     post-template="<?=$post_template?>"
     data-scrolltop="<?=$scrolltop?>">
     <?php if($componente['filter']) {
-        $show_tax = ($componente['filter_show_tax'] && $taxonomy) ? 1 : 0;
-        $firstyear = $componente['filter_first_year'];
-        echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_tax="'.$show_tax.'" taxonomy="'.$taxonomy.'"]');
+        $show_tax = 0;
+        $default_term = '';
+        if( isset($componente['category-filter']) && $taxonomy){
+            $show_tax = $componente['category-filter']['show'];
+            $default_term = $componente['category-filter'][$taxonomy.'_default'];
+        }
+
+        $show_month = 0;
+        if( isset($componente['month-filter']) ){
+            $show_month = $componente['month-filter']['show'];
+        }
+
+        $show_year = 0;
+        $firstyear = '';
+        $default_year = '';
+        if( isset($componente['year-filter']) ){
+            $show_year = $componente['year-filter']['show'];
+            $firstyear = $componente['year-filter']['first_year'];
+            $default_year = $componente['year-filter']['default'];
+        }
+        
+        echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_year="'.$show_year.'" show_month="'.$show_month.'" show_tax="'.$show_tax.'" taxonomy="'.$taxonomy.'" default_term="'.$default_term.'" default_year="'.$default_year.'"]');
     };
     
     if(WOOCOMMERCE_IS_ACTIVE && $posttype == 'product') echo do_shortcode('[shop_messages]');

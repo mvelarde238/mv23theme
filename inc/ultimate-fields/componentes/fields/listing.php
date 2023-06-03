@@ -74,14 +74,31 @@ $listing_fields_2 = array(
     Field::create( 'tab', 'Paginado')->add_dependency('list_template','carrusel','!='),
     Field::create( 'select', 'pagination_type', 'Paginado' )->add_dependency('show','auto','=')->add_options(LISTING_PAGINATION_TYPES)->hide_label()->set_width( 25 ),
     Field::create( 'checkbox', 'scrolltop' )->set_text('Scroll to top')->add_dependency('pagination_type','classic','=')->hide_label()->set_width( 25 ),
-    
-    Field::create( 'tab', 'Filter')->add_dependency('list_template','carrusel','!='),
-    Field::create( 'checkbox', 'filter', 'Filtro' )->set_text( 'Mostrar Filtros' )->set_width(33),
-    Field::create( 'checkbox', 'filter_show_tax', 'Categoría' )->set_text( 'Mostrar Categoría' )->add_dependency('filter')->set_width(33),
-    Field::create( 'number', 'filter_first_year', 'Primer Año en el selector' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('filter')->set_default_value(2012)->set_width(33),
 );
+
+$listing_fields_filter = array(
+    Field::create( 'tab', 'Filter')->add_dependency('list_template','carrusel','!='),
+    Field::create( 'checkbox', 'filter', 'Filtro' )->set_text( 'Mostrar Filtros' )->set_width(20)
+);
+
+$category_filter_complex_fields = array( Field::create( 'checkbox', 'show' )->set_text( 'Mostrar' )->hide_label() );
+if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
+    foreach($listing_taxonomies as $tax){
+        array_push($category_filter_complex_fields, Field::create( 'select', $tax['slug'].'_default', 'Default value' )->add_terms( $tax['slug'] )->add_dependency('show')->add_dependency('../show','auto','=')->add_dependency('../posttype', $tax['cpt_slug'], '=') );
+    }
+}
+array_push($listing_fields_filter, Field::create( 'complex', 'category-filter', 'Categoría' )->add_fields($category_filter_complex_fields)->add_dependency('filter')->set_width(20) );
+
+array_push($listing_fields_filter, Field::create( 'complex', 'month-filter', 'Mes' )->add_fields(array(Field::create( 'checkbox', 'show' )->set_text( 'Mostrar' )->hide_label()))->add_dependency('filter')->set_width(20) );
+
+array_push($listing_fields_filter, Field::create( 'complex', 'year-filter', 'Año' )->add_fields(array(
+    Field::create( 'checkbox', 'show' )->set_text( 'Mostrar' )->hide_label(),
+    Field::create( 'number', 'first_year', 'Primer Año' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value(2012)->set_width(50),
+    Field::create( 'number', 'default', 'Default value' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value('')->set_width(50),
+))->add_dependency('filter')->set_width(20) );
 
 $listing = Repeater_Group::create( 'Listing', array())
 ->add_fields($listing_fields_1)
 ->add_fields($listing_fields_2)
+->add_fields($listing_fields_filter)
 ->add_fields($settings_fields_container->get_fields());
