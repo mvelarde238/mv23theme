@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.137 23-06-04
+- Content Layout -> look for components view in child theme
+
 23.8.136 23-06-03
 - Listing Comp: refactorize posts filter options to have default values
 - Listing Comp: clear pagination loading message on error

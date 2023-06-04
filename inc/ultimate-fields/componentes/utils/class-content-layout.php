@@ -70,8 +70,9 @@ class Content_Layout{
                 $width = $componente['__width'];
                 $componente['layout'] = 'layout1';
                 echo '<div class="columnas-simples__item '.$type.' width-'.$width.'">';
-                $path = get_template_directory().'/inc/ultimate-fields/componentes/views/'.$type.'.php';
-                include $path; 
+                set_query_var('componente', $componente);
+                $path = '/inc/ultimate-fields/componentes/views/'.$type;
+                get_template_part($path);
                 echo '</div>';
             };
         };
