@@ -30,6 +30,16 @@ if($type == 'download'){
     }
 }
 
+$attributes = ( isset($componente['attributes']) ) ? $componente['attributes'] : array();
+$additional_attrs = '';
+if( is_array($attributes) && count($attributes) > 0 ){
+    foreach ($attributes as $item) {
+        if( $item['attribute'] && $item['value'] ){
+            $additional_attrs .= ' '.$item['attribute'].'="'.$item['value'].'"';
+        }
+    }
+}
+
 $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 $class = (isset($componente['class']) && $componente['class'] != '') ? $componente['class'] : '';
 
@@ -50,6 +60,6 @@ $attributes = generate_attributes($componente, $classes_array);
 ?>
 <div <?=$attributes?>>
 	<?php if ($layout == 'layout2') echo '<div class="container">'; ?>
-		<?php if($text) echo '<a href="'.$href.'" '.$attrs.' class="'.$style.'">'.$text.'</a>'; ?>
+		<?php if($text) echo '<a href="'.$href.'" '.$attrs.' class="'.$style.'"'.$additional_attrs.'>'.$text.'</a>'; ?>
 	<?php if ($layout == 'layout2') echo '</div>'; ?>
 </div>

@@ -53,6 +53,17 @@ $button = Repeater_Group::create( 'Button', array(
             'center' => 'Centro',
             'right' => 'Derecha',
         ))->set_width(50)->add_dependency('add_responsive'),
-    ),
+
+        Field::create( 'tab', 'Attributes' ),
+        Field::create( 'repeater', 'attributes', 'Attributos' )->set_add_text('Agregar')->hide_label()
+            ->set_layout( 'table' )
+            ->add_group('item', array(
+                'title_template' => '<%= attribute %> : <%= value %>',
+                'fields' => array(
+                    Field::create( 'text', 'attribute' )->set_width( 50 ),
+                    Field::create( 'text', 'value' )->set_width( 50 ),
+                )
+            ))
+    ), 
 ))
 ->add_fields($settings_fields_container->get_fields());
