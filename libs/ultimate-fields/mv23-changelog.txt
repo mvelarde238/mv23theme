@@ -1,5 +1,8 @@
 mv23 changelog-------------------------
 
+07-06-2023
+- (assets/css/ultimate-fields.css) fix z-index for select2 in popup
+
 03-06-2023
 - (core/classes/Field/Select.php) Add "--seleccionar--" as first option to give an empty option
 

@@ -3207,3 +3207,7 @@ h2.uf-add-term-title {
   background-color: #161616;
   color: darkseagreen;
 }
+
+.select2-container {
+  z-index: 170000;
+}
