@@ -17,6 +17,7 @@ require_once( 'fields/slider.php' );
 require_once( 'fields/componente-reusable.php' );
 require_once( 'fields/listing.php' );
 require_once( 'fields/html.php' );
+if(WPMEDIAFOLDER_IS_ACTIVE) require_once( 'fields/gallery.php' );
 
 $componentes = array(
 	array('name' => 'Editor de Texto', 'variable'=>$text_editor),
@@ -32,6 +33,7 @@ $componentes = array(
 	array('name' => 'HTML', 'variable'=>$htmlCmp),
 );
 
+if(WPMEDIAFOLDER_IS_ACTIVE) $componentes[] = array('name' => 'Galeria', 'variable'=>$gallery);
 if(PROGRESS_CIRCLE) $componentes[] = array('name' => 'Progress Circle', 'variable'=>$progress_circle);
 if(PROGRESS_BAR) $componentes[] = array('name' => 'Progress Bar', 'variable'=>$progress_bar);
 

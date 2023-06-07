@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.139 23-06-07
 - fix z-index for select2 in popup
+- Gallery Component: use wp media folders
 
 23.8.138 23-06-06
 - Button Comp: add attributes option

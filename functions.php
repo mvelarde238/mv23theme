@@ -18,6 +18,9 @@ define ('FONT_AWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7
 $plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'woocommerce/woocommerce.php';
 define ('WOOCOMMERCE_IS_ACTIVE', in_array( $plugin_path, wp_get_active_and_valid_plugins() ));
 
+$wp_media_folder_path = trailingslashit( WP_PLUGIN_DIR ) . 'wp-media-folder/wp-media-folder.php';
+define ('WPMEDIAFOLDER_IS_ACTIVE', in_array( $wp_media_folder_path, wp_get_active_and_valid_plugins() ));
+
 if( !defined('MAIN_COLOR') ) define ('MAIN_COLOR', '#F8522C');
 if( !defined('SECONDARY_COLOR') ) define ('SECONDARY_COLOR', '#2A5354');
 if( !defined('TERTIARY_COLOR') ) define ('TERTIARY_COLOR', '#CDC6BE');
