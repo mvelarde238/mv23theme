@@ -4645,30 +4645,40 @@ li.product:before {
 .carrusel button[data-controls=prev],
 .carrusel button[data-controls=next] {
 	position: absolute;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	border: 0;
-	width: 28px;
-	height: 30px;
-	line-height: 28px;
-	z-index: 89;
+	border: 1px solid #2A5354;
+	width: 37px;
+	height: 37px;
+	line-height: 37px;
 	padding: 0;
-	background-color: #F8522C;
+	background-color: transparent;
+	border-radius: 50%;
+	display: flex;
+	z-index: 56;
+	align-items: center;
+	justify-content: center;
 }
 
 .carrusel button[data-controls=prev] i,
 .carrusel button[data-controls=next] i {
-	font-size: 30px;
-	color: #fff;
+	font-size: 28px;
+	width: 37px;
+	color: #2A5354;
 }
 
 .carrusel button[data-controls=prev] {
-	left: -20px;
+	left: -40px;
+}
+
+.carrusel button[data-controls=prev] i {
+	padding-right: 4px;
 }
 
 .carrusel button[data-controls=next] {
-	right: -20px;
+	right: -40px;
+}
+
+.carrusel button[data-controls=next] i {
+	padding-left: 4px;
 }
 
 .carrusel .tns-nav {
@@ -4714,6 +4724,16 @@ li.product:before {
 
 .text-color-2 .carrusel .tns-nav button:not(.tns-nav-active) {
 	background-color: #fff;
+}
+
+.text-color-2 .carrusel button[data-controls=prev],
+.text-color-2 .carrusel button[data-controls=next] {
+	border-color: #fff;
+}
+
+.text-color-2 .carrusel button[data-controls=prev] i,
+.text-color-2 .carrusel button[data-controls=next] i {
+	color: #fff;
 }
 
 .columnas-simples > div {
@@ -5092,7 +5112,7 @@ li.product:before {
 	height: 37px;
 	line-height: 37px;
 	padding: 0;
-	background-color: #f1f1f1;
+	background-color: transparent;
 	border-radius: 50%;
 	display: flex;
 	align-items: center;
@@ -5106,8 +5126,13 @@ li.product:before {
 	color: #2A5354;
 }
 
+.componente-slider-de-contenidos button[data-controls=prev]:disabled,
+.componente-slider-de-contenidos button[data-controls=next]:disabled {
+	display: none;
+}
+
 .componente-slider-de-contenidos button[data-controls=prev] {
-	left: -20px;
+	left: -40px;
 }
 
 .componente-slider-de-contenidos button[data-controls=prev] i {
@@ -5115,7 +5140,7 @@ li.product:before {
 }
 
 .componente-slider-de-contenidos button[data-controls=next] {
-	right: -20px;
+	right: -40px;
 }
 
 .componente-slider-de-contenidos button[data-controls=next] i {
@@ -5189,6 +5214,16 @@ li.product:before {
 .componente-slider-de-contenidos[data-show-title="1"] .tns-nav button.tns-nav-active {
 	background-color: #2A5354;
 	position: relative;
+	color: #fff;
+}
+
+.text-color-2 .componente-slider-de-contenidos button[data-controls=prev],
+.text-color-2 .componente-slider-de-contenidos button[data-controls=next] {
+	border-color: #fff;
+}
+
+.text-color-2 .componente-slider-de-contenidos button[data-controls=prev] i,
+.text-color-2 .componente-slider-de-contenidos button[data-controls=next] i {
 	color: #fff;
 }
 
@@ -6594,6 +6629,14 @@ table.responsive-table.bordered tbody tr {
 
 .componente-slider-de-contenidos .tns-nav button {
 	font-size: 15px;
+}
+
+.componente-slider-de-contenidos button[data-controls=prev] {
+	left: -15px;
+}
+
+.componente-slider-de-contenidos button[data-controls=next] {
+	right: -15px;
 }
 
 }

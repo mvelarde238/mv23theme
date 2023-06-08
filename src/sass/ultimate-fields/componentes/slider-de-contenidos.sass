@@ -8,9 +8,6 @@
 	.tns-outer
 		position: relative
 
-
-
-
 	button[data-controls="prev"],
 	button[data-controls="next"]
 		position: absolute
@@ -19,7 +16,7 @@
 		height: 37px
 		line-height: 37px
 		padding: 0
-		background-color: #f1f1f1
+		background-color: transparent
 		border-radius: 50%
 		display: flex
 		align-items: center
@@ -28,12 +25,14 @@
 			font-size: 28px
 			width: 37px
 			color: $secondary-color
+		&:disabled
+			display: none
 	button[data-controls="prev"]
-		left: -20px
+		left: -40px
 		i
 			padding-right: 4px
 	button[data-controls="next"]
-		right: -20px
+		right: -40px
 		i
 			padding-left: 4px
 
@@ -45,11 +44,6 @@
 		margin: auto
 	&[data-controls-position='bottom'] .tns-controls button
 		bottom: 0px
-
-
-
-
-
 
 	.tns-nav
 		display: flex
@@ -88,7 +82,6 @@
 					border: 1px solid $secondary-color
 					border-radius: 50%
 
-
 	&[data-show-title='1'] .tns-nav
 		button
 			background-color: transparent
@@ -102,15 +95,24 @@
 				position: relative
 				color: #fff
 
-
-
-
-
-
+.text-color-2
+	.componente-slider-de-contenidos
+		button[data-controls="prev"],
+		button[data-controls="next"]
+			border-color: #fff
+			i
+				color: #fff
 
 // abajo de...
 @media only screen and (max-width: 1024px)
-	.componente-slider-de-contenidos	
+	.componente-slider-de-contenidos
 		.tns-nav
 			button
 				font-size: 15px
+
+@media #{$medium-and-down}
+	.componente-slider-de-contenidos
+		button[data-controls="prev"]
+			left: -15px
+		button[data-controls="next"]
+			right: -15px
