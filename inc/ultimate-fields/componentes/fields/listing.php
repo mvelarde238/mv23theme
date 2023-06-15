@@ -42,7 +42,7 @@ $listing_fields_1 = array(
     Field::create( 'select', 'orderby', 'Ordenar por:' )->add_dependency('show','auto','=')->add_options(array(
         'date' => 'Fecha',
         'title' => 'Título',
-        'slug' => 'Slug',
+        'name' => 'Slug',
         'rand' => 'Random',
         // 'comment_count' => 'Comentarios'
     ))->set_width(25),
