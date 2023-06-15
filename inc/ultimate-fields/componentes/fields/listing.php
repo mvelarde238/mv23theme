@@ -39,6 +39,12 @@ $listing_fields_1 = array(
         'DESC' => 'Descendente',
         'ASC' => 'Ascendente'
     ))->set_width(25),
+    Field::create( 'select', 'orderby', 'Ordenar por:' )->add_dependency('show','auto','=')->add_options(array(
+        'date' => 'Fecha',
+        'title' => 'Título',
+        'rand' => 'Random',
+        // 'comment_count' => 'Comentarios'
+    ))->set_width(25),
     Field::create( 'number', 'offset', 'Offset' )->add_dependency('show','auto','=')->set_width(25),
 );
 

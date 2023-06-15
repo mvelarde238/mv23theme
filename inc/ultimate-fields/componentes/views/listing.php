@@ -34,11 +34,13 @@ if ($show == 'auto') {
     $posttype = $componente['posttype'];
     $qty = (isset($componente['qty'])) ? $componente['qty'] : 3;
     $order = (isset($componente['order'])) ? $componente['order'] : 'DESC';
+    $orderby = (isset($componente['orderby'])) ? $componente['orderby'] : 'date';
     $offset = (isset($componente['offset'])) ? $componente['offset'] : 0;
     $args_query = array( 
         'post_type' => $posttype,
         'posts_per_page' => $qty,
         'order' => $order,
+        'orderby' => $orderby,
         'offset' => $offset,
         'post_status' => 'publish'
     );
@@ -76,7 +78,9 @@ if(!function_exists('post_listing_header')){
     data-taxonomy="<?=$taxonomy?>" 
     data-term="<?=$terms_in?>" 
     data-qty="<?=$qty?>" 
+    data-offset="<?=$offset?>" 
     data-order="<?=$order?>" 
+    data-orderby="<?=$orderby?>" 
     post-template="<?=$post_template?>"
     data-scrolltop="<?=$scrolltop?>">
     <?php if($componente['filter']) {

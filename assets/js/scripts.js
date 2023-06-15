@@ -11663,7 +11663,7 @@ targetBlank();
   var $components = $('.componente.listing');
   var current_lang = MV23_GLOBALS.lang;
   var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
-  function do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order) {
+  function do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order, orderby, offset) {
     $.ajax({
       type: 'POST',
       dataType: "json",
@@ -11676,7 +11676,9 @@ targetBlank();
         term: filterValues.areParams ? filterValues.term : term,
         paged: paged || 1,
         per_page: per_page,
+        offset: offset,
         order: order,
+        orderby: orderby,
         posttype: posttype,
         taxonomy: taxonomy,
         search: filterValues.search,
@@ -11754,10 +11756,12 @@ targetBlank();
           term = $component.attr("data-term"),
           post_template = $component.attr("post-template"),
           per_page = $component.attr("data-qty"),
+          offset = $component.attr("data-offset"),
           order = $component.attr("data-order"),
+          orderby = $component.attr("data-orderby"),
           action = 'replace',
           filterValues = getFilterValues($filter);
-        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order);
+        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order, orderby, offset);
       });
       $component.on('click', '.load_more_posts', function (event) {
         event.preventDefault();
@@ -11769,10 +11773,12 @@ targetBlank();
           term = $component.attr("data-term"),
           post_template = $component.attr("post-template"),
           per_page = $component.attr("data-qty"),
+          offset = $component.attr("data-offset"),
           order = $component.attr("data-order"),
+          orderby = $component.attr("data-orderby"),
           action = 'append',
           filterValues = getFilterValues($filter);
-        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order);
+        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order, orderby, offset);
       });
       $component.on('click', '.posts-filter__submit', function (ev) {
         ev.preventDefault();
@@ -11782,11 +11788,13 @@ targetBlank();
           term = $component.attr("data-term"),
           post_template = $component.attr("post-template"),
           per_page = $component.attr("data-qty"),
+          offset = $component.attr("data-offset"),
           order = $component.attr("data-order"),
+          orderby = $component.attr("data-orderby"),
           paged = 1,
           action = 'replace',
           filterValues = getFilterValues($filter);
-        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order);
+        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order, orderby, offset);
       });
       $component.on('listingUpdated', function (e, data) {
         e.preventDefault();

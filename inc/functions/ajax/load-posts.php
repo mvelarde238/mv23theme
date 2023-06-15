@@ -21,7 +21,9 @@ if( !function_exists('load_posts') ){
         $month = $_REQUEST["month"];
         $post_template = $_REQUEST["post_template"];
         $per_page = $_REQUEST["per_page"];
+        $offset = $_REQUEST["offset"];
         $order = $_REQUEST["order"];
+        $orderby = $_REQUEST["orderby"];
 
         if ( $posttype && $paged && $per_page ) {
             $paged = ($paged) ? $paged : 1;
@@ -30,6 +32,8 @@ if( !function_exists('load_posts') ){
                 'post_type' => $posttype, 
                 'paged' => $paged, 
                 'order' => $order,
+                'orderby' => $orderby,
+                // 'offset' => $offset, // not working
                 'posts_per_page' => $per_page,
                 'post_status' => 'publish',
             );
