@@ -7,7 +7,7 @@ $gallery = Repeater_Group::create( 'Galeria', array(
     // 'title_template' => '',
     'fields' => array( 
         Field::create( 'tab', 'Contenido' ),
-        Field::create( 'select', 'wp_media_folder', )->add_terms( 'wpmf-category' )->fancy()->set_width(25),
+        Field::create( 'select', 'wp_media_folder' )->add_terms( 'wpmf-category' )->fancy()->set_width(25),
         Field::create( 'message', 'wp_media_folder_message', 'Página de creación de galerías' )->set_description('<a href="'.admin_url().'upload.php" target="_blank">WP Media Folders</a>')->set_width(70),
         Field::create( 'complex', 'wp_media_folder_settings', 'Settings' )->add_fields(array(
             // Field::create( 'checkbox', 'autoinsert' )->set_text( '¿Autoinsertar las imágenes agregadas a la galerîa?' ), // the shortcode needs the attachments id's
