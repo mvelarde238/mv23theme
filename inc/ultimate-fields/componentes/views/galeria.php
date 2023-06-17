@@ -13,7 +13,10 @@ $classes_array = format_classes(array(
 $wp_media_folder = $componente['wp_media_folder'];
 if($wp_media_folder){
     $settings = $componente['wp_media_folder_settings'];
-    $shortcode = '[gallery link="'.$settings['link'].'" columns="'.$settings['columns'].'" display="'.$settings['display'].'" wpmf_folder_id="'.$wp_media_folder.'" wpmf_autoinsert="1" wpmf_orderby="'.$settings['orderby'].'" wpmf_order="'.$settings['order'].'" size="'.$settings['size'].'" targetsize="'.$settings['targetsize'].'"]';
+	$orderby = ($settings['orderby']) ? $settings['orderby'] : 'custom';
+	$order = (isset($settings['order']) && $settings['order']) ? $settings['order'] : 'DESC';
+
+    $shortcode = '[gallery link="'.$settings['link'].'" columns="'.$settings['columns'].'" display="'.$settings['display'].'" wpmf_folder_id="'.$wp_media_folder.'" wpmf_autoinsert="1" orderby="'.$orderby.'" wpmf_order="'.$order.'" size="'.$settings['size'].'" targetsize="'.$settings['targetsize'].'"]';
 }
 
 $attributes = generate_attributes($componente, $classes_array);
