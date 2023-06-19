@@ -1,17 +1,14 @@
-.image
-	&__element
-		width: 100%
-
-.image.componente
+.media
 	position: relative
 	display: flex
-	// background-color: #f1f1f1
-	// height: 100%
+
+	&__element
+		width: 100%
 
 	&[style*='border-radius']
 		overflow: hidden
 
-	&[class*='aspect-ratio'] .image__element
+	&[class*='aspect-ratio'] &__element
 		background-size: cover
 		background-position: center
 		&:before
@@ -25,40 +22,68 @@
 			display: table
 			clear: both
 
-	&.aspect-ratio-16-9 .image__element:before
+	&.aspect-ratio-16-9 &__element:before
 		padding-bottom: calc(9% / 16%) * 100%
 		// padding-bottom: percentage(9/16)
 		// padding-top: 591.44px / 1127.34px * 100%
-	&.aspect-ratio-1-1 .image__element:before
+	&.aspect-ratio-1-1 &__element:before
 		padding-bottom: 100%
-	&.aspect-ratio-4-3 .image__element:before
+	&.aspect-ratio-4-3 &__element:before
 		padding-bottom: calc(3% / 4%) * 100%
-	&.aspect-ratio-2-1 .image__element:before
+	&.aspect-ratio-2-1 &__element:before
 		padding-bottom: 50%
-	&.aspect-ratio-2_5-1 .image__element:before
+	&.aspect-ratio-2_5-1 &__element:before
 		padding-bottom: calc(1% / 2.5%) * 100%
-	&.aspect-ratio-3-4 .image__element:before
+	&.aspect-ratio-3-4 &__element:before
 		padding-bottom: calc(4% / 3%) * 100%
-	&.aspect-ratio-9-16 .image__element:before
+	&.aspect-ratio-9-16 &__element:before
 		padding-bottom: calc(16% / 9%) * 100%
-	&.aspect-ratio-1-2 .image__element:before
+	&.aspect-ratio-1-2 &__element:before
 		padding-bottom: 200%
-	&.aspect-ratio-1-2_5 .image__element:before
+	&.aspect-ratio-1-2_5 &__element:before
 		padding-bottom: calc(2.5% / 1%) * 100%
-	&.aspect-ratio-4-1 .image__element:before
+	&.aspect-ratio-4-1 &__element:before
 		padding-bottom: calc(1% / 4%) * 100%
 
 	.cover-all
+		&:before
+			font: normal normal normal 14px/1 FontAwesome
+			color: #fff
 		&:hover
 			background-color: rgba(0,0,0,.5)
-			&:before
-				content: "\f08e"
-				font: normal normal normal 14px/1 FontAwesome
-				font-size: 23px
 
-	&.has-video-background.aspect-ratio-default
-		video, iframe
-			position: static
-	&.has-video-background
-		video, iframe
-			min-height: 100%
+	&.image
+		.cover-all
+			&:hover
+				&:before
+					content: "\f08e"
+					font-size: 23px
+
+	&.video
+		.cover-all
+			text-align: center
+			&:before
+				content: "\f04b"
+				font-size: 21px
+				line-height: 47px
+				border: 3px solid #fff
+				border-radius: 50%
+				width: 50px
+				height: 50px
+		&.youtube
+			.cover-all
+				&:before
+					border: 0
+					background-color: red
+					width: 71px
+					height: 50px
+					border-radius: 11px
+		&.playable
+			video
+				height: 100%
+				width: 100%
+		&.aspect-ratio-default
+			video,iframe
+				position: static
+				transform: initial
+				width: 100%

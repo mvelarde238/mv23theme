@@ -4,6 +4,7 @@ use Ultimate_Fields\Field;
 
 $image = Repeater_Group::create( 'Imágen', array(
     'title' => 'Imágen / Video',
+    'layout' => 'table',
     'edit_mode' => 'popup',
     'fields' => array(
         Field::create( 'tab', 'Contenido' ),
@@ -11,7 +12,7 @@ $image = Repeater_Group::create( 'Imágen', array(
             'image' => 'Imágen',
             'video' => 'Video'
         )),
-        Field::create( 'image', 'image' )->hide_label()->add_dependency('type','image','='),
+        Field::create( 'image', 'image' )->add_dependency('type','image','='),
 
         Field::create( 'radio', 'video_source','Seleccione el origen del video:')->set_orientation( 'horizontal' )->add_options( array(
             'selfhosted' => 'Medios',
@@ -19,7 +20,29 @@ $image = Repeater_Group::create( 'Imágen', array(
         ))->add_dependency('type', 'video', '=')->set_width(50),
         Field::create( 'text', 'youtube_url', 'URL')->add_dependency('type', 'video', '=')->add_dependency('video_source','youtube','=')->set_width(50),
         Field::create( 'video', 'bgvideo', 'Video de Fondo' )->add_dependency('type','video','=')->add_dependency('video_source','selfhosted','=')->set_width(50),
-        Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->add_dependency('type','video','='),
+
+        Field::create('radio', 'video_type', 'Formato:')->set_orientation('horizontal')->add_options(array(
+            'playable' => 'Reproducible',
+            'popable' => 'Abrir en Pop Up'
+        ))
+        // ->add_dependency('bgvideo',0,'>'),
+        ->add_dependency('video_source','selfhosted','=')
+        ->add_dependency_group()
+        ->add_dependency('video_source','youtube','=')
+        ->add_dependency('youtube_url','','!='),
+        Field::create( 'complex', 'video_settings' )->add_fields(array(
+            Field::create( 'color', 'bgc', 'Color de Fondo' )->set_default_value('#000000')->set_width(20),
+            Field::create( 'checkbox', 'autoplay', 'AutoPlay' )->set_default_value(1)->set_text( 'Activar' )->set_width(20),
+            Field::create( 'checkbox', 'muted', 'Muted' )->set_default_value(1)->set_text( 'Activar' )->set_width(20),
+            Field::create( 'checkbox', 'loop', 'Bucle' )->set_default_value(1)->set_text( 'Activar' )->set_width(20),
+            Field::create( 'number', 'opacity', 'Transparencia' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width(20)
+        ))
+        // ->add_dependency('bgvideo','0','>'),
+        ->add_dependency('video_source','selfhosted','=')
+        ->add_dependency_group()
+        ->add_dependency('video_source','youtube','=')
+        ->add_dependency('youtube_url','','!='),
+
         Field::create( 'tab', 'Tamaño' ),
         Field::create( 'image_select', 'aspect_ratio' )->add_options(array(
             'aspect-ratio-default'  => array(
@@ -71,7 +94,7 @@ $image = Repeater_Group::create( 'Imágen', array(
             'left' => 'Izquierda',
             'center' => 'Centrar',
             'right' => 'Derecha'
-        ))->add_dependency('aspect_ratio','aspect-ratio-default','='),
+        ))->add_dependency('aspect_ratio','aspect-ratio-default','=')->add_dependency('type','image','='),
     ),
 ))
 ->add_fields($acciones_fields)
