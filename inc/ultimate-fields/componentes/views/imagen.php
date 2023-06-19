@@ -25,7 +25,7 @@ if($type == 'image'){
 }
 
 if($type == 'video'){
-	$video_settings = (isset($componente['video_settings'])) ? $componente['video_settings'] : array();
+	$video_settings = (isset($componente['video_settings'])) ? $componente['video_settings'] : array('bgc'=>'#000000');
 	$video_bgc = $video_settings['bgc'];
 	if($video_bgc) $element_style .= 'background-color:'.$video_bgc.';';
 
