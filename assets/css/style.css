@@ -2883,6 +2883,12 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 
 .video-modal {
 	background-color: #000;
+	top: 50% !important;
+	left: 50% !important;
+}
+
+.video-modal.open {
+	transform: translate(-50%, -50%) !important;
 }
 
 .video-modal .modal-content {
