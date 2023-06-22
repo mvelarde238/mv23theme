@@ -7,9 +7,9 @@ function video_background($componente){
     $class = 'has-video-background';
 
     $video_settings = (isset($componente['video_settings'])) ? $componente['video_settings'] : array(
-        'loop' => 1,
-        'muted' => 1,
-        'autoplay' => 1,
+        'loop' => 0,
+        'muted' => 0,
+        'autoplay' => 0,
         'opacity' => 100
     );
 

@@ -32,9 +32,9 @@ $image = Repeater_Group::create( 'Imágen', array(
         ->add_dependency('youtube_url','','!='),
         Field::create( 'complex', 'video_settings' )->add_fields(array(
             Field::create( 'color', 'bgc', 'Color de Fondo' )->set_default_value('#000000')->set_width(20),
-            Field::create( 'checkbox', 'autoplay', 'AutoPlay' )->set_default_value(1)->set_text( 'Activar' )->set_width(20),
-            Field::create( 'checkbox', 'muted', 'Muted' )->set_default_value(1)->set_text( 'Activar' )->set_width(20),
-            Field::create( 'checkbox', 'loop', 'Bucle' )->set_default_value(1)->set_text( 'Activar' )->set_width(20),
+            Field::create( 'checkbox', 'autoplay', 'AutoPlay' )->set_text( 'Activar' )->set_width(20),
+            Field::create( 'checkbox', 'muted', 'Muted' )->set_text( 'Activar' )->set_width(20),
+            Field::create( 'checkbox', 'loop', 'Bucle' )->set_text( 'Activar' )->set_width(20),
             Field::create( 'number', 'opacity', 'Transparencia' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width(20)
         ))
         // ->add_dependency('bgvideo','0','>'),
