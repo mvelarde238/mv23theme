@@ -133,7 +133,7 @@
 			_on(this.el, 'click', this._open_tab);
 		},
 		_open_tab(event){
-			event.preventDefault();
+			// event.preventDefault();
 			var item = _hasClass(event.target, 'v23-togglebox__btn') ? event.target : _findAncestor(event.target, '.v23-togglebox__btn');
 			if(item) this._handle_active_class(item);
 		},
