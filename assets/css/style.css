@@ -5055,6 +5055,20 @@ li.product:before {
 	justify-content: flex-start;
 }
 
+.posts-listing--carrusel[data-controls-position=top] .tns-controls button {
+	top: 8px;
+}
+
+.posts-listing--carrusel[data-controls-position=center] .tns-controls button {
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.posts-listing--carrusel[data-controls-position=bottom] .tns-controls button {
+	bottom: 0px;
+}
+
 .progress-bar > div:first-child {
 	display: flex;
 	justify-content: space-between;

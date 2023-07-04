@@ -82,7 +82,8 @@ if(!function_exists('post_listing_header')){
     data-order="<?=$order?>" 
     data-orderby="<?=$orderby?>" 
     post-template="<?=$post_template?>"
-    data-scrolltop="<?=$scrolltop?>">
+    data-scrolltop="<?=$scrolltop?>"
+    data-controls-position="center">
     <?php if($componente['filter']) {
         $show_tax = 0;
         $default_term = '';

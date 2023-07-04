@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.147 30-07-04
+- Post Listing Carrusel: set default control position to center
+
 23.8.146 30-06-22
 - Fixed v23ToggleBoxModule: preventDefault avoid links execution
 

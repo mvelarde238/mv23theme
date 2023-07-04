@@ -2,3 +2,13 @@
     .carrusel__slider
         align-items: flex-start
         justify-content: flex-start
+
+    &--carrusel
+        &[data-controls-position='top'] .tns-controls button
+            top: 8px
+        &[data-controls-position='center'] .tns-controls button
+            top: 0
+            bottom: 0
+            margin: auto
+        &[data-controls-position='bottom'] .tns-controls button
+            bottom: 0px
