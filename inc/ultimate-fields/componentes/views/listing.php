@@ -82,8 +82,7 @@ if(!function_exists('post_listing_header')){
     data-order="<?=$order?>" 
     data-orderby="<?=$orderby?>" 
     post-template="<?=$post_template?>"
-    data-scrolltop="<?=$scrolltop?>"
-    data-controls-position="center">
+    data-scrolltop="<?=$scrolltop?>">
     <?php if($componente['filter']) {
         $show_tax = 0;
         $default_term = '';
@@ -117,7 +116,7 @@ if(!function_exists('post_listing_header')){
     if ($query->have_posts()) : 
         $columns_class = ($list_template == 'carrusel') ? '' : 'has-columns';
         ?>
-        <div class="posts-listing posts-listing--<?=$list_template?> <?=$columns_class?>" style="<?=$css_vars?>">
+        <div class="posts-listing posts-listing--<?=$list_template?> <?=$columns_class?>" style="<?=$css_vars?>" data-controls-position="center">
             <?php if($list_template == 'carrusel'): 
                 $show_controls = (!empty($componente['show_controls'])) ? $componente['show_controls'] : 0;
                 $show_nav = (!empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
