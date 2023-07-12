@@ -3129,11 +3129,11 @@ body {
 .text-color-2 h4,
 .text-color-2 h5,
 .text-color-2 h6 {
-	color: #fff;
+	color: inherit;
 }
 
 .text-color-2 a {
-	color: #fff !important;
+	color: inherit;
 }
 
 .text-color-1 {
