@@ -4,6 +4,7 @@ CHANGELOG
 23.8.148 30-07-11
 - Add action setting that allows show and hide a section
 - text-color-2 > h1,h2,...,a color:inherit
+- Button Comp: add size setting
 
 23.8.148 30-07-11
 - Fix: Post Listing Carrusel data-control-position

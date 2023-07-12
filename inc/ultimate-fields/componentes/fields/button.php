@@ -21,6 +21,11 @@ $button = Repeater_Group::create( 'Button', array(
             'center' => 'Centro',
             'right' => 'Derecha'
         ))->set_orientation( 'horizontal' )->set_width(25),
+        Field::create( 'radio', 'size', 'Tamaño')->add_options( array(
+            'small' => 'Normal',
+            'medium' => 'Mediano',
+            'big' => 'Grande'
+        ))->set_orientation( 'horizontal' )->set_width(25),
         Field::create( 'checkbox', 'fullwidth','Botón de ancho completo' )->set_text( 'Activar' )->set_width(25),
 
         Field::create( 'radio', 'type','Tipo')->set_orientation( 'horizontal' )->add_options( array(

@@ -5,6 +5,9 @@ $style = $componente['style'];
 $fullwidth = (isset($componente['fullwidth'])) ? $componente['fullwidth'] : false;
 if($fullwidth) $style .= ' btn-block';
 
+$size = (isset($componente['size'])) ? $componente['size'] : false;
+if($size) $style .= ' btn--'.$componente['size'];
+
 $type = $componente['type'];
 $href = '#';
 $attrs = '';
