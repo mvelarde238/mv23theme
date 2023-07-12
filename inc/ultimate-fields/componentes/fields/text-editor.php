@@ -29,4 +29,5 @@ $text_editor = Repeater_Group::create( 'Editor de Texto', array(
         ))->set_width(50)->add_dependency('add_responsive'),
     ),
 ))
+->add_fields($acciones_fields)
 ->add_fields($settings_fields_container->get_fields());

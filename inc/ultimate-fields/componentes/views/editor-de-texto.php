@@ -19,5 +19,6 @@ $attributes = generate_attributes($componente, $classes_array);
 <div <?=$attributes?>>
 	<?php if ($layout == 'layout2') echo '<div class="container">'; ?>
 		<?php if($content) echo do_shortcode(wpautop(oembed($content))); ?>
+		<?php echo generate_actions_code($componente); ?>
 	<?php if ($layout == 'layout2') echo '</div>'; ?>
 </div>

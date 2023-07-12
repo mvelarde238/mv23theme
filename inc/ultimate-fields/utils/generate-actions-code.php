@@ -50,6 +50,13 @@ function generate_actions_code($componente){
 						}
 					}
 				}
+				if ($action['trigger'] == 'click' && $action['action'] == 'toggle-box') { 
+					$toggle_box_settings = (isset($action['toggle_box_settings'])) ? $action['toggle_box_settings'] : array( 'selector' => null );
+					$selector = $toggle_box_settings['selector'];
+					if($selector){
+						$code = '<a class="cover-all toggle-box" data-selector="'.$selector.'" href="#"></a>';
+					}
+				}
 			}
 	endif;
 

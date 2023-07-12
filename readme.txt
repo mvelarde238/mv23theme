@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 23.8.148 30-07-11
+- Add action setting that allows show and hide a section
+
+23.8.148 30-07-11
 - Fix: Post Listing Carrusel data-control-position
 
 23.8.147 30-07-04
