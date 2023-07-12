@@ -116,14 +116,14 @@ if(!function_exists('post_listing_header')){
     if ($query->have_posts()) : 
         $columns_class = ($list_template == 'carrusel') ? '' : 'has-columns';
         ?>
-        <div class="posts-listing posts-listing--<?=$list_template?> <?=$columns_class?>" style="<?=$css_vars?>" data-controls-position="center">
+        <div class="posts-listing posts-listing--<?=$list_template?> <?=$columns_class?>" style="<?=$css_vars?>">
             <?php if($list_template == 'carrusel'): 
                 $show_controls = (!empty($componente['show_controls'])) ? $componente['show_controls'] : 0;
                 $show_nav = (!empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
                 $show_nav = (!empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
                 $autoplay = (!empty($componente['autoplay'])) ? $componente['autoplay'] : 0;
                 ?>
-            <div class="carrusel"><div class="carrusel__slider" 
+            <div class="carrusel" data-controls-position="center"><div class="carrusel__slider" 
                 data-show-controls="<?=$show_controls?>" 
                 data-show-nav="<?=$show_nav?>" 
                 data-autoplay="<?=$autoplay?>" 

@@ -7,7 +7,19 @@ $carrusel = Repeater_Group::create( 'Carrusel', array(
         Field::create( 'tab', 'Contenido' ),
         Field::create( 'repeater', 'items', '' )
         ->set_add_text('Agregar')
+        ->set_chooser_type( 'dropdown' )
+        ->add_group('Content', array(
+            'title' => 'Contenido',
+            'edit_mode' => 'popup',
+            'fields' => array(
+                Content_Layout::the_field(array( 
+                    'slug' => 'content_layout', 
+                    'components' => array( 'Editor de Texto', 'Imágen', 'Componente Reusable', 'Mapa', 'Button', 'HTML' )
+                ))
+            )
+        ))
         ->add_group('Item', array(
+            'title' => 'Imágen',
             'fields' => array(
                 Field::create( 'image', 'imagen' )->set_width( 25 ),
                 Field::create( 'complex', 'enlace' )->rows_layout()->add_fields(array(
@@ -23,6 +35,7 @@ $carrusel = Repeater_Group::create( 'Carrusel', array(
                 ))->set_width( 75 )
             )
         )),
+
         Field::create( 'tab', 'Carrusel' ),
         Field::create( 'checkbox', 'show_controls' )->set_width( 25 )->set_text('Mostrar Flechas'),
         Field::create( 'checkbox', 'show_nav' )->set_width( 25 )->set_text('Mostrar indicadores de página'),

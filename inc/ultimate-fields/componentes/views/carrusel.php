@@ -34,7 +34,7 @@ $classes_array = format_classes(array(
 
 $attributes = generate_attributes($componente, $classes_array);
 ?>
-<div <?=$attributes?>>
+<div <?=$attributes?> data-controls-position="center">
     <?php if ($layout == 'layout2') echo '<div class="container">'; ?>
     <div class="carrusel__slider" 
         data-show-controls="<?=$show_controls?>" 
@@ -51,35 +51,52 @@ $attributes = generate_attributes($componente, $classes_array);
         data-autoplay="<?=$autoplay?>"
         >
     <?php for ($i=0; $i < count($items); $i++) { 
-        $imagen = $items[$i]['imagen'];
-        $bgi = wp_get_attachment_url($imagen);
+        $type = $items[$i]['__type'];
 
-        $link = NULL;
-        $enlace = $items[$i]['enlace'];
-        switch ($enlace['url_type']) {
-            case 'externa':
-                $link = $enlace['url'];
-                break;
+        if( $type == 'item' ){
+            $imagen = $items[$i]['imagen'];
+            $bgi = wp_get_attachment_url($imagen);
+    
+            $link = NULL;
+            $enlace = $items[$i]['enlace'];
+            switch ($enlace['url_type']) {
+                case 'externa':
+                    $link = $enlace['url'];
+                    break;
+                
+                case 'interna':
+                    $link = get_permalink( str_replace('post_','',$enlace['post']) );
+                    break;
             
-            case 'interna':
-                $link = get_permalink( str_replace('post_','',$enlace['post']) );
-                break;
-        
-            case 'popup':
-                $link = $bgi;
-                break;
-        }
-        
-        $lightbox_class = ( $enlace['url_type'] == 'popup' ) ? 'zoom' : '';
-        ?>
-            <div class="carrusel__item">
+                case 'popup':
+                    $link = $bgi;
+                    break;
+            }
+            
+            $lightbox_class = ( $enlace['url_type'] == 'popup' ) ? 'zoom' : '';
+            ?>
+            <div class="carrusel__item carrusel__item--image">
                 <img src="<?=$bgi?>" <?=$img_styles?> alt="Carrusel Item">
                 <?php if ($link != NULL): ?>
                     <?php $target = ($enlace['new_tab'] == 1) ? '_blank' : '';  ?>
                     <a class="carrusel__item__link <?=$lightbox_class?>" href="<?=$link?>" target="<?=$target?>"></a>
                 <?php endif ?>
             </div>
-    <?php }; ?>
+            <?php
+        }
+
+        if( $type == 'content' ){
+            $content_layout = $items[$i]['content_layout'];
+            if (is_array($content_layout) && count($content_layout) > 0) :
+                echo '<div class="carrusel__item carrusel__item--content">';
+                echo '<div class="columnas-simples">';
+                echo Content_Layout::the_content($content_layout);
+                echo '</div>';
+                echo '</div>';
+            endif;
+        }
+
+    }; ?>
     </div>
     <?php if ($layout == 'layout2') echo '</div>'; ?>
 </div> 

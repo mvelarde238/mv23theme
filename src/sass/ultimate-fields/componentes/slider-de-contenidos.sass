@@ -1,88 +1,18 @@
 .componente-slider-de-contenidos
 	position: relative
-
-	.columnas-simples
-		padding-right: 0
-		padding-left: 0
+	@extend .tns-control-position
 
 	.tns-outer
 		position: relative
 
-	button[data-controls="prev"],
-	button[data-controls="next"]
-		position: absolute
-		border: 1px solid $secondary-color
-		width: 37px
-		height: 37px
-		line-height: 37px
-		padding: 0
-		background-color: transparent
-		border-radius: 50%
-		display: flex
-		align-items: center
-		justify-content: center
-		i
-			font-size: 28px
-			width: 37px
-			color: $secondary-color
-		&:disabled
-			display: none
-	button[data-controls="prev"]
-		left: -40px
-		i
-			padding-right: 4px
-	button[data-controls="next"]
-		right: -40px
-		i
-			padding-left: 4px
-
-	&[data-controls-position='top'] .tns-controls button
-		top: 8px
-	&[data-controls-position='center'] .tns-controls button
-		top: 0
-		bottom: 0
-		margin: auto
-	&[data-controls-position='bottom'] .tns-controls button
-		bottom: 0px
-
-	.tns-nav
-		display: flex
-		flex-wrap: wrap
-		justify-content: center
-		align-items: center
-		padding: 0 60px
-		background-color: #F1F1F1
-		button
-			font-size: 18px
-			line-height: 1
+	.tns-controls
+		@extend .tns-control-buttons
 
 	&[data-show-title='0'] .tns-nav
-		button
-			background-color: #808080
-			height: 6px
-			width: 6px
-			border-radius: 50%
-			border: 0
-			margin: 10px
-			padding: 0
-			outline: 0
-
-			&.tns-nav-active
-				background-color: $secondary-color
-				transform: scale(1.8)
-				position: relative
-
-				&:before
-					content: ''
-					position: absolute
-					top: -2px
-					left: -2px
-					width: 10px
-					height: 10px
-					border: 1px solid $secondary-color
-					border-radius: 50%
+		@extend .tns-navigation
 
 	&[data-show-title='1'] .tns-nav
+		background: #ffffff
 		button
 			background-color: transparent
 			border: 0
@@ -95,24 +25,23 @@
 				position: relative
 				color: #fff
 
-.text-color-2
-	.componente-slider-de-contenidos
-		button[data-controls="prev"],
-		button[data-controls="next"]
-			border-color: #fff
-			i
-				color: #fff
+	.columnas-simples
+		padding-right: 0
+		padding-left: 0
 
 // abajo de...
 @media only screen and (max-width: 1024px)
 	.componente-slider-de-contenidos
-		.tns-nav
+		&[data-show-title='1'] .tns-nav
 			button
 				font-size: 15px
 
 @media #{$medium-and-down}
-	.componente-slider-de-contenidos
-		button[data-controls="prev"]
-			left: -15px
+	.componente-slider-de-contenidos .tns-controls
+		button[data-controls="prev"],
 		button[data-controls="next"]
-			right: -15px
+			transform: scale(.8)
+		button[data-controls="prev"]
+			left: -20px
+		button[data-controls="next"]
+			right: -20px

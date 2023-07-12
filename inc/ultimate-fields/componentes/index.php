@@ -8,7 +8,6 @@ require_once( 'fields/text-editor.php' );
 require_once( 'fields/button.php' );
 require_once( 'fields/image.php' );
 require_once( 'fields/separador.php' );
-require_once( 'fields/carrusel.php' );
 require_once( 'fields/mapa.php' );
 if(PROGRESS_CIRCLE) require_once( 'fields/progress-circle.php' );
 if(PROGRESS_BAR) require_once( 'fields/progress-bar.php' );
@@ -24,7 +23,6 @@ $componentes = array(
 	array('name' => 'Imágen', 'variable'=>$image),
 	array('name' => 'Button', 'variable'=>$button),
 	array('name' => 'Separador', 'variable'=>$separador),
-	array('name' => 'Carrusel', 'variable'=>$carrusel),
 	array('name' => 'Mapa', 'variable'=>$mapa),
 	array('name' => 'Icono y texto', 'variable'=>$icon_and_text),
 	array('name' => 'Slider', 'variable'=>$slider),
@@ -56,7 +54,9 @@ foreach ($componentes as $c) {
 	$components_repeater->add_group( $c['variable'] );
 }
 require_once( 'fields/accordion.php' );
+require_once( 'fields/carrusel.php' );
 $components_repeater->add_group($accordion);
+$components_repeater->add_group($carrusel);
 
 // se usa en columnas y columnas internas
 $columna = clone $components_repeater;

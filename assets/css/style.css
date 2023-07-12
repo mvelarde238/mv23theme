@@ -3979,6 +3979,159 @@ ul.page-numbers .next {
 	padding-left: 20px;
 }
 
+.tns-navigation,
+.componente-slider-de-contenidos[data-show-title="0"] .tns-nav,
+.tns-slider-theme .tns-nav,
+.carrusel .tns-nav {
+	position: static;
+	left: 0;
+	bottom: 20px;
+	z-index: 56;
+	width: 100%;
+	margin: auto;
+	padding: 30px 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.tns-navigation button,
+.componente-slider-de-contenidos[data-show-title="0"] .tns-nav button,
+.tns-slider-theme .tns-nav button,
+.carrusel .tns-nav button {
+	background-color: currentColor;
+	height: 6px;
+	width: 6px;
+	border-radius: 50%;
+	border: 0;
+	margin: 0 10px;
+	padding: 0;
+	outline: 0;
+}
+
+.tns-navigation button.tns-nav-active,
+.componente-slider-de-contenidos[data-show-title="0"] .tns-nav button.tns-nav-active,
+.tns-slider-theme .tns-nav button.tns-nav-active,
+.carrusel .tns-nav button.tns-nav-active {
+	background-color: #2A5354;
+	transform: scale(1.8);
+	position: relative;
+}
+
+.tns-navigation button.tns-nav-active:before,
+.componente-slider-de-contenidos[data-show-title="0"] .tns-nav button.tns-nav-active:before,
+.tns-slider-theme .tns-nav button.tns-nav-active:before,
+.carrusel .tns-nav button.tns-nav-active:before {
+	content: "";
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	width: 10px;
+	height: 10px;
+	border: 1px solid #2A5354;
+	border-radius: 50%;
+}
+
+.tns-control-position[data-controls-position=top] .tns-controls button,
+[data-controls-position=top].componente-slider-de-contenidos .tns-controls button,
+[data-controls-position=top].tns-slider-theme .tns-controls button,
+[data-controls-position=top].carrusel .tns-controls button {
+	top: 8px;
+}
+
+.tns-control-position[data-controls-position=center] .tns-controls button,
+[data-controls-position=center].componente-slider-de-contenidos .tns-controls button,
+[data-controls-position=center].tns-slider-theme .tns-controls button,
+[data-controls-position=center].carrusel .tns-controls button {
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.tns-control-position[data-controls-position=bottom] .tns-controls button,
+[data-controls-position=bottom].componente-slider-de-contenidos .tns-controls button,
+[data-controls-position=bottom].tns-slider-theme .tns-controls button,
+[data-controls-position=bottom].carrusel .tns-controls button {
+	bottom: 0px;
+}
+
+.tns-control-buttons,
+.componente-slider-de-contenidos .tns-controls,
+.tns-slider-theme .tns-controls,
+.carrusel .tns-controls {
+	z-index: 89;
+}
+
+.tns-control-buttons button[data-controls=prev],
+.componente-slider-de-contenidos .tns-controls button[data-controls=prev],
+.tns-slider-theme .tns-controls button[data-controls=prev],
+.carrusel .tns-controls button[data-controls=prev],
+.tns-control-buttons button[data-controls=next],
+.componente-slider-de-contenidos .tns-controls button[data-controls=next],
+.tns-slider-theme .tns-controls button[data-controls=next],
+.carrusel .tns-controls button[data-controls=next] {
+	position: absolute;
+	width: 38px;
+	height: 38px;
+	line-height: 37px;
+	padding: 0;
+	background-color: #fff;
+	border-radius: 50%;
+	display: flex;
+	z-index: 56;
+	align-items: center;
+	justify-content: center;
+	border: 0;
+}
+
+.tns-control-buttons button[data-controls=prev] i,
+.componente-slider-de-contenidos .tns-controls button[data-controls=prev] i,
+.tns-slider-theme .tns-controls button[data-controls=prev] i,
+.carrusel .tns-controls button[data-controls=prev] i,
+.tns-control-buttons button[data-controls=next] i,
+.componente-slider-de-contenidos .tns-controls button[data-controls=next] i,
+.tns-slider-theme .tns-controls button[data-controls=next] i,
+.carrusel .tns-controls button[data-controls=next] i {
+	font-size: 33px;
+	line-height: 38px;
+}
+
+.tns-control-buttons button[data-controls=prev],
+.componente-slider-de-contenidos .tns-controls button[data-controls=prev],
+.tns-slider-theme .tns-controls button[data-controls=prev],
+.carrusel .tns-controls button[data-controls=prev] {
+	box-shadow: -8px 8px 10px rgba(0, 0, 0, 0.15);
+	left: -40px;
+	margin-right: 5px;
+}
+
+.tns-control-buttons button[data-controls=prev] i,
+.componente-slider-de-contenidos .tns-controls button[data-controls=prev] i,
+.tns-slider-theme .tns-controls button[data-controls=prev] i,
+.carrusel .tns-controls button[data-controls=prev] i {
+	margin-right: 3px;
+}
+
+.tns-control-buttons button[data-controls=next],
+.componente-slider-de-contenidos .tns-controls button[data-controls=next],
+.tns-slider-theme .tns-controls button[data-controls=next],
+.carrusel .tns-controls button[data-controls=next] {
+	box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.15);
+	right: -40px;
+}
+
+.tns-control-buttons button[data-controls=next] i,
+.componente-slider-de-contenidos .tns-controls button[data-controls=next] i,
+.tns-slider-theme .tns-controls button[data-controls=next] i,
+.carrusel .tns-controls button[data-controls=next] i {
+	margin-left: 4px;
+}
+
+.tns-slider-theme .tns-outer,
+.carrusel .tns-outer {
+	position: relative;
+}
+
 div.wpcf7 span.wpcf7-not-valid-tip {
 	text-align: right;
 	margin-top: -5px;
@@ -4289,6 +4442,10 @@ li.product:before {
 [data-animation] {
 	animation-duration: 1s;
 	animation-fill-mode: both;
+}
+
+.overflow-auto {
+	overflow: auto;
 }
 
 .v23-togglebox__item:not(.active) {
@@ -4627,119 +4784,21 @@ li.product:before {
 	min-width: 100% !important;
 }
 
-.carrusel__item {
+.carrusel__item--image {
 	text-align: center;
 	position: relative;
 }
 
-.carrusel__item img {
+.carrusel__item--image img {
 	margin-bottom: 0 !important;
 }
 
-.carrusel__item__link {
+.carrusel__item--image__link {
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	top: 0;
 	left: 0;
-}
-
-.carrusel .tns-outer {
-	position: relative;
-}
-
-.carrusel button[data-controls=prev],
-.carrusel button[data-controls=next] {
-	position: absolute;
-	border: 1px solid #2A5354;
-	width: 37px;
-	height: 37px;
-	line-height: 37px;
-	padding: 0;
-	background-color: transparent;
-	border-radius: 50%;
-	display: flex;
-	z-index: 56;
-	align-items: center;
-	justify-content: center;
-}
-
-.carrusel button[data-controls=prev] i,
-.carrusel button[data-controls=next] i {
-	font-size: 28px;
-	width: 37px;
-	color: #2A5354;
-}
-
-.carrusel button[data-controls=prev] {
-	left: -40px;
-}
-
-.carrusel button[data-controls=prev] i {
-	padding-right: 4px;
-}
-
-.carrusel button[data-controls=next] {
-	right: -40px;
-}
-
-.carrusel button[data-controls=next] i {
-	padding-left: 4px;
-}
-
-.carrusel .tns-nav {
-	position: static;
-	left: 0;
-	bottom: 20px;
-	z-index: 56;
-	width: 100%;
-	margin: auto;
-	padding: 30px 0;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-}
-
-.carrusel .tns-nav button {
-	background-color: #808080;
-	height: 6px;
-	width: 6px;
-	border-radius: 50%;
-	border: 0;
-	margin: 0 10px;
-	padding: 0;
-	outline: 0;
-}
-
-.carrusel .tns-nav button.tns-nav-active {
-	background-color: #F8522C;
-	transform: scale(1.8);
-	position: relative;
-}
-
-.carrusel .tns-nav button.tns-nav-active:before {
-	content: "";
-	position: absolute;
-	top: -2px;
-	left: -2px;
-	width: 10px;
-	height: 10px;
-	border: 1px solid #F8522C;
-	border-radius: 50%;
-}
-
-.text-color-2 .carrusel .tns-nav button:not(.tns-nav-active) {
-	background-color: #fff;
-}
-
-.text-color-2 .carrusel button[data-controls=prev],
-.text-color-2 .carrusel button[data-controls=next] {
-	border-color: #fff;
-}
-
-.text-color-2 .carrusel button[data-controls=prev] i,
-.text-color-2 .carrusel button[data-controls=next] i {
-	color: #fff;
 }
 
 .columnas-simples > div {
@@ -5055,20 +5114,6 @@ li.product:before {
 	justify-content: flex-start;
 }
 
-.posts-listing--carrusel[data-controls-position=top] .tns-controls button {
-	top: 8px;
-}
-
-.posts-listing--carrusel[data-controls-position=center] .tns-controls button {
-	top: 0;
-	bottom: 0;
-	margin: auto;
-}
-
-.posts-listing--carrusel[data-controls-position=bottom] .tns-controls button {
-	bottom: 0px;
-}
-
 .progress-bar > div:first-child {
 	display: flex;
 	justify-content: space-between;
@@ -5143,112 +5188,12 @@ li.product:before {
 	position: relative;
 }
 
-.componente-slider-de-contenidos .columnas-simples {
-	padding-right: 0;
-	padding-left: 0;
-}
-
 .componente-slider-de-contenidos .tns-outer {
 	position: relative;
 }
 
-.componente-slider-de-contenidos button[data-controls=prev],
-.componente-slider-de-contenidos button[data-controls=next] {
-	position: absolute;
-	border: 1px solid #2A5354;
-	width: 37px;
-	height: 37px;
-	line-height: 37px;
-	padding: 0;
-	background-color: transparent;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.componente-slider-de-contenidos button[data-controls=prev] i,
-.componente-slider-de-contenidos button[data-controls=next] i {
-	font-size: 28px;
-	width: 37px;
-	color: #2A5354;
-}
-
-.componente-slider-de-contenidos button[data-controls=prev]:disabled,
-.componente-slider-de-contenidos button[data-controls=next]:disabled {
-	display: none;
-}
-
-.componente-slider-de-contenidos button[data-controls=prev] {
-	left: -40px;
-}
-
-.componente-slider-de-contenidos button[data-controls=prev] i {
-	padding-right: 4px;
-}
-
-.componente-slider-de-contenidos button[data-controls=next] {
-	right: -40px;
-}
-
-.componente-slider-de-contenidos button[data-controls=next] i {
-	padding-left: 4px;
-}
-
-.componente-slider-de-contenidos[data-controls-position=top] .tns-controls button {
-	top: 8px;
-}
-
-.componente-slider-de-contenidos[data-controls-position=center] .tns-controls button {
-	top: 0;
-	bottom: 0;
-	margin: auto;
-}
-
-.componente-slider-de-contenidos[data-controls-position=bottom] .tns-controls button {
-	bottom: 0px;
-}
-
-.componente-slider-de-contenidos .tns-nav {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	padding: 0 60px;
-	background-color: #F1F1F1;
-}
-
-.componente-slider-de-contenidos .tns-nav button {
-	font-size: 18px;
-	line-height: 1;
-}
-
-.componente-slider-de-contenidos[data-show-title="0"] .tns-nav button {
-	background-color: #808080;
-	height: 6px;
-	width: 6px;
-	border-radius: 50%;
-	border: 0;
-	margin: 10px;
-	padding: 0;
-	outline: 0;
-}
-
-.componente-slider-de-contenidos[data-show-title="0"] .tns-nav button.tns-nav-active {
-	background-color: #2A5354;
-	transform: scale(1.8);
-	position: relative;
-}
-
-.componente-slider-de-contenidos[data-show-title="0"] .tns-nav button.tns-nav-active:before {
-	content: "";
-	position: absolute;
-	top: -2px;
-	left: -2px;
-	width: 10px;
-	height: 10px;
-	border: 1px solid #2A5354;
-	border-radius: 50%;
+.componente-slider-de-contenidos[data-show-title="1"] .tns-nav {
+	background: #ffffff;
 }
 
 .componente-slider-de-contenidos[data-show-title="1"] .tns-nav button {
@@ -5265,14 +5210,9 @@ li.product:before {
 	color: #fff;
 }
 
-.text-color-2 .componente-slider-de-contenidos button[data-controls=prev],
-.text-color-2 .componente-slider-de-contenidos button[data-controls=next] {
-	border-color: #fff;
-}
-
-.text-color-2 .componente-slider-de-contenidos button[data-controls=prev] i,
-.text-color-2 .componente-slider-de-contenidos button[data-controls=next] i {
-	color: #fff;
+.componente-slider-de-contenidos .columnas-simples {
+	padding-right: 0;
+	padding-left: 0;
 }
 
 .whatsapp-button.align-right {
@@ -6661,12 +6601,17 @@ table.responsive-table.bordered tbody tr {
 	width: auto;
 }
 
-.carrusel button[data-controls=prev] {
-	left: -15px;
+.carrusel .tns-controls button[data-controls=prev],
+.carrusel .tns-controls button[data-controls=next] {
+	transform: scale(0.8);
 }
 
-.carrusel button[data-controls=next] {
-	right: -15px;
+.carrusel .tns-controls button[data-controls=prev] {
+	left: -20px;
+}
+
+.carrusel .tns-controls button[data-controls=next] {
+	right: -20px;
 }
 
 .columnas-2 > div,
@@ -6675,16 +6620,21 @@ table.responsive-table.bordered tbody tr {
 	width: 100%;
 }
 
-.componente-slider-de-contenidos .tns-nav button {
+.componente-slider-de-contenidos[data-show-title="1"] .tns-nav button {
 	font-size: 15px;
 }
 
-.componente-slider-de-contenidos button[data-controls=prev] {
-	left: -15px;
+.componente-slider-de-contenidos .tns-controls button[data-controls=prev],
+.componente-slider-de-contenidos .tns-controls button[data-controls=next] {
+	transform: scale(0.8);
 }
 
-.componente-slider-de-contenidos button[data-controls=next] {
-	right: -15px;
+.componente-slider-de-contenidos .tns-controls button[data-controls=prev] {
+	left: -20px;
+}
+
+.componente-slider-de-contenidos .tns-controls button[data-controls=next] {
+	right: -20px;
 }
 
 }
