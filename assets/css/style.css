@@ -3214,6 +3214,14 @@ span[style*=font-size] {
 	height: 100%;
 }
 
+.rotate-on-active {
+	transition: 500ms all;
+}
+
+.active .rotate-on-active {
+	transform: rotate(-180deg);
+}
+
 .has-columns {
 	display: flex;
 	flex-wrap: wrap;

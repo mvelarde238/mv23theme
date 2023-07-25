@@ -12027,12 +12027,13 @@ function animateWidth(elem, start, end, duration, spanElem) {
       if (selector) {
         var boxes = document.querySelectorAll(selector);
         for (var ind = 0; ind < boxes.length; ind++) {
-          $(boxes[ind]).slideToggle();
-          // if (boxes[ind].style.display === 'none') {
-          //     boxes[ind].style.display = 'block';
-          // } else {
-          //     boxes[ind].style.display = 'none';
-          // }
+          if (boxes[ind].style.display === 'none') {
+            $(this).parent().addClass('active');
+            $(boxes[ind]).slideDown();
+          } else {
+            $(this).parent().removeClass('active');
+            $(boxes[ind]).slideUp();
+          }
         }
       }
     });
