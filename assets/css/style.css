@@ -4084,6 +4084,7 @@ ul.page-numbers .next {
 	line-height: 37px;
 	padding: 0;
 	background-color: #fff;
+	color: #000;
 	border-radius: 50%;
 	display: flex;
 	z-index: 56;
