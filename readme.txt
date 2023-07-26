@@ -5,6 +5,7 @@ CHANGELOG
 - tns-controls color
 - Video Poster Implementation
 - New column's width: 1/8 6/8 1/8
+- change columnas-simples breakpoint
 
 23.8.151 30-07-25
 - Add / Remove active class on toggle section
