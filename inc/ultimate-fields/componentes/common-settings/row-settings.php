@@ -37,6 +37,7 @@ $row_settings = array(
             'columnas-1de4-2de4-1de4' => '1/4 + 2/4 + 1/4',
             'columnas-1de2-1de4-1de4' => '1/2 + 1/4 + 1/4',
             'columnas-1de4-1de4-1de2' => '1/4 + 1/4 + 1/2',
+            'columnas-1de8-6de8-1de8' => '1/8 + 6/8 + 1/8',
         ))->add_dependency('nth_columnas','3','='),
     Field::create( 'select', 'tablet_widths_3', 'Ancho en Tablets')->set_width( 25 )->add_options( array(
             '' => '100%',

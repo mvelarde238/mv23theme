@@ -5787,7 +5787,8 @@ li.product:before {
 .columnas-3de4-1de4,
 .columnas-1de4-2de4-1de4,
 .columnas-1de2-1de4-1de4,
-.columnas-1de4-1de4-1de2 {
+.columnas-1de4-1de4-1de2,
+.columnas-1de8-6de8-1de8 {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
@@ -5859,6 +5860,18 @@ li.product:before {
 
 .columnas-1de4-1de4-1de2 > div:nth-child(3) {
 	width: 50%;
+}
+
+.columnas-1de8-6de8-1de8 > div:nth-child(1) {
+	width: 12.5%;
+}
+
+.columnas-1de8-6de8-1de8 > div:nth-child(2) {
+	width: 75%;
+}
+
+.columnas-1de8-6de8-1de8 > div:nth-child(3) {
+	width: 12.5%;
 }
 
 }
