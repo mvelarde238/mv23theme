@@ -22,12 +22,14 @@ function video_background($componente){
         if($video_id) {
         	$video_url = wp_get_attachment_url($video_id);
             if($video_url){
+                $poster = ( $videos['poster'] ) ? wp_get_attachment_url( $videos['poster'] ) : null;
                 $video_background['url'] = $video_url;
                 $video_background['class'] = $class;
                 $video_background['code'] = '<video '.$video_style;
                 if( $video_type == 'playable' ) $video_background['code'] .= ' controls';
                 if( $video_settings['muted'] ) $video_background['code'] .= ' muted="muted"';
                 if( $video_settings['loop'] ) $video_background['code'] .= ' loop';
+                if( $poster ) $video_background['code'] .= ' poster="'.$poster.'"';
                 if( $video_settings['autoplay'] ) $video_background['code'] .= ' autoplay';
                 $video_background['code'] .= '><source src="'.$video_url.'">Your browser does not support the video tag.</video>';
             }

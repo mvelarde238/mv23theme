@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.152 30-07-26
 - tns-controls color
+- Video Poster Implementation
 
 23.8.151 30-07-25
 - Add / Remove active class on toggle section
