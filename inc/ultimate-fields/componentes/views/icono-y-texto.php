@@ -3,13 +3,15 @@ $tipo = $componente['__type'];
 $content = $componente['content'];
 $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 $iposition = (isset($componente['iposition'])) ? 'icon--'.$componente['iposition'] : '';
-$center_all_class = (isset($componente['center-all']) && $componente['center-all'] == 1) ? 'center-all' : '';
+$center_all = (isset($componente['center-all']) && $componente['center-all'] == 1) ? 'center-all' : '';
+$horizontal_align = (isset($componente['horizontal-align'])) ? $componente['horizontal-align'].'-all' : '';
 
 $classes_array = format_classes(array(
 	'componente',
 	'icon-and-text',
 	$iposition,
-	$center_all_class,
+	$horizontal_align,
+	$center_all,
 	get_color_scheme($componente),
 	$componente['class'],
 ));

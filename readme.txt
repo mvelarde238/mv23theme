@@ -7,6 +7,7 @@ CHANGELOG
 - New column's width: 1/8 6/8 1/8
 - change columnas-simples breakpoint
 - use rrss style3 in mobile
+- Icon and text component -> horizontal align implementation
 
 23.8.151 30-07-25
 - Add / Remove active class on toggle section

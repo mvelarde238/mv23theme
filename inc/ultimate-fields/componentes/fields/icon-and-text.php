@@ -92,13 +92,17 @@ $icon_and_text = Repeater_Group::create( 'Icono y texto', array(
 
         // Field::create( 'section', 'Texto' ),
         Field::create( 'tab', 'Texto'),
-        Field::create( 'wysiwyg', 'content' )->hide_label()->set_rows( 6 )->set_width(100),
+        Field::create( 'wysiwyg', 'content' )->hide_label()->set_rows( 10 )->set_width(100),
         Field::create( 'select', 'ialign', 'Alineación Vertical')->add_options(array(
             'center'  => 'Al Centro',
             'flex-start'  => 'Arriba',
             'flex-end'  => 'Abajo',
         ))->set_width(33)->add_dependency('iposition','top','!='),
-        Field::create( 'checkbox', 'center-all', 'Centrar ícono y texto' ),
+        Field::create( 'select', 'horizontal-align', 'Alineación Horizontal')->add_options(array(
+            'left'  => 'Izquierda',
+            'center'  => 'Al Centro',
+            'right'  => 'Derecha'
+        ))->set_width(33),
 
         Field::create( 'tab', 'Responsive' ),
         Field::create( 'checkbox', 'hide-icon-on-mobile' )->set_text( 'Ocultar Icono en moviles' )->hide_label(),

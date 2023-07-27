@@ -4934,6 +4934,15 @@ li.product:before {
 	width: auto;
 }
 
+.icon-and-text.right-all {
+	display: flex !important;
+	justify-content: flex-end;
+}
+
+.icon-and-text.right-all > div:last-child {
+	width: auto;
+}
+
 .icon img {
 	max-width: initial;
 }
