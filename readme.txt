@@ -2,7 +2,7 @@
 CHANGELOG
 **************************************************************************************************
 23.8.154 30-08-02
-- Content Slider carrusel loop true
+- Content Slider carrusel rewind true
 
 23.8.153 30-08-01
 - DEFAULT_COLOR_SCHEME and DEFAULT_TEXT_COLOR implementation
