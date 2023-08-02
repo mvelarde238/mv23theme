@@ -66,7 +66,7 @@ $modulos = Repeater_Group::create('Módulos')
     Field::create('select', 'text_color', 'Color del texto')->add_options(array(
         'text-color-default' => 'Negro',
         'text-color-2' => 'Blanco',
-    ))->set_default_value('text-color-default')->set_width(20)->add_dependency('edit_background'),
+    ))->set_default_value(DEFAULT_TEXT_COLOR)->set_width(20)->add_dependency('edit_background'),
     Field::create('checkbox', 'parallax', 'Parallax')->set_width(20)->add_dependency('edit_background'),
 
     Field::create( 'checkbox', 'add_video_bg' )->set_text( 'Agregar video de fondo' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),

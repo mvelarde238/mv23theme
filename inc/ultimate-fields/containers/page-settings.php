@@ -35,7 +35,7 @@ Container::create( 'page_settings' )
         Field::create( 'select', 'fixed_header_color_scheme', 'Color del Texto' )->add_options( array(
             'text-color-default' => 'Negro',
             'text-color-2' => 'Blanco',
-        ))->set_default_value( 'text-color-default' ),
+        ))->set_default_value( DEFAULT_TEXT_COLOR ),
     
         Field::create( 'tab', 'Header Flotante' )->add_dependency('custom_floating_header'),
         Field::create( 'select', 'floating_header_logo', 'Versión del Logo')->add_options($logos_field_names),
@@ -47,5 +47,5 @@ Container::create( 'page_settings' )
         Field::create( 'select', 'floating_header_color_scheme', 'Color del Texto' )->add_options( array(
             'text-color-default' => 'Negro',
             'text-color-2' => 'Blanco',
-        ))->set_default_value( 'text-color-default' ),
+        ))->set_default_value( DEFAULT_TEXT_COLOR ),
     ));
