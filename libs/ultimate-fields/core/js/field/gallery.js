@@ -283,11 +283,17 @@
 		 */
 		renderAttachment: function( attachment ) {
 			var that  = this,
-				sizes = attachment.get ? attachment.get( 'sizes' ) : attachment.sizes,
-				img   = sizes.thumbnail ? sizes.thumbnail : sizes.full,
 				$div  = $( '<div class="uf-gallery-image" />' ),
 				$img  = $( '<img />' ),
 				$rem  = $( '<a class="button-secondary" />' );
+
+			if( attachment.attributes.type == 'image' ){
+				var sizes = attachment.get ? attachment.get( 'sizes' ) : attachment.sizes,
+					img   = sizes.thumbnail ? sizes.thumbnail : sizes.full;
+			} else {
+				var img = attachment.attributes.thumb;
+				img.url = img.src;
+			}
 
 			$div
 				.appendTo( that.$el.find( '.uf-gallery-images' ) )
@@ -308,7 +314,8 @@
 				.appendTo( $div )
 				.click(function( e ) {
 					e.preventDefault();
-					attachment.destroy();
+					// attachment.destroy();
+					that.model.get('attachments').remove( attachment );
 					$div.fadeOut(function() {
 						$div.remove();
 					});

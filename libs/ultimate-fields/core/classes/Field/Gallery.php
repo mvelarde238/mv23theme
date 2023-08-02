@@ -24,7 +24,7 @@ class Gallery extends File {
 	 * @since 3.0
 	 * @var boolean
 	 */
-	protected $file_type = 'image';
+	protected $file_type = 'all';
 
 	/**
 	 * Filters out the IDs from a field's value.
