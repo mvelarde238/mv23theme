@@ -1,14 +1,17 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
-23.8.154 30-08-02
+23.8.155 23-08-03
+- Posts Listing Comp: 'portfolio1' list template implementation
+
+23.8.154 23-08-02
 - Content Slider carrusel rewind true
 - Allow all file types in Uf Gallery Field 
 
-23.8.153 30-08-01
+23.8.153 23-08-01
 - DEFAULT_COLOR_SCHEME and DEFAULT_TEXT_COLOR implementation
 
-23.8.152 30-07-26
+23.8.152 23-07-26
 - tns-controls color
 - Video Poster Implementation
 - New column's width: 1/8 6/8 1/8
@@ -16,13 +19,13 @@ CHANGELOG
 - use rrss style3 in mobile
 - Icon and text component -> horizontal align implementation
 
-23.8.151 30-07-25
+23.8.151 23-07-25
 - Add / Remove active class on toggle section
 
-23.8.150 30-07-14
+23.8.150 23-07-14
 - Carrusel Comp. remove align center
 
-23.8.149 30-07-12
+23.8.149 23-07-12
 - Add action setting that allows show and hide a section
 - text-color-2 > h1,h2,...,a color:inherit
 - Button Comp: add size setting
@@ -30,13 +33,13 @@ CHANGELOG
   shared css styles
   allow content layout
 
-23.8.148 30-07-11
+23.8.148 23-07-11
 - Fix: Post Listing Carrusel data-control-position
 
-23.8.147 30-07-04
+23.8.147 23-07-04
 - Post Listing Carrusel: set default control position to center
 
-23.8.146 30-06-22
+23.8.146 23-06-30
 - Fixed v23ToggleBoxModule: preventDefault avoid links execution
 
 23.8.145 23-06-22

@@ -4141,6 +4141,23 @@ ul.page-numbers .next {
 	position: relative;
 }
 
+.scroll::-webkit-scrollbar,
+.expander-response::-webkit-scrollbar {
+	width: 4px;
+}
+
+.scroll::-webkit-scrollbar-track,
+.expander-response::-webkit-scrollbar-track {
+	background-color: currentColor;
+	border-radius: 4px;
+}
+
+.scroll::-webkit-scrollbar-thumb,
+.expander-response::-webkit-scrollbar-thumb {
+	background-color: #F8522C;
+	border-radius: 4px;
+}
+
 div.wpcf7 span.wpcf7-not-valid-tip {
 	text-align: right;
 	margin-top: -5px;
@@ -5246,6 +5263,57 @@ li.product:before {
 	border: 0;
 	border-radius: 0 25px 0 25px;
 	padding: 18px 23px;
+}
+
+.posts-listing--portfolio1 .post-card {
+	position: static !important;
+}
+
+.expander {
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: auto;
+	padding: 30px;
+}
+
+.expander-inner {
+	position: relative;
+	padding: 30px 0;
+}
+
+.expander-response {
+	overflow: auto;
+	min-height: 380px;
+}
+
+.expander-close {
+	position: absolute;
+	width: 23px;
+	height: 23px;
+	top: 25px;
+	right: 30px;
+	cursor: pointer;
+}
+
+.expander-close::before,
+.expander-close::after {
+	content: "";
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	left: 0;
+	height: 1px;
+	background: currentColor;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.expander-close::after {
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	transform: rotate(-45deg);
 }
 
 @media only screen and (min-width: 395px) {

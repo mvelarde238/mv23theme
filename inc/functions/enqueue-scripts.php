@@ -51,7 +51,10 @@ function mv23_scripts_and_styles() {
             'listing_loading_text' => LISTING_LOADING_TEXT,
             'modal' => array(
                 'outDuration' => MODAL_OUT_DURATION
-            )
+            ),
+            'expanderHeight' => LISTING_PORTFOLIO_EXPANDER_HEIGHT,
+            'listingPortfolioScrollTo' => LISTING_PORTFOLIO_SCROLL_TO,
+            'listingPortfolioScrollDuration' => LISTING_PORTFOLIO_SCROLL_DURATION,
         )); 
 
         wp_enqueue_script( 'mv23-scripts' );
