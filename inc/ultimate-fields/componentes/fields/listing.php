@@ -34,7 +34,15 @@ $listing_fields_1 = array(
 
     Field::create( 'number', 'qty', 'Cantidad de posts' )->add_dependency('show','auto','=')->set_default_value(3)->set_width(25),
     Field::create( 'select', 'posttype', 'Tipo de Posts' )->add_dependency('show','auto','=')->add_options($listing_cpts)->set_width(25),
-    Field::create( 'multiselect', 'post_terms', 'Categoría' )->add_terms( 'category' )->add_dependency('show','auto','=')->add_dependency('posttype','post','=')->set_width(50),
+);
+
+if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
+    foreach($listing_taxonomies as $tax){
+        array_push($listing_fields_1, Field::create( 'multiselect', $tax['cpt_slug'].'_terms', 'Categoría' )->add_terms( $tax['slug'] )->add_dependency('show','auto','=')->add_dependency('posttype', $tax['cpt_slug'], '=')->set_width(50));
+    }
+}
+
+$listing_fields_2 = array( 
     Field::create( 'select', 'order', 'Orden' )->add_dependency('show','auto','=')->add_options(array(
         'DESC' => 'Descendente',
         'ASC' => 'Ascendente'
@@ -47,15 +55,7 @@ $listing_fields_1 = array(
         // 'comment_count' => 'Comentarios'
     ))->set_width(25),
     Field::create( 'number', 'offset', 'Offset' )->add_dependency('show','auto','=')->set_width(25),
-);
-
-if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
-    foreach($listing_taxonomies as $tax){
-        array_push($listing_fields_1, Field::create( 'multiselect', $tax['cpt_slug'].'_terms', 'Categoría' )->add_terms( $tax['slug'] )->add_dependency('show','auto','=')->add_dependency('posttype', $tax['cpt_slug'], '=')->set_width(50));
-    }
-}
-
-$listing_fields_2 = array( 
+    
     Field::create( 'tab', 'List Template'),
     Field::create( 'radio', 'list_template', 'Template' )->set_orientation( 'horizontal' )->add_options($listing_templates)->hide_label(),
     

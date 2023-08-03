@@ -81,7 +81,7 @@ if( !defined('SINGLE_MAIN_CONTENT_TEMPLATE') ) define ('SINGLE_MAIN_CONTENT_TEMP
 
 if( !defined('USE_PORTFOLIO_CPT') ) define( 'USE_PORTFOLIO_CPT', false);
 if( !defined('LISTING_CPTS') ) define( 'LISTING_CPTS', array('post' => 'Entradas'));
-if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array());
+if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array( array( 'cpt_slug' => 'post', 'slug' => 'category' ) ));
 if( !defined('LISTING_TEMPLATES') ) define( 'LISTING_TEMPLATES', array('' => 'Estilo por defecto', 'carrusel' => 'Carrusel', 'portfolio1' => 'Portfolio 1'));
 if( !defined('LISTING_PAGINATION_TYPES') ) define( 'LISTING_PAGINATION_TYPES', array('none' => 'Ninguno', 'classic' => 'Numérico', 'load_more' => 'Cargar más'));
 if( !defined('LISTING_POST_TEMPLATE') ) define( 'LISTING_POST_TEMPLATE', array('' => 'Estilo por defecto'));

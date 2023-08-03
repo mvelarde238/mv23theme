@@ -3,6 +3,9 @@ CHANGELOG
 **************************************************************************************************
 23.8.155 23-08-03
 - Posts Listing Comp: 'portfolio1' list template implementation
+- Listing Comp. fixes
+  removed post_terms custom field -> added to LISTING_TAXONOMIES
+  filter in listing view: if no term is selected use first taxonomy returned in get_object_taxonomies( $posttype )
 
 23.8.154 23-08-02
 - Content Slider carrusel rewind true

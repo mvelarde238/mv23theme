@@ -19,10 +19,13 @@ function print_posts_filter( $atts ) {
         $a['taxonomy'] = (count($taxonomies) > 0) ? $taxonomies[0] : 'category';
     }
 
+    $taxonomy_details = get_taxonomy( $a['taxonomy'] );
+    $taxonomy_label = $taxonomy_details->label; 
+
     $categories = get_terms( array( 'taxonomy' => $a['taxonomy'], 'hide_empty' => false ));
 
     $search = array( 'es' => 'BUSCAR:', 'en' => 'SEARCH:' );
-    $category = array( 'es' => 'CATEGORÍA:', 'en' => 'CATEGORY:' );
+    $category = array( 'es' => strtoupper($taxonomy_label).':', 'en' => __(strtoupper($taxonomy_label)).':' );
     $all = array( 'es' => 'Todas', 'en' => 'All' );
     $allm = array( 'es' => 'Todos', 'en' => 'All' );
     $month = array( 'es' => 'MES:', 'en' => 'MONTH:' );

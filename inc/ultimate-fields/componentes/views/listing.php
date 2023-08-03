@@ -56,6 +56,9 @@ if ($show == 'auto') {
             'include_children' => true,
             'operator' => 'IN'
         ));
+    } else {
+        $taxonomies = get_object_taxonomies( $posttype );
+        if(count($taxonomies) > 0) $taxonomy = $taxonomies[0];
     }
 }
 
@@ -86,9 +89,14 @@ if(!function_exists('post_listing_header')){
     <?php if($componente['filter']) {
         $show_tax = 0;
         $default_term = '';
+
         if( isset($componente['category-filter']) && $taxonomy){
             $show_tax = $componente['category-filter']['show'];
-            $default_term = $componente['category-filter'][$taxonomy.'_default'];
+            if( isset($componente['category-filter'][$taxonomy.'_default']) ){
+                $default_term = $componente['category-filter'][$taxonomy.'_default'];
+            } else {
+                $default_term = '';
+            }
         }
 
         $show_month = 0;

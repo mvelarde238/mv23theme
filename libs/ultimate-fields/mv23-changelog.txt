@@ -8,7 +8,7 @@ mv23 changelog-------------------------
 - (assets/css/ultimate-fields.css) fix z-index for select2 in popup
 
 03-06-2023
-- (core/classes/Field/Select.php) Add "--seleccionar--" as first option to give an empty option
+- (core/classes/Field/Select.php:206) Add "--seleccionar--" as first option to give an empty option
 
 27-05-2023
 - (assets/css/ultimate-fields.css) .uf-field[data-type='html'] textarea colors
