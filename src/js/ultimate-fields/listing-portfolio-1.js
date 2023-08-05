@@ -46,6 +46,9 @@
                         if(response) {
                             $postCard.find('.expander-loading').remove();
                             $postCard.find('.expander-response').css('height', expanderHeight).html( content.html() );
+
+                            // colorbox
+                            $postCard.find('.expander-response .zoom').colorbox({ rel:'expander-group', maxHeight:"96%", maxWidth: "96%" });
                         }
                     }
                 });

@@ -2,7 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 23.8.156 23-08-05
-- Posts Listing Comp: 'portfolio1' works with '.expander-open' class
+- Posts Listing Comp. 'portfolio1' Fixes: 
+  works with '.expander-open' class
+  inner colorbox implementation
 
 23.8.155 23-08-03
 - Posts Listing Comp: 'portfolio1' list template implementation

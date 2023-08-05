@@ -11675,7 +11675,7 @@ targetBlank();
         closeBtn = '<div class="expander-close"></div>',
         expanderInner = '<div class="expander-inner container">' + expanderResponse + closeBtn + '</div>',
         loading = '<div class="expander-loading"></div>';
-      $listing.on('click', 'a', function (event) {
+      $listing.on('click', '.expander-open', function (event) {
         event.preventDefault();
         var $postCard = $(this).parents('.post-card');
 
@@ -11707,6 +11707,13 @@ targetBlank();
             if (response) {
               $postCard.find('.expander-loading').remove();
               $postCard.find('.expander-response').css('height', expanderHeight).html(content.html());
+
+              // colorbox
+              $postCard.find('.expander-response .zoom').colorbox({
+                rel: 'expander-group',
+                maxHeight: "96%",
+                maxWidth: "96%"
+              });
             }
           }
         });
