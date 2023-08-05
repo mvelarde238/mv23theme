@@ -12,5 +12,5 @@ $imagen = get_the_post_thumbnail_url( $id, 'medium' );
 	<div class="post-card__imagen" style="background-image: url(<?=$imagen?>);"></div>
 	<p class="post-card__title"><?php echo $title; ?></p>
 	<p class="post-card__date"><i class="fa fa-calendar"></i> <?php printf( '%1$s','<time class="entry-time" datetime="' . get_the_time('Y-m-d', 	$id) . '" itemprop="datePublished">' . get_the_time(get_option('date_format'), $id) . '</time>'); ?></p>
-	<a class="post-card__link" href="<?=$link?>"></a>
+	<a class="post-card__link expander-open" href="<?=$link?>"></a>
 </div>
