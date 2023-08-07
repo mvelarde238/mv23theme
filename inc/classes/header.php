@@ -48,7 +48,10 @@ class Header{
  		} else {
  			$bgc = get_option( 'fixed_header_bgc' );
  		}
-		$style .= ($bgc && $bgc['add_bgc']) ? 'background-color: '.$bgc['bgc'].';' : '';
+
+		$alpha = ($bgc && isset($bgc['alpha'])) ? $bgc['alpha'] : '100';
+		$style .= ($bgc && $bgc['add_bgc']) ? 'background-color: rgba('.hexToRgb($bgc['bgc'],$alpha).');' : '';
+
 		if(!empty($style)) $style = 'style="'.$style.'"'; 
 		$this->style = $style;
  	}
