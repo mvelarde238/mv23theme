@@ -3,7 +3,8 @@ CHANGELOG
 **************************************************************************************************
 23.8.157 23-08-07
 - Columnas Comp. update video_settings options
-- Fixed Header alpha option implementation
+- Fixed Header alpha bgc option implementation
+- Page Settings alpha bgc option implementation
 
 23.8.156 23-08-05
 - Posts Listing Comp. 'portfolio1' Fixes: 
