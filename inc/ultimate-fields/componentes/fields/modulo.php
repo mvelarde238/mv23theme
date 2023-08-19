@@ -67,10 +67,7 @@ $modulos = Repeater_Group::create('Módulos')
         'text-color-default' => 'Negro',
         'text-color-2' => 'Blanco',
     ))->set_default_value(DEFAULT_TEXT_COLOR)->set_width(20)->add_dependency('edit_background'),
-    Field::create('checkbox', 'parallax', 'Parallax')->set_width(20)->add_dependency('edit_background'),
-
-    Field::create( 'checkbox', 'add_video_bg' )->set_text( 'Agregar video de fondo' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
-    Field::create( 'video', 'bgvideo', 'Video de Fondo' )->set_width( 25 )->add_dependency('add_video_bg'),
-    Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width( 75 )->add_dependency('add_video_bg')
+    Field::create('checkbox', 'parallax', 'Parallax')->set_width(20)->add_dependency('edit_background')
 ))
+->add_fields($video_background_fields)
 ->add_fields($scroll_animation_fields);

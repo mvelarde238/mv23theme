@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.158 23-08-19
+- move video background options to common settings
+
 23.8.157 23-08-07
 - Columnas Comp. update video_settings options
 - Fixed Header alpha bgc option implementation

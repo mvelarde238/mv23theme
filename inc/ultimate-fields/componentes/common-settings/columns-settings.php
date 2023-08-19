@@ -10,12 +10,6 @@ $columns_settings = array(
         Field::create( 'tab', 'Fondo' ),
     );
 
-    $video = array(
-        Field::create( 'checkbox', 'add_video_bg' )->set_text( 'Agregar video de fondo' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
-        Field::create( 'video', 'bgvideo', 'Video de Fondo' )->add_dependency('add_video_bg'),
-        Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->add_dependency('add_video_bg')
-    );
-
     $colores = array(
         Field::create( 'tab', 'Colores' ),
         Field::create( 'complex', 'color_de_fondo' )->add_fields(array(
@@ -58,7 +52,7 @@ $columns_settings = array(
     Container::create( 'column_fields' )
     ->add_fields($fondo)
     ->add_fields($fondo_complex)
-    ->add_fields($video)
+    ->add_fields($video_background_fields)
     ->add_fields($colores)
     ->add_fields($bordes)
     ->add_fields($box_shadow)
