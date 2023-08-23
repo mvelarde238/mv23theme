@@ -3211,3 +3211,8 @@ h2.uf-add-term-title {
 .select2-container {
   z-index: 170000;
 }
+
+.uf-gallery-image img {
+  height: 100%;
+  width: auto;
+}

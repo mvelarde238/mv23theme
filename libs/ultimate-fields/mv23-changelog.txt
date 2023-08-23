@@ -1,5 +1,8 @@
 mv23 changelog-------------------------
 
+23-08-2023
+- (assets/css/ultimate-fields.css:3215) fix gallery images size
+
 02-08-2023
 - (core/classes/Field/Gallery.php) allow 'all' file types instead of just 'image'
 - (core/js/field/gallery.js) dont remove attachment from Medios and allow other file types
