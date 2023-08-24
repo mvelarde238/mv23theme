@@ -41,11 +41,7 @@ function video_background($componente){
         if( $video_url ){
             $video_background['url'] = $video_url;
             $video_background['class'] = $class;
-
-            $youtube_pattern = '/^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/';
-            preg_match($youtube_pattern, $video_url, $matches);
-            $video_id = $matches[count($matches)-1];
-
+            $video_id = get_video_details_from_url($video_url)['id'];
             $video_background['code'] = '<iframe '.$video_style.' src="https://www.youtube.com/embed/'.$video_id.'?showinfo=0&rel=0';
             if( $video_type != 'playable' ) $video_background['code'] .= '&controls=0';
             if( $video_settings['muted'] ) $video_background['code'] .= '&mute=1';

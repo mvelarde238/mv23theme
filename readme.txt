@@ -5,6 +5,7 @@ CHANGELOG
 - Gallery Comp. dosn´t depend on wp media folder plugin
 - Image/Video Comp. improvements to detect youtube video id
 - Transform document links (.docx, .pptx, .xlsxs) into embed iframe in single page
+- utils: get_video_details_from_url( $url ) function implementation
 
 23.8.158 23-08-19
 - move video background options to common settings
