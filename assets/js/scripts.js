@@ -12755,6 +12755,23 @@ function animateWidth(elem, start, end, duration, spanElem) {
       convertir_links_en_pdf(links);
     }
 
+    // ****************************************************************************************************
+    // CONVERTIR ENLACES A DOCUMENTOS EN UN VISOR
+    // ****************************************************************************************************
+    function convertir_docs(links) {
+      if (links.length > 0) {
+        for (var i = 0; i < links.length; i++) {
+          var href = $(links[i]).attr('href');
+          $(links[i]).append(' <i class="fa fa-level-down"></i>');
+          $('<div class="pdf-responsive"><iframe src="https://view.officeapps.live.com/op/embed.aspx?src=' + href + '" width="100%" height="565px" frameborder="0"></iframe></div>').insertAfter($(links[i]).parent());
+        }
+      }
+    }
+    if (is_single) {
+      var links = $('.main').find('a[href*=".docx"], a[href*=".pptx"], a[href*=".xlsxs"]');
+      convertir_docs(links);
+    }
+
     // *********************************************************************
     // REMOVE ACTIVE IN MENU ITEMS WITH ANCHOR
     // *********************************************************************

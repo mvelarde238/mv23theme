@@ -4,6 +4,7 @@ CHANGELOG
 23.8.159 23-08-23
 - Gallery Comp. dosn´t depend on wp media folder plugin
 - Image/Video Comp. improvements to detect youtube video id
+- Transform document links (.docx, .pptx, .xlsxs) into embed iframe in single page
 
 23.8.158 23-08-19
 - move video background options to common settings
