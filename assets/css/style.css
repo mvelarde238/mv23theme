@@ -874,7 +874,7 @@ img.aligncenter {
 
 .container {
 	margin: 0 auto;
-	max-width: 1280px;
+	max-width: 1240px;
 	width: 98%;
 }
 
@@ -6214,12 +6214,12 @@ li.product:before {
 }
 
 .columnas.layout4 > div > div[class^=columnas] > div .extended-bg-first {
-	left: calc((1280px - 100vw) / 2);
+	left: calc((1240px - 100vw) / 2);
 	right: 0;
 }
 
 .columnas.layout4 > div > div[class^=columnas] > div .extended-bg-last {
-	right: calc((1280px - 100vw) / 2);
+	right: calc((1240px - 100vw) / 2);
 	left: 0;
 }
 

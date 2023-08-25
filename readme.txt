@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.160 23-08-25
+- Add $container-width css var to use in .extended-bg columns
+
 23.8.159 23-08-23
 - Gallery Comp. dosn´t depend on wp media folder plugin
 - Image/Video Comp. improvements to detect youtube video id
