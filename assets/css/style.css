@@ -4812,6 +4812,9 @@ li.product:before {
 .carrusel__item--image {
 	text-align: center;
 	position: relative;
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
 }
 
 .carrusel__item--image img {
