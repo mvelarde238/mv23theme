@@ -69,13 +69,10 @@ $card = Repeater_Group::create( 'Card', array(
             'flex-end' => 'Abajo',
             'space-between' => 'Distribuir'
         ))->add_dependency('aspect_ratio','aspect-ratio-default','!='),
-
-        Field::create( 'tab', 'Video Card' ),
-        Field::create( 'video', 'bgvideo', 'Video de Fondo' ),
-        Field::create( 'number', 'video_opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 ),
         
         Field::create( 'tab', 'Otros' ),
         Field::create( 'number', 'components_margin', 'Márgenes de los componentes internos' )->enable_slider( 0, 20 )->set_default_value(20)
     )
 ))
+->add_fields($acciones_fields)
 ->add_fields($settings_fields_container->get_fields());
