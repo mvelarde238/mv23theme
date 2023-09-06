@@ -155,6 +155,9 @@ $footer_fields = array(
 if (IS_MULTILANGUAGE) {
     array_push($footer_fields, Field::create( 'tab', 'English' ));
     array_push($footer_fields, Field::create( 'repeater', 'footer_modules_en' )->hide_label()->set_add_text('Add Module')->add_group($modulos));
+
+    array_push($footer_fields, Field::create( 'tab', 'Portugués' ));
+    array_push($footer_fields, Field::create( 'repeater', 'footer_modules_pt' )->hide_label()->set_add_text('Adicionar Módulo')->add_group($modulos));
 }
 
 Container::create( 'footer_options' ) 

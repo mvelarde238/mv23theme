@@ -11,6 +11,8 @@ function ultimate_fields_page_content($id = null)
 		$current_lang = (function_exists('pll_current_language')) ? pll_current_language() : '';
 		if (!empty($current_lang) && $current_lang == 'en') {
 			$modulos = get_option('footer_modules_en');
+		} else if (!empty($current_lang) && $current_lang == 'pt') {
+			$modulos = get_option('footer_modules_pt');
 		} else {
 			$modulos = get_option('footer_modules');
 		}
