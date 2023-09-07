@@ -100,7 +100,7 @@
         // ****************************************************************************************************
         // CONVERTIR ENLACES A PDF EN PDF
         // ****************************************************************************************************
-        var is_single = $('body').hasClass('single-post');
+        var is_single = $('body').hasClass('single');
         
         function convertir_links_en_pdf(links){
             if (links.length > 0) {
