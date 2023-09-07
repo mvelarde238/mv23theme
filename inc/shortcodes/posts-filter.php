@@ -3,29 +3,24 @@ function print_posts_filter( $atts ) {
 	$a = shortcode_atts( array(
         'posttype' => 'posts',
         'firstyear' => 2012,
-        'show_tax' => 1,
+        // 'show_tax' => 1,
         'show_month' => 1,
         'show_year' => 1,
-        'taxonomy' => null,
-        'default_term' => '',
-        'default_year' => ''
+        'default_year' => '',
+        // 'taxonomy' => null,
+        // 'default_term' => '',
+        'taxonomies' => null,
+        'default_terms' => null
     ), $atts );
 
     $current_year = date('Y');
     $first_year = ($a['firstyear'] == '') ? $current_year : $a['firstyear'];
 
-    if( $a['taxonomy'] == null ){
-        $taxonomies = get_object_taxonomies( $a['posttype'] );
-        $a['taxonomy'] = (count($taxonomies) > 0) ? $taxonomies[0] : 'category';
-    }
-
-    $taxonomy_details = get_taxonomy( $a['taxonomy'] );
-    $taxonomy_label = $taxonomy_details->label; 
-
-    $categories = get_terms( array( 'taxonomy' => $a['taxonomy'], 'hide_empty' => false ));
+    $taxonomies = explode(',',$a['taxonomies']);
+    $default_terms = explode(',',$a['default_terms']);
+    if( !is_array( $default_terms ) ) $default_terms = array();
 
     $search = array( 'es' => 'BUSCAR:', 'en' => 'SEARCH:' );
-    $category = array( 'es' => strtoupper($taxonomy_label).':', 'en' => __(strtoupper($taxonomy_label)).':' );
     $all = array( 'es' => 'Todas', 'en' => 'All' );
     $allm = array( 'es' => 'Todos', 'en' => 'All' );
     $month = array( 'es' => 'MES:', 'en' => 'MONTH:' );
@@ -43,17 +38,30 @@ function print_posts_filter( $atts ) {
                 <span class="field-desc"><?php echo $search[$current_lang] ?></span>
                 <input type="text" class="posts-filter__search-input">
             </div>
-            <?php if ($a['show_tax']) : ?>
-            <div class="field-wrapper">
-                <span class="field-desc"><?php echo $category[$current_lang] ?></span>
-                <select class="posts-filter__term-select">
-                    <option value=""><?php echo $all[$current_lang] ?></option>
-                    <?php foreach ($categories as $cat): ?>
-                        <option value="<?php echo $cat->term_id ?>" <?php selected( $a['default_term'], $cat->term_id, true) ?>><?php echo $cat->name ?></option>
-                    <?php endforeach ?>
-                </select>
-            </div>
-            <?php endif; ?>
+            <?php if ( is_array($taxonomies) && count($taxonomies) > 0 ) : 
+                $count = 0;
+                foreach ($taxonomies as $tax) { 
+                    $taxonomy = get_taxonomy( $tax );
+                    if( $taxonomy ){
+                        $taxonomy_label = $taxonomy->label; 
+                        $tax_name = array( 'es' => strtoupper($taxonomy_label).':', 'en' => __(strtoupper($taxonomy_label)).':' );
+                        $terms = get_terms( array( 'taxonomy' => $tax, 'hide_empty' => false ));
+                        $default_term = ( isset($default_terms[$count]) ) ? $default_terms[$count] : 0;
+                        ?>
+                        <div class="field-wrapper">
+                            <span class="field-desc"><?php echo $tax_name[$current_lang] ?></span>
+                            <select class="posts-filter__term-select">
+                                <option value=""><?php echo $all[$current_lang] ?></option>
+                                <?php foreach ($terms as $term): ?>
+                                    <option value="<?php echo $term->term_id ?>" <?php selected( $default_term, $term->term_id, true) ?>><?php echo $term->name ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                        <?php
+                    }
+                    $count++; 
+                } 
+            endif; ?>
             <?php if ($a['show_month']) : ?>
             <div class="field-wrapper">
                 <span class="field-desc"><?php echo $month[$current_lang] ?></span>
@@ -79,7 +87,7 @@ function print_posts_filter( $atts ) {
             <?php endif; ?>
             <div class="field-wrapper">
                 <input type="hidden" value="<?=$a['posttype']?>" class="posts-filter__posttype">
-                <input type="hidden" value="<?=$a['taxonomy']?>" class="posts-filter__taxonomy">
+                <input type="hidden" value="<?=$a['taxonomies']?>" class="posts-filter__taxonomies">
                 <button class="posts-filter__submit btn"><?php echo $filter[$current_lang] ?></button>
             </div>
         </form>

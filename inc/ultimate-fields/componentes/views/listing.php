@@ -13,8 +13,8 @@ $m_gap = $componente['m_gap'];
 $post_template = $componente['post_template'];
 $list_template = $componente['list_template'];
 $scrolltop = ( isset($componente['scrolltop']) ) ? $componente['scrolltop'] : '';
-$taxonomy = null;
-$terms_in = null;
+$taxonomies = array();
+$default_terms = array();
 
 if ($show == 'manual') {
     $posttype = '';
@@ -44,21 +44,38 @@ if ($show == 'auto') {
         'offset' => $offset,
         'post_status' => 'publish'
     );
-    
-    $cpt_terms = ( isset($componente[$posttype.'_terms']) ) ? $componente[$posttype.'_terms'] : null;
-    if( is_array($cpt_terms) && count($cpt_terms) > 0 && !empty($cpt_terms[0]) ){
-        $taxonomy = get_taxonomy_by_term_id($cpt_terms[0]);
-        $terms_in = implode(',',$cpt_terms);
-        $args_query['tax_query'] = array(array(
-            'taxonomy' => $taxonomy,
-            'field' => 'term_id',
-            'terms' => array( $terms_in ),
-            'include_children' => true,
-            'operator' => 'IN'
-        ));
-    } else {
-        $taxonomies = get_object_taxonomies( $posttype );
-        if(count($taxonomies) > 0) $taxonomy = $taxonomies[0];
+
+    // check if tax_query is needed 
+    $taxonomy_field = ( isset($componente['taxonomies_field']) ) ? $componente['taxonomies_field'] : null;
+    $pt_taxonomies = get_object_taxonomies( $posttype ); // get taxonomies for selected posttype 
+
+    if( is_array($taxonomy_field) ){    
+        $tax_query = array( 'relation' => 'AND' );
+        foreach ($taxonomy_field as $tax => $terms) {
+            // create tax_query if tax belongs to selected posttype and there are selected terms
+            if( in_array($tax,$pt_taxonomies) && count($terms) > 0 ){
+                array_push($tax_query, array(
+                    'taxonomy' => $tax,
+                    'field' => 'term_id',
+                    'terms' => $terms,
+                    'include_children' => true,
+                    'operator' => 'IN'
+                ));
+            }
+        }
+        if( count($tax_query) > 1 ) $args_query['tax_query'] = $tax_query;
+    }
+
+    // taxonomies and default terms for filter
+    foreach($pt_taxonomies as $tax){
+        if( isset($componente[$tax.'-filter'])){
+            $show_tax = $componente[$tax.'-filter']['show'];
+            if($show_tax){
+                $default_term = $componente[$tax.'-filter']['default_value'];
+                array_push($taxonomies,$tax);
+                array_push($default_terms,$default_term);
+            }
+        }
     }
 }
 
@@ -78,8 +95,8 @@ if(!function_exists('post_listing_header')){
 ?>
 <div <?=$attributes?> 
     data-posttype="<?=$posttype?>" 
-    data-taxonomy="<?=$taxonomy?>" 
-    data-term="<?=$terms_in?>" 
+    data-taxonomies="<?php echo implode(',',$taxonomies) ?>" 
+    data-terms="<?php echo implode(',',$default_terms) ?>" 
     data-qty="<?=$qty?>" 
     data-offset="<?=$offset?>" 
     data-order="<?=$order?>" 
@@ -87,18 +104,6 @@ if(!function_exists('post_listing_header')){
     post-template="<?=$post_template?>"
     data-scrolltop="<?=$scrolltop?>">
     <?php if($componente['filter']) {
-        $show_tax = 0;
-        $default_term = '';
-
-        if( isset($componente['category-filter']) && $taxonomy){
-            $show_tax = $componente['category-filter']['show'];
-            if( isset($componente['category-filter'][$taxonomy.'_default']) ){
-                $default_term = $componente['category-filter'][$taxonomy.'_default'];
-            } else {
-                $default_term = '';
-            }
-        }
-
         $show_month = 0;
         if( isset($componente['month-filter']) ){
             $show_month = $componente['month-filter']['show'];
@@ -113,7 +118,7 @@ if(!function_exists('post_listing_header')){
             $default_year = $componente['year-filter']['default'];
         }
         
-        echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_year="'.$show_year.'" show_month="'.$show_month.'" show_tax="'.$show_tax.'" taxonomy="'.$taxonomy.'" default_term="'.$default_term.'" default_year="'.$default_year.'"]');
+        echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_year="'.$show_year.'" show_month="'.$show_month.'" default_year="'.$default_year.'" taxonomies="'.implode(',',$taxonomies).'" default_terms="'.implode(',',$default_terms).'"]');
     };
     
     if(WOOCOMMERCE_IS_ACTIVE && $posttype == 'product') echo do_shortcode('[shop_messages]');

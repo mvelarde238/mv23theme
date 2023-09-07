@@ -37,9 +37,13 @@ $listing_fields_1 = array(
 );
 
 if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
+    $taxonomies_field = Field::create( 'complex', 'taxonomies_field' )->set_width(50)->hide_label();
     foreach($listing_taxonomies as $tax){
-        array_push($listing_fields_1, Field::create( 'multiselect', $tax['cpt_slug'].'_terms', 'Categoría' )->add_terms( $tax['slug'] )->add_dependency('show','auto','=')->add_dependency('posttype', $tax['cpt_slug'], '=')->set_width(50));
+        $taxonomies_field->add_fields( array(
+            Field::create( 'multiselect', $tax['slug'] )->add_terms( $tax['slug'] )->add_dependency('../show','auto','=')->add_dependency('../posttype', $tax['cpt_slug'], '=')->set_width(20) 
+        ));
     }
+    array_push($listing_fields_1, $taxonomies_field);
 }
 
 $listing_fields_2 = array( 
@@ -85,24 +89,27 @@ $listing_fields_2 = array(
 
 $listing_fields_filter = array(
     Field::create( 'tab', 'Filter')->add_dependency('list_template','carrusel','!='),
-    Field::create( 'checkbox', 'filter', 'Filtro' )->set_text( 'Mostrar Filtros' )->set_width(20)
+    Field::create( 'checkbox', 'filter', 'Filtro' )->set_text( 'Mostrar Filtros' )->set_width(10)
 );
 
-$category_filter_complex_fields = array( Field::create( 'checkbox', 'show' )->set_text( 'Mostrar' )->hide_label() );
 if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
     foreach($listing_taxonomies as $tax){
-        array_push($category_filter_complex_fields, Field::create( 'select', $tax['slug'].'_default', 'Default value' )->add_terms( $tax['slug'] )->add_dependency('show')->add_dependency('../show','auto','=')->add_dependency('../posttype', $tax['cpt_slug'], '=') );
+        array_push($listing_fields_filter, 
+            Field::create( 'complex', $tax['slug'].'-filter', $tax['slug'] )->add_fields(array(
+                Field::create( 'checkbox', 'show' )->set_text( 'Mostrar' )->hide_label(),
+                Field::create( 'select', 'default_value' )->add_terms( $tax['slug'] )->add_dependency('show')
+            ))->add_dependency('filter')->add_dependency('show','auto','=')->add_dependency('posttype', $tax['cpt_slug'], '=')->set_width(10)
+        );
     }
 }
-array_push($listing_fields_filter, Field::create( 'complex', 'category-filter', 'Categoría' )->add_fields($category_filter_complex_fields)->add_dependency('filter')->set_width(20) );
 
-array_push($listing_fields_filter, Field::create( 'complex', 'month-filter', 'Mes' )->add_fields(array(Field::create( 'checkbox', 'show' )->set_text( 'Mostrar' )->hide_label()))->add_dependency('filter')->set_width(20) );
+array_push($listing_fields_filter, Field::create( 'complex', 'month-filter', 'Mes' )->add_fields(array(Field::create( 'checkbox', 'show' )->set_text( 'Mostrar' )->hide_label()))->add_dependency('filter')->set_width(10) );
 
 array_push($listing_fields_filter, Field::create( 'complex', 'year-filter', 'Año' )->add_fields(array(
     Field::create( 'checkbox', 'show' )->set_text( 'Mostrar' )->hide_label(),
     Field::create( 'number', 'first_year', 'Primer Año' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value(2012)->set_width(50),
     Field::create( 'number', 'default', 'Default value' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value('')->set_width(50),
-))->add_dependency('filter')->set_width(20) );
+))->add_dependency('filter')->set_width(10) );
 
 $listing = Repeater_Group::create( 'Listing', array())
 ->add_fields($listing_fields_1)

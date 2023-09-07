@@ -14,8 +14,8 @@ if( !function_exists('load_posts') ){
 
         $posttype = $_REQUEST["posttype"];
         $paged = $_REQUEST["paged"];
-        $taxonomy = $_REQUEST["taxonomy"];
-        $term = $_REQUEST["term"];
+        $taxonomies = explode(',',$_REQUEST["taxonomies"]);
+        $terms = explode(',',$_REQUEST["terms"]);
         $search = $_REQUEST["search"];
         $year = $_REQUEST["year"];
         $month = $_REQUEST["month"];
@@ -38,14 +38,22 @@ if( !function_exists('load_posts') ){
                 'post_status' => 'publish',
             );
 
-            if($taxonomy && $term){
-                $args_query['tax_query'] = array(array(
-                    'taxonomy' => $taxonomy,
-                    'field' => 'term_id',
-                    'terms' => array( $term ),
-                    'include_children' => true,
-                    'operator' => 'IN'
-                ));
+            if( is_array($taxonomies) && is_array($terms) ){
+                $tax_query = array( 'relation' => 'AND' );
+                $count = 0;
+                foreach ($taxonomies as $tax) {
+                    if( isset($terms[$count]) && !empty($terms[$count]) ){   
+                        array_push($tax_query, array(
+                            'taxonomy' => $tax,
+                            'field' => 'term_id',
+                            'terms' => array( $terms[$count] ),
+                            'include_children' => true,
+                            'operator' => 'IN'
+                        ));
+                    }
+                    $count++;
+                }
+                if( count($tax_query) > 1 ) $args_query['tax_query'] = $tax_query;
             }
 
             if ($search) {
@@ -103,6 +111,7 @@ if( !function_exists('load_posts') ){
             else:
                 $result['status'] = "error";
                 $result['message'] = $texts[0][$lang];
+                $result['tax_query'] = $tax_query;
             endif;
 
         } else {

@@ -5,7 +5,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 /*
  * jQuery Easing v1.4.0 - http://gsgd.co.uk/sandbox/jquery/easing/
  * Open source under the BSD License.
@@ -436,32 +436,33 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
     function p(e, t) {
       if (!b.State.calls[e]) return !1;
       var _loop = function _loop() {
-        p = r[u].element;
-        if (t || o.loop || ("none" === o.display && S.setPropertyValue(p, "display", o.display), "hidden" === o.visibility && S.setPropertyValue(p, "visibility", o.visibility)), o.loop !== !0 && (f.queue(p)[1] === a || !/\.velocityQueueEntryFlag/i.test(f.queue(p)[1])) && i(p)) {
-          i(p).isAnimating = !1, i(p).rootPropertyValueCache = {};
-          d = !1;
-          f.each(S.Lists.transforms3D, function (e, t) {
-            var r = /^scale/.test(t) ? 1 : 0,
-              n = i(p).transformCache[t];
-            i(p).transformCache[t] !== a && new RegExp("^\\(" + r + "[^.]").test(n) && (d = !0, delete i(p).transformCache[t]);
-          }), o.mobileHA && (d = !0, delete i(p).transformCache.translate3d), d && S.flushTransformCache(p), S.Values.removeClass(p, "velocity-animating");
-        }
-        if (!t && o.complete && !o.loop && u === c - 1) try {
-          o.complete.call(n, n);
-        } catch (g) {
-          setTimeout(function () {
-            throw g;
-          }, 1);
-        }
-        s && o.loop !== !0 && s(n), i(p) && o.loop === !0 && !t && (f.each(i(p).tweensContainer, function (e, t) {
-          /^rotate/.test(e) && 360 === parseFloat(t.endValue) && (t.endValue = 0, t.startValue = 360), /^backgroundPosition/.test(e) && 100 === parseFloat(t.endValue) && "%" === t.unitType && (t.endValue = 0, t.startValue = 100);
-        }), b(p, "reverse", {
-          loop: !0,
-          delay: o.delay
-        })), o.queue !== !1 && f.dequeue(p, o.queue);
-      };
+          p = r[u].element;
+          if (t || o.loop || ("none" === o.display && S.setPropertyValue(p, "display", o.display), "hidden" === o.visibility && S.setPropertyValue(p, "visibility", o.visibility)), o.loop !== !0 && (f.queue(p)[1] === a || !/\.velocityQueueEntryFlag/i.test(f.queue(p)[1])) && i(p)) {
+            i(p).isAnimating = !1, i(p).rootPropertyValueCache = {};
+            d = !1;
+            f.each(S.Lists.transforms3D, function (e, t) {
+              var r = /^scale/.test(t) ? 1 : 0,
+                n = i(p).transformCache[t];
+              i(p).transformCache[t] !== a && new RegExp("^\\(" + r + "[^.]").test(n) && (d = !0, delete i(p).transformCache[t]);
+            }), o.mobileHA && (d = !0, delete i(p).transformCache.translate3d), d && S.flushTransformCache(p), S.Values.removeClass(p, "velocity-animating");
+          }
+          if (!t && o.complete && !o.loop && u === c - 1) try {
+            o.complete.call(n, n);
+          } catch (g) {
+            setTimeout(function () {
+              throw g;
+            }, 1);
+          }
+          s && o.loop !== !0 && s(n), i(p) && o.loop === !0 && !t && (f.each(i(p).tweensContainer, function (e, t) {
+            /^rotate/.test(e) && 360 === parseFloat(t.endValue) && (t.endValue = 0, t.startValue = 360), /^backgroundPosition/.test(e) && 100 === parseFloat(t.endValue) && "%" === t.unitType && (t.endValue = 0, t.startValue = 100);
+          }), b(p, "reverse", {
+            loop: !0,
+            delay: o.delay
+          })), o.queue !== !1 && f.dequeue(p, o.queue);
+        },
+        p,
+        d;
       for (var r = b.State.calls[e][0], n = b.State.calls[e][1], o = b.State.calls[e][2], s = b.State.calls[e][4], l = !1, u = 0, c = r.length; c > u; u++) {
-        var p, d;
         _loop();
       }
       b.State.calls[e] = !1;
@@ -11731,7 +11732,7 @@ targetBlank();
   var $components = $('.componente.listing');
   var current_lang = MV23_GLOBALS.lang;
   var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
-  function do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order, orderby, offset) {
+  function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset) {
     $.ajax({
       type: 'POST',
       dataType: "json",
@@ -11741,14 +11742,14 @@ targetBlank();
         nonce: MV23_GLOBALS.nonce,
         lang: MV23_GLOBALS.lang,
         post_template: post_template,
-        term: filterValues.areParams ? filterValues.term : term,
+        terms: filterValues.areParams ? filterValues.terms : terms,
         paged: paged || 1,
         per_page: per_page,
         offset: offset,
         order: order,
         orderby: orderby,
         posttype: posttype,
-        taxonomy: taxonomy,
+        taxonomies: taxonomies,
         search: filterValues.search,
         year: filterValues.year,
         month: filterValues.month
@@ -11794,14 +11795,32 @@ targetBlank();
     });
   }
   function getFilterValues($filter) {
-    var term = $filter.length ? $filter.find('.posts-filter__term-select').val() : '',
-      year = $filter.length ? $filter.find('.posts-filter__year-select').val() : '',
-      month = $filter.length ? $filter.find('.posts-filter__month-select').val() : '',
-      search = $filter.length ? $filter.find('.posts-filter__search-input').val() : '';
-    var areParams = term == '' && year == '' && month == '' && search == '' ? false : true;
+    var $year_selector = $filter.find('.posts-filter__year-select'),
+      $month_selector = $filter.find('.posts-filter__month-select'),
+      $search_input = $filter.find('.posts-filter__search-input'),
+      $terms_selects = $filter.find('.posts-filter__term-select'),
+      year = $year_selector.length ? $year_selector.val() : '',
+      month = $month_selector.length ? $month_selector.val() : '',
+      search = $search_input.length ? $search_input.val() : '',
+      terms = '';
+    if ($terms_selects.length) {
+      var term_values = [];
+      $terms_selects.each(function (i, elem) {
+        term_values.push($(elem).val());
+      });
+      var are_terms_selected = false;
+      for (var i = 0; i < term_values.length; i++) {
+        if (term_values != '') {
+          are_terms_selected = true;
+          break;
+        }
+      }
+      if (are_terms_selected) terms = term_values.join();
+    }
+    var areParams = terms == '' && year == '' && month == '' && search == '' ? false : true;
     return {
       areParams: areParams,
-      term: term,
+      terms: terms,
       search: search,
       year: year,
       month: month
@@ -11820,8 +11839,8 @@ targetBlank();
           paged = url.searchParams.get("paged"),
           $pagination = $component.find('.pagination'),
           posttype = $component.attr("data-posttype"),
-          taxonomy = $component.attr("data-taxonomy"),
-          term = $component.attr("data-term"),
+          taxonomies = $component.attr("data-taxonomies"),
+          terms = $component.attr("data-terms"),
           post_template = $component.attr("post-template"),
           per_page = $component.attr("data-qty"),
           offset = $component.attr("data-offset"),
@@ -11829,7 +11848,7 @@ targetBlank();
           orderby = $component.attr("data-orderby"),
           action = 'replace',
           filterValues = getFilterValues($filter);
-        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order, orderby, offset);
+        do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset);
       });
       $component.on('click', '.load_more_posts', function (event) {
         event.preventDefault();
@@ -11837,8 +11856,8 @@ targetBlank();
           paged = $this.attr("data-paged"),
           $pagination = null,
           posttype = $component.attr("data-posttype"),
-          taxonomy = $component.attr("data-taxonomy"),
-          term = $component.attr("data-term"),
+          taxonomies = $component.attr("data-taxonomies"),
+          terms = $component.attr("data-terms"),
           post_template = $component.attr("post-template"),
           per_page = $component.attr("data-qty"),
           offset = $component.attr("data-offset"),
@@ -11846,14 +11865,14 @@ targetBlank();
           orderby = $component.attr("data-orderby"),
           action = 'append',
           filterValues = getFilterValues($filter);
-        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order, orderby, offset);
+        do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset);
       });
       $component.on('click', '.posts-filter__submit', function (ev) {
         ev.preventDefault();
         var $pagination = $component.find('.pagination'),
           posttype = $component.attr("data-posttype"),
-          taxonomy = $component.attr("data-taxonomy"),
-          term = $component.attr("data-term"),
+          taxonomies = $component.attr("data-taxonomies"),
+          terms = $component.attr("data-terms"),
           post_template = $component.attr("post-template"),
           per_page = $component.attr("data-qty"),
           offset = $component.attr("data-offset"),
@@ -11862,7 +11881,7 @@ targetBlank();
           paged = 1,
           action = 'replace',
           filterValues = getFilterValues($filter);
-        do_the_ajax($component, term, paged, post_template, per_page, $listing, $pagination, posttype, taxonomy, action, filterValues, order, orderby, offset);
+        do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset);
       });
       $component.on('listingUpdated', function (e, data) {
         e.preventDefault();
