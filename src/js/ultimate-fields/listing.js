@@ -4,7 +4,7 @@
     var current_lang = MV23_GLOBALS.lang;
     var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
 
-    function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset){
+    function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template){
         $.ajax({
             type: 'POST',
             dataType: "json",
@@ -14,6 +14,7 @@
                 nonce: MV23_GLOBALS.nonce,
                 lang: MV23_GLOBALS.lang,
                 post_template: post_template,
+                listing_template: listing_template,
                 terms: (filterValues.areParams) ? filterValues.terms : terms,
                 paged: paged || 1,
                 per_page: per_page,
@@ -32,11 +33,26 @@
             },
             success: function(response) {
                 $component.attr('data-status','loaded');
+                var $items_container = ( listing_template === 'carrusel' ) ? $listing.find('.carrusel__slider') : $listing;
+                if ( listing_template === 'carrusel' ) {
+                    var tns_uid = $listing.find('.carrusel').attr('data-tns-uid');
+                    var carousel = MV23_GLOBALS.carousels[ tns_uid ];
+                }
+
                 switch(response.status){
                     case 'success':
                         var $items = $(response.posts);
-                        if(action === 'replace') $listing.html($items);
-                        if(action === 'append') $listing.append($items);
+
+                        if ( listing_template === 'carrusel' ){
+                            carousel.destroy();
+                            $items_container = $listing.find('.carrusel__slider');
+                            if(action === 'replace') $items_container.html('');
+                        } 
+                        if(action === 'replace') $items_container.html($items);
+                        if(action === 'append') $items_container.append($items);
+                        if ( listing_template === 'carrusel' ) MV23_GLOBALS.carousels[ tns_uid ] = create_tns_slider( $items_container[0] );
+                        if(action === 'append') MV23_GLOBALS.carousels[ tns_uid ].goTo('next');
+
                         $listing.trigger('listingUpdated', {listing:$listing, items:$items, action:action, response:response});
                         $pagination && $pagination.html(response.pagination);
 
@@ -47,7 +63,13 @@
                         }
                         break;
                     case 'error':
-                        $listing.html('<p class="center posts-filter-error-msg">'+response.message+'</p>');
+                        if ( listing_template === 'carrusel' ) {
+                            carousel.destroy();
+                            $items_container = $listing.find('.carrusel__slider');
+                            $items_container.html('');
+                        }
+                        $items_container.html('<p class="center posts-filter-error-msg">'+response.message+'</p>');
+                        if ( listing_template === 'carrusel' ) MV23_GLOBALS.carousels[ tns_uid ] = create_tns_slider( $items_container[0] );
                         $pagination && $pagination.html('');
                         break;
                     default:
@@ -103,6 +125,7 @@
                     taxonomies = $component.attr("data-taxonomies"),
                     terms = $component.attr("data-terms"),
                     post_template = $component.attr("post-template"),
+                    listing_template = $component.attr("listing-template"),
                     per_page = $component.attr("data-qty"),
                     offset = $component.attr("data-offset"),
                     order = $component.attr("data-order"),
@@ -110,7 +133,7 @@
                     action = 'replace',
                     filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template);
             });
             
             $component.on('click','.load_more_posts', function(event){
@@ -122,6 +145,7 @@
                     taxonomies = $component.attr("data-taxonomies"),
                     terms = $component.attr("data-terms"),
                     post_template = $component.attr("post-template"),
+                    listing_template = $component.attr("listing-template"),
                     per_page = $component.attr("data-qty"),
                     offset = $component.attr("data-offset"),
                     order = $component.attr("data-order"),
@@ -129,7 +153,7 @@
                     action = 'append',
                     filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template);
             });
             
             $component.on('click','.posts-filter__submit',function(ev){
@@ -139,6 +163,7 @@
                     taxonomies = $component.attr("data-taxonomies"),
                     terms = $component.attr("data-terms"),
                     post_template = $component.attr("post-template"),
+                    listing_template = $component.attr("listing-template"),
                     per_page = $component.attr("data-qty"),
                     offset = $component.attr("data-offset"),
                     order = $component.attr("data-order"),
@@ -147,7 +172,7 @@
                     action = 'replace',
                     filterValues = getFilterValues($filter);
 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template);
             });
 
             $component.on('listingUpdated', function(e,data){

@@ -11,7 +11,7 @@ $l_gap = $componente['l_gap'];
 $t_gap = $componente['t_gap'];
 $m_gap = $componente['m_gap'];
 $post_template = $componente['post_template'];
-$list_template = $componente['list_template'];
+$listing_template = $componente['list_template'];
 $scrolltop = ( isset($componente['scrolltop']) ) ? $componente['scrolltop'] : '';
 $taxonomies = array();
 $default_terms = array();
@@ -102,6 +102,7 @@ if(!function_exists('post_listing_header')){
     data-order="<?=$order?>" 
     data-orderby="<?=$orderby?>" 
     post-template="<?=$post_template?>"
+    listing-template="<?=$listing_template?>"
     data-scrolltop="<?=$scrolltop?>">
     <?php if($componente['filter']) {
         $show_month = 0;
@@ -124,13 +125,13 @@ if(!function_exists('post_listing_header')){
     if(WOOCOMMERCE_IS_ACTIVE && $posttype == 'product') echo do_shortcode('[shop_messages]');
     echo post_listing_header($posttype);
 
-    $css_vars = ($list_template == 'carrusel') ? ' ' : '--d-gap:'.$d_gap.'px; --l-gap:'.$l_gap.'px; --t-gap:'.$t_gap.'px; --m-gap:'.$m_gap.'px; --d-columns:'.$items_in_desktop.'; --l-columns:'.$items_in_laptop.'; --t-columns:'.$items_in_tablet.'; --m-columns:'.$items_in_mobile;
+    $css_vars = ($listing_template == 'carrusel') ? ' ' : '--d-gap:'.$d_gap.'px; --l-gap:'.$l_gap.'px; --t-gap:'.$t_gap.'px; --m-gap:'.$m_gap.'px; --d-columns:'.$items_in_desktop.'; --l-columns:'.$items_in_laptop.'; --t-columns:'.$items_in_tablet.'; --m-columns:'.$items_in_mobile;
 
     if ($query->have_posts()) : 
-        $columns_class = ($list_template == 'carrusel') ? '' : 'has-columns';
+        $columns_class = ($listing_template == 'carrusel') ? '' : 'has-columns';
         ?>
-        <div class="posts-listing posts-listing--<?=$list_template?> <?=$columns_class?>" style="<?=$css_vars?>">
-            <?php if($list_template == 'carrusel'): 
+        <div class="posts-listing posts-listing--<?=$listing_template?> <?=$columns_class?>" style="<?=$css_vars?>">
+            <?php if($listing_template == 'carrusel'): 
                 $show_controls = (!empty($componente['show_controls'])) ? $componente['show_controls'] : 0;
                 $show_nav = (!empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
                 $show_nav = (!empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
@@ -152,12 +153,12 @@ if(!function_exists('post_listing_header')){
             <?php endif; ?>
 
             <?php while ( $query->have_posts() ) : $query->the_post();
-                if($list_template == 'carrusel') echo '<div>';
+                if($listing_template == 'carrusel') echo '<div>';
                 get_template_part( 'inc/partials/minipost',$post_template);
-                if($list_template == 'carrusel') echo '</div>';
+                if($listing_template == 'carrusel') echo '</div>';
             endwhile; ?>
 
-            <?php if($list_template == 'carrusel'): ?>
+            <?php if($listing_template == 'carrusel'): ?>
                 </div></div>
             <?php endif; ?>
         </div>

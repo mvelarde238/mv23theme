@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.165 23-09-07
 - Transform document links js-function works in all .single pages
+- Listing Component Fixes: Carousel template works with filter and pagination
 
 23.8.164 23-09-06
 ----------------------------------------------------------------------------

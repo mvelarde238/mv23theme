@@ -20,6 +20,7 @@ if( !function_exists('load_posts') ){
         $year = $_REQUEST["year"];
         $month = $_REQUEST["month"];
         $post_template = $_REQUEST["post_template"];
+        $listing_template = $_REQUEST["listing_template"];
         $per_page = $_REQUEST["per_page"];
         $offset = $_REQUEST["offset"];
         $order = $_REQUEST["order"];
@@ -99,7 +100,10 @@ if( !function_exists('load_posts') ){
                     $link = get_the_permalink($id);
                     $imagen = get_the_post_thumbnail_url( $id, 'medium' );
                     $thumb_url = ($imagen) ? $imagen : get_stylesheet_directory_uri().'/assets/images/nothumb.jpg';
+
+                    if($listing_template == 'carrusel') echo '<div>';
                     get_template_part( 'inc/partials/minipost',$post_template);
+                    if($listing_template == 'carrusel') echo '</div>';
                 endwhile;
                 $result['posts'] = ob_get_clean();
 

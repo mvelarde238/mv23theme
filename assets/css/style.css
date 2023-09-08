@@ -4803,12 +4803,6 @@ li.product:before {
 	position: relative;
 }
 
-.carrusel__slider {
-	display: flex;
-	justify-content: center;
-	min-width: 100% !important;
-}
-
 .carrusel__item--image {
 	text-align: center;
 	position: relative;

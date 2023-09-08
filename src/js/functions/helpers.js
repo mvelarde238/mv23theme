@@ -119,8 +119,6 @@ Math.easeInOutQuad = function (t, b, c, d) {
     return -c/2 * (t*(t-2) - 1) + b;
 };
 
-
-
 // ****************************************************************************************************
 // SERIALIZE FORM TO OBJECT
 // ****************************************************************************************************
@@ -140,3 +138,43 @@ $.fn.serializeObject = function()
     });
     return o;
 };
+
+// ****************************************************************************************************
+// CREATE TNS SLIDER
+// ****************************************************************************************************
+
+function create_tns_slider(slider){   
+    var show_controls = slider.dataset['showControls'],
+        nav_position = slider.dataset['navPosition'],
+        show_nav = slider.dataset['showNav'],
+        autoplay = slider.dataset['autoplay'],
+        mobile = slider.dataset['mobile'],
+        tablet = slider.dataset['tablet'],
+        laptop = slider.dataset['laptop'],
+        desktop = slider.dataset['desktop'],
+        mobile_gutter = slider.dataset['mobileGutter'],
+        tablet_gutter = slider.dataset['tabletGutter'],
+        laptop_gutter = slider.dataset['laptopGutter'],
+        desktop_gutter = slider.dataset['desktopGutter'];
+
+    show_controls = ( show_controls == '1' ) ? true : false;
+    show_nav = ( show_nav == '1' ) ? true : false;
+    autoplay = ( autoplay == '1' ) ? true : false;
+    mobile = ( mobile != '' ) ? mobile : 1;
+    tablet = ( tablet != '' ) ? tablet : 2;
+    laptop = ( laptop != '' ) ? laptop : 3;
+    desktop = ( desktop != '' ) ? desktop : 4;
+
+    var slider_options = {
+        container: slider, speed: 450, autoplayButton: false, autoplay: autoplay, autoplayButtonOutput: false, loop: true,
+        controlsText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'], rewind: true,
+        mouseDrag: true, controls: show_controls, nav: show_nav, navPosition: nav_position, responsive : {
+            1100 : {items:desktop, gutter: desktop_gutter},
+            800 : {items:laptop, gutter: laptop_gutter},
+            470 : {items:tablet, gutter: tablet_gutter},
+            100 : {items:mobile, gutter: mobile_gutter},
+        }
+    };   
+        
+    return tns(slider_options);
+}

@@ -55,6 +55,7 @@ function mv23_scripts_and_styles() {
             'expanderHeight' => LISTING_PORTFOLIO_EXPANDER_HEIGHT,
             'listingPortfolioScrollTo' => LISTING_PORTFOLIO_SCROLL_TO,
             'listingPortfolioScrollDuration' => LISTING_PORTFOLIO_SCROLL_DURATION,
+            'carousels' => array(),
         )); 
 
         wp_enqueue_script( 'mv23-scripts' );

@@ -11249,6 +11249,65 @@ $.fn.serializeObject = function () {
   });
   return o;
 };
+
+// ****************************************************************************************************
+// CREATE TNS SLIDER
+// ****************************************************************************************************
+
+function create_tns_slider(slider) {
+  var show_controls = slider.dataset['showControls'],
+    nav_position = slider.dataset['navPosition'],
+    show_nav = slider.dataset['showNav'],
+    autoplay = slider.dataset['autoplay'],
+    mobile = slider.dataset['mobile'],
+    tablet = slider.dataset['tablet'],
+    laptop = slider.dataset['laptop'],
+    desktop = slider.dataset['desktop'],
+    mobile_gutter = slider.dataset['mobileGutter'],
+    tablet_gutter = slider.dataset['tabletGutter'],
+    laptop_gutter = slider.dataset['laptopGutter'],
+    desktop_gutter = slider.dataset['desktopGutter'];
+  show_controls = show_controls == '1' ? true : false;
+  show_nav = show_nav == '1' ? true : false;
+  autoplay = autoplay == '1' ? true : false;
+  mobile = mobile != '' ? mobile : 1;
+  tablet = tablet != '' ? tablet : 2;
+  laptop = laptop != '' ? laptop : 3;
+  desktop = desktop != '' ? desktop : 4;
+  var slider_options = {
+    container: slider,
+    speed: 450,
+    autoplayButton: false,
+    autoplay: autoplay,
+    autoplayButtonOutput: false,
+    loop: true,
+    controlsText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+    rewind: true,
+    mouseDrag: true,
+    controls: show_controls,
+    nav: show_nav,
+    navPosition: nav_position,
+    responsive: {
+      1100: {
+        items: desktop,
+        gutter: desktop_gutter
+      },
+      800: {
+        items: laptop,
+        gutter: laptop_gutter
+      },
+      470: {
+        items: tablet,
+        gutter: tablet_gutter
+      },
+      100: {
+        items: mobile,
+        gutter: mobile_gutter
+      }
+    }
+  };
+  return tns(slider_options);
+}
 // ****************************************************************************************************
 // INIT GLOBAL VAR FOR ALL MODULES
 // ****************************************************************************************************
@@ -11565,59 +11624,11 @@ targetBlank();
   document.addEventListener('DOMContentLoaded', function () {
     var carrusel = $('.carrusel');
     for (var i = 0; i < carrusel.length; i++) {
-      var slider = $(carrusel[i]).find('.carrusel__slider'),
-        show_controls = $(slider[0]).attr('data-show-controls'),
-        nav_position = $(slider[0]).attr('data-nav-position'),
-        show_nav = $(slider[0]).attr('data-show-nav'),
-        autoplay = $(slider[0]).attr('data-autoplay'),
-        mobile = $(slider[0]).attr('data-mobile'),
-        tablet = $(slider[0]).attr('data-tablet'),
-        laptop = $(slider[0]).attr('data-laptop'),
-        desktop = $(slider[0]).attr('data-desktop'),
-        mobile_gutter = $(slider[0]).attr('data-mobile-gutter'),
-        tablet_gutter = $(slider[0]).attr('data-tablet-gutter'),
-        laptop_gutter = $(slider[0]).attr('data-laptop-gutter'),
-        desktop_gutter = $(slider[0]).attr('data-desktop-gutter');
-      show_controls = show_controls == '1' ? true : false;
-      show_nav = show_nav == '1' ? true : false;
-      autoplay = autoplay == '1' ? true : false;
-      mobile = mobile != '' ? mobile : 1;
-      tablet = tablet != '' ? tablet : 2;
-      laptop = laptop != '' ? laptop : 3;
-      desktop = desktop != '' ? desktop : 4;
-      var slider_options = {
-        container: slider[0],
-        speed: 450,
-        autoplayButton: false,
-        autoplay: autoplay,
-        autoplayButtonOutput: false,
-        loop: true,
-        controlsText: ['<i class="fa fa-caret-left"></i>', '<i class="fa fa-caret-right"></i>'],
-        rewind: true,
-        mouseDrag: true,
-        controls: show_controls,
-        nav: show_nav,
-        navPosition: nav_position,
-        responsive: {
-          1100: {
-            items: desktop,
-            gutter: desktop_gutter
-          },
-          800: {
-            items: laptop,
-            gutter: laptop_gutter
-          },
-          470: {
-            items: tablet,
-            gutter: tablet_gutter
-          },
-          100: {
-            items: mobile,
-            gutter: mobile_gutter
-          }
-        }
-      };
-      tns(slider_options);
+      var slider = $(carrusel[i]).find('.carrusel__slider');
+      var tns_slider = create_tns_slider(slider[0]),
+        uniqueId = Math.random().toString(36).substring(2, 10);
+      $(carrusel[i]).attr('data-tns-uid', uniqueId);
+      MV23_GLOBALS.carousels[uniqueId] = tns_slider;
     }
   });
 })(jQuery, console.log);
@@ -11732,7 +11743,7 @@ targetBlank();
   var $components = $('.componente.listing');
   var current_lang = MV23_GLOBALS.lang;
   var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
-  function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset) {
+  function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template) {
     $.ajax({
       type: 'POST',
       dataType: "json",
@@ -11742,6 +11753,7 @@ targetBlank();
         nonce: MV23_GLOBALS.nonce,
         lang: MV23_GLOBALS.lang,
         post_template: post_template,
+        listing_template: listing_template,
         terms: filterValues.areParams ? filterValues.terms : terms,
         paged: paged || 1,
         per_page: per_page,
@@ -11760,11 +11772,23 @@ targetBlank();
       },
       success: function success(response) {
         $component.attr('data-status', 'loaded');
+        var $items_container = listing_template === 'carrusel' ? $listing.find('.carrusel__slider') : $listing;
+        if (listing_template === 'carrusel') {
+          var tns_uid = $listing.find('.carrusel').attr('data-tns-uid');
+          var carousel = MV23_GLOBALS.carousels[tns_uid];
+        }
         switch (response.status) {
           case 'success':
             var $items = $(response.posts);
-            if (action === 'replace') $listing.html($items);
-            if (action === 'append') $listing.append($items);
+            if (listing_template === 'carrusel') {
+              carousel.destroy();
+              $items_container = $listing.find('.carrusel__slider');
+              if (action === 'replace') $items_container.html('');
+            }
+            if (action === 'replace') $items_container.html($items);
+            if (action === 'append') $items_container.append($items);
+            if (listing_template === 'carrusel') MV23_GLOBALS.carousels[tns_uid] = create_tns_slider($items_container[0]);
+            if (action === 'append') MV23_GLOBALS.carousels[tns_uid].goTo('next');
             $listing.trigger('listingUpdated', {
               listing: $listing,
               items: $items,
@@ -11785,7 +11809,13 @@ targetBlank();
             }
             break;
           case 'error':
-            $listing.html('<p class="center posts-filter-error-msg">' + response.message + '</p>');
+            if (listing_template === 'carrusel') {
+              carousel.destroy();
+              $items_container = $listing.find('.carrusel__slider');
+              $items_container.html('');
+            }
+            $items_container.html('<p class="center posts-filter-error-msg">' + response.message + '</p>');
+            if (listing_template === 'carrusel') MV23_GLOBALS.carousels[tns_uid] = create_tns_slider($items_container[0]);
             $pagination && $pagination.html('');
             break;
           default:
@@ -11842,13 +11872,14 @@ targetBlank();
           taxonomies = $component.attr("data-taxonomies"),
           terms = $component.attr("data-terms"),
           post_template = $component.attr("post-template"),
+          listing_template = $component.attr("listing-template"),
           per_page = $component.attr("data-qty"),
           offset = $component.attr("data-offset"),
           order = $component.attr("data-order"),
           orderby = $component.attr("data-orderby"),
           action = 'replace',
           filterValues = getFilterValues($filter);
-        do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset);
+        do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template);
       });
       $component.on('click', '.load_more_posts', function (event) {
         event.preventDefault();
@@ -11859,13 +11890,14 @@ targetBlank();
           taxonomies = $component.attr("data-taxonomies"),
           terms = $component.attr("data-terms"),
           post_template = $component.attr("post-template"),
+          listing_template = $component.attr("listing-template"),
           per_page = $component.attr("data-qty"),
           offset = $component.attr("data-offset"),
           order = $component.attr("data-order"),
           orderby = $component.attr("data-orderby"),
           action = 'append',
           filterValues = getFilterValues($filter);
-        do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset);
+        do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template);
       });
       $component.on('click', '.posts-filter__submit', function (ev) {
         ev.preventDefault();
@@ -11874,6 +11906,7 @@ targetBlank();
           taxonomies = $component.attr("data-taxonomies"),
           terms = $component.attr("data-terms"),
           post_template = $component.attr("post-template"),
+          listing_template = $component.attr("listing-template"),
           per_page = $component.attr("data-qty"),
           offset = $component.attr("data-offset"),
           order = $component.attr("data-order"),
@@ -11881,7 +11914,7 @@ targetBlank();
           paged = 1,
           action = 'replace',
           filterValues = getFilterValues($filter);
-        do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset);
+        do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template);
       });
       $component.on('listingUpdated', function (e, data) {
         e.preventDefault();
