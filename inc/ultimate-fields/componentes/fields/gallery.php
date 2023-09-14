@@ -41,13 +41,13 @@ $gallery_fields_settings = array(
             'medium' => 'Medium',
             'large' => 'Large',
             'full' => 'Full',
-        ))->set_default_value('medium')->set_width(14),
+        ))->set_default_value('large')->set_width(14),
         Field::create( 'select', 'targetsize', 'Lightbox size')->add_options( array(
             'thumbnail' => 'Thumbnail',
             'medium' => 'Medium',
             'large' => 'Large',
             'full' => 'Full',
-        ))->set_default_value('large')->add_dependency('../wp_media_folder','0','!=')->set_width(14),
+        ))->set_default_value('full')->add_dependency('../wp_media_folder','0','!=')->set_width(14),
         Field::create( 'select', 'orderby', 'Ordenar por')->add_options( array(
             'custom' => 'Custom',
             'rand' => 'Random',

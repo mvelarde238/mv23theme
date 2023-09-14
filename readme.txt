@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.166 23-09-14
 - Single Megamenu
+- Change Gallery Comp. default values for image and ligthbox size
 
 23.8.165 23-09-07
 - Transform document links js-function works in all .single pages
