@@ -53,14 +53,16 @@ if ($show == 'auto') {
         $tax_query = array( 'relation' => 'AND' );
         foreach ($taxonomy_field as $tax => $terms) {
             // create tax_query if tax belongs to selected posttype and there are selected terms
-            if( in_array($tax,$pt_taxonomies) && count($terms) > 0 ){
-                array_push($tax_query, array(
-                    'taxonomy' => $tax,
-                    'field' => 'term_id',
-                    'terms' => $terms,
-                    'include_children' => true,
-                    'operator' => 'IN'
-                ));
+            if( in_array($tax,$pt_taxonomies) && is_array($terms) && count($terms) > 0 ){
+                if( !empty($terms[0]) ){            
+                    array_push($tax_query, array(
+                        'taxonomy' => $tax,
+                        'field' => 'term_id',
+                        'terms' => $terms,
+                        'include_children' => true,
+                        'operator' => 'IN'
+                    ));
+                }
             }
         }
         if( count($tax_query) > 1 ) $args_query['tax_query'] = $tax_query;

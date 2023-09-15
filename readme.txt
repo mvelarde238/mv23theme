@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.167 23-09-15
+- Listing Comp. fix: validate if some term is selected
+
 23.8.166 23-09-14
 - Single Megamenu
 - Change Gallery Comp. default values for image and ligthbox size
