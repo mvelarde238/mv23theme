@@ -43,6 +43,7 @@ class Select extends Field {
 	 */
 	protected $post_type;
 	protected $taxonomy;
+	protected $query_params = '';
 	protected $user_role;
 
 	/**
@@ -211,7 +212,8 @@ class Select extends Field {
 					$options[ $category->term_id ] = esc_html( $category->cat_name );
 				}
 			} else {
-				$terms = get_terms('taxonomy='.$this->taxonomy.'&hide_empty=1&depth=1');
+				$query_params = ( $this->query_params ) ? $this->query_params : '&hide_empty=1&depth=1';
+				$terms = get_terms('taxonomy='.$this->taxonomy.$query_params); 
 				foreach($terms as $term) {
 					$options[ $term->term_id ] = esc_html( $term->name );
 				}
@@ -238,6 +240,21 @@ class Select extends Field {
 		}
 
 		return $this->options;
+	}
+
+	/**
+	 * Lets the user add query params
+	 * used for terms (TODO: USE IN ALL CASES: CATEGORIES POST TYPES ETC)
+	 *
+	 * @since mv23
+	 *
+	 * @param string $query_params
+	 * @return Ultimate_Fields\Field\Select
+	 */
+	public function add_query_params($query_params) {
+		$this->query_params = $query_params;
+
+		return $this;
 	}
 
 	/**

@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.167 23-09-21
+- lib UF -> (core/classes/Field/Select.php) Add add_query_params function to use with terms query
+
 23.8.167 23-09-15
 - Listing Comp. fix: validate if some term is selected
 

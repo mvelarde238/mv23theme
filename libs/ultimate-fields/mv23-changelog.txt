@@ -1,5 +1,8 @@
 mv23 changelog-------------------------
 
+21-09-2023
+- (core/classes/Field/Select.php) Add add_query_params function to use with terms query
+
 23-08-2023
 - (assets/css/ultimate-fields.css:3215) fix gallery images size
 
