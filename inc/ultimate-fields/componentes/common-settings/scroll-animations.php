@@ -35,43 +35,41 @@ if( !SCROLL_ANIMATIONS ){
     );
 }
 
+$scroll_animation_settings_fileds = array(
+    Field::create( 'complex', 'trigger-element', 'Trigger Element' )->add_fields(array(
+        Field::create( 'select', 'el' )->add_options( array(
+            'this' => 'Componente',
+            'selector' => 'Elemento interno',
+        ))->hide_label()->set_width( 50 ),
+        Field::create( 'text', 'selector' )->add_dependency('el','selector','=')->hide_label()->set_width( 50 ),
+    ))->set_width( 50 ),
+
+    Field::create( 'complex', 'element', 'Element' )->add_fields(array(
+        Field::create( 'select', 'el' )->add_options( array(
+            'this' => 'Componente',
+            'selector' => 'Elemento interno',
+            'outer_selector' => 'Elemento externo',
+        ))->hide_label()->set_width( 50 ),
+        Field::create( 'text', 'selector' )->add_dependency('el','this','!=')->hide_label()->set_width( 50 ),
+    ))->set_width( 50 ),
+
+    Field::create( 'select', 'trigger-hook', 'Trigger Hook' )->add_options( array(
+        'onEnter' => 'onEnter',
+        'onCenter' => 'onCenter',
+        'onLeave' => 'onLeave',
+    ))->set_width( 25 ),
+    Field::create( 'text', 'duration' )->set_default_value('200')->set_width( 25 ),
+    Field::create( 'text', 'offset' )->set_default_value('100px')->set_width( 25 ),
+    Field::create( 'checkbox', 'turn_off_in_mobile', 'Mobile' )->set_text('Desactivar en móviles')
+);
+if( SCROLL_INDICATORS ) array_push($scroll_animation_settings_fileds, Field::create( 'checkbox', 'add_indicators', 'Indicadores' )->set_text('Activar')->set_width( 25 ));
+
 array_push($scroll_animation_fields, Field::create( 'repeater', 'scroll_animations' )
     ->set_add_text('Agregar')
     ->add_group('group1', array(
         'edit_mode' => 'popup',
         'fields' => array(
-            Field::create( 'complex', 'settings' )->add_fields(array(
-
-                Field::create( 'complex', 'trigger-element', 'Trigger Element' )->add_fields(array(
-                    Field::create( 'select', 'el' )->add_options( array(
-                        'this' => 'Componente',
-                        'selector' => 'Elemento interno',
-                    ))->hide_label()->set_width( 50 ),
-                    Field::create( 'text', 'selector' )->add_dependency('el','selector','=')->hide_label()->set_width( 50 ),
-                ))->set_width( 50 ),
-    
-                Field::create( 'complex', 'element', 'Element' )->add_fields(array(
-                    Field::create( 'select', 'el' )->add_options( array(
-                        'this' => 'Componente',
-                        'selector' => 'Elemento interno',
-                        'outer_selector' => 'Elemento externo',
-                    ))->hide_label()->set_width( 50 ),
-                    Field::create( 'text', 'selector' )->add_dependency('el','this','!=')->hide_label()->set_width( 50 ),
-                ))->set_width( 50 ),
-    
-                Field::create( 'select', 'trigger-hook', 'Trigger Hook' )->add_options( array(
-                    'onEnter' => 'onEnter',
-                    'onCenter' => 'onCenter',
-                    'onLeave' => 'onLeave',
-                ))->set_width( 25 ),
-                Field::create( 'text', 'duration' )->set_default_value('200')->set_width( 25 ),
-                Field::create( 'text', 'offset' )->set_default_value('100px')->set_width( 25 ),
-                Field::create( 'checkbox', 'add_indicators', 'Indicadores' )->set_text('Activar')->set_width( 25 ),
-                Field::create( 'checkbox', 'turn_off_in_mobile', 'Mobile' )->set_text('Desactivar en móviles'),
-        
-            ))->hide_label()
-            ->rows_layout()
-            ->set_width( 50 ),
+            Field::create( 'complex', 'settings' )->add_fields( $scroll_animation_settings_fileds )->hide_label()->rows_layout()->set_width( 50 ),
 
             Field::create( 'complex', 'animated_properties' )->add_fields(array(
 

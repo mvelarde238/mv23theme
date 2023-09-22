@@ -12068,7 +12068,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
         triggerHook: group['trigger_hook'],
         offset: group['offset']
       }).setTween(tween).addTo(controller);
-      if (addIndicators == '1') scene.addIndicators();
+      if (MV23_GLOBALS.scrollIndicators && addIndicators == '1') scene.addIndicators();
     }
   });
 })(jQuery, console.log);
@@ -12709,6 +12709,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
       }
     });
     $('.modal-trigger').modal();
+    // $('.select2').select2();
 
     // ****************************************************************************************************
     // FIT TEXT

@@ -28,13 +28,15 @@ function generate_scroll_animations($componente){
                         if($item['value'] != '') $to[$item['property']] = $item['value'];
                     }
 
+                    $add_indicators = ( SCROLL_INDICATORS ) ? ((isset($settings['add_indicators'])) ? $settings['add_indicators'] : false) : false;
+
                     array_push($scroll_animations, array(
                         'trigger_element' => $trigger_element,
                         'element' => array('key'=>$settings['element']['el'], 'el'=>$element),
                         'trigger_hook' => $settings['trigger-hook'],
                         'duration' => $settings['duration'],
                         'offset' => $settings['offset'],
-                        'add_indicators' => $settings['add_indicators'],
+                        'add_indicators' => $add_indicators,
                         'from' => json_encode($from),
                         'to' => json_encode($to)
                     ));

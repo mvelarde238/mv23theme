@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.168 23-09-22
+- Use scroll indicators script just if is enabled
+
 23.8.167 23-09-21
 - lib UF -> (core/classes/Field/Select.php) Add add_query_params function to use with terms query
 

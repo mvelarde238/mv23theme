@@ -60,7 +60,7 @@
             .setTween(tween)
             .addTo(controller);
             
-            if(addIndicators == '1') scene.addIndicators();
+            if( MV23_GLOBALS.scrollIndicators && addIndicators == '1') scene.addIndicators(); 
         }
  	});
 })(jQuery,console.log);

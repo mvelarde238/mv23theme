@@ -24,7 +24,7 @@ function mv23_scripts_and_styles() {
         if( SCROLL_ANIMATIONS ){
             wp_enqueue_script( 'scroll-animations', get_template_directory_uri() . '/assets/js/scrollmagic.js', array(), '1.0', false);
             if( SCROLL_INDICATORS ){
-                wp_enqueue_script( 'scroll-indicators', 'http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"', array('scroll-animations'), '1.0', false);
+                wp_enqueue_script( 'scroll-indicators', 'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js', array('scroll-animations'), '1.0', false);
             }
         }
 
@@ -56,6 +56,7 @@ function mv23_scripts_and_styles() {
             'listingPortfolioScrollTo' => LISTING_PORTFOLIO_SCROLL_TO,
             'listingPortfolioScrollDuration' => LISTING_PORTFOLIO_SCROLL_DURATION,
             'carousels' => array(),
+            'scrollIndicators' => SCROLL_INDICATORS,
         )); 
 
         wp_enqueue_script( 'mv23-scripts' );
