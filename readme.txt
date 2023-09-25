@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.170 23-09-25
+- Listing Comp. Implementation: WooCommerce special product tags: on_sale, best selling, featured
+
 23.8.168 23-09-22
 - Use scroll indicators script just if is enabled
 

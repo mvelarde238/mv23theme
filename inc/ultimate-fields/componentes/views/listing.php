@@ -15,6 +15,7 @@ $listing_template = $componente['list_template'];
 $scrolltop = ( isset($componente['scrolltop']) ) ? $componente['scrolltop'] : '';
 $taxonomies = array();
 $default_terms = array();
+$woocommerce_key = ( WOOCOMMERCE_IS_ACTIVE && isset($componente['woocommerce_key']) ) ? $componente['woocommerce_key'] : '';
 
 if ($show == 'manual') {
     $posttype = '';
@@ -65,6 +66,20 @@ if ($show == 'auto') {
                 }
             }
         }
+
+        /* woo featured products */
+        if(WOOCOMMERCE_IS_ACTIVE){
+            if($woocommerce_key == 'featured'){
+                array_push($tax_query, array(
+                    'taxonomy' => 'product_visibility',
+                    'field'    => 'name',
+                    'terms'    => 'featured',
+                    'operator' => 'IN'
+                ));
+            }
+        }
+        /* end woo featured products */
+
         if( count($tax_query) > 1 ) $args_query['tax_query'] = $tax_query;
     }
 
@@ -78,6 +93,27 @@ if ($show == 'auto') {
                 array_push($default_terms,$default_term);
             }
         }
+    }
+}
+
+if(WOOCOMMERCE_IS_ACTIVE){
+    if($woocommerce_key == 'on_sale'){
+        $args_query['meta_query'] = array(
+            array(
+                'key'           => '_sale_price',
+                'value'         => 0,
+                'compare'       => '>',
+                'type'          => 'numeric'
+            )
+        );
+    }
+    if($woocommerce_key == 'best_selling'){
+        $args_query['meta_query'] = array(
+            array(
+                'key' => 'total_sales'
+            )
+        );
+        $args_query['orderby'] = 'meta_value_num';
     }
 }
 
@@ -105,6 +141,7 @@ if(!function_exists('post_listing_header')){
     data-orderby="<?=$orderby?>" 
     post-template="<?=$post_template?>"
     listing-template="<?=$listing_template?>"
+    data-wookey="<?=$woocommerce_key?>"
     data-scrolltop="<?=$scrolltop?>">
     <?php if($componente['filter']) {
         $show_month = 0;

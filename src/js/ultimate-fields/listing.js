@@ -4,7 +4,7 @@
     var current_lang = MV23_GLOBALS.lang;
     var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
 
-    function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template){
+    function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey){
         $.ajax({
             type: 'POST',
             dataType: "json",
@@ -21,6 +21,7 @@
                 offset: offset,
                 order: order,
                 orderby: orderby,
+                wookey: wookey,
                 posttype : posttype,
                 taxonomies: taxonomies,
                 search: filterValues.search,
@@ -130,10 +131,11 @@
                     offset = $component.attr("data-offset"),
                     order = $component.attr("data-order"),
                     orderby = $component.attr("data-orderby"),
+                    wookey = $component.attr("data-wookey"),
                     action = 'replace',
                     filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey);
             });
             
             $component.on('click','.load_more_posts', function(event){
@@ -150,10 +152,11 @@
                     offset = $component.attr("data-offset"),
                     order = $component.attr("data-order"),
                     orderby = $component.attr("data-orderby"),
+                    wookey = $component.attr("data-wookey"),
                     action = 'append',
                     filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey);
             });
             
             $component.on('click','.posts-filter__submit',function(ev){
@@ -168,11 +171,12 @@
                     offset = $component.attr("data-offset"),
                     order = $component.attr("data-order"),
                     orderby = $component.attr("data-orderby"),
+                    wookey = $component.attr("data-wookey"),
                     paged = 1,
                     action = 'replace',
                     filterValues = getFilterValues($filter);
 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey);
             });
 
             $component.on('listingUpdated', function(e,data){

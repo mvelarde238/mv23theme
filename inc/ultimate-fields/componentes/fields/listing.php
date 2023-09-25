@@ -32,9 +32,19 @@ $listing_fields_1 = array(
     )),
     Field::create( 'wp_objects', 'posts', '' )->set_button_text( 'Selecciona los posts' )->add_dependency('show','manual','='),
 
-    Field::create( 'number', 'qty', 'Cantidad de posts' )->add_dependency('show','auto','=')->set_default_value(3)->set_width(25),
-    Field::create( 'select', 'posttype', 'Tipo de Posts' )->add_dependency('show','auto','=')->add_options($listing_cpts)->set_width(25),
+    Field::create( 'number', 'qty', 'Cantidad de posts' )->add_dependency('show','auto','=')->set_default_value(3)->set_width(16),
+    Field::create( 'select', 'posttype', 'Tipo de Posts' )->add_dependency('show','auto','=')->add_options($listing_cpts)->set_width(16),
 );
+
+if(WOOCOMMERCE_IS_ACTIVE){
+    $woocommerce_keys_field = Field::create('select','woocommerce_key','WooCommerce Tag')->add_dependency('show','auto','=')->add_dependency('posttype', 'product', '=')->set_width(16)->add_options(array(
+        '' => 'Ninguno',
+        'featured' => 'Destacados',
+        'on_sale' => 'En Oferta',
+        'best_selling' => 'Más vendidos'
+    ));
+    array_push($listing_fields_1, $woocommerce_keys_field);
+}
 
 if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
     $taxonomies_field = Field::create( 'complex', 'taxonomies_field' )->set_width(50)->hide_label();

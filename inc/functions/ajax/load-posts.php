@@ -25,6 +25,7 @@ if( !function_exists('load_posts') ){
         $offset = $_REQUEST["offset"];
         $order = $_REQUEST["order"];
         $orderby = $_REQUEST["orderby"];
+        $wookey = $_REQUEST["wookey"];
 
         if ( $posttype && $paged && $per_page ) {
             $paged = ($paged) ? $paged : 1;
@@ -54,6 +55,16 @@ if( !function_exists('load_posts') ){
                     }
                     $count++;
                 }
+
+                if($wookey == 'featured'){
+                    array_push($tax_query, array(
+                        'taxonomy' => 'product_visibility',
+                        'field'    => 'name',
+                        'terms'    => 'featured',
+                        'operator' => 'IN'
+                    ));
+                }
+
                 if( count($tax_query) > 1 ) $args_query['tax_query'] = $tax_query;
             }
 
@@ -85,6 +96,25 @@ if( !function_exists('load_posts') ){
                         $args_query['date_query'] = array( $date_params );
                         break;
                 }
+            }
+
+            if($wookey == 'on_sale'){
+                $args_query['meta_query'] = array(
+                    array(
+                        'key'           => '_sale_price',
+                        'value'         => 0,
+                        'compare'       => '>',
+                        'type'          => 'numeric'
+                    )
+                );
+            }
+            if($wookey == 'best_selling'){
+                $args_query['meta_query'] = array(
+                    array(
+                        'key' => 'total_sales'
+                    )
+                );
+                $args_query['orderby'] = 'meta_value_num';
             }
 
             $query = new WP_Query( $args_query ); 
