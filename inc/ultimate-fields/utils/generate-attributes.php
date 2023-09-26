@@ -13,7 +13,8 @@ function generate_attributes($componente, $classes_array){
 	if ($box_shadows) $style .= $box_shadows;
 	
 	if ($componente['__type']=='separador') {
-		$style .= 'height:'.$componente['height'] . 'px;';
+		$unit = ( isset($componente['unit']) ) ? $componente['unit'] : 'px';
+		$style .= 'height:'.$componente['height'].$unit;
 	}
 
 	if ($componente['__type']=='icono-y-texto') {
