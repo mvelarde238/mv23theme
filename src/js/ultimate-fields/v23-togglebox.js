@@ -21,7 +21,7 @@
 	"use strict";
 
 	var instances = [],
-		version = '5.8.30',
+		version = '5.8.31',
 		timers = {};
 
 	/**
@@ -69,11 +69,15 @@
 			var dataOptions = {},
 				dataTemplate = this.el.dataset.template,
 				dataBreakpoints = this.el.dataset.breakpoints,
-				dataHeaderHeight = this.el.dataset.headerheight;
+				dataHeaderHeight = this.el.dataset.headerheight,
+				dataScrolltop = this.el.dataset.scrolltop,
+				dataScrollto = this.el.dataset.scrollto;
 
 			if (dataTemplate != undefined) dataOptions.initialTemplate = dataTemplate;
 			if (dataBreakpoints != undefined) dataOptions.breakpoints = this._handleDataBreakpoints(dataBreakpoints); 
             if (dataHeaderHeight != undefined) dataOptions.headerHeight = dataHeaderHeight;
+            if (dataScrolltop != undefined) dataOptions.scrolltop = dataScrolltop;
+            if (dataScrollto != undefined) dataOptions.scrollto = dataScrollto;
 			
             // js-options are overriddden if data-options are passed
 			this.options = options = _extend(options, dataOptions);
@@ -84,7 +88,9 @@
 				breakpoints : {
 					768 : {template:'accordion'}
 				},
-				headerHeight : 0
+				headerHeight : 0,
+				scrolltop : 0,
+				scrollto : 'btn' // el, btn, item
 			};
 			
 			// Set default options
@@ -146,11 +152,35 @@
 						if (this.activeTemplate === 'accordion'){
 							_toggleClass(btn, 'active');
 							_toggleClass(item, 'active');
-							// _scrollTo(document.documentElement, (btn.offsetTop - MV23_GLOBALS.headerHeight), 500);
 						} else {
 							_addClass(btn, 'active');
 							_addClass(item, 'active');	
 						}
+						
+						if(this.options.scrolltop){
+							// _scrollTo(document.documentElement, (btn.offsetTop - MV23_GLOBALS.headerHeight), 500);
+							var scrollToElement = null;
+							switch (this.options.scrollto) {
+								case 'el':
+									scrollToElement = $(this.el);
+									break;
+
+								case 'item':
+									scrollToElement = $(item);
+									break;
+							
+								default:
+									scrollToElement = $(btn);
+									break;
+							}
+							if( scrollToElement.length ){
+								$("html, body").animate({ 
+									scrollTop: ( scrollToElement.offset().top - MV23_GLOBALS.headerHeight) }, 
+									{ duration: 800, queue: false, easing: 'easeOutCubic' }
+								);
+							}
+						} 
+
 						this._handle_hash_in_url(btn.dataset.boxid);
 					} else {
 						_removeClass(this.items[i].btn, 'active');

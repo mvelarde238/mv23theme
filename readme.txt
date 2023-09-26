@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.171 23-09-26
 - Separador Comp. unit implementation
+- v23ToggleBox.js data-scrollto && data-scrollTop implementation
 
 23.8.170 23-09-25
 - Listing Comp. Implementation: WooCommerce special product tags: on_sale, best selling, featured
