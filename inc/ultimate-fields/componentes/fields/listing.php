@@ -66,6 +66,7 @@ $listing_fields_2 = array(
         'title' => 'Título',
         'name' => 'Slug',
         'rand' => 'Random',
+        'menu_order' => 'Personalizado',
         // 'comment_count' => 'Comentarios'
     ))->set_width(25),
     Field::create( 'number', 'offset', 'Offset' )->add_dependency('show','auto','=')->set_width(25),

@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.172 23-09-27
+- Listing Comp. orderby menu_order implementation
+
 23.8.171 23-09-26
 - Separador Comp. unit implementation
 - v23ToggleBox.js data-scrollto && data-scrollTop implementation

@@ -49,7 +49,7 @@ $gallery_fields_settings = array(
             'full' => 'Full',
         ))->set_default_value('full')->add_dependency('../wp_media_folder','0','!=')->set_width(14),
         Field::create( 'select', 'orderby', 'Ordenar por')->add_options( array(
-            'custom' => 'Custom',
+            'custom' => 'Personalizado',
             'rand' => 'Random',
             'title' => 'Tìtulo',
             'date' => 'Fecha'
