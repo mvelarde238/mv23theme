@@ -75,7 +75,8 @@ function print_module_view($modulo)
 		$modulo['class'],
 		$full_width_class,
 		$parallax,
-		$video_background['class']
+		$video_background['class'],
+		$layout
 	));
 
 	$content_bg = (isset($modulo['content_bg']) && $modulo['content_bg'] == 1) ? true : false;
