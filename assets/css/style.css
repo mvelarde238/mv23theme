@@ -4148,7 +4148,7 @@ ul.page-numbers .next {
 
 .scroll::-webkit-scrollbar-track,
 .expander-response::-webkit-scrollbar-track {
-	background-color: currentColor;
+	background-color: rgba(248, 82, 44, 0.2);
 	border-radius: 4px;
 }
 
