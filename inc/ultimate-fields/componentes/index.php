@@ -39,6 +39,7 @@ if(PROGRESS_BAR) $componentes[] = array('name' => 'Progress Bar', 'variable'=>$p
 require_once( 'fields/modulo-reusable.php' );
 
 ///////////// LOS SIGUIENTES ARCHIVOS USAN LA VARIABLE $componentes
+include( locate_template( 'inc/ultimate-fields/componentes/utils/edit-components-before-content-layout.php' ) );
 
 require_once( 'utils/class-content-layout.php' );
 new Content_Layout($componentes);

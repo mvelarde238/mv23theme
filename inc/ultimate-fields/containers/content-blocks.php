@@ -9,7 +9,7 @@ Container::create('content_blocks')
         Content_Layout::the_field(array(
             'slug' => 'content_layout', 
             'title'=>'Layout', 
-            'components' => array( 'Editor de Texto', 'Imágen', 'Componente Reusable', 'Mapa' )
+            'components' => CONTENT_BUILDER_COMPONENTS
             ))
     ));
     

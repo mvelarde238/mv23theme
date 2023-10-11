@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.174 23-10-11
 - $sidebar-width sass variable
+- CONTENT_BUILDER_COMPONENTS constant implementation
 
 23.8.173 23-09-28
 - Show layout class in .page-module
