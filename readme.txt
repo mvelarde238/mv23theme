@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.175 23-10-19
+- include ultimate_fields_page_content() function in admin to work with ajax
+
 23.8.174 23-10-11
 - $sidebar-width sass variable
 - CONTENT_BUILDER_COMPONENTS constant implementation

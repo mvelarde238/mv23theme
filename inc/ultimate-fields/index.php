@@ -1,7 +1,7 @@
 <?php
 add_action( 'uf.init', 'theme_register_fields' );
 
-if (!is_admin()) {
+// if (!is_admin()) {
 	require_once( 'utils/oembed.php' );
 	require_once( 'utils/get-color-scheme.php' );
 	require_once( 'utils/get-background-styles.php' );
@@ -15,7 +15,7 @@ if (!is_admin()) {
 	require_once( 'utils/generate-attributes.php' );
 	require_once( 'utils/generate-actions-code.php' );
 	require_once( 'utils/print-modules.php' );
-}
+// }
 
 function theme_register_fields() {
 	require_once( 'componentes/index.php' );
