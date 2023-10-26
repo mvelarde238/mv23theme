@@ -4831,6 +4831,7 @@ li.product:before {
 
 .columnas-simples__item {
 	flex-grow: 1;
+	width: 100%;
 }
 
 .columnas-1 {
