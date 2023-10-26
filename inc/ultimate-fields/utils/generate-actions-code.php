@@ -54,7 +54,8 @@ function generate_actions_code($componente){
 					$toggle_box_settings = (isset($action['toggle_box_settings'])) ? $action['toggle_box_settings'] : array( 'selector' => null );
 					$selector = $toggle_box_settings['selector'];
 					if($selector){
-						$code = '<a class="cover-all toggle-box" data-selector="'.$selector.'" href="#"></a>';
+						$scroll_to_box = (isset($toggle_box_settings['scroll_to_box'])) ? $toggle_box_settings['scroll_to_box'] : 0;
+						$code = '<a class="cover-all toggle-box" data-selector="'.$selector.'" data-scroll-to-box="'.$scroll_to_box.'" href="#"></a>';
 					}
 				}
 			}

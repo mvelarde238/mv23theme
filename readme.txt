@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 23.8.176 23-10-26
 - .columnas-simples__item css change to break in mobile: width:100%;
+- add scroll to box option to "toggle_box_settings"
 
 23.8.175 23-10-19
 - include ultimate_fields_page_content() function in admin to work with ajax

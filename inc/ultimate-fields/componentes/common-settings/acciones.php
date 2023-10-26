@@ -28,6 +28,7 @@ $acciones_fields = array(
 			Field::create( 'complex', 'toggle_box_settings' )->hide_label()->rows_layout()->add_fields(array(
 				Field::create( 'text', 'selector' )->set_width( 50 )->set_validation_rule('^[a-z][a-za-z0-9_-]+$')
         			->set_description( 'Selector -ID o CLASS- de la sección que se va mostrar / ocultar, usar solo minúsculas y guiones ( - )' ),
+				Field::create( 'checkbox', 'scroll_to_box' )->set_text( 'Scroll page to box.' ),
 			))->add_dependency('action','toggle-box','='),
         ))
     )
