@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.177 23-11-07
+- Add title_template to scroll animation group
+
 23.8.176 23-10-26
 - .columnas-simples__item css change to break in mobile: width:100%;
 - add scroll to box option to toggle_box_settings

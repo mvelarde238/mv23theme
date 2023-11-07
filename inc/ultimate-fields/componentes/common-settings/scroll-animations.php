@@ -68,6 +68,7 @@ array_push($scroll_animation_fields, Field::create( 'repeater', 'scroll_animatio
     ->set_add_text('Agregar')
     ->add_group('group1', array(
         'edit_mode' => 'popup',
+        'title_template' => '<%= settings["element"]["selector"] %>',
         'fields' => array(
             Field::create( 'complex', 'settings' )->add_fields( $scroll_animation_settings_fileds )->hide_label()->rows_layout()->set_width( 50 ),
 
