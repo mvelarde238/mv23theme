@@ -1,6 +1,10 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.178 23-11-09
+- Listing Comp. on click post actions implementation
+  Refactorization of posts-listing--portfolio1
+
 23.8.177 23-11-07
 - Add title_template to scroll animation group
 

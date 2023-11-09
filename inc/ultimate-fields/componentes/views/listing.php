@@ -168,8 +168,14 @@ if(!function_exists('post_listing_header')){
 
     if ($query->have_posts()) : 
         $columns_class = ($listing_template == 'carrusel') ? '' : 'has-columns';
+        $on_click_post = ( isset($componente['on_click_post']) ) ? $componente['on_click_post'] : 'redirect';
+        $post_listing_class = 'posts-listing posts-listing--'.$listing_template . ' ' . $columns_class. ' posts-listing--'.$on_click_post;
+
+        $dataAttrs = '';
+        $on_click_scroll_to = ( isset($componente['on_click_scroll_to']) ) ? $componente['on_click_scroll_to'] : '';
+        if( $on_click_scroll_to ) $dataAttrs = 'data-on-click-post-scroll-to="'.$on_click_scroll_to.'"';
         ?>
-        <div class="posts-listing posts-listing--<?=$listing_template?> <?=$columns_class?>" style="<?=$css_vars?>">
+        <div class="<?=$post_listing_class?>" style="<?=$css_vars?>" <?=$dataAttrs?>>
             <?php if($listing_template == 'carrusel'): 
                 $show_controls = (!empty($componente['show_controls'])) ? $componente['show_controls'] : 0;
                 $show_nav = (!empty($componente['show_nav'])) ? $componente['show_nav'] : 0;

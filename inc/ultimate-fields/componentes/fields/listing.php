@@ -92,6 +92,17 @@ $listing_fields_2 = array(
     
     Field::create( 'tab', 'Post Template'),
     Field::create( 'radio', 'post_template', 'Template' )->set_orientation( 'vertical' )->add_options($listing_post_template)->hide_label(),
+    Field::create( 'section', 'Acciones' ),
+    Field::create( 'select', 'on_click_post', 'Al hacer click en el post:' )->add_options(array(
+        'redirect' => 'Redirigir a la página del post',
+        'show-expander' => 'Mostrar el post en la misma página',
+        // 'popup' => 'Mostrar el post en un popup',
+    ))->set_width( 50 ),
+    Field::create( 'select', 'on_click_scroll_to', 'Al hacer click mover el scroll a:' )->add_options(array(
+        '' => 'No mover el scroll',
+        'postcard' => 'Al post card',
+        'expander' => 'Al expander'
+    ))->add_dependency( 'on_click_post', 'show-expander', '=' )->set_width( 50 ),
     
     Field::create( 'tab', 'Paginado'),
     Field::create( 'select', 'pagination_type', 'Paginado' )->add_dependency('show','auto','=')->add_options(LISTING_PAGINATION_TYPES)->hide_label()->set_width( 25 ),

@@ -53,7 +53,6 @@ function mv23_scripts_and_styles() {
                 'outDuration' => MODAL_OUT_DURATION
             ),
             'expanderHeight' => LISTING_PORTFOLIO_EXPANDER_HEIGHT,
-            'listingPortfolioScrollTo' => LISTING_PORTFOLIO_SCROLL_TO,
             'listingPortfolioScrollDuration' => LISTING_PORTFOLIO_SCROLL_DURATION,
             'carousels' => array(),
             'scrollIndicators' => SCROLL_INDICATORS,
