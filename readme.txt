@@ -1,6 +1,9 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+23.8.179 23-11-21
+- Correction in oembed function: ignore links inside href attribute
+
 23.8.178 23-11-09
 - Listing Comp. on click post actions implementation
   Refactorization of posts-listing--portfolio1

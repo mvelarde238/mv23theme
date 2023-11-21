@@ -2,12 +2,12 @@
 function oembed($post_content)
 {
     $matches = array();
-    $paterns = array(
-        '@(http|https)://(www\.)?youtu[^\s]*@i',
-        '@(http|https)://(www\.)?vimeo[^\s]*@i'
+    $patterns = array(
+        '@(?<!href=["\'])((http|https)://(www\.)?youtu[^\s"]+)@i',
+        '@(?<!href=["\'])((http|https)://(www\.)?vimeo[^\s"]+)@i'
     );
 
-    foreach ($paterns as $patern) {
+    foreach ($patterns as $patern) {
         preg_match_all($patern, $post_content, $matches);
         
         foreach ($matches[0] as $match) {
