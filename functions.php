@@ -49,7 +49,7 @@ if( !defined('MOBILE_MENU_POSITION') ) define ('MOBILE_MENU_POSITION', 'left');
 if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','post','megamenu','archive_page'));
 if( !defined('UF_TAXONOMIES') ) define ('UF_TAXONOMIES', array('category'));
 if( !defined('CONTENT_BUILDER_POSTTYPES') ) define ('CONTENT_BUILDER_POSTTYPES', array());
-if( !defined('CONTENT_BUILDER_COMPONENTS') ) define ('CONTENT_BUILDER_COMPONENTS', array( 'Editor de Texto', 'Imágen', 'Galeria', 'Componente Reusable', 'Mapa' ) );
+if( !defined('CONTENT_BUILDER_COMPONENTS') ) define ('CONTENT_BUILDER_COMPONENTS', array( 'Editor de Texto', 'Imágen', 'Galeria', 'Listing', 'Componente Reusable', 'Mapa', 'Button', 'HTML' ) );
 if( !defined('DISABLE_PAGE_HEADER_IN') ) define ('DISABLE_PAGE_HEADER_IN', array('megamenu'));
 if( !defined('PAGE_SETTINGS_POSTTYPES') ) define ('PAGE_SETTINGS_POSTTYPES', array('page','post','archive_page'));
 

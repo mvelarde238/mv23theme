@@ -1,6 +1,11 @@
 **************************************************************************************************
 CHANGELOG
 **************************************************************************************************
+
+23.8.180 23-11-22
+- Use CONTENT_BUILDER_COMPONENTS in accordion component
+- Add Listing, Button, HTML Components to CONTENT_BUILDER_COMPONENTS
+
 23.8.179 23-11-21
 - Correction in oembed function: ignore links inside href attribute
 
