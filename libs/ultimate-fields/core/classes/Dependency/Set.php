@@ -77,7 +77,8 @@ class Set implements Countable, ArrayAccess {
 	 * @since 3.0
 	 * @return int
 	 */
-	public function count() {
+	#[\ReturnTypeWillChange]
+	public function count(): int {
 		return count( $this->groups );
 	}
 
@@ -89,7 +90,8 @@ class Set implements Countable, ArrayAccess {
 	 * @param string               $offset The offset of the group.
 	 * @param Ultimate_Fields\Dependency\Group $group  The group that is being added.
 	 */
-	public function offsetSet( $offset, $group ) {
+	#[\ReturnTypeWillChange]
+	public function offsetSet( $offset, $group ): void {
 		$this->add_group( $group, $offset );
 	}
 
@@ -101,7 +103,8 @@ class Set implements Countable, ArrayAccess {
 	 * @param string $offset The offset of the group that is needed.
 	 * @return bool
 	 */
-	public function offsetExists( $offset ) {
+	#[\ReturnTypeWillChange]
+	public function offsetExists( $offset ): bool {
 		return isset( $this->groups[ $offset ] );
 	}
 
@@ -112,7 +115,8 @@ class Set implements Countable, ArrayAccess {
 	 *
 	 * @param string $offset The offset of the group which is to be removed from the array.
 	 */
-	public function offsetUnset( $offset ) {
+	#[\ReturnTypeWillChange]
+	public function offsetUnset( $offset ): void {
 		unset( $this->groups[ $offset ] );
 	}
 
@@ -124,7 +128,8 @@ class Set implements Countable, ArrayAccess {
 	 * @param string $offset The offset of the group.
 	 * @return Ultimate_Fields\Dependency\Group
 	 */
-	public function offsetGet( $offset ) {
+	#[\ReturnTypeWillChange]
+	public function offsetGet( $offset ): mixed {
 		return isset( $this->groups[ $offset ] ) ? $this->groups[ $offset ] : null;
 	}
 

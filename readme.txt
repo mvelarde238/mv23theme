@@ -7,6 +7,7 @@ CHANGELOG
   admin: fix select2 show behind modal
   front: fix wp media folder show tiny img in full width
   front: justify-content center
+- Remove UF warnings when WP_DEBUG is true
 
 23.8.180 23-11-22
 - Use CONTENT_BUILDER_COMPONENTS in accordion component

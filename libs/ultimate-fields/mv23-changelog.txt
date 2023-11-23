@@ -1,5 +1,8 @@
 mv23 changelog-------------------------
 
+23-11-2023
+- (core/classes/Datastore/Fields_Collection.php) php correction: #[\ReturnTypeWillChange] in methods
+
 21-09-2023
 - (core/classes/Field/Select.php) Add add_query_params function to use with terms query
 
