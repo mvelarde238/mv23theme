@@ -2,6 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.181 23-11-23
+- Gallery css fixes:
+  admin: fix select2 show behind modal
+  front: fix wp media folder show tiny img in full width
+  front: justify-content center
+
 23.8.180 23-11-22
 - Use CONTENT_BUILDER_COMPONENTS in accordion component
 - Add Listing, Button, HTML Components to CONTENT_BUILDER_COMPONENTS

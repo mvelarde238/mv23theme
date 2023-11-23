@@ -14,6 +14,8 @@ div.mce-inline-toolbar-grp{z-index:999997 !important}
 .mce-floatpanel.mce-popover.mce-bottom{z-index:999997 !important}
 // fix color picker show behind columns
 // .uf-field.uf-field-layout-grid.uf-field-type-color { z-index: 9; } dosnt work
+// fix select2 show behind modal 
+.select2-container { z-index: 170000; }
 
 .truncate {
     display: block;

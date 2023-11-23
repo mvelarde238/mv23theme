@@ -3046,7 +3046,7 @@ input[type=submit]:hover {
 .gallery {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: center;
 	margin: 15px 0;
 }
 
@@ -3101,6 +3101,12 @@ input[type=submit]:hover {
 
 .gallery-item img {
 	margin-bottom: 0 !important;
+}
+
+/* fix wp media folder show tiny img in full width */
+
+.wpmf_gallery_default .wpmf-gallery-icon a img {
+	width: initial !important;
 }
 
 body {

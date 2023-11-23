@@ -180,9 +180,9 @@ gulp.task('svg', function () {
 	// 'js/admin-scripts.js'
 // ];
 
-// var adminSASSFiles = [
-// 	'sass/admin-styles.scss'
-// ];
+var adminSASSFiles = [
+	'sass/admin-styles.scss'
+];
 
 // gulp.task('adminjs', function () {
 // 	return gulp.src(adminJSFiles)
@@ -193,13 +193,13 @@ gulp.task('svg', function () {
 // 		.pipe(browserSync.stream());
 // });
 
-// gulp.task('adminsass', function () {
-// 	return gulp.src('sass/admin-styles.scss')
-// 		.pipe(sass().on('error', sass.logError))
-// 		.pipe(minifyCSS())
-// 		.pipe(gulp.dest('../assets/css/'))
-// 		.pipe(browserSync.stream());
-// });
+gulp.task('adminsass', function () {
+	return gulp.src(adminSASSFiles)
+		.pipe(sass().on('error', sass.logError))
+		.pipe(minifyCSS())
+		.pipe(gulp.dest('../assets/css/'))
+		.pipe(browserSync.stream());
+});
 
 // gulp.task('adminwatch', function () {
 // 	gulp.watch(adminJSFiles, gulp.series('adminjs'));
