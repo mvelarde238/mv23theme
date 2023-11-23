@@ -157,7 +157,7 @@ class Fields_Collection implements ArrayAccess, Iterator, Countable {
 	 * @return Field
 	 */
 	#[\ReturnTypeWillChange]
-	public function current(): int {
+	public function current(): mixed {
 		return $this->fields[ $this->i ];
 	}
 

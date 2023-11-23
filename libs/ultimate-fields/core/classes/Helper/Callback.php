@@ -61,7 +61,8 @@ class Callback implements ArrayAccess {
 	 * @param scalar $offset The offset for the value.
 	 * @param mixed  $value  The value to set.
 	 */
-	public function offsetSet( $offset, $value ) {
+	#[\ReturnTypeWillChange]
+	public function offsetSet( $offset, $value ): void {
 		if( is_null( $offset ) ) {
 			$this->settings[] = $value;
 		} else {
@@ -77,7 +78,8 @@ class Callback implements ArrayAccess {
 	 * @param sclar $offset The offset to check.
 	 * @return bool
 	 */
-	public function offsetExists( $offset ) {
+	#[\ReturnTypeWillChange]
+	public function offsetExists( $offset ): bool {
 		return isset( $this->settings[ $offset ] );
 	}
 
@@ -88,7 +90,8 @@ class Callback implements ArrayAccess {
 	 *
 	 * @param sclar $offset The offset to check.
 	 */
-	public function offsetUnset( $offset ) {
+	#[\ReturnTypeWillChange]
+	public function offsetUnset( $offset ): void {
 		unset( $this->settings[ $offset ] );
 	}
 
@@ -100,7 +103,8 @@ class Callback implements ArrayAccess {
 	 * @param scalar $offset The offset of the value to retrieve.
 	 * @return mixed
 	 */
-	public function offsetGet( $offset ) {
+	#[\ReturnTypeWillChange]
+	public function offsetGet( $offset ): mixed {
 		return isset( $this->settings[ $offset ] )
 			? $this->settings[ $offset ]
 			: null;
