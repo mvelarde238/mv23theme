@@ -46,12 +46,12 @@ if( !defined('MOBILE_MENU_LOGO') ) define ('MOBILE_MENU_LOGO', 'secondary_logo')
 if( !defined('MOBILE_MENU_WIDTH') ) define ('MOBILE_MENU_WIDTH', 300);
 if( !defined('MOBILE_MENU_POSITION') ) define ('MOBILE_MENU_POSITION', 'left');
 
-if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','post','megamenu','archive_page'));
+if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','megamenu','archive_page'));
 if( !defined('UF_TAXONOMIES') ) define ('UF_TAXONOMIES', array('category'));
 if( !defined('CONTENT_BUILDER_POSTTYPES') ) define ('CONTENT_BUILDER_POSTTYPES', array());
 if( !defined('CONTENT_BUILDER_COMPONENTS') ) define ('CONTENT_BUILDER_COMPONENTS', array( 'Editor de Texto', 'Imágen', 'Galeria', 'Listing', 'Componente Reusable', 'Mapa', 'Button', 'HTML' ) );
-if( !defined('DISABLE_PAGE_HEADER_IN') ) define ('DISABLE_PAGE_HEADER_IN', array('megamenu'));
-if( !defined('PAGE_SETTINGS_POSTTYPES') ) define ('PAGE_SETTINGS_POSTTYPES', array('page','post','archive_page'));
+if( !defined('DISABLE_PAGE_HEADER_IN') ) define ('DISABLE_PAGE_HEADER_IN', array('megamenu','post'));
+if( !defined('PAGE_SETTINGS_POSTTYPES') ) define ('PAGE_SETTINGS_POSTTYPES', array('page','archive_page'));
 
 if( !defined('MENU_ITEM_DATA_LOCATIONS') ) define ('MENU_ITEM_DATA_LOCATIONS', array('main-nav'));
 if( !defined('ARCHIVE_OPTIONS_POSTTYPES') ) define ('ARCHIVE_OPTIONS_POSTTYPES', array('post' => 'Entradas'));
@@ -80,7 +80,7 @@ if( !defined('SEARCH_PLACEHOLDER') ) define ('SEARCH_PLACEHOLDER', array('es' =>
 if( !defined('SINGLE_SIDEBAR') ) define ('SINGLE_SIDEBAR', true);
 if( !defined('SINGLE_MAIN_CONTENT_TEMPLATE') ) define ('SINGLE_MAIN_CONTENT_TEMPLATE', 'main-content--sidebar-right');
 
-if( !defined('USE_PORTFOLIO_CPT') ) define( 'USE_PORTFOLIO_CPT', false);
+if( !defined('USE_PORTFOLIO_CPT') ) define( 'USE_PORTFOLIO_CPT', true);
 if( !defined('LISTING_CPTS') ) define( 'LISTING_CPTS', array('post' => 'Entradas'));
 if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array( array( 'cpt_slug' => 'post', 'slug' => 'category' ) ));
 if( !defined('LISTING_TEMPLATES') ) define( 'LISTING_TEMPLATES', array('' => 'Estilo por defecto', 'carrusel' => 'Carrusel'));

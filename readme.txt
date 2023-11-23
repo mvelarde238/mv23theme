@@ -8,6 +8,14 @@ CHANGELOG
   front: fix wp media folder show tiny img in full width
   front: justify-content center
 - Remove UF warnings when WP_DEBUG is true
+------------------------------------------------------------------------------
+- !IMPORTANT FIX: DISABLE_PAGE_HEADER_IN in post result in FATAL ERROR
+  when post is in UF_POSTTYPES or CONTENT_BUILDER_POSTTYPES
+  - post is removed from UF_POSTTYPES
+  - editor is not removed in post
+  - if post need to be added to UF_POSTTYPES or CONTENT_BUILDER_POSTTYPES
+    remove post from DISABLE_PAGE_HEADER_IN
+------------------------------------------------------------------------------
 
 23.8.180 23-11-22
 - Use CONTENT_BUILDER_COMPONENTS in accordion component
