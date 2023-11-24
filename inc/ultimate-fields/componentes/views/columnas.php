@@ -74,4 +74,5 @@ $attributes = generate_attributes($componente, $classes_array);
     <?php } ?>
     </div>
     <?php if ($layout == 'layout2' || $layout == 'layout4') echo '</div>'; ?>
+    <?php echo generate_actions_code($componente); ?>
 </div>

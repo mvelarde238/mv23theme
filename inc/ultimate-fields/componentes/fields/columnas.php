@@ -22,4 +22,5 @@ $columnas = Repeater_Group::create( 'Columnas' )
 ->add_fields( $fields )
 ->add_fields( $row_settings )
 ->add_fields( $columns_settings )
+->add_fields( $acciones_fields )
 ->add_fields($settings_fields_container->get_fields());

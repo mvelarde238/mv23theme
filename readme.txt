@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.182 23-11-24
+- add actions settings to column component
+
 23.8.181 23-11-23
 - Gallery css fixes:
   admin: fix select2 show behind modal
