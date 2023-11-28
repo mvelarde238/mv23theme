@@ -4234,6 +4234,10 @@ form.cf7mls input.wpcf7-form-control.wpcf7-submit {
 	margin: 0 !important;
 }
 
+.text-color-2 .wpcf7-not-valid-tip {
+	color: #fff;
+}
+
 .tml {
 	margin: 0 auto;
 }
