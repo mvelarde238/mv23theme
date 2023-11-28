@@ -61,8 +61,16 @@ class Page_Header{
 		$this->page_header_bgi = ($page_header_bgi) ? $page_header_bgi : null;
 	}
 	private function set_bgc(){
-		$page_header_bgc = get_metadata($this->page_type, $this->page_ID,'page_header_bgc', true);
-		$this->bgc = ($page_header_bgc) ? $page_header_bgc : PAGE_HEADER_BGC;
+		$background_color = '';
+		$page_header_bgcolor = get_metadata($this->page_type, $this->page_ID,'page_header_bgcolor', true);
+		if( is_array($page_header_bgcolor) ){
+			$background_color = ($page_header_bgcolor['add_bgc']) ? $page_header_bgcolor['bgc'] : '';
+		} else {
+			// backward compatibility: version < 23.8.183
+			$page_header_bgc = get_metadata($this->page_type, $this->page_ID,'page_header_bgc', true);
+			$background_color = ($page_header_bgc) ? $page_header_bgc : PAGE_HEADER_BGC;
+		}
+		$this->bgc = $background_color;
 	}
 	private function set_classes(){
 		$page_header_class = get_metadata($this->page_type, $this->page_ID,'page_header_class', true);

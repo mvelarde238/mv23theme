@@ -56,6 +56,8 @@ if($custom_page_headers){
     }
 }
 
+$page_header_bgcolor_active = (PAGE_HEADER_BGC) ? 1 : 0;
+
 $tab_fondo = array(
     Field::create('tab', 'Fondo'),
     Field::create('image', 'page_header_bgi', 'Imágen de Fondo')->set_width(20)->set_default_value(PAGE_HEADER_BGI),
@@ -63,7 +65,13 @@ $tab_fondo = array(
         Field::create( 'video', 'files', 'Video de Fondo' ),
         Field::create( 'number', 'opacity', 'Transparencia del video' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )
     ))->set_width(20)->hide_label(),
-    Field::create('color', 'page_header_bgc', 'Color de Fondo')->set_width(20)->set_default_value(PAGE_HEADER_BGC),
+
+    Field::create( 'complex', 'page_header_bgcolor', 'Color de fondo' )->add_fields(array(
+        Field::create( 'checkbox', 'add_bgc', 'Color de fondo' )->set_text('Activar')->set_default_value($page_header_bgcolor_active),
+        Field::create( 'color', 'bgc', 'Color' )->set_default_value(PAGE_HEADER_BGC)->add_dependency('add_bgc'),
+        // Field::create( 'text', 'alpha', 'Transparencia' )->add_dependency('add_bgc')->set_default_value('100')->set_description('Usar un número del 1 al 100'),
+    ))->set_width(20)->hide_label(),
+
     Field::create('select', 'page_header_text_color', 'Color del texto')->set_width(20)->add_options(array(
         'text-color-2' => 'Blanco',
         'text-color-default' => 'Negro',

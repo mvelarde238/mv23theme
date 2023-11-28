@@ -4,6 +4,7 @@ CHANGELOG
 
 23.8.183 23-11-28
 - CF7 not valid message color in text-color-2
+- Page Header background color refactorization to allow empty value
 
 23.8.182 23-11-24
 - add actions settings to column component
