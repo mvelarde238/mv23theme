@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.184 23-11-29
+- Remove sintaxis de tipo de retorno (: void, : int, : string, etc.) in UF Lib
+
 23.8.183 23-11-28
 - CF7 not valid message color in text-color-2
 - Page Header background color refactorization to allow empty value

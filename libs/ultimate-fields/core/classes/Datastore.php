@@ -114,7 +114,7 @@ abstract class Datastore implements ArrayAccess {
      * @param mixed  $value The value that is being added.
      */
 	#[\ReturnTypeWillChange]
-    public function offsetSet( $key, $value ): void {
+    public function offsetSet( $key, $value ) {
     	$this->set( $key, $value );
     }
 
@@ -127,7 +127,7 @@ abstract class Datastore implements ArrayAccess {
      * @return bool
      */
 	#[\ReturnTypeWillChange]
-    public function offsetExists( $key ): bool {
+    public function offsetExists( $key ) {
     	return isset( $this->values[ $key ] );
     }
 
@@ -139,7 +139,7 @@ abstract class Datastore implements ArrayAccess {
      * @param string $key The key of the value which is to be removed from the array.
      */
 	#[\ReturnTypeWillChange]
-    public function offsetUnset( $key ): void {
+    public function offsetUnset( $key ) {
     	$this->delete( $key );
     }
 
@@ -152,7 +152,7 @@ abstract class Datastore implements ArrayAccess {
      * @return mixed
      */
 	#[\ReturnTypeWillChange]
-    public function offsetGet( $key ): mixed {
+    public function offsetGet( $key ) {
     	return $this->get( $key );
     }
 

@@ -95,7 +95,7 @@ class Fields_Collection implements ArrayAccess, Iterator, Countable {
 	 * @return bool
 	 */
 	#[\ReturnTypeWillChange]
-	public function offsetExists( $name ): bool {
+	public function offsetExists( $name ) {
 		return isset( $this->map[ $name ] );
 	}
 
@@ -124,7 +124,7 @@ class Fields_Collection implements ArrayAccess, Iterator, Countable {
 	 * @return Ultimate_Fields\Field
 	 */
 	#[\ReturnTypeWillChange]
-	public function offsetGet( $name ): bool {
+	public function offsetGet( $name ) {
 		return isset( $this->map[ $name ] ) ? $this->map[ $name ] : null;
 	}
 
@@ -145,7 +145,7 @@ class Fields_Collection implements ArrayAccess, Iterator, Countable {
 	 * @since 3.0
 	 */
 	#[\ReturnTypeWillChange]
-	public function rewind(): void {
+	public function rewind() {
 	   $this->i = 0;
    }
 
@@ -157,7 +157,7 @@ class Fields_Collection implements ArrayAccess, Iterator, Countable {
 	 * @return Field
 	 */
 	#[\ReturnTypeWillChange]
-	public function current(): mixed {
+	public function current() {
 		return $this->fields[ $this->i ];
 	}
 
@@ -169,7 +169,7 @@ class Fields_Collection implements ArrayAccess, Iterator, Countable {
 	 * @return int
 	 */
 	#[\ReturnTypeWillChange]
-	public function key(): mixed {
+	public function key() {
 		return $this->i;
 	}
 
@@ -179,7 +179,7 @@ class Fields_Collection implements ArrayAccess, Iterator, Countable {
 	 * @since 3.0
 	 */
 	#[\ReturnTypeWillChange]
-	public function next(): void {
+	public function next() {
 		++$this->i;
 	}
 
@@ -191,7 +191,7 @@ class Fields_Collection implements ArrayAccess, Iterator, Countable {
 	 * @return bool
 	 */
 	#[\ReturnTypeWillChange]
-	public function valid(): bool {
+	public function valid() {
 		return isset( $this->fields[ $this->i ] );
 	}
 
@@ -287,7 +287,7 @@ class Fields_Collection implements ArrayAccess, Iterator, Countable {
 	 * @return int
 	 */
 	#[\ReturnTypeWillChange]
-	public function count(): int {
+	public function count() {
 		return count( $this->fields );
 	}
 }
