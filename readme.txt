@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.185 23-12-21
+- Use slug in lang switcher shortcode
+
 23.8.184 23-11-29
 - Remove sintaxis de tipo de retorno (: void, : int, : string, etc.) in UF Lib
 

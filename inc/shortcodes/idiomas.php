@@ -19,13 +19,13 @@ function print_idiomas( $atts ){
 				foreach ($langs as $lang) :
 					$slug_locale = $lang['slug'] . '_' . strtoupper($lang['slug']); // DEVUELVE MAL EN INGLES en por us
 					$flag = $lang['flag'];
-					$name = $lang['name'];
+					$name = $lang['slug'];
 					$url = $lang['url'];
 					$class = ($lang['current_lang'] == $slug_locale) ? 'active' : '';
 
 					echo '<li>';
 					echo '<a lang="'.$slug_locale.'" hreflang="'.$slug_locale.'" href="'.$url.'" class="'.$class.'">';
-					echo $lang['name'];
+					echo $name;
 					// echo $lang['slug'];
 					// echo '<img src="'.$flag.'" alt="'.$slug_locale.'">';
 					echo '</a>';
