@@ -11290,18 +11290,22 @@ function create_tns_slider(slider) {
     responsive: {
       1100: {
         items: desktop,
+        slideBy: desktop,
         gutter: desktop_gutter
       },
       800: {
         items: laptop,
+        slideBy: laptop,
         gutter: laptop_gutter
       },
       470: {
         items: tablet,
+        slideBy: tablet,
         gutter: tablet_gutter
       },
       100: {
         items: mobile,
+        slideBy: mobile,
         gutter: mobile_gutter
       }
     }
