@@ -4,6 +4,7 @@ CHANGELOG
 
 23.8.186 24-01-10
 - Carrusel js fix: slideBy parameter same as items per device
+- Carrusel css fix: images root
 
 23.8.185 23-12-21
 - Use slug in lang switcher shortcode
