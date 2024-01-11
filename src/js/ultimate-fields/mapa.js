@@ -11,9 +11,10 @@ var styleArray = [ { "stylers": [ { "hue": "#19511B" }, { "saturation": 0 }, { "
         	function initMap(element) {
 				var lat = parseFloat(element.dataset.lat),
                     lng = parseFloat(element.dataset.lng),
+                    zoom = parseFloat(element.dataset.zoom),
 				    icon = element.dataset.icon,
 					infoContent = $(element).find('.infowindow').html(),
-                    map = new google.maps.Map(element, { zoom:17, center: {lat:lat, lng:lng} }),
+                    map = new google.maps.Map(element, { zoom:zoom, center: {lat:lat, lng:lng} }),
                     marker_options = { map: map, position: {lat:lat, lng:lng} };
 
                 if(icon) marker_options.icon = icon;

@@ -7,6 +7,7 @@ CHANGELOG
 - Carrusel css fix: control images root
 - Add register_custom_fields hook 
   * useful to use Content_Layout Class in other custom field container
+- Map component zoom data-attribute implementation
 
 23.8.185 23-12-21
 - Use slug in lang switcher shortcode

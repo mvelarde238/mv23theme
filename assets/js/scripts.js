@@ -11960,10 +11960,11 @@ var styleArray = [{
       var initMap = function initMap(element) {
         var lat = parseFloat(element.dataset.lat),
           lng = parseFloat(element.dataset.lng),
+          zoom = parseFloat(element.dataset.zoom),
           icon = element.dataset.icon,
           infoContent = $(element).find('.infowindow').html(),
           map = new google.maps.Map(element, {
-            zoom: 17,
+            zoom: zoom,
             center: {
               lat: lat,
               lng: lng
