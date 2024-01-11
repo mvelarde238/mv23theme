@@ -98,6 +98,10 @@ Container::create( 'global_options' )
     ->add_location( 'options', $theme_options_page )
     ->add_fields(array(
         Field::create( 'checkbox', 'activate_gm', 'Activar Google Maps' )->set_text('Activar'),
+        Field::create( 'multiselect', 'gm_services','Google Map Services')->set_input_type( 'checkbox' )->set_orientation( 'horizontal' )->add_options( array(
+            'places' => 'Places'
+        ))->add_dependency('activate_gm'),
+
         Field::create( 'multiselect', 'show_editor_in','El theme oculta el editor de texto en entradas, páginas y productos, mostrarlo en los siguientes lugares')->set_input_type( 'checkbox' )->set_orientation( 'horizontal' )->add_options( array(
             'page' => 'Páginas',
             'product' => 'Productos'

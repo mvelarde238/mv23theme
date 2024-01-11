@@ -19,7 +19,10 @@ function mv23_scripts_and_styles() {
         wp_enqueue_style( 'theme-font-awesome', FONT_AWESOME, array(), THEME_VERSION, 'all' );
 
         // adding scripts files in the footer
-        if (GM_IS_ACTIVE) wp_enqueue_script( 'googleapis', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyB4WgG02INNI9A_3V1pxMVsstKGDX4blvc&callback=initMaps', array(), '1.0', true);
+        $gm_url = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyB4WgG02INNI9A_3V1pxMVsstKGDX4blvc&callback=initMaps';
+        $gm_services = get_option('gm_services') ? get_option('gm_services') : array();
+        if( count($gm_services) ) $gm_url .= '&libraries='. implode(",", $gm_services);
+        if (GM_IS_ACTIVE) wp_enqueue_script( 'googleapis', $gm_url, array(), '1.0', true);
 
         if( SCROLL_ANIMATIONS ){
             wp_enqueue_script( 'scroll-animations', get_template_directory_uri() . '/assets/js/scrollmagic.js', array(), '1.0', false);

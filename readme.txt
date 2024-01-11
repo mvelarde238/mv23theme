@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.187 24-01-11
+- Add Google Maps Services selector in theme options
+
 23.8.186 24-01-10
 - Carrusel js fix: slideBy parameter same as items per device
 - Carrusel css fix: control images root
