@@ -32,4 +32,6 @@ function theme_register_fields() {
 	require_once( 'containers/archive-options.php' );
 	require_once( 'containers/mv23-library.php' );
 	require_once( 'containers/page-settings.php' );
+
+	do_action('register_custom_fields');
 }
