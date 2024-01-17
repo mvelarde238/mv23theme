@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.188 24-01-17
+- Set better name and description for header_widgets_1
+
 23.8.187 24-01-11
 - Add Google Maps Services selector in theme options
 
