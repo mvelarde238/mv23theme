@@ -1,9 +1,18 @@
 <?php
 $tipo = $componente['__type'];
-$text = $componente['text'];
 $style = $componente['style'];
 $fullwidth = (isset($componente['fullwidth'])) ? $componente['fullwidth'] : false;
 if($fullwidth) $style .= ' btn-block';
+
+$text = $componente['text'] ?: 'Botón';
+$icon = (isset( $componente['icon'])) ?  $componente['icon'] : null;
+if( $icon ) {
+    $icon_position = $componente['icon_position'] ?: 'left';
+    $icon_html = '<i class="fa '.$icon.'"></i>';
+    $style .= ' btn--icon-'.$componente['icon_position'];
+
+    $text = ( $icon_position === 'left' ) ? $icon_html.' '.$text : $text.' '.$icon_html;
+} 
 
 $size = (isset($componente['size'])) ? $componente['size'] : false;
 if($size) $style .= ' btn--'.$componente['size'];

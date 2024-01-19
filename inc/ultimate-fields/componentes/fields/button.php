@@ -44,6 +44,13 @@ $button = Repeater_Group::create( 'Button', array(
 
         Field::create( 'checkbox', 'new_tab', 'Abrir en una nueva ventana' )->set_text( 'Activar' )->set_width(25),
 
+        Field::create( 'tab', 'Icono' ),
+        Field::create( 'icon', 'icon', 'Icono' )->add_set( 'font-awesome' )->set_width( 25 ),
+        Field::create( 'radio', 'icon_position', 'Posición')->add_options( array(
+            'left' => 'Izquierda',
+            'right' => 'Derecha'
+        ))->set_orientation( 'horizontal' )->set_width(25),
+
         Field::create( 'tab', 'Mobile Options' ),
         Field::create( 'checkbox', 'add_responsive' )->set_text( 'Cambiar alineación en móviles' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
         Field::create( 'select', 'tablet_text_align','Alineación en Tablets')->add_options( array(

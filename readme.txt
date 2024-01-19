@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.189 24-01-19
+- Button Comp. Implementation: add icon and icon position setting
+
 23.8.188 24-01-17
 - Set better name and description for header_widgets_1
 
