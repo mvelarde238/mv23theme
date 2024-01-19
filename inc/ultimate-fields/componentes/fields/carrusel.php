@@ -2,6 +2,17 @@
 use Ultimate_Fields\Field;
 use Ultimate_Fields\Container\Repeater_Group;
 
+$content_group_fields = array_merge(
+    array(
+        Field::create( 'tab', 'Contenido' ),
+        Content_Layout::the_field(array( 
+            'slug' => 'content_layout', 
+            'components' => array( 'Editor de Texto', 'Imágen', 'Componente Reusable', 'Mapa', 'Button', 'HTML', 'Separador' )
+        ))
+    ),
+    $settings_fields
+);
+
 $carrusel = Repeater_Group::create( 'Carrusel', array(
     'fields' => array(
         Field::create( 'tab', 'Contenido' ),
@@ -11,12 +22,7 @@ $carrusel = Repeater_Group::create( 'Carrusel', array(
         ->add_group('Content', array(
             'title' => 'Contenido',
             'edit_mode' => 'popup',
-            'fields' => array(
-                Content_Layout::the_field(array( 
-                    'slug' => 'content_layout', 
-                    'components' => array( 'Editor de Texto', 'Imágen', 'Componente Reusable', 'Mapa', 'Button', 'HTML' )
-                ))
-            )
+            'fields' => $content_group_fields
         ))
         ->add_group('Item', array(
             'title' => 'Imágen',
