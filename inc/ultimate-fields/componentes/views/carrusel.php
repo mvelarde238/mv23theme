@@ -88,7 +88,10 @@ $attributes = generate_attributes($componente, $classes_array);
         if( $type == 'content' ){
             $content_layout = $items[$i]['content_layout'];
             if (is_array($content_layout) && count($content_layout) > 0) :
-                $item_attributes = generate_attributes($items[$i], array('columnas-simples',$items[$i]['class']));
+
+                $item_classes = array('columnas-simples');
+                if( isset($items[$i]['class']) ) array_push( $item_classes, $items[$i]['class'] );
+                $item_attributes = generate_attributes($items[$i], $item_classes);
 
                 echo '<div class="carrusel__item carrusel__item--content">';
                 echo '<div '.$item_attributes.'>';
