@@ -10,4 +10,5 @@ $logo_url = ($logo_id) ? wp_get_attachment_image_src( $logo_id, 'full') : array(
 	<?php endif ?>
 	<?php wp_nav_menu(array('theme_location' => 'movil-nav', 'walker' => new Theme_Nav_Walker()) );  ?>
 	<?php echo do_shortcode( '[redes_sociales class="style3 center"]' ); ?>
+	<a href="#!" class="modal-close"></a>
 </div>

@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.190 24-01-22
+- Add modal close to mobile menu
+
 23.8.189 24-01-19
 - Button Comp. Implementation: add icon and icon position setting
 - Carrusel Comp. Implementation: add settings fields
