@@ -3216,3 +3216,12 @@ h2.uf-add-term-title {
   height: 100%;
   width: auto;
 }
+
+/* show context menu in layout group item */
+.uf-layout-group-header{
+  overflow: initial;
+}
+/* fix context menu in layout group show behind other groups */
+.uf-layout-element{
+  z-index: initial;
+}

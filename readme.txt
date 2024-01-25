@@ -9,6 +9,7 @@ CHANGELOG
   - edit-components.php file needs to add new components to $GLOBALS['componentes']
   - edit-components-before-content-layout.php file removed
 ------------------------------------------------------------------------------------
+- Implementation of context menu (delete, copy, paste) in layout group
 
 23.8.191 24-01-24
 - Implementation of Layout Column Component in Content_Layout Class

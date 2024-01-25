@@ -249,8 +249,34 @@
 			});
 		},
 
+		copiarAlPortapapeles: function(texto) {
+			if (!navigator.clipboard) {
+				// Si el API del portapapeles no está disponible, utiliza execCommand
+				const textarea = document.createElement('textarea');
+				textarea.value = texto;
+				document.body.appendChild(textarea);
+				textarea.select();
+				document.execCommand('copy');
+				document.body.removeChild(textarea);
+			} else {
+				// Utiliza el API del portapapeles si está disponible
+				navigator.clipboard.writeText(texto).then(
+					() => {
+						console.log('Texto copiado al portapapeles');
+					},
+					err => {
+						console.error('No se pudo copiar el texto: ', err);
+					}
+				);
+			}
+		},
+
 		copy: function() {
 			var settings = this.model.datastore.clone();
+
+			this.copiarAlPortapapeles( JSON.stringify(settings.attributes) ); 
+			// get the copied text is dificult without navigator api so it not implemented in "paste" method
+
 			localStorage.setItem('copied_settings', JSON.stringify(settings.attributes));
 			this.hideContextMenu();
 		},
@@ -263,7 +289,13 @@
 					component_type = this.model.datastore.attributes.__type;
 				
 				if( component_type == settings.__type ){
-					this.model.datastore.attributes = (settings);
+					// fix group position
+					settings.__index = this.model.datastore.attributes.__index;
+
+					this.model.datastore.set( settings );
+					this.open();
+
+					// used by repeater.js to show the new group
 					this.trigger( 'uf-paste', {});
 				} else {
 					alert('The settings of a "'+settings.__type+'" component cannot be pasted in a "'+component_type+'" component.');
