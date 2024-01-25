@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.191 24-01-24
+- Implementation of Layout Column Component in Content_Layout Class
+
 23.8.190 24-01-22
 - Add modal close to mobile menu
 

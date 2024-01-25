@@ -59,7 +59,7 @@ if( !defined('ARCHIVE_OPTIONS_TAXONOMIES') ) define ('ARCHIVE_OPTIONS_TAXONOMIES
 
 if( !defined('CONTENT_SLIDER') ) define ('CONTENT_SLIDER', false);
 if( !defined('ROW') ) define ('ROW', false);
-if( !defined('COLUMNAS_SIMPLES') ) define ('COLUMNAS_SIMPLES', false);
+if( !defined('COLUMNAS_SIMPLES') ) define ('COLUMNAS_SIMPLES', true);
 if( !defined('ITEMS_GRID') ) define ('ITEMS_GRID', false);
 if( !defined('CARD') ) define ('CARD', false);
 if( !defined('PROGRESS_CIRCLE') ) define ('PROGRESS_CIRCLE', false);

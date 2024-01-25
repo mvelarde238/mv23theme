@@ -7,9 +7,7 @@ Container::create('content_blocks')
     ->set_style('seamless')
     ->add_fields(array(
         Content_Layout::the_field(array(
-            'slug' => 'content_layout', 
-            'title'=>'Layout', 
-            'components' => CONTENT_BUILDER_COMPONENTS
-            ))
+            'slug' => 'content_layout'
+        ))
     ));
     
