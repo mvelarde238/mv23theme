@@ -4844,6 +4844,10 @@ li.product:before {
 	width: 100%;
 }
 
+.columnas-simples .componente {
+	margin: 15px 20px;
+}
+
 .columnas-1 {
 	display: grid;
 }
