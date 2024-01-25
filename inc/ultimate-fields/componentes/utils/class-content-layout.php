@@ -29,19 +29,32 @@ class Content_Layout{
                 if( $component_name === 'Layout Column' ){
                     $layout_column_components = CONTENT_BUILDER_COMPONENTS;
 
-                    if( is_array($args['override']) && count($args['override']) > 0 && key_exists('layout-column', $args['override'])){
+                    if( 
+                        is_array($args['override']) && count($args['override']) > 0 
+                        && key_exists('layout-column', $args['override']) && key_exists('components', $args['override']['layout-column']) 
+                        && is_array($args['override']['layout-column']['components']) ){
                         $layout_column_components = $args['override']['layout-column']['components'];
+                    }
+
+                    $inner_content_layout = Content_Layout::the_field(array(
+                        'slug' => 'content_layout', 
+                        'title'=>'Layout',
+                        'components' => $layout_column_components
+                    ));
+
+                    if( 
+                        is_array($args['override']) && count($args['override']) > 0 
+                        && key_exists('layout-column', $args['override']) && key_exists('add_group', $args['override']['layout-column']) 
+                        && is_array($args['override']['layout-column']['add_group']) ){
+                        $groups = $args['override']['layout-column']['add_group'];
+                        foreach ($groups as $group) {
+                            $inner_content_layout->add_group($group);
+                        }
                     }
 
                     $layout_column = Repeater_Group::create( 'Layout Column', array(
                         'title' => 'Columna',
-                        'fields' => array(
-                            Content_Layout::the_field(array(
-                                'slug' => 'content_layout', 
-                                'title'=>'Layout',
-                                'components' => $layout_column_components
-                            ))
-                        )
+                        'fields' => array( $inner_content_layout )
                     ));
 
                     $group = $layout_column;
