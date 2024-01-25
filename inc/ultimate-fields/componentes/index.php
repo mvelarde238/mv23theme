@@ -38,12 +38,10 @@ if(PROGRESS_BAR) $componentes[] = array('name' => 'Progress Bar', 'variable'=>$p
 // used by accordion and page_content:
 require_once( 'fields/modulo-reusable.php' );
 
-///////////// LOS SIGUIENTES ARCHIVOS USAN LA VARIABLE $componentes
-include( locate_template( 'inc/ultimate-fields/componentes/utils/edit-components-before-content-layout.php' ) );
+$GLOBALS['componentes'] = $componentes;
 
+///////////// LOS SIGUIENTES ARCHIVOS USAN LA VARIABLE GLOBAL $componentes
 require_once( 'utils/class-content-layout.php' );
-new Content_Layout($componentes);
-
 include( locate_template( 'inc/ultimate-fields/componentes/utils/edit-components.php' ) );
 
 // se usa en card, modulo, row 
@@ -51,7 +49,7 @@ $components_repeater = Field::create( 'repeater', 'componentes', '' )
 ->set_chooser_type( 'dropdown' )
 ->set_add_text('Agregar')
 ->set_attr( 'style', 'background: #c8d6e4;' );
-foreach ($componentes as $c) {
+foreach ($GLOBALS['componentes'] as $c) {
 	$components_repeater->add_group( $c['variable'] );
 }
 require_once( 'fields/accordion.php' );

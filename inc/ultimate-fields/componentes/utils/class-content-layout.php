@@ -3,11 +3,7 @@ use Ultimate_Fields\Field;
 use Ultimate_Fields\Container\Repeater_Group;
 
 class Content_Layout{
-    private static $componentes;
-
-	function __construct($componentes){
-        self::$componentes = $componentes;
-    }
+    function __construct(){}
     
 	public static function the_field($args){
         $defaults = array(
@@ -21,7 +17,8 @@ class Content_Layout{
             'override' => array(),
         );
         $args = wp_parse_args( $args, $defaults );
-
+        
+        $componentes = $GLOBALS['componentes'];
         $args['groups'] = array(); 
 
         if( is_array($args['components']) && count($args['components']) > 0 ){
@@ -60,8 +57,8 @@ class Content_Layout{
                     $group = $layout_column;
                 } else {
                     // Look for component key in $components array
-                    $found_key = array_search($component_name, array_column(self::$componentes, 'name'));
-                    if($found_key >= 0) $group = self::$componentes[$found_key]['variable'];
+                    $found_key = array_search($component_name, array_column($componentes, 'name'));
+                    if($found_key >= 0) $group = $componentes[$found_key]['variable'];
                 }
                 array_push( $args['groups'], $group );
             }

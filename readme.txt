@@ -4,6 +4,11 @@ CHANGELOG
 
 23.8.192 24-01-25
 - Implementation of add_group inside Layout Column
+------------------------------------------------------------------------------------
+- !IMPORTANT: $GLOBALS['componentes'] implementation
+  - edit-components.php file needs to add new components to $GLOBALS['componentes']
+  - edit-components-before-content-layout.php file removed
+------------------------------------------------------------------------------------
 
 23.8.191 24-01-24
 - Implementation of Layout Column Component in Content_Layout Class
