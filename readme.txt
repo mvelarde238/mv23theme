@@ -10,6 +10,7 @@ CHANGELOG
   - edit-components-before-content-layout.php file removed
 ------------------------------------------------------------------------------------
 - Implementation of context menu (delete, copy, paste) in layout group
+- Accordion Comp. fields reorganization
 
 23.8.191 24-01-24
 - Implementation of Layout Column Component in Content_Layout Class
