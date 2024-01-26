@@ -4825,7 +4825,7 @@ li.product:before {
 	margin-bottom: 0 !important;
 }
 
-.carrusel__item--image__link {
+.carrusel__item__link {
 	position: absolute;
 	width: 100%;
 	height: 100%;
