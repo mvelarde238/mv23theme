@@ -43,13 +43,14 @@ $carrusel = Repeater_Group::create( 'Carrusel', array(
         )),
 
         Field::create( 'tab', 'Carrusel' ),
-        Field::create( 'checkbox', 'show_controls' )->set_width( 25 )->set_text('Mostrar Flechas'),
-        Field::create( 'checkbox', 'show_nav' )->set_width( 25 )->set_text('Mostrar indicadores de página'),
+        Field::create( 'checkbox', 'show_controls' )->set_text('Mostrar Flechas')->set_width( 20 ),
+        Field::create( 'checkbox', 'show_nav' )->set_text('Mostrar indicadores de página')->set_width( 20 ),
         Field::create( 'select', 'nav_position' )->add_options( array(
                     'bottom' => 'Abajo',
                     'top' => 'Arriba',
-                ))->set_width( 25 )->add_dependency('show_nav'),
-        Field::create( 'checkbox', 'autoplay' )->set_width( 25 )->set_text('Empezar automáticamente'),
+                ))->add_dependency('show_nav')->set_width( 20 ),
+        Field::create( 'checkbox', 'autoplay' )->set_text('Empezar automáticamente')->set_width( 20 ),
+        Field::create( 'checkbox', 'auto_height' )->set_text('Activar')->set_width( 20 ),
     
         Field::create( 'section','lel','Cantidad de Items visibles'),
         Field::create( 'number', 'items_in_desktop', 'Items en desktop' )->set_default_value( '4' )->set_width( 25 ),

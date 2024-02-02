@@ -11259,6 +11259,7 @@ function create_tns_slider(slider) {
     nav_position = slider.dataset['navPosition'],
     show_nav = slider.dataset['showNav'],
     autoplay = slider.dataset['autoplay'],
+    autoHeight = slider.dataset['autoHeight'],
     mobile = slider.dataset['mobile'],
     tablet = slider.dataset['tablet'],
     laptop = slider.dataset['laptop'],
@@ -11270,6 +11271,7 @@ function create_tns_slider(slider) {
   show_controls = show_controls == '1' ? true : false;
   show_nav = show_nav == '1' ? true : false;
   autoplay = autoplay == '1' ? true : false;
+  autoHeight = autoHeight == '1' ? true : false;
   mobile = mobile != '' ? mobile : 1;
   tablet = tablet != '' ? tablet : 2;
   laptop = laptop != '' ? laptop : 3;
@@ -11283,6 +11285,7 @@ function create_tns_slider(slider) {
     loop: true,
     controlsText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
     rewind: true,
+    autoHeight: autoHeight,
     mouseDrag: true,
     controls: show_controls,
     nav: show_nav,

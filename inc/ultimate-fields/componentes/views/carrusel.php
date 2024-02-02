@@ -6,6 +6,7 @@ $show_controls = (isset($componente['show_controls']) && !empty($componente['sho
 $show_nav = (isset($componente['show_nav']) && !empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
 $nav_position = (isset($componente['nav_position']) && !empty($componente['nav_position'])) ? $componente['nav_position'] : 'bottom';
 $autoplay = (isset($componente['autoplay']) && !empty($componente['autoplay'])) ? $componente['autoplay'] : 0;
+$auto_height = (isset($componente['auto_height']) && !empty($componente['auto_height'])) ? $componente['auto_height'] : 0;
 
 $items_in_mobile = $componente['items_in_mobile'];
 $items_in_tablet = $componente['items_in_tablet'];
@@ -49,6 +50,7 @@ $attributes = generate_attributes($componente, $classes_array);
         data-laptop-gutter="<?=$gutter_in_laptop?>"
         data-desktop-gutter="<?=$gutter_in_desktop?>"
         data-autoplay="<?=$autoplay?>"
+        data-auto-height="<?=$auto_height?>"
         >
     <?php for ($i=0; $i < count($items); $i++) { 
         $type = $items[$i]['__type'];

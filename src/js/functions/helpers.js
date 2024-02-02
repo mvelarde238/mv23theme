@@ -148,6 +148,7 @@ function create_tns_slider(slider){
         nav_position = slider.dataset['navPosition'],
         show_nav = slider.dataset['showNav'],
         autoplay = slider.dataset['autoplay'],
+        autoHeight = slider.dataset['autoHeight'],
         mobile = slider.dataset['mobile'],
         tablet = slider.dataset['tablet'],
         laptop = slider.dataset['laptop'],
@@ -160,6 +161,7 @@ function create_tns_slider(slider){
     show_controls = ( show_controls == '1' ) ? true : false;
     show_nav = ( show_nav == '1' ) ? true : false;
     autoplay = ( autoplay == '1' ) ? true : false;
+    autoHeight = ( autoHeight == '1' ) ? true : false;
     mobile = ( mobile != '' ) ? mobile : 1;
     tablet = ( tablet != '' ) ? tablet : 2;
     laptop = ( laptop != '' ) ? laptop : 3;
@@ -167,7 +169,7 @@ function create_tns_slider(slider){
 
     var slider_options = {
         container: slider, speed: 450, autoplayButton: false, autoplay: autoplay, autoplayButtonOutput: false, loop: true,
-        controlsText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'], rewind: true,
+        controlsText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'], rewind: true, autoHeight: autoHeight,
         mouseDrag: true, controls: show_controls, nav: show_nav, navPosition: nav_position, responsive : {
             1100 : {items:desktop, slideBy:desktop, gutter: desktop_gutter},
             800 : {items:laptop, slideBy:laptop, gutter: laptop_gutter},

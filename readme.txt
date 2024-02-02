@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.194 24-02-02
+- Carrusel Comp. auto height parameter implementation
+
 23.8.193 24-01-26
 - Fix: Validate if pll_ function exists before use it
 - Fix: .carrusel__item__link styles definition
