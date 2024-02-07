@@ -1,5 +1,8 @@
 mv23 changelog-------------------------
 
+07-02-2024
+- (libs/ultimate-fields/core/js/field/repeater.js) Fix: group opens twice on copy/paste action
+
 25-01-2024
 - Implementation of context menu (delete, copy, paste) in layout group:
     (core/js/container/group.js)

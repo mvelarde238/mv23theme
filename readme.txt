@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.195 24-02-07
+- (libs/ultimate-fields/core/js/field/repeater.js) Fix: group opens twice on copy/paste action
+
 23.8.194 24-02-02
 - Carrusel Comp. auto height parameter implementation
 

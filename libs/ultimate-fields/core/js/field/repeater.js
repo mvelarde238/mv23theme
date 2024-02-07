@@ -446,7 +446,6 @@
 			// Paste the group when requested mv23
 			view.on( 'uf-paste', function( data ) {
 				that.model.refresh();
-				view.openPopup();
 			});
 
 			// Allow external influence over the group
