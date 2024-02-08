@@ -12,7 +12,7 @@ div.wpcf7
 
 div.wpcf7-validation-errors,
 div.wpcf7-acceptance-missing
-	border: 2px solid $primary-color
+	border: 2px solid var(--primary-color)
 
 .cf7-submit-wrapper
 	position: relative
@@ -45,9 +45,9 @@ div.wpcf7-acceptance-missing
 	border-radius: 4px
 	overflow: hidden
 	margin-right: 20px
-	// transform-origin: top right
-	// transform: scale(0.78)
-
+	background: url('../images/fake-recaptcha.png') left center no-repeat
+	background-size: auto 100%
+	width: 100%
 	.grecaptcha-badge
 		position: static !important
 		box-shadow: none !important

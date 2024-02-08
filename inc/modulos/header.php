@@ -2,14 +2,7 @@
 $blog_title = get_bloginfo( 'name' ); 
 $header = new Header(); 
 ?>
-<section <?php echo $header->get_class() ?> <?php echo $header->get_style() ?>>
-	<?php if (is_active_sidebar( 'header_widgets_1' )): ?>
-		<div class="header__widgets">
-			<div class="container">
-				<?php dynamic_sidebar( 'header_widgets_1' ); ?>
-			</div>
-		</div>
-	<?php endif ?>
+<section id="header" <?php echo $header->get_class() ?> <?php echo $header->get_style() ?>>
 	<div class="header__content container">
 		<div class="header__logo">
 			<a class="header__logo__link" href="<?php echo home_url(); ?>">
@@ -20,7 +13,15 @@ $header = new Header();
 				<?php endif ?>
 			</a>
 		</div>
-		<?php get_template_part('inc/modulos/menu/menu'); ?>	
+		<div class="header__blocks">
+			<?php get_template_part('inc/modulos/menu/menu'); ?>	
+			
+			<?php if (is_active_sidebar( 'header_widgets_1' )): ?>
+				<div class="header__widgets">
+					<?php dynamic_sidebar( 'header_widgets_1' ); ?>
+				</div>
+			<?php endif ?>
+		</div>
 	</div>
 	<div id="megamenus"></div>
 </section>

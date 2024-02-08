@@ -1,0 +1,55 @@
+.rrss-module
+	display: inline-block
+	a
+		text-decoration: none
+		transition: 500ms all
+		margin-right: 8px
+		margin-bottom: 8px
+		&:last-child
+			margin-right: 0
+		&:hover
+			color: var(--primary-color) !important
+
+	&.style2
+		a
+			width: 40px
+			height: 40px
+			border-radius: 50%
+			display: inline-flex
+			align-items: center
+			margin-right: 4px
+			justify-content: center
+			background: var(--primary-color)
+			color: #fff !important
+			&:hover
+				background-color: var(--secondary-color) !important
+		a[href*="facebook"]
+			background-color: #6081C4 !important
+		a[href*="instagram"]
+			background: linear-gradient(45deg, #e7cd1f 25%,#e0012a 48%,#7833a9 76%) !important
+		a[href*="twitter"]
+			background-color: #00a2f3 !important
+		a[href*="youtube"]
+			background-color: #f00	!important
+		a[href*="linkedin"]
+			background-color: #0a5580	!important
+		a[href*="whatsapp"]
+			background-color: #25d366	!important
+	
+	&.style3
+		a
+			width: 40px
+			height: 40px
+			border-radius: 50%
+			display: inline-flex
+			align-items: center
+			justify-content: center
+			border: 1px solid currentColor
+			margin-right: 4px
+
+
+.text-color-2
+	.rrss-module.style3
+		a:hover
+			color: var(--primary-color) !important
+			// background-color: #fff !important

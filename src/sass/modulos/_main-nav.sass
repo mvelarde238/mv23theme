@@ -5,13 +5,9 @@
 	li
 		list-style-type: none
 		position: relative
-		&.has-megamenu
-			position: static
 	a
 		display: block
-		text-align: center
 		text-decoration: none
-		font-size: 15px
 		&:hover
 			text-decoration: none
 
@@ -19,47 +15,48 @@
 		display: flex
 		align-items: center
 		width: 100%
+		>li:not(:last-child)
+			margin-right: 6px
 		>li
-			margin-left: 10px
-			border-radius: 6px
+			max-width: 180px
 		>li>a
-			padding: 8px 23px
+			padding: 15px 10px
+			font-size: 14px
+			line-height: 18px
+			text-align: center
+			border-radius: 4px
 			span
 				margin-right: 8px
 			img
 				max-height: 18px
 				vertical-align: sub
-		>li.current-menu-item a
-			font-weight: bold
-		// >li>a.is-inview
-		>li:not(.logo)>a:hover
-			background-color: rgba(0,0,0,.1)
-		>li>a.megamenu-link:after,
+		>li.current-menu-item>a,
+		>li.current-page-ancestor>a,
+		>li.current-menu-parent>a,
+		>li>a.is-inview
+			color: var(--primary-color) !important
+		>li.has-megamenu>a:after,
 		>li.menu-item-has-children>a:after
-			content: "\f01a"
-			font: normal normal normal 14px/1 FontAwesome
+			content: '\f107'
+			font: normal normal normal 19px/1 FontAwesome
+			font-weight: bold
 			display: inline-block
-			margin-left: 8px
+			margin-left: 5px
+			line-height: 12px
+			transform: translateY(2px)
 		>li.hidden-text
 			span
 				margin-right: 0
 
-
-
 	ul.sub-menu
 		position: absolute
-		top: 99%
+		top: 100%
 		left: 0
 		z-index: 555
-		// min-width: 180px
-		width: 100%
+		min-width: 180px
 		display: none
-		background-color: rgba(0,0,0,.2)
-
-		// li
-		// 	&.current-menu-item>a
-		// 		background-color: $secondary-color
-		// 		color: #ffff
+		background-color: #fff
+		box-shadow: 0 0 15px rgba(0,0,0,.2)
 
 		li.menu-item-has-children
 			>a
@@ -70,8 +67,8 @@
 				height: 0
 				font-size: 0px
 				border-style: solid
-				border-width: 6px 0 6px 7px
-				border-color: transparent transparent transparent $primary-color
+				border-width: 4px 0 4px 5px
+				border-color: transparent transparent transparent currentColor
 				line-height: 15px
 				vertical-align: super
 				margin-right: 8px
@@ -79,42 +76,35 @@
 				top: 14px
 				right: 0px
 
-		li:not(:last-child)
-			border-bottom: 1px solid #f1f1f1
-
+		&>li
+			border-bottom: 1px solid var(--primary-color-lighten-1)
+			&:hover>a
+				background-color: var(--primary-color-lighten-2)
 		a
-			color: #fff
-			padding: 10px 10px
-			&:hover
-				background-color: rgba(0,0,0,.5)
+			font-size: 13px
+			padding: 12px 20px
+			line-height: 18px
 
 		ul
 			left: 100%
 			top: 0
 
-
 	.add-border
 		border: 1px solid
 	.add-color-1
-		background-color: $primary-color
 		a
-			color: #fff
-	.add-color-2
-		background-color: $secondary-color
-		a
-			color: #fff
-
-
-
-.header.fixed
-	ul.sub-menu
-		background-color: #333
-		a
+			background-color: var(--primary-color)
+			color: #fff !important
 			&:hover
-				background-color: rgba(0,0,0,.1)
-
-
-
+				color: #fff !important
+				background-color: var(--secondary-color) !important
+	.add-color-2
+		a
+			background-color: var(--secondary-color)
+			color: #fff !important
+			&:hover
+				color: #fff !important
+				background-color: var(--primary-color) !important
 
 
 
@@ -125,7 +115,8 @@
 	top: 100%
 	left: 0
 	width: 100%
-	color: #000
+	color: $font-color
+	z-index: 9999999
 	&.is-active
 		display: block
 		overflow: auto
@@ -151,7 +142,7 @@
 			margin: auto
 			width: 23px
 			height: 2px
-			background-color: #333
+			background-color: $font-color
 		&:before
 			transform: rotate(45deg)
 		&:after
@@ -164,13 +155,21 @@
 		bottom: 0
 		left: 0
 		width: 100%
-		height: 85vh
+		height: 100vh
 		background-color: rgba(0,0,0,.3)
+		z-index: 895
 
-
-
-
-@media only screen and (max-width: #{$menu-breakpoint})
+@media only screen and (max-width: 1296px)
 	.main-nav
 		display: none
-	
+
+.text-color-2
+	.main-nav
+		.menu
+			>li.current-menu-item>a,
+			>li.current-page-ancestor>a,
+			>li.current-menu-parent>a,
+			>li>a.is-inview
+				color: #fff !important
+		ul.sub-menu
+			background-color: var(--secondary-color)

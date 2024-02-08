@@ -8,11 +8,39 @@ if (!function_exists('default_style_formats')) {
 			    // 'classes' => 'mplus-rounded',
 			    // 'wrapper' => false,
 			// ),
-			array(
-			    'title' => 'Titulo',
-			    'block' => 'div',
-			    'classes' => 'special-title-1',
-			    'wrapper' => true,
+			array(  
+				'title' => 'Títulos',	
+				'items' => array(
+					array(
+						'title' => 'Titulo con línea',
+						'block' => 'div',
+						'classes' => 'special-title-1',
+						'wrapper' => true,
+					),
+					array(
+						'title' => 'Titulo con fondo',
+						'block' => 'div',
+						'classes' => 'special-title-2',
+						'wrapper' => true,
+					),
+					array(
+						'title' => 'Titulo subrayado 1',
+						'block' => 'div',
+						'classes' => 'special-title-3',
+						'wrapper' => true,
+					),
+					array(
+						'title' => 'Titulo subrayado 2',
+						'block' => 'div',
+						'classes' => 'special-title-4',
+						'wrapper' => true,
+					),
+				)
+			),
+			array(  
+				'title' => 'Lista Resaltada',  
+				'selector' => 'ul, ol', 
+				'classes' => 'special-list-1',
 			),
 			array(  
 			    'title' => 'Botones',

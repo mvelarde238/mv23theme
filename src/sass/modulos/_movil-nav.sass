@@ -1,22 +1,38 @@
 .menu-movil
-	background-color: $secondary-color
+	--ui-color-1: #{$secondary-color}
+	--ui-color-2: #fff
+	--ui-color-3: var(--primary-color-lighten-2)
+	--darker-color: rgba(0,0,0,.2)
+	background-color: var(--ui-color-1)
+	z-index: 99999
 
 	header
 		padding: 10px
 		text-align: center
+		min-height: 30px
 		img
-			height: 120px
+			height: 60px
 	ul
 		padding-left: 0
 	li
 		list-style-type: none
 		position: relative
 	a
-		color: #fff !important
+		color: var(--ui-color-2) !important
+
+	.menu
+		a
+			height: auto !important
+	.modal-close
+		top: 7px
+		right: 7px
+		background-color: transparent
+		&::before, &::after
+			background-color: var(--ui-color-2)
 
 	.menu
 		>li
-			border-bottom: 1px solid rgba(255,255,255,.3)
+			border-bottom: 1px solid var(--ui-color-3)
 			&.logo
 				display: none
 			br
@@ -34,8 +50,8 @@
 		position: absolute
 		top: 7px
 		right: 5px
-		border: 1px solid rgba(255,255,255,.3)
-		background-color: $primary-color
+		border: 1px solid var(--ui-color-3)
+		background-color: transparent
 		border-radius: 3px
 		outline: 0
 		&:before
@@ -45,19 +61,15 @@
 			font-size: 0px
 			border-style: solid
 			border-width: 7px 6px 0 6px
-			border-color: #fff transparent transparent transparent
+			border-color: var(--ui-color-2) transparent transparent transparent
 			line-height: 15px
 			vertical-align: middle
 			position: absolute
 			top: 13px
 			left: 11px
 
-
-
-
 	ul.sub-menu
-		background-color: rgba(0,0,0,.2) 
-
+		background-color: var(--darker-color)
 
 	&__btn
 		width: 40px
@@ -67,7 +79,7 @@
 		border: 0
 		position: relative
 		display: none
-		border: 1px solid 
+		border: 1px solid
 		border-radius: 4px
 
 		span
@@ -78,8 +90,7 @@
 			right: 0
 			margin: auto
 			border-top: 2px solid
-			transition: 500ms all
-			
+
 			&:nth-child(1)
 				top: 10px
 
@@ -89,8 +100,7 @@
 				margin: auto
 
 			&:nth-child(3)
-				bottom: 10px	
-
+				bottom: 10px
 
 	.rrss-module
 		width: 100%
@@ -100,14 +110,12 @@
 			font-size: 23px
 			margin-right: 0
 
-
 .mobile-nav
 	display: none
-
 
 @media only screen and (max-width: #{$menu-breakpoint})
 	.mobile-nav
 		display: block
-	.menu-movil 
+	.menu-movil
 		&__btn
 			display: block

@@ -169,8 +169,8 @@ form p:last-child {
       top: 0;
       width: 20px;
       height: 20px;
-      border: 2px solid $secondary-color;
-      background-color: $secondary-color;
+      border: 2px solid var(--secondary-color);
+      background-color: var(--secondary-color);
       z-index: 0;
     }
   }
@@ -184,8 +184,8 @@ form p:last-child {
 
   &.tabbed:checked:focus + label:after {
     border-radius: 2px;
-    background-color: $secondary-color;
-    border-color: $secondary-color;
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
   }
 
   // Disabled style

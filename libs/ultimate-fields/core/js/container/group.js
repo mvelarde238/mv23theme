@@ -293,10 +293,13 @@
 					settings.__index = this.model.datastore.attributes.__index;
 
 					this.model.datastore.set( settings );
-					this.open();
 
 					// used by repeater.js to REFRESH the brand new group
 					this.trigger( 'uf-paste', {});
+
+					// show the group
+					this.openPopup();
+
 				} else {
 					alert('The settings of a "'+settings.__type+'" component cannot be pasted in a "'+component_type+'" component.');
 				}

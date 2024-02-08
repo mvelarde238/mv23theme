@@ -1,0 +1,23 @@
+.special-title-4
+    display: block
+    margin-bottom: 20px
+    h1,h2,h3,h4,h5,h6
+        border-bottom: 1px solid 
+        padding-bottom: .8rem
+        position: relative
+        &[style*="text-align: right"]
+            &:before
+                left: initial
+                right: 0
+        &[style*="text-align: center"]
+            &:before
+                margin: auto
+                right: 0
+        &:before
+            content: ''
+            position: absolute
+            left: 0
+            bottom: -5px
+            border-top: 5px solid 
+            width: 40%
+            max-width: 220px

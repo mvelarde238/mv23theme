@@ -17,6 +17,7 @@ require_once( 'fields/componente-reusable.php' );
 require_once( 'fields/listing.php' );
 require_once( 'fields/html.php' );
 require_once( 'fields/gallery.php' );
+require_once( 'fields/testimonios.php' );
 
 $componentes = array(
 	array('name' => 'Editor de Texto', 'variable'=>$text_editor),
@@ -30,6 +31,7 @@ $componentes = array(
 	array('name' => 'Listing', 'variable'=>$listing),
 	array('name' => 'HTML', 'variable'=>$htmlCmp),
 	array('name' => 'Galeria', 'variable'=>$gallery),
+	array('name' => 'Testimonios', 'variable'=>$testimonios),
 );
 
 if(PROGRESS_CIRCLE) $componentes[] = array('name' => 'Progress Circle', 'variable'=>$progress_circle);

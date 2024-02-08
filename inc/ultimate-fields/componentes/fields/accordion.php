@@ -64,7 +64,7 @@ $accordion = Repeater_Group::create( 'Accordion', array(
         Field::create('complex','tab_settings')->add_fields(array(
             Field::create('checkbox','close_first_tab')->set_text('Cerrar primer tab')->hide_label()
         ))->set_width(25)->add_dependency('desktop_template','tab','='),
-        Field::create( 'color', 'accent_color' )->set_width( 25 )->add_dependency('desktop_template','tab','=')->set_default_value(get_main_color()),
+        // Field::create( 'color', 'accent_color' )->set_width( 25 )->add_dependency('desktop_template','tab','=')->set_default_value(get_main_color()),
     
         Field::create( 'tab', 'Mobile' ),
         Field::create( 'select', 'mobile_template', 'Apariencia en Móviles' )->add_options( array(    

@@ -12151,6 +12151,22 @@ function animateWidth(elem, start, end, duration, spanElem) {
 })(jQuery, console.log);
 (function ($, c) {
   document.addEventListener('DOMContentLoaded', function () {
+    var $testimonioModal = $('#testimonio-modal'),
+      $testimonioModal_content = $testimonioModal.find('.modal-content');
+    $(document).on('click', ".testimonio__open", function (ev) {
+      ev.preventDefault();
+      var id = $(this).attr('data-id'),
+        node = document.getElementById(id),
+        clone = node.cloneNode(true);
+      $testimonioModal_content.html(clone);
+      $testimonioModal.modal('open');
+    });
+
+    // --------------------------------------------------------------------------------------------------------------
+  });
+})(jQuery, console.log);
+(function ($, c) {
+  document.addEventListener('DOMContentLoaded', function () {
     var toggle_buttons = document.querySelectorAll('.toggle-box');
     var headerHeight = MV23_GLOBALS.headerHeight;
     for (var i = 0; i < toggle_buttons.length; i++) {
@@ -12767,6 +12783,7 @@ function animateWidth(elem, start, end, duration, spanElem) {
       }
     });
     $('.modal-trigger').modal();
+    $('.modal-trigger').css('z-index', 25);
     // $('.select2').select2();
 
     // ****************************************************************************************************
@@ -12901,6 +12918,9 @@ function animateWidth(elem, start, end, duration, spanElem) {
 
     // ****************************************************************************************************
     // ****************************************************************************************************
+
+    $('.share-modal').appendTo('#share-modal-wrapper');
+    // --------------------------------------------------------------------------------------------------------------
   });
 
   $(window).load(function () {

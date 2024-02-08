@@ -1,4 +1,7 @@
 .tns-slider-theme
+    --ui-color-1: var(--primary-color)
+    --ui-color-2: var(--primary-color-lighten-1)
+    --ui-color-3: #{$white}
     @extend .tns-control-position
     .tns-outer
         position: relative
@@ -6,3 +9,7 @@
         @extend .tns-control-buttons
     .tns-nav
         @extend .tns-navigation
+
+.text-color-2 .tns-slider-theme
+    --ui-color-1: #{$white} 
+    --ui-color-3: #{$white-lighten-2} 

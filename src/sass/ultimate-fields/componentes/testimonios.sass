@@ -1,0 +1,63 @@
+.testimonios
+    position: relative
+    @extend .tns-slider-theme
+
+    &>.container
+        position: relative
+
+.testimonio
+    padding: 40px $components-margin-left-right
+    font-size: 15px
+    line-height: 170%
+    min-height: 255px
+    height: 100%
+    &__header
+        display: flex
+        margin-bottom: 15px
+    &__author
+        display: inline-block
+        background-color: #f1f1f1
+        height: 74px
+        width: 74px
+        border-radius: 50%
+        margin-right: 20px
+        background-size: cover
+        background-position: center
+        flex-shrink: 0
+    &__comment
+        display: none
+    &__modal
+        margin: initial
+        width: 328px
+        top: 50% !important
+        left: 50% !important
+        &.open
+            transform: translate(-50%, -50%) !important
+        .modal-content
+            padding: 0
+    &__modal &__excerpt
+        display: none
+    &__modal &__comment
+        display: block
+
+    &.has-video-background
+        background-color: var(--secondary-color)
+        &:before
+            z-index: 16
+        video
+            z-index: 15
+            opacity: .5
+            top: 100%
+        .zoom-video
+            background: url('../images/play.png') no-repeat center
+            background-size: 50px 50px
+            transition: 200ms all
+        &:hover
+            background-color: var(--primary-color)
+            .zoom-video
+                background-size: 70px 70px
+
+@media only screen and (max-width: 1024px)
+    .testimonios
+        .has-video-background video
+            height: initial

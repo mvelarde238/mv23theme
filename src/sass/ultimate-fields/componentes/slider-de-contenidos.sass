@@ -21,7 +21,7 @@
 			outline: 0
 
 			&.tns-nav-active
-				background-color: $secondary-color
+				background-color: var(--secondary-color)
 				position: relative
 				color: #fff
 
@@ -35,13 +35,3 @@
 		&[data-show-title='1'] .tns-nav
 			button
 				font-size: 15px
-
-@media #{$medium-and-down}
-	.componente-slider-de-contenidos .tns-controls
-		button[data-controls="prev"],
-		button[data-controls="next"]
-			transform: scale(.8)
-		button[data-controls="prev"]
-			left: -20px
-		button[data-controls="next"]
-			right: -20px

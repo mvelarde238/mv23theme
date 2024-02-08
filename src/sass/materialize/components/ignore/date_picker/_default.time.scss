@@ -250,17 +250,17 @@
 }
 .clockpicker-canvas-bearing {
 	stroke: none;
-	fill: $secondary-color;
+	fill: var(--secondary-color);
 }
 .clockpicker-canvas-bg {
 	stroke: none;
-	fill: $secondary-color;
+	fill: var(--secondary-color);
 }
 .clockpicker-canvas-bg-trans {
-	fill: $secondary-color;
+	fill: var(--secondary-color);
 }
 .clockpicker-canvas line {
-	stroke: $secondary-color;
+	stroke: var(--secondary-color);
 	stroke-width: 4;
 	stroke-linecap: round;
 	/*shape-rendering: crispEdges;*/

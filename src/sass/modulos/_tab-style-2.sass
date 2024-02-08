@@ -1,0 +1,46 @@
+.v23-togglebox
+    &[data-template="tab"].tab-style2
+        display: flex
+        justify-content: space-between
+
+    &[data-template="tab"].tab-style2 &__nav
+        width: 30%
+
+    &[data-template="tab"].tab-style2 &__items
+        width: 70%
+        padding: 40px 20px
+        border-top: 1px solid var(--ui-color-2)
+        border-right: 1px solid var(--ui-color-2)
+        border-radius: 0 15px 0 0
+
+    &[data-template="tab"].tab-style2 &__nav &__btn
+        padding: 10px 15px
+        cursor: pointer
+        margin: 0
+        margin-bottom: 5px
+        position: relative
+        transition: 200ms all
+        border-radius: 3px
+        font-weight: bold
+        border: 1px solid var(--ui-color-2)
+        img
+            height: 15px
+            vertical-align: middle
+        img, span
+            margin-bottom: 0
+            margin-right: 15px
+
+    &[data-template="tab"].tab-style2 &__nav &__btn
+        &.active, &:hover
+            background-color: var(--ui-color-3)
+
+    &[data-template="tab"].tab-style2 &__nav &__btn.active:before
+        content: ''
+        position: absolute
+        top: 15px
+        right: -8px
+        width: 0
+        height: 0
+        border-style: solid
+        border-width: 7.5px 0 7.5px 5px
+        border-color: transparent transparent transparent var(--ui-color-1)

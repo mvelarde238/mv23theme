@@ -110,7 +110,7 @@
   
   &:before, &:after{ 
     content: '';
-    background-color: $secondary-color;
+    background-color: var(--secondary-color);
     position: absolute;
     top: 0;
     left: 0;

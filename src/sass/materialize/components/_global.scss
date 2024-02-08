@@ -60,7 +60,7 @@ a {
   -webkit-tap-highlight-color: transparent;
 
   &:hover{
-    color: $primary-color;
+    color: var(--primary-color);
     text-decoration: underline;
   }
 }
@@ -189,7 +189,7 @@ video.responsive-video {
 
 //     &.active a { color: #fff; }
 
-//     &.active { background-color: $primary-color; }
+//     &.active { background-color: var(--primary-color); }
 
 //     &.disabled a {
 //       cursor: default;
@@ -615,7 +615,7 @@ td, th{
 // // Made less specific to allow easier overriding
 // .secondary-content {
 //   float: right;
-//   color: $secondary-color;
+//   color: var(--secondary-color);
 // }
 // .collapsible .collection {
 //   margin: 0;
@@ -835,8 +835,8 @@ td, th{
   background-color: #fff;
 
   &.success{ 
-    color: $secondary-color;
-    border: 1px solid $secondary-color;
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
   }
 
   &.error{

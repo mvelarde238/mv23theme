@@ -71,14 +71,11 @@ add_filter( 'tiny_mce_before_init', 'my_mce_before_init_insert_formats' );
 // Customize mce editor font sizes
 if ( ! function_exists( 'wpex_mce_text_sizes' ) ) {
   function wpex_mce_text_sizes( $initArray ){
-    $initArray['fontsize_formats'] = "10px 11px 12px 13px 14px 15px 16px 17px 18px 19px 20px 21px 22px 23px 24px 25px 26px 27px 28px 29px 30px 32px 35px 40px 41px 42px 43px 44px 45px 55px 65px 80px";
+    $initArray['fontsize_formats'] = "10px 11px 12px 13px 14px 15px 16px 17px 18px 19px 20px 21px 22px 23px 24px 25px 26px 27px 28px 29px 30px 32px 34px 35px 36px 37px 38px 39px 40px 41px 42px 43px 44px 45px 55px";
     return $initArray;
   }
 }
 add_filter( 'tiny_mce_before_init', 'wpex_mce_text_sizes' );
-
-
-
 
 // Customize mce editor font sizes
 // if ( ! function_exists( 'wpex_mce_text_sizes' ) ) {

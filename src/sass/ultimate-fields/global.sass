@@ -37,14 +37,6 @@
 // 	width: calc(100% - 60px)
 // 	box-sizing: border-box
 
-.full-width
-	width: 100vw
-	position: relative
-	left: 50%
-	right: 50%
-	margin-left: -50vw !important
-	margin-right: -50vw !important
-
 .add-padding
 	padding: 20px
 
@@ -73,6 +65,16 @@
 .overflow-auto
 	overflow: auto
 
+// .full-width no needed in mobile:
+@media only screen and (min-width: $container-width)
+	.full-width
+		width: 100vw
+		position: relative
+		left: 50%
+		right: 50%
+		margin-left: -50vw !important
+		margin-right: -50vw !important
+
 @media #{$medium-and-down}
 	.componente
 		margin: 15px 15px
@@ -81,3 +83,8 @@
 		video
 			height: 100%
 			width: auto
+
+@media only screen and (max-width: 445px)
+	.page-module
+		padding-top: 45px
+		padding-bottom: 45px

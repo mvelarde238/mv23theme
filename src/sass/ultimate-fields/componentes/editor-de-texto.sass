@@ -1,6 +1,6 @@
 .editor-de-texto
-	img
-		vertical-align: middle
+	ul
+		padding-left: 33px
 	ol
 		counter-reset: theme-counter
 	li
@@ -20,6 +20,17 @@
 	ul li
 		list-style-type: none
 		&:before
-			content: "\f1d8"
+			content: "\f28e"
 			font-family: FontAwesome
 			font-size: 12px
+	li[role="presentation"]:before
+		display: none
+
+.editor-de-texto ul.slick-dots li:before
+	display: none
+.text-color-2
+	.slick-dots li.slick-active button:before
+		color: #fff
+
+p + .pdf-responsive
+	margin-bottom: 30px	

@@ -1,2 +1,40 @@
+.single-post, .archive, .blog
+	background-color: var(--primary-color)-lighten-2
+
 .full-post
 	padding: 0 15px
+
+.single-post
+	.must-log-in
+		text-align: center
+	.page-header h1
+		margin: 15px 0
+	&__title
+		margin-bottom: 10px
+		&-wrapper
+			padding-left: 30px
+			border-left: 3px solid var(--primary-color)
+	&__postdata
+		font-size: 14px
+	
+	&__tags
+		display: flex
+		flex-wrap: wrap
+		justify-content: flex-end
+		gap: 3px
+		text-align: right
+		span
+			display: inline-block
+			font-size: 13px
+			background-color: var(--primary-color)
+			color: #fff
+			padding: 0 15px
+			border-radius: 20px
+
+.page-header__date
+	border: 1px solid
+	display: inline-block
+	padding: 5px 15px
+	border-radius: 20px
+	i
+		margin-right: 15px

@@ -2,7 +2,8 @@
 $tipo = $componente['__type'];
 $items = $componente['accordion'];
 $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
-$accent_color = (isset($componente['accent_color'])) ? $componente['accent_color'] : '#000';
+// $accent_color = (isset($componente['accent_color'])) ? $componente['accent_color'] : '#000';
+// style="--accent-color: $accent_color"
 
 $data_attributes = '';
 if($componente['desktop_template'] == 'accordion') $data_attributes .= 'data-template="accordion" ';
@@ -24,7 +25,7 @@ $attributes = generate_attributes($componente, $classes_array);
 <div <?=$attributes?>>
     <?php if ($layout == 'layout2') echo '<div class="container">'; ?>
     <?php if (is_array($items) && count($items)>0): ?>
-        <div class="v23-togglebox <?php echo 'tab-'.$tab_style ?>" <?=$data_attributes?> style="--accent-color:<?=$accent_color?>">
+        <div class="v23-togglebox <?php echo 'tab-'.$tab_style ?>" <?=$data_attributes?>>
             <?php
             $nav = '<div class="v23-togglebox__nav">';
             $itemsbox = '<div class="v23-togglebox__items">';

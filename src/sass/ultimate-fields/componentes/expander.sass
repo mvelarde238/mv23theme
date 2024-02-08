@@ -7,7 +7,8 @@
     position: absolute
     left: 0
     top: auto
-    padding: 30px
+    padding: 0 30px
+    background-color: $primary-color-lighten-2
 
     &:before,
     &::after
@@ -40,6 +41,7 @@
         top: 25px
         right: 30px
         cursor: pointer
+        z-index: 89
 
         &::before,
         &::after
@@ -71,3 +73,11 @@
         height: 50px
         background-size: cover
         z-index: 100
+
+.text-color-2 .expander
+    background-color: transparent
+    border-top: 1px solid var(--primary-color-lighten-1)
+    border-bottom: 1px solid var(--primary-color-lighten-1)
+    &::before,
+    &::after
+        display: none

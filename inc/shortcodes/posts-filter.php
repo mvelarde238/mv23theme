@@ -88,7 +88,7 @@ function print_posts_filter( $atts ) {
             <div class="field-wrapper">
                 <input type="hidden" value="<?=$a['posttype']?>" class="posts-filter__posttype">
                 <input type="hidden" value="<?=$a['taxonomies']?>" class="posts-filter__taxonomies">
-                <button class="posts-filter__submit btn"><?php echo $filter[$current_lang] ?></button>
+                <button class="posts-filter__submit btn btn--main-color btn-block"><?php echo $filter[$current_lang] ?></button>
             </div>
         </form>
     </div>

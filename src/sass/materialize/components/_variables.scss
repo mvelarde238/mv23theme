@@ -33,34 +33,31 @@ $root: '/2021/pruebas/wp-content/themes/mv23theme';
 //  25. Progress Bar
 
 $menu-breakpoint: 1296px !default;
-$font-url: 'https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:400,500&family=Roboto:300';
+$font-url: 'https://fonts.googleapis.com/css?family=Onest:400,700';
 
 // 1. Colors
 // ==========================================================================
 
-// $primary-color: #AAA38E !default;
 $primary-color: #F8522C !default;
-$primary-color-light: lighten($primary-color, 15%) !default;
-$primary-color-dark: darken($primary-color, 15%) !default;
+$primary-color-lighten-1: #{lighten($primary-color, 33%)} !default;
+$primary-color-lighten-2: #{lighten($primary-color, 39%)} !default;
 
+$secondary-color: #071a36 !default;
 $font-color: #000 !default;
-
-$secondary-color: #2A5354 !default;
-$tertiary-color: #CDC6BE !default;
+$font-color-2: rgba(255, 255, 255, .7) !default;
 
 $success-color: color("green", "base") !default;
 $error-color: color("red", "base") !default;
 $link-color: $secondary-color !default;
 
 $white: #fff;
-
-$dark-fixed-header-color: rgba(0,0,0,.5) !default;
-$light-fixed-header-color: #fff;
+$white-lighten-1: rgba($white,.1) !default;
+$white-lighten-2: rgba($white,.2) !default;
 
 $components-margin-left-right: 20px !default; 
-$components-margin-top-bottom: 20px !default; 
+$components-margin-top-bottom: 25px !default; 
 $components-margin: $components-margin-top-bottom $components-margin-left-right !default; 
-$page-module-padding: 90px 0 !default;
+$page-module-padding: 40px 0 !default;
 $container-width: 1240px !default;
 $sidebar-width: 328px !default;
 $scroll-width: 4px !default;
@@ -302,7 +299,7 @@ $spinner-default-color: $secondary-color !default;
 // 18. Tabs
 // ==========================================================================
 
-$tabs-underline-color: $primary-color-light !default;
+$tabs-underline-color: $primary-color-lighten-2 !default;
 $tabs-text-color: $secondary-color !default;
 $tabs-bg-color: #fff !default;
 
@@ -340,7 +337,7 @@ $h6-fontsize: 18px !default; // 1rem
 // ==========================================================================
 
 $footer-font-color: #fff !default;
-$footer-bg-color: $primary-color !default;
+$footer-bg-color: primary-color !default;
 $footer-copyright-font-color: rgba(255,255,255,.8) !default;
 $footer-copyright-bg-color: rgba(51,51,51,.08) !default;
 

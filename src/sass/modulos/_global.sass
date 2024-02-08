@@ -1,28 +1,39 @@
 body
 	overflow-x: hidden
+	--body-padding-top: 110px
+	--primary-color: #{$primary-color}
+	--secondary-color: #{$secondary-color}
+	--primary-color-lighten-1: #{$primary-color-lighten-1}
+	--primary-color-lighten-2: #{$primary-color-lighten-2}
+	padding-top: var(--body-padding-top)
 
-#content
-	overflow: hidden
+.subir-page-header
+	margin-top: calc( var(--body-padding-top) * -1 )
 
-.mt0
-	margin-top: 0
-
-.pdt0
-	padding-top: 0
+.container
+	max-width: $container-width !important
 
 .text-color-2
-	color: #fff
+	--primary-color-lighten-1: #{$white-lighten-2}
+	--primary-color-lighten-2: #{$white-lighten-1}
+	color: $font-color-2
 	h1,h2,h3,h4,h5,h6
 		color: inherit
 	a
 		color: inherit
 
 .text-color-1
-	color: #000
+	color: $font-color
 	h1,h2,h3,h4,h5,h6
 		color: #000
 	a:not(.btn)
-		color: $primary-color
+		color: var(--primary-color)
+
+.mt0
+	margin-top: 0
+
+.pdt0
+	padding-top: 0
 
 .wp-caption
 	display: inline-block
@@ -38,7 +49,7 @@ h1,h2,h3,h4,h5,h6,p
 		margin-bottom: 0
 
 span[style*="font-size"]
-		line-height: normal
+	line-height: normal
 
 .img-full-width
 	width: 100%
@@ -71,9 +82,31 @@ span[style*="font-size"]
 	.rotate-on-active
 		transform: rotate(-180deg)
 
+.modal p
+	color: inherit
+
+.overflow-scroll
+	overflow: auto
+
+.overflow-hidden
+	overflow: hidden
+
+.alignleft, img.alignleft
+	margin-right: 30px
+
+@media only screen and (max-width: #{$menu-breakpoint})
+	body
+		--body-padding-top: 72px
+
 @media #{$medium-and-down}
 	.hide-br br
 		display: none
+
+@media only screen and (max-width: 580px)
+	.row .col
+		padding: 0
+	.mobile-font-size
+		font-size: 18px !important
 
 @media #{$medium-only}
 	.center-on-tablet, .center-on-tablet *
@@ -86,6 +119,8 @@ span[style*="font-size"]
 		display: none
 
 @media #{$small-and-down}
+	body
+		--body-padding-top: 56px
 	.movil-img-full-width
 		width: 100%
 	.center-on-mobile, .center-on-mobile *
@@ -96,3 +131,11 @@ span[style*="font-size"]
 		text-align: right !important
 	.hide-br-mobile br
 		display: none
+	.hide-on-mobile
+		display: none
+	.reverse-on-mobile
+		display: flex
+		flex-direction: column-reverse
+	.center-background-on-mobile
+		background-size: cover
+		background-position: center

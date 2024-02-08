@@ -1,32 +1,141 @@
-textarea
-    height: 150px
-    background-color: #f2faff
-    border: 0
-    border-bottom: 2px solid $primary-color
-    padding: 20px 15px
-    font-size: 16px
+label
+    font-weight: bold
+    font-size: 15px
+    line-height: 16px
+    i
+        margin-right: 8px
 
-select
-    background-color: #f2faff
-    border: 0
-    padding: 7px 10px
-    border-bottom: 2px solid $primary-color
-    width: 100%
-    margin-bottom: 8px
-    margin-top: 0 !important
+input:not([type]),
+input[type=date]:not(.browser-default),
+input[type=datetime-local]:not(.browser-default),
+input[type=datetime]:not(.browser-default),
+input[type=email]:not(.browser-default),
+input[type=number]:not(.browser-default),
+input[type=password]:not(.browser-default),
+input[type=search]:not(.browser-default),
+input[type=tel]:not(.browser-default),
+input[type=text]:not(.browser-default),
+input[type=time]:not(.browser-default),
+input[type=url]:not(.browser-default), textarea.materialize-textarea,
+input:not([type="submit"]),
+textarea, select
+    font-weight: normal
+    border: 1px solid
+    border-color: var(--primary-color-lighten-1)
+    background-color: var(--primary-color-lighten-2)
+    border-radius: 4px
 
-input[type=submit]
-    background-color: $primary-color
+input[type="radio"],
+input[type="checkbox"]
+    accent-color: var(--primary-color)
+
+input[type="file"]
+    background-color: transparent
+    border: 0
+    border-radius: 0
+
+input[type="submit"]
+    background-color: var(--primary-color)
     color: #fff
     font-weight: bold
     text-transform: uppercase
-    border: 3px solid $primary-color
+    border: 3px solid var(--primary-color)
     padding: 17px 40px
     width: 100%
     border-radius: 0 25px 0 25px
     transition: 500ms all
-
+    font-size: 16px
+    border-radius: 5px
+    background-color: var(--primary-color)
+    border-color: var(--primary-color)
     &:hover
-        box-shadow: 0 0 8px rgba(0,0,0,.5)
-        background-color: $tertiary-color
-        border-color: $tertiary-color
+        box-shadow: initial
+        background-color: var(--secondary-color)
+        border-color: var(--secondary-color)
+
+select
+    width: 100%
+    margin-bottom: 8px
+    margin-top: 0 !important
+    padding: 9px 10px
+    @extend .scroll
+
+textarea
+    height: 120px
+    height: 150px
+    padding: 20px 15px
+
+.wpcf7-checkbox,
+.wpcf7-radio
+    display: flex
+    flex-wrap: wrap
+    gap: 13px
+    margin-bottom: 7px
+    .wpcf7-list-item
+        margin-left: 0
+        border: 1px solid
+        border-color: var(--primary-color-lighten-1)
+        background-color: var(--primary-color-lighten-2)
+        border-radius: 4px
+        label
+            padding: 11px 15px
+            font-size: 13px
+            line-height: 18px
+            display: block
+            cursor: pointer
+        input
+            margin-right: 8px
+            width: 20px
+            height: 20px
+            vertical-align: middle
+    &.wpcf7-not-valid .wpcf7-list-item
+        border-color: #f58181
+
+.wpcf7
+    max-width: 750px
+    margin: auto
+
+.row-flex
+    display: flex
+    gap: 15px
+    &::after
+        display: none
+
+.wpcf7-not-valid-tip
+    font-size: 12px
+
+input.wpcf7-not-valid
+    border-color: #f58181 !important
+
+.add-margin-top
+    margin-top: 15px
+
+// COUNTRY SELECT
+.country-p + p
+    display: none
+.dswcf7_country_sel
+    margin-bottom: 8px
+.country-select
+    display: block
+
+@media only screen and (max-width: 1400px)
+    .wpcf7-checkbox,
+    .wpcf7-radio
+        .wpcf7-list-item
+            label
+                padding: 11px 11px
+            input
+                width: 15px
+                height: 15px
+
+@media #{$small-and-down}
+    textarea
+        height: 238px
+    .row-flex
+        flex-wrap: wrap
+    .wpcf7-list-item
+        width: 100%
+
+.text-color-2
+    select option
+        background-color: $font-color !important

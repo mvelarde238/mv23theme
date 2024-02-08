@@ -1,0 +1,42 @@
+.post-card
+    &--style2
+        display: flex
+
+    &--style2 &__image
+        width: 180px !important
+        padding-bottom: 180px !important
+        height: 180px
+        background-size: cover
+        background-position: center
+        display: block
+
+    &--style2 &__content
+        width: calc(100% - 180px) !important
+        padding-top: 0px
+        padding-left: 30px
+        padding-right: 15px
+    
+    &--style2 &__title
+        font-size: 20px
+        margin-bottom: 10px
+    
+    &--style2 &__link
+        text-align: right
+        margin-top: 5px
+
+@media #{$small-and-down}
+    .post-card
+        &--style2
+            align-items: start
+        &--style2 &__image
+            width: 80px !important
+            padding-bottom: 80px !important
+            height: 80px
+        &--style2 &__content
+            width: calc(100% - 80px) !important
+            padding-left: 20px
+            padding-right: 8px
+        &--style2 &__title
+            font-size: 18px
+        &--style2 &__link
+            text-align: left

@@ -1,25 +1,20 @@
-// .progress-circle
-
-    	
 .circular-chart {
     display: block;
     margin: 0 auto;
     max-width: 80%;
     max-height: 250px;
 }
-
 .circle-bg {
     fill: none;
-    stroke: #eee;
+    stroke: #bbc4c9;
     stroke-width: 3.8;
 }
-
 .circle {
     fill: none;
     stroke-width: 2.8;
     stroke-linecap: round;
     animation: progress 1s ease-out forwards;
-    stroke: #ff9f00;
+    stroke: $font-color;
 }
 
 @keyframes progress {
@@ -33,9 +28,11 @@
     text-anchor: middle;
 }
 
-.text-color-2 .circle-bg{
-    stroke: #252525;
-}
-.text-color-2 .percentage{
-    fill: #fff;
+.text-color-2 {
+    .circle-bg{
+        stroke: #02293e;
+    }
+    .percentage{
+        fill: #fff;
+    }
 }

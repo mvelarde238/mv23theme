@@ -22,22 +22,22 @@ $wp_media_folder_path = trailingslashit( WP_PLUGIN_DIR ) . 'wp-media-folder/wp-m
 define ('WPMEDIAFOLDER_IS_ACTIVE', in_array( $wp_media_folder_path, wp_get_active_and_valid_plugins() ));
 
 if( !defined('MAIN_COLOR') ) define ('MAIN_COLOR', '#F8522C');
-if( !defined('SECONDARY_COLOR') ) define ('SECONDARY_COLOR', '#2A5354');
+if( !defined('SECONDARY_COLOR') ) define ('SECONDARY_COLOR', '#071a36');
 if( !defined('TERTIARY_COLOR') ) define ('TERTIARY_COLOR', '#CDC6BE');
-if( !defined('PAGE_HEADER_BGC') ) define ('PAGE_HEADER_BGC', get_secondary_color());
+if( !defined('PAGE_HEADER_BGC') ) define ('PAGE_HEADER_BGC', '');
 if( !defined('PAGE_HEADER_LAYOUT') ) define ('PAGE_HEADER_LAYOUT', 'layout2');
-if( !defined('PAGE_HEADER_TEXT_COLOR') ) define ('PAGE_HEADER_TEXT_COLOR', 'text-color-2');
+if( !defined('PAGE_HEADER_TEXT_COLOR') ) define ('PAGE_HEADER_TEXT_COLOR', 'text-color-default');
 if( !defined('PAGE_HEADER_BGI') ) define ('PAGE_HEADER_BGI', 0);
-if( !defined('PAGE_HEADER_CONTENT_BUILDER') ) define ('PAGE_HEADER_CONTENT_BUILDER', false);
+if( !defined('PAGE_HEADER_CONTENT_BUILDER') ) define ('PAGE_HEADER_CONTENT_BUILDER', true);
 if( !defined('BORDER_RADIUS') ) define ('BORDER_RADIUS', 15);
 if( !defined('LOGOS_QUANTITY') ) define ('LOGOS_QUANTITY', 2);
-if( !defined('FLOATING_HEADER_BREAKPOINT') ) define ('FLOATING_HEADER_BREAKPOINT', 200);
-if( !defined('HEADER_HEIGHT') ) define ('HEADER_HEIGHT', 0); // for anchors if header is fixed
+if( !defined('FLOATING_HEADER_BREAKPOINT') ) define ('FLOATING_HEADER_BREAKPOINT', 20);
+if( !defined('HEADER_HEIGHT') ) define ('HEADER_HEIGHT', 64); // for anchors if header is fixed
 if( !defined('CARD_CONTENT_TYPE') ) define ('CARD_CONTENT_TYPE', 'components');
 if( !defined('IMAGE_THUMB_SIZE') ) define ('IMAGE_THUMB_SIZE', 'full');
 if( !defined('COLOR_PICKER_PALETTES') ) define ('COLOR_PICKER_PALETTES', array('#000000','#ffffff',get_main_color(),get_secondary_color(),get_tertiary_color(),'#0065bd','#5f27cd','#bcd81c'));
 
-if( !defined('CF7_USE_EMAIL_TEMPLATE') ) define ('CF7_USE_EMAIL_TEMPLATE', false);
+if( !defined('CF7_USE_EMAIL_TEMPLATE') ) define ('CF7_USE_EMAIL_TEMPLATE', true);
 if( !defined('CF7_EMAIL_MAIN_COLOR') ) define ('CF7_EMAIL_MAIN_COLOR', get_main_color());
 // logo url: useful if logo is svg or another not supported format in emails
 if( !defined('CF7_EMAIL_LOGO') ) define ('CF7_EMAIL_LOGO', false);
@@ -59,7 +59,7 @@ if( !defined('ARCHIVE_OPTIONS_TAXONOMIES') ) define ('ARCHIVE_OPTIONS_TAXONOMIES
 
 if( !defined('CONTENT_SLIDER') ) define ('CONTENT_SLIDER', false);
 if( !defined('ROW') ) define ('ROW', false);
-if( !defined('COLUMNAS_SIMPLES') ) define ('COLUMNAS_SIMPLES', true);
+if( !defined('COLUMNAS_SIMPLES') ) define ('COLUMNAS_SIMPLES', false);
 if( !defined('ITEMS_GRID') ) define ('ITEMS_GRID', false);
 if( !defined('CARD') ) define ('CARD', false);
 if( !defined('PROGRESS_CIRCLE') ) define ('PROGRESS_CIRCLE', false);
@@ -85,13 +85,13 @@ if( !defined('LISTING_CPTS') ) define( 'LISTING_CPTS', array('post' => 'Entradas
 if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array( array( 'cpt_slug' => 'post', 'slug' => 'category' ) ));
 if( !defined('LISTING_TEMPLATES') ) define( 'LISTING_TEMPLATES', array('' => 'Estilo por defecto', 'carrusel' => 'Carrusel'));
 if( !defined('LISTING_PAGINATION_TYPES') ) define( 'LISTING_PAGINATION_TYPES', array('none' => 'Ninguno', 'classic' => 'Numérico', 'load_more' => 'Cargar más'));
-if( !defined('LISTING_POST_TEMPLATE') ) define( 'LISTING_POST_TEMPLATE', array('' => 'Estilo por defecto'));
+if( !defined('LISTING_POST_TEMPLATE') ) define( 'LISTING_POST_TEMPLATE', array('' => 'Estilo por defecto','post-horizontal' => 'Post Horizontal')); 
 if( !defined('LISTING_LOADING_TEXT') ) define( 'LISTING_LOADING_TEXT', array('es' => 'Cargando...', 'en' => 'Loading...' ));
 if( !defined('LISTING_LOAD_MORE_TEXT') ) define( 'LISTING_LOAD_MORE_TEXT', array('es' => 'Cargar más...', 'en' => 'Load more...' ));
 if( !defined('LISTING_PORTFOLIO_EXPANDER_HEIGHT') ) define( 'LISTING_PORTFOLIO_EXPANDER_HEIGHT', '500px');
 if( !defined('LISTING_PORTFOLIO_SCROLL_DURATION') ) define( 'LISTING_PORTFOLIO_SCROLL_DURATION', '500');
 
-if( !defined('MODAL_OUT_DURATION') ) define( 'MODAL_OUT_DURATION', 200);
+if( !defined('MODAL_OUT_DURATION') ) define( 'MODAL_OUT_DURATION', 1);
 if( !defined('DEFAULT_COLOR_SCHEME') ) define( 'DEFAULT_COLOR_SCHEME', '');
 if( !defined('DEFAULT_TEXT_COLOR') ) define( 'DEFAULT_TEXT_COLOR', 'text-color-default');
 
@@ -130,6 +130,9 @@ if( CF7_USE_EMAIL_TEMPLATE ) require_once( 'inc/functions/cf7-mail-template.php'
 require_once( 'inc/functions/ajax/load-posts.php' );
 get_template_part( 'inc/functions/woocommerce-support' );
 // require_once( 'inc/functions/tinymce-buttons/button-manager.php' );
+require_once( 'inc/functions/dequeue-styles.php' );
+
+remove_all_actions( 'admin_notices' );
 
 function mv23_launch_theme() {
     // launching operation cleanup
