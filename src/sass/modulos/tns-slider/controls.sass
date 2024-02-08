@@ -12,11 +12,14 @@
         .tns-controls
             button[data-controls="prev"],
             button[data-controls="next"]
-                transform: scale(.8)
+                transform: scale(.7)
+                opacity: .7
             button[data-controls="prev"]
-                left: -20px
+                left: 0
+                transform-origin: center left
             button[data-controls="next"]
-                right: -20px
+                right: 0
+                transform-origin: center right
     
 .tns-control-buttons
     z-index: 89
@@ -42,12 +45,11 @@
 
     button[data-controls="prev"]
         box-shadow: -4px 4px 10px var(--ui-color-2)
-        left: -40px
-        margin-right: 5px
+        left: -20px
         i
             margin-right: 3px
     button[data-controls="next"]
         box-shadow: 4px 4px 10px var(--ui-color-2)
-        right: -40px
+        right: -20px
         i
             margin-left: 4px

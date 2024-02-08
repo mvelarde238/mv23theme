@@ -14,7 +14,7 @@ $items_in_laptop = $componente['items_in_laptop'];
 $items_in_desktop = $componente['items_in_desktop'];
 
 $img_styles = '';
-$imgs_height = $componente['imgs_height'] || 'auto';
+$imgs_height = $componente['imgs_height'] ?:'auto';
 if($imgs_height == 'custom') {
     $img_max_height = $componente['img_max_height'] . 'px';
     $img_styles = 'style="max-height:'.$img_max_height.'"'; 
@@ -26,7 +26,6 @@ $gutter_in_laptop = (isset($componente['gutter_in_laptop'])) ? $componente['gutt
 $gutter_in_desktop = (isset($componente['gutter_in_desktop'])) ? $componente['gutter_in_desktop'] : 0;
 
 $classes_array = format_classes(array(
-    'componente',
     'carrusel',
     get_color_scheme($componente),
     $componente['class'],
@@ -78,11 +77,13 @@ $attributes = generate_attributes($componente, $classes_array);
             $lightbox_class = ( $enlace['url_type'] == 'popup' ) ? 'zoom' : '';
             ?>
             <div class="carrusel__item carrusel__item--image">
-                <img src="<?=$bgi?>" <?=$img_styles?> alt="Carrusel Item">
-                <?php if ($link != NULL): ?>
-                    <?php $target = ($enlace['new_tab'] == 1) ? '_blank' : '';  ?>
-                    <a class="carrusel__item__link <?=$lightbox_class?>" href="<?=$link?>" target="<?=$target?>"></a>
-                <?php endif ?>
+                <div class="componente">
+                    <img src="<?=$bgi?>" <?=$img_styles?> alt="Carrusel Item">
+                    <?php if ($link != NULL): ?>
+                        <?php $target = ($enlace['new_tab'] == 1) ? '_blank' : '';  ?>
+                        <a class="carrusel__item__link <?=$lightbox_class?>" href="<?=$link?>" target="<?=$target?>"></a>
+                        <?php endif ?>
+                    </div>
             </div>
             <?php
         }

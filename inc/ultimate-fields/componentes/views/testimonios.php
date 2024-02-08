@@ -8,7 +8,6 @@ $items_in_tablet = $componente['cols_in_tablet'];
 $items_in_mobile = $componente['cols_in_mobile'];
 
 $classes_array = format_classes(array(
-    'componente',
     'testimonios',
     'carrusel',
     get_color_scheme($componente),

@@ -182,19 +182,19 @@ if(!function_exists('post_listing_header')){
                 $show_nav = (!empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
                 $autoplay = (!empty($componente['autoplay'])) ? $componente['autoplay'] : 0;
                 ?>
-            <div class="carrusel" data-controls-position="center"><div class="carrusel__slider" 
-                data-show-controls="<?=$show_controls?>" 
-                data-show-nav="<?=$show_nav?>" 
-                data-autoplay="<?=$autoplay?>" 
-                data-nav-position="bottom"
-                data-mobile="<?=$items_in_mobile?>"
-                data-tablet="<?=$items_in_tablet?>"
-                data-laptop="<?=$items_in_laptop?>"
-                data-desktop="<?=$items_in_desktop?>"
-                data-mobile-gutter="<?=$m_gap?>"
-                data-tablet-gutter="<?=$t_gap?>"
-                data-laptop-gutter="<?=$l_gap?>"
-                data-desktop-gutter="<?=$d_gap?>">
+                <div class="carrusel carrusel-inside-component" data-controls-position="center"><div class="carrusel__slider" 
+                    data-show-controls="<?=$show_controls?>" 
+                    data-show-nav="<?=$show_nav?>" 
+                    data-autoplay="<?=$autoplay?>" 
+                    data-nav-position="bottom"
+                    data-mobile="<?=$items_in_mobile?>"
+                    data-tablet="<?=$items_in_tablet?>"
+                    data-laptop="<?=$items_in_laptop?>"
+                    data-desktop="<?=$items_in_desktop?>"
+                    data-mobile-gutter="<?=$m_gap?>"
+                    data-tablet-gutter="<?=$t_gap?>"
+                    data-laptop-gutter="<?=$l_gap?>"
+                    data-desktop-gutter="<?=$d_gap?>">
             <?php endif; ?>
 
             <?php while ( $query->have_posts() ) : $query->the_post();

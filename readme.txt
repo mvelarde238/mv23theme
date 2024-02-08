@@ -11,6 +11,7 @@ CHANGELOG
   - Youtube source changed to External source
   - Fix fields dependencies
   - Remove support for $video_background_fields
+- Standarize carrusel controls position
 
 23.8.195 24-02-07
 - (libs/ultimate-fields/core/js/field/repeater.js) Fix: group opens twice on copy/paste action
