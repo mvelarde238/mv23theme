@@ -54,7 +54,7 @@ $attributes = generate_attributes($componente, format_classes($classes_array) );
 ?>
 <div <?=$attributes?>>
 	<?php if ($layout == 'layout2') echo '<div class="container">'; ?>
-	<div class="media__element" style="<?=$element_style?>">
+	<div class="media__element text-color-2" style="<?=$element_style?>">
 		<?php if( $type == 'image' && $componente['aspect_ratio'] == 'aspect-ratio-default'): ?>
 			<img src="<?=$image_url?>" alt="">
 		<?php endif; ?>

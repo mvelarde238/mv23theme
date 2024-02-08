@@ -6,6 +6,7 @@ CHANGELOG
 ------------------------------------------------------------------------------------
 - !IMPORTANT: Merge features from childtheme && theme css standarization
 ------------------------------------------------------------------------------------
+- Image Comp. Fix fields dependencies and remove support for $video_background_fields
 
 23.8.195 24-02-07
 - (libs/ultimate-fields/core/js/field/repeater.js) Fix: group opens twice on copy/paste action

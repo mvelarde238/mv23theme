@@ -36,20 +36,40 @@ function video_background($componente){
         }
     }
 
-    if( $video_source == 'youtube' ){
-        $video_url = $componente['youtube_url'];
+    if( $video_source == 'external' ){
+        $video_url = $componente['external_url'];
         if( $video_url ){
             $video_background['url'] = $video_url;
             $video_background['class'] = $class;
-            $video_id = get_video_details_from_url($video_url)['id'];
-            $video_background['code'] = '<iframe '.$video_style.' src="https://www.youtube.com/embed/'.$video_id.'?showinfo=0&rel=0';
-            if( $video_type != 'playable' ) $video_background['code'] .= '&controls=0';
-            if( $video_settings['muted'] ) $video_background['code'] .= '&mute=1';
-            if( $video_settings['autoplay'] ) $video_background['code'] .= '&autoplay=1';
-            if( $video_settings['loop'] ) $video_background['code'] .= '&loop=1';
-            $video_background['code'] .= '" frameborder="0" allowfullscreen></iframe>';
+
+            // $video_id = get_video_details_from_url($video_url)['id'];
+            
+            $args = array(
+                'width' => '100%',
+                'height' => '100%',
+                'noInfo' => '&showinfo=0&rel=0',
+                'autoplay' => '&autoplay=0'
+            );
+            if( $video_type != 'playable' ) $args['noControls'] = '&controls=0';
+            if( $video_settings['muted'] ) $args['mute'] = '&mute=1';
+            if( $video_settings['autoplay'] ) $args['autoplay'] = '&autoplay=1';
+            if( $video_settings['loop'] ) $args['loop'] = '&loop=1';            
+            
+            $video_background['code'] = '<div '.$video_style.'>'.wp_oembed_get( $video_url, $args ).'</div>';
         }
     }
 
 	return $video_background;
 }
+
+add_filter('oembed_result', function($html, $url, $args) {
+    $add_params = 'embed/$1';
+    if( isset($args['noControls']) ) $add_params .= $args['noControls'];
+    if( isset($args['autoplay']) ) $add_params .= $args['autoplay'];
+    if( isset($args['mute']) ) $add_params .= $args['mute'];
+    if( isset($args['loop']) ) $add_params .= $args['loop'];
+    if( isset($args['noInfo']) ) $add_params .= $args['noInfo'];
+
+    $return = preg_replace('@embed/([^"&]*)@', $add_params, $html);
+    return $return;
+}, 10, 3);

@@ -3397,7 +3397,7 @@ body {
 }
 
 .mt0 {
-	margin-top: 0;
+	margin-top: 0 !important;
 }
 
 .pdt0 {
@@ -4548,20 +4548,23 @@ ul.page-numbers .next {
 
 .scroll::-webkit-scrollbar,
 .expander-response::-webkit-scrollbar,
-select::-webkit-scrollbar {
+select::-webkit-scrollbar,
+.modal::-webkit-scrollbar {
 	width: 4px;
 }
 
 .scroll::-webkit-scrollbar-track,
 .expander-response::-webkit-scrollbar-track,
-select::-webkit-scrollbar-track {
+select::-webkit-scrollbar-track,
+.modal::-webkit-scrollbar-track {
 	background-color: var(--primary-color-lighten-1);
 	border-radius: 4px;
 }
 
 .scroll::-webkit-scrollbar-thumb,
 .expander-response::-webkit-scrollbar-thumb,
-select::-webkit-scrollbar-thumb {
+select::-webkit-scrollbar-thumb,
+.modal::-webkit-scrollbar-thumb {
 	background-color: var(--primary-color);
 	border-radius: 4px;
 }

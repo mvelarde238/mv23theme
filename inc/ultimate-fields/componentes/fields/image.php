@@ -16,9 +16,9 @@ $image = Repeater_Group::create( 'Imágen', array(
 
         Field::create( 'radio', 'video_source','Seleccione el origen del video:')->set_orientation( 'horizontal' )->add_options( array(
             'selfhosted' => 'Medios',
-            'youtube' => 'Youtube'
+            'external' => 'Externo'
         ))->add_dependency('type', 'video', '=')->set_width(50),
-        Field::create( 'text', 'youtube_url', 'URL')->add_dependency('type', 'video', '=')->add_dependency('video_source','youtube','=')->set_width(50),
+        Field::create( 'embed', 'external_url', 'URL')->add_dependency('type', 'video', '=')->add_dependency('video_source','external','=')->set_width(50),
         Field::create( 'video', 'bgvideo', 'Video de Fondo' )->add_dependency('type','video','=')->add_dependency('video_source','selfhosted','=')->set_width(50),
 
         Field::create('radio', 'video_type', 'Formato:')->set_orientation('horizontal')->add_options(array(
@@ -26,10 +26,11 @@ $image = Repeater_Group::create( 'Imágen', array(
             'popable' => 'Abrir en Pop Up'
         ))
         // ->add_dependency('bgvideo',0,'>'),
+        ->add_dependency('type','video','=')
         ->add_dependency('video_source','selfhosted','=')
         ->add_dependency_group()
-        ->add_dependency('video_source','youtube','=')
-        ->add_dependency('youtube_url','','!='),
+        ->add_dependency('video_source','external','=')
+        ->add_dependency('external_url','','!='),
         Field::create( 'complex', 'video_settings' )->add_fields(array(
             Field::create( 'color', 'bgc', 'Color de Fondo' )->set_default_value('#000000')->set_width(20),
             Field::create( 'checkbox', 'autoplay', 'AutoPlay' )->set_text( 'Activar' )->set_width(20),
@@ -38,10 +39,11 @@ $image = Repeater_Group::create( 'Imágen', array(
             Field::create( 'number', 'opacity', 'Transparencia' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width(20)
         ))
         // ->add_dependency('bgvideo','0','>'),
+        ->add_dependency('type','video','=')
         ->add_dependency('video_source','selfhosted','=')
         ->add_dependency_group()
-        ->add_dependency('video_source','youtube','=')
-        ->add_dependency('youtube_url','','!='),
+        ->add_dependency('video_source','external','=')
+        ->add_dependency('external_url','','!='),
 
         Field::create( 'tab', 'Tamaño' ),
         Field::create( 'image_select', 'aspect_ratio' )->add_options(array(
@@ -98,4 +100,12 @@ $image = Repeater_Group::create( 'Imágen', array(
     ),
 ))
 ->add_fields($acciones_fields)
-->add_fields($settings_fields_container->get_fields());
+// remove support for: $video_background_fields
+// ->add_fields($settings_fields_container->get_fields());
+->add_fields($settings_fields)
+// ->add_fields($video_background_fields)
+->add_fields($margenes)
+->add_fields($bordes)
+->add_fields($box_shadow)
+->add_fields($animation)
+->add_fields($scroll_animation_fields);

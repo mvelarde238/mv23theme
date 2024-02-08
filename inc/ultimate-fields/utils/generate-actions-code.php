@@ -43,8 +43,8 @@ function generate_actions_code($componente){
 			        		echo '<a class="cover-all zoom-video" href="'.$video_url.'"></a>';
 			        	endif;
 					}
-					if( $video_source == 'youtube' ){
-						$video_url = $componente['youtube_url'];
+					if( $video_source == 'external' ){
+						$video_url = $componente['external_url'];
 						if($video_url){
 							echo '<a class="cover-all zoom-video" href="'.$video_url.'"></a>';
 						}

@@ -30,7 +30,7 @@ body
 		color: var(--primary-color)
 
 .mt0
-	margin-top: 0
+	margin-top: 0 !important
 
 .pdt0
 	padding-top: 0
@@ -93,6 +93,9 @@ span[style*="font-size"]
 
 .alignleft, img.alignleft
 	margin-right: 30px
+
+.modal
+	@extend .scroll
 
 @media only screen and (max-width: #{$menu-breakpoint})
 	body
