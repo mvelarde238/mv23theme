@@ -6,7 +6,11 @@ CHANGELOG
 ------------------------------------------------------------------------------------
 - !IMPORTANT: Merge features from childtheme && theme css standarization
 ------------------------------------------------------------------------------------
-- Image Comp. Fix fields dependencies and remove support for $video_background_fields
+- Image/Video Comp. improvements
+  - Used embed UF Field type instead of text:type to save external urls
+  - Youtube source changed to External source
+  - Fix fields dependencies
+  - Remove support for $video_background_fields
 
 23.8.195 24-02-07
 - (libs/ultimate-fields/core/js/field/repeater.js) Fix: group opens twice on copy/paste action
