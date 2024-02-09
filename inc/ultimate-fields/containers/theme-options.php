@@ -9,24 +9,27 @@ add_action( 'admin_menu', function() {
 	add_menu_page('Theme Options','Theme Options','manage_options','theme-options/theme-options-admin.php',function(){},'',4 );
 });
 
-add_filter( 'custom_menu_order', function ( $menu_ord ) {
-    global $submenu;
-    // Enable the next line to see all menu orders
-    // echo '<pre>'.print_r($submenu,true).'</pre>';
+if( !function_exists( 'rearrange_theme_options_submenu_order' ) ){
+    function rearrange_theme_options_submenu_order( $menu_ord ){
+        global $submenu;
+        // Enable the next line to see all menu orders
+        // echo '<pre>'.print_r($submenu['theme-options/theme-options-admin.php'],true).'</pre>';
 
-    $arr = array();
-    $arr[] = $submenu['theme-options/theme-options-admin.php'][4];   
-    $arr[] = $submenu['theme-options/theme-options-admin.php'][5];   
-    $arr[] = $submenu['theme-options/theme-options-admin.php'][6];   
-    $arr[] = $submenu['theme-options/theme-options-admin.php'][7];   
-    $arr[] = $submenu['theme-options/theme-options-admin.php'][0];
-    $arr[] = $submenu['theme-options/theme-options-admin.php'][1];
-    $arr[] = $submenu['theme-options/theme-options-admin.php'][2];   
-    $arr[] = $submenu['theme-options/theme-options-admin.php'][3];   
-    $submenu['theme-options/theme-options-admin.php'] = $arr;
+        $arr = array();
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][5];   
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][6];   
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][3];   
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][7];   
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][4];
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][0];
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][1];
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][2];   
+        $submenu['theme-options/theme-options-admin.php'] = $arr;
 
-    return $menu_ord;
-});
+        return $menu_ord;
+    }
+}
+add_filter( 'custom_menu_order', 'rearrange_theme_options_submenu_order');
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------
 // $theme_options_page = Options_Page::create( 'theme-options', 'Theme Options' )->set_position( 2 );
@@ -97,6 +100,7 @@ Container::create( 'rrss_options' )
 Container::create( 'global_options' ) 
     ->add_location( 'options', $theme_options_page )
     ->add_fields(array(
+        Field::create( 'wp_object', 'theme_footer_post', 'Pie de página' )->add( 'posts', 'post_type=footer' ),
         Field::create( 'checkbox', 'activate_gm', 'Activar Google Maps' )->set_text('Activar'),
         Field::create( 'multiselect', 'gm_services','Google Map Services')->set_input_type( 'checkbox' )->set_orientation( 'horizontal' )->add_options( array(
             'places' => 'Places'
@@ -147,27 +151,6 @@ Container::create( 'header_options' )
     // ->set_layout( 'grid' )
     // ->set_style( 'seamless' )
     ->add_fields($header_fields);
-
-// -----------------------------------------------------------------------------------------------------------------------------------------------
-$footer_page = Options_Page::create( 'footer', 'Pie de Página' )->set_parent( 'theme-options/theme-options-admin.php' );
-
-$footer_fields = array(
-    Field::create( 'tab', 'Español' ),
-    Field::create( 'repeater', 'footer_modules' )->hide_label()->set_add_text('Agregar Módulo')->add_group($modulos),
-);
-if (IS_MULTILANGUAGE) {
-    array_push($footer_fields, Field::create( 'tab', 'English' ));
-    array_push($footer_fields, Field::create( 'repeater', 'footer_modules_en' )->hide_label()->set_add_text('Add Module')->add_group($modulos));
-
-    array_push($footer_fields, Field::create( 'tab', 'Portugués' ));
-    array_push($footer_fields, Field::create( 'repeater', 'footer_modules_pt' )->hide_label()->set_add_text('Adicionar Módulo')->add_group($modulos));
-}
-
-Container::create( 'footer_options' ) 
-    ->add_location( 'options', $footer_page )
-    ->set_layout( 'grid' )
-    ->set_style( 'seamless' )
-    ->add_fields($footer_fields);
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------
 $custom_scripts_page = Options_Page::create( 'custom_scripts', 'Custom Scripts' )->set_parent( 'theme-options/theme-options-admin.php' );
