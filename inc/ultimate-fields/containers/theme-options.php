@@ -16,14 +16,14 @@ if( !function_exists( 'rearrange_theme_options_submenu_order' ) ){
         // echo '<pre>'.print_r($submenu['theme-options/theme-options-admin.php'],true).'</pre>';
 
         $arr = array();
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][5];   
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][6];   
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][3];   
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][7];   
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][4];
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][5];
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][6];
         $arr[] = $submenu['theme-options/theme-options-admin.php'][0];
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][7];
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][3];
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][2];
+        $arr[] = $submenu['theme-options/theme-options-admin.php'][4];
         $arr[] = $submenu['theme-options/theme-options-admin.php'][1];
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][2];   
         $submenu['theme-options/theme-options-admin.php'] = $arr;
 
         return $menu_ord;

@@ -4,6 +4,7 @@ CHANGELOG
 
 23.8.197 24-02-09
 - Footer CPT Implementation
+- Use CPT Class to register Post Types
 
 23.8.196 24-02-08
 ------------------------------------------------------------------------------------

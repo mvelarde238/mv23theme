@@ -6,6 +6,7 @@ $footers = new CPT(
     ), 
     array(
         'show_in_menu' => 'theme-options/theme-options-admin.php',
+        'show_in_nav_menus' => false,
         'supports' => array('title')
     )
 );
