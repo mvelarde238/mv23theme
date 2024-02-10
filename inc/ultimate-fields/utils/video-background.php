@@ -66,7 +66,7 @@ add_filter('oembed_result', function($html, $url, $args) {
     $add_params = 'embed/$1';
     if( isset($args['noControls']) ) $add_params .= $args['noControls'];
     if( isset($args['autoplay']) ) $add_params .= $args['autoplay'];
-    if( isset($args['mute']) ) $add_params .= $args['mute'];
+    if( isset($args['muted']) ) $add_params .= $args['muted'];
     if( isset($args['loop']) ) $add_params .= $args['loop'];
     if( isset($args['noInfo']) ) $add_params .= $args['noInfo'];
 
