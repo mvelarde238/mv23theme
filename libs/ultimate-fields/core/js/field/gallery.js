@@ -290,8 +290,13 @@
 			if( attachment.attributes.type == 'image' ){
 				var sizes = attachment.get ? attachment.get( 'sizes' ) : attachment.sizes,
 					img   = sizes.thumbnail ? sizes.thumbnail : sizes.full;
+			} else if ( attachment.attributes.type == 'application' ) {
+				// var img = attachment.attributes.icon;
+				var img = '';
+				img.url = img;
 			} else {
-				var img = attachment.attributes.thumb;
+				// var img = attachment.attributes.thumb;
+				var img = '';
 				img.url = img.src;
 			}
 
@@ -320,6 +325,12 @@
 						$div.remove();
 					});
 				});
+
+			// Add filename
+			if( attachment.attributes.type != 'image' ){
+				$div
+					.append( '<p class="gallery-item-name">'+ attachment.attributes.filename+'</p>' );
+			}
 		},
 
 		/**

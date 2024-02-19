@@ -1,5 +1,26 @@
 "use strict";
 
+function _get() { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get.bind(); } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return _get.apply(this, arguments); }
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e70) { throw _e70; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e71) { didErr = true; err = _e71; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -5103,965 +5124,6726 @@ if (Vel) {
     };
   }(window.jQuery || window.Zepto || window, window, window ? window.document : undefined);
 });
-/*
-	Colorbox 1.6.4
-	license: MIT
-	http://www.jacklmoore.com/colorbox
-*/
-(function ($, document, window) {
-  var
-    // Default settings object.
-    // See http://jacklmoore.com/colorbox for details.
-    defaults = {
-      // data sources
-      html: false,
-      photo: false,
-      iframe: false,
-      inline: false,
-      // behavior and appearance
-      transition: "elastic",
-      speed: 300,
-      fadeOut: 300,
-      width: false,
-      initialWidth: "600",
-      innerWidth: false,
-      maxWidth: false,
-      height: false,
-      initialHeight: "450",
-      innerHeight: false,
-      maxHeight: false,
-      scalePhotos: true,
-      scrolling: true,
-      opacity: 0.9,
-      preloading: true,
-      className: false,
-      overlayClose: true,
-      escKey: true,
-      arrowKey: true,
-      top: false,
-      bottom: false,
-      left: false,
-      right: false,
-      fixed: false,
-      data: undefined,
-      closeButton: true,
-      fastIframe: true,
-      open: false,
-      reposition: true,
-      loop: true,
-      slideshow: false,
-      slideshowAuto: true,
-      slideshowSpeed: 2500,
-      slideshowStart: "start slideshow",
-      slideshowStop: "stop slideshow",
-      photoRegex: /\.(gif|png|jp(e|g|eg)|bmp|ico|webp|jxr|svg)((#|\?).*)?$/i,
-      // alternate image paths for high-res displays
-      retinaImage: false,
-      retinaUrl: false,
-      retinaSuffix: '@2x.$1',
-      // internationalization
-      current: "imagen {current} de {total}",
-      previous: "previous",
-      next: "next",
-      close: "close",
-      xhrError: "This content failed to load.",
-      imgError: "This image failed to load.",
-      // accessbility
-      returnFocus: true,
-      trapFocus: true,
-      // callbacks
-      onOpen: false,
-      onLoad: false,
-      onComplete: false,
-      onCleanup: false,
-      onClosed: false,
-      rel: function rel() {
-        return this.rel;
+!function (t, e) {
+  "object" == (typeof exports === "undefined" ? "undefined" : _typeof(exports)) && "undefined" != typeof module ? e(exports) : "function" == typeof define && define.amd ? define(["exports"], e) : e((t = "undefined" != typeof globalThis ? globalThis : t || self).windowq = t.window || {});
+}(void 0, function (t) {
+  "use strict";
+
+  var e = function e(t) {
+      var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1e4;
+      return t = parseFloat(t + "") || 0, Math.round((t + Number.EPSILON) * e) / e;
+    },
+    i = function i(t) {
+      if (!(t && t instanceof Element && t.offsetParent)) return !1;
+      var e = t.scrollHeight > t.clientHeight,
+        i = window.getComputedStyle(t).overflowY,
+        n = -1 !== i.indexOf("hidden"),
+        s = -1 !== i.indexOf("visible");
+      return e && !n && !s;
+    },
+    n = function n(t) {
+      var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : void 0;
+      return !(!t || t === document.body || e && t === e) && (i(t) ? t : n(t.parentElement, e));
+    },
+    s = function s(t) {
+      var e = new DOMParser().parseFromString(t, "text/html").body;
+      if (e.childElementCount > 1) {
+        for (var i = document.createElement("div"); e.firstChild;) i.appendChild(e.firstChild);
+        return i;
+      }
+      return e.firstChild;
+    },
+    o = function o(t) {
+      return "".concat(t || "").split(" ").filter(function (t) {
+        return !!t;
+      });
+    },
+    a = function a(t, e, i) {
+      t && o(e).forEach(function (e) {
+        t.classList.toggle(e, i || !1);
+      });
+    };
+  var r = /*#__PURE__*/_createClass(function r(t) {
+    _classCallCheck(this, r);
+    Object.defineProperty(this, "pageX", {
+      enumerable: !0,
+      configurable: !0,
+      writable: !0,
+      value: void 0
+    }), Object.defineProperty(this, "pageY", {
+      enumerable: !0,
+      configurable: !0,
+      writable: !0,
+      value: void 0
+    }), Object.defineProperty(this, "clientX", {
+      enumerable: !0,
+      configurable: !0,
+      writable: !0,
+      value: void 0
+    }), Object.defineProperty(this, "clientY", {
+      enumerable: !0,
+      configurable: !0,
+      writable: !0,
+      value: void 0
+    }), Object.defineProperty(this, "id", {
+      enumerable: !0,
+      configurable: !0,
+      writable: !0,
+      value: void 0
+    }), Object.defineProperty(this, "time", {
+      enumerable: !0,
+      configurable: !0,
+      writable: !0,
+      value: void 0
+    }), Object.defineProperty(this, "nativePointer", {
+      enumerable: !0,
+      configurable: !0,
+      writable: !0,
+      value: void 0
+    }), this.nativePointer = t, this.pageX = t.pageX, this.pageY = t.pageY, this.clientX = t.clientX, this.clientY = t.clientY, this.id = self.Touch && t instanceof Touch ? t.identifier : -1, this.time = Date.now();
+  });
+  var l = {
+    passive: !1
+  };
+  var c = /*#__PURE__*/function () {
+    function c(t, _ref) {
+      var _ref$start = _ref.start,
+        e = _ref$start === void 0 ? function () {
+          return !0;
+        } : _ref$start,
+        _ref$move = _ref.move,
+        i = _ref$move === void 0 ? function () {} : _ref$move,
+        _ref$end = _ref.end,
+        n = _ref$end === void 0 ? function () {} : _ref$end;
+      _classCallCheck(this, c);
+      Object.defineProperty(this, "element", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: void 0
+      }), Object.defineProperty(this, "startCallback", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: void 0
+      }), Object.defineProperty(this, "moveCallback", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: void 0
+      }), Object.defineProperty(this, "endCallback", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: void 0
+      }), Object.defineProperty(this, "currentPointers", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: []
+      }), Object.defineProperty(this, "startPointers", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: []
+      }), this.element = t, this.startCallback = e, this.moveCallback = i, this.endCallback = n;
+      for (var _i = 0, _arr = ["onPointerStart", "onTouchStart", "onMove", "onTouchEnd", "onPointerEnd", "onWindowBlur"]; _i < _arr.length; _i++) {
+        var _t2 = _arr[_i];
+        this[_t2] = this[_t2].bind(this);
+      }
+      this.element.addEventListener("mousedown", this.onPointerStart, l), this.element.addEventListener("touchstart", this.onTouchStart, l), this.element.addEventListener("touchmove", this.onMove, l), this.element.addEventListener("touchend", this.onTouchEnd), this.element.addEventListener("touchcancel", this.onTouchEnd);
+    }
+    _createClass(c, [{
+      key: "onPointerStart",
+      value: function onPointerStart(t) {
+        if (!t.buttons || 0 !== t.button) return;
+        var e = new r(t);
+        this.currentPointers.some(function (t) {
+          return t.id === e.id;
+        }) || this.triggerPointerStart(e, t) && (window.addEventListener("mousemove", this.onMove), window.addEventListener("mouseup", this.onPointerEnd), window.addEventListener("blur", this.onWindowBlur));
+      }
+    }, {
+      key: "onTouchStart",
+      value: function onTouchStart(t) {
+        for (var _i2 = 0, _Array$from = Array.from(t.changedTouches || []); _i2 < _Array$from.length; _i2++) {
+          var _e = _Array$from[_i2];
+          this.triggerPointerStart(new r(_e), t);
+        }
+        window.addEventListener("blur", this.onWindowBlur);
+      }
+    }, {
+      key: "onMove",
+      value: function onMove(t) {
+        var _this3 = this;
+        var e = this.currentPointers.slice(),
+          i = "changedTouches" in t ? Array.from(t.changedTouches || []).map(function (t) {
+            return new r(t);
+          }) : [new r(t)],
+          n = [];
+        var _iterator = _createForOfIteratorHelper(i),
+          _step;
+        try {
+          var _loop2 = function _loop2() {
+            var t = _step.value;
+            var e = _this3.currentPointers.findIndex(function (e) {
+              return e.id === t.id;
+            });
+            e < 0 || (n.push(t), _this3.currentPointers[e] = t);
+          };
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            _loop2();
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+        n.length && this.moveCallback(t, this.currentPointers.slice(), e);
+      }
+    }, {
+      key: "onPointerEnd",
+      value: function onPointerEnd(t) {
+        t.buttons > 0 && 0 !== t.button || (this.triggerPointerEnd(t, new r(t)), window.removeEventListener("mousemove", this.onMove), window.removeEventListener("mouseup", this.onPointerEnd), window.removeEventListener("blur", this.onWindowBlur));
+      }
+    }, {
+      key: "onTouchEnd",
+      value: function onTouchEnd(t) {
+        for (var _i3 = 0, _Array$from2 = Array.from(t.changedTouches || []); _i3 < _Array$from2.length; _i3++) {
+          var _e2 = _Array$from2[_i3];
+          this.triggerPointerEnd(t, new r(_e2));
+        }
+      }
+    }, {
+      key: "triggerPointerStart",
+      value: function triggerPointerStart(t, e) {
+        return !!this.startCallback(e, t, this.currentPointers.slice()) && (this.currentPointers.push(t), this.startPointers.push(t), !0);
+      }
+    }, {
+      key: "triggerPointerEnd",
+      value: function triggerPointerEnd(t, e) {
+        var i = this.currentPointers.findIndex(function (t) {
+          return t.id === e.id;
+        });
+        i < 0 || (this.currentPointers.splice(i, 1), this.startPointers.splice(i, 1), this.endCallback(t, e, this.currentPointers.slice()));
+      }
+    }, {
+      key: "onWindowBlur",
+      value: function onWindowBlur() {
+        this.clear();
+      }
+    }, {
+      key: "clear",
+      value: function clear() {
+        for (; this.currentPointers.length;) {
+          var _t3 = this.currentPointers[this.currentPointers.length - 1];
+          this.currentPointers.splice(this.currentPointers.length - 1, 1), this.startPointers.splice(this.currentPointers.length - 1, 1), this.endCallback(new Event("touchend", {
+            bubbles: !0,
+            cancelable: !0,
+            clientX: _t3.clientX,
+            clientY: _t3.clientY
+          }), _t3, this.currentPointers.slice());
+        }
+      }
+    }, {
+      key: "stop",
+      value: function stop() {
+        this.element.removeEventListener("mousedown", this.onPointerStart, l), this.element.removeEventListener("touchstart", this.onTouchStart, l), this.element.removeEventListener("touchmove", this.onMove, l), this.element.removeEventListener("touchend", this.onTouchEnd), this.element.removeEventListener("touchcancel", this.onTouchEnd), window.removeEventListener("mousemove", this.onMove), window.removeEventListener("mouseup", this.onPointerEnd), window.removeEventListener("blur", this.onWindowBlur);
+      }
+    }]);
+    return c;
+  }();
+  function h(t, e) {
+    return e ? Math.sqrt(Math.pow(e.clientX - t.clientX, 2) + Math.pow(e.clientY - t.clientY, 2)) : 0;
+  }
+  function d(t, e) {
+    return e ? {
+      clientX: (t.clientX + e.clientX) / 2,
+      clientY: (t.clientY + e.clientY) / 2
+    } : t;
+  }
+  var u = function u(t) {
+      return "object" == _typeof(t) && null !== t && t.constructor === Object && "[object Object]" === Object.prototype.toString.call(t);
+    },
+    p = function p(t) {
+      var i = arguments.length <= 1 ? 0 : arguments.length - 1;
+      for (var _n = 0; _n < i; _n++) {
+        var _i4 = (_n + 1 < 1 || arguments.length <= _n + 1 ? undefined : arguments[_n + 1]) || {};
+        Object.entries(_i4).forEach(function (_ref2) {
+          var _ref3 = _slicedToArray(_ref2, 2),
+            e = _ref3[0],
+            i = _ref3[1];
+          var n = Array.isArray(i) ? [] : {};
+          t[e] || Object.assign(t, _defineProperty({}, e, n)), u(i) ? Object.assign(t[e], p(n, i)) : Array.isArray(i) ? Object.assign(t, _defineProperty({}, e, _toConsumableArray(i))) : Object.assign(t, _defineProperty({}, e, i));
+        });
+      }
+      return t;
+    },
+    f = function f(t, e) {
+      return t.split(".").reduce(function (t, e) {
+        return "object" == _typeof(t) ? t[e] : void 0;
+      }, e);
+    };
+  var g = /*#__PURE__*/function () {
+    function g() {
+      var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      _classCallCheck(this, g);
+      Object.defineProperty(this, "options", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: t
+      }), Object.defineProperty(this, "events", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: new Map()
+      }), this.setOptions(t);
+      var _iterator2 = _createForOfIteratorHelper(Object.getOwnPropertyNames(Object.getPrototypeOf(this))),
+        _step2;
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var _t4 = _step2.value;
+          _t4.startsWith("on") && "function" == typeof this[_t4] && (this[_t4] = this[_t4].bind(this));
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+    }
+    _createClass(g, [{
+      key: "setOptions",
+      value: function setOptions(t) {
+        this.options = t ? p({}, this.constructor.defaults, t) : {};
+        for (var _i5 = 0, _Object$entries = Object.entries(this.option("on") || {}); _i5 < _Object$entries.length; _i5++) {
+          var _Object$entries$_i = _slicedToArray(_Object$entries[_i5], 2),
+            _t5 = _Object$entries$_i[0],
+            _e3 = _Object$entries$_i[1];
+          this.on(_t5, _e3);
+        }
+      }
+    }, {
+      key: "option",
+      value: function option(t) {
+        var _i6;
+        var i = f(t, this.options);
+        for (var _len = arguments.length, e = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+          e[_key - 1] = arguments[_key];
+        }
+        return i && "function" == typeof i && (i = (_i6 = i).call.apply(_i6, [this, this].concat(e))), i;
+      }
+    }, {
+      key: "optionFor",
+      value: function optionFor(t, e, i) {
+        var _s;
+        var s = f(e, t);
+        var o;
+        for (var _len2 = arguments.length, n = new Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
+          n[_key2 - 3] = arguments[_key2];
+        }
+        "string" != typeof (o = s) || isNaN(o) || isNaN(parseFloat(o)) || (s = parseFloat(s)), "true" === s && (s = !0), "false" === s && (s = !1), s && "function" == typeof s && (s = (_s = s).call.apply(_s, [this, this, t].concat(n)));
+        var a = f(e, this.options);
+        return a && "function" == typeof a ? s = a.call.apply(a, [this, this, t].concat(n, [s])) : void 0 === s && (s = a), void 0 === s ? i : s;
+      }
+    }, {
+      key: "cn",
+      value: function cn(t) {
+        var e = this.options.classes;
+        return e && e[t] || "";
+      }
+    }, {
+      key: "localize",
+      value: function localize(t) {
+        var _this4 = this;
+        var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+        t = String(t).replace(/\{\{(\w+).?(\w+)?\}\}/g, function (t, e, i) {
+          var n = "";
+          return i ? n = _this4.option("".concat(e[0] + e.toLowerCase().substring(1), ".l10n.").concat(i)) : e && (n = _this4.option("l10n.".concat(e))), n || (n = t), n;
+        });
+        for (var _i7 = 0; _i7 < e.length; _i7++) t = t.split(e[_i7][0]).join(e[_i7][1]);
+        return t = t.replace(/\{\{(.*?)\}\}/g, function (t, e) {
+          return e;
+        });
+      }
+    }, {
+      key: "on",
+      value: function on(t, e) {
+        var _this5 = this;
+        var i = [];
+        "string" == typeof t ? i = t.split(" ") : Array.isArray(t) && (i = t), this.events || (this.events = new Map()), i.forEach(function (t) {
+          var i = _this5.events.get(t);
+          i || (_this5.events.set(t, []), i = []), i.includes(e) || i.push(e), _this5.events.set(t, i);
+        });
+      }
+    }, {
+      key: "off",
+      value: function off(t, e) {
+        var _this6 = this;
+        var i = [];
+        "string" == typeof t ? i = t.split(" ") : Array.isArray(t) && (i = t), i.forEach(function (t) {
+          var i = _this6.events.get(t);
+          if (Array.isArray(i)) {
+            var _t6 = i.indexOf(e);
+            _t6 > -1 && i.splice(_t6, 1);
+          }
+        });
+      }
+    }, {
+      key: "emit",
+      value: function emit(t) {
+        var _this7 = this;
+        for (var _len3 = arguments.length, e = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+          e[_key3 - 1] = arguments[_key3];
+        }
+        _toConsumableArray(this.events.get(t) || []).forEach(function (t) {
+          return t.apply(void 0, [_this7].concat(e));
+        }), "*" !== t && this.emit.apply(this, ["*", t].concat(e));
+      }
+    }]);
+    return g;
+  }();
+  Object.defineProperty(g, "version", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: "5.0.33"
+  }), Object.defineProperty(g, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: {}
+  });
+  var m = /*#__PURE__*/function (_g) {
+    _inherits(m, _g);
+    var _super = _createSuper(m);
+    function m() {
+      var _this8;
+      var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      _classCallCheck(this, m);
+      _this8 = _super.call(this, t), Object.defineProperty(_assertThisInitialized(_this8), "plugins", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {}
+      });
+      return _this8;
+    }
+    _createClass(m, [{
+      key: "attachPlugins",
+      value: function attachPlugins() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        var e = new Map();
+        for (var _i8 = 0, _Object$entries2 = Object.entries(t); _i8 < _Object$entries2.length; _i8++) {
+          var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i8], 2),
+            _i9 = _Object$entries2$_i[0],
+            _n2 = _Object$entries2$_i[1];
+          var _t7 = this.option(_i9),
+            _s2 = this.plugins[_i9];
+          _s2 || !1 === _t7 ? _s2 && !1 === _t7 && (_s2.detach(), delete this.plugins[_i9]) : e.set(_i9, new _n2(this, _t7 || {}));
+        }
+        var _iterator3 = _createForOfIteratorHelper(e),
+          _step3;
+        try {
+          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+            var _step3$value = _slicedToArray(_step3.value, 2),
+              _t8 = _step3$value[0],
+              _i10 = _step3$value[1];
+            this.plugins[_t8] = _i10, _i10.attach();
+          }
+        } catch (err) {
+          _iterator3.e(err);
+        } finally {
+          _iterator3.f();
+        }
+      }
+    }, {
+      key: "detachPlugins",
+      value: function detachPlugins(t) {
+        t = t || Object.keys(this.plugins);
+        var _iterator4 = _createForOfIteratorHelper(t),
+          _step4;
+        try {
+          for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+            var _e4 = _step4.value;
+            var _t9 = this.plugins[_e4];
+            _t9 && _t9.detach(), delete this.plugins[_e4];
+          }
+        } catch (err) {
+          _iterator4.e(err);
+        } finally {
+          _iterator4.f();
+        }
+        return this.emit("detachPlugins"), this;
+      }
+    }]);
+    return m;
+  }(g);
+  var v;
+  !function (t) {
+    t[t.Init = 0] = "Init", t[t.Error = 1] = "Error", t[t.Ready = 2] = "Ready", t[t.Panning = 3] = "Panning", t[t.Mousemove = 4] = "Mousemove", t[t.Destroy = 5] = "Destroy";
+  }(v || (v = {}));
+  var b = ["a", "b", "c", "d", "e", "f"],
+    y = {
+      PANUP: "Move up",
+      PANDOWN: "Move down",
+      PANLEFT: "Move left",
+      PANRIGHT: "Move right",
+      ZOOMIN: "Zoom in",
+      ZOOMOUT: "Zoom out",
+      TOGGLEZOOM: "Toggle zoom level",
+      TOGGLE1TO1: "Toggle zoom level",
+      ITERATEZOOM: "Toggle zoom level",
+      ROTATECCW: "Rotate counterclockwise",
+      ROTATECW: "Rotate clockwise",
+      FLIPX: "Flip horizontally",
+      FLIPY: "Flip vertically",
+      FITX: "Fit horizontally",
+      FITY: "Fit vertically",
+      RESET: "Reset",
+      TOGGLEFS: "Toggle fullscreen"
+    },
+    w = {
+      content: null,
+      width: "auto",
+      height: "auto",
+      panMode: "drag",
+      touch: !0,
+      dragMinThreshold: 3,
+      lockAxis: !1,
+      mouseMoveFactor: 1,
+      mouseMoveFriction: .12,
+      zoom: !0,
+      pinchToZoom: !0,
+      panOnlyZoomed: "auto",
+      minScale: 1,
+      maxScale: 2,
+      friction: .25,
+      dragFriction: .35,
+      decelFriction: .05,
+      click: "toggleZoom",
+      dblClick: !1,
+      wheel: "zoom",
+      wheelLimit: 7,
+      spinner: !0,
+      bounds: "auto",
+      infinite: !1,
+      rubberband: !0,
+      bounce: !0,
+      maxVelocity: 75,
+      transformParent: !1,
+      classes: {
+        content: "f-panzoom__content",
+        isLoading: "is-loading",
+        canZoomIn: "can-zoom_in",
+        canZoomOut: "can-zoom_out",
+        isDraggable: "is-draggable",
+        isDragging: "is-dragging",
+        inFullscreen: "in-fullscreen",
+        htmlHasFullscreen: "with-panzoom-in-fullscreen"
       },
-      href: function href() {
-        // using this.href would give the absolute url, when the href may have been inteded as a selector (e.g. '#container')
-        return $(this).attr('href');
+      l10n: y
+    },
+    x = '<circle cx="25" cy="25" r="20"></circle>',
+    E = '<div class="f-spinner"><svg viewBox="0 0 50 50">' + x + x + "</svg></div>",
+    S = function S(t) {
+      return t && null !== t && t instanceof Element && "nodeType" in t;
+    },
+    P = function P(t, e) {
+      t && o(e).forEach(function (e) {
+        t.classList.remove(e);
+      });
+    },
+    C = function C(t, e) {
+      t && o(e).forEach(function (e) {
+        t.classList.add(e);
+      });
+    },
+    T = {
+      a: 1,
+      b: 0,
+      c: 0,
+      d: 1,
+      e: 0,
+      f: 0
+    },
+    M = 1e5,
+    O = 1e4,
+    A = "mousemove",
+    L = "drag",
+    z = "content";
+  var R = null,
+    k = null;
+  var I = /*#__PURE__*/function (_m) {
+    _inherits(I, _m);
+    var _super2 = _createSuper(I);
+    function I(t) {
+      var _this9;
+      var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var i = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      _classCallCheck(this, I);
+      var n;
+      if (_this9 = _super2.call(this, e), Object.defineProperty(_assertThisInitialized(_this9), "pointerTracker", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this9), "resizeObserver", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this9), "updateTimer", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this9), "clickTimer", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this9), "rAF", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this9), "isTicking", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+      }), Object.defineProperty(_assertThisInitialized(_this9), "ignoreBounds", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+      }), Object.defineProperty(_assertThisInitialized(_this9), "isBouncingX", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+      }), Object.defineProperty(_assertThisInitialized(_this9), "isBouncingY", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+      }), Object.defineProperty(_assertThisInitialized(_this9), "clicks", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this9), "trackingPoints", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: []
+      }), Object.defineProperty(_assertThisInitialized(_this9), "pwt", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this9), "cwd", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this9), "pmme", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: void 0
+      }), Object.defineProperty(_assertThisInitialized(_this9), "friction", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this9), "state", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: v.Init
+      }), Object.defineProperty(_assertThisInitialized(_this9), "isDragging", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+      }), Object.defineProperty(_assertThisInitialized(_this9), "container", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: void 0
+      }), Object.defineProperty(_assertThisInitialized(_this9), "content", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: void 0
+      }), Object.defineProperty(_assertThisInitialized(_this9), "spinner", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this9), "containerRect", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {
+          width: 0,
+          height: 0,
+          innerWidth: 0,
+          innerHeight: 0
+        }
+      }), Object.defineProperty(_assertThisInitialized(_this9), "contentRect", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          fullWidth: 0,
+          fullHeight: 0,
+          fitWidth: 0,
+          fitHeight: 0,
+          width: 0,
+          height: 0
+        }
+      }), Object.defineProperty(_assertThisInitialized(_this9), "dragStart", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {
+          x: 0,
+          y: 0,
+          top: 0,
+          left: 0,
+          time: 0
+        }
+      }), Object.defineProperty(_assertThisInitialized(_this9), "dragOffset", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {
+          x: 0,
+          y: 0,
+          time: 0
+        }
+      }), Object.defineProperty(_assertThisInitialized(_this9), "current", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: Object.assign({}, T)
+      }), Object.defineProperty(_assertThisInitialized(_this9), "target", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: Object.assign({}, T)
+      }), Object.defineProperty(_assertThisInitialized(_this9), "velocity", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {
+          a: 0,
+          b: 0,
+          c: 0,
+          d: 0,
+          e: 0,
+          f: 0
+        }
+      }), Object.defineProperty(_assertThisInitialized(_this9), "lockedAxis", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+      }), !t) throw new Error("Container Element Not Found");
+      _this9.container = t, _this9.initContent(), _this9.attachPlugins(Object.assign(Object.assign({}, I.Plugins), i)), _this9.emit("attachPlugins"), _this9.emit("init");
+      var o = _this9.content;
+      if (o.addEventListener("load", _this9.onLoad), o.addEventListener("error", _this9.onError), _this9.isContentLoading) {
+        if (_this9.option("spinner")) {
+          t.classList.add(_this9.cn("isLoading"));
+          var _e5 = s(E);
+          !t.contains(o) || o.parentElement instanceof HTMLPictureElement ? _this9.spinner = t.appendChild(_e5) : _this9.spinner = (null === (n = o.parentElement) || void 0 === n ? void 0 : n.insertBefore(_e5, o)) || null;
+        }
+        _this9.emit("beforeLoad");
+      } else queueMicrotask(function () {
+        _this9.enable();
+      });
+      return _possibleConstructorReturn(_this9);
+    }
+    _createClass(I, [{
+      key: "fits",
+      get: function get() {
+        return this.contentRect.width - this.contentRect.fitWidth < 1 && this.contentRect.height - this.contentRect.fitHeight < 1;
+      }
+    }, {
+      key: "isTouchDevice",
+      get: function get() {
+        return null === k && (k = window.matchMedia("(hover: none)").matches), k;
+      }
+    }, {
+      key: "isMobile",
+      get: function get() {
+        return null === R && (R = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)), R;
+      }
+    }, {
+      key: "panMode",
+      get: function get() {
+        return this.options.panMode !== A || this.isTouchDevice ? L : A;
+      }
+    }, {
+      key: "panOnlyZoomed",
+      get: function get() {
+        var t = this.options.panOnlyZoomed;
+        return "auto" === t ? this.isTouchDevice : t;
+      }
+    }, {
+      key: "isInfinite",
+      get: function get() {
+        return this.option("infinite");
+      }
+    }, {
+      key: "angle",
+      get: function get() {
+        return 180 * Math.atan2(this.current.b, this.current.a) / Math.PI || 0;
+      }
+    }, {
+      key: "targetAngle",
+      get: function get() {
+        return 180 * Math.atan2(this.target.b, this.target.a) / Math.PI || 0;
+      }
+    }, {
+      key: "scale",
+      get: function get() {
+        var _this$current = this.current,
+          t = _this$current.a,
+          e = _this$current.b;
+        return Math.sqrt(t * t + e * e) || 1;
+      }
+    }, {
+      key: "targetScale",
+      get: function get() {
+        var _this$target = this.target,
+          t = _this$target.a,
+          e = _this$target.b;
+        return Math.sqrt(t * t + e * e) || 1;
+      }
+    }, {
+      key: "minScale",
+      get: function get() {
+        return this.option("minScale") || 1;
+      }
+    }, {
+      key: "fullScale",
+      get: function get() {
+        var t = this.contentRect;
+        return t.fullWidth / t.fitWidth || 1;
+      }
+    }, {
+      key: "maxScale",
+      get: function get() {
+        return this.fullScale * (this.option("maxScale") || 1) || 1;
+      }
+    }, {
+      key: "coverScale",
+      get: function get() {
+        var t = this.containerRect,
+          e = this.contentRect,
+          i = Math.max(t.height / e.fitHeight, t.width / e.fitWidth) || 1;
+        return Math.min(this.fullScale, i);
+      }
+    }, {
+      key: "isScaling",
+      get: function get() {
+        return Math.abs(this.targetScale - this.scale) > 1e-5 && !this.isResting;
+      }
+    }, {
+      key: "isContentLoading",
+      get: function get() {
+        var t = this.content;
+        return !!(t && t instanceof HTMLImageElement) && !t.complete;
+      }
+    }, {
+      key: "isResting",
+      get: function get() {
+        if (this.isBouncingX || this.isBouncingY) return !1;
+        for (var _i11 = 0, _b2 = b; _i11 < _b2.length; _i11++) {
+          var _t10 = _b2[_i11];
+          var _e6 = "e" == _t10 || "f" === _t10 ? 1e-4 : 1e-5;
+          if (Math.abs(this.target[_t10] - this.current[_t10]) > _e6) return !1;
+        }
+        return !(!this.ignoreBounds && !this.checkBounds().inBounds);
+      }
+    }, {
+      key: "initContent",
+      value: function initContent() {
+        var t = this.container,
+          e = this.cn(z);
+        var i = this.option(z) || t.querySelector(".".concat(e));
+        if (i || (i = t.querySelector("img,picture") || t.firstElementChild, i && C(i, e)), i instanceof HTMLPictureElement && (i = i.querySelector("img")), !i) throw new Error("No content found");
+        this.content = i;
+      }
+    }, {
+      key: "onLoad",
+      value: function onLoad() {
+        var t = this.spinner,
+          e = this.container,
+          i = this.state;
+        t && (t.remove(), this.spinner = null), this.option("spinner") && e.classList.remove(this.cn("isLoading")), this.emit("afterLoad"), i === v.Init ? this.enable() : this.updateMetrics();
+      }
+    }, {
+      key: "onError",
+      value: function onError() {
+        this.state !== v.Destroy && (this.spinner && (this.spinner.remove(), this.spinner = null), this.stop(), this.detachEvents(), this.state = v.Error, this.emit("error"));
+      }
+    }, {
+      key: "getNextScale",
+      value: function getNextScale(t) {
+        var e = this.fullScale,
+          i = this.targetScale,
+          n = this.coverScale,
+          s = this.maxScale,
+          o = this.minScale;
+        var a = o;
+        switch (t) {
+          case "toggleMax":
+            a = i - o < .5 * (s - o) ? s : o;
+            break;
+          case "toggleCover":
+            a = i - o < .5 * (n - o) ? n : o;
+            break;
+          case "toggleZoom":
+            a = i - o < .5 * (e - o) ? e : o;
+            break;
+          case "iterateZoom":
+            var _t11 = [1, e, s].sort(function (t, e) {
+                return t - e;
+              }),
+              _r = _t11.findIndex(function (t) {
+                return t > i + 1e-5;
+              });
+            a = _t11[_r] || 1;
+        }
+        return a;
+      }
+    }, {
+      key: "attachObserver",
+      value: function attachObserver() {
+        var _this10 = this;
+        var t;
+        var e = function e() {
+          var t = _this10.container,
+            e = _this10.containerRect;
+          return Math.abs(e.width - t.getBoundingClientRect().width) > .1 || Math.abs(e.height - t.getBoundingClientRect().height) > .1;
+        };
+        this.resizeObserver || void 0 === window.ResizeObserver || (this.resizeObserver = new ResizeObserver(function () {
+          _this10.updateTimer || (e() ? (_this10.onResize(), _this10.isMobile && (_this10.updateTimer = setTimeout(function () {
+            e() && _this10.onResize(), _this10.updateTimer = null;
+          }, 500))) : _this10.updateTimer && (clearTimeout(_this10.updateTimer), _this10.updateTimer = null));
+        })), null === (t = this.resizeObserver) || void 0 === t || t.observe(this.container);
+      }
+    }, {
+      key: "detachObserver",
+      value: function detachObserver() {
+        var t;
+        null === (t = this.resizeObserver) || void 0 === t || t.disconnect();
+      }
+    }, {
+      key: "attachEvents",
+      value: function attachEvents() {
+        var t = this.container;
+        t.addEventListener("click", this.onClick, {
+          passive: !1,
+          capture: !1
+        }), t.addEventListener("wheel", this.onWheel, {
+          passive: !1
+        }), this.pointerTracker = new c(t, {
+          start: this.onPointerDown,
+          move: this.onPointerMove,
+          end: this.onPointerUp
+        }), document.addEventListener(A, this.onMouseMove);
+      }
+    }, {
+      key: "detachEvents",
+      value: function detachEvents() {
+        var t;
+        var e = this.container;
+        e.removeEventListener("click", this.onClick, {
+          passive: !1,
+          capture: !1
+        }), e.removeEventListener("wheel", this.onWheel, {
+          passive: !1
+        }), null === (t = this.pointerTracker) || void 0 === t || t.stop(), this.pointerTracker = null, document.removeEventListener(A, this.onMouseMove), document.removeEventListener("keydown", this.onKeydown, !0), this.clickTimer && (clearTimeout(this.clickTimer), this.clickTimer = null), this.updateTimer && (clearTimeout(this.updateTimer), this.updateTimer = null);
+      }
+    }, {
+      key: "animate",
+      value: function animate() {
+        var _this11 = this;
+        this.setTargetForce();
+        var t = this.friction,
+          e = this.option("maxVelocity");
+        for (var _i12 = 0, _b3 = b; _i12 < _b3.length; _i12++) {
+          var _i13 = _b3[_i12];
+          t ? (this.velocity[_i13] *= 1 - t, e && !this.isScaling && (this.velocity[_i13] = Math.max(Math.min(this.velocity[_i13], e), -1 * e)), this.current[_i13] += this.velocity[_i13]) : this.current[_i13] = this.target[_i13];
+        }
+        this.setTransform(), this.setEdgeForce(), !this.isResting || this.isDragging ? this.rAF = requestAnimationFrame(function () {
+          return _this11.animate();
+        }) : this.stop("current");
+      }
+    }, {
+      key: "setTargetForce",
+      value: function setTargetForce() {
+        for (var _i14 = 0, _b4 = b; _i14 < _b4.length; _i14++) {
+          var _t12 = _b4[_i14];
+          "e" === _t12 && this.isBouncingX || "f" === _t12 && this.isBouncingY || (this.velocity[_t12] = (1 / (1 - this.friction) - 1) * (this.target[_t12] - this.current[_t12]));
+        }
+      }
+    }, {
+      key: "checkBounds",
+      value: function checkBounds() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+        var i = this.current,
+          n = i.e + t,
+          s = i.f + e,
+          o = this.getBounds(),
+          a = o.x,
+          r = o.y,
+          l = a.min,
+          c = a.max,
+          h = r.min,
+          d = r.max;
+        var u = 0,
+          p = 0;
+        return l !== 1 / 0 && n < l ? u = l - n : c !== 1 / 0 && n > c && (u = c - n), h !== 1 / 0 && s < h ? p = h - s : d !== 1 / 0 && s > d && (p = d - s), Math.abs(u) < 1e-4 && (u = 0), Math.abs(p) < 1e-4 && (p = 0), Object.assign(Object.assign({}, o), {
+          xDiff: u,
+          yDiff: p,
+          inBounds: !u && !p
+        });
+      }
+    }, {
+      key: "clampTargetBounds",
+      value: function clampTargetBounds() {
+        var t = this.target,
+          _this$getBounds = this.getBounds(),
+          e = _this$getBounds.x,
+          i = _this$getBounds.y;
+        e.min !== 1 / 0 && (t.e = Math.max(t.e, e.min)), e.max !== 1 / 0 && (t.e = Math.min(t.e, e.max)), i.min !== 1 / 0 && (t.f = Math.max(t.f, i.min)), i.max !== 1 / 0 && (t.f = Math.min(t.f, i.max));
+      }
+    }, {
+      key: "calculateContentDim",
+      value: function calculateContentDim() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.current;
+        var e = this.content,
+          i = this.contentRect,
+          n = i.fitWidth,
+          s = i.fitHeight,
+          o = i.fullWidth,
+          a = i.fullHeight;
+        var r = o,
+          l = a;
+        if (this.option("zoom") || 0 !== this.angle) {
+          var _i15 = !(e instanceof HTMLImageElement) && ("none" === window.getComputedStyle(e).maxWidth || "none" === window.getComputedStyle(e).maxHeight),
+            _c = _i15 ? o : n,
+            _h = _i15 ? a : s,
+            _d = this.getMatrix(t),
+            _u = new DOMPoint(0, 0).matrixTransform(_d),
+            _p = new DOMPoint(0 + _c, 0).matrixTransform(_d),
+            _f = new DOMPoint(0 + _c, 0 + _h).matrixTransform(_d),
+            _g2 = new DOMPoint(0, 0 + _h).matrixTransform(_d),
+            _m2 = Math.abs(_f.x - _u.x),
+            _v = Math.abs(_f.y - _u.y),
+            _b5 = Math.abs(_g2.x - _p.x),
+            _y = Math.abs(_g2.y - _p.y);
+          r = Math.max(_m2, _b5), l = Math.max(_v, _y);
+        }
+        return {
+          contentWidth: r,
+          contentHeight: l
+        };
+      }
+    }, {
+      key: "setEdgeForce",
+      value: function setEdgeForce() {
+        if (this.ignoreBounds || this.isDragging || this.panMode === A || this.targetScale < this.scale) return this.isBouncingX = !1, void (this.isBouncingY = !1);
+        var t = this.target,
+          _this$checkBounds = this.checkBounds(),
+          e = _this$checkBounds.x,
+          i = _this$checkBounds.y,
+          n = _this$checkBounds.xDiff,
+          s = _this$checkBounds.yDiff;
+        var o = this.option("maxVelocity");
+        var a = this.velocity.e,
+          r = this.velocity.f;
+        0 !== n ? (this.isBouncingX = !0, n * a <= 0 ? a += .14 * n : (a = .14 * n, e.min !== 1 / 0 && (this.target.e = Math.max(t.e, e.min)), e.max !== 1 / 0 && (this.target.e = Math.min(t.e, e.max))), o && (a = Math.max(Math.min(a, o), -1 * o))) : this.isBouncingX = !1, 0 !== s ? (this.isBouncingY = !0, s * r <= 0 ? r += .14 * s : (r = .14 * s, i.min !== 1 / 0 && (this.target.f = Math.max(t.f, i.min)), i.max !== 1 / 0 && (this.target.f = Math.min(t.f, i.max))), o && (r = Math.max(Math.min(r, o), -1 * o))) : this.isBouncingY = !1, this.isBouncingX && (this.velocity.e = a), this.isBouncingY && (this.velocity.f = r);
+      }
+    }, {
+      key: "enable",
+      value: function enable() {
+        var t = this.content,
+          e = new DOMMatrixReadOnly(window.getComputedStyle(t).transform);
+        for (var _i16 = 0, _b6 = b; _i16 < _b6.length; _i16++) {
+          var _t13 = _b6[_i16];
+          this.current[_t13] = this.target[_t13] = e[_t13];
+        }
+        this.updateMetrics(), this.attachObserver(), this.attachEvents(), this.state = v.Ready, this.emit("ready");
+      }
+    }, {
+      key: "onClick",
+      value: function onClick(t) {
+        var _this12 = this;
+        var e;
+        "click" === t.type && 0 === t.detail && (this.dragOffset.x = 0, this.dragOffset.y = 0), this.isDragging && (null === (e = this.pointerTracker) || void 0 === e || e.clear(), this.trackingPoints = [], this.startDecelAnim());
+        var i = t.target;
+        if (!i || t.defaultPrevented) return;
+        if (i.hasAttribute("disabled")) return t.preventDefault(), void t.stopPropagation();
+        if (function () {
+          var t = window.getSelection();
+          return t && "Range" === t.type;
+        }() && !i.closest("button")) return;
+        var n = i.closest("[data-panzoom-action]"),
+          s = i.closest("[data-panzoom-change]"),
+          o = n || s,
+          a = o && S(o) ? o.dataset : null;
+        if (a) {
+          var _e7 = a.panzoomChange,
+            _i17 = a.panzoomAction;
+          if ((_e7 || _i17) && t.preventDefault(), _e7) {
+            var _t14 = {};
+            try {
+              _t14 = JSON.parse(_e7);
+            } catch (t) {
+              console && console.warn("The given data was not valid JSON");
+            }
+            return void this.applyChange(_t14);
+          }
+          if (_i17) return void (this[_i17] && this[_i17]());
+        }
+        if (Math.abs(this.dragOffset.x) > 3 || Math.abs(this.dragOffset.y) > 3) return t.preventDefault(), void t.stopPropagation();
+        if (i.closest("[data-fancybox]")) return;
+        var r = this.content.getBoundingClientRect(),
+          l = this.dragStart;
+        if (l.time && !this.canZoomOut() && (Math.abs(r.x - l.x) > 2 || Math.abs(r.y - l.y) > 2)) return;
+        this.dragStart.time = 0;
+        var c = function c(e) {
+            _this12.option("zoom", t) && e && "string" == typeof e && /(iterateZoom)|(toggle(Zoom|Full|Cover|Max)|(zoomTo(Fit|Cover|Max)))/.test(e) && "function" == typeof _this12[e] && (t.preventDefault(), _this12[e]({
+              event: t
+            }));
+          },
+          h = this.option("click", t),
+          d = this.option("dblClick", t);
+        d ? (this.clicks++, 1 == this.clicks && (this.clickTimer = setTimeout(function () {
+          1 === _this12.clicks ? (_this12.emit("click", t), !t.defaultPrevented && h && c(h)) : (_this12.emit("dblClick", t), t.defaultPrevented || c(d)), _this12.clicks = 0, _this12.clickTimer = null;
+        }, 350))) : (this.emit("click", t), !t.defaultPrevented && h && c(h));
+      }
+    }, {
+      key: "addTrackingPoint",
+      value: function addTrackingPoint(t) {
+        var e = this.trackingPoints.filter(function (t) {
+          return t.time > Date.now() - 100;
+        });
+        e.push(t), this.trackingPoints = e;
+      }
+    }, {
+      key: "onPointerDown",
+      value: function onPointerDown(t, e, i) {
+        var n;
+        if (!1 === this.option("touch", t)) return !1;
+        this.pwt = 0, this.dragOffset = {
+          x: 0,
+          y: 0,
+          time: 0
+        }, this.trackingPoints = [];
+        var s = this.content.getBoundingClientRect();
+        if (this.dragStart = {
+          x: s.x,
+          y: s.y,
+          top: s.top,
+          left: s.left,
+          time: Date.now()
+        }, this.clickTimer) return !1;
+        if (this.panMode === A && this.targetScale > 1) return t.preventDefault(), t.stopPropagation(), !1;
+        var o = t.composedPath()[0];
+        if (!i.length) {
+          if (["TEXTAREA", "OPTION", "INPUT", "SELECT", "VIDEO", "IFRAME"].includes(o.nodeName) || o.closest("[contenteditable],[data-selectable],[data-draggable],[data-clickable],[data-panzoom-change],[data-panzoom-action]")) return !1;
+          null === (n = window.getSelection()) || void 0 === n || n.removeAllRanges();
+        }
+        if ("mousedown" === t.type) ["A", "BUTTON"].includes(o.nodeName) || t.preventDefault();else if (Math.abs(this.velocity.a) > .3) return !1;
+        return this.target.e = this.current.e, this.target.f = this.current.f, this.stop(), this.isDragging || (this.isDragging = !0, this.addTrackingPoint(e), this.emit("touchStart", t)), !0;
+      }
+    }, {
+      key: "onPointerMove",
+      value: function onPointerMove(t, i, s) {
+        if (!1 === this.option("touch", t)) return;
+        if (!this.isDragging) return;
+        if (i.length < 2 && this.panOnlyZoomed && e(this.targetScale) <= e(this.minScale)) return;
+        if (this.emit("touchMove", t), t.defaultPrevented) return;
+        this.addTrackingPoint(i[0]);
+        var o = this.content,
+          a = d(s[0], s[1]),
+          r = d(i[0], i[1]);
+        var l = 0,
+          c = 0;
+        if (i.length > 1) {
+          var _t15 = o.getBoundingClientRect();
+          l = a.clientX - _t15.left - .5 * _t15.width, c = a.clientY - _t15.top - .5 * _t15.height;
+        }
+        var u = h(s[0], s[1]),
+          p = h(i[0], i[1]);
+        var f = u ? p / u : 1,
+          g = r.clientX - a.clientX,
+          m = r.clientY - a.clientY;
+        this.dragOffset.x += g, this.dragOffset.y += m, this.dragOffset.time = Date.now() - this.dragStart.time;
+        var v = e(this.targetScale) === e(this.minScale) && this.option("lockAxis");
+        if (v && !this.lockedAxis) if ("xy" === v || "y" === v || "touchmove" === t.type) {
+          if (Math.abs(this.dragOffset.x) < 6 && Math.abs(this.dragOffset.y) < 6) return void t.preventDefault();
+          var _e8 = Math.abs(180 * Math.atan2(this.dragOffset.y, this.dragOffset.x) / Math.PI);
+          this.lockedAxis = _e8 > 45 && _e8 < 135 ? "y" : "x", this.dragOffset.x = 0, this.dragOffset.y = 0, g = 0, m = 0;
+        } else this.lockedAxis = v;
+        if (n(t.target, this.content) && (v = "x", this.dragOffset.y = 0), v && "xy" !== v && this.lockedAxis !== v && e(this.targetScale) === e(this.minScale)) return;
+        t.cancelable && t.preventDefault(), this.container.classList.add(this.cn("isDragging"));
+        var b = this.checkBounds(g, m);
+        this.option("rubberband") ? ("x" !== this.isInfinite && (b.xDiff > 0 && g < 0 || b.xDiff < 0 && g > 0) && (g *= Math.max(0, .5 - Math.abs(.75 / this.contentRect.fitWidth * b.xDiff))), "y" !== this.isInfinite && (b.yDiff > 0 && m < 0 || b.yDiff < 0 && m > 0) && (m *= Math.max(0, .5 - Math.abs(.75 / this.contentRect.fitHeight * b.yDiff)))) : (b.xDiff && (g = 0), b.yDiff && (m = 0));
+        var y = this.targetScale,
+          w = this.minScale,
+          x = this.maxScale;
+        y < .5 * w && (f = Math.max(f, w)), y > 1.5 * x && (f = Math.min(f, x)), "y" === this.lockedAxis && e(y) === e(w) && (g = 0), "x" === this.lockedAxis && e(y) === e(w) && (m = 0), this.applyChange({
+          originX: l,
+          originY: c,
+          panX: g,
+          panY: m,
+          scale: f,
+          friction: this.option("dragFriction"),
+          ignoreBounds: !0
+        });
+      }
+    }, {
+      key: "onPointerUp",
+      value: function onPointerUp(t, e, i) {
+        if (i.length) return this.dragOffset.x = 0, this.dragOffset.y = 0, void (this.trackingPoints = []);
+        this.container.classList.remove(this.cn("isDragging")), this.isDragging && (this.addTrackingPoint(e), this.panOnlyZoomed && this.contentRect.width - this.contentRect.fitWidth < 1 && this.contentRect.height - this.contentRect.fitHeight < 1 && (this.trackingPoints = []), n(t.target, this.content) && "y" === this.lockedAxis && (this.trackingPoints = []), this.emit("touchEnd", t), this.isDragging = !1, this.lockedAxis = !1, this.state !== v.Destroy && (t.defaultPrevented || this.startDecelAnim()));
+      }
+    }, {
+      key: "startDecelAnim",
+      value: function startDecelAnim() {
+        var t;
+        var i = this.isScaling;
+        this.rAF && (cancelAnimationFrame(this.rAF), this.rAF = null), this.isBouncingX = !1, this.isBouncingY = !1;
+        for (var _i18 = 0, _b7 = b; _i18 < _b7.length; _i18++) {
+          var _t16 = _b7[_i18];
+          this.velocity[_t16] = 0;
+        }
+        this.target.e = this.current.e, this.target.f = this.current.f, P(this.container, "is-scaling"), P(this.container, "is-animating"), this.isTicking = !1;
+        var n = this.trackingPoints,
+          s = n[0],
+          o = n[n.length - 1];
+        var a = 0,
+          r = 0,
+          l = 0;
+        o && s && (a = o.clientX - s.clientX, r = o.clientY - s.clientY, l = o.time - s.time);
+        var c = (null === (t = window.visualViewport) || void 0 === t ? void 0 : t.scale) || 1;
+        1 !== c && (a *= c, r *= c);
+        var h = 0,
+          d = 0,
+          u = 0,
+          p = 0,
+          f = this.option("decelFriction");
+        var g = this.targetScale;
+        if (l > 0) {
+          u = Math.abs(a) > 3 ? a / (l / 30) : 0, p = Math.abs(r) > 3 ? r / (l / 30) : 0;
+          var _t17 = this.option("maxVelocity");
+          _t17 && (u = Math.max(Math.min(u, _t17), -1 * _t17), p = Math.max(Math.min(p, _t17), -1 * _t17));
+        }
+        u && (h = u / (1 / (1 - f) - 1)), p && (d = p / (1 / (1 - f) - 1)), ("y" === this.option("lockAxis") || "xy" === this.option("lockAxis") && "y" === this.lockedAxis && e(g) === this.minScale) && (h = u = 0), ("x" === this.option("lockAxis") || "xy" === this.option("lockAxis") && "x" === this.lockedAxis && e(g) === this.minScale) && (d = p = 0);
+        var m = this.dragOffset.x,
+          v = this.dragOffset.y,
+          y = this.option("dragMinThreshold") || 0;
+        Math.abs(m) < y && Math.abs(v) < y && (h = d = 0, u = p = 0), (this.option("zoom") && (g < this.minScale - 1e-5 || g > this.maxScale + 1e-5) || i && !h && !d) && (f = .35), this.applyChange({
+          panX: h,
+          panY: d,
+          friction: f
+        }), this.emit("decel", u, p, m, v);
+      }
+    }, {
+      key: "onWheel",
+      value: function onWheel(t) {
+        var e = [-t.deltaX || 0, -t.deltaY || 0, -t.detail || 0].reduce(function (t, e) {
+          return Math.abs(e) > Math.abs(t) ? e : t;
+        });
+        var i = Math.max(-1, Math.min(1, e));
+        if (this.emit("wheel", t, i), this.panMode === A) return;
+        if (t.defaultPrevented) return;
+        var n = this.option("wheel");
+        "pan" === n ? (t.preventDefault(), this.panOnlyZoomed && !this.canZoomOut() || this.applyChange({
+          panX: 2 * -t.deltaX,
+          panY: 2 * -t.deltaY,
+          bounce: !1
+        })) : "zoom" === n && !1 !== this.option("zoom") && this.zoomWithWheel(t);
+      }
+    }, {
+      key: "onMouseMove",
+      value: function onMouseMove(t) {
+        this.panWithMouse(t);
+      }
+    }, {
+      key: "onKeydown",
+      value: function onKeydown(t) {
+        "Escape" === t.key && this.toggleFS();
+      }
+    }, {
+      key: "onResize",
+      value: function onResize() {
+        this.updateMetrics(), this.checkBounds().inBounds || this.requestTick();
+      }
+    }, {
+      key: "setTransform",
+      value: function setTransform() {
+        this.emit("beforeTransform");
+        var t = this.current,
+          i = this.target,
+          n = this.content,
+          s = this.contentRect,
+          o = Object.assign({}, T);
+        for (var _i19 = 0, _b8 = b; _i19 < _b8.length; _i19++) {
+          var _n3 = _b8[_i19];
+          var _s3 = "e" == _n3 || "f" === _n3 ? O : M;
+          o[_n3] = e(t[_n3], _s3), Math.abs(i[_n3] - t[_n3]) < ("e" == _n3 || "f" === _n3 ? .51 : .001) && (t[_n3] = i[_n3]);
+        }
+        var a = o.a,
+          r = o.b,
+          l = o.c,
+          c = o.d,
+          h = o.e,
+          d = o.f,
+          u = "matrix(".concat(a, ", ").concat(r, ", ").concat(l, ", ").concat(c, ", ").concat(h, ", ").concat(d, ")"),
+          p = n.parentElement instanceof HTMLPictureElement ? n.parentElement : n;
+        if (this.option("transformParent") && (p = p.parentElement || p), p.style.transform === u) return;
+        p.style.transform = u;
+        var _this$calculateConten = this.calculateContentDim(),
+          f = _this$calculateConten.contentWidth,
+          g = _this$calculateConten.contentHeight;
+        s.width = f, s.height = g, this.emit("afterTransform");
+      }
+    }, {
+      key: "updateMetrics",
+      value: function updateMetrics() {
+        var _ref4;
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : !1;
+        var i;
+        if (!this || this.state === v.Destroy) return;
+        if (this.isContentLoading) return;
+        var n = Math.max(1, (null === (i = window.visualViewport) || void 0 === i ? void 0 : i.scale) || 1),
+          s = this.container,
+          o = this.content,
+          a = o instanceof HTMLImageElement,
+          r = s.getBoundingClientRect(),
+          l = getComputedStyle(this.container);
+        var c = r.width * n,
+          h = r.height * n;
+        var d = parseFloat(l.paddingTop) + parseFloat(l.paddingBottom),
+          u = c - (parseFloat(l.paddingLeft) + parseFloat(l.paddingRight)),
+          p = h - d;
+        this.containerRect = {
+          width: c,
+          height: h,
+          innerWidth: u,
+          innerHeight: p
+        };
+        var f = this.option("width") || "auto",
+          g = this.option("height") || "auto";
+        "auto" === f && (f = parseFloat(o.dataset.width || "") || function (t) {
+          var e = 0;
+          return e = t instanceof HTMLImageElement ? t.naturalWidth : t instanceof SVGElement ? t.width.baseVal.value : Math.max(t.offsetWidth, t.scrollWidth), e || 0;
+        }(o)), "auto" === g && (g = parseFloat(o.dataset.height || "") || function (t) {
+          var e = 0;
+          return e = t instanceof HTMLImageElement ? t.naturalHeight : t instanceof SVGElement ? t.height.baseVal.value : Math.max(t.offsetHeight, t.scrollHeight), e || 0;
+        }(o));
+        var m = o.parentElement instanceof HTMLPictureElement ? o.parentElement : o;
+        this.option("transformParent") && (m = m.parentElement || m);
+        var b = m.getAttribute("style") || "";
+        m.style.setProperty("transform", "none", "important"), a && (m.style.width = "", m.style.height = ""), m.offsetHeight;
+        var y = o.getBoundingClientRect();
+        var w = y.width * n,
+          x = y.height * n,
+          E = 0,
+          S = 0;
+        a && (Math.abs(f - w) > 1 || Math.abs(g - x) > 1) && (_ref4 = function (t, e, i, n) {
+          var s = i / n;
+          return s > t / e ? (i = t, n = t / s) : (i = e * s, n = e), {
+            width: i,
+            height: n,
+            top: .5 * (e - n),
+            left: .5 * (t - i)
+          };
+        }(w, x, f, g), w = _ref4.width, x = _ref4.height, E = _ref4.top, S = _ref4.left, _ref4), this.contentRect = Object.assign(Object.assign({}, this.contentRect), {
+          top: y.top - r.top + E,
+          bottom: r.bottom - y.bottom + E,
+          left: y.left - r.left + S,
+          right: r.right - y.right + S,
+          fitWidth: w,
+          fitHeight: x,
+          width: w,
+          height: x,
+          fullWidth: f,
+          fullHeight: g
+        }), m.style.cssText = b, a && (m.style.width = "".concat(w, "px"), m.style.height = "".concat(x, "px")), this.setTransform(), !0 !== t && this.emit("refresh"), this.ignoreBounds || (e(this.targetScale) < e(this.minScale) ? this.zoomTo(this.minScale, {
+          friction: 0
+        }) : this.targetScale > this.maxScale ? this.zoomTo(this.maxScale, {
+          friction: 0
+        }) : this.state === v.Init || this.checkBounds().inBounds || this.requestTick()), this.updateControls();
+      }
+    }, {
+      key: "calculateBounds",
+      value: function calculateBounds() {
+        var _this$calculateConten2 = this.calculateContentDim(this.target),
+          t = _this$calculateConten2.contentWidth,
+          i = _this$calculateConten2.contentHeight,
+          n = this.targetScale,
+          s = this.lockedAxis,
+          _this$contentRect = this.contentRect,
+          o = _this$contentRect.fitWidth,
+          a = _this$contentRect.fitHeight;
+        var r = 0,
+          l = 0,
+          c = 0,
+          h = 0;
+        var d = this.option("infinite");
+        if (!0 === d || s && d === s) r = -1 / 0, c = 1 / 0, l = -1 / 0, h = 1 / 0;else {
+          var _s4 = this.containerRect,
+            _d2 = this.contentRect,
+            _u2 = e(o * n, O),
+            _p2 = e(a * n, O),
+            _f2 = _s4.innerWidth,
+            _g3 = _s4.innerHeight;
+          if (_s4.width === _u2 && (_f2 = _s4.width), _s4.width === _p2 && (_g3 = _s4.height), t > _f2) {
+            c = .5 * (t - _f2), r = -1 * c;
+            var _e9 = .5 * (_d2.right - _d2.left);
+            r += _e9, c += _e9;
+          }
+          if (o > _f2 && t < _f2 && (r -= .5 * (o - _f2), c -= .5 * (o - _f2)), i > _g3) {
+            h = .5 * (i - _g3), l = -1 * h;
+            var _t18 = .5 * (_d2.bottom - _d2.top);
+            l += _t18, h += _t18;
+          }
+          a > _g3 && i < _g3 && (r -= .5 * (a - _g3), c -= .5 * (a - _g3));
+        }
+        return {
+          x: {
+            min: r,
+            max: c
+          },
+          y: {
+            min: l,
+            max: h
+          }
+        };
+      }
+    }, {
+      key: "getBounds",
+      value: function getBounds() {
+        var t = this.option("bounds");
+        return "auto" !== t ? t : this.calculateBounds();
+      }
+    }, {
+      key: "updateControls",
+      value: function updateControls() {
+        var t = this,
+          i = t.container,
+          n = t.panMode,
+          s = t.contentRect,
+          o = t.targetScale,
+          r = t.minScale;
+        var l = r,
+          c = t.option("click") || !1;
+        c && (l = t.getNextScale(c));
+        var h = t.canZoomIn(),
+          d = t.canZoomOut(),
+          u = n === L && !!this.option("touch"),
+          p = d && u;
+        if (u && (e(o) < e(r) && !this.panOnlyZoomed && (p = !0), (e(s.width, 1) > e(s.fitWidth, 1) || e(s.height, 1) > e(s.fitHeight, 1)) && (p = !0)), e(s.width * o, 1) < e(s.fitWidth, 1) && (p = !1), n === A && (p = !1), a(i, this.cn("isDraggable"), p), !this.option("zoom")) return;
+        var f = h && e(l) > e(o),
+          g = !f && !p && d && e(l) < e(o);
+        a(i, this.cn("canZoomIn"), f), a(i, this.cn("canZoomOut"), g);
+        var _iterator5 = _createForOfIteratorHelper(i.querySelectorAll("[data-panzoom-action]")),
+          _step5;
+        try {
+          for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+            var _t19 = _step5.value;
+            var _e10 = !1,
+              _i20 = !1;
+            switch (_t19.dataset.panzoomAction) {
+              case "zoomIn":
+                h ? _e10 = !0 : _i20 = !0;
+                break;
+              case "zoomOut":
+                d ? _e10 = !0 : _i20 = !0;
+                break;
+              case "toggleZoom":
+              case "iterateZoom":
+                h || d ? _e10 = !0 : _i20 = !0;
+                var _n4 = _t19.querySelector("g");
+                _n4 && (_n4.style.display = h ? "" : "none");
+            }
+            _e10 ? (_t19.removeAttribute("disabled"), _t19.removeAttribute("tabindex")) : _i20 && (_t19.setAttribute("disabled", ""), _t19.setAttribute("tabindex", "-1"));
+          }
+        } catch (err) {
+          _iterator5.e(err);
+        } finally {
+          _iterator5.f();
+        }
+      }
+    }, {
+      key: "panTo",
+      value: function panTo(_ref5) {
+        var _ref5$x = _ref5.x,
+          t = _ref5$x === void 0 ? this.target.e : _ref5$x,
+          _ref5$y = _ref5.y,
+          e = _ref5$y === void 0 ? this.target.f : _ref5$y,
+          _ref5$scale = _ref5.scale,
+          i = _ref5$scale === void 0 ? this.targetScale : _ref5$scale,
+          _ref5$friction = _ref5.friction,
+          n = _ref5$friction === void 0 ? this.option("friction") : _ref5$friction,
+          _ref5$angle = _ref5.angle,
+          s = _ref5$angle === void 0 ? 0 : _ref5$angle,
+          _ref5$originX = _ref5.originX,
+          o = _ref5$originX === void 0 ? 0 : _ref5$originX,
+          _ref5$originY = _ref5.originY,
+          a = _ref5$originY === void 0 ? 0 : _ref5$originY,
+          _ref5$flipX = _ref5.flipX,
+          r = _ref5$flipX === void 0 ? !1 : _ref5$flipX,
+          _ref5$flipY = _ref5.flipY,
+          l = _ref5$flipY === void 0 ? !1 : _ref5$flipY,
+          _ref5$ignoreBounds = _ref5.ignoreBounds,
+          c = _ref5$ignoreBounds === void 0 ? !1 : _ref5$ignoreBounds;
+        this.state !== v.Destroy && this.applyChange({
+          panX: t - this.target.e,
+          panY: e - this.target.f,
+          scale: i / this.targetScale,
+          angle: s,
+          originX: o,
+          originY: a,
+          friction: n,
+          flipX: r,
+          flipY: l,
+          ignoreBounds: c
+        });
+      }
+    }, {
+      key: "applyChange",
+      value: function applyChange(_ref6) {
+        var _ref6$panX = _ref6.panX,
+          t = _ref6$panX === void 0 ? 0 : _ref6$panX,
+          _ref6$panY = _ref6.panY,
+          i = _ref6$panY === void 0 ? 0 : _ref6$panY,
+          _ref6$scale = _ref6.scale,
+          n = _ref6$scale === void 0 ? 1 : _ref6$scale,
+          _ref6$angle = _ref6.angle,
+          s = _ref6$angle === void 0 ? 0 : _ref6$angle,
+          _ref6$originX = _ref6.originX,
+          o = _ref6$originX === void 0 ? -this.current.e : _ref6$originX,
+          _ref6$originY = _ref6.originY,
+          a = _ref6$originY === void 0 ? -this.current.f : _ref6$originY,
+          _ref6$friction = _ref6.friction,
+          r = _ref6$friction === void 0 ? this.option("friction") : _ref6$friction,
+          _ref6$flipX = _ref6.flipX,
+          l = _ref6$flipX === void 0 ? !1 : _ref6$flipX,
+          _ref6$flipY = _ref6.flipY,
+          c = _ref6$flipY === void 0 ? !1 : _ref6$flipY,
+          _ref6$ignoreBounds = _ref6.ignoreBounds,
+          h = _ref6$ignoreBounds === void 0 ? !1 : _ref6$ignoreBounds,
+          _ref6$bounce = _ref6.bounce,
+          d = _ref6$bounce === void 0 ? this.option("bounce") : _ref6$bounce;
+        var u = this.state;
+        if (u === v.Destroy) return;
+        this.rAF && (cancelAnimationFrame(this.rAF), this.rAF = null), this.friction = r || 0, this.ignoreBounds = h;
+        var p = this.current,
+          f = p.e,
+          g = p.f,
+          m = this.getMatrix(this.target);
+        var y = new DOMMatrix().translate(f, g).translate(o, a).translate(t, i);
+        if (this.option("zoom")) {
+          if (!h) {
+            var _t20 = this.targetScale,
+              _e11 = this.minScale,
+              _i21 = this.maxScale;
+            _t20 * n < _e11 && (n = _e11 / _t20), _t20 * n > _i21 && (n = _i21 / _t20);
+          }
+          y = y.scale(n);
+        }
+        y = y.translate(-o, -a).translate(-f, -g).multiply(m), s && (y = y.rotate(s)), l && (y = y.scale(-1, 1)), c && (y = y.scale(1, -1));
+        for (var _i22 = 0, _b9 = b; _i22 < _b9.length; _i22++) {
+          var _t21 = _b9[_i22];
+          "e" !== _t21 && "f" !== _t21 && (y[_t21] > this.minScale + 1e-5 || y[_t21] < this.minScale - 1e-5) ? this.target[_t21] = y[_t21] : this.target[_t21] = e(y[_t21], O);
+        }
+        (this.targetScale < this.scale || Math.abs(n - 1) > .1 || this.panMode === A || !1 === d) && !h && this.clampTargetBounds(), u === v.Init ? this.animate() : this.isResting || (this.state = v.Panning, this.requestTick());
+      }
+    }, {
+      key: "stop",
+      value: function stop() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : !1;
+        if (this.state === v.Init || this.state === v.Destroy) return;
+        var e = this.isTicking;
+        this.rAF && (cancelAnimationFrame(this.rAF), this.rAF = null), this.isBouncingX = !1, this.isBouncingY = !1;
+        for (var _i23 = 0, _b10 = b; _i23 < _b10.length; _i23++) {
+          var _e12 = _b10[_i23];
+          this.velocity[_e12] = 0, "current" === t ? this.current[_e12] = this.target[_e12] : "target" === t && (this.target[_e12] = this.current[_e12]);
+        }
+        this.setTransform(), P(this.container, "is-scaling"), P(this.container, "is-animating"), this.isTicking = !1, this.state = v.Ready, e && (this.emit("endAnimation"), this.updateControls());
+      }
+    }, {
+      key: "requestTick",
+      value: function requestTick() {
+        var _this13 = this;
+        this.isTicking || (this.emit("startAnimation"), this.updateControls(), C(this.container, "is-animating"), this.isScaling && C(this.container, "is-scaling")), this.isTicking = !0, this.rAF || (this.rAF = requestAnimationFrame(function () {
+          return _this13.animate();
+        }));
+      }
+    }, {
+      key: "panWithMouse",
+      value: function panWithMouse(t) {
+        var i = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.option("mouseMoveFriction");
+        if (this.pmme = t, this.panMode !== A || !t) return;
+        if (e(this.targetScale) <= e(this.minScale)) return;
+        this.emit("mouseMove", t);
+        var n = this.container,
+          s = this.containerRect,
+          o = this.contentRect,
+          a = s.width,
+          r = s.height,
+          l = n.getBoundingClientRect(),
+          c = (t.clientX || 0) - l.left,
+          h = (t.clientY || 0) - l.top;
+        var _this$calculateConten3 = this.calculateContentDim(this.target),
+          d = _this$calculateConten3.contentWidth,
+          u = _this$calculateConten3.contentHeight;
+        var p = this.option("mouseMoveFactor");
+        p > 1 && (d !== a && (d *= p), u !== r && (u *= p));
+        var f = .5 * (d - a) - c / a * 100 / 100 * (d - a);
+        f += .5 * (o.right - o.left);
+        var g = .5 * (u - r) - h / r * 100 / 100 * (u - r);
+        g += .5 * (o.bottom - o.top), this.applyChange({
+          panX: f - this.target.e,
+          panY: g - this.target.f,
+          friction: i
+        });
+      }
+    }, {
+      key: "zoomWithWheel",
+      value: function zoomWithWheel(t) {
+        if (this.state === v.Destroy || this.state === v.Init) return;
+        var i = Date.now();
+        if (i - this.pwt < 45) return void t.preventDefault();
+        this.pwt = i;
+        var n = [-t.deltaX || 0, -t.deltaY || 0, -t.detail || 0].reduce(function (t, e) {
+          return Math.abs(e) > Math.abs(t) ? e : t;
+        });
+        var s = Math.max(-1, Math.min(1, n)),
+          o = this.targetScale,
+          a = this.maxScale,
+          r = this.minScale;
+        var l = o * (100 + 45 * s) / 100;
+        e(l) < e(r) && e(o) <= e(r) ? (this.cwd += Math.abs(s), l = r) : e(l) > e(a) && e(o) >= e(a) ? (this.cwd += Math.abs(s), l = a) : (this.cwd = 0, l = Math.max(Math.min(l, a), r)), this.cwd > this.option("wheelLimit") || (t.preventDefault(), e(l) !== e(o) && this.zoomTo(l, {
+          event: t
+        }));
+      }
+    }, {
+      key: "canZoomIn",
+      value: function canZoomIn() {
+        return this.option("zoom") && (e(this.contentRect.width, 1) < e(this.contentRect.fitWidth, 1) || e(this.targetScale) < e(this.maxScale));
+      }
+    }, {
+      key: "canZoomOut",
+      value: function canZoomOut() {
+        return this.option("zoom") && e(this.targetScale) > e(this.minScale);
+      }
+    }, {
+      key: "zoomIn",
+      value: function zoomIn() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1.25;
+        var e = arguments.length > 1 ? arguments[1] : undefined;
+        this.zoomTo(this.targetScale * t, e);
+      }
+    }, {
+      key: "zoomOut",
+      value: function zoomOut() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : .8;
+        var e = arguments.length > 1 ? arguments[1] : undefined;
+        this.zoomTo(this.targetScale * t, e);
+      }
+    }, {
+      key: "zoomToFit",
+      value: function zoomToFit(t) {
+        this.zoomTo("fit", t);
+      }
+    }, {
+      key: "zoomToCover",
+      value: function zoomToCover(t) {
+        this.zoomTo("cover", t);
+      }
+    }, {
+      key: "zoomToFull",
+      value: function zoomToFull(t) {
+        this.zoomTo("full", t);
+      }
+    }, {
+      key: "zoomToMax",
+      value: function zoomToMax(t) {
+        this.zoomTo("max", t);
+      }
+    }, {
+      key: "toggleZoom",
+      value: function toggleZoom(t) {
+        this.zoomTo(this.getNextScale("toggleZoom"), t);
+      }
+    }, {
+      key: "toggleMax",
+      value: function toggleMax(t) {
+        this.zoomTo(this.getNextScale("toggleMax"), t);
+      }
+    }, {
+      key: "toggleCover",
+      value: function toggleCover(t) {
+        this.zoomTo(this.getNextScale("toggleCover"), t);
+      }
+    }, {
+      key: "iterateZoom",
+      value: function iterateZoom(t) {
+        this.zoomTo("next", t);
+      }
+    }, {
+      key: "zoomTo",
+      value: function zoomTo() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+        var _ref7 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+          _ref7$friction = _ref7.friction,
+          e = _ref7$friction === void 0 ? "auto" : _ref7$friction,
+          _ref7$originX = _ref7.originX,
+          i = _ref7$originX === void 0 ? "auto" : _ref7$originX,
+          _ref7$originY = _ref7.originY,
+          n = _ref7$originY === void 0 ? "auto" : _ref7$originY,
+          s = _ref7.event;
+        if (this.isContentLoading || this.state === v.Destroy) return;
+        var o = this.targetScale,
+          a = this.fullScale,
+          r = this.maxScale,
+          l = this.coverScale;
+        if (this.stop(), this.panMode === A && (s = this.pmme || s), s || "auto" === i || "auto" === n) {
+          var _t22 = this.content.getBoundingClientRect(),
+            _e13 = this.container.getBoundingClientRect(),
+            _o = s ? s.clientX : _e13.left + .5 * _e13.width,
+            _a = s ? s.clientY : _e13.top + .5 * _e13.height;
+          i = _o - _t22.left - .5 * _t22.width, n = _a - _t22.top - .5 * _t22.height;
+        }
+        var c = 1;
+        "number" == typeof t ? c = t : "full" === t ? c = a : "cover" === t ? c = l : "max" === t ? c = r : "fit" === t ? c = 1 : "next" === t && (c = this.getNextScale("iterateZoom")), c = c / o || 1, e = "auto" === e ? c > 1 ? .15 : .25 : e, this.applyChange({
+          scale: c,
+          originX: i,
+          originY: n,
+          friction: e
+        }), s && this.panMode === A && this.panWithMouse(s, e);
+      }
+    }, {
+      key: "rotateCCW",
+      value: function rotateCCW() {
+        this.applyChange({
+          angle: -90
+        });
+      }
+    }, {
+      key: "rotateCW",
+      value: function rotateCW() {
+        this.applyChange({
+          angle: 90
+        });
+      }
+    }, {
+      key: "flipX",
+      value: function flipX() {
+        this.applyChange({
+          flipX: !0
+        });
+      }
+    }, {
+      key: "flipY",
+      value: function flipY() {
+        this.applyChange({
+          flipY: !0
+        });
+      }
+    }, {
+      key: "fitX",
+      value: function fitX() {
+        this.stop("target");
+        var t = this.containerRect,
+          e = this.contentRect,
+          i = this.target;
+        this.applyChange({
+          panX: .5 * t.width - (e.left + .5 * e.fitWidth) - i.e,
+          panY: .5 * t.height - (e.top + .5 * e.fitHeight) - i.f,
+          scale: t.width / e.fitWidth / this.targetScale,
+          originX: 0,
+          originY: 0,
+          ignoreBounds: !0
+        });
+      }
+    }, {
+      key: "fitY",
+      value: function fitY() {
+        this.stop("target");
+        var t = this.containerRect,
+          e = this.contentRect,
+          i = this.target;
+        this.applyChange({
+          panX: .5 * t.width - (e.left + .5 * e.fitWidth) - i.e,
+          panY: .5 * t.innerHeight - (e.top + .5 * e.fitHeight) - i.f,
+          scale: t.height / e.fitHeight / this.targetScale,
+          originX: 0,
+          originY: 0,
+          ignoreBounds: !0
+        });
+      }
+    }, {
+      key: "toggleFS",
+      value: function toggleFS() {
+        var t = this.container,
+          e = this.cn("inFullscreen"),
+          i = this.cn("htmlHasFullscreen");
+        t.classList.toggle(e);
+        var n = t.classList.contains(e);
+        n ? (document.documentElement.classList.add(i), document.addEventListener("keydown", this.onKeydown, !0)) : (document.documentElement.classList.remove(i), document.removeEventListener("keydown", this.onKeydown, !0)), this.updateMetrics(), this.emit(n ? "enterFS" : "exitFS");
+      }
+    }, {
+      key: "getMatrix",
+      value: function getMatrix() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.current;
+        var e = t.a,
+          i = t.b,
+          n = t.c,
+          s = t.d,
+          o = t.e,
+          a = t.f;
+        return new DOMMatrix([e, i, n, s, o, a]);
+      }
+    }, {
+      key: "reset",
+      value: function reset(t) {
+        if (this.state !== v.Init && this.state !== v.Destroy) {
+          this.stop("current");
+          for (var _i24 = 0, _b11 = b; _i24 < _b11.length; _i24++) {
+            var _t23 = _b11[_i24];
+            this.target[_t23] = T[_t23];
+          }
+          this.target.a = this.minScale, this.target.d = this.minScale, this.clampTargetBounds(), this.isResting || (this.friction = void 0 === t ? this.option("friction") : t, this.state = v.Panning, this.requestTick());
+        }
+      }
+    }, {
+      key: "destroy",
+      value: function destroy() {
+        this.stop(), this.state = v.Destroy, this.detachEvents(), this.detachObserver();
+        var t = this.container,
+          e = this.content,
+          i = this.option("classes") || {};
+        for (var _i25 = 0, _Object$values = Object.values(i); _i25 < _Object$values.length; _i25++) {
+          var _e14 = _Object$values[_i25];
+          t.classList.remove(_e14 + "");
+        }
+        e && (e.removeEventListener("load", this.onLoad), e.removeEventListener("error", this.onError)), this.detachPlugins();
+      }
+    }]);
+    return I;
+  }(m);
+  Object.defineProperty(I, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: w
+  }), Object.defineProperty(I, "Plugins", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: {}
+  });
+  var D = function D(t, e) {
+      var i = !0;
+      return function () {
+        i && (i = !1, t.apply(void 0, arguments), setTimeout(function () {
+          i = !0;
+        }, e));
+      };
+    },
+    F = function F(t, e) {
+      var i = [];
+      return t.childNodes.forEach(function (t) {
+        t.nodeType !== Node.ELEMENT_NODE || e && !t.matches(e) || i.push(t);
+      }), i;
+    },
+    j = {
+      viewport: null,
+      track: null,
+      enabled: !0,
+      slides: [],
+      axis: "x",
+      transition: "fade",
+      preload: 1,
+      slidesPerPage: "auto",
+      initialPage: 0,
+      friction: .12,
+      Panzoom: {
+        decelFriction: .12
       },
-      title: function title() {
-        return this.title;
+      center: !0,
+      infinite: !0,
+      fill: !0,
+      dragFree: !1,
+      adaptiveHeight: !1,
+      direction: "ltr",
+      classes: {
+        container: "f-carousel",
+        viewport: "f-carousel__viewport",
+        track: "f-carousel__track",
+        slide: "f-carousel__slide",
+        isLTR: "is-ltr",
+        isRTL: "is-rtl",
+        isHorizontal: "is-horizontal",
+        isVertical: "is-vertical",
+        inTransition: "in-transition",
+        isSelected: "is-selected"
       },
-      createImg: function createImg() {
-        var img = new Image();
-        var attrs = $(this).data('cbox-img-attrs');
-        if (_typeof(attrs) === 'object') {
-          $.each(attrs, function (key, val) {
-            img[key] = val;
+      l10n: {
+        NEXT: "Next slide",
+        PREV: "Previous slide",
+        GOTO: "Go to slide #%d"
+      }
+    };
+  var B;
+  !function (t) {
+    t[t.Init = 0] = "Init", t[t.Ready = 1] = "Ready", t[t.Destroy = 2] = "Destroy";
+  }(B || (B = {}));
+  var H = function H(t) {
+      if ("string" == typeof t || t instanceof HTMLElement) t = {
+        html: t
+      };else {
+        var _e15 = t.thumb;
+        void 0 !== _e15 && ("string" == typeof _e15 && (t.thumbSrc = _e15), _e15 instanceof HTMLImageElement && (t.thumbEl = _e15, t.thumbElSrc = _e15.src, t.thumbSrc = _e15.src), delete t.thumb);
+      }
+      return Object.assign({
+        html: "",
+        el: null,
+        isDom: !1,
+        "class": "",
+        customClass: "",
+        index: -1,
+        dim: 0,
+        gap: 0,
+        pos: 0,
+        transition: !1
+      }, t);
+    },
+    N = function N() {
+      var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      return Object.assign({
+        index: -1,
+        slides: [],
+        dim: 0,
+        pos: -1
+      }, t);
+    };
+  var _ = /*#__PURE__*/function (_g4) {
+    _inherits(_, _g4);
+    var _super3 = _createSuper(_);
+    function _(t, e) {
+      var _this14;
+      _classCallCheck(this, _);
+      _this14 = _super3.call(this, e), Object.defineProperty(_assertThisInitialized(_this14), "instance", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: t
+      });
+      return _this14;
+    }
+    _createClass(_, [{
+      key: "attach",
+      value: function attach() {}
+    }, {
+      key: "detach",
+      value: function detach() {}
+    }]);
+    return _;
+  }(g);
+  var $ = {
+    classes: {
+      list: "f-carousel__dots",
+      isDynamic: "is-dynamic",
+      hasDots: "has-dots",
+      dot: "f-carousel__dot",
+      isBeforePrev: "is-before-prev",
+      isPrev: "is-prev",
+      isCurrent: "is-current",
+      isNext: "is-next",
+      isAfterNext: "is-after-next"
+    },
+    dotTpl: '<button type="button" data-carousel-page="%i" aria-label="{{GOTO}}"><span class="f-carousel__dot" aria-hidden="true"></span></button>',
+    dynamicFrom: 11,
+    maxCount: 1 / 0,
+    minCount: 2
+  };
+  var W = /*#__PURE__*/function (_ref8) {
+    _inherits(W, _ref8);
+    var _super4 = _createSuper(W);
+    function W() {
+      var _this15;
+      _classCallCheck(this, W);
+      _this15 = _super4.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this15), "isDynamic", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+      }), Object.defineProperty(_assertThisInitialized(_this15), "list", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      });
+      return _this15;
+    }
+    _createClass(W, [{
+      key: "onRefresh",
+      value: function onRefresh() {
+        this.refresh();
+      }
+    }, {
+      key: "build",
+      value: function build() {
+        var t = this.list;
+        if (!t) {
+          t = document.createElement("ul"), C(t, this.cn("list")), t.setAttribute("role", "tablist");
+          var _e16 = this.instance.container;
+          _e16.appendChild(t), C(_e16, this.cn("hasDots")), this.list = t;
+        }
+        return t;
+      }
+    }, {
+      key: "refresh",
+      value: function refresh() {
+        var t;
+        var e = this.instance.pages.length,
+          i = Math.min(2, this.option("minCount")),
+          n = Math.max(2e3, this.option("maxCount")),
+          s = this.option("dynamicFrom");
+        if (e < i || e > n) return void this.cleanup();
+        var o = "number" == typeof s && e > 5 && e >= s,
+          r = !this.list || this.isDynamic !== o || this.list.children.length !== e;
+        r && this.cleanup();
+        var l = this.build();
+        if (a(l, this.cn("isDynamic"), !!o), r) for (var _t24 = 0; _t24 < e; _t24++) l.append(this.createItem(_t24));
+        var c,
+          h = 0;
+        for (var _i26 = 0, _arr2 = _toConsumableArray(l.children); _i26 < _arr2.length; _i26++) {
+          var _e17 = _arr2[_i26];
+          var _i27 = h === this.instance.page;
+          _i27 && (c = _e17), a(_e17, this.cn("isCurrent"), _i27), null === (t = _e17.children[0]) || void 0 === t || t.setAttribute("aria-selected", _i27 ? "true" : "false");
+          for (var _i28 = 0, _arr3 = ["isBeforePrev", "isPrev", "isNext", "isAfterNext"]; _i28 < _arr3.length; _i28++) {
+            var _t25 = _arr3[_i28];
+            P(_e17, this.cn(_t25));
+          }
+          h++;
+        }
+        if (c = c || l.firstChild, o && c) {
+          var _t26 = c.previousElementSibling,
+            _e18 = _t26 && _t26.previousElementSibling;
+          C(_t26, this.cn("isPrev")), C(_e18, this.cn("isBeforePrev"));
+          var _i29 = c.nextElementSibling,
+            _n5 = _i29 && _i29.nextElementSibling;
+          C(_i29, this.cn("isNext")), C(_n5, this.cn("isAfterNext"));
+        }
+        this.isDynamic = o;
+      }
+    }, {
+      key: "createItem",
+      value: function createItem() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        var e;
+        var i = document.createElement("li");
+        i.setAttribute("role", "presentation");
+        var n = s(this.instance.localize(this.option("dotTpl"), [["%d", t + 1]]).replace(/\%i/g, t + ""));
+        return i.appendChild(n), null === (e = i.children[0]) || void 0 === e || e.setAttribute("role", "tab"), i;
+      }
+    }, {
+      key: "cleanup",
+      value: function cleanup() {
+        this.list && (this.list.remove(), this.list = null), this.isDynamic = !1, P(this.instance.container, this.cn("hasDots"));
+      }
+    }, {
+      key: "attach",
+      value: function attach() {
+        this.instance.on(["refresh", "change"], this.onRefresh);
+      }
+    }, {
+      key: "detach",
+      value: function detach() {
+        this.instance.off(["refresh", "change"], this.onRefresh), this.cleanup();
+      }
+    }]);
+    return W;
+  }(_);
+  Object.defineProperty(W, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: $
+  });
+  var X = "disabled",
+    q = "next",
+    Y = "prev";
+  var V = /*#__PURE__*/function (_ref9) {
+    _inherits(V, _ref9);
+    var _super5 = _createSuper(V);
+    function V() {
+      var _this16;
+      _classCallCheck(this, V);
+      _this16 = _super5.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this16), "container", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this16), "prev", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this16), "next", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this16), "isDom", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+      });
+      return _this16;
+    }
+    _createClass(V, [{
+      key: "onRefresh",
+      value: function onRefresh() {
+        var t = this.instance,
+          e = t.pages.length,
+          i = t.page;
+        if (e < 2) return void this.cleanup();
+        this.build();
+        var n = this.prev,
+          s = this.next;
+        n && s && (n.removeAttribute(X), s.removeAttribute(X), t.isInfinite || (i <= 0 && n.setAttribute(X, ""), i >= e - 1 && s.setAttribute(X, "")));
+      }
+    }, {
+      key: "addBtn",
+      value: function addBtn(t) {
+        var e;
+        var i = this.instance,
+          n = document.createElement("button");
+        n.setAttribute("tabindex", "0"), n.setAttribute("title", i.localize("{{".concat(t.toUpperCase(), "}}"))), C(n, this.cn("button") + " " + this.cn(t === q ? "isNext" : "isPrev"));
+        var s = i.isRTL ? t === q ? Y : q : t;
+        var o;
+        return n.innerHTML = i.localize(this.option("".concat(s, "Tpl"))), n.dataset["carousel".concat((o = t, o ? o.match("^[a-z]") ? o.charAt(0).toUpperCase() + o.substring(1) : o : ""))] = "true", null === (e = this.container) || void 0 === e || e.appendChild(n), n;
+      }
+    }, {
+      key: "build",
+      value: function build() {
+        var t = this.instance.container,
+          e = this.cn("container");
+        var i = this.container,
+          n = this.prev,
+          s = this.next;
+        i || (i = t.querySelector("." + e), this.isDom = !!i), i || (i = document.createElement("div"), C(i, e), t.appendChild(i)), this.container = i, s || (s = i.querySelector("[data-carousel-next]")), s || (s = this.addBtn(q)), this.next = s, n || (n = i.querySelector("[data-carousel-prev]")), n || (n = this.addBtn(Y)), this.prev = n;
+      }
+    }, {
+      key: "cleanup",
+      value: function cleanup() {
+        this.isDom || (this.prev && this.prev.remove(), this.next && this.next.remove(), this.container && this.container.remove()), this.prev = null, this.next = null, this.container = null, this.isDom = !1;
+      }
+    }, {
+      key: "attach",
+      value: function attach() {
+        this.instance.on(["refresh", "change"], this.onRefresh);
+      }
+    }, {
+      key: "detach",
+      value: function detach() {
+        this.instance.off(["refresh", "change"], this.onRefresh), this.cleanup();
+      }
+    }]);
+    return V;
+  }(_);
+  Object.defineProperty(V, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: {
+      classes: {
+        container: "f-carousel__nav",
+        button: "f-button",
+        isNext: "is-next",
+        isPrev: "is-prev"
+      },
+      nextTpl: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1"><path d="M9 3l9 9-9 9"/></svg>',
+      prevTpl: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1"><path d="M15 3l-9 9 9 9"/></svg>'
+    }
+  });
+  var Z = /*#__PURE__*/function (_ref10) {
+    _inherits(Z, _ref10);
+    var _super6 = _createSuper(Z);
+    function Z() {
+      var _this17;
+      _classCallCheck(this, Z);
+      _this17 = _super6.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this17), "selectedIndex", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this17), "target", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this17), "nav", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      });
+      return _this17;
+    }
+    _createClass(Z, [{
+      key: "addAsTargetFor",
+      value: function addAsTargetFor(t) {
+        this.target = this.instance, this.nav = t, this.attachEvents();
+      }
+    }, {
+      key: "addAsNavFor",
+      value: function addAsNavFor(t) {
+        this.nav = this.instance, this.target = t, this.attachEvents();
+      }
+    }, {
+      key: "attachEvents",
+      value: function attachEvents() {
+        var t = this.nav,
+          e = this.target;
+        t && e && (t.options.initialSlide = e.options.initialPage, t.state === B.Ready ? this.onNavReady(t) : t.on("ready", this.onNavReady), e.state === B.Ready ? this.onTargetReady(e) : e.on("ready", this.onTargetReady));
+      }
+    }, {
+      key: "onNavReady",
+      value: function onNavReady(t) {
+        t.on("createSlide", this.onNavCreateSlide), t.on("Panzoom.click", this.onNavClick), t.on("Panzoom.touchEnd", this.onNavTouch), this.onTargetChange();
+      }
+    }, {
+      key: "onTargetReady",
+      value: function onTargetReady(t) {
+        t.on("change", this.onTargetChange), t.on("Panzoom.refresh", this.onTargetChange), this.onTargetChange();
+      }
+    }, {
+      key: "onNavClick",
+      value: function onNavClick(t, e, i) {
+        this.onNavTouch(t, t.panzoom, i);
+      }
+    }, {
+      key: "onNavTouch",
+      value: function onNavTouch(t, e, i) {
+        var n, s;
+        if (Math.abs(e.dragOffset.x) > 3 || Math.abs(e.dragOffset.y) > 3) return;
+        var o = i.target,
+          a = this.nav,
+          r = this.target;
+        if (!a || !r || !o) return;
+        var l = o.closest("[data-index]");
+        if (i.stopPropagation(), i.preventDefault(), !l) return;
+        var c = parseInt(l.dataset.index || "", 10) || 0,
+          h = r.getPageForSlide(c),
+          d = a.getPageForSlide(c);
+        a.slideTo(d), r.slideTo(h, {
+          friction: (null === (s = null === (n = this.nav) || void 0 === n ? void 0 : n.plugins) || void 0 === s ? void 0 : s.Sync.option("friction")) || 0
+        }), this.markSelectedSlide(c);
+      }
+    }, {
+      key: "onNavCreateSlide",
+      value: function onNavCreateSlide(t, e) {
+        e.index === this.selectedIndex && this.markSelectedSlide(e.index);
+      }
+    }, {
+      key: "onTargetChange",
+      value: function onTargetChange() {
+        var t, e;
+        var i = this.target,
+          n = this.nav;
+        if (!i || !n) return;
+        if (n.state !== B.Ready || i.state !== B.Ready) return;
+        var s = null === (e = null === (t = i.pages[i.page]) || void 0 === t ? void 0 : t.slides[0]) || void 0 === e ? void 0 : e.index,
+          o = n.getPageForSlide(s);
+        this.markSelectedSlide(s), n.slideTo(o, null === n.prevPage && null === i.prevPage ? {
+          friction: 0
+        } : void 0);
+      }
+    }, {
+      key: "markSelectedSlide",
+      value: function markSelectedSlide(t) {
+        var e = this.nav;
+        e && e.state === B.Ready && (this.selectedIndex = t, _toConsumableArray(e.slides).map(function (e) {
+          e.el && e.el.classList[e.index === t ? "add" : "remove"]("is-nav-selected");
+        }));
+      }
+    }, {
+      key: "attach",
+      value: function attach() {
+        var t = this;
+        var e = t.options.target,
+          i = t.options.nav;
+        e ? t.addAsNavFor(e) : i && t.addAsTargetFor(i);
+      }
+    }, {
+      key: "detach",
+      value: function detach() {
+        var t = this,
+          e = t.nav,
+          i = t.target;
+        e && (e.off("ready", t.onNavReady), e.off("createSlide", t.onNavCreateSlide), e.off("Panzoom.click", t.onNavClick), e.off("Panzoom.touchEnd", t.onNavTouch)), t.nav = null, i && (i.off("ready", t.onTargetReady), i.off("refresh", t.onTargetChange), i.off("change", t.onTargetChange)), t.target = null;
+      }
+    }]);
+    return Z;
+  }(_);
+  Object.defineProperty(Z, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: {
+      friction: .35
+    }
+  });
+  var U = {
+      Navigation: V,
+      Dots: W,
+      Sync: Z
+    },
+    G = "animationend",
+    K = "isSelected",
+    J = "slide";
+  var Q = /*#__PURE__*/function (_m3) {
+    _inherits(Q, _m3);
+    var _super7 = _createSuper(Q);
+    function Q(t) {
+      var _this18;
+      var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var i = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      _classCallCheck(this, Q);
+      if (_this18 = _super7.call(this), Object.defineProperty(_assertThisInitialized(_this18), "bp", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: ""
+      }), Object.defineProperty(_assertThisInitialized(_this18), "lp", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this18), "userOptions", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {}
+      }), Object.defineProperty(_assertThisInitialized(_this18), "userPlugins", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {}
+      }), Object.defineProperty(_assertThisInitialized(_this18), "state", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: B.Init
+      }), Object.defineProperty(_assertThisInitialized(_this18), "page", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this18), "prevPage", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this18), "container", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: void 0
+      }), Object.defineProperty(_assertThisInitialized(_this18), "viewport", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this18), "track", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this18), "slides", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: []
+      }), Object.defineProperty(_assertThisInitialized(_this18), "pages", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: []
+      }), Object.defineProperty(_assertThisInitialized(_this18), "panzoom", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this18), "inTransition", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: new Set()
+      }), Object.defineProperty(_assertThisInitialized(_this18), "contentDim", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this18), "viewportDim", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), "string" == typeof t && (t = document.querySelector(t)), !t || !S(t)) throw new Error("No Element found");
+      _this18.container = t, _this18.slideNext = D(_this18.slideNext.bind(_assertThisInitialized(_this18)), 150), _this18.slidePrev = D(_this18.slidePrev.bind(_assertThisInitialized(_this18)), 150), _this18.userOptions = e, _this18.userPlugins = i, queueMicrotask(function () {
+        _this18.processOptions();
+      });
+      return _possibleConstructorReturn(_this18);
+    }
+    _createClass(Q, [{
+      key: "axis",
+      get: function get() {
+        return this.isHorizontal ? "e" : "f";
+      }
+    }, {
+      key: "isEnabled",
+      get: function get() {
+        return this.state === B.Ready;
+      }
+    }, {
+      key: "isInfinite",
+      get: function get() {
+        var t = !1;
+        var e = this.contentDim,
+          i = this.viewportDim,
+          n = this.pages,
+          s = this.slides,
+          o = s[0];
+        return n.length >= 2 && o && e + o.dim >= i && (t = this.option("infinite")), t;
+      }
+    }, {
+      key: "isRTL",
+      get: function get() {
+        return "rtl" === this.option("direction");
+      }
+    }, {
+      key: "isHorizontal",
+      get: function get() {
+        return "x" === this.option("axis");
+      }
+    }, {
+      key: "processOptions",
+      value: function processOptions() {
+        var _this19 = this;
+        var t, e;
+        var i = p({}, Q.defaults, this.userOptions);
+        var n = "";
+        var s = i.breakpoints;
+        if (s && u(s)) for (var _i30 = 0, _Object$entries3 = Object.entries(s); _i30 < _Object$entries3.length; _i30++) {
+          var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i30], 2),
+            _t27 = _Object$entries3$_i[0],
+            _e19 = _Object$entries3$_i[1];
+          window.matchMedia(_t27).matches && u(_e19) && (n += _t27, p(i, _e19));
+        }
+        n === this.bp && this.state !== B.Init || (this.bp = n, this.state === B.Ready && (i.initialSlide = (null === (e = null === (t = this.pages[this.page]) || void 0 === t ? void 0 : t.slides[0]) || void 0 === e ? void 0 : e.index) || 0), this.state !== B.Init && this.destroy(), _get(_getPrototypeOf(Q.prototype), "setOptions", this).call(this, i), !1 === this.option("enabled") ? this.attachEvents() : setTimeout(function () {
+          _this19.init();
+        }, 0));
+      }
+    }, {
+      key: "init",
+      value: function init() {
+        this.state = B.Init, this.emit("init"), this.attachPlugins(Object.assign(Object.assign({}, Q.Plugins), this.userPlugins)), this.emit("attachPlugins"), this.initLayout(), this.initSlides(), this.updateMetrics(), this.setInitialPosition(), this.initPanzoom(), this.attachEvents(), this.state = B.Ready, this.emit("ready");
+      }
+    }, {
+      key: "initLayout",
+      value: function initLayout() {
+        var _i31, _n6;
+        var t = this.container,
+          e = this.option("classes");
+        C(t, this.cn("container")), a(t, e.isLTR, !this.isRTL), a(t, e.isRTL, this.isRTL), a(t, e.isVertical, !this.isHorizontal), a(t, e.isHorizontal, this.isHorizontal);
+        var i = this.option("viewport") || t.querySelector(".".concat(e.viewport));
+        i || (i = document.createElement("div"), C(i, e.viewport), (_i31 = i).append.apply(_i31, _toConsumableArray(F(t, ".".concat(e.slide)))), t.prepend(i)), i.addEventListener("scroll", this.onScroll);
+        var n = this.option("track") || t.querySelector(".".concat(e.track));
+        n || (n = document.createElement("div"), C(n, e.track), (_n6 = n).append.apply(_n6, _toConsumableArray(Array.from(i.childNodes)))), n.setAttribute("aria-live", "polite"), i.contains(n) || i.prepend(n), this.viewport = i, this.track = n, this.emit("initLayout");
+      }
+    }, {
+      key: "initSlides",
+      value: function initSlides() {
+        var _this20 = this;
+        var t = this.track;
+        if (!t) return;
+        var e = _toConsumableArray(this.slides),
+          i = [];
+        _toConsumableArray(F(t, ".".concat(this.cn(J)))).forEach(function (t) {
+          if (S(t)) {
+            var _e20 = H({
+              el: t,
+              isDom: !0,
+              index: _this20.slides.length
+            });
+            i.push(_e20);
+          }
+        });
+        for (var _i32 = 0, _arr4 = [].concat(_toConsumableArray(this.option("slides", []) || []), _toConsumableArray(e)); _i32 < _arr4.length; _i32++) {
+          var _t28 = _arr4[_i32];
+          i.push(H(_t28));
+        }
+        this.slides = i;
+        for (var _t29 = 0; _t29 < this.slides.length; _t29++) this.slides[_t29].index = _t29;
+        for (var _i34 = 0, _i33 = i; _i34 < _i33.length; _i34++) {
+          var _t30 = _i33[_i34];
+          this.emit("beforeInitSlide", _t30, _t30.index), this.emit("initSlide", _t30, _t30.index);
+        }
+        this.emit("initSlides");
+      }
+    }, {
+      key: "setInitialPage",
+      value: function setInitialPage() {
+        var t = this.option("initialSlide");
+        this.page = "number" == typeof t ? this.getPageForSlide(t) : parseInt(this.option("initialPage", 0) + "", 10) || 0;
+      }
+    }, {
+      key: "setInitialPosition",
+      value: function setInitialPosition() {
+        var t = this.track,
+          e = this.pages,
+          i = this.isHorizontal;
+        if (!t || !e.length) return;
+        var n = this.page;
+        e[n] || (this.page = n = 0);
+        var s = (e[n].pos || 0) * (this.isRTL && i ? 1 : -1),
+          o = i ? "".concat(s, "px") : "0",
+          a = i ? "0" : "".concat(s, "px");
+        t.style.transform = "translate3d(".concat(o, ", ").concat(a, ", 0) scale(1)"), this.option("adaptiveHeight") && this.setViewportHeight();
+      }
+    }, {
+      key: "initPanzoom",
+      value: function initPanzoom() {
+        var _this21 = this;
+        this.panzoom && (this.panzoom.destroy(), this.panzoom = null);
+        var t = this.option("Panzoom") || {};
+        this.panzoom = new I(this.viewport, p({}, {
+          content: this.track,
+          zoom: !1,
+          panOnlyZoomed: !1,
+          lockAxis: this.isHorizontal ? "x" : "y",
+          infinite: this.isInfinite,
+          click: !1,
+          dblClick: !1,
+          touch: function touch(t) {
+            return !(_this21.pages.length < 2 && !t.options.infinite);
+          },
+          bounds: function bounds() {
+            return _this21.getBounds();
+          },
+          maxVelocity: function maxVelocity(t) {
+            return Math.abs(t.target[_this21.axis] - t.current[_this21.axis]) < 2 * _this21.viewportDim ? 100 : 0;
+          }
+        }, t)), this.panzoom.on("*", function (t, e) {
+          for (var _len4 = arguments.length, i = new Array(_len4 > 2 ? _len4 - 2 : 0), _key4 = 2; _key4 < _len4; _key4++) {
+            i[_key4 - 2] = arguments[_key4];
+          }
+          _this21.emit.apply(_this21, ["Panzoom.".concat(e), t].concat(i));
+        }), this.panzoom.on("decel", this.onDecel), this.panzoom.on("refresh", this.onRefresh), this.panzoom.on("beforeTransform", this.onBeforeTransform), this.panzoom.on("endAnimation", this.onEndAnimation);
+      }
+    }, {
+      key: "attachEvents",
+      value: function attachEvents() {
+        var t = this.container;
+        t && (t.addEventListener("click", this.onClick, {
+          passive: !1,
+          capture: !1
+        }), t.addEventListener("slideTo", this.onSlideTo)), window.addEventListener("resize", this.onResize);
+      }
+    }, {
+      key: "createPages",
+      value: function createPages() {
+        var t = [];
+        var e = this.contentDim,
+          i = this.viewportDim;
+        var n = this.option("slidesPerPage");
+        n = ("auto" === n || e <= i) && !1 !== this.option("fill") ? 1 / 0 : parseFloat(n + "");
+        var s = 0,
+          o = 0,
+          a = 0;
+        var _iterator6 = _createForOfIteratorHelper(this.slides),
+          _step6;
+        try {
+          for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+            var _e21 = _step6.value;
+            (!t.length || o + _e21.dim - i > .05 || a >= n) && (t.push(N()), s = t.length - 1, o = 0, a = 0), t[s].slides.push(_e21), o += _e21.dim + _e21.gap, a++;
+          }
+        } catch (err) {
+          _iterator6.e(err);
+        } finally {
+          _iterator6.f();
+        }
+        return t;
+      }
+    }, {
+      key: "processPages",
+      value: function processPages() {
+        var t = this.pages,
+          i = this.contentDim,
+          n = this.viewportDim,
+          s = this.isInfinite,
+          o = this.option("center"),
+          a = this.option("fill"),
+          r = a && o && i > n && !s;
+        if (t.forEach(function (t, e) {
+          var s;
+          t.index = e, t.pos = (null === (s = t.slides[0]) || void 0 === s ? void 0 : s.pos) || 0, t.dim = 0;
+          var _iterator7 = _createForOfIteratorHelper(t.slides.entries()),
+            _step7;
+          try {
+            for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+              var _step7$value = _slicedToArray(_step7.value, 2),
+                _e22 = _step7$value[0],
+                _i35 = _step7$value[1];
+              t.dim += _i35.dim, _e22 < t.slides.length - 1 && (t.dim += _i35.gap);
+            }
+          } catch (err) {
+            _iterator7.e(err);
+          } finally {
+            _iterator7.f();
+          }
+          r && t.pos + .5 * t.dim < .5 * n ? t.pos = 0 : r && t.pos + .5 * t.dim >= i - .5 * n ? t.pos = i - n : o && (t.pos += -.5 * (n - t.dim));
+        }), t.forEach(function (t) {
+          a && !s && i > n && (t.pos = Math.max(t.pos, 0), t.pos = Math.min(t.pos, i - n)), t.pos = e(t.pos, 1e3), t.dim = e(t.dim, 1e3), Math.abs(t.pos) <= .1 && (t.pos = 0);
+        }), s) return t;
+        var l = [];
+        var c;
+        return t.forEach(function (t) {
+          var e = Object.assign({}, t);
+          c && e.pos === c.pos ? (c.dim += e.dim, c.slides = [].concat(_toConsumableArray(c.slides), _toConsumableArray(e.slides))) : (e.index = l.length, c = e, l.push(e));
+        }), l;
+      }
+    }, {
+      key: "getPageFromIndex",
+      value: function getPageFromIndex() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        var e = this.pages.length;
+        var i;
+        return t = parseInt((t || 0).toString()) || 0, i = this.isInfinite ? (t % e + e) % e : Math.max(Math.min(t, e - 1), 0), i;
+      }
+    }, {
+      key: "getSlideMetrics",
+      value: function getSlideMetrics(t) {
+        var i, n;
+        var s = this.isHorizontal ? "width" : "height";
+        var o = 0,
+          a = 0,
+          r = t.el;
+        var l = !(!r || r.parentNode);
+        if (r ? o = parseFloat(r.dataset[s] || "") || 0 : (r = document.createElement("div"), r.style.visibility = "hidden", (this.track || document.body).prepend(r)), C(r, this.cn(J) + " " + t["class"] + " " + t.customClass), o) r.style[s] = "".concat(o, "px"), r.style["width" === s ? "height" : "width"] = "";else {
+          l && (this.track || document.body).prepend(r), o = r.getBoundingClientRect()[s] * Math.max(1, (null === (i = window.visualViewport) || void 0 === i ? void 0 : i.scale) || 1);
+          var _t31 = r[this.isHorizontal ? "offsetWidth" : "offsetHeight"];
+          _t31 - 1 > o && (o = _t31);
+        }
+        var c = getComputedStyle(r);
+        return "content-box" === c.boxSizing && (this.isHorizontal ? (o += parseFloat(c.paddingLeft) || 0, o += parseFloat(c.paddingRight) || 0) : (o += parseFloat(c.paddingTop) || 0, o += parseFloat(c.paddingBottom) || 0)), a = parseFloat(c[this.isHorizontal ? "marginRight" : "marginBottom"]) || 0, l ? null === (n = r.parentElement) || void 0 === n || n.removeChild(r) : t.el || r.remove(), {
+          dim: e(o, 1e3),
+          gap: e(a, 1e3)
+        };
+      }
+    }, {
+      key: "getBounds",
+      value: function getBounds() {
+        var t = this.isInfinite,
+          e = this.isRTL,
+          i = this.isHorizontal,
+          n = this.pages;
+        var s = {
+          min: 0,
+          max: 0
+        };
+        if (t) s = {
+          min: -1 / 0,
+          max: 1 / 0
+        };else if (n.length) {
+          var _t32 = n[0].pos,
+            _o2 = n[n.length - 1].pos;
+          s = e && i ? {
+            min: _t32,
+            max: _o2
+          } : {
+            min: -1 * _o2,
+            max: -1 * _t32
+          };
+        }
+        return {
+          x: i ? s : {
+            min: 0,
+            max: 0
+          },
+          y: i ? {
+            min: 0,
+            max: 0
+          } : s
+        };
+      }
+    }, {
+      key: "repositionSlides",
+      value: function repositionSlides() {
+        var t,
+          i = this.isHorizontal,
+          n = this.isRTL,
+          s = this.isInfinite,
+          o = this.viewport,
+          a = this.viewportDim,
+          r = this.contentDim,
+          l = this.page,
+          c = this.pages,
+          h = this.slides,
+          d = this.panzoom,
+          u = 0,
+          p = 0,
+          f = 0,
+          g = 0;
+        d ? g = -1 * d.current[this.axis] : c[l] && (g = c[l].pos || 0), t = i ? n ? "right" : "left" : "top", n && i && (g *= -1);
+        var _iterator8 = _createForOfIteratorHelper(h),
+          _step8;
+        try {
+          for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
+            var _i38 = _step8.value;
+            var _n9 = _i38.el;
+            _n9 ? ("top" === t ? (_n9.style.right = "", _n9.style.left = "") : _n9.style.top = "", _i38.index !== u ? _n9.style[t] = 0 === p ? "" : "".concat(e(p, 1e3), "px") : _n9.style[t] = "", f += _i38.dim + _i38.gap, u++) : p += _i38.dim + _i38.gap;
+          }
+        } catch (err) {
+          _iterator8.e(err);
+        } finally {
+          _iterator8.f();
+        }
+        if (s && f && o) {
+          var _n7 = getComputedStyle(o),
+            _s5 = "padding",
+            _l = i ? "Right" : "Bottom",
+            _c2 = parseFloat(_n7[_s5 + (i ? "Left" : "Top")]);
+          g -= _c2, a += _c2, a += parseFloat(_n7[_s5 + _l]);
+          var _iterator9 = _createForOfIteratorHelper(h),
+            _step9;
+          try {
+            for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
+              var _i36 = _step9.value;
+              _i36.el && (e(_i36.pos) < e(a) && e(_i36.pos + _i36.dim + _i36.gap) < e(g) && e(g) > e(r - a) && (_i36.el.style[t] = "".concat(e(p + f, 1e3), "px")), e(_i36.pos + _i36.gap) >= e(r - a) && e(_i36.pos) > e(g + a) && e(g) < e(a) && (_i36.el.style[t] = "-".concat(e(f, 1e3), "px")));
+            }
+          } catch (err) {
+            _iterator9.e(err);
+          } finally {
+            _iterator9.f();
+          }
+        }
+        var m,
+          v,
+          b = _toConsumableArray(this.inTransition);
+        if (b.length > 1 && (m = c[b[0]], v = c[b[1]]), m && v) {
+          var _i37 = 0;
+          var _iterator10 = _createForOfIteratorHelper(h),
+            _step10;
+          try {
+            for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
+              var _n8 = _step10.value;
+              _n8.el ? this.inTransition.has(_n8.index) && m.slides.indexOf(_n8) < 0 && (_n8.el.style[t] = "".concat(e(_i37 + (m.pos - v.pos), 1e3), "px")) : _i37 += _n8.dim + _n8.gap;
+            }
+          } catch (err) {
+            _iterator10.e(err);
+          } finally {
+            _iterator10.f();
+          }
+        }
+      }
+    }, {
+      key: "createSlideEl",
+      value: function createSlideEl(t) {
+        var e = this.track,
+          i = this.slides;
+        if (!e || !t) return;
+        if (t.el && t.el.parentNode) return;
+        var n = t.el || document.createElement("div");
+        C(n, this.cn(J)), C(n, t["class"]), C(n, t.customClass);
+        var s = t.html;
+        s && (s instanceof HTMLElement ? n.appendChild(s) : n.innerHTML = t.html + "");
+        var o = [];
+        i.forEach(function (t, e) {
+          t.el && o.push(e);
+        });
+        var a = t.index;
+        var r = null;
+        if (o.length) {
+          r = i[o.reduce(function (t, e) {
+            return Math.abs(e - a) < Math.abs(t - a) ? e : t;
+          })];
+        }
+        var l = r && r.el && r.el.parentNode ? r.index < t.index ? r.el.nextSibling : r.el : null;
+        e.insertBefore(n, e.contains(l) ? l : null), t.el = n, this.emit("createSlide", t);
+      }
+    }, {
+      key: "removeSlideEl",
+      value: function removeSlideEl(t) {
+        var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : !1;
+        var i = null == t ? void 0 : t.el;
+        if (!i || !i.parentNode) return;
+        var n = this.cn(K);
+        if (i.classList.contains(n) && (P(i, n), this.emit("unselectSlide", t)), t.isDom && !e) return i.removeAttribute("aria-hidden"), i.removeAttribute("data-index"), void (i.style.left = "");
+        this.emit("removeSlide", t);
+        var s = new CustomEvent(G);
+        i.dispatchEvent(s), t.el && (t.el.remove(), t.el = null);
+      }
+    }, {
+      key: "transitionTo",
+      value: function transitionTo() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.option("transition");
+        var i, n, s, o;
+        if (!e) return !1;
+        var a = this.page,
+          r = this.pages,
+          l = this.panzoom;
+        t = parseInt((t || 0).toString()) || 0;
+        var c = this.getPageFromIndex(t);
+        if (!l || !r[c] || r.length < 2 || Math.abs(((null === (n = null === (i = r[a]) || void 0 === i ? void 0 : i.slides[0]) || void 0 === n ? void 0 : n.dim) || 0) - this.viewportDim) > 1) return !1;
+        var h = t > a ? 1 : -1,
+          d = r[c].pos * (this.isRTL ? 1 : -1);
+        if (a === c && Math.abs(d - l.target[this.axis]) < 1) return !1;
+        this.clearTransitions();
+        var u = l.isResting;
+        C(this.container, this.cn("inTransition"));
+        var p = (null === (s = r[a]) || void 0 === s ? void 0 : s.slides[0]) || null,
+          f = (null === (o = r[c]) || void 0 === o ? void 0 : o.slides[0]) || null;
+        this.inTransition.add(f.index), this.createSlideEl(f);
+        var g = p.el,
+          m = f.el;
+        u || e === J || (e = "fadeFast", g = null);
+        var v = this.isRTL ? "next" : "prev",
+          b = this.isRTL ? "prev" : "next";
+        return g && (this.inTransition.add(p.index), p.transition = e, g.addEventListener(G, this.onAnimationEnd), g.classList.add("f-".concat(e, "Out"), "to-".concat(h > 0 ? b : v))), m && (f.transition = e, m.addEventListener(G, this.onAnimationEnd), m.classList.add("f-".concat(e, "In"), "from-".concat(h > 0 ? v : b))), l.current[this.axis] = d, l.target[this.axis] = d, l.requestTick(), this.onChange(c), !0;
+      }
+    }, {
+      key: "manageSlideVisiblity",
+      value: function manageSlideVisiblity() {
+        var t = new Set(),
+          e = new Set(),
+          i = this.getVisibleSlides(parseFloat(this.option("preload", 0) + "") || 0);
+        var _iterator11 = _createForOfIteratorHelper(this.slides),
+          _step11;
+        try {
+          for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
+            var _n10 = _step11.value;
+            i.has(_n10) ? t.add(_n10) : e.add(_n10);
+          }
+        } catch (err) {
+          _iterator11.e(err);
+        } finally {
+          _iterator11.f();
+        }
+        var _iterator12 = _createForOfIteratorHelper(this.inTransition),
+          _step12;
+        try {
+          for (_iterator12.s(); !(_step12 = _iterator12.n()).done;) {
+            var _e23 = _step12.value;
+            t.add(this.slides[_e23]);
+          }
+        } catch (err) {
+          _iterator12.e(err);
+        } finally {
+          _iterator12.f();
+        }
+        var _iterator13 = _createForOfIteratorHelper(t),
+          _step13;
+        try {
+          for (_iterator13.s(); !(_step13 = _iterator13.n()).done;) {
+            var _e24 = _step13.value;
+            this.createSlideEl(_e24), this.lazyLoadSlide(_e24);
+          }
+        } catch (err) {
+          _iterator13.e(err);
+        } finally {
+          _iterator13.f();
+        }
+        var _iterator14 = _createForOfIteratorHelper(e),
+          _step14;
+        try {
+          for (_iterator14.s(); !(_step14 = _iterator14.n()).done;) {
+            var _i39 = _step14.value;
+            t.has(_i39) || this.removeSlideEl(_i39);
+          }
+        } catch (err) {
+          _iterator14.e(err);
+        } finally {
+          _iterator14.f();
+        }
+        this.markSelectedSlides(), this.repositionSlides();
+      }
+    }, {
+      key: "markSelectedSlides",
+      value: function markSelectedSlides() {
+        if (!this.pages[this.page] || !this.pages[this.page].slides) return;
+        var t = "aria-hidden";
+        var e = this.cn(K);
+        if (e) {
+          var _iterator15 = _createForOfIteratorHelper(this.slides),
+            _step15;
+          try {
+            for (_iterator15.s(); !(_step15 = _iterator15.n()).done;) {
+              var _i40 = _step15.value;
+              var _n11 = _i40.el;
+              _n11 && (_n11.dataset.index = "".concat(_i40.index), _n11.classList.contains("f-thumbs__slide") ? this.getVisibleSlides(0).has(_i40) ? _n11.removeAttribute(t) : _n11.setAttribute(t, "true") : this.pages[this.page].slides.includes(_i40) ? (_n11.classList.contains(e) || (C(_n11, e), this.emit("selectSlide", _i40)), _n11.removeAttribute(t)) : (_n11.classList.contains(e) && (P(_n11, e), this.emit("unselectSlide", _i40)), _n11.setAttribute(t, "true")));
+            }
+          } catch (err) {
+            _iterator15.e(err);
+          } finally {
+            _iterator15.f();
+          }
+        }
+      }
+    }, {
+      key: "flipInfiniteTrack",
+      value: function flipInfiniteTrack() {
+        var t = this.axis,
+          e = this.isHorizontal,
+          i = this.isInfinite,
+          n = this.isRTL,
+          s = this.viewportDim,
+          o = this.contentDim,
+          a = this.panzoom;
+        if (!a || !i) return;
+        var r = a.current[t],
+          l = a.target[t] - r,
+          c = 0,
+          h = .5 * s;
+        n && e ? (r < -h && (c = -1, r += o), r > o - h && (c = 1, r -= o)) : (r > h && (c = 1, r -= o), r < -o + h && (c = -1, r += o)), c && (a.current[t] = r, a.target[t] = r + l);
+      }
+    }, {
+      key: "lazyLoadImg",
+      value: function lazyLoadImg(t, e) {
+        var _this22 = this;
+        var i = this,
+          n = "f-fadeIn",
+          o = "is-preloading";
+        var a = !1,
+          r = null;
+        var l = function l() {
+          a || (a = !0, r && (r.remove(), r = null), P(e, o), e.complete && (C(e, n), setTimeout(function () {
+            P(e, n);
+          }, 350)), _this22.option("adaptiveHeight") && t.el && _this22.pages[_this22.page].slides.indexOf(t) > -1 && (i.updateMetrics(), i.setViewportHeight()), _this22.emit("load", t));
+        };
+        C(e, o), e.src = e.dataset.lazySrcset || e.dataset.lazySrc || "", delete e.dataset.lazySrc, delete e.dataset.lazySrcset, e.addEventListener("error", function () {
+          l();
+        }), e.addEventListener("load", function () {
+          l();
+        }), setTimeout(function () {
+          var i = e.parentNode;
+          i && t.el && (e.complete ? l() : a || (r = s(E), i.insertBefore(r, e)));
+        }, 300);
+      }
+    }, {
+      key: "lazyLoadSlide",
+      value: function lazyLoadSlide(t) {
+        var e = t && t.el;
+        if (!e) return;
+        var i = new Set();
+        var n = Array.from(e.querySelectorAll("[data-lazy-src],[data-lazy-srcset]"));
+        e.dataset.lazySrc && n.push(e), n.map(function (t) {
+          t instanceof HTMLImageElement ? i.add(t) : t instanceof HTMLElement && t.dataset.lazySrc && (t.style.backgroundImage = "url('".concat(t.dataset.lazySrc, "')"), delete t.dataset.lazySrc);
+        });
+        var _iterator16 = _createForOfIteratorHelper(i),
+          _step16;
+        try {
+          for (_iterator16.s(); !(_step16 = _iterator16.n()).done;) {
+            var _e25 = _step16.value;
+            this.lazyLoadImg(t, _e25);
+          }
+        } catch (err) {
+          _iterator16.e(err);
+        } finally {
+          _iterator16.f();
+        }
+      }
+    }, {
+      key: "onAnimationEnd",
+      value: function onAnimationEnd(t) {
+        var e;
+        var i = t.target,
+          n = i ? parseInt(i.dataset.index || "", 10) || 0 : -1,
+          s = this.slides[n],
+          o = t.animationName;
+        if (!i || !s || !o) return;
+        var a = !!this.inTransition.has(n) && s.transition;
+        a && o.substring(0, a.length + 2) === "f-".concat(a) && this.inTransition["delete"](n), this.inTransition.size || this.clearTransitions(), n === this.page && (null === (e = this.panzoom) || void 0 === e ? void 0 : e.isResting) && this.emit("settle");
+      }
+    }, {
+      key: "onDecel",
+      value: function onDecel(t) {
+        var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+        var i = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+        var n = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+        var s = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
+        if (this.option("dragFree")) return void this.setPageFromPosition();
+        var o = this.isRTL,
+          a = this.isHorizontal,
+          r = this.axis,
+          l = this.pages,
+          c = l.length,
+          h = Math.abs(Math.atan2(i, e) / (Math.PI / 180));
+        var d = 0;
+        if (d = h > 45 && h < 135 ? a ? 0 : i : a ? e : 0, !c) return;
+        var u = this.page,
+          p = o && a ? 1 : -1;
+        var f = t.current[r] * p;
+        var _this$getPageFromPosi = this.getPageFromPosition(f),
+          g = _this$getPageFromPosi.pageIndex;
+        Math.abs(d) > 5 ? (l[u].dim < document.documentElement["client" + (this.isHorizontal ? "Width" : "Height")] - 1 && (u = g), u = o && a ? d < 0 ? u - 1 : u + 1 : d < 0 ? u + 1 : u - 1) : u = 0 === n && 0 === s ? u : g, this.slideTo(u, {
+          transition: !1,
+          friction: t.option("decelFriction")
+        });
+      }
+    }, {
+      key: "onClick",
+      value: function onClick(t) {
+        var e = t.target,
+          i = e && S(e) ? e.dataset : null;
+        var n, s;
+        i && (void 0 !== i.carouselPage ? (s = "slideTo", n = i.carouselPage) : void 0 !== i.carouselNext ? s = "slideNext" : void 0 !== i.carouselPrev && (s = "slidePrev")), s ? (t.preventDefault(), t.stopPropagation(), e && !e.hasAttribute("disabled") && this[s](n)) : this.emit("click", t);
+      }
+    }, {
+      key: "onSlideTo",
+      value: function onSlideTo(t) {
+        var e = t.detail || 0;
+        this.slideTo(this.getPageForSlide(e), {
+          friction: 0
+        });
+      }
+    }, {
+      key: "onChange",
+      value: function onChange(t) {
+        var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+        var i = this.page;
+        this.prevPage = i, this.page = t, this.option("adaptiveHeight") && this.setViewportHeight(), t !== i && (this.markSelectedSlides(), this.emit("change", t, i, e));
+      }
+    }, {
+      key: "onRefresh",
+      value: function onRefresh() {
+        var t = this.contentDim,
+          e = this.viewportDim;
+        this.updateMetrics(), this.contentDim === t && this.viewportDim === e || this.slideTo(this.page, {
+          friction: 0,
+          transition: !1
+        });
+      }
+    }, {
+      key: "onScroll",
+      value: function onScroll() {
+        var t;
+        null === (t = this.viewport) || void 0 === t || t.scroll(0, 0);
+      }
+    }, {
+      key: "onResize",
+      value: function onResize() {
+        this.option("breakpoints") && this.processOptions();
+      }
+    }, {
+      key: "onBeforeTransform",
+      value: function onBeforeTransform(t) {
+        this.lp !== t.current[this.axis] && (this.flipInfiniteTrack(), this.manageSlideVisiblity()), this.lp = t.current.e;
+      }
+    }, {
+      key: "onEndAnimation",
+      value: function onEndAnimation() {
+        this.inTransition.size || this.emit("settle");
+      }
+    }, {
+      key: "reInit",
+      value: function reInit() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+        var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+        this.destroy(), this.state = B.Init, this.prevPage = null, this.userOptions = t || this.userOptions, this.userPlugins = e || this.userPlugins, this.processOptions();
+      }
+    }, {
+      key: "slideTo",
+      value: function slideTo() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        var _ref11 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+          _ref11$friction = _ref11.friction,
+          e = _ref11$friction === void 0 ? this.option("friction") : _ref11$friction,
+          _ref11$transition = _ref11.transition,
+          i = _ref11$transition === void 0 ? this.option("transition") : _ref11$transition;
+        if (this.state === B.Destroy) return;
+        t = parseInt((t || 0).toString()) || 0;
+        var n = this.getPageFromIndex(t),
+          s = this.axis,
+          o = this.isHorizontal,
+          a = this.isRTL,
+          r = this.pages,
+          l = this.panzoom,
+          c = r.length,
+          h = a && o ? 1 : -1;
+        if (!l || !c) return;
+        if (this.page !== n) {
+          var _e26 = new Event("beforeChange", {
+            bubbles: !0,
+            cancelable: !0
           });
+          if (this.emit("beforeChange", _e26, t), _e26.defaultPrevented) return;
         }
-        return img;
-      },
-      createIframe: function createIframe() {
-        var iframe = document.createElement('iframe');
-        var attrs = $(this).data('cbox-iframe-attrs');
-        if (_typeof(attrs) === 'object') {
-          $.each(attrs, function (key, val) {
-            iframe[key] = val;
+        if (this.transitionTo(t, i)) return;
+        var d = r[n].pos;
+        if (this.isInfinite) {
+          var _e27 = this.contentDim,
+            _i41 = l.target[s] * h;
+          if (2 === c) d += _e27 * Math.floor(parseFloat(t + "") / 2);else {
+            d = [d, d - _e27, d + _e27].reduce(function (t, e) {
+              return Math.abs(e - _i41) < Math.abs(t - _i41) ? e : t;
+            });
+          }
+        }
+        d *= h, Math.abs(l.target[s] - d) < 1 || (l.panTo({
+          x: o ? d : 0,
+          y: o ? 0 : d,
+          friction: e
+        }), this.onChange(n));
+      }
+    }, {
+      key: "slideToClosest",
+      value: function slideToClosest(t) {
+        if (this.panzoom) {
+          var _this$getPageFromPosi2 = this.getPageFromPosition(),
+            _e28 = _this$getPageFromPosi2.pageIndex;
+          this.slideTo(_e28, t);
+        }
+      }
+    }, {
+      key: "slideNext",
+      value: function slideNext() {
+        this.slideTo(this.page + 1);
+      }
+    }, {
+      key: "slidePrev",
+      value: function slidePrev() {
+        this.slideTo(this.page - 1);
+      }
+    }, {
+      key: "clearTransitions",
+      value: function clearTransitions() {
+        this.inTransition.clear(), P(this.container, this.cn("inTransition"));
+        var t = ["to-prev", "to-next", "from-prev", "from-next"];
+        var _iterator17 = _createForOfIteratorHelper(this.slides),
+          _step17;
+        try {
+          for (_iterator17.s(); !(_step17 = _iterator17.n()).done;) {
+            var _e29 = _step17.value;
+            var _i42 = _e29.el;
+            if (_i42) {
+              var _i42$classList;
+              _i42.removeEventListener(G, this.onAnimationEnd), (_i42$classList = _i42.classList).remove.apply(_i42$classList, t);
+              var _n12 = _e29.transition;
+              _n12 && _i42.classList.remove("f-".concat(_n12, "Out"), "f-".concat(_n12, "In"));
+            }
+          }
+        } catch (err) {
+          _iterator17.e(err);
+        } finally {
+          _iterator17.f();
+        }
+        this.manageSlideVisiblity();
+      }
+    }, {
+      key: "addSlide",
+      value: function addSlide(t, e) {
+        var _this$slides;
+        var i, n, s, o;
+        var a = this.panzoom,
+          r = (null === (i = this.pages[this.page]) || void 0 === i ? void 0 : i.pos) || 0,
+          l = (null === (n = this.pages[this.page]) || void 0 === n ? void 0 : n.dim) || 0,
+          c = this.contentDim < this.viewportDim;
+        var h = Array.isArray(e) ? e : [e];
+        var d = [];
+        var _iterator18 = _createForOfIteratorHelper(h),
+          _step18;
+        try {
+          for (_iterator18.s(); !(_step18 = _iterator18.n()).done;) {
+            var _t36 = _step18.value;
+            d.push(H(_t36));
+          }
+        } catch (err) {
+          _iterator18.e(err);
+        } finally {
+          _iterator18.f();
+        }
+        (_this$slides = this.slides).splice.apply(_this$slides, [t, 0].concat(d));
+        for (var _t33 = 0; _t33 < this.slides.length; _t33++) this.slides[_t33].index = _t33;
+        for (var _i43 = 0, _d3 = d; _i43 < _d3.length; _i43++) {
+          var _t34 = _d3[_i43];
+          this.emit("beforeInitSlide", _t34, _t34.index);
+        }
+        if (this.page >= t && (this.page += d.length), this.updateMetrics(), a) {
+          var _e30 = (null === (s = this.pages[this.page]) || void 0 === s ? void 0 : s.pos) || 0,
+            _i44 = (null === (o = this.pages[this.page]) || void 0 === o ? void 0 : o.dim) || 0,
+            _n13 = this.pages.length || 1,
+            _h2 = this.isRTL ? l - _i44 : _i44 - l,
+            _d4 = this.isRTL ? r - _e30 : _e30 - r;
+          c && 1 === _n13 ? (t <= this.page && (a.current[this.axis] -= _h2, a.target[this.axis] -= _h2), a.panTo(_defineProperty({}, this.isHorizontal ? "x" : "y", -1 * _e30))) : _d4 && t <= this.page && (a.target[this.axis] -= _d4, a.current[this.axis] -= _d4, a.requestTick());
+        }
+        for (var _i45 = 0, _d5 = d; _i45 < _d5.length; _i45++) {
+          var _t35 = _d5[_i45];
+          this.emit("initSlide", _t35, _t35.index);
+        }
+      }
+    }, {
+      key: "prependSlide",
+      value: function prependSlide(t) {
+        this.addSlide(0, t);
+      }
+    }, {
+      key: "appendSlide",
+      value: function appendSlide(t) {
+        this.addSlide(this.slides.length, t);
+      }
+    }, {
+      key: "removeSlide",
+      value: function removeSlide(t) {
+        var e = this.slides.length;
+        t = (t % e + e) % e;
+        var i = this.slides[t];
+        if (i) {
+          this.removeSlideEl(i, !0), this.slides.splice(t, 1);
+          for (var _t37 = 0; _t37 < this.slides.length; _t37++) this.slides[_t37].index = _t37;
+          this.updateMetrics(), this.slideTo(this.page, {
+            friction: 0,
+            transition: !1
+          }), this.emit("destroySlide", i);
+        }
+      }
+    }, {
+      key: "updateMetrics",
+      value: function updateMetrics() {
+        var t = this.panzoom,
+          i = this.viewport,
+          n = this.track,
+          s = this.slides,
+          o = this.isHorizontal,
+          a = this.isInfinite;
+        if (!n) return;
+        var r = o ? "width" : "height",
+          l = o ? "offsetWidth" : "offsetHeight";
+        if (i) {
+          var _t38 = Math.max(i[l], e(i.getBoundingClientRect()[r], 1e3)),
+            _n14 = getComputedStyle(i),
+            _s6 = "padding",
+            _a2 = o ? "Right" : "Bottom";
+          _t38 -= parseFloat(_n14[_s6 + (o ? "Left" : "Top")]) + parseFloat(_n14[_s6 + _a2]), this.viewportDim = _t38;
+        }
+        var c,
+          h = 0;
+        var _iterator19 = _createForOfIteratorHelper(s.entries()),
+          _step19;
+        try {
+          for (_iterator19.s(); !(_step19 = _iterator19.n()).done;) {
+            var _this$getSlideMetrics;
+            var _step19$value = _slicedToArray(_step19.value, 2),
+              _t39 = _step19$value[0],
+              _i46 = _step19$value[1];
+            var _n15 = 0,
+              _o3 = 0;
+            !_i46.el && c ? (_n15 = c.dim, _o3 = c.gap) : ((_this$getSlideMetrics = this.getSlideMetrics(_i46), _n15 = _this$getSlideMetrics.dim, _o3 = _this$getSlideMetrics.gap), c = _i46), _n15 = e(_n15, 1e3), _o3 = e(_o3, 1e3), _i46.dim = _n15, _i46.gap = _o3, _i46.pos = h, h += _n15, (a || _t39 < s.length - 1) && (h += _o3);
+          }
+        } catch (err) {
+          _iterator19.e(err);
+        } finally {
+          _iterator19.f();
+        }
+        h = e(h, 1e3), this.contentDim = h, t && (t.contentRect[r] = h, t.contentRect[o ? "fullWidth" : "fullHeight"] = h), this.pages = this.createPages(), this.pages = this.processPages(), this.state === B.Init && this.setInitialPage(), this.page = Math.max(0, Math.min(this.page, this.pages.length - 1)), this.manageSlideVisiblity(), this.emit("refresh");
+      }
+    }, {
+      key: "getProgress",
+      value: function getProgress(t) {
+        var i = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : !1;
+        var n = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : !1;
+        void 0 === t && (t = this.page);
+        var s = this,
+          o = s.panzoom,
+          a = s.contentDim,
+          r = s.pages[t] || 0;
+        if (!r || !o) return t > this.page ? -1 : 1;
+        var l = -1 * o.current.e,
+          c = e((l - r.pos) / (1 * r.dim), 1e3),
+          h = c,
+          d = c;
+        this.isInfinite && !0 !== n && (h = e((l - r.pos + a) / (1 * r.dim), 1e3), d = e((l - r.pos - a) / (1 * r.dim), 1e3));
+        var u = [c, h, d].reduce(function (t, e) {
+          return Math.abs(e) < Math.abs(t) ? e : t;
+        });
+        return i ? u : u > 1 ? 1 : u < -1 ? -1 : u;
+      }
+    }, {
+      key: "setViewportHeight",
+      value: function setViewportHeight() {
+        var t = this.page,
+          e = this.pages,
+          i = this.viewport,
+          n = this.isHorizontal;
+        if (!i || !e[t]) return;
+        var s = 0;
+        n && this.track && (this.track.style.height = "auto", e[t].slides.forEach(function (t) {
+          t.el && (s = Math.max(s, t.el.offsetHeight));
+        })), i.style.height = s ? "".concat(s, "px") : "";
+      }
+    }, {
+      key: "getPageForSlide",
+      value: function getPageForSlide(t) {
+        var _iterator20 = _createForOfIteratorHelper(this.pages),
+          _step20;
+        try {
+          for (_iterator20.s(); !(_step20 = _iterator20.n()).done;) {
+            var _e31 = _step20.value;
+            var _iterator21 = _createForOfIteratorHelper(_e31.slides),
+              _step21;
+            try {
+              for (_iterator21.s(); !(_step21 = _iterator21.n()).done;) {
+                var _i47 = _step21.value;
+                if (_i47.index === t) return _e31.index;
+              }
+            } catch (err) {
+              _iterator21.e(err);
+            } finally {
+              _iterator21.f();
+            }
+          }
+        } catch (err) {
+          _iterator20.e(err);
+        } finally {
+          _iterator20.f();
+        }
+        return -1;
+      }
+    }, {
+      key: "getVisibleSlides",
+      value: function getVisibleSlides() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        var e;
+        var i = new Set();
+        var n = this.panzoom,
+          s = this.contentDim,
+          o = this.viewportDim,
+          a = this.pages,
+          r = this.page;
+        if (o) {
+          s = s + (null === (e = this.slides[this.slides.length - 1]) || void 0 === e ? void 0 : e.gap) || 0;
+          var _l2 = 0;
+          _l2 = n && n.state !== v.Init && n.state !== v.Destroy ? -1 * n.current[this.axis] : a[r] && a[r].pos || 0, this.isInfinite && (_l2 -= Math.floor(_l2 / s) * s), this.isRTL && this.isHorizontal && (_l2 *= -1);
+          var _c3 = _l2 - o * t,
+            _h3 = _l2 + o * (t + 1),
+            _d6 = this.isInfinite ? [-1, 0, 1] : [0];
+          var _iterator22 = _createForOfIteratorHelper(this.slides),
+            _step22;
+          try {
+            for (_iterator22.s(); !(_step22 = _iterator22.n()).done;) {
+              var _t40 = _step22.value;
+              var _iterator23 = _createForOfIteratorHelper(_d6),
+                _step23;
+              try {
+                for (_iterator23.s(); !(_step23 = _iterator23.n()).done;) {
+                  var _e32 = _step23.value;
+                  var _n16 = _t40.pos + _e32 * s,
+                    _o4 = _n16 + _t40.dim + _t40.gap;
+                  _n16 < _h3 && _o4 > _c3 && i.add(_t40);
+                }
+              } catch (err) {
+                _iterator23.e(err);
+              } finally {
+                _iterator23.f();
+              }
+            }
+          } catch (err) {
+            _iterator22.e(err);
+          } finally {
+            _iterator22.f();
+          }
+        }
+        return i;
+      }
+    }, {
+      key: "getPageFromPosition",
+      value: function getPageFromPosition(t) {
+        var e = this.viewportDim,
+          i = this.contentDim,
+          n = this.slides,
+          s = this.pages,
+          o = this.panzoom,
+          a = s.length,
+          r = n.length,
+          l = n[0],
+          c = n[r - 1],
+          h = this.option("center");
+        var d = 0,
+          u = 0,
+          p = 0,
+          f = void 0 === t ? -1 * ((null == o ? void 0 : o.target[this.axis]) || 0) : t;
+        h && (f += .5 * e), this.isInfinite ? (f < l.pos - .5 * c.gap && (f -= i, p = -1), f > c.pos + c.dim + .5 * c.gap && (f -= i, p = 1)) : f = Math.max(l.pos || 0, Math.min(f, c.pos));
+        var g = c,
+          m = n.find(function (t) {
+            var e = t.pos - .5 * g.gap,
+              i = t.pos + t.dim + .5 * t.gap;
+            return g = t, f >= e && f < i;
           });
+        return m || (m = c), u = this.getPageForSlide(m.index), d = u + p * a, {
+          page: d,
+          pageIndex: u
+        };
+      }
+    }, {
+      key: "setPageFromPosition",
+      value: function setPageFromPosition() {
+        var _this$getPageFromPosi3 = this.getPageFromPosition(),
+          t = _this$getPageFromPosi3.pageIndex;
+        this.onChange(t);
+      }
+    }, {
+      key: "destroy",
+      value: function destroy() {
+        var _this23 = this;
+        if ([B.Destroy].includes(this.state)) return;
+        this.state = B.Destroy;
+        var t = this.container,
+          e = this.viewport,
+          i = this.track,
+          n = this.slides,
+          s = this.panzoom,
+          o = this.option("classes");
+        t.removeEventListener("click", this.onClick, {
+          passive: !1,
+          capture: !1
+        }), t.removeEventListener("slideTo", this.onSlideTo), window.removeEventListener("resize", this.onResize), s && (s.destroy(), this.panzoom = null), n && n.forEach(function (t) {
+          _this23.removeSlideEl(t);
+        }), this.detachPlugins(), e && (e.removeEventListener("scroll", this.onScroll), e.offsetParent && i && i.offsetParent && e.replaceWith.apply(e, _toConsumableArray(i.childNodes)));
+        for (var _i48 = 0, _Object$entries4 = Object.entries(o); _i48 < _Object$entries4.length; _i48++) {
+          var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i48], 2),
+            _e33 = _Object$entries4$_i[0],
+            _i49 = _Object$entries4$_i[1];
+          "container" !== _e33 && _i49 && t.classList.remove(_i49);
         }
-        if ('frameBorder' in iframe) {
-          iframe.frameBorder = 0;
-        }
-        if ('allowTransparency' in iframe) {
-          iframe.allowTransparency = "true";
-        }
-        iframe.name = new Date().getTime(); // give the iframe a unique name to prevent caching
-        iframe.allowFullscreen = true;
-        return iframe;
+        this.track = null, this.viewport = null, this.page = 0, this.slides = [];
+        var a = this.events.get("ready");
+        this.events = new Map(), a && this.events.set("ready", a);
+      }
+    }]);
+    return Q;
+  }(m);
+  Object.defineProperty(Q, "Panzoom", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: I
+  }), Object.defineProperty(Q, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: j
+  }), Object.defineProperty(Q, "Plugins", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: U
+  });
+  var tt = function tt(t) {
+      if (!S(t)) return 0;
+      var e = window.scrollY,
+        i = window.innerHeight,
+        n = e + i,
+        s = t.getBoundingClientRect(),
+        o = s.y + e,
+        a = s.height,
+        r = o + a;
+      if (e > r || n < o) return 0;
+      if (e < o && n > r) return 100;
+      if (o < e && r > n) return 100;
+      var l = a;
+      o < e && (l -= e - o), r > n && (l -= r - n);
+      var c = l / i * 100;
+      return Math.round(c);
+    },
+    et = !("undefined" == typeof window || !window.document || !window.document.createElement);
+  var it;
+  var nt = ["a[href]", "area[href]", 'input:not([disabled]):not([type="hidden"]):not([aria-hidden])', "select:not([disabled]):not([aria-hidden])", "textarea:not([disabled]):not([aria-hidden])", "button:not([disabled]):not([aria-hidden]):not(.fancybox-focus-guard)", "iframe", "object", "embed", "video", "audio", "[contenteditable]", '[tabindex]:not([tabindex^="-"]):not([disabled]):not([aria-hidden])'].join(","),
+    st = function st(t) {
+      if (t && et) {
+        void 0 === it && document.createElement("div").focus({
+          get preventScroll() {
+            return it = !0, !1;
+          }
+        });
+        try {
+          if (it) t.focus({
+            preventScroll: !0
+          });else {
+            var _e34 = window.scrollY || document.body.scrollTop,
+              _i50 = window.scrollX || document.body.scrollLeft;
+            t.focus(), document.body.scrollTo({
+              top: _e34,
+              left: _i50,
+              behavior: "auto"
+            });
+          }
+        } catch (t) {}
       }
     },
-    // Abstracting the HTML and event identifiers for easy rebranding
-    colorbox = 'colorbox',
-    prefix = 'cbox',
-    boxElement = prefix + 'Element',
-    // Events
-    event_open = prefix + '_open',
-    event_load = prefix + '_load',
-    event_complete = prefix + '_complete',
-    event_cleanup = prefix + '_cleanup',
-    event_closed = prefix + '_closed',
-    event_purge = prefix + '_purge',
-    // Cached jQuery Object Variables
-    $overlay,
-    $box,
-    $wrap,
-    $content,
-    $topBorder,
-    $leftBorder,
-    $rightBorder,
-    $bottomBorder,
-    $related,
-    $window,
-    $loaded,
-    $loadingBay,
-    $loadingOverlay,
-    $title,
-    $current,
-    $slideshow,
-    $next,
-    $prev,
-    $close,
-    $groupControls,
-    $events = $('<a/>'),
-    // $({}) would be preferred, but there is an issue with jQuery 1.4.2
-
-    // Variables for cached values or use across multiple functions
-    settings,
-    interfaceHeight,
-    interfaceWidth,
-    loadedHeight,
-    loadedWidth,
-    index,
-    photo,
-    open,
-    active,
-    closing,
-    loadingTimer,
-    publicMethod,
-    div = "div",
-    requests = 0,
-    previousCSS = {},
-    init;
-
-  // ****************
-  // HELPER FUNCTIONS
-  // ****************
-
-  // Convenience function for creating new jQuery objects
-  function $tag(tag, id, css) {
-    var element = document.createElement(tag);
-    if (id) {
-      element.id = prefix + id;
-    }
-    if (css) {
-      element.style.cssText = css;
-    }
-    return $(element);
-  }
-
-  // Get the window height using innerHeight when available to avoid an issue with iOS
-  // http://bugs.jquery.com/ticket/6724
-  function winheight() {
-    return window.innerHeight ? window.innerHeight : $(window).height();
-  }
-  function Settings(element, options) {
-    if (options !== Object(options)) {
-      options = {};
-    }
-    this.cache = {};
-    this.el = element;
-    this.value = function (key) {
-      var dataAttr;
-      if (this.cache[key] === undefined) {
-        dataAttr = $(this.el).attr('data-cbox-' + key);
-        if (dataAttr !== undefined) {
-          this.cache[key] = dataAttr;
-        } else if (options[key] !== undefined) {
-          this.cache[key] = options[key];
-        } else if (defaults[key] !== undefined) {
-          this.cache[key] = defaults[key];
+    ot = function ot() {
+      var t = document;
+      var e,
+        i = "",
+        n = "",
+        s = "";
+      return t.fullscreenEnabled ? (i = "requestFullscreen", n = "exitFullscreen", s = "fullscreenElement") : t.webkitFullscreenEnabled && (i = "webkitRequestFullscreen", n = "webkitExitFullscreen", s = "webkitFullscreenElement"), i && (e = {
+        request: function request() {
+          var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : t.documentElement;
+          return "webkitRequestFullscreen" === i ? e[i](Element.ALLOW_KEYBOARD_INPUT) : e[i]();
+        },
+        exit: function exit() {
+          return t[s] && t[n]();
+        },
+        isFullscreen: function isFullscreen() {
+          return t[s];
         }
-      }
-      return this.cache[key];
-    };
-    this.get = function (key) {
-      var value = this.value(key);
-      return $.isFunction(value) ? value.call(this.el, this) : value;
-    };
-  }
-
-  // Determine the next and previous members in a group.
-  function getIndex(increment) {
-    var max = $related.length,
-      newIndex = (index + increment) % max;
-    return newIndex < 0 ? max + newIndex : newIndex;
-  }
-
-  // Convert '%' and 'px' values to integers
-  function setSize(size, dimension) {
-    return Math.round((/%/.test(size) ? (dimension === 'x' ? $window.width() : winheight()) / 100 : 1) * parseInt(size, 10));
-  }
-
-  // Checks an href to see if it is a photo.
-  // There is a force photo option (photo: true) for hrefs that cannot be matched by the regex.
-  function isImage(settings, url) {
-    return settings.get('photo') || settings.get('photoRegex').test(url);
-  }
-  function retinaUrl(settings, url) {
-    return settings.get('retinaUrl') && window.devicePixelRatio > 1 ? url.replace(settings.get('photoRegex'), settings.get('retinaSuffix')) : url;
-  }
-  function trapFocus(e) {
-    if ('contains' in $box[0] && !$box[0].contains(e.target) && e.target !== $overlay[0]) {
-      e.stopPropagation();
-      $box.focus();
-    }
-  }
-  function setClass(str) {
-    if (setClass.str !== str) {
-      $box.add($overlay).removeClass(setClass.str).addClass(str);
-      setClass.str = str;
-    }
-  }
-  function getRelated(rel) {
-    index = 0;
-    if (rel && rel !== false && rel !== 'nofollow') {
-      $related = $('.' + boxElement).filter(function () {
-        var options = $.data(this, colorbox);
-        var settings = new Settings(this, options);
-        return settings.get('rel') === rel;
-      });
-      index = $related.index(settings.el);
-
-      // Check direct calls to Colorbox.
-      if (index === -1) {
-        $related = $related.add(settings.el);
-        index = $related.length - 1;
-      }
-    } else {
-      $related = $(settings.el);
-    }
-  }
-  function trigger(event) {
-    // for external use
-    $(document).trigger(event);
-    // for internal use
-    $events.triggerHandler(event);
-  }
-  var slideshow = function () {
-    var active,
-      className = prefix + "Slideshow_",
-      click = "click." + prefix,
-      timeOut;
-    function clear() {
-      clearTimeout(timeOut);
-    }
-    function set() {
-      if (settings.get('loop') || $related[index + 1]) {
-        clear();
-        timeOut = setTimeout(publicMethod.next, settings.get('slideshowSpeed'));
-      }
-    }
-    function start() {
-      $slideshow.html(settings.get('slideshowStop')).unbind(click).one(click, stop);
-      $events.bind(event_complete, set).bind(event_load, clear);
-      $box.removeClass(className + "off").addClass(className + "on");
-    }
-    function stop() {
-      clear();
-      $events.unbind(event_complete, set).unbind(event_load, clear);
-      $slideshow.html(settings.get('slideshowStart')).unbind(click).one(click, function () {
-        publicMethod.next();
-        start();
-      });
-      $box.removeClass(className + "on").addClass(className + "off");
-    }
-    function reset() {
-      active = false;
-      $slideshow.hide();
-      clear();
-      $events.unbind(event_complete, set).unbind(event_load, clear);
-      $box.removeClass(className + "off " + className + "on");
-    }
-    return function () {
-      if (active) {
-        if (!settings.get('slideshow')) {
-          $events.unbind(event_cleanup, reset);
-          reset();
-        }
-      } else {
-        if (settings.get('slideshow') && $related[1]) {
-          active = true;
-          $events.one(event_cleanup, reset);
-          if (settings.get('slideshowAuto')) {
-            start();
-          } else {
-            stop();
-          }
-          $slideshow.show();
-        }
-      }
-    };
-  }();
-  function launch(element) {
-    var options;
-    if (!closing) {
-      options = $(element).data(colorbox);
-      settings = new Settings(element, options);
-      getRelated(settings.get('rel'));
-      if (!open) {
-        open = active = true; // Prevents the page-change action from queuing up if the visitor holds down the left or right keys.
-
-        setClass(settings.get('className'));
-
-        // Show colorbox so the sizes can be calculated in older versions of jQuery
-        $box.css({
-          visibility: 'hidden',
-          display: 'block',
-          opacity: ''
-        });
-        $loaded = $tag(div, 'LoadedContent', 'width:0; height:0; overflow:hidden; visibility:hidden');
-        $content.css({
-          width: '',
-          height: ''
-        }).append($loaded);
-
-        // Cache values needed for size calculations
-        interfaceHeight = $topBorder.height() + $bottomBorder.height() + $content.outerHeight(true) - $content.height();
-        interfaceWidth = $leftBorder.width() + $rightBorder.width() + $content.outerWidth(true) - $content.width();
-        loadedHeight = $loaded.outerHeight(true);
-        loadedWidth = $loaded.outerWidth(true);
-
-        // Opens inital empty Colorbox prior to content being loaded.
-        var initialWidth = setSize(settings.get('initialWidth'), 'x');
-        var initialHeight = setSize(settings.get('initialHeight'), 'y');
-        var maxWidth = settings.get('maxWidth');
-        var maxHeight = settings.get('maxHeight');
-        settings.w = Math.max((maxWidth !== false ? Math.min(initialWidth, setSize(maxWidth, 'x')) : initialWidth) - loadedWidth - interfaceWidth, 0);
-        settings.h = Math.max((maxHeight !== false ? Math.min(initialHeight, setSize(maxHeight, 'y')) : initialHeight) - loadedHeight - interfaceHeight, 0);
-        $loaded.css({
-          width: '',
-          height: settings.h
-        });
-        publicMethod.position();
-        trigger(event_open);
-        settings.get('onOpen');
-        $groupControls.add($title).hide();
-        $box.focus();
-        if (settings.get('trapFocus')) {
-          // Confine focus to the modal
-          // Uses event capturing that is not supported in IE8-
-          if (document.addEventListener) {
-            document.addEventListener('focus', trapFocus, true);
-            $events.one(event_closed, function () {
-              document.removeEventListener('focus', trapFocus, true);
-            });
-          }
-        }
-
-        // Return focus on closing
-        if (settings.get('returnFocus')) {
-          $events.one(event_closed, function () {
-            $(settings.el).focus();
-          });
-        }
-      }
-      var opacity = parseFloat(settings.get('opacity'));
-      $overlay.css({
-        opacity: opacity === opacity ? opacity : '',
-        cursor: settings.get('overlayClose') ? 'pointer' : '',
-        visibility: 'visible'
-      }).show();
-      if (settings.get('closeButton')) {
-        $close.html(settings.get('close')).appendTo($content);
-      } else {
-        $close.appendTo('<div/>'); // replace with .detach() when dropping jQuery < 1.4
-      }
-
-      load();
-    }
-  }
-
-  // Colorbox's markup needs to be added to the DOM prior to being called
-  // so that the browser will go ahead and load the CSS background images.
-  function appendHTML() {
-    if (!$box) {
-      init = false;
-      $window = $(window);
-      $box = $tag(div).attr({
-        id: colorbox,
-        'class': $.support.opacity === false ? prefix + 'IE' : '',
-        // class for optional IE8 & lower targeted CSS.
-        role: 'dialog',
-        tabindex: '-1'
-      }).hide();
-      $overlay = $tag(div, "Overlay").hide();
-      $loadingOverlay = $([$tag(div, "LoadingOverlay")[0], $tag(div, "LoadingGraphic")[0]]);
-      $wrap = $tag(div, "Wrapper");
-      $content = $tag(div, "Content").append($title = $tag(div, "Title"), $current = $tag(div, "Current"), $prev = $('<button type="button"/>').attr({
-        id: prefix + 'Previous'
-      }), $next = $('<button type="button"/>').attr({
-        id: prefix + 'Next'
-      }), $slideshow = $('<button type="button"/>').attr({
-        id: prefix + 'Slideshow'
-      }), $loadingOverlay);
-      $close = $('<button type="button"/>').attr({
-        id: prefix + 'Close'
-      });
-      $wrap.append(
-      // The 3x3 Grid that makes up Colorbox
-      $tag(div).append($tag(div, "TopLeft"), $topBorder = $tag(div, "TopCenter"), $tag(div, "TopRight")), $tag(div, false, 'clear:left').append($leftBorder = $tag(div, "MiddleLeft"), $content, $rightBorder = $tag(div, "MiddleRight")), $tag(div, false, 'clear:left').append($tag(div, "BottomLeft"), $bottomBorder = $tag(div, "BottomCenter"), $tag(div, "BottomRight"))).find('div div').css({
-        'float': 'left'
-      });
-      $loadingBay = $tag(div, false, 'position:absolute; width:9999px; visibility:hidden; display:none; max-width:none;');
-      $groupControls = $next.add($prev).add($current).add($slideshow);
-    }
-    if (document.body && !$box.parent().length) {
-      $(document.body).append($overlay, $box.append($wrap, $loadingBay));
-    }
-  }
-
-  // Add Colorbox's event bindings
-  function addBindings() {
-    function clickHandler(e) {
-      // ignore non-left-mouse-clicks and clicks modified with ctrl / command, shift, or alt.
-      // See: http://jacklmoore.com/notes/click-events/
-      if (!(e.which > 1 || e.shiftKey || e.altKey || e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        launch(this);
-      }
-    }
-    if ($box) {
-      if (!init) {
-        init = true;
-
-        // Anonymous functions here keep the public method from being cached, thereby allowing them to be redefined on the fly.
-        $next.click(function () {
-          publicMethod.next();
-        });
-        $prev.click(function () {
-          publicMethod.prev();
-        });
-        $close.click(function () {
-          publicMethod.close();
-        });
-        $overlay.click(function () {
-          if (settings.get('overlayClose')) {
-            publicMethod.close();
-          }
-        });
-
-        // Key Bindings
-        $(document).bind('keydown.' + prefix, function (e) {
-          var key = e.keyCode;
-          if (open && settings.get('escKey') && key === 27) {
-            e.preventDefault();
-            publicMethod.close();
-          }
-          if (open && settings.get('arrowKey') && $related[1] && !e.altKey) {
-            if (key === 37) {
-              e.preventDefault();
-              $prev.click();
-            } else if (key === 39) {
-              e.preventDefault();
-              $next.click();
-            }
-          }
-        });
-        if ($.isFunction($.fn.on)) {
-          // For jQuery 1.7+
-          $(document).on('click.' + prefix, '.' + boxElement, clickHandler);
-        } else {
-          // For jQuery 1.3.x -> 1.6.x
-          // This code is never reached in jQuery 1.9, so do not contact me about 'live' being removed.
-          // This is not here for jQuery 1.9, it's here for legacy users.
-          $('.' + boxElement).live('click.' + prefix, clickHandler);
-        }
-      }
-      return true;
-    }
-    return false;
-  }
-
-  // Don't do anything if Colorbox already exists.
-  if ($[colorbox]) {
-    return;
-  }
-
-  // Append the HTML when the DOM loads
-  $(appendHTML);
-
-  // ****************
-  // PUBLIC FUNCTIONS
-  // Usage format: $.colorbox.close();
-  // Usage from within an iframe: parent.jQuery.colorbox.close();
-  // ****************
-
-  publicMethod = $.fn[colorbox] = $[colorbox] = function (options, callback) {
-    var settings;
-    var $obj = this;
-    options = options || {};
-    if ($.isFunction($obj)) {
-      // assume a call to $.colorbox
-      $obj = $('<a/>');
-      options.open = true;
-    }
-    if (!$obj[0]) {
-      // colorbox being applied to empty collection
-      return $obj;
-    }
-    appendHTML();
-    if (addBindings()) {
-      if (callback) {
-        options.onComplete = callback;
-      }
-      $obj.each(function () {
-        var old = $.data(this, colorbox) || {};
-        $.data(this, colorbox, $.extend(old, options));
-      }).addClass(boxElement);
-      settings = new Settings($obj[0], options);
-      if (settings.get('open')) {
-        launch($obj[0]);
-      }
-    }
-    return $obj;
-  };
-  publicMethod.position = function (speed, loadedCallback) {
-    var css,
-      top = 0,
-      left = 0,
-      offset = $box.offset(),
-      scrollTop,
-      scrollLeft;
-    $window.unbind('resize.' + prefix);
-
-    // remove the modal so that it doesn't influence the document width/height
-    $box.css({
-      top: -9e4,
-      left: -9e4
-    });
-    scrollTop = $window.scrollTop();
-    scrollLeft = $window.scrollLeft();
-    if (settings.get('fixed')) {
-      offset.top -= scrollTop;
-      offset.left -= scrollLeft;
-      $box.css({
-        position: 'fixed'
-      });
-    } else {
-      top = scrollTop;
-      left = scrollLeft;
-      $box.css({
-        position: 'absolute'
-      });
-    }
-
-    // keeps the top and left positions within the browser's viewport.
-    if (settings.get('right') !== false) {
-      left += Math.max($window.width() - settings.w - loadedWidth - interfaceWidth - setSize(settings.get('right'), 'x'), 0);
-    } else if (settings.get('left') !== false) {
-      left += setSize(settings.get('left'), 'x');
-    } else {
-      left += Math.round(Math.max($window.width() - settings.w - loadedWidth - interfaceWidth, 0) / 2);
-    }
-    if (settings.get('bottom') !== false) {
-      top += Math.max(winheight() - settings.h - loadedHeight - interfaceHeight - setSize(settings.get('bottom'), 'y'), 0);
-    } else if (settings.get('top') !== false) {
-      top += setSize(settings.get('top'), 'y');
-    } else {
-      top += Math.round(Math.max(winheight() - settings.h - loadedHeight - interfaceHeight, 0) / 2);
-    }
-    $box.css({
-      top: offset.top,
-      left: offset.left,
-      visibility: 'visible'
-    });
-
-    // this gives the wrapper plenty of breathing room so it's floated contents can move around smoothly,
-    // but it has to be shrank down around the size of div#colorbox when it's done.  If not,
-    // it can invoke an obscure IE bug when using iframes.
-    $wrap[0].style.width = $wrap[0].style.height = "9999px";
-    function modalDimensions() {
-      $topBorder[0].style.width = $bottomBorder[0].style.width = $content[0].style.width = parseInt($box[0].style.width, 10) - interfaceWidth + 'px';
-      $content[0].style.height = $leftBorder[0].style.height = $rightBorder[0].style.height = parseInt($box[0].style.height, 10) - interfaceHeight + 'px';
-    }
-    css = {
-      width: settings.w + loadedWidth + interfaceWidth,
-      height: settings.h + loadedHeight + interfaceHeight,
-      top: top,
-      left: left
-    };
-
-    // setting the speed to 0 if the content hasn't changed size or position
-    if (speed) {
-      var tempSpeed = 0;
-      $.each(css, function (i) {
-        if (css[i] !== previousCSS[i]) {
-          tempSpeed = speed;
-          return;
-        }
-      });
-      speed = tempSpeed;
-    }
-    previousCSS = css;
-    if (!speed) {
-      $box.css(css);
-    }
-    $box.dequeue().animate(css, {
-      duration: speed || 0,
-      complete: function complete() {
-        modalDimensions();
-        active = false;
-
-        // shrink the wrapper down to exactly the size of colorbox to avoid a bug in IE's iframe implementation.
-        $wrap[0].style.width = settings.w + loadedWidth + interfaceWidth + "px";
-        $wrap[0].style.height = settings.h + loadedHeight + interfaceHeight + "px";
-        if (settings.get('reposition')) {
-          setTimeout(function () {
-            // small delay before binding onresize due to an IE8 bug.
-            $window.bind('resize.' + prefix, publicMethod.position);
-          }, 1);
-        }
-        if ($.isFunction(loadedCallback)) {
-          loadedCallback();
+      }), e;
+    },
+    at = {
+      dragToClose: !0,
+      hideScrollbar: !0,
+      Carousel: {
+        classes: {
+          container: "fancybox__carousel",
+          viewport: "fancybox__viewport",
+          track: "fancybox__track",
+          slide: "fancybox__slide"
         }
       },
-      step: modalDimensions
-    });
-  };
-  publicMethod.resize = function (options) {
-    var scrolltop;
-    if (open) {
-      options = options || {};
-      if (options.width) {
-        settings.w = setSize(options.width, 'x') - loadedWidth - interfaceWidth;
-      }
-      if (options.innerWidth) {
-        settings.w = setSize(options.innerWidth, 'x');
-      }
-      $loaded.css({
-        width: settings.w
-      });
-      if (options.height) {
-        settings.h = setSize(options.height, 'y') - loadedHeight - interfaceHeight;
-      }
-      if (options.innerHeight) {
-        settings.h = setSize(options.innerHeight, 'y');
-      }
-      if (!options.innerHeight && !options.height) {
-        scrolltop = $loaded.scrollTop();
-        $loaded.css({
-          height: "auto"
-        });
-        settings.h = $loaded.height();
-      }
-      $loaded.css({
-        height: settings.h
-      });
-      if (scrolltop) {
-        $loaded.scrollTop(scrolltop);
-      }
-      publicMethod.position(settings.get('transition') === "none" ? 0 : settings.get('speed'));
-    }
-  };
-  publicMethod.prep = function (object) {
-    if (!open) {
-      return;
-    }
-    var callback,
-      speed = settings.get('transition') === "none" ? 0 : settings.get('speed');
-    $loaded.remove();
-    $loaded = $tag(div, 'LoadedContent').append(object);
-    function getWidth() {
-      settings.w = settings.w || $loaded.width();
-      settings.w = settings.mw && settings.mw < settings.w ? settings.mw : settings.w;
-      return settings.w;
-    }
-    function getHeight() {
-      settings.h = settings.h || $loaded.height();
-      settings.h = settings.mh && settings.mh < settings.h ? settings.mh : settings.h;
-      return settings.h;
-    }
-    $loaded.hide().appendTo($loadingBay.show()) // content has to be appended to the DOM for accurate size calculations.
-    .css({
-      width: getWidth(),
-      overflow: settings.get('scrolling') ? 'auto' : 'hidden'
-    }).css({
-      height: getHeight()
-    }) // sets the height independently from the width in case the new width influences the value of height.
-    .prependTo($content);
-    $loadingBay.hide();
-
-    // floating the IMG removes the bottom line-height and fixed a problem where IE miscalculates the width of the parent element as 100% of the document width.
-
-    $(photo).css({
-      'float': 'none'
-    });
-    setClass(settings.get('className'));
-    callback = function callback() {
-      var total = $related.length,
-        iframe,
-        complete;
-      if (!open) {
-        return;
-      }
-      function removeFilter() {
-        // Needed for IE8 in versions of jQuery prior to 1.7.2
-        if ($.support.opacity === false) {
-          $box[0].style.removeAttribute('filter');
+      contentClick: "toggleZoom",
+      contentDblClick: !1,
+      backdropClick: "close",
+      animated: !0,
+      idle: 3500,
+      showClass: "f-zoomInUp",
+      hideClass: "f-fadeOut",
+      commonCaption: !1,
+      parentEl: null,
+      startIndex: 0,
+      l10n: Object.assign(Object.assign({}, y), {
+        CLOSE: "Close",
+        NEXT: "Next",
+        PREV: "Previous",
+        MODAL: "You can close this modal content with the ESC key",
+        ERROR: "Something Went Wrong, Please Try Again Later",
+        IMAGE_ERROR: "Image Not Found",
+        ELEMENT_NOT_FOUND: "HTML Element Not Found",
+        AJAX_NOT_FOUND: "Error Loading AJAX : Not Found",
+        AJAX_FORBIDDEN: "Error Loading AJAX : Forbidden",
+        IFRAME_ERROR: "Error Loading Page",
+        TOGGLE_ZOOM: "Toggle zoom level",
+        TOGGLE_THUMBS: "Toggle thumbnails",
+        TOGGLE_SLIDESHOW: "Toggle slideshow",
+        TOGGLE_FULLSCREEN: "Toggle full-screen mode",
+        DOWNLOAD: "Download"
+      }),
+      tpl: {
+        closeButton: '<button data-fancybox-close class="f-button is-close-btn" title="{{CLOSE}}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1"><path d="M20 20L4 4m16 0L4 20"/></svg></button>',
+        main: '<div class="fancybox__container" role="dialog" aria-modal="true" aria-label="{{MODAL}}" tabindex="-1">\n    <div class="fancybox__backdrop"></div>\n    <div class="fancybox__carousel"></div>\n    <div class="fancybox__footer"></div>\n  </div>'
+      },
+      groupAll: !1,
+      groupAttr: "data-fancybox",
+      defaultType: "image",
+      defaultDisplay: "block",
+      autoFocus: !0,
+      trapFocus: !0,
+      placeFocusBack: !0,
+      closeButton: "auto",
+      keyboard: {
+        Escape: "close",
+        Delete: "close",
+        Backspace: "close",
+        PageUp: "next",
+        PageDown: "prev",
+        ArrowUp: "prev",
+        ArrowDown: "next",
+        ArrowRight: "next",
+        ArrowLeft: "prev"
+      },
+      Fullscreen: {
+        autoStart: !1
+      },
+      compact: function compact() {
+        return window.matchMedia("(max-width: 578px), (max-height: 578px)").matches;
+      },
+      wheel: "zoom"
+    };
+  var rt, lt;
+  !function (t) {
+    t[t.Init = 0] = "Init", t[t.Ready = 1] = "Ready", t[t.Closing = 2] = "Closing", t[t.CustomClosing = 3] = "CustomClosing", t[t.Destroy = 4] = "Destroy";
+  }(rt || (rt = {})), function (t) {
+    t[t.Loading = 0] = "Loading", t[t.Opening = 1] = "Opening", t[t.Ready = 2] = "Ready", t[t.Closing = 3] = "Closing";
+  }(lt || (lt = {}));
+  var ct = "",
+    ht = !1,
+    dt = !1,
+    ut = null;
+  var pt = function pt() {
+      var t = "",
+        e = "";
+      var i = Te.getInstance();
+      if (i) {
+        var _n17 = i.carousel,
+          _s7 = i.getSlide();
+        if (_n17 && _s7) {
+          var _o5 = _s7.slug || void 0,
+            _a3 = _s7.triggerEl || void 0;
+          e = _o5 || i.option("slug") || "", !e && _a3 && _a3.dataset && (e = _a3.dataset.fancybox || ""), e && "true" !== e && (t = "#" + e + (!_o5 && _n17.slides.length > 1 ? "-" + (_s7.index + 1) : ""));
         }
       }
-      complete = function complete() {
-        clearTimeout(loadingTimer);
-        $loadingOverlay.hide();
-        trigger(event_complete);
-        settings.get('onComplete');
+      return {
+        hash: t,
+        slug: e,
+        index: 1
       };
-      $title.html(settings.get('title')).show();
-      $loaded.show();
-      if (total > 1) {
-        // handle grouping
-        if (typeof settings.get('current') === "string") {
-          $current.html(settings.get('current').replace('{current}', index + 1).replace('{total}', total)).show();
+    },
+    ft = function ft() {
+      var t = new URL(document.URL).hash,
+        e = t.slice(1).split("-"),
+        i = e[e.length - 1],
+        n = i && /^\+?\d+$/.test(i) && parseInt(e.pop() || "1", 10) || 1;
+      return {
+        hash: t,
+        slug: e.join("-"),
+        index: n
+      };
+    },
+    gt = function gt() {
+      var _ft = ft(),
+        t = _ft.slug,
+        e = _ft.index;
+      if (!t) return;
+      var i = document.querySelector("[data-slug=\"".concat(t, "\"]"));
+      if (i && i.dispatchEvent(new CustomEvent("click", {
+        bubbles: !0,
+        cancelable: !0
+      })), Te.getInstance()) return;
+      var n = document.querySelectorAll("[data-fancybox=\"".concat(t, "\"]"));
+      n.length && (i = n[e - 1], i && i.dispatchEvent(new CustomEvent("click", {
+        bubbles: !0,
+        cancelable: !0
+      })));
+    },
+    mt = function mt() {
+      if (!1 === Te.defaults.Hash) return;
+      var t = Te.getInstance();
+      if (!1 === (null == t ? void 0 : t.options.Hash)) return;
+      var _ft2 = ft(),
+        e = _ft2.slug,
+        i = _ft2.index,
+        _pt = pt(),
+        n = _pt.slug;
+      t && (e === n ? t.jumpTo(i - 1) : (ht = !0, t.close())), gt();
+    },
+    vt = function vt() {
+      ut && clearTimeout(ut), queueMicrotask(function () {
+        mt();
+      });
+    },
+    bt = function bt() {
+      window.addEventListener("hashchange", vt, !1), setTimeout(function () {
+        mt();
+      }, 500);
+    };
+  et && (/complete|interactive|loaded/.test(document.readyState) ? bt() : document.addEventListener("DOMContentLoaded", bt));
+  var yt = "is-zooming-in";
+  var wt = /*#__PURE__*/function (_ref12) {
+    _inherits(wt, _ref12);
+    var _super8 = _createSuper(wt);
+    function wt() {
+      _classCallCheck(this, wt);
+      return _super8.apply(this, arguments);
+    }
+    _createClass(wt, [{
+      key: "onCreateSlide",
+      value: function onCreateSlide(t, e, i) {
+        var n = this.instance.optionFor(i, "src") || "";
+        i.el && "image" === i.type && "string" == typeof n && this.setImage(i, n);
+      }
+    }, {
+      key: "onRemoveSlide",
+      value: function onRemoveSlide(t, e, i) {
+        i.panzoom && i.panzoom.destroy(), i.panzoom = void 0, i.imageEl = void 0;
+      }
+    }, {
+      key: "onChange",
+      value: function onChange(t, e, i, n) {
+        P(this.instance.container, yt);
+        var _iterator24 = _createForOfIteratorHelper(e.slides),
+          _step24;
+        try {
+          for (_iterator24.s(); !(_step24 = _iterator24.n()).done;) {
+            var _t41 = _step24.value;
+            var _e35 = _t41.panzoom;
+            _e35 && _t41.index !== i && _e35.reset(.35);
+          }
+        } catch (err) {
+          _iterator24.e(err);
+        } finally {
+          _iterator24.f();
         }
-        $next[settings.get('loop') || index < total - 1 ? "show" : "hide"]().html(settings.get('next'));
-        $prev[settings.get('loop') || index ? "show" : "hide"]().html(settings.get('previous'));
-        slideshow();
-
-        // Preloads images within a rel group
-        if (settings.get('preloading')) {
-          $.each([getIndex(-1), getIndex(1)], function () {
-            var img,
-              i = $related[this],
-              settings = new Settings(i, $.data(i, colorbox)),
-              src = settings.get('href');
-            if (src && isImage(settings, src)) {
-              src = retinaUrl(settings, src);
-              img = document.createElement('img');
-              img.src = src;
-            }
+      }
+    }, {
+      key: "onClose",
+      value: function onClose() {
+        var t;
+        var e = this.instance,
+          i = e.container,
+          n = e.getSlide();
+        if (!i || !i.parentElement || !n) return;
+        var s = n.el,
+          o = n.contentEl,
+          a = n.panzoom,
+          r = n.thumbElSrc;
+        if (!s || !r || !o || !a || a.isContentLoading || a.state === v.Init || a.state === v.Destroy) return;
+        a.updateMetrics();
+        var l = this.getZoomInfo(n);
+        if (!l) return;
+        this.instance.state = rt.CustomClosing, i.classList.remove(yt), i.classList.add("is-zooming-out"), o.style.backgroundImage = "url('".concat(r, "')");
+        var c = i.getBoundingClientRect();
+        1 === ((null === (t = window.visualViewport) || void 0 === t ? void 0 : t.scale) || 1) && Object.assign(i.style, {
+          position: "absolute",
+          top: "".concat(i.offsetTop + window.scrollY, "px"),
+          left: "".concat(i.offsetLeft + window.scrollX, "px"),
+          bottom: "auto",
+          right: "auto",
+          width: "".concat(c.width, "px"),
+          height: "".concat(c.height, "px"),
+          overflow: "hidden"
+        });
+        var h = l.x,
+          d = l.y,
+          u = l.scale,
+          p = l.opacity;
+        if (p) {
+          var _t42 = function (t, e, i, n) {
+            var s = e - t,
+              o = n - i;
+            return function (e) {
+              return i + ((e - t) / s * o || 0);
+            };
+          }(a.scale, u, 1, 0);
+          a.on("afterTransform", function () {
+            o.style.opacity = _t42(a.scale) + "";
           });
         }
-      } else {
-        $groupControls.hide();
+        a.on("endAnimation", function () {
+          e.destroy();
+        }), a.target.a = u, a.target.b = 0, a.target.c = 0, a.target.d = u, a.panTo({
+          x: h,
+          y: d,
+          scale: u,
+          friction: p ? .2 : .33,
+          ignoreBounds: !0
+        }), a.isResting && e.destroy();
       }
-      if (settings.get('iframe')) {
-        iframe = settings.get('createIframe');
-        if (!settings.get('scrolling')) {
-          iframe.scrolling = "no";
-        }
-        $(iframe).attr({
-          src: settings.get('href'),
-          'class': prefix + 'Iframe'
-        }).one('load', complete).appendTo($loaded);
-        $events.one(event_purge, function () {
-          iframe.src = "//about:blank";
+    }, {
+      key: "setImage",
+      value: function setImage(t, e) {
+        var _this24 = this;
+        var i = this.instance;
+        t.src = e, this.process(t, e).then(function (e) {
+          var n = t.contentEl,
+            s = t.imageEl,
+            o = t.thumbElSrc,
+            a = t.el;
+          if (i.isClosing() || !n || !s) return;
+          n.offsetHeight;
+          var r = !!i.isOpeningSlide(t) && _this24.getZoomInfo(t);
+          if (_this24.option("protected") && a) {
+            a.addEventListener("contextmenu", function (t) {
+              t.preventDefault();
+            });
+            var _t43 = document.createElement("div");
+            C(_t43, "fancybox-protected"), n.appendChild(_t43);
+          }
+          if (o && r) {
+            var _s8 = e.contentRect,
+              _a4 = Math.max(_s8.fullWidth, _s8.fullHeight);
+            var _c4 = null;
+            !r.opacity && _a4 > 1200 && (_c4 = document.createElement("img"), C(_c4, "fancybox-ghost"), _c4.src = o, n.appendChild(_c4));
+            var _h4 = function _h4() {
+              _c4 && (C(_c4, "f-fadeFastOut"), setTimeout(function () {
+                _c4 && (_c4.remove(), _c4 = null);
+              }, 200));
+            };
+            (l = o, new Promise(function (t, e) {
+              var i = new Image();
+              i.onload = t, i.onerror = e, i.src = l;
+            })).then(function () {
+              i.hideLoading(t), t.state = lt.Opening, _this24.instance.emit("reveal", t), _this24.zoomIn(t).then(function () {
+                _h4(), _this24.instance.done(t);
+              }, function () {}), _c4 && setTimeout(function () {
+                _h4();
+              }, _a4 > 2500 ? 800 : 200);
+            }, function () {
+              i.hideLoading(t), i.revealContent(t);
+            });
+          } else {
+            var _n18 = _this24.optionFor(t, "initialSize"),
+              _s9 = _this24.optionFor(t, "zoom"),
+              _o6 = {
+                event: i.prevMouseMoveEvent || i.options.event,
+                friction: _s9 ? .12 : 0
+              };
+            var _a5 = i.optionFor(t, "showClass") || void 0,
+              _r2 = !0;
+            i.isOpeningSlide(t) && ("full" === _n18 ? e.zoomToFull(_o6) : "cover" === _n18 ? e.zoomToCover(_o6) : "max" === _n18 ? e.zoomToMax(_o6) : _r2 = !1, e.stop("current")), _r2 && _a5 && (_a5 = e.isDragging ? "f-fadeIn" : ""), i.hideLoading(t), i.revealContent(t, _a5);
+          }
+          var l;
+        }, function () {
+          i.setError(t, "{{IMAGE_ERROR}}");
         });
-        if (settings.get('fastIframe')) {
-          $(iframe).trigger('load');
-        }
-      } else {
-        complete();
       }
-      if (settings.get('transition') === 'fade') {
-        $box.fadeTo(speed, 1, removeFilter);
-      } else {
-        removeFilter();
+    }, {
+      key: "process",
+      value: function process(t, e) {
+        var _this25 = this;
+        return new Promise(function (i, n) {
+          var o;
+          var a = _this25.instance,
+            r = t.el;
+          a.clearContent(t), a.showLoading(t);
+          var l = _this25.optionFor(t, "content");
+          if ("string" == typeof l && (l = s(l)), !l || !S(l)) {
+            if (l = document.createElement("img"), l instanceof HTMLImageElement) {
+              var _i51 = "",
+                _n19 = t.caption;
+              _i51 = "string" == typeof _n19 && _n19 ? _n19.replace(/<[^>]+>/gi, "").substring(0, 1e3) : "Image ".concat(t.index + 1, " of ").concat((null === (o = a.carousel) || void 0 === o ? void 0 : o.pages.length) || 1), l.src = e || "", l.alt = _i51, l.draggable = !1, t.srcset && l.setAttribute("srcset", t.srcset), _this25.instance.isOpeningSlide(t) && (l.fetchPriority = "high");
+            }
+            t.sizes && l.setAttribute("sizes", t.sizes);
+          }
+          C(l, "fancybox-image"), t.imageEl = l, a.setContent(t, l, !1);
+          t.panzoom = new I(r, p({
+            transformParent: !0
+          }, _this25.option("Panzoom") || {}, {
+            content: l,
+            width: a.optionFor(t, "width", "auto"),
+            height: a.optionFor(t, "height", "auto"),
+            wheel: function wheel() {
+              var t = a.option("wheel");
+              return ("zoom" === t || "pan" == t) && t;
+            },
+            click: function click(e, i) {
+              var n, s;
+              if (a.isCompact || a.isClosing()) return !1;
+              if (t.index !== (null === (n = a.getSlide()) || void 0 === n ? void 0 : n.index)) return !1;
+              if (i) {
+                var _t44 = i.composedPath()[0];
+                if (["A", "BUTTON", "TEXTAREA", "OPTION", "INPUT", "SELECT", "VIDEO"].includes(_t44.nodeName)) return !1;
+              }
+              var o = !i || i.target && (null === (s = t.contentEl) || void 0 === s ? void 0 : s.contains(i.target));
+              return a.option(o ? "contentClick" : "backdropClick") || !1;
+            },
+            dblClick: function dblClick() {
+              return a.isCompact ? "toggleZoom" : a.option("contentDblClick") || !1;
+            },
+            spinner: !1,
+            panOnlyZoomed: !0,
+            wheelLimit: 1 / 0,
+            on: {
+              ready: function ready(t) {
+                i(t);
+              },
+              error: function error() {
+                n();
+              },
+              destroy: function destroy() {
+                n();
+              }
+            }
+          }));
+        });
       }
-    };
-    if (settings.get('transition') === 'fade') {
-      $box.fadeTo(speed, 0, function () {
-        publicMethod.position(0, callback);
-      });
-    } else {
-      publicMethod.position(speed, callback);
+    }, {
+      key: "zoomIn",
+      value: function zoomIn(t) {
+        var _this26 = this;
+        return new Promise(function (e, i) {
+          var n = _this26.instance,
+            s = n.container,
+            o = t.panzoom,
+            a = t.contentEl,
+            r = t.el;
+          o && o.updateMetrics();
+          var l = _this26.getZoomInfo(t);
+          if (!(l && r && a && o && s)) return void i();
+          var c = l.x,
+            h = l.y,
+            d = l.scale,
+            u = l.opacity,
+            p = function p() {
+              t.state !== lt.Closing && (u && (a.style.opacity = Math.max(Math.min(1, 1 - (1 - o.scale) / (1 - d)), 0) + ""), o.scale >= 1 && o.scale > o.targetScale - .1 && e(o));
+            },
+            f = function f(t) {
+              (t.scale < .99 || t.scale > 1.01) && !t.isDragging || (P(s, yt), a.style.opacity = "", t.off("endAnimation", f), t.off("touchStart", f), t.off("afterTransform", p), e(t));
+            };
+          o.on("endAnimation", f), o.on("touchStart", f), o.on("afterTransform", p), o.on(["error", "destroy"], function () {
+            i();
+          }), o.panTo({
+            x: c,
+            y: h,
+            scale: d,
+            friction: 0,
+            ignoreBounds: !0
+          }), o.stop("current");
+          var g = {
+              event: "mousemove" === o.panMode ? n.prevMouseMoveEvent || n.options.event : void 0
+            },
+            m = _this26.optionFor(t, "initialSize");
+          C(s, yt), n.hideLoading(t), "full" === m ? o.zoomToFull(g) : "cover" === m ? o.zoomToCover(g) : "max" === m ? o.zoomToMax(g) : o.reset(.172);
+        });
+      }
+    }, {
+      key: "getZoomInfo",
+      value: function getZoomInfo(t) {
+        var e = t.el,
+          i = t.imageEl,
+          n = t.thumbEl,
+          s = t.panzoom,
+          o = this.instance,
+          a = o.container;
+        if (!e || !i || !n || !s || tt(n) < 3 || !this.optionFor(t, "zoom") || !a || o.state === rt.Destroy) return !1;
+        if ("0" === getComputedStyle(a).getPropertyValue("--f-images-zoom")) return !1;
+        var r = window.visualViewport || null;
+        if (1 !== (r ? r.scale : 1)) return !1;
+        var _n$getBoundingClientR = n.getBoundingClientRect(),
+          l = _n$getBoundingClientR.top,
+          c = _n$getBoundingClientR.left,
+          h = _n$getBoundingClientR.width,
+          d = _n$getBoundingClientR.height,
+          _s$contentRect = s.contentRect,
+          u = _s$contentRect.top,
+          p = _s$contentRect.left,
+          f = _s$contentRect.fitWidth,
+          g = _s$contentRect.fitHeight;
+        if (!(h && d && f && g)) return !1;
+        var m = s.container.getBoundingClientRect();
+        p += m.left, u += m.top;
+        var v = -1 * (p + .5 * f - (c + .5 * h)),
+          b = -1 * (u + .5 * g - (l + .5 * d)),
+          y = h / f;
+        var w = this.option("zoomOpacity") || !1;
+        return "auto" === w && (w = Math.abs(h / d - f / g) > .1), {
+          x: v,
+          y: b,
+          scale: y,
+          opacity: w
+        };
+      }
+    }, {
+      key: "attach",
+      value: function attach() {
+        var t = this,
+          e = t.instance;
+        e.on("Carousel.change", t.onChange), e.on("Carousel.createSlide", t.onCreateSlide), e.on("Carousel.removeSlide", t.onRemoveSlide), e.on("close", t.onClose);
+      }
+    }, {
+      key: "detach",
+      value: function detach() {
+        var t = this,
+          e = t.instance;
+        e.off("Carousel.change", t.onChange), e.off("Carousel.createSlide", t.onCreateSlide), e.off("Carousel.removeSlide", t.onRemoveSlide), e.off("close", t.onClose);
+      }
+    }]);
+    return wt;
+  }(_);
+  Object.defineProperty(wt, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: {
+      initialSize: "fit",
+      Panzoom: {
+        maxScale: 1
+      },
+      "protected": !1,
+      zoom: !0,
+      zoomOpacity: "auto"
     }
-  };
-  function load() {
-    var href,
-      setResize,
-      prep = publicMethod.prep,
-      $inline,
-      request = ++requests;
-    active = true;
-    photo = false;
-    trigger(event_purge);
-    trigger(event_load);
-    settings.get('onLoad');
-    settings.h = settings.get('height') ? setSize(settings.get('height'), 'y') - loadedHeight - interfaceHeight : settings.get('innerHeight') && setSize(settings.get('innerHeight'), 'y');
-    settings.w = settings.get('width') ? setSize(settings.get('width'), 'x') - loadedWidth - interfaceWidth : settings.get('innerWidth') && setSize(settings.get('innerWidth'), 'x');
-
-    // Sets the minimum dimensions for use in image scaling
-    settings.mw = settings.w;
-    settings.mh = settings.h;
-
-    // Re-evaluate the minimum width and height based on maxWidth and maxHeight values.
-    // If the width or height exceed the maxWidth or maxHeight, use the maximum values instead.
-    if (settings.get('maxWidth')) {
-      settings.mw = setSize(settings.get('maxWidth'), 'x') - loadedWidth - interfaceWidth;
-      settings.mw = settings.w && settings.w < settings.mw ? settings.w : settings.mw;
+  }), "function" == typeof SuppressedError && SuppressedError;
+  var xt = "html",
+    Et = "image",
+    St = "map",
+    Pt = "youtube",
+    Ct = "vimeo",
+    Tt = "html5video",
+    Mt = function Mt(t) {
+      var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var i = new URL(t),
+        n = new URLSearchParams(i.search),
+        s = new URLSearchParams();
+      for (var _i52 = 0, _arr5 = [].concat(_toConsumableArray(n), _toConsumableArray(Object.entries(e))); _i52 < _arr5.length; _i52++) {
+        var _arr5$_i = _slicedToArray(_arr5[_i52], 2),
+          _t45 = _arr5$_i[0],
+          _i53 = _arr5$_i[1];
+        var _e36 = _i53 + "";
+        if ("t" === _t45) {
+          var _t46 = _e36.match(/((\d*)m)?(\d*)s?/);
+          _t46 && s.set("start", 60 * parseInt(_t46[2] || "0") + parseInt(_t46[3] || "0") + "");
+        } else s.set(_t45, _e36);
+      }
+      var o = s + "",
+        a = t.match(/#t=((.*)?\d+s)/);
+      return a && (o += "#t=".concat(a[1])), o;
+    },
+    Ot = {
+      ajax: null,
+      autoSize: !0,
+      iframeAttr: {
+        allow: "autoplay; fullscreen",
+        scrolling: "auto"
+      },
+      preload: !0,
+      videoAutoplay: !0,
+      videoRatio: 16 / 9,
+      videoTpl: '<video class="fancybox__html5video" playsinline controls controlsList="nodownload" poster="{{poster}}">\n  <source src="{{src}}" type="{{format}}" />Sorry, your browser doesn\'t support embedded videos.</video>',
+      videoFormat: "",
+      vimeo: {
+        byline: 1,
+        color: "00adef",
+        controls: 1,
+        dnt: 1,
+        muted: 0
+      },
+      youtube: {
+        controls: 1,
+        enablejsapi: 1,
+        nocookie: 1,
+        rel: 0,
+        fs: 1
+      }
+    },
+    At = ["image", "html", "ajax", "inline", "clone", "iframe", "map", "pdf", "html5video", "youtube", "vimeo"];
+  var Lt = /*#__PURE__*/function (_ref13) {
+    _inherits(Lt, _ref13);
+    var _super9 = _createSuper(Lt);
+    function Lt() {
+      _classCallCheck(this, Lt);
+      return _super9.apply(this, arguments);
     }
-    if (settings.get('maxHeight')) {
-      settings.mh = setSize(settings.get('maxHeight'), 'y') - loadedHeight - interfaceHeight;
-      settings.mh = settings.h && settings.h < settings.mh ? settings.h : settings.mh;
-    }
-    href = settings.get('href');
-    loadingTimer = setTimeout(function () {
-      $loadingOverlay.show();
-    }, 100);
-    if (settings.get('inline')) {
-      var $target = $(href).eq(0);
-      // Inserts an empty placeholder where inline content is being pulled from.
-      // An event is bound to put inline content back when Colorbox closes or loads new content.
-      $inline = $('<div>').hide().insertBefore($target);
-      $events.one(event_purge, function () {
-        $inline.replaceWith($target);
-      });
-      prep($target);
-    } else if (settings.get('iframe')) {
-      // IFrame element won't be added to the DOM until it is ready to be displayed,
-      // to avoid problems with DOM-ready JS that might be trying to run in that iframe.
-      prep(" ");
-    } else if (settings.get('html')) {
-      prep(settings.get('html'));
-    } else if (isImage(settings, href)) {
-      href = retinaUrl(settings, href);
-      photo = settings.get('createImg');
-      $(photo).addClass(prefix + 'Photo').bind('error.' + prefix, function () {
-        prep($tag(div, 'Error').html(settings.get('imgError')));
-      }).one('load', function () {
-        if (request !== requests) {
+    _createClass(Lt, [{
+      key: "onBeforeInitSlide",
+      value: function onBeforeInitSlide(t, e, i) {
+        this.processType(i);
+      }
+    }, {
+      key: "onCreateSlide",
+      value: function onCreateSlide(t, e, i) {
+        this.setContent(i);
+      }
+    }, {
+      key: "onClearContent",
+      value: function onClearContent(t, e) {
+        e.xhr && (e.xhr.abort(), e.xhr = null);
+        var i = e.iframeEl;
+        i && (i.onload = i.onerror = null, i.src = "//about:blank", e.iframeEl = null);
+        var n = e.contentEl,
+          s = e.placeholderEl;
+        if ("inline" === e.type && n && s) n.classList.remove("fancybox__content"), "none" !== n.style.display && (n.style.display = "none"), s.parentNode && s.parentNode.insertBefore(n, s), s.remove(), e.contentEl = void 0, e.placeholderEl = void 0;else for (; e.el && e.el.firstChild;) e.el.removeChild(e.el.firstChild);
+      }
+    }, {
+      key: "onSelectSlide",
+      value: function onSelectSlide(t, e, i) {
+        i.state === lt.Ready && this.playVideo();
+      }
+    }, {
+      key: "onUnselectSlide",
+      value: function onUnselectSlide(t, e, i) {
+        var n, s;
+        if (i.type === Tt) {
+          try {
+            null === (s = null === (n = i.el) || void 0 === n ? void 0 : n.querySelector("video")) || void 0 === s || s.pause();
+          } catch (t) {}
           return;
         }
-
-        // A small pause because some browsers will occasionally report a
-        // img.width and img.height of zero immediately after the img.onload fires
-        setTimeout(function () {
-          var percent;
-          if (settings.get('retinaImage') && window.devicePixelRatio > 1) {
-            photo.height = photo.height / window.devicePixelRatio;
-            photo.width = photo.width / window.devicePixelRatio;
-          }
-          if (settings.get('scalePhotos')) {
-            setResize = function setResize() {
-              photo.height -= photo.height * percent;
-              photo.width -= photo.width * percent;
-            };
-            if (settings.mw && photo.width > settings.mw) {
-              percent = (photo.width - settings.mw) / photo.width;
-              setResize();
+        var o;
+        i.type === Ct ? o = {
+          method: "pause",
+          value: "true"
+        } : i.type === Pt && (o = {
+          event: "command",
+          func: "pauseVideo"
+        }), o && i.iframeEl && i.iframeEl.contentWindow && i.iframeEl.contentWindow.postMessage(JSON.stringify(o), "*"), i.poller && clearTimeout(i.poller);
+      }
+    }, {
+      key: "onDone",
+      value: function onDone(t, e) {
+        t.isCurrentSlide(e) && !t.isClosing() && this.playVideo();
+      }
+    }, {
+      key: "onRefresh",
+      value: function onRefresh(t, e) {
+        var _this27 = this;
+        e.slides.forEach(function (t) {
+          t.el && (_this27.resizeIframe(t), _this27.setAspectRatio(t));
+        });
+      }
+    }, {
+      key: "onMessage",
+      value: function onMessage(t) {
+        try {
+          var _e37 = JSON.parse(t.data);
+          if ("https://player.vimeo.com" === t.origin) {
+            if ("ready" === _e37.event) for (var _i54 = 0, _Array$from3 = Array.from(document.getElementsByClassName("fancybox__iframe")); _i54 < _Array$from3.length; _i54++) {
+              var _e38 = _Array$from3[_i54];
+              _e38 instanceof HTMLIFrameElement && _e38.contentWindow === t.source && (_e38.dataset.ready = "true");
             }
-            if (settings.mh && photo.height > settings.mh) {
-              percent = (photo.height - settings.mh) / photo.height;
-              setResize();
-            }
+          } else if (t.origin.match(/^https:\/\/(www.)?youtube(-nocookie)?.com$/) && "onReady" === _e37.event) {
+            var _t47 = document.getElementById(_e37.id);
+            _t47 && (_t47.dataset.ready = "true");
           }
-          if (settings.h) {
-            photo.style.marginTop = Math.max(settings.mh - photo.height, 0) / 2 + 'px';
+        } catch (t) {}
+      }
+    }, {
+      key: "loadAjaxContent",
+      value: function loadAjaxContent(t) {
+        var e = this.instance.optionFor(t, "src") || "";
+        this.instance.showLoading(t);
+        var i = this.instance,
+          n = new XMLHttpRequest();
+        i.showLoading(t), n.onreadystatechange = function () {
+          n.readyState === XMLHttpRequest.DONE && i.state === rt.Ready && (i.hideLoading(t), 200 === n.status ? i.setContent(t, n.responseText) : i.setError(t, 404 === n.status ? "{{AJAX_NOT_FOUND}}" : "{{AJAX_FORBIDDEN}}"));
+        };
+        var s = t.ajax || null;
+        n.open(s ? "POST" : "GET", e + ""), n.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"), n.setRequestHeader("X-Requested-With", "XMLHttpRequest"), n.send(s), t.xhr = n;
+      }
+    }, {
+      key: "setInlineContent",
+      value: function setInlineContent(t) {
+        var e = null;
+        if (S(t.src)) e = t.src;else if ("string" == typeof t.src) {
+          var _i55 = t.src.split("#", 2).pop();
+          e = _i55 ? document.getElementById(_i55) : null;
+        }
+        if (e) {
+          if ("clone" === t.type || e.closest(".fancybox__slide")) {
+            e = e.cloneNode(!0);
+            var _i56 = e.dataset.animationName;
+            _i56 && (e.classList.remove(_i56), delete e.dataset.animationName);
+            var _n20 = e.getAttribute("id");
+            _n20 = _n20 ? "".concat(_n20, "--clone") : "clone-".concat(this.instance.id, "-").concat(t.index), e.setAttribute("id", _n20);
+          } else if (e.parentNode) {
+            var _i57 = document.createElement("div");
+            _i57.classList.add("fancybox-placeholder"), e.parentNode.insertBefore(_i57, e), t.placeholderEl = _i57;
           }
-          if ($related[1] && (settings.get('loop') || $related[index + 1])) {
-            photo.style.cursor = 'pointer';
-            $(photo).bind('click.' + prefix, function () {
-              publicMethod.next();
+          this.instance.setContent(t, e);
+        } else this.instance.setError(t, "{{ELEMENT_NOT_FOUND}}");
+      }
+    }, {
+      key: "setIframeContent",
+      value: function setIframeContent(t) {
+        var _this28 = this;
+        var e = t.src,
+          i = t.el;
+        if (!e || "string" != typeof e || !i) return;
+        i.classList.add("is-loading");
+        var n = this.instance,
+          s = document.createElement("iframe");
+        s.className = "fancybox__iframe", s.setAttribute("id", "fancybox__iframe_".concat(n.id, "_").concat(t.index));
+        for (var _i58 = 0, _Object$entries5 = Object.entries(this.optionFor(t, "iframeAttr") || {}); _i58 < _Object$entries5.length; _i58++) {
+          var _Object$entries5$_i = _slicedToArray(_Object$entries5[_i58], 2),
+            _e39 = _Object$entries5$_i[0],
+            _i59 = _Object$entries5$_i[1];
+          s.setAttribute(_e39, _i59);
+        }
+        s.onerror = function () {
+          n.setError(t, "{{IFRAME_ERROR}}");
+        }, t.iframeEl = s;
+        var o = this.optionFor(t, "preload");
+        if ("iframe" !== t.type || !1 === o) return s.setAttribute("src", t.src + ""), n.setContent(t, s, !1), this.resizeIframe(t), void n.revealContent(t);
+        n.showLoading(t), s.onload = function () {
+          if (!s.src.length) return;
+          var e = "true" !== s.dataset.ready;
+          s.dataset.ready = "true", _this28.resizeIframe(t), e ? n.revealContent(t) : n.hideLoading(t);
+        }, s.setAttribute("src", e), n.setContent(t, s, !1);
+      }
+    }, {
+      key: "resizeIframe",
+      value: function resizeIframe(t) {
+        var e = t.type,
+          i = t.iframeEl;
+        if (e === Pt || e === Ct) return;
+        var n = null == i ? void 0 : i.parentElement;
+        if (!i || !n) return;
+        var s = t.autoSize;
+        void 0 === s && (s = this.optionFor(t, "autoSize"));
+        var o = t.width || 0,
+          a = t.height || 0;
+        o && a && (s = !1);
+        var r = n && n.style;
+        if (!1 !== t.preload && !1 !== s && r) try {
+          var _t48 = window.getComputedStyle(n),
+            _e40 = parseFloat(_t48.paddingLeft) + parseFloat(_t48.paddingRight),
+            _s10 = parseFloat(_t48.paddingTop) + parseFloat(_t48.paddingBottom),
+            _l3 = i.contentWindow;
+          if (_l3) {
+            var _t49 = _l3.document,
+              _i60 = _t49.getElementsByTagName(xt)[0],
+              _n21 = _t49.body;
+            r.width = "", _n21.style.overflow = "hidden", o = o || _i60.scrollWidth + _e40, r.width = "".concat(o, "px"), _n21.style.overflow = "", r.flex = "0 0 auto", r.height = "".concat(_n21.scrollHeight, "px"), a = _i60.scrollHeight + _s10;
+          }
+        } catch (t) {}
+        if (o || a) {
+          var _t50 = {
+            flex: "0 1 auto",
+            width: "",
+            height: ""
+          };
+          o && "auto" !== o && (_t50.width = "".concat(o, "px")), a && "auto" !== a && (_t50.height = "".concat(a, "px")), Object.assign(r, _t50);
+        }
+      }
+    }, {
+      key: "playVideo",
+      value: function playVideo() {
+        var t = this.instance.getSlide();
+        if (!t) return;
+        var e = t.el;
+        if (!e || !e.offsetParent) return;
+        if (!this.optionFor(t, "videoAutoplay")) return;
+        if (t.type === Tt) try {
+          var _t51 = e.querySelector("video");
+          if (_t51) {
+            var _e41 = _t51.play();
+            void 0 !== _e41 && _e41.then(function () {})["catch"](function (e) {
+              _t51.muted = !0, _t51.play();
             });
           }
-          photo.style.width = photo.width + 'px';
-          photo.style.height = photo.height + 'px';
-          prep(photo);
-        }, 1);
-      });
-      photo.src = href;
-    } else if (href) {
-      $loadingBay.load(href, settings.get('data'), function (data, status) {
-        if (request === requests) {
-          prep(status === 'error' ? $tag(div, 'Error').html(settings.get('xhrError')) : $(this).contents());
+        } catch (t) {}
+        if (t.type !== Pt && t.type !== Ct) return;
+        var i = function i() {
+          if (t.iframeEl && t.iframeEl.contentWindow) {
+            var _e42;
+            if ("true" === t.iframeEl.dataset.ready) return _e42 = t.type === Pt ? {
+              event: "command",
+              func: "playVideo"
+            } : {
+              method: "play",
+              value: "true"
+            }, _e42 && t.iframeEl.contentWindow.postMessage(JSON.stringify(_e42), "*"), void (t.poller = void 0);
+            t.type === Pt && (_e42 = {
+              event: "listening",
+              id: t.iframeEl.getAttribute("id")
+            }, t.iframeEl.contentWindow.postMessage(JSON.stringify(_e42), "*"));
+          }
+          t.poller = setTimeout(i, 250);
+        };
+        i();
+      }
+    }, {
+      key: "processType",
+      value: function processType(t) {
+        if (t.html) return t.type = xt, t.src = t.html, void (t.html = "");
+        var e = this.instance.optionFor(t, "src", "");
+        if (!e || "string" != typeof e) return;
+        var i = t.type,
+          n = null;
+        if (n = e.match(/(youtube\.com|youtu\.be|youtube\-nocookie\.com)\/(?:watch\?(?:.*&)?v=|v\/|u\/|shorts\/|embed\/?)?(videoseries\?list=(?:.*)|[\w-]{11}|\?listType=(?:.*)&list=(?:.*))(?:.*)/i)) {
+          var _s11 = this.optionFor(t, Pt),
+            _o7 = _s11.nocookie,
+            _a6 = function (t, e) {
+              var i = {};
+              for (var n in t) Object.prototype.hasOwnProperty.call(t, n) && e.indexOf(n) < 0 && (i[n] = t[n]);
+              if (null != t && "function" == typeof Object.getOwnPropertySymbols) {
+                var s = 0;
+                for (n = Object.getOwnPropertySymbols(t); s < n.length; s++) e.indexOf(n[s]) < 0 && Object.prototype.propertyIsEnumerable.call(t, n[s]) && (i[n[s]] = t[n[s]]);
+              }
+              return i;
+            }(_s11, ["nocookie"]),
+            _r3 = "www.youtube".concat(_o7 ? "-nocookie" : "", ".com"),
+            _l4 = Mt(e, _a6),
+            _c5 = encodeURIComponent(n[2]);
+          t.videoId = _c5, t.src = "https://".concat(_r3, "/embed/").concat(_c5, "?").concat(_l4), t.thumbSrc = t.thumbSrc || "https://i.ytimg.com/vi/".concat(_c5, "/mqdefault.jpg"), i = Pt;
+        } else if (n = e.match(/^.+vimeo.com\/(?:\/)?([\d]+)((\/|\?h=)([a-z0-9]+))?(.*)?/)) {
+          var _s12 = Mt(e, this.optionFor(t, Ct)),
+            _o8 = encodeURIComponent(n[1]),
+            _a7 = n[4] || "";
+          t.videoId = _o8, t.src = "https://player.vimeo.com/video/".concat(_o8, "?").concat(_a7 ? "h=".concat(_a7).concat(_s12 ? "&" : "") : "").concat(_s12), i = Ct;
         }
+        if (!i && t.triggerEl) {
+          var _e43 = t.triggerEl.dataset.type;
+          At.includes(_e43) && (i = _e43);
+        }
+        i || "string" == typeof e && ("#" === e.charAt(0) ? i = "inline" : (n = e.match(/\.(mp4|mov|ogv|webm)((\?|#).*)?$/i)) ? (i = Tt, t.videoFormat = t.videoFormat || "video/" + ("ogv" === n[1] ? "ogg" : n[1])) : e.match(/(^data:image\/[a-z0-9+\/=]*,)|(\.(jp(e|g|eg)|gif|png|bmp|webp|svg|ico)((\?|#).*)?$)/i) ? i = Et : e.match(/\.(pdf)((\?|#).*)?$/i) && (i = "pdf")), (n = e.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:(?:(?:maps\/(?:place\/(?:.*)\/)?\@(.*),(\d+.?\d+?)z))|(?:\?ll=))(.*)?/i)) ? (t.src = "https://maps.google.".concat(n[1], "/?ll=").concat((n[2] ? n[2] + "&z=" + Math.floor(parseFloat(n[3])) + (n[4] ? n[4].replace(/^\//, "&") : "") : n[4] + "").replace(/\?/, "&"), "&output=").concat(n[4] && n[4].indexOf("layer=c") > 0 ? "svembed" : "embed"), i = St) : (n = e.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:maps\/search\/)(.*)/i)) && (t.src = "https://maps.google.".concat(n[1], "/maps?q=").concat(n[2].replace("query=", "q=").replace("api=1", ""), "&output=embed"), i = St), i = i || this.instance.option("defaultType"), t.type = i, i === Et && (t.thumbSrc = t.thumbSrc || t.src);
+      }
+    }, {
+      key: "setContent",
+      value: function setContent(t) {
+        var e = this.instance.optionFor(t, "src") || "";
+        if (t && t.type && e) {
+          switch (t.type) {
+            case xt:
+              this.instance.setContent(t, e);
+              break;
+            case Tt:
+              var _i61 = this.option("videoTpl");
+              _i61 && this.instance.setContent(t, _i61.replace(/\{\{src\}\}/gi, e + "").replace(/\{\{format\}\}/gi, this.optionFor(t, "videoFormat") || "").replace(/\{\{poster\}\}/gi, t.poster || t.thumbSrc || ""));
+              break;
+            case "inline":
+            case "clone":
+              this.setInlineContent(t);
+              break;
+            case "ajax":
+              this.loadAjaxContent(t);
+              break;
+            case "pdf":
+            case St:
+            case Pt:
+            case Ct:
+              t.preload = !1;
+            case "iframe":
+              this.setIframeContent(t);
+          }
+          this.setAspectRatio(t);
+        }
+      }
+    }, {
+      key: "setAspectRatio",
+      value: function setAspectRatio(t) {
+        var e = t.contentEl;
+        if (!(t.el && e && t.type && [Pt, Ct, Tt].includes(t.type))) return;
+        var i,
+          n = t.width || "auto",
+          s = t.height || "auto";
+        if ("auto" === n || "auto" === s) {
+          i = this.optionFor(t, "videoRatio");
+          var _e44 = (i + "").match(/(\d+)\s*\/\s?(\d+)/);
+          i = _e44 && _e44.length > 2 ? parseFloat(_e44[1]) / parseFloat(_e44[2]) : parseFloat(i + "");
+        } else n && s && (i = n / s);
+        if (!i) return;
+        e.style.aspectRatio = "", e.style.width = "", e.style.height = "", e.offsetHeight;
+        var o = e.getBoundingClientRect(),
+          a = o.width || 1,
+          r = o.height || 1;
+        e.style.aspectRatio = i + "", i < a / r ? (s = "auto" === s ? r : Math.min(r, s), e.style.width = "auto", e.style.height = "".concat(s, "px")) : (n = "auto" === n ? a : Math.min(a, n), e.style.width = "".concat(n, "px"), e.style.height = "auto");
+      }
+    }, {
+      key: "attach",
+      value: function attach() {
+        var t = this,
+          e = t.instance;
+        e.on("Carousel.beforeInitSlide", t.onBeforeInitSlide), e.on("Carousel.createSlide", t.onCreateSlide), e.on("Carousel.selectSlide", t.onSelectSlide), e.on("Carousel.unselectSlide", t.onUnselectSlide), e.on("Carousel.Panzoom.refresh", t.onRefresh), e.on("done", t.onDone), e.on("clearContent", t.onClearContent), window.addEventListener("message", t.onMessage);
+      }
+    }, {
+      key: "detach",
+      value: function detach() {
+        var t = this,
+          e = t.instance;
+        e.off("Carousel.beforeInitSlide", t.onBeforeInitSlide), e.off("Carousel.createSlide", t.onCreateSlide), e.off("Carousel.selectSlide", t.onSelectSlide), e.off("Carousel.unselectSlide", t.onUnselectSlide), e.off("Carousel.Panzoom.refresh", t.onRefresh), e.off("done", t.onDone), e.off("clearContent", t.onClearContent), window.removeEventListener("message", t.onMessage);
+      }
+    }]);
+    return Lt;
+  }(_);
+  Object.defineProperty(Lt, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: Ot
+  });
+  var zt = "play",
+    Rt = "pause",
+    kt = "ready";
+  var It = /*#__PURE__*/function (_ref14) {
+    _inherits(It, _ref14);
+    var _super10 = _createSuper(It);
+    function It() {
+      var _this29;
+      _classCallCheck(this, It);
+      _this29 = _super10.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this29), "state", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: kt
+      }), Object.defineProperty(_assertThisInitialized(_this29), "inHover", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+      }), Object.defineProperty(_assertThisInitialized(_this29), "timer", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this29), "progressBar", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
       });
+      return _this29;
     }
-  }
-
-  // Navigates to the next page/image in a set.
-  publicMethod.next = function () {
-    if (!active && $related[1] && (settings.get('loop') || $related[index + 1])) {
-      index = getIndex(1);
-      launch($related[index]);
+    _createClass(It, [{
+      key: "isActive",
+      get: function get() {
+        return this.state !== kt;
+      }
+    }, {
+      key: "onReady",
+      value: function onReady(t) {
+        this.option("autoStart") && (t.isInfinite || t.page < t.pages.length - 1) && this.start();
+      }
+    }, {
+      key: "onChange",
+      value: function onChange() {
+        this.removeProgressBar(), this.pause();
+      }
+    }, {
+      key: "onSettle",
+      value: function onSettle() {
+        this.resume();
+      }
+    }, {
+      key: "onVisibilityChange",
+      value: function onVisibilityChange() {
+        "visible" === document.visibilityState ? this.resume() : this.pause();
+      }
+    }, {
+      key: "onMouseEnter",
+      value: function onMouseEnter() {
+        this.inHover = !0, this.pause();
+      }
+    }, {
+      key: "onMouseLeave",
+      value: function onMouseLeave() {
+        var t;
+        this.inHover = !1, (null === (t = this.instance.panzoom) || void 0 === t ? void 0 : t.isResting) && this.resume();
+      }
+    }, {
+      key: "onTimerEnd",
+      value: function onTimerEnd() {
+        var t = this.instance;
+        "play" === this.state && (t.isInfinite || t.page !== t.pages.length - 1 ? t.slideNext() : t.slideTo(0));
+      }
+    }, {
+      key: "removeProgressBar",
+      value: function removeProgressBar() {
+        this.progressBar && (this.progressBar.remove(), this.progressBar = null);
+      }
+    }, {
+      key: "createProgressBar",
+      value: function createProgressBar() {
+        var t;
+        if (!this.option("showProgress")) return null;
+        this.removeProgressBar();
+        var e = this.instance,
+          i = (null === (t = e.pages[e.page]) || void 0 === t ? void 0 : t.slides) || [];
+        var n = this.option("progressParentEl");
+        if (n || (n = (1 === i.length ? i[0].el : null) || e.viewport), !n) return null;
+        var s = document.createElement("div");
+        return C(s, "f-progress"), n.prepend(s), this.progressBar = s, s.offsetHeight, s;
+      }
+    }, {
+      key: "set",
+      value: function set() {
+        var t = this,
+          e = t.instance;
+        if (e.pages.length < 2) return;
+        if (t.timer) return;
+        var i = t.option("timeout");
+        t.state = zt, C(e.container, "has-autoplay");
+        var n = t.createProgressBar();
+        n && (n.style.transitionDuration = "".concat(i, "ms"), n.style.transform = "scaleX(1)"), t.timer = setTimeout(function () {
+          t.timer = null, t.inHover || t.onTimerEnd();
+        }, i), t.emit("set");
+      }
+    }, {
+      key: "clear",
+      value: function clear() {
+        var t = this;
+        t.timer && (clearTimeout(t.timer), t.timer = null), t.removeProgressBar();
+      }
+    }, {
+      key: "start",
+      value: function start() {
+        var t = this;
+        if (t.set(), t.state !== kt) {
+          if (t.option("pauseOnHover")) {
+            var _e45 = t.instance.container;
+            _e45.addEventListener("mouseenter", t.onMouseEnter, !1), _e45.addEventListener("mouseleave", t.onMouseLeave, !1);
+          }
+          document.addEventListener("visibilitychange", t.onVisibilityChange, !1), t.emit("start");
+        }
+      }
+    }, {
+      key: "stop",
+      value: function stop() {
+        var t = this,
+          e = t.state,
+          i = t.instance.container;
+        t.clear(), t.state = kt, i.removeEventListener("mouseenter", t.onMouseEnter, !1), i.removeEventListener("mouseleave", t.onMouseLeave, !1), document.removeEventListener("visibilitychange", t.onVisibilityChange, !1), P(i, "has-autoplay"), e !== kt && t.emit("stop");
+      }
+    }, {
+      key: "pause",
+      value: function pause() {
+        var t = this;
+        t.state === zt && (t.state = Rt, t.clear(), t.emit(Rt));
+      }
+    }, {
+      key: "resume",
+      value: function resume() {
+        var t = this,
+          e = t.instance;
+        if (e.isInfinite || e.page !== e.pages.length - 1) {
+          if (t.state !== zt) {
+            if (t.state === Rt && !t.inHover) {
+              var _e46 = new Event("resume", {
+                bubbles: !0,
+                cancelable: !0
+              });
+              t.emit("resume", _e46), _e46.defaultPrevented || t.set();
+            }
+          } else t.set();
+        } else t.stop();
+      }
+    }, {
+      key: "toggle",
+      value: function toggle() {
+        this.state === zt || this.state === Rt ? this.stop() : this.start();
+      }
+    }, {
+      key: "attach",
+      value: function attach() {
+        var t = this,
+          e = t.instance;
+        e.on("ready", t.onReady), e.on("Panzoom.startAnimation", t.onChange), e.on("Panzoom.endAnimation", t.onSettle), e.on("Panzoom.touchMove", t.onChange);
+      }
+    }, {
+      key: "detach",
+      value: function detach() {
+        var t = this,
+          e = t.instance;
+        e.off("ready", t.onReady), e.off("Panzoom.startAnimation", t.onChange), e.off("Panzoom.endAnimation", t.onSettle), e.off("Panzoom.touchMove", t.onChange), t.stop();
+      }
+    }]);
+    return It;
+  }(_);
+  Object.defineProperty(It, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: {
+      autoStart: !0,
+      pauseOnHover: !0,
+      progressParentEl: null,
+      showProgress: !0,
+      timeout: 3e3
     }
-  };
-  publicMethod.prev = function () {
-    if (!active && $related[1] && (settings.get('loop') || index)) {
-      index = getIndex(-1);
-      launch($related[index]);
-    }
-  };
-
-  // Note: to use this within an iframe use the following format: parent.jQuery.colorbox.close();
-  publicMethod.close = function () {
-    if (open && !closing) {
-      closing = true;
-      open = false;
-      trigger(event_cleanup);
-      settings.get('onCleanup');
-      $window.unbind('.' + prefix);
-      $overlay.fadeTo(settings.get('fadeOut') || 0, 0);
-      $box.stop().fadeTo(settings.get('fadeOut') || 0, 0, function () {
-        $box.hide();
-        $overlay.hide();
-        trigger(event_purge);
-        $loaded.remove();
-        setTimeout(function () {
-          closing = false;
-          trigger(event_closed);
-          settings.get('onClosed');
-        }, 1);
+  });
+  var Dt = /*#__PURE__*/function (_ref15) {
+    _inherits(Dt, _ref15);
+    var _super11 = _createSuper(Dt);
+    function Dt() {
+      var _this30;
+      _classCallCheck(this, Dt);
+      _this30 = _super11.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this30), "ref", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
       });
+      return _this30;
+    }
+    _createClass(Dt, [{
+      key: "onPrepare",
+      value: function onPrepare(t) {
+        var _this31 = this;
+        var e = t.carousel;
+        if (!e) return;
+        var i = t.container;
+        i && (e.options.Autoplay = p({
+          autoStart: !1
+        }, this.option("Autoplay") || {}, {
+          pauseOnHover: !1,
+          timeout: this.option("timeout"),
+          progressParentEl: function progressParentEl() {
+            return _this31.option("progressParentEl") || null;
+          },
+          on: {
+            start: function start() {
+              t.emit("startSlideshow");
+            },
+            set: function set(e) {
+              var n;
+              i.classList.add("has-slideshow"), (null === (n = t.getSlide()) || void 0 === n ? void 0 : n.state) !== lt.Ready && e.pause();
+            },
+            stop: function stop() {
+              i.classList.remove("has-slideshow"), t.isCompact || t.endIdle(), t.emit("endSlideshow");
+            },
+            resume: function resume(e, i) {
+              var n, s, o;
+              !i || !i.cancelable || (null === (n = t.getSlide()) || void 0 === n ? void 0 : n.state) === lt.Ready && (null === (o = null === (s = t.carousel) || void 0 === s ? void 0 : s.panzoom) || void 0 === o ? void 0 : o.isResting) || i.preventDefault();
+            }
+          }
+        }), e.attachPlugins({
+          Autoplay: It
+        }), this.ref = e.plugins.Autoplay);
+      }
+    }, {
+      key: "onReady",
+      value: function onReady(t) {
+        var e = t.carousel,
+          i = this.ref;
+        i && e && this.option("playOnStart") && (e.isInfinite || e.page < e.pages.length - 1) && i.start();
+      }
+    }, {
+      key: "onDone",
+      value: function onDone(t, e) {
+        var i = this.ref,
+          n = t.carousel;
+        if (!i || !n) return;
+        var s = e.panzoom;
+        s && s.on("startAnimation", function () {
+          t.isCurrentSlide(e) && i.stop();
+        }), t.isCurrentSlide(e) && i.resume();
+      }
+    }, {
+      key: "onKeydown",
+      value: function onKeydown(t, e) {
+        var i;
+        var n = this.ref;
+        n && e === this.option("key") && "BUTTON" !== (null === (i = document.activeElement) || void 0 === i ? void 0 : i.nodeName) && n.toggle();
+      }
+    }, {
+      key: "attach",
+      value: function attach() {
+        var t = this,
+          e = t.instance;
+        e.on("Carousel.init", t.onPrepare), e.on("Carousel.ready", t.onReady), e.on("done", t.onDone), e.on("keydown", t.onKeydown);
+      }
+    }, {
+      key: "detach",
+      value: function detach() {
+        var t = this,
+          e = t.instance;
+        e.off("Carousel.init", t.onPrepare), e.off("Carousel.ready", t.onReady), e.off("done", t.onDone), e.off("keydown", t.onKeydown);
+      }
+    }]);
+    return Dt;
+  }(_);
+  Object.defineProperty(Dt, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: {
+      key: " ",
+      playOnStart: !1,
+      progressParentEl: function progressParentEl(t) {
+        var e;
+        return (null === (e = t.instance.container) || void 0 === e ? void 0 : e.querySelector(".fancybox__toolbar [data-fancybox-toggle-slideshow]")) || t.instance.container;
+      },
+      timeout: 3e3
+    }
+  });
+  var Ft = {
+    classes: {
+      container: "f-thumbs f-carousel__thumbs",
+      viewport: "f-thumbs__viewport",
+      track: "f-thumbs__track",
+      slide: "f-thumbs__slide",
+      isResting: "is-resting",
+      isSelected: "is-selected",
+      isLoading: "is-loading",
+      hasThumbs: "has-thumbs"
+    },
+    minCount: 2,
+    parentEl: null,
+    thumbTpl: '<button class="f-thumbs__slide__button" tabindex="0" type="button" aria-label="{{GOTO}}" data-carousel-index="%i"><img class="f-thumbs__slide__img" data-lazy-src="{{%s}}" alt="" /></button>',
+    type: "modern"
+  };
+  var jt;
+  !function (t) {
+    t[t.Init = 0] = "Init", t[t.Ready = 1] = "Ready", t[t.Hidden = 2] = "Hidden";
+  }(jt || (jt = {}));
+  var Bt = "isResting",
+    Ht = "thumbWidth",
+    Nt = "thumbHeight",
+    _t = "thumbClipWidth";
+  var $t = /*#__PURE__*/function (_ref16) {
+    _inherits($t, _ref16);
+    var _super12 = _createSuper($t);
+    function $t() {
+      var _this32;
+      _classCallCheck(this, $t);
+      _this32 = _super12.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this32), "type", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: "modern"
+      }), Object.defineProperty(_assertThisInitialized(_this32), "container", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this32), "track", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this32), "carousel", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this32), "thumbWidth", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this32), "thumbClipWidth", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this32), "thumbHeight", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this32), "thumbGap", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this32), "thumbExtraGap", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this32), "state", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: jt.Init
+      });
+      return _this32;
+    }
+    _createClass($t, [{
+      key: "isModern",
+      get: function get() {
+        return "modern" === this.type;
+      }
+    }, {
+      key: "onInitSlide",
+      value: function onInitSlide(t, e) {
+        var i = e.el ? e.el.dataset : void 0;
+        i && (e.thumbSrc = i.thumbSrc || e.thumbSrc || "", e[_t] = parseFloat(i[_t] || "") || e[_t] || 0, e[Nt] = parseFloat(i.thumbHeight || "") || e[Nt] || 0), this.addSlide(e);
+      }
+    }, {
+      key: "onInitSlides",
+      value: function onInitSlides() {
+        this.build();
+      }
+    }, {
+      key: "onChange",
+      value: function onChange() {
+        var t;
+        if (!this.isModern) return;
+        var e = this.container,
+          i = this.instance,
+          n = i.panzoom,
+          s = this.carousel,
+          o = s ? s.panzoom : null,
+          r = i.page;
+        if (n && s && o) {
+          if (n.isDragging) {
+            P(e, this.cn(Bt));
+            var _n22 = (null === (t = s.pages[r]) || void 0 === t ? void 0 : t.pos) || 0;
+            _n22 += i.getProgress(r) * (this[_t] + this.thumbGap);
+            var _a8 = o.getBounds();
+            -1 * _n22 > _a8.x.min && -1 * _n22 < _a8.x.max && o.panTo({
+              x: -1 * _n22,
+              friction: .12
+            });
+          } else a(e, this.cn(Bt), n.isResting);
+          this.shiftModern();
+        }
+      }
+    }, {
+      key: "onRefresh",
+      value: function onRefresh() {
+        this.updateProps();
+        var _iterator25 = _createForOfIteratorHelper(this.instance.slides || []),
+          _step25;
+        try {
+          for (_iterator25.s(); !(_step25 = _iterator25.n()).done;) {
+            var _t52 = _step25.value;
+            this.resizeModernSlide(_t52);
+          }
+        } catch (err) {
+          _iterator25.e(err);
+        } finally {
+          _iterator25.f();
+        }
+        this.shiftModern();
+      }
+    }, {
+      key: "isDisabled",
+      value: function isDisabled() {
+        var t = this.option("minCount") || 0;
+        if (t) {
+          var _e47 = this.instance;
+          var _i62 = 0;
+          var _iterator26 = _createForOfIteratorHelper(_e47.slides || []),
+            _step26;
+          try {
+            for (_iterator26.s(); !(_step26 = _iterator26.n()).done;) {
+              var _t53 = _step26.value;
+              _t53.thumbSrc && _i62++;
+            }
+          } catch (err) {
+            _iterator26.e(err);
+          } finally {
+            _iterator26.f();
+          }
+          if (_i62 < t) return !0;
+        }
+        var e = this.option("type");
+        return ["modern", "classic"].indexOf(e) < 0;
+      }
+    }, {
+      key: "getThumb",
+      value: function getThumb(t) {
+        var e = this.option("thumbTpl") || "";
+        return {
+          html: this.instance.localize(e, [["%i", t.index], ["%d", t.index + 1], ["%s", t.thumbSrc || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"]])
+        };
+      }
+    }, {
+      key: "addSlide",
+      value: function addSlide(t) {
+        var e = this.carousel;
+        e && e.addSlide(t.index, this.getThumb(t));
+      }
+    }, {
+      key: "getSlides",
+      value: function getSlides() {
+        var t = [];
+        var _iterator27 = _createForOfIteratorHelper(this.instance.slides || []),
+          _step27;
+        try {
+          for (_iterator27.s(); !(_step27 = _iterator27.n()).done;) {
+            var _e48 = _step27.value;
+            t.push(this.getThumb(_e48));
+          }
+        } catch (err) {
+          _iterator27.e(err);
+        } finally {
+          _iterator27.f();
+        }
+        return t;
+      }
+    }, {
+      key: "resizeModernSlide",
+      value: function resizeModernSlide(t) {
+        this.isModern && (t[Ht] = t[_t] && t[Nt] ? Math.round(this[Nt] * (t[_t] / t[Nt])) : this[Ht]);
+      }
+    }, {
+      key: "updateProps",
+      value: function updateProps() {
+        var t = this.container;
+        if (!t) return;
+        var e = function e(_e49) {
+          return parseFloat(getComputedStyle(t).getPropertyValue("--f-thumb-" + _e49)) || 0;
+        };
+        this.thumbGap = e("gap"), this.thumbExtraGap = e("extra-gap"), this[Ht] = e("width") || 40, this[_t] = e("clip-width") || 40, this[Nt] = e("height") || 40;
+      }
+    }, {
+      key: "build",
+      value: function build() {
+        var t = this;
+        if (t.state !== jt.Init) return;
+        if (t.isDisabled()) return void t.emit("disabled");
+        var e = t.instance,
+          i = e.container,
+          n = t.getSlides(),
+          s = t.option("type");
+        t.type = s;
+        var o = t.option("parentEl"),
+          a = t.cn("container"),
+          r = t.cn("track");
+        var l = null == o ? void 0 : o.querySelector("." + a);
+        l || (l = document.createElement("div"), C(l, a), o ? o.appendChild(l) : i.after(l)), C(l, "is-".concat(s)), C(i, t.cn("hasThumbs")), t.container = l, t.updateProps();
+        var c = l.querySelector("." + r);
+        c || (c = document.createElement("div"), C(c, t.cn("track")), l.appendChild(c)), t.track = c;
+        var h = p({}, {
+            track: c,
+            infinite: !1,
+            center: !0,
+            fill: "classic" === s,
+            dragFree: !0,
+            slidesPerPage: 1,
+            transition: !1,
+            preload: .25,
+            friction: .12,
+            Panzoom: {
+              maxVelocity: 0
+            },
+            Dots: !1,
+            Navigation: !1,
+            classes: {
+              container: "f-thumbs",
+              viewport: "f-thumbs__viewport",
+              track: "f-thumbs__track",
+              slide: "f-thumbs__slide"
+            }
+          }, t.option("Carousel") || {}, {
+            Sync: {
+              target: e
+            },
+            slides: n
+          }),
+          d = new e.constructor(l, h);
+        d.on("createSlide", function (e, i) {
+          t.setProps(i.index), t.emit("createSlide", i, i.el);
+        }), d.on("ready", function () {
+          t.shiftModern(), t.emit("ready");
+        }), d.on("refresh", function () {
+          t.shiftModern();
+        }), d.on("Panzoom.click", function (e, i, n) {
+          t.onClick(n);
+        }), t.carousel = d, t.state = jt.Ready;
+      }
+    }, {
+      key: "onClick",
+      value: function onClick(t) {
+        t.preventDefault(), t.stopPropagation();
+        var e = this.instance,
+          i = e.pages,
+          n = e.page,
+          s = function s(t) {
+            if (t) {
+              var _e50 = t.closest("[data-carousel-index]");
+              if (_e50) return [parseInt(_e50.dataset.carouselIndex || "", 10) || 0, _e50];
+            }
+            return [-1, void 0];
+          },
+          o = function o(t, e) {
+            var i = document.elementFromPoint(t, e);
+            return i ? s(i) : [-1, void 0];
+          };
+        var _s13 = s(t.target),
+          _s14 = _slicedToArray(_s13, 2),
+          a = _s14[0],
+          r = _s14[1];
+        if (a > -1) return;
+        var l = this[_t],
+          c = t.clientX,
+          h = t.clientY;
+        var _o9 = o(c - l, h),
+          _o10 = _slicedToArray(_o9, 2),
+          d = _o10[0],
+          u = _o10[1],
+          _o11 = o(c + l, h),
+          _o12 = _slicedToArray(_o11, 2),
+          p = _o12[0],
+          f = _o12[1];
+        u && f ? (a = Math.abs(c - u.getBoundingClientRect().right) < Math.abs(c - f.getBoundingClientRect().left) ? d : p, a === n && (a = a === d ? p : d)) : u ? a = d : f && (a = p), a > -1 && i[a] && e.slideTo(a);
+      }
+    }, {
+      key: "getShift",
+      value: function getShift(t) {
+        var e;
+        var i = this,
+          n = i.instance,
+          s = i.carousel;
+        if (!n || !s) return 0;
+        var o = i[Ht],
+          a = i[_t],
+          r = i.thumbGap,
+          l = i.thumbExtraGap;
+        if (!(null === (e = s.slides[t]) || void 0 === e ? void 0 : e.el)) return 0;
+        var c = .5 * (o - a),
+          h = n.pages.length - 1;
+        var d = n.getProgress(0),
+          u = n.getProgress(h),
+          p = n.getProgress(t, !1, !0),
+          f = 0,
+          g = c + l + r;
+        var m = d < 0 && d > -1,
+          v = u > 0 && u < 1;
+        return 0 === t ? (f = g * Math.abs(d), v && 1 === d && (f -= g * Math.abs(u))) : t === h ? (f = g * Math.abs(u) * -1, m && -1 === u && (f += g * Math.abs(d))) : m || v ? (f = -1 * g, f += g * Math.abs(d), f += g * (1 - Math.abs(u))) : f = g * p, f;
+      }
+    }, {
+      key: "setProps",
+      value: function setProps(t) {
+        var i;
+        var n = this;
+        if (!n.isModern) return;
+        var s = n.instance,
+          o = n.carousel;
+        if (s && o) {
+          var _a9 = null === (i = o.slides[t]) || void 0 === i ? void 0 : i.el;
+          if (_a9 && _a9.childNodes.length) {
+            var _i63 = e(1 - Math.abs(s.getProgress(t))),
+              _o13 = e(n.getShift(t));
+            _a9.style.setProperty("--progress", _i63 ? _i63 + "" : ""), _a9.style.setProperty("--shift", _o13 + "");
+          }
+        }
+      }
+    }, {
+      key: "shiftModern",
+      value: function shiftModern() {
+        var t = this;
+        if (!t.isModern) return;
+        var e = t.instance,
+          i = t.track,
+          n = e.panzoom,
+          s = t.carousel;
+        if (!(e && i && n && s)) return;
+        if (n.state === v.Init || n.state === v.Destroy) return;
+        var _iterator28 = _createForOfIteratorHelper(e.slides),
+          _step28;
+        try {
+          for (_iterator28.s(); !(_step28 = _iterator28.n()).done;) {
+            var _i64 = _step28.value;
+            t.setProps(_i64.index);
+          }
+        } catch (err) {
+          _iterator28.e(err);
+        } finally {
+          _iterator28.f();
+        }
+        var o = (t[_t] + t.thumbGap) * (s.slides.length || 0);
+        i.style.setProperty("--width", o + "");
+      }
+    }, {
+      key: "cleanup",
+      value: function cleanup() {
+        var t = this;
+        t.carousel && t.carousel.destroy(), t.carousel = null, t.container && t.container.remove(), t.container = null, t.track && t.track.remove(), t.track = null, t.state = jt.Init, P(t.instance.container, t.cn("hasThumbs"));
+      }
+    }, {
+      key: "attach",
+      value: function attach() {
+        var t = this,
+          e = t.instance;
+        e.on("initSlide", t.onInitSlide), e.state === B.Init ? e.on("initSlides", t.onInitSlides) : t.onInitSlides(), e.on(["change", "Panzoom.afterTransform"], t.onChange), e.on("Panzoom.refresh", t.onRefresh);
+      }
+    }, {
+      key: "detach",
+      value: function detach() {
+        var t = this,
+          e = t.instance;
+        e.off("initSlide", t.onInitSlide), e.off("initSlides", t.onInitSlides), e.off(["change", "Panzoom.afterTransform"], t.onChange), e.off("Panzoom.refresh", t.onRefresh), t.cleanup();
+      }
+    }]);
+    return $t;
+  }(_);
+  Object.defineProperty($t, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: Ft
+  });
+  var Wt = Object.assign(Object.assign({}, Ft), {
+      key: "t",
+      showOnStart: !0,
+      parentEl: null
+    }),
+    Xt = "is-masked",
+    qt = "aria-hidden";
+  var Yt = /*#__PURE__*/function (_ref17) {
+    _inherits(Yt, _ref17);
+    var _super13 = _createSuper(Yt);
+    function Yt() {
+      var _this33;
+      _classCallCheck(this, Yt);
+      _this33 = _super13.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this33), "ref", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this33), "hidden", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+      });
+      return _this33;
+    }
+    _createClass(Yt, [{
+      key: "isEnabled",
+      get: function get() {
+        var t = this.ref;
+        return t && !t.isDisabled();
+      }
+    }, {
+      key: "isHidden",
+      get: function get() {
+        return this.hidden;
+      }
+    }, {
+      key: "onClick",
+      value: function onClick(t, e) {
+        e.stopPropagation();
+      }
+    }, {
+      key: "onCreateSlide",
+      value: function onCreateSlide(t, e) {
+        var i, n, s;
+        var o = (null === (s = null === (n = null === (i = this.instance) || void 0 === i ? void 0 : i.carousel) || void 0 === n ? void 0 : n.slides[e.index]) || void 0 === s ? void 0 : s.type) || "",
+          a = e.el;
+        if (a && o) {
+          var _t54 = "for-".concat(o);
+          ["video", "youtube", "vimeo", "html5video"].includes(o) && (_t54 += " for-video"), C(a, _t54);
+        }
+      }
+    }, {
+      key: "onInit",
+      value: function onInit() {
+        var _this34 = this;
+        var t;
+        var e = this,
+          i = e.instance,
+          n = i.carousel;
+        if (e.ref || !n) return;
+        var s = e.option("parentEl") || i.footer || i.container;
+        if (!s) return;
+        var o = p({}, e.options, {
+          parentEl: s,
+          classes: {
+            container: "f-thumbs fancybox__thumbs"
+          },
+          Carousel: {
+            Sync: {
+              friction: i.option("Carousel.friction") || 0
+            }
+          },
+          on: {
+            ready: function ready(t) {
+              var i = t.container;
+              i && _this34.hidden && (e.refresh(), i.style.transition = "none", e.hide(), i.offsetHeight, queueMicrotask(function () {
+                i.style.transition = "", e.show();
+              }));
+            }
+          }
+        });
+        o.Carousel = o.Carousel || {}, o.Carousel.on = p((null === (t = e.options.Carousel) || void 0 === t ? void 0 : t.on) || {}, {
+          click: this.onClick,
+          createSlide: this.onCreateSlide
+        }), n.options.Thumbs = o, n.attachPlugins({
+          Thumbs: $t
+        }), e.ref = n.plugins.Thumbs, e.option("showOnStart") || (e.ref.state = jt.Hidden, e.hidden = !0);
+      }
+    }, {
+      key: "onResize",
+      value: function onResize() {
+        var t;
+        var e = null === (t = this.ref) || void 0 === t ? void 0 : t.container;
+        e && (e.style.maxHeight = "");
+      }
+    }, {
+      key: "onKeydown",
+      value: function onKeydown(t, e) {
+        var i = this.option("key");
+        i && i === e && this.toggle();
+      }
+    }, {
+      key: "toggle",
+      value: function toggle() {
+        var t = this.ref;
+        if (t && !t.isDisabled()) return t.state === jt.Hidden ? (t.state = jt.Init, void t.build()) : void (this.hidden ? this.show() : this.hide());
+      }
+    }, {
+      key: "show",
+      value: function show() {
+        var t = this.ref;
+        if (!t || t.isDisabled()) return;
+        var e = t.container;
+        e && (this.refresh(), e.offsetHeight, e.removeAttribute(qt), e.classList.remove(Xt), this.hidden = !1);
+      }
+    }, {
+      key: "hide",
+      value: function hide() {
+        var t = this.ref,
+          e = t && t.container;
+        e && (this.refresh(), e.offsetHeight, e.classList.add(Xt), e.setAttribute(qt, "true")), this.hidden = !0;
+      }
+    }, {
+      key: "refresh",
+      value: function refresh() {
+        var t = this.ref;
+        if (!t || !t.state) return;
+        var e = t.container,
+          i = (null == e ? void 0 : e.firstChild) || null;
+        e && i && i.childNodes.length && (e.style.maxHeight = "".concat(i.getBoundingClientRect().height, "px"));
+      }
+    }, {
+      key: "attach",
+      value: function attach() {
+        var t = this,
+          e = t.instance;
+        e.state === rt.Init ? e.on("Carousel.init", t.onInit) : t.onInit(), e.on("resize", t.onResize), e.on("keydown", t.onKeydown);
+      }
+    }, {
+      key: "detach",
+      value: function detach() {
+        var t;
+        var e = this,
+          i = e.instance;
+        i.off("Carousel.init", e.onInit), i.off("resize", e.onResize), i.off("keydown", e.onKeydown), null === (t = i.carousel) || void 0 === t || t.detachPlugins(["Thumbs"]), e.ref = null;
+      }
+    }]);
+    return Yt;
+  }(_);
+  Object.defineProperty(Yt, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: Wt
+  });
+  var Vt = {
+    panLeft: {
+      icon: '<svg><path d="M5 12h14M5 12l6 6M5 12l6-6"/></svg>',
+      change: {
+        panX: -100
+      }
+    },
+    panRight: {
+      icon: '<svg><path d="M5 12h14M13 18l6-6M13 6l6 6"/></svg>',
+      change: {
+        panX: 100
+      }
+    },
+    panUp: {
+      icon: '<svg><path d="M12 5v14M18 11l-6-6M6 11l6-6"/></svg>',
+      change: {
+        panY: -100
+      }
+    },
+    panDown: {
+      icon: '<svg><path d="M12 5v14M18 13l-6 6M6 13l6 6"/></svg>',
+      change: {
+        panY: 100
+      }
+    },
+    zoomIn: {
+      icon: '<svg><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>',
+      action: "zoomIn"
+    },
+    zoomOut: {
+      icon: '<svg><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.35-4.35M8 11h6"/></svg>',
+      action: "zoomOut"
+    },
+    toggle1to1: {
+      icon: '<svg><path d="M3.51 3.07c5.74.02 11.48-.02 17.22.02 1.37.1 2.34 1.64 2.18 3.13 0 4.08.02 8.16 0 12.23-.1 1.54-1.47 2.64-2.79 2.46-5.61-.01-11.24.02-16.86-.01-1.36-.12-2.33-1.65-2.17-3.14 0-4.07-.02-8.16 0-12.23.1-1.36 1.22-2.48 2.42-2.46Z"/><path d="M5.65 8.54h1.49v6.92m8.94-6.92h1.49v6.92M11.5 9.4v.02m0 5.18v0"/></svg>',
+      action: "toggleZoom"
+    },
+    toggleZoom: {
+      icon: '<svg><g><line x1="11" y1="8" x2="11" y2="14"></line></g><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.35-4.35M8 11h6"/></svg>',
+      action: "toggleZoom"
+    },
+    iterateZoom: {
+      icon: '<svg><g><line x1="11" y1="8" x2="11" y2="14"></line></g><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.35-4.35M8 11h6"/></svg>',
+      action: "iterateZoom"
+    },
+    rotateCCW: {
+      icon: '<svg><path d="M15 4.55a8 8 0 0 0-6 14.9M9 15v5H4M18.37 7.16v.01M13 19.94v.01M16.84 18.37v.01M19.37 15.1v.01M19.94 11v.01"/></svg>',
+      action: "rotateCCW"
+    },
+    rotateCW: {
+      icon: '<svg><path d="M9 4.55a8 8 0 0 1 6 14.9M15 15v5h5M5.63 7.16v.01M4.06 11v.01M4.63 15.1v.01M7.16 18.37v.01M11 19.94v.01"/></svg>',
+      action: "rotateCW"
+    },
+    flipX: {
+      icon: '<svg style="stroke-width: 1.3"><path d="M12 3v18M16 7v10h5L16 7M8 7v10H3L8 7"/></svg>',
+      action: "flipX"
+    },
+    flipY: {
+      icon: '<svg style="stroke-width: 1.3"><path d="M3 12h18M7 16h10L7 21v-5M7 8h10L7 3v5"/></svg>',
+      action: "flipY"
+    },
+    fitX: {
+      icon: '<svg><path d="M4 12V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6M10 18H3M21 18h-7M6 15l-3 3 3 3M18 15l3 3-3 3"/></svg>',
+      action: "fitX"
+    },
+    fitY: {
+      icon: '<svg><path d="M12 20H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6M18 14v7M18 3v7M15 18l3 3 3-3M15 6l3-3 3 3"/></svg>',
+      action: "fitY"
+    },
+    reset: {
+      icon: '<svg><path d="M20 11A8.1 8.1 0 0 0 4.5 9M4 5v4h4M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></svg>',
+      action: "reset"
+    },
+    toggleFS: {
+      icon: '<svg><g><path d="M14.5 9.5 21 3m0 0h-6m6 0v6M3 21l6.5-6.5M3 21v-6m0 6h6"/></g><g><path d="m14 10 7-7m-7 7h6m-6 0V4M3 21l7-7m0 0v6m0-6H4"/></g></svg>',
+      action: "toggleFS"
     }
   };
-
-  // Removes changes Colorbox made to the document, but does not remove the plugin.
-  publicMethod.remove = function () {
-    if (!$box) {
-      return;
+  var Zt;
+  !function (t) {
+    t[t.Init = 0] = "Init", t[t.Ready = 1] = "Ready", t[t.Disabled = 2] = "Disabled";
+  }(Zt || (Zt = {}));
+  var Ut = {
+      absolute: "auto",
+      display: {
+        left: ["infobar"],
+        middle: [],
+        right: ["iterateZoom", "slideshow", "fullscreen", "thumbs", "close"]
+      },
+      enabled: "auto",
+      items: {
+        infobar: {
+          tpl: '<div class="fancybox__infobar" tabindex="-1"><span data-fancybox-current-index></span>/<span data-fancybox-count></span></div>'
+        },
+        download: {
+          tpl: '<a class="f-button" title="{{DOWNLOAD}}" data-fancybox-download href="javasript:;"><svg><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/></svg></a>'
+        },
+        prev: {
+          tpl: '<button class="f-button" title="{{PREV}}" data-fancybox-prev><svg><path d="m15 6-6 6 6 6"/></svg></button>'
+        },
+        next: {
+          tpl: '<button class="f-button" title="{{NEXT}}" data-fancybox-next><svg><path d="m9 6 6 6-6 6"/></svg></button>'
+        },
+        slideshow: {
+          tpl: '<button class="f-button" title="{{TOGGLE_SLIDESHOW}}" data-fancybox-toggle-slideshow><svg><g><path d="M8 4v16l13 -8z"></path></g><g><path d="M8 4v15M17 4v15"/></g></svg></button>'
+        },
+        fullscreen: {
+          tpl: '<button class="f-button" title="{{TOGGLE_FULLSCREEN}}" data-fancybox-toggle-fullscreen><svg><g><path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v2M16 20h2a2 2 0 0 0 2-2v-2"/></g><g><path d="M15 19v-2a2 2 0 0 1 2-2h2M15 5v2a2 2 0 0 0 2 2h2M5 15h2a2 2 0 0 1 2 2v2M5 9h2a2 2 0 0 0 2-2V5"/></g></svg></button>'
+        },
+        thumbs: {
+          tpl: '<button class="f-button" title="{{TOGGLE_THUMBS}}" data-fancybox-toggle-thumbs><svg><circle cx="5.5" cy="5.5" r="1"/><circle cx="12" cy="5.5" r="1"/><circle cx="18.5" cy="5.5" r="1"/><circle cx="5.5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="18.5" cy="12" r="1"/><circle cx="5.5" cy="18.5" r="1"/><circle cx="12" cy="18.5" r="1"/><circle cx="18.5" cy="18.5" r="1"/></svg></button>'
+        },
+        close: {
+          tpl: '<button class="f-button" title="{{CLOSE}}" data-fancybox-close><svg><path d="m19.5 4.5-15 15M4.5 4.5l15 15"/></svg></button>'
+        }
+      },
+      parentEl: null
+    },
+    Gt = {
+      tabindex: "-1",
+      width: "24",
+      height: "24",
+      viewBox: "0 0 24 24",
+      xmlns: "http://www.w3.org/2000/svg"
+    },
+    Kt = "has-toolbar",
+    Jt = "fancybox__toolbar";
+  var Qt = /*#__PURE__*/function (_ref18) {
+    _inherits(Qt, _ref18);
+    var _super14 = _createSuper(Qt);
+    function Qt() {
+      var _this35;
+      _classCallCheck(this, Qt);
+      _this35 = _super14.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this35), "state", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: Zt.Init
+      }), Object.defineProperty(_assertThisInitialized(_this35), "container", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      });
+      return _this35;
     }
-    $box.stop();
-    $[colorbox].close();
-    $box.stop(false, true).remove();
-    $overlay.remove();
-    closing = false;
-    $box = null;
-    $('.' + boxElement).removeData(colorbox).removeClass(boxElement);
-    $(document).unbind('click.' + prefix).unbind('keydown.' + prefix);
-  };
-
-  // A method for fetching the current element Colorbox is referencing.
-  // returns a jQuery object.
-  publicMethod.element = function () {
-    return $(settings.el);
-  };
-  publicMethod.settings = defaults;
-})(jQuery, document, window);
+    _createClass(Qt, [{
+      key: "onReady",
+      value: function onReady(t) {
+        var e;
+        if (!t.carousel) return;
+        var i = this.option("display"),
+          n = this.option("absolute"),
+          s = this.option("enabled");
+        if ("auto" === s) {
+          var _t55 = this.instance.carousel;
+          var _e51 = 0;
+          if (_t55) {
+            var _iterator29 = _createForOfIteratorHelper(_t55.slides),
+              _step29;
+            try {
+              for (_iterator29.s(); !(_step29 = _iterator29.n()).done;) {
+                var _i65 = _step29.value;
+                (_i65.panzoom || "image" === _i65.type) && _e51++;
+              }
+            } catch (err) {
+              _iterator29.e(err);
+            } finally {
+              _iterator29.f();
+            }
+          }
+          _e51 || (s = !1);
+        }
+        s || (i = void 0);
+        var o = 0;
+        var a = {
+          left: [],
+          middle: [],
+          right: []
+        };
+        if (i) for (var _i66 = 0, _arr6 = ["left", "middle", "right"]; _i66 < _arr6.length; _i66++) {
+          var _t56 = _arr6[_i66];
+          var _iterator30 = _createForOfIteratorHelper(i[_t56]),
+            _step30;
+          try {
+            for (_iterator30.s(); !(_step30 = _iterator30.n()).done;) {
+              var _n23 = _step30.value;
+              var _i67 = this.createEl(_n23);
+              _i67 && (null === (e = a[_t56]) || void 0 === e || e.push(_i67), o++);
+            }
+          } catch (err) {
+            _iterator30.e(err);
+          } finally {
+            _iterator30.f();
+          }
+        }
+        var r = null;
+        if (o && (r = this.createContainer()), r) {
+          for (var _i68 = 0, _Object$entries6 = Object.entries(a); _i68 < _Object$entries6.length; _i68++) {
+            var _Object$entries6$_i = _slicedToArray(_Object$entries6[_i68], 2),
+              _t57 = _Object$entries6$_i[0],
+              _e52 = _Object$entries6$_i[1];
+            var _i69 = document.createElement("div");
+            C(_i69, Jt + "__column is-" + _t57);
+            var _iterator31 = _createForOfIteratorHelper(_e52),
+              _step31;
+            try {
+              for (_iterator31.s(); !(_step31 = _iterator31.n()).done;) {
+                var _t58 = _step31.value;
+                _i69.appendChild(_t58);
+              }
+            } catch (err) {
+              _iterator31.e(err);
+            } finally {
+              _iterator31.f();
+            }
+            "auto" !== n || "middle" !== _t57 || _e52.length || (n = !0), r.appendChild(_i69);
+          }
+          !0 === n && C(r, "is-absolute"), this.state = Zt.Ready, this.onRefresh();
+        } else this.state = Zt.Disabled;
+      }
+    }, {
+      key: "onClick",
+      value: function onClick(t) {
+        var e, i;
+        var n = this.instance,
+          s = n.getSlide(),
+          o = null == s ? void 0 : s.panzoom,
+          a = t.target,
+          r = a && S(a) ? a.dataset : null;
+        if (!r) return;
+        if (void 0 !== r.fancyboxToggleThumbs) return t.preventDefault(), t.stopPropagation(), void (null === (e = n.plugins.Thumbs) || void 0 === e || e.toggle());
+        if (void 0 !== r.fancyboxToggleFullscreen) return t.preventDefault(), t.stopPropagation(), void this.instance.toggleFullscreen();
+        if (void 0 !== r.fancyboxToggleSlideshow) {
+          t.preventDefault(), t.stopPropagation();
+          var _e53 = null === (i = n.carousel) || void 0 === i ? void 0 : i.plugins.Autoplay;
+          var _s15 = _e53.isActive;
+          return o && "mousemove" === o.panMode && !_s15 && o.reset(), void (_s15 ? _e53.stop() : _e53.start());
+        }
+        var l = r.panzoomAction,
+          c = r.panzoomChange;
+        if ((c || l) && (t.preventDefault(), t.stopPropagation()), c) {
+          var _t59 = {};
+          try {
+            _t59 = JSON.parse(c);
+          } catch (t) {}
+          o && o.applyChange(_t59);
+        } else l && o && o[l] && o[l]();
+      }
+    }, {
+      key: "onChange",
+      value: function onChange() {
+        this.onRefresh();
+      }
+    }, {
+      key: "onRefresh",
+      value: function onRefresh() {
+        if (this.instance.isClosing()) return;
+        var t = this.container;
+        if (!t) return;
+        var e = this.instance.getSlide();
+        if (!e || e.state !== lt.Ready) return;
+        var i = e && !e.error && e.panzoom;
+        var _iterator32 = _createForOfIteratorHelper(t.querySelectorAll("[data-panzoom-action]")),
+          _step32;
+        try {
+          for (_iterator32.s(); !(_step32 = _iterator32.n()).done;) {
+            var _e54 = _step32.value;
+            i ? (_e54.removeAttribute("disabled"), _e54.removeAttribute("tabindex")) : (_e54.setAttribute("disabled", ""), _e54.setAttribute("tabindex", "-1"));
+          }
+        } catch (err) {
+          _iterator32.e(err);
+        } finally {
+          _iterator32.f();
+        }
+        var n = i && i.canZoomIn(),
+          s = i && i.canZoomOut();
+        var _iterator33 = _createForOfIteratorHelper(t.querySelectorAll('[data-panzoom-action="zoomIn"]')),
+          _step33;
+        try {
+          for (_iterator33.s(); !(_step33 = _iterator33.n()).done;) {
+            var _e55 = _step33.value;
+            n ? (_e55.removeAttribute("disabled"), _e55.removeAttribute("tabindex")) : (_e55.setAttribute("disabled", ""), _e55.setAttribute("tabindex", "-1"));
+          }
+        } catch (err) {
+          _iterator33.e(err);
+        } finally {
+          _iterator33.f();
+        }
+        var _iterator34 = _createForOfIteratorHelper(t.querySelectorAll('[data-panzoom-action="zoomOut"]')),
+          _step34;
+        try {
+          for (_iterator34.s(); !(_step34 = _iterator34.n()).done;) {
+            var _e56 = _step34.value;
+            s ? (_e56.removeAttribute("disabled"), _e56.removeAttribute("tabindex")) : (_e56.setAttribute("disabled", ""), _e56.setAttribute("tabindex", "-1"));
+          }
+        } catch (err) {
+          _iterator34.e(err);
+        } finally {
+          _iterator34.f();
+        }
+        var _iterator35 = _createForOfIteratorHelper(t.querySelectorAll('[data-panzoom-action="toggleZoom"],[data-panzoom-action="iterateZoom"]')),
+          _step35;
+        try {
+          for (_iterator35.s(); !(_step35 = _iterator35.n()).done;) {
+            var _e57 = _step35.value;
+            s || n ? (_e57.removeAttribute("disabled"), _e57.removeAttribute("tabindex")) : (_e57.setAttribute("disabled", ""), _e57.setAttribute("tabindex", "-1"));
+            var _t60 = _e57.querySelector("g");
+            _t60 && (_t60.style.display = n ? "" : "none");
+          }
+        } catch (err) {
+          _iterator35.e(err);
+        } finally {
+          _iterator35.f();
+        }
+      }
+    }, {
+      key: "onDone",
+      value: function onDone(t, e) {
+        var _this36 = this;
+        var i;
+        null === (i = e.panzoom) || void 0 === i || i.on("afterTransform", function () {
+          _this36.instance.isCurrentSlide(e) && _this36.onRefresh();
+        }), this.instance.isCurrentSlide(e) && this.onRefresh();
+      }
+    }, {
+      key: "createContainer",
+      value: function createContainer() {
+        var t = this.instance.container;
+        if (!t) return null;
+        var e = this.option("parentEl") || t;
+        var i = e.querySelector("." + Jt);
+        return i || (i = document.createElement("div"), C(i, Jt), e.prepend(i)), i.addEventListener("click", this.onClick, {
+          passive: !1,
+          capture: !0
+        }), t && C(t, Kt), this.container = i, i;
+      }
+    }, {
+      key: "createEl",
+      value: function createEl(t) {
+        var _this37 = this;
+        var e = this.instance,
+          i = e.carousel;
+        if (!i) return null;
+        if ("toggleFS" === t) return null;
+        if ("fullscreen" === t && !ot()) return null;
+        var n = null;
+        var o = i.slides.length || 0;
+        var a = 0,
+          r = 0;
+        var _iterator36 = _createForOfIteratorHelper(i.slides),
+          _step36;
+        try {
+          for (_iterator36.s(); !(_step36 = _iterator36.n()).done;) {
+            var _t63 = _step36.value;
+            (_t63.panzoom || "image" === _t63.type) && a++, ("image" === _t63.type || _t63.downloadSrc) && r++;
+          }
+        } catch (err) {
+          _iterator36.e(err);
+        } finally {
+          _iterator36.f();
+        }
+        if (o < 2 && ["infobar", "prev", "next"].includes(t)) return n;
+        if (void 0 !== Vt[t] && !a) return null;
+        if ("download" === t && !r) return null;
+        if ("thumbs" === t) {
+          var _t61 = e.plugins.Thumbs;
+          if (!_t61 || !_t61.isEnabled) return null;
+        }
+        if ("slideshow" === t) {
+          if (!i.plugins.Autoplay || o < 2) return null;
+        }
+        if (void 0 !== Vt[t]) {
+          var _e58 = Vt[t];
+          n = document.createElement("button"), n.setAttribute("title", this.instance.localize("{{".concat(t.toUpperCase(), "}}"))), C(n, "f-button"), _e58.action && (n.dataset.panzoomAction = _e58.action), _e58.change && (n.dataset.panzoomChange = JSON.stringify(_e58.change)), n.appendChild(s(this.instance.localize(_e58.icon)));
+        } else {
+          var _e59 = (this.option("items") || [])[t];
+          _e59 && (n = s(this.instance.localize(_e59.tpl)), "function" == typeof _e59.click && n.addEventListener("click", function (t) {
+            t.preventDefault(), t.stopPropagation(), "function" == typeof _e59.click && _e59.click.call(_this37, _this37, t);
+          }));
+        }
+        var l = null == n ? void 0 : n.querySelector("svg");
+        if (l) for (var _i70 = 0, _Object$entries7 = Object.entries(Gt); _i70 < _Object$entries7.length; _i70++) {
+          var _Object$entries7$_i = _slicedToArray(_Object$entries7[_i70], 2),
+            _t62 = _Object$entries7$_i[0],
+            _e60 = _Object$entries7$_i[1];
+          l.getAttribute(_t62) || l.setAttribute(_t62, String(_e60));
+        }
+        return n;
+      }
+    }, {
+      key: "removeContainer",
+      value: function removeContainer() {
+        var t = this.container;
+        t && t.remove(), this.container = null, this.state = Zt.Disabled;
+        var e = this.instance.container;
+        e && P(e, Kt);
+      }
+    }, {
+      key: "attach",
+      value: function attach() {
+        var t = this,
+          e = t.instance;
+        e.on("Carousel.initSlides", t.onReady), e.on("done", t.onDone), e.on(["reveal", "Carousel.change"], t.onChange), t.onReady(t.instance);
+      }
+    }, {
+      key: "detach",
+      value: function detach() {
+        var t = this,
+          e = t.instance;
+        e.off("Carousel.initSlides", t.onReady), e.off("done", t.onDone), e.off(["reveal", "Carousel.change"], t.onChange), t.removeContainer();
+      }
+    }]);
+    return Qt;
+  }(_);
+  Object.defineProperty(Qt, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: Ut
+  });
+  var te = {
+      Hash: /*#__PURE__*/function (_ref19) {
+        _inherits(Hash, _ref19);
+        var _super15 = _createSuper(Hash);
+        function Hash() {
+          _classCallCheck(this, Hash);
+          return _super15.apply(this, arguments);
+        }
+        _createClass(Hash, [{
+          key: "onReady",
+          value: function onReady() {
+            ht = !1;
+          }
+        }, {
+          key: "onChange",
+          value: function onChange(t) {
+            ut && clearTimeout(ut);
+            var _pt2 = pt(),
+              e = _pt2.hash,
+              _ft3 = ft(),
+              i = _ft3.hash,
+              n = t.isOpeningSlide(t.getSlide());
+            n && (ct = i === e ? "" : i), e && e !== i && (ut = setTimeout(function () {
+              try {
+                if (t.state === rt.Ready) {
+                  var _t64 = "replaceState";
+                  n && !dt && (_t64 = "pushState", dt = !0), window.history[_t64]({}, document.title, window.location.pathname + window.location.search + e);
+                }
+              } catch (t) {}
+            }, 300));
+          }
+        }, {
+          key: "onClose",
+          value: function onClose(t) {
+            if (ut && clearTimeout(ut), !ht && dt) return dt = !1, ht = !1, void window.history.back();
+            if (!ht) try {
+              window.history.replaceState({}, document.title, window.location.pathname + window.location.search + (ct || ""));
+            } catch (t) {}
+          }
+        }, {
+          key: "attach",
+          value: function attach() {
+            var t = this.instance;
+            t.on("ready", this.onReady), t.on(["Carousel.ready", "Carousel.change"], this.onChange), t.on("close", this.onClose);
+          }
+        }, {
+          key: "detach",
+          value: function detach() {
+            var t = this.instance;
+            t.off("ready", this.onReady), t.off(["Carousel.ready", "Carousel.change"], this.onChange), t.off("close", this.onClose);
+          }
+        }], [{
+          key: "parseURL",
+          value: function parseURL() {
+            return ft();
+          }
+        }, {
+          key: "startFromUrl",
+          value: function startFromUrl() {
+            gt();
+          }
+        }, {
+          key: "destroy",
+          value: function destroy() {
+            window.removeEventListener("hashchange", vt, !1);
+          }
+        }]);
+        return Hash;
+      }(_),
+      Html: Lt,
+      Images: wt,
+      Slideshow: Dt,
+      Thumbs: Yt,
+      Toolbar: Qt
+    },
+    ee = "with-fancybox",
+    ie = "hide-scrollbar",
+    ne = "--fancybox-scrollbar-compensate",
+    se = "--fancybox-body-margin",
+    oe = "aria-hidden",
+    ae = "is-using-tab",
+    re = "is-animated",
+    le = "is-compact",
+    ce = "is-loading",
+    he = "is-opening",
+    de = "has-caption",
+    ue = "disabled",
+    pe = "tabindex",
+    fe = "download",
+    ge = "href",
+    me = "src",
+    ve = function ve(t) {
+      return "string" == typeof t;
+    },
+    be = function be() {
+      var t = window.getSelection();
+      return !!t && "Range" === t.type;
+    };
+  var ye,
+    we = null,
+    xe = null,
+    Ee = 0,
+    Se = 0;
+  var Pe = new Map();
+  var Ce = 0;
+  var Te = /*#__PURE__*/function (_m4) {
+    _inherits(Te, _m4);
+    var _super16 = _createSuper(Te);
+    function Te() {
+      var _this38;
+      var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var i = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      _classCallCheck(this, Te);
+      _this38 = _super16.call(this, e), Object.defineProperty(_assertThisInitialized(_this38), "userSlides", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: []
+      }), Object.defineProperty(_assertThisInitialized(_this38), "userPlugins", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {}
+      }), Object.defineProperty(_assertThisInitialized(_this38), "idle", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+      }), Object.defineProperty(_assertThisInitialized(_this38), "idleTimer", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this38), "clickTimer", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this38), "pwt", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this38), "ignoreFocusChange", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+      }), Object.defineProperty(_assertThisInitialized(_this38), "startedFs", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+      }), Object.defineProperty(_assertThisInitialized(_this38), "state", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: rt.Init
+      }), Object.defineProperty(_assertThisInitialized(_this38), "id", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: 0
+      }), Object.defineProperty(_assertThisInitialized(_this38), "container", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this38), "caption", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this38), "footer", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this38), "carousel", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this38), "lastFocus", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: null
+      }), Object.defineProperty(_assertThisInitialized(_this38), "prevMouseMoveEvent", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: void 0
+      }), ye || (ye = ot()), _this38.id = e.id || ++Ce, Pe.set(_this38.id, _assertThisInitialized(_this38)), _this38.userSlides = t, _this38.userPlugins = i, queueMicrotask(function () {
+        _this38.init();
+      });
+      return _this38;
+    }
+    _createClass(Te, [{
+      key: "isIdle",
+      get: function get() {
+        return this.idle;
+      }
+    }, {
+      key: "isCompact",
+      get: function get() {
+        return this.option("compact");
+      }
+    }, {
+      key: "init",
+      value: function init() {
+        var _this39 = this;
+        if (this.state === rt.Destroy) return;
+        this.state = rt.Init, this.attachPlugins(Object.assign(Object.assign({}, Te.Plugins), this.userPlugins)), this.emit("init"), this.emit("attachPlugins"), !0 === this.option("hideScrollbar") && function () {
+          if (!et) return;
+          var t = document,
+            e = t.body,
+            i = t.documentElement;
+          if (e.classList.contains(ie)) return;
+          var n = window.innerWidth - i.getBoundingClientRect().width;
+          var s = parseFloat(window.getComputedStyle(e).marginRight);
+          n < 0 && (n = 0), i.style.setProperty(ne, "".concat(n, "px")), s && e.style.setProperty(se, "".concat(s, "px")), e.classList.add(ie);
+        }(), this.initLayout(), this.scale();
+        var t = function t() {
+          _this39.initCarousel(_this39.userSlides), _this39.state = rt.Ready, _this39.attachEvents(), _this39.emit("ready"), setTimeout(function () {
+            _this39.container && _this39.container.setAttribute(oe, "false");
+          }, 16);
+        };
+        this.option("Fullscreen.autoStart") && ye && !ye.isFullscreen() ? ye.request().then(function () {
+          _this39.startedFs = !0, t();
+        })["catch"](function () {
+          return t();
+        }) : t();
+      }
+    }, {
+      key: "initLayout",
+      value: function initLayout() {
+        var _this40 = this;
+        var t, e;
+        var i = this.option("parentEl") || document.body,
+          n = s(this.localize(this.option("tpl.main") || ""));
+        n && (n.setAttribute("id", "fancybox-".concat(this.id)), n.setAttribute("aria-label", this.localize("{{MODAL}}")), n.classList.toggle(le, this.isCompact), C(n, this.option("mainClass") || ""), C(n, he), this.container = n, this.footer = n.querySelector(".fancybox__footer"), i.appendChild(n), C(document.documentElement, ee), we && xe || (we = document.createElement("span"), C(we, "fancybox-focus-guard"), we.setAttribute(pe, "0"), we.setAttribute(oe, "true"), we.setAttribute("aria-label", "Focus guard"), xe = we.cloneNode(), null === (t = n.parentElement) || void 0 === t || t.insertBefore(we, n), null === (e = n.parentElement) || void 0 === e || e.append(xe)), n.addEventListener("mousedown", function (t) {
+          Ee = t.pageX, Se = t.pageY, P(n, ae);
+        }), this.option("animated") && (C(n, re), setTimeout(function () {
+          _this40.isClosing() || P(n, re);
+        }, 350)), this.emit("initLayout"));
+      }
+    }, {
+      key: "initCarousel",
+      value: function initCarousel(t) {
+        var _this41 = this;
+        var e = this.container;
+        if (!e) return;
+        var n = e.querySelector(".fancybox__carousel");
+        if (!n) return;
+        var s = this.carousel = new Q(n, p({}, {
+          slides: t,
+          transition: "fade",
+          Panzoom: {
+            lockAxis: this.option("dragToClose") ? "xy" : "x",
+            infinite: !!this.option("dragToClose") && "y"
+          },
+          Dots: !1,
+          Navigation: {
+            classes: {
+              container: "fancybox__nav",
+              button: "f-button",
+              isNext: "is-next",
+              isPrev: "is-prev"
+            }
+          },
+          initialPage: this.option("startIndex"),
+          l10n: this.option("l10n")
+        }, this.option("Carousel") || {}));
+        s.on("*", function (t, e) {
+          for (var _len5 = arguments.length, i = new Array(_len5 > 2 ? _len5 - 2 : 0), _key5 = 2; _key5 < _len5; _key5++) {
+            i[_key5 - 2] = arguments[_key5];
+          }
+          _this41.emit.apply(_this41, ["Carousel.".concat(e), t].concat(i));
+        }), s.on(["ready", "change"], function () {
+          _this41.manageCaption();
+        }), this.on("Carousel.removeSlide", function (t, e, i) {
+          _this41.clearContent(i), i.state = void 0;
+        }), s.on("Panzoom.touchStart", function () {
+          var t, e;
+          _this41.isCompact || _this41.endIdle(), (null === (t = document.activeElement) || void 0 === t ? void 0 : t.closest(".f-thumbs")) && (null === (e = _this41.container) || void 0 === e || e.focus());
+        }), s.on("settle", function () {
+          _this41.idleTimer || _this41.isCompact || !_this41.option("idle") || _this41.setIdle(), _this41.option("autoFocus") && !_this41.isClosing && _this41.checkFocus();
+        }), this.option("dragToClose") && (s.on("Panzoom.afterTransform", function (t, e) {
+          var n = _this41.getSlide();
+          if (n && i(n.el)) return;
+          var s = _this41.container;
+          if (s) {
+            var _t65 = Math.abs(e.current.f),
+              _i71 = _t65 < 1 ? "" : Math.max(.5, Math.min(1, 1 - _t65 / e.contentRect.fitHeight * 1.5));
+            s.style.setProperty("--fancybox-ts", _i71 ? "0s" : ""), s.style.setProperty("--fancybox-opacity", _i71 + "");
+          }
+        }), s.on("Panzoom.touchEnd", function (t, e, n) {
+          var s;
+          var o = _this41.getSlide();
+          if (o && i(o.el)) return;
+          if (e.isMobile && document.activeElement && -1 !== ["TEXTAREA", "INPUT"].indexOf(null === (s = document.activeElement) || void 0 === s ? void 0 : s.nodeName)) return;
+          var a = Math.abs(e.dragOffset.y);
+          "y" === e.lockedAxis && (a >= 200 || a >= 50 && e.dragOffset.time < 300) && (n && n.cancelable && n.preventDefault(), _this41.close(n, "f-throwOut" + (e.current.f < 0 ? "Up" : "Down")));
+        })), s.on("change", function (t) {
+          var e;
+          var i = null === (e = _this41.getSlide()) || void 0 === e ? void 0 : e.triggerEl;
+          if (i) {
+            var _e61 = new CustomEvent("slideTo", {
+              bubbles: !0,
+              cancelable: !0,
+              detail: t.page
+            });
+            i.dispatchEvent(_e61);
+          }
+        }), s.on(["refresh", "change"], function (t) {
+          var e = _this41.container;
+          if (!e) return;
+          var _iterator37 = _createForOfIteratorHelper(e.querySelectorAll("[data-fancybox-current-index]")),
+            _step37;
+          try {
+            for (_iterator37.s(); !(_step37 = _iterator37.n()).done;) {
+              var _i74 = _step37.value;
+              _i74.innerHTML = t.page + 1;
+            }
+          } catch (err) {
+            _iterator37.e(err);
+          } finally {
+            _iterator37.f();
+          }
+          var _iterator38 = _createForOfIteratorHelper(e.querySelectorAll("[data-fancybox-count]")),
+            _step38;
+          try {
+            for (_iterator38.s(); !(_step38 = _iterator38.n()).done;) {
+              var _i75 = _step38.value;
+              _i75.innerHTML = t.pages.length;
+            }
+          } catch (err) {
+            _iterator38.e(err);
+          } finally {
+            _iterator38.f();
+          }
+          if (!t.isInfinite) {
+            var _iterator39 = _createForOfIteratorHelper(e.querySelectorAll("[data-fancybox-next]")),
+              _step39;
+            try {
+              for (_iterator39.s(); !(_step39 = _iterator39.n()).done;) {
+                var _i72 = _step39.value;
+                t.page < t.pages.length - 1 ? (_i72.removeAttribute(ue), _i72.removeAttribute(pe)) : (_i72.setAttribute(ue, ""), _i72.setAttribute(pe, "-1"));
+              }
+            } catch (err) {
+              _iterator39.e(err);
+            } finally {
+              _iterator39.f();
+            }
+            var _iterator40 = _createForOfIteratorHelper(e.querySelectorAll("[data-fancybox-prev]")),
+              _step40;
+            try {
+              for (_iterator40.s(); !(_step40 = _iterator40.n()).done;) {
+                var _i73 = _step40.value;
+                t.page > 0 ? (_i73.removeAttribute(ue), _i73.removeAttribute(pe)) : (_i73.setAttribute(ue, ""), _i73.setAttribute(pe, "-1"));
+              }
+            } catch (err) {
+              _iterator40.e(err);
+            } finally {
+              _iterator40.f();
+            }
+          }
+          var i = _this41.getSlide();
+          if (!i) return;
+          var n = i.downloadSrc || "";
+          n || "image" !== i.type || i.error || !ve(i[me]) || (n = i[me]);
+          var _iterator41 = _createForOfIteratorHelper(e.querySelectorAll("[data-fancybox-download]")),
+            _step41;
+          try {
+            for (_iterator41.s(); !(_step41 = _iterator41.n()).done;) {
+              var _t66 = _step41.value;
+              var _e62 = i.downloadFilename;
+              n ? (_t66.removeAttribute(ue), _t66.removeAttribute(pe), _t66.setAttribute(ge, n), _t66.setAttribute(fe, _e62 || n), _t66.setAttribute("target", "_blank")) : (_t66.setAttribute(ue, ""), _t66.setAttribute(pe, "-1"), _t66.removeAttribute(ge), _t66.removeAttribute(fe));
+            }
+          } catch (err) {
+            _iterator41.e(err);
+          } finally {
+            _iterator41.f();
+          }
+        }), this.emit("initCarousel");
+      }
+    }, {
+      key: "attachEvents",
+      value: function attachEvents() {
+        var t = this,
+          e = t.container;
+        if (!e) return;
+        e.addEventListener("click", t.onClick, {
+          passive: !1,
+          capture: !1
+        }), e.addEventListener("wheel", t.onWheel, {
+          passive: !1,
+          capture: !1
+        }), document.addEventListener("keydown", t.onKeydown, {
+          passive: !1,
+          capture: !0
+        }), document.addEventListener("visibilitychange", t.onVisibilityChange, !1), document.addEventListener("mousemove", t.onMousemove), t.option("trapFocus") && document.addEventListener("focus", t.onFocus, !0), window.addEventListener("resize", t.onResize);
+        var i = window.visualViewport;
+        i && (i.addEventListener("scroll", t.onResize), i.addEventListener("resize", t.onResize));
+      }
+    }, {
+      key: "detachEvents",
+      value: function detachEvents() {
+        var t = this,
+          e = t.container;
+        if (!e) return;
+        document.removeEventListener("keydown", t.onKeydown, {
+          passive: !1,
+          capture: !0
+        }), e.removeEventListener("wheel", t.onWheel, {
+          passive: !1,
+          capture: !1
+        }), e.removeEventListener("click", t.onClick, {
+          passive: !1,
+          capture: !1
+        }), document.removeEventListener("mousemove", t.onMousemove), window.removeEventListener("resize", t.onResize);
+        var i = window.visualViewport;
+        i && (i.removeEventListener("resize", t.onResize), i.removeEventListener("scroll", t.onResize)), document.removeEventListener("visibilitychange", t.onVisibilityChange, !1), document.removeEventListener("focus", t.onFocus, !0);
+      }
+    }, {
+      key: "scale",
+      value: function scale() {
+        var t = this.container;
+        if (!t) return;
+        var e = window.visualViewport,
+          i = Math.max(1, (null == e ? void 0 : e.scale) || 1);
+        var n = "",
+          s = "",
+          o = "";
+        if (e && i > 1) {
+          var _t67 = "".concat(e.offsetLeft, "px"),
+            _a10 = "".concat(e.offsetTop, "px");
+          n = e.width * i + "px", s = e.height * i + "px", o = "translate3d(".concat(_t67, ", ").concat(_a10, ", 0) scale(").concat(1 / i, ")");
+        }
+        t.style.transform = o, t.style.width = n, t.style.height = s;
+      }
+    }, {
+      key: "onClick",
+      value: function onClick(t) {
+        var _this42 = this;
+        var e;
+        var i = this.container,
+          n = this.isCompact;
+        if (!i || this.isClosing()) return;
+        !n && this.option("idle") && this.resetIdle();
+        var s = t.composedPath()[0];
+        if (s.closest(".fancybox-spinner") || s.closest("[data-fancybox-close]")) return t.preventDefault(), void this.close(t);
+        if (s.closest("[data-fancybox-prev]")) return t.preventDefault(), void this.prev();
+        if (s.closest("[data-fancybox-next]")) return t.preventDefault(), void this.next();
+        if ("click" === t.type && 0 === t.detail) return;
+        if (Math.abs(t.pageX - Ee) > 30 || Math.abs(t.pageY - Se) > 30) return;
+        var o = document.activeElement;
+        if (be() && o && i.contains(o)) return;
+        if (n && "image" === (null === (e = this.getSlide()) || void 0 === e ? void 0 : e.type)) return void (this.clickTimer ? (clearTimeout(this.clickTimer), this.clickTimer = null) : this.clickTimer = setTimeout(function () {
+          _this42.toggleIdle(), _this42.clickTimer = null;
+        }, 350));
+        if (this.emit("click", t), t.defaultPrevented) return;
+        var a = !1;
+        if (s.closest(".fancybox__content")) {
+          if (o) {
+            if (o.closest("[contenteditable]")) return;
+            s.matches(nt) || o.blur();
+          }
+          if (be()) return;
+          a = this.option("contentClick");
+        } else s.closest(".fancybox__carousel") && !s.matches(nt) && (a = this.option("backdropClick"));
+        "close" === a ? (t.preventDefault(), this.close(t)) : "next" === a ? (t.preventDefault(), this.next()) : "prev" === a && (t.preventDefault(), this.prev());
+      }
+    }, {
+      key: "onWheel",
+      value: function onWheel(t) {
+        var e = t.target;
+        var i = this.option("wheel", t);
+        e.closest(".fancybox__thumbs") && (i = "slide");
+        var s = "slide" === i,
+          o = [-t.deltaX || 0, -t.deltaY || 0, -t.detail || 0].reduce(function (t, e) {
+            return Math.abs(e) > Math.abs(t) ? e : t;
+          }),
+          a = Math.max(-1, Math.min(1, o)),
+          r = Date.now();
+        this.pwt && r - this.pwt < 300 ? s && t.preventDefault() : (this.pwt = r, this.emit("wheel", t, a), t.defaultPrevented || ("close" === i ? (t.preventDefault(), this.close(t)) : "slide" === i && (n(e) || (t.preventDefault(), this[a > 0 ? "prev" : "next"]()))));
+      }
+    }, {
+      key: "onKeydown",
+      value: function onKeydown(t) {
+        if (!this.isTopmost()) return;
+        this.isCompact || !this.option("idle") || this.isClosing() || this.resetIdle();
+        var e = t.key,
+          i = this.option("keyboard");
+        if (!i) return;
+        var n = t.composedPath()[0],
+          s = document.activeElement && document.activeElement.classList,
+          o = s && s.contains("f-button") || n.dataset.carouselPage || n.dataset.carouselIndex;
+        if ("Escape" !== e && !o && S(n)) {
+          if (n.isContentEditable || -1 !== ["TEXTAREA", "OPTION", "INPUT", "SELECT", "VIDEO"].indexOf(n.nodeName)) return;
+        }
+        if ("Tab" === t.key ? C(this.container, ae) : P(this.container, ae), t.ctrlKey || t.altKey || t.shiftKey) return;
+        this.emit("keydown", e, t);
+        var a = i[e];
+        a && "function" == typeof this[a] && (t.preventDefault(), this[a]());
+      }
+    }, {
+      key: "onResize",
+      value: function onResize() {
+        var t = this.container;
+        if (!t) return;
+        var e = this.isCompact;
+        t.classList.toggle(le, e), this.manageCaption(this.getSlide()), this.isCompact ? this.clearIdle() : this.endIdle(), this.scale(), this.emit("resize");
+      }
+    }, {
+      key: "onFocus",
+      value: function onFocus(t) {
+        this.isTopmost() && this.checkFocus(t);
+      }
+    }, {
+      key: "onMousemove",
+      value: function onMousemove(t) {
+        this.prevMouseMoveEvent = t, !this.isCompact && this.option("idle") && this.resetIdle();
+      }
+    }, {
+      key: "onVisibilityChange",
+      value: function onVisibilityChange() {
+        "visible" === document.visibilityState ? this.checkFocus() : this.endIdle();
+      }
+    }, {
+      key: "manageCloseBtn",
+      value: function manageCloseBtn(t) {
+        var e = this.optionFor(t, "closeButton") || !1;
+        if ("auto" === e) {
+          var _t68 = this.plugins.Toolbar;
+          if (_t68 && _t68.state === Zt.Ready) return;
+        }
+        if (!e) return;
+        if (!t.contentEl || t.closeBtnEl) return;
+        var i = this.option("tpl.closeButton");
+        if (i) {
+          var _e63 = s(this.localize(i));
+          t.closeBtnEl = t.contentEl.appendChild(_e63), t.el && C(t.el, "has-close-btn");
+        }
+      }
+    }, {
+      key: "manageCaption",
+      value: function manageCaption() {
+        var _this43 = this;
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : void 0;
+        var e, i;
+        var n = "fancybox__caption",
+          s = this.container;
+        if (!s) return;
+        P(s, de);
+        var o = this.isCompact || this.option("commonCaption"),
+          a = !o;
+        if (this.caption && this.stop(this.caption), a && this.caption && (this.caption.remove(), this.caption = null), o && !this.caption) {
+          var _iterator42 = _createForOfIteratorHelper((null === (e = this.carousel) || void 0 === e ? void 0 : e.slides) || []),
+            _step42;
+          try {
+            for (_iterator42.s(); !(_step42 = _iterator42.n()).done;) {
+              var _t69 = _step42.value;
+              _t69.captionEl && (_t69.captionEl.remove(), _t69.captionEl = void 0, P(_t69.el, de), null === (i = _t69.el) || void 0 === i || i.removeAttribute("aria-labelledby"));
+            }
+          } catch (err) {
+            _iterator42.e(err);
+          } finally {
+            _iterator42.f();
+          }
+        }
+        if (t || (t = this.getSlide()), !t || o && !this.isCurrentSlide(t)) return;
+        var r = t.el;
+        var l = this.optionFor(t, "caption", "");
+        if (!l) return void (o && this.caption && this.animate(this.caption, "f-fadeOut", function () {
+          _this43.caption && (_this43.caption.innerHTML = "");
+        }));
+        var c = null;
+        if (a) {
+          if (c = t.captionEl || null, r && !c) {
+            var _e64 = n + "_".concat(this.id, "_").concat(t.index);
+            c = document.createElement("div"), C(c, n), c.setAttribute("id", _e64), t.captionEl = r.appendChild(c), C(r, de), r.setAttribute("aria-labelledby", _e64);
+          }
+        } else {
+          if (c = this.caption, c || (c = s.querySelector("." + n)), !c) {
+            c = document.createElement("div"), c.dataset.fancyboxCaption = "", C(c, n);
+            (this.footer || s).prepend(c);
+          }
+          C(s, de), this.caption = c;
+        }
+        c && (c.innerHTML = "", ve(l) || "number" == typeof l ? c.innerHTML = l + "" : l instanceof HTMLElement && c.appendChild(l));
+      }
+    }, {
+      key: "checkFocus",
+      value: function checkFocus(t) {
+        this.focus(t);
+      }
+    }, {
+      key: "focus",
+      value: function focus(t) {
+        var e;
+        if (this.ignoreFocusChange) return;
+        var i = document.activeElement || null,
+          n = (null == t ? void 0 : t.target) || null,
+          s = this.container,
+          o = null === (e = this.carousel) || void 0 === e ? void 0 : e.viewport;
+        if (!s || !o) return;
+        if (!t && i && s.contains(i)) return;
+        var a = this.getSlide(),
+          r = a && a.state === lt.Ready ? a.el : null;
+        if (!r || r.contains(i) || s === i) return;
+        t && t.cancelable && t.preventDefault(), this.ignoreFocusChange = !0;
+        var l = Array.from(s.querySelectorAll(nt));
+        var c = [],
+          h = null;
+        for (var _i76 = 0, _l5 = l; _i76 < _l5.length; _i76++) {
+          var _t70 = _l5[_i76];
+          var _e65 = !_t70.offsetParent || !!_t70.closest('[aria-hidden="true"]'),
+            _i77 = r && r.contains(_t70),
+            _n24 = !o.contains(_t70);
+          if (_t70 === s || (_i77 || _n24) && !_e65) {
+            c.push(_t70);
+            var _e66 = _t70.dataset.origTabindex;
+            void 0 !== _e66 && _e66 && (_t70.tabIndex = parseFloat(_e66)), _t70.removeAttribute("data-orig-tabindex"), !_t70.hasAttribute("autoFocus") && h || (h = _t70);
+          } else {
+            var _e67 = void 0 === _t70.dataset.origTabindex ? _t70.getAttribute("tabindex") || "" : _t70.dataset.origTabindex;
+            _e67 && (_t70.dataset.origTabindex = _e67), _t70.tabIndex = -1;
+          }
+        }
+        var d = null;
+        t ? (!n || c.indexOf(n) < 0) && (d = h || s, c.length && (i === xe ? d = c[0] : this.lastFocus !== s && i !== we || (d = c[c.length - 1]))) : d = a && "image" === a.type ? s : h || s, d && st(d), this.lastFocus = document.activeElement, this.ignoreFocusChange = !1;
+      }
+    }, {
+      key: "next",
+      value: function next() {
+        var t = this.carousel;
+        t && t.pages.length > 1 && t.slideNext();
+      }
+    }, {
+      key: "prev",
+      value: function prev() {
+        var t = this.carousel;
+        t && t.pages.length > 1 && t.slidePrev();
+      }
+    }, {
+      key: "jumpTo",
+      value: function jumpTo() {
+        var _this$carousel;
+        this.carousel && (_this$carousel = this.carousel).slideTo.apply(_this$carousel, arguments);
+      }
+    }, {
+      key: "isTopmost",
+      value: function isTopmost() {
+        var t;
+        return (null === (t = Te.getInstance()) || void 0 === t ? void 0 : t.id) == this.id;
+      }
+    }, {
+      key: "animate",
+      value: function animate() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+        var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+        var i = arguments.length > 2 ? arguments[2] : undefined;
+        if (!t || !e) return void (i && i());
+        this.stop(t);
+        var n = function n(s) {
+          s.target === t && t.dataset.animationName && (t.removeEventListener("animationend", n), delete t.dataset.animationName, i && i(), P(t, e));
+        };
+        t.dataset.animationName = e, t.addEventListener("animationend", n), C(t, e);
+      }
+    }, {
+      key: "stop",
+      value: function stop(t) {
+        t && t.dispatchEvent(new CustomEvent("animationend", {
+          bubbles: !1,
+          cancelable: !0,
+          currentTarget: t
+        }));
+      }
+    }, {
+      key: "setContent",
+      value: function setContent(t) {
+        var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+        var i = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : !0;
+        if (this.isClosing()) return;
+        var n = t.el;
+        if (!n) return;
+        var o = null;
+        if (S(e) ? o = e : (o = s(e + ""), S(o) || (o = document.createElement("div"), o.innerHTML = e + "")), ["img", "picture", "iframe", "video", "audio"].includes(o.nodeName.toLowerCase())) {
+          var _t71 = document.createElement("div");
+          _t71.appendChild(o), o = _t71;
+        }
+        S(o) && t.filter && !t.error && (o = o.querySelector(t.filter)), o && S(o) ? (C(o, "fancybox__content"), t.id && o.setAttribute("id", t.id), "none" !== o.style.display && "none" !== getComputedStyle(o).getPropertyValue("display") || (o.style.display = t.display || this.option("defaultDisplay") || "flex"), n.classList.add("has-".concat(t.error ? "error" : t.type || "unknown")), n.prepend(o), t.contentEl = o, i && this.revealContent(t), this.manageCloseBtn(t), this.manageCaption(t)) : this.setError(t, "{{ELEMENT_NOT_FOUND}}");
+      }
+    }, {
+      key: "revealContent",
+      value: function revealContent(t, e) {
+        var _this44 = this;
+        var i = t.el,
+          n = t.contentEl;
+        i && n && (this.emit("reveal", t), this.hideLoading(t), t.state = lt.Opening, (e = this.isOpeningSlide(t) ? void 0 === e ? this.optionFor(t, "showClass") : e : "f-fadeIn") ? this.animate(n, e, function () {
+          _this44.done(t);
+        }) : this.done(t));
+      }
+    }, {
+      key: "done",
+      value: function done(t) {
+        var _this45 = this;
+        this.isClosing() || (t.state = lt.Ready, this.emit("done", t), C(t.el, "is-done"), this.isCurrentSlide(t) && this.option("autoFocus") && queueMicrotask(function () {
+          var e;
+          null === (e = t.panzoom) || void 0 === e || e.updateControls(), _this45.option("autoFocus") && _this45.focus();
+        }), this.isOpeningSlide(t) && (P(this.container, he), !this.isCompact && this.option("idle") && this.setIdle()));
+      }
+    }, {
+      key: "isCurrentSlide",
+      value: function isCurrentSlide(t) {
+        var e = this.getSlide();
+        return !(!t || !e) && e.index === t.index;
+      }
+    }, {
+      key: "isOpeningSlide",
+      value: function isOpeningSlide(t) {
+        var e, i;
+        return null === (null === (e = this.carousel) || void 0 === e ? void 0 : e.prevPage) && t && t.index === (null === (i = this.getSlide()) || void 0 === i ? void 0 : i.index);
+      }
+    }, {
+      key: "showLoading",
+      value: function showLoading(t) {
+        var _this46 = this;
+        t.state = lt.Loading;
+        var e = t.el;
+        if (!e) return;
+        C(e, ce), this.emit("loading", t), t.spinnerEl || setTimeout(function () {
+          if (!_this46.isClosing() && !t.spinnerEl && t.state === lt.Loading) {
+            var _i78 = s(E);
+            C(_i78, "fancybox-spinner"), t.spinnerEl = _i78, e.prepend(_i78), _this46.animate(_i78, "f-fadeIn");
+          }
+        }, 250);
+      }
+    }, {
+      key: "hideLoading",
+      value: function hideLoading(t) {
+        var e = t.el;
+        if (!e) return;
+        var i = t.spinnerEl;
+        this.isClosing() ? null == i || i.remove() : (P(e, ce), i && this.animate(i, "f-fadeOut", function () {
+          i.remove();
+        }), t.state === lt.Loading && (this.emit("loaded", t), t.state = lt.Ready));
+      }
+    }, {
+      key: "setError",
+      value: function setError(t, e) {
+        if (this.isClosing()) return;
+        var i = new Event("error", {
+          bubbles: !0,
+          cancelable: !0
+        });
+        if (this.emit("error", i, t), i.defaultPrevented) return;
+        t.error = e, this.hideLoading(t), this.clearContent(t);
+        var n = document.createElement("div");
+        n.classList.add("fancybox-error"), n.innerHTML = this.localize(e || "<p>{{ERROR}}</p>"), this.setContent(t, n);
+      }
+    }, {
+      key: "clearContent",
+      value: function clearContent(t) {
+        if (void 0 === t.state) return;
+        this.emit("clearContent", t), t.contentEl && (t.contentEl.remove(), t.contentEl = void 0);
+        var e = t.el;
+        e && (P(e, "has-error"), P(e, "has-unknown"), P(e, "has-".concat(t.type || "unknown"))), t.closeBtnEl && t.closeBtnEl.remove(), t.closeBtnEl = void 0, t.captionEl && t.captionEl.remove(), t.captionEl = void 0, t.spinnerEl && t.spinnerEl.remove(), t.spinnerEl = void 0;
+      }
+    }, {
+      key: "getSlide",
+      value: function getSlide() {
+        var t;
+        var e = this.carousel;
+        return (null === (t = null == e ? void 0 : e.pages[null == e ? void 0 : e.page]) || void 0 === t ? void 0 : t.slides[0]) || void 0;
+      }
+    }, {
+      key: "close",
+      value: function close(t, e) {
+        var _this47 = this;
+        if (this.isClosing()) return;
+        var i = new Event("shouldClose", {
+          bubbles: !0,
+          cancelable: !0
+        });
+        if (this.emit("shouldClose", i, t), i.defaultPrevented) return;
+        t && t.cancelable && (t.preventDefault(), t.stopPropagation());
+        var n = function n() {
+          _this47.proceedClose(t, e);
+        };
+        this.startedFs && ye && ye.isFullscreen() ? Promise.resolve(ye.exit()).then(function () {
+          return n();
+        }) : n();
+      }
+    }, {
+      key: "clearIdle",
+      value: function clearIdle() {
+        this.idleTimer && clearTimeout(this.idleTimer), this.idleTimer = null;
+      }
+    }, {
+      key: "setIdle",
+      value: function setIdle() {
+        var _this48 = this;
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : !1;
+        var e = function e() {
+          _this48.clearIdle(), _this48.idle = !0, C(_this48.container, "is-idle"), _this48.emit("setIdle");
+        };
+        if (this.clearIdle(), !this.isClosing()) if (t) e();else {
+          var _t72 = this.option("idle");
+          _t72 && (this.idleTimer = setTimeout(e, _t72));
+        }
+      }
+    }, {
+      key: "endIdle",
+      value: function endIdle() {
+        this.clearIdle(), this.idle && !this.isClosing() && (this.idle = !1, P(this.container, "is-idle"), this.emit("endIdle"));
+      }
+    }, {
+      key: "resetIdle",
+      value: function resetIdle() {
+        this.endIdle(), this.setIdle();
+      }
+    }, {
+      key: "toggleIdle",
+      value: function toggleIdle() {
+        this.idle ? this.endIdle() : this.setIdle(!0);
+      }
+    }, {
+      key: "toggleFullscreen",
+      value: function toggleFullscreen() {
+        var _this49 = this;
+        ye && (ye.isFullscreen() ? ye.exit() : ye.request().then(function () {
+          _this49.startedFs = !0;
+        }));
+      }
+    }, {
+      key: "isClosing",
+      value: function isClosing() {
+        return [rt.Closing, rt.CustomClosing, rt.Destroy].includes(this.state);
+      }
+    }, {
+      key: "proceedClose",
+      value: function proceedClose(t, e) {
+        var _this50 = this;
+        var i, n;
+        this.state = rt.Closing, this.clearIdle(), this.detachEvents();
+        var s = this.container,
+          o = this.carousel,
+          a = this.getSlide(),
+          r = a && this.option("placeFocusBack") ? a.triggerEl || this.option("triggerEl") : null;
+        if (r && (tt(r) ? st(r) : r.focus()), s && (P(s, he), C(s, "is-closing"), s.setAttribute(oe, "true"), this.option("animated") && C(s, re), s.style.pointerEvents = "none"), o) {
+          o.clearTransitions(), null === (i = o.panzoom) || void 0 === i || i.destroy(), null === (n = o.plugins.Navigation) || void 0 === n || n.detach();
+          var _iterator43 = _createForOfIteratorHelper(o.slides),
+            _step43;
+          try {
+            for (_iterator43.s(); !(_step43 = _iterator43.n()).done;) {
+              var _t73 = _step43.value;
+              _t73.state = lt.Closing, this.hideLoading(_t73);
+              var _e68 = _t73.contentEl;
+              _e68 && this.stop(_e68);
+              var _i79 = null == _t73 ? void 0 : _t73.panzoom;
+              _i79 && (_i79.stop(), _i79.detachEvents(), _i79.detachObserver()), this.isCurrentSlide(_t73) || o.emit("removeSlide", _t73);
+            }
+          } catch (err) {
+            _iterator43.e(err);
+          } finally {
+            _iterator43.f();
+          }
+        }
+        this.emit("close", t), this.state !== rt.CustomClosing ? (void 0 === e && a && (e = this.optionFor(a, "hideClass")), e && a ? (this.animate(a.contentEl, e, function () {
+          o && o.emit("removeSlide", a);
+        }), setTimeout(function () {
+          _this50.destroy();
+        }, 500)) : this.destroy()) : setTimeout(function () {
+          _this50.destroy();
+        }, 500);
+      }
+    }, {
+      key: "destroy",
+      value: function destroy() {
+        var t;
+        if (this.state === rt.Destroy) return;
+        this.state = rt.Destroy, null === (t = this.carousel) || void 0 === t || t.destroy();
+        var e = this.container;
+        e && e.remove(), Pe["delete"](this.id);
+        var i = Te.getInstance();
+        i ? i.focus() : (we && (we.remove(), we = null), xe && (xe.remove(), xe = null), P(document.documentElement, ee), function () {
+          if (!et) return;
+          var t = document,
+            e = t.body;
+          e.classList.remove(ie), e.style.setProperty(se, ""), t.documentElement.style.setProperty(ne, "");
+        }(), this.emit("destroy"));
+      }
+    }], [{
+      key: "bind",
+      value: function bind(t, e, i) {
+        if (!et) return;
+        var n,
+          s = "",
+          o = {};
+        if (void 0 === t ? n = document.body : ve(t) ? (n = document.body, s = t, "object" == _typeof(e) && (o = e || {})) : (n = t, ve(e) && (s = e), "object" == _typeof(i) && (o = i || {})), !n || !S(n)) return;
+        s = s || "[data-fancybox]";
+        var a = Te.openers.get(n) || new Map();
+        a.set(s, o), Te.openers.set(n, a), 1 === a.size && n.addEventListener("click", Te.fromEvent);
+      }
+    }, {
+      key: "unbind",
+      value: function unbind(t, e) {
+        var i,
+          n = "";
+        if (ve(t) ? (i = document.body, n = t) : (i = t, ve(e) && (n = e)), !i) return;
+        var s = Te.openers.get(i);
+        s && n && s["delete"](n), n && s || (Te.openers["delete"](i), i.removeEventListener("click", Te.fromEvent));
+      }
+    }, {
+      key: "destroy",
+      value: function destroy() {
+        var t;
+        for (; t = Te.getInstance();) t.destroy();
+        var _iterator44 = _createForOfIteratorHelper(Te.openers.keys()),
+          _step44;
+        try {
+          for (_iterator44.s(); !(_step44 = _iterator44.n()).done;) {
+            var _t74 = _step44.value;
+            _t74.removeEventListener("click", Te.fromEvent);
+          }
+        } catch (err) {
+          _iterator44.e(err);
+        } finally {
+          _iterator44.f();
+        }
+        Te.openers = new Map();
+      }
+    }, {
+      key: "fromEvent",
+      value: function fromEvent(t) {
+        if (t.defaultPrevented) return;
+        if (t.button && 0 !== t.button) return;
+        if (t.ctrlKey || t.metaKey || t.shiftKey) return;
+        var e = t.composedPath()[0];
+        var i = e.closest("[data-fancybox-trigger]");
+        if (i) {
+          var _t75 = i.dataset.fancyboxTrigger || "",
+            _n25 = document.querySelectorAll("[data-fancybox=\"".concat(_t75, "\"]")),
+            _s16 = parseInt(i.dataset.fancyboxIndex || "", 10) || 0;
+          e = _n25[_s16] || e;
+        }
+        if (!(e && e instanceof Element)) return;
+        var n, s, o, a;
+        if (_toConsumableArray(Te.openers).reverse().find(function (_ref20) {
+          var _ref21 = _slicedToArray(_ref20, 2),
+            t = _ref21[0],
+            i = _ref21[1];
+          return !(!t.contains(e) || !_toConsumableArray(i).reverse().find(function (_ref22) {
+            var _ref23 = _slicedToArray(_ref22, 2),
+              i = _ref23[0],
+              r = _ref23[1];
+            var l = e.closest(i);
+            return !!l && (n = t, s = i, o = l, a = r, !0);
+          }));
+        }), !n || !s || !o) return;
+        a = a || {}, t.preventDefault(), e = o;
+        var r = [],
+          l = p({}, at, a);
+        l.event = t, l.triggerEl = e, l.delegate = i;
+        var c = l.groupAll,
+          h = l.groupAttr,
+          d = h && e ? e.getAttribute("".concat(h)) : "";
+        if ((!e || d || c) && (r = [].slice.call(n.querySelectorAll(s))), e && !c && (r = d ? r.filter(function (t) {
+          return t.getAttribute("".concat(h)) === d;
+        }) : [e]), !r.length) return;
+        var u = Te.getInstance();
+        return u && u.options.triggerEl && r.indexOf(u.options.triggerEl) > -1 ? void 0 : (e && (l.startIndex = r.indexOf(e)), Te.fromNodes(r, l));
+      }
+    }, {
+      key: "fromSelector",
+      value: function fromSelector(t, e, i) {
+        var n = null,
+          s = "",
+          o = {};
+        if (ve(t) ? (n = document.body, s = t, "object" == _typeof(e) && (o = e || {})) : t instanceof HTMLElement && ve(e) && (n = t, s = e, "object" == _typeof(i) && (o = i || {})), !n || !s) return !1;
+        var a = Te.openers.get(n);
+        return !!a && (o = p({}, a.get(s) || {}, o), !!o && Te.fromNodes(Array.from(n.querySelectorAll(s)), o));
+      }
+    }, {
+      key: "fromNodes",
+      value: function fromNodes(t, e) {
+        e = p({}, at, e || {});
+        var i = [];
+        var _iterator45 = _createForOfIteratorHelper(t),
+          _step45;
+        try {
+          for (_iterator45.s(); !(_step45 = _iterator45.n()).done;) {
+            var _n26 = _step45.value;
+            var _t76 = _n26.dataset || {},
+              _s17 = _t76[me] || _n26.getAttribute(ge) || _n26.getAttribute("currentSrc") || _n26.getAttribute(me) || void 0;
+            var _o14 = void 0;
+            var _a11 = e.delegate;
+            var _r4 = void 0;
+            _a11 && i.length === e.startIndex && (_o14 = _a11 instanceof HTMLImageElement ? _a11 : _a11.querySelector("img:not([aria-hidden])")), _o14 || (_o14 = _n26 instanceof HTMLImageElement ? _n26 : _n26.querySelector("img:not([aria-hidden])")), _o14 && (_r4 = _o14.currentSrc || _o14[me] || void 0, !_r4 && _o14.dataset && (_r4 = _o14.dataset.lazySrc || _o14.dataset[me] || void 0));
+            var _l6 = {
+              src: _s17,
+              triggerEl: _n26,
+              thumbEl: _o14,
+              thumbElSrc: _r4,
+              thumbSrc: _r4
+            };
+            for (var _e69 in _t76) {
+              var _i80 = _t76[_e69] + "";
+              _i80 = "false" !== _i80 && ("true" === _i80 || _i80), _l6[_e69] = _i80;
+            }
+            i.push(_l6);
+          }
+        } catch (err) {
+          _iterator45.e(err);
+        } finally {
+          _iterator45.f();
+        }
+        return new Te(i, e);
+      }
+    }, {
+      key: "getInstance",
+      value: function getInstance(t) {
+        if (t) return Pe.get(t);
+        return Array.from(Pe.values()).reverse().find(function (t) {
+          return !t.isClosing() && t;
+        }) || null;
+      }
+    }, {
+      key: "getSlide",
+      value: function getSlide() {
+        var t;
+        return (null === (t = Te.getInstance()) || void 0 === t ? void 0 : t.getSlide()) || null;
+      }
+    }, {
+      key: "show",
+      value: function show() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+        var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+        return new Te(t, e);
+      }
+    }, {
+      key: "next",
+      value: function next() {
+        var t = Te.getInstance();
+        t && t.next();
+      }
+    }, {
+      key: "prev",
+      value: function prev() {
+        var t = Te.getInstance();
+        t && t.prev();
+      }
+    }, {
+      key: "close",
+      value: function close() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : !0;
+        for (var _len6 = arguments.length, e = new Array(_len6 > 1 ? _len6 - 1 : 0), _key6 = 1; _key6 < _len6; _key6++) {
+          e[_key6 - 1] = arguments[_key6];
+        }
+        if (t) {
+          var _iterator46 = _createForOfIteratorHelper(Pe.values()),
+            _step46;
+          try {
+            for (_iterator46.s(); !(_step46 = _iterator46.n()).done;) {
+              var _t77 = _step46.value;
+              _t77.close.apply(_t77, e);
+            }
+          } catch (err) {
+            _iterator46.e(err);
+          } finally {
+            _iterator46.f();
+          }
+        } else {
+          var _t78 = Te.getInstance();
+          _t78 && _t78.close.apply(_t78, e);
+        }
+      }
+    }]);
+    return Te;
+  }(m);
+  Object.defineProperty(Te, "version", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: "5.0.33"
+  }), Object.defineProperty(Te, "defaults", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: at
+  }), Object.defineProperty(Te, "Plugins", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: te
+  }), Object.defineProperty(Te, "openers", {
+    enumerable: !0,
+    configurable: !0,
+    writable: !0,
+    value: new Map()
+  }), t.Carousel = Q, t.Fancybox = Te, t.Panzoom = I;
+});
 
 /*
 Waypoints - 4.0.1
@@ -11291,17 +17073,17 @@ function create_tns_slider(slider) {
     nav: show_nav,
     navPosition: nav_position,
     responsive: {
-      1100: {
+      1401: {
         items: desktop,
         slideBy: desktop,
         gutter: desktop_gutter
       },
-      800: {
+      1025: {
         items: laptop,
         slideBy: laptop,
         gutter: laptop_gutter
       },
-      470: {
+      601: {
         items: tablet,
         slideBy: tablet,
         gutter: tablet_gutter
@@ -12848,17 +18630,29 @@ function animateWidth(elem, start, end, duration, spanElem) {
     // ****************************************************************************************************
     // ****************************************************************************************************
 
-    function colorbox_group() {
-      $(".zoom").colorbox({
-        rel: 'group1',
-        maxHeight: "96%",
-        maxWidth: "96%",
-        onComplete: function onComplete() {
-          // $('#cboxLoadedContent').zoom({ on:'click' });
+    Fancybox.bind("[data-fancybox], .zoom", {
+      Carousel: {
+        transition: "classic"
+      },
+      Toolbar: {
+        display: {
+          left: ["infobar"],
+          middle: ["zoomIn", "zoomOut", "toggle1to1", "rotateCCW", "rotateCW", "flipX", "flipY"],
+          right: ["slideshow", "thumbs", "close"]
         }
+      }
+    });
+
+    // ****************************************************************************************************
+    // ****************************************************************************************************
+
+    setTimeout(function () {
+      $('.theme-gallery--masonry').masonry({
+        itemSelector: '.theme-gallery__item',
+        columnWidth: '.theme-gallery__item-sizer',
+        percentPosition: true
       });
-    }
-    colorbox_group();
+    }, 1);
 
     // ****************************************************************************************************
     // ****************************************************************************************************

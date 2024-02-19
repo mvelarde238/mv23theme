@@ -81,18 +81,38 @@
 
         // ****************************************************************************************************
         // ****************************************************************************************************
+        
+        Fancybox.bind("[data-fancybox], .zoom", {
+            Carousel: {
+                transition: "classic",
+            },
+            Toolbar: {
+                display: {
+                    left: ["infobar"],
+                    middle: [
+                        "zoomIn",
+                        "zoomOut",
+                        "toggle1to1",
+                        "rotateCCW",
+                        "rotateCW",
+                        "flipX",
+                        "flipY",
+                    ],
+                    right: ["slideshow", "thumbs", "close"],
+                },
+            },
+        });
 
-        function colorbox_group(){
-            $(".zoom").colorbox({
-                rel:'group1', 
-                maxHeight:"96%", 
-                maxWidth: "96%",
-                onComplete: function(){
-                    // $('#cboxLoadedContent').zoom({ on:'click' });
-                }
+        // ****************************************************************************************************
+        // ****************************************************************************************************
+
+        setTimeout(function(){
+            $('.theme-gallery--masonry').masonry({
+                itemSelector: '.theme-gallery__item',
+                columnWidth: '.theme-gallery__item-sizer',
+                percentPosition: true
             });
-        }
-        colorbox_group();
+        }, 1);
 
         // ****************************************************************************************************
         // ****************************************************************************************************

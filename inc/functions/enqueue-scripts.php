@@ -35,6 +35,8 @@ function mv23_scripts_and_styles() {
         wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', array(), '', true);
         wp_enqueue_script('jquery');
 
+        wp_enqueue_script('jquery-masonry');
+
         wp_enqueue_script( 'fitty-lib', get_template_directory_uri() . '/src/js/libs/ignore/fitty.min.js', array(), THEME_VERSION, true );
         wp_register_script( 'mv23-scripts', $assets_url . '/assets/js/scripts.js', array(), THEME_VERSION, true );
 

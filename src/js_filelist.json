@@ -10,7 +10,7 @@
   "js/libs/materialize/09_forms.js",
   "js/libs/materialize/10_pushpin.js",
   "js/libs/additional-libs.js",
-  "js/libs/jquery.colorbox.js",
+  "js/libs/fancybox.umd.js",
   "js/libs/jquery.waypoints.js",
   "js/libs/sharer.js",
   "js/libs/tiny-slider.js",

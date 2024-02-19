@@ -5,22 +5,22 @@ $class = (isset($componente['class']) && $componente['class'] != '') ? $componen
 
 $classes_array = format_classes(array(
     'componente',
-	'mv23-gallery',
+	'theme-gallery-comp',
 	get_color_scheme($componente),
 	$class
 ));
 
 $source = ( isset($componente['source']) ) ? $componente['source'] : 'wp-media'; // default for backward compatibility
 $settings = $componente['wp_media_folder_settings'];
-$orderby = ($settings['orderby']) ? $settings['orderby'] : 'custom';
+$aspect_ratio = ( isset($componente['aspect_ratio']) && $componente['aspect_ratio'] != 'aspect-ratio-default' ) ? $componente['aspect_ratio'] : 'aspect-ratio-default';
+$shortcode_name = ($source === 'manual') ? 'theme_gallery' : 'theme_gallery';
 
-$shortcode = '[gallery link="'.$settings['link'].'" columns="'.$settings['columns'].'"  size="'.$settings['size'].'" orderby="'.$orderby.'"';
+$shortcode = '['.$shortcode_name.' link="'.$settings['link'].'" columns="'.$settings['columns'].'"  size="'.$settings['size'].'" targetsize="'.$settings['targetsize'].'" aspectratio="'.$aspect_ratio.'" display="'.$settings['display'].'"';
 
 if($source == 'wp-media'){
 	$wp_media_folder = $componente['wp_media_folder'];
 	if($wp_media_folder){
-		$order = (isset($settings['order']) && $settings['order']) ? $settings['order'] : 'DESC';
-		$shortcode .= ' wpmf_folder_id="'.$wp_media_folder.'" wpmf_autoinsert="1" wpmf_order="'.$order.'" targetsize="'.$settings['targetsize'].'"';
+		$shortcode .= ' wpmf_folder_id="'.$wp_media_folder.'" wpmf_autoinsert="1"';
 	}
 } else {
 	$gallery = $componente['gallery'];
@@ -28,10 +28,11 @@ if($source == 'wp-media'){
 	$shortcode .= ' ids="'.$ids.'"';
 }
 
-if(WPMEDIAFOLDER_IS_ACTIVE) $shortcode .= ' display="'.$settings['display'].'"';
 $shortcode .= ']';
 
 $attributes = generate_attributes($componente, $classes_array);
+
+if($aspect_ratio != 'default') $attributes .= ' style="--aspect-ratio:'.$aspect_ratio.'"';
 ?>
 <div <?=$attributes?>>
 	<?php if ($layout == 'layout2') echo '<div class="container">'; ?>

@@ -1,5 +1,8 @@
 mv23 changelog-------------------------
 
+15-02-2024
+- (core/js/field/gallery.js) add filename to gallery item
+
 07-02-2024
 - (libs/ultimate-fields/core/js/field/repeater.js) Fix: group opens twice on copy/paste action
 

@@ -15,7 +15,8 @@
 @import "materialize/components/forms/input-fields";
 @import "materialize/components/sideNav";
 
-@import "libs/colorbox";
+// @import "libs/colorbox";
+@import "libs/fancybox";
 // @import "libs/select2";
 @import "libs/tiny-slider";
 
@@ -86,3 +87,4 @@
 @import "ultimate-fields/componentes/whatsapp-button";
 @import "ultimate-fields/componentes/expander";
 @import "ultimate-fields/componentes/testimonios";
+@import "ultimate-fields/componentes/gallery";

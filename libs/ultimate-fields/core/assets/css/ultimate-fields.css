@@ -3225,3 +3225,12 @@ h2.uf-add-term-title {
 .uf-layout-element{
   z-index: initial;
 }
+/* add filename to gallery */
+.gallery-item-name{
+  word-break: break-all;
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  font-size: 12px;
+  width: 85%;
+}
