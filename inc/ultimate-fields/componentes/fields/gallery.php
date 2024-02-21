@@ -106,10 +106,15 @@ $gallery_fields_settings = array(
             'image' => get_template_directory_uri() . '/inc/ultimate-fields/images/aspect-ratio-default-b.png'
         ),
     )),
+    Field::create( 'tab', 'Advanced' ),
+    Field::create( 'text', 'gallery_id' )->set_width(30),
+    Field::create( 'message', 'gallery_id_usage', 'Usar la siguiente clase para abrir la galería:' )->set_description('show-gallery--{gallery_id}')->add_dependency('gallery_id','','!=')->set_width(70),
+    Field::create( 'checkbox', 'hide_gallery','Ocultar la galería' )->set_text( 'Activar' ),
 );
 
 $gallery = Repeater_Group::create( 'Galeria', array(
-    'edit_mode' => 'popup'
+    'edit_mode' => 'popup',
+    // 'layout' => 'table',
 ));
 
 $gallery->add_fields( $gallery_fields_basic );

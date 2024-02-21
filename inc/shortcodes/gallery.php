@@ -1,14 +1,15 @@
 <?php
 function print_theme_gallery( $atts ) {
 	$a = shortcode_atts( array(
-        'ids' => array(),
+        'ids' => '',
         'columns' => 4,
         'size' => 'large',
         'targetsize' => 'full',
         'link' => 'file',
         'aspectratio' => '',
         'display' => 'default',
-        'wpmf_folder_id' => null
+        'wpmf_folder_id' => null,
+        'gallery_id' => null
     ), $atts );
 
     $attachments = array();
@@ -46,6 +47,7 @@ function print_theme_gallery( $atts ) {
 	ob_start();
     if( is_array($attachments) && count($attachments) > 0 ){
         $rand_id = 'gallery_'.substr(md5(microtime()),rand(0,26),5);
+        $gallery_id = ( $a['gallery_id'] ) ? : $rand_id;
 
         if( $a['display'] == 'slider' ){ ?>
             <div class="carrusel carrusel-inside-component" data-controls-position="center">
@@ -155,7 +157,7 @@ function print_theme_gallery( $atts ) {
                         $attachment_link = $url;
                         break;
                 }
-                $attachment_link_html = '<a data-fancybox="'.$rand_id.'" href="'.$attachment_link.'" class="'.$link_class.'"';
+                $attachment_link_html = '<a data-fancybox="'.$gallery_id.'" href="'.$attachment_link.'" class="'.$link_class.'"';
                 if( 
                     ( $attachment_type === 'video' && !$is_remote_video ) ||
                     $attachment_type === 'pdf'

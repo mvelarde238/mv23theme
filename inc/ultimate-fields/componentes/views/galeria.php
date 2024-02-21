@@ -10,12 +10,16 @@ $classes_array = format_classes(array(
 	$class
 ));
 
+$hide_gallery = ( isset($componente['hide_gallery']) ) ? $componente['hide_gallery'] : false;
+if($hide_gallery) array_push($classes_array,'hide');
+
 $source = ( isset($componente['source']) ) ? $componente['source'] : 'wp-media'; // default for backward compatibility
 $settings = $componente['wp_media_folder_settings'];
 $aspect_ratio = ( isset($componente['aspect_ratio']) && $componente['aspect_ratio'] != 'aspect-ratio-default' ) ? $componente['aspect_ratio'] : 'aspect-ratio-default';
 $shortcode_name = ($source === 'manual') ? 'theme_gallery' : 'theme_gallery';
+$gallery_id = $componente['gallery_id'];
 
-$shortcode = '['.$shortcode_name.' link="'.$settings['link'].'" columns="'.$settings['columns'].'"  size="'.$settings['size'].'" targetsize="'.$settings['targetsize'].'" aspectratio="'.$aspect_ratio.'" display="'.$settings['display'].'"';
+$shortcode = '['.$shortcode_name.' link="'.$settings['link'].'" columns="'.$settings['columns'].'"  size="'.$settings['size'].'" targetsize="'.$settings['targetsize'].'" aspectratio="'.$aspect_ratio.'" display="'.$settings['display'].'" gallery_id="'.$gallery_id.'"';
 
 if($source == 'wp-media'){
 	$wp_media_folder = $componente['wp_media_folder'];

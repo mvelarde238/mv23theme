@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.199 24-02-21
+- Gallery Comp. Implementation: open gallery with a link
+
 23.8.198 24-02-14
 - Gallery Comp. Refactorization
 

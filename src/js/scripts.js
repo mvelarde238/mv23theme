@@ -81,8 +81,9 @@
 
         // ****************************************************************************************************
         // ****************************************************************************************************
-        
-        Fancybox.bind("[data-fancybox], .zoom", {
+
+        var fancybox_options = {
+            Hash: false,
             Carousel: {
                 transition: "classic",
             },
@@ -101,7 +102,9 @@
                     right: ["slideshow", "thumbs", "close"],
                 },
             },
-        });
+        };
+
+        Fancybox.bind("[data-fancybox], .zoom", fancybox_options);
 
         // ****************************************************************************************************
         // ****************************************************************************************************
@@ -113,6 +116,28 @@
                 percentPosition: true
             });
         }, 1);
+
+        // ****************************************************************************************************
+        // OPEN FANCYBOX GALLERY BY SLUG WITH A LINK: 
+        // .show-gallery--{gallery_id} 
+        // ****************************************************************************************************
+
+        var prefijo = 'show-gallery--';
+
+        $(document).on('click','a[class*='+prefijo+']',function(event) {
+            // event.preventDefault();
+            const clases = event.target.classList;
+
+            // Iterar sobre todas las clases
+            for (let i = 0; i < clases.length; i++) {
+                const clase = clases[i];
+                // Verificar si la clase comienza con el prefijo
+                if (clase.startsWith(prefijo)) {
+                    const gallerySlug = clase.substring(prefijo.length);
+                    Fancybox.fromSelector('[data-fancybox="'+gallerySlug+'"]');
+                }
+            }
+        });
 
         // ****************************************************************************************************
         // ****************************************************************************************************
