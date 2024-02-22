@@ -17514,15 +17514,12 @@ targetBlank();
               $expanderTarget.find('.expander-response').css('height', expanderHeight).html(content.html());
 
               // colorbox
-              $expanderTarget.find('.expander-response .zoom').colorbox({
-                rel: 'expander-group',
-                maxHeight: "96%",
-                maxWidth: "96%"
-              });
+              // $expanderTarget.find('.expander-response .zoom').colorbox({ rel:'expander-group', maxHeight:"96%", maxWidth: "96%" });
             }
           }
         });
       });
+
       $listing.on('click', '.expander-close', function () {
         $listing.find('.expander').remove();
         $listingItems.removeClass('active');
