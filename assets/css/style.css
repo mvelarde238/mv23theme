@@ -6393,8 +6393,8 @@ li.product:before {
 }
 
 .componente .cover-all,
-.componente .theme-gallery-comp .media.video.selfhosted.popable .media__element:before,
-.theme-gallery-comp .media.video.selfhosted.popable .componente .media__element:before {
+.componente .theme-gallery .media.video.selfhosted.popable .media__element:before,
+.theme-gallery .media.video.selfhosted.popable .componente .media__element:before {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -6559,14 +6559,14 @@ li.product:before {
 }
 
 .card.componente .cover-all:hover,
-.card.componente .theme-gallery-comp .media.video.selfhosted.popable .media__element:hover:before,
-.theme-gallery-comp .media.video.selfhosted.popable .card.componente .media__element:hover:before {
+.card.componente .theme-gallery .media.video.selfhosted.popable .media__element:hover:before,
+.theme-gallery .media.video.selfhosted.popable .card.componente .media__element:hover:before {
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .card.componente .cover-all:hover:before,
-.card.componente .theme-gallery-comp .media.video.selfhosted.popable .media__element:hover:before,
-.theme-gallery-comp .media.video.selfhosted.popable .card.componente .media__element:hover:before {
+.card.componente .theme-gallery .media.video.selfhosted.popable .media__element:hover:before,
+.theme-gallery .media.video.selfhosted.popable .card.componente .media__element:hover:before {
 	content: "\f08e";
 	font: normal normal normal 14px/1 FontAwesome;
 	font-size: 23px;
@@ -6860,30 +6860,30 @@ p + .pdf-responsive {
 }
 
 .media .cover-all:before,
-.theme-gallery-comp .media.video.selfhosted.popable .media__element:before {
+.theme-gallery .media.video.selfhosted.popable .media__element:before {
 	font: normal normal normal 14px/1 FontAwesome;
 	color: #fff;
 }
 
 .media .cover-all:hover,
-.theme-gallery-comp .media.video.selfhosted.popable .media__element:hover:before {
+.theme-gallery .media.video.selfhosted.popable .media__element:hover:before {
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .media.image .cover-all:hover:before,
-.media.image .theme-gallery-comp .media.video.selfhosted.popable .media__element:hover:before,
-.theme-gallery-comp .media.video.selfhosted.popable .media.image .media__element:hover:before {
+.media.image .theme-gallery .media.video.selfhosted.popable .media__element:hover:before,
+.theme-gallery .media.video.selfhosted.popable .media.image .media__element:hover:before {
 	content: "\f08e";
 	font-size: 23px;
 }
 
 .media.video .cover-all,
-.theme-gallery-comp .media.video.selfhosted.popable .media__element:before {
+.theme-gallery .media.video.selfhosted.popable .media__element:before {
 	text-align: center;
 }
 
 .media.video .cover-all:before,
-.theme-gallery-comp .media.video.selfhosted.popable .media__element:before {
+.theme-gallery .media.video.selfhosted.popable .media__element:before {
 	content: "\f04b";
 	font-size: 21px;
 	line-height: 47px;
@@ -6894,8 +6894,8 @@ p + .pdf-responsive {
 }
 
 .media.video.youtube .cover-all:before,
-.media.video.youtube .theme-gallery-comp .media.video.selfhosted.popable .media__element:before,
-.theme-gallery-comp .media.video.selfhosted.popable .media.video.youtube .media__element:before {
+.media.video.youtube .theme-gallery .media.video.selfhosted.popable .media__element:before,
+.theme-gallery .media.video.selfhosted.popable .media.video.youtube .media__element:before {
 	border: 0;
 	background-color: red;
 	width: 71px;
@@ -7250,17 +7250,17 @@ p + .pdf-responsive {
 	background-size: 70px 70px;
 }
 
-.theme-gallery-comp img,
-.theme-gallery-comp .media__element {
+.theme-gallery img,
+.theme-gallery .media__element {
 	object-fit: cover;
 	aspect-ratio: var(--aspect-ratio);
 }
 
-.theme-gallery-comp .media__element {
+.theme-gallery .media__element {
 	min-height: 100px;
 }
 
-.theme-gallery-comp .media.video.selfhosted.popable .media__element:before {
+.theme-gallery .media.video.selfhosted.popable .media__element:before {
 	content: "\f04b";
 	font-size: 21px;
 	line-height: 47px;
@@ -7275,6 +7275,10 @@ p + .pdf-responsive {
 	right: 0;
 	left: 0;
 	margin: auto;
+}
+
+.theme-gallery__item {
+	position: relative;
 }
 
 .theme-gallery--masonry {

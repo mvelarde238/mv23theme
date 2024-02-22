@@ -66,8 +66,8 @@ function print_theme_gallery( $atts ) {
                 data-desktop-gutter="4">
             <?php
         } else if ( $a['display'] == 'masonry' ) {
-            echo '<div class="theme-gallery--masonry" style="--d-columns:'.$a['columns'].'; --l-columns:'.$a['columns'].'; --t-columns:3; --m-columns:2; --aspect-ratio:'.$a['aspectratio'].'"">';
-            echo '<div class="theme-gallery__item-sizer"></div>';
+            echo '<div class="theme-gallery theme-gallery--masonry" style="--d-columns:'.$a['columns'].'; --l-columns:'.$a['columns'].'; --t-columns:3; --m-columns:2; --aspect-ratio:'.$a['aspectratio'].'"">';
+            echo '<div class="theme-gallery theme-gallery__item-sizer"></div>';
         } else {
             echo '<div class="theme-gallery has-columns" style="--d-gap:4px; --l-gap:4px; --t-gap:4px; --m-gap:4px; --d-columns:'.$a['columns'].'; --l-columns:'.$a['columns'].'; --t-columns:3; --m-columns:2; --aspect-ratio:'.$a['aspectratio'].'">';
         }

@@ -1,4 +1,4 @@
-.theme-gallery-comp
+.theme-gallery
     img, .media__element
         object-fit: cover
         aspect-ratio: var(--aspect-ratio)
@@ -21,6 +21,8 @@
         left: 0
         margin: auto
         @extend .cover-all
+    &__item
+        position: relative
 
 .theme-gallery--masonry
     display: flex

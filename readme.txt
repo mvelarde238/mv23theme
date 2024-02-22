@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.200 24-02-22
+- Gallery Comp. css Fixes
+
 23.8.199 24-02-21
 - Gallery Comp. Implementation: open gallery with a link
 
