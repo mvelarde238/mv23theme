@@ -51,8 +51,10 @@
                         } 
                         if(action === 'replace') $items_container.html($items);
                         if(action === 'append') $items_container.append($items);
-                        if ( listing_template === 'carrusel' ) MV23_GLOBALS.carousels[ tns_uid ] = create_tns_slider( $items_container[0] );
-                        if(action === 'append') MV23_GLOBALS.carousels[ tns_uid ].goTo('next');
+                        if ( listing_template === 'carrusel' ) {
+                            MV23_GLOBALS.carousels[ tns_uid ] = create_tns_slider( $items_container[0] );
+                            if(action === 'append') MV23_GLOBALS.carousels[ tns_uid ].goTo('next');
+                        }
 
                         $listing.trigger('listingUpdated', {listing:$listing, items:$items, action:action, response:response});
                         $pagination && $pagination.html(response.pagination);

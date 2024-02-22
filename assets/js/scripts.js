@@ -17467,8 +17467,7 @@ targetBlank();
   var scrollDuration = MV23_GLOBALS.listingPortfolioScrollDuration;
   if ($portfolio1Listings.length) {
     $portfolio1Listings.each(function (i, e) {
-      var $listing = $(e),
-        $listingItems = $listing.find('.post-card');
+      var $listing = $(e);
 
       // create expander elements
       var expanderResponse = '<div class="expander-response"></div>',
@@ -17484,6 +17483,7 @@ targetBlank();
         var $expanderTarget = listingIsCarrusel ? $listing : $postCard;
 
         // reset all
+        var $listingItems = $listing.find('.post-card');
         $listing.find('.expander').remove();
         $listingItems.removeClass('active');
         $listingItems.attr('style', '');
@@ -17522,6 +17522,7 @@ targetBlank();
 
       $listing.on('click', '.expander-close', function () {
         $listing.find('.expander').remove();
+        var $listingItems = $listing.find('.post-card');
         $listingItems.removeClass('active');
         var listingIsCarrusel = $listing.hasClass('posts-listing--carrusel');
         var $expanderTarget = listingIsCarrusel ? $listing : $listingItems;
@@ -17580,8 +17581,10 @@ targetBlank();
             }
             if (action === 'replace') $items_container.html($items);
             if (action === 'append') $items_container.append($items);
-            if (listing_template === 'carrusel') MV23_GLOBALS.carousels[tns_uid] = create_tns_slider($items_container[0]);
-            if (action === 'append') MV23_GLOBALS.carousels[tns_uid].goTo('next');
+            if (listing_template === 'carrusel') {
+              MV23_GLOBALS.carousels[tns_uid] = create_tns_slider($items_container[0]);
+              if (action === 'append') MV23_GLOBALS.carousels[tns_uid].goTo('next');
+            }
             $listing.trigger('listingUpdated', {
               listing: $listing,
               items: $items,

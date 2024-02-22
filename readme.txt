@@ -6,6 +6,7 @@ CHANGELOG
 - Gallery Comp. css Fixes
 - Remove Colorbox support from listing expander
 - Add .scroll class to editor styles
+- Fix javascript related to carrusel in listing and items in expander
 
 23.8.199 24-02-21
 - Gallery Comp. Implementation: open gallery with a link
