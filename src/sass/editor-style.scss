@@ -2,12 +2,11 @@
 @import "materialize/components/variables";
 @import "materialize/components/overriden-variables";
 
-@import url('#{$font-url}');
-
 body#tinymce.wp-editor {
 	margin: 30px;
 	background-color: $primary-color-lighten-2;
 	color: $font-color;
+	--primary-color: #{$primary-color};
 	@include general-tipography-styles;
 	@import "materialize/components/typography";
 	@import "materialize/components/global";
