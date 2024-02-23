@@ -23,30 +23,30 @@ function generate_actions_code($componente){
                		endif;
 				}
 				if ($action['trigger'] == 'click' && $action['action'] == 'open-image-popup') { 
-					if( $componente['__type'] == 'imagen' ){
-						$link = wp_get_attachment_url($componente['image']);
-						$link = (!empty($link)) ? $link : wp_get_attachment_url($componente['bgi']);
-					} else {
-						$link = wp_get_attachment_url($componente['bgi']);
+					$image_popup = ( isset($action['image_popup']) ) ? $action['image_popup'] : null;
+					if( $image_popup ){	
+						$image = $image_popup['internal_image'];
+						$link = wp_get_attachment_url($image);
+						if ($link) $code = '<a class="cover-all zoom" href="'.$link.'"></a>';
 					}
-            		if ($link):
-                    	$code = '<a class="cover-all zoom" href="'.$link.'"></a>';
-               		endif;
 				}
 				if ($action['trigger'] == 'click' && $action['action'] == 'open-video-popup') {
-					$video_source = ( isset($componente['video_source']) ) ? $componente['video_source'] : 'selfhosted';
-					if( $video_source == 'selfhosted' ){
-						$videos = $componente['bgvideo'];
-						$video_id = (is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
-						if ($video_id):
-							$video_url = wp_get_attachment_url($video_id);
-			        		echo '<a class="cover-all zoom-video" href="'.$video_url.'"></a>';
-			        	endif;
-					}
-					if( $video_source == 'external' ){
-						$video_url = $componente['external_url'];
-						if($video_url){
-							echo '<a class="cover-all zoom-video" href="'.$video_url.'"></a>';
+					$video_popup = ( isset($action['video_popup']) ) ? $action['video_popup'] : null;
+					if( $video_popup ){	
+						$video_source = ( isset($video_popup['video_source']) ) ? $video_popup['video_source'] : '';
+						if( $video_source == 'selfhosted' ){
+							$videos = $video_popup['internal_video'];
+							$video_id = (is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
+							if ($video_id):
+								$video_url = wp_get_attachment_url($video_id);
+								echo '<a data-fancybox class="cover-all" href="'.$video_url.'"></a>';
+							endif;
+						}
+						if( $video_source == 'external' ){
+							$video_url = $video_popup['external_video'];
+							if($video_url){
+								echo '<a data-fancybox class="cover-all" href="'.$video_url.'"></a>';
+							}
 						}
 					}
 				}

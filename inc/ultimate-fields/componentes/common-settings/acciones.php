@@ -15,6 +15,7 @@ $acciones_fields = array(
     			'open-video-popup' => 'Mostrar video en pop up',
     			'toggle-box' => 'Mostrar / Ocultar Sección'
     		))->set_width(75),
+
 			Field::create( 'complex', 'enlace' )->hide_label()->rows_layout()->add_fields(array(
 				Field::create( 'radio', 'url_type','Seleccione que contenido se abrirá al hacer clic:')->set_orientation( 'horizontal' )->add_options( array(
 					'' => 'Desactivar',
@@ -25,6 +26,20 @@ $acciones_fields = array(
 				Field::create( 'text', 'url', 'URL Externa' )->add_dependency('url_type','externa','='),
 				Field::create( 'checkbox', 'new_tab' )->set_text( 'Abrir en una nueva ventana.' )->hide_label(),
 			))->add_dependency('action','open-page','='),
+
+			Field::create( 'complex', 'image_popup' )->hide_label()->rows_layout()->add_fields(array(
+				Field::create( 'image', 'internal_image')->hide_label()
+			))->add_dependency('action','open-image-popup','='),
+			
+			Field::create( 'complex', 'video_popup' )->hide_label()->rows_layout()->add_fields(array(
+				Field::create( 'radio', 'video_source','Seleccione el origen del video:')->set_orientation( 'horizontal' )->add_options( array(
+					'selfhosted' => 'Medios',
+					'external' => 'Externo'
+				))->set_width(50),
+				Field::create( 'embed', 'external_video')->add_dependency('video_source','external','=')->set_width(50),
+				Field::create( 'video', 'internal_video')->add_dependency('video_source','selfhosted','=')->set_width(50),
+			))->add_dependency('action','open-video-popup','='),
+
 			Field::create( 'complex', 'toggle_box_settings' )->hide_label()->rows_layout()->add_fields(array(
 				Field::create( 'text', 'selector' )->set_width( 50 )->set_validation_rule('^[a-z][a-za-z0-9_-]+$')
         			->set_description( 'Selector -ID o CLASS- de la sección que se va mostrar / ocultar, usar solo minúsculas y guiones ( - )' ),

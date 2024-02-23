@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.201 24-02-23
+- Comp. Action Settings refactorization to select image/video popup in field
+
 23.8.200 24-02-22
 - Gallery Comp. css Fixes
 - Remove Colorbox support from listing expander
