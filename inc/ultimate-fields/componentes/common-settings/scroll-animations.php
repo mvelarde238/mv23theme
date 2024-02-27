@@ -60,7 +60,9 @@ $scroll_animation_settings_fileds = array(
     ))->set_width( 25 ),
     Field::create( 'text', 'duration' )->set_default_value('200')->set_width( 25 ),
     Field::create( 'text', 'offset' )->set_default_value('100px')->set_width( 25 ),
-    Field::create( 'checkbox', 'turn_off_in_mobile', 'Mobile' )->set_text('Desactivar en móviles')
+    Field::create( 'checkbox', 'set_pin', 'Pinned' )->set_text('Set Pin'),
+    Field::create( 'checkbox', 'trigger_carrusel', 'Trigger Carrusel' )->set_text('Activar'),
+    Field::create( 'checkbox', 'turn_off_in_mobile', 'Mobile' )->set_text('Desactivar en móviles'),
 );
 if( SCROLL_INDICATORS ) array_push($scroll_animation_settings_fileds, Field::create( 'checkbox', 'add_indicators', 'Indicadores' )->set_text('Activar')->set_width( 25 ));
 

@@ -29,6 +29,8 @@ function generate_scroll_animations($componente){
                     }
 
                     $add_indicators = ( SCROLL_INDICATORS ) ? ((isset($settings['add_indicators'])) ? $settings['add_indicators'] : false) : false;
+                    $set_pin = (isset($settings['set_pin'])) ? $settings['set_pin'] : false;
+                    $trigger_carrusel = (isset($settings['trigger_carrusel'])) ? $settings['trigger_carrusel'] : false;
 
                     array_push($scroll_animations, array(
                         'trigger_element' => $trigger_element,
@@ -37,6 +39,8 @@ function generate_scroll_animations($componente){
                         'duration' => $settings['duration'],
                         'offset' => $settings['offset'],
                         'add_indicators' => $add_indicators,
+                        'set_pin' => $set_pin,
+                        'trigger_carrusel' => $trigger_carrusel,
                         'from' => json_encode($from),
                         'to' => json_encode($to)
                     ));
