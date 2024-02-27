@@ -4,6 +4,7 @@ CHANGELOG
 
 23.8.202 24-02-27
 - Scroll Animation implementations: set_pin and trigger carrusel next/prev
+- Carrusel Comp: axis implementation
 
 23.8.201 24-02-23
 - Comp. Action Settings refactorization to select image/video popup in field
