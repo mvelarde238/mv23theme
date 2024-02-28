@@ -51,10 +51,14 @@ $carrusel = Repeater_Group::create( 'Carrusel', array(
                 ))->add_dependency('show_nav')->set_width( 10 ),
         Field::create( 'checkbox', 'autoplay' )->set_text('Empezar automáticamente')->set_width( 10 ),
         Field::create( 'checkbox', 'auto_height' )->set_text('Activar')->set_width( 10 ),
+        Field::create( 'select', 'mode', 'Mode' )->add_options( array(
+            'carousel' => 'Carrusel',
+            'gallery' => 'Fade',
+        ))->set_width( 10 ),
         Field::create( 'select', 'axis', 'Axis' )->add_options( array(
             'horizontal' => 'Horizontal',
             'vertical' => 'Vertical',
-        ))->set_width( 10 ),
+        ))->add_dependency('mode','carousel','=')->set_width( 10 ),
     
         Field::create( 'section','lel','Cantidad de Items visibles'),
         Field::create( 'number', 'items_in_desktop', 'Items en desktop' )->set_default_value( '4' )->set_width( 25 ),

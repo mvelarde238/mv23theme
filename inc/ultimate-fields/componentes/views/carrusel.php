@@ -8,6 +8,7 @@ $nav_position = (isset($componente['nav_position']) && !empty($componente['nav_p
 $autoplay = (isset($componente['autoplay']) && !empty($componente['autoplay'])) ? $componente['autoplay'] : 0;
 $auto_height = (isset($componente['auto_height']) && !empty($componente['auto_height'])) ? $componente['auto_height'] : 0;
 $axis = (isset($componente['axis']) && !empty($componente['axis'])) ? $componente['axis'] : 'horizontal';
+$mode = (isset($componente['mode']) && !empty($componente['mode'])) ? $componente['mode'] : 'carousel';
 
 $items_in_mobile = $componente['items_in_mobile'];
 $items_in_tablet = $componente['items_in_tablet'];
@@ -52,6 +53,7 @@ $attributes = generate_attributes($componente, $classes_array);
         data-autoplay="<?=$autoplay?>"
         data-auto-height="<?=$auto_height?>"
         data-axis="<?=$axis?>"
+        data-mode="<?=$mode?>"
         >
     <?php for ($i=0; $i < count($items); $i++) { 
         $type = $items[$i]['__type'];

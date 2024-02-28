@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.203 24-02-28
+- Carussel: update tiny slider to 2.9.4 version and gallery mode implementation
+
 23.8.202 24-02-27
 - Scroll Animation implementations: set_pin and trigger carrusel next/prev
 - Carrusel Comp: axis implementation
