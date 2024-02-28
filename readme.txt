@@ -3,7 +3,10 @@ CHANGELOG
 **************************************************************************************************
 
 23.8.203 24-02-28
-- Carussel: update tiny slider to 2.9.4 version and gallery mode implementation
+- Carussel updates: 
+  - tiny slider version 2.9.4 
+  - gallery mode implementation
+  - touch false in mobile devices
 - CSS Fixes: remove expander before and after and remove position relative from post-card
 - CSS Implementation: columnas auto + fluid
 

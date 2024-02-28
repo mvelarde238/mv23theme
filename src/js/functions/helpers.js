@@ -173,6 +173,7 @@ function create_tns_slider(slider){
 
     var slider_options = {  
         mode: mode,
+        touch: false,
         container: slider, speed: 450, autoplayButton: false, autoplay: autoplay, autoplayButtonOutput: false, loop: true, axis:axis,
         controlsText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'], rewind: true, autoHeight: autoHeight,
         mouseDrag: true, controls: show_controls, nav: show_nav, navPosition: nav_position, responsive : {
