@@ -4,6 +4,7 @@ CHANGELOG
 
 23.8.203 24-02-28
 - Carussel: update tiny slider to 2.9.4 version and gallery mode implementation
+- CSS Fixes: remove expander before and after and remove position relative from post-card
 
 23.8.202 24-02-27
 - Scroll Animation implementations: set_pin and trigger carrusel next/prev

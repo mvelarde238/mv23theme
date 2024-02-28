@@ -5062,10 +5062,6 @@ ul.page-numbers .next {
 	height: 42px;
 }
 
-.post-card--style1 {
-	position: relative;
-}
-
 .post-card--style1 .post-card__content {
 	border: 1px solid var(--primary-color-lighten-1);
 	padding: 20px;
@@ -7122,27 +7118,6 @@ p + .pdf-responsive {
 	background-color: #fef0ed;
 }
 
-.expander:before,
-.expander::after {
-	content: "";
-	width: 100%;
-	height: 100px;
-	position: absolute;
-	left: 0;
-	z-index: 89;
-	pointer-events: none;
-}
-
-.expander:after {
-	bottom: 0;
-	background: linear-gradient(to top, #fff 23%, rgba(0, 0, 0, 0) 100%);
-}
-
-.expander:before {
-	top: 0;
-	background: linear-gradient(to bottom, #fff 23%, rgba(0, 0, 0, 0) 100%);
-}
-
 .expander-inner {
 	position: relative;
 }
@@ -7200,11 +7175,6 @@ p + .pdf-responsive {
 	background-color: transparent;
 	border-top: 1px solid var(--primary-color-lighten-1);
 	border-bottom: 1px solid var(--primary-color-lighten-1);
-}
-
-.text-color-2 .expander::before,
-.text-color-2 .expander::after {
-	display: none;
 }
 
 .testimonios > .container {
