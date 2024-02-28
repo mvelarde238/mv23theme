@@ -7700,6 +7700,15 @@ p + .pdf-responsive {
 	width: 25% !important;
 }
 
+.tablet-auto-fluid > div:nth-child(odd) {
+	width: auto;
+}
+
+.tablet-auto-fluid > div:nth-child(even) {
+	width: auto;
+	flex: 1;
+}
+
 .tablet-1de3-1de3-1de3 > div:nth-child(1),
 .tablet-1de3-1de3-1de3 > div:nth-child(2),
 .tablet-1de3-1de3-1de3 > div:nth-child(3) {
@@ -7911,6 +7920,15 @@ p + .pdf-responsive {
 
 .columnas-3de4-1de4 > div:nth-child(even) {
 	width: 25%;
+}
+
+.columnas-auto-fluid > div:nth-child(odd) {
+	width: auto;
+}
+
+.columnas-auto-fluid > div:nth-child(even) {
+	width: auto;
+	flex: 1;
 }
 
 .columnas-1de4-2de4-1de4 > div:nth-child(1) {
@@ -9049,6 +9067,15 @@ table {
 
 .mobile-3de4-1de4 > div:nth-child(even) {
 	width: 25% !important;
+}
+
+.mobile-auto-fluid > div:nth-child(odd) {
+	width: auto;
+}
+
+.mobile-auto-fluid > div:nth-child(even) {
+	width: auto;
+	flex: 1;
 }
 
 .mobile-1de3-1de3-1de3 > div:nth-child(1),
