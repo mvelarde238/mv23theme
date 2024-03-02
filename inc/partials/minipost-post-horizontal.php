@@ -24,9 +24,9 @@ if (strlen($string) > $comment_length) {
 }
 ?>
 <div class="post-card post-card--style2" data-id="<?=$id?>">
-	<a href="<?=$link?>" class="post-card__image expander-open" style="background-image:url(<?=$thumb_url?>);"></a>
+	<a href="<?=$link?>" class="post-card__image trigger-post-action" style="background-image:url(<?=$thumb_url?>);"></a>
 	<div class="post-card__content">
-		<h2 class="post-card__title"><a class="expander-open" href="<?=$link?>"><?php echo $title; ?></a></h2>
+		<h2 class="post-card__title"><a class="trigger-post-action" href="<?=$link?>"><?php echo $title; ?></a></h2>
 		<?php 
 		if($excerpt) {
 			echo '<div class="post-card__excerpt">'.$string.'</div>';
@@ -35,7 +35,7 @@ if (strlen($string) > $comment_length) {
 		}
 		?>
 		<div class="post-card__link">
-			<a class="btn btn--main-color expander-open" href="<?=$link?>">Leer más</a>
+			<a class="btn btn--main-color trigger-post-action" href="<?=$link?>">Leer más</a>
 		</div>
 	</div>
 </div>

@@ -6173,6 +6173,21 @@ table > tbody > tr:nth-child(even) {
 	background-color: #000;
 }
 
+.post-modal {
+	top: 50% !important;
+	left: 50% !important;
+}
+
+.post-modal.open {
+	transform: translate(-50%, -50%) !important;
+}
+
+.post-modal[data-status=loading] {
+	min-height: 400px;
+	background: #fff url("../images/loading2.gif") no-repeat center;
+	background-size: 40px;
+}
+
 div.wpcf7 span.wpcf7-not-valid-tip {
 	text-align: right;
 	margin-top: -5px;

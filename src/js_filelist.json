@@ -29,6 +29,7 @@
   "js/ultimate-fields/columnas.js",
   "js/ultimate-fields/components-wrapper.js",
   "js/ultimate-fields/listing-show-expander.js",
+  "js/ultimate-fields/listing-show-popup.js",
   "js/ultimate-fields/listing.js",
   "js/ultimate-fields/mapa.js",
   "js/ultimate-fields/progress-bar.js",

@@ -53,9 +53,11 @@ if(SINGLE_SIDEBAR) array_push($main_content_classes, SINGLE_MAIN_CONTENT_TEMPLAT
 					<?php the_content(); ?>
 					<?php echo ultimate_fields_page_content(get_the_ID()); ?>
 				</article>
-				<div class="page-module pdt0"><div class="componente">
-					<?php comments_template(); ?>
-				</div></div>
+				<?php if ( comments_open() || get_comments_number() ) : ?>
+					<div class="page-module pdt0"><div class="componente">
+						<?php comments_template(); ?>
+					</div></div>
+				<?php endif; ?>
 			<?php endwhile; endif; ?>
 			<?php get_template_part('inc/modulos/modals/controlador'); ?>
 		</main>

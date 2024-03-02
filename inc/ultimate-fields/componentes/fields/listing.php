@@ -96,7 +96,7 @@ $listing_fields_2 = array(
     Field::create( 'select', 'on_click_post', 'Al hacer click en el post:' )->add_options(array(
         'redirect' => 'Redirigir a la página del post',
         'show-expander' => 'Mostrar el post en la misma página',
-        // 'popup' => 'Mostrar el post en un popup',
+        'show-popup' => 'Mostrar el post en un popup',
     ))->set_width( 50 ),
     Field::create( 'select', 'on_click_scroll_to', 'Al hacer click mover el scroll a:' )->add_options(array(
         '' => 'No mover el scroll',

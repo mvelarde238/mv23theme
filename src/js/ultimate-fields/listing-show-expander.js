@@ -15,7 +15,7 @@
                 expanderInner = '<div class="expander-inner container">'+expanderResponse+closeBtn+'</div>',
                 loading = '<div class="expander-loading"></div>';
 
-            $listing.on('click', '.expander-open', function(event){
+            $listing.on('click', '.trigger-post-action', function(event){
                 event.preventDefault();
                 var $postCard = $(this).parents('.post-card');    
                 var scrollTo = $listing.attr('data-on-click-post-scroll-to');
