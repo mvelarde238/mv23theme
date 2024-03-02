@@ -125,6 +125,7 @@ require_once( 'inc/functions/archive-page.php' );
 require_once( 'inc/functions/remove-custom-fields-metabox.php' );
 require_once( 'inc/functions/ajax/mv23-library-actions.php' );
 require_once( 'inc/functions/body-style-tag.php' );
+require_once( 'inc/functions/body-class.php' );
 require_once( 'inc/functions/show-cpt-count-in-admin.php' );
 require_once( 'inc/functions/theme-my-login-multi-language-support.php' );
 if( CF7_USE_EMAIL_TEMPLATE ) require_once( 'inc/functions/cf7-mail-template.php' );

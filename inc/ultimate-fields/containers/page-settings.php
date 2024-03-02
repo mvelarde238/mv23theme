@@ -18,6 +18,11 @@ Container::create( 'page_settings' )
             Field::create( 'checkbox', 'add_bgc', 'Activar' )->set_width( 25 )->set_text('Activar')->hide_label(),
             Field::create( 'color', 'bgc', 'Color' )->set_width( 25 )->add_dependency('add_bgc')->hide_label(),
         )),
+        Field::create( 'select', 'page_color_scheme', 'Color del Texto' )->set_width( 20 )->add_options( array(
+            '' => 'Seleccionar',
+            'default-scheme' => 'Negro',
+            'dark-scheme' => 'Blanco',
+        ))->set_default_value(DEFAULT_COLOR_SCHEME),
 
         Field::create( 'tab', 'Header' ),
         Field::create( 'checkbox', 'custom_fixed_header')->set_text('Personalizar Header Fijo')->hide_label(),

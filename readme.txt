@@ -7,6 +7,7 @@ CHANGELOG
 - !IMPORTANT: Posts Listing Comp. works with '.trigger-post-action' class instead of '.expander-open'
 -------------------------------------------------------------------------------------------------------
 - Posts Listing Comp. Implementation: show post in popup action
+- Page Settings Implementation: page_color_scheme
 
 23.8.203 24-02-28
 - Carussel updates: 
