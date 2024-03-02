@@ -7,6 +7,7 @@ $css_properties = array(
     'x' => 'Eje Horizontal',
     'y' => 'Eje Vertical',
     'backgroundColor' => 'Color de fondo',
+    'backgroundPosition' => 'Posición del fondo',
     'color' => 'Color de texto',
     'letterSpacing' => 'Espacio entre letras',
     'rotation' => 'Rotación',

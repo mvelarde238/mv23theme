@@ -8,6 +8,7 @@ CHANGELOG
 -------------------------------------------------------------------------------------------------------
 - Posts Listing Comp. Implementation: show post in popup action
 - Page Settings Implementation: page_color_scheme
+- scroll-animations: new animated property: background position
 
 23.8.203 24-02-28
 - Carussel updates: 
