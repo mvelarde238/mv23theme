@@ -5315,6 +5315,10 @@ ul.page-numbers .next {
 	opacity: 0;
 }
 
+.text-color-2 .subir-btn {
+	color: #000;
+}
+
 .main {
 	width: 100%;
 }
