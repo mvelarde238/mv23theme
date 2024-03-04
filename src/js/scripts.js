@@ -85,6 +85,7 @@
         var fancybox_options = {
             Hash: false,
             Carousel: {
+                infinite: false,
                 transition: "classic",
             },
             Toolbar: {
@@ -99,7 +100,7 @@
                         "flipX",
                         "flipY",
                     ],
-                    right: ["slideshow", "thumbs", "close"],
+                    right: ["fullscreen", "slideshow", "thumbs", "close"],
                 },
             },
         };

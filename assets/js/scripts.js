@@ -820,7 +820,7 @@ function move_scroll_if_hash_in_url(){var url=document.location.toString();var h
 // ****************************************************************************************************
 $(window).load(function(e){setTimeout(function(){$('.grecaptcha-badge').appendTo('.grecaptcha-badge-wrapper');},3500);});// ****************************************************************************************************
 // ****************************************************************************************************
-var fancybox_options={Hash:false,Carousel:{transition:"classic"},Toolbar:{display:{left:["infobar"],middle:["zoomIn","zoomOut","toggle1to1","rotateCCW","rotateCW","flipX","flipY"],right:["slideshow","thumbs","close"]}}};Fancybox.bind("[data-fancybox], .zoom",fancybox_options);// ****************************************************************************************************
+var fancybox_options={Hash:false,Carousel:{infinite:false,transition:"classic"},Toolbar:{display:{left:["infobar"],middle:["zoomIn","zoomOut","toggle1to1","rotateCCW","rotateCW","flipX","flipY"],right:["fullscreen","slideshow","thumbs","close"]}}};Fancybox.bind("[data-fancybox], .zoom",fancybox_options);// ****************************************************************************************************
 // ****************************************************************************************************
 setTimeout(function(){$('.theme-gallery--masonry').masonry({itemSelector:'.theme-gallery__item',columnWidth:'.theme-gallery__item-sizer',percentPosition:true});},1);// ****************************************************************************************************
 // OPEN FANCYBOX GALLERY BY SLUG WITH A LINK: 
