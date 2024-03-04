@@ -50,7 +50,7 @@ function print_theme_gallery( $atts ) {
         $gallery_id = ( $a['gallery_id'] ) ? : $rand_id;
 
         if( $a['display'] == 'slider' ){ ?>
-            <div class="carrusel carrusel-inside-component" data-controls-position="center">
+            <div class="theme-gallery carrusel carrusel-inside-component" data-controls-position="center" style="--aspect-ratio:<?=$a['aspectratio']?>">
             <div class="carrusel__slider" 
                 data-show-controls="1" 
                 data-show-nav="1" 

@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.205 24-03-04
+- Gallery Comp. Fix: Add --aspect-ratio css var to carrusel gallery
+
 23.8.204 24-03-02
 -------------------------------------------------------------------------------------------------------
 - !IMPORTANT: Posts Listing Comp. works with '.trigger-post-action' class instead of '.expander-open'
