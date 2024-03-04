@@ -159,7 +159,10 @@
             }
         }
         if (is_single) {
-            var links = $('.main').find('a[href*=".pdf"]');
+
+            $('.remove-support-for-pdf-to-embed-convertion a').addClass('normal-link');
+
+            var links = $('.main').find('a[href*=".pdf"]:not(.normal-link)');
             convertir_links_en_pdf(links);
         }
 
