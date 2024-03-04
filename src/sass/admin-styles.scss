@@ -253,3 +253,8 @@ input[name="icon-selector"]:checked+label{
         text-align: center;
     }
 }
+
+/* show the uf file field in a single line */
+.one-lined-file-preview .uf-file{
+    display: flex;
+}
