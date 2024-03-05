@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.206 24-03-05
+- Fix post card tags position
+
 23.8.205 24-03-04
 - Gallery Comp. Fix: Add --aspect-ratio css var to carrusel gallery
 - admin-styles.css implementation: .one-lined-file-preview class for UF File Field
