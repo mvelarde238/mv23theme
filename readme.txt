@@ -7,6 +7,7 @@ CHANGELOG
 - admin-styles.css implementation: .one-lined-file-preview class for UF File Field
 - add .remove-support-for-pdf-to-embed-convertion css class
 - add fancybox options: infinite-false and fullscreen button
+- Load overriden variables sass file before variables file
 
 23.8.204 24-03-02
 -------------------------------------------------------------------------------------------------------
