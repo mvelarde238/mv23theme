@@ -5065,6 +5065,7 @@ ul.page-numbers .next {
 .post-card--style1 .post-card__content {
 	border: 1px solid var(--primary-color-lighten-1);
 	padding: 20px;
+	position: relative;
 }
 
 .post-card--style1 .post-card__date {
@@ -5090,7 +5091,7 @@ ul.page-numbers .next {
 	flex-wrap: wrap;
 	gap: 3px;
 	position: absolute;
-	top: 0;
+	top: -46px;
 	right: 0;
 	padding: 8px;
 }

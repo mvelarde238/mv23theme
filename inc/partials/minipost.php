@@ -14,14 +14,14 @@ $tags = get_the_tags($id);
 		<p class="post-card__date"><?php printf( '%1$s','<time class="entry-time" datetime="' . get_the_time('Y-m-d', 	$id) . '" itemprop="datePublished">' . get_the_time(get_option('date_format'), $id) . '</time>'); ?></p>
 		<p><?php echo do_shortcode(wpautop($excerpt)) ?></p>
 		<a class="btn btn--main-color trigger-post-action" href="<?=$link?>">Leer más</a>
-	</div>
-	<div class="post-card__tags">
-		<?php  
-		if( is_array($tags) && count($tags) > 0 ){
-			foreach ($tags as $tag ) {
-				echo '<span class="'.$tag->slug.'">'.$tag->name.'</span>';
+		<div class="post-card__tags">
+			<?php  
+			if( is_array($tags) && count($tags) > 0 ){
+				foreach ($tags as $tag ) {
+					echo '<span class="'.$tag->slug.'">'.$tag->name.'</span>';
+				}
 			}
-		}
-		?>
+			?>
+		</div>
 	</div>
 </div>
