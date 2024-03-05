@@ -5136,7 +5136,7 @@ ul.page-numbers .next {
 .single-post,
 .archive,
 .blog {
-	background-color: var(--primary-color) -lighten-2;
+	background-color: var(--primary-color-lighten-2);
 }
 
 .full-post {
