@@ -1,10 +1,10 @@
 @import "materialize/components/color";
-@import "materialize/components/variables";
 @import "materialize/components/overriden-variables";
+@import "materialize/components/variables";
 
 body#tinymce.wp-editor {
-	margin: 30px;
 	background-color: $primary-color-lighten-2;
+	margin: 30px;
 	color: $font-color;
 	--primary-color: #{$primary-color};
 	@include general-tipography-styles;
