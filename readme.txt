@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.207 24-03-06
+- Header css fixes: standarize .container width and remove secondary-nav styles
+
 23.8.206 24-03-05
 - Fix post card tags position
 - Fix theme-color-scheme in header and nav

@@ -4526,10 +4526,6 @@ img.alignleft {
 	pointer-events: initial;
 }
 
-.header > .container {
-	max-width: 1400px !important;
-}
-
 .header__content {
 	transition: 500ms padding;
 	padding: 30px 20px;
@@ -4583,10 +4579,6 @@ img.alignleft {
 
 .header.fixed {
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.header.fixed .secondary-nav {
-	margin-bottom: 15px;
 }
 
 .header.fixed .header__content {
