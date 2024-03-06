@@ -2,24 +2,35 @@
     var header_height = parseInt( MV23_GLOBALS.headerHeight );
     
     $(function() {
-        // var header_height = $('.header__content').height();
-
         // ****************************************************************************************************
-        // INIT MATERIALIZE SCRIPTS
+        // INIT MATERIALIZE MODAL SCRIPT
         // ****************************************************************************************************
 
-        $('.modal').modal({ dismissible:true,  opacity:.6, inDuration:300,  
-            outDuration: MV23_GLOBALS.modal.outDuration, startingTop: '2%', endingTop: '5%', 
-            ready: function(modal, trigger) { $(trigger).css('z-index','initial'); },
-            complete: function(modal, trigger) {
-                var empty_on_close = $(modal).hasClass('empty-on-close');
-                if(empty_on_close) $(modal).find('.modal-content').empty();
-                $('#video-modal .video-responsive').html(''); 
-            } 
-        });
+        var modals = document.getElementsByClassName('modal');
+
+        for (var i = 0; i < modals.length; i++) {
+            var el = modals[i],
+                closeOnClick = el.dataset['closeOnClick'];
+
+            $(el).modal({ dismissible:true, opacity:.6, inDuration:300,
+                outDuration: MV23_GLOBALS.modal.outDuration, startingTop: '2%', endingTop: '5%', 
+                ready: function(modal, trigger) { $(trigger).css('z-index','initial'); },
+                complete: function(modal, trigger) {
+                    var empty_on_close = $(modal).hasClass('empty-on-close');
+                    if(empty_on_close) $(modal).find('.modal-content').empty();
+                    $('#video-modal .video-responsive').html(''); 
+                } 
+            });
+    
+            if( closeOnClick ){
+                $(el).find('a').click(function(){
+                    $(el).modal('close');
+                });
+            }
+        }
+
         $('.modal-trigger').modal();
         $('.modal-trigger').css('z-index',25);
-        // $('.select2').select2();
 
         // ****************************************************************************************************
         // FIT TEXT
