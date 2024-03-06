@@ -5,6 +5,7 @@ CHANGELOG
 23.8.207 24-03-06
 - Header css fixes: standarize .container width and remove secondary-nav styles
 - .modal implementation: data-close-on-click=1
+- Add Separador Component to CONTENT_BUILDER_COMPONENTS
 
 23.8.206 24-03-05
 - Fix post card tags position
