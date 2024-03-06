@@ -3881,6 +3881,10 @@ html.with-fancybox body.hide-scrollbar {
 	margin-right: 0 !important;
 }
 
+.carrusel {
+	width: 100%;
+}
+
 .icon-and-text-widget {
 	display: flex;
 	align-items: center;
