@@ -4,6 +4,7 @@ CHANGELOG
 
 23.8.206 24-03-05
 - Fix post card tags position
+- Fix theme-color-scheme in header and nav
 
 23.8.205 24-03-04
 - Gallery Comp. Fix: Add --aspect-ratio css var to carrusel gallery

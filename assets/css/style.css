@@ -4813,7 +4813,7 @@ img.alignleft {
 .text-color-2 .main-nav .menu > li.current-page-ancestor > a,
 .text-color-2 .main-nav .menu > li.current-menu-parent > a,
 .text-color-2 .main-nav .menu > li > a.is-inview {
-	color: #fff !important;
+	color: inherit !important;
 }
 
 .text-color-2 .main-nav ul.sub-menu {

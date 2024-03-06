@@ -129,7 +129,8 @@ $header_fields = array(
         Field::create( 'text', 'alpha', 'Transparencia' )->set_width( 25 )->add_dependency('add_bgc')->set_default_value('100')->set_description('Usar un número del 1 al 100'),
     )),
     Field::create( 'select', 'fixed_header_color_scheme', 'Color del Texto' )->add_options( array(
-        'text-color-default' => 'Negro',
+        '' => 'Default',
+        'text-color-1' => 'Negro',
         'text-color-2' => 'Blanco',
     ))->set_default_value( DEFAULT_TEXT_COLOR ),
 
@@ -141,7 +142,8 @@ $header_fields = array(
         Field::create( 'text', 'alpha', 'Transparencia' )->set_width( 25 )->add_dependency('add_bgc')->set_default_value('100')->set_description('Usar un número del 1 al 100'),
     )),
     Field::create( 'select', 'floating_header_color_scheme', 'Color del Texto' )->add_options( array(
-        'text-color-default' => 'Negro',
+        '' => 'Default',
+        'text-color-1' => 'Negro',
         'text-color-2' => 'Blanco',
     ))->set_default_value( DEFAULT_TEXT_COLOR ),
 );

@@ -67,7 +67,7 @@ class Header{
  		} else {
  			$color = get_option( 'fixed_header_color_scheme' );
  		}
- 		if ($color == 'text-color-2') $classes[] = 'text-color-2';
+ 		$classes[] = $color;
 
  		if(get_metadata($this->page_type, $this->page_ID,'hide_logo', true)) $classes[] = 'hide-logo';
 
