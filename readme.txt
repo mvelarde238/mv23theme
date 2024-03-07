@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.207 24-03-07
+- Add support for shop_sidebar when woocommerce is active
+
 23.8.207 24-03-06
 - Header css fixes: standarize .container width and remove secondary-nav styles
 - .modal implementation: data-close-on-click=1

@@ -24,5 +24,15 @@ if (!function_exists('mv23_register_sidebars')) {
 			'before_title' => '<h4 class="widgettitle">',
 			'after_title' => '</h4>',
 		));
+		if(WOOCOMMERCE_IS_ACTIVE){
+			register_sidebar(array(
+				'id' => 'shop_sidebar',
+				'name' => 'Sidebar para la tienda',
+				'before_widget' => '<div id="%1$s" class="widget componente %2$s">',
+				'after_widget' => '</div>',
+				'before_title' => '<h4 class="widgettitle">',
+				'after_title' => '</h4>',
+			));
+		}
 	}
 }
