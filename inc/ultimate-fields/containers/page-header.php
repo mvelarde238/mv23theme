@@ -15,7 +15,6 @@ if(!function_exists('custom_page_headers')){
 }
 $custom_page_headers = custom_page_headers();
 
-$uf_posttypes = \array_diff(array_merge(UF_POSTTYPES,CONTENT_BUILDER_POSTTYPES), DISABLE_PAGE_HEADER_IN);
 $page_header_elements = array(
     'default' => 'Título de la página',
     'slider' => 'Slider',
@@ -96,7 +95,7 @@ $tab_settings = array(
 );
 
 $page_header_container = Container::create('page_header')
-    ->add_location('post_type', $uf_posttypes)
+    ->add_location('post_type', PAGE_HEADER_IN)
     ->add_location('taxonomy', UF_TAXONOMIES)
     ->set_title('Page Title')
     ->set_layout('grid')

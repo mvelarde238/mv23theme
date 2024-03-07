@@ -4,6 +4,11 @@ CHANGELOG
 
 23.8.207 24-03-07
 - Add support for shop_sidebar when woocommerce is active
+-------------------------------------------------------------------------------------
+- !IMPORTANT: REFACTORIZE DISABLE_PAGE_HEADER_IN
+  - Renamed to PAGE_HEADER_IN
+  - By default page header just load in pages and archive pages
+-------------------------------------------------------------------------------------
 
 23.8.207 24-03-06
 - Header css fixes: standarize .container width and remove secondary-nav styles
