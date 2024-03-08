@@ -463,7 +463,12 @@
 			try {
 				var data = this.model.datastore.toJSON();
 				data.fields = this.model.get( 'fields' );
-				title = tmpl( data );
+
+				if(data.hasOwnProperty('file')){
+					title = data.file_prepared[0].filename;
+				} else {
+					title = tmpl( data );
+				}
 			} catch( e ){
 				title = '';
 			}

@@ -1,5 +1,8 @@
 mv23 changelog-------------------------
 
+07-03-2024
+- (core/js/container/group.js) Show filename in repeater group title preview 
+
 15-02-2024
 - (core/js/field/gallery.js) add filename to gallery item
 

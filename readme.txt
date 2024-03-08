@@ -9,6 +9,8 @@ CHANGELOG
   - Renamed to PAGE_HEADER_IN
   - By default page header just load in pages and archive pages
 -------------------------------------------------------------------------------------
+- (core/js/container/group.js) Show filename in repeater group title preview 
+
 
 23.8.207 24-03-06
 - Header css fixes: standarize .container width and remove secondary-nav styles
