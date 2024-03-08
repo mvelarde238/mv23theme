@@ -4104,11 +4104,11 @@ blockquote + * {
 	padding-right: 1.3em;
 }
 
-.btn::after,
-.woocommerce-mini-cart__buttons .button.checkout::after,
-.woocommerce-mini-cart__buttons .button:not(.checkout)::after,
-.btn-large::after,
-.btn-white::after {
+.btn::before,
+.woocommerce-mini-cart__buttons .button.checkout::before,
+.woocommerce-mini-cart__buttons .button:not(.checkout)::before,
+.btn-large::before,
+.btn-white::before {
 	content: "\f105";
 	font-family: FontAwesome;
 	position: absolute;
@@ -4123,11 +4123,11 @@ blockquote + * {
 	transition: 300ms all;
 }
 
-.btn:hover:after,
-.woocommerce-mini-cart__buttons .button.checkout:hover:after,
-.woocommerce-mini-cart__buttons .button:hover:not(.checkout):after,
-.btn-large:hover:after,
-.btn-white:hover:after {
+.btn:hover:before,
+.woocommerce-mini-cart__buttons .button.checkout:hover:before,
+.woocommerce-mini-cart__buttons .button:hover:not(.checkout):before,
+.btn-large:hover:before,
+.btn-white:hover:before {
 	right: 5px;
 	opacity: 1;
 }
