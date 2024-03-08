@@ -33,6 +33,15 @@ if (!function_exists('mv23_register_sidebars')) {
 				'before_title' => '<h4 class="widgettitle">',
 				'after_title' => '</h4>',
 			));
+			register_sidebar(array(
+				'id' => 'minicart_sidebar',
+				'name' => 'Sidebar Carrito de Compras',
+				'description' => '',
+				'before_widget' => '<div id="%1$s" class="widget %2$s componente">',
+				'after_widget' => '</div>',
+				'before_title' => '<h4 class="widgettitle">',
+				'after_title' => '</h4>',
+			));
 		}
 	}
 }

@@ -61,6 +61,9 @@ function mv23_scripts_and_styles() {
             'listingPortfolioScrollDuration' => LISTING_PORTFOLIO_SCROLL_DURATION,
             'carousels' => array(),
             'scrollIndicators' => SCROLL_INDICATORS,
+            'open_minicart_on_add_to_cart' => OPEN_MINICART_ON_ADD_TO_CART,
+            'minicart_sidenav_width' => MINICART_SIDENAV_WIDTH,
+            'minicart_sidenav_position' => MINICART_SIDENAV_POSITION,
         )); 
 
         wp_enqueue_script( 'mv23-scripts' );

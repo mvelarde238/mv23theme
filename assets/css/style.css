@@ -1256,6 +1256,8 @@ strong {
 }
 
 .btn,
+.woocommerce-mini-cart__buttons .button.checkout,
+.woocommerce-mini-cart__buttons .button:not(.checkout),
 .btn-white,
 .btn-large,
 .btn-flat {
@@ -1270,16 +1272,22 @@ strong {
 }
 
 .btn.disabled,
+.woocommerce-mini-cart__buttons .disabled.button.checkout,
+.woocommerce-mini-cart__buttons .disabled.button:not(.checkout),
 .disabled.btn-white,
 .btn-floating.disabled,
 .btn-large.disabled,
 .btn-flat.disabled,
 .btn:disabled,
+.woocommerce-mini-cart__buttons .button.checkout:disabled,
+.woocommerce-mini-cart__buttons .button:disabled:not(.checkout),
 .btn-white:disabled,
 .btn-floating:disabled,
 .btn-large:disabled,
 .btn-flat:disabled,
 .btn[disabled],
+.woocommerce-mini-cart__buttons [disabled].button.checkout,
+.woocommerce-mini-cart__buttons [disabled].button:not(.checkout),
 [disabled].btn-white,
 .btn-floating[disabled],
 .btn-large[disabled],
@@ -1292,16 +1300,22 @@ strong {
 }
 
 .btn.disabled:hover,
+.woocommerce-mini-cart__buttons .disabled.button.checkout:hover,
+.woocommerce-mini-cart__buttons .disabled.button:hover:not(.checkout),
 .disabled.btn-white:hover,
 .btn-floating.disabled:hover,
 .btn-large.disabled:hover,
 .btn-flat.disabled:hover,
 .btn:disabled:hover,
+.woocommerce-mini-cart__buttons .button.checkout:disabled:hover,
+.woocommerce-mini-cart__buttons .button:disabled:hover:not(.checkout),
 .btn-white:disabled:hover,
 .btn-floating:disabled:hover,
 .btn-large:disabled:hover,
 .btn-flat:disabled:hover,
 .btn[disabled]:hover,
+.woocommerce-mini-cart__buttons [disabled].button.checkout:hover,
+.woocommerce-mini-cart__buttons [disabled].button:hover:not(.checkout),
 [disabled].btn-white:hover,
 .btn-floating[disabled]:hover,
 .btn-large[disabled]:hover,
@@ -1311,6 +1325,8 @@ strong {
 }
 
 .btn,
+.woocommerce-mini-cart__buttons .button.checkout,
+.woocommerce-mini-cart__buttons .button:not(.checkout),
 .btn-white,
 .btn-large,
 .btn-floating,
@@ -1320,6 +1336,8 @@ strong {
 }
 
 .btn i,
+.woocommerce-mini-cart__buttons .button.checkout i,
+.woocommerce-mini-cart__buttons .button:not(.checkout) i,
 .btn-white i,
 .btn-floating i,
 .btn-large i,
@@ -1329,6 +1347,8 @@ strong {
 }
 
 .btn a,
+.woocommerce-mini-cart__buttons .button.checkout a,
+.woocommerce-mini-cart__buttons .button:not(.checkout) a,
 .btn-white a,
 .btn-large a,
 .btn-floating a {
@@ -1336,6 +1356,8 @@ strong {
 }
 
 .btn,
+.woocommerce-mini-cart__buttons .button.checkout,
+.woocommerce-mini-cart__buttons .button:not(.checkout),
 .btn-white,
 .btn-large {
 	text-decoration: none;
@@ -1350,6 +1372,8 @@ strong {
 }
 
 .btn:hover,
+.woocommerce-mini-cart__buttons .button.checkout:hover,
+.woocommerce-mini-cart__buttons .button:hover:not(.checkout),
 .btn-white:hover,
 .btn-large:hover {
 	background-color: #F8522C;
@@ -1613,6 +1637,10 @@ button.btn-floating {
 }
 
 .modal .modal-footer .btn,
+.modal .modal-footer .woocommerce-mini-cart__buttons .button.checkout,
+.woocommerce-mini-cart__buttons .modal .modal-footer .button.checkout,
+.modal .modal-footer .woocommerce-mini-cart__buttons .button:not(.checkout),
+.woocommerce-mini-cart__buttons .modal .modal-footer .button:not(.checkout),
 .modal .modal-footer .btn-large,
 .modal .modal-footer .btn-white,
 .modal .modal-footer .btn-flat {
@@ -2290,6 +2318,10 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 }
 
 .side-nav li.btn,
+.side-nav .woocommerce-mini-cart__buttons li.button.checkout,
+.woocommerce-mini-cart__buttons .side-nav li.button.checkout,
+.side-nav .woocommerce-mini-cart__buttons li.button:not(.checkout),
+.woocommerce-mini-cart__buttons .side-nav li.button:not(.checkout),
 .side-nav li.btn-large,
 .side-nav li.btn-white,
 .side-nav li > a {
@@ -2303,6 +2335,10 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 }
 
 .side-nav li.btn:hover,
+.side-nav .woocommerce-mini-cart__buttons li.button.checkout:hover,
+.woocommerce-mini-cart__buttons .side-nav li.button.checkout:hover,
+.side-nav .woocommerce-mini-cart__buttons li.button:hover:not(.checkout),
+.woocommerce-mini-cart__buttons .side-nav li.button:hover:not(.checkout),
 .side-nav li.btn-large:hover,
 .side-nav li.btn-white:hover,
 .side-nav li > a:hover {
@@ -2310,12 +2346,20 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 }
 
 .side-nav li.btn.btn,
+.side-nav .woocommerce-mini-cart__buttons li.button.checkout,
+.woocommerce-mini-cart__buttons .side-nav li.button.checkout,
+.side-nav .woocommerce-mini-cart__buttons li.button:not(.checkout),
+.woocommerce-mini-cart__buttons .side-nav li.button:not(.checkout),
 .side-nav li.btn-large,
 .side-nav li.btn-white,
 .side-nav li.btn.btn-large,
 .side-nav li.btn.btn-flat,
 .side-nav li.btn.btn-floating,
 .side-nav li > a.btn,
+.side-nav .woocommerce-mini-cart__buttons li > a.button.checkout,
+.woocommerce-mini-cart__buttons .side-nav li > a.button.checkout,
+.side-nav .woocommerce-mini-cart__buttons li > a.button:not(.checkout),
+.woocommerce-mini-cart__buttons .side-nav li > a.button:not(.checkout),
 .side-nav li > a.btn-white,
 .side-nav li > a.btn-large,
 .side-nav li > a.btn-flat,
@@ -2324,11 +2368,19 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 }
 
 .side-nav li.btn.btn,
+.side-nav .woocommerce-mini-cart__buttons li.button.checkout,
+.woocommerce-mini-cart__buttons .side-nav li.button.checkout,
+.side-nav .woocommerce-mini-cart__buttons li.button:not(.checkout),
+.woocommerce-mini-cart__buttons .side-nav li.button:not(.checkout),
 .side-nav li.btn-large,
 .side-nav li.btn-white,
 .side-nav li.btn.btn-large,
 .side-nav li.btn.btn-floating,
 .side-nav li > a.btn,
+.side-nav .woocommerce-mini-cart__buttons li > a.button.checkout,
+.woocommerce-mini-cart__buttons .side-nav li > a.button.checkout,
+.side-nav .woocommerce-mini-cart__buttons li > a.button:not(.checkout),
+.woocommerce-mini-cart__buttons .side-nav li > a.button:not(.checkout),
 .side-nav li > a.btn-white,
 .side-nav li > a.btn-large,
 .side-nav li > a.btn-floating {
@@ -2336,6 +2388,10 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 }
 
 .side-nav li.btn.btn-flat,
+.side-nav .woocommerce-mini-cart__buttons li.btn-flat.button.checkout,
+.woocommerce-mini-cart__buttons .side-nav li.btn-flat.button.checkout,
+.side-nav .woocommerce-mini-cart__buttons li.btn-flat.button:not(.checkout),
+.woocommerce-mini-cart__buttons .side-nav li.btn-flat.button:not(.checkout),
 .side-nav li.btn-flat.btn-large,
 .side-nav li.btn-flat.btn-white,
 .side-nav li > a.btn-flat {
@@ -2343,16 +2399,28 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 }
 
 .side-nav li.btn.btn:hover,
+.side-nav .woocommerce-mini-cart__buttons li.button.checkout:hover,
+.woocommerce-mini-cart__buttons .side-nav li.button.checkout:hover,
+.side-nav .woocommerce-mini-cart__buttons li.button:hover:not(.checkout),
+.woocommerce-mini-cart__buttons .side-nav li.button:hover:not(.checkout),
 .side-nav li.btn-large:hover,
 .side-nav li.btn-white:hover,
 .side-nav li.btn.btn-large:hover,
 .side-nav li > a.btn:hover,
+.side-nav .woocommerce-mini-cart__buttons li > a.button.checkout:hover,
+.woocommerce-mini-cart__buttons .side-nav li > a.button.checkout:hover,
+.side-nav .woocommerce-mini-cart__buttons li > a.button:hover:not(.checkout),
+.woocommerce-mini-cart__buttons .side-nav li > a.button:hover:not(.checkout),
 .side-nav li > a.btn-white:hover,
 .side-nav li > a.btn-large:hover {
 	background-color: rgba(13, 13, 13, 0);
 }
 
 .side-nav li.btn.btn-floating:hover,
+.side-nav .woocommerce-mini-cart__buttons li.btn-floating.button.checkout:hover,
+.woocommerce-mini-cart__buttons .side-nav li.btn-floating.button.checkout:hover,
+.side-nav .woocommerce-mini-cart__buttons li.btn-floating.button:hover:not(.checkout),
+.woocommerce-mini-cart__buttons .side-nav li.btn-floating.button:hover:not(.checkout),
 .side-nav li.btn-floating.btn-large:hover,
 .side-nav li.btn-floating.btn-white:hover,
 .side-nav li > a.btn-floating:hover {
@@ -2360,12 +2428,24 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 }
 
 .side-nav li.btn > i,
+.side-nav .woocommerce-mini-cart__buttons li.button.checkout > i,
+.woocommerce-mini-cart__buttons .side-nav li.button.checkout > i,
+.side-nav .woocommerce-mini-cart__buttons li.button:not(.checkout) > i,
+.woocommerce-mini-cart__buttons .side-nav li.button:not(.checkout) > i,
 .side-nav li.btn-large > i,
 .side-nav li.btn-white > i,
 .side-nav li.btn > [class^=mdi-],
+.side-nav .woocommerce-mini-cart__buttons li.button.checkout > [class^=mdi-],
+.woocommerce-mini-cart__buttons .side-nav li.button.checkout > [class^=mdi-],
+.side-nav .woocommerce-mini-cart__buttons li.button:not(.checkout) > [class^=mdi-],
+.woocommerce-mini-cart__buttons .side-nav li.button:not(.checkout) > [class^=mdi-],
 .side-nav li.btn-large > [class^=mdi-],
 .side-nav li.btn-white > [class^=mdi-],
 .side-nav li.btn li > a > [class*=mdi-],
+.side-nav .woocommerce-mini-cart__buttons li.button.checkout li > a > [class*=mdi-],
+.woocommerce-mini-cart__buttons .side-nav li.button.checkout li > a > [class*=mdi-],
+.side-nav .woocommerce-mini-cart__buttons li.button:not(.checkout) li > a > [class*=mdi-],
+.woocommerce-mini-cart__buttons .side-nav li.button:not(.checkout) li > a > [class*=mdi-],
 .side-nav li.btn-large li > a > [class*=mdi-],
 .side-nav li.btn-white li > a > [class*=mdi-],
 .side-nav li.btn > i.material-icons,
@@ -2382,6 +2462,10 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
 }
 
 .side-nav li.btn,
+.side-nav .woocommerce-mini-cart__buttons li.button.checkout,
+.woocommerce-mini-cart__buttons .side-nav li.button.checkout,
+.side-nav .woocommerce-mini-cart__buttons li.button:not(.checkout),
+.woocommerce-mini-cart__buttons .side-nav li.button:not(.checkout),
 .side-nav li.btn-large,
 .side-nav li.btn-white {
 	border-radius: 0;
@@ -3977,6 +4061,8 @@ blockquote + * {
 }
 
 .btn,
+.woocommerce-mini-cart__buttons .button.checkout,
+.woocommerce-mini-cart__buttons .button:not(.checkout),
 .btn-large,
 .btn-white {
 	border-radius: 2px;
@@ -3991,6 +4077,8 @@ blockquote + * {
 }
 
 .btn:hover,
+.woocommerce-mini-cart__buttons .button.checkout:hover,
+.woocommerce-mini-cart__buttons .button:hover:not(.checkout),
 .btn-large:hover,
 .btn-white:hover {
 	background: var(--primary-color) !important;
@@ -4017,6 +4105,8 @@ blockquote + * {
 }
 
 .btn::after,
+.woocommerce-mini-cart__buttons .button.checkout::after,
+.woocommerce-mini-cart__buttons .button:not(.checkout)::after,
 .btn-large::after,
 .btn-white::after {
 	content: "\f105";
@@ -4034,19 +4124,23 @@ blockquote + * {
 }
 
 .btn:hover:after,
+.woocommerce-mini-cart__buttons .button.checkout:hover:after,
+.woocommerce-mini-cart__buttons .button:hover:not(.checkout):after,
 .btn-large:hover:after,
 .btn-white:hover:after {
 	right: 5px;
 	opacity: 1;
 }
 
-.btn--main-color {
+.btn--main-color,
+.woocommerce-mini-cart__buttons .button.checkout {
 	border-color: var(--primary-color);
 	background: var(--primary-color);
 	color: #fff;
 }
 
-.btn--main-color:hover {
+.btn--main-color:hover,
+.woocommerce-mini-cart__buttons .button.checkout:hover {
 	border-color: var(--secondary-color) !important;
 	background: var(--secondary-color) !important;
 	color: #fff !important;
@@ -6187,6 +6281,73 @@ table > tbody > tr:nth-child(even) {
 	min-height: 400px;
 	background: #fff url("../images/loading2.gif") no-repeat center;
 	background-size: 40px;
+}
+
+.open-minicart {
+	display: inline-block;
+}
+
+.open-minicart.show-cart-items-qty {
+	position: relative;
+}
+
+.open-minicart .cart-items-qty {
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	width: 23px;
+	height: 23px;
+	line-height: 23px;
+	background-color: var(--primary-color);
+	color: #fff;
+	border-radius: 50%;
+	font-size: 13px;
+	text-align: center;
+	pointer-events: none;
+}
+
+.widget_shopping_cart {
+	margin: 30px 0;
+}
+
+.widget_shopping_cart a {
+	font-size: 15px;
+	line-height: 40px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.woocommerce .widget_shopping_cart .cart_list li,
+.woocommerce.widget_shopping_cart .cart_list li {
+	padding-left: 0;
+	padding-right: 2em;
+}
+
+.woocommerce ul.cart_list li img,
+.woocommerce ul.product_list_widget li img {
+	margin-left: 0;
+	margin-right: 15px;
+	margin-bottom: 0;
+	width: 40px;
+	float: left;
+}
+
+.woocommerce .widget_shopping_cart .cart_list li a.remove,
+.woocommerce.widget_shopping_cart .cart_list li a.remove {
+	right: 0;
+	left: initial;
+	top: 10px;
+	width: initial;
+}
+
+.woocommerce-mini-cart__buttons {
+	display: flex;
+}
+
+.woocommerce-mini-cart__buttons .button {
+	flex-grow: 1;
+	text-align: center;
 }
 
 div.wpcf7 span.wpcf7-not-valid-tip {

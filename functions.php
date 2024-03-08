@@ -95,6 +95,10 @@ if( !defined('MODAL_OUT_DURATION') ) define( 'MODAL_OUT_DURATION', 1);
 if( !defined('DEFAULT_COLOR_SCHEME') ) define( 'DEFAULT_COLOR_SCHEME', '');
 if( !defined('DEFAULT_TEXT_COLOR') ) define( 'DEFAULT_TEXT_COLOR', 'text-color-default');
 
+if( !defined('OPEN_MINICART_ON_ADD_TO_CART') ) define ('OPEN_MINICART_ON_ADD_TO_CART', true);
+if( !defined('MINICART_SIDENAV_WIDTH') ) define ('MINICART_SIDENAV_WIDTH', 370);
+if( !defined('MINICART_SIDENAV_POSITION') ) define ('MINICART_SIDENAV_POSITION', 'right');
+
 require_once( 'libs/ultimate-fields/ultimate-fields.php' );
 
 require_once( 'inc/classes/page.php' );

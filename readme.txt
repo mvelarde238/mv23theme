@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.208 24-03-08
+- WooCommerce Support for: minicart_sidebar and open_minicart shortcode
+
 23.8.207 24-03-07
 - Add support for shop_sidebar when woocommerce is active
 -------------------------------------------------------------------------------------
