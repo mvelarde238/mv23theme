@@ -64,6 +64,7 @@ function mv23_scripts_and_styles() {
             'open_minicart_on_add_to_cart' => OPEN_MINICART_ON_ADD_TO_CART,
             'minicart_sidenav_width' => MINICART_SIDENAV_WIDTH,
             'minicart_sidenav_position' => MINICART_SIDENAV_POSITION,
+            'items_in_cart' => (WOOCOMMERCE_IS_ACTIVE) ? WC()->cart->get_cart_contents_count() : null,
         )); 
 
         wp_enqueue_script( 'mv23-scripts' );
