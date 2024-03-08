@@ -5477,7 +5477,7 @@ ul.page-numbers .next {
 	left: 0;
 	bottom: 20px;
 	z-index: 56;
-	width: 100%;
+	width: calc(100% - 120px);
 	margin: auto;
 	padding: 30px 0;
 	display: flex;
@@ -5495,7 +5495,7 @@ ul.page-numbers .next {
 	width: 6px;
 	border-radius: 50%;
 	border: 0;
-	margin: 0 10px;
+	margin: 10px;
 	padding: 0;
 	outline: 0;
 }
@@ -5525,12 +5525,36 @@ ul.page-numbers .next {
 	border-radius: 50%;
 }
 
+.tns-control-position button[data-controls=prev],
+.componente-slider-de-contenidos button[data-controls=prev],
+.tns-slider-theme button[data-controls=prev],
+.testimonios button[data-controls=prev],
+.carrusel button[data-controls=prev] {
+	left: 10px;
+}
+
+.tns-control-position button[data-controls=next],
+.componente-slider-de-contenidos button[data-controls=next],
+.tns-slider-theme button[data-controls=next],
+.testimonios button[data-controls=next],
+.carrusel button[data-controls=next] {
+	right: 10px;
+}
+
+.tns-control-position[data-controls-position=top],
+[data-controls-position=top].componente-slider-de-contenidos,
+[data-controls-position=top].tns-slider-theme,
+[data-controls-position=top].testimonios,
+[data-controls-position=top].carrusel {
+	padding-top: 60px;
+}
+
 .tns-control-position[data-controls-position=top] .tns-controls button,
 [data-controls-position=top].componente-slider-de-contenidos .tns-controls button,
 [data-controls-position=top].tns-slider-theme .tns-controls button,
 [data-controls-position=top].testimonios .tns-controls button,
 [data-controls-position=top].carrusel .tns-controls button {
-	top: 8px;
+	top: -50px;
 }
 
 .tns-control-position[data-controls-position=center] .tns-controls button,
@@ -5548,7 +5572,7 @@ ul.page-numbers .next {
 [data-controls-position=bottom].tns-slider-theme .tns-controls button,
 [data-controls-position=bottom].testimonios .tns-controls button,
 [data-controls-position=bottom].carrusel .tns-controls button {
-	bottom: 0px;
+	bottom: 25px;
 }
 
 .tns-control-buttons,
@@ -5604,7 +5628,6 @@ ul.page-numbers .next {
 .testimonios .tns-controls button[data-controls=prev],
 .carrusel .tns-controls button[data-controls=prev] {
 	box-shadow: -4px 4px 10px var(--ui-color-2);
-	left: -20px;
 }
 
 .tns-control-buttons button[data-controls=prev] i,
@@ -5621,7 +5644,6 @@ ul.page-numbers .next {
 .testimonios .tns-controls button[data-controls=next],
 .carrusel .tns-controls button[data-controls=next] {
 	box-shadow: 4px 4px 10px var(--ui-color-2);
-	right: -20px;
 }
 
 .tns-control-buttons button[data-controls=next] i,
@@ -8499,6 +8521,26 @@ p + .pdf-responsive {
 
 }
 
+@media only screen and (min-width: 1320px) {
+
+.tns-control-position[data-controls-position=center] .tns-controls button[data-controls=prev],
+[data-controls-position=center].componente-slider-de-contenidos .tns-controls button[data-controls=prev],
+[data-controls-position=center].tns-slider-theme .tns-controls button[data-controls=prev],
+[data-controls-position=center].testimonios .tns-controls button[data-controls=prev],
+[data-controls-position=center].carrusel .tns-controls button[data-controls=prev] {
+	left: -20px;
+}
+
+.tns-control-position[data-controls-position=center] .tns-controls button[data-controls=next],
+[data-controls-position=center].componente-slider-de-contenidos .tns-controls button[data-controls=next],
+[data-controls-position=center].tns-slider-theme .tns-controls button[data-controls=next],
+[data-controls-position=center].testimonios .tns-controls button[data-controls=next],
+[data-controls-position=center].carrusel .tns-controls button[data-controls=next] {
+	right: -20px;
+}
+
+}
+
 @media only screen and (min-width : 1401px) {
 
 .row .col.xl1 {
@@ -8754,6 +8796,19 @@ p + .pdf-responsive {
 
 }
 
+@media only screen and (max-width: 1320px) {
+
+.tns-control-position[data-controls-position=center] .tns-controls button,
+[data-controls-position=center].componente-slider-de-contenidos .tns-controls button,
+[data-controls-position=center].tns-slider-theme .tns-controls button,
+[data-controls-position=center].testimonios .tns-controls button,
+[data-controls-position=center].carrusel .tns-controls button {
+	top: initial;
+	bottom: 25px;
+}
+
+}
+
 @media only screen and (max-width: 1296px) {
 
 body {
@@ -8926,38 +8981,6 @@ table.responsive-table.bordered tbody tr {
 
 .main-content--sidebar-left .sidebar {
 	order: 1;
-}
-
-.tns-control-position .tns-controls button[data-controls=prev],
-.componente-slider-de-contenidos .tns-controls button[data-controls=prev],
-.tns-slider-theme .tns-controls button[data-controls=prev],
-.testimonios .tns-controls button[data-controls=prev],
-.carrusel .tns-controls button[data-controls=prev],
-.tns-control-position .tns-controls button[data-controls=next],
-.componente-slider-de-contenidos .tns-controls button[data-controls=next],
-.tns-slider-theme .tns-controls button[data-controls=next],
-.testimonios .tns-controls button[data-controls=next],
-.carrusel .tns-controls button[data-controls=next] {
-	transform: scale(0.7);
-	opacity: 0.7;
-}
-
-.tns-control-position .tns-controls button[data-controls=prev],
-.componente-slider-de-contenidos .tns-controls button[data-controls=prev],
-.tns-slider-theme .tns-controls button[data-controls=prev],
-.testimonios .tns-controls button[data-controls=prev],
-.carrusel .tns-controls button[data-controls=prev] {
-	left: 0;
-	transform-origin: center left;
-}
-
-.tns-control-position .tns-controls button[data-controls=next],
-.componente-slider-de-contenidos .tns-controls button[data-controls=next],
-.tns-slider-theme .tns-controls button[data-controls=next],
-.testimonios .tns-controls button[data-controls=next],
-.carrusel .tns-controls button[data-controls=next] {
-	right: 0;
-	transform-origin: center right;
 }
 
 .tns-slider-theme.carrusel-inside-component .tns-controls button[data-controls=prev],

@@ -9,6 +9,7 @@ CHANGELOG
 - Move .btn pseudo-element from after to before for better integration with WooCommerce
 ----------------------------------------------------------------------------------------
 - Add get_items_cart_qty javascript function
+- Fix carrusels controls position in all devices
 
 23.8.207 24-03-07
 - Add support for shop_sidebar when woocommerce is active
