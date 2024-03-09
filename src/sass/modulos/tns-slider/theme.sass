@@ -10,19 +10,6 @@
     .tns-nav
         @extend .tns-navigation
 
-    // fix controls position:
-    &.carrusel-inside-component
-        button[data-controls=prev]
-            left: -40px !important
-        button[data-controls=next]
-            right: -40px !important
-        @media #{$medium-and-down}
-            .tns-controls
-                button[data-controls="prev"]
-                    left: -10px !important
-                button[data-controls="next"]
-                    right: -10px !important
-
 .text-color-2 .tns-slider-theme
     --ui-color-1: #{$white} 
     --ui-color-3: #{$white-lighten-2} 

@@ -22,12 +22,28 @@
                 left: -20px
             &[data-controls="next"]
                 right: -20px
+        // fix controls position inside components:
+        &.carrusel-inside-component
+            button[data-controls=prev]
+                left: -40px !important
+            button[data-controls=next]
+                right: -40px !important
 
     // container width and down
     @media only screen and (max-width: #{$container-width + 80px})
         &[data-controls-position='center'] .tns-controls button
             top: initial
             bottom: 25px
+        &[data-controls-position='center'],
+        &[data-controls-position='bottom']
+            &.without-navigation .tns-outer
+                padding-bottom: 80px !important
+        // fix controls position inside components:
+        &.carrusel-inside-component
+            button[data-controls="prev"]
+                left: 0px !important
+            button[data-controls="next"]
+                right: 0px !important
     
 .tns-control-buttons
     z-index: 89

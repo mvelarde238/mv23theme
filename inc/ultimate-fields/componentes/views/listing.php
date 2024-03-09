@@ -181,8 +181,11 @@ if(!function_exists('post_listing_header')){
                 $show_nav = (!empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
                 $show_nav = (!empty($componente['show_nav'])) ? $componente['show_nav'] : 0;
                 $autoplay = (!empty($componente['autoplay'])) ? $componente['autoplay'] : 0;
+
+                $carrusel_classes_array = array('carrusel','carrusel-inside-component');
+                if( !$show_nav ) array_push($carrusel_classes_array,'without-navigation');
                 ?>
-                <div class="carrusel carrusel-inside-component" data-controls-position="center"><div class="carrusel__slider" 
+                <div class="<?php echo implode(' ', $carrusel_classes_array); ?>" data-controls-position="center"><div class="carrusel__slider" 
                     data-show-controls="<?=$show_controls?>" 
                     data-show-nav="<?=$show_nav?>" 
                     data-autoplay="<?=$autoplay?>" 

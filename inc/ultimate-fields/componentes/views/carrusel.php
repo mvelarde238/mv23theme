@@ -34,6 +34,8 @@ $classes_array = format_classes(array(
     'nav-position-'.$nav_position
 ));
 
+if( !$show_nav ) array_push($classes_array,'without-navigation');
+
 $attributes = generate_attributes($componente, $classes_array);
 ?>
 <div <?=$attributes?> data-controls-position="center">
