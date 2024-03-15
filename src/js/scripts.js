@@ -172,7 +172,7 @@
         }
         if (is_single) {
 
-            $('.remove-support-for-pdf-to-embed-convertion a').addClass('normal-link');
+            $('.remove-support-for-link-to-embed-convertion a').addClass('normal-link');
 
             var links = $('.main').find('a[href*=".pdf"]:not(.normal-link)');
             convertir_links_en_pdf(links);
@@ -191,7 +191,10 @@
             }
         }
         if (is_single) {
-            var links = $('.main').find('a[href*=".docx"], a[href*=".pptx"], a[href*=".xlsxs"]');
+
+            $('.remove-support-for-link-to-embed-convertion a').addClass('normal-link');
+
+            var links = $('.main').find('a[href*=".docx"]:not(.normal-link), a[href*=".pptx"]:not(.normal-link), a[href*=".xlsxs"]:not(.normal-link)');
             convertir_docs(links);
         }
 

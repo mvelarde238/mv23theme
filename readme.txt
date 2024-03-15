@@ -5,6 +5,7 @@ CHANGELOG
 23.8.209 24-03-15
 - Fixes: Testimonios Comp. Field show author in title & Items Grid Comp. is not a .component
 - Make .cover-all class global
+- remove-support-for-pdf-to-embed-convertion class change to remove-support-for-link-to-embed-convertion
 
 23.8.208 24-03-08
 - WooCommerce Support for: minicart_sidebar and open_minicart shortcode
