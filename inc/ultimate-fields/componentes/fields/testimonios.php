@@ -7,7 +7,7 @@ $testimonios = Repeater_Group::create( 'Testimonios', array(
         Field::create( 'tab', 'Contenido' ),
         Field::create( 'repeater', 'testimonios' )->set_add_text('Agregar')->add_group( 'testimonio', array(
             'edit_mode' => 'popup',
-            'title_template' => '<%= type %>',
+            'title_template' => '<%= author %>',
             'fields' => array(
                 Field::create( 'radio', 'type', 'Tipo de testimonio:')->set_orientation('horizontal')->add_options(array(
                     'text' => 'Texto', 'video' => 'Video'

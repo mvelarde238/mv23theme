@@ -11,7 +11,6 @@ $items_in_tablet = (!empty($componente['items_in_tablet'])) ? $componente['items
 $items_in_mobile = (!empty($componente['items_in_mobile'])) ? $componente['items_in_mobile'] : $nth_items;
 
 $classes_array = format_classes(array(
-	'componente',
 	'items-grid',
 	get_color_scheme($componente),
 	$componente['class']
