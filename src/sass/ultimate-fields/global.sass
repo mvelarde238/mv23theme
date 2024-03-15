@@ -9,20 +9,6 @@
 	display: block
 	box-sizing: border-box
 
-	.cover-all
-		position: absolute
-		top: 0
-		left: 0
-		right: 0
-		bottom: 0
-		margin: auto
-		z-index: 125
-		display: flex
-		align-items: center
-		justify-content: center
-		transition: 300ms all
-		text-decoration: none
-
 	&.full-width .container
 		max-width: $container-width
 		// max-width: calc(1280px - ($components-margin * 2))
@@ -36,6 +22,20 @@
 // 	display: inline-block
 // 	width: calc(100% - 60px)
 // 	box-sizing: border-box
+
+.cover-all
+	position: absolute
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	margin: auto
+	z-index: 125
+	display: flex
+	align-items: center
+	justify-content: center
+	transition: 300ms all
+	text-decoration: none
 
 .add-padding
 	padding: 20px

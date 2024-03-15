@@ -6616,9 +6616,12 @@ li.product:before {
 	box-sizing: border-box;
 }
 
-.componente .cover-all,
-.componente .theme-gallery .media.video.selfhosted.popable .media__element:before,
-.theme-gallery .media.video.selfhosted.popable .componente .media__element:before {
+.componente.full-width .container {
+	max-width: 1240px;
+}
+
+.cover-all,
+.theme-gallery .media.video.selfhosted.popable .media__element:before {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -6631,10 +6634,6 @@ li.product:before {
 	justify-content: center;
 	transition: 300ms all;
 	text-decoration: none;
-}
-
-.componente.full-width .container {
-	max-width: 1240px;
 }
 
 .add-padding {
