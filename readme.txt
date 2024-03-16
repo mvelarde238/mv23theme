@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.210 24-03-16
+- Url attribute implementation in open_minicart shortcode. Default: cart page
+
 23.8.209 24-03-15
 - Fixes: Testimonios Comp. Field show author in title & Items Grid Comp. is not a .component
 - Make .cover-all class global

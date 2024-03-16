@@ -3,7 +3,8 @@ function print_open_minicart( $atts, $content = null ) {
 	$a = shortcode_atts( array(
 		'text' => 'Ver carrito',
         'show_qty' => 1,
-        'link_class' => 'btn'
+        'link_class' => 'btn',
+        'url' => wc_get_cart_url()
 	), $atts );
     
     $button_class = 'open-minicart';
@@ -14,9 +15,11 @@ function print_open_minicart( $atts, $content = null ) {
 
     $button_content = (empty($content)) ? $a['text'] : do_shortcode($content);
 
+    $url = esc_url($a['url']);
+
 	ob_start(); ?>
 	<span class="<?=$button_class?>">
-        <a href="#" class="<?=$link_class?>">
+        <a href="<?=$url?>" class="<?=$link_class?>">
             <?php echo $button_content; ?>
         </a>
     </span>
