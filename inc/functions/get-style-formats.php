@@ -61,6 +61,11 @@ if (!function_exists('default_style_formats')) {
 					    'classes' => 'btn btn--secondary-color',
 					),
 					array(  
+					    'title' => 'Botón Blanco',  
+					    'selector' => 'a',
+					    'classes' => 'btn btn--white',
+					),
+					array(  
 					    'title' => 'Botón Ancho Completo',  
 					    'selector' => 'a',
 					    'classes' => 'btn btn-block',

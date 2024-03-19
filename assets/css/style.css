@@ -4161,8 +4161,9 @@ blockquote + * {
 
 .btn--white {
 	border-color: #fff;
-	background: transparent;
-	color: #fff;
+	background: #fff;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+	color: #000 !important;
 }
 
 .btn--white:hover {
@@ -4479,7 +4480,7 @@ body {
 .text-color-2 {
 	--primary-color-lighten-1: rgba(255, 255, 255, 0.2);
 	--primary-color-lighten-2: rgba(255, 255, 255, 0.1);
-	color: rgba(255, 255, 255, 0.7);
+	color: rgba(255, 255, 255, 0.8);
 }
 
 .text-color-2 h1,

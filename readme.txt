@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.211 24-03-17
+- Button Comp: .btn--white implementation
+
 23.8.210 24-03-16
 - Url attribute implementation in open_minicart shortcode. Default: cart page
 

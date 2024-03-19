@@ -14,7 +14,8 @@ $button = Repeater_Group::create( 'Button', array(
             '' => 'Link',
             'btn' => 'Botón Simple',
             'btn btn--main-color' => 'Botón Corporativo 1',
-            'btn btn--secondary-color' => 'Botón Corporativo 2'
+            'btn btn--secondary-color' => 'Botón Corporativo 2',
+            'btn btn--white' => 'Botón Blanco'
         ))->set_default_value('btn btn--main-color')->set_width(25),
         Field::create( 'radio', 'alignment', 'Alineación')->add_options( array(
             'left' => 'Izquierda',

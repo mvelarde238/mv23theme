@@ -43,7 +43,7 @@ $primary-color-lighten-2: #{lighten($primary-color, 39%)} !default;
 
 $secondary-color: #071a36 !default;
 $font-color: #000 !default;
-$font-color-2: rgba(255, 255, 255, .7) !default;
+$font-color-2: rgba(255, 255, 255, .8) !default;
 
 $success-color: color("green", "base") !default;
 $error-color: color("red", "base") !default;
