@@ -4163,7 +4163,7 @@ blockquote + * {
 	border-color: #fff;
 	background: #fff;
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-	color: #000 !important;
+	color: var(--primary-color) !important;
 }
 
 .btn--white:hover {
@@ -6233,7 +6233,24 @@ table > tbody > tr:nth-child(even) {
 	margin-right: 4px;
 }
 
+.rrss-module.style4 a {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 4px;
+	background-color: #fff;
+	border: 1px solid #fff;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
 .text-color-2 .rrss-module.style3 a:hover {
+	color: var(--primary-color) !important;
+}
+
+.text-color-2 .rrss-module.style4 a {
 	color: var(--primary-color) !important;
 }
 
