@@ -4746,6 +4746,11 @@ img.alignleft {
 	color: var(--primary-color) !important;
 }
 
+.main-nav .menu > li.add-color-1.current-menu-item > a,
+.main-nav .menu > li.add-color-2.current-menu-item > a {
+	color: #fff !important;
+}
+
 .main-nav .menu > li.has-megamenu > a:after,
 .main-nav .menu > li.menu-item-has-children > a:after {
 	content: "\f107";

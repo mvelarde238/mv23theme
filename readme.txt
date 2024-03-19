@@ -5,6 +5,7 @@ CHANGELOG
 23.8.211 24-03-17
 - Button Comp: .btn--white implementation
 - rrss .style4 implementation
+- Fix color in main nav current item when is a button
 
 23.8.210 24-03-16
 - Url attribute implementation in open_minicart shortcode. Default: cart page
