@@ -13,8 +13,10 @@ $m_gap = $componente['m_gap'];
 $post_template = $componente['post_template'];
 $listing_template = $componente['list_template'];
 $scrolltop = ( isset($componente['scrolltop']) ) ? $componente['scrolltop'] : '';
-$taxonomies = array();
-$default_terms = array();
+$filter_taxonomies = array();
+$filter_default_terms = array();
+$query_taxonomies = array();
+$query_terms = array();
 $woocommerce_key = ( WOOCOMMERCE_IS_ACTIVE && isset($componente['woocommerce_key']) ) ? $componente['woocommerce_key'] : '';
 
 if ($show == 'manual') {
@@ -73,14 +75,28 @@ if ($show == 'auto') {
                 array_push($tax_query, array(
                     'taxonomy' => 'product_visibility',
                     'field'    => 'name',
-                    'terms'    => 'featured',
+                    'terms'    => array('featured'),
                     'operator' => 'IN'
                 ));
             }
         }
         /* end woo featured products */
 
-        if( count($tax_query) > 1 ) $args_query['tax_query'] = $tax_query;
+        if( count($tax_query) > 1 ){ // add tax query
+            $args_query['tax_query'] = $tax_query;
+
+            // taxonomies and terms for pagination, load more, etc
+            foreach ($tax_query as $query) {
+                if( isset($query['taxonomy']) ){
+                    array_push($query_taxonomies,$query['taxonomy']);
+                    if( is_array($query['terms']) ){
+                        foreach ($query['terms'] as $term) {
+                            array_push($query_terms,$term);
+                        }
+                    }
+                }
+            }
+        } 
     }
 
     // taxonomies and default terms for filter
@@ -89,8 +105,8 @@ if ($show == 'auto') {
             $show_tax = $componente[$tax.'-filter']['show'];
             if($show_tax){
                 $default_term = $componente[$tax.'-filter']['default_value'];
-                array_push($taxonomies,$tax);
-                array_push($default_terms,$default_term);
+                array_push($filter_taxonomies,$tax);
+                array_push($filter_default_terms,$default_term);
             }
         }
     }
@@ -133,8 +149,8 @@ if(!function_exists('post_listing_header')){
 ?>
 <div <?=$attributes?> 
     data-posttype="<?=$posttype?>" 
-    data-taxonomies="<?php echo implode(',',$taxonomies) ?>" 
-    data-terms="<?php echo implode(',',$default_terms) ?>" 
+    data-taxonomies="<?php echo implode(',',$query_taxonomies) ?>" 
+    data-terms="<?php echo implode(',',$query_terms) ?>" 
     data-qty="<?=$qty?>" 
     data-offset="<?=$offset?>" 
     data-order="<?=$order?>" 
@@ -158,7 +174,7 @@ if(!function_exists('post_listing_header')){
             $default_year = $componente['year-filter']['default'];
         }
         
-        echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_year="'.$show_year.'" show_month="'.$show_month.'" default_year="'.$default_year.'" taxonomies="'.implode(',',$taxonomies).'" default_terms="'.implode(',',$default_terms).'"]');
+        echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_year="'.$show_year.'" show_month="'.$show_month.'" default_year="'.$default_year.'" filter_taxonomies="'.implode(',',$filter_taxonomies).'" filter_default_terms="'.implode(',',$filter_default_terms).'"]');
     };
     
     if(WOOCOMMERCE_IS_ACTIVE && $posttype == 'product') echo do_shortcode('[shop_messages]');

@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.212 24-03-18
+- Listing Component fix: taxonomies-terms not working in pagination
+
 23.8.211 24-03-17
 - Button Comp: .btn--white implementation
 - rrss .style4 implementation

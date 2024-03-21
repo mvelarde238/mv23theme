@@ -9,15 +9,15 @@ function print_posts_filter( $atts ) {
         'default_year' => '',
         // 'taxonomy' => null,
         // 'default_term' => '',
-        'taxonomies' => null,
-        'default_terms' => null
+        'filter_taxonomies' => null,
+        'filter_default_terms' => null
     ), $atts );
 
     $current_year = date('Y');
     $first_year = ($a['firstyear'] == '') ? $current_year : $a['firstyear'];
 
-    $taxonomies = explode(',',$a['taxonomies']);
-    $default_terms = explode(',',$a['default_terms']);
+    $taxonomies = explode(',',$a['filter_taxonomies']);
+    $default_terms = explode(',',$a['filter_default_terms']);
     if( !is_array( $default_terms ) ) $default_terms = array();
 
     $search = array( 'es' => 'BUSCAR:', 'en' => 'SEARCH:' );
@@ -87,7 +87,7 @@ function print_posts_filter( $atts ) {
             <?php endif; ?>
             <div class="field-wrapper">
                 <input type="hidden" value="<?=$a['posttype']?>" class="posts-filter__posttype">
-                <input type="hidden" value="<?=$a['taxonomies']?>" class="posts-filter__taxonomies">
+                <input type="hidden" value="<?=$a['filter_taxonomies']?>" class="posts-filter__taxonomies">
                 <button class="posts-filter__submit btn btn--main-color btn-block"><?php echo $filter[$current_lang] ?></button>
             </div>
         </form>
