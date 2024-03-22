@@ -2,7 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
-23.8.212 24-03-18
+23.8.213 24-03-22
+- Button Componente class renamed to .button-comp to avoid css collison with .button
+
+23.8.212 24-03-21
 - Listing Component fix: taxonomies-terms not working in pagination
 
 23.8.211 24-03-17

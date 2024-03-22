@@ -57,7 +57,7 @@ $class = (isset($componente['class']) && $componente['class'] != '') ? $componen
 
 $classes_array = format_classes(array(
 	'componente',
-	'button',
+	'button-cmp',
 	get_color_scheme($componente),
 	$class
 ));
