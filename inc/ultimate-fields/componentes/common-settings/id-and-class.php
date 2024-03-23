@@ -8,7 +8,7 @@ $id_and_class = array(
         ->add_datalist( array( 
             'disable-link-to-embed-conversion',
             'overflow-scroll',
-            'overflow-hdden',
+            'overflow-hidden',
             ))
         ->set_description( 'Clases de la sección, usar solo minúsculas y guiones ( -/_ )' )
 );
