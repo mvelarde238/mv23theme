@@ -4,6 +4,7 @@ CHANGELOG
 
 23.8.213 24-03-22
 - Button Componente class renamed to .button-comp to avoid css collison with .button
+- JQuery Flex Datalist implementation in Text uf field
 
 23.8.212 24-03-21
 - Listing Component fix: taxonomies-terms not working in pagination
@@ -19,7 +20,7 @@ CHANGELOG
 23.8.209 24-03-15
 - Fixes: Testimonios Comp. Field show author in title & Items Grid Comp. is not a .component
 - Make .cover-all class global
-- remove-support-for-pdf-to-embed-convertion class change to remove-support-for-link-to-embed-convertion
+- remove-support-for-pdf-to-embed-convertion class change to disable-link-to-embed-conversion
 
 23.8.208 24-03-08
 - WooCommerce Support for: minicart_sidebar and open_minicart shortcode

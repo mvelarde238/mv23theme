@@ -3234,3 +3234,13 @@ h2.uf-add-term-title {
   font-size: 12px;
   width: 85%;
 }
+
+/* FLEXDATALIST */
+.flexdatalist-results{
+  z-index: 170000;
+}
+.uf-basic-input .flexdatalist-multiple{
+  font-size: 13px !important; 
+  border: 1px solid #9f9c9c;
+  border-radius: 3px;
+}

@@ -18,6 +18,14 @@ class Text extends Field {
 	protected $suggestions = array();
 
 	/**
+	 * Holds autocomplete datalist.
+	 *
+	 * @since 3.0
+	 * @var string[]
+	 */
+	protected $datalist = array();
+
+	/**
 	 * This is the value, which would be displayed as a placeholder within the field.
 	 *
 	 * @since 3.0
@@ -66,6 +74,10 @@ class Text extends Field {
 		if( ! empty( $this->suggestions ) ) {
 			wp_enqueue_script( 'jquery-ui-autocomplete' );
 		}
+		if( ! empty( $this->datalist ) ) {
+			wp_enqueue_script( 'uf-flexdatalist' );
+			wp_enqueue_style( 'uf-flexdatalist-css' );
+		}
 
 		wp_enqueue_script( 'uf-field-text' );
 	}
@@ -110,6 +122,29 @@ class Text extends Field {
 	}
 
 	/**
+	 * Mass-sets datalist.
+	 *
+	 * @since 3.0
+	 *
+	 * @param string $datalist[] An array of datalist for the field.
+	 * @return Ultimate_Fields\Field\Text The instance of the field.
+	 */
+	public function add_datalist( $datalist ) {
+		if( ! is_array( $datalist ) ) {
+			foreach( explode( "\n", $datalist ) as $data ) {
+				$data = (string) $data;
+				if( $data ) {
+					$this->datalist[] = $data;
+				}
+			}
+		} else {
+			$this->datalist = $datalist;
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Returns the available suggestions.
 	 *
 	 * @since 3.0
@@ -118,6 +153,17 @@ class Text extends Field {
 	 */
 	public function get_suggestions() {
 		return $this->suggestions;
+	}
+
+	/**
+	 * Returns the available datalist.
+	 *
+	 * @since 3.0
+	 *
+	 * @return string $datalist
+	 */
+	public function get_datalist() {
+		return $this->datalist;
 	}
 
 	/**
@@ -244,6 +290,10 @@ class Text extends Field {
 			$settings[ 'suggestions' ] = $this->suggestions;
 		}
 
+		if( ! empty( $this->datalist ) ) {
+			$settings[ 'datalist' ] = $this->datalist;
+		}
+
 		return $settings;
 	}
 
@@ -259,6 +309,7 @@ class Text extends Field {
 
 		$this->proxy_data_to_setters( $data, array(
 			'suggestions'   => 'add_suggestions',
+			'datalist'   	=> 'add_datalist',
 			'placeholder'   => 'set_placeholder',
 			'prefix'        => 'set_prefix',
 			'suffix'        => 'set_suffix',
@@ -278,6 +329,7 @@ class Text extends Field {
 
 		$this->export_properties( $settings, array(
 			'suggestions'   => array( 'suggestions', array() ),
+			'datalist'      => array( 'datalist', array() ),
 			'placeholder'   => array( 'placeholder', null ),
 			'prefix'        => array( 'prefix', null ),
 			'suffix'        => array( 'suffix', null ),

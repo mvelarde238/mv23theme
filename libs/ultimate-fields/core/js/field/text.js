@@ -73,6 +73,9 @@
 				that.addAutoComplete( $input );
 			});
 
+			// Add JQuery Flexdatalist
+			that.addFlexdatalist( $input );
+
 			// Listen for external changes
 			this.model.on( 'external-value', function() {
 				$input.val( that.model.getValue() );
@@ -122,6 +125,33 @@
 			$input.autocomplete({
 				source: suggestions
 			});
+		},
+
+		/**
+		 * Adds flex datalist options to the field.
+		 */
+		addFlexdatalist: function( $input ) {
+			var that = this, datalist = this.model.get( 'datalist' );
+			
+			if( ! ( datalist && datalist.length ) ) {
+				return;
+			}
+
+			// Crear el objeto <datalist>
+			var datalist_name = this.cid+'-datalist';
+			var $dataList = $('<datalist id="'+datalist_name+'">');
+			datalist.forEach(function(opcion) {
+				$('<option>').attr('value', opcion).appendTo($dataList);
+			});
+			$dataList.appendTo( this.el );
+			$input.attr( 'list', datalist_name );
+				
+			$input.flexdatalist({
+				minLength: 0,
+				multiple: true,
+				valuesSeparator : ' ',
+				// normalizeString	to do
+			});			
 		},
 
 		/**

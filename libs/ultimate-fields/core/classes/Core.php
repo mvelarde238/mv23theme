@@ -300,6 +300,8 @@ class Core {
 		wp_register_script( 'uf-select2', ULTIMATE_FIELDS_URL . 'assets/js/select2/select2.min.js', array( 'jquery' ), $v );
 		wp_register_style( 'uf-select2-css', ULTIMATE_FIELDS_URL . 'assets/css/select2/select2.min.css', array(), ULTIMATE_FIELDS_VERSION );
 		wp_register_script( 'uf-timepicker', $assets . 'js/jquery-ui-timepicker-addon.js', array( 'jquery-ui-datepicker', 'jquery-ui-slider' ), $v );
+		wp_register_script( 'uf-flexdatalist', ULTIMATE_FIELDS_URL . 'assets/js/flexdatalist/jquery.flexdatalist.js', array( 'jquery' ), $v );
+		wp_register_style( 'uf-flexdatalist-css', ULTIMATE_FIELDS_URL . 'assets/css/flexdatalist/jquery.flexdatalist.min.css', array(), ULTIMATE_FIELDS_VERSION );
 
 		// Register regular scripts
 		wp_register_script( 'uf-core',                  $js . 'uf.js',                     array( 'jquery', 'underscore', 'backbone' ), $v );

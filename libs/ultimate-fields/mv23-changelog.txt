@@ -1,5 +1,12 @@
 mv23 changelog-------------------------
 
+22-03-2024
+- JQuery Flex Datalist implementation in Text uf field
+    (core/assets/css/ultimate-fields.css)
+    (core/classes/Core.php)
+    (core/classes/Field/Text.php)
+    (core/js/field/text.js)
+
 07-03-2024
 - (core/js/container/group.js) Show filename in repeater group title preview 
 
