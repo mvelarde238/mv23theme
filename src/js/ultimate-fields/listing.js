@@ -5,6 +5,7 @@
     var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
 
     function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey){
+
         $.ajax({
             type: 'POST',
             dataType: "json",
@@ -15,7 +16,7 @@
                 lang: MV23_GLOBALS.lang,
                 post_template: post_template,
                 listing_template: listing_template,
-                terms: (filterValues.areParams) ? filterValues.terms : terms,
+                terms: (filterValues.terms) ? filterValues.terms : terms,
                 paged: paged || 1,
                 per_page: per_page,
                 offset: offset,
