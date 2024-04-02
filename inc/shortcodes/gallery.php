@@ -157,7 +157,8 @@ function print_theme_gallery( $atts ) {
                         $attachment_link = $url;
                         break;
                 }
-                $attachment_link_html = '<a data-fancybox="'.$gallery_id.'" href="'.$attachment_link.'" class="'.$link_class.'"';
+                $caption = ( wp_get_attachment_caption($attachment_id) ) ? wp_get_attachment_caption($attachment_id) : '';
+                $attachment_link_html = '<a data-fancybox="'.$gallery_id.'" href="'.$attachment_link.'" class="'.$link_class.'" data-caption="'.$caption.'"';
                 if( 
                     ( $attachment_type === 'video' && !$is_remote_video ) ||
                     $attachment_type === 'pdf'

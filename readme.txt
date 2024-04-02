@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.214 24-04-02
+- Show attachment caption in gallery lightbox
+
 23.8.213 24-03-22
 - Button Componente class renamed to .button-comp to avoid css collison with .button
 - JQuery Flex Datalist implementation in Text uf field
