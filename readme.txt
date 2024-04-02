@@ -5,6 +5,7 @@ CHANGELOG
 23.8.214 24-04-02
 - Show attachment caption in gallery lightbox
 - Listing Component fix: take in count data-terms on submit
+- Listing Component fix: move loading css animation from before to after
 
 23.8.213 24-03-22
 - Button Componente class renamed to .button-comp to avoid css collison with .button

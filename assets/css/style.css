@@ -5328,7 +5328,7 @@ ul.page-numbers .next {
 	position: relative;
 }
 
-.listing[data-status=loading] .posts-filter[data-status=loading]:before {
+.listing[data-status=loading] .posts-filter[data-status=loading]:after {
 	content: "";
 	position: absolute;
 	top: 0;
@@ -5343,7 +5343,7 @@ ul.page-numbers .next {
 	position: relative;
 }
 
-.listing[data-status=loading] .posts-filter__submit:before {
+.listing[data-status=loading] .posts-filter__submit:after {
 	content: "";
 	position: absolute;
 	top: 0;
