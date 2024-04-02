@@ -9,6 +9,7 @@ CHANGELOG
   - move loading css animation from before to after
   - add max-width to post filter
   - check date params to include in main query
+  - show load more pagination on submit
 
 23.8.213 24-03-22
 - Button Componente class renamed to .button-comp to avoid css collison with .button

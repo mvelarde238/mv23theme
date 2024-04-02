@@ -26,6 +26,7 @@ if( !function_exists('load_posts') ){
         $order = $_REQUEST["order"];
         $orderby = $_REQUEST["orderby"];
         $wookey = $_REQUEST["wookey"];
+        $pagination_type = $_REQUEST["pagination_type"];
 
         if ( $posttype && $paged && $per_page ) {
             $paged = ($paged) ? $paged : 1;
@@ -119,17 +120,12 @@ if( !function_exists('load_posts') ){
 
             $query = new WP_Query( $args_query ); 
 
-            if ($query->have_posts()) :
+            if ($query->have_posts()) {
                 $result['status'] = "success";
 
                 ob_start(); 
                 while ( $query->have_posts() ) : 
                     $query->the_post();
-                    $title = get_the_title();
-                    $id = get_the_ID();
-                    $link = get_the_permalink($id);
-                    $imagen = get_the_post_thumbnail_url( $id, 'medium' );
-                    $thumb_url = ($imagen) ? $imagen : get_stylesheet_directory_uri().'/assets/images/nothumb.jpg';
 
                     if($listing_template == 'carrusel') echo '<div>';
                     get_template_part( 'inc/partials/minipost',$post_template);
@@ -137,16 +133,27 @@ if( !function_exists('load_posts') ){
                 endwhile;
                 $result['posts'] = ob_get_clean();
 
-                ob_start(); 
-                mv23_page_navi($query,$paged);
-                $result['pagination'] = ob_get_clean();
-                $result['max_num_pages'] = $query->max_num_pages;
+                if ( $query->max_num_pages > 1 ){
+                    ob_start(); 
+                    if($pagination_type == 'classic') {
+                        mv23_page_navi($query,$paged);
+                    }
+                    if($pagination_type == 'load_more'){
+                        $load_more_text = LISTING_LOAD_MORE_TEXT;
+                        $current_lang = (function_exists('pll_current_language')) ? pll_current_language() : 'es';
+                        echo '<p class="aligncenter"><button class="btn load_more_posts" data-paged="2">'.$load_more_text[$current_lang].'</button></p>'; 
+                    }
+                    $result['pagination'] = ob_get_clean();
+                    $result['max_num_pages'] = $query->max_num_pages;
+                } else {
+                    $result['pagination'] = '';
+                }
 
-            else:
+            } else {
                 $result['status'] = "error";
                 $result['message'] = $texts[0][$lang];
                 $result['tax_query'] = $tax_query;
-            endif;
+            }
 
         } else {
             $result['status'] = "error";

@@ -18,6 +18,7 @@ $filter_default_terms = array();
 $query_taxonomies = array();
 $query_terms = array();
 $woocommerce_key = ( WOOCOMMERCE_IS_ACTIVE && isset($componente['woocommerce_key']) ) ? $componente['woocommerce_key'] : '';
+$pagination_type = $componente['pagination_type'];
 
 if ($show == 'manual') {
     $posttype = '';
@@ -165,7 +166,8 @@ if(!function_exists('post_listing_header')){
     post-template="<?=$post_template?>"
     listing-template="<?=$listing_template?>"
     data-wookey="<?=$woocommerce_key?>"
-    data-scrolltop="<?=$scrolltop?>">
+    data-scrolltop="<?=$scrolltop?>"
+    data-pagination="<?=$pagination_type?>">
     <?php if($componente['filter']) {
         $show_month = 0;
         if( isset($componente['month-filter']) ){
@@ -236,7 +238,7 @@ if(!function_exists('post_listing_header')){
     <?php endif;
 
     if ( $query->max_num_pages > 1 ){
-        switch($componente['pagination_type']){
+        switch($pagination_type){
             case 'classic':
                 ///////////////////////////////////////////////////////////////////////////////////////////////
                 // PAGINATION 
@@ -266,7 +268,9 @@ if(!function_exists('post_listing_header')){
                 $current_lang = (function_exists('pll_current_language')) ? pll_current_language() : 'es';
 
                 echo '<br>';
+                echo '<div class="pagination">';
                 echo '<p class="aligncenter"><button class="btn load_more_posts" data-paged="2">'.$load_more_text[$current_lang].'</button></p>'; 
+                echo '</div>';
                 break;
 
             default:

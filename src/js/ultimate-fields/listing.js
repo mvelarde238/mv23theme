@@ -4,7 +4,7 @@
     var current_lang = MV23_GLOBALS.lang;
     var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
 
-    function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey){
+    function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey, pagination_type){
 
         $.ajax({
             type: 'POST',
@@ -27,7 +27,8 @@
                 taxonomies: taxonomies,
                 search: filterValues.search,
                 year: filterValues.year,
-                month: filterValues.month
+                month: filterValues.month,
+                pagination_type: pagination_type
             },
             beforeSend: function(){
                 $component.attr('data-status','loading');
@@ -135,10 +136,11 @@
                     order = $component.attr("data-order"),
                     orderby = $component.attr("data-orderby"),
                     wookey = $component.attr("data-wookey"),
+                    pagination_type = $component.attr("data-pagination"),
                     action = 'replace',
                     filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey, pagination_type);
             });
             
             $component.on('click','.load_more_posts', function(event){
@@ -156,10 +158,11 @@
                     order = $component.attr("data-order"),
                     orderby = $component.attr("data-orderby"),
                     wookey = $component.attr("data-wookey"),
+                    pagination_type = $component.attr("data-pagination"),
                     action = 'append',
                     filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey, pagination_type);
             });
             
             $component.on('click','.posts-filter__submit',function(ev){
@@ -175,11 +178,12 @@
                     order = $component.attr("data-order"),
                     orderby = $component.attr("data-orderby"),
                     wookey = $component.attr("data-wookey"),
+                    pagination_type = $component.attr("data-pagination"),
                     paged = 1,
                     action = 'replace',
                     filterValues = getFilterValues($filter);
 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey, pagination_type);
             });
 
             $component.on('listingUpdated', function(e,data){
