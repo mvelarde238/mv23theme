@@ -4,8 +4,11 @@ CHANGELOG
 
 23.8.214 24-04-02
 - Show attachment caption in gallery lightbox
-- Listing Component fix: take in count data-terms on submit
-- Listing Component fix: move loading css animation from before to after
+- Listing Component fixes: 
+  - take in count data-terms on submit
+  - move loading css animation from before to after
+  - add max-width to post filter
+  - check date params to include in main query
 
 23.8.213 24-03-22
 - Button Componente class renamed to .button-comp to avoid css collison with .button

@@ -5289,7 +5289,8 @@ ul.page-numbers .next {
 }
 
 .posts-filter {
-	margin-bottom: 30px;
+	max-width: 1240px;
+	margin: 0 auto 30px;
 	border-radius: 10px;
 }
 

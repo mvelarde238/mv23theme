@@ -110,6 +110,13 @@ if ($show == 'auto') {
             }
         }
     }
+
+    // check date params
+    if($componente['filter']){
+        $date_params = array();
+        if( $componente['year-filter']['show'] && $componente['year-filter']['default'] ) $date_params['year'] = $componente['year-filter']['default'];
+        if( count($date_params) ) $args_query['date_query'] = array( $date_params );
+    }
 }
 
 if(WOOCOMMERCE_IS_ACTIVE){
