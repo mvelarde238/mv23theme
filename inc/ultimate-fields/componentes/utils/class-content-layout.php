@@ -80,7 +80,8 @@ class Content_Layout{
                     'min_width' => 3,
                     'title' => $component->get_title(),
                     'fields' => $component->get_fields(),
-                    'edit_mode' => $component->get_edit_mode()
+                    'edit_mode' => $component->get_edit_mode(),
+                    'layout' => $component->get_layout()
                 );
 
                 if( is_array($args['override']) && count($args['override']) > 0 && key_exists($component->get_id(), $args['override'])){
