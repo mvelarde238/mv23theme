@@ -106,7 +106,7 @@ Container::create( 'global_options' )
             'places' => 'Places'
         ))->add_dependency('activate_gm'),
 
-        Field::create( 'multiselect', 'show_editor_in','El theme oculta el editor de texto en entradas, páginas y productos, mostrarlo en los siguientes lugares')->set_input_type( 'checkbox' )->set_orientation( 'horizontal' )->add_options( array(
+        Field::create( 'multiselect', 'show_editor_in','El theme oculta el editor de texto en páginas y productos, mostrarlo en los siguientes lugares')->set_input_type( 'checkbox' )->set_orientation( 'horizontal' )->add_options( array(
             'page' => 'Páginas',
             'product' => 'Productos'
         )),
