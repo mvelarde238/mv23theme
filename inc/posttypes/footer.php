@@ -69,7 +69,7 @@ add_action( 'admin_action_save_as_theme_footer_post', function () {
 add_filter( 'post_row_actions', function($actions, $post) {
     global $post;
 
-	if ( !$post->post_type === 'footer' ) {
+	if ( $post->post_type != 'footer' ) {
 		return $actions;
 	}
 
