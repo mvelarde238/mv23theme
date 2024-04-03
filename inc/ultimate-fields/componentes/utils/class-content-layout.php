@@ -103,9 +103,11 @@ class Content_Layout{
             for ($it=0; $it < count($row); $it++){
                 $componente = $row[$it];
                 $type = $componente['__type'];
+                $type_class = $type;
+                if($type == 'button') $type_class = 'button-comp';
                 $width = $componente['__width'];
                 $componente['layout'] = 'layout1';
-                echo '<div class="columnas-simples__item '.$type.' width-'.$width.'">';
+                echo '<div class="columnas-simples__item '.$type_class.' width-'.$width.'">';
                 set_query_var('componente', $componente);
                 $path = '/inc/ultimate-fields/componentes/views/'.$type;
                 get_template_part($path);
