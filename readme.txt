@@ -12,6 +12,7 @@ CHANGELOG
   - show load more pagination on submit
 - Fix .button class inside columnas simples comp.
 - Fix save_as_theme_footer action was showing in all cpts
+- Reduce fancybox toolbar middle buttons in mobile
 
 23.8.213 24-03-22
 - Button Componente class renamed to .button-comp to avoid css collison with .button

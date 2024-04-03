@@ -93,6 +93,9 @@
         // ****************************************************************************************************
         // ****************************************************************************************************
 
+        var toolbar_middle_buttons = [ "zoomIn", "zoomOut", "toggle1to1" ];
+        if( !MV23_GLOBALS.isMobile ) toolbar_middle_buttons.push("rotateCCW","rotateCW","flipX", "flipY");
+
         var fancybox_options = {
             Hash: false,
             Carousel: {
@@ -102,15 +105,7 @@
             Toolbar: {
                 display: {
                     left: ["infobar"],
-                    middle: [
-                        "zoomIn",
-                        "zoomOut",
-                        "toggle1to1",
-                        "rotateCCW",
-                        "rotateCW",
-                        "flipX",
-                        "flipY",
-                    ],
+                    middle: toolbar_middle_buttons,
                     right: ["fullscreen", "slideshow", "thumbs", "close"],
                 },
             },
