@@ -237,45 +237,41 @@ if(!function_exists('post_listing_header')){
         </div>
     <?php endif;
 
+    echo '<br>';
+    echo '<div class="pagination">';
     if ( $query->max_num_pages > 1 ){
         switch($pagination_type){
             case 'classic':
                 ///////////////////////////////////////////////////////////////////////////////////////////////
                 // PAGINATION 
                 ///////////////////////////////////////////////////////////////////////////////////////////////
-                echo '<br>';
-                echo '<div class="pagination">';
-                    // mv23_page_navi($query,1); dosnt work
-                    $actual_link = home_url();
-                    $base = $actual_link.'/page/' .'%#%'. '%_%';
-                    echo paginate_links( array(
-                        'base'         => $base,
-                        'format'       => '?paged=%#%',
-                        'current'      => max(1, $paged),
-                        'total'        => $query->max_num_pages,
-                        'prev_text'    => '<<',
-                        'next_text'    => '>>',
-                        'type'         => 'list',
-                        'end_size'     => 3,
-                        'mid_size'     => 3
-                    ) );
-                echo '</div>';
+                // mv23_page_navi($query,1); dosnt work
+                $actual_link = home_url();
+                $base = $actual_link.'/page/' .'%#%'. '%_%';
+                echo paginate_links( array(
+                    'base'         => $base,
+                    'format'       => '?paged=%#%',
+                    'current'      => max(1, $paged),
+                    'total'        => $query->max_num_pages,
+                    'prev_text'    => '<<',
+                    'next_text'    => '>>',
+                    'type'         => 'list',
+                    'end_size'     => 3,
+                    'mid_size'     => 3
+                ) );
                 ///////////////////////////////////////////////////////////////////////////////////////////////
                 break;
                 
             case 'load_more':
                 $load_more_text = LISTING_LOAD_MORE_TEXT;
                 $current_lang = (function_exists('pll_current_language')) ? pll_current_language() : 'es';
-
-                echo '<br>';
-                echo '<div class="pagination">';
                 echo '<p class="aligncenter"><button class="btn load_more_posts" data-paged="2">'.$load_more_text[$current_lang].'</button></p>'; 
-                echo '</div>';
                 break;
 
             default:
                 break;
         }
+        echo '</div>';
     }
 
     wp_reset_postdata();

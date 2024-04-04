@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.215 24-04-04
+- Listing Component fix: include pagination wrapper always even if is empty to be filled with ajax
+
 23.8.214 24-04-02
 - Show attachment caption in gallery lightbox
 - Listing Component fixes: 
