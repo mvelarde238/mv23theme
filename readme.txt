@@ -2,6 +2,11 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.216 24-04-17
+- CF7_USE_EMAIL_TEMPLATE fixes:
+  - use CF7_EMAIL_BUTTON_COLOR for button color
+  - use [_site_title] in footer, remove p margins in data table
+
 23.8.215 24-04-04
 - Listing Component fix: include pagination wrapper always even if is empty to be filled with ajax
 
