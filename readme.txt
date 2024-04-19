@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.217 24-04-19
+- Comp. Listing remove limit and slider from gap controls
+
 23.8.216 24-04-17
 - CF7_USE_EMAIL_TEMPLATE fixes:
   - use CF7_EMAIL_BUTTON_COLOR for button color

@@ -85,10 +85,10 @@ $listing_fields_2 = array(
     Field::create( 'number', 'items_in_mobile', 'Columnas en móviles' )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(1),
 
     Field::create( 'section', 'Espacio entre las columnas' ),
-    Field::create( 'number', 'd_gap', 'En desktop' )->set_default_value(intval(LISTING_DESKTOP_GAP))->set_width( 25 )->enable_slider( 0, 100 ),
-    Field::create( 'number', 'l_gap', 'En laptop' )->set_default_value(intval(LISTING_LAPTOP_GAP))->set_width( 25 )->enable_slider( 0, 100 ),
-    Field::create( 'number', 't_gap', 'En tablet' )->set_default_value(intval(LISTING_TABLET_GAP))->set_width( 25 )->enable_slider( 0, 100 ),
-    Field::create( 'number', 'm_gap', 'En móviles' )->set_default_value(intval(LISTING_MOBILE_GAP))->set_width( 25 )->enable_slider( 0, 100 ),
+    Field::create( 'number', 'd_gap', 'En desktop' )->set_default_value(intval(LISTING_DESKTOP_GAP))->set_width( 25 ),
+    Field::create( 'number', 'l_gap', 'En laptop' )->set_default_value(intval(LISTING_LAPTOP_GAP))->set_width( 25 ),
+    Field::create( 'number', 't_gap', 'En tablet' )->set_default_value(intval(LISTING_TABLET_GAP))->set_width( 25 ),
+    Field::create( 'number', 'm_gap', 'En móviles' )->set_default_value(intval(LISTING_MOBILE_GAP))->set_width( 25 ),
     
     Field::create( 'tab', 'Post Template'),
     Field::create( 'radio', 'post_template', 'Template' )->set_orientation( 'vertical' )->add_options($listing_post_template)->hide_label(),
