@@ -6,7 +6,7 @@ $layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 if (!is_array($location)) return;
 $lat = $location['latLng']['lat'];
 $lng = $location['latLng']['lng'];
-$lng = $location['zoom'];
+$zoom = $location['zoom'];
 $icono = $componente['icono'];
 $icono = wp_get_attachment_url($icono);
 

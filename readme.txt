@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.218 24-04-25
+- Fix: Map component zoom data-attribute implementation
+
 23.8.217 24-04-19
 - Comp. Listing remove limit and slider from gap controls
 
