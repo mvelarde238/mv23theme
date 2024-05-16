@@ -1,6 +1,6 @@
 <?php
 function wpb_mce_buttons_2($mce_buttons) {
-    array_unshift($mce_buttons, 'styleselect', 'fontsizeselect');
+    array_unshift($mce_buttons, 'styleselect', 'fontsizeselect', 'fontselect');
     $mce_buttons[] = 'alignjustify';
     $mce_buttons[] = 'table';
     return $mce_buttons;
@@ -77,15 +77,42 @@ if ( ! function_exists( 'wpex_mce_text_sizes' ) ) {
 }
 add_filter( 'tiny_mce_before_init', 'wpex_mce_text_sizes' );
 
-// Customize mce editor font sizes
-// if ( ! function_exists( 'wpex_mce_text_sizes' ) ) {
-//   function wpex_mce_text_sizes( $initArray ){
-//     $initArray['fontsize_formats'] = "9px 10px 12px 13px 14px 16px 18px 21px 24px 28px 32px 36px";
-//     return $initArray;
-//   }
-// }
-// add_filter( 'tiny_mce_before_init', 'wpex_mce_text_sizes' );
+// Add custom Fonts to the Fonts list.
+if ( ! function_exists( 'mce_font_families' ) ) {
+  function mce_font_families( $initArray ){
 
+    $fonts = array(
+      'Andale Mono' => 'monospace',
+      'Arial' => 'arial,helvetica,sans-serif',
+      'Arial Black' => 'arial black,avant garde',
+      'Book Antiqua' => 'book antiqua,palatino',
+      'Comic Sans MS' => 'comic sans ms,sans-serif',
+      'Courier New' => 'courier new,courier',
+      'Georgia' => 'georgia,palatino',
+      'Helvetica' => 'helvetica',
+      'Impact' => 'impact,chicago',
+      'Symbol' => 'symbol',
+      'Tahoma' => 'tahoma,arial,helvetica,sans-serif',
+      'Terminal' => 'terminal,monaco',
+      'Times New Roman' => 'times new roman,times',
+      'Trebuchet MS' => 'trebuchet ms,geneva',
+      'Verdana' => 'verdana,geneva',
+      'Webdings' => 'webdings',
+      'Wingdings' => 'wingdings,zapf dingbats',
+    );
+
+    $fonts = array_merge(CUSTOM_TINYMCE_FONTS,$fonts);
+
+    $fonts_str = '';
+    foreach($fonts as $key=>$item) {
+      $fonts_str .= $key.'='.$item.';';
+    }
+
+    $initArray['font_formats'] = rtrim( $fonts_str, ';');
+    return $initArray;
+  }
+}
+add_filter( 'tiny_mce_before_init', 'mce_font_families' );
 
 
 

@@ -36,6 +36,7 @@ if( !defined('HEADER_HEIGHT') ) define ('HEADER_HEIGHT', 64); // for anchors if 
 if( !defined('CARD_CONTENT_TYPE') ) define ('CARD_CONTENT_TYPE', 'components');
 if( !defined('IMAGE_THUMB_SIZE') ) define ('IMAGE_THUMB_SIZE', 'full');
 if( !defined('COLOR_PICKER_PALETTES') ) define ('COLOR_PICKER_PALETTES', array('#000000','#ffffff',get_main_color(),get_secondary_color(),get_tertiary_color(),'#0065bd','#5f27cd','#bcd81c'));
+if( !defined('CUSTOM_TINYMCE_FONTS') ) define('CUSTOM_TINYMCE_FONTS', array());
 
 if( !defined('CF7_USE_EMAIL_TEMPLATE') ) define ('CF7_USE_EMAIL_TEMPLATE', true);
 if( !defined('CF7_EMAIL_MAIN_COLOR') ) define ('CF7_EMAIL_MAIN_COLOR', get_main_color());

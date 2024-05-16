@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.219 24-05-16
+- Support for CUSTOM_TINYMCE_FONTS
+
 23.8.218 24-04-25
 - Fix: Map component zoom data-attribute implementation
 
