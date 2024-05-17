@@ -21,6 +21,7 @@ if( !function_exists('load_posts') ){
         $month = $_REQUEST["month"];
         $post_template = $_REQUEST["post_template"];
         $listing_template = $_REQUEST["listing_template"];
+        $on_click_post = $_REQUEST["on_click_post"];
         $per_page = $_REQUEST["per_page"];
         $offset = $_REQUEST["offset"];
         $order = $_REQUEST["order"];
@@ -128,6 +129,7 @@ if( !function_exists('load_posts') ){
                     $query->the_post();
 
                     if($listing_template == 'carrusel') echo '<div>';
+                    set_query_var( 'on_click_post', $on_click_post );
                     get_template_part( 'inc/partials/minipost',$post_template);
                     if($listing_template == 'carrusel') echo '</div>';
                 endwhile;

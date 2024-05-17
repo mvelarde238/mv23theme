@@ -4,7 +4,7 @@
     var current_lang = MV23_GLOBALS.lang;
     var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
 
-    function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey, pagination_type){
+    function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, wookey, pagination_type){
 
         $.ajax({
             type: 'POST',
@@ -16,6 +16,7 @@
                 lang: MV23_GLOBALS.lang,
                 post_template: post_template,
                 listing_template: listing_template,
+                on_click_post: on_click_post,
                 terms: (filterValues.terms) ? filterValues.terms : terms,
                 paged: paged || 1,
                 per_page: per_page,
@@ -130,7 +131,8 @@
                     taxonomies = $component.attr("data-taxonomies"),
                     terms = $component.attr("data-terms"),
                     post_template = $component.attr("post-template"),
-                    listing_template = $component.attr("listing-template"),
+                    listing_template = $component.attr("listing-template"),                    
+                    on_click_post = $component.attr("on-click-post"),
                     per_page = $component.attr("data-qty"),
                     offset = $component.attr("data-offset"),
                     order = $component.attr("data-order"),
@@ -152,7 +154,8 @@
                     taxonomies = $component.attr("data-taxonomies"),
                     terms = $component.attr("data-terms"),
                     post_template = $component.attr("post-template"),
-                    listing_template = $component.attr("listing-template"),
+                    listing_template = $component.attr("listing-template"),                    
+                    on_click_post = $component.attr("on-click-post"),
                     per_page = $component.attr("data-qty"),
                     offset = $component.attr("data-offset"),
                     order = $component.attr("data-order"),
@@ -162,7 +165,7 @@
                     action = 'append',
                     filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey, pagination_type);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, wookey, pagination_type);
             });
             
             $component.on('click','.posts-filter__submit',function(ev){
@@ -172,7 +175,8 @@
                     taxonomies = $component.attr("data-taxonomies"),
                     terms = $component.attr("data-terms"),
                     post_template = $component.attr("post-template"),
-                    listing_template = $component.attr("listing-template"),
+                    listing_template = $component.attr("listing-template"),                    
+                    on_click_post = $component.attr("on-click-post"),
                     per_page = $component.attr("data-qty"),
                     offset = $component.attr("data-offset"),
                     order = $component.attr("data-order"),
@@ -183,7 +187,7 @@
                     action = 'replace',
                     filterValues = getFilterValues($filter);
 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey, pagination_type);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, wookey, pagination_type);
             });
 
             $component.on('listingUpdated', function(e,data){

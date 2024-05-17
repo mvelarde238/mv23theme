@@ -19,6 +19,7 @@ $query_taxonomies = array();
 $query_terms = array();
 $woocommerce_key = ( WOOCOMMERCE_IS_ACTIVE && isset($componente['woocommerce_key']) ) ? $componente['woocommerce_key'] : '';
 $pagination_type = $componente['pagination_type'];
+$on_click_post = ( isset($componente['on_click_post']) ) ? $componente['on_click_post'] : 'redirect';
 
 if ($show == 'manual') {
     $posttype = '';
@@ -165,6 +166,7 @@ if(!function_exists('post_listing_header')){
     data-orderby="<?=$orderby?>" 
     post-template="<?=$post_template?>"
     listing-template="<?=$listing_template?>"
+    on-click-post="<?=$on_click_post?>"
     data-wookey="<?=$woocommerce_key?>"
     data-scrolltop="<?=$scrolltop?>"
     data-pagination="<?=$pagination_type?>">
@@ -193,7 +195,6 @@ if(!function_exists('post_listing_header')){
 
     if ($query->have_posts()) : 
         $columns_class = ($listing_template == 'carrusel') ? '' : 'has-columns';
-        $on_click_post = ( isset($componente['on_click_post']) ) ? $componente['on_click_post'] : 'redirect';
         $post_listing_class = 'posts-listing posts-listing--'.$listing_template . ' ' . $columns_class. ' posts-listing--'.$on_click_post;
 
         $dataAttrs = '';
@@ -227,6 +228,7 @@ if(!function_exists('post_listing_header')){
 
             <?php while ( $query->have_posts() ) : $query->the_post();
                 if($listing_template == 'carrusel') echo '<div>';
+                set_query_var( 'on_click_post', $on_click_post );
                 get_template_part( 'inc/partials/minipost',$post_template);
                 if($listing_template == 'carrusel') echo '</div>';
             endwhile; ?>
