@@ -4,6 +4,7 @@ CHANGELOG
 
 23.8.220 24-05-17
 - Listing Comp. on_click_post "no actions" implementation
+- Listing Comp. small view fixes: layout and pagination
 
 23.8.219 24-05-16
 - Support for CUSTOM_TINYMCE_FONTS

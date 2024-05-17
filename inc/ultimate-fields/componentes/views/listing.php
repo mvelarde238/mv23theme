@@ -1,5 +1,6 @@
 <?php
 $tipo = $componente['__type'];
+$layout = (isset($componente['layout'])) ? $componente['layout'] : 'layout1';
 $postss = $componente['posts'];
 $show = $componente['show'];
 $items_in_desktop = $componente['items_in_desktop'];
@@ -170,6 +171,9 @@ if(!function_exists('post_listing_header')){
     data-wookey="<?=$woocommerce_key?>"
     data-scrolltop="<?=$scrolltop?>"
     data-pagination="<?=$pagination_type?>">
+
+    <?php if ($layout == 'layout2') echo '<div class="container">'; ?>
+
     <?php if($componente['filter']) {
         $show_month = 0;
         if( isset($componente['month-filter']) ){
@@ -273,9 +277,11 @@ if(!function_exists('post_listing_header')){
             default:
                 break;
         }
-        echo '</div>';
     }
+    echo '</div>';
 
     wp_reset_postdata();
     ?>
+
+    <?php if ($layout == 'layout2') echo '</div>'; ?>
 </div> 
