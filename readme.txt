@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.221 24-05-18
+- Check if user is admin before using 'custom_menu_order' filter hook in theme options
+
 23.8.220 24-05-17
 - Listing Comp. on_click_post "no actions" implementation
 - Listing Comp. small view fixes: layout and pagination

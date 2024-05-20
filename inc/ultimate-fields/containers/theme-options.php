@@ -29,7 +29,7 @@ if( !function_exists( 'rearrange_theme_options_submenu_order' ) ){
         return $menu_ord;
     }
 }
-add_filter( 'custom_menu_order', 'rearrange_theme_options_submenu_order');
+if(current_user_can('administrator')) add_filter( 'custom_menu_order', 'rearrange_theme_options_submenu_order');
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------
 // $theme_options_page = Options_Page::create( 'theme-options', 'Theme Options' )->set_position( 2 );
