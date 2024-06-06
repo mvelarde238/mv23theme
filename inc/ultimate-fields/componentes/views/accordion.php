@@ -41,7 +41,7 @@ $attributes = generate_attributes($componente, $classes_array);
                 switch ($identificador) {
                     case 'imagen':
                         $image = wp_get_attachment_url($item['image']);
-                        $style = (isset($item['image_size']) && $item['image_size'] == 'auto') ? 'style="height:auto"' : '';
+                        $style = (isset($item['image_size']) && $item['image_size'] == 'auto') ? 'style="height:auto;width:auto;"' : '';
                         $icon_html = ($image) ? '<img '.$style.' src="'.$image .'" />' : '';
                         break;
                     
