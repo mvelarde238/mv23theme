@@ -4,6 +4,7 @@ CHANGELOG
 
 23.8.222 24-06-06
 - Accordion Comp. fix btn image_size
+- Image Comp. fix popable video action
 
 23.8.221 24-05-18
 - Check if user is admin before using 'custom_menu_order' filter hook in theme options

@@ -25,6 +25,10 @@ if($type == 'image'){
 }
 
 if($type == 'video'){
+	$video_background = video_background($componente);
+	$video_source = ( isset($componente['video_source']) ) ? $componente['video_source'] : 'selfhosted';
+	if($video_source != 'selfhosted' && $aspect_ratio == 'aspect-ratio-default') $aspect_ratio = 'aspect-ratio-16-9';
+
 	$video_settings = (isset($componente['video_settings'])) ? $componente['video_settings'] : array('bgc'=>'#000000');
 	$video_bgc = $video_settings['bgc'];
 	if($video_bgc) $element_style .= 'background-color:'.$video_bgc.';';
@@ -32,18 +36,19 @@ if($type == 'video'){
 	$video_type = ( isset($componente['video_type']) ) ? $componente['video_type'] : 'popable';
 
 	if( $video_type == 'popable' ){
+		$video_key = ( $video_source === 'selfhosted' ) ? 'internal' : 'external';
 		$componente['actions'] = array(
 			array(
 				'trigger' => 'click',
-				'action' => 'open-video-popup'
+				'action' => 'open-video-popup',
+				'video_popup' => array(
+					'video_source' => $video_source,
+					$video_key.'_video' => $video_background['url']
+				)
 			)
 		);
 	}
 
-	$video_source = ( isset($componente['video_source']) ) ? $componente['video_source'] : 'selfhosted';
-	if($video_source != 'selfhosted' && $aspect_ratio == 'aspect-ratio-default') $aspect_ratio = 'aspect-ratio-16-9';
-
-	$video_background = video_background($componente);
 	array_push($classes_array, $video_type);
 	array_push($classes_array, $video_source);
 	array_push($classes_array, $video_background['class']);
