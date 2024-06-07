@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.223 24-06-07
+- Components Wrapper Comp. Implementation
+
 23.8.222 24-06-06
 - Accordion Comp. fix btn image_size
 - Image Comp. fix popable video action

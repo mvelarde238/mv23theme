@@ -46,6 +46,11 @@ $GLOBALS['componentes'] = $componentes;
 require_once( 'utils/class-content-layout.php' );
 include( locate_template( 'inc/ultimate-fields/componentes/utils/edit-components.php' ) );
 
+if(COMPONENTS_WRAPPER){
+	require_once( 'fields/components-wrapper.php' );
+	$GLOBALS['componentes'][] = ['name' => 'Components Wrapper', 'variable'=>$components_wrapper];
+}
+
 // se usa en card, modulo, row 
 $components_repeater = Field::create( 'repeater', 'componentes', '' )
 ->set_chooser_type( 'dropdown' )

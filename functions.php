@@ -51,7 +51,7 @@ if( !defined('MOBILE_MENU_POSITION') ) define ('MOBILE_MENU_POSITION', 'left');
 if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','megamenu','archive_page','footer'));
 if( !defined('UF_TAXONOMIES') ) define ('UF_TAXONOMIES', array('category'));
 if( !defined('CONTENT_BUILDER_POSTTYPES') ) define ('CONTENT_BUILDER_POSTTYPES', array());
-if( !defined('CONTENT_BUILDER_COMPONENTS') ) define ('CONTENT_BUILDER_COMPONENTS', array( 'Editor de Texto', 'Imágen', 'Galeria', 'Listing', 'Componente Reusable', 'Mapa', 'Button', 'Separador', 'HTML' ) );
+if( !defined('CONTENT_BUILDER_COMPONENTS') ) define ('CONTENT_BUILDER_COMPONENTS', array( 'Editor de Texto', 'Imágen', 'Galeria', 'Listing', 'Componente Reusable', 'Mapa', 'Button', 'Separador', 'HTML', 'Components Wrapper' ) );
 if( !defined('PAGE_HEADER_IN') ) define ('PAGE_HEADER_IN', array('page','archive_page'));
 if( !defined('PAGE_SETTINGS_POSTTYPES') ) define ('PAGE_SETTINGS_POSTTYPES', array('page','archive_page'));
 
@@ -66,6 +66,7 @@ if( !defined('ITEMS_GRID') ) define ('ITEMS_GRID', false);
 if( !defined('CARD') ) define ('CARD', false);
 if( !defined('PROGRESS_CIRCLE') ) define ('PROGRESS_CIRCLE', false);
 if( !defined('PROGRESS_BAR') ) define ('PROGRESS_BAR', false);
+if( !defined('COMPONENTS_WRAPPER') ) define ('COMPONENTS_WRAPPER', true);
 
 if( !defined('LISTING_DESKTOP_COLUMNS') ) define ('LISTING_DESKTOP_COLUMNS', 2);
 if( !defined('LISTING_LAPTOP_COLUMNS') ) define ('LISTING_LAPTOP_COLUMNS', 2);
