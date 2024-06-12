@@ -7202,6 +7202,16 @@ p + .pdf-responsive {
 	justify-content: flex-start;
 }
 
+.post-modal .full-width,
+.expander .full-width {
+	width: initial !important;
+	position: initial !important;
+	left: initial !important;
+	right: initial !important;
+	margin-left: initial !important;
+	margin-right: initial !important;
+}
+
 .progress-bar > div:first-child {
 	display: flex;
 	justify-content: space-between;

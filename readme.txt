@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.224 24-06-12
+- Remove full-width styles from post-modal and expander on listing component
+
 23.8.223 24-06-07
 - Components Wrapper Comp. Implementation
 
