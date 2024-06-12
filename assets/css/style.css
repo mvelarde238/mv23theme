@@ -4356,6 +4356,10 @@ textarea {
 	margin: auto;
 }
 
+.wpcf7-full-width .wpcf7 {
+	max-width: 100%;
+}
+
 .row-flex {
 	display: flex;
 	gap: 15px;
