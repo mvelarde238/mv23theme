@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.225 24-06-13
+- Add uf hidden input to menu item in order to edit it in a pop up
+
 23.8.224 24-06-12
 - Remove full-width styles from post-modal and expander on listing component
 - .wpcf7-full-width class

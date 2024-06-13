@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+13-06-2024
+- Add uf hidden input to menu item in order to edit it in a pop up
+    (libs/ultimate-fields/core/js/container/menu.js)
+
 22-03-2024
 - JQuery Flex Datalist implementation in Text uf field
     (core/assets/css/ultimate-fields.css)

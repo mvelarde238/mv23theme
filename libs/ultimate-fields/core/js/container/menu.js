@@ -127,6 +127,21 @@
 	 */
 	menu.ButtonView = menu.View.extend({
 		render: function() {
+			// Add the basic HTML
+			args = _.extend( {}, this.model.toJSON(), {
+				item:  this.model.get( 'itemId' )
+			});
+
+			var hiddenInput = document.createElement('input');
+			hiddenInput.type = 'hidden';
+			hiddenInput.name = "menu-item-uf-"+args.item+"-"+args.id;
+			hiddenInput.value = '';
+			hiddenInput.className = 'uf-container-data';
+			this.$el.html( hiddenInput );
+
+			this.initializeHiddenField();
+
+			// Add the button to edit in pop up
 			var that = this, button;
 
 			button = new UltimateFields.Button({
@@ -140,8 +155,6 @@
 
 			button.$el.appendTo( this.$el );
 			button.render();
-
-			this.initializeHiddenField();
 		},
 
 		/**
