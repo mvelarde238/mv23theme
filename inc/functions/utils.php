@@ -84,3 +84,24 @@ if(!function_exists('get_video_details_from_url')){
         return $video_details;
     }
 }
+
+if(!function_exists('__locations_multilingual_support')){
+    function __locations_multilingual_support( $locations ){
+
+        if(IS_MULTILANGUAGE){
+            if( is_array($locations) && !empty($locations) ){
+                $langs = pll_the_languages(array( 'raw' => 1 )); 
+
+			    if (!empty($langs)) :
+			    	foreach ($langs as $lang) :
+			    		foreach ($locations as $loc) {
+                            array_push( $locations, $loc.'___'.$lang['slug'] );
+                        }
+			    	endforeach;
+			    endif;
+            }
+        }
+
+        return $locations;
+    }
+}

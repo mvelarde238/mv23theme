@@ -298,6 +298,20 @@
 			});
 
 			return ! hidden && visible;
+		},
+
+		/** 
+		 * Extract text between []
+		 * e.g: menu-locations[main-nav] -> return main-nav
+		*/
+		extractContentBetweenBrackets: function( string ) {
+			const regex = /\[([^\]]+)\]/;
+			// const regex = /\[([^\]___]+)(?:___[^\]]*)?\]/; // polylang support -> menu-locations[main-nav___en] not working
+    		const match = string.match(regex);
+    		if (match) {
+    		    return match[1];
+    		}
+    		return null;
 		}
 	});
 

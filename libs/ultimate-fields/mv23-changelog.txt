@@ -1,5 +1,11 @@
 mv23 changelog-------------------------
 
+14-06-2024
+- Fix: uf -> listenForThemeLocations in menu items
+    (libs/ultimate-fields/core/classes/Location/Menu_Item.php)
+    (libs/ultimate-fields/core/js/container/menu.js)
+    (libs/ultimate-fields/core/js/uf.js)
+
 13-06-2024
 - Add uf hidden input to menu item in order to edit it in a pop up
     (libs/ultimate-fields/core/js/container/menu.js)

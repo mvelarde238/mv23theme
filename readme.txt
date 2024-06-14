@@ -2,6 +2,13 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.226 24-06-14
+- Menu items custom fields revision:
+- Separate setting from megamenu
+- Fix: uf -> listenForThemeLocations in menu items
+- MENU_ITEM_MEGAMENU_LOCATIONS Implementation
+- __locations_multilingual_support()
+
 23.8.225 24-06-13
 - Add uf hidden input to menu item in order to edit it in a pop up
 

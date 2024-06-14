@@ -56,6 +56,7 @@ if( !defined('PAGE_HEADER_IN') ) define ('PAGE_HEADER_IN', array('page','archive
 if( !defined('PAGE_SETTINGS_POSTTYPES') ) define ('PAGE_SETTINGS_POSTTYPES', array('page','archive_page'));
 
 if( !defined('MENU_ITEM_DATA_LOCATIONS') ) define ('MENU_ITEM_DATA_LOCATIONS', array('main-nav'));
+if( !defined('MENU_ITEM_MEGAMENU_LOCATIONS') ) define ('MENU_ITEM_MEGAMENU_LOCATIONS', array('main-nav'));
 if( !defined('ARCHIVE_OPTIONS_POSTTYPES') ) define ('ARCHIVE_OPTIONS_POSTTYPES', array('post' => 'Entradas'));
 if( !defined('ARCHIVE_OPTIONS_TAXONOMIES') ) define ('ARCHIVE_OPTIONS_TAXONOMIES', array('category' => 'Category','post_tag' => 'Tag'));
 

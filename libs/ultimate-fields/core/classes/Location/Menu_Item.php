@@ -131,9 +131,8 @@ class Menu_Item extends Location {
 
 		$data = array();
 
-		if( ! empty( $this->levels ) ) {
-			$data[ 'levels' ] = $this->levels;
-		}
+		if( ! empty( $this->levels ) ) $data[ 'levels' ] = $this->levels;
+		if( ! empty( $this->theme_locations ) ) $data[ 'theme_locations' ] = $this->theme_locations;
 
 		return $data;
 	}

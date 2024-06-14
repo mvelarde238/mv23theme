@@ -154,6 +154,11 @@
 			});
 
 			button.$el.appendTo( this.$el );
+
+			this.el.style.float = 'left';
+			this.el.style.clear = 'initial';
+			this.el.style.marginRight = '5px';
+
 			button.render();
 		},
 
@@ -183,7 +188,7 @@
 			var that  = this;
 
 			// Add a simple fields wrapper
-			this.$el.append( $( '<div class="uf-fields" />' ) );
+			this.$el.append( $( '<div class="uf-fields uf-boxed-fields" />' ) );
 
  			// Add normal fields and initialize the hidden field
  			this.addFields( null, {
@@ -240,6 +245,10 @@
  			if( this.get( 'levels' ) && ! this.empty( this.get( 'levels' ) ) ) {
  				this.listenForLevels();
  			}
+
+			if( this.get( 'theme_locations' ) && ! this.empty( this.get( 'theme_locations' ) ) ) {
+				this.listenForThemeLocations();
+			}
 		},
 
 		/**
@@ -282,7 +291,44 @@
 
 			// Save the value
 			this.checked.set( 'levels', this.checkSingleValue( level, this.get( 'levels' ) ) );
-		}
+		},
+
+		/**
+		 * Listens for theme locations
+		 */
+		listenForThemeLocations: function() {
+			var that = this, $box, check;
+
+			check = function() {
+				var current = [];
+
+				$box.find( 'input:checked' ).each(function( checkbox ) {
+					var value = that.extractContentBetweenBrackets(this.name);
+
+					if( current.indexOf( value ) == -1 ) {
+						current.push( value );
+					}
+				});
+
+				that.checkThemeLocation(current);
+			}
+
+			$box = $( '.menu-theme-locations' );
+
+			if( ! $box.length ) {
+				return; // No box, no checks
+			}
+
+			$box.on( 'change', 'input', check );
+			check();
+		},
+
+		/**
+		 * Checks if the correct theme_location have been applied.
+		 */
+		checkThemeLocation: function(current) {
+			this.checked.set( 'theme_locations', this.checkMultipleValues( current, this.get('theme_locations') ) );
+		},
 	});
 
 	/**
