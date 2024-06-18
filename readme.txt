@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.227 24-06-18
+- Fix Video Comp. external source video is treated as a string
+
 23.8.226 24-06-14
 - Menu items custom fields revision:
 - Separate setting from megamenu

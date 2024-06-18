@@ -6648,8 +6648,7 @@ li.product:before {
 	max-width: 1240px;
 }
 
-.cover-all,
-.theme-gallery .media.video.selfhosted.popable .media__element:before {
+.cover-all {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -6809,15 +6808,11 @@ li.product:before {
 	padding-bottom: 25%;
 }
 
-.card.componente .cover-all:hover,
-.card.componente .theme-gallery .media.video.selfhosted.popable .media__element:hover:before,
-.theme-gallery .media.video.selfhosted.popable .card.componente .media__element:hover:before {
+.card.componente .cover-all:hover {
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
-.card.componente .cover-all:hover:before,
-.card.componente .theme-gallery .media.video.selfhosted.popable .media__element:hover:before,
-.theme-gallery .media.video.selfhosted.popable .card.componente .media__element:hover:before {
+.card.componente .cover-all:hover:before {
 	content: "\f08e";
 	font: normal normal normal 14px/1 FontAwesome;
 	font-size: 23px;
@@ -7110,31 +7105,25 @@ p + .pdf-responsive {
 	padding-bottom: 25%;
 }
 
-.media .cover-all:before,
-.theme-gallery .media.video.selfhosted.popable .media__element:before {
+.media .cover-all:before {
 	font: normal normal normal 14px/1 FontAwesome;
 	color: #fff;
 }
 
-.media .cover-all:hover,
-.theme-gallery .media.video.selfhosted.popable .media__element:hover:before {
+.media .cover-all:hover {
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
-.media.image .cover-all:hover:before,
-.media.image .theme-gallery .media.video.selfhosted.popable .media__element:hover:before,
-.theme-gallery .media.video.selfhosted.popable .media.image .media__element:hover:before {
+.media.image .cover-all:hover:before {
 	content: "\f08e";
 	font-size: 23px;
 }
 
-.media.video .cover-all,
-.theme-gallery .media.video.selfhosted.popable .media__element:before {
+.media.video .cover-all {
 	text-align: center;
 }
 
-.media.video .cover-all:before,
-.theme-gallery .media.video.selfhosted.popable .media__element:before {
+.media.video .cover-all:before {
 	content: "\f04b";
 	font-size: 21px;
 	line-height: 47px;
@@ -7144,14 +7133,12 @@ p + .pdf-responsive {
 	height: 50px;
 }
 
-.media.video.youtube .cover-all:before,
-.media.video.youtube .theme-gallery .media.video.selfhosted.popable .media__element:before,
-.theme-gallery .media.video.selfhosted.popable .media.video.youtube .media__element:before {
-	border: 0;
+.media.video:has(.cover-all[href*="youtube.com"]) .cover-all:before {
 	background-color: red;
 	width: 71px;
 	height: 50px;
 	border-radius: 11px;
+	border: 0;
 }
 
 .media.video.playable video {

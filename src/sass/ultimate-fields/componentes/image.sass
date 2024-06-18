@@ -70,14 +70,12 @@
 				border-radius: 50%
 				width: 50px
 				height: 50px
-		&.youtube
-			.cover-all
-				&:before
-					border: 0
-					background-color: red
-					width: 71px
-					height: 50px
-					border-radius: 11px
+		&:has(.cover-all[href*="youtube.com"]) .cover-all:before
+			background-color: red
+			width: 71px
+			height: 50px
+			border-radius: 11px
+			border: 0
 		&.playable
 			video
 				height: 100%

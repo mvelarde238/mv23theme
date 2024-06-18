@@ -36,11 +36,16 @@ function generate_actions_code($componente){
 						$video_source = ( isset($video_popup['video_source']) ) ? $video_popup['video_source'] : '';
 						if( $video_source == 'selfhosted' ){
 							$videos = $video_popup['internal_video'];
-							$video_id = (is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
-							if ($video_id):
-								$video_url = wp_get_attachment_url($video_id);
-								echo '<a data-fancybox class="cover-all" href="'.$video_url.'"></a>';
-							endif;
+							$video_url = null;
+
+							if( is_array($videos) ){
+								$video_id = (is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
+								if ($video_id) $video_url = wp_get_attachment_url($video_id);
+							}
+
+							if( is_string($videos) ) $video_url = $videos;
+
+							if($video_url) echo '<a data-fancybox class="cover-all" href="'.$video_url.'"></a>';
 						}
 						if( $video_source == 'external' ){
 							$video_url = $video_popup['external_video'];
