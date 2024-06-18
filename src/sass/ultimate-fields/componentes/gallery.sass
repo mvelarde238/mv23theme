@@ -6,6 +6,9 @@
     .media__element
         min-height: 100px
     .media.video.selfhosted.popable .media__element:before
+        font: normal normal normal 14px/1 FontAwesome
+        color: #fff
+        text-align: center
         content: "\f04b"
         font-size: 21px
         line-height: 47px
@@ -33,12 +36,12 @@
     .theme-gallery__item
         border: 2px solid white
         background-color: #f1f1f1
-    
+
     @media #{$medium-only}
         .theme-gallery__item,
         .theme-gallery__item-sizer
             width: calc( 100% / var(--t-columns) )
-    
+
     @media #{$small-and-down}
         .theme-gallery__item,
         .theme-gallery__item-sizer

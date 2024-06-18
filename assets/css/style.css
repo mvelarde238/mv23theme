@@ -7483,6 +7483,9 @@ p + .pdf-responsive {
 }
 
 .theme-gallery .media.video.selfhosted.popable .media__element:before {
+	font: normal normal normal 14px/1 FontAwesome;
+	color: #fff;
+	text-align: center;
 	content: "\f04b";
 	font-size: 21px;
 	line-height: 47px;
