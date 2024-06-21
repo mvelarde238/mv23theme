@@ -110,6 +110,13 @@ class CPT {
     public $textdomain = 'cpt';
 
     /**
+     * Template name used to display the single page. Use the set_single_template() method to set a custom single template.
+     *
+     * @var string $single_template
+     */
+    public $single_template = 'single.php';
+
+    /**
      * Constructor
      *
      * Register a custom post type.
@@ -1081,6 +1088,26 @@ class CPT {
         );
 
         return $bulk_messages;
+    }
+
+    /**
+     * Manage single page template
+     */
+    function set_single_template( $single_template ) {
+        $this->single_template = $single_template;
+
+        // manage single template
+        $this->add_filter( 'template_include', array ( &$this, 'manage_single_template' ) );
+    }
+    
+    function manage_single_template( $template ){
+        $new_template = null;
+
+        if( is_singular( $this->slug ) && $this->single_template != 'single.php' ){
+            $new_template = locate_template( array( $this->single_template ) );
+        }
+
+        return ( $new_template ) ? $new_template : $template;
     }
 
     /**

@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.228 24-06-21
+- CPT Class Implementation: set_single_template() method
+
 23.8.227 24-06-18
 - Fix Video Comp. external source video is treated as a string
 
