@@ -21,7 +21,7 @@
   "js/modulos/boton-subir.js",
   "js/modulos/counter.js",
   "js/modulos/external-links.js",
-  "js/modulos/floating-header.js",
+  "js/modulos/sticky-header.js",
   "js/modulos/menu.js",
   "js/modulos/smooth-anchors.js",
   "js/modulos/woocommerce.js",

@@ -37,9 +37,9 @@ $menu-breakpoint: 1296px !default;
 // 1. Colors
 // ==========================================================================
 
-$primary-color: #F8522C !default;
-$primary-color-lighten-1: #{lighten($primary-color, 33%)} !default;
-$primary-color-lighten-2: #{lighten($primary-color, 39%)} !default;
+$primary-color: #ff7a00 !default;
+$primary-color-lighten-1: #{lighten($primary-color, 35%)} !default;
+$primary-color-lighten-2: #{lighten($primary-color, 45%)} !default;
 
 $secondary-color: #071a36 !default;
 $font-color: #000 !default;

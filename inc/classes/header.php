@@ -1,75 +1,78 @@
 <?php
 class Header{
 	private $logo;
-	private $style;
-	private $classes;
-	private $additional_classes = array();
+	private $styles = array();
+	private $classes = array();
 	private $overrided;
+	private $header_type;
 
 	private $page_ID;
 	private $page_type;
  	
- 	function __construct(){
+ 	function __construct( $header_type = 'static' ){
 		$this->page_ID = Page::getInstance()->get_id();
 		$this->page_type = Page::getInstance()->get_type();
 
+		if( $header_type ) $this->header_type = $header_type;
+
  		$this->set_overrided();
  		$this->set_logo();
- 		$this->set_style();
+ 		$this->set_styles();
  		$this->set_classes();
  	}
 
+	private function get_meta( $meta ){
+		return get_metadata($this->page_type, $this->page_ID, $meta, true);
+	}
+
  	private function set_overrided(){
- 		$custom_fixed_header = get_metadata($this->page_type, $this->page_ID,'custom_fixed_header', true);
- 		if ($custom_fixed_header) $this->overrided = true;
+		$key = $this->header_type;
+ 		$custom_header = $this->get_meta( 'custom_'.$key.'_header' );
+ 		if ($custom_header) $this->overrided = true;
  	}
 
  	private function set_logo(){
- 		if (get_metadata($this->page_type, $this->page_ID,'replace_logo', true)) {
-	 		$logo_id = get_metadata($this->page_type, $this->page_ID,'header_logo', true);
- 		} else {
-	 		if ($this->overrided) {
-	 			$logo_version = get_metadata($this->page_type, $this->page_ID,'fixed_header_logo', true);
-	 		} else {
-	 			$logo_version = get_option( 'fixed_header_logo' );
-	 		}
- 			$logo_id = get_option( $logo_version );
- 		}
+		$logo_id = null;
+
+		$key = $this->header_type;  
+		$header_logo = $key.'_header_logo';
+ 		
+		$logo_version = ( $this->overrided ) ? $this->get_meta( $header_logo ) : get_option( $header_logo );
+	 	if ( $logo_version === 'custom' ) {
+			$custom_logo = 'custom_'.$key.'_header_logo';
+			$logo_id = ( $this->overrided ) ? $this->get_meta( $custom_logo ) : get_option( $custom_logo );
+		} else {
+			$logo_id = get_option( $logo_version );
+		}
+		
  		$logo_url = ($logo_id) ? wp_get_attachment_image_src( $logo_id, 'full') : null; 
  		if (is_array($logo_url) && $logo_url[0]):
  			$this->logo = $logo_url[0];
  		endif;
  	}
 
- 	private function set_style(){
- 		$style = '';
- 		if ($this->overrided) {
- 			$bgc = get_metadata($this->page_type, $this->page_ID,'fixed_header_bgc', true);
- 		} else {
- 			$bgc = get_option( 'fixed_header_bgc' );
- 		}
+ 	private function set_styles(){
+		$key = $this->header_type;
+ 		$styles = array();
 
+		$header_bgc = $key.'_header_bgc';
+ 		$bgc = ($this->overrided) ? $this->get_meta( $header_bgc ) : $bgc = get_option( $header_bgc );
 		$alpha = ($bgc && isset($bgc['alpha'])) ? $bgc['alpha'] : '100';
-		$style .= ($bgc && $bgc['add_bgc']) ? 'background-color: rgba('.hexToRgb($bgc['bgc'],$alpha).');' : '';
+		$styles[] = ($bgc && $bgc['add_bgc']) ? 'background-color: rgba('.hexToRgb($bgc['bgc'],$alpha).');' : '';
 
-		if(!empty($style)) $style = 'style="'.$style.'"'; 
-		$this->style = $style;
+		$this->styles = $styles;
  	}
 
-	public function set_additional_classes($additional_classes=array()){
-		if($additional_classes && is_array($additional_classes)) $this->additional_classes = $additional_classes;
-	}
-
  	private function set_classes(){
- 		$classes = array('header');
- 		if ($this->overrided) {
- 			$color = get_metadata($this->page_type, $this->page_ID,'fixed_header_color_scheme', true);
- 		} else {
- 			$color = get_option( 'fixed_header_color_scheme' );
- 		}
- 		$classes[] = $color;
+		$key = $this->header_type;
+		$classes = array('header');
+		if( $key ) $classes[] = 'header--'.$key;
 
- 		if(get_metadata($this->page_type, $this->page_ID,'hide_logo', true)) $classes[] = 'hide-logo';
+		$header_color_scheme = $key.'_header_color_scheme';
+ 		$color_scheme = ($this->overrided) ? $this->get_meta( $header_color_scheme ) : get_option( $header_color_scheme );
+ 		if( $color_scheme ) $classes[] = $color_scheme;
+
+ 		if( $this->get_meta('hide_'.$key.'_header_logo') ) $classes[] = 'hide-'.$key.'-header-logo';
 
 		$this->classes = $classes;
  	}
@@ -78,13 +81,21 @@ class Header{
  		return $this->logo;
  	}
 
- 	public function get_style(){
- 		return $this->style;
+ 	public function get_styles(){
+ 		return $this->styles;
  	}
 
- 	public function get_class(){
-		$classes = array_merge($this->classes, $this->additional_classes);
-		$class_attribute = 'class="'.implode(' ', $classes).'"';
- 		return $class_attribute;
- 	}
+	public function get_classes(){
+		return $this->classes;
+	}
+
+	public function get_options(){
+		$options = array();
+	
+		$options['logo'] = $this->get_logo();
+		$options['styles'] = implode(' ', $this->get_styles() );
+		$options['classes'] = implode(' ', $this->get_classes() );
+	
+		return $options;
+	}
 }

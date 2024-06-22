@@ -21,7 +21,7 @@ define ('WOOCOMMERCE_IS_ACTIVE', in_array( $plugin_path, wp_get_active_and_valid
 $wp_media_folder_path = trailingslashit( WP_PLUGIN_DIR ) . 'wp-media-folder/wp-media-folder.php';
 define ('WPMEDIAFOLDER_IS_ACTIVE', in_array( $wp_media_folder_path, wp_get_active_and_valid_plugins() ));
 
-if( !defined('MAIN_COLOR') ) define ('MAIN_COLOR', '#F8522C');
+if( !defined('MAIN_COLOR') ) define ('MAIN_COLOR', '#ff7a00');
 if( !defined('SECONDARY_COLOR') ) define ('SECONDARY_COLOR', '#071a36');
 if( !defined('TERTIARY_COLOR') ) define ('TERTIARY_COLOR', '#CDC6BE');
 if( !defined('PAGE_HEADER_BGC') ) define ('PAGE_HEADER_BGC', '');
@@ -31,7 +31,7 @@ if( !defined('PAGE_HEADER_BGI') ) define ('PAGE_HEADER_BGI', 0);
 if( !defined('PAGE_HEADER_CONTENT_BUILDER') ) define ('PAGE_HEADER_CONTENT_BUILDER', true);
 if( !defined('BORDER_RADIUS') ) define ('BORDER_RADIUS', 15);
 if( !defined('LOGOS_QUANTITY') ) define ('LOGOS_QUANTITY', 2);
-if( !defined('FLOATING_HEADER_BREAKPOINT') ) define ('FLOATING_HEADER_BREAKPOINT', 20);
+if( !defined('STICKY_HEADER_BREAKPOINT') ) define ('STICKY_HEADER_BREAKPOINT', 20);
 if( !defined('HEADER_HEIGHT') ) define ('HEADER_HEIGHT', 64); // for anchors if header is fixed
 if( !defined('CARD_CONTENT_TYPE') ) define ('CARD_CONTENT_TYPE', 'components');
 if( !defined('IMAGE_THUMB_SIZE') ) define ('IMAGE_THUMB_SIZE', 'full');
@@ -106,7 +106,6 @@ if( !defined('MINICART_SIDENAV_POSITION') ) define ('MINICART_SIDENAV_POSITION',
 require_once( 'libs/ultimate-fields/ultimate-fields.php' );
 
 require_once( 'inc/classes/page.php' );
-require_once( 'inc/classes/floating-header.php' );
 require_once( 'inc/classes/header.php' );
 require_once( 'inc/classes/page-header.php' );
 require_once( 'inc/classes/CPT.php' );

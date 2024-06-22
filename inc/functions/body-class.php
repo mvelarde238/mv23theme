@@ -1,12 +1,14 @@
 <?php
-// Add specific CSS class by filter.
 add_filter( 'body_class', function( $classes ) {
-
+    
     $page_color_scheme = get_metadata(Page::getInstance()->get_type(), Page::getInstance()->get_id(),'page_color_scheme', true);
+	if ( $page_color_scheme && $page_color_scheme == 'dark-scheme' ) $classes[] = 'text-color-2';
 
-	if ( $page_color_scheme && $page_color_scheme == 'dark-scheme' ) {
-        return array_merge( $classes, array( 'text-color-2' ) );
-    } else {
-        return $classes;
-    }
+    $hide_static_header = get_metadata(Page::getInstance()->get_type(), Page::getInstance()->get_id(),'hide_static_header', true);
+	if ( $hide_static_header ) $classes[] = 'hide-static-header';
+
+    $hide_sticky_header = get_metadata(Page::getInstance()->get_type(), Page::getInstance()->get_id(),'hide_sticky_header', true);
+	if ( $hide_sticky_header ) $classes[] = 'hide-sticky-header';
+        
+    return $classes;
 });

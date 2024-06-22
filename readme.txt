@@ -2,6 +2,17 @@
 CHANGELOG
 **************************************************************************************************
 
+23.8.229 24-06-21
+-------------------------------------------------------------------------------------
+- !IMPORTANT: HEADER CLASS REFACTORIZATION
+  - Floating Header Class removed
+  - Renamed to Static Header and Sticky Header
+  - Header Class getters return array instead of attributes
+  - set_additional_classes method removed
+  - .hide-static-header && .hide-sticky-header implementation
+  - header customization in page settings revised
+-------------------------------------------------------------------------------------
+
 23.8.228 24-06-21
 - CPT Class Implementation: set_single_template() method
 

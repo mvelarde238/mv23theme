@@ -1,8 +1,13 @@
 <?php
 $blog_title = get_bloginfo( 'name' ); 
 $header = new Header(); 
+
+$classes = $header->get_classes();
+$styles = $header->get_styles();
 ?>
-<section id="header" <?php echo $header->get_class() ?> <?php echo $header->get_style() ?>>
+<section id="header" 
+	class="<?php echo implode(' ', $classes) ?>" 
+	style="<?php echo implode(' ', $styles) ?>">
 	<div class="header__content container">
 		<div class="header__logo">
 			<a class="header__logo__link" href="<?php echo home_url(); ?>">

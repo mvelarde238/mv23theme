@@ -40,8 +40,10 @@ function mv23_scripts_and_styles() {
         wp_enqueue_script( 'fitty-lib', get_template_directory_uri() . '/src/js/libs/ignore/fitty.min.js', array(), THEME_VERSION, true );
         wp_register_script( 'mv23-scripts', $assets_url . '/assets/js/scripts.js', array(), THEME_VERSION, true );
 
-        $floating_header = new Floating_Header();
-        wp_localize_script( 'mv23-scripts', 'FLOATING_HEADER', $floating_header->get_options() ); 
+        $static_header = new Header();
+        $sticky_header = new Header('sticky');
+        wp_localize_script( 'mv23-scripts', 'STATIC_HEADER', $static_header->get_options() ); 
+        wp_localize_script( 'mv23-scripts', 'STICKY_HEADER', $sticky_header->get_options() ); 
 
         wp_localize_script( 'mv23-scripts', 'MV23_GLOBALS', array( 
             'isMobile' => wp_is_mobile(), 
@@ -51,6 +53,7 @@ function mv23_scripts_and_styles() {
             'userIsLoggedIn' => is_user_logged_in(),
             'lang' => (function_exists('pll_current_language')) ? pll_current_language() : 'es',
             'headerHeight' => HEADER_HEIGHT,
+            'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
             'mobile_menu_width' => MOBILE_MENU_WIDTH,
             'mobile_menu_position' => MOBILE_MENU_POSITION,
             'listing_loading_text' => LISTING_LOADING_TEXT,

@@ -55,6 +55,8 @@ for ($i=1; $i <= LOGOS_QUANTITY; $i++) {
     $main_options_fields[] = Field::create( 'image', $field_name, $field_title )->set_width(25);
 }
 
+$logos_field_names['custom'] = 'Custom';
+
 Container::create( 'main_options' ) 
     ->add_location( 'options', $theme_options_page )
     ->set_layout( 'grid' )
@@ -121,27 +123,29 @@ Container::create( 'global_options' )
 $header_page = Options_Page::create( 'header', 'Header' )->set_parent( 'theme-options/theme-options-admin.php' );
 
 $header_fields = array(
-    Field::create( 'tab', 'Header Fijo' ),
-    Field::create( 'select', 'fixed_header_logo', 'Versión del Logo')->add_options($logos_field_names),
-    Field::create( 'complex', 'fixed_header_bgc', 'Color de fondo' )->add_fields(array(
+    Field::create( 'tab', 'Static Header' ),
+    Field::create( 'select', 'static_header_logo', 'Versión del Logo')->add_options($logos_field_names),
+    Field::create( 'image', 'custom_static_header_logo', 'Seleccionar logo' )->add_dependency('static_header_logo','custom','='),
+    Field::create( 'complex', 'static_header_bgc', 'Color de fondo' )->add_fields(array(
         Field::create( 'checkbox', 'add_bgc', 'Activar' )->set_width( 25 )->set_text('Activar'),
         Field::create( 'color', 'bgc', 'Color' )->set_width( 50 )->add_dependency('add_bgc'),
         Field::create( 'text', 'alpha', 'Transparencia' )->set_width( 25 )->add_dependency('add_bgc')->set_default_value('100')->set_description('Usar un número del 1 al 100'),
     )),
-    Field::create( 'select', 'fixed_header_color_scheme', 'Color del Texto' )->add_options( array(
+    Field::create( 'select', 'static_header_color_scheme', 'Color del Texto' )->add_options( array(
         '' => 'Default',
         'text-color-1' => 'Negro',
         'text-color-2' => 'Blanco',
     ))->set_default_value( DEFAULT_TEXT_COLOR ),
 
-    Field::create( 'tab', 'Header Flotante' ),
-    Field::create( 'select', 'floating_header_logo', 'Versión del Logo')->add_options($logos_field_names),
-    Field::create( 'complex', 'floating_header_bgc', 'Color de fondo' )->add_fields(array(
+    Field::create( 'tab', 'Sticky Header' ),
+    Field::create( 'select', 'sticky_header_logo', 'Versión del Logo')->add_options($logos_field_names),
+    Field::create( 'image', 'custom_sticky_header_logo', 'Seleccionar logo' )->add_dependency('sticky_header_logo','custom','='),
+    Field::create( 'complex', 'sticky_header_bgc', 'Color de fondo' )->add_fields(array(
         Field::create( 'checkbox', 'add_bgc', 'Activar' )->set_width( 25 )->set_text('Activar')->set_default_value(1),
         Field::create( 'color', 'bgc', 'Color' )->set_width( 50 )->add_dependency('add_bgc')->set_default_value('#ffffff'),
         Field::create( 'text', 'alpha', 'Transparencia' )->set_width( 25 )->add_dependency('add_bgc')->set_default_value('100')->set_description('Usar un número del 1 al 100'),
     )),
-    Field::create( 'select', 'floating_header_color_scheme', 'Color del Texto' )->add_options( array(
+    Field::create( 'select', 'sticky_header_color_scheme', 'Color del Texto' )->add_options( array(
         '' => 'Default',
         'text-color-1' => 'Negro',
         'text-color-2' => 'Blanco',
@@ -150,8 +154,6 @@ $header_fields = array(
 
 Container::create( 'header_options' ) 
     ->add_location( 'options', $header_page )
-    // ->set_layout( 'grid' )
-    // ->set_style( 'seamless' )
     ->add_fields($header_fields);
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------
