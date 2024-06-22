@@ -37,13 +37,13 @@ $menu-breakpoint: 1296px !default;
 // 1. Colors
 // ==========================================================================
 
-$primary-color: #ff7a00 !default;
-$primary-color-lighten-1: #{lighten($primary-color, 35%)} !default;
-$primary-color-lighten-2: #{lighten($primary-color, 45%)} !default;
+// $primary-color-light: #{lighten($primary-color, 35%)} !default;
+// $primary-color-lighter: #{lighten($primary-color, 45%)} !default;
 
+$primary-color: #ff7a00 !default;
 $secondary-color: #071a36 !default;
 $font-color: #000 !default;
-$font-color-2: rgba(255, 255, 255, .8) !default;
+$font-color-2: white !default;
 
 $success-color: color("green", "base") !default;
 $error-color: color("red", "base") !default;
@@ -52,6 +52,23 @@ $link-color: $secondary-color !default;
 $white: #fff;
 $white-lighten-1: rgba($white,.1) !default;
 $white-lighten-2: rgba($white,.2) !default;
+
+@mixin css-properties{
+    --body-padding-top: 110px;
+	--primary-color: #{$primary-color};
+	--secondary-color: #{$secondary-color};
+	--primary-color-light: color-mix( in srgb, var(--primary-color), white );
+	--primary-color-lighter: color-mix( in srgb, var(--primary-color), white 85% );
+	--primary-color-dark: color-mix( in srgb, var(--primary-color), black 15% );
+	--secondary-color-light: color-mix( in srgb, var(--secondary-color), white );
+	--secondary-color-lighter: color-mix( in srgb, var(--secondary-color), white 85% );
+	--secondary-color-dark: color-mix( in srgb, var(--secondary-color), black 20% );
+	--font-color: #{$font-color};
+	--font-color-2: #{$font-color-2};
+} 
+
+// 1. others
+// ==========================================================================
 
 $components-margin-left-right: 20px !default; 
 $components-margin-top-bottom: 25px !default; 
@@ -298,7 +315,7 @@ $spinner-default-color: $secondary-color !default;
 // 18. Tabs
 // ==========================================================================
 
-$tabs-underline-color: $primary-color-lighten-2 !default;
+$tabs-underline-color: $primary-color !default;
 $tabs-text-color: $secondary-color !default;
 $tabs-bg-color: #fff !default;
 

@@ -34,7 +34,7 @@ $comment_length = 110;
 
             if($type == 'text'){
                 $author = $testimonio['author'];
-                $author_img = ( $testimonio['author_img'] ) ? wp_get_attachment_url($testimonio['author_img']) : get_stylesheet_directory_uri().'/assets/images/comment-author.png';
+                $author_img = ( $testimonio['author_img'] ) ? wp_get_attachment_url($testimonio['author_img']) : null;
                 $comment = $testimonio['comment'];
             }
 
@@ -43,9 +43,13 @@ $comment_length = 110;
             <div>
                 <div id="<?=$rand_id?>" class="testimonio theme-border <?=$has_video_background_class?>">
                     <?php if( $type == 'text' ): ?>
-                        <?php if( $author || $author_img ): ?>
+                        <?php if( $author ): ?>
                             <div class="testimonio__header">
-                                <?php if($author_img) echo '<div class="testimonio__author" style="background-image: url('.$author_img.')"></div>'; ?>
+                                <?php 
+                                echo '<div class="testimonio__author"';
+                                if($author_img) echo ' style="background-image: url('.$author_img.')"';
+                                echo '></div>'; 
+                                ?>
                                 <?php if($author) echo '<div>'.do_shortcode(wpautop(oembed($author))).'</div>'; ?>
                             </div>
                         <?php endif; ?> 

@@ -3,10 +3,9 @@
 @import "materialize/components/variables";
 
 body#tinymce.wp-editor {
-	background-color: $primary-color-lighten-2;
 	margin: 30px;
-	color: $font-color;
-	--primary-color: #{$primary-color};
+	color: var(--font-color);
+	@include css-properties;
 	@include general-tipography-styles;
 	@import "materialize/components/typography";
 	@import "materialize/components/global";

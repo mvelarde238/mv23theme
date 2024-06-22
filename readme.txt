@@ -12,6 +12,7 @@ CHANGELOG
   - .hide-static-header && .hide-sticky-header implementation
   - header customization in page settings revised
 -------------------------------------------------------------------------------------
+- Use css properties to handle all theme colors
 
 23.8.228 24-06-21
 - CPT Class Implementation: set_single_template() method

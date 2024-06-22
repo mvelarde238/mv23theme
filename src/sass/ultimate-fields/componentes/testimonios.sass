@@ -15,7 +15,8 @@
         margin-bottom: 15px
     &__author
         display: inline-block
-        background-color: #f1f1f1
+        background-image: url('../images/comment-author.png')
+        background-color: var(--primary-color-lighter)
         height: 74px
         width: 74px
         border-radius: 50%
@@ -23,6 +24,8 @@
         background-size: cover
         background-position: center
         flex-shrink: 0
+    .text-color-2 &__author
+        background-image: url('../images/comment-author-2.png')
     &__comment
         display: none
     &__modal

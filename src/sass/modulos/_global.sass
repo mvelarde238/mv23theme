@@ -1,12 +1,9 @@
+:root	
+	@include css-properties
+
 body
 	overflow-x: hidden
-	--body-padding-top: 110px
-	--primary-color: #{$primary-color}
-	--secondary-color: #{$secondary-color}
-	--primary-color-lighten-1: #{$primary-color-lighten-1}
-	--primary-color-lighten-2: #{$primary-color-lighten-2}
 	padding-top: var(--body-padding-top)
-
 	&.hide-static-header
 		--body-padding-top: 0px
 		.header:not(.header--sticky)
@@ -21,8 +18,8 @@ body
 	max-width: $container-width !important
 
 .text-color-2
-	--primary-color-lighten-1: #{$white-lighten-2}
-	--primary-color-lighten-2: #{$white-lighten-1}
+	--primary-color-light: #{$white-lighten-2}
+	--primary-color-lighter: #{$white-lighten-1}
 	color: $font-color-2
 	h1,h2,h3,h4,h5,h6
 		color: inherit
@@ -30,9 +27,9 @@ body
 		color: inherit
 
 .text-color-1
-	color: $font-color
+	color: var(--font-color)
 	h1,h2,h3,h4,h5,h6
-		color: #000
+		color: var(--font-color)
 	a:not(.btn)
 		color: var(--primary-color)
 

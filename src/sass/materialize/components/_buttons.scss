@@ -68,7 +68,7 @@
 .btn {
   text-decoration: none;
   color: $button-raised-color;
-  background-color: $button-raised-background;
+  // background-color: $button-raised-background;
   text-align: center;
   // @extend .z-depth-1;
   transition: .2s ease-out;
@@ -78,12 +78,12 @@
   font-size: 15px;
   letter-spacing: 1px;
 
-  &:hover {
-    background-color: $button-raised-background-hover;
-    color: #fff;
-    border-color: #fff;
+  // &:hover {
+    // background-color: $button-raised-background-hover;
+    // color: #fff;
+    // border-color: #fff;
     // @extend .z-depth-1-half;
-  }
+  // }
 }
 
 // Floating button

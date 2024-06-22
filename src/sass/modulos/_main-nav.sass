@@ -80,9 +80,10 @@
 				right: 0px
 
 		&>li
-			border-bottom: 1px solid var(--primary-color-lighten-1)
+			&:not(:last-child)
+				border-bottom: 1px solid var(--primary-color-light)
 			&:hover>a
-				background-color: var(--primary-color-lighten-2)
+				background-color: var(--primary-color-lighter)
 		a
 			font-size: 13px
 			padding: 12px 20px
