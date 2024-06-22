@@ -2,7 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
-23.8.229 24-06-21
+0.1.2 24-06-22
+- Set a better version naming convention in readme.txt
+
+0.1.1 24-06-21
 -------------------------------------------------------------------------------------
 - !IMPORTANT: HEADER CLASS REFACTORIZATION
   - Floating Header Class removed
