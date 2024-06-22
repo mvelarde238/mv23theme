@@ -9,6 +9,9 @@ add_filter( 'body_class', function( $classes ) {
 
     $hide_sticky_header = get_metadata(Page::getInstance()->get_type(), Page::getInstance()->get_id(),'hide_sticky_header', true);
 	if ( $hide_sticky_header ) $classes[] = 'hide-sticky-header';
+
+    $disable_comments_styles = get_option( 'disable_comments_styles' );
+	if ( $disable_comments_styles ) $classes[] = 'disable-comments-styles';
         
     return $classes;
 });

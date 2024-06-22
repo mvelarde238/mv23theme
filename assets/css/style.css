@@ -4159,64 +4159,64 @@ blockquote + * {
 	color: #fff !important;
 }
 
-.comments-area {
+body:not(.disable-comments-styles) .comments-area {
 	width: 100%;
 	margin: 15px auto;
 }
 
-.comments-area ol {
+body:not(.disable-comments-styles) .comments-area ol {
 	margin-left: 0px;
 	padding-left: 30px;
 }
 
-.comments-area .alert-info {
+body:not(.disable-comments-styles) .comments-area .alert-info {
 	font-weight: bold;
 	color: green;
 }
 
-h2.comments-title {
+body:not(.disable-comments-styles) h2.comments-title {
 	font-size: 30px;
 }
 
-.comment {
+body:not(.disable-comments-styles) .comment {
 	background-color: #fff;
 	margin: 15px 0;
 	font-size: 15px;
 	box-shadow: 0 0 5px var(--primary-color-light);
 }
 
-.comment header {
+body:not(.disable-comments-styles) .comment header {
 	padding: 5px;
 	border-bottom: 1px solid var(--primary-color-light);
 }
 
-.comment-author {
+body:not(.disable-comments-styles) .comment-author {
 	font-weight: bold;
 }
 
-.comment-date {
+body:not(.disable-comments-styles) .comment-date {
 	float: right;
 	font-size: 13px;
 	margin-top: 10px;
 }
 
-.comment-date a {
+body:not(.disable-comments-styles) .comment-date a {
 	color: #888;
 }
 
-.comment-content {
+body:not(.disable-comments-styles) .comment-content {
 	padding: 0 20px 0 40px;
 	max-height: 500px;
 	overflow: hidden;
 }
 
-.comment-reply-link {
+body:not(.disable-comments-styles) .comment-reply-link {
 	float: right;
 	margin-right: 15px;
 	margin-bottom: 5px;
 }
 
-.comment-reply-title {
+body:not(.disable-comments-styles) .comment-reply-title {
 	text-align: center;
 }
 

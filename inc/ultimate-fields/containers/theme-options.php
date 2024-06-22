@@ -115,7 +115,8 @@ Container::create( 'global_options' )
         Field::create( 'complex', 'scroll_animations', 'Activar Animaciones Avanzadas' )->add_fields(array(
             Field::create( 'checkbox', 'activate' )->set_text('Activar')->hide_label()->set_width( 50 ),
             Field::create( 'checkbox', 'activate_indicators' )->set_text('Activar indicadores')->hide_label()->set_width( 50 )->add_dependency('activate'),
-        ))
+        )),
+        Field::create( 'checkbox', 'disable_comments_styles', 'Desactivar theme styles en comentarios' )->set_text('Desactivar'),
     ));
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------

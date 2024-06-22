@@ -4,6 +4,7 @@ CHANGELOG
 
 0.1.2 24-06-22
 - Set a better version naming convention in readme.txt
+- disable_comments_styles global option implementation and comments_area shortcode
 
 0.1.1 24-06-21
 -------------------------------------------------------------------------------------

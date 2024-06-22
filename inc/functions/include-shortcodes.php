@@ -6,6 +6,7 @@ get_template_part( 'inc/shortcodes/posts' );
 get_template_part( 'inc/shortcodes/pagination' );
 get_template_part( 'inc/shortcodes/posts-filter' );
 get_template_part( 'inc/shortcodes/gallery' );
+get_template_part( 'inc/shortcodes/comments-area' );
 
 if (IS_MULTILANGUAGE) {
 	get_template_part( 'inc/shortcodes/idiomas' );
