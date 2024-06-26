@@ -3,6 +3,7 @@
 @import "materialize/components/variables";
 
 body#tinymce.wp-editor {
+	background-color: var(--primary-color-lighter);
 	margin: 30px;
 	color: var(--font-color);
 	@include css-properties;
