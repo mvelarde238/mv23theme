@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+0.1.3 24-06-26
+- Components Wrapper Comp. Standarization
+- Fix :not(.components) that need component-spacing-separator when they have background, border or shadow
+
 0.1.2 24-06-22
 - Set a better version naming convention in readme.txt
 - disable_comments_styles global option implementation and comments_area shortcode

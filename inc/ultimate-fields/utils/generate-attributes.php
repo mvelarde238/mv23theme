@@ -21,10 +21,21 @@ function generate_attributes($componente, $classes_array){
 		if (isset($componente['iposition']) && $componente['iposition'] != 'top' && $componente['ialign']) $style .= "align-items:".$componente['ialign'].";";
 	}
 
-	$no_padding_components = array('columnas-internas','columnas-simples','columnas','grid-de-items','column','grid__item','fila','separador');
-	if (!in_array($componente['__type'], $no_padding_components )) {
-		if ($background_styles || $border_styles || $box_shadows) array_push($classes_array, 'add-padding');
+	$no_padding_components = array('columnas-internas','columnas-simples','columnas','grid-de-items','column','grid__item','fila','separador','components-wrapper');
+	if ( 
+		!in_array($componente['__type'], $no_padding_components) &&
+		($background_styles || $border_styles || $box_shadows)
+	){
+		array_push($classes_array, 'add-padding');
+	} 
+
+	if ( /* theses components dosnt need padding but need component spacing-separator when they have background, border or shadow */
+		in_array($componente['__type'], $no_padding_components ) &&
+		($background_styles || $border_styles || $box_shadows)
+	){
+		array_push($classes_array, 'componente');
 	}
+
 	if ($componente['__type']=='columnas') {
 		if ($background_styles || $border_styles || $box_shadows) array_push($classes_array, 'componente');
 	}
