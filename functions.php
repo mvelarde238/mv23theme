@@ -109,6 +109,7 @@ require_once( 'inc/classes/page.php' );
 require_once( 'inc/classes/header.php' );
 require_once( 'inc/classes/page-header.php' );
 require_once( 'inc/classes/CPT.php' );
+require_once( 'inc/offcanvas-elements/offcanvas-elements.php' );
 
 require_once( 'inc/functions/theme.php' );
 require_once( 'inc/functions/enqueue-scripts.php' );
