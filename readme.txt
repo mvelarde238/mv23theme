@@ -5,7 +5,7 @@ CHANGELOG
 0.1.3 24-06-26
 - Components Wrapper Comp. Standarization
 - Fix :not(.components) that need component-spacing-separator when they have background, border or shadow
-- Fix body background color in editor styles
+- Fix body background color in editor styles.
 
 0.1.2 24-06-22
 - Set a better version naming convention in readme.txt
