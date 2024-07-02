@@ -3244,3 +3244,12 @@ h2.uf-add-term-title {
   border: 1px solid #9f9c9c;
   border-radius: 3px;
 }
+/* fix prefix/suffix text wrapping */
+.uf-field-suffix, .uf-field-prefix{
+  text-wrap: nowrap;
+}
+
+/* number indicator was too small in slider */
+.uf-number-indicator{
+  width: 60px; 
+}

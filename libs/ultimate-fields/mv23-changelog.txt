@@ -1,5 +1,24 @@
 mv23 changelog-------------------------
 
+01-07-2024
+- Add suffix/prefix/placeholder properties to Number field
+    (libs/ultimate-fields/core/classes/Field/Number.php)
+    (ibs/ultimate-fields/core/js/field/number.js)
+    (libs/ultimate-fields/core/assets/css/ultimate-fields.css)
+- Image_Select -> show_label implementation
+    (libs/ultimate-fields/core/classes/Field/Image_Select.php)  
+    (libs/ultimate-fields/core/js/field/image-select.js) 
+    (libs/ultimate-fields/core/templates/field/image-select.php)
+----------------------------------------------------------------------
+- Posible breaking change:
+- Fix useDefaultValueIfNeeded() method: 
+  use value === '' || value === undefined || value === null
+  to check if value is empty
+  before this change it was checking -> !value
+  it wasnt allowing to set 0 in number fields "just inside complex field" 
+    (libs/ultimate-fields/core/js/field/base.js)
+----------------------------------------------------------------------
+
 14-06-2024
 - Fix: uf -> listenForThemeLocations in menu items
     (libs/ultimate-fields/core/classes/Location/Menu_Item.php)

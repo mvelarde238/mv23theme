@@ -206,3 +206,29 @@ function getCookie(cname) {
     }
     return "";
 }
+
+// ****************************************************************************************************
+// HEXADECIMAL COLOR TO RGBA
+// ****************************************************************************************************
+
+function hexToRgba(hex, alpha) {
+    // Remover el símbolo '#' si está presente
+    hex = hex.replace(/^#/, '');
+
+    // Si el valor hexadecimal es de 3 dígitos, convertirlo a 6 dígitos
+    if (hex.length === 3) {
+        hex = hex.split('').map(char => char + char).join('');
+    }
+
+    // Convertir los valores hexadecimales a RGB
+    const bigint = parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+
+    // Convertir el valor de alpha de 0-100 a 0-1
+    const a = alpha / 100;
+
+    // Retornar el valor en formato rgba
+    return `rgba(${r}, ${g}, ${b}, ${a})`;
+}

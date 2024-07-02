@@ -105,22 +105,26 @@
   right: 10px;
   width: 30px;
   height: 30px;
-  background-color: #fff;
   border: 0;
+  color: inherit;
   
   &:before, &:after{ 
     content: '';
-    background-color: var(--secondary-color);
+    border-top: 2px solid;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     margin: auto;
-    height: 28px;
-    width: 2px;
+    height: 1px;
+    width: 28px;
   }
   
   &:before{ transform: rotate(45deg) }
   &:after{ transform: rotate(-45deg) }
+
+  &:hover{
+    color: initial;
+  }
 }

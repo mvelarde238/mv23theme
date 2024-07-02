@@ -44,7 +44,8 @@
 
 			args =  {
 				options: this.model.get( 'options' ),
-				inputId: 'image-select-' + ( selectField.lastListName++ )
+				inputId: 'image-select-' + ( selectField.lastListName++ ),
+				show_label: this.model.get( 'show_label' )
 			};
 
 			this.$el

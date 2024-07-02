@@ -62,7 +62,9 @@
 		 */
 		useDefaultValueIfNeeded: function() {
 			// ToDo: Removed && this.get( 'default_value' ), did it break something?
-			if( ! this.datastore.get( this.get( 'name' ) ) ) {
+
+			var value = this.datastore.get( this.get( 'name' ) );
+			if( value === '' || value === undefined || value === null ) {
 				this.setValue( this.get( 'default_value' ) );
 			}
 		},

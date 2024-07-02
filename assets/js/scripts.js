@@ -682,6 +682,14 @@ function create_tns_slider(slider){var show_controls=slider.dataset['showControl
 // GET A COOKIE
 // ****************************************************************************************************
 function getCookie(cname){var name=cname+"=";var decodedCookie=decodeURIComponent(document.cookie);var ca=decodedCookie.split(';');for(var i=0;i<ca.length;i++){var c=ca[i];while(c.charAt(0)==' '){c=c.substring(1);}if(c.indexOf(name)==0){return c.substring(name.length,c.length);}}return"";}// ****************************************************************************************************
+// HEXADECIMAL COLOR TO RGBA
+// ****************************************************************************************************
+function hexToRgba(hex,alpha){// Remover el símbolo '#' si está presente
+hex=hex.replace(/^#/,'');// Si el valor hexadecimal es de 3 dígitos, convertirlo a 6 dígitos
+if(hex.length===3){hex=hex.split('').map(function(_char){return _char+_char;}).join('');}// Convertir los valores hexadecimales a RGB
+var bigint=parseInt(hex,16);var r=bigint>>16&255;var g=bigint>>8&255;var b=bigint&255;// Convertir el valor de alpha de 0-100 a 0-1
+var a=alpha/100;// Retornar el valor en formato rgba
+return"rgba(".concat(r,", ").concat(g,", ").concat(b,", ").concat(a,")");}// ****************************************************************************************************
 // INIT GLOBAL VAR FOR ALL MODULES
 // ****************************************************************************************************
 var viewport=updateViewportDimensions(),$_GET={},is_inicio=jQuery('body').hasClass('home'),is_checkout=jQuery('body').hasClass('woocommerce-checkout');do_get_implementation();(function($,c){$(function(){// ****************************************************************************************************
@@ -716,7 +724,14 @@ $('.menu-movil__btn').sideNav({menuWidth:MV23_GLOBALS.mobile_menu_width,edge:MV2
 var elems=document.querySelectorAll('.scrollspy'),options={activeClass:'is-inview',scrollOffset:0,throttle:0,offsetTop:100,offsetBottom:-500};$('.scrollspy').scrollSpy(options);// ****************************************************************************************************
 // ****************************************************************************************************
 // ****************************************************************************************************
-});})(jQuery,console.log);(function($,c){$(function(){// ****************************************************************************************************
+});})(jQuery,console.log);(function($,c){// TODO: to use dismisible settings i need to update materialize
+function format_color(color,alpha){var formated_color=color;if(alpha!=100)formated_color=hexToRgba(color,alpha);return formated_color;}document.addEventListener('DOMContentLoaded',function(){var offcanvas_elements=document.querySelectorAll('.offcanvas-element');for(var i=0;i<offcanvas_elements.length;i++){var offcanvas_element=offcanvas_elements[i];var type=offcanvas_element.dataset.type;var trigger_events=offcanvas_element.dataset.triggerEvents;var _settings=offcanvas_element.dataset.settings;var offcanvas_element_id=offcanvas_element.id;// clear attributes
+offcanvas_element.removeAttribute('data-trigger-events');offcanvas_element.removeAttribute('data-settings');offcanvas_element.removeAttribute('data-type');if(type==='sidenav'){if(trigger_events&&Array.isArray(JSON.parse(trigger_events))&&JSON.parse(trigger_events).length){// parse settings
+var settings=JSON.parse(_settings);console.log(settings);// add styles
+if(settings.background_color.use)offcanvas_element.style.backgroundColor=format_color(settings.background_color.color,settings.background_color.alpha);// add trigger events
+JSON.parse(trigger_events).forEach(function(triggerData){switch(triggerData.__type){case'click':var triggers=document.querySelectorAll(triggerData.selector);if(triggers.length){triggers.forEach(function(trigger){trigger.dataset.activates=offcanvas_element_id;$(trigger).sideNav({edge:settings.position,menuWidth:settings.max_width,// closeOnClick: true,
+// dismisible: settings.dismisible, 
+draggable:false});});};break;default:console.log('No trigger events');break;}});}}}});})(jQuery,console.log);(function($,c){$(function(){// ****************************************************************************************************
 // ANCLAS
 // ****************************************************************************************************
 var initial_url=window.location.href.split('#')[0];var pageLinks=$('a[href*="#"]');var headerHeight=MV23_GLOBALS.headerHeight;for(var i=0;i<pageLinks.length;i++){var href=$(pageLinks[i]).attr('href'),hash=href.split('#')[1];if(href.split('#')[0]==initial_url){$(pageLinks[i]).attr('href','#'+hash);}}$('a[href^="#"]').click(function(event){event.preventDefault();var href=$(this).attr('href');if($(href).length>0){history.pushState({},null,href);var e=new Event('mv23ReplaceState');window.dispatchEvent(e);$("html, body").animate({scrollTop:$(href).offset().top-headerHeight},{duration:800,queue:false,easing:'easeOutCubic'});}});// ****************************************************************************************************

@@ -7,7 +7,11 @@
 	 * Basic model for the number field.
 	 */
 	numberField.Model = field.Model.extend({
-
+		defaults: _.extend({
+			prefix:      '',
+			suffix:      '',
+			placeholder:      ''
+		}, field.Model.prototype.defaults ),
 	});
 
 	/**
@@ -24,10 +28,23 @@
 		render: function() {
 			var that = this;
 
+			if( prefix = this.model.get( 'prefix' ) ) {
+				$( '<span class="uf-field-prefix" />' )
+					.html( prefix )
+					.appendTo( this.$el );
+			}
+
 			// Create an input and add it to the DOM
 			this.$input = $( '<input type="' + ( this.model.get( 'slider_enabled' ) ? 'number' : 'number' ) + '" />' )
 				.appendTo( this.$el )
+				.attr( 'placeholder', this.model.get( 'placeholder' ) )
 				.val( this.model.getValue() );
+
+			if( suffix = this.model.get( 'suffix' ) ) {
+				$( '<span class="uf-field-suffix" />' )
+					.html( suffix )
+					.appendTo( this.$el );
+			}
 
 			// Add properties when needed.
 			if( false !== this.model.get( 'minimum' ) ) {

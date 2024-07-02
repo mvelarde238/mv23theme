@@ -1686,8 +1686,8 @@ button.btn-floating {
 	right: 10px;
 	width: 30px;
 	height: 30px;
-	background-color: #fff;
 	border: 0;
+	color: inherit;
 }
 
 .close-sidenav:before,
@@ -1695,15 +1695,15 @@ button.btn-floating {
 .modal-close:before,
 .modal-close:after {
 	content: "";
-	background-color: var(--secondary-color);
+	border-top: 2px solid;
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	margin: auto;
-	height: 28px;
-	width: 2px;
+	height: 1px;
+	width: 28px;
 }
 
 .close-sidenav:before,
@@ -1714,6 +1714,11 @@ button.btn-floating {
 .close-sidenav:after,
 .modal-close:after {
 	transform: rotate(-45deg);
+}
+
+.close-sidenav:hover,
+.modal-close:hover {
+	color: initial;
 }
 
 /* Text Inputs + Textarea

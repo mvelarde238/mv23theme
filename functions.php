@@ -109,7 +109,6 @@ require_once( 'inc/classes/page.php' );
 require_once( 'inc/classes/header.php' );
 require_once( 'inc/classes/page-header.php' );
 require_once( 'inc/classes/CPT.php' );
-require_once( 'inc/offcanvas-elements/offcanvas-elements.php' );
 
 require_once( 'inc/functions/theme.php' );
 require_once( 'inc/functions/enqueue-scripts.php' );
@@ -141,6 +140,8 @@ require_once( 'inc/functions/ajax/load-posts.php' );
 get_template_part( 'inc/functions/woocommerce-support' );
 // require_once( 'inc/functions/tinymce-buttons/button-manager.php' );
 require_once( 'inc/functions/dequeue-styles.php' );
+
+require_once( 'inc/offcanvas-elements/offcanvas-elements.php' );
 
 remove_all_actions( 'admin_notices' );
 

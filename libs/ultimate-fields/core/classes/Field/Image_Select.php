@@ -22,6 +22,13 @@ class Image_Select extends Field {
 	protected $options = array();
 
 	/**
+	 * Indicates whether the label should be displayed or not.
+	 *
+	 * @since 3.0.2
+	 */
+	protected $show_label = false;
+
+	/**
 	 * Adds an option to the select.
 	 *
 	 * @since 3.0
@@ -70,6 +77,16 @@ class Image_Select extends Field {
 	}
 
 	/**
+	 * Enables show label.
+	 *
+	 * @return Ultimate_Fields\Field\Image_Select
+	 */
+	public function show_label() {
+		$this->show_label = true;
+		return $this;
+	}
+
+	/**
 	 * Adds additional fields to JavaScript.
 	 *
 	 * @since 3.0
@@ -80,6 +97,7 @@ class Image_Select extends Field {
 		$settings = parent::export_field();
 
 		$settings[ 'options' ]     = $this->options;
+		$settings['show_label'] = $this->show_label;
 
 		return $settings;
 	}
