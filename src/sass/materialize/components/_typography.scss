@@ -1,20 +1,20 @@
 a {
-    color: var(--primary-color);
-    text-decoration: none;
+  color: var(--primary-color);
+  text-decoration: none;
 }
 
 html{
-    @include general-tipography-styles;
-    color: $font-color;
+  @include general-tipography-styles;
+  color: $font-color;
 }
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 700;
-    a{
-        color: $font-color;
-    }
-    b,strong{
-        font-weight: 700;
-    }
+  font-weight: 700;
+  a{
+      color: $font-color;
+  }
+  b,strong{
+      font-weight: 700;
+  }
 }
 
 // Header Styles
@@ -33,23 +33,23 @@ small { font-size: 75%; }
 .light { font-weight: 300; }
 
 p{
-    margin-top: 0;
-    margin-bottom: 22px;
+  margin-top: 0;
+  margin-bottom: 22px;
 }
 
 b,strong{
-    font-weight: 700;
+  font-weight: 700;
 }
 
 @media #{$small-and-down}{
-    h1{ font-size: 20px }
-    h2{ font-size: 19px }
-    h3{ font-size: 18px }
-    h4{ font-size: 17px }
-    h5{ font-size: 16px }
-    h6{ font-size: 15px }
+  h1{ font-size: 20px }
+  h2{ font-size: 19px }
+  h3{ font-size: 18px }
+  h4{ font-size: 17px }
+  h5{ font-size: 16px }
+  h6{ font-size: 15px }
 
-    html{
-        font-size: 14px;
-    }
+  html{
+      font-size: 14px;
+  }
 }

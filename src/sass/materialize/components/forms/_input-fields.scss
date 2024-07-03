@@ -3,6 +3,8 @@
 
 /* Style Placeholders */
 
+/* Style Placeholders */
+
 ::placeholder {
   color: $placeholder-text-color;
 }
@@ -40,7 +42,7 @@ input[type=search]:not(.browser-default),
 textarea.materialize-textarea {
 
   // General Styles
-  background-color: #f2faff;
+  background-color: transparent;
   border: none;
   border-bottom: $input-border;
   border-radius: 0;
@@ -52,8 +54,7 @@ textarea.materialize-textarea {
   padding: $input-padding;
   box-shadow: none;
   box-sizing: border-box;
-  // box-sizing: content-box;
-  transition: $input-transition;
+  transition: box-shadow .3s, border .3s;
 
   // Disabled input style
   &:disabled,
@@ -69,14 +70,22 @@ textarea.materialize-textarea {
   }
 
   // Focused input style
-  &:focus:not([readonly]) {
-    // border-bottom: 2px solid $input-focus-color;
-    // box-shadow: 0 1px 0 0 $input-focus-color;
-  }
+  // &:focus:not([readonly]) {
+  //   border-bottom: 1px solid $input-focus-color;
+  //   box-shadow: 0 1px 0 0 $input-focus-color;
+  // }
 
   // Focused label style
   &:focus:not([readonly])+label {
     color: $input-focus-color;
+  }
+
+  // Hide helper text on data message
+  &.valid ~ .helper-text[data-success],
+  &:focus.valid ~ .helper-text[data-success],
+  &.invalid ~ .helper-text[data-error],
+  &:focus.invalid ~ .helper-text[data-error] {
+    @extend %hidden-text;
   }
 
   // Valid Input Style
@@ -86,9 +95,12 @@ textarea.materialize-textarea {
   }
 
   // Custom Success Message
-  &.valid + label:after,
-  &:focus.valid + label:after {
+  &.valid ~ .helper-text:after,
+  &:focus.valid ~ .helper-text:after {
     @extend %custom-success-message;
+  }
+  &:focus.valid ~ label {
+    color: $input-success-color;
   }
 
   // Invalid Input Style
@@ -98,10 +110,12 @@ textarea.materialize-textarea {
   }
 
   // Custom Error message
-  &.invalid + label:after,
-  &:focus.invalid + label:after {
+  &.invalid ~ .helper-text:after,
+  &:focus.invalid ~ .helper-text:after {
     @extend %custom-error-message;
-    top: 127%;
+  }
+  &:focus.invalid ~ label {
+    color: $input-error-color;
   }
 
   // Full width label when using validate for error messages
@@ -112,17 +126,6 @@ textarea.materialize-textarea {
   // Form Message Shared Styles
   & + label:after {
     @extend %input-after-style;
-  }
-
-  // TODO: Remove once input fields are reworked to support validation messages better
-  &.invalid + label:after,
-  &.valid + label:after{
-    display: none;
-  }
-
-  &.invalid + label.active:after,
-  &.valid + label.active:after{
-    display: block;
   }
 }
 
@@ -136,17 +139,18 @@ textarea.materialize-textarea {
   border-bottom: $input-invalid-border;
   box-shadow: 0 1px 0 0 $input-error-color;
 }
+%hidden-text {
+  color: transparent;
+  user-select: none;
+  pointer-events: none;
+}
 %custom-success-message {
   content: attr(data-success);
   color: $input-success-color;
-  opacity: 1;
-  transform: translateY(9px);
 }
 %custom-error-message {
   content: attr(data-error);
   color: $input-error-color;
-  opacity: 1;
-  transform: translateY(9px);
 }
 %input-after-style {
   display: block;
@@ -176,7 +180,6 @@ textarea.materialize-textarea {
   // Gutter spacing
   &.col {
     label {
-      // left: $gutter-width / 2;
       left: 20px;
     }
 
@@ -189,7 +192,7 @@ textarea.materialize-textarea {
   position: relative;
   margin-top: 1rem;
 
-  label {
+  & > label {
     color: $input-border-color;
     position: absolute;
     top: -3px;
@@ -197,12 +200,10 @@ textarea.materialize-textarea {
     height: 100%;
     font-size: 15px;
     cursor: text;
-    transition: transform .2s ease-out;
+    transition: transform .2s ease-out, color .2s ease-out;
     transform-origin: 0% 100%;
     text-align: initial;
     transform: translateY(8px);
-    cursor: pointer;
-    // pointer-events: none;
 
     &:not(.label-icon).active {
       transform: translateY(-14px) scale(.8);
@@ -210,12 +211,36 @@ textarea.materialize-textarea {
     }
   }
 
+  // Autofill + date + time inputs
+  & > input[type]:-webkit-autofill:not(.browser-default):not([type="search"]) + label,
+  & > input[type=date]:not(.browser-default) + label,
+  & > input[type=time]:not(.browser-default) + label {
+    transform: translateY(-14px) scale(.8);
+    transform-origin: 0 0;
+  }
+
+  .helper-text {
+    &::after {
+      opacity: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    position: relative;
+    min-height: 18px;
+    display: block;
+    font-size: 12px;
+    color: rgba(0,0,0,.54);
+  }
+
   // Prefix Icons
   .prefix {
     position: absolute;
     width: $input-height;
-    font-size: 2rem;
+    font-size: $input-icon-size;
     transition: color .2s;
+    top: calc(($input-height - $input-icon-size) / 2);
 
     &.active { color: $input-focus-color; }
   }
@@ -224,6 +249,7 @@ textarea.materialize-textarea {
   .prefix ~ textarea,
   .prefix ~ label,
   .prefix ~ .validate ~ label,
+  .prefix ~ .helper-text,
   .prefix ~ .autocomplete-content {
     margin-left: 3rem;
     width: 92%;
@@ -253,6 +279,7 @@ textarea.materialize-textarea {
 .input-field input[type=search] {
   display: block;
   line-height: inherit;
+  transition: .3s background-color;
 
   .nav-wrapper & {
     height: inherit;
@@ -262,7 +289,7 @@ textarea.materialize-textarea {
     box-shadow: none;
   }
 
-  &:focus {
+  &:focus:not(.browser-default) {
     background-color: $input-background;
     border: 0;
     box-shadow: none;
@@ -275,7 +302,8 @@ textarea.materialize-textarea {
     }
   }
 
-  & + label {
+  & + .label-icon {
+    transform: none;
     left: 1rem;
   }
 
@@ -286,7 +314,7 @@ textarea.materialize-textarea {
     right: 1rem;
     color: transparent;
     cursor: pointer;
-    font-size: 2rem;
+    font-size: $input-icon-size;
     transition: .3s color;
   }
 }
@@ -301,27 +329,18 @@ textarea {
   background-color: transparent;
 
   &.materialize-textarea {
-    // Fixes validation messages for dynamic textareas
-    &.validate + label {
-      &::after {
-        top: calc(100% - 12px);
-      }
-      &:not(.label-icon).active {
-        transform: translateY(-25px);
-      }
-      height: 100%;
-    }
-
+    line-height: normal;
     overflow-y: hidden; /* prevents scroll bar flash */
-    padding: .8rem 0 1.6rem 0; /* prevents text jump on Enter keypress */
+    padding: .8rem 0 .8rem 0; /* prevents text jump on Enter keypress */
     resize: none;
     min-height: $input-height;
+    box-sizing: border-box;
   }
 }
 
 // For textarea autoresize
 .hiddendiv {
-  display: none;
+  visibility: hidden;
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: break-word; /* future version of deprecated 'word-wrap' */
@@ -330,17 +349,12 @@ textarea {
   // Reduces repaints
   position: absolute;
   top: 0;
+  z-index: -1;
 }
 
 
 /* Autocomplete */
 .autocomplete-content {
-  margin-top: -1 * $input-margin-bottom;
-  margin-bottom: $input-margin-bottom;
-  display: block;
-  opacity: 1;
-  position: static;
-
   li {
     .highlight { color: #444; }
 
@@ -350,4 +364,9 @@ textarea {
       margin: 5px 15px;
     }
   }
+}
+
+/* Character Counter */
+.character-counter {
+  min-height: 18px;
 }

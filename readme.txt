@@ -2,6 +2,14 @@
 CHANGELOG
 **************************************************************************************************
 
+0.2.1 24-07-02
+-------------------------------------------------------------------------------------
+- !IMPORTANT: Upgrade Materialize to 1.0.0
+- all scripts from scripts.js and ultimate-fields moved to modules
+- scripts moved to ignore folder:
+  counter.js animated.js progress-bar.js slider-de-contemidos.js video-card.js
+-------------------------------------------------------------------------------------
+
 0.1.3 24-06-26
 - Components Wrapper Comp. Standarization
 - Fix :not(.components) that need component-spacing-separator when they have background, border or shadow

@@ -67,9 +67,7 @@ var jsfiles = [
 	"js/libs/materialize/*",
 	"js/libs/*",
 	'js/functions/*',
-	'js/modulos/*',
-	'js/ultimate-fields/*',
-	'js/scripts.js'
+	'js/modules/*'
 ];
 
 gulp.task('listjs', function () {
@@ -81,6 +79,7 @@ gulp.task('listjs', function () {
 /*
 * Concatena los archivos js
 */
+// const js_filelist = require('./js_filelist.json');
 gulp.task('js', function () {
 	return gulp.src(jsfiles)
 		.pipe(concat('scripts.js'))

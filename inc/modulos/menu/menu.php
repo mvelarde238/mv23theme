@@ -10,5 +10,5 @@
 </div>
 
 <div class="mobile-nav"> 
-	<button data-activates="menu-movil" class="menu-movil__btn"><span></span><span></span><span></span></button>
+	<button data-target="menu-movil" class="sidenav-trigger menu-movil__btn"><span></span><span></span><span></span></button>
 </div>

@@ -1,5 +1,9 @@
 .modal {
-  // @extend .z-depth-4;
+  &:focus {
+    outline: none;
+  }
+
+  @extend .z-depth-5;
   z-index: 1400 !important;
 
   display: none;
@@ -93,34 +97,4 @@
   max-height: 45%;
   border-radius: 0;
   will-change: bottom, opacity;
-}
-
-
-
-
-.close-sidenav,
-.modal-close{
-  position: absolute;
-  top: 20px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
-  background-color: #fff;
-  border: 0;
-  
-  &:before, &:after{ 
-    content: '';
-    background-color: var(--secondary-color);
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    height: 28px;
-    width: 2px;
-  }
-  
-  &:before{ transform: rotate(45deg) }
-  &:after{ transform: rotate(-45deg) }
 }

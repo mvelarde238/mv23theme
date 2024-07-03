@@ -1,5 +1,5 @@
 
-/*
+/*!
  * Waves v0.6.0
  * http://fian.my.id/Waves
  *
@@ -66,7 +66,6 @@
     font-size: inherit;
     text-transform: inherit;
     background: none;
-    letter-spacing: 3px;
   }
 
   img {
@@ -86,20 +85,13 @@
 
 .waves-input-wrapper {
   border-radius: 0.2em;
-  padding: 0;
-  margin: 0 !important;
   vertical-align: bottom;
-  height: auto;
-  line-height: initial;
 
   .waves-button-input {
     position: relative;
     top: 0;
     left: 0;
     z-index: 1;
-    line-height: 66px;
-    height: 66px;
-    padding: 0 40px;
   }
 }
 

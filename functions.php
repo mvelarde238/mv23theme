@@ -45,7 +45,6 @@ if( !defined('CF7_EMAIL_BUTTON_COLOR') ) define ('CF7_EMAIL_BUTTON_COLOR', get_s
 if( !defined('CF7_EMAIL_LOGO') ) define ('CF7_EMAIL_LOGO', false);
 
 if( !defined('MOBILE_MENU_LOGO') ) define ('MOBILE_MENU_LOGO', 'secondary_logo');
-if( !defined('MOBILE_MENU_WIDTH') ) define ('MOBILE_MENU_WIDTH', 300);
 if( !defined('MOBILE_MENU_POSITION') ) define ('MOBILE_MENU_POSITION', 'left');
 
 if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','megamenu','archive_page','footer'));
@@ -100,7 +99,6 @@ if( !defined('DEFAULT_COLOR_SCHEME') ) define( 'DEFAULT_COLOR_SCHEME', '');
 if( !defined('DEFAULT_TEXT_COLOR') ) define( 'DEFAULT_TEXT_COLOR', 'text-color-default');
 
 if( !defined('OPEN_MINICART_ON_ADD_TO_CART') ) define ('OPEN_MINICART_ON_ADD_TO_CART', true);
-if( !defined('MINICART_SIDENAV_WIDTH') ) define ('MINICART_SIDENAV_WIDTH', 370);
 if( !defined('MINICART_SIDENAV_POSITION') ) define ('MINICART_SIDENAV_POSITION', 'right');
 
 require_once( 'libs/ultimate-fields/ultimate-fields.php' );
