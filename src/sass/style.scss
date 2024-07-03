@@ -3,7 +3,7 @@
 // ******************************************************
 // PARENT THEME STYLES
 // ******************************************************
-@import "materialize/components/color";
+@import "materialize/components/color-variables";
 @import "materialize/components/overriden-variables";
 @import "materialize/components/variables";
 @import "materialize/components/normalize";
@@ -63,6 +63,7 @@
 @import "modulos/post-modal";
 @import "modulos/minicart";
 @import "modulos/widget-shopping-cart";
+@import "modulos/modal-close";
 
 @import "plugins/contact-form-7";
 @import "plugins/theme-my-login";

@@ -4,16 +4,14 @@
   border-left: 1px solid $collapsible-border-color;
   margin: $element-top-margin 0 $element-bottom-margin 0;
   @extend .z-depth-1;
-  padding-left: 0;
-
-  li{
-    list-style-type: none;
-  }
 }
 
 .collapsible-header {
+  &:focus {
+    outline: 0
+  }
+
   display: flex;
-  align-items: center;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   line-height: 1.5;
@@ -22,16 +20,15 @@
   border-bottom: 1px solid $collapsible-border-color;
 
   i {
-    // width: 1rem;
-    // font-size: 1.6rem;
+    width: 2rem;
+    font-size: 1.6rem;
     display: inline-block;
     text-align: center;
     margin-right: 1rem;
   }
-  h3{
-    margin-right: 15px;
-    font-size: 14px;
-  }
+}
+.keyboard-focused .collapsible-header:focus {
+  background-color: #eee;
 }
 
 .collapsible-body {
@@ -41,9 +38,9 @@
   padding: 2rem;
 }
 
-// sideNav collapsible styling
-.side-nav,
-.side-nav.fixed {
+// Sidenav collapsible styling
+.sidenav,
+.sidenav.fixed {
 
   .collapsible {
     border: none;

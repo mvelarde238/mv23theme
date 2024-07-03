@@ -54,7 +54,6 @@ function mv23_scripts_and_styles() {
             'lang' => (function_exists('pll_current_language')) ? pll_current_language() : 'es',
             'headerHeight' => HEADER_HEIGHT,
             'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
-            'mobile_menu_width' => MOBILE_MENU_WIDTH,
             'mobile_menu_position' => MOBILE_MENU_POSITION,
             'listing_loading_text' => LISTING_LOADING_TEXT,
             'modal' => array(
@@ -65,7 +64,6 @@ function mv23_scripts_and_styles() {
             'carousels' => array(),
             'scrollIndicators' => SCROLL_INDICATORS,
             'open_minicart_on_add_to_cart' => OPEN_MINICART_ON_ADD_TO_CART,
-            'minicart_sidenav_width' => MINICART_SIDENAV_WIDTH,
             'minicart_sidenav_position' => MINICART_SIDENAV_POSITION,
             'items_in_cart' => (WOOCOMMERCE_IS_ACTIVE) ? WC()->cart->get_cart_contents_count() : null,
         )); 

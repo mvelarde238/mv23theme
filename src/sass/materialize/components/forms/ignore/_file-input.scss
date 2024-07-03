@@ -9,13 +9,12 @@
     padding-left: 10px;
   }
 
-  input.file-path { width: 100%; margin-top: 0 }
+  input.file-path { width: 100%; }
 
   .btn {
     float: left;
     height: $input-height;
     line-height: $input-height;
-    vertical-align: top;
   }
 
   span {
