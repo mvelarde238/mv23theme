@@ -1,0 +1,16 @@
+.modal
+    &[data-status="loading"]
+        background: #fff url('../images/loading2.gif') no-repeat center
+        background-size: 40px
+    &:not(.bottom-sheet)
+        &[data-status="loading"]
+            min-height: 400px
+    p
+        color: inherit
+
+.modal, .sidenav
+    @extend .scroll
+
+.sidenav
+    width: 98%
+    max-width: 300px

@@ -1,16 +1,13 @@
-.close-sidenav,
+.sidenav-close[href="#!"],
 .modal-close
     position: absolute
     top: 20px
-    right: 10px
+    right: 8px
     width: 30px
     height: 30px
-    background-color: #fff
-    border: 0
 
     &:before, &:after
         content: ''
-        background-color: var(--secondary-color)
         position: absolute
         top: 0
         left: 0
@@ -18,7 +15,8 @@
         bottom: 0
         margin: auto
         height: 28px
-        width: 2px
+        width: 1px
+        border-left: 2px solid
 
     &:before
         transform: rotate(45deg)
