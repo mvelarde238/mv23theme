@@ -14684,6 +14684,34 @@ function getCookie(cname) {
   }
   return "";
 }
+
+// ****************************************************************************************************
+// HEXADECIMAL COLOR TO RGBA
+// ****************************************************************************************************
+
+function hexToRgba(hex, alpha) {
+  // Remover el símbolo '#' si está presente
+  hex = hex.replace(/^#/, '');
+
+  // Si el valor hexadecimal es de 3 dígitos, convertirlo a 6 dígitos
+  if (hex.length === 3) {
+    hex = hex.split('').map(function (_char) {
+      return _char + _char;
+    }).join('');
+  }
+
+  // Convertir los valores hexadecimales a RGB
+  var bigint = parseInt(hex, 16);
+  var r = bigint >> 16 & 255;
+  var g = bigint >> 8 & 255;
+  var b = bigint & 255;
+
+  // Convertir el valor de alpha de 0-100 a 0-1
+  var a = alpha / 100;
+
+  // Retornar el valor en formato rgba
+  return "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", ").concat(a, ")");
+}
 // ****************************************************************************************************
 // INIT GLOBAL VAR FOR ALL MODULES
 // ****************************************************************************************************
@@ -15377,6 +15405,343 @@ var styleArray = [{
     }
     $('.modal-trigger').modal();
     $('.modal-trigger').css('z-index', 25);
+  });
+})(jQuery, console.log);
+window['OffCanvas_Elements'] = function () {
+  function Offcanvas_Element(element_data) {
+    this.offcanvas_element_id = element_data.id;
+    this.offcanvas_element = document.querySelector('#' + this.offcanvas_element_id);
+    this.type = element_data.type;
+    this.content_type = element_data.content_type;
+    this.trigger_events = element_data.trigger_events || [];
+    this.async_settings = element_data.async_settings;
+    this.settings = element_data.settings;
+
+    // Bind all private methods
+    for (var fn in this) {
+      if (fn.charAt(0) === '_' && typeof this[fn] === 'function') {
+        this[fn] = this[fn].bind(this);
+      }
+    }
+    this.M_instance = null;
+    this.M_instance_options = [];
+    this._handle_async_settings();
+    // this._handle_callback_settings();
+    this._create_the_M_instance();
+    if (_typeof(this.M_instance) === "object") {
+      this._handle_styles();
+      this._handle_trigger_events();
+    }
+  }
+  Offcanvas_Element.prototype = {
+    _handle_async_settings: function _handle_async_settings() {
+      var _this61 = this;
+      if (this.content_type == 'async' && _typeof(this.async_settings) == "object") {
+        var fetchUrl = []; // in case of page source i need to try in two paths pages/posts
+        var errorMsg = [];
+        var content_source = this.async_settings.content_source;
+        switch (content_source) {
+          case 'page':
+            var _page_source = this.async_settings.page_source;
+            if (_page_source) {
+              var contentId = _page_source.replace('post_', '');
+              var pageUrl = "".concat(MV23_GLOBALS.homeUrl, "/wp-json/wp/v2/pages/").concat(contentId);
+              var postUrl = "".concat(MV23_GLOBALS.homeUrl, "/wp-json/wp/v2/posts/").concat(contentId);
+              fetchUrl = [pageUrl, postUrl];
+              errorMsg = ['No se encontró como página, intentando como post...', 'No se encontró el contenido ni como página ni como post.'];
+            }
+            break;
+          case 'url':
+            var url_source = this.async_settings.url_source;
+            if (url_source != '') {
+              fetchUrl = [url_source];
+              errorMsg = ['No se encontró la url'];
+            }
+            break;
+          case 'link':
+          default:
+            // this need to be handled inside the onOpenStart callback to access the event target
+            break;
+        }
+        this.M_instance_options.onOpenStart = function () {
+          var el = _this61.M_instance.el;
+          var modal_content = el.querySelector('.modal-content');
+          if (_this61.async_settings.clear_on_close) modal_content.innerHTML = "";
+          _this61._check_async_attributes(_this61.async_settings, 'beforeSend', el);
+          if (content_source === 'link') {
+            var trigger = _this61.M_instance._openingTrigger;
+            var trigger_href = _typeof(trigger) == 'object' && trigger.tagName == 'A' ? trigger.getAttribute('href') : '';
+            if (trigger_href != '') {
+              fetchUrl = [trigger_href];
+              errorMsg = ['No se encontró la url del link'];
+            }
+          }
+          if (fetchUrl.length > 0) {
+            fetch(fetchUrl[0]).then(function (response) {
+              return _this61._handle_async_response(response);
+            }).then(function (data) {
+              return _this61._handle_async_data(data, el);
+            })["catch"](function (error) {
+              _this61._handle_async_error(error, errorMsg[0], el, true);
+              return fetch(fetchUrl[1]).then(function (response) {
+                return _this61._handle_async_response(response);
+              }).then(function (data) {
+                return _this61._handle_async_data(data, el);
+              })["catch"](function (error) {
+                return _this61._handle_async_error(error, errorMsg[1], el, true);
+              });
+            });
+          } else {
+            _this61._check_async_attributes('error', el);
+            el.querySelector('.modal-content').innerHTML = "<p class=\"center-align\">Some setting in ".concat(_this61.offcanvas_element_id, " is wrong.<p>");
+          }
+        };
+      }
+    },
+    _check_async_attributes: function _check_async_attributes(status, el) {
+      var _this62 = this;
+      var async_settings = this.async_settings;
+      if (async_settings.attributes.length) {
+        async_settings.attributes.forEach(function (item) {
+          if (item.status == status) _this62._assign_attribute(el, item.attribute, item.value);
+        });
+      }
+    },
+    _assign_attribute: function _assign_attribute(domObject, selector, value) {
+      if (!domObject || typeof selector !== 'string' || typeof value !== 'string') {
+        throw new Error('Invalid arguments. Expecting a DOM object, a string selector and a string value.');
+      }
+      if (selector == 'id') {
+        domObject.id = value;
+      } else if (selector == 'class') {
+        if (value.startsWith('-')) {
+          domObject.classList.remove(value.substring(1));
+        } else {
+          domObject.classList.add(value);
+        }
+      } else if (selector.startsWith('data-')) {
+        domObject.setAttribute(selector, value);
+      } else {
+        throw new Error('Selector must be id, class or "data-xxx" ');
+      }
+    },
+    _handle_async_response: function _handle_async_response(response) {
+      var async_settings = this.async_settings;
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      var content_source = async_settings.content_source;
+      return content_source == 'page' ? response.json() : response.text();
+    },
+    _handle_async_data: function _handle_async_data(data, el) {
+      var async_settings = this.async_settings;
+      var content = '';
+      this._check_async_attributes('success', el);
+      var content_source = async_settings.content_source;
+      var load_on_iframe = async_settings.load_on_iframe;
+      if (load_on_iframe) {
+        var iframe_src = content_source == 'page' ? data.link : async_settings.url_source;
+        var divWrapper = document.createElement('div');
+        divWrapper.className = "pdf-responsive";
+        var iframe = document.createElement('iframe');
+        iframe.setAttribute("src", iframe_src);
+        divWrapper.appendChild(iframe);
+        content = divWrapper.outerHTML;
+      } else {
+        content = content_source == 'page' ? data.content.rendered : data;
+        var cherry_pick_sections = async_settings.cherry_pick_sections;
+        var cherry_picked_sections = async_settings.cherry_picked_sections;
+        if (cherry_pick_sections && cherry_picked_sections != '') {
+          var _divWrapper = document.createElement('div');
+          _divWrapper.innerHTML = content;
+          content = '';
+          var sections = _divWrapper.querySelectorAll(cherry_picked_sections);
+          sections.forEach(function (section) {
+            content += section.outerHTML;
+          });
+        }
+      }
+      el.querySelector('.modal-content').innerHTML = content;
+    },
+    _handle_async_error: function _handle_async_error(error, msg, el, debug) {
+      this._check_async_attributes('error', el);
+      if (debug) console.log(msg, error);
+    },
+    _handle_callback_settings: function _handle_callback_settings() {
+      if (typeof this.settings.on_open === 'string' && this.settings.on_open.trim() !== '') {
+        var callbackFunction = new Function('return ' + this.settings.on_open)();
+        if (typeof callbackFunction === 'function') {
+          if (this.settings.on_open) M_instance_options.onOpenStart = callbackFunction;
+        }
+      }
+    },
+    _create_the_M_instance: function _create_the_M_instance() {
+      var settings = this.settings,
+        type = this.type,
+        M_instance_options = this.M_instance_options,
+        offcanvas_element = this.offcanvas_element;
+      if (type === 'modal' || type === 'bottom_sheet') {
+        M_instance_options.dismissible = settings.dismissible;
+        this.M_instance = M.Modal.init(offcanvas_element, M_instance_options);
+      }
+      if (type === 'sidenav') {
+        M_instance_options.edge = settings.position;
+        M_instance_options.draggable = false;
+        this.M_instance = M.Sidenav.init(offcanvas_element, M_instance_options);
+      }
+    },
+    _handle_styles: function _handle_styles() {
+      var settings = this.settings,
+        offcanvas_element = this.offcanvas_element,
+        M_instance = this.M_instance,
+        type = this.type;
+      if (settings.background_color.use) offcanvas_element.style.backgroundColor = this._format_color(settings.background_color.color, settings.background_color.alpha);
+      if (settings.max_width) offcanvas_element.style.maxWidth = settings.max_width + 'px';
+      if (settings.background_color.color_scheme && settings.background_color.color_scheme != '') {
+        var color_scheme_class = settings.background_color.color_scheme === 'dark-scheme' ? 'text-color-2' : 'text-color-1';
+        offcanvas_element.classList.add(color_scheme_class);
+      }
+      var overlay = type === 'sidenav' ? M_instance._overlay : M_instance.$overlay[0];
+      if (settings.overlay_color.use) overlay.style.backgroundColor = this._format_color(settings.overlay_color.color, settings.overlay_color.alpha);
+    },
+    _format_color: function _format_color(color, alpha) {
+      var formated_color = color;
+      if (alpha != 100) formated_color = hexToRgba(color, alpha);
+      return formated_color;
+    },
+    _handle_trigger_events: function _handle_trigger_events() {
+      var _this63 = this;
+      var offcanvas_element_id = this.offcanvas_element_id,
+        trigger_events = this.trigger_events;
+      trigger_events.forEach(function (triggerData) {
+        switch (triggerData.__type) {
+          case 'click':
+            _this63._handle_click_event(triggerData);
+            break;
+          case 'custom_event':
+            _this63._handle_custom_event(triggerData);
+            break;
+          case 'scroll':
+            var cookie_name = triggerData.custom_cookie ? triggerData.cookie_name : offcanvas_element_id + '-shown';
+            var storage_type = triggerData.custom_cookie ? triggerData.storage_type : 'session';
+            var storage = storage_type === "session" ? sessionStorage : localStorage;
+            if (triggerData.settings_type == 'basic') {
+              _this63._handle_basic_scroll_event(triggerData, storage, cookie_name);
+            }
+            if (triggerData.settings_type == 'scrollmagic' && MV23_GLOBALS.scrollAnimations) {
+              _this63._handle_scrollmagic_event(triggerData, storage, cookie_name);
+            }
+            break;
+          default:
+            console.log('No trigger events assigned to offcanvas element with ID:' + offcanvas_element_id);
+            break;
+        }
+      });
+    },
+    _handle_click_event: function _handle_click_event(triggerData) {
+      var type = this.type,
+        offcanvas_element_id = this.offcanvas_element_id,
+        M_instance = this.M_instance;
+      var triggers = document.querySelectorAll(triggerData.selector);
+      if (triggers.length) {
+        var triggerClass = type != 'bottom_sheet' ? type + '-trigger' : 'modal-trigger';
+        triggers.forEach(function (trigger) {
+          trigger.classList.add(triggerClass);
+          trigger.dataset.target = offcanvas_element_id;
+          if (type === 'sidenav') M_instance._openingTrigger = trigger;
+        });
+      }
+      ;
+      if (triggerData.delegate_to_body) {
+        document.body.addEventListener('click', function (event) {
+          if (event.target.closest(triggerData.selector)) {
+            event.preventDefault();
+            M_instance._openingTrigger = event.target;
+            // i need send a cash $trigger to open method:
+            M_instance.open($(event.target));
+          }
+        });
+      }
+    },
+    _handle_custom_event: function _handle_custom_event(triggerData) {
+      var M_instance = this.M_instance;
+      var event_source = triggerData.event_source;
+      var event_name = event_source == 'custom' ? triggerData.event_name : triggerData[event_source + '_event'];
+      // dosnt work with woo events:
+      // event_name && document.body.addEventListener(event_name, function() { instance.open(); }); 
+      event_name && $(document.body).on(event_name, function () {
+        M_instance.open();
+      });
+    },
+    _handle_basic_scroll_event: function _handle_basic_scroll_event(triggerData, storage, cookie_name) {
+      var M_instance = this.M_instance;
+
+      // if visualization cookie is automatic show the element on every page reload
+      if (!triggerData.custom_cookie) storage.removeItem(cookie_name);
+      $(window).scroll(function () {
+        var xscrollTop = $(document).scrollTop();
+        if (xscrollTop > triggerData.scroll_top && !storage.getItem(cookie_name)) {
+          M_instance.open();
+          storage.setItem(cookie_name, 'true');
+          if (triggerData.cookie_expiration) {
+            setTimeout(function () {
+              storage.removeItem(cookie_name);
+            }, triggerData.expiration_time);
+          }
+        }
+      });
+    },
+    _handle_scrollmagic_event: function _handle_scrollmagic_event(triggerData, storage, cookie_name) {
+      var M_instance = this.M_instance;
+
+      // cookie name need to be unique if there are two scroll triggers for the same offcanvas element
+      if (!triggerData.custom_cookie) cookie_name = '_' + cookie_name;
+      var scrollmagic_settings = triggerData.scrollmagic_settings;
+      var trigger_element = document.querySelectorAll(scrollmagic_settings.trigger_element);
+      if (trigger_element.length) {
+        var controller = new ScrollMagic.Controller();
+        var trigger_hook = scrollmagic_settings.trigger_hook;
+        var offset = scrollmagic_settings.offset;
+        var add_indicators = scrollmagic_settings.add_indicators;
+        for (var i = 0; i < trigger_element.length; i++) {
+          var scene = new ScrollMagic.Scene({
+            triggerElement: trigger_element[i],
+            triggerHook: trigger_hook,
+            offset: offset
+          }).addTo(controller);
+          scene.on("enter", function (event) {
+            if (triggerData.custom_cookie && storage.getItem(cookie_name)) return;
+            M_instance.open();
+            if (triggerData.custom_cookie) {
+              storage.setItem(cookie_name, 'true');
+              if (triggerData.cookie_expiration) {
+                setTimeout(function () {
+                  storage.removeItem(cookie_name);
+                }, triggerData.expiration_time);
+              }
+            }
+          });
+          if (MV23_GLOBALS.scrollIndicators && add_indicators) scene.addIndicators();
+        }
+      }
+    }
+  };
+  Offcanvas_Element.init = function (data) {
+    data.forEach(function (element_data) {
+      var instance = new Offcanvas_Element(element_data);
+    });
+  };
+  return Offcanvas_Element;
+}();
+(function ($, c) {
+  document.addEventListener('DOMContentLoaded', function () {
+    OffCanvas_Elements.init(OFFCANVAS_ELEMENTS);
+  });
+
+  // esto tiene que ir al final de todo el theme
+  document.addEventListener('DOMContentLoaded', function () {
+    var event = new Event('theme_document_ready');
+    document.body.dispatchEvent(event);
   });
 })(jQuery, console.log);
 (function ($, c) {

@@ -43,6 +43,15 @@ abstract class TriggerEvent {
 	}
 
 	/**
+	 * Returns the title template for the group
+	 *
+	 * @return mixed bool if not implemented || backbone template
+	 */
+	/* abstract */ public static function get_title_template() {
+		return false;
+	}
+
+	/**
 	 * Exports the settings for the current restriction.
 	 *
 	 * @return Ultimate_Fields\Container\Repeater_Group
@@ -54,10 +63,12 @@ abstract class TriggerEvent {
 
 		$group = new Repeater_Group( $type );
 		$group->set_title( $name )
-			// ->set_title_template( '' );
 			->add_fields( $fields )
             ->set_edit_mode( 'popup' )
 			->set_description_position( 'label' );
+
+		$title_template = static::get_title_template();
+		if( $title_template ) $group->set_title_template( $title_template );
 
 		return $group;
 	}

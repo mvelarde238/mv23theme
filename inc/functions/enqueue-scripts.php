@@ -62,6 +62,7 @@ function mv23_scripts_and_styles() {
             'expanderHeight' => LISTING_PORTFOLIO_EXPANDER_HEIGHT,
             'listingPortfolioScrollDuration' => LISTING_PORTFOLIO_SCROLL_DURATION,
             'carousels' => array(),
+            'scrollAnimations' => SCROLL_ANIMATIONS,
             'scrollIndicators' => SCROLL_INDICATORS,
             'open_minicart_on_add_to_cart' => OPEN_MINICART_ON_ADD_TO_CART,
             'minicart_sidenav_position' => MINICART_SIDENAV_POSITION,
