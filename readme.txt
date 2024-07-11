@@ -7,6 +7,7 @@ CHANGELOG
 - delete .open-minicart classes and js
 - fix modal data-status loading css
 - post-modal css deleted
+- Offcanvas Elements Feature merged
 
 0.2.1 24-07-02
 -------------------------------------------------------------------------------------

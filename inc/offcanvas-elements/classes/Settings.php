@@ -226,7 +226,7 @@ class Settings {
 				// 	Field::create( 'checkbox', 'use' )->set_default_value(1)->fancy()->hide_label()->set_width( 50 ),
 				// 	Field::create( 'text', 'number' )->set_default_value(40)->set_suffix('px')->add_dependency('use')->hide_label()->set_width( 50 )
 				// )),
-				Field::create( 'text', 'max_width' )->set_default_value(666)->set_suffix('px'),
+				Field::create( 'number', 'max_width' )->set_default_value(666)->set_suffix('px'),
 				Field::create( 'complex', 'overlay_color', __('Overlay Color','default') )->add_fields(array(
 					Field::create( 'checkbox', 'use' )->set_default_value(1)->fancy()->hide_label()->set_width( 20 ),
 					Field::create( 'color', 'color' )->set_default_value('#000000')->add_dependency('use')->set_width( 30 ),
@@ -242,11 +242,7 @@ class Settings {
 					Field::create( 'color', 'color' )->set_default_value('#ffffff')->add_dependency('use')->set_width( 30 ),
 					Field::create( 'number', 'alpha', __('Opacity','default') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 30 )
 				)),
-				Field::create( 'select', 'color_scheme', __('Color Scheme','default') )->add_options( array(
-					'' => __('Default','default'),
-					'default-scheme' => __('Light','default'),
-					'dark-scheme' => __('Dark','default')
-				)),
+				Field::create( 'number', 'max_height' )->set_default_value(140)->set_suffix('px'),
 				Field::create( 'complex', 'overlay_color', __('Overlay Color','default') )->add_fields(array(
 					Field::create( 'checkbox', 'use' )->set_default_value(1)->fancy()->hide_label()->set_width( 20 ),
 					Field::create( 'color', 'color' )->set_default_value('#000000')->add_dependency('use')->set_width( 30 ),
@@ -265,7 +261,7 @@ class Settings {
 					Field::create( 'color', 'color' )->set_default_value('#ffffff')->add_dependency('use')->set_width( 30 ),
 					Field::create( 'number', 'alpha', __('Opacity','default') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 30 )
 				)),
-				Field::create( 'text', 'max_width' )->set_default_value(370)->set_suffix('px'),
+				Field::create( 'number', 'max_width' )->set_default_value(300)->set_suffix('px'),
 				Field::create( 'complex', 'overlay_color', __('Overlay Color','default') )->add_fields(array(
 					Field::create( 'checkbox', 'use' )->set_default_value(1)->fancy()->hide_label()->set_width( 20 ),
 					Field::create( 'color', 'color' )->set_default_value('#000000')->add_dependency('use')->set_width( 30 ),

@@ -30,6 +30,7 @@
   "js/modules/mapa.js",
   "js/modules/menu.js",
   "js/modules/modals.js",
+  "js/modules/offcanvas-elements.js",
   "js/modules/pinned-blocks.js",
   "js/modules/scripts.js",
   "js/modules/scroll-animations.js",
@@ -39,5 +40,6 @@
   "js/modules/testimonios.js",
   "js/modules/toggle-box.js",
   "js/modules/toggleboxes.js",
-  "js/modules/woocommerce.js"
+  "js/modules/woocommerce.js",
+  "js/modules/z_last.js"
 ]

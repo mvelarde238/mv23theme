@@ -15467,7 +15467,7 @@ window['OffCanvas_Elements'] = function () {
           var el = _this61.M_instance.el;
           var modal_content = el.querySelector('.modal-content');
           if (_this61.async_settings.clear_on_close) modal_content.innerHTML = "";
-          _this61._check_async_attributes(_this61.async_settings, 'beforeSend', el);
+          _this61._check_async_attributes('beforeSend', el);
           if (content_source === 'link') {
             var trigger = _this61.M_instance._openingTrigger;
             var trigger_href = _typeof(trigger) == 'object' && trigger.tagName == 'A' ? trigger.getAttribute('href') : '';
@@ -15542,7 +15542,7 @@ window['OffCanvas_Elements'] = function () {
       if (load_on_iframe) {
         var iframe_src = content_source == 'page' ? data.link : async_settings.url_source;
         var divWrapper = document.createElement('div');
-        divWrapper.className = "pdf-responsive";
+        divWrapper.className = "async-iframe-wrapper";
         var iframe = document.createElement('iframe');
         iframe.setAttribute("src", iframe_src);
         divWrapper.appendChild(iframe);
@@ -15597,6 +15597,7 @@ window['OffCanvas_Elements'] = function () {
         type = this.type;
       if (settings.background_color.use) offcanvas_element.style.backgroundColor = this._format_color(settings.background_color.color, settings.background_color.alpha);
       if (settings.max_width) offcanvas_element.style.maxWidth = settings.max_width + 'px';
+      if (settings.max_height) offcanvas_element.style.maxHeight = settings.max_height + 'px';
       if (settings.background_color.color_scheme && settings.background_color.color_scheme != '') {
         var color_scheme_class = settings.background_color.color_scheme === 'dark-scheme' ? 'text-color-2' : 'text-color-1';
         offcanvas_element.classList.add(color_scheme_class);
@@ -15737,12 +15738,6 @@ window['OffCanvas_Elements'] = function () {
   document.addEventListener('DOMContentLoaded', function () {
     OffCanvas_Elements.init(OFFCANVAS_ELEMENTS);
   });
-
-  // esto tiene que ir al final de todo el theme
-  document.addEventListener('DOMContentLoaded', function () {
-    var event = new Event('theme_document_ready');
-    document.body.dispatchEvent(event);
-  });
 })(jQuery, console.log);
 (function ($, c) {
   $(window).load(function () {
@@ -15821,7 +15816,7 @@ window['OffCanvas_Elements'] = function () {
 (function ($, c) {
   $(function () {
     var animatedElements = $('[data-scroll-animations]');
-    if (animatedElements.length > 0) {
+    if (MV23_GLOBALS.scrollAnimations && animatedElements.length > 0) {
       var controller = new ScrollMagic.Controller();
       for (var i = 0; i < animatedElements.length; i++) {
         var elem = animatedElements[i],
@@ -16123,3 +16118,7 @@ window['OffCanvas_Elements'] = function () {
     // ****************************************************************************************************
   });
 })(jQuery, console.log);
+document.addEventListener('DOMContentLoaded', function () {
+  var event = new Event('theme_document_ready');
+  document.body.dispatchEvent(event);
+});

@@ -2,7 +2,7 @@
     $(function() {
     	var animatedElements = $('[data-scroll-animations]');
 
-    	if (animatedElements.length > 0) {
+    	if (MV23_GLOBALS.scrollAnimations && animatedElements.length > 0) {
             var controller = new ScrollMagic.Controller();
 
             for (var i = 0; i < animatedElements.length; i++) {

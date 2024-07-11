@@ -68,7 +68,7 @@ window['OffCanvas_Elements'] = (function(){
                     const modal_content = el.querySelector('.modal-content');
                     if( this.async_settings.clear_on_close ) modal_content.innerHTML = "";
 
-                    this._check_async_attributes(this.async_settings, 'beforeSend', el);
+                    this._check_async_attributes('beforeSend', el);
 
                     if( content_source === 'link' ){
                         let trigger = this.M_instance._openingTrigger;
@@ -147,7 +147,7 @@ window['OffCanvas_Elements'] = (function(){
                 let iframe_src = ( content_source == 'page' ) ? data.link : async_settings.url_source; 
     
                 const divWrapper = document.createElement('div');
-                divWrapper.className = "pdf-responsive";
+                divWrapper.className = "async-iframe-wrapper";
                 const iframe = document.createElement('iframe');
                 iframe.setAttribute("src", iframe_src);
                 divWrapper.appendChild(iframe);
@@ -201,6 +201,7 @@ window['OffCanvas_Elements'] = (function(){
 
             if( settings.background_color.use ) offcanvas_element.style.backgroundColor = this._format_color(settings.background_color.color, settings.background_color.alpha);
             if( settings.max_width ) offcanvas_element.style.maxWidth = settings.max_width+'px';
+            if( settings.max_height ) offcanvas_element.style.maxHeight = settings.max_height+'px';
             if( settings.background_color.color_scheme && settings.background_color.color_scheme != '' ){
                 let color_scheme_class = ( settings.background_color.color_scheme === 'dark-scheme' ) ? 'text-color-2' : 'text-color-1';
                 offcanvas_element.classList.add( color_scheme_class );

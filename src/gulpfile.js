@@ -9,7 +9,7 @@
 // Project configuration
 var project = 'mv23theme', // Nombre de proyecto, usado como nombre de archivo al momento de crear el zip
 	url = 'mv23.com', // Local Development URL for BrowserSync. Default: './'
-	nodeModules_path = '../../../../../../node_modules/',
+	nodeModules_path = '../../../../../../../node_modules/',
 	build = '../', // Folder donde se guarda el zip 
 	buildInclude = [
 		// Archivos que se van a guardar en el zip
