@@ -357,11 +357,4 @@ window['OffCanvas_Elements'] = (function(){
     document.addEventListener('DOMContentLoaded', function() {
         OffCanvas_Elements.init( OFFCANVAS_ELEMENTS );
     });
-
-    // esto tiene que ir al final de todo el theme
-    document.addEventListener('DOMContentLoaded', function() {
-        var event = new Event('theme_document_ready');
-        document.body.dispatchEvent(event);
-    });
-
 })(jQuery,console.log); 

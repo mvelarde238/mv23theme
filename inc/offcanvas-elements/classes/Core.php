@@ -160,9 +160,9 @@ class Core{
                 </div>
 
                 <?php if( $element['type'] === 'sidenav' ){
-                    echo '<a href="#" class="sidenav-close"></a>';
+                    echo '<a href="#!" class="sidenav-close"></a>';
                 } else {
-                    if( $element['settings']['dismissible'] ) echo '<a href="#" class="modal-close"></a>';
+                    if( $element['settings']['dismissible'] ) echo '<a href="#!" class="modal-close"></a>';
                 } ?>
             </div>
             <?php

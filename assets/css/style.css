@@ -1740,11 +1740,6 @@ button.btn-floating {
 	will-change: bottom, opacity;
 }
 
-.close-sidenav:hover,
-.modal-close:hover {
-	color: initial;
-}
-
 /* Text Inputs + Textarea
    ========================================================================== */
 
