@@ -15747,17 +15747,11 @@ var styleArray = [{
     $(document.body).on('removed_from_cart', function (event, fragments, cart_hash, btn) {
       show_cart_item_qty(fragments);
     });
-    if (!is_checkout && !is_cart) {
-      $('.open-minicart>a').attr('data-target', 'minicart-sidenav');
-      $('#minicart-sidenav').sidenav({
-        edge: MV23_GLOBALS.minicart_sidenav_position,
-        draggable: false
+    if (MV23_GLOBALS.open_minicart_on_add_to_cart) {
+      $(document.body).on('added_to_cart', function (event, fragments, cart_hash, btn) {
+        var event = new Event('theme_open_minicart_on_product_added');
+        document.body.dispatchEvent(event);
       });
-      if (MV23_GLOBALS.open_minicart_on_add_to_cart) {
-        $(document.body).on('added_to_cart', function (event, fragments, cart_hash, btn) {
-          $('.open-minicart>a').trigger('click');
-        });
-      }
     }
 
     // ****************************************************************************************************

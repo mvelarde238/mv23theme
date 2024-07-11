@@ -2,6 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
+0.2.2 24-07-11
+- Small css modal refactorizations
+- delete .open-minicart classes and js
+- fix modal data-status loading css
+- post-modal css deleted
+
 0.2.1 24-07-02
 -------------------------------------------------------------------------------------
 - !IMPORTANT: Upgrade Materialize to 1.0.0
