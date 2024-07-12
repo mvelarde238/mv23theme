@@ -8,6 +8,7 @@ CHANGELOG
 - fix modal data-status loading css
 - post-modal css deleted
 - Offcanvas Elements Feature merged
+- Add Offcanvas Elements to Theme Options Menu
 
 0.2.1 24-07-02
 -------------------------------------------------------------------------------------

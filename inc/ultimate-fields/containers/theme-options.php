@@ -15,16 +15,23 @@ if( !function_exists( 'rearrange_theme_options_submenu_order' ) ){
         // Enable the next line to see all menu orders
         // echo '<pre>'.print_r($submenu['theme-options/theme-options-admin.php'],true).'</pre>';
 
-        $arr = array();
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][5];
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][6];
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][0];
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][7];
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][3];
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][2];
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][4];
-        $arr[] = $submenu['theme-options/theme-options-admin.php'][1];
-        $submenu['theme-options/theme-options-admin.php'] = $arr;
+        $order_list = array( 'Theme Options', 'Header', 'Pie de Página', 'Off-Canvas Elements', 'Custom Scripts', 'Megamenú', 'Accordion', 'Archive Pages', 'Secciones Reusables' );
+
+        $new_order = array();
+        $not_in_list = array();
+        for ($i=0; $i < count($order_list); $i++) { 
+            $new_order[ $i ] = null;
+        }
+        for ($i=0; $i < count( $submenu['theme-options/theme-options-admin.php'] ); $i++) { 
+            $key = array_search( $submenu['theme-options/theme-options-admin.php'][$i][3], $order_list );
+            if( $key > -1 ){
+                $new_order[ $key ] = $submenu['theme-options/theme-options-admin.php'][$i]; 
+            } else {
+                $not_in_list[] = $submenu['theme-options/theme-options-admin.php'][$i];
+            }
+        }
+        $new_order = array_merge( $new_order, $not_in_list );
+        $submenu['theme-options/theme-options-admin.php'] = $new_order;
 
         return $menu_ord;
     }
