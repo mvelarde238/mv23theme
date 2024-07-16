@@ -9,7 +9,6 @@
 // Project configuration
 var project = 'mv23theme', // Nombre de proyecto, usado como nombre de archivo al momento de crear el zip
 	url = 'mv23.com', // Local Development URL for BrowserSync. Default: './'
-	nodeModules_path = '../../../../../../../node_modules/',
 	build = '../', // Folder donde se guarda el zip 
 	buildInclude = [
 		// Archivos que se van a guardar en el zip
@@ -43,18 +42,18 @@ var project = 'mv23theme', // Nombre de proyecto, usado como nombre de archivo a
 /*
 * Dependencias
 */
-var gulp = require(nodeModules_path + 'gulp'),
-	sass = require(nodeModules_path + 'gulp-sass')(require('sass')),
-	minifyCSS = require(nodeModules_path + 'gulp-clean-css'),
-	concat = require(nodeModules_path + 'gulp-concat'),
-	uglifyJs = require(nodeModules_path + 'gulp-uglify'),
-	babel = require(nodeModules_path + 'gulp-babel'),
-	browserSync = require(nodeModules_path + 'browser-sync'),
-	// svgmin       = require(nodeModules_path+'gulp-svgmin'),
-	mergeQueries = require(nodeModules_path + 'gulp-merge-media-queries'),
-	// filelist = require(nodeModules_path + 'gulp-filelist'),
-	//  zip          = require(nodeModules_path+'gulp-zip'),
-	//  runSequence  = require(nodeModules_path+'run-sequence'),
+var gulp = require('gulp'),
+	sass = require('gulp-sass')(require('sass')),
+	minifyCSS = require('gulp-clean-css'),
+	concat = require('gulp-concat'),
+	uglifyJs = require('gulp-uglify'),
+	babel = require('gulp-babel'),
+	browserSync = require('browser-sync'),
+	// svgmin       = require('gulp-svgmin'),
+	mergeQueries = require('gulp-merge-media-queries'),
+	filelist = require('gulp-filelist'),
+	//  zip          = require('gulp-zip'),
+	//  runSequence  = require('run-sequence'),
 	lel = null;
 
 /*
@@ -71,13 +70,14 @@ var jsfiles = [
 ];
 
 gulp.task('listjs', function () {
-	return gulp.src(jsfiles)
+	return gulp.src(jsfiles, { nodir: true })
 		.pipe(filelist('js_filelist.json'))
 		.pipe(gulp.dest('./'));
 });
 
 /*
 * Concatena los archivos js
+* used by childthemes to override some file
 */
 // const js_filelist = require('./js_filelist.json');
 gulp.task('js', function () {
