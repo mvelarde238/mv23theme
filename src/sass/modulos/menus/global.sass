@@ -1,0 +1,177 @@
+%clear-unordered-list
+    ul
+        margin: 0
+        padding-left: 0
+    li
+        list-style-type: none
+        position: relative
+
+%clear-links
+    a
+        display: block
+        text-decoration: none
+        color: inherit
+        &:hover
+            text-decoration: none
+
+%basic-global-menu-styles
+    @extend %clear-unordered-list
+    @extend %clear-links
+    @extend %toggle-submenu-styles
+
+%menu-item-styles
+    a
+        font-size: 14px
+        line-height: 18px
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+    .menu-item__icon
+        margin-right: 8px
+        img
+            max-height: 18px
+            vertical-align: sub
+
+%sub-menu-item-styles
+    &>li
+        &:not(:last-child)
+            border-bottom: 1px solid var(--primary-color-light)
+        &:has( .toggle-submenu[aria-expanded="true"] )>a,
+        &:hover>a
+            background-color: var(--primary-color-lighter)
+    a
+        font-size: 13px
+        padding: 12px 20px
+        line-height: 18px
+
+%hidden-label
+    &>li.hidden-text>a>.menu-item__label
+        display: none
+
+%fix-for-hidden-label
+    &>li.hidden-text>a>.menu-item__icon
+        margin-right: 0
+
+%shared-horizontal-navs-styles
+    display: flex
+    justify-content: center
+    >li
+        max-width: 180px
+    .-secondary
+        background-color: #fff
+        box-shadow: 0 2px 5px var(--secondary-color-light)
+        @extend %menu-item-styles
+        @extend %sub-menu-item-styles
+
+%horizontal-sub-menu-styles
+    .sub-menu
+        position: absolute
+        top: 100%
+        z-index: 555
+        width: 100%
+        max-width: 47vw
+        min-width: 180px
+        display: none
+        background-color: #fff
+        box-shadow: 0 0 15px rgba(0,0,0,.2)
+        animation-name: horizontal-sub-menu-animation
+        animation-duration: 300ms
+        a
+            white-space: inherit
+        ul
+            top: 0
+            &.open-from-right
+                right: 100% 
+            &.open-from-left
+                left: 100% 
+
+        @extend %sub-menu-item-styles
+
+    .-secondary .sub-menu
+        top: 0
+    .-secondary .sub-menu.open-from-right
+        right: 100%
+    .-secondary .sub-menu.open-from-left
+        left: 100%
+    .text-color-2 &
+        ul.sub-menu,
+        .-secondary
+            background-color: var(--secondary-color)
+
+%vertical-sub-menu-styles
+    .sub-menu
+        display: none
+        background-color: rgba(0,0,0,.04)
+        animation-name: vertical-sub-menu-animation
+        animation-duration: 300ms
+    .text-color-2 & .sub-menu
+        background-color: rgba(0,0,0,.2)
+
+%item-has-children-arrow-down
+    content: '\f107'
+    font: normal normal normal 19px/1 FontAwesome
+    display: inline-block
+    margin-left: 5px
+    line-height: 12px
+    transform: translateY(2px)
+
+%item-has-children-arrow-right
+    content: '\f105'
+    position: absolute
+    top: 11px
+    right: 10px
+    font: normal normal normal 19px/1 FontAwesome
+
+%toggle-submenu-styles
+    .toggle-submenu
+        width: 35px
+        height: 30px
+        border: 1px solid var(--primary-color-light)
+        background-color: transparent
+        border-radius: 3px
+        outline: 0
+        transition: 250ms all
+        &:before
+            content: '\f107'
+            font: normal normal normal 19px/1 FontAwesome
+            color: var(--primary-color)
+            transform-origin: center
+        &[aria-expanded="true"]
+            transform: scaleY(-1)
+        .text-color-2 &:before
+            color: currentColor
+
+%item-has-children-arrow-visibility
+    .menu
+        >li.has-megamenu>a:after,
+        >li.menu-item-has-children>a:after
+            @extend %item-has-children-arrow-down
+    .sub-menu, .-secondary
+        li.menu-item-has-children>a:after
+            @extend %item-has-children-arrow-right
+    .toggle-submenu
+        display: none
+    @media only screen and (max-width: #{$menu-breakpoint})
+        .menu
+            >li.has-megamenu>a:after,
+            li.menu-item-has-children>a:after
+                display: none
+        .toggle-submenu
+            display: block
+
+
+@keyframes horizontal-sub-menu-animation
+    from
+        opacity: 0
+        transform: translateY( 25px )
+    to
+        opacity: 1
+        transform: translateY( 0px )
+
+@keyframes vertical-sub-menu-animation
+    from
+        opacity: 0
+        transform: translateX( 25px )
+    to
+        opacity: 1
+        transform: translateX( 0px )

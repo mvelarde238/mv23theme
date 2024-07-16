@@ -1,0 +1,51 @@
+.adaptive-navbar {
+    position: relative;
+    
+    .--hidden {
+      display: none;
+    }
+  
+    .-primary {     
+      .-more {
+        > a .menu-item__icon {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+      }
+    }
+    
+    &.--show-secondary .-primary {
+      .-more > a .menu-item__icon {
+        transform: rotate(180deg);
+      }
+    }
+    
+    .-secondary {
+      width: 100%;
+      max-width: 47vw;
+      min-width: 180px;
+      display: none;
+      position: absolute;
+      top: 105%;
+      right: 0;
+      z-index: 56;
+      animation: _nav-secondary 0.2s;
+    }
+    
+    &.--show-secondary .-secondary {
+      display: block;
+    }
+  }
+  
+  // keyframes
+  
+  @keyframes _nav-secondary {
+    0% {
+      opacity: 0;
+      transform: translateY(-1em);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

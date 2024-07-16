@@ -1,22 +1,14 @@
 (function($,c){      
     $(function() {
         $(".has-megamenu").removeClass('menu-item-has-children');
-        // ****************************************************************************************************
-        // MENÚ -- SUBMENÚS
-        // ****************************************************************************************************
 
-        if (viewport.width > 768) {
-            $(".header li.menu-item-has-children").hover(function(){
-                $(this).find('ul.sub-menu:first').show(268);
-                hide_main_megamenu();
-            },function(){
-                $(this).find('ul.sub-menu:first').hide();
-            });
+        $(".header li.menu-item-has-children").hover(function(){
+            hide_main_megamenu();
+        },function(){});
 
-            $(".header li.menu-item:not(.is-active)").hover(function(){
-                hide_main_megamenu();
-            },function(){});
-        };
+        $(".header li.menu-item:not(.is-active)").hover(function(){
+            hide_main_megamenu();
+        },function(){});
 
         // ****************************************************************************************************
         // MEGAMENÚ
@@ -27,7 +19,7 @@
             $header = $('.header'),
             timeout = null;
 
-        $(".has-megamenu").hover(function(){ 
+        $(".header .has-megamenu").hover(function(){ 
             clearTimeout(timeout);
             var $that = $(this);
 
@@ -65,21 +57,6 @@
 
         $(document).on('click','.megamenu-overlay', function(){ hide_main_megamenu(); });
         $(".megamenu-close, .megamenu a").click(function(){ hide_main_megamenu(); });
-
-        // ****************************************************************************************************
-        // MOBILE MENU
-        // ****************************************************************************************************
-
-        $('#menu-movil').sidenav({ 
-            edge: MV23_GLOBALS.mobile_menu_position,
-            draggable: false
-        });
-        $('.menu-movil .sub-menu').css('display','none');
-        $('.menu-movil li.menu-item-has-children').append('<button class="toogle-submenu"></button>');
-        $('.menu-movil li.menu-item a').addClass('sidenav-close');
-        $('.menu-movil').on('click','.toogle-submenu',function(){
-          $(this).parent().children('.sub-menu').slideToggle();
-        });
 
         // ****************************************************************************************************
         // ****************************************************************************************************

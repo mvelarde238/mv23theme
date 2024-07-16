@@ -198,8 +198,8 @@ if ( !function_exists('add_nav_support') ){
 		add_theme_support( 'menus' );
 		register_nav_menus(
 			array(
-				'main-nav' => __( 'Menu Principal', 'mv23' ),
-				'movil-nav' => __( 'Menu Moviles', 'mv23' )
+				'main-nav' => __( 'Main nav', 'default' ),
+				'mobile-nav' => __( 'Mobile nav', 'default' )
 			)
 		);
 	}

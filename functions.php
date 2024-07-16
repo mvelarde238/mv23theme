@@ -44,16 +44,14 @@ if( !defined('CF7_EMAIL_BUTTON_COLOR') ) define ('CF7_EMAIL_BUTTON_COLOR', get_s
 // logo url: useful if logo is svg or another not supported format in emails
 if( !defined('CF7_EMAIL_LOGO') ) define ('CF7_EMAIL_LOGO', false);
 
-if( !defined('MOBILE_MENU_LOGO') ) define ('MOBILE_MENU_LOGO', 'secondary_logo');
-if( !defined('MOBILE_MENU_POSITION') ) define ('MOBILE_MENU_POSITION', 'left');
-
 if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','megamenu','archive_page','footer'));
 if( !defined('UF_TAXONOMIES') ) define ('UF_TAXONOMIES', array('category'));
 if( !defined('CONTENT_BUILDER_POSTTYPES') ) define ('CONTENT_BUILDER_POSTTYPES', array());
-if( !defined('CONTENT_BUILDER_COMPONENTS') ) define ('CONTENT_BUILDER_COMPONENTS', array( 'Editor de Texto', 'Imágen', 'Galeria', 'Listing', 'Componente Reusable', 'Mapa', 'Button', 'Separador', 'HTML', 'Components Wrapper' ) );
+if( !defined('CONTENT_BUILDER_COMPONENTS') ) define ('CONTENT_BUILDER_COMPONENTS', array( 'Editor de Texto', 'Imágen', 'Galeria', 'Listing', 'Componente Reusable', 'Mapa', 'Button', 'Separador', 'HTML', 'Menú', 'Components Wrapper' ) );
 if( !defined('PAGE_HEADER_IN') ) define ('PAGE_HEADER_IN', array('page','archive_page'));
 if( !defined('PAGE_SETTINGS_POSTTYPES') ) define ('PAGE_SETTINGS_POSTTYPES', array('page','archive_page'));
 
+if( !defined('MAIN_NAV_STYLE') ) define ('MAIN_NAV_STYLE', array('horizontal-nav','horizontal-nav-1'));
 if( !defined('MENU_ITEM_DATA_LOCATIONS') ) define ('MENU_ITEM_DATA_LOCATIONS', array('main-nav'));
 if( !defined('MENU_ITEM_MEGAMENU_LOCATIONS') ) define ('MENU_ITEM_MEGAMENU_LOCATIONS', array('main-nav'));
 if( !defined('ARCHIVE_OPTIONS_POSTTYPES') ) define ('ARCHIVE_OPTIONS_POSTTYPES', array('post' => 'Entradas'));
@@ -107,6 +105,7 @@ require_once( 'inc/classes/page.php' );
 require_once( 'inc/classes/header.php' );
 require_once( 'inc/classes/page-header.php' );
 require_once( 'inc/classes/CPT.php' );
+require_once( 'inc/classes/Theme_Nav_Walker.php' );
 
 require_once( 'inc/functions/theme.php' );
 require_once( 'inc/functions/enqueue-scripts.php' );
@@ -120,7 +119,6 @@ require_once( 'inc/functions/security-functions.php' );
 require_once( 'inc/functions/video-responsive.php' );
 require_once( 'inc/functions/hide-editor.php' );
 require_once( 'inc/functions/admin.php' );
-get_template_part( 'inc/functions/theme-nav-walker' );
 require_once( 'inc/ultimate-fields/index.php' );
 require_once( 'inc/functions/include-posttypes.php' );
 require_once( 'inc/functions/include-shortcodes.php' );

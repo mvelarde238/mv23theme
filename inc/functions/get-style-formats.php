@@ -38,9 +38,19 @@ if (!function_exists('default_style_formats')) {
 				)
 			),
 			array(  
-				'title' => 'Lista Resaltada',  
-				'selector' => 'ul, ol', 
-				'classes' => 'special-list-1',
+				'title' => 'Listas',
+				'items' => array(
+					array(  
+						'title' => 'Theme List',  
+						'selector' => 'ul, ol', 
+						'classes' => 'theme-list',
+					),
+					array(  
+						'title' => 'Lista Resaltada',  
+						'selector' => 'ul, ol', 
+						'classes' => 'special-list-1',
+					)
+				)
 			),
 			array(  
 			    'title' => 'Botones',

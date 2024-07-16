@@ -1,0 +1,31 @@
+.vertical-nav-1
+    @extend %basic-global-menu-styles
+
+    .menu
+        width: 100%
+        @extend %menu-item-styles
+
+        li:hover 
+            background-color: rgba(0,0,0,.05)
+            
+        li:not(:last-child)
+            border-bottom: 1px solid var(--primary-color-light)
+        a
+            padding: 16px 15px
+
+        >li.current-menu-item>a,
+        >li.current-page-ancestor>a,
+        >li.current-menu-parent>a,
+        >li>a.is-inview
+            color: $primary-color !important
+            font-weight: bold
+
+    @extend %vertical-sub-menu-styles
+
+    .toggle-submenu
+        position: absolute
+        top: 10px
+        right: 5px
+    .menu, .sub-menu
+        li.menu-item-has-children>a
+            padding-right: 50px

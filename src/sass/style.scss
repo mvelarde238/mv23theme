@@ -32,8 +32,8 @@
 @import "modulos/grid";
 @import "modulos/header";
 @import "modulos/main-nav";
+@import "modulos/megamenu";
 @import "modulos/main";
-@import "modulos/movil-nav";
 @import "modulos/page-header";
 @import "modulos/pagination";
 @import "modulos/post-card";
@@ -53,6 +53,7 @@
 @import "modulos/special-title-3";
 @import "modulos/special-title-4";
 @import "modulos/special-list-1";
+@import "modulos/theme-list";
 @import "modulos/sidebar";
 @import "modulos/tab-style-1";
 @import "modulos/tab-style-2";
@@ -64,6 +65,12 @@
 @import "modulos/minicart";
 @import "modulos/widget-shopping-cart";
 @import "modulos/modal-close";
+@import "modulos/menus/global";
+@import "modulos/menus/horizontal1";
+@import "modulos/menus/horizontal2";
+@import "modulos/menus/horizontal3";
+@import "modulos/menus/vertical1";
+@import "modulos/menus/adaptive-navbar";
 
 @import "plugins/contact-form-7";
 @import "plugins/theme-my-login";

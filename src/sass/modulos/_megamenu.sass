@@ -1,0 +1,50 @@
+.megamenu
+	background-color: #fff
+	display: none
+	position: absolute
+	top: 100%
+	left: 0
+	width: 100%
+	color: $font-color
+	z-index: 9999999
+	&.is-active
+		display: block
+		overflow: auto
+		overflow-x: hidden
+		max-height: 85vh
+	&.is-active	&-close
+		width: 30px
+		height: 30px
+		border-radius: 4px
+		box-shadow: 0 0 5px rgba(0,0,0,.1)
+		position: absolute
+		top: 15px
+		right: 15px
+		background-color: #fff
+		&:before,
+		&:after
+			content: ''
+			position: absolute
+			top: 0
+			left: 0
+			right: 0
+			bottom: 0
+			margin: auto
+			width: 23px
+			height: 2px
+			background-color: $font-color
+		&:before
+			transform: rotate(45deg)
+		&:after
+			transform: rotate(-45deg)
+
+	&>.container
+		position: relative
+	&-overlay
+		position: fixed
+		bottom: 0
+		left: 0
+		width: 100%
+		height: 100vh
+		background-color: rgba(0,0,0,.3)
+		z-index: 895

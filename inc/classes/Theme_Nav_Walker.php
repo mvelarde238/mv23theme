@@ -24,8 +24,6 @@ class Theme_Nav_Walker extends Walker_Nav_Menu{
 
         $classes = empty( $item->classes ) ? array() : (array) $item->classes;
         $classes[] = 'menu-item-' . $item->ID;
-        $style = get_post_meta($item->ID,'style',true);
-        $classes[] = (!empty($style)) ? $style : '';
         if ($is_megamenu) $classes[] = 'has-megamenu';
         if ($hide_label) $classes[] = 'hidden-text';
 
@@ -35,7 +33,30 @@ class Theme_Nav_Walker extends Walker_Nav_Menu{
         $id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
         $id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
 
-        $output .= $indent . '<li' . $id . $value . $class_names .'>';
+        $styles = array();
+        $style = get_post_meta($item->ID,'menu_item_style',true);
+        if( is_array($style) ){
+            $background_color = $style['background_color'];
+            if( $background_color['use'] ) $styles[] = 'background-color:'.$background_color['color'];
+
+            $text_color = $style['text_color'];
+            if( $text_color['use'] ) $styles[] = 'color:'.$text_color['color'];
+
+            $radius = $style['radius'];
+            if( $radius['use'] ) $styles[] = 'border-radius:'.$radius['value'].'px';
+
+            $shadow = $style['shadow'];
+            if( $shadow['use'] ) $styles[] = 'box-shadow:0 0 '.$shadow['blur'].'px '.$shadow['color'];
+
+            $border = $style['border'];
+            if( $border['use'] ) $styles[] = 'border:'.$border['width'].'px solid '.($border['color'] ? $border['color']: '');
+
+            $min_width = (isset($style['min_width'])) ? $style['min_width'] : array('use'=>false);
+            if( $min_width['use'] ) $styles[] = 'min-width:'.$min_width['value'].'px';
+        }
+        $style = ( !empty($styles) ) ? 'style="'.implode(';', $styles).'"' : '';
+
+        $output .= $indent . '<li' . $id . $value . $class_names . $style.'>';
     
         $atts = array();
         $atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
@@ -66,14 +87,19 @@ class Theme_Nav_Walker extends Walker_Nav_Menu{
                 $icon = get_post_meta($item->ID,'menu_item_icon',true);
                 $image = get_post_meta($item->ID,'menu_item_image',true);
                 $imagen_url = wp_get_attachment_url($image);
-                $icon_html = ( $identificador == 'imagen' && $image ) ? '<span><img src="'.$imagen_url .'" /></span>' : '<span><i class="fa '.$icon.'"></i></span>';
+                $icon_html = '<span class="menu-item__icon">';
+                $icon_html .= ( $identificador == 'imagen' && $image ) ? '<img src="'.$imagen_url .'" />' : '<i class="fa '.$icon.'"></i>';
+                $icon_html .= '</span>';
             }
 
             $item_output = $args->before;
             $item_output .= '<a'. $attributes .'>';
             $item_output .= $icon_html;
-            if(!$hide_label) $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
+            $item_output .= $args->link_before .'<span class="menu-item__label">'. apply_filters( 'the_title', $item->title, $item->ID ) .'</span>'. $args->link_after;
             $item_output .= '</a>';
+            if (in_array('menu-item-has-children', $classes)) {
+                $item_output .= '<button class="toggle-submenu" aria-expanded="false"></button>';
+            }
             $item_output .= $args->after;
 
             if( $is_megamenu ) {
@@ -91,6 +117,9 @@ class Theme_Nav_Walker extends Walker_Nav_Menu{
             $item_output .= '<a'. $attributes .'>';
             $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
             $item_output .= '</a>';
+            if (in_array('menu-item-has-children', $classes)) {
+                $item_output .= '<button class="toggle-submenu" aria-expanded="false"></button>';
+            }
             $item_output .= $args->after;
         }
         

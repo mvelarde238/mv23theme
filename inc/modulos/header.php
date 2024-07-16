@@ -19,7 +19,7 @@ $styles = $header->get_styles();
 			</a>
 		</div>
 		<div class="header__blocks">
-			<?php get_template_part('inc/modulos/menu/menu'); ?>	
+			<?php get_template_part('inc/modulos/main-nav'); ?>	
 			
 			<?php if (is_active_sidebar( 'header_widgets_1' )): ?>
 				<div class="header__widgets">

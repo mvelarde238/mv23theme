@@ -54,7 +54,6 @@ function mv23_scripts_and_styles() {
             'lang' => (function_exists('pll_current_language')) ? pll_current_language() : 'es',
             'headerHeight' => HEADER_HEIGHT,
             'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
-            'mobile_menu_position' => MOBILE_MENU_POSITION,
             'listing_loading_text' => LISTING_LOADING_TEXT,
             'modal' => array(
                 'outDuration' => MODAL_OUT_DURATION

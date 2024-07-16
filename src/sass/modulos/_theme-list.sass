@@ -1,0 +1,30 @@
+.theme-list
+	li
+		list-style-type: none
+		&:before
+			display: inline-block
+			margin-right: 11px
+			margin-bottom: -4px
+			width: 12px
+			height: 18px
+			margin-left: -25px
+	li[role="presentation"]:before
+		display: none
+        
+ol.theme-list
+	counter-reset: theme-counter
+	li
+		counter-increment: theme-counter
+		&:before
+			content: counter(theme-counter) "."
+			font-weight: bold
+
+ul.theme-list
+	padding-left: 33px
+	li
+		list-style-type: none
+		&:before
+			content: "\f28e"
+			font-family: FontAwesome
+			font-size: 12px
+

@@ -31,55 +31,55 @@
   }
 
 
-  li {
-    float: none;
-    line-height: $sidenav-line-height;
+  // li {
+  //   float: none;
+  //   line-height: $sidenav-line-height;
 
-    &.active { background-color: rgba(0,0,0,.05); }
-  }
+  //   &.active { background-color: rgba(0,0,0,.05); }
+  // }
 
-  li.btn ,
-  li > a {
-    color: $sidenav-font-color;
-    display: block;
-    font-size: $sidenav-font-size;
-    font-weight: 500;
-    height: $sidenav-item-height;
-    line-height: $sidenav-line-height;
-    padding: 0 5px;
+  // li.btn ,
+  // li > a {
+  //   color: $sidenav-font-color;
+  //   display: block;
+  //   font-size: $sidenav-font-size;
+  //   font-weight: 500;
+  //   height: $sidenav-item-height;
+  //   line-height: $sidenav-line-height;
+  //   padding: 0 5px;
 
-    &:hover { background-color: rgba(0,0,0,.05);}
+  //   &:hover { background-color: rgba(0,0,0,.05);}
 
-    &.btn, &.btn-large, &.btn-flat, &.btn-floating {
-      margin: 10px 15px;
-    }
+  //   &.btn, &.btn-large, &.btn-flat, &.btn-floating {
+  //     margin: 10px 15px;
+  //   }
 
-    &.btn,
-    &.btn-large,
-    &.btn-floating { color: $button-raised-color; }
-    &.btn-flat { color: $button-flat-color; }
+  //   &.btn,
+  //   &.btn-large,
+  //   &.btn-floating { color: $button-raised-color; }
+  //   &.btn-flat { color: $button-flat-color; }
 
-    &.btn:hover,
-    &.btn-large:hover { background-color: lighten($button-raised-background, 5%); }
-    &.btn-floating:hover { background-color: $button-raised-background; }
+  //   &.btn:hover,
+  //   &.btn-large:hover { background-color: lighten($button-raised-background, 5%); }
+  //   &.btn-floating:hover { background-color: $button-raised-background; }
 
-    & > i,
-    & > [class^="mdi-"], li > a > [class*="mdi-"],
-    & > i.material-icons {
-      float: left;
-      height: $sidenav-item-height;
-      line-height: $sidenav-line-height;
-      margin: 0 7px 0 0;
-      width: calc($sidenav-item-height / 2);
-      color: rgba(0,0,0,.54);
-    }
-  }
+  //   & > i,
+  //   & > [class^="mdi-"], li > a > [class*="mdi-"],
+  //   & > i.material-icons {
+  //     float: left;
+  //     height: $sidenav-item-height;
+  //     line-height: $sidenav-line-height;
+  //     margin: 0 7px 0 0;
+  //     width: calc($sidenav-item-height / 2);
+  //     color: rgba(0,0,0,.54);
+  //   }
+  // }
 
-  li.btn{
-    border-radius: 0;
-    margin: 0 !important;
-    text-align: left;
-  }
+  // li.btn{
+  //   border-radius: 0;
+  //   margin: 0 !important;
+  //   text-align: left;
+  // }
 
   .divider {
     margin: calc($sidenav-padding / 2) 0 0 0;
@@ -197,16 +197,16 @@
 }
 
 
-.sidenav .collapsible-body > ul:not(.collapsible) > li.active,
-.sidenav.sidenav-fixed .collapsible-body > ul:not(.collapsible) > li.active {
-  background-color: $primary-color;
-  a {
-    color: $sidenav-bg-color;
-  }
-}
-.sidenav .collapsible-body {
-  padding: 0;
-}
+// .sidenav .collapsible-body > ul:not(.collapsible) > li.active,
+// .sidenav.sidenav-fixed .collapsible-body > ul:not(.collapsible) > li.active {
+//   background-color: $primary-color;
+  // a {
+  //   color: $sidenav-bg-color;
+  // }
+// }
+// .sidenav .collapsible-body {
+//   padding: 0;
+// }
 
 
 .sidenav-overlay {

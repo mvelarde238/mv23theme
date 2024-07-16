@@ -1,4 +1,4 @@
-@import "materialize/components/color";
+@import "materialize/components/color-variables";
 @import "materialize/components/overriden-variables";
 @import "materialize/components/variables";
 
@@ -20,6 +20,7 @@ body#tinymce.wp-editor {
 	@import "modulos/special-title-2";
 	@import "modulos/special-title-3";
 	@import "modulos/special-title-4";
+	@import "modulos/theme-list";
 	@import "modulos/special-list-1";
 	@import "modulos/table";
 	.clearfix {
