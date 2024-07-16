@@ -63,6 +63,13 @@ function generate_actions_code($componente){
 						$code = '<a class="cover-all toggle-box" data-selector="'.$selector.'" data-scroll-to-box="'.$scroll_to_box.'" href="#"></a>';
 					}
 				}
+				if ($action['trigger'] == 'click' && $action['action'] == 'offcanvas-element') { 
+					$offcanvas_elements_settings = (isset($action['offcanvas_elements_settings'])) ? $action['offcanvas_elements_settings'] : array( 'id' => null );
+					$id = $offcanvas_elements_settings['id'];
+					if($id){
+						$code = '<a class="cover-all" data-offcanvas-element="'.str_replace('post_','',$id).'" href="#"></a>';
+					}
+				}
 			}
 	endif;
 

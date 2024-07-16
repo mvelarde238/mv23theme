@@ -6,6 +6,7 @@ CHANGELOG
 - Offcanvas Elements Improvement: close on click setting
   - trigger events tab renamed to trigger
 - nodeModules_path removed from gulpfile
+- Add Offcanvas Elements to actions settings
 
 0.3.1 24-07-16
 -------------------------------------------------------------------------------------

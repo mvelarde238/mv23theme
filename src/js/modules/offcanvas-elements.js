@@ -1,4 +1,5 @@
 window['OffCanvas_Elements'] = (function(){
+    let instances = [];
 
     function Offcanvas_Element( element_data ){
         this.offcanvas_element_id = element_data.id;
@@ -357,10 +358,35 @@ window['OffCanvas_Elements'] = (function(){
         }
     }
 
+    Offcanvas_Element.create = function( element_data ){
+        let instance = new Offcanvas_Element( element_data );
+
+        if( typeof instance.M_instance === "object" ){
+            instances.push(instance);
+            return instance;
+        }
+    }
+    
     Offcanvas_Element.init = function( data ){
         data.forEach( element_data => {
-            let instance = new Offcanvas_Element(element_data);
+            Offcanvas_Element.create( element_data );
         });
+
+        return instances;
+    }
+
+    Offcanvas_Element.getInstances = function(){
+        return instances;
+    }
+
+    Offcanvas_Element.getElementById = function( id ){
+        let _instance = null;
+        id && Offcanvas_Element.getInstances().forEach( _ins => {
+            if( _ins.offcanvas_element_id == 'offcanvas-element-'+id ){
+                _instance = _ins;
+            }
+        });
+        return _instance;
     }
 
     return Offcanvas_Element;
@@ -369,5 +395,16 @@ window['OffCanvas_Elements'] = (function(){
 (function($,c){
     document.addEventListener('DOMContentLoaded', function() {
         OffCanvas_Elements.init( OFFCANVAS_ELEMENTS );
+
+        /* 
+        show an offcanvas element using a data attribute 
+        E.g. data-offcanvas-element="238" 
+        */
+        document.querySelectorAll('[data-offcanvas-element]').forEach(element => {
+            let OCE_element = OffCanvas_Elements.getElementById( element.dataset.offcanvasElement );
+            OCE_element && element.addEventListener('click', (ev) => {
+                OCE_element.M_instance.open( this );
+            });
+        });
     });
 })(jQuery,console.log); 

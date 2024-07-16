@@ -59,6 +59,7 @@ class Core{
 			array(
 				'show_in_menu' => 'theme-options/theme-options-admin.php',
 				'show_in_nav_menus' => false,
+				'show_ui' => true,
 				'supports' => array('title')
 			)
 		);

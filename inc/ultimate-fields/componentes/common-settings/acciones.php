@@ -13,7 +13,8 @@ $acciones_fields = array(
     			'open-page' => 'Abrir nueva página',
                 'open-image-popup' => 'Mostrar imágen en pop up',
     			'open-video-popup' => 'Mostrar video en pop up',
-    			'toggle-box' => 'Mostrar / Ocultar Sección'
+    			'toggle-box' => 'Mostrar / Ocultar Sección',
+				'offcanvas-element' => 'Mostrar Off-Canvas Element'
     		))->set_width(75),
 
 			Field::create( 'complex', 'enlace' )->hide_label()->rows_layout()->add_fields(array(
@@ -45,6 +46,10 @@ $acciones_fields = array(
         			->set_description( 'Selector -ID o CLASS- de la sección que se va mostrar / ocultar, usar solo minúsculas y guiones ( - )' ),
 				Field::create( 'checkbox', 'scroll_to_box' )->set_text( 'Scroll page to box.' ),
 			))->add_dependency('action','toggle-box','='),
+
+			Field::create( 'complex', 'offcanvas_elements_settings' )->hide_label()->rows_layout()->add_fields(array(
+				Field::create( 'wp_object', 'id' )->add( 'posts','post_type=offcanvas_element' )->set_button_text( __('Select', 'deafult') )->hide_label()
+			))->add_dependency('action','offcanvas-element','='),
         ))
     )
 );
