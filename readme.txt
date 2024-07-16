@@ -2,6 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
+0.3.2 24-07-16
+-------------------------------------------------------------------------------------
+- !IMPORTANT: MAIN NAV REFACTORIZATION
+- Includes a menu component with adaptive-navbar.js
+-------------------------------------------------------------------------------------
+
 0.2.2 24-07-11
 - Small css modal refactorizations
 - delete .open-minicart classes and js
