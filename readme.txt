@@ -3,6 +3,10 @@ CHANGELOG
 **************************************************************************************************
 
 0.3.2 24-07-16
+- Offcanvas Elements Improvement: close on click setting
+  - trigger events tab renamed to trigger
+
+0.3.1 24-07-16
 -------------------------------------------------------------------------------------
 - !IMPORTANT: MAIN NAV REFACTORIZATION
 - Includes a menu component with adaptive-navbar.js

@@ -15528,6 +15528,7 @@ window['OffCanvas_Elements'] = function () {
     if (_typeof(this.M_instance) === "object") {
       this._handle_styles();
       this._handle_trigger_events();
+      this._handle_close_on_click_setting();
     }
   }
   Offcanvas_Element.prototype = {
@@ -15821,6 +15822,19 @@ window['OffCanvas_Elements'] = function () {
           });
           if (MV23_GLOBALS.scrollIndicators && add_indicators) scene.addIndicators();
         }
+      }
+    },
+    _handle_close_on_click_setting: function _handle_close_on_click_setting() {
+      var settings = this.settings,
+        offcanvas_element = this.offcanvas_element,
+        type = this.type;
+      console.log();
+      var close_on_click = settings.close_on_click || false;
+      if (close_on_click) {
+        var close_on_click_class = type === 'sidenav' ? 'sidenav-close' : 'modal-close';
+        offcanvas_element.querySelectorAll('a').forEach(function (element) {
+          element.classList.add(close_on_click_class);
+        });
       }
     }
   };

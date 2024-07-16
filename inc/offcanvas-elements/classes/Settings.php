@@ -123,7 +123,7 @@ class Settings {
 		}
 
 		return array( 
-            Field::create('tab', __('Trigger Events','default') ),
+            Field::create('tab', __('Trigger','default') ),
             $trigger_events_field 
         );
 	}
@@ -155,6 +155,7 @@ class Settings {
 				// 	'image' => get_template_directory_uri() . '/inc/offcanvas-elements/images/tap_target.png'
 				// )
 			)),
+			Field::create( 'section', '__content', __('Content','default') ),
 			Field::create('radio', $slug.'_content_type',__('Content Type','default'))->set_orientation('horizontal')->add_options(array(
 				'layout' => __('Layout','default'), 
 				'async' => __('Asynchronous Content','default') 
@@ -211,6 +212,7 @@ class Settings {
 
 			Field::create('complex',$slug.'_modal_settings' )->set_layout('rows')->hide_label()->add_dependency($slug.'_type','modal','=')->add_fields(array( 
 				Field::create( 'checkbox', 'dismissible' )->set_description(__('Allow modal to be dismissed by keyboard or overlay click.','default'))->set_default_value(1)->fancy(),
+				Field::create( 'checkbox', 'close_on_click' )->set_description(__('Closes element on <a> clicks.','default'))->fancy(),
 				Field::create( 'complex', 'background_color' )->add_fields(array(
 					Field::create( 'checkbox', 'use' )->set_default_value(1)->fancy()->hide_label()->set_width( 20 ),
 					Field::create( 'select', 'color_scheme', __('Color Scheme','default') )->add_options( $color_schemes )->set_width( 20 ),
@@ -236,6 +238,7 @@ class Settings {
 
 			Field::create('complex',$slug.'_bottom_sheet_settings')->set_layout('rows')->hide_label()->add_dependency($slug.'_type','bottom_sheet','=')->add_fields(array( 
 				Field::create( 'checkbox', 'dismissible' )->set_description(__('Allow modal to be dismissed by keyboard or overlay click.','default'))->set_default_value(1)->fancy(),
+				Field::create( 'checkbox', 'close_on_click' )->set_description(__('Closes element on <a> clicks.','default'))->fancy(),
 				Field::create( 'complex', 'background_color' )->add_fields(array(
 					Field::create( 'checkbox', 'use' )->set_default_value(1)->fancy()->hide_label()->set_width( 20 ),
 					Field::create( 'select', 'color_scheme', __('Color Scheme','default') )->add_options( $color_schemes )->set_width( 20 ),
@@ -255,6 +258,7 @@ class Settings {
 					'left' => __('Left'),
 					'right' => __('Right')
 				))->set_input_type( 'radio' )->set_orientation( 'horizontal' ),
+				Field::create( 'checkbox', 'close_on_click', __('Close on click','default') )->set_description(__('Closes element on link clicks.','default'))->fancy(),
 				Field::create( 'complex', 'background_color' )->add_fields(array(
 					Field::create( 'checkbox', 'use' )->set_default_value(1)->fancy()->hide_label()->set_width( 20 ),
 					Field::create( 'select', 'color_scheme', __('Color Scheme','default') )->add_options( $color_schemes )->set_width( 20 ),
