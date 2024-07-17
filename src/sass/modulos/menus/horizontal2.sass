@@ -18,13 +18,13 @@
             padding: 15px 15px
             text-align: center
 
-        >li.current-menu-item>a,
-        >li.current-page-ancestor>a,
-        >li.current-menu-parent>a,
-        >li>a.is-inview
+        >li.current-menu-item,
+        >li.current-page-ancestor,
+        >li.current-menu-parent,
+        >li:has(a.is-inview)
             color: var(--primary-color)
             font-weight: bold
-            &::before
+            &>a::before
                 content: ''
                 position: absolute
                 bottom: 0

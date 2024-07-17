@@ -13,11 +13,12 @@
         >li>a
             padding: 15px 10px
             text-align: center
-        >li.current-menu-item>a,
-        >li.current-page-ancestor>a,
-        >li.current-menu-parent>a,
-        >li>a.is-inview
+        >li.current-menu-item,
+        >li.current-page-ancestor,
+        >li.current-menu-parent,
+        >li:has(a.is-inview)
             color: var(--primary-color)
+            font-weight: bold
 
     .-more
         border: 1px solid var(--secondary-color-light)

@@ -6357,11 +6357,12 @@ table > tbody > tr:nth-child(even) {
 	text-align: center;
 }
 
-.horizontal-nav-1 .menu > li.current-menu-item > a,
-.horizontal-nav-1 .menu > li.current-page-ancestor > a,
-.horizontal-nav-1 .menu > li.current-menu-parent > a,
-.horizontal-nav-1 .menu > li > a.is-inview {
+.horizontal-nav-1 .menu > li.current-menu-item,
+.horizontal-nav-1 .menu > li.current-page-ancestor,
+.horizontal-nav-1 .menu > li.current-menu-parent,
+.horizontal-nav-1 .menu > li:has(a.is-inview) {
 	color: var(--primary-color);
+	font-weight: bold;
 }
 
 .horizontal-nav-1 .-more {
@@ -6386,10 +6387,10 @@ table > tbody > tr:nth-child(even) {
 	text-align: center;
 }
 
-.horizontal-nav-2 .menu > li.current-menu-item > a,
-.horizontal-nav-2 .menu > li.current-page-ancestor > a,
-.horizontal-nav-2 .menu > li.current-menu-parent > a,
-.horizontal-nav-2 .menu > li > a.is-inview {
+.horizontal-nav-2 .menu > li.current-menu-item,
+.horizontal-nav-2 .menu > li.current-page-ancestor,
+.horizontal-nav-2 .menu > li.current-menu-parent,
+.horizontal-nav-2 .menu > li:has(a.is-inview) {
 	color: var(--primary-color);
 	font-weight: bold;
 }
@@ -6397,7 +6398,7 @@ table > tbody > tr:nth-child(even) {
 .horizontal-nav-2 .menu > li.current-menu-item > a::before,
 .horizontal-nav-2 .menu > li.current-page-ancestor > a::before,
 .horizontal-nav-2 .menu > li.current-menu-parent > a::before,
-.horizontal-nav-2 .menu > li > a.is-inview::before {
+.horizontal-nav-2 .menu > li:has(a.is-inview) > a::before {
 	content: "";
 	position: absolute;
 	bottom: 0;
@@ -6432,10 +6433,10 @@ table > tbody > tr:nth-child(even) {
 	height: 100%;
 }
 
-.horizontal-nav-3 .menu > li.current-menu-item > a,
-.horizontal-nav-3 .menu > li.current-page-ancestor > a,
-.horizontal-nav-3 .menu > li.current-menu-parent > a,
-.horizontal-nav-3 .menu > li > a.is-inview {
+.horizontal-nav-3 .menu > li.current-menu-item,
+.horizontal-nav-3 .menu > li.current-page-ancestor,
+.horizontal-nav-3 .menu > li.current-menu-parent,
+.horizontal-nav-3 .menu > li:has(a.is-inview) {
 	color: var(--primary-color);
 }
 
@@ -6463,10 +6464,10 @@ table > tbody > tr:nth-child(even) {
 	padding: 16px 15px;
 }
 
-.vertical-nav-1 .menu > li.current-menu-item > a,
-.vertical-nav-1 .menu > li.current-page-ancestor > a,
-.vertical-nav-1 .menu > li.current-menu-parent > a,
-.vertical-nav-1 .menu > li > a.is-inview {
+.vertical-nav-1 .menu > li.current-menu-item,
+.vertical-nav-1 .menu > li.current-page-ancestor,
+.vertical-nav-1 .menu > li.current-menu-parent,
+.vertical-nav-1 .menu > li:has(a.is-inview) {
 	color: var(--primary-color);
 	font-weight: bold;
 }
