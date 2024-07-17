@@ -45,7 +45,8 @@ function mv23_scripts_and_styles() {
         wp_localize_script( 'mv23-scripts', 'STATIC_HEADER', $static_header->get_options() ); 
         wp_localize_script( 'mv23-scripts', 'STICKY_HEADER', $sticky_header->get_options() ); 
 
-        wp_localize_script( 'mv23-scripts', 'MV23_GLOBALS', array( 
+        wp_localize_script( 'mv23-scripts', 'MV23_GLOBALS', array(
+            'pageID' => get_the_ID(),
             'isMobile' => wp_is_mobile(), 
             'ajaxUrl' => admin_url( 'admin-ajax.php' ), 
             'homeUrl' => home_url(), 

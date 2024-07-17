@@ -4476,6 +4476,10 @@ img.alignleft {
 	margin-right: 30px;
 }
 
+.cursor-pointer {
+	cursor: pointer;
+}
+
 img {
 	vertical-align: bottom;
 	max-width: 100%;
