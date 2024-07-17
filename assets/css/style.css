@@ -2335,6 +2335,10 @@ textarea.materialize-textarea {
 	margin: 0;
 }
 
+.sidenav .modal-content {
+	padding: 24px;
+}
+
 .sidenav .divider {
 	margin: 8px 0 0 0;
 }
@@ -6036,18 +6040,18 @@ table > tbody > tr:nth-child(even) {
 }
 
 .sidenav-close[href="#!"],
-.modal-close {
+.modal-close[href="#!"] {
 	position: absolute;
-	top: 20px;
-	right: 8px;
+	top: 6px;
+	right: 6px;
 	width: 30px;
 	height: 30px;
 }
 
 .sidenav-close[href="#!"]:before,
 .sidenav-close[href="#!"]:after,
-.modal-close:before,
-.modal-close:after {
+.modal-close[href="#!"]:before,
+.modal-close[href="#!"]:after {
 	content: "";
 	position: absolute;
 	top: 0;
@@ -6061,12 +6065,12 @@ table > tbody > tr:nth-child(even) {
 }
 
 .sidenav-close[href="#!"]:before,
-.modal-close:before {
+.modal-close[href="#!"]:before {
 	transform: rotate(45deg);
 }
 
 .sidenav-close[href="#!"]:after,
-.modal-close:after {
+.modal-close[href="#!"]:after {
 	transform: rotate(-45deg);
 }
 
