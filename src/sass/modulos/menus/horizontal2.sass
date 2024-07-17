@@ -22,7 +22,7 @@
         >li.current-page-ancestor>a,
         >li.current-menu-parent>a,
         >li>a.is-inview
-            color: $primary-color !important
+            color: var(--primary-color) !important
             font-weight: bold
             &::before
                 content: ''
@@ -30,7 +30,7 @@
                 bottom: 0
                 left: 0
                 width: 100%
-                background-color: $primary-color
+                background-color: var(--primary-color) !important
                 height: 4px
 
     @extend %item-has-children-arrow-visibility

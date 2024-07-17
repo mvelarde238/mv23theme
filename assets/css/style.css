@@ -6386,7 +6386,7 @@ table > tbody > tr:nth-child(even) {
 .horizontal-nav-2 .menu > li.current-page-ancestor > a,
 .horizontal-nav-2 .menu > li.current-menu-parent > a,
 .horizontal-nav-2 .menu > li > a.is-inview {
-	color: #ff7a00 !important;
+	color: var(--primary-color) !important;
 	font-weight: bold;
 }
 
@@ -6399,7 +6399,7 @@ table > tbody > tr:nth-child(even) {
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	background-color: #ff7a00;
+	background-color: var(--primary-color) !important;
 	height: 4px;
 }
 
@@ -6463,7 +6463,7 @@ table > tbody > tr:nth-child(even) {
 .vertical-nav-1 .menu > li.current-page-ancestor > a,
 .vertical-nav-1 .menu > li.current-menu-parent > a,
 .vertical-nav-1 .menu > li > a.is-inview {
-	color: #ff7a00 !important;
+	color: var(--primary-color) !important;
 	font-weight: bold;
 }
 
