@@ -16,6 +16,7 @@ class Theme_Nav_Walker extends Walker_Nav_Menu{
         // ************************************************************************************************************
         $is_megamenu = get_post_meta($item->ID,'is_megamenu',true);
         $hide_label = get_post_meta($item->ID,'hide_label',true);
+        $offcanvas_element = get_post_meta($item->ID,'offcanvas_element',true);
         // ************************************************************************************************************
         // ************************************************************************************************************
         $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
@@ -66,6 +67,9 @@ class Theme_Nav_Walker extends Walker_Nav_Menu{
         if ($is_megamenu) {
             $atts['data-activates']  = 'megamenu-'.$item->ID;
         }
+        if($offcanvas_element){
+            $atts['data-offcanvas-element'] = str_replace('post_','',$offcanvas_element);
+        }
     
         $atts = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args );
     
@@ -78,49 +82,35 @@ class Theme_Nav_Walker extends Walker_Nav_Menu{
         }
     
         $item_output = '';
-
-        if ($depth == 0) {
         
-            $identificador = get_post_meta($item->ID,'identificador',true);
-            $icon_html = '';
-            if($identificador != ''){
-                $icon = get_post_meta($item->ID,'menu_item_icon',true);
-                $image = get_post_meta($item->ID,'menu_item_image',true);
-                $imagen_url = wp_get_attachment_url($image);
-                $icon_html = '<span class="menu-item__icon">';
-                $icon_html .= ( $identificador == 'imagen' && $image ) ? '<img src="'.$imagen_url .'" />' : '<i class="fa '.$icon.'"></i>';
-                $icon_html .= '</span>';
-            }
+        $identificador = get_post_meta($item->ID,'identificador',true);
+        $icon_html = '';
+        if($identificador != ''){
+            $icon = get_post_meta($item->ID,'menu_item_icon',true);
+            $image = get_post_meta($item->ID,'menu_item_image',true);
+            $imagen_url = wp_get_attachment_url($image);
+            $icon_html = '<span class="menu-item__icon">';
+            $icon_html .= ( $identificador == 'imagen' && $image ) ? '<img src="'.$imagen_url .'" />' : '<i class="fa '.$icon.'"></i>';
+            $icon_html .= '</span>';
+        }
 
-            $item_output = $args->before;
-            $item_output .= '<a'. $attributes .'>';
-            $item_output .= $icon_html;
-            $item_output .= $args->link_before .'<span class="menu-item__label">'. apply_filters( 'the_title', $item->title, $item->ID ) .'</span>'. $args->link_after;
-            $item_output .= '</a>';
-            if (in_array('menu-item-has-children', $classes)) {
-                $item_output .= '<button class="toggle-submenu" aria-expanded="false"></button>';
-            }
-            $item_output .= $args->after;
+        $item_output = $args->before;
+        $item_output .= '<a'. $attributes .'>';
+        $item_output .= $icon_html;
+        $item_output .= $args->link_before .'<span class="menu-item__label">'. apply_filters( 'the_title', $item->title, $item->ID ) .'</span>'. $args->link_after;
+        $item_output .= '</a>';
+        if (in_array('menu-item-has-children', $classes)) {
+            $item_output .= '<button class="toggle-submenu" aria-expanded="false"></button>';
+        }
+        $item_output .= $args->after;
 
-            if( $is_megamenu ) {
-                $megamenu_data = get_post_meta($item->ID,'megamenu_post',true);
-                $megamenu_id = str_replace('post_', '', $megamenu_data);
-
-                $item_output .= '<div id="megamenu-'.$item->ID.'" class="megamenu"><div class="container">';
-                $item_output .= ultimate_fields_page_content($megamenu_id); 
-                $item_output .= '<a href="#" class="megamenu-close"></a>';
-                $item_output .= '</div></div>'; 
-            }
-
-        } else {
-            $item_output = $args->before;
-            $item_output .= '<a'. $attributes .'>';
-            $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-            $item_output .= '</a>';
-            if (in_array('menu-item-has-children', $classes)) {
-                $item_output .= '<button class="toggle-submenu" aria-expanded="false"></button>';
-            }
-            $item_output .= $args->after;
+        if( $depth == 0 && $is_megamenu ) {
+            $megamenu_data = get_post_meta($item->ID,'megamenu_post',true);
+            $megamenu_id = str_replace('post_', '', $megamenu_data);
+            $item_output .= '<div id="megamenu-'.$item->ID.'" class="megamenu"><div class="container">';
+            $item_output .= ultimate_fields_page_content($megamenu_id); 
+            $item_output .= '<a href="#" class="megamenu-close"></a>';
+            $item_output .= '</div></div>'; 
         }
         
         $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );

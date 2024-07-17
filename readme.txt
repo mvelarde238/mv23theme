@@ -7,6 +7,8 @@ CHANGELOG
   - trigger events tab renamed to trigger
 - nodeModules_path removed from gulpfile
 - Add Offcanvas Elements to actions settings
+- Add Offcanvas Element setting to menu item
+- menu_item_data apply to all levels
 
 0.3.1 24-07-16
 -------------------------------------------------------------------------------------

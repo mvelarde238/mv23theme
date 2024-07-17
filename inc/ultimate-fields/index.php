@@ -15,6 +15,7 @@ add_action( 'uf.init', 'theme_register_fields' );
 	require_once( 'utils/generate-attributes.php' );
 	require_once( 'utils/generate-actions-code.php' );
 	require_once( 'utils/print-modules.php' );
+	require_once( 'utils/get_actions_fields.php' );
 // }
 
 function theme_register_fields() {

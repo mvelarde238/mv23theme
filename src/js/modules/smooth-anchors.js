@@ -18,7 +18,7 @@
         $('a[href^="#"]').click(function (event) {
             event.preventDefault();
             var href = $(this).attr('href');
-            if ($(href).length > 0) {
+            if ( href != '#!' && $(href).length > 0 ) {
                 history.pushState({},null,href);
                 var e = new Event('mv23ReplaceState');
 			    window.dispatchEvent(e);

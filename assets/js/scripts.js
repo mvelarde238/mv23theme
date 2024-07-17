@@ -15870,9 +15870,15 @@ window['OffCanvas_Elements'] = function () {
   document.addEventListener('DOMContentLoaded', function () {
     var _this65 = this;
     OffCanvas_Elements.init(OFFCANVAS_ELEMENTS);
+
+    /* 
+    show an offcanvas element using a data attribute 
+    E.g. data-offcanvas-element="238" 
+    */
     document.querySelectorAll('[data-offcanvas-element]').forEach(function (element) {
       var OCE_element = OffCanvas_Elements.getElementById(element.dataset.offcanvasElement);
       OCE_element && element.addEventListener('click', function (ev) {
+        ev.preventDefault();
         OCE_element.M_instance.open(_this65);
       });
     });
@@ -16064,7 +16070,7 @@ window['OffCanvas_Elements'] = function () {
     $('a[href^="#"]').click(function (event) {
       event.preventDefault();
       var href = $(this).attr('href');
-      if ($(href).length > 0) {
+      if (href != '#!' && $(href).length > 0) {
         history.pushState({}, null, href);
         var e = new Event('mv23ReplaceState');
         window.dispatchEvent(e);

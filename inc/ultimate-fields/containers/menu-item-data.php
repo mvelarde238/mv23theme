@@ -5,7 +5,7 @@ use Ultimate_Fields\Field;
 Container::create( 'menu-item-data' )
     ->set_title( 'Settings' )
     ->add_location( 'menu_item', array(
-        'levels' => 1,
+        // 'levels' => 1,
         // 'theme_locations' => __locations_multilingual_support( MENU_ITEM_DATA_LOCATIONS ),
         'popup_mode' => true
     ))
@@ -52,7 +52,8 @@ Container::create( 'menu-item-data' )
             'is_private' => 'Solo visible para usuarios admin.',
             'user_is_logged_in' => 'Visible para usuarios registrados',
             'user_is_not_logged_in' => 'Visible para usuarios no registrados',
-        ))->set_width(30)
+        ))->set_width(30),
+        Field::create( 'wp_object', 'offcanvas_element', __('OffCanvas Element','default') )->add( 'posts','post_type=offcanvas_element' )->set_button_text( __('Select', 'deafult') )
     ));
 
 Container::create( 'menu-item-megamenu' )

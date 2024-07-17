@@ -403,6 +403,7 @@ window['OffCanvas_Elements'] = (function(){
         document.querySelectorAll('[data-offcanvas-element]').forEach(element => {
             let OCE_element = OffCanvas_Elements.getElementById( element.dataset.offcanvasElement );
             OCE_element && element.addEventListener('click', (ev) => {
+                ev.preventDefault();
                 OCE_element.M_instance.open( this );
             });
         });
