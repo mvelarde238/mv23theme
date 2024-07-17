@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+0.3.3 24-07-17
+- Materialize sidenav.js improvement: _handleKeydown() method for ESC key
+
 0.3.2 24-07-16
 - Offcanvas Elements Improvement: close on click setting
   - trigger events tab renamed to trigger

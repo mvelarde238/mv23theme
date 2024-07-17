@@ -442,6 +442,9 @@
           this._animateIn();
         }
       }
+
+      this._handleKeydownBound = this._handleKeydown.bind(this);
+      document.addEventListener('keydown', this._handleKeydownBound);
     }
 
     close() {
@@ -471,6 +474,8 @@
           this._overlay.style.display = 'none';
         }
       }
+
+      document.removeEventListener('keydown', this._handleKeydownBound);
     }
 
     _animateIn() {
@@ -563,6 +568,17 @@
         }
       });
     }
+
+    /**
+     * Handle Keydown
+     * @param {Event} e
+     */
+    _handleKeydown(e) {
+      // ESC key
+      if ( e.keyCode === 27 ) {
+        this.close();
+      }
+    }    
   }
 
   /**

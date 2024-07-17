@@ -2898,6 +2898,8 @@ var $jscomp$this = void 0;
             this._animateIn();
           }
         }
+        this._handleKeydownBound = this._handleKeydown.bind(this);
+        document.addEventListener('keydown', this._handleKeydownBound);
       }
     }, {
       key: "close",
@@ -2926,6 +2928,7 @@ var $jscomp$this = void 0;
             this._overlay.style.display = 'none';
           }
         }
+        document.removeEventListener('keydown', this._handleKeydownBound);
       }
     }, {
       key: "_animateIn",
@@ -3017,6 +3020,19 @@ var $jscomp$this = void 0;
             $(_this9._overlay).css('display', 'none');
           }
         });
+      }
+
+      /**
+       * Handle Keydown
+       * @param {Event} e
+       */
+    }, {
+      key: "_handleKeydown",
+      value: function _handleKeydown(e) {
+        // ESC key
+        if (e.keyCode === 27) {
+          this.close();
+        }
       }
     }], [{
       key: "defaults",
