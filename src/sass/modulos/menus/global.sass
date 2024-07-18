@@ -159,6 +159,19 @@
         .toggle-submenu
             display: block
 
+%current-menu-item-styles
+    >li.current-menu-item,
+    >li.current-page-ancestor,
+    >li.current-menu-parent,
+    >li:has(a.is-inview)
+        color: var(--primary-color)
+        font-weight: bold
+        .sub-menu
+            font-weight: initial
+            color: initial
+
+.-secondary
+    @extend %current-menu-item-styles
 
 @keyframes horizontal-sub-menu-animation
     from

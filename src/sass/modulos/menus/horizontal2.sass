@@ -8,6 +8,7 @@
         @extend %hidden-label
         @extend %fix-for-hidden-label
         @extend %menu-item-styles
+        @extend %current-menu-item-styles
 
         >li:not(:first-child)
             border-left: 1px solid var(--primary-color-light)
@@ -22,8 +23,6 @@
         >li.current-page-ancestor,
         >li.current-menu-parent,
         >li:has(a.is-inview)
-            color: var(--primary-color)
-            font-weight: bold
             &>a::before
                 content: ''
                 position: absolute

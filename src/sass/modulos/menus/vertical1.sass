@@ -4,6 +4,7 @@
     .menu
         width: 100%
         @extend %menu-item-styles
+        @extend %current-menu-item-styles
 
         li:hover 
             background-color: rgba(0,0,0,.05)
@@ -12,13 +13,6 @@
             border-bottom: 1px solid var(--primary-color-light)
         a
             padding: 16px 15px
-
-        >li.current-menu-item,
-        >li.current-page-ancestor,
-        >li.current-menu-parent,
-        >li:has(a.is-inview)
-            color: var(--primary-color)
-            font-weight: bold
 
     @extend %vertical-sub-menu-styles
 

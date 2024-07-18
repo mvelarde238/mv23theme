@@ -7,6 +7,7 @@
         @extend %hidden-label
         @extend %fix-for-hidden-label
         @extend %menu-item-styles
+        @extend %current-menu-item-styles
 
         >li
             min-width: 100px
@@ -25,12 +26,6 @@
                 text-align: center
                 font-size: 13px
                 height: 100%
-                
-        >li.current-menu-item,
-        >li.current-page-ancestor,
-        >li.current-menu-parent,
-        >li:has(a.is-inview)
-            color: var(--primary-color)
 
         >li.menu-item-has-children>a:after
             display: none
