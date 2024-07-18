@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+0.3.4 24-07-18
+- Fix materialize inputs height and padding for a better integration with woocommerce
+
 0.3.3 24-07-17
 - Materialize sidenav.js improvement: _handleKeydown() method for ESC key
 - add pageID to MV23_GLOBALS
