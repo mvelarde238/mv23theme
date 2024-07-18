@@ -5,6 +5,7 @@ CHANGELOG
 0.3.3 24-07-17
 - Materialize sidenav.js improvement: _handleKeydown() method for ESC key
 - add pageID to MV23_GLOBALS
+- Use ultimate_fields_page_content() in the_content hook filter
 
 0.3.2 24-07-16
 - Offcanvas Elements Improvement: close on click setting
