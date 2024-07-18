@@ -11,7 +11,7 @@ $main_content_classes = array('main-content','container');
 
 <footer id="footer" class="footer">
 	<div class="footer__content container">
-		<?php echo ultimate_fields_page_content(get_the_ID()); ?>
+		<?php the_content(); ?>
 	</div>
 	<a class="subir-btn" href="#content" data-state="hidden"><i class="fa fa-angle-up"></i></a>
 </footer>

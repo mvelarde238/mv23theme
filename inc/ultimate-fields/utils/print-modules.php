@@ -110,16 +110,23 @@ function print_module_view($modulo)
 <?php
 }
 
-
-
 add_filter('the_content', function ($content) {
 	if( is_singular() || is_page() ){
 		ob_start();
 		if ($content) echo '<div class="page-module"><div class="componente">' . $content . '</div></div>';
-		// I would liketo add ultimate_fields_page_content() here but dosnt work
+		echo ultimate_fields_page_content(get_the_ID());
 		$filtered_content = ob_get_clean();
 		return $filtered_content;
 	} else {
 		return $content;
 	}
 }, 100);
+
+function add_page_modules_to_content_rendered($data, $post, $context) {
+    $page_modules = ultimate_fields_page_content( $post->ID );
+    if (!empty($page_modules)) {
+        $data->data['content']['rendered'] .= $page_modules;
+    }
+    return $data;
+}
+add_filter('rest_prepare_page', 'add_page_modules_to_content_rendered', 10, 3);

@@ -51,7 +51,6 @@ if(SINGLE_SIDEBAR) array_push($main_content_classes, SINGLE_MAIN_CONTENT_TEMPLAT
 				</div>
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<?php the_content(); ?>
-					<?php echo ultimate_fields_page_content(get_the_ID()); ?>
 				</article>
 				<?php if ( comments_open() || get_comments_number() ) : ?>
 					<div class="page-module pdt0"><div class="componente">
