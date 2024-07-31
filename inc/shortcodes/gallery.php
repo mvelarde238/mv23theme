@@ -95,7 +95,7 @@ function print_theme_gallery( $atts ) {
                         $media_class = ($a['link'] != 'none') ? 'popable' : 'playable';
                         ?>
                         <div class="media video has-video-background <?=$media_class?>">
-                            <div class="media__element" style="background-color:#000000;">
+                            <div class="media__element video-background" style="background-color:#000000;">
                                 <?php echo wp_oembed_get($remote_video); ?>   
                             </div>
                         </div>
@@ -114,7 +114,7 @@ function print_theme_gallery( $atts ) {
                     $video_attrs = ($a['link'] != 'none') ? '' : 'controls';
                     ?>
                     <div class="media video selfhosted has-video-background <?=$media_class?>">
-                        <div class="media__element" style="background-color:#000000;">
+                        <div class="media__element video-background" style="background-color:#000000;">
                             <video <?=$video_attrs?>>
                                 <source src="<?=$url?>">
                                 Your browser does not support the video tag.

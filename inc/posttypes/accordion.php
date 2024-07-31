@@ -6,7 +6,7 @@ $accordions = new CPT(
         'plural' => 'Accordion',
     ), 
     array(
-        'show_in_menu' => 'theme-options/theme-options-admin.php',
+        'show_in_menu' => 'theme-options-menu',
 		'show_in_nav_menus' => false,
 		'show_in_admin_bar' => false,
         'supports' => array('title')

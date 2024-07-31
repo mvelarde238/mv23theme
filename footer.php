@@ -6,7 +6,7 @@
 				?>
 				<footer id="footer" class="footer">
 					<div class="footer__content container">
-						<?php echo ultimate_fields_page_content($theme_footer_post); ?>
+						<?php echo Page::getInstance()->the_content( $theme_footer_post ); ?>
 					</div>
 					<a class="subir-btn" href="#content" data-state="hidden"><i class="fa fa-angle-up"></i></a>
 				</footer>

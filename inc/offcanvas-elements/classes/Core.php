@@ -30,7 +30,7 @@ class Core{
         $this->add_action( 'wp_enqueue_scripts', function(){
             $this->set_elements();
             wp_localize_script( 'mv23-scripts', strtoupper( $this->get_plural_slug() ), $this->get_elements() );
-        },999);
+        },1000);
         $this->add_action( 'footer_code', array($this, 'print_elements') );
         $this->add_action( 'save_post', array($this, 'handle_save_post_hook'), 99, 3 );
     }
@@ -57,7 +57,7 @@ class Core{
 				'plural' => 'Off-Canvas Elements',
 			), 
 			array(
-				'show_in_menu' => 'theme-options/theme-options-admin.php',
+				'show_in_menu' => 'theme-options-menu',
 				'show_in_nav_menus' => false,
 				'show_ui' => true,
 				'supports' => array('title')

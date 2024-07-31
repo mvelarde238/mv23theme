@@ -24,7 +24,7 @@
 // 	box-sizing: border-box
 
 .cover-all
-	position: absolute
+	position: absolute !important
 	top: 0
 	left: 0
 	right: 0
@@ -40,7 +40,7 @@
 .add-padding
 	padding: 20px
 
-.has-video-background
+:has(> .video-background)
 	overflow: hidden
 	position: relative
 	background-color: #000
@@ -54,7 +54,7 @@
 		min-height: 100%
 	iframe
 		width: 100%
-	&>*
+	.video-background ~ *
 		position: relative
 		z-index: 56
 

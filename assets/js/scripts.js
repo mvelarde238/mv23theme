@@ -14891,8 +14891,8 @@ window['Adaptive_Navbars'] = function () {
 })(jQuery, console.log);
 (function ($, c) {
   document.addEventListener('DOMContentLoaded', function () {
-    // var $columnas_laterales_extendidas = $('.columnas.layout4').find('div[class*=columnas-]');
-    var $columnas_laterales_extendidas = $('.columnas.layout4>div>div');
+    // var $columnas_laterales_extendidas = $('.columnas.expand-columns').find('div[class*=columnas-]');
+    var $columnas_laterales_extendidas = $('.columnas.expand-columns>div>div');
     if ($columnas_laterales_extendidas.length) {
       $.each($columnas_laterales_extendidas, function (i, e) {
         var $first = $(e).children().first();

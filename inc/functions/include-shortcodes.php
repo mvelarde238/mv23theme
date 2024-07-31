@@ -15,7 +15,3 @@ if (IS_MULTILANGUAGE) {
 if (WOOCOMMERCE_IS_ACTIVE) {
 	get_template_part( 'inc/shortcodes/open-minicart' );
 }
-
-if (!function_exists('mv23_include_shortcodes')) {
-	function mv23_include_shortcodes(){ return; }
-}

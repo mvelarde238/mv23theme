@@ -1,39 +1,31 @@
 <?php
-$title = get_the_title();
-$id = get_the_ID();
+global $post;
+$id = $post->ID;
+$title = $post->post_title;
 
 $is_external_post = get_post_meta($id, 'external_post', true); 
 $external_post = ($is_external_post) ? get_post_meta($id, 'external_post_link', true) : null; 
 $link = ($external_post) ? $external_post : get_the_permalink($id);
 
-$content = get_the_content($id);
 $imagen = get_the_post_thumbnail_url( $id, 'medium' );
 $thumb_url = ($imagen) ? $imagen : get_stylesheet_directory_uri().'/assets/images/nothumb.jpg';
-$categories = wp_get_post_categories($id);
 
-$excerpt = get_the_excerpt($id);
+$excerpt = ( !empty($post->post_excerpt) ) ? $post->post_excerpt : $post->post_content;
 $comment_length = 110;
-$string = strip_tags($excerpt);
-if (strlen($string) > $comment_length) {
-    // truncate string
-    $stringCut = substr($string, 0, $comment_length);
-    $endPoint = strrpos($stringCut, ' ');
-
-    $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
-    $string .= '...';
+$excerpt = strip_tags($excerpt);
+if (strlen($excerpt) > $comment_length) {
+    // truncate the excerpt
+    $excerptCut = substr($excerpt, 0, $comment_length);
+    $endPoint = strrpos($excerptCut, ' ');
+    $excerpt = $endPoint? substr($excerptCut, 0, $endPoint) : substr($excerptCut, 0);
+    $excerpt .= '...';
 }
 ?>
 <div class="post-card post-card--style2" data-id="<?=$id?>">
 	<a href="<?=$link?>" class="post-card__image trigger-post-action" style="background-image:url(<?=$thumb_url?>);"></a>
 	<div class="post-card__content">
 		<h2 class="post-card__title"><a class="trigger-post-action" href="<?=$link?>"><?php echo $title; ?></a></h2>
-		<?php 
-		if($excerpt) {
-			echo '<div class="post-card__excerpt">'.$string.'</div>';
-		} else {
-			echo '<div class="post-card__excerpt">'.$content.'</div>';
-		}
-		?>
+		<?php if($excerpt) echo '<div class="post-card__excerpt">'.$excerpt.'</div>'; ?>
 		<div class="post-card__link">
 			<a class="btn btn--main-color trigger-post-action" href="<?=$link?>">Leer más</a>
 		</div>

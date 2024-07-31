@@ -11,7 +11,7 @@ if(ARCHIVE_SIDEBAR) array_push($main_content_classes,ARCHIVE_MAIN_CONTENT_TEMPLA
 			<?php
 			$archive_page_id = archive_page()->get_archive_id();
 			if ( !empty($archive_page_id) ) :
-				echo ultimate_fields_page_content($archive_page_id);
+				echo Page::getInstance()->the_content( $archive_page_id );
 			else : ?>
 				<?php if (have_posts()) : ?>
 					<div class="page-module">

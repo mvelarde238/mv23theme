@@ -30,9 +30,10 @@ function print_accordion( $atts ){
 
                 $content_element = $item['content_element'];
                 if ($content_element == 'pagina' && $item['page']) {
-                    $post_id = $item['page'][0]; 
+                    $post_data = $item['page'][0];
+                    $post_id = str_replace('post_','',$post_data );
                     ob_start();
-                    echo ultimate_fields_page_content( str_replace('post_','',$post_id ) );
+                    echo Page::getInstance()->the_content( $post_id );
                     $contenido = ob_get_clean();
                 } else {
                     $contenido = wpautop( do_shortcode( $item['content'], false ) );

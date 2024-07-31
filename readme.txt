@@ -2,6 +2,15 @@
 CHANGELOG
 **************************************************************************************************
 
+0.4.1 24-07-30
+-----------------------------------------------------------------------------------------------------
+- !IMPORTANT: THEME CUSTOM FIELDS STRUCTURE REFACTORIZATION
+- "Layout Column" component is not generated anymore in content layout
+- Progress Bar, Progress Circle and Row components are not implemented anymore
+- USE_REUSABLE_SECTIONS_AS_PAGE_MODULE Constant implementated as false
+- Theme_Custom_Fields\Component Class implemented, Child themes need to extend it to add componentes
+-----------------------------------------------------------------------------------------------------
+
 0.3.4 24-07-18
 - Fix materialize inputs height and padding for a better integration with woocommerce
 

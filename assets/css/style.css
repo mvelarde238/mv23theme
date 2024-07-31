@@ -6798,7 +6798,7 @@ li.product:before {
 }
 
 .cover-all {
-	position: absolute;
+	position: absolute !important;
 	top: 0;
 	left: 0;
 	right: 0;
@@ -6816,15 +6816,15 @@ li.product:before {
 	padding: 20px;
 }
 
-.has-video-background {
+:has(> .video-background) {
 	overflow: hidden;
 	position: relative;
 	background-color: #000;
 	background-image: url() !important;
 }
 
-.has-video-background video,
-.has-video-background iframe {
+:has(> .video-background) video,
+:has(> .video-background) iframe {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -6833,11 +6833,11 @@ li.product:before {
 	min-height: 100%;
 }
 
-.has-video-background iframe {
+:has(> .video-background) iframe {
 	width: 100%;
 }
 
-.has-video-background > * {
+:has(> .video-background) .video-background ~ * {
 	position: relative;
 	z-index: 56;
 }
@@ -7494,7 +7494,6 @@ p + .pdf-responsive {
 	font-size: 15px;
 	line-height: 170%;
 	min-height: 255px;
-	height: 100%;
 }
 
 .testimonio__header {
@@ -8664,30 +8663,30 @@ p + .pdf-responsive {
 	left: 100%;
 }
 
-.columnas.layout4 div[class^=componente],
-.columnas.layout4 div[class^=columnas-internas] {
+.columnas.expand-columns div[class^=componente],
+.columnas.expand-columns div[class^=columnas-internas] {
 	position: relative;
 	z-index: 56;
 }
 
-.columnas.layout4 > div > div[class^=columnas] > div {
+.columnas.expand-columns > div > div[class^=columnas] > div {
 	position: relative;
 }
 
-.columnas.layout4 > div > div[class^=columnas] > div .extended-bg-first,
-.columnas.layout4 > div > div[class^=columnas] > div .extended-bg-last {
+.columnas.expand-columns > div > div[class^=columnas] > div .extended-bg-first,
+.columnas.expand-columns > div > div[class^=columnas] > div .extended-bg-last {
 	position: absolute;
 	top: 0;
 	height: 100%;
 	pointer-events: none;
 }
 
-.columnas.layout4 > div > div[class^=columnas] > div .extended-bg-first {
+.columnas.expand-columns > div > div[class^=columnas] > div .extended-bg-first {
 	left: calc((1240px - 100vw) / 2);
 	right: 0;
 }
 
-.columnas.layout4 > div > div[class^=columnas] > div .extended-bg-last {
+.columnas.expand-columns > div > div[class^=columnas] > div .extended-bg-last {
 	right: calc((1240px - 100vw) / 2);
 	left: 0;
 }

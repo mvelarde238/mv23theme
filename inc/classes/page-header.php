@@ -110,8 +110,6 @@ class Page_Header{
 		if ($this->get_text_color() == 'text-color-2') $classes[] = 'text-color-2';
 		if ($this->get_parallax()) $classes[] = 'parallax';
 		if ($this->get_page_header_bgi() == null) $classes[] = 'no-image';
-		$video_background = $this->get_video_background();
-		if ( is_array($video_background) && count($video_background['files']['videos']) > 0 ) $classes[] = 'has-video-background';
 		if ($this->get_classes()) $classes[] = $this->get_classes();
 
  		$this->class = 'class="'.implode(' ', $classes).'"';
@@ -174,14 +172,11 @@ class Page_Header{
 
 		if(PAGE_HEADER_CONTENT_BUILDER){
 			$page_header_content = get_metadata($key,$page_ID,'page_header_content2', true);
-			if (is_array($page_header_content) && count($page_header_content) > 0) : ?>
-                <div class="page-header__content">
-                	<div class="columnas-simples">
-						<?php echo Content_Layout::the_content($page_header_content); ?>
-                	</div>
-                </div>
-            <?php endif;
-
+			if (is_array($page_header_content) && count($page_header_content) > 0) :
+                echo '<div class="page-header__content">';
+				echo Content_Layout::the_content($page_header_content);
+                echo '</div>';
+            endif;
 		} else {
 			$page_header_content = get_metadata($key,$page_ID,'page_header_content', true);
 			if ($page_header_content) :
@@ -201,7 +196,7 @@ class Page_Header{
 				$video_url = wp_get_attachment_url($videos[0]);
 				$opacity = $video_background['opacity'];
 		    	$video_style = ($opacity != 100) ? 'style="opacity:'.($opacity/100).';"' : ''; 
-		        echo '<video '.$video_style.' width="100%" autoplay loop muted="muted"><source src="'.$video_url.'">Your browser does not support the video tag.</video>';
+		        echo '<div class="video-background"><video '.$video_style.' width="100%" autoplay loop muted="muted"><source src="'.$video_url.'">Your browser does not support the video tag.</video></div>';
 			}
 		}
 	}

@@ -1,11 +1,22 @@
 <?php
-$title = get_the_title();
-$id = get_the_ID();
+global $post;
+$id = $post->ID;
+$title = $post->post_title;
 $link = get_the_permalink($id);
-$excerpt = get_the_excerpt($id);
 $imagen = get_the_post_thumbnail_url( $id, 'full' );
 $thumb_url = ($imagen) ? $imagen : get_stylesheet_directory_uri().'/assets/images/nothumb.jpg';
 $tags = get_the_tags($id);
+
+$excerpt = ( !empty($post->post_excerpt) ) ? $post->post_excerpt : $post->post_content;
+$comment_length = 110;
+$excerpt = strip_tags($excerpt);
+if (strlen($excerpt) > $comment_length) {
+    // truncate the excerpt
+    $excerptCut = substr($excerpt, 0, $comment_length);
+    $endPoint = strrpos($excerptCut, ' ');
+    $excerpt = $endPoint? substr($excerptCut, 0, $endPoint) : substr($excerptCut, 0);
+    $excerpt .= '...';
+}
 ?>
 <div class="post-card post-card--style1" data-id="<?=$id?>">
 	<a href="<?=$link?>" class="post-card__image trigger-post-action" style="background-image:url(<?=$thumb_url?>);"></a>

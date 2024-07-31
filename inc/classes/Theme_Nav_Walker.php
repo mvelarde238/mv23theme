@@ -108,7 +108,7 @@ class Theme_Nav_Walker extends Walker_Nav_Menu{
             $megamenu_data = get_post_meta($item->ID,'megamenu_post',true);
             $megamenu_id = str_replace('post_', '', $megamenu_data);
             $item_output .= '<div id="megamenu-'.$item->ID.'" class="megamenu"><div class="container">';
-            $item_output .= ultimate_fields_page_content($megamenu_id); 
+            $item_output .= Page::getInstance()->the_content( $megamenu_id );
             $item_output .= '<a href="#" class="megamenu-close"></a>';
             $item_output .= '</div></div>'; 
         }
