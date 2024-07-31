@@ -4382,10 +4382,6 @@ body.hide-sticky-header .header--sticky {
 	color: var(--font-color);
 }
 
-.text-color-1 a:not(.btn):not(.btn-large):not(.btn-small) {
-	color: var(--primary-color);
-}
-
 .mt0 {
 	margin-top: 0 !important;
 }

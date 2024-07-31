@@ -10,6 +10,7 @@ CHANGELOG
 - USE_REUSABLE_SECTIONS_AS_PAGE_MODULE Constant implementated as false
 - Theme_Custom_Fields\Component Class implemented, Child themes need to extend it to add componentes
 -----------------------------------------------------------------------------------------------------
+- fix link color in .text-color-1
 
 0.3.4 24-07-18
 - Fix materialize inputs height and padding for a better integration with woocommerce
