@@ -4,21 +4,24 @@ namespace Theme_Custom_Fields\Component;
 use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Component;
 use Theme_Custom_Fields\Template_Engine;
-use Content_Layout;
-use Theme_Custom_Fields\Common_Settings;
+use Blocks_Layout;
 use Ultimate_Fields\Container\Repeater_Group;
 
 class Carrusel extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Carrusel',
+			'carrusel',
 			__( 'Carrusel', 'default' )
 		);
 	}
 
     public static function get_icon() {
         return 'dashicons-slides';
+    }
+
+    public static function get_layout(){
+        return 'grid';
     }
 
     public static function get_title_template() {
@@ -33,28 +36,28 @@ class Carrusel extends Component {
 
 	public static function get_fields() {
         $content_group = new Repeater_Group( 'Content' );
-		$content_group->set_title( 'Contenido' )
+		$content_group->set_title( __('Contenido','default') )
             ->set_edit_mode('popup')
-            ->set_title_template( '<% if ( content_layout.length ){ %>
-                    <% if ( content_layout[0][0].__type == "editor-de-texto" ){ %>
-                        <%= content_layout[0][0].content.replace(/<[^>]+>/ig, "") %>
+            ->set_title_template( '<% if ( blocks_layout.length ){ %>
+                    <% if ( blocks_layout[0][0].__type == "editor-de-texto" ){ %>
+                        <%= blocks_layout[0][0].content.replace(/<[^>]+>/ig, "") %>
                     <% } else { %>
-                        <%= "First item type: "+content_layout[0][0].__type %>
+                        <%= "First item type: "+blocks_layout[0][0].__type %>
                     <% } %>
                 <% } else { %>
                     This item is empty
                 <% } %>') 
 			->add_fields(array(
-                Field::create( 'tab', 'Contenido' ),
-                Content_Layout::the_field(array( 
-                    'components' => array( 'editor-de-texto', 'imagen', 'separador', 'mapa', 'button', 'html' )
+                Field::create( 'tab', __('Contenido','default') ),
+                Blocks_Layout::the_field(array( 
+                    'components' => array( 'text_editor', 'image', 'spacer', 'map', 'button', 'html' )
                 )),
-                Field::create( 'tab', __('Settings','default') )
-            ))
-            ->add_fields( Common_Settings::get_fields('main') );
+                Field::create( 'tab', __('Settings','default') ),
+                Field::create( 'common_settings_control', 'settings' )->set_container( 'common_settings_container' )
+            ));
         
 		$fields = array(
-            Field::create( 'tab', 'Contenido' ),
+            Field::create( 'tab', __('Contenido','default') ),
             Field::create( 'repeater', 'items', '' )
                 ->set_add_text('Agregar')
                 ->set_chooser_type( 'dropdown' )
@@ -197,7 +200,7 @@ class Carrusel extends Component {
                     $lightbox_class = ( $enlace['url_type'] == 'popup' ) ? 'zoom' : '';
                     ?>
                     <div class="carrusel__item carrusel__item--image">
-                        <div class="componente">
+                        <div class="component">
                             <img src="<?=$bgi?>" <?=$img_styles?> alt="Carrusel Item">
                             <?php if ($link != NULL): ?>
                                 <?php $target = ($enlace['new_tab'] == 1) ? '_blank' : '';  ?>
@@ -209,12 +212,12 @@ class Carrusel extends Component {
                 }
             
                 if( $type == 'content' ){
-                    $content_layout = $items[$i]['content_layout'];
-                    if (is_array($content_layout) && count($content_layout) > 0) :
+                    $blocks_layout = $items[$i]['blocks_layout'];
+                    if (is_array($blocks_layout) && count($blocks_layout) > 0) :
                         $item_attributes = Template_Engine::generate_attributes( $items[$i] );    
                         echo '<div class="carrusel__item carrusel__item--content">';
                         echo '<div '.$item_attributes.'>';
-                        echo Content_Layout::the_content($content_layout);
+                        echo Blocks_Layout::the_content($blocks_layout);
                         echo '</div>';
                         echo '</div>';
                     endif;

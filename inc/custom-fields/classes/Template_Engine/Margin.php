@@ -7,18 +7,15 @@ Class Margin{
      */
     public static function get_styles( $args ){
         $styles = array();
+        $settings = ( isset($args['settings']) ) ? $args['settings'] : array();
 
-        if ( isset($args['delete_margins']) && $args['delete_margins'] && isset($args['margin']) ) {
-            if ($args['margin']['top'] == 1) $styles[] = 'margin-top:0';  
-            if ($args['margin']['bottom'] == 1) $styles[] = 'margin-bottom:0';  
-            if ($args['margin']['left'] == 1) $styles[] = 'margin-left:0';  
-            if ($args['margin']['right'] == 1) $styles[] = 'margin-right:0'; 
-        }
+        if ( isset($settings['margin'])  ) {
+            $margin_settings = $settings['margin'];
 
-        // page module use this
-        if ( isset($args['delete_margins']) && $args['delete_margins'] && isset($args['padding']) ) {
-            if ($args['padding']['top'] == 1) $styles[] = 'padding-top:0';  
-            if ($args['padding']['bottom'] == 1) $styles[] = 'padding-bottom:0';  
+            if ( $margin_settings['top'] != '' ) $styles[] = 'margin-top:'.$margin_settings['top'].'px';  
+            if ( $margin_settings['bottom'] != '' ) $styles[] = 'margin-bottom:'.$margin_settings['bottom'].'px';  
+            if ( $margin_settings['left'] != '' ) $styles[] = 'margin-left:'.$margin_settings['left'].'px';  
+            if ( $margin_settings['right'] != '' ) $styles[] = 'margin-right:'.$margin_settings['right'].'px'; 
         }
 
         return $styles;

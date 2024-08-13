@@ -5,7 +5,7 @@ if(ARCHIVE_SIDEBAR) array_push($main_content_classes,ARCHIVE_MAIN_CONTENT_TEMPLA
 ?>
 
 <div id="content">
-	<?php get_template_part('inc/modulos/page-header'); ?>
+	<?php echo Theme\Page_Header::getInstance()->display(); ?>
 	<div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
 		<main class="main" itemtype="http://schema.org/Blog">
 			<?php
@@ -15,7 +15,7 @@ if(ARCHIVE_SIDEBAR) array_push($main_content_classes,ARCHIVE_MAIN_CONTENT_TEMPLA
 			else : ?>
 				<?php if (have_posts()) : ?>
 					<div class="page-module">
-						<div class="componente">
+						<div class="component">
 						<div class="posts-listing has-columns" style="--d-gap:<?=LISTING_DESKTOP_GAP?>; --l-gap:<?=LISTING_LAPTOP_GAP?>; --t-gap:<?=LISTING_TABLET_GAP?>; --m-gap:<?=LISTING_MOBILE_GAP?>; --d-columns:<?=LISTING_DESKTOP_COLUMNS?>; --l-columns:<?=LISTING_LAPTOP_COLUMNS?>; --t-columns:<?=LISTING_TABLET_COLUMNS?>; --m-columns:<?=LISTING_MOBILE_COLUMNS?>;">
 								<?php while (have_posts()) : the_post();	
 									$queried_object = get_queried_object();
@@ -23,7 +23,7 @@ if(ARCHIVE_SIDEBAR) array_push($main_content_classes,ARCHIVE_MAIN_CONTENT_TEMPLA
 								endwhile; ?>
 							</div>
 						</div>
-						<div class="componente">
+						<div class="component">
 							<?php mv23_page_navi(); ?>
 						</div>
 					</div>

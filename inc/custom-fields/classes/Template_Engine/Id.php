@@ -6,7 +6,10 @@ Class Id{
      * Return id string
      */
     public static function get_id( $args ){
-        return (isset($args['module_id']) && !empty($args['module_id'])) ? $args['module_id'] : '';
+        $id = ( isset($args['settings']['main_attributes']) && isset($args['settings']['main_attributes']['id']) ) 
+            ? $args['settings']['main_attributes']['id']
+            : null;
+        return ( !empty($id) ) ? $id : '';
     }
 
     /**

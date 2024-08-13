@@ -16,13 +16,17 @@ class Listing extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Listing',
+			'listing',
 			__( 'Listing', 'default' )
 		);
 	}
 
     public static function get_icon() {
         return 'dashicons-screenoptions';
+    }
+
+    public static function get_layout(){
+        return 'grid';
     }
 
     public static function get_title_template() {
@@ -61,7 +65,7 @@ class Listing extends Component {
         }
 
         $listing_fields_1 = array( 
-            Field::create( 'tab', 'Contenido' ),
+            Field::create( 'tab', __('Contenido','default') ),
             Field::create( 'radio', 'show','Seleccione qué entradas se van a mostrar:')->set_orientation( 'horizontal' )->add_options( array(
                 'auto'=>'Automático (últimos posts publicados)',
                 'manual'=>'Manual',
@@ -176,7 +180,7 @@ class Listing extends Component {
 	}
 
     public static function display( $args ){
-		$args['additional_classes'] = array('componente');
+		$args['additional_classes'] = array('component');
 
         $posts_meta = $args['posts'];
         $source_type = $args['show']; // auto || manual

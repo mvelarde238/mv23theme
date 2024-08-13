@@ -1,27 +1,14 @@
 .page-module
 	padding: $page-module-padding
 
-.componente
-	// no quiero ponerle esto a todos los componentes
-	// agregado con js:
-	// position: relative 
-	margin: $components-margin
-	display: block
-	box-sizing: border-box
-
+.component
+	padding: var(--component-space-around-y) var(--component-space-around-x)
 	&.full-width .container
 		max-width: $container-width
-		// max-width: calc(1280px - ($components-margin * 2))
 
-// siguiente configuración
-// falla cuando se le quitan
-// los margenes right y left 
-// al componente:
-// .componente
-// 	margin: 15px 30px
-// 	display: inline-block
-// 	width: calc(100% - 60px)
-// 	box-sizing: border-box
+.need-space-around
+	padding: var(--component-space-around-y) var(--component-space-around-x)
+	margin: var(--component-space-around-x)
 
 .cover-all
 	position: absolute !important
@@ -37,9 +24,6 @@
 	transition: 300ms all
 	text-decoration: none
 
-.add-padding
-	padding: 20px
-
 :has(> .video-background)
 	overflow: hidden
 	position: relative
@@ -52,18 +36,25 @@
 		transform: translate(-50%, -50%)
 		z-index: 1
 		min-height: 100%
+		opacity: var(--video-opacity)
 	iframe
 		width: 100%
 	.video-background ~ *
 		position: relative
 		z-index: 56
 
-[data-animation]
-	animation-duration: 1s
-	animation-fill-mode: both
-
-.overflow-auto
-	overflow: auto
+@media #{$large-and-up}
+	.extend-bg-to-left,
+	.extend-bg-to-right
+		position: relative
+		*:not(.extended-bg)
+			position: relative
+			z-index: 56
+	.extended-bg
+		position: absolute
+		top: 0
+		height: 100%
+		pointer-events: none
 
 // .full-width no needed in mobile:
 @media only screen and (min-width: $container-width)
@@ -76,10 +67,7 @@
 		margin-right: -50vw !important
 
 @media #{$medium-and-down}
-	.componente
-		margin: 15px 15px
-
-	.has-video-background
+	:has(> .video-background)
 		video
 			height: 100%
 			width: auto

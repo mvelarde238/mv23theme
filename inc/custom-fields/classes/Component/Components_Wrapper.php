@@ -4,13 +4,13 @@ namespace Theme_Custom_Fields\Component;
 use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Component;
 use Theme_Custom_Fields\Template_Engine;
-use Content_Layout;
+use Blocks_Layout;
 
 class Components_Wrapper extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Components Wrapper',
+			'components_wrapper',
 			__( 'Components Wrapper', 'default' )
 		);
 	}
@@ -20,7 +20,7 @@ class Components_Wrapper extends Component {
     }
 
 	public static function get_title_template() {
-		$template = '<% if ( content_layout.length < 1 ){ %>
+		$template = '<% if ( blocks_layout.length < 1 ){ %>
             This item is empty
         <% } %>';
 		
@@ -29,19 +29,19 @@ class Components_Wrapper extends Component {
 
 	public static function get_fields() {
 		$fields = array( 
-            Field::create( 'tab', 'Contenido' ),
-            Content_Layout::the_field( array( 'exclude' => array('columnas-internas') ) )
+            Field::create( 'tab', __('Contenido','default') ),
+            Blocks_Layout::the_field( array( 'exclude' => array('inner_columns') ) )
         );
 
 		return $fields;
 	}
 
 	public static function display( $args ){
-        $content_layout_data = $args['content_layout'];
+        $blocks_layout_data = $args['blocks_layout'];
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
-        echo Content_Layout::the_content( $content_layout_data );
+        echo Blocks_Layout::the_content( $blocks_layout_data );
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}

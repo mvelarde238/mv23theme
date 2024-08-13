@@ -4,7 +4,7 @@ namespace Offcanvas_Elements;
 use Offcanvas_Elements\Core;
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
-use Content_Layout;
+use Blocks_Layout;
 
 /**
  * Handles settings on the post type edit screen.
@@ -160,7 +160,7 @@ class Settings {
 				'layout' => __('Layout','default'), 
 				'async' => __('Asynchronous Content','default') 
 			)),
-			Content_Layout::the_field(array( 'slug' => $slug.'_content', 'hide_label' => false ))->add_dependency($slug.'_content_type','layout','='),
+			Blocks_Layout::the_field(array( 'slug' => $slug.'_content', 'hide_label' => false ))->add_dependency($slug.'_content_type','layout','='),
 			Field::create( 'complex', $slug.'_async_settings', __('Asynchronous Content Settings') )->add_dependency($slug.'_content_type','async','=')->set_layout('rows')->hide_label()->add_fields(array(
 				Field::create( 'message', '_hint-1','' )->set_description( __('When this setting is active the content will be generated using an asynchronous function','default') ),
 				Field::create( 'complex', '_fields_group_1', '' )->merge()->add_fields(array(

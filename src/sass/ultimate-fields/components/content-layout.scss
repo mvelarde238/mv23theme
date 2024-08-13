@@ -1,4 +1,4 @@
-.columnas-simples{
+.content-layout{
 	&>div{
 		display: flex;
 		flex-wrap: wrap;
@@ -7,9 +7,6 @@
 	&__item{
 		flex-grow: 1;
 		width: 100%;
-	}
-	.componente{
-		margin: 15px $components-margin-left-right;
 	}
 
 	@media only screen and (min-width: 395px) {

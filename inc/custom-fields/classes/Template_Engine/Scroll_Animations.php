@@ -9,14 +9,16 @@ Class Scroll_Animations{
         $scroll_data_attributes = '';
     
         if( SCROLL_ANIMATIONS ){
-            if (!isset($args['scroll_animations'])) $args['scroll_animations'] = null;
-            if (!isset($args['add_scroll_animation'])) $args['add_scroll_animation'] = false;
-    
-            if( $args['add_scroll_animation'] && $args['scroll_animations']){
+
+            if( 
+                isset($args['scroll_animations_settings']) && 
+                is_array($args['scroll_animations_settings']) && 
+                isset($args['scroll_animations_settings']['groups']) && 
+                is_array($args['scroll_animations_settings']['groups']) ){
                 $scroll_animations = array();
     
-                if( is_array($args['scroll_animations']) && count($args['scroll_animations']) > 0 ){
-                    foreach ($args['scroll_animations'] as $group) {
+                if( count($args['scroll_animations_settings']['groups']) > 0 ){
+                    foreach ($args['scroll_animations_settings']['groups'] as $group) {
     
                         $settings = $group['settings'];
                         if( IS_MOBILE && $settings['turn_off_in_mobile'] == 1 ) continue;           
@@ -51,9 +53,10 @@ Class Scroll_Animations{
                             'to' => json_encode($to)
                         ));
                     }
+                    
+                    $scroll_data_attributes .= "data-scroll-animations='".json_encode($scroll_animations)."'";
                 }
     
-                $scroll_data_attributes .= "data-scroll-animations='".json_encode($scroll_animations)."'";
             }
         }
     

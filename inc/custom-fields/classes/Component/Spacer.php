@@ -9,7 +9,7 @@ class Spacer extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Separador',
+			'spacer',
 			__( 'Spacer', 'default' )
 		);
 	}
@@ -26,7 +26,7 @@ class Spacer extends Component {
 
 	public static function get_fields() {
 		$fields = array( 
-            Field::create( 'tab', 'Contenido' ),
+            Field::create( 'tab', __('Contenido','default') ),
             Field::create( 'number', 'height', 'Tamaño de alto' )->set_default_value( '30' )->set_width( 50 ),
             Field::create( 'text', 'unit', 'Medida (px,%,vh..)' )->set_default_value( 'px' )->set_width( 50 ),
         );
@@ -35,8 +35,7 @@ class Spacer extends Component {
 	}
 
 	public static function display( $args ){
-		$args['additional_classes'] = array('componente');
-		$args['__type'] = 'componente-separador';
+		$args['additional_classes'] = array('component');
 
         $unit = ( isset($args['unit']) ) ? $args['unit'] : 'px';
         $args['additional_styles'] = array( 'height:'.$args['height'].$unit );

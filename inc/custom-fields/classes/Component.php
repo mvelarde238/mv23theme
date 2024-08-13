@@ -5,6 +5,7 @@ use Ultimate_Fields\Container\Repeater_Group;
 use Theme_Custom_Fields\Core;
 use Theme_Custom_Fields\Common_Settings;
 use Theme_Custom_Fields\Template_Engine;
+use Ultimate_Fields\Field;
 
 /**
  * Handles component definitions.
@@ -64,7 +65,7 @@ abstract class Component {
 	 * @return string
 	 */
 	/* abstract */ public static function get_layout() {
-		return '';
+		return 'table';
 	}
 
 	/**
@@ -91,7 +92,7 @@ abstract class Component {
 	 * @return string html
 	 */
 	/* abstract */ public static function display( $args ) {
-		return '<div class="componente">'.$args['__type'].'</div>';
+		return '<div class="component">'.$args['__type'].'</div>';
 	}
 
 	/**
@@ -100,12 +101,27 @@ abstract class Component {
 	 * @return Ultimate_Fields\Container\Repeater_Group instance
 	 */
 	protected static function add_common_settings( $component, $args = array() ) {
+
 		foreach ($args as $setting_name) {
 			if( $setting_name == 'all' ){
-				$all = array('main','video-background','margins','borders','box-shadow','animation','scroll-animations');
-				foreach ($all as $a) {
-					$component->add_fields( Common_Settings::get_fields( $a ) );
-				}
+				$component->add_fields(array(
+					Field::create( 'tab', __('Settings','default') ),
+					Field::create( 'common_settings_control', 'settings' )
+						->set_container( 'common_settings_container' )
+						->set_width(30),
+					Field::create( 'common_settings_control', 'scroll_animations_settings' )
+						->set_container( 'scroll_animations_container' )
+						->set_add_text( __('Add Scroll Animations', 'default') )
+						->set_width(30),
+					Field::create( 'common_settings_control', 'actions_settings' )
+						->set_container( 'actions_container' )
+						->set_add_text( __('Add Actions', 'default') )
+						->set_width(30)
+				));
+		// 		$all = array('main','video-background','margins','borders','box-shadow','animation','scroll-animations');
+		// 		foreach ($all as $a) {
+		// 			$component->add_fields( Common_Settings::get_fields( $a ) );
+		// 		}
 			} else {
 				$component->add_fields( Common_Settings::get_fields( $setting_name ) );
 			}

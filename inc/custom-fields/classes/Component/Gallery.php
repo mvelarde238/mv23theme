@@ -9,13 +9,17 @@ class Gallery extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Galeria',
+			'gallery',
 			__( 'Gallery', 'default' )
 		);
 	}
 
     public static function get_icon() {
         return 'dashicons-images-alt2';
+    }
+
+    public static function get_layout(){
+        return 'grid';
     }
 
     public static function get_title_template() {
@@ -39,7 +43,7 @@ class Gallery extends Component {
         if(WPMEDIAFOLDER_IS_ACTIVE) $sources = array_merge( array('wp-media' => 'Seleccionar folder'), $sources );
         
         // basic fields
-        $fields[] = Field::create( 'tab', 'Contenido' );
+        $fields[] = Field::create( 'tab', __('Contenido','default') );
         $fields[] = Field::create( 'radio', 'source', 'Fuente')->set_orientation('horizontal')->add_options( $sources )->set_width(100);
         $fields[] = Field::create( 'gallery', 'gallery' )->add_dependency('source', 'manual', '=')->hide_label()->set_width(100);
         
@@ -104,7 +108,7 @@ class Gallery extends Component {
                     'image' => THEME_CUSTOM_FIELDS_PATH.'/images/aspect-ratio-16-9.png'
                 ),
                 '2/1'  => array(
-                    'label' => '16:9',
+                    'label' => '2:1',
                     'image' => THEME_CUSTOM_FIELDS_PATH.'/images/aspect-ratio-2-1.png'
                 ),
                 '2.5/1'  => array(
@@ -146,7 +150,7 @@ class Gallery extends Component {
 	}
 
     public static function display( $args ){
-		$args['additional_classes'] = array('componente');
+		$args['additional_classes'] = array('component');
         $args['__type'] = 'theme-gallery-comp';
 
         $hide_gallery = ( isset($args['hide_gallery']) ) ? $args['hide_gallery'] : false;

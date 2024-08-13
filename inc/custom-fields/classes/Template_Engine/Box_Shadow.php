@@ -8,10 +8,8 @@ class Box_Shadow{
     public static function get_styles($args){
         $styles = array();
 
-        $add_box_shadow = (isset($args['add_box_shadow'])) ? $args['add_box_shadow'] : false;
-
-	    if ($add_box_shadow) {
-	    	$box_shadows = $args['box_shadow'];
+	    if ( isset($args['settings']['box_shadow']) ) {
+	    	$box_shadows = $args['settings']['box_shadow']['box_shadow'];
 
 	    	if (is_array($box_shadows) && count($box_shadows) > 0) {
 	    		$properties = array();

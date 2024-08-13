@@ -29,6 +29,7 @@ class Theme_options{
     }
 
     public function add_theme_options_meta_boxes(){
+        // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/common-settings-container.php' );
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/custom-scripts-options.php' );
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/header-options.php' );
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/main-theme-options.php' );

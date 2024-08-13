@@ -6,7 +6,7 @@
 get_header(); ?>
 
 <div id="content">
-    <?php get_template_part('inc/modulos/page-header'); ?>
+    <?php echo Theme\Page_Header::getInstance()->display(); ?>
     <div id="main-content" class="main-content  container main-content--sidebar-right">
         <main class="main">
             <?php if (have_posts()) : while (have_posts()) : the_post(); ?>

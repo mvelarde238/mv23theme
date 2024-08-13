@@ -1,11 +1,11 @@
-.testimonios
+.testimonials
     @extend .tns-slider-theme
 
     &>.container
         position: relative
 
-.testimonio
-    padding: 40px $components-margin-left-right
+.testimonial
+    padding: 40px var(--component-space-around-x)
     font-size: 15px
     line-height: 170%
     min-height: 255px
@@ -29,11 +29,6 @@
         display: none
     &__modal
         width: 328px
-        // margin: initial
-        // top: 50% !important
-        // left: 50% !important
-        // &.open
-            // transform: translate(-50%, -50%) !important
         .modal-content
             padding: 0
     &__modal &__excerpt
@@ -41,14 +36,10 @@
     &__modal &__comment
         display: block
 
-    &.has-video-background
-        background-color: var(--secondary-color)
-        &:before
-            z-index: 16
+    &:has(> .video-background)
+        transition: 200ms
         video
-            z-index: 15
             opacity: .5
-            top: 100%
         .zoom-video
             background: url('../images/play.png') no-repeat center
             background-size: 50px 50px
@@ -57,8 +48,3 @@
             background-color: var(--primary-color)
             .zoom-video
                 background-size: 70px 70px
-
-@media only screen and (max-width: 1024px)
-    .testimonios
-        .has-video-background video
-            height: initial

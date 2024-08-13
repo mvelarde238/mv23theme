@@ -9,7 +9,7 @@ class Text_Editor extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Editor de Texto',
+			'text_editor',
 			__( 'Text editor', 'default' )
 		);
 	}
@@ -26,38 +26,30 @@ class Text_Editor extends Component {
 
 	public static function get_fields() {
 		$fields = array( 
-			Field::create( 'tab', 'Contenido' ),
+			Field::create( 'tab', __('Content','default') ),
 			Field::create( 'wysiwyg', 'content' )->hide_label()->set_rows( 20 ),
-			Field::create( 'tab', 'Mobile Options' ),
-			Field::create( 'multiselect', 'theme_clases', 'Helpers' )->set_input_type( 'checkbox' )->set_orientation( 'horizontal' )->add_options(array(
-				'hide-br' => 'Ocultar saltos de línea en tablet y móviles',
-				'hide-br-tablet' => 'Ocultar saltos de línea en tablet',
-				'hide-br-mobile' => 'Ocultar saltos de línea en móviles',
-			))->hide_label(),
-			Field::create( 'checkbox', 'add_responsive' )->set_text( 'Cambiar alineación de textos en móviles' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
-			Field::create( 'select', 'tablet_text_align','Alineación del texto en Tablets')->add_options( array(
-				'' => 'Seleccionar',
-				'left' => 'Izquierda',
-				'center' => 'Centro',
-				'right' => 'Derecha',
+			Field::create( 'checkbox', 'add_responsive' )
+				->set_text( __('Change text alignment on mobile devices','default') )
+				->hide_label(),
+			Field::create( 'select', 'tablet_text_align',__('Text alignment on tablet','default'))->add_options( array(
+				'' => __('Select','default'),
+				'left' => __('Left','default'),
+				'center' => __('Center','default'),
+				'right' => __('Right','default')
 			))->set_width(50)->add_dependency('add_responsive'),
-			Field::create( 'select', 'mobile_text_align','Alineación del texto en Móviles')->add_options( array(
-				'' => 'Seleccionar',
-				'left' => 'Izquierda',
-				'center' => 'Centro',
-				'right' => 'Derecha',
+			Field::create( 'select', 'mobile_text_align',__('Text alignment on mobile','default'))->add_options( array(
+				'' => __('Select','default'),
+				'left' => __('Left','default'),
+				'center' => __('Center','default'),
+				'right' => __('Right','default')
 			))->set_width(50)->add_dependency('add_responsive'),
 		);
 
 		return $fields;
 	}
 
-	public static function get_common_settings() {
-		return array( 'actions', 'all' );
-	}
-
 	public static function display( $args ){
-		$args['additional_classes'] = array('componente');
+		$args['additional_classes'] = array('component');
 
 		if ( isset($args['tablet_text_align']) && $args['tablet_text_align'] != '' ){
 			$args['additional_classes'][] = $args['tablet_text_align'].'-on-tablet';

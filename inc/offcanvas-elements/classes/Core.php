@@ -2,7 +2,7 @@
 namespace Offcanvas_Elements;
 
 use Offcanvas_Elements\Settings;
-use \Content_Layout;
+use \Blocks_Layout;
 use \CPT;
 
 class Core{
@@ -157,7 +157,7 @@ class Core{
             <div id="<?=$element['id']?>" class="<?=$element['class']?>">
 
                 <div class="modal-content">
-                    <?php if($element['content']) echo Content_Layout::the_content($element['content']); ?>
+                    <?php if($element['content']) echo Blocks_Layout::the_content($element['content']); ?>
                 </div>
 
                 <?php if( $element['type'] === 'sidenav' ){

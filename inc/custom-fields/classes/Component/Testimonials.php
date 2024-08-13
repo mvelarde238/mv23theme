@@ -9,7 +9,7 @@ class Testimonials extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Testimonios',
+			'testimonials',
 			__( 'Testimonials', 'default' )
 		);
 	}
@@ -19,8 +19,8 @@ class Testimonials extends Component {
     }
 
     public static function get_title_template() {
-		$template = '<% if ( testimonios != "" && testimonios.length ){ %>
-            Show <%= testimonios.length %> testimonials in <%= cols_in_desktop %> columns
+		$template = '<% if ( testimonials != "" && testimonials.length ){ %>
+            Show <%= testimonials.length %> testimonials in <%= cols_in_desktop %> columns
         <% } else { %>
             This component is empty
         <% } %>';
@@ -30,10 +30,14 @@ class Testimonials extends Component {
 
 	public static function get_fields() {
 		$fields = array( 
-            Field::create( 'tab', 'Contenido' ),
-            Field::create( 'repeater', 'testimonios' )->set_add_text('Agregar')->add_group( 'testimonio', array(
+            Field::create( 'tab', __('Contenido','default') ),
+            Field::create( 'repeater', 'testimonials' )->set_add_text('Agregar')->add_group( 'testimonial', array(
                 'edit_mode' => 'popup',
-                'title_template' => '<%= author.replace(/<[^>]+>/ig, "") %> | <%= comment.replace(/<[^>]+>/ig, "") %>',
+                'title_template' => '<% if (type == "text"){ %>
+                        <%= author.replace(/<[^>]+>/ig, "") %> | <%= comment.replace(/<[^>]+>/ig, "") %>
+                    <% } else { %>
+                        <%= Video %>
+                    <% } %>',
                 'fields' => array(
                     Field::create( 'radio', 'type', 'Tipo de testimonio:')->set_orientation('horizontal')->add_options(array(
                         'text' => 'Texto', 'video' => 'Video'
@@ -53,12 +57,11 @@ class Testimonials extends Component {
 		return $fields;
 	}
 
-    // public static function display_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx( $args ){
     public static function display( $args ){
 		$args['additional_classes'] = array('carrusel');
 		$args['additional_attributes'] = array('data-controls-position="center"');
         
-        $testimonios = $args['testimonios'];
+        $testimonials = $args['testimonials'];
         $items_in_desktop = $args['cols_in_desktop'];
         $items_in_tablet = $args['cols_in_tablet'];
         $items_in_mobile = $args['cols_in_mobile'];
@@ -67,7 +70,7 @@ class Testimonials extends Component {
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
         ?>
-        <div class="testimonios-list carrusel__slider" 
+        <div class="testimonials-list carrusel__slider" 
             data-show-controls="1" 
             data-show-nav="1" 
             data-autoplay="0" 
@@ -76,25 +79,23 @@ class Testimonials extends Component {
             data-tablet="<?=$items_in_tablet?>"
             data-laptop="<?=$items_in_desktop?>"
             data-desktop="<?=$items_in_desktop?>">
-        <?php foreach($testimonios as $testimonio) : 
+        <?php foreach($testimonials as $testimonial) : 
             $rand_id = 'id'.substr(md5(microtime()),rand(0,26),5);
-            $type = $testimonio['type'];
+            $type = $testimonial['type'];
 
             if($type == 'text'){
-                $author = $testimonio['author'];
-                $author_img = ( $testimonio['author_img'] ) ? wp_get_attachment_url($testimonio['author_img']) : null;
-                $comment = $testimonio['comment'];
+                $author = $testimonial['author'];
+                $author_img = ( $testimonial['author_img'] ) ? wp_get_attachment_url($testimonial['author_img']) : null;
+                $comment = $testimonial['comment'];
             }
-
-            $has_video_background_class = ($type == 'video') ? 'has-video-background' : '';
             ?>  
             <div>
-                <div id="<?=$rand_id?>" class="testimonio theme-border <?=$has_video_background_class?>">
+                <div id="<?=$rand_id?>" class="testimonial theme-border">
                     <?php if( $type == 'text' ): ?>
                         <?php if( $author ): ?>
-                            <div class="testimonio__header">
+                            <div class="testimonial__header">
                                 <?php 
-                                echo '<div class="testimonio__author"';
+                                echo '<div class="testimonial__author"';
                                 if($author_img) echo ' style="background-image: url('.$author_img.')"';
                                 echo '></div>'; 
                                 ?>
@@ -110,14 +111,14 @@ class Testimonials extends Component {
                                 $endPoint = strrpos($stringCut, ' ');
                             
                                 $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
-                                $string .= '... <a class="testimonio__open" href="!#" data-id="'.$rand_id.'"><b>Mostrar más</b></a>';
+                                $string .= '... <a class="testimonial__open" href="!#" data-id="'.$rand_id.'"><b>Mostrar más</b></a>';
                             }
                             ?>
-                            <div class="testimonio__body">
-                                <div class="testimonio__excerpt">
+                            <div class="testimonial__body">
+                                <div class="testimonial__excerpt">
                                     <?php echo $string ?>
                                 </div>
-                                <div class="testimonio__comment">
+                                <div class="testimonial__comment">
                                     <?php echo '<div>'.do_shortcode(wpautop(oembed($comment))).'</div>'; ?>
                                 </div>
                             </div>
@@ -125,13 +126,13 @@ class Testimonials extends Component {
                     <?php endif; ?>
 
                     <?php if( $type == 'video' ):
-                        $videos = ( isset($testimonio['video']) ) ? $testimonio['video'] : array();
+                        $videos = ( isset($testimonial['video']) ) ? $testimonial['video'] : array();
                         $video_id = (isset($videos['videos']) &&  is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
                         if($video_id) {
                             $video_url = wp_get_attachment_url($video_id);
                             if($video_url){
-                                echo '<video width="100%" loop muted="muted" autoplay><source src="'.$video_url.'">Your browser does not support the video tag.</video>';
-                                echo '<a class="cover-all zoom-video" href="'.$video_url.'"></a>';
+                                echo '<video width="100%" class="video-background" loop muted="muted" autoplay><source src="'.$video_url.'">Your browser does not support the video tag.</video>';
+                                echo '<a data-fancybox class="cover-all zoom-video" href="'.$video_url.'"></a>';
                             }
                         }
                     endif; ?>

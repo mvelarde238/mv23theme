@@ -17,6 +17,7 @@ class Core{
         'core' => array(
             'Text_Editor',
             'Image',
+            'Video',
             'Button',
             'Spacer',
             'Map',
@@ -56,7 +57,8 @@ class Core{
 		new Autoloader( 'Theme_Custom_Fields', $core_directory . DIRECTORY_SEPARATOR . 'classes' );
 
         $this->add_core_components_on_demand();
-        $this->add_action( 'after_setup_theme', array($this, 'init_components'), 15 ); // theme launch at 10
+        // $this->add_action( 'after_setup_theme', array($this, 'init_components'), 15 ); // theme launch at 10
+        $this->add_action( 'uf.init', array($this, 'init_components') );
         $this->add_action( 'uf.init', array($this, 'add_meta_boxes') );
         $this->add_action( 'init', array($this, 'hide_editor') );
         $this->add_action( 'init', array($this, 'init_theme_options') );
@@ -96,6 +98,11 @@ class Core{
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/accordion-settings.php' );
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/archive-page-settings.php' );
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/library-item-data.php' );
+
+        // uncomment just to generate the container json:
+        // require_once( THEME_CUSTOM_FIELDS_DIR.'/common-settings/common-settings-container.php' );
+        // require_once( THEME_CUSTOM_FIELDS_DIR.'/common-settings/scroll-animations-container.php' );
+        // require_once( THEME_CUSTOM_FIELDS_DIR.'/common-settings/actions-container.php' );
 
         /**
          * Let child theme register its own meta boxes

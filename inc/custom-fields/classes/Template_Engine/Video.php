@@ -8,18 +8,24 @@ Class Video{
         $video_source = ( isset($args['video_source']) ) ? $args['video_source'] : 'selfhosted';
         $video_type = ( isset($args['video_type']) ) ? $args['video_type'] : 'popable';
 
-        $video_settings = (isset($args['video_settings'])) ? $args['video_settings'] : array(
+        $defaults = array(
+            'bgc' => "#000000",
             'loop' => 0,
             'muted' => 0,
             'autoplay' => 0,
             'opacity' => 100
         );
+        // source could be common settings or component Video
+        $video_settings_source = (isset($args['video_settings'])) ? $args['video_settings'] : $args;
+        $video_settings = wp_parse_args( $video_settings_source, $defaults );        
 
-        $video_opacity = (isset($args['video_opacity']) && $args['video_opacity'] ) ? $args['video_opacity'] : $video_settings['opacity'];
-        $video_data['styles'] = ($video_opacity != 100) ? 'opacity:'.($video_opacity/100).';' : ''; 
+        $video_data['styles'] = 'background-color:'.$video_settings['bgc'].';'; 
+        if( ($video_settings['opacity'] != 100) ){
+            $video_data['styles'] .= '--video-opacity:'.($video_settings['opacity']/100).';'; 
+        }
 
         if( $video_source == 'selfhosted' ){
-            $videos = ( isset($args['bgvideo']) ) ? $args['bgvideo'] : array();
+            $videos = ( isset($args['video']) ) ? $args['video'] : array();
             $video_id = (isset($videos['videos']) &&  is_array($videos['videos']) && count($videos['videos'])) ? $videos['videos'][0] : null;
             if($video_id) {
             	$video_url = wp_get_attachment_url($video_id);

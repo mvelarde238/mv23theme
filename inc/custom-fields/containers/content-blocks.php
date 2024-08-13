@@ -6,7 +6,7 @@ Container::create('content_blocks')
     ->set_layout('grid')
     ->set_style('seamless')
     ->add_fields(array(
-        Content_Layout::the_field(array( 
-            'exclude' => array( 'columnas-internas' ) 
+        Blocks_Layout::the_field(array( 
+            'exclude' => array( 'inner_columns' ) 
             ))
     ));

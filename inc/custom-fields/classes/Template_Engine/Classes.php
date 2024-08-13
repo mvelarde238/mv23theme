@@ -9,28 +9,28 @@ Class Classes{
         $classes = array();
 
         if( isset($args['__type']) && $args['__type'] != '' && gettype($args['__type']) == 'string' ){
-            $classes[] = $args['__type'];
+            $classes[] = str_replace('_','-',$args['__type']);
         }
         
         if (isset($args['additional_classes']) && is_array($args['additional_classes']) && !empty($args['additional_classes'])){
             $classes = array_merge( $args['additional_classes'], $classes );
-        } 
-
-        if (isset($args['class']) && !empty($args['class']) && gettype($args['class']) == 'string'){
-            $classes = array_merge( $classes, explode(' ', $args['class']) );
         }
+
+        if( isset($args['settings']['main_attributes']) && isset($args['settings']['main_attributes']['class']) ){
+            $classes = array_merge( $classes, explode(' ', $args['settings']['main_attributes']['class']) );
+        } 
 
         if (isset($args['theme_clases']) && !empty($args['theme_clases']) && $args['theme_clases'][0] != '' ){
             $classes = array_merge($classes, $args['theme_clases']);
-        } 
-
-        if (isset($args['layout'])) {
-            $layout = $args['layout'];
-            if ( !empty($layout) && $layout != 'layout1') $classes[] = 'full-width';
         }
 
-        if( isset($args['video_background_data']) ){
-            $classes[] = $args['video_background_data']['class'];
+        if (isset($args['settings']['helpers']) && !empty($args['settings']['helpers']['list']) ){
+            $classes = array_merge($classes, $args['settings']['helpers']['list']);
+        } 
+
+        if (isset($args['settings']['layout'])) {
+            $layout = $args['settings']['layout']['key'];
+            if ( !empty($layout) && ($layout == 'layout2' || $layout == 'layout3') ) $classes[] = 'full-width';
         }
         
         $color_scheme = self::get_color_scheme( $args );
@@ -43,20 +43,14 @@ Class Classes{
      * Return color scheme string
      */
     public static function get_color_scheme($args){
-        $color_scheme = (array_key_exists('color_scheme', $args)) ? $args['color_scheme'] : '';
-
-        // page module is using this:
-
-        if( isset($args['text_color']) ) $color_scheme = $args['text_color'];
+        $color_scheme = ( isset($args['settings']['font_color']) ) ? $args['settings']['font_color']['color_scheme'] : '';
     
         switch ($color_scheme) {
-            case 'text-color-2':
-            case 'dark-scheme':
+            case 'dark_scheme':
                 $text_color = 'text-color-2';
                 break;
             
-            case 'text-color-default':
-            case 'default-scheme':
+            case 'default_scheme':
                 $text_color = 'text-color-1';
                 break;
     

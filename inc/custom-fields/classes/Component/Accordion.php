@@ -4,14 +4,14 @@ namespace Theme_Custom_Fields\Component;
 use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Component;
 use Theme_Custom_Fields\Template_Engine;
-use Content_Layout;
+use Blocks_Layout;
 use Page;
 
 class Accordion extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Accordion',
+			'accordion',
 			__( 'Accordion', 'default' )
 		);
 	}
@@ -33,23 +33,23 @@ class Accordion extends Component {
 
 	public static function get_fields() {
         $fields = array(
-            Field::create( 'tab', 'Contenido' ),
+            Field::create( 'tab', __('Contenido','default') ),
             Field::create( 'repeater', 'accordion' )
                 ->set_add_text('Agregar Item')
                 ->add_group('Item', array(
                     'edit_mode' => 'popup',
                     'fields' => array(
-                        Field::create( 'tab', 'Contenido' ),
-                        Field::create( 'text', 'titulo', 'Título' )->set_width( 30 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
-                        Field::create( 'radio', 'identificador','Seleccione que mostrar antes del título:')->set_orientation( 'horizontal' )->add_options( array(
+                        Field::create( 'tab', __('Contenido','default') ),
+                        Field::create( 'text', 'title', 'Título' )->set_width( 30 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
+                        Field::create( 'radio', 'identifier','Seleccione que mostrar antes del título:')->set_orientation( 'horizontal' )->add_options( array(
                                 '' => 'Nada',
-                                'icono' => 'Icono',
-                                'imagen' => 'Imagen',
+                                'icon' => 'Icono',
+                                'image' => 'Imagen',
                         ))->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
-                        Field::create( 'icon', 'icon', 'Icono' )->add_set( 'font-awesome' )->add_dependency('identificador','icono','=')->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
-                        Field::create( 'image', 'image', 'Imágen' )->add_dependency('identificador','imagen','=')->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
+                        Field::create( 'icon', 'icon', 'Icono' )->add_set( 'font-awesome' )->add_dependency('identifier','icon','=')->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
+                        Field::create( 'image', 'image', 'Imágen' )->add_dependency('identifier','image','=')->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
                         Field::create( 'select', 'image_size', 'Tamaño de la imágen' )
-                            ->add_dependency('identificador','imagen','=')
+                            ->add_dependency('identifier','image','=')
                             ->add_dependency('../tab_style','style1','=')
                             ->add_options(array(
                                 'iconsize' => 'Pequeño',
@@ -57,21 +57,21 @@ class Accordion extends Component {
                         ))->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
                         
                         Field::create( 'section', 'Contenido del Item:' ),
-                        Field::create( 'wysiwyg', 'content', 'Contenido' )->add_dependency('content_element','texto','=')->hide_label()->set_rows( 30 ),
-                        Content_Layout::the_field( array() )->add_dependency('content_element','layout','='),
+                        Field::create( 'wysiwyg', 'content', __('Contenido','default') )->add_dependency('content_element','texto','=')->hide_label()->set_rows( 30 ),
+                        Blocks_Layout::the_field( array() )->add_dependency('content_element','layout','='),
                         Field::create( 'wp_objects', 'page', 'Página' )->add( 'posts', 'page' )->set_button_text( 'Selecciona la página' )->add_dependency('content_element','pagina','=')->hide_label(),
-                        Field::create( 'select', 'seccion_reusable', 'Seleccionar Sección Reusable' )
+                        Field::create( 'select', 'reusable_section', 'Seleccionar Sección Reusable' )
                             ->add_options( get_reusable_sections() )
-                            ->add_dependency('content_element','seccion_reusable','=')
+                            ->add_dependency('content_element','reusable_section','=')
                             ->hide_label(),
     
                         Field::create( 'tab', 'Otros' ),
                         Field::create( 'text', 'itemid', 'ID' ),
                         Field::create( 'radio', 'content_element','Seleccione que mostrar como Contenido:')->set_orientation( 'horizontal' )->add_options( array(
-                            'layout' => 'Editor',
-                            'texto' => 'Texto',
-                            'pagina' => 'Página',
-                            'seccion_reusable' => 'Seccion Reusable',
+                            'layout' => __('Layout','default'),
+                            'text' => __('Text','default'),
+                            'page' => __('Page','default'),
+                            'reusable_section' => __( 'Reusable Section', 'default' ),
                         ))->set_default_value('layout'),
                     )
                 )
@@ -107,7 +107,7 @@ class Accordion extends Component {
 	}
 
 	public static function display( $args ){
-		$args['additional_classes'] = array('componente');
+		$args['additional_classes'] = array('component');
 
         $items = $args['accordion'];
 
@@ -129,21 +129,21 @@ class Accordion extends Component {
                 $itemsbox = '<div class="v23-togglebox__items">';
                 $count = 0;
                 foreach ($items as $item): 
-                    $titulo = $item['titulo'];
+                    $title = $item['title'];
                     $itemid = (isset($item['itemid'])) ? $item['itemid'] : false;
-                    $slug = ($itemid) ? $itemid : sanitize_title($titulo);
+                    $slug = ($itemid) ? $itemid : sanitize_title($title);
                     if( preg_match('@[0-9]@i',$slug) ) $slug = 'tab-'.$slug;
     
-                    $identificador = $item['identificador'];
+                    $identifier = $item['identifier'];
     
-                    switch ($identificador) {
-                        case 'imagen':
+                    switch ($identifier) {
+                        case 'image':
                             $image = wp_get_attachment_url($item['image']);
                             $style = (isset($item['image_size']) && $item['image_size'] == 'auto') ? 'style="height:auto;width:auto;"' : '';
                             $icon_html = ($image) ? '<img '.$style.' src="'.$image .'" />' : '';
                             break;
                         
-                        case 'icono':
+                        case 'icon':
                             $icon = $item['icon'];
                             $icon_html = ($icon) ? '<span class="fa '.$icon.'"></span>' : '';
                             break;
@@ -156,7 +156,7 @@ class Accordion extends Component {
                     $content_element = $item['content_element'];
                     $contenido = '';
     
-                    if ($content_element == 'pagina' && $item['page']) {
+                    if ($content_element == 'page' && $item['page']) {
 
                         $post_data = $item['page'][0]; 
                         $post_id = str_replace('post_', '', $post_data );
@@ -168,24 +168,24 @@ class Accordion extends Component {
     
                     } else if( $content_element == 'layout' ) {
 
-                        $content_layout = $item['content_layout'];
-                        if (is_array($content_layout) && count($content_layout) > 0) :
+                        $blocks_layout = $item['blocks_layout'];
+                        if (is_array($blocks_layout) && count($blocks_layout) > 0) :
                             ob_start();
-                            echo Content_Layout::the_content($content_layout);
+                            echo Blocks_Layout::the_content($blocks_layout);
                             $contenido = ob_get_clean();
                         endif;
     
-                    } else if( $content_element == 'seccion_reusable' ) {
+                    } else if( $content_element == 'reusable_section' ) {
                     
                         ob_start();
-                        echo Template_Engine::getInstance()->handle( 'modulos-reusables', $item );    
+                        echo Template_Engine::getInstance()->handle( 'reusable_section', $item );    
                         $contenido = ob_get_clean();
                         
                     } else {
-                        $contenido = '<div class="componente">'.do_shortcode(wpautop(oembed($item['content']))).'</div>';
+                        $contenido = '<div class="component">'.do_shortcode(wpautop(oembed($item['content']))).'</div>';
                     }
     
-                    $nav .= '<p class="v23-togglebox__btn" data-boxid="#'.$slug.'">'.$icon_html.$titulo.'</p>';
+                    $nav .= '<p class="v23-togglebox__btn" data-boxid="#'.$slug.'">'.$icon_html.$title.'</p>';
                     $itemsbox .= '<div id="'.$slug.'" class="v23-togglebox__item">'.$contenido.'</div>';
                     $count++;
                 endforeach; 

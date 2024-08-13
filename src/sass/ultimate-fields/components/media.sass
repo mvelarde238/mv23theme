@@ -1,0 +1,47 @@
+.media
+	&[style*='border-radius']
+		overflow: hidden
+
+	img
+		aspect-ratio: var(--aspect-ratio)
+		object-fit: var(--object-fit, cover)
+		vertical-align: top
+		width: fit-content
+
+	video, iframe
+		aspect-ratio: var(--aspect-ratio, 16/9)
+		opacity: var(--video-opacity)
+		object-fit: var(--object-fit, contain)
+		width: 100%
+		height: 100%
+
+	&-caption
+		margin-top: 8px
+		font-size: 13px
+		text-align: center
+		font-style: italic
+
+	.cover-all:before
+		font: normal normal normal 14px / 1 FontAwesome
+		color: #fff
+
+	&.video.popable
+		position: relative
+		
+	&.video
+		.cover-all
+			text-align: center
+			&:before
+				content: "\f04b"
+				font-size: 21px
+				line-height: 47px
+				border: 3px solid #fff
+				border-radius: 50%
+				width: 50px
+				height: 50px
+		&:has(.cover-all[href*="youtube.com"]) .cover-all:before
+			background-color: red
+			width: 71px
+			height: 50px
+			border-radius: 11px
+			border: 0

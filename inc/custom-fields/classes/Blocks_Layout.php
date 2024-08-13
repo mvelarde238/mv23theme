@@ -3,7 +3,7 @@ use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Core;
 use Theme_Custom_Fields\Template_Engine;
 
-class Content_Layout{
+class Blocks_Layout{
     function __construct(){}
     
 	public static function the_field( $slug = '', $title = '', $args = array()){
@@ -18,8 +18,8 @@ class Content_Layout{
         }
 
         $defaults = array(
-            'slug' => 'content_layout',
-            'title' => 'Content Layout',
+            'slug' => 'blocks_layout',
+            'title' => 'Blocks Layout',
             'hide_label' => true,
             'placeholder' => 'Arrastre un componente aquí',
             'components' => array(),
@@ -76,7 +76,7 @@ class Content_Layout{
 
 	public static function the_content($layouts, $args = array() ){
         $defaults = array(
-            'classes' => array( 'columnas-simples' )
+            'classes' => array( 'content-layout' )
         );
         $args = wp_parse_args( $args, $defaults );
 
@@ -92,7 +92,7 @@ class Content_Layout{
                 if($type == 'button') $type_class = 'button-comp';
                 $width = $component['__width'];
                 $component['layout'] = 'layout1';
-                echo '<div class="columnas-simples__item '.$type_class.' width-'.$width.'">';
+                echo '<div class="content-layout__item '.$type_class.' width-'.$width.'">';
                 echo Template_Engine::getInstance()->handle( $component['__type'], $component );
                 echo '</div>';
             };

@@ -21,9 +21,10 @@ if( !defined('ITEMS_GRID') ) define ('ITEMS_GRID', false);
 if( !defined('CONTENT_SLIDER') ) define ('CONTENT_SLIDER', false);
 
 require_once( 'ultimate-fields/ultimate-fields.php' );
+require_once( 'common-settings-control/common-settings-control.php' );
 require_once( 'classes/Core.php' );
 require_once( 'classes/Template_Engine.php' );
-require_once( 'classes/Content_Layout.php' );
+require_once( 'classes/Blocks_Layout.php' );
 require_once( 'classes/Content_Selector.php' );
 
 Theme_Custom_Fields\Core::getInstance();

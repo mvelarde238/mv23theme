@@ -56,7 +56,7 @@ class Reusable_Section extends Component{
 
     public function __construct() {
 		self::$the_group = parent::__construct(
-			'Modulos Reusables',
+			'reusable_section',
 			__( 'Reusable Section', 'default' ),
             array(
                 'add_common_settings' => false
@@ -88,20 +88,20 @@ class Reusable_Section extends Component{
 
     public static function get_fields() {
         $fields = array( 
-            Field::create( 'select', 'seccion_reusable', 'Seleccionar' )->add_options( self::get_reusable_sections() )
+            Field::create( 'select', 'reusable_section', 'Seleccionar' )->add_options( self::get_reusable_sections() )
         );
 
 		return $fields;
 	}
 
     public static function display( $args ){
-        // if( !empty($args['seccion_reusable']) ) echo Page::getInstance()->the_content( $args['seccion_reusable'] );
+        // if( !empty($args['reusable_section']) ) echo Page::getInstance()->the_content( $args['reusable_section'] );
 
-        $modulos = get_post_meta( $args['seccion_reusable'],'v23_modulos', true);
+        $page_modules = get_post_meta( $args['reusable_section'],'page_modules', true);
 
-        if (is_array($modulos) && count($modulos) > 0) :
-            foreach ($modulos as $modulo) :
-                $components = $modulo['componentes'];
+        if (is_array($page_modules) && count($page_modules) > 0) :
+            foreach ($page_modules as $module) :
+                $components = $module['components'];
                 foreach ($components as $component) {
                     echo Template_Engine::getInstance()->handle( $component['__type'], $component );
         		}

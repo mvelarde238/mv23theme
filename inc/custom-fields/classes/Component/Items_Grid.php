@@ -4,7 +4,6 @@ namespace Theme_Custom_Fields\Component;
 use Content_Selector;
 use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Component;
-use Theme_Custom_Fields\Common_Settings;
 use Theme_Custom_Fields\Template_Engine;
 use Ultimate_Fields\Container\Repeater_Group;
 
@@ -12,7 +11,7 @@ class Items_Grid extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Grid de Items',
+			'items_grid',
 			__( 'Items Grid', 'default' )
 		);
 	}
@@ -24,29 +23,24 @@ class Items_Grid extends Component {
 	public static function get_fields() {
         $content_group = new Repeater_Group( 'Item' );
 		$content_group->set_edit_mode('popup')
-            ->set_title_template( '<% if ( componentes.length ){ %>
-                    <% if ( componentes[0].__type == "editor-de-texto" ){ %>
-                        <%= componentes[0].content.replace(/<[^>]+>/ig, "") %>
+            ->set_title_template( '<% if ( components.length ){ %>
+                    <% if ( components[0].__type == "editor-de-texto" ){ %>
+                        <%= components[0].content.replace(/<[^>]+>/ig, "") %>
                     <% } else { %>
-                        <%= "First item type: "+componentes[0][0].__type %>
+                        <%= "First item type: "+components[0][0].__type %>
                     <% } %>
                 <% } else { %>
                     This item is empty
                 <% } %>') 
 			->add_fields(array(
-                Field::create( 'tab', 'Contenido' ),
-                Content_Selector::the_field('componentes', __('Components','default'), array( 'exclude' => array('columnas-internas') ) ),
-                Field::create( 'tab', __('Settings','default') )
-            ))
-            ->add_fields( Common_Settings::get_fields('main') )
-            ->add_fields( Common_Settings::get_fields('background-image') )
-            ->add_fields( Common_Settings::get_fields('margins') )
-            ->add_fields( Common_Settings::get_fields('borders') )
-            ->add_fields( Common_Settings::get_fields('animation') )
-            ->add_fields( Common_Settings::get_fields('box-shadow') );
+                Field::create( 'tab', __('Contenido','default') ),
+                Content_Selector::the_field('components', __('Components','default'), array( 'exclude' => array('inner_columns') ) ),
+                Field::create( 'tab', __('Settings','default') ),
+                Field::create( 'common_settings_control', 'settings' )->set_container( 'common_settings_container' )
+            ));
 
 		$fields = array(
-            Field::create( 'tab', 'Contenido' ),
+            Field::create( 'tab', __('Contenido','default') ),
             Field::create( 'repeater', 'grid_items', '' )
                 ->set_add_text('Agregar')
                 ->add_group( $content_group ),

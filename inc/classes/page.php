@@ -55,7 +55,7 @@ class Page{
         add_filter('the_content', function ($content) {
             if( is_singular() || is_page() ){
                 ob_start();
-                if ($content) echo '<div class="page-module"><div class="componente">' . $content . '</div></div>';
+                if ($content) echo '<div class="page-module"><div class="component">' . $content . '</div></div>';
 				echo Page::getInstance()->the_content();
                 $filtered_content = ob_get_clean();
                 return $filtered_content;
@@ -78,21 +78,21 @@ class Page{
 	public function the_content( $id = null ){
 		$page_ID = ($id) ? $id : self::get_id();
 
-		$modulos = ($page_ID != null) ? $modulos = get_post_meta($page_ID, 'v23_modulos', true) : null;
-		$content_layout = ($page_ID != null) ? get_post_meta($page_ID, 'content_layout', true) : null;
+		$page_modules = ($page_ID != null) ? $page_modules = get_post_meta($page_ID, 'page_modules', true) : null;
+		$blocks_layout = ($page_ID != null) ? get_post_meta($page_ID, 'blocks_layout', true) : null;
 
-		if (is_array($modulos) || is_array($content_layout)) :
+		if (is_array($page_modules) || is_array($blocks_layout)) :
 			ob_start();
 
-			if (is_array($modulos) && !empty($modulos) ) :
-				foreach ($modulos as $modulo) :
+			if (is_array($page_modules) && !empty($page_modules) ) :
+				foreach ($page_modules as $modulo) :
 					echo Theme_Custom_Fields\Template_Engine::getInstance()->handle( $modulo['__type'], $modulo );
 				endforeach;
 			endif;
 
-			if (is_array($content_layout) && !empty($content_layout)) :
+			if (is_array($blocks_layout) && !empty($blocks_layout)) :
 				$args = array();
-				echo Content_Layout::the_content($content_layout, $args );
+				echo Blocks_Layout::the_content($blocks_layout, $args );
 			endif;
 
 			return ob_get_clean();

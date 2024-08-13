@@ -10,7 +10,7 @@ class Menu extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Menu',
+			'menu',
 			__( 'Menu', 'default' )
 		);
 	}
@@ -75,7 +75,7 @@ class Menu extends Component {
 	}
 
     public static function display( $args ){
-		$args['additional_classes'] = array('componente');
+		$args['additional_classes'] = array('component');
 		$args['__type'] = 'menu-comp';
 
         $type = $args['type'];

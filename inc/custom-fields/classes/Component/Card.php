@@ -10,7 +10,7 @@ class Card extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Card',
+			'card',
 			__( 'Card', 'default' )
 		);
 	}
@@ -21,7 +21,7 @@ class Card extends Component {
 
 	public static function get_fields() {
 		$fields = array( 
-            Field::create( 'tab', 'Contenido' ),
+            Field::create( 'tab', __('Contenido','default') ),
             Field::create('radio', 'content_type')->set_orientation('horizontal')->add_options(array(
                 'components' => 'Componentes',
                 'simple' => 'Simple'
@@ -94,11 +94,11 @@ class Card extends Component {
 	}
 
     public static function get_common_settings() {
-		return array( 'actions', 'all' );
+		return array( 'all' );
 	}
 
 	public static function display( $args ){
-        $args['additional_classes'] = array('componente');
+        $args['additional_classes'] = array('component');
 
         $content_type = (isset( $args['content_type'] )) ? $args['content_type'] : 'components';
 
@@ -120,8 +120,8 @@ class Card extends Component {
 				echo '</div>';
 			};
 		else: 
-			$componentes = $args['components'];
-			foreach ($componentes as $component ) { 
+			$components = $args['components'];
+			foreach ($components as $component ) { 
 				$component['layout'] = 'layout1';
                 echo Template_Engine::getInstance()->handle( $component['__type'], $component );
 			} 

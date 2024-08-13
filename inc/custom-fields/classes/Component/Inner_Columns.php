@@ -10,7 +10,7 @@ class Inner_Columns extends Component{
 
     public function __construct() {
 		parent::__construct(
-			'Columnas Internas',
+			'inner_columns',
 			__( 'Inner Columns', 'default' )
 		);
 	}
@@ -19,8 +19,12 @@ class Inner_Columns extends Component{
         return 'dashicons-columns';
     }
 
+	public static function get_layout(){
+        return 'grid';
+    }
+
 	public static function get_title_template() {
-		$template = '<%= nth_columnas %> columns';
+		$template = '<%= quantity %> columns';
 		
 		return $template;
 	}
@@ -29,15 +33,12 @@ class Inner_Columns extends Component{
 		$fields = array( Field::create( 'tab', __('Content','default') ) );
 
         for ($i=1; $i <= COLUMNS_QUANTITY; $i++) { 
-            $col = Content_Selector::the_field( 'columna_'.$i, __('Column','default') )
+            $col = Content_Selector::the_field( 'column_'.$i, __('Column','default') )
                 ->set_attr( 'style', 'width:25%' );
 
-            if($i > 1) $col->add_dependency('nth_columnas',($i-1),'>');
+            if($i > 1) $col->add_dependency('quantity',($i-1),'>');
             $fields[] = $col;
         }
-
-        $fields[] = Field::create( 'tab', 'Márgenes' );
-        $fields[] = Field::create( 'number', 'components_margin', 'Márgenes de los componentes internos' )->enable_slider( 0, 20 )->set_default_value(20);
 
 		return $fields;
 	}
@@ -47,12 +48,7 @@ class Inner_Columns extends Component{
 	}
 
     public static function display( $args ){
-        $components_margin = (!empty($args['components_margin'])) ? $args['components_margin'] : null;
-        if ( $components_margin && $components_margin != 20){
-            $args['additional_attributes'] = array('data-setmargin=="'.$components_margin.'"');
-        } 
-
-        echo Template_Engine::getInstance()->handle( 'columnas', $args );
+        echo Template_Engine::getInstance()->handle( 'columns', $args );
     }
 }
 

@@ -9,7 +9,7 @@ class Html extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'HTML',
+			'html',
 			__( 'Code', 'default' )
 		);
 	}
@@ -20,7 +20,7 @@ class Html extends Component {
 
 	public static function get_fields() {
 		$fields = array( 
-            Field::create( 'tab', 'Contenido' ),
+            Field::create( 'tab', __('Contenido','default') ),
             Field::create( 'textarea', 'content' )->hide_label()->set_rows( 20 )->set_attr(array(
                 'data-type' => 'html'
             )),
@@ -30,7 +30,7 @@ class Html extends Component {
 	}
 
 	public static function display( $args ){
-		$args['additional_classes'] = array('componente');
+		$args['additional_classes'] = array('component');
 		$content = $args['content'];
         
 		ob_start();

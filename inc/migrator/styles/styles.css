@@ -1,0 +1,38 @@
+button{
+    span{
+        display: none
+    }
+	&[data-status="initial"]{
+		span:nth-child(1){
+            display: initial
+        }
+    }
+	&[data-status="processing"]{
+		opacity: .8;
+		span:nth-child(2){
+            display: initial
+        }
+		i{
+            animation: rotating 2s linear infinite
+        }
+    }
+	&[data-status="complete"]{
+		span:nth-child(3){
+            display: initial
+        }
+    }
+    &[data-status="failed"]{
+		span:nth-child(4){
+            display: initial
+        }
+    }
+}
+
+@keyframes rotating{
+	from{
+        transform: rotate(0deg)
+    }
+	to{
+        transform: rotate(360deg)
+    }
+}

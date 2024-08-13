@@ -54,11 +54,10 @@ $white-lighten-2: rgba($white,.2) !default;
 	--secondary-color-dark: color-mix( in srgb, var(--secondary-color), black 20% );
 	--font-color: #{$font-color};
 	--font-color-2: #{$font-color-2};
+	--component-space-around-x: 20px;
+	--component-space-around-y: 15px;
 } 
 
-$components-margin-left-right: 20px !default; 
-$components-margin-top-bottom: 25px !default; 
-$components-margin: $components-margin-top-bottom $components-margin-left-right !default; 
 $page-module-padding: 40px 0 !default;
 $container-width: 1240px !default;
 $sidebar-width: 328px !default;

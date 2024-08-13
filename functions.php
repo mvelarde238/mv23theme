@@ -6,7 +6,7 @@ URL: http://velarde23.com
 require_once( 'inc/functions/utils.php' );
 // if( !defined('WP_POST_REVISIONS') ) define ('WP_POST_REVISIONS', false);
 if( !defined('THEME_DIR') ) define ('THEME_DIR', __DIR__);
-if( !defined('THEME_VERSION') ) define ('THEME_VERSION', '8.23');
+if( !defined('THEME_VERSION') ) define ('THEME_VERSION', '0.4.1');
 if( !defined('PARENT_THEME_TEST_MODE') ) define ('PARENT_THEME_TEST_MODE', false);
 define ('IS_MOBILE', wp_is_mobile());
 define ('GM_IS_ACTIVE', get_option('activate_gm'));
@@ -71,6 +71,7 @@ require_once( 'inc/classes/CPT.php' );
 require_once( 'inc/classes/page.php' );
 require_once( 'inc/custom-fields/index.php' );
 require_once( 'inc/offcanvas-elements/offcanvas-elements.php' );
+require_once( 'inc/migrator/index.php' );
 
 require_once( 'inc/classes/header.php' );
 require_once( 'inc/classes/page-header.php' );
@@ -104,7 +105,7 @@ get_template_part( 'inc/functions/woocommerce-support' );
 // require_once( 'inc/functions/tinymce-buttons/button-manager.php' );
 require_once( 'inc/functions/dequeue-styles.php' );
 
-remove_all_actions( 'admin_notices' );
+// remove_all_actions( 'admin_notices' );
 
 function mv23_launch_theme() {
     // launching operation cleanup

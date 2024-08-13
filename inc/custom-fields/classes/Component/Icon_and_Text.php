@@ -9,7 +9,7 @@ class Icon_and_Text extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Icono y texto',
+			'icon_and_text',
 			__( 'Icon and Text', 'default' )
 		);
 	}
@@ -135,12 +135,8 @@ class Icon_and_Text extends Component {
 		return $fields;
 	}
 
-    public static function get_common_settings() {
-		return array( 'actions', 'all' );
-	}
-
     public static function display( $args ){
-		$args['additional_classes'] = array('componente');
+		$args['additional_classes'] = array('component');
         $args['__type'] = 'icon-and-text';
 
         if (isset($args['iposition'])) $args['additional_classes'][] = 'icon--'.$args['iposition'];

@@ -16,11 +16,11 @@ if(!function_exists('theme_woocommerce_before_main_content')){
         if(is_archive() && is_active_sidebar('shop_sidebar')) array_push($main_content_classes,'main-content--sidebar-left');
         ?>
         <div id="content">
-            <?php if( in_array('product', PAGE_HEADER_IN) ) get_template_part('inc/modulos/page-header'); ?>
+            <?php if( in_array('product', PAGE_HEADER_IN) ) echo Theme\Page_Header::getInstance()->display(); ?>
             <div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
                 <main class="main">
                     <div class="page-module">
-                        <div class="componente">
+                        <div class="component">
     <?php
     }
 }

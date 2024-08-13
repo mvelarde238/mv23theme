@@ -7,41 +7,37 @@ class Borders{
      */
     public static function get_styles($args){
         $styles = array();
+        
+        if ( isset($args['settings']['border']) ) {
+            $border_settings = $args['settings']['border'];
+            
+            if ( $border_settings['unlock'] ) {
 
-        $show_border = (isset($args['show_border'])) ? $args['show_border'] : false;
-        $add_border_radius = (isset($args['add_border_radius'])) ? $args['add_border_radius'] : false;
+                $borders = array('top','bottom','right','left');
+                foreach ($borders as $border) {
+                    if( !empty( $border_settings[$border]['width'] ) ) {
+                        $border_width = $border_settings[$border]['width'] . 'px';
+                        $style_and_color = $border_settings[$border]['style'] . ' ' . $border_settings[$border]['color'];
+                        $styles[] = 'border-'.$border.':'.$border_width . ' ' . $style_and_color;   
+                    }
+                }
 
-        if ($show_border) {
-            $border_width = $args['border']['width'] . 'px';
-            $style_and_color = $args['border']['style'] . ' ' . $args['border']['color'];
-            $border_properties = $border_width . ' ' . $style_and_color;
-
-            if ($args['border_apply_to'] == 'all') {
-                $styles[] = 'border:' . $border_properties;
-            }
-
-            if ($args['border_apply_to'] == 'custom') {
-                $custom_border = $args['custom_border'];
-                if ($custom_border['top'] == 1) $styles[] = 'border-top:' . $border_properties;
-                if ($custom_border['right'] == 1) $styles[] = 'border-right:' . $border_properties;
-                if ($custom_border['bottom'] == 1) $styles[] = 'border-bottom:' . $border_properties;
-                if ($custom_border['left'] == 1) $styles[] = 'border-left:' . $border_properties;
+            } else {
+                if( !empty( $border_settings['top']['width'] ) ) {
+                    $border_width = $border_settings['top']['width'] . 'px';
+                    $style_and_color = $border_settings['top']['style'] . ' ' . $border_settings['top']['color'];
+                    $styles[] = 'border:'.$border_width . ' ' . $style_and_color;   
+                }
             }
         }
+        
+        if ( isset($args['settings']['border_radius']) ) {
+            $radius_settings = $args['settings']['border_radius'];
 
-        if ($add_border_radius) {
-            $radius_properties = $args['border_radius'] . 'px;';
-            if ($args['radius_apply_to'] == 'all') {
-                $styles[] = 'border-radius:' . $radius_properties;
-            }
-
-            if ($args['radius_apply_to'] == 'custom') {
-                $custom_radius = $args['custom_radius'];
-                if ($custom_radius['top-left'] == 1) $styles[] = 'border-top-left-radius:' . $radius_properties;
-                if ($custom_radius['top-right'] == 1) $styles[] = 'border-top-right-radius:' . $radius_properties;
-                if ($custom_radius['bottom-right'] == 1) $styles[] = 'border-bottom-right-radius:' . $radius_properties;
-                if ($custom_radius['bottom-left'] == 1) $styles[] = 'border-bottom-left-radius:' . $radius_properties;
-            }
+            if (!empty($radius_settings['top_left'])) $styles[] = 'border-top-left-radius:' . $radius_settings['top_left'].'px';
+            if (!empty($radius_settings['top_right'])) $styles[] = 'border-top-right-radius:' . $radius_settings['top_right'].'px';
+            if (!empty($radius_settings['bottom_right'])) $styles[] = 'border-bottom-right-radius:' . $radius_settings['bottom_right'].'px';
+            if (!empty($radius_settings['bottom_left'])) $styles[] = 'border-bottom-left-radius:' . $radius_settings['bottom_left'].'px';
         }
 
         return $styles;

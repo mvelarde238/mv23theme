@@ -9,7 +9,7 @@ class Button extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Button',
+			'button',
 			__( 'Button', 'default' )
 		);
 	}
@@ -30,7 +30,7 @@ class Button extends Component {
 
 	public static function get_fields() {
 		$fields = array(
-            Field::create( 'tab', 'Contenido' ), 
+            Field::create( 'tab', __('Contenido','default') ), 
             Field::create( 'text', 'text', 'Texto del botón')->set_width(25),
             Field::create( 'select', 'style', 'Estilo')->add_options( array(
                 '' => 'Link',
@@ -105,7 +105,7 @@ class Button extends Component {
 	}
 
     public static function display( $args ){
-		$args['additional_classes'] = array('componente');
+		$args['additional_classes'] = array('component');
         $args['__type'] = 'button-cmp';
 
         $style = $args['style'];

@@ -5,7 +5,6 @@ use Theme_Custom_Fields\Template_Engine\Id;
 use Theme_Custom_Fields\Template_Engine\Style;
 use Theme_Custom_Fields\Template_Engine\Actions;
 use Theme_Custom_Fields\Template_Engine\Classes;
-use Theme_Custom_Fields\Template_Engine\Animation;
 use Theme_Custom_Fields\Template_Engine\Video;
 use Theme_Custom_Fields\Template_Engine\Scroll_Animations;
 
@@ -54,15 +53,13 @@ class Template_Engine{
         $style_data = Style::get_data( $args );
 
         // this need to be done before classes checking:
-        if( $style_data['attribute'] ) $args = self::check_components_padding( $args, $style_data );
+        if( $style_data['attribute'] ) $args = self::check_components_space_around( $args, $style_data );
 
         $class = Classes::get_attribute( $args );
-        $animationAttrs = Animation::get_attributes( $args );
 
         if( $id ) $attributes[] = $id;
         if( $class ) $attributes[] = $class;
         if( $style_data['attribute'] ) $attributes[] = $style_data['attribute'];
-        if( $animationAttrs ) $attributes[] = $animationAttrs;
         if( SCROLL_ANIMATIONS ) $attributes[] = Scroll_Animations::get_attributes( $args );
         if (isset($args['additional_attributes']) && is_array($args['additional_attributes']) && !empty($args['additional_attributes'])){
             $attributes = array_merge( $attributes, $args['additional_attributes'] );
@@ -71,31 +68,31 @@ class Template_Engine{
         return ( !empty($attributes) ) ? implode(' ', $attributes ) : '';
     }
 
-    public static function check_components_padding( $args, $style_data ){
-        $no_padding_components = array('columnas-internas','columnas-simples','columnas','grid-de-items','column','grid__item','fila','separador','components-wrapper','modulos', 'content'); // content is a group inside Carrusel
+    public static function check_components_space_around( $args, $style_data ){
+        // $no_need_space_around = array('inner_columns','simple_columns','columns','items_grid','column','grid__item','spacer','components_wrapper','page_module', 'content'); // content is a group inside Carrusel
+        $no_need_space_around = array('page_module','content','page_header'); // content is a group inside Carrusel
 
         if ( 
-            isset( $args['__type'] ) && !in_array($args['__type'], $no_padding_components) &&
+            isset( $args['__type'] ) && !in_array($args['__type'], $no_need_space_around) &&
             ( $style_data['background'] || $style_data['borders'] || $style_data['box_shadow'])
         ){
-            $args['additional_classes'][] = 'add-padding';
+            $args['additional_classes'][] = 'need-space-around';
         } 
 
-        $need_spacing = array('columnas-internas','columnas-simples','columnas','grid-de-items','column','grid__item','fila','separador','components-wrapper','content');
+        // $need_spacing = array('inner_columns','simple_columns','columns','items_grid','column','grid__item','spacer','components_wrapper','content'); // content is a group inside Carrusel
 
-        if ( /* theses components dosnt need padding but need component spacing-separator when they have background, border or shadow */
-            isset( $args['__type'] ) && in_array($args['__type'], $need_spacing ) &&
-            ( $style_data['background'] || $style_data['borders'] || $style_data['box_shadow'])
-        ){
-            $args['additional_classes'][] = 'componente';
-        }
+        // if ( /* theses components dosnt need padding but need component spacing-separator when they have background, border or shadow */
+        //     isset( $args['__type'] ) && in_array($args['__type'], $need_spacing ) &&
+        //     ( $style_data['background'] || $style_data['borders'] || $style_data['box_shadow'])
+        // ){
+        //     $args['additional_classes'][] = 'componente';
+        // }
         return $args;
     }
 
     public static function check_layout( $key, $args ){
-        $layout = (isset($args['layout'])) ? $args['layout'] : 'layout1';
-        // 'layout4' for extended columns:
-        $containered_layouts = array('layout2','layout4');
+        $layout = (isset($args['settings']['layout'])) ? $args['settings']['layout']['key'] : 'layout1';
+        $containered_layouts = array('layout2');
 
         if ($key == 'start' && in_array($layout, $containered_layouts) ) return '<div class="container">';
         if ($key == 'end' && in_array($layout, $containered_layouts) ) return '</div>';
@@ -123,8 +120,14 @@ class Template_Engine{
     }
 
     public static function check_video_background( $args ){
+        return ( isset($args['settings']['video_background']) ) ?
+            self::check_video_settings( $args['settings']['video_background'] ) :
+            '';
+    }
+
+    public static function check_video_settings( $args ){
         $video = '';
-        $video_data = Video::get_video_data($args);
+        $video_data = Video::get_video_data( $args );
         if($video_data['code']){
             $code = $video_data['code'];
             $styles = $video_data['styles'];

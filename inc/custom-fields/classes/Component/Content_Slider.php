@@ -4,15 +4,13 @@ namespace Theme_Custom_Fields\Component;
 use Content_Selector;
 use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Component;
-use Theme_Custom_Fields\Common_Settings;
 use Theme_Custom_Fields\Template_Engine;
-use Ultimate_Fields\Container\Repeater_Group;
 
 class Content_Slider extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'Slider de Contenidos',
+			'content_slider',
 			__( 'Content Slider', 'default' )
 		);
 	}
@@ -23,15 +21,15 @@ class Content_Slider extends Component {
 
 	public static function get_fields() {
 		$fields = array(
-            Field::create( 'tab', 'Contenido' ),
+            Field::create( 'tab', __('Contenido','default') ),
             Field::create( 'repeater', 'content_slider', 'Slider de Contenidos' )
                 ->set_add_text('Agregar Slide')
                 ->hide_label()
                 ->add_group('Item', array(
                     'edit_mode' => 'popup',
                     'fields' => array(
-                        Field::create( 'tab', 'Contenido' ),
-                        Content_Selector::the_field( 'componentes', __('Components','default') ),
+                        Field::create( 'tab', __('Contenido','default') ),
+                        Content_Selector::the_field( 'components', __('Components','default') ),
                         Field::create( 'tab', __('Settings','default') ),
                         Field::create( 'tab', 'Settings' ),
                         Field::create( 'text', 'title', 'Título para el menú' )->set_width( 25 ),
@@ -128,7 +126,7 @@ class Content_Slider extends Component {
                 data-show-controls="<?=$show_controls?>" 
                 data-show-nav="<?=$show_nav?>">
                 <?php foreach ($items as $item): 
-                    $componentes = $item['componentes'];
+                    $components = $item['components'];
     
                     $title = (array_key_exists('title', $item) && $item['title']) ? $item['title'] : '';
     
@@ -165,7 +163,7 @@ class Content_Slider extends Component {
                     ?>
                     <div <?=$clases?> <?=$style?> data-title="<?=$title?>">
                         <?php 
-                        foreach ($componentes as $component ) { 
+                        foreach ($components as $component ) { 
                             echo Template_Engine::getInstance()->handle( $component['__type'], $component );
                         }
                         ?>

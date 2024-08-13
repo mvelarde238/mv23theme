@@ -14890,30 +14890,6 @@ window['Adaptive_Navbars'] = function () {
   });
 })(jQuery, console.log);
 (function ($, c) {
-  document.addEventListener('DOMContentLoaded', function () {
-    // var $columnas_laterales_extendidas = $('.columnas.expand-columns').find('div[class*=columnas-]');
-    var $columnas_laterales_extendidas = $('.columnas.expand-columns>div>div');
-    if ($columnas_laterales_extendidas.length) {
-      $.each($columnas_laterales_extendidas, function (i, e) {
-        var $first = $(e).children().first();
-        var $div = $('<div/>');
-        $first.append($div);
-        $div.attr({
-          'style': $first.attr('style'),
-          'class': 'extended-bg-first'
-        });
-        var $last = $(e).children().last();
-        var $div = $('<div/>');
-        $last.append($div);
-        $div.attr({
-          'style': $last.attr('style'),
-          'class': 'extended-bg-last'
-        });
-      });
-    }
-  });
-})(jQuery, console.log);
-(function ($, c) {
   $(function () {
     var setMarginElems = $('[data-setmargin]');
     if (setMarginElems.length > 0) {
@@ -14925,6 +14901,33 @@ window['Adaptive_Navbars'] = function () {
         }
       }
     }
+  });
+})(jQuery, console.log);
+(function ($, c) {
+  document.addEventListener('DOMContentLoaded', function () {
+    function extend_bg(element, key) {
+      var _$div$css;
+      var $div = $('<div/>');
+      $div.attr({
+        'style': $(element).attr('style'),
+        'class': 'extended-bg'
+      });
+      var contrary_side = key == 'left' ? 'right' : 'left';
+      var browser_side_distance = key == 'left' ? $(element).offset().left : $(window).width() - ($(element).offset().left + $(element).width());
+      $div.css((_$div$css = {}, _defineProperty(_$div$css, key, browser_side_distance * -1), _defineProperty(_$div$css, contrary_side, 0), _$div$css));
+      $div.appendTo(element);
+    }
+    function do_extend_bg() {
+      ['right', 'left'].forEach(function (key) {
+        var $extend_element = $('.extend-bg-to-' + key);
+        if ($extend_element.length) {
+          $.each($extend_element, function (i, e) {
+            extend_bg(e, key);
+          });
+        }
+      });
+    }
+    do_extend_bg();
   });
 })(jQuery, console.log);
 function targetBlank() {
@@ -15383,7 +15386,7 @@ var styleArray = [{
 }];
 (function ($, c) {
   document.addEventListener('DOMContentLoaded', function () {
-    var mapas = document.getElementsByClassName('mapa__gmap');
+    var mapas = document.getElementsByClassName('map__gmap');
     if (mapas.length) {
       var initMap = function initMap(element) {
         var lat = parseFloat(element.dataset.lat),
@@ -16159,18 +16162,16 @@ window['OffCanvas_Elements'] = function () {
 })(jQuery, console.log);
 (function ($, c) {
   document.addEventListener('DOMContentLoaded', function () {
-    var $testimonioModal = $('#testimonio-modal'),
-      $testimonioModal_content = $testimonioModal.find('.modal-content');
-    $(document).on('click', ".testimonio__open", function (ev) {
+    var $testimonialModal = $('#testimonial-modal'),
+      $testimonialModal_content = $testimonialModal.find('.modal-content');
+    $(document).on('click', ".testimonial__open", function (ev) {
       ev.preventDefault();
       var id = $(this).attr('data-id'),
         node = document.getElementById(id),
         clone = node.cloneNode(true);
-      $testimonioModal_content.html(clone);
-      $testimonioModal.modal('open');
+      $testimonialModal_content.html(clone);
+      $testimonialModal.modal('open');
     });
-
-    // --------------------------------------------------------------------------------------------------------------
   });
 })(jQuery, console.log);
 window['Theme_Navbars'] = function () {

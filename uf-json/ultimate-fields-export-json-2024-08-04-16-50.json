@@ -1,0 +1,32 @@
+[
+    {
+        "type": "container",
+        "id": "2df32b6a00",
+        "title": "lel",
+        "locations": [],
+        "fields": [
+            {
+                "name": "main_attr",
+                "label": "main attr",
+                "type": "Complex",
+                "complex_fields_source": "manual",
+                "complex_fields": [
+                    {
+                        "name": "id",
+                        "label": "ID",
+                        "type": "Text",
+                        "field_width": 50
+                    },
+                    {
+                        "name": "class",
+                        "label": "cLASS",
+                        "type": "Text",
+                        "field_width": 50
+                    }
+                ],
+                "complex_save_mode": "merge"
+            }
+        ],
+        "hash": "2df32b6a00"
+    }
+]
