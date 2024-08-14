@@ -15,8 +15,9 @@ jQuery(document).ready(function($) {
                 if (response.success) {
                     offset = response.data.offset;
 
+                    console.log( response.data.processed+' pages was migrated', response.data.control );
+                    
                     if (!response.data.complete) {
-                        console.log( response.data.processed+' pages was migrated', response.data.control );
                         processNextBatch();
                     } else {
                         offset = 0;

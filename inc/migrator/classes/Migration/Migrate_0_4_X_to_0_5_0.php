@@ -459,10 +459,10 @@ class Migrate_0_4_X_to_0_5_0{
             if( isset($data['border']) ){
                 $new_data['border'] = array( 'use' => 1 );
 
-                $apply_to = ( isset($data['border_apply_to]']) && $data['border_apply_to]'] != 'all' ) ?
+                $apply_to = ( isset($data['border_apply_to']) && $data['border_apply_to'] != 'all' ) ?
                     $data['custom_border'] : array( 'top' => 1 );
 
-                if( isset($data['border_apply_to]']) && $data['border_apply_to]'] != 'all' ){
+                if( isset($data['border_apply_to']) && $data['border_apply_to'] != 'all' ){
                     $new_data['border']['unlock'] = 1;
                 } else {
                     $new_data['border']['unlock'] = 0;
