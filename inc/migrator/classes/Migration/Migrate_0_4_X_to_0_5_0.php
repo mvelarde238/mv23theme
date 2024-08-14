@@ -129,19 +129,22 @@ class Migrate_0_4_X_to_0_5_0{
             if( $page->meta_key == 'v23_modulos' ){
                 $new_page_modules_data = $this->migrate_page_modules_data($old_data);
                 update_post_meta( $page->post_id, 'page_modules', $new_page_modules_data );
+                $page_control['new_data'] = $new_page_modules_data;
             }
             if( $page->meta_key == 'content_layout' ){
                 $new_blocks_layout_data = $this->migrate_content_layout_data($old_data);
                 update_post_meta($page->post_id, 'blocks_layout', $new_blocks_layout_data);
+                $page_control['new_data'] = $new_blocks_layout_data;
             }
             if( $page->meta_key == 'offcanvas_element_content' ){
                 $new_blocks_layout_data = $this->migrate_content_layout_data($old_data);
                 update_post_meta($page->post_id, 'offcanvas_element_content', $new_blocks_layout_data);
+                $page_control['new_data'] = $new_blocks_layout_data;
             }
             if( $page->meta_key == 'page_header_element' ){
                 $page_header_migrator = new Migrate_Page_Header_0_4_X_to_0_5_0( $page->post_id );
                 $new_data = $page_header_migrator->migrate();
-                $page_control['page_header_data'] = $new_data;
+                $page_control['new_data'] = $new_data;
             }
             
             $general_control[] = $page_control;
@@ -160,7 +163,7 @@ class Migrate_0_4_X_to_0_5_0{
 
         $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key IN ('v23_modulos', 'content_layout', 'page_header_element')");
 
-        add_option( 'theme_version', '0.5.0' );
+        // add_option( 'theme_version', '0.5.0' );
     
         wp_send_json_success(array(
             'complete' => true
@@ -647,16 +650,16 @@ class Migrate_0_4_X_to_0_5_0{
                 'tablet-1de2-1de2-1' => 'tablet-1de2-1de2-1',
                 'tablet-1de2-1-1de2' => 'tablet-1de2-1-1de2',
                 'mobile-1de3-1de3-1de3' => '1fr 1fr 1fr',
-                'tablet-1de2-1de2-1de2-1de2' => '1fr 1fr 1fr 1fr',
-                'mobile-1de2-1de2-1de2-1de2' => '1fr 1fr 1fr 1fr'
+                'tablet-1de2-1de2-1de2-1de2' => '1fr 1fr',
+                'mobile-1de2-1de2-1de2-1de2' => '1fr 1fr'
             );
-            for ($i=1; $i <= 4; $i++) { 
+            // start from column 2 since there arent "special widths" if nth_columnas is 1
+            for ($i=2; $i <= 4; $i++) { 
                 $count = 0;
                 foreach ($columns_widths as $key) {
                     $key_to_meta = ( $i == 2 ) ? $key : $key.'_'.$i;
-                    $device_meta = $device[$count].'_grid_'.$i;
-                    if( isset($component[$key_to_meta]) && $new_component['quantity'] == $i ){
-                        if( !empty($component[$key_to_meta]) ){
+                    if( $new_component['quantity'] == $i ){
+                        if( isset($component[$key_to_meta]) && !empty($component[$key_to_meta]) ){
                             // translate columns width key
                             $new_grid_meta = $translate_current_width[ $component[$key_to_meta] ];
                         } else {
@@ -665,6 +668,7 @@ class Migrate_0_4_X_to_0_5_0{
                             if ( $device[$count] == 't' ) $new_grid_meta = '1fr';
                             if ( $device[$count] == 'm' ) $new_grid_meta = '1fr';
                         }
+                        $device_meta = $device[$count].'_grid_'.$i;
                         $new_component[$device_meta] = $new_grid_meta;
                     }
                     unset( $new_component[$key_to_meta] );
