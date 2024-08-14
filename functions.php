@@ -18,7 +18,7 @@ define ('FONT_AWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7
 $polylang_path = trailingslashit( WP_PLUGIN_DIR ) . 'polylang/polylang.php';
 define ('IS_MULTILANGUAGE', in_array( $polylang_path, wp_get_active_and_valid_plugins() ));
 
-$plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'polylang/polylang.php';
+$plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'woocommerce/woocommerce.php';
 define ('WOOCOMMERCE_IS_ACTIVE', in_array( $plugin_path, wp_get_active_and_valid_plugins() ));
 
 $wp_media_folder_path = trailingslashit( WP_PLUGIN_DIR ) . 'wp-media-folder/wp-media-folder.php';
