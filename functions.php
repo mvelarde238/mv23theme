@@ -12,9 +12,13 @@ define ('IS_MOBILE', wp_is_mobile());
 define ('GM_IS_ACTIVE', get_option('activate_gm'));
 define ('SCROLL_ANIMATIONS', scroll_animation_is_active());
 define ('SCROLL_INDICATORS', scroll_indicators_is_active());
-define ('IS_MULTILANGUAGE', class_exists('Polylang') );
 define ('FONT_AWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css');
-$plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'woocommerce/woocommerce.php';
+
+// define ('IS_MULTILANGUAGE', class_exists('Polylang') );
+$polylang_path = trailingslashit( WP_PLUGIN_DIR ) . 'polylang/polylang.php';
+define ('IS_MULTILANGUAGE', in_array( $polylang_path, wp_get_active_and_valid_plugins() ));
+
+$plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'polylang/polylang.php';
 define ('WOOCOMMERCE_IS_ACTIVE', in_array( $plugin_path, wp_get_active_and_valid_plugins() ));
 
 $wp_media_folder_path = trailingslashit( WP_PLUGIN_DIR ) . 'wp-media-folder/wp-media-folder.php';

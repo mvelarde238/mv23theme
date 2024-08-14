@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+13-08-2024
+- Select->get_options() Fix: check if term is object
+    (inc/custom-fields/ultimate-fields/core/classes/Field/Select.php::218)
+
 01-07-2024
 - Add suffix/prefix/placeholder properties to Number field
     (libs/ultimate-fields/core/classes/Field/Number.php)

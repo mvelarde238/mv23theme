@@ -215,7 +215,9 @@ class Select extends Field {
 				$query_params = ( $this->query_params ) ? $this->query_params : '&hide_empty=1&depth=1';
 				$terms = get_terms('taxonomy='.$this->taxonomy.$query_params); 
 				foreach($terms as $term) {
-					$options[ $term->term_id ] = esc_html( $term->name );
+					if( is_object($term) ){
+						$options[ $term->term_id ] = esc_html( $term->name );
+					}
 				}
 			}
 			$this->options = $options;
