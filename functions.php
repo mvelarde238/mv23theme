@@ -7,7 +7,7 @@ require_once( 'inc/functions/utils.php' );
 // if( !defined('WP_POST_REVISIONS') ) define ('WP_POST_REVISIONS', false);
 if( !defined('THEME_DIR') ) define ('THEME_DIR', __DIR__);
 if( !defined('THEME_VERSION') ) define ('THEME_VERSION', '0.4.1');
-if( !defined('PARENT_THEME_TEST_MODE') ) define ('PARENT_THEME_TEST_MODE', false);
+if( !defined('PARENT_THEME_TEST_MODE') ) define ('PARENT_THEME_TEST_MODE', true);
 define ('IS_MOBILE', wp_is_mobile());
 define ('GM_IS_ACTIVE', get_option('activate_gm'));
 define ('SCROLL_ANIMATIONS', scroll_animation_is_active());
