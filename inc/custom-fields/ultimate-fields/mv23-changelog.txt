@@ -3,6 +3,8 @@ mv23 changelog-------------------------
 13-08-2024
 - Select->get_options() Fix: check if term is object
     (inc/custom-fields/ultimate-fields/core/classes/Field/Select.php::218)
+- Show the settings.main_attributes.id in page_module group
+    (inc/custom-fields/ultimate-fields/core/js/container/group.js:469-475)
 
 01-07-2024
 - Add suffix/prefix/placeholder properties to Number field

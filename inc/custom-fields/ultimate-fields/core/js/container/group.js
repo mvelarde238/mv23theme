@@ -466,6 +466,13 @@
 
 				if(data.hasOwnProperty('file')){
 					title = data.file_prepared[0].filename;
+				} else if( 
+					data.__type == 'page_module' && 
+					data.hasOwnProperty('settings') && 
+					data.settings.hasOwnProperty('main_attributes') &&
+					data.settings.main_attributes.hasOwnProperty('id') 
+				) {
+					title = data.settings.main_attributes.id;
 				} else {
 					title = tmpl( data );
 				}
