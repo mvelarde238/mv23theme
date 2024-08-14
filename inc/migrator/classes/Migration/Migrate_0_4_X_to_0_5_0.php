@@ -161,7 +161,7 @@ class Migrate_0_4_X_to_0_5_0{
 
         global $wpdb;
 
-        $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key IN ('v23_modulos', 'content_layout', 'page_header_element')");
+        // $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key IN ('v23_modulos', 'content_layout', 'page_header_element')");
 
         // add_option( 'theme_version', '0.5.0' );
     
@@ -616,6 +616,7 @@ class Migrate_0_4_X_to_0_5_0{
                 $new_component['column_'.$i.'_settings']['tablet_order'] = $component['columna_'.$i.'_settings']['tablet_order'];
                 $new_component['column_'.$i.'_settings']['theme_clases'] = $component['columna_'.$i.'_settings']['theme_clases'];
                 
+                $component['columna_'.$i.'_settings']['__type'] = '_fake_column_type'; // migrate_settings_data() need this prop 
                 $new_component['column_'.$i.'_settings']['settings'] = $this->migrate_settings_data( $component['columna_'.$i.'_settings'] );
 
                 // migrate old layout4 extend bg to column settings
