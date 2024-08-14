@@ -196,10 +196,7 @@ class Migrate_0_4_X_to_0_5_0{
                     }
                 }
 
-                $module['scroll_animations_settings'] = array();
-                if( isset($module['add_scroll_animation']) && $module['add_scroll_animation'] && !empty($module['scroll_animations']) ){
-                    $module['scroll_animations_settings']['groups'] = $module['scroll_animations'];
-                }
+                $module['scroll_animations_settings'] = $this->migrate_scroll_animations_data( $module );
 
                 // change __type name
                 $module['__type'] = 'page_module';
@@ -246,12 +243,7 @@ class Migrate_0_4_X_to_0_5_0{
         $new_component = $component;
 
         $new_component['settings'] = $this->migrate_settings_data( $component );
-
-        if( isset($component['add_scroll_animation']) && $component['add_scroll_animation'] && !empty($component['scroll_animations']) ){
-            $new_component['scroll_animations_settings']['groups'] = $component['scroll_animations'];
-        } else {
-            $new_component['scroll_animations_settings'] = array();
-        }
+        $new_component['scroll_animations_settings'] = $this->migrate_scroll_animations_data( $component );
 
         if( isset($component['actions']) && !empty($component['actions']) ){
             $new_component['actions_settings']['actions'] = $component['actions'];
@@ -535,6 +527,31 @@ class Migrate_0_4_X_to_0_5_0{
 
         if( isset($data['add_box_shadow']) && $data['add_box_shadow'] && isset($data['box_shadow']) && !empty($data['box_shadow']) ){
             $new_data['box_shadow'] = array( 'use' => 1, 'box_shadow' => $data['box_shadow'] );
+        }
+
+        return $new_data;
+    }
+
+    public function migrate_scroll_animations_data($component){
+        $new_data = array();
+
+        if( 
+            isset($component['add_scroll_animation']) && 
+            $component['add_scroll_animation'] && 
+            !empty($component['scroll_animations']) )
+        {
+            $new_data['groups'] = array();
+
+            foreach ($component['scroll_animations'] as $group) {
+                $new_group = $group;
+                // find .componente and replace with .component
+                $old_selector_1 = $new_group['settings']['trigger-element']['selector'];
+                $old_selector_2 = $new_group['settings']['element']['selector'];
+                $new_group['settings']['trigger-element']['selector'] = str_replace('.componente', '.component', $old_selector_1);
+                $new_group['settings']['element']['selector'] = str_replace('.componente', '.component', $old_selector_2);
+                // end---
+                $new_data['groups'][] = $new_group;
+            }
         }
 
         return $new_data;
