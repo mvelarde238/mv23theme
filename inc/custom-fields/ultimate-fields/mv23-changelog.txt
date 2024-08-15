@@ -9,7 +9,10 @@ mv23 changelog-------------------------
     (this could break field/font.js)
     (inc/custom-fields/ultimate-fields/core/js/uf.js:368)
 - Commented nonce verify cuz not working when is called from common settings container popup
+    - for image video preview
     (inc/custom-fields/ultimate-fields/core/classes/Field/File.php:237)
+    - for embed preview
+    (inc/custom-fields/ultimate-fields/core/classes/Field/Embed.php:137)
 
 01-07-2024
 - Add suffix/prefix/placeholder properties to Number field
