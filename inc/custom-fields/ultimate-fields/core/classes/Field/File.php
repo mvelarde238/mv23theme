@@ -324,7 +324,7 @@ class File extends Field {
 		if(
 			! isset( $_POST[ 'file_ids' ] )
 			|| ! isset( $_POST[ 'nonce' ] )
-		 	|| ! wp_verify_nonce( $_POST[ 'nonce' ], $this->get_nonce_action() )
+		//  	|| ! wp_verify_nonce( $_POST[ 'nonce' ], $this->get_nonce_action() )
 		 	|| ! is_array( $_POST[ 'file_ids' ] )
 		) {
 			exit;
