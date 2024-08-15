@@ -71,14 +71,33 @@
 
 			// Listen for saving
 			view.on( 'save', function() {
-                let raw_data = that.model.datastore.get( 'raw_data' );
+				var errors = this.model.get('_popup_container').model.validate();
 
-                let settings_control = that.filterData( this.model.get( 'name' ), raw_data );
+				if( ! errors ) {
+					let raw_data = that.model.datastore.get( 'raw_data' );
+                	let settings_control = that.filterData( this.model.get( 'name' ), raw_data );
+                	that.model.datastore.set( this.model.get( 'name' ), settings_control );
 
-                that.model.datastore.set( this.model.get( 'name' ), settings_control );
+					// Remove the overlay
+					overlayLayer.removeScreen();
+				} else {
+					var $body = $( '<div />' ), $ul = $( '<ul />' );
 
-				// Remove the overlay
-				overlayLayer.removeScreen();
+					_.each( errors, function( error ) {
+						$( '<li />' )
+							.appendTo( $ul )
+							.html( error );
+					});
+
+					$ul.appendTo( $body );
+
+					$body.append( $( '<p />' ).text( UltimateFields.L10N.localize( 'error-corrections' ) ) );
+
+					overlayLayer.alert({
+						title: UltimateFields.L10N.localize( 'container-issues-title' ),
+						body:  $body.children()
+					});
+				}
 			});
 		},
 
@@ -150,7 +169,9 @@
                     text: UltimateFields.L10N.localize( this.model.get( 'save_text' ) ),
                     icon: 'dashicons-yes',
                     type: 'primary',
-                    callback: function() { that.trigger( 'save' ); }
+                    callback: () => { 
+						that.trigger( 'save' ); 
+					}
                 }
 			];
 		},
@@ -175,13 +196,16 @@
                 ? window[containerName] 
                 : [];
 
-			this.$el.container({
+			var _popup_container = this.$el.container({
 				fields: fields,
 				id:     'common_settings_container',
-				layout: 'row'
+				layout: 'row',
+				validation_enabled: true
 			}, storedValues );
 
-			this.$el.on( 'values-changed', function( e, values ) {
+			this.model.set( '_popup_container', _popup_container);
+			
+			this.$el.on( 'values-changed', function( e, values ) {				
                 that.model.datastore.set( 'raw_data', values );
 			});
 		}

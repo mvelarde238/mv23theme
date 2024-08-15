@@ -5,6 +5,9 @@ mv23 changelog-------------------------
     (inc/custom-fields/ultimate-fields/core/classes/Field/Select.php::218)
 - Show the settings.main_attributes.id in page_module group
     (inc/custom-fields/ultimate-fields/core/js/container/group.js:469-475)
+- $.fn.container() - that allow creation of simple containers through jQuery - return view instead of this
+    (this could break field/font.js)
+    (inc/custom-fields/ultimate-fields/core/js/uf.js:368)
 
 01-07-2024
 - Add suffix/prefix/placeholder properties to Number field

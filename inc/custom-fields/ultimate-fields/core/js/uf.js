@@ -365,7 +365,7 @@
 			$el.trigger( 'values-changed', [ datastore.toJSON(), e.changed ] );
 		});
 
-		return this;
+		return view;
 	}
 
 })( jQuery );
