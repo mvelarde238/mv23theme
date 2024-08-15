@@ -701,8 +701,8 @@ class Migrate_0_4_X_to_0_5_0{
                 'tablet-1de2-1de2-1de2-1de2' => '1fr 1fr',
                 'mobile-1de2-1de2-1de2-1de2' => '1fr 1fr'
             );
-            // start from column 2 since there arent "special widths" if nth_columnas is 1
-            for ($i=2; $i <= 4; $i++) { 
+            // start from column 1 to set 1fr when columns_quantity is 1
+            for ($i=1; $i <= 4; $i++) { 
                 $count = 0;
                 foreach ($columns_widths as $key) {
                     $key_to_meta = ( $i == 2 ) ? $key : $key.'_'.$i;
