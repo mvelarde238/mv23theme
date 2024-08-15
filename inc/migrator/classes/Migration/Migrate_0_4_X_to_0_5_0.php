@@ -362,7 +362,10 @@ class Migrate_0_4_X_to_0_5_0{
             $new_component['items'] = $migrated_items;
         }
 
-        if( $component['__type'] == 'modulos-reusables' && !empty($component['seccion_reusable']) ){
+        if( 
+            ($component['__type'] == 'modulos-reusables' || $component['__type'] == 'componente-reusable') &&
+            !empty($component['seccion_reusable']) 
+        ){
             $new_component['reusable_section'] = $component['seccion_reusable'];
         }
 
@@ -765,6 +768,7 @@ class Migrate_0_4_X_to_0_5_0{
             'mapa' => 'map',
             'galeria' => 'gallery',
             'modulos-reusables' => 'reusable_section',
+            'componente-reusable' => 'reusable_section',
             'icono-y-texto' => 'icon_and_text',
             'testimonios' => 'testimonials',
             'columnas-internas' => 'inner_columns',
