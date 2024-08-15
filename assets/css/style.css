@@ -6845,6 +6845,12 @@ li.product:before {
 	z-index: 56;
 }
 
+.sticky,
+.pinned-block {
+	position: sticky;
+	top: var(--body-padding-top);
+}
+
 .columns {
 	display: grid;
 }

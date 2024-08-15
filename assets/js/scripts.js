@@ -3362,159 +3362,6 @@ var $jscomp$this = void 0;
     M.initializeJqueryWrapper(ScrollSpy, 'scrollSpy', 'M_ScrollSpy');
   }
 })(cash, M.anime);
-(function ($) {
-  'use strict';
-
-  var _defaults = {
-    top: 0,
-    bottom: Infinity,
-    offset: 0,
-    onPositionChange: null
-  };
-
-  /**
-   * @class
-   *
-   */
-  var Pushpin = /*#__PURE__*/function (_Component4) {
-    _inherits(Pushpin, _Component4);
-    var _super4 = _createSuper(Pushpin);
-    /**
-     * Construct Pushpin instance
-     * @constructor
-     * @param {Element} el
-     * @param {Object} options
-     */
-    function Pushpin(el, options) {
-      var _this12;
-      _classCallCheck(this, Pushpin);
-      _this12 = _super4.call(this, Pushpin, el, options);
-      _this12.el.M_Pushpin = _assertThisInitialized(_this12);
-
-      /**
-       * Options for the modal
-       * @member Pushpin#options
-       */
-      _this12.options = $.extend({}, Pushpin.defaults, options);
-      _this12.originalOffset = _this12.el.offsetTop;
-      Pushpin._pushpins.push(_assertThisInitialized(_this12));
-      _this12._setupEventHandlers();
-      _this12._updatePosition();
-      return _this12;
-    }
-    _createClass(Pushpin, [{
-      key: "destroy",
-      value:
-      /**
-       * Teardown component
-       */
-      function destroy() {
-        this.el.style.top = null;
-        this._removePinClasses();
-        this._removeEventHandlers();
-
-        // Remove pushpin Inst
-        var index = Pushpin._pushpins.indexOf(this);
-        Pushpin._pushpins.splice(index, 1);
-      }
-    }, {
-      key: "_setupEventHandlers",
-      value: function _setupEventHandlers() {
-        document.addEventListener('scroll', Pushpin._updateElements);
-      }
-    }, {
-      key: "_removeEventHandlers",
-      value: function _removeEventHandlers() {
-        document.removeEventListener('scroll', Pushpin._updateElements);
-      }
-    }, {
-      key: "_updatePosition",
-      value: function _updatePosition() {
-        var scrolled = M.getDocumentScrollTop() + this.options.offset;
-        if (this.options.top <= scrolled && this.options.bottom >= scrolled && !this.el.classList.contains('pinned')) {
-          this._removePinClasses();
-          this.el.style.top = "".concat(this.options.offset, "px");
-          this.el.classList.add('pinned');
-
-          // onPositionChange callback
-          if (typeof this.options.onPositionChange === 'function') {
-            this.options.onPositionChange.call(this, 'pinned');
-          }
-        }
-
-        // Add pin-top (when scrolled position is above top)
-        if (scrolled < this.options.top && !this.el.classList.contains('pin-top')) {
-          this._removePinClasses();
-          this.el.style.top = 0;
-          this.el.classList.add('pin-top');
-
-          // onPositionChange callback
-          if (typeof this.options.onPositionChange === 'function') {
-            this.options.onPositionChange.call(this, 'pin-top');
-          }
-        }
-
-        // Add pin-bottom (when scrolled position is below bottom)
-        if (scrolled > this.options.bottom && !this.el.classList.contains('pin-bottom')) {
-          this._removePinClasses();
-          this.el.classList.add('pin-bottom');
-          this.el.style.top = "".concat(this.options.bottom - this.originalOffset, "px");
-
-          // onPositionChange callback
-          if (typeof this.options.onPositionChange === 'function') {
-            this.options.onPositionChange.call(this, 'pin-bottom');
-          }
-        }
-      }
-    }, {
-      key: "_removePinClasses",
-      value: function _removePinClasses() {
-        // IE 11 bug (can't remove multiple classes in one line)
-        this.el.classList.remove('pin-top');
-        this.el.classList.remove('pinned');
-        this.el.classList.remove('pin-bottom');
-      }
-    }], [{
-      key: "defaults",
-      get: function get() {
-        return _defaults;
-      }
-    }, {
-      key: "init",
-      value: function init(els, options) {
-        return _get(_getPrototypeOf(Pushpin), "init", this).call(this, this, els, options);
-      }
-
-      /**
-       * Get Instance
-       */
-    }, {
-      key: "getInstance",
-      value: function getInstance(el) {
-        var domElem = !!el.jquery ? el[0] : el;
-        return domElem.M_Pushpin;
-      }
-    }, {
-      key: "_updateElements",
-      value: function _updateElements() {
-        for (var elIndex in Pushpin._pushpins) {
-          var pInstance = Pushpin._pushpins[elIndex];
-          pInstance._updatePosition();
-        }
-      }
-    }]);
-    return Pushpin;
-  }(Component);
-  /**
-   * @static
-   * @memberof Pushpin
-   */
-  Pushpin._pushpins = [];
-  M.Pushpin = Pushpin;
-  if (M.jQueryLoaded) {
-    M.initializeJqueryWrapper(Pushpin, 'pushpin', 'M_Pushpin');
-  }
-})(cash);
 !function (t, e) {
   "object" == (typeof exports === "undefined" ? "undefined" : _typeof(exports)) && "undefined" != typeof module ? e(exports) : "function" == typeof define && define.amd ? define(["exports"], e) : e((t = "undefined" != typeof globalThis ? globalThis : t || self).windowq = t.window || {});
 }(void 0, function (t) {
@@ -3665,7 +3512,7 @@ var $jscomp$this = void 0;
     }, {
       key: "onMove",
       value: function onMove(t) {
-        var _this13 = this;
+        var _this12 = this;
         var e = this.currentPointers.slice(),
           i = "changedTouches" in t ? Array.from(t.changedTouches || []).map(function (t) {
             return new r(t);
@@ -3676,10 +3523,10 @@ var $jscomp$this = void 0;
         try {
           var _loop = function _loop() {
             var t = _step.value;
-            var e = _this13.currentPointers.findIndex(function (e) {
+            var e = _this12.currentPointers.findIndex(function (e) {
               return e.id === t.id;
             });
-            e < 0 || (n.push(t), _this13.currentPointers[e] = t);
+            e < 0 || (n.push(t), _this12.currentPointers[e] = t);
           };
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
             _loop();
@@ -3845,11 +3692,11 @@ var $jscomp$this = void 0;
     }, {
       key: "localize",
       value: function localize(t) {
-        var _this14 = this;
+        var _this13 = this;
         var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
         t = String(t).replace(/\{\{(\w+).?(\w+)?\}\}/g, function (t, e, i) {
           var n = "";
-          return i ? n = _this14.option("".concat(e[0] + e.toLowerCase().substring(1), ".l10n.").concat(i)) : e && (n = _this14.option("l10n.".concat(e))), n || (n = t), n;
+          return i ? n = _this13.option("".concat(e[0] + e.toLowerCase().substring(1), ".l10n.").concat(i)) : e && (n = _this13.option("l10n.".concat(e))), n || (n = t), n;
         });
         for (var _i8 = 0; _i8 < e.length; _i8++) t = t.split(e[_i8][0]).join(e[_i8][1]);
         return t = t.replace(/\{\{(.*?)\}\}/g, function (t, e) {
@@ -3859,20 +3706,20 @@ var $jscomp$this = void 0;
     }, {
       key: "on",
       value: function on(t, e) {
-        var _this15 = this;
+        var _this14 = this;
         var i = [];
         "string" == typeof t ? i = t.split(" ") : Array.isArray(t) && (i = t), this.events || (this.events = new Map()), i.forEach(function (t) {
-          var i = _this15.events.get(t);
-          i || (_this15.events.set(t, []), i = []), i.includes(e) || i.push(e), _this15.events.set(t, i);
+          var i = _this14.events.get(t);
+          i || (_this14.events.set(t, []), i = []), i.includes(e) || i.push(e), _this14.events.set(t, i);
         });
       }
     }, {
       key: "off",
       value: function off(t, e) {
-        var _this16 = this;
+        var _this15 = this;
         var i = [];
         "string" == typeof t ? i = t.split(" ") : Array.isArray(t) && (i = t), i.forEach(function (t) {
-          var i = _this16.events.get(t);
+          var i = _this15.events.get(t);
           if (Array.isArray(i)) {
             var _t6 = i.indexOf(e);
             _t6 > -1 && i.splice(_t6, 1);
@@ -3882,12 +3729,12 @@ var $jscomp$this = void 0;
     }, {
       key: "emit",
       value: function emit(t) {
-        var _this17 = this;
+        var _this16 = this;
         for (var _len3 = arguments.length, e = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
           e[_key3 - 1] = arguments[_key3];
         }
         _toConsumableArray(this.events.get(t) || []).forEach(function (t) {
-          return t.apply(void 0, [_this17].concat(e));
+          return t.apply(void 0, [_this16].concat(e));
         }), "*" !== t && this.emit.apply(this, ["*", t].concat(e));
       }
     }]);
@@ -3906,18 +3753,18 @@ var $jscomp$this = void 0;
   });
   var m = /*#__PURE__*/function (_g) {
     _inherits(m, _g);
-    var _super5 = _createSuper(m);
+    var _super4 = _createSuper(m);
     function m() {
-      var _this18;
+      var _this17;
       var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       _classCallCheck(this, m);
-      _this18 = _super5.call(this, t), Object.defineProperty(_assertThisInitialized(_this18), "plugins", {
+      _this17 = _super4.call(this, t), Object.defineProperty(_assertThisInitialized(_this17), "plugins", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: {}
       });
-      return _this18;
+      return _this17;
     }
     _createClass(m, [{
       key: "attachPlugins",
@@ -4066,114 +3913,114 @@ var $jscomp$this = void 0;
     k = null;
   var I = /*#__PURE__*/function (_m) {
     _inherits(I, _m);
-    var _super6 = _createSuper(I);
+    var _super5 = _createSuper(I);
     function I(t) {
-      var _this19;
+      var _this18;
       var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       var i = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
       _classCallCheck(this, I);
       var n;
-      if (_this19 = _super6.call(this, e), Object.defineProperty(_assertThisInitialized(_this19), "pointerTracker", {
+      if (_this18 = _super5.call(this, e), Object.defineProperty(_assertThisInitialized(_this18), "pointerTracker", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this19), "resizeObserver", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "resizeObserver", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this19), "updateTimer", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "updateTimer", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this19), "clickTimer", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "clickTimer", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this19), "rAF", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "rAF", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this19), "isTicking", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "isTicking", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: !1
-      }), Object.defineProperty(_assertThisInitialized(_this19), "ignoreBounds", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "ignoreBounds", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: !1
-      }), Object.defineProperty(_assertThisInitialized(_this19), "isBouncingX", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "isBouncingX", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: !1
-      }), Object.defineProperty(_assertThisInitialized(_this19), "isBouncingY", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "isBouncingY", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: !1
-      }), Object.defineProperty(_assertThisInitialized(_this19), "clicks", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "clicks", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this19), "trackingPoints", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "trackingPoints", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: []
-      }), Object.defineProperty(_assertThisInitialized(_this19), "pwt", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "pwt", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this19), "cwd", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "cwd", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this19), "pmme", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "pmme", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: void 0
-      }), Object.defineProperty(_assertThisInitialized(_this19), "friction", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "friction", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this19), "state", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "state", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: v.Init
-      }), Object.defineProperty(_assertThisInitialized(_this19), "isDragging", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "isDragging", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: !1
-      }), Object.defineProperty(_assertThisInitialized(_this19), "container", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "container", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: void 0
-      }), Object.defineProperty(_assertThisInitialized(_this19), "content", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "content", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: void 0
-      }), Object.defineProperty(_assertThisInitialized(_this19), "spinner", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "spinner", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this19), "containerRect", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "containerRect", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
@@ -4183,7 +4030,7 @@ var $jscomp$this = void 0;
           innerWidth: 0,
           innerHeight: 0
         }
-      }), Object.defineProperty(_assertThisInitialized(_this19), "contentRect", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "contentRect", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
@@ -4199,7 +4046,7 @@ var $jscomp$this = void 0;
           width: 0,
           height: 0
         }
-      }), Object.defineProperty(_assertThisInitialized(_this19), "dragStart", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "dragStart", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
@@ -4210,7 +4057,7 @@ var $jscomp$this = void 0;
           left: 0,
           time: 0
         }
-      }), Object.defineProperty(_assertThisInitialized(_this19), "dragOffset", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "dragOffset", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
@@ -4219,17 +4066,17 @@ var $jscomp$this = void 0;
           y: 0,
           time: 0
         }
-      }), Object.defineProperty(_assertThisInitialized(_this19), "current", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "current", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: Object.assign({}, T)
-      }), Object.defineProperty(_assertThisInitialized(_this19), "target", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "target", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: Object.assign({}, T)
-      }), Object.defineProperty(_assertThisInitialized(_this19), "velocity", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "velocity", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
@@ -4241,25 +4088,25 @@ var $jscomp$this = void 0;
           e: 0,
           f: 0
         }
-      }), Object.defineProperty(_assertThisInitialized(_this19), "lockedAxis", {
+      }), Object.defineProperty(_assertThisInitialized(_this18), "lockedAxis", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: !1
       }), !t) throw new Error("Container Element Not Found");
-      _this19.container = t, _this19.initContent(), _this19.attachPlugins(Object.assign(Object.assign({}, I.Plugins), i)), _this19.emit("attachPlugins"), _this19.emit("init");
-      var o = _this19.content;
-      if (o.addEventListener("load", _this19.onLoad), o.addEventListener("error", _this19.onError), _this19.isContentLoading) {
-        if (_this19.option("spinner")) {
-          t.classList.add(_this19.cn("isLoading"));
+      _this18.container = t, _this18.initContent(), _this18.attachPlugins(Object.assign(Object.assign({}, I.Plugins), i)), _this18.emit("attachPlugins"), _this18.emit("init");
+      var o = _this18.content;
+      if (o.addEventListener("load", _this18.onLoad), o.addEventListener("error", _this18.onError), _this18.isContentLoading) {
+        if (_this18.option("spinner")) {
+          t.classList.add(_this18.cn("isLoading"));
           var _e5 = s(E);
-          !t.contains(o) || o.parentElement instanceof HTMLPictureElement ? _this19.spinner = t.appendChild(_e5) : _this19.spinner = (null === (n = o.parentElement) || void 0 === n ? void 0 : n.insertBefore(_e5, o)) || null;
+          !t.contains(o) || o.parentElement instanceof HTMLPictureElement ? _this18.spinner = t.appendChild(_e5) : _this18.spinner = (null === (n = o.parentElement) || void 0 === n ? void 0 : n.insertBefore(_e5, o)) || null;
         }
-        _this19.emit("beforeLoad");
+        _this18.emit("beforeLoad");
       } else queueMicrotask(function () {
-        _this19.enable();
+        _this18.enable();
       });
-      return _possibleConstructorReturn(_this19);
+      return _possibleConstructorReturn(_this18);
     }
     _createClass(I, [{
       key: "fits",
@@ -4419,17 +4266,17 @@ var $jscomp$this = void 0;
     }, {
       key: "attachObserver",
       value: function attachObserver() {
-        var _this20 = this;
+        var _this19 = this;
         var t;
         var e = function e() {
-          var t = _this20.container,
-            e = _this20.containerRect;
+          var t = _this19.container,
+            e = _this19.containerRect;
           return Math.abs(e.width - t.getBoundingClientRect().width) > .1 || Math.abs(e.height - t.getBoundingClientRect().height) > .1;
         };
         this.resizeObserver || void 0 === window.ResizeObserver || (this.resizeObserver = new ResizeObserver(function () {
-          _this20.updateTimer || (e() ? (_this20.onResize(), _this20.isMobile && (_this20.updateTimer = setTimeout(function () {
-            e() && _this20.onResize(), _this20.updateTimer = null;
-          }, 500))) : _this20.updateTimer && (clearTimeout(_this20.updateTimer), _this20.updateTimer = null));
+          _this19.updateTimer || (e() ? (_this19.onResize(), _this19.isMobile && (_this19.updateTimer = setTimeout(function () {
+            e() && _this19.onResize(), _this19.updateTimer = null;
+          }, 500))) : _this19.updateTimer && (clearTimeout(_this19.updateTimer), _this19.updateTimer = null));
         })), null === (t = this.resizeObserver) || void 0 === t || t.observe(this.container);
       }
     }, {
@@ -4468,7 +4315,7 @@ var $jscomp$this = void 0;
     }, {
       key: "animate",
       value: function animate() {
-        var _this21 = this;
+        var _this20 = this;
         this.setTargetForce();
         var t = this.friction,
           e = this.option("maxVelocity");
@@ -4477,7 +4324,7 @@ var $jscomp$this = void 0;
           t ? (this.velocity[_i14] *= 1 - t, e && !this.isScaling && (this.velocity[_i14] = Math.max(Math.min(this.velocity[_i14], e), -1 * e)), this.current[_i14] += this.velocity[_i14]) : this.current[_i14] = this.target[_i14];
         }
         this.setTransform(), this.setEdgeForce(), !this.isResting || this.isDragging ? this.rAF = requestAnimationFrame(function () {
-          return _this21.animate();
+          return _this20.animate();
         }) : this.stop("current");
       }
     }, {
@@ -4581,7 +4428,7 @@ var $jscomp$this = void 0;
     }, {
       key: "onClick",
       value: function onClick(t) {
-        var _this22 = this;
+        var _this21 = this;
         var e;
         "click" === t.type && 0 === t.detail && (this.dragOffset.x = 0, this.dragOffset.y = 0), this.isDragging && (null === (e = this.pointerTracker) || void 0 === e || e.clear(), this.trackingPoints = [], this.startDecelAnim());
         var i = t.target;
@@ -4616,14 +4463,14 @@ var $jscomp$this = void 0;
         if (l.time && !this.canZoomOut() && (Math.abs(r.x - l.x) > 2 || Math.abs(r.y - l.y) > 2)) return;
         this.dragStart.time = 0;
         var c = function c(e) {
-            _this22.option("zoom", t) && e && "string" == typeof e && /(iterateZoom)|(toggle(Zoom|Full|Cover|Max)|(zoomTo(Fit|Cover|Max)))/.test(e) && "function" == typeof _this22[e] && (t.preventDefault(), _this22[e]({
+            _this21.option("zoom", t) && e && "string" == typeof e && /(iterateZoom)|(toggle(Zoom|Full|Cover|Max)|(zoomTo(Fit|Cover|Max)))/.test(e) && "function" == typeof _this21[e] && (t.preventDefault(), _this21[e]({
               event: t
             }));
           },
           h = this.option("click", t),
           d = this.option("dblClick", t);
         d ? (this.clicks++, 1 == this.clicks && (this.clickTimer = setTimeout(function () {
-          1 === _this22.clicks ? (_this22.emit("click", t), !t.defaultPrevented && h && c(h)) : (_this22.emit("dblClick", t), t.defaultPrevented || c(d)), _this22.clicks = 0, _this22.clickTimer = null;
+          1 === _this21.clicks ? (_this21.emit("click", t), !t.defaultPrevented && h && c(h)) : (_this21.emit("dblClick", t), t.defaultPrevented || c(d)), _this21.clicks = 0, _this21.clickTimer = null;
         }, 350))) : (this.emit("click", t), !t.defaultPrevented && h && c(h));
       }
     }, {
@@ -5083,9 +4930,9 @@ var $jscomp$this = void 0;
     }, {
       key: "requestTick",
       value: function requestTick() {
-        var _this23 = this;
+        var _this22 = this;
         this.isTicking || (this.emit("startAnimation"), this.updateControls(), C(this.container, "is-animating"), this.isScaling && C(this.container, "is-scaling")), this.isTicking = !0, this.rAF || (this.rAF = requestAnimationFrame(function () {
-          return _this23.animate();
+          return _this22.animate();
         }));
       }
     }, {
@@ -5440,17 +5287,17 @@ var $jscomp$this = void 0;
     };
   var _ = /*#__PURE__*/function (_g4) {
     _inherits(_, _g4);
-    var _super7 = _createSuper(_);
+    var _super6 = _createSuper(_);
     function _(t, e) {
-      var _this24;
+      var _this23;
       _classCallCheck(this, _);
-      _this24 = _super7.call(this, e), Object.defineProperty(_assertThisInitialized(_this24), "instance", {
+      _this23 = _super6.call(this, e), Object.defineProperty(_assertThisInitialized(_this23), "instance", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: t
       });
-      return _this24;
+      return _this23;
     }
     _createClass(_, [{
       key: "attach",
@@ -5480,22 +5327,22 @@ var $jscomp$this = void 0;
   };
   var W = /*#__PURE__*/function (_ref8) {
     _inherits(W, _ref8);
-    var _super8 = _createSuper(W);
+    var _super7 = _createSuper(W);
     function W() {
-      var _this25;
+      var _this24;
       _classCallCheck(this, W);
-      _this25 = _super8.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this25), "isDynamic", {
+      _this24 = _super7.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this24), "isDynamic", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: !1
-      }), Object.defineProperty(_assertThisInitialized(_this25), "list", {
+      }), Object.defineProperty(_assertThisInitialized(_this24), "list", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
       });
-      return _this25;
+      return _this24;
     }
     _createClass(W, [{
       key: "onRefresh",
@@ -5588,32 +5435,32 @@ var $jscomp$this = void 0;
     Y = "prev";
   var V = /*#__PURE__*/function (_ref9) {
     _inherits(V, _ref9);
-    var _super9 = _createSuper(V);
+    var _super8 = _createSuper(V);
     function V() {
-      var _this26;
+      var _this25;
       _classCallCheck(this, V);
-      _this26 = _super9.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this26), "container", {
+      _this25 = _super8.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this25), "container", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this26), "prev", {
+      }), Object.defineProperty(_assertThisInitialized(_this25), "prev", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this26), "next", {
+      }), Object.defineProperty(_assertThisInitialized(_this25), "next", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this26), "isDom", {
+      }), Object.defineProperty(_assertThisInitialized(_this25), "isDom", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: !1
       });
-      return _this26;
+      return _this25;
     }
     _createClass(V, [{
       key: "onRefresh",
@@ -5683,27 +5530,27 @@ var $jscomp$this = void 0;
   });
   var Z = /*#__PURE__*/function (_ref10) {
     _inherits(Z, _ref10);
-    var _super10 = _createSuper(Z);
+    var _super9 = _createSuper(Z);
     function Z() {
-      var _this27;
+      var _this26;
       _classCallCheck(this, Z);
-      _this27 = _super10.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this27), "selectedIndex", {
+      _this26 = _super9.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this26), "selectedIndex", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this27), "target", {
+      }), Object.defineProperty(_assertThisInitialized(_this26), "target", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this27), "nav", {
+      }), Object.defineProperty(_assertThisInitialized(_this26), "nav", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
       });
-      return _this27;
+      return _this26;
     }
     _createClass(Z, [{
       key: "addAsTargetFor",
@@ -5819,97 +5666,97 @@ var $jscomp$this = void 0;
     J = "slide";
   var Q = /*#__PURE__*/function (_m3) {
     _inherits(Q, _m3);
-    var _super11 = _createSuper(Q);
+    var _super10 = _createSuper(Q);
     function Q(t) {
-      var _this28;
+      var _this27;
       var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       var i = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
       _classCallCheck(this, Q);
-      if (_this28 = _super11.call(this), Object.defineProperty(_assertThisInitialized(_this28), "bp", {
+      if (_this27 = _super10.call(this), Object.defineProperty(_assertThisInitialized(_this27), "bp", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: ""
-      }), Object.defineProperty(_assertThisInitialized(_this28), "lp", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "lp", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this28), "userOptions", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "userOptions", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: {}
-      }), Object.defineProperty(_assertThisInitialized(_this28), "userPlugins", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "userPlugins", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: {}
-      }), Object.defineProperty(_assertThisInitialized(_this28), "state", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "state", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: B.Init
-      }), Object.defineProperty(_assertThisInitialized(_this28), "page", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "page", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this28), "prevPage", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "prevPage", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this28), "container", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "container", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: void 0
-      }), Object.defineProperty(_assertThisInitialized(_this28), "viewport", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "viewport", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this28), "track", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "track", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this28), "slides", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "slides", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: []
-      }), Object.defineProperty(_assertThisInitialized(_this28), "pages", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "pages", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: []
-      }), Object.defineProperty(_assertThisInitialized(_this28), "panzoom", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "panzoom", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this28), "inTransition", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "inTransition", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: new Set()
-      }), Object.defineProperty(_assertThisInitialized(_this28), "contentDim", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "contentDim", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this28), "viewportDim", {
+      }), Object.defineProperty(_assertThisInitialized(_this27), "viewportDim", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
       }), "string" == typeof t && (t = document.querySelector(t)), !t || !S(t)) throw new Error("No Element found");
-      _this28.container = t, _this28.slideNext = D(_this28.slideNext.bind(_assertThisInitialized(_this28)), 150), _this28.slidePrev = D(_this28.slidePrev.bind(_assertThisInitialized(_this28)), 150), _this28.userOptions = e, _this28.userPlugins = i, queueMicrotask(function () {
-        _this28.processOptions();
+      _this27.container = t, _this27.slideNext = D(_this27.slideNext.bind(_assertThisInitialized(_this27)), 150), _this27.slidePrev = D(_this27.slidePrev.bind(_assertThisInitialized(_this27)), 150), _this27.userOptions = e, _this27.userPlugins = i, queueMicrotask(function () {
+        _this27.processOptions();
       });
-      return _possibleConstructorReturn(_this28);
+      return _possibleConstructorReturn(_this27);
     }
     _createClass(Q, [{
       key: "axis",
@@ -5945,7 +5792,7 @@ var $jscomp$this = void 0;
     }, {
       key: "processOptions",
       value: function processOptions() {
-        var _this29 = this;
+        var _this28 = this;
         var t, e;
         var i = p({}, Q.defaults, this.userOptions);
         var n = "";
@@ -5957,7 +5804,7 @@ var $jscomp$this = void 0;
           window.matchMedia(_t27).matches && u(_e19) && (n += _t27, p(i, _e19));
         }
         n === this.bp && this.state !== B.Init || (this.bp = n, this.state === B.Ready && (i.initialSlide = (null === (e = null === (t = this.pages[this.page]) || void 0 === t ? void 0 : t.slides[0]) || void 0 === e ? void 0 : e.index) || 0), this.state !== B.Init && this.destroy(), _get(_getPrototypeOf(Q.prototype), "setOptions", this).call(this, i), !1 === this.option("enabled") ? this.attachEvents() : setTimeout(function () {
-          _this29.init();
+          _this28.init();
         }, 0));
       }
     }, {
@@ -5980,7 +5827,7 @@ var $jscomp$this = void 0;
     }, {
       key: "initSlides",
       value: function initSlides() {
-        var _this30 = this;
+        var _this29 = this;
         var t = this.track;
         if (!t) return;
         var e = _toConsumableArray(this.slides),
@@ -5990,7 +5837,7 @@ var $jscomp$this = void 0;
             var _e20 = H({
               el: t,
               isDom: !0,
-              index: _this30.slides.length
+              index: _this29.slides.length
             });
             i.push(_e20);
           }
@@ -6030,7 +5877,7 @@ var $jscomp$this = void 0;
     }, {
       key: "initPanzoom",
       value: function initPanzoom() {
-        var _this31 = this;
+        var _this30 = this;
         this.panzoom && (this.panzoom.destroy(), this.panzoom = null);
         var t = this.option("Panzoom") || {};
         this.panzoom = new I(this.viewport, p({}, {
@@ -6042,19 +5889,19 @@ var $jscomp$this = void 0;
           click: !1,
           dblClick: !1,
           touch: function touch(t) {
-            return !(_this31.pages.length < 2 && !t.options.infinite);
+            return !(_this30.pages.length < 2 && !t.options.infinite);
           },
           bounds: function bounds() {
-            return _this31.getBounds();
+            return _this30.getBounds();
           },
           maxVelocity: function maxVelocity(t) {
-            return Math.abs(t.target[_this31.axis] - t.current[_this31.axis]) < 2 * _this31.viewportDim ? 100 : 0;
+            return Math.abs(t.target[_this30.axis] - t.current[_this30.axis]) < 2 * _this30.viewportDim ? 100 : 0;
           }
         }, t)), this.panzoom.on("*", function (t, e) {
           for (var _len4 = arguments.length, i = new Array(_len4 > 2 ? _len4 - 2 : 0), _key4 = 2; _key4 < _len4; _key4++) {
             i[_key4 - 2] = arguments[_key4];
           }
-          _this31.emit.apply(_this31, ["Panzoom.".concat(e), t].concat(i));
+          _this30.emit.apply(_this30, ["Panzoom.".concat(e), t].concat(i));
         }), this.panzoom.on("decel", this.onDecel), this.panzoom.on("refresh", this.onRefresh), this.panzoom.on("beforeTransform", this.onBeforeTransform), this.panzoom.on("endAnimation", this.onEndAnimation);
       }
     }, {
@@ -6427,7 +6274,7 @@ var $jscomp$this = void 0;
     }, {
       key: "lazyLoadImg",
       value: function lazyLoadImg(t, e) {
-        var _this32 = this;
+        var _this31 = this;
         var i = this,
           n = "f-fadeIn",
           o = "is-preloading";
@@ -6436,7 +6283,7 @@ var $jscomp$this = void 0;
         var l = function l() {
           a || (a = !0, r && (r.remove(), r = null), P(e, o), e.complete && (C(e, n), setTimeout(function () {
             P(e, n);
-          }, 350)), _this32.option("adaptiveHeight") && t.el && _this32.pages[_this32.page].slides.indexOf(t) > -1 && (i.updateMetrics(), i.setViewportHeight()), _this32.emit("load", t));
+          }, 350)), _this31.option("adaptiveHeight") && t.el && _this31.pages[_this31.page].slides.indexOf(t) > -1 && (i.updateMetrics(), i.setViewportHeight()), _this31.emit("load", t));
         };
         C(e, o), e.src = e.dataset.lazySrcset || e.dataset.lazySrc || "", delete e.dataset.lazySrc, delete e.dataset.lazySrcset, e.addEventListener("error", function () {
           l();
@@ -6911,7 +6758,7 @@ var $jscomp$this = void 0;
     }, {
       key: "destroy",
       value: function destroy() {
-        var _this33 = this;
+        var _this32 = this;
         if ([B.Destroy].includes(this.state)) return;
         this.state = B.Destroy;
         var t = this.container,
@@ -6924,7 +6771,7 @@ var $jscomp$this = void 0;
           passive: !1,
           capture: !1
         }), t.removeEventListener("slideTo", this.onSlideTo), window.removeEventListener("resize", this.onResize), s && (s.destroy(), this.panzoom = null), n && n.forEach(function (t) {
-          _this33.removeSlideEl(t);
+          _this32.removeSlideEl(t);
         }), this.detachPlugins(), e && (e.removeEventListener("scroll", this.onScroll), e.offsetParent && i && i.offsetParent && e.replaceWith.apply(e, _toConsumableArray(i.childNodes)));
         for (var _i49 = 0, _Object$entries4 = Object.entries(o); _i49 < _Object$entries4.length; _i49++) {
           var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i49], 2),
@@ -7166,10 +7013,10 @@ var $jscomp$this = void 0;
   var yt = "is-zooming-in";
   var wt = /*#__PURE__*/function (_ref12) {
     _inherits(wt, _ref12);
-    var _super12 = _createSuper(wt);
+    var _super11 = _createSuper(wt);
     function wt() {
       _classCallCheck(this, wt);
-      return _super12.apply(this, arguments);
+      return _super11.apply(this, arguments);
     }
     _createClass(wt, [{
       key: "onCreateSlide",
@@ -7257,7 +7104,7 @@ var $jscomp$this = void 0;
     }, {
       key: "setImage",
       value: function setImage(t, e) {
-        var _this34 = this;
+        var _this33 = this;
         var i = this.instance;
         t.src = e, this.process(t, e).then(function (e) {
           var n = t.contentEl,
@@ -7266,8 +7113,8 @@ var $jscomp$this = void 0;
             a = t.el;
           if (i.isClosing() || !n || !s) return;
           n.offsetHeight;
-          var r = !!i.isOpeningSlide(t) && _this34.getZoomInfo(t);
-          if (_this34.option("protected") && a) {
+          var r = !!i.isOpeningSlide(t) && _this33.getZoomInfo(t);
+          if (_this33.option("protected") && a) {
             a.addEventListener("contextmenu", function (t) {
               t.preventDefault();
             });
@@ -7288,8 +7135,8 @@ var $jscomp$this = void 0;
               var i = new Image();
               i.onload = t, i.onerror = e, i.src = l;
             })).then(function () {
-              i.hideLoading(t), t.state = lt.Opening, _this34.instance.emit("reveal", t), _this34.zoomIn(t).then(function () {
-                _h4(), _this34.instance.done(t);
+              i.hideLoading(t), t.state = lt.Opening, _this33.instance.emit("reveal", t), _this33.zoomIn(t).then(function () {
+                _h4(), _this33.instance.done(t);
               }, function () {}), _c4 && setTimeout(function () {
                 _h4();
               }, _a4 > 2500 ? 800 : 200);
@@ -7297,8 +7144,8 @@ var $jscomp$this = void 0;
               i.hideLoading(t), i.revealContent(t);
             });
           } else {
-            var _n18 = _this34.optionFor(t, "initialSize"),
-              _s9 = _this34.optionFor(t, "zoom"),
+            var _n18 = _this33.optionFor(t, "initialSize"),
+              _s9 = _this33.optionFor(t, "zoom"),
               _o6 = {
                 event: i.prevMouseMoveEvent || i.options.event,
                 friction: _s9 ? .12 : 0
@@ -7315,25 +7162,25 @@ var $jscomp$this = void 0;
     }, {
       key: "process",
       value: function process(t, e) {
-        var _this35 = this;
+        var _this34 = this;
         return new Promise(function (i, n) {
           var o;
-          var a = _this35.instance,
+          var a = _this34.instance,
             r = t.el;
           a.clearContent(t), a.showLoading(t);
-          var l = _this35.optionFor(t, "content");
+          var l = _this34.optionFor(t, "content");
           if ("string" == typeof l && (l = s(l)), !l || !S(l)) {
             if (l = document.createElement("img"), l instanceof HTMLImageElement) {
               var _i52 = "",
                 _n19 = t.caption;
-              _i52 = "string" == typeof _n19 && _n19 ? _n19.replace(/<[^>]+>/gi, "").substring(0, 1e3) : "Image ".concat(t.index + 1, " of ").concat((null === (o = a.carousel) || void 0 === o ? void 0 : o.pages.length) || 1), l.src = e || "", l.alt = _i52, l.draggable = !1, t.srcset && l.setAttribute("srcset", t.srcset), _this35.instance.isOpeningSlide(t) && (l.fetchPriority = "high");
+              _i52 = "string" == typeof _n19 && _n19 ? _n19.replace(/<[^>]+>/gi, "").substring(0, 1e3) : "Image ".concat(t.index + 1, " of ").concat((null === (o = a.carousel) || void 0 === o ? void 0 : o.pages.length) || 1), l.src = e || "", l.alt = _i52, l.draggable = !1, t.srcset && l.setAttribute("srcset", t.srcset), _this34.instance.isOpeningSlide(t) && (l.fetchPriority = "high");
             }
             t.sizes && l.setAttribute("sizes", t.sizes);
           }
           C(l, "fancybox-image"), t.imageEl = l, a.setContent(t, l, !1);
           t.panzoom = new I(r, p({
             transformParent: !0
-          }, _this35.option("Panzoom") || {}, {
+          }, _this34.option("Panzoom") || {}, {
             content: l,
             width: a.optionFor(t, "width", "auto"),
             height: a.optionFor(t, "height", "auto"),
@@ -7375,15 +7222,15 @@ var $jscomp$this = void 0;
     }, {
       key: "zoomIn",
       value: function zoomIn(t) {
-        var _this36 = this;
+        var _this35 = this;
         return new Promise(function (e, i) {
-          var n = _this36.instance,
+          var n = _this35.instance,
             s = n.container,
             o = t.panzoom,
             a = t.contentEl,
             r = t.el;
           o && o.updateMetrics();
-          var l = _this36.getZoomInfo(t);
+          var l = _this35.getZoomInfo(t);
           if (!(l && r && a && o && s)) return void i();
           var c = l.x,
             h = l.y,
@@ -7407,7 +7254,7 @@ var $jscomp$this = void 0;
           var g = {
               event: "mousemove" === o.panMode ? n.prevMouseMoveEvent || n.options.event : void 0
             },
-            m = _this36.optionFor(t, "initialSize");
+            m = _this35.optionFor(t, "initialSize");
           C(s, yt), n.hideLoading(t), "full" === m ? o.zoomToFull(g) : "cover" === m ? o.zoomToCover(g) : "max" === m ? o.zoomToMax(g) : o.reset(.172);
         });
       }
@@ -7534,10 +7381,10 @@ var $jscomp$this = void 0;
     At = ["image", "html", "ajax", "inline", "clone", "iframe", "map", "pdf", "html5video", "youtube", "vimeo"];
   var Lt = /*#__PURE__*/function (_ref13) {
     _inherits(Lt, _ref13);
-    var _super13 = _createSuper(Lt);
+    var _super12 = _createSuper(Lt);
     function Lt() {
       _classCallCheck(this, Lt);
-      return _super13.apply(this, arguments);
+      return _super12.apply(this, arguments);
     }
     _createClass(Lt, [{
       key: "onBeforeInitSlide",
@@ -7591,9 +7438,9 @@ var $jscomp$this = void 0;
     }, {
       key: "onRefresh",
       value: function onRefresh(t, e) {
-        var _this37 = this;
+        var _this36 = this;
         e.slides.forEach(function (t) {
-          t.el && (_this37.resizeIframe(t), _this37.setAspectRatio(t));
+          t.el && (_this36.resizeIframe(t), _this36.setAspectRatio(t));
         });
       }
     }, {
@@ -7650,7 +7497,7 @@ var $jscomp$this = void 0;
     }, {
       key: "setIframeContent",
       value: function setIframeContent(t) {
-        var _this38 = this;
+        var _this37 = this;
         var e = t.src,
           i = t.el;
         if (!e || "string" != typeof e || !i) return;
@@ -7672,7 +7519,7 @@ var $jscomp$this = void 0;
         n.showLoading(t), s.onload = function () {
           if (!s.src.length) return;
           var e = "true" !== s.dataset.ready;
-          s.dataset.ready = "true", _this38.resizeIframe(t), e ? n.revealContent(t) : n.hideLoading(t);
+          s.dataset.ready = "true", _this37.resizeIframe(t), e ? n.revealContent(t) : n.hideLoading(t);
         }, s.setAttribute("src", e), n.setContent(t, s, !1);
       }
     }, {
@@ -7862,32 +7709,32 @@ var $jscomp$this = void 0;
     kt = "ready";
   var It = /*#__PURE__*/function (_ref14) {
     _inherits(It, _ref14);
-    var _super14 = _createSuper(It);
+    var _super13 = _createSuper(It);
     function It() {
-      var _this39;
+      var _this38;
       _classCallCheck(this, It);
-      _this39 = _super14.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this39), "state", {
+      _this38 = _super13.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this38), "state", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: kt
-      }), Object.defineProperty(_assertThisInitialized(_this39), "inHover", {
+      }), Object.defineProperty(_assertThisInitialized(_this38), "inHover", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: !1
-      }), Object.defineProperty(_assertThisInitialized(_this39), "timer", {
+      }), Object.defineProperty(_assertThisInitialized(_this38), "timer", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this39), "progressBar", {
+      }), Object.defineProperty(_assertThisInitialized(_this38), "progressBar", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
       });
-      return _this39;
+      return _this38;
     }
     _createClass(It, [{
       key: "isActive",
@@ -8048,22 +7895,22 @@ var $jscomp$this = void 0;
   });
   var Dt = /*#__PURE__*/function (_ref15) {
     _inherits(Dt, _ref15);
-    var _super15 = _createSuper(Dt);
+    var _super14 = _createSuper(Dt);
     function Dt() {
-      var _this40;
+      var _this39;
       _classCallCheck(this, Dt);
-      _this40 = _super15.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this40), "ref", {
+      _this39 = _super14.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this39), "ref", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
       });
-      return _this40;
+      return _this39;
     }
     _createClass(Dt, [{
       key: "onPrepare",
       value: function onPrepare(t) {
-        var _this41 = this;
+        var _this40 = this;
         var e = t.carousel;
         if (!e) return;
         var i = t.container;
@@ -8073,7 +7920,7 @@ var $jscomp$this = void 0;
           pauseOnHover: !1,
           timeout: this.option("timeout"),
           progressParentEl: function progressParentEl() {
-            return _this41.option("progressParentEl") || null;
+            return _this40.option("progressParentEl") || null;
           },
           on: {
             start: function start() {
@@ -8177,62 +8024,62 @@ var $jscomp$this = void 0;
     _t = "thumbClipWidth";
   var $t = /*#__PURE__*/function (_ref16) {
     _inherits($t, _ref16);
-    var _super16 = _createSuper($t);
+    var _super15 = _createSuper($t);
     function $t() {
-      var _this42;
+      var _this41;
       _classCallCheck(this, $t);
-      _this42 = _super16.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this42), "type", {
+      _this41 = _super15.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this41), "type", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: "modern"
-      }), Object.defineProperty(_assertThisInitialized(_this42), "container", {
+      }), Object.defineProperty(_assertThisInitialized(_this41), "container", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this42), "track", {
+      }), Object.defineProperty(_assertThisInitialized(_this41), "track", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this42), "carousel", {
+      }), Object.defineProperty(_assertThisInitialized(_this41), "carousel", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this42), "thumbWidth", {
+      }), Object.defineProperty(_assertThisInitialized(_this41), "thumbWidth", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this42), "thumbClipWidth", {
+      }), Object.defineProperty(_assertThisInitialized(_this41), "thumbClipWidth", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this42), "thumbHeight", {
+      }), Object.defineProperty(_assertThisInitialized(_this41), "thumbHeight", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this42), "thumbGap", {
+      }), Object.defineProperty(_assertThisInitialized(_this41), "thumbGap", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this42), "thumbExtraGap", {
+      }), Object.defineProperty(_assertThisInitialized(_this41), "thumbExtraGap", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this42), "state", {
+      }), Object.defineProperty(_assertThisInitialized(_this41), "state", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: jt.Init
       });
-      return _this42;
+      return _this41;
     }
     _createClass($t, [{
       key: "isModern",
@@ -8561,22 +8408,22 @@ var $jscomp$this = void 0;
     qt = "aria-hidden";
   var Yt = /*#__PURE__*/function (_ref17) {
     _inherits(Yt, _ref17);
-    var _super17 = _createSuper(Yt);
+    var _super16 = _createSuper(Yt);
     function Yt() {
-      var _this43;
+      var _this42;
       _classCallCheck(this, Yt);
-      _this43 = _super17.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this43), "ref", {
+      _this42 = _super16.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this42), "ref", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this43), "hidden", {
+      }), Object.defineProperty(_assertThisInitialized(_this42), "hidden", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: !1
       });
-      return _this43;
+      return _this42;
     }
     _createClass(Yt, [{
       key: "isEnabled",
@@ -8608,7 +8455,7 @@ var $jscomp$this = void 0;
     }, {
       key: "onInit",
       value: function onInit() {
-        var _this44 = this;
+        var _this43 = this;
         var t;
         var e = this,
           i = e.instance,
@@ -8629,7 +8476,7 @@ var $jscomp$this = void 0;
           on: {
             ready: function ready(t) {
               var i = t.container;
-              i && _this44.hidden && (e.refresh(), i.style.transition = "none", e.hide(), i.offsetHeight, queueMicrotask(function () {
+              i && _this43.hidden && (e.refresh(), i.style.transition = "none", e.hide(), i.offsetHeight, queueMicrotask(function () {
                 i.style.transition = "", e.show();
               }));
             }
@@ -8838,22 +8685,22 @@ var $jscomp$this = void 0;
     Jt = "fancybox__toolbar";
   var Qt = /*#__PURE__*/function (_ref18) {
     _inherits(Qt, _ref18);
-    var _super18 = _createSuper(Qt);
+    var _super17 = _createSuper(Qt);
     function Qt() {
-      var _this45;
+      var _this44;
       _classCallCheck(this, Qt);
-      _this45 = _super18.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this45), "state", {
+      _this44 = _super17.apply(this, arguments), Object.defineProperty(_assertThisInitialized(_this44), "state", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: Zt.Init
-      }), Object.defineProperty(_assertThisInitialized(_this45), "container", {
+      }), Object.defineProperty(_assertThisInitialized(_this44), "container", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
       });
-      return _this45;
+      return _this44;
     }
     _createClass(Qt, [{
       key: "onReady",
@@ -9028,10 +8875,10 @@ var $jscomp$this = void 0;
     }, {
       key: "onDone",
       value: function onDone(t, e) {
-        var _this46 = this;
+        var _this45 = this;
         var i;
         null === (i = e.panzoom) || void 0 === i || i.on("afterTransform", function () {
-          _this46.instance.isCurrentSlide(e) && _this46.onRefresh();
+          _this45.instance.isCurrentSlide(e) && _this45.onRefresh();
         }), this.instance.isCurrentSlide(e) && this.onRefresh();
       }
     }, {
@@ -9049,7 +8896,7 @@ var $jscomp$this = void 0;
     }, {
       key: "createEl",
       value: function createEl(t) {
-        var _this47 = this;
+        var _this46 = this;
         var e = this.instance,
           i = e.carousel;
         if (!i) return null;
@@ -9087,7 +8934,7 @@ var $jscomp$this = void 0;
         } else {
           var _e59 = (this.option("items") || [])[t];
           _e59 && (n = s(this.instance.localize(_e59.tpl)), "function" == typeof _e59.click && n.addEventListener("click", function (t) {
-            t.preventDefault(), t.stopPropagation(), "function" == typeof _e59.click && _e59.click.call(_this47, _this47, t);
+            t.preventDefault(), t.stopPropagation(), "function" == typeof _e59.click && _e59.click.call(_this46, _this46, t);
           }));
         }
         var l = null == n ? void 0 : n.querySelector("svg");
@@ -9133,10 +8980,10 @@ var $jscomp$this = void 0;
   var te = {
       Hash: /*#__PURE__*/function (_ref19) {
         _inherits(Hash, _ref19);
-        var _super19 = _createSuper(Hash);
+        var _super18 = _createSuper(Hash);
         function Hash() {
           _classCallCheck(this, Hash);
-          return _super19.apply(this, arguments);
+          return _super18.apply(this, arguments);
         }
         _createClass(Hash, [{
           key: "onReady",
@@ -9237,97 +9084,97 @@ var $jscomp$this = void 0;
   var Ce = 0;
   var Te = /*#__PURE__*/function (_m4) {
     _inherits(Te, _m4);
-    var _super20 = _createSuper(Te);
+    var _super19 = _createSuper(Te);
     function Te() {
-      var _this48;
+      var _this47;
       var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       var i = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
       _classCallCheck(this, Te);
-      _this48 = _super20.call(this, e), Object.defineProperty(_assertThisInitialized(_this48), "userSlides", {
+      _this47 = _super19.call(this, e), Object.defineProperty(_assertThisInitialized(_this47), "userSlides", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: []
-      }), Object.defineProperty(_assertThisInitialized(_this48), "userPlugins", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "userPlugins", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: {}
-      }), Object.defineProperty(_assertThisInitialized(_this48), "idle", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "idle", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: !1
-      }), Object.defineProperty(_assertThisInitialized(_this48), "idleTimer", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "idleTimer", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this48), "clickTimer", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "clickTimer", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this48), "pwt", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "pwt", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this48), "ignoreFocusChange", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "ignoreFocusChange", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: !1
-      }), Object.defineProperty(_assertThisInitialized(_this48), "startedFs", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "startedFs", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: !1
-      }), Object.defineProperty(_assertThisInitialized(_this48), "state", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "state", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: rt.Init
-      }), Object.defineProperty(_assertThisInitialized(_this48), "id", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "id", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: 0
-      }), Object.defineProperty(_assertThisInitialized(_this48), "container", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "container", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this48), "caption", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "caption", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this48), "footer", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "footer", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this48), "carousel", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "carousel", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this48), "lastFocus", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "lastFocus", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: null
-      }), Object.defineProperty(_assertThisInitialized(_this48), "prevMouseMoveEvent", {
+      }), Object.defineProperty(_assertThisInitialized(_this47), "prevMouseMoveEvent", {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: void 0
-      }), ye || (ye = ot()), _this48.id = e.id || ++Ce, Pe.set(_this48.id, _assertThisInitialized(_this48)), _this48.userSlides = t, _this48.userPlugins = i, queueMicrotask(function () {
-        _this48.init();
+      }), ye || (ye = ot()), _this47.id = e.id || ++Ce, Pe.set(_this47.id, _assertThisInitialized(_this47)), _this47.userSlides = t, _this47.userPlugins = i, queueMicrotask(function () {
+        _this47.init();
       });
-      return _this48;
+      return _this47;
     }
     _createClass(Te, [{
       key: "isIdle",
@@ -9342,7 +9189,7 @@ var $jscomp$this = void 0;
     }, {
       key: "init",
       value: function init() {
-        var _this49 = this;
+        var _this48 = this;
         if (this.state === rt.Destroy) return;
         this.state = rt.Init, this.attachPlugins(Object.assign(Object.assign({}, Te.Plugins), this.userPlugins)), this.emit("init"), this.emit("attachPlugins"), !0 === this.option("hideScrollbar") && function () {
           if (!et) return;
@@ -9355,12 +9202,12 @@ var $jscomp$this = void 0;
           n < 0 && (n = 0), i.style.setProperty(ne, "".concat(n, "px")), s && e.style.setProperty(se, "".concat(s, "px")), e.classList.add(ie);
         }(), this.initLayout(), this.scale();
         var t = function t() {
-          _this49.initCarousel(_this49.userSlides), _this49.state = rt.Ready, _this49.attachEvents(), _this49.emit("ready"), setTimeout(function () {
-            _this49.container && _this49.container.setAttribute(oe, "false");
+          _this48.initCarousel(_this48.userSlides), _this48.state = rt.Ready, _this48.attachEvents(), _this48.emit("ready"), setTimeout(function () {
+            _this48.container && _this48.container.setAttribute(oe, "false");
           }, 16);
         };
         this.option("Fullscreen.autoStart") && ye && !ye.isFullscreen() ? ye.request().then(function () {
-          _this49.startedFs = !0, t();
+          _this48.startedFs = !0, t();
         })["catch"](function () {
           return t();
         }) : t();
@@ -9368,20 +9215,20 @@ var $jscomp$this = void 0;
     }, {
       key: "initLayout",
       value: function initLayout() {
-        var _this50 = this;
+        var _this49 = this;
         var t, e;
         var i = this.option("parentEl") || document.body,
           n = s(this.localize(this.option("tpl.main") || ""));
         n && (n.setAttribute("id", "fancybox-".concat(this.id)), n.setAttribute("aria-label", this.localize("{{MODAL}}")), n.classList.toggle(le, this.isCompact), C(n, this.option("mainClass") || ""), C(n, he), this.container = n, this.footer = n.querySelector(".fancybox__footer"), i.appendChild(n), C(document.documentElement, ee), we && xe || (we = document.createElement("span"), C(we, "fancybox-focus-guard"), we.setAttribute(pe, "0"), we.setAttribute(oe, "true"), we.setAttribute("aria-label", "Focus guard"), xe = we.cloneNode(), null === (t = n.parentElement) || void 0 === t || t.insertBefore(we, n), null === (e = n.parentElement) || void 0 === e || e.append(xe)), n.addEventListener("mousedown", function (t) {
           Ee = t.pageX, Se = t.pageY, P(n, ae);
         }), this.option("animated") && (C(n, re), setTimeout(function () {
-          _this50.isClosing() || P(n, re);
+          _this49.isClosing() || P(n, re);
         }, 350)), this.emit("initLayout"));
       }
     }, {
       key: "initCarousel",
       value: function initCarousel(t) {
-        var _this51 = this;
+        var _this50 = this;
         var e = this.container;
         if (!e) return;
         var n = e.querySelector(".fancybox__carousel");
@@ -9409,20 +9256,20 @@ var $jscomp$this = void 0;
           for (var _len5 = arguments.length, i = new Array(_len5 > 2 ? _len5 - 2 : 0), _key5 = 2; _key5 < _len5; _key5++) {
             i[_key5 - 2] = arguments[_key5];
           }
-          _this51.emit.apply(_this51, ["Carousel.".concat(e), t].concat(i));
+          _this50.emit.apply(_this50, ["Carousel.".concat(e), t].concat(i));
         }), s.on(["ready", "change"], function () {
-          _this51.manageCaption();
+          _this50.manageCaption();
         }), this.on("Carousel.removeSlide", function (t, e, i) {
-          _this51.clearContent(i), i.state = void 0;
+          _this50.clearContent(i), i.state = void 0;
         }), s.on("Panzoom.touchStart", function () {
           var t, e;
-          _this51.isCompact || _this51.endIdle(), (null === (t = document.activeElement) || void 0 === t ? void 0 : t.closest(".f-thumbs")) && (null === (e = _this51.container) || void 0 === e || e.focus());
+          _this50.isCompact || _this50.endIdle(), (null === (t = document.activeElement) || void 0 === t ? void 0 : t.closest(".f-thumbs")) && (null === (e = _this50.container) || void 0 === e || e.focus());
         }), s.on("settle", function () {
-          _this51.idleTimer || _this51.isCompact || !_this51.option("idle") || _this51.setIdle(), _this51.option("autoFocus") && !_this51.isClosing && _this51.checkFocus();
+          _this50.idleTimer || _this50.isCompact || !_this50.option("idle") || _this50.setIdle(), _this50.option("autoFocus") && !_this50.isClosing && _this50.checkFocus();
         }), this.option("dragToClose") && (s.on("Panzoom.afterTransform", function (t, e) {
-          var n = _this51.getSlide();
+          var n = _this50.getSlide();
           if (n && i(n.el)) return;
-          var s = _this51.container;
+          var s = _this50.container;
           if (s) {
             var _t65 = Math.abs(e.current.f),
               _i72 = _t65 < 1 ? "" : Math.max(.5, Math.min(1, 1 - _t65 / e.contentRect.fitHeight * 1.5));
@@ -9430,14 +9277,14 @@ var $jscomp$this = void 0;
           }
         }), s.on("Panzoom.touchEnd", function (t, e, n) {
           var s;
-          var o = _this51.getSlide();
+          var o = _this50.getSlide();
           if (o && i(o.el)) return;
           if (e.isMobile && document.activeElement && -1 !== ["TEXTAREA", "INPUT"].indexOf(null === (s = document.activeElement) || void 0 === s ? void 0 : s.nodeName)) return;
           var a = Math.abs(e.dragOffset.y);
-          "y" === e.lockedAxis && (a >= 200 || a >= 50 && e.dragOffset.time < 300) && (n && n.cancelable && n.preventDefault(), _this51.close(n, "f-throwOut" + (e.current.f < 0 ? "Up" : "Down")));
+          "y" === e.lockedAxis && (a >= 200 || a >= 50 && e.dragOffset.time < 300) && (n && n.cancelable && n.preventDefault(), _this50.close(n, "f-throwOut" + (e.current.f < 0 ? "Up" : "Down")));
         })), s.on("change", function (t) {
           var e;
-          var i = null === (e = _this51.getSlide()) || void 0 === e ? void 0 : e.triggerEl;
+          var i = null === (e = _this50.getSlide()) || void 0 === e ? void 0 : e.triggerEl;
           if (i) {
             var _e61 = new CustomEvent("slideTo", {
               bubbles: !0,
@@ -9447,7 +9294,7 @@ var $jscomp$this = void 0;
             i.dispatchEvent(_e61);
           }
         }), s.on(["refresh", "change"], function (t) {
-          var e = _this51.container;
+          var e = _this50.container;
           if (!e) return;
           var _iterator37 = _createForOfIteratorHelper(e.querySelectorAll("[data-fancybox-current-index]")),
             _step37;
@@ -9499,7 +9346,7 @@ var $jscomp$this = void 0;
               _iterator40.f();
             }
           }
-          var i = _this51.getSlide();
+          var i = _this50.getSlide();
           if (!i) return;
           var n = i.downloadSrc || "";
           n || "image" !== i.type || i.error || !ve(i[me]) || (n = i[me]);
@@ -9576,7 +9423,7 @@ var $jscomp$this = void 0;
     }, {
       key: "onClick",
       value: function onClick(t) {
-        var _this52 = this;
+        var _this51 = this;
         var e;
         var i = this.container,
           n = this.isCompact;
@@ -9591,7 +9438,7 @@ var $jscomp$this = void 0;
         var o = document.activeElement;
         if (be() && o && i.contains(o)) return;
         if (n && "image" === (null === (e = this.getSlide()) || void 0 === e ? void 0 : e.type)) return void (this.clickTimer ? (clearTimeout(this.clickTimer), this.clickTimer = null) : this.clickTimer = setTimeout(function () {
-          _this52.toggleIdle(), _this52.clickTimer = null;
+          _this51.toggleIdle(), _this51.clickTimer = null;
         }, 350));
         if (this.emit("click", t), t.defaultPrevented) return;
         var a = !1;
@@ -9680,7 +9527,7 @@ var $jscomp$this = void 0;
     }, {
       key: "manageCaption",
       value: function manageCaption() {
-        var _this53 = this;
+        var _this52 = this;
         var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : void 0;
         var e, i;
         var n = "fancybox__caption",
@@ -9707,7 +9554,7 @@ var $jscomp$this = void 0;
         var r = t.el;
         var l = this.optionFor(t, "caption", "");
         if (!l) return void (o && this.caption && this.animate(this.caption, "f-fadeOut", function () {
-          _this53.caption && (_this53.caption.innerHTML = "");
+          _this52.caption && (_this52.caption.innerHTML = "");
         }));
         var c = null;
         if (a) {
@@ -9828,20 +9675,20 @@ var $jscomp$this = void 0;
     }, {
       key: "revealContent",
       value: function revealContent(t, e) {
-        var _this54 = this;
+        var _this53 = this;
         var i = t.el,
           n = t.contentEl;
         i && n && (this.emit("reveal", t), this.hideLoading(t), t.state = lt.Opening, (e = this.isOpeningSlide(t) ? void 0 === e ? this.optionFor(t, "showClass") : e : "f-fadeIn") ? this.animate(n, e, function () {
-          _this54.done(t);
+          _this53.done(t);
         }) : this.done(t));
       }
     }, {
       key: "done",
       value: function done(t) {
-        var _this55 = this;
+        var _this54 = this;
         this.isClosing() || (t.state = lt.Ready, this.emit("done", t), C(t.el, "is-done"), this.isCurrentSlide(t) && this.option("autoFocus") && queueMicrotask(function () {
           var e;
-          null === (e = t.panzoom) || void 0 === e || e.updateControls(), _this55.option("autoFocus") && _this55.focus();
+          null === (e = t.panzoom) || void 0 === e || e.updateControls(), _this54.option("autoFocus") && _this54.focus();
         }), this.isOpeningSlide(t) && (P(this.container, he), !this.isCompact && this.option("idle") && this.setIdle()));
       }
     }, {
@@ -9859,14 +9706,14 @@ var $jscomp$this = void 0;
     }, {
       key: "showLoading",
       value: function showLoading(t) {
-        var _this56 = this;
+        var _this55 = this;
         t.state = lt.Loading;
         var e = t.el;
         if (!e) return;
         C(e, ce), this.emit("loading", t), t.spinnerEl || setTimeout(function () {
-          if (!_this56.isClosing() && !t.spinnerEl && t.state === lt.Loading) {
+          if (!_this55.isClosing() && !t.spinnerEl && t.state === lt.Loading) {
             var _i79 = s(E);
-            C(_i79, "fancybox-spinner"), t.spinnerEl = _i79, e.prepend(_i79), _this56.animate(_i79, "f-fadeIn");
+            C(_i79, "fancybox-spinner"), t.spinnerEl = _i79, e.prepend(_i79), _this55.animate(_i79, "f-fadeIn");
           }
         }, 250);
       }
@@ -9911,7 +9758,7 @@ var $jscomp$this = void 0;
     }, {
       key: "close",
       value: function close(t, e) {
-        var _this57 = this;
+        var _this56 = this;
         if (this.isClosing()) return;
         var i = new Event("shouldClose", {
           bubbles: !0,
@@ -9920,7 +9767,7 @@ var $jscomp$this = void 0;
         if (this.emit("shouldClose", i, t), i.defaultPrevented) return;
         t && t.cancelable && (t.preventDefault(), t.stopPropagation());
         var n = function n() {
-          _this57.proceedClose(t, e);
+          _this56.proceedClose(t, e);
         };
         this.startedFs && ye && ye.isFullscreen() ? Promise.resolve(ye.exit()).then(function () {
           return n();
@@ -9934,10 +9781,10 @@ var $jscomp$this = void 0;
     }, {
       key: "setIdle",
       value: function setIdle() {
-        var _this58 = this;
+        var _this57 = this;
         var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : !1;
         var e = function e() {
-          _this58.clearIdle(), _this58.idle = !0, C(_this58.container, "is-idle"), _this58.emit("setIdle");
+          _this57.clearIdle(), _this57.idle = !0, C(_this57.container, "is-idle"), _this57.emit("setIdle");
         };
         if (this.clearIdle(), !this.isClosing()) if (t) e();else {
           var _t72 = this.option("idle");
@@ -9962,9 +9809,9 @@ var $jscomp$this = void 0;
     }, {
       key: "toggleFullscreen",
       value: function toggleFullscreen() {
-        var _this59 = this;
+        var _this58 = this;
         ye && (ye.isFullscreen() ? ye.exit() : ye.request().then(function () {
-          _this59.startedFs = !0;
+          _this58.startedFs = !0;
         }));
       }
     }, {
@@ -9975,7 +9822,7 @@ var $jscomp$this = void 0;
     }, {
       key: "proceedClose",
       value: function proceedClose(t, e) {
-        var _this60 = this;
+        var _this59 = this;
         var i, n;
         this.state = rt.Closing, this.clearIdle(), this.detachEvents();
         var s = this.container,
@@ -10004,9 +9851,9 @@ var $jscomp$this = void 0;
         this.emit("close", t), this.state !== rt.CustomClosing ? (void 0 === e && a && (e = this.optionFor(a, "hideClass")), e && a ? (this.animate(a.contentEl, e, function () {
           o && o.emit("removeSlide", a);
         }), setTimeout(function () {
-          _this60.destroy();
+          _this59.destroy();
         }, 500)) : this.destroy()) : setTimeout(function () {
-          _this60.destroy();
+          _this59.destroy();
         }, 500);
       }
     }, {
@@ -14739,7 +14586,7 @@ do_get_implementation();
 window['Adaptive_Navbars'] = function () {
   var instances = [];
   function Adaptive_Navbar(el) {
-    var _this61 = this;
+    var _this60 = this;
     this.container = el;
     this.container.classList.add('adaptive-navbar');
     this.primary = this.container.querySelector('ul');
@@ -14756,8 +14603,8 @@ window['Adaptive_Navbars'] = function () {
     this.moreBtn = this.moreLi.querySelector('a[type=button]');
     this.moreBtn.addEventListener('click', function (e) {
       e.preventDefault();
-      _this61.container.classList.toggle('--show-secondary');
-      _this61.moreBtn.setAttribute('aria-expanded', _this61.container.classList.contains('--show-secondary'));
+      _this60.container.classList.toggle('--show-secondary');
+      _this60.moreBtn.setAttribute('aria-expanded', _this60.container.classList.contains('--show-secondary'));
     });
 
     // Bind all private methods
@@ -15553,7 +15400,7 @@ window['OffCanvas_Elements'] = function () {
   }
   Offcanvas_Element.prototype = {
     _handle_async_settings: function _handle_async_settings() {
-      var _this62 = this;
+      var _this61 = this;
       if (this.content_type == 'async' && _typeof(this.async_settings) == "object") {
         var fetchUrl = []; // in case of page source i need to try in two paths pages/posts
         var errorMsg = [];
@@ -15582,12 +15429,12 @@ window['OffCanvas_Elements'] = function () {
             break;
         }
         this.M_instance_options.onOpenStart = function () {
-          var el = _this62.M_instance.el;
+          var el = _this61.M_instance.el;
           var modal_content = el.querySelector('.modal-content');
-          if (_this62.async_settings.clear_on_close) modal_content.innerHTML = "";
-          _this62._check_async_attributes('beforeSend', el);
+          if (_this61.async_settings.clear_on_close) modal_content.innerHTML = "";
+          _this61._check_async_attributes('beforeSend', el);
           if (content_source === 'link') {
-            var trigger = _this62.M_instance._openingTrigger;
+            var trigger = _this61.M_instance._openingTrigger;
             var trigger_href = _typeof(trigger) == 'object' && trigger.tagName == 'A' ? trigger.getAttribute('href') : '';
             if (trigger_href != '') {
               fetchUrl = [trigger_href];
@@ -15596,32 +15443,32 @@ window['OffCanvas_Elements'] = function () {
           }
           if (fetchUrl.length > 0) {
             fetch(fetchUrl[0]).then(function (response) {
-              return _this62._handle_async_response(response);
+              return _this61._handle_async_response(response);
             }).then(function (data) {
-              return _this62._handle_async_data(data, el);
+              return _this61._handle_async_data(data, el);
             })["catch"](function (error) {
-              _this62._handle_async_error(error, errorMsg[0], el, true);
+              _this61._handle_async_error(error, errorMsg[0], el, true);
               return fetch(fetchUrl[1]).then(function (response) {
-                return _this62._handle_async_response(response);
+                return _this61._handle_async_response(response);
               }).then(function (data) {
-                return _this62._handle_async_data(data, el);
+                return _this61._handle_async_data(data, el);
               })["catch"](function (error) {
-                return _this62._handle_async_error(error, errorMsg[1], el, true);
+                return _this61._handle_async_error(error, errorMsg[1], el, true);
               });
             });
           } else {
-            _this62._check_async_attributes('error', el);
-            el.querySelector('.modal-content').innerHTML = "<p class=\"center-align\">Some setting in ".concat(_this62.offcanvas_element_id, " is wrong.<p>");
+            _this61._check_async_attributes('error', el);
+            el.querySelector('.modal-content').innerHTML = "<p class=\"center-align\">Some setting in ".concat(_this61.offcanvas_element_id, " is wrong.<p>");
           }
         };
       }
     },
     _check_async_attributes: function _check_async_attributes(status, el) {
-      var _this63 = this;
+      var _this62 = this;
       var async_settings = this.async_settings;
       if (async_settings.attributes.length) {
         async_settings.attributes.forEach(function (item) {
-          if (item.status == status) _this63._assign_attribute(el, item.attribute, item.value);
+          if (item.status == status) _this62._assign_attribute(el, item.attribute, item.value);
         });
       }
     },
@@ -15729,26 +15576,26 @@ window['OffCanvas_Elements'] = function () {
       return formated_color;
     },
     _handle_trigger_events: function _handle_trigger_events() {
-      var _this64 = this;
+      var _this63 = this;
       var offcanvas_element_id = this.offcanvas_element_id,
         trigger_events = this.trigger_events;
       trigger_events.forEach(function (triggerData) {
         switch (triggerData.__type) {
           case 'click':
-            _this64._handle_click_event(triggerData);
+            _this63._handle_click_event(triggerData);
             break;
           case 'custom_event':
-            _this64._handle_custom_event(triggerData);
+            _this63._handle_custom_event(triggerData);
             break;
           case 'scroll':
             var cookie_name = triggerData.custom_cookie ? triggerData.cookie_name : offcanvas_element_id + '-shown';
             var storage_type = triggerData.custom_cookie ? triggerData.storage_type : 'session';
             var storage = storage_type === "session" ? sessionStorage : localStorage;
             if (triggerData.settings_type == 'basic') {
-              _this64._handle_basic_scroll_event(triggerData, storage, cookie_name);
+              _this63._handle_basic_scroll_event(triggerData, storage, cookie_name);
             }
             if (triggerData.settings_type == 'scrollmagic' && MV23_GLOBALS.scrollAnimations) {
-              _this64._handle_scrollmagic_event(triggerData, storage, cookie_name);
+              _this63._handle_scrollmagic_event(triggerData, storage, cookie_name);
             }
             break;
           default:
@@ -15887,7 +15734,7 @@ window['OffCanvas_Elements'] = function () {
 }();
 (function ($, c) {
   document.addEventListener('DOMContentLoaded', function () {
-    var _this65 = this;
+    var _this64 = this;
     OffCanvas_Elements.init(OFFCANVAS_ELEMENTS);
 
     /* 
@@ -15898,48 +15745,9 @@ window['OffCanvas_Elements'] = function () {
       var OCE_element = OffCanvas_Elements.getElementById(element.dataset.offcanvasElement);
       OCE_element && element.addEventListener('click', function (ev) {
         ev.preventDefault();
-        OCE_element.M_instance.open(_this65);
+        OCE_element.M_instance.open(_this64);
       });
     });
-  });
-})(jQuery, console.log);
-(function ($, c) {
-  $(window).load(function () {
-    // ****************************************************************************************************
-    // ****************************************************************************************************
-    var header_height = parseInt(MV23_GLOBALS.headerHeight);
-    var $pinnedBlocks = $('.pinned-block');
-    if (viewport.width > 1024) {
-      $pinnedBlocks.each(function () {
-        var $this = $(this),
-          $target = $this.parent();
-        $this.css('width', $target.css('width'));
-        if ($target.height() > $this.height()) {
-          setTimeout(function () {
-            $this.pushpin({
-              top: $target.offset().top,
-              bottom: $target.offset().top + $target.outerHeight() - $this.height(),
-              offset: header_height
-            });
-          }, 1000);
-        }
-      });
-    }
-    window.addEventListener('resize', function (event) {
-      $pinnedBlocks.each(function () {
-        var $this = $(this),
-          $target = $this.parent();
-        if (window.innerWidth > 1024) {
-          $this.css('width', $target.css('width'));
-        } else {
-          $this.pushpin('remove');
-          $this.css('width', '100%');
-        }
-      });
-    });
-
-    // ****************************************************************************************************
-    // ****************************************************************************************************
   });
 })(jQuery, console.log);
 (function ($, c) {
@@ -16194,7 +16002,7 @@ window['Theme_Navbars'] = function () {
   }
   Theme_Navbar.prototype = {
     _handle_toggle_submenu_button: function _handle_toggle_submenu_button() {
-      var _this66 = this;
+      var _this65 = this;
       var has_children = this.el.querySelectorAll('li.menu-item-has-children');
       var _loop2 = function _loop2() {
         var item_has_children = has_children[i];
@@ -16203,10 +16011,10 @@ window['Theme_Navbars'] = function () {
           var expanded = toggle_submenu_button.getAttribute('aria-expanded') === 'true' || false;
           if (expanded) {
             toggle_submenu_button.setAttribute('aria-expanded', false);
-            _this66._hide_submenu(item_has_children);
+            _this65._hide_submenu(item_has_children);
           } else {
             toggle_submenu_button.setAttribute('aria-expanded', true);
-            _this66._show_submenu(item_has_children);
+            _this65._show_submenu(item_has_children);
           }
         });
       };
@@ -16215,15 +16023,15 @@ window['Theme_Navbars'] = function () {
       }
     },
     _handle_menu_item_with_children_mouseover: function _handle_menu_item_with_children_mouseover() {
-      var _this67 = this;
+      var _this66 = this;
       var has_children = this.el.querySelectorAll('li.menu-item-has-children');
       var _loop3 = function _loop3() {
         var item_has_children = has_children[i];
         item_has_children.addEventListener('mouseover', function (event) {
-          _this67._handle_mouse_event(event, item_has_children, _this67._show_submenu);
+          _this66._handle_mouse_event(event, item_has_children, _this66._show_submenu);
         });
         item_has_children.addEventListener('mouseleave', function (event) {
-          _this67._handle_mouse_event(event, item_has_children, _this67._hide_submenu);
+          _this66._handle_mouse_event(event, item_has_children, _this66._hide_submenu);
         });
       };
       for (var i = 0; i < has_children.length; i++) {
