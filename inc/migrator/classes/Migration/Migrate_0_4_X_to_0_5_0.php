@@ -161,7 +161,7 @@ class Migrate_0_4_X_to_0_5_0{
 
         global $wpdb;
 
-        // $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key IN ('v23_modulos', 'content_layout', 'page_header_element')");
+        $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key IN ('v23_modulos', 'content_layout', 'page_header_element')");
 
         // add_option( 'theme_version', '0.5.0' );
     
@@ -340,6 +340,19 @@ class Migrate_0_4_X_to_0_5_0{
                 $new_carrusel_items[] = $new_item;
             }
             $new_component['items'] = $new_carrusel_items;
+        }
+
+        if( $component['__type'] == 'grid-de-items' && !empty($component['grid_items']) ){
+            $migrated_items = array();
+            foreach ($component['grid_items'] as $item) {
+                $item['components'] = $item['componentes'];
+                $new_item = $this->process_inner_components( $item, array('components') );
+
+                $new_item['settings'] = $this->migrate_settings_data( $item );
+                $new_item = $this->unset_old_settings_keys( $new_item );
+                $migrated_items[] = $new_item;
+            }
+            $new_component['items'] = $migrated_items;
         }
 
         if( $component['__type'] == 'modulos-reusables' && !empty($component['seccion_reusable']) ){
@@ -742,7 +755,8 @@ class Migrate_0_4_X_to_0_5_0{
             'testimonios' => 'testimonials',
             'columnas-internas' => 'inner_columns',
             'components-wrapper' => 'components_wrapper',
-            '_video' => 'video'
+            '_video' => 'video',
+            'grid-de-items' => 'items_grid'
         );
 
         $translation = ( isset($translations[$type]) ) ? $translations[$type] : $type;
@@ -751,7 +765,7 @@ class Migrate_0_4_X_to_0_5_0{
     }
 
     public function unset_old_settings_keys( $component ){
-        $keys_to_unset = array( 'componentes', 'module_id', 'class', 'visibility', 'layout', 'delete_margins', 'padding','edit_background', 'bgi', 'bgi_options', 'add_bgc', 'bgc', 'text_color', 'parallax', 'show_border', 'border', 'border_apply_to', 'custom_border', 'add_border_radius', 'border_radius', 'radius_apply_to', 'custom_radius', 'add_video_bg', 'bgvideo', 'add_scroll_animation', 'scroll_animations','componentes','actions','color_de_fondo','color_scheme', 'margin', 'add_box_shadow', 'box_shadow','testimonios', 'seccion_reusable', 'components_margin', 'theme_clases', 'add_animation', 'animation'
+        $keys_to_unset = array( 'componentes', 'module_id', 'class', 'visibility', 'layout', 'delete_margins', 'padding','edit_background', 'bgi', 'bgi_options', 'add_bgc', 'bgc', 'text_color', 'parallax', 'show_border', 'border', 'border_apply_to', 'custom_border', 'add_border_radius', 'border_radius', 'radius_apply_to', 'custom_radius', 'add_video_bg', 'bgvideo', 'add_scroll_animation', 'scroll_animations','actions','color_de_fondo','color_scheme', 'margin', 'add_box_shadow', 'box_shadow','testimonios', 'seccion_reusable', 'components_margin', 'theme_clases', 'add_animation', 'animation', 'grid_items'
         );
 
         if( $component['__type'] != 'video' ) $keys_to_unset[] = 'video_settings';

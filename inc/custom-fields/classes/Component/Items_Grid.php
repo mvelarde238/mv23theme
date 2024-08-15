@@ -41,7 +41,7 @@ class Items_Grid extends Component {
 
 		$fields = array(
             Field::create( 'tab', __('Contenido','default') ),
-            Field::create( 'repeater', 'grid_items', '' )
+            Field::create( 'repeater', 'items', '' )
                 ->set_add_text('Agregar')
                 ->add_group( $content_group ),
 
@@ -60,8 +60,8 @@ class Items_Grid extends Component {
 	public static function display( $args ){
         $args['additional_classes'] = array('items-grid');
 
-        $grid_items = $args['grid_items'];
-        $nth_items = count($grid_items);
+        $items = $args['items'];
+        $nth_items = count($items);
         if ($nth_items < 1) return; 
 
         $items_in_desktop = (!empty($args['items_in_desktop'])) ? $args['items_in_desktop'] : $nth_items;
@@ -75,7 +75,7 @@ class Items_Grid extends Component {
 		echo Template_Engine::component_wrapper('start', $args);
         
         echo '<div class="items-grid__list l'.$items_in_desktop.' m'.$items_in_tablet.' s'.$items_in_mobile.'">';
-		foreach ($grid_items as $item_args): 
+		foreach ($items as $item_args): 
 			$item_args['__type'] = 'grid__item'; 
             $item_args['additional_classes'] = array('items-grid__list-item');
             
