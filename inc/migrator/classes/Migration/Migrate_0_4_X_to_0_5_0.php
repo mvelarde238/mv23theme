@@ -122,6 +122,7 @@ class Migrate_0_4_X_to_0_5_0{
         foreach ($pages as $page) {
             $page_control = array(
                 'title' => get_the_title( $page->post_id ),
+                'id' => $page->post_id,
                 'meta' => $page->meta_key
             );
 
@@ -264,7 +265,13 @@ class Migrate_0_4_X_to_0_5_0{
                 $new_component['__type'] = '_video';
                 $new_component['video'] = $component['bgvideo'];
 
-                $unset_image_properties = array( 'image', 'alignment' );
+                // support for old youtube meta
+                if( $component['video_source'] == 'youtube' ){
+                    $new_component['video_source'] = 'external';
+                    $new_component['external_url'] = $component['youtube_url'];
+                } 
+
+                $unset_image_properties = array( 'image', 'alignment', 'youtube_url' );
                 foreach ($unset_image_properties as $key) {
                     unset( $new_component[ $key ] );
                 }
@@ -521,6 +528,13 @@ class Migrate_0_4_X_to_0_5_0{
                         'loop' => $data['video_settings']['loop']
                     );
                 }
+
+                // support for old video settings where video_opacity was the only setting
+                if(isset($data['video_opacity'])){
+                    $new_data['video_background']['video_settings'] = array(
+                        'opacity' => $data['video_opacity']
+                    );
+                }
             }
         }
 
@@ -765,7 +779,7 @@ class Migrate_0_4_X_to_0_5_0{
     }
 
     public function unset_old_settings_keys( $component ){
-        $keys_to_unset = array( 'componentes', 'module_id', 'class', 'visibility', 'layout', 'delete_margins', 'padding','edit_background', 'bgi', 'bgi_options', 'add_bgc', 'bgc', 'text_color', 'parallax', 'show_border', 'border', 'border_apply_to', 'custom_border', 'add_border_radius', 'border_radius', 'radius_apply_to', 'custom_radius', 'add_video_bg', 'bgvideo', 'add_scroll_animation', 'scroll_animations','actions','color_de_fondo','color_scheme', 'margin', 'add_box_shadow', 'box_shadow','testimonios', 'seccion_reusable', 'components_margin', 'theme_clases', 'add_animation', 'animation', 'grid_items'
+        $keys_to_unset = array( 'componentes', 'module_id', 'class', 'visibility', 'layout', 'delete_margins', 'padding','edit_background', 'bgi', 'bgi_options', 'add_bgc', 'bgc', 'text_color', 'parallax', 'show_border', 'border', 'border_apply_to', 'custom_border', 'add_border_radius', 'border_radius', 'radius_apply_to', 'custom_radius', 'add_video_bg', 'bgvideo', 'add_scroll_animation', 'scroll_animations','actions','color_de_fondo','color_scheme', 'margin', 'add_box_shadow', 'box_shadow','testimonios', 'seccion_reusable', 'components_margin', 'theme_clases', 'add_animation', 'animation', 'grid_items', 'video_opacity'
         );
 
         if( $component['__type'] != 'video' ) $keys_to_unset[] = 'video_settings';
