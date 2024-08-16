@@ -3,6 +3,7 @@ namespace Theme_Migrator\Migration;
 
 use Theme_Migrator\Core;
 use Theme_Migrator\Migration\Migrate_Page_Header_0_4_X_to_0_5_0;
+use Theme_Migrator\Migration\Migrate_Footer_Modules_to_v23_Modules;
 
 class Migrate_0_4_X_to_0_5_0{
     private static $instance = null;
@@ -92,9 +93,14 @@ class Migrate_0_4_X_to_0_5_0{
 
     public function ajax_process_page_data() {
         check_ajax_referer('process_page_data_nonce', 'nonce');
-    
+        
         $batch_size = $this->batch_size;
         $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
+
+        if( $offset == 0 ){
+            $footer_migrator = new Migrate_Footer_Modules_to_v23_Modules();
+            $footer_migrator->migrate();
+        }
     
         // Procesar un lote de datos
         $processed = $this->process_page_data_batch($batch_size, $offset);
