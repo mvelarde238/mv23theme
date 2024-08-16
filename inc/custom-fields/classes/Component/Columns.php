@@ -66,6 +66,10 @@ class Columns extends Component {
 				} else {
 					$columns_styles[] = '--'.$key.'-grid:'.$args[$width_meta];
 				}
+			} else {
+				// set default if there isnt data
+				if( $key == 'l' ) $columns_styles[] = '--l-grid:repeat('.$columns_quantity.', 1fr)';
+				if( $key != 'l' ) $columns_styles[] = '--'.$key.'-grid:1fr';
 			}
 		}
 
