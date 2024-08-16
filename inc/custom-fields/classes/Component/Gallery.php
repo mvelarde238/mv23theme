@@ -160,7 +160,7 @@ class Gallery extends Component {
         $settings = $args['wp_media_folder_settings'];
         $aspect_ratio = ( isset($args['aspect_ratio']) && $args['aspect_ratio'] != 'aspect-ratio-default' ) ? $args['aspect_ratio'] : 'aspect-ratio-default';
         $shortcode_name = ($source === 'manual') ? 'theme_gallery' : 'theme_gallery';
-        $gallery_id = $args['gallery_id'];
+        $gallery_id = (isset($args['gallery_id'])) ? $args['gallery_id'] : '';
 
         $shortcode = '['.$shortcode_name.' link="'.$settings['link'].'" columns="'.$settings['columns'].'"  size="'.$settings['size'].'" targetsize="'.$settings['targetsize'].'" aspectratio="'.$aspect_ratio.'" display="'.$settings['display'].'" gallery_id="'.$gallery_id.'"';
 
