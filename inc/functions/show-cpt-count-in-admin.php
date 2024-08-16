@@ -6,7 +6,7 @@ add_action( 'init', function() {
         array( 'slug'=>'archive_page', 'name'=>'Archive Pages' ),
         array( 'slug'=>'megamenu', 'name'=>'Megamenú' ),
         array( 'slug'=>'v23accordion', 'name'=>'Accordions' ),
-        array( 'slug'=>'seccion_reusable', 'name'=>'Secciones Reusables' )
+        array( 'slug'=>'reusable_section', 'name'=>__('Reusable Sections') )
     );
 
     foreach($custom_posts as $cpt){

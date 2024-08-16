@@ -26,7 +26,7 @@ class Migrate_0_4_X_to_0_5_0{
         add_action( 'admin_menu', array($this, 'add_admin_page') );
         add_action( 'admin_notices', array($this, 'theme_is_less_than_0_5_0_notice') );
         add_action( 'wp_ajax_process_page_data', array($this, 'ajax_process_page_data') );
-        add_action( 'wp_ajax_delete_orphaned_postmeta', array($this, 'ajax_delete_orphaned_postmeta') );
+        add_action( 'wp_ajax_after_data_migration', array($this, 'ajax_after_data_migration') );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_migrator_scripts') );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_migrator_styles') );
     }
@@ -112,7 +112,11 @@ class Migrate_0_4_X_to_0_5_0{
     
         // Obtener un lote de páginas a procesar
         $pages = $wpdb->get_results($wpdb->prepare(
-            "SELECT meta_id, post_id, meta_key, meta_value FROM {$wpdb->postmeta} WHERE meta_key IN ('v23_modulos', 'content_layout', 'page_header_element','offcanvas_element_content') LIMIT %d OFFSET %d",
+            "SELECT pm.meta_id, pm.post_id, pm.meta_key, pm.meta_value, p.post_type
+            FROM {$wpdb->postmeta} pm
+            JOIN {$wpdb->posts} p ON pm.post_id = p.ID
+            WHERE pm.meta_key IN ('v23_modulos', 'content_layout', 'page_header_element','offcanvas_element_content')
+            LIMIT %d OFFSET %d",
             $batch_size,
             $offset
         ));
@@ -123,14 +127,21 @@ class Migrate_0_4_X_to_0_5_0{
             $page_control = array(
                 'title' => get_the_title( $page->post_id ),
                 'id' => $page->post_id,
+                'posttype' => $page->post_type,
                 'meta' => $page->meta_key
             );
 
             $old_data = maybe_unserialize($page->meta_value);
             if( $page->meta_key == 'v23_modulos' ){
-                $new_page_modules_data = $this->migrate_page_modules_data($old_data);
-                update_post_meta( $page->post_id, 'page_modules', $new_page_modules_data );
-                $page_control['new_data'] = $new_page_modules_data;
+                if( $page->post_type == 'seccion_reusable' || $page->post_type == 'reusable_section' ){
+                    $new_reusable_section_data = $this->migrate_seccion_reusable_data($old_data);
+                    update_post_meta( $page->post_id, 'components', $new_reusable_section_data );
+                    $page_control['new_data'] = $new_reusable_section_data;
+                } else {
+                    $new_page_modules_data = $this->migrate_page_modules_data($old_data);
+                    update_post_meta( $page->post_id, 'page_modules', $new_page_modules_data );
+                    $page_control['new_data'] = $new_page_modules_data;
+                }
             }
             if( $page->meta_key == 'content_layout' ){
                 $new_blocks_layout_data = $this->migrate_content_layout_data($old_data);
@@ -157,15 +168,23 @@ class Migrate_0_4_X_to_0_5_0{
         );
     }
 
-    public function ajax_delete_orphaned_postmeta() {
+    public function ajax_after_data_migration() {
         check_ajax_referer('process_page_data_nonce', 'nonce');
 
         global $wpdb;
 
+        // delete orphaned post meta
         $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key IN ('v23_modulos', 'content_layout', 'page_header_element')");
 
+        // change seccion_reusable post type
+        $old_post_type = 'seccion_reusable';
+        $new_post_type = 'reusable_section';
+        $wpdb->query( $wpdb->prepare("UPDATE {$wpdb->posts} SET post_type = %s WHERE post_type = %s", $new_post_type, $old_post_type ) );
+        $wpdb->query( $wpdb->prepare("UPDATE {$wpdb->posts} SET guid = REPLACE(guid, %s, %s) WHERE post_type = %s", '/' . $old_post_type . '/', '/' . $new_post_type . '/',  $new_post_type) );
+        wp_cache_flush();
+                    
         // add_option( 'theme_version', '0.5.0' );
-    
+
         wp_send_json_success(array(
             'complete' => true
         ));
@@ -211,10 +230,12 @@ class Migrate_0_4_X_to_0_5_0{
                     '__hidden' => 0,
                     'settings' => array(),
                     'components' => array(
-                        'reusable_section' => $module['seccion_reusable'],
-                        '__hidden' => 0,
-                        '__type' => 'reusable_section',
-                        'settings' => array()
+                        array(
+                            'reusable_section' => $module['seccion_reusable'],
+                            '__hidden' => 0,
+                            '__type' => 'reusable_section',
+                            'settings' => array()
+                        )
                     )
                 );
             }
@@ -223,6 +244,53 @@ class Migrate_0_4_X_to_0_5_0{
         }
 
         return $new_page_modules_data;
+    }
+
+    public function migrate_seccion_reusable_data($page_modules_data){
+        $new_reusable_section_data = array();
+
+        foreach ($page_modules_data as $module) {
+            if( $module['__type'] == 'modulos' ){
+                $column = array(
+                    '__type' => 'columns',
+                    'quantity' => 1,
+                    'l_grid_1' => "repeat(1, 1fr)",
+                    't_grid_1' => "1fr",
+                    'm_grid_1' => "1fr",
+                    'components' => array(),
+                    'column_1' => array(),
+                    'column_2' => array(),
+                    'column_3' => array(),
+                    'column_4' => array(),
+                    'column_1_settings' => array( 'tablet_order'=>0, 'mobile_order'=>0, 'content_alignment'=>'flex-start', 'settings'=>array() ),
+                    'column_2_settings' => array( 'tablet_order'=>0, 'mobile_order'=>0, 'content_alignment'=>'flex-start', 'settings'=>array() ),
+                    'column_3_settings' => array( 'tablet_order'=>0, 'mobile_order'=>0, 'content_alignment'=>'flex-start', 'settings'=>array() ),
+                    'column_4_settings' => array( 'tablet_order'=>0, 'mobile_order'=>0, 'content_alignment'=>'flex-start', 'settings'=>array() )
+                );
+
+                // add setting key
+                $column['settings'] = $this->migrate_settings_data( $module );
+
+                if( isset($module['componentes']) && is_array($module['componentes']) && !empty($module['componentes']) ){
+                    foreach ($module['componentes'] as $component) {
+                        $has_inner_components = $this->has_inner_components( $component );
+                        if( $has_inner_components['check'] ){
+                            $new_wrapper_component = $this->process_inner_components( $component, $has_inner_components['where'] );
+                            if($new_wrapper_component['__type'] == 'columns') $new_wrapper_component['__type'] = 'inner_columns';
+                            $column['column_1'][] = $new_wrapper_component;        
+                        } else {
+                            $column['column_1'][] = $this->migrate_component_data( $component );
+                        }
+                    }
+                }
+
+                $column['scroll_animations_settings'] = $this->migrate_scroll_animations_data( $module );
+            }
+
+            array_push( $new_reusable_section_data, $column );
+        }
+
+        return $new_reusable_section_data;
     }
 
     public function migrate_content_layout_data($old_data) {

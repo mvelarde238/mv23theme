@@ -56,7 +56,7 @@ class Theme_options{
             'Megamenú', 
             'Accordion', 
             'Archive Pages',
-            'Secciones Reusables' 
+            'Reusable Sections' 
         );
     
         $new_order = array();

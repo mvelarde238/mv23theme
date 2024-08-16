@@ -1,6 +1,6 @@
 <?php
 get_template_part( 'inc/posttypes/footer' );
-get_template_part( 'inc/posttypes/seccion-reusable' );
+get_template_part( 'inc/posttypes/reusable-section' );
 get_template_part( 'inc/posttypes/accordion' );
 get_template_part( 'inc/posttypes/megamenu' );
 

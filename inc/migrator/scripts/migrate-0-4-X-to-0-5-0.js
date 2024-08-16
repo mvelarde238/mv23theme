@@ -15,18 +15,18 @@ jQuery(document).ready(function($) {
                 if (response.success) {
                     offset = response.data.offset;
 
-                    console.log( response.data.processed+' pages was migrated', response.data.control );
+                    console.log( offset, response.data.control );
                     
                     if (!response.data.complete) {
                         processNextBatch();
                     } else {
                         offset = 0;
-                        console.log('Migration Complete');
-                        deleteOrphanedPostMeta();
+                        console.log('Data migration complete');
+                        afterDataMigration();
                     }
                 } else {
                     $migration_btn.attr('data-status','failed');
-                    console.error('Error in the migration process');
+                    console.error('Error in components data migration process');
                 }
             },
             error: function() {
@@ -36,29 +36,29 @@ jQuery(document).ready(function($) {
         });
     }
 
-    function deleteOrphanedPostMeta() {
-        console.log('Deleting orphaned postmeta...');
+    function afterDataMigration() {
+        console.log('Updating Database...');
         $.ajax({
             url: ajaxurl,
             method: 'POST',
             data: {
-                action: 'delete_orphaned_postmeta',
+                action: 'after_data_migration',
                 nonce: THEME_MIGRATOR_GLOBALS.nonce
             },
             success: function(response) {
                 if (response.success) {
                     if (response.data.complete) {
-                        console.log('Orphaned postmeta deleted');
+                        console.log('Database Updated');
                         $migration_btn.attr('data-status','complete');
                     }
                 } else {
                     $migration_btn.attr('data-status','failed');
-                    console.error('Error deleting orphaned postmeta');
+                    console.error('Error updating database');
                 }
             },
             error: function() {
                 $migration_btn.attr('data-status','failed');
-                console.error('deleteOrphanedPostMeta() AJAX Error');
+                console.error('afterDataMigration() AJAX Error');
             }
         });
     }
@@ -67,6 +67,7 @@ jQuery(document).ready(function($) {
     $(document).on('click', '.theme-migrator__init[data-status="initial"]', function(){
         $migration_btn = $(this);
         $migration_btn.attr('data-status','processing');
+        console.log('Migrating components data...');
         processNextBatch();
     });
 });

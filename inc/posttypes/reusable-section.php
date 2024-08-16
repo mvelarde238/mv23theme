@@ -2,13 +2,13 @@
 use Theme_Custom_Fields\Component;
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
-use Theme_Custom_Fields\Component\Page_Module;
 use Theme_Custom_Fields\Template_Engine;
 
 new CPT(
     array(
-        'post_type_name' => 'seccion_reusable',
+        'post_type_name' => 'reusable_section',
         'plural' => 'Secciones Reusables',
+        'plural' => __('Reusable Sections', 'default'),
     ), 
     array(
         'show_in_menu' => 'theme-options-menu',
@@ -19,15 +19,12 @@ new CPT(
 );
 
 add_action( 'uf.init', function(){
-    Container::create( 'settings', 'Tipo de Sección' )
-        ->add_location( 'post_type', 'seccion_reusable')
+    Container::create( 'content' )
+        ->add_location( 'post_type', 'reusable_section')
         ->set_layout( 'grid' )
         ->set_style( 'seamless' )
         ->add_fields(array(
-            Field::create( 'repeater', 'v23_modulos' )
-                ->hide_label()
-                ->set_add_text('Agregar Módulo')
-                ->add_group( Page_Module::the_group() )
+            Content_Selector::the_field()
         ));
 
     /**
@@ -38,7 +35,7 @@ add_action( 'uf.init', function(){
             if( $container->get_id() == 'page_content' ) {
                 $container_fields = $container->get_fields();
                 foreach ($container_fields as $field) {
-                    if ($field->get_name() === 'v23_modulos'){
+                    if ($field->get_name() === 'page_modules'){
                         $field->add_group( Reusable_Section::the_group() );
                     }
                 }
@@ -69,9 +66,9 @@ class Reusable_Section extends Component{
     }
 
     public static function get_reusable_sections(){
-        $reusable_sections = array( '0'=>'Elige' );
+        $reusable_sections = array( '0'=>__('Choose','default') );
         
-        $sections = get_posts( array('post_type' => 'seccion_reusable','posts_per_page' => -1, 'post_status' => 'publish') );
+        $sections = get_posts( array('post_type' => 'reusable_section','posts_per_page' => -1, 'post_status' => 'publish') );
 
         for ($i=0; $i < count($sections); $i++) { 
 	        setup_postdata( $sections[$i] );
@@ -88,7 +85,7 @@ class Reusable_Section extends Component{
 
     public static function get_fields() {
         $fields = array( 
-            Field::create( 'select', 'reusable_section', 'Seleccionar' )->add_options( self::get_reusable_sections() )
+            Field::create( 'select', 'reusable_section', __('Select', 'default') )->add_options( self::get_reusable_sections() )
         );
 
 		return $fields;
@@ -97,15 +94,12 @@ class Reusable_Section extends Component{
     public static function display( $args ){
         // if( !empty($args['reusable_section']) ) echo Page::getInstance()->the_content( $args['reusable_section'] );
 
-        $page_modules = get_post_meta( $args['reusable_section'],'page_modules', true);
+        $components = get_post_meta( $args['reusable_section'],'components', true);
 
-        if (is_array($page_modules) && count($page_modules) > 0) :
-            foreach ($page_modules as $module) :
-                $components = $module['components'];
-                foreach ($components as $component) {
-                    echo Template_Engine::getInstance()->handle( $component['__type'], $component );
-        		}
-            endforeach;
+        if (is_array($components) && count($components) > 0) :
+            foreach ($components as $component) {
+                echo Template_Engine::getInstance()->handle( $component['__type'], $component );
+        	}
         endif;
     }
 }
