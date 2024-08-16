@@ -330,10 +330,6 @@ class Listing extends Component {
             'data-posttype="'.$posttype.'"',
             'data-taxonomies="'.implode(',',$query_taxonomies).'"',
             'data-terms="'.implode(',',$query_terms).'"',
-            'data-qty="'.$qty.'"',
-            'data-offset="'.$offset.'"',
-            'data-order="'.$order.'"',
-            'data-orderby="'.$orderby.'"',
             'post-template="'.$post_template.'"',
             'listing-template="'.$listing_template.'"',
             'on-click-post="'.$on_click_post.'"',
@@ -341,6 +337,13 @@ class Listing extends Component {
             'data-scrolltop="'.$scrolltop.'"',
             'data-pagination="'.$pagination_type.'"'
         );
+
+        if ($source_type == 'auto') {
+            $args['additional_attributes'][] = 'data-qty="'.$qty.'"';
+            $args['additional_attributes'][] = 'data-offset="'.$offset.'"';
+            $args['additional_attributes'][] = 'data-order="'.$order.'"';
+            $args['additional_attributes'][] = 'data-orderby="'.$orderby.'"';
+        }
 
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
