@@ -1,4 +1,8 @@
-<?php get_header(); 
+<?php 
+use Theme\Archive_Page;
+use Theme\Page;
+
+get_header(); 
 
 $main_content_classes = array('main-content','container');
 if(ARCHIVE_SIDEBAR) array_push($main_content_classes,ARCHIVE_MAIN_CONTENT_TEMPLATE);
@@ -9,7 +13,7 @@ if(ARCHIVE_SIDEBAR) array_push($main_content_classes,ARCHIVE_MAIN_CONTENT_TEMPLA
 	<div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
 		<main class="main" itemtype="http://schema.org/Blog">
 			<?php
-			$archive_page_id = archive_page()->get_archive_id();
+			$archive_page_id = Archive_Page::instance()->get_archive_id();
 			if ( !empty($archive_page_id) ) :
 				echo Page::getInstance()->the_content( $archive_page_id );
 			else : ?>

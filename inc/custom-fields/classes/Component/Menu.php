@@ -4,7 +4,7 @@ namespace Theme_Custom_Fields\Component;
 use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Component;
 use Theme_Custom_Fields\Template_Engine;
-use Theme_Nav_Walker;
+use Theme\Nav_Walker;
 
 class Menu extends Component {
 
@@ -95,11 +95,11 @@ class Menu extends Component {
                 'menu' => $menu,
                 'container' => false,                           
                 'container_class' => '',
-                'walker' => new Theme_Nav_Walker(),
+                'walker' => new Nav_Walker(),
             ));
         }
         if( $type === 'location' ){
-            wp_nav_menu( array('theme_location' => $location, 'walker' => new Theme_Nav_Walker()) );
+            wp_nav_menu( array('theme_location' => $location, 'walker' => new Nav_Walker()) );
         }
 
 		echo Template_Engine::component_wrapper('end', $args);

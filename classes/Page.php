@@ -3,6 +3,7 @@ namespace Theme;
 
 use Theme_Custom_Fields\Template_Engine;
 use Blocks_Layout;
+use Theme\Archive_Page;
 
 class Page{
 	private static $_instance = null;
@@ -23,7 +24,7 @@ class Page{
 		if(is_home() || is_404()) {
 			$page_ID = get_option( 'page_for_posts' );
 		} else if (is_archive()) {
-			$archive_page_id = archive_page()->get_archive_id();
+			$archive_page_id = Archive_Page::instance()->get_archive_id();
 			if (!empty($archive_page_id)) {
 				$page_ID = $archive_page_id;
 				$key = 'post';

@@ -1,6 +1,8 @@
 <?php
 namespace Theme;
 
+use WP_Query;
+
 class Archive_Page {
 	/**
 	 * Instance of the class.
