@@ -40,7 +40,7 @@ class Page_Header_Container{
             )
         );
 
-        $content_tab = array(
+        $content_fields = array(
             Field::create( 'radio', 'page_header_content_type')->set_orientation('horizontal')->add_options($page_header_content_types)->set_width(50),
             Field::create( 'common_settings_control', 'page_header_settings' )->set_container( 'common_settings_container' )->set_width(50),
             Field::create( 'complex', 'page_header_slider' )->add_dependency('page_header_content_type', 'slider', '=')->hide_label()->add_fields(array(
@@ -53,9 +53,9 @@ class Page_Header_Container{
             ))->add_dependency( 'page_header_content_type', 'content', '=' )
         );
 
-        $content_tab = apply_filters( 'filter_page_header_content_tab', $content_tab );
+        $content_fields = apply_filters( 'filter_page_header_content_fields', $content_fields );
 
-        return $content_tab;
+        return $content_fields;
     }
 }
 
