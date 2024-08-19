@@ -1,4 +1,6 @@
 <?php
+use Theme\CPT;
+
 $accordions = new CPT(
     array(
         'post_type_name' => 'v23accordion',

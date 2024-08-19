@@ -71,16 +71,13 @@ if( !defined('MODAL_OUT_DURATION') ) define( 'MODAL_OUT_DURATION', 1);
 if( !defined('OPEN_MINICART_ON_ADD_TO_CART') ) define ('OPEN_MINICART_ON_ADD_TO_CART', true);
 if( !defined('MINICART_SIDENAV_POSITION') ) define ('MINICART_SIDENAV_POSITION', 'right');
 
-require_once( 'inc/classes/CPT.php' );
-require_once( 'inc/classes/page.php' );
+$core_directory = trailingslashit( __DIR__ );
+require_once( __DIR__ . '/classes/Autoloader.php' );
+new Autoloader( 'Theme', $core_directory . DIRECTORY_SEPARATOR . 'classes' );
+
 require_once( 'inc/custom-fields/index.php' );
 require_once( 'inc/offcanvas-elements/offcanvas-elements.php' );
 require_once( 'inc/migrator/index.php' );
-
-require_once( 'inc/classes/header.php' );
-require_once( 'inc/classes/page-header.php' );
-require_once( 'inc/classes/Theme_Nav_Walker.php' );
-require_once( 'inc/classes/Archive_Page.php' );
 
 require_once( 'inc/functions/theme.php' );
 require_once( 'inc/functions/enqueue-scripts.php' );
@@ -112,6 +109,8 @@ require_once( 'inc/functions/dequeue-styles.php' );
 // remove_all_actions( 'admin_notices' );
 
 function mv23_launch_theme() {
+    Theme\Archive_Page::instance();
+
     // launching operation cleanup
     add_action( 'init', 'mv23_head_cleanup' );
     // A better title

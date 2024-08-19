@@ -1,4 +1,6 @@
 <?php
+use Theme\Nav_Walker;
+
 $main_nav_classes = array_merge( array('main-nav','menu-comp'), MAIN_NAV_STYLE );
 ?>
 <div class="<?php echo implode(" ", $main_nav_classes) ?>">
@@ -7,7 +9,7 @@ $main_nav_classes = array_merge( array('main-nav','menu-comp'), MAIN_NAV_STYLE )
 		'container' => false,                           
 		'container_class' => '',
 		'theme_location' => 'main-nav',
-		'walker' => new Theme_Nav_Walker(),
+		'walker' => new Nav_Walker(),
 	));
 	?>
 </div>

@@ -40,8 +40,8 @@ function mv23_scripts_and_styles() {
         wp_enqueue_script( 'fitty-lib', get_template_directory_uri() . '/src/js/libs/ignore/fitty.min.js', array(), THEME_VERSION, true );
         wp_register_script( 'mv23-scripts', $assets_url . '/assets/js/scripts.js', array(), THEME_VERSION, true );
 
-        $static_header = new Header();
-        $sticky_header = new Header('sticky');
+        $static_header = new Theme\Header();
+        $sticky_header = new Theme\Header('sticky');
         wp_localize_script( 'mv23-scripts', 'STATIC_HEADER', $static_header->get_options() ); 
         wp_localize_script( 'mv23-scripts', 'STICKY_HEADER', $sticky_header->get_options() ); 
 

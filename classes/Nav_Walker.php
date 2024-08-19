@@ -1,5 +1,14 @@
 <?php
-class Theme_Nav_Walker extends Walker_Nav_Menu{
+namespace Theme;
+
+use Walker_Nav_Menu;
+use Theme\Page;
+
+class Nav_Walker extends Walker_Nav_Menu{
+
+    public function __construct(){
+        add_filter( 'wp_nav_menu_objects', array($this, 'remove_sub_items'), 10, 2 );
+    }
 
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
         if (is_array($args)) return $output;
@@ -115,34 +124,33 @@ class Theme_Nav_Walker extends Walker_Nav_Menu{
         
         $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
     }
-}
 
-add_filter( 'wp_nav_menu_objects', 'remove_sub_items', 10, 2 );
-function remove_sub_items( $items,$args ) {
-    if( $args->theme_location == 'main-nav' ){
-        $new_items = array();
-        for ($i=1;$i<count($items)+1;$i++){
-            if( empty($items[$i]->menu_item_parent) ){
-               $new_items= array_merge($new_items, nav_tree($items[$i],$items));
-            }
-        } 
-        return $new_items; 
-    } else {
-        return $items;   
-    }
-}
-
-function nav_tree($parent,$items){
-    $rtn = array();
-    $rtn[] = $parent;
-
-    $is_megamenu = get_post_meta($parent->ID,'is_megamenu',true);
-    if ($is_megamenu) return $rtn;
-
-    for ($i=1;$i<count($items)+1;$i++){
-        if($items[$i]->menu_item_parent && $items[$i]->menu_item_parent == $parent->ID){
-            $rtn= array_merge($rtn,nav_tree($items[$i],$items));
+    function remove_sub_items( $items,$args ) {
+        if( $args->theme_location == 'main-nav' ){
+            $new_items = array();
+            for ($i=1;$i<count($items)+1;$i++){
+                if( empty($items[$i]->menu_item_parent) ){
+                   $new_items= array_merge($new_items, $this->nav_tree($items[$i],$items));
+                }
+            } 
+            return $new_items; 
+        } else {
+            return $items;   
         }
     }
-    return $rtn;
+    
+    function nav_tree($parent,$items){
+        $rtn = array();
+        $rtn[] = $parent;
+    
+        $is_megamenu = get_post_meta($parent->ID,'is_megamenu',true);
+        if ($is_megamenu) return $rtn;
+    
+        for ($i=1;$i<count($items)+1;$i++){
+            if($items[$i]->menu_item_parent && $items[$i]->menu_item_parent == $parent->ID){
+                $rtn= array_merge($rtn, $this->nav_tree($items[$i],$items));
+            }
+        }
+        return $rtn;
+    }
 }

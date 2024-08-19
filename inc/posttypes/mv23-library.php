@@ -1,4 +1,6 @@
 <?php
+use Theme\CPT;
+
 $mv23_library = new CPT(
 	array(
 		'post_type_name' => 'mv23_library', 

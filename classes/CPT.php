@@ -1,4 +1,5 @@
 <?php
+namespace Theme;
 /**
  * Custom Post Type Class
  *

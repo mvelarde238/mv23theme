@@ -1,4 +1,9 @@
 <?php
+namespace Theme;
+
+use Theme_Custom_Fields\Template_Engine;
+use Blocks_Layout;
+
 class Page{
 	private static $_instance = null;
 	private $id;
@@ -86,7 +91,7 @@ class Page{
 
 			if (is_array($page_modules) && !empty($page_modules) ) :
 				foreach ($page_modules as $modulo) :
-					echo Theme_Custom_Fields\Template_Engine::getInstance()->handle( $modulo['__type'], $modulo );
+					echo Template_Engine::getInstance()->handle( $modulo['__type'], $modulo );
 				endforeach;
 			endif;
 

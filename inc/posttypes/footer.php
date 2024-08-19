@@ -1,4 +1,6 @@
 <?php
+use Theme\CPT;
+
 $footers = new CPT(
     array(
         'post_type_name' => 'footer',

@@ -1,4 +1,6 @@
 <?php
+use Theme\Page;
+
 add_filter( 'body_class', function( $classes ) {
     
     $page_color_scheme = get_metadata(Page::getInstance()->get_type(), Page::getInstance()->get_id(),'page_color_scheme', true);

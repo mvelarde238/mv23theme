@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <div id="content">
-	<?php echo Theme\Page_Header::getInstance()->display(); ?>
+	<?php get_template_part('partials/page-header');; ?>
 	<div id="main-content" class="container cf">
 		<main class="main">
 			<article <?php post_class( 'cf main-content' ); ?>>

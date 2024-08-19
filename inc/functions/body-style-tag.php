@@ -1,4 +1,6 @@
 <?php
+use Theme\Page;
+
 function body_style(){
 	$style = '';
 	

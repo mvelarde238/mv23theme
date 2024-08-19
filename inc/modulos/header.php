@@ -1,6 +1,6 @@
 <?php
 $blog_title = get_bloginfo( 'name' ); 
-$header = new Header(); 
+$header = new Theme\Header(); 
 
 $classes = $header->get_classes();
 $styles = $header->get_styles();

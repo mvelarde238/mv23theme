@@ -1,4 +1,8 @@
 <?php
+namespace Theme;
+
+use Theme\Page;
+
 class Header{
 	private $logo;
 	private $styles = array();

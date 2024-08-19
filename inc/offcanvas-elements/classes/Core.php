@@ -3,7 +3,7 @@ namespace Offcanvas_Elements;
 
 use Offcanvas_Elements\Settings;
 use \Blocks_Layout;
-use \CPT;
+use Theme\CPT;
 
 class Core{
 	private static $instance = null;

@@ -1,4 +1,6 @@
 <?php
+use Theme\CPT;
+
 $megamenus = new CPT(
     array(
         'post_type_name' => 'megamenu',

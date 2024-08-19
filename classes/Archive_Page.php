@@ -1,4 +1,6 @@
 <?php
+namespace Theme;
+
 class Archive_Page {
 	/**
 	 * Instance of the class.
@@ -48,7 +50,7 @@ class Archive_Page {
 	 */
 	function get_taxonomy() {
 		$taxonomy = is_category() ? 'category' : ( is_tag() ? 'post_tag' : get_query_var( 'taxonomy' ) );
-		if( in_array( $taxonomy, archive_page()->supported_taxonomies ) ){
+		if( in_array( $taxonomy, $this->supported_taxonomies ) ){
 			return $taxonomy;
 		}else{
 			return false;
@@ -80,8 +82,8 @@ class Archive_Page {
 			'update_post_meta_cache' => false,
 		);
 
-		if ( archive_page()->get_archive_type() == 'posttype' ) {
-			$posttype = archive_page()->get_posttype();
+		if ( $this->get_archive_type() == 'posttype' ) {
+			$posttype = $this->get_posttype();
 			$args['meta_query'] = array(
 				array(
 					'key' => 'connected_posttype',
@@ -91,7 +93,7 @@ class Archive_Page {
 			);
 
 		} else {
-			$taxonomy = archive_page()->get_taxonomy();
+			$taxonomy = $this->get_taxonomy();
 			if( empty( $taxonomy ) ) return false;
 			$args['meta_query'] = array(
 				array(
@@ -142,7 +144,7 @@ class Archive_Page {
 			'labels'              => $labels,
 			'hierarchical'        => false,
 			'supports'            => array( 'title' ),
-			'taxonomies'          => archive_page()->supported_taxonomies,
+			'taxonomies'          => $this->supported_taxonomies,
 			'public'              => true,
 			'show_ui'             => true,
 			'show_in_menu'          => 'theme-options-menu',
@@ -199,14 +201,14 @@ class Archive_Page {
 	 * Admin Bar Link
 	 */
 	function admin_bar_link( $wp_admin_bar ) {
-		// $taxonomy = archive_page()->get_taxonomy();
+		// $taxonomy = $this->get_taxonomy();
 		// if( ! $taxonomy )
 		//  	return;
 
 		// if( ! ( is_user_logged_in() && current_user_can( 'edit_post' ) ) )
 		// 	return;
 
-		// $archive_id = archive_page()->get_archive_id();
+		// $archive_id = $this->get_archive_id();
 		// if( !empty( $archive_id ) ) {
 		// 	$wp_admin_bar->add_node( array(
 		// 		'id' => 'archive_page',
@@ -223,17 +225,3 @@ class Archive_Page {
 		// }
 	}
 }
-
-/**
- * The function provides access to the class methods.
- *
- * Use this function like you would a global variable, except without needing
- * to declare the global.
- *
- * @return object
- */
-function archive_page() {
-	return Archive_Page::instance();
-}
-
-archive_page();

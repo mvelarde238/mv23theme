@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <div id="content">
-	<?php echo Theme\Page_Header::getInstance()->display(); ?>
+	<?php get_template_part('partials/page-header');; ?>
 
 	<div id="main-content" class="main-content  container main-content--sidebar-left">
 		<main class="main" itemtype="http://schema.org/Blog">

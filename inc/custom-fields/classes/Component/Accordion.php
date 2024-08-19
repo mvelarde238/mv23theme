@@ -5,7 +5,7 @@ use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Component;
 use Theme_Custom_Fields\Template_Engine;
 use Blocks_Layout;
-use Page;
+use Theme\Page;
 
 class Accordion extends Component {
 

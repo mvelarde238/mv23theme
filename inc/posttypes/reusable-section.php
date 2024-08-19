@@ -3,6 +3,7 @@ use Theme_Custom_Fields\Component;
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Template_Engine;
+use Theme\CPT;
 
 new CPT(
     array(

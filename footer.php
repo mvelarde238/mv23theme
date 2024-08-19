@@ -1,4 +1,6 @@
-			<?php 
+<?php 
+use Theme\Page;
+
 			$theme_footer_post = get_option('theme_footer_post');
 			if ($theme_footer_post && !is_singular('footer')): 
 				$theme_footer_post = str_replace('post_', '', $theme_footer_post);
