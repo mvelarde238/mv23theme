@@ -447,6 +447,9 @@ class Migrate_0_4_X_to_0_5_0{
                     $new_item['settings'] = $this->migrate_settings_data( $item );
                     $new_item = $this->unset_old_settings_keys( $new_item );
                 }
+                if( !empty($item['imagen']) ){
+                    $new_item = $item;
+                }
 
                 $new_carrusel_items[] = $new_item;
             }

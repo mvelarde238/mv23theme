@@ -139,7 +139,7 @@ class Carrusel extends Component {
         $items_in_desktop = $args['items_in_desktop'];
 
         $img_styles = '';
-        $imgs_height = $args['imgs_height'] ?:'auto';
+        $imgs_height = (isset($args['imgs_height'])) ? $args['imgs_height'] :'auto';
         if($imgs_height == 'custom') {
             $img_max_height = $args['img_max_height'] . 'px';
             $img_styles = 'style="max-height:'.$img_max_height.'"'; 
