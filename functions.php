@@ -27,10 +27,8 @@ define ('WPMEDIAFOLDER_IS_ACTIVE', in_array( $wp_media_folder_path, wp_get_activ
 if( !defined('MAIN_COLOR') ) define ('MAIN_COLOR', '#ff7a00');
 if( !defined('SECONDARY_COLOR') ) define ('SECONDARY_COLOR', '#071a36');
 if( !defined('TERTIARY_COLOR') ) define ('TERTIARY_COLOR', '#CDC6BE');
-if( !defined('BORDER_RADIUS') ) define ('BORDER_RADIUS', 15);
 if( !defined('STICKY_HEADER_BREAKPOINT') ) define ('STICKY_HEADER_BREAKPOINT', 20);
 if( !defined('HEADER_HEIGHT') ) define ('HEADER_HEIGHT', 64); // for anchors if header is fixed
-if( !defined('IMAGE_THUMB_SIZE') ) define ('IMAGE_THUMB_SIZE', 'full');
 if( !defined('COLOR_PICKER_PALETTES') ) define ('COLOR_PICKER_PALETTES', array('#000000','#ffffff',get_main_color(),get_secondary_color(),get_tertiary_color(),'#0065bd','#5f27cd','#bcd81c'));
 if( !defined('CUSTOM_TINYMCE_FONTS') ) define('CUSTOM_TINYMCE_FONTS', array());
 
@@ -105,8 +103,6 @@ require_once( 'inc/functions/ajax/load-posts.php' );
 get_template_part( 'inc/functions/woocommerce-support' );
 // require_once( 'inc/functions/tinymce-buttons/button-manager.php' );
 require_once( 'inc/functions/dequeue-styles.php' );
-
-// remove_all_actions( 'admin_notices' );
 
 function mv23_launch_theme() {
     Theme\Archive_Page::instance();
