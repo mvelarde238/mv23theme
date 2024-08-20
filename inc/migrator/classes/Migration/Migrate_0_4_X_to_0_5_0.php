@@ -662,15 +662,14 @@ class Migrate_0_4_X_to_0_5_0{
     }
 
     public function has_inner_components( $component ){
-        $has_inner_components = array( 'columnas', 'columnas-internas' );
-        $where_meta_map = array(
+        $has_inner_components = apply_filters('has_inner_components_filter', array(
             'columnas' => array( 'columna_1', 'columna_2', 'columna_3', 'columna_4' ),
             'columnas-internas' => array( 'columna_1', 'columna_2', 'columna_3', 'columna_4' )
-        );
+        ));
 
         $type = $component['__type'];
-        $check = in_array( $type, $has_inner_components );
-        $where = ($check) ? $where_meta_map[$type] : array();
+        $check = isset( $has_inner_components[$type] );
+        $where = ($check) ? $has_inner_components[$type] : array();
 
         return array(
             'check' => $check,
@@ -679,14 +678,13 @@ class Migrate_0_4_X_to_0_5_0{
     }
 
     public function has_components_layout( $component ){
-        $has_inner_components = array( 'components-wrapper' );
-        $where_meta_map = array(
+        $has_components_layout = apply_filters('has_components_layout_filter', array(
             'components-wrapper' => array( 'content_layout' )
-        );
+        ));
 
         $type = $component['__type'];
-        $check = in_array( $type, $has_inner_components );
-        $where = ($check) ? $where_meta_map[$type] : array();
+        $check = isset( $has_components_layout[$type] );
+        $where = ($check) ? $has_components_layout[$type] : array();
 
         return array(
             'check' => $check,
@@ -857,7 +855,7 @@ class Migrate_0_4_X_to_0_5_0{
     }
 
     public function unset_old_settings_keys( $component ){
-        $keys_to_unset = array( 'componentes', 'module_id', 'class', 'visibility', 'layout', 'delete_margins', 'padding','edit_background', 'bgi', 'bgi_options', 'add_bgc', 'bgc', 'text_color', 'parallax', 'show_border', 'border', 'border_apply_to', 'custom_border', 'add_border_radius', 'border_radius', 'radius_apply_to', 'custom_radius', 'add_video_bg', 'bgvideo', 'add_scroll_animation', 'scroll_animations','actions','color_de_fondo','color_scheme', 'margin', 'add_box_shadow', 'box_shadow','testimonios', 'seccion_reusable', 'components_margin', 'theme_clases', 'add_animation', 'animation', 'grid_items', 'video_opacity'
+        $keys_to_unset = array( 'componentes', 'module_id', 'class', 'visibility', 'layout', 'delete_margins', 'padding','edit_background', 'bgi', 'bgi_options', 'add_bgc', 'bgc', 'text_color', 'parallax', 'show_border', 'border', 'border_apply_to', 'custom_border', 'add_border_radius', 'border_radius', 'radius_apply_to', 'custom_radius', 'add_video_bg', 'bgvideo', 'add_scroll_animation', 'scroll_animations','actions','color_de_fondo','color_scheme', 'margin', 'add_box_shadow', 'box_shadow','testimonios', 'seccion_reusable', 'components_margin', 'theme_clases', 'add_animation', 'animation', 'grid_items', 'video_opacity', 'content_layout'
         );
 
         if( $component['__type'] != 'video' ) $keys_to_unset[] = 'video_settings';
