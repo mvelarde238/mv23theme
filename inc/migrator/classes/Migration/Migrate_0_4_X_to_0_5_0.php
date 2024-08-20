@@ -121,7 +121,7 @@ class Migrate_0_4_X_to_0_5_0{
             "SELECT pm.meta_id, pm.post_id, pm.meta_key, pm.meta_value, p.post_type
             FROM {$wpdb->postmeta} pm
             JOIN {$wpdb->posts} p ON pm.post_id = p.ID
-            WHERE pm.meta_key IN ('v23_modulos', 'content_layout', 'page_header_element','offcanvas_element_content')
+            WHERE pm.meta_key IN ('v23_modulos', 'content_layout', 'page_header_element', 'offcanvas_element_content')
             LIMIT %d OFFSET %d",
             $batch_size,
             $offset
@@ -140,9 +140,18 @@ class Migrate_0_4_X_to_0_5_0{
             $old_data = maybe_unserialize($page->meta_value);
             if( $page->meta_key == 'v23_modulos' ){
                 if( $page->post_type == 'seccion_reusable' || $page->post_type == 'reusable_section' ){
-                    $new_reusable_section_data = $this->migrate_seccion_reusable_data($old_data);
-                    update_post_meta( $page->post_id, 'components', $new_reusable_section_data );
-                    $page_control['new_data'] = $new_reusable_section_data;
+                    $section_type = get_post_meta($page->post_id, 'section_type', true);
+                    if( $section_type && $section_type == 'componente' ){
+                        $old_data = get_post_meta($page->post_id, 'componentes', true);
+                        $new_reusable_section_data = $this->migrate_seccion_reusable_components_data($old_data);
+                        update_post_meta( $page->post_id, 'components', $new_reusable_section_data );
+                        $page_control['meta'] = 'componentes';
+                        $page_control['new_data'] = $new_reusable_section_data;
+                    } else {
+                        $new_reusable_section_data = $this->migrate_seccion_reusable_modules_data($old_data);
+                        update_post_meta( $page->post_id, 'components', $new_reusable_section_data );
+                        $page_control['new_data'] = $new_reusable_section_data;
+                    }
                 } else {
                     $new_page_modules_data = $this->migrate_page_modules_data($old_data);
                     update_post_meta( $page->post_id, 'page_modules', $new_page_modules_data );
@@ -252,7 +261,7 @@ class Migrate_0_4_X_to_0_5_0{
         return $new_page_modules_data;
     }
 
-    public function migrate_seccion_reusable_data($page_modules_data){
+    public function migrate_seccion_reusable_modules_data($page_modules_data){
         $new_reusable_section_data = array();
 
         foreach ($page_modules_data as $module) {
@@ -298,6 +307,27 @@ class Migrate_0_4_X_to_0_5_0{
 
         return $new_reusable_section_data;
     }
+
+    public function migrate_seccion_reusable_components_data($old_components_data){
+        $new_reusable_section_data = array();
+
+        if( is_array($old_components_data) && !empty($old_components_data) ){
+            foreach ($old_components_data as $component) {
+
+                $has_inner_components = $this->has_inner_components( $component );
+                if( $has_inner_components['check'] ){
+
+                    $new_wrapper_component = $this->process_inner_components( $component, $has_inner_components['where'] );
+                    $new_reusable_section_data[] = $new_wrapper_component;        
+
+                } else {
+                    $new_reusable_section_data[] = $this->migrate_component_data( $component );
+                }
+            }
+        }
+
+        return $new_reusable_section_data;
+    }    
 
     public function migrate_content_layout_data($old_data) {
         $new_data = array();
