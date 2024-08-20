@@ -58,7 +58,7 @@ class Map extends Component {
         $icono = $args['icono'];
         $icono = wp_get_attachment_url($icono);
 
-        $height = (isset($args['height']) && $args['height']) ? $args['height'] : array( 'height'=>280, 'unit'=>'px' );
+        $height = (isset($args['height']) && $args['height'] && is_array($args['height'])) ? $args['height'] : array( 'height'=>280, 'unit'=>'px' );
         $height_style = 'style="height:'.$height['height'].$height['unit'].'"';
 
 		ob_start();
