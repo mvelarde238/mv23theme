@@ -1,6 +1,6 @@
 // GENERAL
 (function($,c){      
-    var $components = $('.componente.listing');
+    var $components = $('.component.listing');
     var current_lang = MV23_GLOBALS.lang;
     var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
 
@@ -142,7 +142,7 @@
                     action = 'replace',
                     filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey, pagination_type);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, wookey, pagination_type);
             });
             
             $component.on('click','.load_more_posts', function(event){

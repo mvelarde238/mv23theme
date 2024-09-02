@@ -1,0 +1,54 @@
+.uf-field-type-number {
+	.input {
+		position: relative;
+	}
+
+	input{
+		padding-right: 0 !important;
+	}
+
+	.uf-field-input{
+		display: flex;
+		align-items: center;
+	}
+}
+
+.uf-number {
+	margin: 8px;
+	box-shadow: 0 0 2px rgba(0,0,0,0.3);
+	background: #e5e5e5;
+	height: 1px;
+	position: relative;
+	width: 100%;
+
+	.ui-slider-handle {
+		font-weight: normal;
+		color: #555555;
+		top: -.8em;
+		margin-left: -.6em;
+		position: absolute;
+		z-index: 2;
+		width: 1.7em;
+		height: 1.7em;
+		cursor: default;
+		border-radius: 50%;
+	}
+
+	&-indicator {
+		width: 50px;
+		border: 1px solid #ccc;
+		height: 20px;
+		line-height: 20px;
+		padding-right: 0 !important;
+	}
+}
+
+@media screen and (max-width: 782px) {
+	.uf-field-type-number .uf-field-input-wrap {
+		padding-top: 10px;
+	}
+
+	.uf-number-indicator {
+		width: 70px;
+	}
+}

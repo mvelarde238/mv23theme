@@ -4,34 +4,20 @@
 	left: 0
 	z-index: 896
 	width: 100%
-	pointer-events: initial
+	background-color: var(--static-header-color)
 
 	&__content
-		transition: 500ms padding
-		padding: 30px var(--component-space-around-x)
+		padding: 20px var(--component-space-around-x)
 		display: flex
 		align-items: center
-		transition: 500ms padding
-
-	&__blocks
-		display: flex
 		justify-content: flex-end
-		align-items: center
-		flex-basis: 1
-		flex-grow: 1
-		flex-wrap: wrap
+		transition: 500ms padding
 
 	&__widgets
 		font-size: 13px
 		line-height: 150%
 		display: flex
 		align-items: center
-		&>.container
-			padding: 15px var(--component-space-around-x)
-			display: flex
-			justify-content: flex-end
-			align-items: center
-			position: relative
 		.widget
 			display: inline-block
 			margin-left: 10px
@@ -40,18 +26,19 @@
 			margin-bottom: 0
 
 	&__logo 
-		align-self: center
+		margin-right: auto
 		img
-			max-height: 60px
+			max-height: var(--static-header-logo-height)
 			transition: 500ms all
 
 	&--sticky
+		background-color: var(--sticky-header-color)
 		box-shadow: 0 10px 20px rgba(0,0,0,.1)
 	&--sticky &__content
 		padding-top: 8px
 		padding-bottom: 8px
 	&--sticky &__logo img 
-		max-height: 40px
+		max-height: var(--sticky-header-logo-height)
 
 	&:not(&--sticky).hide-static-header-logo &__logo,
 	&--sticky.hide-sticky-header-logo &__logo
@@ -61,11 +48,10 @@
 	.header
 		&__content
 			padding: 8px 15px
-			align-items: center
 
 @media #{$small-and-down}
 	.header
 		&__widgets
 			display: none
 		&__logo img
-			max-height: 40px
+			max-height: var(--sticky-header-logo-height)

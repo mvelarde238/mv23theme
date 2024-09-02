@@ -14878,6 +14878,64 @@ targetBlank();
 })(jQuery, console.log);
 (function ($, c) {
   $(function () {
+    var $header = $('.header'),
+      root = document.querySelector(':root');
+
+    // ****************************************************************************************************
+    // SET BODY PADDING TOP
+    // ****************************************************************************************************
+    function set_body_padding_top() {
+      var header_height = document.getElementById("header").offsetHeight;
+      root.style.setProperty('--body-padding-top', header_height + 'px');
+    }
+    addEventListener("resize", function (event) {
+      set_body_padding_top();
+    });
+    set_body_padding_top();
+
+    // ****************************************************************************************************
+    // STICKY HEADER
+    // ****************************************************************************************************
+    var $logo = $('.header__logo__link img'),
+      breakpoint = MV23_GLOBALS.stickyHeaderBreakpoint;
+    var stickyHeader = {
+      isSticky: false,
+      element: '.header',
+      init: function init() {
+        var xscrollTop = $(document).scrollTop();
+        if (xscrollTop > breakpoint && !this.isSticky) {
+          this.isSticky = true;
+          stickyHeader.show();
+        }
+        $(window).scroll(function () {
+          var xscrollTop = $(document).scrollTop();
+          if (xscrollTop > breakpoint && !this.isSticky) {
+            this.isSticky = true;
+            stickyHeader.show();
+          }
+          if (xscrollTop < breakpoint && this.isSticky) {
+            this.isSticky = false;
+            stickyHeader.hide();
+          }
+        });
+      },
+      show: function show() {
+        $logo.attr('src', STICKY_HEADER.logo);
+        $header.attr('class', STICKY_HEADER.classes);
+      },
+      hide: function hide() {
+        $logo.attr('src', STATIC_HEADER.logo);
+        $header.attr('class', STATIC_HEADER.classes);
+      }
+    };
+    stickyHeader.init();
+
+    // ****************************************************************************************************
+    // ****************************************************************************************************
+  });
+})(jQuery, console.log);
+(function ($, c) {
+  $(function () {
     // ****************************************************************************************************
     // CONVERTIR ENLACES A PDF EN PDF
     // ****************************************************************************************************
@@ -15018,7 +15076,7 @@ targetBlank();
 })(jQuery, console.log);
 // GENERAL
 (function ($, c) {
-  var $components = $('.componente.listing');
+  var $components = $('.component.listing');
   var current_lang = MV23_GLOBALS.lang;
   var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
   function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, wookey, pagination_type) {
@@ -15165,7 +15223,7 @@ targetBlank();
           pagination_type = $component.attr("data-pagination"),
           action = 'replace',
           filterValues = getFilterValues($filter);
-        do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, wookey, pagination_type);
+        do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, wookey, pagination_type);
       });
       $component.on('click', '.load_more_posts', function (event) {
         event.preventDefault();
@@ -15357,7 +15415,7 @@ var styleArray = [{
         onCloseEnd: function onCloseEnd(modal, trigger) {
           var empty_on_close = $(modal).hasClass('empty-on-close');
           if (empty_on_close) $(modal).find('.modal-content').empty();
-          $('#video-modal .video-responsive').html('');
+          $('#video-modal .responsive-video').html('');
         }
       });
       if (closeOnClick) {
@@ -15919,52 +15977,6 @@ window['OffCanvas_Elements'] = function () {
         });
       }
     });
-    // ****************************************************************************************************
-  });
-})(jQuery, console.log);
-(function ($, c) {
-  $(function () {
-    // ****************************************************************************************************
-    // HEADER -- STICKY
-    // ****************************************************************************************************
-    var $header = $('.header'),
-      $logo = $('.header__logo__link img'),
-      breakpoint = MV23_GLOBALS.stickyHeaderBreakpoint;
-    var stickyHeader = {
-      isSticky: false,
-      element: '.header',
-      init: function init() {
-        var xscrollTop = $(document).scrollTop();
-        if (xscrollTop > breakpoint && !this.isSticky) {
-          this.isSticky = true;
-          stickyHeader.show();
-        }
-        $(window).scroll(function () {
-          var xscrollTop = $(document).scrollTop();
-          if (xscrollTop > breakpoint && !this.isSticky) {
-            this.isSticky = true;
-            stickyHeader.show();
-          }
-          if (xscrollTop < breakpoint && this.isSticky) {
-            this.isSticky = false;
-            stickyHeader.hide();
-          }
-        });
-      },
-      show: function show() {
-        $logo.attr('src', STICKY_HEADER.logo);
-        $header.attr('style', STICKY_HEADER.styles);
-        $header.attr('class', STICKY_HEADER.classes);
-      },
-      hide: function hide() {
-        $logo.attr('src', STATIC_HEADER.logo);
-        $header.attr('style', STATIC_HEADER.styles);
-        $header.attr('class', STATIC_HEADER.classes);
-      }
-    };
-    stickyHeader.init();
-
-    // ****************************************************************************************************
     // ****************************************************************************************************
   });
 })(jQuery, console.log);

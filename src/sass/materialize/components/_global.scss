@@ -815,7 +815,7 @@ td, th{
 
 
 
-.video-responsive { 
+.responsive-video { 
     position: relative;
     padding-bottom: 56.25%;
     padding-top: 30px;
@@ -824,10 +824,10 @@ td, th{
 }
 
 
-.video-responsive iframe,
-.video-responsive object, 
-.video-responsive video, 
-.video-responsive embed{
+.responsive-video iframe,
+.responsive-video object, 
+.responsive-video video, 
+.responsive-video embed{
     position: absolute;
     top: 0;
     left: 0;

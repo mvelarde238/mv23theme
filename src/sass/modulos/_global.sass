@@ -20,7 +20,7 @@ body
 .text-color-2
 	--primary-color-light: #{$white-lighten-2}
 	--primary-color-lighter: #{$white-lighten-1}
-	color: $font-color-2
+	color: var(--font-color-2)
 	h1,h2,h3,h4,h5,h6
 		color: inherit
 	a
@@ -107,10 +107,6 @@ img
 p + .pdf-responsive
 	margin-bottom: 30px
 
-@media only screen and (max-width: #{$menu-breakpoint})
-	body
-		--body-padding-top: 72px
-
 @media #{$medium-and-down}
 	.hide-br br
 		display: none
@@ -132,8 +128,6 @@ p + .pdf-responsive
 		display: none
 
 @media #{$small-and-down}
-	body
-		--body-padding-top: 56px
 	.movil-img-full-width
 		width: 100%
 	.center-on-mobile, .center-on-mobile *

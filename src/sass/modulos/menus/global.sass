@@ -35,7 +35,7 @@
 %sub-menu-item-styles
     &>li
         &:not(:last-child)
-            border-bottom: 1px solid var(--primary-color-light)
+            border-bottom: 1px solid var(--primary-color-lighter)
         &:has( .toggle-submenu[aria-expanded="true"] )>a,
         &:hover>a
             background-color: var(--primary-color-lighter)
@@ -43,6 +43,7 @@
         font-size: 13px
         padding: 12px 20px
         line-height: 18px
+        color: var(--font-color)
 
 %hidden-label
     &>li.hidden-text>a>.menu-item__label
@@ -59,7 +60,7 @@
         max-width: 180px
     .-secondary
         background-color: #fff
-        box-shadow: 0 2px 5px var(--secondary-color-light)
+        box-shadow: 0 2px 5px var(--primary-color-lighter)
         @extend %menu-item-styles
         @extend %sub-menu-item-styles
 
@@ -73,6 +74,7 @@
         min-width: 180px
         display: none
         background-color: #fff
+        color: var(--font-color)
         box-shadow: 0 0 15px rgba(0,0,0,.2)
         animation-name: horizontal-sub-menu-animation
         animation-duration: 300ms
@@ -93,10 +95,6 @@
         right: 100%
     .-secondary .sub-menu.open-from-left
         left: 100%
-    .text-color-2 &
-        ul.sub-menu,
-        .-secondary
-            background-color: var(--secondary-color)
 
 %vertical-sub-menu-styles
     .sub-menu
@@ -164,7 +162,6 @@
     >li.current-page-ancestor,
     >li.current-menu-parent,
     >li:has(a.is-inview)
-        color: var(--primary-color)
         font-weight: bold
         .sub-menu
             font-weight: initial

@@ -11,7 +11,6 @@
 					<?php the_content(); ?>
 				</article>
 			<?php endwhile; endif; ?>
-			<?php get_template_part('inc/modulos/modals/controlador'); ?>
 		</main>
 	</div>
 </div>

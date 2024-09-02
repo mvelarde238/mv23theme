@@ -1,9 +1,6 @@
-$font-url: 'https://fonts.googleapis.com/css?family=Onest:400,700' !default;
-@import url('#{$font-url}');
-
 @mixin general-tipography-styles{
-	font-family: 'Onest', sans-serif;
-  	line-height: 180%;
-  	font-size: 16px;
-  	font-weight: 300;
+	font-family: var(--general-font);
+	font-size: var(--font-size);
+  	line-height: var(--line-height);
+  	font-weight: var(--font-weight);
 }

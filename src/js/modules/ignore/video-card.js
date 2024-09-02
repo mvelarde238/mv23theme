@@ -39,7 +39,7 @@
             ev.preventDefault();
 
             var videoUrl = $(this).attr('href');
-            var $videoWrapper = $('#video-modal').find('.video-responsive');
+            var $videoWrapper = $('#video-modal').find('.responsive-video');
             var currentVideo = document.getElementById('video-modal__video');
             var source = document.createElement('source');
 

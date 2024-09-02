@@ -1,2 +1,4 @@
 <?php 
-Theme\Page_Header::getInstance()->display(); 
+use Core\FrontEnd\Page_Header;
+
+Page_Header::getInstance()->display(); 

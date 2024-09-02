@@ -1,0 +1,77 @@
+.uf-group-control-open-menu span{
+  pointer-events: none;
+}
+.context-menu{
+  position: absolute;
+  top: 36px;
+  left: initial;
+  right: 0;
+  z-index: 99999;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,.15);
+  background-color: #0073af;
+    display: flex;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+}
+.context-menu a{
+  display: block;
+  text-decoration: none;
+  padding: 5px;
+  width: 100%;
+  height: auto;
+  outline: 0;
+}
+
+.uf-field[data-type='html'] textarea{
+  background-color: #161616;
+  color: darkseagreen;
+}
+
+.select2-container {
+  z-index: 170000;
+}
+
+.uf-gallery-image img {
+  height: 100%;
+  width: auto;
+}
+
+/* show context menu in layout group item */
+.uf-layout-group-header{
+  overflow: initial;
+}
+/* fix context menu in layout group show behind other groups */
+.uf-layout-element{
+  z-index: initial;
+}
+/* add filename to gallery */
+.gallery-item-name{
+  word-break: break-all;
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  font-size: 12px;
+  width: 85%;
+}
+
+/* FLEXDATALIST */
+.flexdatalist-results{
+  z-index: 170000;
+}
+.uf-basic-input .flexdatalist-multiple{
+  font-size: 13px !important; 
+  border: 1px solid #9f9c9c;
+  border-radius: 3px;
+}
+/* fix prefix/suffix text wrapping */
+.uf-field-suffix, .uf-field-prefix{
+  text-wrap: nowrap;
+}
+
+/* number indicator was too small in slider */
+.uf-number-indicator{
+  width: 60px; 
+}

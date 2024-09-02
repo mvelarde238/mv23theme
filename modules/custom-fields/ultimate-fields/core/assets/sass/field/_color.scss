@@ -1,0 +1,13 @@
+// Color pickers
+.uf-field-type-color {
+	// fix index for color picker position
+	z-index: 8999;
+
+	input[type='text'] {
+		display: inline-block;
+	}
+
+	.wp-color-result {
+		margin: 0;
+	}
+}
