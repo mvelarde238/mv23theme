@@ -31,9 +31,11 @@ class FrontEnd extends Theme {
             if ( is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) {
                 wp_enqueue_script( 'comment-reply' );
             }
+
+            $google_api_key = ( defined('MV23_GOOGLE_API_KEY') ) ? MV23_GOOGLE_API_KEY : '';
     
             // adding scripts files in the footer
-            $gm_url = 'https://maps.googleapis.com/maps/api/js?key='.MV23_GOOGLE_API_KEY;
+            $gm_url = 'https://maps.googleapis.com/maps/api/js?key='.$google_api_key;
             $gm_services = get_option('gm_services') ? get_option('gm_services') : array();
             if( count($gm_services) ) $gm_url .= '&libraries='. implode(",", $gm_services);
             if (GM_IS_ACTIVE) wp_enqueue_script( 'googleapis', $gm_url, array(), '1.0', true);
