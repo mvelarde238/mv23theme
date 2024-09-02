@@ -152,7 +152,7 @@ class Theme_options{
         $count = 0;
         foreach ($header_options as $option) {
             $the_value = get_option( $option );
-            if( $count < 2 && $the_value['add_bgc'] ) {
+            if( $count < 2 && is_array($the_value) && $the_value['add_bgc'] ) {
                 $color = Helpers::hexToRgb( $the_value['bgc'], $the_value['alpha'] );
                 $properties[] = $header_properties[$count].': rgba('.$color.')';
             }
