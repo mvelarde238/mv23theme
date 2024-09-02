@@ -84,14 +84,15 @@ class Theme_Options_Fields {
         $line_height_rule = '^(?:(\d+(\.\d+)?(px|em|rem|vw|vh|%)?|normal))$';
         $font_weight_rule = '^(?:(normal|bold|bolder|lighter|[1-9]00))$';
         $fonts_width = ( is_customize_preview() ) ? 100 : 50;
+        $google_api_key = ( defined('MV23_GOOGLE_API_KEY') ) ? MV23_GOOGLE_API_KEY : '';
 
         $fields = array(
             Field::create( 'tab', 'typography' ),
             
             Field::create( 'complex', 'fonts_wrapper', __('Typography','default') )->merge()
                 ->set_description(__('Headings font will be used for titles and subtitles (h1, h2, h3, h4, h5, h6)','default'))->add_fields(array(
-                Field::create( 'font', 'general_font' )->set_api_key( MV23_GOOGLE_API_KEY )->set_width($fonts_width),
-                Field::create( 'font', 'headings_font' )->set_api_key( MV23_GOOGLE_API_KEY )->set_width($fonts_width),
+                Field::create( 'font', 'general_font' )->set_api_key( $google_api_key )->set_width($fonts_width),
+                Field::create( 'font', 'headings_font' )->set_api_key( $google_api_key )->set_width($fonts_width),
             )),
             
             Field::create( 'complex', 'paragraph', __('Paragraphs','default') )->add_fields(array(
