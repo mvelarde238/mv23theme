@@ -157,7 +157,7 @@ class Theme_options{
                 $properties[] = $header_properties[$count].': rgba('.$color.')';
             }
             if( $count > 1 ){
-                $properties[] = $header_properties[$count].': '.$the_value.'px';
+                if($the_value) $properties[] = $header_properties[$count].': '.$the_value.'px';
             }
             $count++;
         }
