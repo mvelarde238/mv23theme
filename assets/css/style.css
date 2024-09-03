@@ -4289,7 +4289,7 @@ input.wpcf7-not-valid {
 	--secondary-color-dark: color-mix( in srgb, var(--secondary-color), black 20% );
 	--font-color: #000;
 	--font-color-2: white;
-	--headings-color: #000;
+	--headings-color: inherit;
 	--general-font: sans-serif;
 	--heading-font: sans-serif;
 	--font-size: 16px;

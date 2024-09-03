@@ -79,7 +79,7 @@ $error-color: color("red", "base") !default;
 	--secondary-color-dark: color-mix( in srgb, var(--secondary-color), black 20% );
 	--font-color: #{$font-color};
 	--font-color-2: #{$font-color-2};
-	--headings-color: #{$font-color};
+	--headings-color: inherit;
 	--general-font: sans-serif;
 	--heading-font: sans-serif;
 	--font-size: 16px;
