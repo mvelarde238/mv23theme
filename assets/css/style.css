@@ -4561,6 +4561,7 @@ p + .pdf-responsive {
 	background-color: transparent;
 	border: 1px solid;
 	border-radius: 4px;
+	cursor: pointer;
 	display: none;
 }
 
