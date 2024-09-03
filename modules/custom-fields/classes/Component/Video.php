@@ -133,6 +133,7 @@ class Video extends Component {
         $video_type = ( isset($args['video_type']) ) ? $args['video_type'] : 'popable';
         if( $video_type == 'popable' ){
             $video_key = ( $video_source === 'selfhosted' ) ? 'internal' : 'external';
+            $args['actions_settings'] = array();
             $args['actions_settings']['actions'] = array(
                 array(
                     'trigger' => 'click',
