@@ -16,7 +16,7 @@ if( !defined('MENU_ITEM_MEGAMENU_LOCATIONS') ) define ('MENU_ITEM_MEGAMENU_LOCAT
 
 if( !defined('COMPONENTS_WRAPPER') ) define ('COMPONENTS_WRAPPER', true);
 if( !defined('CARD') ) define ('CARD', false);
-if( !defined('COLUMNAS_SIMPLES') ) define ('COLUMNAS_SIMPLES', false);
+if( !defined('SIMPLE_COLUMNS') ) define ('SIMPLE_COLUMNS', false);
 if( !defined('ITEMS_GRID') ) define ('ITEMS_GRID', false);
 if( !defined('CONTENT_SLIDER') ) define ('CONTENT_SLIDER', false);
 

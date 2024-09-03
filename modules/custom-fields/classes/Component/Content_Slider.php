@@ -22,8 +22,8 @@ class Content_Slider extends Component {
 	public static function get_fields() {
 		$fields = array(
             Field::create( 'tab', __('Contenido','default') ),
-            Field::create( 'repeater', 'content_slider', 'Slider de Contenidos' )
-                ->set_add_text('Agregar Slide')
+            Field::create( 'repeater', 'items' )
+                ->set_add_text( __('Add Slide', 'default') )
                 ->hide_label()
                 ->add_group('Item', array(
                     'edit_mode' => 'popup',
@@ -31,40 +31,40 @@ class Content_Slider extends Component {
                         Field::create( 'tab', __('Contenido','default') ),
                         Content_Selector::the_field( 'components', __('Components','default') ),
                         Field::create( 'tab', __('Settings','default') ),
-                        Field::create( 'tab', 'Settings' ),
-                        Field::create( 'text', 'title', 'Título para el menú' )->set_width( 25 ),
-                        Field::create( 'image', 'bgi', 'Imágen de Fondo' )->set_width( 25 ),
-                        Field::create( 'complex', 'bgi_options', '' )->set_width( 25 )->add_fields(array(
-                            Field::create( 'select', 'size', 'Tamaño')->add_options( array(
-                                'auto' => 'Automático',
-                                'cover' => 'Cubrir Todo',
-                            ) ),
-                            Field::create( 'select', 'repeat', 'Repetir')->add_options( array(
-                                'repeat' => 'Ambas direcciones',
-                                'repeat-x' => 'Solo horizontal',
-                                'repeat-y' => 'Solo en vertical',
-                                'no-repeat' => 'No Repetir',
-                            ) ),
-                            Field::create( 'select', 'position_x', 'Posición Eje Horizontal')->add_options( array(
-                                'left' => 'Izquierda',
-                                'center' => 'Centro',
-                                'right' => 'Derecha',
-                            ) ),
-                            Field::create( 'select', 'position_y', 'Posición Eje Vertical')->add_options( array(
-                                'top' => 'Arriba',
-                                'center' => 'Centro',
-                                'bottom' => 'Abajo',
-                            ) ),
-                        ))->add_dependency('bgi','0','>'),
-                        Field::create( 'complex', 'color_de_fondo' )->set_width( 25 )->add_fields(array(
-                            Field::create( 'checkbox', 'add_bgc', 'Activar' )->set_width( 25 )->set_text('Activar')->hide_label(),
-                            Field::create( 'color', 'bgc', 'Color' )->set_width( 25 )->add_dependency('add_bgc'),
-                        )),
-                        Field::create( 'select', 'color_scheme', 'Color del Texto' )->set_width( 25 )->add_options( array(
-                            '' => 'Seleccionar',
-                            'default-scheme' => 'Negro',
-                            'dark-scheme' => 'Blanco',
-                        )),
+                        Field::create( 'text', 'title', 'Título para el menú' ),
+                        // Field::create( 'tab', 'Settings' ),
+                        // Field::create( 'image', 'bgi', 'Imágen de Fondo' )->set_width( 25 ),
+                        // Field::create( 'complex', 'bgi_options', '' )->set_width( 25 )->add_fields(array(
+                        //     Field::create( 'select', 'size', 'Tamaño')->add_options( array(
+                        //         'auto' => 'Automático',
+                        //         'cover' => 'Cubrir Todo',
+                        //     ) ),
+                        //     Field::create( 'select', 'repeat', 'Repetir')->add_options( array(
+                        //         'repeat' => 'Ambas direcciones',
+                        //         'repeat-x' => 'Solo horizontal',
+                        //         'repeat-y' => 'Solo en vertical',
+                        //         'no-repeat' => 'No Repetir',
+                        //     ) ),
+                        //     Field::create( 'select', 'position_x', 'Posición Eje Horizontal')->add_options( array(
+                        //         'left' => 'Izquierda',
+                        //         'center' => 'Centro',
+                        //         'right' => 'Derecha',
+                        //     ) ),
+                        //     Field::create( 'select', 'position_y', 'Posición Eje Vertical')->add_options( array(
+                        //         'top' => 'Arriba',
+                        //         'center' => 'Centro',
+                        //         'bottom' => 'Abajo',
+                        //     ) ),
+                        // ))->add_dependency('bgi','0','>'),
+                        // Field::create( 'complex', 'color_de_fondo' )->set_width( 25 )->add_fields(array(
+                        //     Field::create( 'checkbox', 'add_bgc', 'Activar' )->set_width( 25 )->set_text('Activar')->hide_label(),
+                        //     Field::create( 'color', 'bgc', 'Color' )->set_width( 25 )->add_dependency('add_bgc'),
+                        // )),
+                        // Field::create( 'select', 'color_scheme', 'Color del Texto' )->set_width( 25 )->add_options( array(
+                        //     '' => 'Seleccionar',
+                        //     'default-scheme' => 'Negro',
+                        //     'dark-scheme' => 'Blanco',
+                        // )),
                     )
             )),
         
@@ -90,10 +90,9 @@ class Content_Slider extends Component {
 	}
 
 	public static function display( $args ){
-        $tipo = $args['__type'];
-        $args['additional_classes'] = array('componente-'.$tipo);
+        $args['additional_classes'] = array('component');
 
-        $items = $args['content_slider'];
+        $items = $args['items'];
         $extender_fondo = $args['extender_fondo'];
         $scroll_to_top = (isset($args['scroll_to_top'])) ? $args['scroll_to_top'] : 0;
 
@@ -119,7 +118,7 @@ class Content_Slider extends Component {
         echo Template_Engine::check_layout('start', $args);
 
         if (is_array($items) && count($items)>0): ?>
-            <div class="slider-de-contenidos"
+            <div class="content-slider__slider"
                 data-nav-position="<?=$nav_position?>" 
                 data-controls-position="<?=$controls_position?>" 
                 data-show-title="<?=$nav_show_title?>" 
@@ -145,21 +144,21 @@ class Content_Slider extends Component {
                     $clases = ($color_scheme != 'default-scheme') ? 'class="'.$text_color.'"' : '';
                     
                     $style = '';
-                    $bgi = wp_get_attachment_url($item['bgi']);
-                    if (array_key_exists('color_de_fondo', $item)) {
-                        $style .= ($item['color_de_fondo']['add_bgc']) ? 'background-color: '.$item['color_de_fondo']['bgc'].';' : '';
-                    }
-                    $style .= ($bgi) ? 'background-image: url('.$bgi.');' : '';
-                    $style .= ($bgi && $item['bgi_options']['repeat'] != 'repeat') ? 'background-repeat: '.$item['bgi_options']['repeat'].';' : '';
-                    $style .= ($bgi && $item['bgi_options']['size'] != 'auto') ? 'background-size: '.$item['bgi_options']['size'].';' : '';
-                    $style .= ($bgi && $item['bgi_options']['position_x'] != 'left') ? 'background-position-x: '.$item['bgi_options']['position_x'].';' : '';
-                    $style .= ($bgi && $item['bgi_options']['position_y'] != 'top') ? 'background-position-y: '.$item['bgi_options']['position_y'].';' : '';
+                    // $bgi = wp_get_attachment_url($item['bgi']);
+                    // if (array_key_exists('color_de_fondo', $item)) {
+                    //     $style .= ($item['color_de_fondo']['add_bgc']) ? 'background-color: '.$item['color_de_fondo']['bgc'].';' : '';
+                    // }
+                    // $style .= ($bgi) ? 'background-image: url('.$bgi.');' : '';
+                    // $style .= ($bgi && $item['bgi_options']['repeat'] != 'repeat') ? 'background-repeat: '.$item['bgi_options']['repeat'].';' : '';
+                    // $style .= ($bgi && $item['bgi_options']['size'] != 'auto') ? 'background-size: '.$item['bgi_options']['size'].';' : '';
+                    // $style .= ($bgi && $item['bgi_options']['position_x'] != 'left') ? 'background-position-x: '.$item['bgi_options']['position_x'].';' : '';
+                    // $style .= ($bgi && $item['bgi_options']['position_y'] != 'top') ? 'background-position-y: '.$item['bgi_options']['position_y'].';' : '';
     
-                    if ($style && $extender_fondo) {
-                        $style = 'data-style="'.$style.'"';
-                    } else {
-                        $style = 'style="'.$style.'"';
-                    }
+                    // if ($style && $extender_fondo) {
+                    //     $style = 'data-style="'.$style.'"';
+                    // } else {
+                    //     $style = 'style="'.$style.'"';
+                    // }
                     ?>
                     <div <?=$clases?> <?=$style?> data-title="<?=$title?>">
                         <?php 

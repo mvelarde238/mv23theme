@@ -184,10 +184,12 @@ class Core{
     }
 
     public function add_core_components_on_demand(){
+        add_action( 'before_adding_Inner_Columns_components', function(){
+            if(SIMPLE_COLUMNS) new \Theme_Custom_Fields\Component\Simple_Columns;
+        });
         add_action( 'before_adding_Columns_components', function(){
             if(COMPONENTS_WRAPPER) new Components_Wrapper();
             if(CARD) new \Theme_Custom_Fields\Component\Card();
-            if(COLUMNAS_SIMPLES) new \Theme_Custom_Fields\Component\Simple_Columns;
             if(ITEMS_GRID) new \Theme_Custom_Fields\Component\Items_Grid;
             if(CONTENT_SLIDER) new \Theme_Custom_Fields\Component\Content_Slider;
         });

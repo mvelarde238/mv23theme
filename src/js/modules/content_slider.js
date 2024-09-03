@@ -1,12 +1,12 @@
 (function($,c){      
     document.addEventListener('DOMContentLoaded', function() {
 
-        var sliderDeContenidos = $('.componente-slider-de-contenidos');
+        var contentSliders = $('.content-slider');
         var headerHeight = MV23_GLOBALS.headerHeight;
 
-        for (var i = 0; i < sliderDeContenidos.length; i++) {
-            var slider = $(sliderDeContenidos[i]).find('.slider-de-contenidos'),
-                nav_position = $(slider[0]).attr('data-nav-position'),
+        for (var i = 0; i < contentSliders.length; i++) {
+            var slider = $(contentSliders[i]).find('.content-slider__slider'),
+                nav_position = $(slider[0]).attr('data-nav-position'), 
                 controls_position = $(slider[0]).attr('data-controls-position'),
                 nav_show_title = $(slider[0]).attr('data-show-title'),
                 show_controls = $(slider[0]).attr('data-show-controls'),
@@ -33,18 +33,24 @@
 
             var daSlider = tns(slider_options);
 
-            if ($(sliderDeContenidos[i]).attr('data-extended-bgi') == '1') { 
+            if ($(contentSliders[i]).attr('data-extended-bgi') == '1') { 
 
-                $(sliderDeContenidos[i]).attr('style', $(sliderDeContenidos[i]).find('.tns-slide-active').attr('data-style') );
+                $(contentSliders[i]).attr('style', $(contentSliders[i]).find('.tns-slide-active').attr('data-style') );
 
                 daSlider.events.on('transitionEnd', function (info, eventName) {
-                    $(info.container).parents('.componente-slider-de-contenidos').attr('style', $(info.slideItems[info.navCurrentIndex]).attr('data-style') );
+                    $(info.container).parents('.content-slider').attr('style', $(info.slideItems[info.navCurrentIndex]).attr('data-style') );
                 });
             }
 
-            if ($(sliderDeContenidos[i]).attr('data-scroll-to-top') == '1') { 
+            if ($(contentSliders[i]).attr('data-scroll-to-top') == '1') { 
                 daSlider.events.on('transitionStart', function (info, eventName) {
-                    $("html, body").animate({ scrollTop: ($(info.container).offset().top - headerHeight) }, {duration: 800, queue: false, easing: 'easeOutCubic'});
+                    $("html, body").animate({ 
+                        scrollTop: ($(info.container).offset().top - headerHeight)
+                    }, {
+                        duration: 800, 
+                        queue: false, 
+                        // easing: 'easeOutCubic'
+                    });
                 });
             }
         }

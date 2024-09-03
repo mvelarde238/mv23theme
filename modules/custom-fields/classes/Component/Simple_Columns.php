@@ -30,7 +30,7 @@ class Simple_Columns extends Component {
 	public static function get_fields() {
 		$fields = array( 
             Field::create( 'tab', __('Contenido','default') ),
-            Blocks_Layout::the_field(array('slug' => 'columns')),
+            Blocks_Layout::the_field(),
             Field::create( 'tab', 'Márgenes' ),
             Field::create( 'number', 'components_margin', 'Márgenes de los componentes internos' )->enable_slider( 0, 20 )->set_default_value(20)
         );
@@ -39,7 +39,7 @@ class Simple_Columns extends Component {
 	}
 
 	public static function display( $args ){
-        $columns = $args['columns'];
+        $columns = $args['blocks_layout'];
 
         $components_margin = (!empty($args['components_margin'])) ? $args['components_margin'] : null;
         if ( $components_margin && $components_margin != 20) $args['additional_attributes'] =  'data-setmargin="'.$components_margin.'"';
