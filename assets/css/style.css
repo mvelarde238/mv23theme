@@ -6329,7 +6329,7 @@ table > tbody > tr:nth-child(even) {
 .horizontal-nav-2 .menu > li:has(a.is-inview) .sub-menu,
 .horizontal-nav-1 .menu > li:has(a.is-inview) .sub-menu,
 .-secondary > li:has(a.is-inview) .sub-menu {
-	font-weight: inherit;
+	font-weight: initial;
 	color: inherit;
 }
 
