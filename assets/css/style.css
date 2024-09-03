@@ -6329,8 +6329,8 @@ table > tbody > tr:nth-child(even) {
 .horizontal-nav-2 .menu > li:has(a.is-inview) .sub-menu,
 .horizontal-nav-1 .menu > li:has(a.is-inview) .sub-menu,
 .-secondary > li:has(a.is-inview) .sub-menu {
-	font-weight: initial;
-	color: initial;
+	font-weight: inherit;
+	color: inherit;
 }
 
 .horizontal-nav-1 .menu > li:not(:last-child) {
