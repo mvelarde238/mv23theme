@@ -81,7 +81,11 @@ class Theme_options{
         return $menu_ord;
     }
 
-    public function add_theme_fonts(){
+    public function get_theme_fonts(){
+        $urls = array();
+        $names = array();
+        $css = '';
+
         $fonts = array(
             array( 'option' => 'general_font', 'apply_to' => 'body'),
             array( 'option' => 'headings_font', 'apply_to' => 'h1,h2,h3,h4,h5,h6')
@@ -92,19 +96,37 @@ class Theme_options{
     
             if( $the_font ) {
                 $url = Font::get_font_url( $the_font );
-                wp_enqueue_style( $the_font['family'], $url );
+                $urls[] = $url;
+                $names[] = $the_font['family'];
             
-                $css = $font['apply_to'].' {font-family: "' . $the_font['family'] . '", Sans-Serif;}';
-                wp_add_inline_style( 'mv23theme-styles', $css );
+                $css .= $font['apply_to'].' {font-family: ' . $the_font['family'] . ', Sans-Serif;}';
             }
         }
+
+        return array(
+            'names' => $names,
+            'urls' => $urls,
+            'css' => $css
+        );
+    }
+
+    public function add_theme_fonts(){
+        $fonts = self::$instance->get_theme_fonts();
+        $count = 0;
+        
+        foreach ($fonts['urls'] as $url) {
+            wp_enqueue_style( $fonts['names'][$count], $url );
+            $count++;
+        }
+            
+        wp_add_inline_style( 'mv23theme-styles', $fonts['css'] );
     }
 
     public function get_property($name){
         return get_option($name);
     }
 
-    public function add_css_properties(){
+    public function get_css_properties(){
         $properties = array();
 
         // main colors
@@ -162,7 +184,12 @@ class Theme_options{
             $count++;
         }
 
-        // ADD THE CSS PROPERTIES
+        return $properties;
+    }
+    
+    public function add_css_properties(){
+        $properties = self::$instance->get_css_properties();
+
         if( !empty($properties) ){
             $css = ':root {'.implode(';', $properties ).'}';
             wp_add_inline_style( 'mv23theme-styles', $css );

@@ -98,6 +98,7 @@ class MV23_Theme extends Theme {
 
         // Allow editor style.
         $this->loader->add_action( 'after_setup_theme', $admin, 'add_editor_style', 1 );
+        $this->loader->add_filter( 'tiny_mce_before_init', $admin, 'add_editor_inline_style' );
 
         // remove WP version from RSS
         $this->loader->add_filter( 'the_generator', $admin, 'remove_rss_version' );

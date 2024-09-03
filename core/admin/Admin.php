@@ -13,6 +13,8 @@ use Core\Posttype\Portfolio;
 use Core\Posttype\MV23_Library;
 use Core\Posttype\Reusable_Section_CPT;
 use Core\Posttype\Archive_Page;
+use Ultimate_Fields\Field\Font;
+use Theme_Custom_Fields\Theme_options;
 
 class Admin extends Theme {
 
@@ -75,7 +77,32 @@ class Admin extends Theme {
     }
 
     public function add_editor_style(){
-        add_editor_style( $this->theme_path . '/assets/css/editor-style.css' );
+        $theme_fonts = Theme_options::getInstance()->get_theme_fonts();
+
+        $styles = array_merge(
+            array( $this->theme_path . '/assets/css/editor-style.css' ),
+            $theme_fonts['urls']
+        );
+
+        add_editor_style( $styles ); 
+    }
+
+    public function add_editor_inline_style( $settings ) {
+        $settings['content_style'] = '';
+
+        $theme_options = Theme_options::getInstance();
+        $theme_fonts = $theme_options->get_theme_fonts();
+        if( !empty($theme_fonts['css']) ){
+            $settings['content_style'] .= str_replace('body', 'body#tinymce.wp-editor', $theme_fonts['css']);
+        }
+
+        $properties = $theme_options->get_css_properties();
+        if( !empty($properties) ){
+            $css_properties = ':root {'.implode(';', $properties ).'}';
+            $settings['content_style'] .= str_replace(':root', 'body#tinymce.wp-editor', $css_properties);
+        }
+
+        return $settings;
     }
 
     public function remove_rss_version() { 

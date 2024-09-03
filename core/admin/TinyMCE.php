@@ -29,6 +29,15 @@ class TinyMCE{
     }
 
     public function add_font_families($initArray){
+		$_theme_fonts = array();
+		$theme_options = Theme_options::getInstance();
+        $theme_fonts = $theme_options->get_theme_fonts();
+        if( !empty($theme_fonts['urls']) ){
+            foreach ($theme_fonts['names'] as $font_name) {
+				$_theme_fonts[$font_name] = $font_name;
+			}
+        }
+
         $fonts = array(
             'Andale Mono' => 'monospace',
             'Arial' => 'arial,helvetica,sans-serif',
@@ -49,7 +58,7 @@ class TinyMCE{
             'Wingdings' => 'wingdings,zapf dingbats',
         );
 
-        $fonts = array_merge(CUSTOM_TINYMCE_FONTS, $fonts);
+        $fonts = array_merge($_theme_fonts, CUSTOM_TINYMCE_FONTS, $fonts);
 
         $fonts_str = '';
         foreach ($fonts as $key => $item) {
