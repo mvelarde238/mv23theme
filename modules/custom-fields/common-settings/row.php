@@ -62,10 +62,10 @@ return Container::create( '_row-settings' )->add_fields( array(
         ))->add_dependency('quantity','4','='),
     Field::create( 'select', 't_grid_4', __('Width on tablet','default'))->set_width( 25 )->add_options( array(
             '1f' => '100%',
-            '1fr 1fr 1fr 1fr' => '1/2 + 1/2 + 1/2 + 1/2',
+            '1fr 1fr' => '1/2 + 1/2 + 1/2 + 1/2',
         ))->add_dependency('quantity','4','='),
     Field::create( 'select', 'm_grid_4', __('Width on mobile','default'))->set_width( 25 )->add_options( array(
             '1f' => '100%',
-            '1fr 1fr 1fr 1fr' => '1/2 + 1/2 + 1/2 + 1/2',
+            '1fr 1fr' => '1/2 + 1/2 + 1/2 + 1/2',
         ))->add_dependency('quantity','4','='),
 ));
