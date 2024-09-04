@@ -21,7 +21,7 @@ Class Scroll_Animations{
                     foreach ($args['scroll_animations_settings']['groups'] as $group) {
     
                         $settings = $group['settings'];
-                        if( IS_MOBILE && $settings['turn_off_in_mobile'] == 1 ) continue;           
+                        if( IS_MOBILE && isset($settings['turn_off_in_mobile']) && $settings['turn_off_in_mobile'] == 1 ) continue;           
     
                         $trigger_element = ($settings['trigger-element']['el'] == 'selector' ) ? $settings['trigger-element']['selector'] : 'this';
                         $element = ($settings['element']['el'] == 'this' ) ? 'this' : $settings['element']['selector'];
