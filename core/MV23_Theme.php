@@ -28,7 +28,7 @@ class MV23_Theme extends Theme {
     public function init_modules(){
         require_once( get_template_directory() . '/modules/custom-fields/index.php' );
         require_once( get_template_directory() . '/modules/offcanvas-elements/index.php' );
-        require_once( get_template_directory() . '/modules/migrator/index.php' );
+        // require_once( get_template_directory() . '/modules/migrator/index.php' );
     }
     
     public function init(){
