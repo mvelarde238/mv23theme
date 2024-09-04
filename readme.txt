@@ -7,7 +7,7 @@ CHANGELOG
 - !IMPORTANT: V.1.5.0
 - Folders structure refactorization
 - Component Settings Open in popup
-- Migrator Module
+- Migrator Module.
 -----------------------------------------------------------------------------------------------------
 
 0.4.1 24-07-30
