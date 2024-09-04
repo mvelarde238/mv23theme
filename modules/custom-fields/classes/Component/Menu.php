@@ -4,7 +4,7 @@ namespace Theme_Custom_Fields\Component;
 use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Component;
 use Theme_Custom_Fields\Template_Engine;
-use Core\FrontEnd\Nav_Walker;
+use Core\Frontend\Nav_Walker;
 
 class Menu extends Component {
 

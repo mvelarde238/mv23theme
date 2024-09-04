@@ -7,14 +7,14 @@ namespace Core;
 
 use Core\Includes\Theme;
 use Core\Includes\Loader;
-use Core\FrontEnd\FrontEnd;
-use Core\FrontEnd\WooCommerce_Support;
+use Core\Frontend\Frontend;
+use Core\Frontend\WooCommerce_Support;
 use Core\Admin\Admin;
-use Core\CleanUp\CleanUp;
+use Core\Cleanup\Cleanup;
 use Core\Admin\Ajax_Load_Posts;
 use Core\Admin\Hardening_WP;
 use Core\Admin\TinyMCE;
-use Core\FrontEnd\Page;
+use Core\Frontend\Page;
 
 class MV23_Theme extends Theme {
 
@@ -40,7 +40,7 @@ class MV23_Theme extends Theme {
     }
 
     private function define_frontend_hooks() {
-        $frontend = new FrontEnd();
+        $frontend = new Frontend();
 
         // Enqueue styles and scripts.
         $this->loader->add_action( 'wp_enqueue_scripts', $frontend, 'enqueue_styles', 10 , 1 );
@@ -158,7 +158,7 @@ class MV23_Theme extends Theme {
     }
 
     private function define_cleanup_hooks() {
-        $cleanup = new CleanUp();
+        $cleanup = new Cleanup();
 
         // Remove emoji's header.
         $this->loader->add_action( 'init', $cleanup, 'disable_emoji_dequeue_script' );

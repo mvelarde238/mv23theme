@@ -1,6 +1,6 @@
 <?php 
 use Core\Posttype\Archive_Page;
-use Core\FrontEnd\Page;
+use Core\Frontend\Page;
 
 $archive_page = Archive_Page::getInstance();
 $archive_page_id = $archive_page->get_archive_id();

@@ -6,14 +6,14 @@
  * @since      1.0.0
  *
  * @package    Core
- * @subpackage Core/CleanUp
+ * @subpackage Core/Cleanup
  */
 
-namespace Core\CleanUp;
+namespace Core\Cleanup;
 
 use \Core\Includes\Theme as Theme;
 
-class CleanUp extends Theme {
+class Cleanup extends Theme {
 
     public function __construct() { 
         parent::__construct();

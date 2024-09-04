@@ -1,5 +1,5 @@
 <?php
-use Core\FrontEnd\Header;
+use Core\Frontend\Header;
 
 $blog_title = get_bloginfo( 'name' ); 
 $header = new Header(); 

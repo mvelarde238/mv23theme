@@ -42,6 +42,6 @@ class Autoloader {
     }
 
     private function convertNamespace( $namespace ) {
-        return strtolower( str_replace( '\\' , DIRECTORY_SEPARATOR , $namespace ) );
+        return str_replace( '\\' , DIRECTORY_SEPARATOR , $namespace );
     }
 }

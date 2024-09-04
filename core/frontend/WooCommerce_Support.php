@@ -3,7 +3,7 @@
  * WooCommerce Support
  */
 
-namespace Core\FrontEnd;
+namespace Core\Frontend;
 
 class WooCommerce_Support{
 

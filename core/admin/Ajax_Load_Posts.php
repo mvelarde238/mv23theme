@@ -2,7 +2,7 @@
 namespace Core\Admin;
 
 use WP_Query;
-use Core\FrontEnd\Pagination;
+use Core\Frontend\Pagination;
 
 class Ajax_Load_Posts{
 

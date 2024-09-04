@@ -1,5 +1,5 @@
 <?php
-use Core\FrontEnd\Page;
+use Core\Frontend\Page;
 
 $theme_footer_post = get_option('theme_footer_post');
 

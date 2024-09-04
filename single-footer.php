@@ -1,5 +1,5 @@
 <?php 
-use Core\FrontEnd\Page;
+use Core\Frontend\Page;
 get_header(); 
 ?>
 

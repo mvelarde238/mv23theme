@@ -1,8 +1,8 @@
 <?php
-namespace Core\FrontEnd;
+namespace Core\Frontend;
 
 use Walker_Nav_Menu;
-use Core\FrontEnd\Page;
+use Core\Frontend\Page;
 
 class Nav_Walker extends Walker_Nav_Menu{
 

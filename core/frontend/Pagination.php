@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\FrontEnd;
+namespace Core\Frontend;
 
 class Pagination{
 

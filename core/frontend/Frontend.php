@@ -3,15 +3,15 @@
  * Fontend specific functionality of this theme.
  */
 
-namespace Core\FrontEnd;
+namespace Core\Frontend;
 
 use Core\Includes\Theme as Theme;
-use Core\FrontEnd\Shortcodes as Shortcodes;
-use Core\FrontEnd\Page;
-use Core\FrontEnd\Header;
+use Core\Frontend\Shortcodes as Shortcodes;
+use Core\Frontend\Page;
+use Core\Frontend\Header;
 use Theme_Custom_Fields\Theme_options;
 
-class FrontEnd extends Theme {
+class Frontend extends Theme {
 
     public function __construct() { 
         parent::__construct();

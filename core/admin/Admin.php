@@ -13,8 +13,7 @@ use Core\Posttype\Portfolio;
 use Core\Posttype\MV23_Library;
 use Core\Posttype\Reusable_Section_CPT;
 use Core\Posttype\Archive_Page;
-use Ultimate_Fields\Field\Font;
-use Theme_Custom_Fields\Theme_options;
+use Theme_Custom_Fields\Theme_Options;
 
 class Admin extends Theme {
 
@@ -77,7 +76,7 @@ class Admin extends Theme {
     }
 
     public function add_editor_style(){
-        $theme_fonts = Theme_options::getInstance()->get_theme_fonts();
+        $theme_fonts = Theme_Options::getInstance()->get_theme_fonts();
 
         $styles = array_merge(
             array( $this->theme_path . '/assets/css/editor-style.css' ),

@@ -1,8 +1,8 @@
 <?php
-namespace Core\FrontEnd;
+namespace Core\Frontend;
 
 use Theme_Custom_Fields\Template_Engine;
-use Core\FrontEnd\Page;
+use Core\Frontend\Page;
 use Blocks_Layout;
 
 class Page_Header{

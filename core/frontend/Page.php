@@ -1,5 +1,5 @@
 <?php
-namespace Core\FrontEnd;
+namespace Core\Frontend;
 
 use Theme_Custom_Fields\Template_Engine;
 use Blocks_Layout;

@@ -1,5 +1,5 @@
 <?php
-use Core\FrontEnd\Nav_Walker;
+use Core\Frontend\Nav_Walker;
 
 $main_nav_classes = array_merge( array('main-nav','menu-comp'), MAIN_NAV_STYLE );
 ?>

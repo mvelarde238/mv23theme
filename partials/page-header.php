@@ -1,4 +1,4 @@
 <?php 
-use Core\FrontEnd\Page_Header;
+use Core\Frontend\Page_Header;
 
 Page_Header::getInstance()->display(); 

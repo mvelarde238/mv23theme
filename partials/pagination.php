@@ -1,5 +1,5 @@
 <?php
-use Core\FrontEnd\Pagination;
+use Core\Frontend\Pagination;
 
 echo '<div class="component">';
 Pagination::display();

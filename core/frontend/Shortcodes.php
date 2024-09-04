@@ -1,5 +1,5 @@
 <?php
-namespace Core\FrontEnd;
+namespace Core\Frontend;
 
 class Shortcodes{
     public function __construct(){}

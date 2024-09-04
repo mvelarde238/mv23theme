@@ -1,7 +1,7 @@
 <?php
-namespace Core\FrontEnd;
+namespace Core\Frontend;
 
-use Core\FrontEnd\Page;
+use Core\Frontend\Page;
 use Core\Utils\Helpers;
 
 class Header{
