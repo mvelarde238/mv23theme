@@ -57,7 +57,7 @@ Class Video{
                     'autoplay' => '&autoplay=0'
                 );
                 if( $video_type != 'playable' ) $video_args['noControls'] = '&controls=0';
-                if( $video_settings['muted'] ) $video_args['mute'] = '&mute=1';
+                if( $video_settings['muted'] ) $video_args['muted'] = '&mute=1';
                 if( $video_settings['autoplay'] ) $video_args['autoplay'] = '&autoplay=1';
                 if( $video_settings['loop'] ) $video_args['loop'] = '&loop=1';            
 

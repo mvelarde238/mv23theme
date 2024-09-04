@@ -1,4 +1,6 @@
 <?php
+use Theme_Custom_Fields\Template_Engine\Video;
+
 global $post;
 $id = $post->ID;
 $title = $post->post_title;
@@ -20,9 +22,36 @@ if (strlen($excerpt) > $comment_length) {
     $excerpt = $endPoint? substr($excerptCut, 0, $endPoint) : substr($excerptCut, 0);
     $excerpt .= '...';
 }
+
+$post_format = get_post_meta( $id, 'post_format', true );
+$post_link = get_post_meta( $id, 'post_link', true );
+if( $post_format == 'link' && !empty($post_link) ) $link = $post_link;
+
+$use_featured_video = get_post_meta( $id, 'use_featured_video', true );
+$featured_video = null;
+if( $use_featured_video ){
+	$featured_video_source = get_post_meta( $id, 'featured_video_source', true );
+	
+	$args = array(
+		'video_source' => $featured_video_source,
+		'video_type' => '',
+		'loop' => 1,
+        'muted' => 1,
+        'autoplay' => 1
+	);
+
+	$video_meta_data = ( $featured_video_source == 'selfhosted' ) ? 'featured_video' : 'featured_video_url';
+	$video_data = get_post_meta( $id, $video_meta_data, true );
+	if( $featured_video_source == 'selfhosted' ) $args['video'] = $video_data;
+	if( $featured_video_source == 'external' ) $args['external_url'] = $video_data;
+
+	$featured_video = Video::get_video_data($args);
+}
 ?>
 <div class="post-card post-card--style2" data-id="<?=$id?>">
-	<a href="<?=$link?>" class="post-card__image trigger-post-action" style="background-image:url(<?=$thumb_url?>);"></a>
+	<a href="<?=$link?>" class="post-card__image trigger-post-action" style="background-image:url(<?=$thumb_url?>);">
+		<?php if($featured_video) echo '<div class="video-background">'.$featured_video['code'].'</div>' ?>
+	</a>
 	<div class="post-card__content">
 		<h2 class="post-card__title"><a class="trigger-post-action" href="<?=$link?>"><?php echo $title; ?></a></h2>
 		<?php if($excerpt) echo '<div class="post-card__excerpt">'.$excerpt.'</div>'; ?>

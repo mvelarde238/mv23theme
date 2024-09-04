@@ -4751,6 +4751,7 @@ ul.page-numbers .next {
 	top: -46px;
 	right: 0;
 	padding: 8px;
+	z-index: 56;
 }
 
 .post-card--style1 .post-card__tags span {
@@ -6764,6 +6765,7 @@ li.product:before {
 	z-index: 1;
 	min-height: 100%;
 	opacity: var(--video-opacity);
+	pointer-events: none;
 }
 
 :has(> .video-background) iframe {

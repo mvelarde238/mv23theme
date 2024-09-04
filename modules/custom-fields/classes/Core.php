@@ -99,6 +99,8 @@ class Core{
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/accordion-settings.php' );
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/archive-page-settings.php' );
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/library-item-data.php' );
+        require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/post-format.php' );
+        require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/featured-video.php' );
 
         // uncomment just to generate the container json:
         // require_once( THEME_CUSTOM_FIELDS_DIR.'/common-settings/common-settings-container.php' );
