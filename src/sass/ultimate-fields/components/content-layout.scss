@@ -2,13 +2,20 @@
 	&>div{
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-between;
 	}
-	&__item{
-		flex-grow: 1;
-		width: 100%;
-	}
+	&.jc-center>div{ justify-content: center; }
+	&.jc-flex-start>div{ justify-content: flex-start; }
+	&.jc-flex-end>div{ justify-content: flex-end; }
+	&.jc-space-between>div{ justify-content: space-between; }
+	&.ai-center>div{ align-items: center; }
+	&.ai-flex-start>div{ align-items: flex-start; }
+	&.ai-flex-end>div{ align-items: flex-end; }
+	&.ai-space-between>div{ align-items: space-between; }
+}
 
+.content-layout.layout-flex{}
+
+.content-layout.layout-grid{
 	@media only screen and (min-width: 395px) {
 		$i: 5;
 		$nth-cols : 12;

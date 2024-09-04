@@ -54,7 +54,7 @@ class Blocks_Layout{
         if(is_array($groups) && count($groups) > 0){
             foreach ($groups as $component) {
                 $options = array(
-                    'min_width' => 3,
+                    'min_width' => 1,
                     'title' => $component->get_title(),
                     'fields' => $component->get_fields(),
                     'edit_mode' => $component->get_edit_mode(),
@@ -76,12 +76,22 @@ class Blocks_Layout{
 
 	public static function the_content($layouts, $args = array() ){
         $defaults = array(
-            'classes' => array( 'content-layout' )
+            '__type' => 'content-layout',
+            'classes' => array( 'content-layout-xx' ),
+            'component_args' => array(),
+            'additional_classes' => array(),
+            'additional_attributes' => array()
         );
         $args = wp_parse_args( $args, $defaults );
 
+        if( isset($args['component_args']['blocks_layout_settings']) ){
+            $args['additional_classes'][] = 'layout-'.$args['component_args']['blocks_layout_settings']['layout'];
+            $args['additional_classes'][] = 'jc-'.$args['component_args']['blocks_layout_settings']['justify_content'];
+            $args['additional_classes'][] = 'ai-'.$args['component_args']['blocks_layout_settings']['align_items'];
+        }
+
         ob_start();
-        echo '<div class="'.implode(' ', $args['classes']).'">';
+        echo Template_Engine::component_wrapper('start',$args);
         echo '<div>';
         for ($i=0; $i < count($layouts); $i++) { 
             $row = $layouts[$i];
@@ -98,7 +108,7 @@ class Blocks_Layout{
             };
         };
         echo '</div>';
-        echo '</div>';
+        echo Template_Engine::component_wrapper('end',$args);
         return ob_get_clean();
 	}
 }

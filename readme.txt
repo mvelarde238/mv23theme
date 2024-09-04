@@ -9,6 +9,7 @@ CHANGELOG
 - Component Settings Open in popup
 - Migrator Module.
 -----------------------------------------------------------------------------------------------------
+- Blocks Layout Settings implementation in Components Wrapper
 
 0.4.1 24-07-30
 -----------------------------------------------------------------------------------------------------

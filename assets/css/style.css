@@ -7072,12 +7072,38 @@ li.product:before {
 .content-layout > div {
 	display: flex;
 	flex-wrap: wrap;
+}
+
+.content-layout.jc-center > div {
+	justify-content: center;
+}
+
+.content-layout.jc-flex-start > div {
+	justify-content: flex-start;
+}
+
+.content-layout.jc-flex-end > div {
+	justify-content: flex-end;
+}
+
+.content-layout.jc-space-between > div {
 	justify-content: space-between;
 }
 
-.content-layout__item {
-	flex-grow: 1;
-	width: 100%;
+.content-layout.ai-center > div {
+	align-items: center;
+}
+
+.content-layout.ai-flex-start > div {
+	align-items: flex-start;
+}
+
+.content-layout.ai-flex-end > div {
+	align-items: flex-end;
+}
+
+.content-layout.ai-space-between > div {
+	align-items: space-between;
 }
 
 .v23-togglebox {
@@ -7408,35 +7434,35 @@ li.product:before {
 
 @media only screen and (min-width: 395px) {
 
-.content-layout .width-5 {
+.content-layout.layout-grid .width-5 {
 	width: 41.6666666667%;
 }
 
-.content-layout .width-6 {
+.content-layout.layout-grid .width-6 {
 	width: 50%;
 }
 
-.content-layout .width-7 {
+.content-layout.layout-grid .width-7 {
 	width: 58.3333333333%;
 }
 
-.content-layout .width-8 {
+.content-layout.layout-grid .width-8 {
 	width: 66.6666666667%;
 }
 
-.content-layout .width-9 {
+.content-layout.layout-grid .width-9 {
 	width: 75%;
 }
 
-.content-layout .width-10 {
+.content-layout.layout-grid .width-10 {
 	width: 83.3333333333%;
 }
 
-.content-layout .width-11 {
+.content-layout.layout-grid .width-11 {
 	width: 91.6666666667%;
 }
 
-.content-layout .width-12 {
+.content-layout.layout-grid .width-12 {
 	width: 100%;
 }
 
@@ -7899,19 +7925,19 @@ li.product:before {
 
 @media only screen and (min-width: 768px) {
 
-.content-layout .width-1 {
+.content-layout.layout-grid .width-1 {
 	width: 8.3333333333%;
 }
 
-.content-layout .width-2 {
+.content-layout.layout-grid .width-2 {
 	width: 16.6666666667%;
 }
 
-.content-layout .width-3 {
+.content-layout.layout-grid .width-3 {
 	width: 25%;
 }
 
-.content-layout .width-4 {
+.content-layout.layout-grid .width-4 {
 	width: 33.3333333333%;
 }
 

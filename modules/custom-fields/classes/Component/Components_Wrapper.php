@@ -5,6 +5,7 @@ use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Component;
 use Theme_Custom_Fields\Template_Engine;
 use Blocks_Layout;
+use Blocks_Layout_Settings;
 
 class Components_Wrapper extends Component {
 
@@ -30,7 +31,8 @@ class Components_Wrapper extends Component {
 	public static function get_fields() {
 		$fields = array( 
             Field::create( 'tab', __('Contenido','default') ),
-            Blocks_Layout::the_field( array( 'exclude' => array('inner_columns') ) )
+            Blocks_Layout::the_field( array( 'exclude' => array('inner_columns') ) ),
+			Blocks_Layout_Settings::the_field()
         );
 
 		return $fields;
@@ -41,7 +43,7 @@ class Components_Wrapper extends Component {
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
-        echo Blocks_Layout::the_content( $blocks_layout_data );
+        echo Blocks_Layout::the_content( $blocks_layout_data, array('component_args' => $args) );
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}

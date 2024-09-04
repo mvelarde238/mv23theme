@@ -103,9 +103,10 @@ class Core{
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/featured-video.php' );
 
         // uncomment just to generate the container json:
-        // require_once( THEME_CUSTOM_FIELDS_DIR.'/common-settings/common-settings-container.php' );
-        // require_once( THEME_CUSTOM_FIELDS_DIR.'/common-settings/scroll-animations-container.php' );
-        // require_once( THEME_CUSTOM_FIELDS_DIR.'/common-settings/actions-container.php' );
+        // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/common-settings.php' );
+        // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/scroll-animations.php' );
+        // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/actions.php' );
+        // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/blocks-layout-settings.php' );
 
         /**
          * Let child theme register its own meta boxes

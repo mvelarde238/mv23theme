@@ -73,6 +73,7 @@ class Common_Settings_Control {
 		wp_register_script( 'common_settings_container', $assets . 'common_settings_container.js', array( 'uf-field' ), $v );
 		wp_register_script( 'scroll_animations_container', $assets . 'scroll_animations_container.js', array( 'uf-field' ), $v );
 		wp_register_script( 'actions_container', $assets . 'actions_container.js', array( 'uf-field' ), $v );
+		wp_register_script( 'blocks_layout_settings_container', $assets . 'blocks_layout_settings_container.js', array( 'uf-field' ), $v );
 		
 		// FIELD SCRIPT
 		wp_register_script( 'uf-field-common-settings-control', $assets . 'field-common-settings-control.js', array( 'uf-field' ), $v );
