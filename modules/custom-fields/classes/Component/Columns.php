@@ -100,7 +100,7 @@ class Columns extends Component {
 
 					$order_meta = ($device == 'l-desktop') ? 'order' : $device.'_order';
 					if( isset($col_args[$order_meta]) && !empty($col_args[$order_meta]) ){
-						$col_args['additional_styles'][] = '--'.$device[0].'-order:'.$col_args[$alignment_meta];
+						$col_args['additional_styles'][] = '--'.$device[0].'-order:'.$col_args[$order_meta];
 					}
 				}
 			
