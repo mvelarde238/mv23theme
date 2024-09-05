@@ -4424,10 +4424,6 @@ span[style*=font-size] {
 	flex-direction: column;
 }
 
-.pinned-block {
-	display: grid;
-}
-
 .pdf-responsive {
 	position: relative;
 	padding-bottom: 88%;
@@ -6780,6 +6776,10 @@ li.product:before {
 .pinned-block {
 	position: sticky;
 	top: var(--body-padding-top);
+}
+
+.pinned-block {
+	height: fit-content;
 }
 
 .columns {

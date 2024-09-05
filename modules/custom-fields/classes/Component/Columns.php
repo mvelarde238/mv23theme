@@ -94,7 +94,7 @@ class Columns extends Component {
 				// column aligment and order
 				foreach ($devices as $device) {
 					$alignment_meta = ($device == 'l-desktop') ? 'content_alignment' : $device.'_content_alignment';
-					if( isset($col_args[$alignment_meta]) && $col_args[$alignment_meta] != 'flex-start' ){
+					if( isset($col_args[$alignment_meta]) && !empty($col_args[$alignment_meta]) && $col_args[$alignment_meta] != 'flex-start' ){
 						$col_args['additional_styles'][] = '--'.$device[0].'-alignment:'.$col_args[$alignment_meta];
 					}
 
