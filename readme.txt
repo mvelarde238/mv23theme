@@ -7,6 +7,7 @@ CHANGELOG
 - Fix .content_layout need .layout-grid class
 - Load login.css from active theme
 - Add position: relative to :has(>.cover-all)
+- Remove action woocommerce_get_sidebar
 
 1.5.0 24-09-04
 -----------------------------------------------------------------------------------------------------
