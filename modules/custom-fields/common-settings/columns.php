@@ -7,19 +7,38 @@ $columns_settings = array(
 );
 
 Container::create( '_column_fields' )
-    ->add_fields( array(
-        Field::create( 'select', 'tablet_order')->set_width( 50 )->add_options( array(
-            '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4',
+->add_fields( array(
+        Field::create( 'complex', 'order_wrapper', __('Order','default') )->merge()->add_fields(array(
+            Field::create( 'select', 'order', __('Desktop','default'))->add_options( array(
+                '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4',
+            ))->set_width(30),
+            Field::create( 'select', 'tablet_order', __('Tablet','default'))->add_options( array(
+                '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4',
+            ))->set_width(30),
+            Field::create( 'select', 'mobile_order', __('Mobile','default'))->add_options( array(
+                '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4',
+            ))->set_width(30)
         )),
-        Field::create( 'select', 'mobile_order')->set_width( 50 )->add_options( array(
-            '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4',
-        )),
-        Field::create( 'select', 'content_alignment',__('Content alignment','default'))->add_options( array(
-            'flex-start' => __('Top','default'),
-            'center' => __('Center','default'),
-            'flex-end' => __('Bottom','default'),
-            'space-between' => __('Distribute','default'),
-            'pinned' => __('Fixed','default'),
+        Field::create( 'complex', 'alignment_wrapper', __('Content alignment','default') )->merge()->add_fields(array(
+            Field::create( 'select', 'content_alignment',__('Desktop','default'))->add_options( array(
+                'flex-start' => __('Top','default'),
+                'center' => __('Center','default'),
+                'flex-end' => __('Bottom','default'),
+                'space-between' => __('Distribute','default'),
+                'pinned' => __('Fixed','default'),
+            ))->set_width(30),
+            Field::create( 'select', 'tablet_content_alignment',__('Tablet','default'))->add_options( array(
+                'flex-start' => __('Top','default'),
+                'center' => __('Center','default'),
+                'flex-end' => __('Bottom','default'),
+                'space-between' => __('Distribute','default')
+            ))->set_width(30),
+            Field::create( 'select', 'mobile_content_alignment',__('Mobile','default'))->add_options( array(
+                'flex-start' => __('Top','default'),
+                'center' => __('Center','default'),
+                'flex-end' => __('Bottom','default'),
+                'space-between' => __('Distribute','default')
+            ))->set_width(30)
         )),
         Field::create( 'common_settings_control', 'settings' )->set_container( 'common_settings_container' )
     ));

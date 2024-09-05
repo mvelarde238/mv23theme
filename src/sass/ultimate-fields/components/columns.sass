@@ -6,6 +6,12 @@
     from expanding grid items  */
 .column
     min-width: 0
+    // alignment
+    &[style*="-alignment"]
+        display: flex
+        flex-wrap: wrap
+        &>div[class*="component"]
+            width: 100%
 
 // DESKTOP
 @media #{$large-and-up}
@@ -13,23 +19,7 @@
         grid-template-columns: var(--l-grid)
     .column
         order: var(--l-order)
-
-// TABLET Y DESKTOP
-@media only screen and (min-width: $medium-screen)
-    .column
-        &.alignment-center,
-        &.alignment-flex-end,
-        &.alignment-space-between
-            display: flex
-            flex-wrap: wrap
-            &>div[class*="component"]
-                width: 100%
-        &.alignment-center
-            align-content: center
-        &.alignment-flex-end
-            align-items: flex-end
-        &.alignment-space-between
-            align-content: space-between
+        align-items: var(--l-alignment)
 
 // TABLET
 @media #{$medium-only}
@@ -37,6 +27,7 @@
         grid-template-columns: var(--t-grid)
     .column
         order: var(--t-order)
+        align-items: var(--t-alignment)
 
     .tablet-1-1de2-1de2,
     .tablet-1de2-1de2-1,
@@ -64,3 +55,4 @@
         grid-template-columns: var(--m-grid)
     .column
         order: var(--m-order)
+        align-items: var(--m-alignment)

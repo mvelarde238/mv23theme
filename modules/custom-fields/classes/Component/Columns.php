@@ -79,6 +79,8 @@ class Columns extends Component {
 		array_push($columns, $args['column_3']);
 		array_push($columns, $args['column_4']);
 
+		$devices = array('l-desktop','tablet','mobile');
+
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
 		echo '<div class="'.implode(' ', $columns_classes).'" style="'.implode(';', $columns_styles).'">';
@@ -87,24 +89,26 @@ class Columns extends Component {
 		        $col_args = $args['column_'.($i+1).'_settings'];
 			
 		        $col_args['__type'] = 'column';
-		        $col_args['additional_classes'] = array();
-			
-		        if( $col_args['content_alignment'] != 'flex-start' && !empty($col_args['content_alignment']) ){
-					$col_args['additional_classes'][] = 'alignment-'.$col_args['content_alignment'];
-				} 
-			
 				$col_args['additional_styles'] = array();
-		        $mobile_order = $col_args['mobile_order'];
-		        if(!empty($mobile_order)) $col_args['additional_styles'][] = '--m-order:'.$mobile_order;
-		        $tablet_order = $col_args['tablet_order'];
-		        if(!empty($tablet_order)) $col_args['additional_styles'][] = '--t-order:'.$tablet_order;
+			
+				// column aligment and order
+				foreach ($devices as $device) {
+					$alignment_meta = ($device == 'l-desktop') ? 'content_alignment' : $device.'_content_alignment';
+					if( isset($col_args[$alignment_meta]) && $col_args[$alignment_meta] != 'flex-start' ){
+						$col_args['additional_styles'][] = '--'.$device[0].'-alignment:'.$col_args[$alignment_meta];
+					}
+
+					$order_meta = ($device == 'l-desktop') ? 'order' : $device.'_order';
+					if( isset($col_args[$order_meta]) && !empty($col_args[$order_meta]) ){
+						$col_args['additional_styles'][] = '--'.$device[0].'-order:'.$col_args[$alignment_meta];
+					}
+				}
 			
 		        echo Template_Engine::component_wrapper('start', $col_args);
 		        if ($col_args['content_alignment'] == 'pinned') echo '<div class="pinned-block">';
 		        foreach ($columns[$i] as $component_inside) {
 		            $component_inside['layout'] = 'layout1';
 					echo Template_Engine::getInstance()->handle( $component_inside['__type'], $component_inside );
-					// echo '<div class="component">TABLET ORDER'.$tablet_order.'</div>';
 		        }
 		        if ($col_args['content_alignment'] == 'pinned') echo '</div>';
 				echo Template_Engine::component_wrapper('end', $col_args);

@@ -6794,6 +6794,15 @@ li.product:before {
 	min-width: 0;
 }
 
+.column[style*=-alignment] {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.column[style*=-alignment] > div[class*=component] {
+	width: 100%;
+}
+
 .media[style*=border-radius] {
 	overflow: hidden;
 }
@@ -7803,6 +7812,7 @@ li.product:before {
 
 .column {
 	order: var(--t-order);
+	align-items: var(--t-alignment);
 }
 
 .tablet-1-1de2-1de2,
@@ -7987,35 +7997,6 @@ li.product:before {
 
 .flow-text {
 	font-size: 1.584rem;
-}
-
-}
-
-@media only screen and (min-width: 1024px) {
-
-.column.alignment-center,
-.column.alignment-flex-end,
-.column.alignment-space-between {
-	display: flex;
-	flex-wrap: wrap;
-}
-
-.column.alignment-center > div[class*=component],
-.column.alignment-flex-end > div[class*=component],
-.column.alignment-space-between > div[class*=component] {
-	width: 100%;
-}
-
-.column.alignment-center {
-	align-content: center;
-}
-
-.column.alignment-flex-end {
-	align-items: flex-end;
-}
-
-.column.alignment-space-between {
-	align-content: space-between;
 }
 
 }
@@ -8282,6 +8263,7 @@ li.product:before {
 
 .column {
 	order: var(--l-order);
+	align-items: var(--l-alignment);
 }
 
 .items-grid__list.l1 > div {
@@ -9143,6 +9125,7 @@ table {
 
 .column {
 	order: var(--m-order);
+	align-items: var(--m-alignment);
 }
 
 .theme-gallery--masonry .theme-gallery__item,
