@@ -34,10 +34,6 @@
 		box-sizing: border-box;
 		position: relative;
 		z-index: 2;
-
-		&-prototype {
-			width: 250px;
-		}
 	}
 
 	&-helper {
@@ -102,7 +98,7 @@
 
 .uf-layout-group {
 	&-header {
-		padding-left: 48px;
+		padding-left: 0px;
 		box-sizing: border-box;
 		width: 100%;
 		display: flex;
@@ -121,6 +117,7 @@
 		cursor: move;
 		height: 19px;
 		padding: 8px 0;
+		display: none;
 
 		strong {
 			display: inline-block;
@@ -143,6 +140,7 @@
 		z-index: 2;
 		width: 48px;
 		color: #333;
+		display: none;
 
 		.uf-layout-helper & span {
 			opacity: 1;
@@ -164,19 +162,21 @@
 
 	.uf-group-title {
 		width: 100%;
+		padding-left: 0;
 	}
 }
 
 .uf-layout-resize {
 	position: absolute;
 	top: 0;
-	right: 5px;
+	right: 0px;
 	bottom: 0;
-	width: 10px;
+	width: 15px;
 	z-index: 2;
 	cursor: ew-resize;
 	padding: 10px 0;
 	text-align: center;
+	background-color: #fff;
 
 	del {
 		display: block;

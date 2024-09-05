@@ -1,5 +1,11 @@
 mv23 changelog-------------------------
 
+04-09-2024
+- Change .uf-group-prototype width in layout
+    (core/assets/sass/_customizations.scss)
+    (core/assets/sass/field/_layout.scss)
+    (core/assets/sass/field/_repeater.scss)
+
 23-08-2024
 - Commented the enqueue scripts for customizer, IMHO they are enqueued later
     (core\classes\Controller\Customizer.php::33)

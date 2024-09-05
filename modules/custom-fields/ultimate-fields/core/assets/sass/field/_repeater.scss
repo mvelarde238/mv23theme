@@ -1,5 +1,6 @@
 $border: #ddd;
 $number-width: 38px;
+$prototype-width: 140px;
 
 // The repeater field
 .uf-repeater {
@@ -54,18 +55,9 @@ $number-width: 38px;
 		&-column {
 			display: inline-block;
 			vertical-align: top;
-			width: 260px;
+			width: calc($prototype-width + 10px);
 			max-width: 100%;
 			margin-top: 10px;
-			margin-left: 10px;
-
-			&.top-row {
-				margin-top: 0;
-			}
-
-			&.first-col {
-				margin-left: 0;;
-			}
 		}
 	}
 
@@ -237,7 +229,7 @@ $number-width: 38px;
 	&-prototype {
 		cursor: move;
 		margin-bottom: 0;
-		width: 258px;
+		width: $prototype-width;
 	}
 
 	&-prototype &-header {

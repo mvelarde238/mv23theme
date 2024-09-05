@@ -5,7 +5,7 @@
   position: absolute;
   top: 36px;
   left: initial;
-  right: 0;
+  left: 0;
   z-index: 99999;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -13,6 +13,7 @@
   background-color: #0073af;
     display: flex;
     width: 100%;
+    min-width: 300px;
     padding: 15px;
     box-sizing: border-box;
 }

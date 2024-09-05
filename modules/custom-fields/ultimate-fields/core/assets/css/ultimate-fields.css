@@ -1498,16 +1498,9 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 .uf-repeater-prototypes-column {
   display: inline-block;
   vertical-align: top;
-  width: 260px;
+  width: 150px;
   max-width: 100%;
   margin-top: 10px;
-  margin-left: 10px;
-}
-.uf-repeater-prototypes-column.top-row {
-  margin-top: 0;
-}
-.uf-repeater-prototypes-column.first-col {
-  margin-left: 0;
 }
 .uf-repeater-groups-empty .uf-group {
   margin-bottom: 0;
@@ -1644,7 +1637,7 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 .uf-group-prototype {
   cursor: move;
   margin-bottom: 0;
-  width: 258px;
+  width: 140px;
 }
 .uf-group-prototype .uf-group-header {
   border-bottom: 0;
@@ -3253,9 +3246,6 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   position: relative;
   z-index: 2;
 }
-.uf-layout-element-prototype {
-  width: 250px;
-}
 .uf-layout-helper {
   position: absolute;
   z-index: 3;
@@ -3306,7 +3296,7 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 }
 
 .uf-layout-group-header {
-  padding-left: 48px;
+  padding-left: 0px;
   box-sizing: border-box;
   width: 100%;
   display: flex;
@@ -3324,6 +3314,7 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   cursor: move;
   height: 19px;
   padding: 8px 0;
+  display: none;
 }
 .uf-layout-group-indicator strong {
   display: inline-block;
@@ -3342,6 +3333,7 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   z-index: 2;
   width: 48px;
   color: #333;
+  display: none;
 }
 .uf-layout-helper .uf-layout-group-number span {
   opacity: 1;
@@ -3358,18 +3350,20 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 }
 .uf-layout-group .uf-group-title {
   width: 100%;
+  padding-left: 0;
 }
 
 .uf-layout-resize {
   position: absolute;
   top: 0;
-  right: 5px;
+  right: 0px;
   bottom: 0;
-  width: 10px;
+  width: 15px;
   z-index: 2;
   cursor: ew-resize;
   padding: 10px 0;
   text-align: center;
+  background-color: #fff;
 }
 .uf-layout-resize del {
   display: block;
@@ -3833,7 +3827,7 @@ h2.uf-add-term-title {
   position: absolute;
   top: 36px;
   left: initial;
-  right: 0;
+  left: 0;
   z-index: 99999;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -3841,6 +3835,7 @@ h2.uf-add-term-title {
   background-color: #0073af;
   display: flex;
   width: 100%;
+  min-width: 300px;
   padding: 15px;
   box-sizing: border-box;
 }
