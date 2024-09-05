@@ -6744,6 +6744,10 @@ li.product:before {
 	text-decoration: none;
 }
 
+:has(> .cover-all) {
+	position: relative;
+}
+
 :has(> .video-background) {
 	overflow: hidden;
 	position: relative;
