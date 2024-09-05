@@ -5,6 +5,7 @@ CHANGELOG
 1.5.1 24-09-05
 - Fix .pinned-block height
 - Fix .content_layout need .layout-grid class
+- Load login.css from active theme
 
 1.5.0 24-09-04
 -----------------------------------------------------------------------------------------------------
