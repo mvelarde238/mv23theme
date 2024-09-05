@@ -186,6 +186,11 @@ Container::create( 'common_settings_container' )
                 'user_is_not_logged_in' => 'Visible para usuarios no registrados',
                 'is_private' => 'Solo visible para usuarios admin.',
             ))->add_dependency('use')->set_width(50)
+        )),
+        Field::create( 'complex', 'responsive', __('Responsive','default') )->add_fields(array(
+            Field::create( 'checkbox', 'hide_on_mobile' )->fancy()->set_width(30),
+            Field::create( 'checkbox', 'hide_on_tablet' )->fancy()->set_width(30),
+            Field::create( 'checkbox', 'hide_on_desktop' )->fancy()->set_width(30)
         ))
     ));
 

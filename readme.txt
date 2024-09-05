@@ -10,6 +10,8 @@ CHANGELOG
 - Migrator Module.
 -----------------------------------------------------------------------------------------------------
 - Blocks Layout Settings implementation in Components Wrapper
+- Change .uf-group-prototype width in layout
+- Responsive implementation in common settings container
 
 0.4.1 24-07-30
 -----------------------------------------------------------------------------------------------------

@@ -26,6 +26,13 @@ Class Classes{
 
         if (isset($args['settings']['helpers']) && !empty($args['settings']['helpers']['list']) ){
             $classes = array_merge($classes, $args['settings']['helpers']['list']);
+        }
+
+        if (isset($args['settings']['responsive'])){
+            $responsive = $args['settings']['responsive'];
+            if( isset($responsive['hide_on_desktop']) && $responsive['hide_on_desktop'] ) $classes[] = 'hide-on-large-only';
+            if( isset($responsive['hide_on_tablet']) && $responsive['hide_on_tablet'] ) $classes[] = 'hide-on-med-only';
+            if( isset($responsive['hide_on_mobile']) && $responsive['hide_on_mobile'] ) $classes[] = 'hide-on-small-only';
         } 
 
         if (isset($args['settings']['layout'])) {

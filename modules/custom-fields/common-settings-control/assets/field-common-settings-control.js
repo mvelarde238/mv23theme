@@ -114,7 +114,15 @@
             	            if( entry[1].id == '' ) delete raw_data.main_attributes.id;
             	            if( entry[1].class == '' ) delete raw_data.main_attributes.class;
             	        }
-            	    } else if (entry[0] == 'other_settings' ){
+            	    } else if (entry[0] == 'responsive' ){
+						if( entry[1].hide_on_desktop == false && entry[1].hide_on_tablet == false && entry[1].hide_on_mobile == false ){
+            	            delete raw_data.responsive;
+            	        } else {
+							if( entry[1].hide_on_desktop == false ) delete raw_data.responsive.hide_on_desktop;
+            	            if( entry[1].hide_on_tablet == false ) delete raw_data.responsive.hide_on_tablet;
+            	            if( entry[1].hide_on_mobile == false ) delete raw_data.responsive.hide_on_mobile;
+						}
+            	    } else if (entry[0] == 'other_settings' ){ // ???
             	       if( entry[1].visibility == 'all' && entry[1].layout == 'layout1' ){
             	           delete raw_data.other_settings;
             	       } else {

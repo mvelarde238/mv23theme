@@ -288,7 +288,7 @@ var common_settings_container = [
                     ],
                     "file_type": "image",
                     "basic": false,
-                    "nonce": "c8cfac76c4"
+                    "nonce": "b691ccb624"
                 },
                 {
                     "type": "Complex",
@@ -440,7 +440,7 @@ var common_settings_container = [
                     ],
                     "file_type": "video",
                     "basic": false,
-                    "nonce": "cfafb2cbc7"
+                    "nonce": "7fcf825ff9"
                 },
                 {
                     "type": "Embed",
@@ -461,8 +461,8 @@ var common_settings_container = [
                             }
                         ]
                     ],
-                    "field_index": 3,
-                    "nonce": "e39198e4c0"
+                    "field_index": 4,
+                    "nonce": "c0893a6bbe"
                 },
                 {
                     "type": "Complex",
@@ -1347,6 +1347,45 @@ var common_settings_container = [
                     "use_select2": false,
                     "input_type": "select",
                     "orientation": "vertical"
+                }
+            ],
+            "layout": "grid",
+            "style": "auto",
+            "description_position": "input"
+        }
+    },
+    {
+        "type": "Complex",
+        "name": "responsive",
+        "label": "Responsive",
+        "group": {
+            "id": "complex_group",
+            "title": "Complex Group",
+            "description": "",
+            "fields": [
+                {
+                    "type": "Checkbox",
+                    "name": "hide_on_mobile",
+                    "label": "Hide On Mobile",
+                    "field_width": 30,
+                    "fancy": true,
+                    "text": ""
+                },
+                {
+                    "type": "Checkbox",
+                    "name": "hide_on_tablet",
+                    "label": "Hide On Tablet",
+                    "field_width": 30,
+                    "fancy": true,
+                    "text": ""
+                },
+                {
+                    "type": "Checkbox",
+                    "name": "hide_on_desktop",
+                    "label": "Hide On Desktop",
+                    "field_width": 30,
+                    "fancy": true,
+                    "text": ""
                 }
             ],
             "layout": "grid",
