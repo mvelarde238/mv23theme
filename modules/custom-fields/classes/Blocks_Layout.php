@@ -77,19 +77,21 @@ class Blocks_Layout{
 	public static function the_content($layouts, $args = array() ){
         $defaults = array(
             '__type' => 'content-layout',
-            'classes' => array( 'content-layout-xx' ),
             'component_args' => array(),
             'additional_classes' => array(),
             'additional_attributes' => array()
         );
         $args = wp_parse_args( $args, $defaults );
 
+        $layout = null;
         if( isset($args['component_args']['blocks_layout_settings']) ){
-            $args['additional_classes'][] = 'layout-'.$args['component_args']['blocks_layout_settings']['layout'];
+            $layout = $args['component_args']['blocks_layout_settings']['layout'];
             $args['additional_classes'][] = 'jc-'.$args['component_args']['blocks_layout_settings']['justify_content'];
             $args['additional_classes'][] = 'ai-'.$args['component_args']['blocks_layout_settings']['align_items'];
         }
-
+        $layout = ( empty($layout) ) ? 'layout-grid' : 'layout-'.$layout;
+        $args['additional_classes'][] = $layout;
+        
         ob_start();
         echo Template_Engine::component_wrapper('start',$args);
         echo '<div>';
