@@ -84,7 +84,7 @@ class Blocks_Layout{
         $args = wp_parse_args( $args, $defaults );
 
         $layout = null;
-        if( isset($args['component_args']['blocks_layout_settings']) ){
+        if( isset($args['component_args']['blocks_layout_settings']) && is_array($args['component_args']['blocks_layout_settings']) ){
             $layout = $args['component_args']['blocks_layout_settings']['layout'];
             $args['additional_classes'][] = 'jc-'.$args['component_args']['blocks_layout_settings']['justify_content'];
             $args['additional_classes'][] = 'ai-'.$args['component_args']['blocks_layout_settings']['align_items'];
