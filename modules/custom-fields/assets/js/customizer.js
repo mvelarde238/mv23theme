@@ -67,13 +67,13 @@
     // TYPOGRAPHY
     ['paragraph', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].forEach(element => {
 
-        $is_heading = ( element.length === 2 );
-        $option_name = ( $is_heading ) ? element+'_heading' : element;
-
-        UF_Customize.bind( $option_name, ( values, context ) => {
+        let is_heading = ( element.length === 2 );
+        let option_name = ( is_heading ) ? element+'_heading' : element;
+        
+        UF_Customize.bind( option_name, ( values, context ) => {
             ['font-size','line-height','font-weight'].forEach(prop=>{
-                $css_property_name = ( !$is_heading ) ? '--'+prop : '--'+element+'-'+prop;
-                set_CSS_prop($css_property_name, values[prop.replace('-','_')]);
+                let css_property_name = ( !is_heading ) ? '--'+prop : '--'+element+'-'+prop;
+                set_CSS_prop(css_property_name, values[prop.replace('-','_')]);
             });
         });        
     });
