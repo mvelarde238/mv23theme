@@ -1,4 +1,8 @@
 (function(c) {
+    const UF_Customize = UltimateFields.customize;
+        body = document.querySelector('body'),
+        root = document.querySelector(':root');
+
     function hexToRgba(hex, alpha) {
         // Remover el símbolo '#' si está presente
         hex = hex.replace(/^#/, '');
@@ -21,12 +25,23 @@
         return `rgba(${r}, ${g}, ${b}, ${a})`;
     }
 
-    const UF_Customize = UltimateFields.customize;
-        body = document.querySelector('body'),
-        root = document.querySelector(':root');
-
     function set_CSS_prop(prop, value){
         root.style.setProperty(prop, value);
+    }
+
+    function addOrUpdateStyle(cssContent) {
+        // Revisa si ya existe una etiqueta <style> con un ID específico
+        let styleElement = document.getElementById('dynamic-css');
+    
+        // Si no existe, la creamos
+        if (!styleElement) {
+            styleElement = document.createElement('style');
+            styleElement.id = 'dynamic-css'; // Asignamos un ID para que sea fácil encontrarla
+            document.head.appendChild(styleElement); // Añadimos la etiqueta al head
+        }
+    
+        // Sobrescribe el contenido del estilo con el nuevo cssContent
+        styleElement.innerHTML = cssContent;
     }
 
     //  COLORS
@@ -78,6 +93,26 @@
         });
         
         // wp.customize.preview.send('refresh');
+    });
+
+    //  CONTAINER
+    UF_Customize.bind( 'containers_width', ( values, context ) => {
+        let cssRules = '';
+
+        values.forEach(item => {
+            let width = item.width;
+            if( width ){
+                if( item.scope == 'global' ){
+                    cssRules += ':root{--container-width:'+width+'px;}';
+                } else if( item.scope == 'custom' && item.selector ) {
+                    cssRules += item.selector+'{--container-width:'+width+'px;}';
+                } else {
+                    cssRules += '.'+item.scope+'{--container-width:'+width+'px;}';
+                }
+            }
+        });
+
+        if(cssRules) addOrUpdateStyle(cssRules);
     });
     
 })(console.log);

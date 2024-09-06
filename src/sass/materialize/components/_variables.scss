@@ -67,6 +67,8 @@ $error-color: color("red", "base") !default;
 // 0. CSS properties
 // ==========================================================================
 
+$container-width: 1240px !default; // used in some @media queries
+
 @mixin css-properties{
     --body-padding-top: 110px;
 	--primary-color: #{$primary-color};
@@ -109,10 +111,10 @@ $error-color: color("red", "base") !default;
 	--sticky-header-logo-height: 40px;
 	--component-space-around-x: 20px;
 	--component-space-around-y: 15px;
+	--container-width: #{$container-width};
 } 
 
 $page-module-padding: 40px 0 !default;
-$container-width: 1240px !default;
 $sidebar-width: 328px !default;
 $scroll-width: 4px !default;
 $menu-breakpoint: 1296px !default;

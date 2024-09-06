@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.2 24-09-06
+- Add .container controls in theme options
+
 1.5.1 24-09-05
 - Fix .pinned-block height
 - Fix .content_layout need .layout-grid class

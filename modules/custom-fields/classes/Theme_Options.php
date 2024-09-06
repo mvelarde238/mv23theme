@@ -184,15 +184,44 @@ class Theme_options{
             $count++;
         }
 
+        // containers
+        $containers_width = get_option( 'containers_width' );
+        if( !empty($containers_width) ){
+            foreach ($containers_width as $item) {
+                $width = $item['width'];
+                if( $width ){
+                    if( $item['scope'] === 'global' ){
+                        $properties[] = '--container-width:'.$width.'px';
+                    } elseif ( $item['scope'] === 'custom' && !empty($item['selector']) ){
+                        $properties[] = $item['selector'].'{--container-width:'.$width.'px}';
+                    } else {
+                        $properties[] = '.'.$item['scope'].'{--container-width:'.$width.'px}';
+                    }
+                }
+            }
+        }
+
         return $properties;
     }
     
     public function add_css_properties(){
         $properties = self::$instance->get_css_properties();
+        $root_lines = array();
+        $css = '';
 
         if( !empty($properties) ){
-            $css = ':root {'.implode(';', $properties ).'}';
-            wp_add_inline_style( 'mv23theme-styles', $css );
+            foreach ($properties as $prop) {
+                if( str_starts_with($prop,'--') ){ 
+                    // is a css property
+                    $root_lines[] = $prop;
+                } else { 
+                    // is a css rule
+                    $css .= $prop;
+                }
+            }
         }
+        
+        if( !empty($root_lines) ) $css .= ':root {'.implode(';', $root_lines ).'}';
+        if( !empty($css) ) wp_add_inline_style( 'mv23theme-styles', $css );
     }
 }

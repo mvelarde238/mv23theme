@@ -1,6 +1,6 @@
 .container {
   margin: 0 auto;
-  max-width: $container-width;
+  max-width: var(--container-width);
   width: 100%;
 }
 // @media #{$medium-and-up} {

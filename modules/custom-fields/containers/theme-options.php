@@ -152,6 +152,39 @@ class Theme_Options_Fields {
 
         return $fields;
     }
+
+    public static function get_container_fields(){
+        $fields = array(
+            Field::create( 'tab', __('Container','default') ),
+
+            Field::create( 'repeater', 'containers_width' )
+                ->set_add_text(__('Add rule','default'))
+                ->hide_label()
+                // ->set_layout( 'table' )
+                ->add_group( 'item', array(
+                    'title_template' => '<% if( scope != "custom" ){ %>
+                        .<%= scope %>: <%= width %>px
+                    <% } else { %>
+                        <%= selector %>: <%= width %>px
+                    <% } %>',
+                    'fields' => array(
+                        Field::create( 'select', 'scope' )->add_options(array(
+                            'global' => 'Global',
+                            'header' => 'Header',
+                            'footer' => 'Footer',
+                            'single' => 'Single',
+                            'page' => 'Page',
+                            'archive' => 'Archive',
+                            'blog' => 'Blog',
+                            'custom' => 'Custom'
+                        ))->set_width(30),
+                        Field::create( 'text', 'selector' )->add_dependency('scope','custom')->set_width(30),
+                        Field::create( 'number', 'width' )->set_suffix('px')->set_placeholder('1240')->required()->set_width(30)
+                    )
+            ))
+        );
+        return $fields;
+    }
 }
 
 Container::create( 'theme_options' )
@@ -159,10 +192,11 @@ Container::create( 'theme_options' )
     ->set_description_position('label')
     ->add_location( 'options', 'theme-options' )
     ->add_location( 'customizer', array(
-        'postmessage_fields' => array( 'colors_wrapper', 'primary_color_variations', 'secondary_color_variations', 'paragraph', 'h1_heading', 'h2_heading', 'h3_heading', 'h4_heading', 'h5_heading', 'h6_heading', 'static_header_logo_height', 'sticky_header_logo_height', 'static_header_bgc', 'sticky_header_bgc' )
+        'postmessage_fields' => array( 'colors_wrapper', 'primary_color_variations', 'secondary_color_variations', 'paragraph', 'h1_heading', 'h2_heading', 'h3_heading', 'h4_heading', 'h5_heading', 'h6_heading', 'static_header_logo_height', 'sticky_header_logo_height', 'static_header_bgc', 'sticky_header_bgc', 'containers_width' )
     ))
     ->add_fields( Theme_Options_Fields::get_logos_fields() )
     ->add_fields( Theme_Options_Fields::get_color_fields() )
     ->add_fields( Theme_Options_Fields::get_typography_fields() )
     ->add_fields( Theme_Options_Fields::get_header_fields('static') )
-    ->add_fields( Theme_Options_Fields::get_header_fields('sticky') );
+    ->add_fields( Theme_Options_Fields::get_header_fields('sticky') )
+    ->add_fields( Theme_Options_Fields::get_container_fields() );
