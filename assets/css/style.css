@@ -4410,6 +4410,10 @@ span[style*=font-size] {
 	line-height: normal;
 }
 
+[style*=underline] {
+	text-underline-offset: 4px;
+}
+
 .img-full-width {
 	width: 100%;
 }
