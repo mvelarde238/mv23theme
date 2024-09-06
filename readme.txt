@@ -8,6 +8,7 @@ CHANGELOG
 - Load login.css from active theme
 - Add position: relative to :has(>.cover-all)
 - Remove action woocommerce_get_sidebar
+- Fix WooCommerce pagination
 
 1.5.0 24-09-04
 -----------------------------------------------------------------------------------------------------

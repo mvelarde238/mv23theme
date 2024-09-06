@@ -4664,6 +4664,7 @@ ul.page-numbers {
 	padding-left: 0;
 	margin: 0 auto;
 	display: flex;
+	gap: 5px;
 	justify-content: center;
 	position: relative;
 	z-index: 56;
@@ -6710,6 +6711,15 @@ li.product:before {
 
 .has-columns ul.products li.product {
 	margin-bottom: 0;
+}
+
+.woocommerce nav.woocommerce-pagination ul,
+.woocommerce nav.woocommerce-pagination ul li {
+	border: 0;
+}
+
+.woocommerce nav.woocommerce-pagination ul {
+	display: flex !important;
 }
 
 .page-module {
