@@ -25,7 +25,7 @@ class Migrate_0_4_X_to_0_5_0{
 
     public function migrate(){
         add_action( 'admin_menu', array($this, 'add_admin_page') );
-        add_action( 'admin_notices', array($this, 'theme_is_less_than_0_5_0_notice') );
+        // add_action( 'admin_notices', array($this, 'theme_is_less_than_0_5_0_notice') );
         add_action( 'wp_ajax_process_page_data', array($this, 'ajax_process_page_data') );
         add_action( 'wp_ajax_after_data_migration', array($this, 'ajax_after_data_migration') );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_migrator_scripts') );
