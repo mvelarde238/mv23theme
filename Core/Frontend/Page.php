@@ -24,6 +24,9 @@ class Page{
 				if (is_post_type_archive()) {
 					$page_ID = null;
 					$key = 'post';
+				} else if(is_date()){
+					$page_ID = null;
+					$key = 'post';
 				} else {
 					$page_ID = get_queried_object()->term_id;
 					$key = 'term';

@@ -128,6 +128,8 @@ class Archive_Page {
 	public function get_posttype() {
 		if (is_home()) {
 			return 'post';
+		} else if(is_date()){
+			return 'post';
 		} else{
 			$queried_object = get_queried_object();
 			return $queried_object->name;
