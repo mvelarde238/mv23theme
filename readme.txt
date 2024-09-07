@@ -7,6 +7,7 @@ CHANGELOG
 - Fix date archive pages
 - Underline Text implementation in tinymce
 - expand_on_click option implementation in Image component
+- Portfolio CPT has_archive true
 
 1.5.1 24-09-05
 - Fix .pinned-block height
