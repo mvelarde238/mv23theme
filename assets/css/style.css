@@ -6797,6 +6797,11 @@ li.product:before {
 	height: fit-content;
 }
 
+img[data-fancybox],
+img.zoom {
+	cursor: zoom-in;
+}
+
 .columns {
 	display: grid;
 }

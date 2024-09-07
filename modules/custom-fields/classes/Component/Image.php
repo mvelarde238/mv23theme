@@ -29,6 +29,7 @@ class Image extends Component {
 		$fields = array(
             Field::create( 'tab', __('Contenido','default') ),
             Field::create( 'image', 'image', __('Image','default') ),
+            Field::create( 'checkbox', 'expand_on_click', __('Expand on click','default') )->fancy(),
     
             Field::create( 'tab', __('Size','default') ),
             Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->add_options(array(
@@ -107,6 +108,8 @@ class Image extends Component {
         if( !empty($src) ) $image_attributes[] = 'src="'.esc_url($src).'"';
         if( !empty($alt) ) $image_attributes[] = 'alt="'.esc_attr($alt).'"';
         if( !empty($title) ) $image_attributes[] = 'title="'.esc_attr($title).'"';
+
+        if( isset($args['expand_on_click']) && $args['expand_on_click'] ) $image_attributes[] = 'class="zoom"';
 
         $caption = $attachment->post_excerpt;
         // $description = $attachment->post_content;

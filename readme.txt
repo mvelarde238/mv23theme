@@ -6,6 +6,7 @@ CHANGELOG
 - Add .container controls in theme options
 - Fix date archive pages
 - Underline Text implementation in tinymce
+- expand_on_click option implementation in Image component
 
 1.5.1 24-09-05
 - Fix .pinned-block height
