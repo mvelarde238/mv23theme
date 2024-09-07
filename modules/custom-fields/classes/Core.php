@@ -1,7 +1,7 @@
 <?php
 namespace Theme_Custom_Fields;
 
-use Theme_Custom_Fields\Theme_options;
+use Theme_Custom_Fields\Theme_Options;
 use Theme_Custom_Fields\Common_Settings;
 use Theme_Custom_Fields\Component\Components_Wrapper;
 
@@ -86,7 +86,7 @@ class Core{
     }
 
     public function init_theme_options(){
-        Theme_options::getInstance();
+        Theme_Options::getInstance();
     }
 
     public function add_meta_boxes(){
@@ -115,7 +115,7 @@ class Core{
     }
 
     public function enqueue_scripts(){
-        $theme_options = Theme_options::getInstance();
+        $theme_options = Theme_Options::getInstance();
 		$theme_colors = array('#000000','#ffffff');
 		
         $options = array('primary_color','secondary_color','font_color','headings_color','colorpicker_palette');

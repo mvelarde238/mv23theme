@@ -1,7 +1,7 @@
 <?php
 namespace Core\Admin;
 
-use Theme_Custom_Fields\Theme_options;
+use Theme_Custom_Fields\Theme_Options;
 
 /*
 * Callback functions to filter the MCE settings
@@ -31,7 +31,7 @@ class TinyMCE{
 
     public function add_font_families($initArray){
 		$_theme_fonts = array();
-		$theme_options = Theme_options::getInstance();
+		$theme_options = Theme_Options::getInstance();
         $theme_fonts = $theme_options->get_theme_fonts();
         if( !empty($theme_fonts['urls']) ){
             foreach ($theme_fonts['names'] as $font_name) {
@@ -227,7 +227,7 @@ class TinyMCE{
     }
 
     public function get_custom_colors(){
-		$theme_options = Theme_options::getInstance();
+		$theme_options = Theme_Options::getInstance();
 		$theme_colors = array();
 		
         $options = array('primary_color','secondary_color','font_color','headings_color','colorpicker_palette');

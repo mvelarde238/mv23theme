@@ -4,7 +4,7 @@ namespace Theme_Custom_Fields\Component;
 use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Component;
 use Theme_Custom_Fields\Template_Engine;
-use Theme_Custom_Fields\Theme_options;
+use Theme_Custom_Fields\Theme_Options;
 
 class Icon_and_Text extends Component {
 
@@ -104,7 +104,7 @@ class Icon_and_Text extends Component {
             Field::create( 'number', 'ifontsize', 'Tamaño')->set_width(10)->set_default_value(40),
             Field::create( 'color', 'icolor', 'Color del ícono')->set_width(25),
             Field::create( 'checkbox', 'ihas_bgc','Activar fondo' )->set_text( 'Activar' )->set_width(10)->add_dependency('istyle','circle-outline','='),
-            Field::create( 'color', 'ibgc', 'Color de Fondo')->set_width(25)->set_default_value( Theme_options::getInstance()->get_property('primary_color') )
+            Field::create( 'color', 'ibgc', 'Color de Fondo')->set_width(25)->set_default_value( Theme_Options::getInstance()->get_property('primary_color') )
                 ->add_dependency('istyle','circle','=')
                 ->add_dependency_group()
                 ->add_dependency('istyle','circle-outline','=')
@@ -176,7 +176,7 @@ class Icon_and_Text extends Component {
         $hasBackground = false;
         if ($args['istyle'] == 'circle' ) $hasBackground = true;
         if ($args['istyle'] == 'circle-outline' && $args['ihas_bgc'] == 1 ) $hasBackground = true;
-        $ibgc = ($args['ibgc'] == '') ? Theme_options::getInstance()->get_property('primary_color') : $args['ibgc'];
+        $ibgc = ($args['ibgc'] == '') ? Theme_Options::getInstance()->get_property('primary_color') : $args['ibgc'];
         $backgroundColor = ( $hasBackground ) ? $ibgc : '';
 		
 		ob_start();

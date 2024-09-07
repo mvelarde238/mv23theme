@@ -100,7 +100,7 @@ class Admin extends Theme {
     public function add_editor_inline_style( $settings ) {
         $settings['content_style'] = '';
 
-        $theme_options = Theme_options::getInstance();
+        $theme_options = Theme_Options::getInstance();
         $theme_fonts = $theme_options->get_theme_fonts();
         if( !empty($theme_fonts['css']) ){
             $settings['content_style'] .= str_replace('body', 'body#tinymce.wp-editor', $theme_fonts['css']);

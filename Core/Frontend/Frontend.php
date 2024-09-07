@@ -9,7 +9,7 @@ use Core\Includes\Theme as Theme;
 use Core\Frontend\Shortcodes as Shortcodes;
 use Core\Frontend\Page;
 use Core\Frontend\Header;
-use Theme_Custom_Fields\Theme_options;
+use Theme_Custom_Fields\Theme_Options;
 
 class Frontend extends Theme {
 
@@ -189,7 +189,7 @@ class Frontend extends Theme {
     }
 
     public function add_custom_meta_tags() {
-        $primary_color = Theme_options::getInstance()->get_property('primary_color');
+        $primary_color = Theme_Options::getInstance()->get_property('primary_color');
         if( $primary_color ){
             echo '<meta name="theme-color" content="'.$primary_color.'">' . "\n";
             echo '<meta name="msapplication-TileColor" content="'.$primary_color.'">' . "\n";

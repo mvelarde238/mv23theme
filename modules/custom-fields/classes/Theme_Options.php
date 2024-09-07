@@ -5,14 +5,14 @@ use Ultimate_Fields\Options_Page;
 use Ultimate_Fields\Field\Font;
 use Core\Utils\Helpers;
 
-class Theme_options{
+class Theme_Options{
 	private static $instance = null;
 
     private $slug = 'theme-options-menu';
 
     public static function getInstance() {
         if (self::$instance == null) {
-            self::$instance = new Theme_options();
+            self::$instance = new Theme_Options();
         }
         return self::$instance;
     }
