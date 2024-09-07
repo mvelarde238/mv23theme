@@ -4320,6 +4320,7 @@ input.wpcf7-not-valid {
 	--component-space-around-x: 20px;
 	--component-space-around-y: 15px;
 	--container-width: 1240px;
+	--fancybox-zIndex: 1600;
 }
 
 body {
@@ -4787,6 +4788,71 @@ ul.page-numbers .next {
 .post-card--style2 .post-card__link {
 	text-align: right;
 	margin-top: 5px;
+}
+
+.post-card--style3 .post-card__wrapper {
+	position: relative;
+	background-color: var(--primary-color);
+}
+
+.post-card--style3 .post-card__content {
+	padding: 120px 20px 20px 20px;
+	position: absolute !important;
+	left: 0;
+	bottom: 0;
+	z-index: 56;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 100%);
+	transition: 300ms all;
+}
+
+.post-card--style3 .post-card__title {
+	font-size: 19px;
+	margin-bottom: 0;
+}
+
+.post-card--style3 .post-card__image {
+	padding-bottom: 75%;
+	width: 100%;
+	background-size: cover;
+	background-position: center;
+	display: block;
+	transition: 500ms all;
+}
+
+.post-card--style3 .post-card__tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 3px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	padding: 8px;
+	z-index: 56;
+	transition: 300ms all;
+}
+
+.post-card--style3 .post-card__tags span {
+	display: inline-block;
+	font-size: 12px;
+	background-color: var(--primary-color);
+	color: #fff;
+	padding: 0 8px;
+}
+
+.post-card--style3:hover .post-card__image {
+	opacity: 0.6;
+}
+
+.post-card--style3:hover .post-card__content {
+	padding-bottom: 30px;
+}
+
+.post-card--style3:hover .post-card__tags {
+	top: 20px;
 }
 
 .single-post,

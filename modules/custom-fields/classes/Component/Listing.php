@@ -62,6 +62,7 @@ class Listing extends Component {
                 'cpt_slug' => 'portfolio', 
                 'slug' => 'portfolio-cat'
             ));
+            $listing_post_template['portfolio'] = 'Portfolio';
         }
 
         $listing_fields_1 = array( 
