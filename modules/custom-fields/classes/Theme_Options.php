@@ -244,10 +244,19 @@ class Theme_options{
                 }
                 if( $type == 'archive' ){
                     $queried_object = get_queried_object();
-                    $posttype = $queried_object->name;
-                    if( in_array($posttype, $setting['post_types']) ){
-                        $page_settings['archive']['hide_sidebar'] = $setting['hide_sidebar'];
-                        $page_settings['archive']['page_template'] = $setting['page_template'];
+                    if( is_post_type_archive() ){
+                        $posttype = $queried_object->name;
+                        if( in_array($posttype, $setting['post_types']) ){
+                            $page_settings['archive']['hide_sidebar'] = $setting['hide_sidebar'];
+                            $page_settings['archive']['page_template'] = $setting['page_template'];
+                        }
+                    } 
+                    if( is_tax() ){
+                        $taxonomy = $queried_object->taxonomy;
+                        if( in_array($taxonomy, $setting['taxonomies']) ){
+                            $page_settings['archive']['hide_sidebar'] = $setting['hide_sidebar'];
+                            $page_settings['archive']['page_template'] = $setting['page_template'];
+                        }
                     }
                 }
             }

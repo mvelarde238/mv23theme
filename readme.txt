@@ -7,6 +7,7 @@ CHANGELOG
 - Implement post formats, featured video and tags in portfolio CPT
 - Implement portfolio post card
 - Move post types registration methods to init action
+- Include taxonomies in page settings
 
 1.5.2 24-09-06
 - Add .container controls in theme options
