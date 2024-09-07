@@ -8,6 +8,7 @@ CHANGELOG
 - Implement portfolio post card
 - Move post types registration methods to init action
 - Include taxonomies in page settings
+- Apply text-underline-offset to links
 
 1.5.2 24-09-06
 - Add .container controls in theme options

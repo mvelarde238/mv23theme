@@ -4411,7 +4411,8 @@ span[style*=font-size] {
 	line-height: normal;
 }
 
-[style*=underline] {
+[style*=underline],
+a {
 	text-underline-offset: 4px;
 }
 
