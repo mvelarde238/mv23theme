@@ -9,6 +9,7 @@ CHANGELOG
 - Move post types registration methods to init action
 - Include taxonomies in page settings
 - Apply text-underline-offset to links
+- Implement Portfolio Sidebar
 
 1.5.2 24-09-06
 - Add .container controls in theme options

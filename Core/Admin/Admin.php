@@ -73,6 +73,17 @@ class Admin extends Theme {
 				'after_title' => '</h4>',
 			));
 		}
+
+        if(USE_PORTFOLIO_CPT){
+			register_sidebar(array(
+				'id' => 'portfolio_sidebar',
+				'name' => 'Portfolio Sidebar',
+				'before_widget' => '<div id="%1$s" class="widget component %2$s">',
+				'after_widget' => '</div>',
+				'before_title' => '<h4 class="widgettitle">',
+				'after_title' => '</h4>',
+			));
+		}
     }
 
     public function add_editor_style(){
