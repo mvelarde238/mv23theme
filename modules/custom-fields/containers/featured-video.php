@@ -2,8 +2,11 @@
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 
+$post_types = array('post');
+if( USE_PORTFOLIO_CPT ) $post_types[] = 'portfolio';
+
 Container::create( 'featured_video' )
-    ->add_location( 'post_type', 'post', array(
+    ->add_location( 'post_type', $post_types, array(
         'context' => 'side',
         'priority' => 'low'
     ))

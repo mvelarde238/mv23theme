@@ -29,9 +29,17 @@ class Portfolio {
 		
 		$portfolios->register_taxonomy(array(
 			'taxonomy_name' => 'portfolio-cat',
-			'singular' => 'Categoría',
-			'plural' => 'Categorías',
+			'singular' => 'Portfolio Category',
+			'plural' => 'Portfolio Categories',
 			'slug' => 'portfolio-cat'
+		));
+
+		$portfolios->register_taxonomy(array(
+			'taxonomy_name' => 'portfolio-tag',
+			'hierarchical' => false,
+			'singular' => 'Portfolio Tag',
+			'plural' => 'Portfolio Tags',
+			'slug' => 'portfolio-tag'
 		));
 	}
 }
