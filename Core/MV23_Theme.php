@@ -112,7 +112,7 @@ class MV23_Theme extends Theme {
         $this->loader->add_filter( 'login_headertext', $admin, 'customize_login_title' );
 
         // Init custom posttypes.
-        $this->loader->add_action( 'after_setup_theme', $admin, 'register_custom_posttypes' );
+        $this->loader->add_action( 'init', $admin, 'register_custom_posttypes', 5 );
 
         // show post types count
         $this->loader->add_action( 'init', $admin, 'show_cpt_count', 999 );

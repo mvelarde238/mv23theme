@@ -6,6 +6,7 @@ CHANGELOG
 - Implement pages settings for single and archives in Theme Options
 - Implement post formats, featured video and tags in portfolio CPT
 - Implement portfolio post card
+- Move post types registration methods to init action
 
 1.5.2 24-09-06
 - Add .container controls in theme options

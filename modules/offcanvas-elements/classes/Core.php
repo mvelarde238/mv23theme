@@ -25,7 +25,7 @@ class Core{
         require_once( __DIR__ . '/Autoloader.php' );
 		new Autoloader( 'Offcanvas_Elements', $core_directory . DIRECTORY_SEPARATOR . 'classes' );
 
-        $this->register_post_type();
+        $this->add_action( 'init', array($this, 'register_post_type'), 4 );
         $this->add_action( 'uf.init', array($this, 'register_settings') );
         $this->add_action( 'wp_enqueue_scripts', function(){
             $theme = wp_get_theme();
@@ -53,7 +53,7 @@ class Core{
         return $this->slug.'s';
     }
 
-	private function register_post_type(){
+	public function register_post_type(){
 		$offcanvas_pt = new CPT(
 			array(
 				'post_type_name' => $this->slug,

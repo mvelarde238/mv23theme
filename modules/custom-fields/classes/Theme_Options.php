@@ -25,7 +25,7 @@ class Theme_options{
             Options_Page::create( 'theme-options', 'Theme Options' )->set_parent( $this->slug );
             Options_Page::create( 'custom-scripts-options', 'Custom Scripts' )->set_parent( $this->slug );
     
-            $this->add_theme_options_meta_boxes();
+            add_action( 'uf.init', array($this, 'add_theme_options_meta_boxes') );
             add_filter( 'custom_menu_order', array( $this, 'rearrange_submenu_order' ));
         }
         
