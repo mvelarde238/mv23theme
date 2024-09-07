@@ -1,7 +1,13 @@
-<?php get_header(); 
+<?php 
+use Theme_Custom_Fields\Theme_options;
+
+get_header(); 
 
 $main_content_classes = array('main-content','container');
-if(SINGLE_SIDEBAR) array_push($main_content_classes, SINGLE_MAIN_CONTENT_TEMPLATE);
+
+$theme_options = Theme_options::getInstance();
+$single_page = $theme_options->get_pages_settings('single');
+if( !$single_page['hide_sidebar'] ) array_push($main_content_classes, $single_page['page_template']);
 ?>
 
 <div id="content">
@@ -13,6 +19,8 @@ if(SINGLE_SIDEBAR) array_push($main_content_classes, SINGLE_MAIN_CONTENT_TEMPLAT
 	<div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
 		<main class="main">
 			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+				<?php if($posttype == 'post') get_template_part('partials/post-title'); ?>
 			
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<?php the_content(); ?>
@@ -22,7 +30,7 @@ if(SINGLE_SIDEBAR) array_push($main_content_classes, SINGLE_MAIN_CONTENT_TEMPLAT
 			<?php endwhile; endif; ?>
 		</main>
 
-		<?php if(SINGLE_SIDEBAR) get_sidebar(); ?>
+		<?php if( !$single_page['hide_sidebar'] ) get_sidebar(); ?>
 	</div>
 </div>
 

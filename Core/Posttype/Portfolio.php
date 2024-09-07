@@ -20,6 +20,7 @@ class Portfolio {
 		$portfolios = new CPT(
 			'portfolio', 
 			array(
+				'public' => true,
 				'has_archive' => true,
 				'supports' => array('title','editor','thumbnail','revisions','excerpt'),
 				'menu_icon' => 'dashicons-screenoptions',

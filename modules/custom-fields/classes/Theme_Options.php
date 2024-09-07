@@ -224,4 +224,35 @@ class Theme_options{
         if( !empty($root_lines) ) $css .= ':root {'.implode(';', $root_lines ).'}';
         if( !empty($css) ) wp_add_inline_style( 'mv23theme-styles', $css );
     }
+
+    public function get_pages_settings( $type = '' ){
+        $page_settings = array(
+            'single' => array( 'page_template' => 'main-content--sidebar-right', 'hide_sidebar'=>0 ),
+            'archive' => array( 'page_template' => 'main-content--sidebar-left', 'hide_sidebar'=>0 )
+        );
+
+        $pages_settings = get_option('pages_settings');
+        foreach ($pages_settings as $setting) {
+            if($setting['__type'] == $type){
+                if( $type == 'single' ){
+                    $queried_object = get_queried_object();
+                    $posttype = $queried_object->post_type;
+                    if( in_array($posttype, $setting['post_types']) ){
+                        $page_settings['single']['hide_sidebar'] = $setting['hide_sidebar'];
+                        $page_settings['single']['page_template'] = $setting['page_template'];
+                    }
+                }
+                if( $type == 'archive' ){
+                    $queried_object = get_queried_object();
+                    $posttype = $queried_object->name;
+                    if( in_array($posttype, $setting['post_types']) ){
+                        $page_settings['archive']['hide_sidebar'] = $setting['hide_sidebar'];
+                        $page_settings['archive']['page_template'] = $setting['page_template'];
+                    }
+                }
+            }
+        }
+
+        return (isset($page_settings[$type])) ? $page_settings[$type] : array();
+    }
 }

@@ -1,11 +1,23 @@
 <?php
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
+use Ultimate_Fields\Location\Post_Type;
 
-$archive_location = new Ultimate_Fields\Location\Post_Type();
+$archive_location = new Post_Type();
 $archive_location->add_post_type( 'archive_page' );
 $archive_location->context = 'side';
 // $archive_location->templates = 'templates/archive-page.php';
+
+$post_types   = array();
+$excluded = array( 'attachment', 'page' );
+foreach( get_post_types( array('public'=>true), 'objects' ) as $id => $post_type ) {
+	if( in_array( $id, $excluded ) ) {
+		continue;
+	}
+	$post_types[ $id ] = __( $post_type->labels->name );
+}
+// hardcoded posttype:
+if(USE_PORTFOLIO_CPT) $post_types['portfolio'] = 'Portfolio';
 
 Container::create( 'archive_page_settings' )
     ->set_title('Settings')
@@ -19,5 +31,5 @@ Container::create( 'archive_page_settings' )
             'posttype' => 'Post Type',
         )),
         Field::create( 'radio', 'connected_taxonomy','Taxonomia')->set_orientation( 'horizontal' )->add_options(ARCHIVE_OPTIONS_TAXONOMIES)->add_dependency('appears_on','taxonomy','='),
-        Field::create( 'select', 'connected_posttype' )->add_options(ARCHIVE_OPTIONS_POSTTYPES)->add_dependency('appears_on','posttype','=')
+        Field::create( 'select', 'connected_posttype' )->add_options($post_types)->add_dependency('appears_on','posttype','=')
     ));

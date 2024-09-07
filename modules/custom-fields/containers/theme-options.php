@@ -185,6 +185,69 @@ class Theme_Options_Fields {
         );
         return $fields;
     }
+
+    public static function get_pages_fields(){
+        $post_types   = array();
+        $excluded = array( 'attachment', 'page' );
+		foreach( get_post_types( array('public'=>true), 'objects' ) as $id => $post_type ) {
+			if( in_array( $id, $excluded ) ) {
+				continue;
+			}
+			$post_types[ $id ] = __( $post_type->labels->name );
+		}
+        // hardcoded posttype:
+        if(USE_PORTFOLIO_CPT) $post_types['portfolio'] = 'Portfolio';
+
+        $fields = array(
+            Field::create( 'tab', __('Pages','default') ),
+
+            Field::create( 'repeater', 'pages_settings' )
+                ->set_chooser_type( 'tags' )
+                ->set_add_text(__('Add rule','default'))
+                ->hide_label()
+                ->add_group( 'single', array(
+                    'title_template' => '<% if( hide_sidebar ){ %>
+                        Hide Sidebar in pages whose type is: <%= post_types.join(", ") %>
+                     <% } else { %>
+                        Use <%= page_template %> template in pages whose type is: <%= post_types.join(", ") %>
+                     <% } %>',
+                    'edit_mode' => 'popup',
+                    'fields' => array(
+                        Field::create( 'multiselect', 'post_types', __( 'Post Types', 'default' ) )
+			                ->required()
+			                ->add_options( $post_types )
+                            ->set_orientation( 'horizontal' )
+			                ->set_input_type( 'checkbox' )->set_width(30),
+                        Field::create( 'select', 'page_template' )->add_options(array(
+                            'main-content--sidebar-right' => __('Sidebar Right','deafult'),
+                            'main-content--sidebar-left' => __('Sidebar Left','deafult')
+                        ))->add_dependency('hide_sidebar',0)->set_width(30),
+                        Field::create( 'checkbox', 'hide_sidebar' )->fancy()->set_width(30),
+                    )
+                ))
+                ->add_group( 'archive', array(
+                    'title_template' => '<% if( hide_sidebar ){ %>
+                        Hide Sidebar in archive pages for: <%= post_types.join(", ") %>
+                     <% } else { %>
+                        Use <%= page_template %> template in archive pages for: <%= post_types.join(", ") %>
+                     <% } %>',
+                    'edit_mode' => 'popup',
+                    'fields' => array(
+                        Field::create( 'multiselect', 'post_types', __( 'Post Types', 'default' ) )
+			                ->required()
+			                ->add_options( $post_types )
+                            ->set_orientation( 'horizontal' )
+			                ->set_input_type( 'checkbox' )->set_width(30),
+                        Field::create( 'select', 'page_template' )->add_options(array(
+                            'main-content--sidebar-left' => __('Sidebar Left','deafult'),
+                            'main-content--sidebar-right' => __('Sidebar Right','deafult')
+                        ))->add_dependency('hide_sidebar',0)->set_width(30),
+                        Field::create( 'checkbox', 'hide_sidebar' )->fancy()->set_width(30),
+                    )
+                ))
+        );
+        return $fields;
+    }
 }
 
 Container::create( 'theme_options' )
@@ -199,4 +262,5 @@ Container::create( 'theme_options' )
     ->add_fields( Theme_Options_Fields::get_typography_fields() )
     ->add_fields( Theme_Options_Fields::get_header_fields('static') )
     ->add_fields( Theme_Options_Fields::get_header_fields('sticky') )
-    ->add_fields( Theme_Options_Fields::get_container_fields() );
+    ->add_fields( Theme_Options_Fields::get_container_fields() )
+    ->add_fields( Theme_Options_Fields::get_pages_fields() );

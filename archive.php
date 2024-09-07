@@ -1,8 +1,13 @@
 <?php 
+use Theme_Custom_Fields\Theme_options;
+
 get_header(); 
 
 $main_content_classes = array('main-content','container');
-if(ARCHIVE_SIDEBAR) array_push($main_content_classes,ARCHIVE_MAIN_CONTENT_TEMPLATE);
+
+$theme_options = Theme_options::getInstance();
+$archive_page = $theme_options->get_pages_settings('archive');
+if( !$archive_page['hide_sidebar'] ) array_push($main_content_classes, $archive_page['page_template']);
 ?>
 
 <div id="content">
@@ -13,7 +18,7 @@ if(ARCHIVE_SIDEBAR) array_push($main_content_classes,ARCHIVE_MAIN_CONTENT_TEMPLA
 			<?php get_template_part('partials/archive'); ?>
 		</main>
 
-		<?php if(ARCHIVE_SIDEBAR) get_sidebar(); ?>
+		<?php if( !$archive_page['hide_sidebar'] ) get_sidebar(); ?>
 	</div>
 </div>
 
