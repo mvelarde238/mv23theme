@@ -1,6 +1,8 @@
 mv23 changelog-------------------------
 
 04-09-2024
+- Change layout icon to move
+    (core/templates/field/layout/row.php::2)
 - Change .uf-group-prototype width in layout
     (core/assets/sass/_customizations.scss)
     (core/assets/sass/field/_layout.scss)
