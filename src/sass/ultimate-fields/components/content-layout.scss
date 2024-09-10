@@ -16,6 +16,11 @@
 .content-layout.layout-flex{}
 
 .content-layout.layout-grid{
+	@media only screen and (max-width: 395px) {
+		.content-layout__item{
+			width: 100%;
+		}
+	}
 	@media only screen and (min-width: 395px) {
 		$i: 5;
 		$nth-cols : 12;

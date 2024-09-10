@@ -9300,6 +9300,14 @@ table {
 
 }
 
+@media only screen and (max-width: 395px) {
+
+.content-layout.layout-grid .content-layout__item {
+	width: 100%;
+}
+
+}
+
 @media only screen and (max-width: 360px) {
 
 .flow-text {
