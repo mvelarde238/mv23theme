@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.5 24-09-10
 - Add support for custom fonts
+- Fix video background size
 
 1.5.4 24-09-09
 - Change Menu Breakpoint from 1296px to 896px

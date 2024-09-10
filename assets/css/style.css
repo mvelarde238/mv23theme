@@ -6836,11 +6836,12 @@ li.product:before {
 :has(> .video-background) video,
 :has(> .video-background) iframe {
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	top: 0;
+	left: 0;
+	width: 101%;
+	height: 101%;
+	object-fit: cover;
 	z-index: 1;
-	min-height: 100%;
 	opacity: var(--video-opacity);
 	pointer-events: none;
 }
@@ -8938,11 +8939,6 @@ table.responsive-table thead {
 
 .main-content--sidebar-left .sidebar {
 	order: 1;
-}
-
-:has(> .video-background) video {
-	height: 100%;
-	width: auto;
 }
 
 .componente-slider-de-contenidos[data-show-title="1"] .tns-nav button {

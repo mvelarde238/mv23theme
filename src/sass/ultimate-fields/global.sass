@@ -34,11 +34,12 @@
 	background-image: url() !important
 	video, iframe
 		position: absolute
-		top: 50%
-		left: 50%
-		transform: translate(-50%, -50%)
+		top: 0
+		left: 0
+		width: 101%
+		height: 101%
+		object-fit: cover
 		z-index: 1
-		min-height: 100%
 		opacity: var(--video-opacity)
 		pointer-events: none
 	iframe
@@ -80,12 +81,6 @@ img[data-fancybox], img.zoom
 		right: 50%
 		margin-left: -50vw !important
 		margin-right: -50vw !important
-
-@media #{$medium-and-down}
-	:has(> .video-background)
-		video
-			height: 100%
-			width: auto
 
 @media only screen and (max-width: 445px)
 	.page-module
