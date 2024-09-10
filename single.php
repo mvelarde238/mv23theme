@@ -20,7 +20,7 @@ if( !$single_page['hide_sidebar'] ) array_push($main_content_classes, $single_pa
 		<main class="main">
 			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-				<?php if($posttype == 'post') get_template_part('partials/post-title'); ?>
+				<?php get_template_part('partials/post-title'); ?>
 			
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<?php the_content(); ?>
