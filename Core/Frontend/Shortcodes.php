@@ -21,6 +21,7 @@ class Shortcodes{
 
         if (WOOCOMMERCE_IS_ACTIVE) {
         	get_template_part( 'partials/shortcodes/open-minicart' );
+        	get_template_part( 'partials/shortcodes/minicart' );
         }
     }
 }

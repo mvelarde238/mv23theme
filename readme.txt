@@ -6,6 +6,7 @@ CHANGELOG
 - Change Menu Breakpoint from 1296px to 896px
 - Fix .main-nav width 
 - Nav Shortcode
+- Minicart Shortcode
 
 1.5.3 24-09-07
 - Implement pages settings for single and archives in Theme Options
