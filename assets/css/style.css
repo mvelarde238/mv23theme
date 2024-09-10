@@ -9211,6 +9211,11 @@ table {
 	width: max-content !important;
 }
 
+.page-module {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
 .columns {
 	grid-template-columns: var(--m-grid);
 }
@@ -9291,15 +9296,6 @@ table {
 
 .logos-grid__item {
 	width: 50%;
-}
-
-}
-
-@media only screen and (max-width: 445px) {
-
-.page-module {
-	padding-top: 45px;
-	padding-bottom: 45px;
 }
 
 }
