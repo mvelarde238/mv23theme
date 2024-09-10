@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.4 24-09-09
 - Change Menu Breakpoint from 1296px to 896px
+- Fix .main-nav width 
 
 1.5.3 24-09-07
 - Implement pages settings for single and archives in Theme Options

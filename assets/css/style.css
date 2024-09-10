@@ -4564,6 +4564,10 @@ p + .pdf-responsive {
 	display: none;
 }
 
+.main-nav.horizontal-nav-1 .menu {
+	flex-wrap: wrap;
+}
+
 .megamenu {
 	background-color: #fff;
 	display: none;
@@ -8060,6 +8064,15 @@ img.zoom {
 
 .flow-text {
 	font-size: 1.512rem;
+}
+
+}
+
+@media only screen and (min-width: 896px) {
+
+.header__logo,
+.header__widgets {
+	flex-shrink: 0;
 }
 
 }

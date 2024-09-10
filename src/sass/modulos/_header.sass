@@ -44,6 +44,12 @@
 	&--sticky.hide-sticky-header-logo &__logo
 		opacity: 0
 
+@media only screen and (min-width: #{$menu-breakpoint})
+	.header
+		&__logo,
+		&__widgets
+			flex-shrink: 0
+
 @media only screen and (max-width: #{$menu-breakpoint})
 	.header
 		&__content
