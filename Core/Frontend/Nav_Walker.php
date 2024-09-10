@@ -7,7 +7,7 @@ use Core\Frontend\Page;
 class Nav_Walker extends Walker_Nav_Menu{
 
     public function __construct(){
-        add_filter( 'wp_nav_menu_objects', array($this, 'remove_sub_items'), 10, 2 );
+        // add_filter( 'wp_nav_menu_objects', array($this, 'remove_sub_items'), 10, 2 );
     }
 
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
