@@ -6,15 +6,15 @@
 
 	.sidebar
 		padding: $page-module-padding
-		width: $sidebar-width
+		width: var(--sidebar-width)
 
 	&--sidebar-right
 		.main
-			width: calc(100% - $sidebar-width)
+			width: calc(100% - var(--sidebar-width))
 
 	&--sidebar-left
 		.main
-			width: calc(100% - $sidebar-width)
+			width: calc(100% - var(--sidebar-width))
 			order: 1
 
 		.sidebar

@@ -4313,6 +4313,7 @@ input.wpcf7-not-valid {
 	--component-space-around-y: 15px;
 	--container-width: 1240px;
 	--fancybox-zIndex: 1600;
+	--sidebar-width: 328px;
 }
 
 body {
@@ -5054,15 +5055,15 @@ ul.page-numbers .next {
 
 .main-content .sidebar {
 	padding: 40px 0;
-	width: 328px;
+	width: var(--sidebar-width);
 }
 
 .main-content--sidebar-right .main {
-	width: calc(100% - 328px);
+	width: calc(100% - var(--sidebar-width));
 }
 
 .main-content--sidebar-left .main {
-	width: calc(100% - 328px);
+	width: calc(100% - var(--sidebar-width));
 	order: 1;
 }
 

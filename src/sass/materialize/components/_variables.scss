@@ -111,10 +111,10 @@ $container-width: 1240px !default; // used in some @media queries
 	--component-space-around-y: 15px;
 	--container-width: #{$container-width};
 	--fancybox-zIndex: 1600;
+	--sidebar-width: 328px;
 } 
 
 $page-module-padding: 40px 0 !default;
-$sidebar-width: 328px !default;
 $scroll-width: 4px !default;
 
 // 11. Global

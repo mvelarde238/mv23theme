@@ -6,6 +6,7 @@ CHANGELOG
 - Add support for custom fonts
 - Fix video background size
 - .content-layout__item 100% in mobile
+- --sidebar-width css property
 
 1.5.4 24-09-09
 - Change Menu Breakpoint from 1296px to 896px
