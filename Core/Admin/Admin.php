@@ -222,4 +222,11 @@ class Admin extends Theme {
     public function remove_meta_boxes() {
         remove_meta_box('postcustom','page','normal');
     }
+
+    public function custom_mime_types_support( $mimes ) {
+        $mimes['woff'] = 'font/woff';
+        $mimes['woff2'] = 'font/woff2';
+        
+        return $mimes;
+    }
 }

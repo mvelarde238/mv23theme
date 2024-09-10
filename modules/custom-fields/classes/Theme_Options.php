@@ -86,20 +86,47 @@ class Theme_Options{
         $names = array();
         $css = '';
 
-        $fonts = array(
-            array( 'option' => 'general_font', 'apply_to' => 'body'),
-            array( 'option' => 'headings_font', 'apply_to' => 'h1,h2,h3,h4,h5,h6')
+        $fonts = get_option('fonts');
+        $apply_to = array(
+            'global' => 'body',
+            'headings' => 'h1,h2,h3,h4,h5,h6'
         );
 
-        foreach ($fonts as $font) {
-            $the_font = get_option( $font['option'] );
-    
-            if( $the_font ) {
-                $url = Font::get_font_url( $the_font );
-                $urls[] = $url;
-                $names[] = $the_font['family'];
-            
-                $css .= $font['apply_to'].' {font-family: ' . $the_font['family'] . ', Sans-Serif;}';
+        if( is_array($fonts) && !empty($fonts) ){
+            foreach ($fonts as $item) {
+                $selector = ( $item['scope'] == 'custom' ) ? $item['selector'] : $apply_to[ $item['scope'] ];
+
+                if( $item['__type'] == 'google_font' ){
+                    $font_data = $item['google_font'];
+                    if( $font_data ) {
+                        $url = Font::get_font_url( $font_data );
+                        $urls[] = $url;
+                        $names[] = $font_data['family'];
+                    
+                        // font rule
+                        $css .= $selector.' {font-family: ' . $font_data['family'] . ', Sans-Serif;}';
+                    }
+                }   
+                if( $item['__type'] == 'custom_font' ){
+                    $files = $item['files'];
+                    if( is_array($files) && !empty($files) ){
+                        $name = $item['name'];
+                        $variant = $item['variant'];
+                        $names[] = $name;
+                        // font face
+                        $css .= '@font-face {';
+                        $css .= 'font-family: '.$name.';';
+                        $css .= 'font-weight: '.$variant.';';
+                        $custom_font_urls = array();
+                        foreach ($files as $file) {
+                            $custom_font_urls[] = 'url('.wp_get_attachment_url($file).')';
+                        }
+                        $css .= 'src:'.implode(',',$custom_font_urls).';';
+                        $css .= '}';
+                        // font rule
+                        $css .= $selector.' {font-family: ' . $name . ', Sans-Serif;}';
+                    }
+                }
             }
         }
 

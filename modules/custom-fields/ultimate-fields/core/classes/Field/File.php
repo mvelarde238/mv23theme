@@ -133,7 +133,7 @@ class File extends Field {
 
 		return $this;
 	}
-
+	
 	/**
 	 * Returns the currently supported post type(s).
 	 *

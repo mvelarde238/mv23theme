@@ -128,6 +128,9 @@ class MV23_Theme extends Theme {
         // remove custom fields meta box
         $this->loader->add_action( 'add_meta_boxes', $admin, 'remove_meta_boxes');
 
+        // add support for fonts mime types
+        $this->loader->add_filter( 'upload_mimes', $admin, 'custom_mime_types_support' );
+
         // ajax callback to load posts in listing component
         $ajax_load_posts = new Ajax_Load_Posts();
 

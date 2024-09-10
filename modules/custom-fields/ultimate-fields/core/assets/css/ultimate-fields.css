@@ -2004,6 +2004,10 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   padding: 20px;
 }
 
+.hide-gallery-order .uf-gallery-order {
+  display: none;
+}
+
 /* Layout helpers
 ----------------------------------*/
 .ui-helper-hidden {

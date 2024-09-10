@@ -33,7 +33,7 @@ class TinyMCE{
 		$_theme_fonts = array();
 		$theme_options = Theme_Options::getInstance();
         $theme_fonts = $theme_options->get_theme_fonts();
-        if( !empty($theme_fonts['urls']) ){
+        if( !empty($theme_fonts['names']) ){
             foreach ($theme_fonts['names'] as $font_name) {
 				$_theme_fonts[$font_name] = $font_name;
 			}
@@ -80,12 +80,6 @@ class TinyMCE{
     */
     public function get_style_formats(){ 
 		return array(  
-			// array(  
-			    // 'title' => 'Tipografía M PLUS Rounded',  
-			    // 'inline' => 'span', 
-			    // 'classes' => 'mplus-rounded',
-			    // 'wrapper' => false,
-			// ),
 			array(  
 				'title' => 'Títulos',	
 				'items' => array(
