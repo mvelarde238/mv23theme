@@ -89,12 +89,12 @@ class Theme_Options{
         $fonts = get_option('fonts');
         $apply_to = array(
             'global' => 'body',
-            'headings' => 'h1,h2,h3,h4,h5,h6'
+            'headings' => 'h1,h2,h3,h4,h5,h6,b,strong'
         );
 
         if( is_array($fonts) && !empty($fonts) ){
             foreach ($fonts as $item) {
-                $selector = ( $item['scope'] == 'custom' ) ? $item['selector'] : $apply_to[ $item['scope'] ];
+                if( $item['scope'] != 'any' ) $selector = ( $item['scope'] == 'custom' ) ? $item['selector'] : $apply_to[ $item['scope'] ];
 
                 if( $item['__type'] == 'google_font' ){
                     $font_data = $item['google_font'];
@@ -104,7 +104,7 @@ class Theme_Options{
                         $names[] = $font_data['family'];
                     
                         // font rule
-                        $css .= $selector.' {font-family: ' . $font_data['family'] . ', Sans-Serif;}';
+                        if( $item['scope'] != 'any' ) $css .= $selector.' {font-family: ' . $font_data['family'] . ', Sans-Serif;}';
                     }
                 }   
                 if( $item['__type'] == 'custom_font' ){
@@ -123,8 +123,9 @@ class Theme_Options{
                         }
                         $css .= 'src:'.implode(',',$custom_font_urls).';';
                         $css .= '}';
+
                         // font rule
-                        $css .= $selector.' {font-family: ' . $name . ', Sans-Serif;}';
+                        if( $item['scope'] != 'any' ) $css .= $selector.' {font-family: ' . $name . ', Sans-Serif;}';
                     }
                 }
             }

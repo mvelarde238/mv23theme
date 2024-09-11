@@ -98,9 +98,10 @@ class Theme_Options_Fields {
                     'fields' => array(
                         Field::create( 'font', 'google_font' )->set_api_key( $google_api_key ),
                         Field::create( 'select', 'scope' )->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options(array(
+                            'any' => 'Any, just load the font',
                             'global' => 'Global (body)',
-                            'headings' => 'Headings (h1, h2, h3, h4, h5, h6)',
-                            'custom' => 'Custom'
+                            'headings' => 'Headings (h1, h2, h3, h4, h5, h6, b, strong)',
+                            'custom' => 'Custom CSS selector'
                         )),
                         Field::create( 'text', 'selector' )->add_dependency('scope','custom')
                     )
@@ -127,15 +128,16 @@ class Theme_Options_Fields {
                                 '800' => '800',
                                 '900' => '900'
                             ))->set_width(20),
-                            Field::create( 'gallery', 'files' )
+                            Field::create( 'gallery', 'files', __('@font-face files ( woff2, woff )') )
                                 ->set_file_type('font/woff, font/woff2')
                                 ->set_attr( 'class', 'hide-gallery-order' )
                                 ->set_width(60)
                         )),
                         Field::create( 'select', 'scope' )->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options(array(
-                            'global' => 'Global',
-                            'headings' => 'Headings (h1, h2, h3, h4, h5, h6)',
-                            'custom' => 'Custom'
+                            'any' => 'Any, just load the font',
+                            'global' => 'Global (body)',
+                            'headings' => 'Headings (h1, h2, h3, h4, h5, h6, b, strong)',
+                            'custom' => 'Custom CSS selector'
                         )),
                         Field::create( 'text', 'selector' )->add_dependency('scope','custom')
                     )
