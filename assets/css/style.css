@@ -4272,7 +4272,7 @@ input.wpcf7-not-valid {
 	--static-header-logo-height: 60px;
 	--sticky-header-logo-height: 40px;
 	--component-space-around-x: 20px;
-	--component-space-around-y: 15px;
+	--component-space-around-y: 8px;
 	--container-width: 1240px;
 	--fancybox-zIndex: 1600;
 	--sidebar-width: 328px;
@@ -6767,7 +6767,7 @@ li.product:before {
 
 .need-space-around {
 	padding: var(--component-space-around-y) var(--component-space-around-x);
-	margin: var(--component-space-around-x);
+	margin: var(--component-space-around-y) var(--component-space-around-x);
 }
 
 .cover-all {

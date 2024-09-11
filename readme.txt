@@ -6,6 +6,7 @@ CHANGELOG
 - Add b and strong to headings scope in typography settings
 - Fix .horizontal-nav-1 item padding
 - Remove button hover arrow effect
+- Change --component-space-around-y from 15px to 8px
 
 1.5.5 24-09-10
 - Add support for custom fonts
