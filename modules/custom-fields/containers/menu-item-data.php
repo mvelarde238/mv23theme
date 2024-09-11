@@ -34,7 +34,7 @@ Container::create( 'menu-item-data' )
             )),
             Field::create( 'complex', 'min_width', __('Min Width', 'default') )->add_fields(array(
                 Field::create( 'checkbox', 'use' )->fancy()->hide_label()->set_width( 20 ),
-                Field::create( 'number', 'value' )->set_suffix('px')->set_default_value(48)->add_dependency('use')->hide_label()->set_width( 30 )
+                Field::create( 'number', 'value' )->set_suffix('px')->set_default_value(40)->add_dependency('use')->hide_label()->set_width( 30 )
             )),
             Field::create( 'complex', 'border', __('Border', 'default') )->add_fields(array(
                 Field::create( 'checkbox', 'use' )->fancy()->hide_label()->set_width( 20 ),

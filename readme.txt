@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.6 24-09-11
 - Add b and strong to headings scope in typography settings
+- Fix .horizontal-nav-1 item padding
 
 1.5.5 24-09-10
 - Add support for custom fonts
