@@ -29,7 +29,7 @@ $header_style = ( !empty($styles) ) ? 'style="'.implode(' ', $styles).'"' : '';
 			</div>
 		<?php endif ?>
 
-		<?php get_template_part('partials/mobile-menu-button'); ?>
+		<?php get_template_part('partials/mobile-header-buttons'); ?>
 	</div>
 	<div id="megamenus"></div>
 </section>

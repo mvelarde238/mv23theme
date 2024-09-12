@@ -4488,6 +4488,10 @@ p + .pdf-responsive {
 	transition: 500ms all;
 }
 
+.header .main-nav .menu {
+	flex-wrap: wrap;
+}
+
 .header--sticky {
 	background-color: var(--sticky-header-color);
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -4507,20 +4511,8 @@ p + .pdf-responsive {
 	opacity: 0;
 }
 
-.mobile-menu-button {
-	width: 40px;
-	height: 40px;
-	margin-bottom: 0;
-	margin-left: 10px;
-	background-color: transparent;
-	border: 1px solid;
-	border-radius: 4px;
-	cursor: pointer;
+.mobile-header-buttons {
 	display: none;
-}
-
-.main-nav.horizontal-nav-1 .menu {
-	flex-wrap: wrap;
 }
 
 .megamenu {
@@ -8916,11 +8908,15 @@ table.responsive-table thead {
 	padding: 8px 15px;
 }
 
+.header__widgets {
+	display: none;
+}
+
 .main-nav {
 	display: none;
 }
 
-.mobile-menu-button {
+.mobile-header-buttons {
 	display: block;
 }
 
@@ -9120,10 +9116,6 @@ textarea {
 
 .has-columns > div {
 	width: calc(100% / var(--m-columns) - var(--m-gap) + var(--m-gap) / var(--m-columns));
-}
-
-.header__widgets {
-	display: none;
 }
 
 .header__logo img {

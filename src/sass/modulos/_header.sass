@@ -30,6 +30,10 @@
 		img
 			max-height: var(--static-header-logo-height)
 			transition: 500ms all
+	
+	// fix adaptive navbar
+	.main-nav .menu
+		flex-wrap: wrap
 
 	&--sticky
 		background-color: var(--sticky-header-color)
@@ -44,6 +48,9 @@
 	&--sticky.hide-sticky-header-logo &__logo
 		opacity: 0
 
+.mobile-header-buttons
+	display: none
+
 @media only screen and (min-width: #{$menu-breakpoint})
 	.header
 		&__logo,
@@ -54,10 +61,14 @@
 	.header
 		&__content
 			padding: 8px 15px
+		&__widgets
+			display: none
+	.main-nav
+		display: none
+	.mobile-header-buttons
+		display: block
 
 @media #{$small-and-down}
 	.header
-		&__widgets
-			display: none
 		&__logo img
 			max-height: var(--sticky-header-logo-height)

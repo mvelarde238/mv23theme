@@ -37,7 +37,7 @@ class Admin extends Theme {
         register_nav_menus(
             array(
 				'main-nav' => __( 'Main nav', $this->text_domain ),
-				'mobile-nav' => __( 'Mobile nav', $this->text_domain )
+				'mobile-header-buttons' => __( 'Mobile header buttons', $this->text_domain )
 			)
         );
     }
