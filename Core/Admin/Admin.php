@@ -13,7 +13,7 @@ use Core\Posttype\Portfolio;
 use Core\Posttype\MV23_Library;
 use Core\Posttype\Reusable_Section_CPT;
 use Core\Posttype\Archive_Page;
-use Theme_Custom_Fields\Theme_Options;
+use Core\Theme_Options\Theme_Options;
 
 class Admin extends Theme {
 

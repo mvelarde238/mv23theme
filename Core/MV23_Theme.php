@@ -15,6 +15,7 @@ use Core\Admin\Ajax_Load_Posts;
 use Core\Admin\Hardening_WP;
 use Core\Admin\TinyMCE;
 use Core\Frontend\Page;
+use Core\Theme_Options\Theme_Options;
 
 class MV23_Theme extends Theme {
 
@@ -82,6 +83,13 @@ class MV23_Theme extends Theme {
         $this->loader->add_action( 'after_setup_theme', $woocommerce_support, 'add_theme_support' );
         $this->loader->add_action( 'woocommerce_before_main_content', $woocommerce_support, 'before_main_content', 10);
         $this->loader->add_action( 'woocommerce_after_main_content', $woocommerce_support, 'after_main_content', 10);
+
+        // Theme Options
+        $theme_options = Theme_Options::getInstance();
+
+        // load theme options frontend stuff
+        $this->loader->add_action( 'wp_enqueue_scripts', $theme_options, 'add_theme_fonts' );
+        $this->loader->add_action( 'wp_enqueue_scripts', $theme_options, 'add_css_properties' );
     }
 
     private function define_admin_hooks() {	
@@ -158,6 +166,14 @@ class MV23_Theme extends Theme {
 
         // Disable admin bar on the frontend of your website for subscribers.
         $this->loader->add_action( 'after_setup_theme', $hardening_wp, 'disable_admin_bar' );
+
+        // Theme Options
+        $theme_options = Theme_Options::getInstance();
+        
+        $this->loader->add_action( 'uf.init', $theme_options, 'init_options_page' );
+        $this->loader->add_filter( 'custom_menu_order', $theme_options, 'rearrange_submenu_order' );
+        $this->loader->add_action( 'admin_enqueue_scripts', $theme_options, 'enqueue_admin_scripts' );
+        $this->loader->add_action( 'customize_preview_init', $theme_options, 'enqueue_uf_customize_preview_script' );
     }
 
     private function define_cleanup_hooks() {

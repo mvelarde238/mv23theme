@@ -4,7 +4,8 @@ CHANGELOG
 
 1.5.7 24-09-12
 - Fix %shared-horizontal-navs-styles: removed max-width property
-- MV23_GLOBALS.menu_breakpoint implementation for js|
+- MV23_GLOBALS.menu_breakpoint implementation for js
+- Core\Theme_Options namespace
 
 1.5.6 24-09-11
 - Add b and strong to headings scope in typography settings

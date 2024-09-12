@@ -1,7 +1,7 @@
 <?php
+use Core\Theme_Options\Theme_Options;
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
-use Theme_Custom_Fields\Core;
 
 Container::create( 'page_settings' )
     ->add_location( 'post_type', PAGE_SETTINGS_POSTTYPES )
@@ -23,7 +23,7 @@ Container::create( 'page_settings' )
         Field::create( 'checkbox', 'hide_static_header_logo', 'Ocultar el logo')->set_text('Ocultar el logo'),
         Field::create( 'checkbox', 'custom_static_header', 'Personalizar')->set_text('Personalizar el header estático'),
         Field::create( 'select', 'static_header_logo', 'Versión del Logo')
-            ->add_options( Core::getInstance()->get_logos_field_names() )
+            ->add_options( Theme_Options::getInstance()->get_logos_field_names() )
             ->add_dependency('custom_static_header'),
         Field::create( 'image', 'custom_static_header_logo', 'Seleccionar logo' )->add_dependency('static_header_logo','custom','=')->add_dependency('custom_static_header'),
         Field::create( 'complex', 'static_header_bgc', 'Color de fondo' )->add_fields(array(
@@ -42,7 +42,7 @@ Container::create( 'page_settings' )
         Field::create( 'checkbox', 'hide_sticky_header_logo', 'Ocultar el logo')->set_text('Ocultar el logo'),
         Field::create( 'checkbox', 'custom_sticky_header', 'Personalizar')->set_text('Personalizar el sticky header'),
         Field::create( 'select', 'sticky_header_logo', 'Versión del Logo')
-            ->add_options( Core::getInstance()->get_logos_field_names() )
+            ->add_options( Theme_Options::getInstance()->get_logos_field_names() )
             ->add_dependency('custom_sticky_header'),
         Field::create( 'image', 'custom_sticky_header_logo', 'Seleccionar logo' )->add_dependency('sticky_header_logo','custom','=')->add_dependency('custom_sticky_header'),
         Field::create( 'complex', 'sticky_header_bgc', 'Color de fondo' )->add_fields(array(

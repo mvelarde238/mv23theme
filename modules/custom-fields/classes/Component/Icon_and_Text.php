@@ -4,7 +4,7 @@ namespace Theme_Custom_Fields\Component;
 use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Component;
 use Theme_Custom_Fields\Template_Engine;
-use Theme_Custom_Fields\Theme_Options;
+use Core\Theme_Options\Theme_Options;
 
 class Icon_and_Text extends Component {
 

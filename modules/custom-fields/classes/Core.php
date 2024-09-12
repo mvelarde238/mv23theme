@@ -1,7 +1,6 @@
 <?php
 namespace Theme_Custom_Fields;
 
-use Theme_Custom_Fields\Theme_Options;
 use Theme_Custom_Fields\Common_Settings;
 use Theme_Custom_Fields\Component\Components_Wrapper;
 
@@ -38,11 +37,6 @@ class Core{
         )
     );
 
-    /**
-     * Hold the list of available logo versions to be used as select options
-     */
-    private static $logos_field_names = array();
-
     public static function getInstance() {
         if (self::$instance == null) {
             self::$instance = new Core();
@@ -56,15 +50,11 @@ class Core{
         require_once( __DIR__ . '/Autoloader.php' );
 		new Autoloader( 'Theme_Custom_Fields', $core_directory . DIRECTORY_SEPARATOR . 'classes' );
 
-        $this->set_logos_field_names();
         $this->add_core_components_on_demand();
         // $this->add_action( 'after_setup_theme', array($this, 'init_components'), 15 ); // theme launch at 10
         $this->add_action( 'uf.init', array($this, 'init_components') );
         $this->add_action( 'uf.init', array($this, 'add_meta_boxes') );
         $this->add_action( 'init', array($this, 'hide_editor') );
-        $this->add_action( 'init', array($this, 'init_theme_options') );
-        $this->add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-        $this->add_action( 'customize_preview_init', array($this, 'enqueue_uf_costomize_preview_script' ) );
     }
 
     /**
@@ -83,10 +73,6 @@ class Core{
                 remove_post_type_support( $slug, 'editor' );
             }
         }
-    }
-
-    public function init_theme_options(){
-        Theme_Options::getInstance();
     }
 
     public function add_meta_boxes(){
@@ -112,64 +98,6 @@ class Core{
          * Let child theme register its own meta boxes
          */
 	    do_action('theme_add_meta_boxes');
-    }
-
-    public function enqueue_scripts(){
-        $theme_options = Theme_Options::getInstance();
-		$theme_colors = array('#000000','#ffffff');
-		
-        $options = array('primary_color','secondary_color','font_color','headings_color','colorpicker_palette');
-        foreach ($options as $option_name) {
-            if( $option_name != 'colorpicker_palette' ){
-                $the_color = $theme_options->get_property($option_name);
-                if( $the_color ) $theme_colors[] = $the_color;
-            } else {
-                $colorpicker_palette = $theme_options->get_property('colorpicker_palette');
-                if( is_array($colorpicker_palette) && !empty($colorpicker_palette) ){
-                    foreach ($colorpicker_palette as $item) {
-                        if($item['color']) $theme_colors[] = $item['color'];
-                    }
-                }
-            }
-        }
-
-        wp_add_inline_script( 
-            'uf-field-color', 
-            'const COLOR_PICKER = ' . json_encode(array(
-                'palettes' => $theme_colors
-            )),
-            'before'
-        );
-    }
-
-    public function enqueue_uf_costomize_preview_script(){
-        $uri = THEME_CUSTOM_FIELDS_PATH . '/assets/js/customizer.js';
-	    wp_enqueue_script( 'theme-custom-fields', $uri, array( 'jquery', 'uf-customize-preview' ), '1.0', true );
-    }
-
-    private function set_logos_field_names(){
-        for ($i=1; $i <= LOGOS_QUANTITY; $i++) { 
-            switch ($i) {
-                case 1:
-                    $field_name = 'main_logo';
-                    break;
-        
-                case 2:
-                    $field_name = 'secondary_logo';
-                    break;
-                
-                default:
-                    $field_name = 'logo_v'.$i;
-                    break;
-            }
-            $field_title = 'Logo Versión '.$i;
-            self::$logos_field_names[$field_name] = $field_title;
-        }
-        self::$logos_field_names['custom'] = 'Custom';
-    }
-
-    public static function get_logos_field_names(){
-        return self::$logos_field_names;
     }
 
     public function init_components(){

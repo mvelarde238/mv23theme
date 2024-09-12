@@ -1,7 +1,7 @@
 <?php
 namespace Core\Admin;
 
-use Theme_Custom_Fields\Theme_Options;
+use Core\Theme_Options\Theme_Options;
 
 /*
 * Callback functions to filter the MCE settings

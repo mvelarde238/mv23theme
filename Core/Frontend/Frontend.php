@@ -9,7 +9,7 @@ use Core\Includes\Theme as Theme;
 use Core\Frontend\Shortcodes as Shortcodes;
 use Core\Frontend\Page;
 use Core\Frontend\Header;
-use Theme_Custom_Fields\Theme_Options;
+use Core\Theme_Options\Theme_Options;
 
 class Frontend extends Theme {
 

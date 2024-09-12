@@ -1,14 +1,24 @@
 <?php
-namespace Theme_Custom_Fields;
+namespace Core\Theme_Options;
 
+use Core\Includes\Theme as Theme;
 use Ultimate_Fields\Options_Page;
 use Ultimate_Fields\Field\Font;
 use Core\Utils\Helpers;
+use Core\Theme_Options\UF_Container\Main;
+use Core\Theme_Options\UF_Container\Social_Media;
+use Core\Theme_Options\UF_Container\Global_Options;
+use Core\Theme_Options\UF_Container\Custom_Scripts;
 
-class Theme_Options{
+class Theme_Options extends Theme{
 	private static $instance = null;
 
     private $slug = 'theme-options-menu';
+
+    /**
+     * Hold the list of available logo versions to be used as select options
+     */
+    private static $logos_field_names = array();
 
     public static function getInstance() {
         if (self::$instance == null) {
@@ -19,34 +29,27 @@ class Theme_Options{
     
     // Constructor privado para evitar la creación directa de la instancia
     private function __construct(){
+        parent::__construct();
+        $this->set_logos_field_names();
+    }
 
+    public function init_options_page(){
         if( current_user_can('administrator') ){
             Options_Page::create( $this->slug, 'Theme Options' )->set_position( 2 )->set_capability( 'manage_options' );
             Options_Page::create( 'theme-options', 'Theme Options' )->set_parent( $this->slug );
             Options_Page::create( 'custom-scripts-options', 'Custom Scripts' )->set_parent( $this->slug );
-    
-            add_action( 'uf.init', array($this, 'add_theme_options_meta_boxes') );
-            add_filter( 'custom_menu_order', array( $this, 'rearrange_submenu_order' ));
+
+            // load uf-containers
+            Main::init();
+            Custom_Scripts::init();
+            Social_Media::init();
+            Global_Options::init();
         }
-        
-        // load frontend stuff
-        add_action( 'wp_enqueue_scripts', array( $this, 'add_theme_fonts' ));
-        add_action( 'wp_enqueue_scripts', array( $this, 'add_css_properties' ));
-    }
-
-    public function add_theme_options_meta_boxes(){
-        require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/custom-scripts-options.php' );
-        require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/theme-options.php' );
-        require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/rrss-options.php' );
-        require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/global-options.php' );
-
-        /**
-         * Let child theme register its own meta boxes
-         */
-	    do_action('add_theme_options_meta_boxes');
     }
 
     public function rearrange_submenu_order( $menu_ord ){
+        if( !current_user_can('administrator') ) return $menu_ord;
+
         global $submenu;
         // Enable the next line to see the menu order
         // echo '<pre>'.print_r($submenu[$this->slug],true).'</pre>';
@@ -79,6 +82,31 @@ class Theme_Options{
         $submenu[$this->slug] = $new_order;
 
         return $menu_ord;
+    }
+
+    private function set_logos_field_names(){
+        for ($i=1; $i <= LOGOS_QUANTITY; $i++) { 
+            switch ($i) {
+                case 1:
+                    $field_name = 'main_logo';
+                    break;
+        
+                case 2:
+                    $field_name = 'secondary_logo';
+                    break;
+                
+                default:
+                    $field_name = 'logo_v'.$i;
+                    break;
+            }
+            $field_title = 'Logo Versión '.$i;
+            self::$logos_field_names[$field_name] = $field_title;
+        }
+        self::$logos_field_names['custom'] = 'Custom';
+    }
+
+    public static function get_logos_field_names(){
+        return self::$logos_field_names;
     }
 
     public function get_theme_fonts(){
@@ -291,5 +319,38 @@ class Theme_Options{
         }
 
         return (isset($page_settings[$type])) ? $page_settings[$type] : array();
+    }
+
+    public function enqueue_admin_scripts(){
+        $theme_options = self::$instance;
+		$theme_colors = array('#000000','#ffffff');
+		
+        $options = array('primary_color','secondary_color','font_color','headings_color','colorpicker_palette');
+        foreach ($options as $option_name) {
+            if( $option_name != 'colorpicker_palette' ){
+                $the_color = $theme_options->get_property($option_name);
+                if( $the_color ) $theme_colors[] = $the_color;
+            } else {
+                $colorpicker_palette = $theme_options->get_property('colorpicker_palette');
+                if( is_array($colorpicker_palette) && !empty($colorpicker_palette) ){
+                    foreach ($colorpicker_palette as $item) {
+                        if($item['color']) $theme_colors[] = $item['color'];
+                    }
+                }
+            }
+        }
+
+        wp_add_inline_script( 
+            'uf-field-color', 
+            'const COLOR_PICKER = ' . json_encode(array(
+                'palettes' => $theme_colors
+            )),
+            'before'
+        );
+    }
+
+    public function enqueue_uf_customize_preview_script(){
+        $uri = $this->theme_path . '/assets/js/customizer.js';
+	    wp_enqueue_script( 'theme-custom-fields', $uri, array( 'jquery', 'uf-customize-preview' ), '1.0', true );
     }
 }

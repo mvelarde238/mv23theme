@@ -1,5 +1,5 @@
 <?php 
-use Theme_Custom_Fields\Theme_Options;
+use Core\Theme_Options\Theme_Options;
 
 get_header(); 
 
