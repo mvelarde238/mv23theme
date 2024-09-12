@@ -4460,6 +4460,7 @@ p + .pdf-responsive {
 	align-items: center;
 	justify-content: flex-end;
 	transition: 500ms padding;
+	gap: 10px;
 }
 
 .header__widgets {
@@ -4488,10 +4489,6 @@ p + .pdf-responsive {
 	transition: 500ms all;
 }
 
-.header .main-nav .menu {
-	flex-wrap: wrap;
-}
-
 .header--sticky {
 	background-color: var(--sticky-header-color);
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -4509,6 +4506,10 @@ p + .pdf-responsive {
 .header:not(.header--sticky).hide-static-header-logo .header__logo,
 .header--sticky.hide-sticky-header-logo .header__logo {
 	opacity: 0;
+}
+
+.main-nav {
+	max-width: 80%;
 }
 
 .mobile-header-buttons {
@@ -8016,15 +8017,6 @@ img.zoom {
 
 .flow-text {
 	font-size: 1.512rem;
-}
-
-}
-
-@media only screen and (min-width: 896px) {
-
-.header__logo,
-.header__widgets {
-	flex-shrink: 0;
 }
 
 }

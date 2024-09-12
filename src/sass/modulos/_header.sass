@@ -12,6 +12,7 @@
 		align-items: center
 		justify-content: flex-end
 		transition: 500ms padding
+		gap: 10px
 
 	&__widgets
 		font-size: 13px
@@ -30,10 +31,6 @@
 		img
 			max-height: var(--static-header-logo-height)
 			transition: 500ms all
-	
-	// fix adaptive navbar
-	.main-nav .menu
-		flex-wrap: wrap
 
 	&--sticky
 		background-color: var(--sticky-header-color)
@@ -48,14 +45,12 @@
 	&--sticky.hide-sticky-header-logo &__logo
 		opacity: 0
 
+// fix adaptive navbar
+.main-nav
+	max-width: 80%
+
 .mobile-header-buttons
 	display: none
-
-@media only screen and (min-width: #{$menu-breakpoint})
-	.header
-		&__logo,
-		&__widgets
-			flex-shrink: 0
 
 @media only screen and (max-width: #{$menu-breakpoint})
 	.header
