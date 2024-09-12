@@ -8897,7 +8897,7 @@ table.responsive-table thead {
 @media only screen and (max-width: 896px) {
 
 .header__content {
-	padding: 8px 15px;
+	padding: 8px var(--component-space-around-x);
 }
 
 .header__widgets {
@@ -9156,6 +9156,10 @@ textarea {
 
 table {
 	width: max-content !important;
+}
+
+body {
+	--component-space-around-x: 8px;
 }
 
 .page-module {
