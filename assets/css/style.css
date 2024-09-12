@@ -6153,12 +6153,6 @@ table > tbody > tr:nth-child(even) {
 	justify-content: center;
 }
 
-.horizontal-nav-3 .menu > li,
-.horizontal-nav-2 .menu > li,
-.horizontal-nav-1 .menu > li {
-	max-width: 180px;
-}
-
 .horizontal-nav-3 .menu .-secondary,
 .horizontal-nav-2 .menu .-secondary,
 .horizontal-nav-1 .menu .-secondary {

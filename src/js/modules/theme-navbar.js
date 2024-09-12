@@ -1,7 +1,7 @@
 window['Theme_Navbars'] = (function(){
     let instances = [],
         sub_menu_width = 180,
-        menu_breakpoint = 1296;
+        menu_breakpoint = MV23_GLOBALS.menu_breakpoint;
 
     function Theme_Navbar( el ){
         this.el = el;

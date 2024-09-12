@@ -83,6 +83,7 @@ class Frontend extends Theme {
                 'open_minicart_on_add_to_cart' => OPEN_MINICART_ON_ADD_TO_CART,
                 'minicart_sidenav_position' => MINICART_SIDENAV_POSITION,
                 'items_in_cart' => (WOOCOMMERCE_IS_ACTIVE) ? WC()->cart->get_cart_contents_count() : null,
+                'menu_breakpoint' => 896
             )); 
     
             wp_enqueue_script( $this->text_domain . '-scripts' );
