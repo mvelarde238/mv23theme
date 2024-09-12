@@ -116,6 +116,8 @@ class Reusable_Section extends Component{
 	}
 
     public static function display( $args ){
+        if( Template_Engine::is_private( $args ) ) return;
+        
         $components = get_post_meta( $args['reusable_section'],'components', true);
 
         if (is_array($components) && count($components) > 0) :

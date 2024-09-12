@@ -34,10 +34,7 @@ class Page_Module extends Component{
 	}
 
     public static function display( $args ){
-        $visibility = (isset($args['visibility'])) ? $args['visibility'] : '';
-	    if ($visibility == 'is_private' && !current_user_can('administrator')) return;
-	    if ($visibility == 'user_is_logged_in' && !is_user_logged_in()) return;
-	    if ($visibility == 'user_is_not_logged_in' && is_user_logged_in()) return;
+        if( Template_Engine::is_private( $args ) ) return;
         
 	    $components = $args['components'];
         $attributes = Template_Engine::generate_attributes( $args );

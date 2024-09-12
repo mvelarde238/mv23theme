@@ -48,6 +48,8 @@ class Inner_Columns extends Component{
 	}
 
     public static function display( $args ){
+        if( Template_Engine::is_private( $args ) ) return;
+        
         echo Template_Engine::getInstance()->handle( 'columns', $args );
     }
 }

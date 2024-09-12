@@ -137,4 +137,15 @@ class Template_Engine{
         } 
         return $video;
     }
+
+    public static function is_private( $args ){
+        $is_private = false;
+
+        $visibility = (isset($args['settings']['visibility']) && $args['settings']['visibility']['use']) ? $args['settings']['visibility']['key'] : '';
+	    if ($visibility == 'is_private' && !current_user_can('administrator')) $is_private = true;
+	    if ($visibility == 'user_is_logged_in' && !is_user_logged_in()) $is_private = true;
+	    if ($visibility == 'user_is_not_logged_in' && is_user_logged_in()) $is_private = true;
+    
+        return $is_private;
+    }
 }

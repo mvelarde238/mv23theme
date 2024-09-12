@@ -58,6 +58,8 @@ class Testimonials extends Component {
 	}
 
     public static function display( $args ){
+        if( Template_Engine::is_private( $args ) ) return;
+        
 		$args['additional_classes'] = array('carrusel');
 		$args['additional_attributes'] = array('data-controls-position="center"');
         

@@ -39,6 +39,8 @@ class Simple_Columns extends Component {
 	}
 
 	public static function display( $args ){
+		if( Template_Engine::is_private( $args ) ) return;
+		
         $columns = $args['blocks_layout'];
 
         $components_margin = (!empty($args['components_margin'])) ? $args['components_margin'] : null;
