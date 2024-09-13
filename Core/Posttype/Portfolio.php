@@ -31,12 +31,14 @@ class Portfolio {
 			'taxonomy_name' => 'portfolio-cat',
 			'singular' => 'Portfolio Category',
 			'plural' => 'Portfolio Categories',
+			'show_ui' => true,
 			'slug' => 'portfolio-cat'
 		));
 
 		$portfolios->register_taxonomy(array(
 			'taxonomy_name' => 'portfolio-tag',
 			'hierarchical' => false,
+			'show_ui' => true,
 			'singular' => 'Portfolio Tag',
 			'plural' => 'Portfolio Tags',
 			'slug' => 'portfolio-tag'

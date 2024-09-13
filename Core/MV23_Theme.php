@@ -119,11 +119,8 @@ class MV23_Theme extends Theme {
         $this->loader->add_filter( 'login_headerurl', $admin, 'customize_login_url' );
         $this->loader->add_filter( 'login_headertext', $admin, 'customize_login_title' );
 
-        // Init custom posttypes.
-        $this->loader->add_action( 'init', $admin, 'register_custom_posttypes', 5 );
-
-        // show post types count
-        $this->loader->add_action( 'init', $admin, 'show_cpt_count', 999 );
+        // Init custom posttypes
+        $this->loader->add_action( 'after_setup_theme', $admin, 'register_custom_posttypes', 4 );
 
         // add theme my login plugin multi language support
         $this->loader->add_filter( 'tml_page_id', $admin, 'add_theme_my_login_multi_language_support' );
@@ -170,10 +167,20 @@ class MV23_Theme extends Theme {
         // Theme Options
         $theme_options = Theme_Options::getInstance();
         
+        // add options page
         $this->loader->add_action( 'uf.init', $theme_options, 'init_options_page' );
+
+        // re arrange the theme options sub menu
         $this->loader->add_filter( 'custom_menu_order', $theme_options, 'rearrange_submenu_order' );
+
+        // Add theme colors in color picker
         $this->loader->add_action( 'admin_enqueue_scripts', $theme_options, 'enqueue_admin_scripts' );
+
+        // int scripts for the customizer
         $this->loader->add_action( 'customize_preview_init', $theme_options, 'enqueue_uf_customize_preview_script' );
+
+        // show post types count
+        $this->loader->add_action( 'init', $theme_options, 'show_cpt_count', 999 );
     }
 
     private function define_cleanup_hooks() {

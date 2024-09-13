@@ -180,14 +180,14 @@ class CPT {
         // Set the user submitted options to the object.
         $this->options = $options;
 
-        // Register taxonomies.
-        $this->add_action( 'init', array( &$this, 'register_taxonomies' ) );
-
         // Register the post type.
-        $this->add_action( 'init', array( &$this, 'register_post_type' ) );
+        $this->add_action( 'after_setup_theme', array( &$this, 'register_post_type' ), 5 );
+
+        // Register taxonomies.
+        $this->add_action( 'after_setup_theme', array( &$this, 'register_taxonomies' ), 6 );
 
         // Register exisiting taxonomies.
-        $this->add_action( 'init', array( &$this, 'register_exisiting_taxonomies' ) );
+        $this->add_action( 'after_setup_theme', array( &$this, 'register_exisiting_taxonomies' ), 6 );
 
         // Add taxonomy to admin edit columns.
         $this->add_filter( 'manage_edit-' . $this->post_type_name . '_columns', array( &$this, 'add_admin_columns' ) );

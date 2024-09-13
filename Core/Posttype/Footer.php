@@ -26,6 +26,7 @@ class Footer {
             array(
                 'show_in_menu' => 'theme-options-menu',
                 'show_in_nav_menus' => false,
+                'exclude_from_search' => true,
                 'supports' => array('title')
             )
         );

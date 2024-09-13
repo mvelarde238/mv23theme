@@ -25,7 +25,7 @@ class Core{
         require_once( __DIR__ . '/Autoloader.php' );
 		new Autoloader( 'Offcanvas_Elements', $core_directory . DIRECTORY_SEPARATOR . 'classes' );
 
-        $this->add_action( 'init', array($this, 'register_post_type'), 4 );
+        $this->add_action( 'after_setup_theme', array($this, 'register_post_type'), 4 );
         $this->add_action( 'uf.init', array($this, 'register_settings') );
         $this->add_action( 'wp_enqueue_scripts', function(){
             $theme = wp_get_theme();
@@ -62,6 +62,7 @@ class Core{
 			array(
 				'show_in_menu' => 'theme-options-menu',
 				'show_in_nav_menus' => false,
+                'exclude_from_search' => true,
 				'show_ui' => true,
 				'supports' => array('title')
 			)

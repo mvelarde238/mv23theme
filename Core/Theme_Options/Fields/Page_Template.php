@@ -9,14 +9,12 @@ class Page_Template {
         # post types
         $post_types   = array();
         $excluded = array( 'attachment', 'page' );
-		foreach( get_post_types( array('public'=>true), 'objects' ) as $id => $post_type ) {
+		foreach( get_post_types( array('public'=>true, 'exclude_from_search'=>false), 'objects' ) as $id => $post_type ) {
 			if( in_array( $id, $excluded ) ) {
 				continue;
 			}
 			$post_types[ $id ] = __( $post_type->labels->name );
 		}
-        // hardcoded posttype:
-        if(USE_PORTFOLIO_CPT) $post_types['portfolio'] = 'Portfolio';
 
         # taxonomies
         $taxonomies = array();
@@ -27,11 +25,6 @@ class Page_Template {
 			}
             $taxonomies[$slug] = $taxonomy->labels->name;
 		}
-        // hardcoded taxonomies
-        if(USE_PORTFOLIO_CPT) {
-            $taxonomies['portfolio-cat'] = 'Portfolio Category';
-            $taxonomies['portfolio-tag'] = 'Portfolio Tag';
-        }
 
         $fields = array(
             Field::create( 'tab', __('Page Template','default') ),

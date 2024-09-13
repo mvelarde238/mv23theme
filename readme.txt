@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.8 24-09-13
+- Register post types on after_setup_theme to have a better compatibility with ultimate fields
+
 1.5.7 24-09-12
 - Fix %shared-horizontal-navs-styles: removed max-width property
 - MV23_GLOBALS.menu_breakpoint implementation for js

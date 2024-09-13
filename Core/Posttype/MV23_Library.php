@@ -30,6 +30,9 @@ class MV23_Library {
 			),
 			array(
 				'show_in_menu' => 'edit.php?post_type=page',
+				'show_in_nav_menus' => false,
+				'show_in_admin_bar' => false,
+				'exclude_from_search' => true,
 				'supports' => array('title','thumbnail'),
 				'menu_icon' => 'dashicons-tagcloud',
 			)
