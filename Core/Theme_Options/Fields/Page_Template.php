@@ -18,7 +18,7 @@ class Page_Template {
 
         # taxonomies
         $taxonomies = array();
-        $excluded_tax = array( 'link_category', 'wp_pattern_category' );
+        $excluded_tax = array( 'link_category', 'wp_pattern_category', 'mv23_library_tax' );
 		foreach( get_taxonomies( array( 'show_ui' => true ), 'objects' ) as $slug => $taxonomy ) {
             if( in_array( $slug, $excluded_tax ) ) {
 				continue;
