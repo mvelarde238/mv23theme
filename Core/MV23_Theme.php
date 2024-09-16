@@ -153,7 +153,6 @@ class MV23_Theme extends Theme {
         $this->loader->add_filter( 'tiny_mce_before_init', $tinymce, 'add_theme_colors' );
         $this->loader->add_filter( 'mce_external_plugins', $tinymce, 'add_table_plugin' );
         $this->loader->add_filter( 'mce_external_plugins', $tinymce, 'add_icon_plugin' );
-        $this->loader->add_action( 'init', $tinymce, 'add_google_fonts_styles' );
 
         // Hardening WordPress
         $hardening_wp = new Hardening_WP;

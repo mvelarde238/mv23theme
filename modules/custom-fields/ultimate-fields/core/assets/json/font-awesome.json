@@ -1,6 +1,6 @@
 {
 	"name": "Font Awesome",
-	"stylesheet": "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",
+	"stylesheet": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css",
 	"version": "4.7",
 	"prefix": "fa",
 	"groups": [

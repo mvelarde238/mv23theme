@@ -37,7 +37,10 @@ class Icon_and_Text extends Component {
                 'icono' => 'Icono',
                 'imagen' => 'Imagen',
             ))->set_width(20),
-            Field::create( 'icon', 'iname', 'Icono' )->add_set( 'font-awesome' )->add_dependency('ielement','icono','=')->set_width(20),
+            Field::create( 'icon', 'iname', 'Icono' )
+                ->add_set( 'bootstrap-icons' )
+                ->add_set( 'font-awesome' )
+                ->add_dependency('ielement','icono','=')->set_width(20),
             Field::create( 'image', 'iimage', 'Imágen' )->add_dependency('ielement','imagen','=')->set_width(20),
     
             Field::create( 'image_select', 'istyle', 'Estilo')->add_options(array(
@@ -158,7 +161,8 @@ class Icon_and_Text extends Component {
         $icon_element = $args['ielement'];
 
         if ($icon_element == 'icono') {
-        	$element = '<i class="fa '.$args['iname'].'"></i>';
+            $icon_prefix = (str_starts_with($args['iname'],'fa')) ? 'fa' : 'bi';
+        	$element = '<i class"'.$icon_prefix.' '.$args['iname'].'"></i>';
         } else {
         	$imagen_url = wp_get_attachment_url($args['iimage']);
         	$element = '<img style="height:'.$args['ifontsize'].'px;" src="'.$imagen_url .'" />';

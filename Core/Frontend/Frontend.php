@@ -21,6 +21,7 @@ class Frontend extends Theme {
         if (!is_admin()) {
             wp_enqueue_style( $this->text_domain.'-styles', $this->theme_path . '/assets/css/style.css', array(), $this->version, 'all' );
             wp_enqueue_style( $this->text_domain.'-font-awesome', FONT_AWESOME, array(), $this->version, 'all' );
+            wp_enqueue_style( $this->text_domain.'-bootstrap-icons', BOOTSTRAP_ICONS, array(), $this->version, 'all' );
         }
     }
 

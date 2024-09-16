@@ -68,7 +68,10 @@ class Button extends Component {
             Field::create( 'checkbox', 'new_tab', 'Abrir en una nueva ventana' )->set_text( 'Activar' )->set_width(25),
     
             Field::create( 'tab', 'Icono' ),
-            Field::create( 'icon', 'icon', 'Icono' )->add_set( 'font-awesome' )->set_width( 25 ),
+            Field::create( 'icon', 'icon', 'Icono' )
+                ->add_set( 'bootstrap-icons' )
+                ->add_set( 'font-awesome' )
+                ->set_width( 25 ),
             Field::create( 'radio', 'icon_position', 'Posición')->add_options( array(
                 'left' => 'Izquierda',
                 'right' => 'Derecha'
@@ -118,7 +121,8 @@ class Button extends Component {
         $icon = (isset( $args['icon'])) ? $args['icon'] : null;
         if( $icon ) {
             $icon_position = $args['icon_position'] ?: 'left';
-            $icon_html = '<i class="fa '.$icon.'"></i>';
+            $icon_prefix = (str_starts_with($icon,'fa')) ? 'fa' : 'bi';
+            $icon_html = '<i class="'.$icon_prefix.' '.$icon.'"></i>';
             $style .= ' btn--icon-'.$args['icon_position'];
         
             $text = ( $icon_position === 'left' ) ? $icon_html.' '.$text : $text.' '.$icon_html;

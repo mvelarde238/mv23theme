@@ -28,7 +28,7 @@ div.mce-inline-toolbar-grp{z-index:999997 !important}
 input[name="icon-selector"]{
     display: none;
 }
-input[name="icon-selector"]+label{
+input[name="icon-selector"]+label i{
     font-size: 30px;
     padding: 5px;
     border: 2px solid #fff;
@@ -37,11 +37,12 @@ input[name="icon-selector"]+label{
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    min-width: 52px;
 }
-input[name="icon-selector"]:checked+label{
+input[name="icon-selector"]:checked+label i{
     border-color: #0ea1d9;
     background-color: #0ea1d9;
-    color: #fff;
+    color: #fff !important;
 }
 
 

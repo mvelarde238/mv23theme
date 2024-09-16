@@ -15,7 +15,10 @@ Container::create( 'menu-item-data' )
             'icono' => 'Icono',
             'imagen' => 'Imagen',
         ))->set_width(30),
-        Field::create( 'icon', 'menu_item_icon', 'Ícono')->add_set( 'font-awesome' )->add_dependency('identificador','icono','='),
+        Field::create( 'icon', 'menu_item_icon', 'Ícono')
+            ->add_set( 'bootstrap-icons' )
+            ->add_set( 'font-awesome' )
+            ->add_dependency('identificador','icono','='),
         Field::create( 'image', 'menu_item_image', 'Imágen' )->add_dependency('identificador','imagen','='),
         Field::create( 'checkbox', 'hide_label', 'Label' )->set_text('¿Ocultar texto?')->fancy(),
         Field::create( 'complex', 'menu_item_style', __('Style','default') )->set_layout('rows')->add_fields(array(

@@ -47,7 +47,10 @@ class Accordion extends Component {
                                 'icon' => 'Icono',
                                 'image' => 'Imagen',
                         ))->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
-                        Field::create( 'icon', 'icon', 'Icono' )->add_set( 'font-awesome' )->add_dependency('identifier','icon','=')->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
+                        Field::create( 'icon', 'icon', 'Icono' )
+                            ->add_set( 'bootstrap-icons' )
+                            ->add_set( 'font-awesome' )
+                            ->add_dependency('identifier','icon','=')->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
                         Field::create( 'image', 'image', 'Imágen' )->add_dependency('identifier','image','=')->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
                         Field::create( 'select', 'image_size', 'Tamaño de la imágen' )
                             ->add_dependency('identifier','image','=')
@@ -147,7 +150,8 @@ class Accordion extends Component {
                         
                         case 'icon':
                             $icon = $item['icon'];
-                            $icon_html = ($icon) ? '<span class="fa '.$icon.'"></span>' : '';
+                            $icon_prefix = (str_starts_with($icon,'fa')) ? 'fa' : 'bi';
+                            $icon_html = ($icon) ? '<span class="'.$icon_prefix.' '.$icon.'"></span>' : '';
                             break;
     
                         default:

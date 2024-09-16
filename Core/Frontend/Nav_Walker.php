@@ -99,7 +99,8 @@ class Nav_Walker extends Walker_Nav_Menu{
             $image = get_post_meta($item->ID,'menu_item_image',true);
             $imagen_url = wp_get_attachment_url($image);
             $icon_html = '<span class="menu-item__icon">';
-            $icon_html .= ( $identificador == 'imagen' && $image ) ? '<img src="'.$imagen_url .'" />' : '<i class="fa '.$icon.'"></i>';
+            $icon_prefix = (str_starts_with($icon,'fa')) ? 'fa' : 'bi';
+            $icon_html .= ( $identificador == 'imagen' && $image ) ? '<img src="'.$imagen_url .'" />' : '<i class="'.$icon_prefix.' '.$icon.'"></i>';
             $icon_html .= '</span>';
         }
 

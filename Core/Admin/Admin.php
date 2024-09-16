@@ -23,7 +23,9 @@ class Admin extends Theme {
     
     public function enqueue_scripts( $page ) {
         // if( $page == 'post.php' ) 
-        wp_enqueue_style( 'font-awesome', FONT_AWESOME, array(), $this->version );
+        wp_enqueue_style( $this->text_domain.'-font-awesome', FONT_AWESOME, array(), $this->version );
+        wp_enqueue_style( $this->text_domain.'-bootstrap-icons', BOOTSTRAP_ICONS, array(), $this->version );
+
         wp_enqueue_style( $this->text_domain.'-admin-styles', $this->theme_path . '/assets/css/admin-styles.css', array(), $this->version);
 
         wp_register_script( $this->text_domain.'-admin-scripts', $this->theme_path . '/assets/js/admin-scripts.js', array('jquery'), $this->version, false );

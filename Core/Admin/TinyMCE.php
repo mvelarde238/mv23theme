@@ -300,9 +300,4 @@ class TinyMCE{
         $plugins['icon_mce_button'] = get_template_directory_uri() .'/assets/js/mce-icon-button.js';
         return $plugins;
     }
-
-    public function add_google_fonts_styles() {
-        $font_url = FONT_AWESOME;
-        add_editor_style( str_replace( ',', '%2C', $font_url ) ); // string replace?
-    }
 }
