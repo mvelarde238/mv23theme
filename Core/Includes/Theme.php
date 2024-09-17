@@ -10,7 +10,9 @@ class Theme {
     private $template = null;
 
     public function __construct() {
-        $theme = wp_get_theme();
+        $wp_get_theme = wp_get_theme();
+        $parent_theme = $wp_get_theme->parent();
+        $theme = ( $parent_theme ) ? $parent_theme : $wp_get_theme;
 
         $this->theme_name = $theme->get( 'Name' );
         $this->version = $theme->get( 'Version' );
