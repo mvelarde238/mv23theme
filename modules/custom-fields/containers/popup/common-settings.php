@@ -116,10 +116,10 @@ Container::create( 'common_settings_container' )
         )),
         Field::create( 'complex', 'margin', __('Margin', 'default') )->add_fields(array(
             Field::create( 'checkbox', 'use' )->fancy()->set_width( 20 ),
-            Field::create( 'number', 'top', __('Top','default') )->set_suffix('px')->set_placeholder('25')->add_dependency('use')->set_width( 20 ),
-            Field::create( 'number', 'right', __('Right','default') )->set_suffix('px')->set_placeholder('20')->add_dependency('use')->set_width( 20 ),
-            Field::create( 'number', 'bottom', __('Bottom','default') )->set_suffix('px')->set_placeholder('25')->add_dependency('use')->set_width( 20 ),
-            Field::create( 'number', 'left', __('Left','default') )->set_suffix('px')->set_placeholder('20')->add_dependency('use')->set_width( 20 )
+            Field::create( 'number', 'top', __('Top','default') )->set_suffix('px')->set_placeholder('0')->add_dependency('use')->set_width( 20 ),
+            Field::create( 'number', 'right', __('Right','default') )->set_suffix('px')->set_placeholder('0')->add_dependency('use')->set_width( 20 ),
+            Field::create( 'number', 'bottom', __('Bottom','default') )->set_suffix('px')->set_placeholder('20')->add_dependency('use')->set_width( 20 ),
+            Field::create( 'number', 'left', __('Left','default') )->set_suffix('px')->set_placeholder('0')->add_dependency('use')->set_width( 20 )
         )),
         Field::create( 'complex', 'padding', __('Padding', 'default') )->add_fields(array(
             Field::create( 'checkbox', 'use' )->fancy()->set_width( 20 ),
@@ -139,25 +139,25 @@ Container::create( 'common_settings_container' )
             Field::create( 'checkbox', 'use' )->fancy()->set_width( 50 ),
             Field::create( 'checkbox', 'unlock' )->fancy()->set_width( 50 )->add_dependency('use'),
             Field::create( 'complex', 'top' )->add_fields(array(
-                Field::create( 'number', 'width', __('Border Top','default') )->set_suffix( 'px' )->set_default_value('1')->set_width(10),
+                Field::create( 'number', 'width', __('Border Top','default') )->set_suffix( 'px' )->set_placeholder('0')->set_width(10),
                 Field::create( 'select', 'style' )->add_options(array( 'solid' => 'solid', 'dotted' => 'dotted', 'dashed' => 'dashed', 'double' => 'double', 'groove' => 'groove', 'ridge' => 'ridge', 'inset' => 'inset', 'outset' => 'outset' ))->set_width(20),
                 Field::create( 'color', 'color' )->set_width(40),
             ))->add_dependency('use')->hide_label(),
             Field::create( 'complex', 'right' )->add_fields(array(
-                Field::create( 'number', 'width', __('Border Right','default') )->set_suffix( 'px' )->set_default_value('1')->set_width(10),
+                Field::create( 'number', 'width', __('Border Right','default') )->set_suffix( 'px' )->set_placeholder('0')->set_width(10),
                 Field::create( 'select', 'style' )->add_options(array( 'solid' => 'solid', 'dotted' => 'dotted', 'dashed' => 'dashed', 'double' => 'double', 'groove' => 'groove', 'ridge' => 'ridge', 'inset' => 'inset', 'outset' => 'outset' ))->set_width(20),
                 Field::create( 'color', 'color' )->set_width(40),
-            ))->add_dependency('unlock')->hide_label(),
+            ))->add_dependency('use')->add_dependency('unlock')->hide_label(),
             Field::create( 'complex', 'bottom' )->add_fields(array(
-                Field::create( 'number', 'width', __('Border Bottom','default') )->set_suffix( 'px' )->set_default_value('1')->set_width(10),
+                Field::create( 'number', 'width', __('Border Bottom','default') )->set_suffix( 'px' )->set_placeholder('0')->set_width(10),
                 Field::create( 'select', 'style' )->add_options(array( 'solid' => 'solid', 'dotted' => 'dotted', 'dashed' => 'dashed', 'double' => 'double', 'groove' => 'groove', 'ridge' => 'ridge', 'inset' => 'inset', 'outset' => 'outset' ))->set_width(20),
                 Field::create( 'color', 'color' )->set_width(40),
-            ))->add_dependency('unlock')->hide_label(),
+            ))->add_dependency('use')->add_dependency('unlock')->hide_label(),
             Field::create( 'complex', 'left' )->add_fields(array(
-                Field::create( 'number', 'width', __('Border Left','default') )->set_suffix( 'px' )->set_default_value('1')->set_width(10),
+                Field::create( 'number', 'width', __('Border Left','default') )->set_suffix( 'px' )->set_placeholder('0')->set_width(10),
                 Field::create( 'select', 'style' )->add_options(array( 'solid' => 'solid', 'dotted' => 'dotted', 'dashed' => 'dashed', 'double' => 'double', 'groove' => 'groove', 'ridge' => 'ridge', 'inset' => 'inset', 'outset' => 'outset' ))->set_width(20),
                 Field::create( 'color', 'color' )->set_width(40),
-            ))->add_dependency('unlock')->hide_label(),
+            ))->add_dependency('use')->add_dependency('unlock')->hide_label(),
         )),
         Field::create( 'complex', 'box_shadow', __('Box Shadow', 'default') )->add_fields(array(
             Field::create( 'checkbox', 'use' )->fancy(),

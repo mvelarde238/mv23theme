@@ -5,6 +5,7 @@ CHANGELOG
 1.5.11 24-09-17
 - Fix components spacing
 - Get theme version from main theme
+- Fix common settings object: border dependencies and placeholder in margin
 
 1.5.10 24-09-17
 - Remove font weight bolder property for b and strong in normalize

@@ -288,7 +288,7 @@ var common_settings_container = [
                     ],
                     "file_type": "image",
                     "basic": false,
-                    "nonce": "b691ccb624"
+                    "nonce": "ffa42f42cb"
                 },
                 {
                     "type": "Complex",
@@ -440,7 +440,7 @@ var common_settings_container = [
                     ],
                     "file_type": "video",
                     "basic": false,
-                    "nonce": "7fcf825ff9"
+                    "nonce": "43f62fe397"
                 },
                 {
                     "type": "Embed",
@@ -462,7 +462,7 @@ var common_settings_container = [
                         ]
                     ],
                     "field_index": 4,
-                    "nonce": "c0893a6bbe"
+                    "nonce": "1b6e631c6b"
                 },
                 {
                     "type": "Complex",
@@ -577,7 +577,7 @@ var common_settings_container = [
                     "slider_enabled": false,
                     "prefix": null,
                     "suffix": "px",
-                    "placeholder": "25"
+                    "placeholder": "0"
                 },
                 {
                     "type": "Number",
@@ -599,7 +599,7 @@ var common_settings_container = [
                     "slider_enabled": false,
                     "prefix": null,
                     "suffix": "px",
-                    "placeholder": "20"
+                    "placeholder": "0"
                 },
                 {
                     "type": "Number",
@@ -621,7 +621,7 @@ var common_settings_container = [
                     "slider_enabled": false,
                     "prefix": null,
                     "suffix": "px",
-                    "placeholder": "25"
+                    "placeholder": "20"
                 },
                 {
                     "type": "Number",
@@ -643,7 +643,7 @@ var common_settings_container = [
                     "slider_enabled": false,
                     "prefix": null,
                     "suffix": "px",
-                    "placeholder": "20"
+                    "placeholder": "0"
                 }
             ],
             "layout": "grid",
@@ -931,14 +931,13 @@ var common_settings_container = [
                                 "name": "width",
                                 "label": "Border Top",
                                 "field_width": 10,
-                                "default_value": "1",
                                 "minimum": false,
                                 "maximum": false,
                                 "step": 1,
                                 "slider_enabled": false,
                                 "prefix": null,
                                 "suffix": "px",
-                                "placeholder": null
+                                "placeholder": "0"
                             },
                             {
                                 "type": "Select",
@@ -979,6 +978,11 @@ var common_settings_container = [
                     "dependencies": [
                         [
                             {
+                                "field": "use",
+                                "value": true,
+                                "compare": "="
+                            },
+                            {
                                 "field": "unlock",
                                 "value": true,
                                 "compare": "="
@@ -995,14 +999,13 @@ var common_settings_container = [
                                 "name": "width",
                                 "label": "Border Right",
                                 "field_width": 10,
-                                "default_value": "1",
                                 "minimum": false,
                                 "maximum": false,
                                 "step": 1,
                                 "slider_enabled": false,
                                 "prefix": null,
                                 "suffix": "px",
-                                "placeholder": null
+                                "placeholder": "0"
                             },
                             {
                                 "type": "Select",
@@ -1043,6 +1046,11 @@ var common_settings_container = [
                     "dependencies": [
                         [
                             {
+                                "field": "use",
+                                "value": true,
+                                "compare": "="
+                            },
+                            {
                                 "field": "unlock",
                                 "value": true,
                                 "compare": "="
@@ -1059,14 +1067,13 @@ var common_settings_container = [
                                 "name": "width",
                                 "label": "Border Bottom",
                                 "field_width": 10,
-                                "default_value": "1",
                                 "minimum": false,
                                 "maximum": false,
                                 "step": 1,
                                 "slider_enabled": false,
                                 "prefix": null,
                                 "suffix": "px",
-                                "placeholder": null
+                                "placeholder": "0"
                             },
                             {
                                 "type": "Select",
@@ -1107,6 +1114,11 @@ var common_settings_container = [
                     "dependencies": [
                         [
                             {
+                                "field": "use",
+                                "value": true,
+                                "compare": "="
+                            },
+                            {
                                 "field": "unlock",
                                 "value": true,
                                 "compare": "="
@@ -1123,14 +1135,13 @@ var common_settings_container = [
                                 "name": "width",
                                 "label": "Border Left",
                                 "field_width": 10,
-                                "default_value": "1",
                                 "minimum": false,
                                 "maximum": false,
                                 "step": 1,
                                 "slider_enabled": false,
                                 "prefix": null,
                                 "suffix": "px",
-                                "placeholder": null
+                                "placeholder": "0"
                             },
                             {
                                 "type": "Select",
