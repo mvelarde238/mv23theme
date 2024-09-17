@@ -5,6 +5,7 @@ CHANGELOG
 1.5.10 24-09-17
 - Remove font weight bolder property for b and strong in normalize
 - Fix icon in Icon_And_Text Component
+- Load all components in Carrusel Component
 
 1.5.9 24-09-16
 - BOOTSTRAP_ICONS Implementation

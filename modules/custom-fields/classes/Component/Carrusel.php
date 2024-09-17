@@ -49,9 +49,7 @@ class Carrusel extends Component {
                 <% } %>') 
 			->add_fields(array(
                 Field::create( 'tab', __('Contenido','default') ),
-                Blocks_Layout::the_field(array( 
-                    'components' => array( 'text_editor', 'image', 'spacer', 'map', 'button', 'html' )
-                )),
+                Blocks_Layout::the_field(),
                 Field::create( 'tab', __('Settings','default') ),
                 Field::create( 'common_settings_control', 'settings' )->set_container( 'common_settings_container' )
             ));
