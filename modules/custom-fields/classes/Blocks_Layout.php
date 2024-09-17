@@ -95,7 +95,6 @@ class Blocks_Layout{
         
         ob_start();
         echo Template_Engine::component_wrapper('start',$args);
-        echo '<div>';
         for ($i=0; $i < count($layouts); $i++) { 
             $row = $layouts[$i];
             for ($it=0; $it < count($row); $it++){
@@ -110,7 +109,6 @@ class Blocks_Layout{
                 echo '</div>';
             };
         };
-        echo '</div>';
         echo Template_Engine::component_wrapper('end',$args);
         return ob_get_clean();
 	}

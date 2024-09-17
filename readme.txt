@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.11 24-09-17
+- Fix components spacing
+
 1.5.10 24-09-17
 - Remove font weight bolder property for b and strong in normalize
 - Fix icon in Icon_And_Text Component

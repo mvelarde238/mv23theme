@@ -51,7 +51,7 @@ class Columns extends Component {
 	public static function display( $args ){
 		if( Template_Engine::is_private( $args ) ) return;
 		
-		$args['additional_classes'] = array('columns-wrapper');
+		$args['additional_classes'] = array('columns-wrapper', 'component');
 		$args['__type'] = array('');
 
 		$columns_quantity = $args['quantity'];

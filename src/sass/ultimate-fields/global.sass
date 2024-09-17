@@ -2,13 +2,10 @@
 	padding: $page-module-padding
 
 .component
-	padding: var(--component-space-around-y) var(--component-space-around-x)
+	&:not(:last-child)
+		margin-bottom: 20px
 	&.full-width .container
 		max-width: var(--container-width)
-
-.need-space-around
-	padding: var(--component-space-around-y) var(--component-space-around-x)
-	margin: var(--component-space-around-y) var(--component-space-around-x)
 
 .cover-all
 	position: absolute !important
@@ -59,6 +56,14 @@
 img[data-fancybox], img.zoom
 	cursor: zoom-in
 
+.full-width
+	width: 100vw
+	position: relative
+	left: 50%
+	right: 50%
+	margin-left: -50vw !important
+	margin-right: -50vw !important
+
 @media #{$large-and-up}
 	.extend-bg-to-left,
 	.extend-bg-to-right
@@ -72,19 +77,7 @@ img[data-fancybox], img.zoom
 		height: 100%
 		pointer-events: none
 
-// .full-width no needed in mobile:
-@media only screen and (min-width: $container-width)
-	.full-width
-		width: 100vw
-		position: relative
-		left: 50%
-		right: 50%
-		margin-left: -50vw !important
-		margin-right: -50vw !important
-
 @media #{$small-and-down}
-	body
-		--component-space-around-x: 8px
 	.page-module
 		padding-top: 20px
 		padding-bottom: 20px

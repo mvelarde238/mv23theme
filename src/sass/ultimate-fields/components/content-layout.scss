@@ -1,44 +1,31 @@
 .content-layout{
-	&>div{
-		display: flex;
-		flex-wrap: wrap;
-	}
-	&.jc-center>div{ justify-content: center; }
-	&.jc-flex-start>div{ justify-content: flex-start; }
-	&.jc-flex-end>div{ justify-content: flex-end; }
-	&.jc-space-between>div{ justify-content: space-between; }
-	&.ai-center>div{ align-items: center; }
-	&.ai-flex-start>div{ align-items: flex-start; }
-	&.ai-flex-end>div{ align-items: flex-end; }
-	&.ai-space-between>div{ align-items: space-between; }
+	gap: 20px;
+
+	&.jc-center{ justify-content: center; }
+	&.jc-flex-start{ justify-content: flex-start; }
+	&.jc-flex-end{ justify-content: flex-end; }
+	&.jc-space-between{ justify-content: space-between; }
+	&.ai-center{ align-items: center; }
+	&.ai-flex-start{ align-items: flex-start; }
+	&.ai-flex-end{ align-items: flex-end; }
+	&.ai-space-between{ align-items: space-between; }
 }
 
-.content-layout.layout-flex{}
+.content-layout.layout-flex{
+	display: flex;
+	flex-wrap: wrap;
+}
 
 .content-layout.layout-grid{
-	@media only screen and (max-width: 395px) {
-		.content-layout__item{
-			width: 100%;
-		}
-	}
-	@media only screen and (min-width: 395px) {
-		$i: 5;
-		$nth-cols : 12;
-		@while $i <= $nth-cols {
-			$perc: unquote(calc(100 / calc($nth-cols / $i)) + "%");
-			.width-#{$i}{
-				width: #{$perc};
-			}
-			$i: $i + 1;
-		}
-	}
-	@media only screen and (min-width: 768px) {
+	display: grid;
+	@media only screen and (min-width: 769px) {
+		grid-template-columns: repeat(12, 1fr);
+
 		$i: 1;
 		$nth-cols : 12;
-		@while $i <= 4 {
-			$perc: unquote(calc(100 / calc($nth-cols / $i)) + "%");
+		@while $i <= $nth-cols {
 			.width-#{$i}{
-				width: #{$perc};
+				grid-column: span $i;
 			}
 			$i: $i + 1;
 		}

@@ -51,10 +51,6 @@ class Template_Engine{
         
         $id = Id::get_attribute( $args );
         $style_data = Style::get_data( $args );
-
-        // this need to be done before classes checking:
-        if( $style_data['attribute'] ) $args = self::check_components_space_around( $args, $style_data );
-
         $class = Classes::get_attribute( $args );
 
         if( $id ) $attributes[] = $id;
@@ -66,28 +62,6 @@ class Template_Engine{
         }
         
         return ( !empty($attributes) ) ? implode(' ', $attributes ) : '';
-    }
-
-    public static function check_components_space_around( $args, $style_data ){
-        // $no_need_space_around = array('inner_columns','simple_columns','columns','items_grid','column','grid__item','spacer','components_wrapper','page_module', 'content'); // content is a group inside Carrusel
-        $no_need_space_around = array('page_module','content','page_header'); // content is a group inside Carrusel
-
-        if ( 
-            isset( $args['__type'] ) && !in_array($args['__type'], $no_need_space_around) &&
-            ( $style_data['background'] || $style_data['borders'] || $style_data['box_shadow'])
-        ){
-            $args['additional_classes'][] = 'need-space-around';
-        } 
-
-        // $need_spacing = array('inner_columns','simple_columns','columns','items_grid','column','grid__item','spacer','components_wrapper','content'); // content is a group inside Carrusel
-
-        // if ( /* theses components dosnt need padding but need component spacing-separator when they have background, border or shadow */
-        //     isset( $args['__type'] ) && in_array($args['__type'], $need_spacing ) &&
-        //     ( $style_data['background'] || $style_data['borders'] || $style_data['box_shadow'])
-        // ){
-        //     $args['additional_classes'][] = 'componente';
-        // }
-        return $args;
     }
 
     public static function check_layout( $key, $args ){
