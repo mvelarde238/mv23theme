@@ -1,13 +1,14 @@
-.main
-	flex: 1
-	
 .main-content
-	display: flex 
-	gap: 20px
-
 	.sidebar
 		padding: $page-module-padding
 		width: var(--sidebar-width)
+
+	&--sidebar-left,
+	&--sidebar-right
+		display: flex 
+		gap: 20px
+		.main
+			flex: 1
 
 	&--sidebar-left
 		.main

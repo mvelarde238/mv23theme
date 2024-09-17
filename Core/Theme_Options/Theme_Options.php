@@ -169,8 +169,8 @@ class Theme_Options extends Theme{
                         foreach ($files as $file) {
                             $custom_font_urls[] = 'url('.wp_get_attachment_url($file).')';
                         }
-                        $css .= 'src:'.implode(',',$custom_font_urls).';';
-                        $css .= '}';
+                        $css .= 'src:'.implode(', ',$custom_font_urls).';';
+                        $css .= '}\n ';
 
                         // font rule
                         if( $item['scope'] != 'any' ) $css .= $selector.' {font-family: ' . $name . ', Sans-Serif;}';
