@@ -6,7 +6,7 @@ get_header();
 $main_content_classes = array('main-content','container');
 
 $theme_options = Theme_Options::getInstance();
-$single_page = $theme_options->get_pages_settings('single');
+$single_page = $theme_options->get_page_template_settings('single');
 if( !$single_page['hide_sidebar'] ) array_push($main_content_classes, $single_page['page_template']);
 ?>
 

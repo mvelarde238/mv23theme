@@ -6,7 +6,7 @@ get_header();
 $main_content_classes = array('main-content','container');
 
 $theme_options = Theme_Options::getInstance();
-$archive_page = $theme_options->get_pages_settings('archive');
+$archive_page = $theme_options->get_page_template_settings('archive');
 if( !$archive_page['hide_sidebar'] ) array_push($main_content_classes, $archive_page['page_template']);
 ?>
 

@@ -301,14 +301,14 @@ class Theme_Options extends Theme{
         if( !empty($css) ) wp_add_inline_style( 'mv23theme-styles', $css );
     }
 
-    public function get_pages_settings( $type = '' ){
+    public function get_page_template_settings( $type = '' ){
         $page_settings = array(
             'single' => array( 'page_template' => 'main-content--sidebar-right', 'hide_sidebar'=>0 ),
             'archive' => array( 'page_template' => 'main-content--sidebar-left', 'hide_sidebar'=>0 )
         );
 
-        $pages_settings = get_option('pages_settings');
-        foreach ($pages_settings as $setting) {
+        $page_template_settings = get_option('page_template_settings');
+        foreach ($page_template_settings as $setting) {
             if($setting['__type'] == $type){
                 if( $type == 'single' ){
                     $queried_object = get_queried_object();
