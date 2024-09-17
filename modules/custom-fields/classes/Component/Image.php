@@ -19,7 +19,15 @@ class Image extends Component {
     }
 
 	public static function get_title_template() {
-		$template = 'Aspect ratio: <%= aspect_ratio %> | Alignment: <%= alignment %>';
+		$template = '<% if(image){ %>
+            <%= image_prepared[0].filename %> 
+            <% if(aspect_ratio != "default"){ %>
+                | aspect ratio: <%= aspect_ratio %> 
+            <% } %>
+            <% if(alignment != "left"){ %>
+                | Alignment: <%= alignment %>
+            <% } %>
+        <% } %>';
 		
 		return $template;
 	}

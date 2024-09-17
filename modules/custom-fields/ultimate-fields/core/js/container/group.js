@@ -462,7 +462,7 @@
 
 			try {
 				var data = this.model.datastore.toJSON();
-				data.fields = this.model.get( 'fields' );
+				// data.fields = this.model.get( 'fields' );
 
 				if(data.hasOwnProperty('file')){
 					title = data.file_prepared[0].filename;

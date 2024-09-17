@@ -56,6 +56,7 @@ class Blocks_Layout{
                 $options = array(
                     'min_width' => 1,
                     'title' => $component->get_title(),
+                    'title_template' => $component->get_title_template(),
                     'fields' => $component->get_fields(),
                     'edit_mode' => $component->get_edit_mode(),
                     'layout' => $component->get_layout()

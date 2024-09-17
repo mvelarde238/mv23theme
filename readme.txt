@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.9 24-09-16
 - BOOTSTRAP_ICONS Implementation
+- Add title template to all components in blocks layout
 
 1.5.8 24-09-13
 - Register post types on after_setup_theme to have a better compatibility with ultimate fields

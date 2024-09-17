@@ -301,6 +301,10 @@ class Repeater_Group extends Group {
 		return $this;
 	}
 
+	public function get_title_template() {
+		return $this->title_template;
+	}
+
 	/**
 	 * Goes through the fields of the group and forces widths to reach 100.
 	 */
