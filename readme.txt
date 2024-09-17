@@ -6,6 +6,7 @@ CHANGELOG
 - Remove font weight bolder property for b and strong in normalize
 - Fix icon in Icon_And_Text Component
 - Load all components in Carrusel Component
+- Show placeholder if image is not selected in Image Component
 
 1.5.9 24-09-16
 - BOOTSTRAP_ICONS Implementation

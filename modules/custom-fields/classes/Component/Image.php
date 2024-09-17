@@ -1,6 +1,7 @@
 <?php
 namespace Theme_Custom_Fields\Component;
 
+use stdClass;
 use Ultimate_Fields\Field;
 use Theme_Custom_Fields\Component;
 use Theme_Custom_Fields\Template_Engine;
@@ -107,10 +108,16 @@ class Image extends Component {
         if( Template_Engine::is_private( $args ) ) return;
         
 		$args['additional_classes'] = array('component','media');
-        $image_data_id = $args['image'];
-        $attachment = get_post( $image_data_id );
-
-        if( !$attachment ) return;
+        
+        if ($args['image']){
+            $attachment = get_post( $image_data_id );
+        } else {
+            $attachment = new stdClass();
+            $attachment->ID = 0;
+            $attachment->guid = get_stylesheet_directory_uri().'/assets/images/nothumb.jpg';
+            $attachment->post_title = '';
+            $attachment->post_excerpt = '';
+        }
 
         $image_attributes = array();
         $alt = get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true);
