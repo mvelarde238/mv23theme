@@ -110,7 +110,7 @@ class Image extends Component {
 		$args['additional_classes'] = array('component','media');
         
         if ($args['image']){
-            $attachment = get_post( $image_data_id );
+            $attachment = get_post( $args['image'] );
         } else {
             $attachment = new stdClass();
             $attachment->ID = 0;
