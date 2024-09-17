@@ -24,7 +24,7 @@ class Image extends Component {
             <% if(aspect_ratio != "default"){ %>
                 | aspect ratio: <%= aspect_ratio %> 
             <% } %>
-            <% if(alignment != "left"){ %>
+            <% if(alignment && alignment != "left"){ %>
                 | Alignment: <%= alignment %>
             <% } %>
         <% } %>';
@@ -41,6 +41,11 @@ class Image extends Component {
                 ->set_text( __( 'Show the image in a popup.', 'default' ) ),
             Field::create( 'checkbox', 'full_width', __( 'Full Width', 'default' )  )->fancy()
                 ->set_text( __( 'Let the image fill the full width of the available space.', 'default' ) ),
+            Field::create( 'select', 'alignment', __('Alignment','default'))->add_options( array(
+                'left' => __('Left','default'),
+                'center' => __('Center','default'),
+                'right' => __('Right','default'),
+            ))->add_dependency('full_width',0),
     
             Field::create( 'tab', __('Size','default') ),
             Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->add_options(array(
@@ -89,11 +94,6 @@ class Image extends Component {
                     'image' => THEME_CUSTOM_FIELDS_PATH.'/assets/images/aspect-ratio-1-2_5.png'
                 ),
             )),
-            Field::create( 'select', 'alignment', __('Alignment','default'))->add_options( array(
-                'left' => __('Left','default'),
-                'center' => __('Center','default'),
-                'right' => __('Right','default'),
-            ))->add_dependency('full_width',0),
             Field::create( 'select', 'object_fit', __('Object Fit','default'))->add_options( array(
                 'cover' => __('Cover','default'),
                 'contain' => __('Contain','default'),
