@@ -7,6 +7,7 @@ CHANGELOG
 - Fix icon in Icon_And_Text Component
 - Load all components in Carrusel Component
 - Show placeholder if image is not selected in Image Component
+- Fix customizer.js location
 
 1.5.9 24-09-16
 - BOOTSTRAP_ICONS Implementation
