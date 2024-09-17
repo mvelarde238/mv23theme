@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.10 24-09-17
+- Remove font weight bolder property for b and strong in normalize
+
 1.5.9 24-09-16
 - BOOTSTRAP_ICONS Implementation
 - Add title template to all components in blocks layout
