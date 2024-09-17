@@ -194,12 +194,12 @@ class TinyMCE{
 			    'selector' => 'p, h1, h2, h3, h4, h5, h6, a, img',
 			    'classes' => 'hide-on-small-only'
 			),
-			array(
-			    'title' => 'Texto grande',
-			    'inline' => 'span',
-			    'classes' => 'fit-text',
-			    'wrapper' => false,
-			),
+			// array(
+			//     'title' => 'Texto grande',
+			//     'inline' => 'span',
+			//     'classes' => 'fit-text',
+			//     'wrapper' => false,
+			// ),
 			// array(
 			//     'title' => 'Red Uppercase Text',
 			//     'inline' => 'span',

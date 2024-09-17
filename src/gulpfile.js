@@ -84,7 +84,7 @@ gulp.task('js', function () {
 	return gulp.src(jsfiles)
 		.pipe(concat('scripts.js'))
 		.pipe(babel({ presets: ['@babel/preset-env'] }))
-		// .pipe(uglifyJs())
+		.pipe(uglifyJs())
 		.pipe(gulp.dest('../assets/js/'))
 		.pipe(browserSync.stream());
 });

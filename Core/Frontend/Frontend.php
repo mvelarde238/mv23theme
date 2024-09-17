@@ -54,7 +54,6 @@ class Frontend extends Theme {
     
             wp_enqueue_script( 'jquery-masonry' );
     
-            wp_enqueue_script( 'fitty-lib', $this->theme_path . '/src/js/libs/ignore/fitty.min.js', array(), $this->version, true );
             wp_register_script( $this->text_domain . '-scripts', $this->theme_path . '/assets/js/scripts.js', array(), $this->version, true );
     
             $static_header = new Header();
