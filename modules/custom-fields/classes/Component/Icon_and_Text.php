@@ -162,7 +162,7 @@ class Icon_and_Text extends Component {
 
         if ($icon_element == 'icono') {
             $icon_prefix = (str_starts_with($args['iname'],'fa')) ? 'fa' : 'bi';
-        	$element = '<i class"'.$icon_prefix.' '.$args['iname'].'"></i>';
+        	$element = '<i class="'.$icon_prefix.' '.$args['iname'].'"></i>';
         } else {
         	$imagen_url = wp_get_attachment_url($args['iimage']);
         	$element = '<img style="height:'.$args['ifontsize'].'px;" src="'.$imagen_url .'" />';
