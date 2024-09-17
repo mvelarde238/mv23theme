@@ -37,7 +37,10 @@ class Image extends Component {
 		$fields = array(
             Field::create( 'tab', __('Contenido','default') ),
             Field::create( 'image', 'image', __('Image','default') ),
-            Field::create( 'checkbox', 'expand_on_click', __('Expand on click','default') )->fancy(),
+            Field::create( 'checkbox', 'expand_on_click', __('Expand on click','default') )->fancy()
+                ->set_text( __( 'Show the image in a popup.', 'default' ) ),
+            Field::create( 'checkbox', 'full_width', __( 'Full Width', 'default' )  )->fancy()
+                ->set_text( __( 'Let the image fill the full width of the available space.', 'default' ) ),
     
             Field::create( 'tab', __('Size','default') ),
             Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->add_options(array(
@@ -90,7 +93,7 @@ class Image extends Component {
                 'left' => __('Left','default'),
                 'center' => __('Center','default'),
                 'right' => __('Right','default'),
-            )),
+            ))->add_dependency('full_width',0),
             Field::create( 'select', 'object_fit', __('Object Fit','default'))->add_options( array(
                 'cover' => __('Cover','default'),
                 'contain' => __('Contain','default'),
@@ -120,6 +123,8 @@ class Image extends Component {
         if( !empty($title) ) $image_attributes[] = 'title="'.esc_attr($title).'"';
 
         if( isset($args['expand_on_click']) && $args['expand_on_click'] ) $image_attributes[] = 'class="zoom"';
+
+        if( isset($args['full_width']) && $args['full_width'] ) $image_attributes[] = 'style="width:100%"';
 
         $caption = $attachment->post_excerpt;
         // $description = $attachment->post_content;
