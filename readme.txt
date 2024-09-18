@@ -6,6 +6,7 @@ CHANGELOG
 - Fix components spacing
 - Get theme version from main theme
 - Fix common settings object: border dependencies and placeholder in margin
+- Implement aspect ratio in Image Component Component
 
 1.5.10 24-09-17
 - Remove font weight bolder property for b and strong in normalize
@@ -1087,7 +1088,7 @@ require_once( get_template_directory() . '/inc/functions/utils.php' );
 - Columnas Internas components delete empty array field & content tab open first 
 
 23.8.20 21-07-26
-- Column Componenent accepts 1 in quantity and video background
+- Column Component accepts 1 in quantity and video background
 - Content slider Component dosnt load columnas simples component
 
 23.8.19 21-07-25

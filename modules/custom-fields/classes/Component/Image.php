@@ -52,7 +52,7 @@ class Image extends Component {
             Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->add_options(array(
                 'default'  => array(
                     'label' => 'default',
-                    'image' => THEME_CUSTOM_FIELDS_PATH.'/assets/images/aspect-ratio-default-b.png'
+                    'image' => THEME_CUSTOM_FIELDS_PATH.'/assets/images/aspect-ratio-default.png'
                 ),
                 '1/1'  => array(
                     'label' => '1:1',
@@ -94,7 +94,14 @@ class Image extends Component {
                     'label' => '1:2.5',
                     'image' => THEME_CUSTOM_FIELDS_PATH.'/assets/images/aspect-ratio-1-2_5.png'
                 ),
+                'custom'  => array(
+                    'label' => 'custom',
+                    'image' => THEME_CUSTOM_FIELDS_PATH.'/assets/images/aspect-ratio-custom.png'
+                ),
             )),
+            Field::create( 'text', 'custom_aspect_ratio' )
+                ->set_validation_rule('^(\d+(\.\d+)?)(\s*\/\s*(\d+(\.\d+)?))?$')
+                ->add_dependency( 'aspect_ratio', 'custom' ),
             Field::create( 'select', 'object_fit', __('Object Fit','default'))->add_options( array(
                 'cover' => __('Cover','default'),
                 'contain' => __('Contain','default'),
@@ -139,7 +146,10 @@ class Image extends Component {
         $args['additional_styles'] = array();
 
         $aspect_ratio = ( isset($args['aspect_ratio']) && $args['aspect_ratio'] != 'default' ) ? $args['aspect_ratio'] : false;
-        if( $aspect_ratio ) $args['additional_styles'][] = '--aspect-ratio:'.$args['aspect_ratio'];
+        if( $aspect_ratio ){
+            $aspect_ratio_value = ( $args['aspect_ratio'] != 'custom' ) ? $args['aspect_ratio'] : $args['custom_aspect_ratio'];
+            $args['additional_styles'][] = '--aspect-ratio:'.$aspect_ratio_value;
+        } 
         
         $alignment = ( isset($args['alignment']) && $args['alignment'] != 'left' ) ? $args['alignment'] : false;
         if( $alignment ) $args['additional_styles'][] = 'text-align:'.$alignment;
