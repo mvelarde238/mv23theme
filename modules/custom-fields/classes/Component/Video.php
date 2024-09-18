@@ -72,7 +72,7 @@ class Video extends Component {
             Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->add_options(array(
                 'default'  => array(
                     'label' => 'default',
-                    'image' => THEME_CUSTOM_FIELDS_PATH.'/assets/images/aspect-ratio-default-b.png'
+                    'image' => THEME_CUSTOM_FIELDS_PATH.'/assets/images/aspect-ratio-default.png'
                 ),
                 '1/1'  => array(
                     'label' => '1:1',
@@ -114,7 +114,14 @@ class Video extends Component {
                     'label' => '1:2.5',
                     'image' => THEME_CUSTOM_FIELDS_PATH.'/assets/images/aspect-ratio-1-2_5.png'
                 ),
+                'custom'  => array(
+                    'label' => 'custom',
+                    'image' => THEME_CUSTOM_FIELDS_PATH.'/assets/images/aspect-ratio-custom.png'
+                ),
             )),
+            Field::create( 'text', 'custom_aspect_ratio' )
+                ->set_validation_rule('^(\d+(\.\d+)?)(\s*\/\s*(\d+(\.\d+)?))?$')
+                ->add_dependency( 'aspect_ratio', 'custom' ),
             Field::create( 'select', 'object_fit', __('Object Fit','default'))->add_options( array(
                 'contain' => __('Contain','default'),
                 'cover' => __('Cover','default'),
@@ -149,7 +156,10 @@ class Video extends Component {
         }
 
         $aspect_ratio = ( isset($args['aspect_ratio']) && $args['aspect_ratio'] != 'default' ) ? $args['aspect_ratio'] : false;
-        if( $aspect_ratio ) $args['additional_styles'][] = '--aspect-ratio:'.$args['aspect_ratio'];
+        if( $aspect_ratio ){
+            $aspect_ratio_value = ( $args['aspect_ratio'] != 'custom' ) ? $args['aspect_ratio'] : $args['custom_aspect_ratio'];
+            $args['additional_styles'][] = '--aspect-ratio:'.$aspect_ratio_value;
+        } 
 
         $object_fit = ( isset($args['object_fit']) && $args['object_fit'] != 'contain' ) ? $args['object_fit'] : false;
         if( $object_fit ) $args['additional_styles'][] = '--object-fit:'.$object_fit;
