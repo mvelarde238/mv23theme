@@ -42,22 +42,7 @@ class Icon_and_Text extends Component {
                 ->add_set( 'font-awesome' )
                 ->add_dependency('ielement','icono','=')->set_width(20),
             Field::create( 'image', 'iimage', 'Imágen' )->add_dependency('ielement','imagen','=')->set_width(20),
-    
-            Field::create( 'image_select', 'istyle', 'Estilo')->add_options(array(
-                'default'  => array(
-                    'label' => 'Normal',
-                    'image' =>  THEME_CUSTOM_FIELDS_PATH.'/assets/images/icon-default.png'
-                ),
-                'circle'  => array(
-                    'label' => 'Circular',
-                    'image' =>  THEME_CUSTOM_FIELDS_PATH.'/assets/images/icon-circle.png'
-                ),
-                'circle-outline'  => array(
-                    'label' => 'Circular y Lineal',
-                    'image' =>  THEME_CUSTOM_FIELDS_PATH.'/assets/images/icon-circle-outline.png'
-                ),
-            ))->set_width(30),
-    
+
             Field::create( 'image_select', 'iposition', 'Posición')->add_options(array(
                 'left'  => array(
                     'label' => 'Izquierda',
@@ -72,68 +57,69 @@ class Icon_and_Text extends Component {
                     'image' =>  THEME_CUSTOM_FIELDS_PATH.'/assets/images/icon-right.png'
                 ),
             ))->set_width(30),
+
+            // ALIGMENT
+            Field::create( 'select', 'itopalign', __('Icon Aligment', 'default'))
+                ->set_input_type( 'radio' )
+                ->set_orientation( 'horizontal' )
+                ->add_options(array(
+                    'center'  => 'Al Centro',
+                    'left'  => 'Izquierda',
+                    'right'  => 'Derecha',
+                ))->add_dependency('iposition','top','='),
+            Field::create( 'select', 'ialign', __('Icon Alignment', 'default'))
+                ->set_input_type( 'radio' )
+                ->set_orientation( 'horizontal' )
+                ->add_options(array(
+                    'center'  => 'Al Centro',
+                    'flex-start'  => 'Arriba',
+                    'flex-end'  => 'Abajo',
+                ))->set_width(33)->add_dependency('iposition','top','!='),
+            Field::create( 'checkbox', 'hide-icon-on-mobile', 'Ocultar Icono en móviles' )->fancy(),
+
+            // STYLE
+            Field::create( 'section', 'icon_style' ),
+            Field::create( 'image_select', 'istyle', __('Style','default'))->add_options(array(
+                'default'  => array(
+                    'label' => 'Normal',
+                    'image' =>  THEME_CUSTOM_FIELDS_PATH.'/assets/images/icon-default.png'
+                ),
+                'circle'  => array(
+                    'label' => 'Circular',
+                    'image' =>  THEME_CUSTOM_FIELDS_PATH.'/assets/images/icon-circle.png'
+                ),
+                'circle-outline'  => array(
+                    'label' => 'Circular y Lineal',
+                    'image' =>  THEME_CUSTOM_FIELDS_PATH.'/assets/images/icon-circle-outline.png'
+                ),
+            ))->set_width(30),
+            Field::create( 'complex', '_icon_styles_wrapper', __('Settings','default') )->merge()->add_fields(array(
+                Field::create( 'number', 'ifontsize', 'Tamaño')->set_default_value(40)->set_suffix('px')->set_width(25),
+                Field::create( 'color', 'icolor', 'Color del ícono')->set_width(25),
+                Field::create( 'checkbox', 'ihas_bgc','Activar fondo' )->fancy()->add_dependency('../istyle','circle-outline','=')->set_width(25),
+                Field::create( 'color', 'ibgc', 'Color de Fondo')
+                    ->set_default_value( Theme_Options::getInstance()->get_property('primary_color') )
+                    ->add_dependency('../istyle','circle','=')
+                    ->add_dependency_group()
+                    ->add_dependency('../istyle','circle-outline','=')
+                    ->add_dependency('ihas_bgc')
+                    ->set_width(25),
+            )),
     
-    
-            // Field::create( 'image_select', 'ialign', 'Alineación')->add_options(array(
-            //     'center'  => array(
-            //         'label' => 'Centro',
-            //         'image' =>  THEME_CUSTOM_FIELDS_PATH.'/assets/images/icono-centro.png'
-            //     ),
-            //     'flex-start'  => array(
-            //         'label' => 'Arriba',
-            //         'image' =>  THEME_CUSTOM_FIELDS_PATH.'/assets/images/icono-arriba.png'
-            //     ),
-            //     'flex-end'  => array(
-            //         'label' => 'Abajo',
-            //         'image' =>  THEME_CUSTOM_FIELDS_PATH.'/assets/images/icono-abajo.png'
-            //     ),
-            // ))->set_width(33)->add_dependency('iposition','top','!='),
-    
-            // Field::create( 'image_select', 'itopalign', 'Alineación')->add_options(array(
-            //     'center'  => array(
-            //         'label' => 'Centro',
-            //         'image' =>  THEME_CUSTOM_FIELDS_PATH.'/assets/images/icon-top.png'
-            //     ),
-            //     'left'  => array(
-            //         'label' => 'Izquierda',
-            //         'image' =>  THEME_CUSTOM_FIELDS_PATH.'/assets/images/icon-top-left.png'
-            //     ),
-            //     'right'  => array(
-            //         'label' => 'Derecha',
-            //         'image' =>  THEME_CUSTOM_FIELDS_PATH.'/assets/images/icon-top-right.png'
-            //     ),
-            // ))->set_width(33)->add_dependency('iposition','top','='),
-    
-            Field::create( 'number', 'ifontsize', 'Tamaño')->set_width(10)->set_default_value(40),
-            Field::create( 'color', 'icolor', 'Color del ícono')->set_width(25),
-            Field::create( 'checkbox', 'ihas_bgc','Activar fondo' )->set_text( 'Activar' )->set_width(10)->add_dependency('istyle','circle-outline','='),
-            Field::create( 'color', 'ibgc', 'Color de Fondo')->set_width(25)->set_default_value( Theme_Options::getInstance()->get_property('primary_color') )
-                ->add_dependency('istyle','circle','=')
-                ->add_dependency_group()
-                ->add_dependency('istyle','circle-outline','=')
-                ->add_dependency('ihas_bgc'),
-            Field::create( 'select', 'itopalign', 'Alineación')->add_options(array(
-                'center'  => 'Al Centro',
-                'left'  => 'Izquierda',
-                'right'  => 'Derecha',
-            ))->add_dependency('iposition','top','=')->set_width(20),
-    
-            // Field::create( 'section', 'Texto' ),
+            // CONTENT
             Field::create( 'tab', 'Texto'),
             Field::create( 'wysiwyg', 'content' )->hide_label()->set_rows( 10 )->set_width(100),
-            Field::create( 'select', 'ialign', 'Alineación Vertical')->add_options(array(
-                'center'  => 'Al Centro',
-                'flex-start'  => 'Arriba',
-                'flex-end'  => 'Abajo',
-            ))->set_width(33)->add_dependency('iposition','top','!='),
-            Field::create( 'select', 'horizontal-align', 'Alineación Horizontal')->add_options(array(
-                'left'  => 'Izquierda',
-                'center'  => 'Al Centro',
-                'right'  => 'Derecha'
-            ))->set_width(33),
-    
-            Field::create( 'tab', 'Responsive' ),
-            Field::create( 'checkbox', 'hide-icon-on-mobile' )->set_text( 'Ocultar Icono en moviles' )->hide_label(),
+
+            // GLOBAL
+            Field::create( 'tab', 'Global'),
+            Field::create( 'select', 'horizontal_alignment', 'Alineación Horizontal')
+                ->set_description( "This setting allows you to align the entire component." )
+                ->add_options(array(
+                    ''  => __('Default','default'),
+                    'left'  => 'Izquierda',
+                    'center'  => 'Al Centro',
+                    'right'  => 'Derecha'
+                ))->set_width(33),
         );
 
 		return $fields;
@@ -147,7 +133,9 @@ class Icon_and_Text extends Component {
 
         if (isset($args['iposition'])) $args['additional_classes'][] = 'icon--'.$args['iposition'];
         if (isset($args['center-all']) && $args['center-all'] == 1) $args['additional_classes'][] = 'center-all';
-        if (isset($args['horizontal-align'])) $args['additional_classes'][] = $args['horizontal-align'].'-all';
+
+        $has_horizontal_alignment = (isset($args['horizontal_alignment']) && $args['horizontal_alignment'] != '');
+        if ($has_horizontal_alignment) $args['additional_classes'][] = $args['horizontal_alignment'].'-all';
 
         // **************************************************************************************************
         
@@ -174,7 +162,7 @@ class Icon_and_Text extends Component {
         $icon_style .= (isset($args['iposition']) && $args['iposition'] == 'top' && isset($args['itopalign']) && $args['itopalign']) ? "text-align:".$args['itopalign'].";" : "text-align:center;";
         $icon_style = ($icon_style) ? 'style="'.$icon_style.'"' : '';
 
-        $classes = array('icon');
+        $classes = array('icon-wrapper');
         if($args['istyle']!='default') array_push($classes, 'icon--'.$args['istyle']);
         if(isset($args['hide-icon-on-mobile']) && $args['hide-icon-on-mobile']) array_push($classes, 'hide-on-small-only');
         $icon_class = (!empty($classes)) ? 'class="'.implode(' ',$classes).'"' : '';
@@ -187,14 +175,15 @@ class Icon_and_Text extends Component {
 		
 		ob_start();
         echo Template_Engine::component_wrapper('start', $args);
-		?>
-        <div <?=$icon_class?> <?=$icon_style?>>
-	    	<?php if ($args['istyle']!='default') { echo '<span style="background-color:'.$backgroundColor.'">'; } else { echo '<span>'; }; ?>
-	    		<?php echo $element; ?>
-	    	</span>
-	    </div>
-	    <div><?php if($content) echo do_shortcode(wpautop($content)); ?></div>
-		<?php
+
+        echo '<div '.$icon_class.' '.$icon_style.'>';
+	    if ($args['istyle']!='default') { echo '<span style="background-color:'.$backgroundColor.'">'; } else { echo '<span>'; };
+	    echo $element;
+	    echo '</span>';
+	    echo '</div>';
+
+        if($content) echo '<div class="content-wrapper">'.do_shortcode(wpautop($content)).'</div>';
+
         echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}

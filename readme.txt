@@ -5,6 +5,7 @@ CHANGELOG
 1.5.13 24-09-19
 - Feat: filter_tab_styles_for_accordion_component
 - Fix: Remove !important from icon and text component
+- Fix: Reorder Icon Comp. settings and implement horizontal alignment
 
 1.5.12 24-09-18
 - Flip Box Component Implementation
