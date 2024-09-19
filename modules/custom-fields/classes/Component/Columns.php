@@ -23,6 +23,10 @@ class Columns extends Component {
         return 'grid';
     }
 
+	// public static function get_edit_mode(){
+    //     return 'inline';
+	// }
+
 	public static function get_title_template() {
 		$template = '<%= quantity %> columns';
 		

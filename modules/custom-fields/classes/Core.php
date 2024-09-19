@@ -32,6 +32,7 @@ class Core{
         ),
         'theme' => array(),
         'wrappers' => array(
+            'Flip_Box',
             'Inner_Columns',
             'Columns'
         )
@@ -93,6 +94,7 @@ class Core{
         // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/scroll-animations.php' );
         // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/actions.php' );
         // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/blocks-layout-settings.php' );
+        // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/blocks-layout-container.php' );
 
         /**
          * Let child theme register its own meta boxes

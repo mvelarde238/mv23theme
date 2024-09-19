@@ -30,6 +30,28 @@
         // ****************************************************************************************************
         $('.cover-all').parent().css('position','relative');
         $('.share-modal').appendTo('#share-modal-wrapper');
-        // --------------------------------------------------------------------------------------------------------------
+
+        // ****************************************************************************************************
+        // script for .content-layouts: ajustar el valor de gap en función del ancho de su contenedor
+        // ****************************************************************************************************
+
+        function adjustGap() {
+            var $grid = $('.content-layout.layout-grid');
+            var parentWidth = $grid.parent().width();
+
+            if (parentWidth < 240) {
+                $grid.css('gap', '10px');
+            } else {
+                $grid.css('gap', '20px');
+            }
+        }
+    
+        adjustGap();
+    
+        $(window).resize(function() {
+            adjustGap();
+        });
+
+        // ****************************************************************************************************
     });
 })(jQuery,console.log);

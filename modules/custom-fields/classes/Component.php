@@ -20,7 +20,6 @@ abstract class Component {
 		$component = new Repeater_Group( $slug );
 		$component->set_title( $name )
 			->add_fields( static::get_fields() )
-            ->set_edit_mode( 'popup' )
 			->set_description_position( 'label' );
 
 		$title_template = static::get_title_template();
@@ -36,6 +35,9 @@ abstract class Component {
 
 		$icon = static::get_icon();
 		if( !empty($icon) ) $component->set_icon( $icon );
+
+		$edit_mode = static::get_edit_mode();
+		if( !empty($edit_mode) ) $component->set_edit_mode( $edit_mode );
 
 		Core::getInstance()->register_component( $component, get_called_class() );
 		Template_Engine::getInstance()->register_component( $component->get_id(), get_called_class() );
@@ -75,6 +77,15 @@ abstract class Component {
 	 */
 	/* abstract */ public static function get_icon() {
 		return '';
+	}
+
+	/**
+	 * Returns the edit mode of the component.
+	 *
+	 * @return string
+	 */
+	/* abstract */ public static function get_edit_mode() {
+		return 'popup';
 	}
 
 	/**

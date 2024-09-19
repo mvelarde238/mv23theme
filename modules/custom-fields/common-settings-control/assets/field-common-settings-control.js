@@ -105,7 +105,13 @@
 		 * Filter the raw settings data cleaning empty or not used setting options
 		 */
         filterData( settings_name, raw_data ) {
-			if( settings_name == 'settings' || settings_name == 'page_header_settings' ){
+			if( 
+				settings_name == 'settings' || 
+				settings_name == 'page_header_settings' ||
+				// for flip box settings:
+				settings_name == 'front_settings' ||
+				settings_name == 'back_settings'
+			){
             	Object.entries(raw_data).forEach(entry => {
             	   if( entry[0] == 'main_attributes'  ){
             	        if( entry[1].id == '' && entry[1].class == '' ){

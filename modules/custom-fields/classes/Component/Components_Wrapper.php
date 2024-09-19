@@ -23,6 +23,12 @@ class Components_Wrapper extends Component {
 	public static function get_title_template() {
 		$template = '<% if ( blocks_layout.length < 1 ){ %>
             This item is empty
+        <% } else { %>
+            <% if ( blocks_layout[0][0].__type == "text_editor" ){ %>
+                <%= blocks_layout[0][0].content.replace(/<[^>]+>/ig, "") %>
+            <% } else { %>
+                <%= "First item type: "+blocks_layout[0][0].__type %>
+            <% } %>
         <% } %>';
 		
 		return $template;

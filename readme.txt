@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.12 24-09-18
+- Flip Box Component Implementation
+
 1.5.11 24-09-17
 - Fix components spacing
 - Get theme version from main theme

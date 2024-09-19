@@ -1,0 +1,63 @@
+.flip-box
+    aspect-ratio: var(--flip-box-aspect-ratio, 4/3)
+    perspective: 1000px
+
+    // This container is needed to position the front and back side
+    &-inner
+        position: relative
+        width: 100%
+        height: 100%
+        transition: transform 0.8s
+        transform-style: preserve-3d
+
+    // Position the front and back side
+    &-front, &-back
+        position: absolute
+        width: 100%
+        height: 100%
+        -webkit-backface-visibility: hidden // Safari
+        backface-visibility: hidden
+        overflow-y: auto
+        overflow-x: hidden
+        display: flex
+        @extend .scroll
+
+    // horizontal flip
+    &.horizontal-flip &-back
+        transform: rotateY(180deg)
+    &.horizontal-flip:hover &-inner
+        transform: rotateY(180deg)
+
+    // vertical flip
+    &.vertical-flip &-back
+        transform: rotateX(180deg)
+    &.vertical-flip:hover &-inner
+        transform: rotateX(180deg)
+
+    // zoom in
+    &.zoom-in &-front
+        transition: 400ms all
+    &.zoom-in &-back
+        transition: 800ms all
+        transform: scale(.8)
+        opacity: 0
+    &.zoom-in:hover &-front
+        transform: scale(.8)
+        opacity: 0
+        pointer-events: none
+    &.zoom-in:hover &-back
+        transform: scale(1)
+        opacity: 1
+
+    // slide in
+    &.slide-in &-inner
+        overflow: hidden
+    &.slide-in &-front,
+    &.slide-in &-back
+        transition: 400ms all
+    &.slide-in &-back
+        transform: translateX(100%)
+    &.slide-in:hover &-front
+        transform: translateX(-100%)
+    &.slide-in:hover &-back
+        transform: translateX(0)
