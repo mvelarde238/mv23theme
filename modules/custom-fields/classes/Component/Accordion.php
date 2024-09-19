@@ -33,6 +33,20 @@ class Accordion extends Component {
 	}
 
 	public static function get_fields() {
+        $tab_styles = apply_filters(
+            'filter_tab_styles_for_accordion_component',
+            array(
+                'style1'  => array(
+                    'label' => 'Tab style 1',
+                    'image' => THEME_CUSTOM_FIELDS_PATH . '/assets/images/tab-style-1.png'
+                ),
+                'style2'  => array(
+                    'label' => 'Tab style 2',
+                    'image' => THEME_CUSTOM_FIELDS_PATH . '/assets/images/tab-style-2.png'
+                )
+            )
+        );
+
         $fields = array(
             Field::create( 'tab', __('Contenido','default') ),
             Field::create( 'repeater', 'accordion' )
@@ -61,9 +75,9 @@ class Accordion extends Component {
                         ))->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
                         
                         Field::create( 'section', 'Contenido del Item:' ),
-                        Field::create( 'wysiwyg', 'content', __('Contenido','default') )->add_dependency('content_element','texto','=')->hide_label()->set_rows( 30 ),
+                        Field::create( 'wysiwyg', 'content', __('Contenido','default') )->add_dependency('content_element','text','=')->hide_label()->set_rows( 30 ),
                         Blocks_Layout::the_field( array() )->add_dependency('content_element','layout','='),
-                        Field::create( 'wp_objects', 'page', 'Página' )->add( 'posts', 'page' )->set_button_text( 'Selecciona la página' )->add_dependency('content_element','pagina','=')->hide_label(),
+                        Field::create( 'wp_objects', 'page', 'Página' )->add( 'posts', 'page' )->set_button_text( 'Selecciona la página' )->add_dependency('content_element','page','=')->hide_label(),
                         Field::create( 'select', 'reusable_section', 'Seleccionar Sección Reusable' )
                             ->add_options( Reusable_Section_CPT::getInstance()->get_reusable_sections() )
                             ->add_dependency('content_element','reusable_section','=')
@@ -85,16 +99,7 @@ class Accordion extends Component {
                 'accordion' => 'Accordion',
                 'tab' => 'Tab',
             ))->set_default_value('accordion')->set_width(25),
-            Field::create( 'image_select', 'tab_style', 'Apariencia' )->add_options(array(
-                'style1'  => array(
-                    'label' => 'Estilo 1',
-                    'image' => THEME_CUSTOM_FIELDS_PATH . '/assets/images/tab-style-1.png'
-                ),
-                'style2'  => array(
-                    'label' => 'Estilo 2',
-                    'image' => THEME_CUSTOM_FIELDS_PATH . '/assets/images/tab-style-2.png'
-                )
-            ))->set_width(25)->add_dependency('desktop_template','tab','='),
+            Field::create( 'image_select', 'tab_style', 'Apariencia' )->add_options( $tab_styles )->show_label()->add_dependency('desktop_template','tab','=')->set_width(25),
             Field::create('complex','tab_settings')->add_fields(array(
                 Field::create('checkbox','close_first_tab')->set_text('Cerrar primer tab')->hide_label()
             ))->set_width(25)->add_dependency('desktop_template','tab','='),
@@ -123,12 +128,13 @@ class Accordion extends Component {
         if( $tab_settings['close_first_tab'] == 1 ) $data_attributes .= 'data-openfirsttab="false" ';
 
         $tab_style = (isset($args['tab_style'])) ? $args['tab_style'] : 'style1';
+        if($tab_style == 'style1' || $tab_style == 'style2') $tab_style = 'tab-'.$tab_style;
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
 
         if (is_array($items) && count($items)>0): ?>
-            <div class="v23-togglebox <?php echo 'tab-'.$tab_style ?>" <?=$data_attributes?>>
+            <div class="v23-togglebox <?php echo $tab_style ?>" <?=$data_attributes?>>
                 <?php
                 $nav = '<div class="v23-togglebox__nav">';
                 $itemsbox = '<div class="v23-togglebox__items">';
