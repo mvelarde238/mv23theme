@@ -223,7 +223,8 @@ class Archive_Page {
 			}
 		}
 
-		if( !$is_connected && is_home() ) return get_option('page_for_posts');
+		// If there isnt any archive page configured and is in blog pages (home, tag, cat) use the settings in page for posts
+		if( !$is_connected && ( is_home() || is_tag() || is_category() ) ) return get_option('page_for_posts');
 
 		return $is_connected;
 	}
