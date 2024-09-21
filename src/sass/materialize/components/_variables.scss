@@ -70,7 +70,8 @@ $error-color: color("red", "base") !default;
 $container-width: 1240px !default; // used in some @media queries
 
 @mixin css-properties{
-    --body-padding-top: 110px;
+    --static-header-height: 110px;
+    --sticky-header-height: 110px;
 	--primary-color: #{$primary-color};
 	--secondary-color: #{$secondary-color};
 	--primary-color-light: color-mix( in srgb, var(--primary-color), white );

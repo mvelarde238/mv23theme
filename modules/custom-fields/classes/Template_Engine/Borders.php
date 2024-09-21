@@ -10,8 +10,9 @@ class Borders{
         
         if ( isset($args['settings']['border']) ) {
             $border_settings = $args['settings']['border'];
+            $unblock = (isset($border_settings['unlock'])) ? $border_settings['unlock'] : false;
             
-            if ( $border_settings['unlock'] ) {
+            if ( $unblock ) {
 
                 $borders = array('top','bottom','right','left');
                 foreach ($borders as $border) {

@@ -5,7 +5,6 @@
         // ****************************************************************************************************
         var initial_url = window.location.href.split('#')[0];
         var pageLinks = $('a[href*="#"]');
-        var headerHeight = MV23_GLOBALS.headerHeight;
 
         for (var i = 0; i < pageLinks.length; i++) {
             var href = $(pageLinks[i]).attr('href'),
@@ -24,12 +23,13 @@
 			    window.dispatchEvent(e);
                 let elementPosition = $(href).offset().top;
                 let newPosition = 0;
+                var bodyStyles = window.getComputedStyle(document.body);
                 if( href != '#content' ){
-                    newPosition = elementPosition - headerHeight;
+                    var sticky_header_height = bodyStyles.getPropertyValue('--sticky-header-height');
+                    newPosition = elementPosition - parseInt(sticky_header_height);
                 } else {
-                    var bodyStyles = window.getComputedStyle(document.body);
-                    var paddingTop = bodyStyles.getPropertyValue('--body-padding-top');
-                    newPosition = elementPosition - parseInt(paddingTop);
+                    var static_header_height = bodyStyles.getPropertyValue('--static-header-height');
+                    newPosition = elementPosition - parseInt(static_header_height);
                 }
                 $("html, body").animate({ 
                     scrollTop: newPosition
