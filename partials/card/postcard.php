@@ -98,7 +98,7 @@ if( !empty($args['on_click_scroll_to']) ) $postcard_attributes[] = 'data-scroll-
 				foreach ($tags as $tag ) {
 					$background_color = get_term_meta($tag->term_id, 'background_color', true);
 					$style = ($background_color) ? ' style="background-color:' . $background_color . ';"' : ' ';
-					echo '<span><a href="' . esc_attr( get_tag_link( $tag->term_id ) ) . '" class="'.$tag->slug.'">' . __( $tag->name ) . '</a></span>';
+					echo '<span class="'.$tag->slug.'"><a href="' . esc_attr( get_tag_link( $tag->term_id ) ) . '">' . __( $tag->name ) . '</a></span>';
 				}
 			} ?>
 		</div>
