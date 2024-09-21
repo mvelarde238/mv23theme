@@ -1,4 +1,4 @@
-<div class="page-module" style="padding-bottom: 0">
+<div class="page-module">
     <div class="component single-post__title-wrapper">
         <?php
         $queried_object = get_queried_object();
