@@ -126,10 +126,10 @@ class Listing extends Component {
             Field::create( 'number', 'items_in_mobile', 'Columnas en móviles' )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(1),
             
             Field::create( 'section', 'Espacio entre las columnas' ),
-            Field::create( 'number', 'd_gap', 'En desktop' )->set_default_value(intval(LISTING_DESKTOP_GAP))->set_width( 25 ),
-            Field::create( 'number', 'l_gap', 'En laptop' )->set_default_value(intval(LISTING_LAPTOP_GAP))->set_width( 25 ),
-            Field::create( 'number', 't_gap', 'En tablet' )->set_default_value(intval(LISTING_TABLET_GAP))->set_width( 25 ),
-            Field::create( 'number', 'm_gap', 'En móviles' )->set_default_value(intval(LISTING_MOBILE_GAP))->set_width( 25 ),
+            Field::create( 'number', 'd_gap', 'En desktop' )->set_default_value(50)->set_width( 25 ),
+            Field::create( 'number', 'l_gap', 'En laptop' )->set_default_value(40)->set_width( 25 ),
+            Field::create( 'number', 't_gap', 'En tablet' )->set_default_value(30)->set_width( 25 ),
+            Field::create( 'number', 'm_gap', 'En móviles' )->set_default_value(20)->set_width( 25 ),
             
             Field::create( 'tab', 'Post Template'),
             Field::create( 'radio', 'post_template', 'Template' )->set_orientation( 'vertical' )->add_options($listing_post_template)->hide_label(),
@@ -195,7 +195,7 @@ class Listing extends Component {
         $l_gap = $args['l_gap'];
         $t_gap = $args['t_gap'];
         $m_gap = $args['m_gap'];
-        $post_template = $args['post_template'];
+        $postcard_template = $args['post_template'];
         $listing_template = $args['list_template'];
         $scrolltop = ( isset($args['scrolltop']) ) ? $args['scrolltop'] : '';
         $filter_taxonomies = array();
@@ -205,6 +205,7 @@ class Listing extends Component {
         $woocommerce_key = ( WOOCOMMERCE_IS_ACTIVE && isset($args['woocommerce_key']) ) ? $args['woocommerce_key'] : '';
         $pagination_type = $args['pagination_type'];
         $on_click_post = ( isset($args['on_click_post']) ) ? $args['on_click_post'] : 'redirect';
+        $on_click_scroll_to = ( isset($args['on_click_scroll_to']) ) ? $args['on_click_scroll_to'] : '';
             
         if ($source_type == 'manual') {
             $posttype = '';
@@ -333,9 +334,10 @@ class Listing extends Component {
             'data-posttype="'.$posttype.'"',
             'data-taxonomies="'.implode(',',$query_taxonomies).'"',
             'data-terms="'.implode(',',$query_terms).'"',
-            'post-template="'.$post_template.'"',
+            'post-template="'.$postcard_template.'"',
             'listing-template="'.$listing_template.'"',
             'on-click-post="'.$on_click_post.'"',
+            'on-click-scroll-to="'.$on_click_scroll_to.'"',
             'data-wookey="'.$woocommerce_key.'"',
             'data-scrolltop="'.$scrolltop.'"',
             'data-pagination="'.$pagination_type.'"'
@@ -377,13 +379,9 @@ class Listing extends Component {
     
         if ($query->have_posts()) : 
             $columns_class = ($listing_template == 'carrusel') ? '' : 'has-columns';
-            $post_listing_class = 'posts-listing posts-listing--'.$listing_template . ' ' . $columns_class. ' posts-listing--'.$on_click_post;
-    
-            $dataAttrs = '';
-            $on_click_scroll_to = ( isset($args['on_click_scroll_to']) ) ? $args['on_click_scroll_to'] : '';
-            if( $on_click_scroll_to ) $dataAttrs = 'data-on-click-post-scroll-to="'.$on_click_scroll_to.'"';
+            $post_listing_class = 'posts-listing posts-listing--'.$listing_template . ' ' . $columns_class;
             ?>
-            <div class="<?=$post_listing_class?>" style="<?=$css_vars?>" <?=$dataAttrs?>>
+            <div class="<?=$post_listing_class?>" style="<?=$css_vars?>">
                 <?php if($listing_template == 'carrusel'): 
                     $show_controls = (!empty($args['show_controls'])) ? $args['show_controls'] : 0;
                     $show_nav = (!empty($args['show_nav'])) ? $args['show_nav'] : 0;
@@ -411,8 +409,12 @@ class Listing extends Component {
                 <?php 
                 while ( $query->have_posts() ) : $query->the_post();
                     if($listing_template == 'carrusel') echo '<div>';
-                    set_query_var( 'on_click_post', $on_click_post );
-                    get_template_part( 'partials/card/minipost',$post_template);
+                    
+                    get_template_part( 'partials/card/postcard', $postcard_template, array( 
+                        'on_click_post' => $on_click_post,
+                        'on_click_scroll_to' => $on_click_scroll_to
+                    ));
+
                     if($listing_template == 'carrusel') echo '</div>';
                 endwhile; 
                 ?>

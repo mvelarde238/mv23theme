@@ -1,14 +1,18 @@
-// .posts-listing--portfolio1
-    // .post-card
-        // position: static !important
+.main-content[class*="main-content--sidebar"]
+    .posts-listing
+        position: relative
+        --container-width: 100%
+        .expander-inner.container
+            max-width: 100%
+            width: 100%
     
 .expander
     width: 100%
     position: absolute
     left: 0
     top: auto
-    padding: 0 30px
     background-color: var(--primary-color-lighter)
+    z-index: 120
 
     // &:before,
     // &::after

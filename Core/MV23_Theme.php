@@ -16,6 +16,7 @@ use Core\Admin\Hardening_WP;
 use Core\Admin\TinyMCE;
 use Core\Frontend\Page;
 use Core\Theme_Options\Theme_Options;
+use Core\Posttype\Archive_Page;
 
 class MV23_Theme extends Theme {
 
@@ -180,6 +181,15 @@ class MV23_Theme extends Theme {
 
         // show post types count
         $this->loader->add_action( 'init', $theme_options, 'show_cpt_count', 999 );
+
+        // Archive Pages
+        $archive_pages = Archive_Page::getInstance();
+
+        // Add the meta boxes
+        $this->loader->add_action( 'uf.init', $archive_pages, 'add_meta_boxes' );
+
+        // redirect single archive page to connected posttype / taxonomy / term
+        $this->loader->add_action( 'template_redirect', $archive_pages, 'redirect_single' );
     }
 
     private function define_cleanup_hooks() {

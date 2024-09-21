@@ -10,7 +10,7 @@
 					<div class="component">
 						<div class="posts-listing">
 							<?php while (have_posts()) : the_post();	
-								get_template_part( 'partials/card/minipost','searchresult');
+								get_template_part( 'partials/card/postcard','searchresult');
 							endwhile; ?>
 						</div>
 					</div>

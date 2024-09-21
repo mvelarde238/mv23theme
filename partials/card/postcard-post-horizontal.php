@@ -47,16 +47,22 @@ if( $use_featured_video ){
 
 	$featured_video = Video::get_video_data($args);
 }
+
+$postcard_attributes = array( 'data-id="'.$id.'"'   );
+if( !empty($args['on_click_post']) ) $postcard_attributes[] = 'data-action="'.$args['on_click_post'].'"';
+if( !empty($args['on_click_scroll_to']) ) $postcard_attributes[] = 'data-scroll-to="'.$args['on_click_scroll_to'].'"';
 ?>
-<div class="post-card post-card--style2" data-id="<?=$id?>">
-	<a href="<?=$link?>" class="post-card__image trigger-post-action" style="background-image:url(<?=$thumb_url?>);">
-		<?php if($featured_video) echo '<div class="video-background">'.$featured_video['code'].'</div>' ?>
-	</a>
-	<div class="post-card__content">
-		<h2 class="post-card__title"><a class="trigger-post-action" href="<?=$link?>"><?php echo $title; ?></a></h2>
-		<?php if($excerpt) echo '<div class="post-card__excerpt">'.$excerpt.'</div>'; ?>
-		<div class="post-card__link">
-			<a class="btn btn--main-color trigger-post-action" href="<?=$link?>">Leer más</a>
+<div class="postcard postcard--style2" <?php echo implode(' ', $postcard_attributes) ?>>
+	<div class="postcard__content-wrapper">
+		<a href="<?=$link?>" class="postcard__image trigger-post-action" style="background-image:url(<?=$thumb_url?>);">
+			<?php if($featured_video) echo '<div class="video-background">'.$featured_video['code'].'</div>' ?>
+		</a>
+		<div class="postcard__content">
+			<h2 class="postcard__title"><a class="trigger-post-action" href="<?=$link?>"><?php echo $title; ?></a></h2>
+			<?php if($excerpt) echo '<div class="postcard__excerpt">'.$excerpt.'</div>'; ?>
+			<div class="postcard__link">
+				<a class="btn btn--main-color trigger-post-action" href="<?=$link?>">Leer más</a>
+			</div>
 		</div>
 	</div>
 </div>

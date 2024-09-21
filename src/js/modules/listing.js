@@ -4,7 +4,7 @@
     var current_lang = MV23_GLOBALS.lang;
     var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
 
-    function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, wookey, pagination_type){
+    function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, on_click_scroll_to, wookey, pagination_type){
 
         $.ajax({
             type: 'POST',
@@ -17,6 +17,7 @@
                 post_template: post_template,
                 listing_template: listing_template,
                 on_click_post: on_click_post,
+                on_click_scroll_to: on_click_scroll_to,
                 terms: (filterValues.terms) ? filterValues.terms : terms,
                 paged: paged || 1,
                 per_page: per_page,
@@ -85,6 +86,13 @@
         });
     }
 
+    function getPagedParameter(url) {
+        const parsedUrl = new URL(url, window.location.origin);
+        const params = new URLSearchParams(parsedUrl.search);
+        const paged = params.get('paged'); 
+        return (paged) ? paged : 1;
+    }
+
     function getFilterValues($filter){
         var $year_selector = $filter.find('.posts-filter__year-select'),
             $month_selector = $filter.find('.posts-filter__month-select'),
@@ -124,8 +132,7 @@
             $component.on('click','a.page-numbers', function(event){
                 event.preventDefault();
                 var href = event.target.getAttribute('href'),
-                    url = new URL(href),
-                    paged = url.searchParams.get("paged"),
+                    paged = getPagedParameter(href),
                     $pagination = $component.find('.pagination'),
                     posttype = $component.attr("data-posttype"),
                     taxonomies = $component.attr("data-taxonomies"),
@@ -133,6 +140,7 @@
                     post_template = $component.attr("post-template"),
                     listing_template = $component.attr("listing-template"),                    
                     on_click_post = $component.attr("on-click-post"),
+                    on_click_scroll_to = $component.attr("on-click-scroll-to"),
                     per_page = $component.attr("data-qty"),
                     offset = $component.attr("data-offset"),
                     order = $component.attr("data-order"),
@@ -142,7 +150,7 @@
                     action = 'replace',
                     filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, wookey, pagination_type);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, on_click_scroll_to, wookey, pagination_type);
             });
             
             $component.on('click','.load_more_posts', function(event){
@@ -156,6 +164,7 @@
                     post_template = $component.attr("post-template"),
                     listing_template = $component.attr("listing-template"),                    
                     on_click_post = $component.attr("on-click-post"),
+                    on_click_scroll_to = $component.attr("on-click-scroll-to"),
                     per_page = $component.attr("data-qty"),
                     offset = $component.attr("data-offset"),
                     order = $component.attr("data-order"),
@@ -165,7 +174,7 @@
                     action = 'append',
                     filterValues = getFilterValues($filter);
                 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, wookey, pagination_type);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, on_click_scroll_to, wookey, pagination_type);
             });
             
             $component.on('click','.posts-filter__submit',function(ev){
@@ -177,6 +186,7 @@
                     post_template = $component.attr("post-template"),
                     listing_template = $component.attr("listing-template"),                    
                     on_click_post = $component.attr("on-click-post"),
+                    on_click_scroll_to = $component.attr("on-click-scroll-to"),
                     per_page = $component.attr("data-qty"),
                     offset = $component.attr("data-offset"),
                     order = $component.attr("data-order"),
@@ -187,7 +197,7 @@
                     action = 'replace',
                     filterValues = getFilterValues($filter);
 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, wookey, pagination_type);
+                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, on_click_scroll_to, wookey, pagination_type);
             });
 
             $component.on('listingUpdated', function(e,data){

@@ -25,9 +25,10 @@ class Ajax_Load_Posts{
         $search = $_REQUEST["search"];
         $year = $_REQUEST["year"];
         $month = $_REQUEST["month"];
-        $post_template = $_REQUEST["post_template"];
+        $postcard_template = $_REQUEST["post_template"];
         $listing_template = $_REQUEST["listing_template"];
         $on_click_post = $_REQUEST["on_click_post"];
+        $on_click_scroll_to = $_REQUEST["on_click_scroll_to"];
         $per_page = $_REQUEST["per_page"];
         $offset = $_REQUEST["offset"];
         $order = $_REQUEST["order"];
@@ -135,8 +136,10 @@ class Ajax_Load_Posts{
                     $query->the_post();
 
                     if($listing_template == 'carrusel') echo '<div>';
-                    set_query_var( 'on_click_post', $on_click_post );
-                    get_template_part( 'partials/card/minipost',$post_template);
+                    get_template_part( 'partials/card/postcard', $postcard_template, array( 
+                        'on_click_post' => $on_click_post,
+                        'on_click_scroll_to' => $on_click_scroll_to
+                    ));
                     if($listing_template == 'carrusel') echo '</div>';
                 endwhile;
                 $result['posts'] = ob_get_clean();

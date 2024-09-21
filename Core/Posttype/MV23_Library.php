@@ -30,6 +30,7 @@ class MV23_Library {
 			),
 			array(
 				'show_in_menu' => 'edit.php?post_type=page',
+				"show_in_menu" => false,
 				'show_in_nav_menus' => false,
 				'show_in_admin_bar' => false,
 				'exclude_from_search' => true,
@@ -127,7 +128,7 @@ class MV23_Library {
 	            echo '<div class="mv23-library__gallery">';
 	            while ( $query->have_posts() ) : 
 	                $query->the_post();
-	                include( locate_template( 'partials/card/minipost-mv23-library.php', false, false ) ); 
+	                include( locate_template( 'partials/card/postcard-mv23-library.php', false, false ) ); 
 	            endwhile;
 	            echo '</div>';
 

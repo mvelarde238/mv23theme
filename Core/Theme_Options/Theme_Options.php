@@ -61,7 +61,6 @@ class Theme_Options extends Theme{
             'custom-scripts-options', 
             'edit.php?post_type=megamenu', 
             'edit.php?post_type=v23accordion', 
-            'edit.php?post_type=archive_page',
             'edit.php?post_type=reusable_section' 
         );
     
@@ -88,7 +87,6 @@ class Theme_Options extends Theme{
         global $wp_post_types;
     
         $custom_posts = array(
-            array( 'slug'=>'archive_page', 'name'=>'Archive Pages' ),
             array( 'slug'=>'megamenu', 'name'=>'Megamenú' ),
             array( 'slug'=>'v23accordion', 'name'=>'Accordions' ),
             array( 'slug'=>'reusable_section', 'name'=>__('Reusable Sections') )
@@ -303,11 +301,10 @@ class Theme_Options extends Theme{
 
     public function get_page_template_settings( $type = '' ){
         $page_settings = array(
-            'single' => array( 'page_template' => 'main-content--sidebar-right', 'hide_sidebar'=>0 ),
-            'archive' => array( 'page_template' => 'main-content--sidebar-left', 'hide_sidebar'=>0 )
+            'single' => array( 'page_template' => 'main-content--sidebar-right', 'hide_sidebar'=>0 )
         );
 
-        $page_template_settings = get_option('page_template_settings');
+        $page_template_settings = get_option('single_pages_settings');
         foreach ($page_template_settings as $setting) {
             if($setting['__type'] == $type){
                 if( $type == 'single' ){
@@ -316,23 +313,6 @@ class Theme_Options extends Theme{
                     if( in_array($posttype, $setting['post_types']) ){
                         $page_settings['single']['hide_sidebar'] = $setting['hide_sidebar'];
                         $page_settings['single']['page_template'] = $setting['page_template'];
-                    }
-                }
-                if( $type == 'archive' ){
-                    $queried_object = get_queried_object();
-                    if( is_post_type_archive() ){
-                        $posttype = $queried_object->name;
-                        if( in_array($posttype, $setting['post_types']) ){
-                            $page_settings['archive']['hide_sidebar'] = $setting['hide_sidebar'];
-                            $page_settings['archive']['page_template'] = $setting['page_template'];
-                        }
-                    } 
-                    if( is_tax() ){
-                        $taxonomy = $queried_object->taxonomy;
-                        if( in_array($taxonomy, $setting['taxonomies']) ){
-                            $page_settings['archive']['hide_sidebar'] = $setting['hide_sidebar'];
-                            $page_settings['archive']['page_template'] = $setting['page_template'];
-                        }
                     }
                 }
             }

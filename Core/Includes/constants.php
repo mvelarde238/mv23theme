@@ -28,16 +28,7 @@ if( !defined('CF7_EMAIL_LOGO') ) define ('CF7_EMAIL_LOGO', false);
 
 if( !defined('MAIN_NAV_STYLE') ) define ('MAIN_NAV_STYLE', array('horizontal-nav','horizontal-nav-1'));
 // if( !defined('MENU_ITEM_DATA_LOCATIONS') ) define ('MENU_ITEM_DATA_LOCATIONS', array('main-nav'));
-if( !defined('ARCHIVE_OPTIONS_TAXONOMIES') ) define ('ARCHIVE_OPTIONS_TAXONOMIES', array('category' => 'Category','post_tag' => 'Tag'));
 
-if( !defined('LISTING_DESKTOP_COLUMNS') ) define ('LISTING_DESKTOP_COLUMNS', 2);
-if( !defined('LISTING_LAPTOP_COLUMNS') ) define ('LISTING_LAPTOP_COLUMNS', 2);
-if( !defined('LISTING_TABLET_COLUMNS') ) define ('LISTING_TABLET_COLUMNS', 2);
-if( !defined('LISTING_MOBILE_COLUMNS') ) define ('LISTING_MOBILE_COLUMNS', 1);
-if( !defined('LISTING_DESKTOP_GAP') ) define ('LISTING_DESKTOP_GAP', '50px');
-if( !defined('LISTING_LAPTOP_GAP') ) define ('LISTING_LAPTOP_GAP', '40px');
-if( !defined('LISTING_TABLET_GAP') ) define ('LISTING_TABLET_GAP', '30px');
-if( !defined('LISTING_MOBILE_GAP') ) define ('LISTING_MOBILE_GAP', '20px');
 if( !defined('SEARCH_PLACEHOLDER') ) define ('SEARCH_PLACEHOLDER', array('es' => 'Buscar...', 'en' => 'Search...' ));
 
 if( !defined('USE_PORTFOLIO_CPT') ) define( 'USE_PORTFOLIO_CPT', false);

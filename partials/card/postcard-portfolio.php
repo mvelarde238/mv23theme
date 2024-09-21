@@ -7,7 +7,7 @@ $title = $post->post_title;
 $link = get_the_permalink($id);
 $imagen = get_the_post_thumbnail_url( $id, 'full' );
 $thumb_url = ($imagen) ? $imagen : get_stylesheet_directory_uri().'/assets/images/nothumb.jpg';
-$tags = get_the_tags($id);
+$tags = get_the_terms($id,'portfolio-tag');
 
 $excerpt = ( !empty($post->post_excerpt) ) ? $post->post_excerpt : $post->post_content;
 $comment_length = 110;
@@ -44,24 +44,29 @@ if( $use_featured_video ){
 
 	$featured_video = Video::get_video_data($args);
 }
+
+$postcard_attributes = array( 'data-id="'.$id.'"'   );
+if( !empty($args['on_click_post']) ) $postcard_attributes[] = 'data-action="'.$args['on_click_post'].'"';
+if( !empty($args['on_click_scroll_to']) ) $postcard_attributes[] = 'data-scroll-to="'.$args['on_click_scroll_to'].'"';
 ?>
-<div class="post-card post-card--style1" data-id="<?=$id?>">
-	<a href="<?=$link?>" class="post-card__image trigger-post-action" style="background-image:url(<?=$thumb_url?>);">
-		<?php if($featured_video) echo '<div class="video-background">'.$featured_video['code'].'</div>' ?>
-	</a>
-	<div class="post-card__content">
-		<h2 class="post-card__title"><a class="trigger-post-action" href="<?=$link?>"><?php echo $title; ?></a></h2>
-		<p class="post-card__date"><?php printf( '%1$s','<time class="entry-time" datetime="' . get_the_time('Y-m-d', 	$id) . '" itemprop="datePublished">' . get_the_time(get_option('date_format'), $id) . '</time>'); ?></p>
-		<p><?php echo do_shortcode(wpautop($excerpt)) ?></p>
-		<a class="btn btn--main-color trigger-post-action" href="<?=$link?>">Leer más</a>
-		<div class="post-card__tags text-color-2">
-			<?php  
-			if( is_array($tags) && count($tags) > 0 ){
-				foreach ($tags as $tag ) {
-					echo '<span><a href="' . esc_attr( get_tag_link( $tag->term_id ) ) . '" class="'.$tag->slug.'">' . __( $tag->name ) . '</a></span>';
-				}
-			}
-			?>
-		</div>
-	</div>
+<div class="postcard postcard--style3" <?php echo implode(' ', $postcard_attributes) ?>>
+    <div class="postcard__wrapper">
+        <a href="<?=$link?>" class="postcard__image trigger-post-action" style="background-image:url(<?=$thumb_url?>);">
+            <?php if($featured_video) echo '<div class="video-background">'.$featured_video['code'].'</div>' ?>
+        </a>
+        <div class="postcard__content text-color-2">
+            <h2 class="postcard__title"><?php echo $title; ?></h2>
+            <span>→</span>
+            <a class="cover-all trigger-post-action" href="<?=$link?>"></a>
+        </div>
+        <div class="postcard__tags text-color-2">
+            <?php  
+            if( is_array($tags) && count($tags) > 0 ){
+                foreach ($tags as $tag ) {
+                    echo '<span><a href="' . esc_attr( get_term_link( $tag->slug, 'portfolio-tag' ) ) . '" class="'.$tag->slug.'">' . __( $tag->name ) . '</a></span>';
+                }
+            }
+            ?>
+        </div>
+    </div>
 </div>

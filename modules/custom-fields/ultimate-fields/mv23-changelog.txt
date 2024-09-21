@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+- 20-09-2024
+- ID property implementation to avoid undefined property on theme options page 
+    (core/classes/Options_Page.php:156)
+
 04-09-2024
 - Change layout icon to move
     (core/templates/field/layout/row.php::2)

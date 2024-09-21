@@ -3,20 +3,27 @@ namespace Core\Posttype;
 
 use Core\Utils\CPT;
 use WP_Query;
+use Ultimate_Fields\Container;
+use Ultimate_Fields\Field;
+use Ultimate_Fields\Location\Post_Type;
+
+define ('LISTING_DESKTOP_COLUMNS', 2);
+define ('LISTING_LAPTOP_COLUMNS', 2);
+define ('LISTING_TABLET_COLUMNS', 2);
+define ('LISTING_MOBILE_COLUMNS', 1);
+
+define ('LISTING_DESKTOP_GAP', 50);
+define ('LISTING_LAPTOP_GAP', 40);
+define ('LISTING_TABLET_GAP', 30);
+define ('LISTING_MOBILE_GAP', 20);
 
 class Archive_Page {
 	
 	private static $instance = null;
 
-	private static $supported_taxonomies;
-
 	public static function getInstance() {
         if (self::$instance == null) {
             self::$instance = new Archive_Page();
-			self::$supported_taxonomies = array_keys(ARCHIVE_OPTIONS_TAXONOMIES);
-
-			// add_action( 'template_redirect', array( $this, 'redirect_single' ) );
-			// add_action( 'admin_bar_menu', array( $this, 'admin_bar_link' ), 90 );
         }
         return self::$instance;
     }
@@ -27,10 +34,9 @@ class Archive_Page {
         $archive_page = new CPT(
             'archive_page',
             array(
-				'show_in_menu' => 'theme-options-menu',
-                'show_in_nav_menus' => false,
-                'supports' => array('title'),
-				'taxonomies' => self::$supported_taxonomies,
+				'show_in_menu'        => 'edit.php?post_type=page',
+                'show_in_nav_menus'   => false,
+                'supports'            => array('title'),
 				'publicly_queryable'  => true,
 				'exclude_from_search' => true,
 				'has_archive'         => false,
@@ -42,97 +48,126 @@ class Archive_Page {
         );
 	}
 
-	/**
-	 * Redirect single archive_page to connected archive
-	 * not used por que podrian ser varias
-	 */
-	function redirect_single() {
-		if( !is_singular( 'archive_page' ) ) return;
-		$redirect = null;
-		$archive_page_id = get_the_ID();
-		$appears_on = get_post_meta( $archive_page_id, 'appears_on', true );
+	public function add_meta_boxes(){
+		$archive_location = new Post_Type();
+		$archive_location->add_post_type( 'archive_page' );
+		$archive_location->context = 'side';
 
-		if ($appears_on == 'posttype') {
-			$connected_posttype = get_post_meta( $archive_page_id, 'connected_posttype', true );
-			if ($connected_posttype == 'post') {
-				$redirect = get_permalink( get_option( 'page_for_posts' ) );
-			} else {
-				$redirect = home_url($connected_posttype);
+		# Add post types
+		$post_types = array();
+		$excluded = array( 'attachment', 'page' );
+		foreach( get_post_types( array('public'=>true, 'exclude_from_search'=>false), 'objects' ) as $id => $post_type ) {
+			if( in_array( $id, $excluded ) ) {
+				continue;
+			}
+			$post_types[ $id ] = __( $post_type->labels->name );
+		}
+
+		$archive_page_fields = array(
+			Field::create( 'radio', 'connected_posttype' )->set_orientation( 'horizontal' )->add_options($post_types)
+		);
+		
+		# Add taxonomies
+		foreach ($post_types as $post_type_id => $post_type_name) {
+			$taxonomies = array( '' => __('Any','default') );
+			foreach( get_taxonomies( array( 'object_type' => array($post_type_id), 'show_ui' => true ), 'objects' ) as $slug => $taxonomy ) {
+				$taxonomies[$slug] = $taxonomy->labels->name;
+			}
+			$archive_page_fields[] = Field::create( 'radio', 'connected_'.$post_type_id.'_taxonomy' )
+				->set_orientation( 'horizontal' )
+				->add_dependency( 'connected_posttype', $post_type_id, '=' )
+				->add_options($taxonomies);
+
+			# Add terms
+			foreach ($taxonomies as $tax_slug => $tax_name) {
+				if( !empty($tax_slug) ){
+					$archive_page_fields[] = Field::create( 'multiselect', 'connected_'.$tax_slug.'_terms', 'Connected '.$tax_name.' terms' )
+						->add_terms( $tax_slug )
+						->add_dependency( 'connected_posttype', $post_type_id, '=' )
+						->add_dependency( 'connected_'.$post_type_id.'_taxonomy', $tax_slug, '=' );
+				}
 			}
 		}
 
-		if ($appears_on == 'taxonomy') {
-			$taxonomy = get_post_meta( $archive_page_id, 'connected_taxonomy', true );
-			$tax_slug = ($taxonomy == 'product_cat') ? 'categoria-producto' : $taxonomy;
-			$terms = get_the_terms( $archive_page_id, $taxonomy );
+		Container::create( 'archive_page_settings' )
+		    ->set_title('Settings')
+		    ->add_location( $archive_location )
+		    ->add_fields( $archive_page_fields );
 
-			if( !empty( $terms ) ) {
-				// redirige al primer term enlazado
-				$redirect = home_url($tax_slug.'/'.$terms[0]->slug);
-			}
-		}
+		// --------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// --------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		if ($redirect) {
-			wp_redirect( $redirect );
-			exit;
-		}
-	}
+		$archive_loop_fields = array(
+			Field::create( 'tab', 'loop_settings_tabs', __('Loop Settings','default') ),
+			Field::create( 'message', 'lelmsg')
+				->hide_label()
+				->set_description( __('Place these shortcodes in the page content: [posts] [pagination]'), 'default' )
+				->set_attr( 'style', 'background-color:#eeeeee;color:#000' ),
 
-	/**
-	 * Admin Bar Link
-	 */
-	function admin_bar_link( $wp_admin_bar ) {
-		// $taxonomy = $this->get_taxonomy();
-		// if( ! $taxonomy )
-		//  	return;
+			Field::create( 'tab', 'loop_columns_tabs', __('Columns quantity','default') ),
+			Field::create( 'complex', 'loop_columns' )->hide_label()->add_fields(array(
+				Field::create( 'number', 'desktop' )->set_default_value(LISTING_DESKTOP_COLUMNS)->set_suffix('columns in desktop')->hide_label(),
+				Field::create( 'number', 'laptop' )->set_default_value(LISTING_LAPTOP_COLUMNS)->set_suffix('columns in laptop')->hide_label(),
+				Field::create( 'number', 'tablet' )->set_default_value(LISTING_TABLET_COLUMNS)->set_suffix('columns in tablet')->hide_label(),
+				Field::create( 'number', 'mobile' )->set_default_value(LISTING_MOBILE_COLUMNS)->set_suffix('columns in mobile')->hide_label(),
+			)),
 
-		// if( ! ( is_user_logged_in() && current_user_can( 'edit_post' ) ) )
-		// 	return;
+			Field::create( 'tab', 'space_between_columns_tab', __('Space between columns','default') ),
+			Field::create( 'complex', 'loop_columns_gap' )->hide_label()->add_fields(array(
+				Field::create( 'number', 'desktop')->set_default_value(LISTING_DESKTOP_GAP)->set_suffix('px in desktop')->hide_label(),
+				Field::create( 'number', 'laptop' )->set_default_value(LISTING_LAPTOP_GAP)->set_suffix('px in laptop')->hide_label(),
+				Field::create( 'number', 'tablet' )->set_default_value(LISTING_TABLET_GAP)->set_suffix('px in tablet')->hide_label(),
+				Field::create( 'number', 'mobile' )->set_default_value(LISTING_MOBILE_GAP)->set_suffix('px in mobile')->hide_label(),
+			)),
 
-		// $archive_id = $this->get_archive_id();
-		// if( !empty( $archive_id ) ) {
-		// 	$wp_admin_bar->add_node( array(
-		// 		'id' => 'archive_page',
-		// 		'title' => 'Edit Page Modules',
-		// 		'href'  => get_edit_post_link( $archive_id ),
-		// 	) );
+			Field::create( 'tab', 'postcard_settings_tab', __('Post card settings','default') ),
+			Field::create( 'complex', 'postcard_settings' )->hide_label()->add_fields(array(
+				Field::create( 'radio', 'template' )->set_orientation( 'vertical' )->add_options(LISTING_POST_TEMPLATE),
+            	Field::create( 'select', 'on_click_post', 'Al hacer click en el post:' )->add_options(array(
+            	    'redirect' => 'Redirigir a la página del post',
+            	    'show-expander' => 'Mostrar el post en la misma página',
+            	    'show-popup' => 'Mostrar el post en un popup',
+            	    'none' => 'Ninguna'
+            	)),
+            	Field::create( 'select', 'on_click_scroll_to', 'Al hacer click mover el scroll a:' )->add_options(array(
+            	    '' => 'No mover el scroll',
+            	    'postcard' => 'Al post card',
+            	    'expander' => 'Al expander'
+            	))->add_dependency( 'on_click_post', 'show-expander', '=' ),
+			)),
 
-		// } else {
-		// 	$wp_admin_bar->add_node( array(
-		// 		'id' => 'archive_page',
-		// 		'title' => 'Add Page Modules',
-		// 		'href'  => admin_url( 'post-new.php?post_type=archive_page' )
-		// 	) );
-		// }
-	}
+			Field::create( 'tab', 'page_template_tab', __('Page template','default') ),
+			Field::create( 'select', 'page_template')->hide_label()->add_options(array(
+				'main-content--sidebar-left' => __('Left Sidebar','deafult'),
+				'main-content--sidebar-right' => __('Right Sidebar','deafult'),
+				'hide-sidebar' => __('Hide Sidebar','default')
+			))
+		);
 
-	public function get_archive_type() {
-		if (is_tax() || is_category()) {
-			return 'taxonomy';
-		} else if (is_post_type_archive()) {
-			return 'posttype';
-		} else {
-			return 'posttype';
-		}
+		Container::create( 'archive_loop_settings_1' )
+		    ->set_title('Loop Settings')
+		    ->add_location( $archive_location )
+		    ->add_fields($archive_loop_fields);
+
+		$page_for_posts = ( get_option('page_for_posts') ) ? get_option('page_for_posts') : 0;
+
+		Container::create( 'archive_loop_settings_2' )
+		    ->set_title('Loop Settings')
+			->add_location( 'post_type', array('page'), array( 
+				'ids' => array($page_for_posts),
+				'context' => 'side'
+			))
+		    ->add_fields($archive_loop_fields);
 	}
 
 	public function get_taxonomy() {
-		$taxonomy = is_category() ? 'category' : ( is_tag() ? 'post_tag' : get_query_var( 'taxonomy' ) );
-		if( in_array( $taxonomy, self::$supported_taxonomies ) ){
-			return $taxonomy;
-		}else{
-			return false;
-		}
-	}
-
-	public function get_posttype() {
-		if (is_home()) {
-			return 'post';
-		} else if(is_date()){
-			return 'post';
-		} else{
-			$queried_object = get_queried_object();
-			return $queried_object->name;
+		if(is_category()){
+			return 'category';
+		} else if( is_tag() ){
+			return 'post_tag';
+		} else {
+			return get_query_var( 'taxonomy' );
 		}
 	}
 
@@ -140,63 +175,172 @@ class Archive_Page {
 	 * Get Archive page ID in archive.php
 	 */
 	public function get_archive_id() {
+		$is_connected = 0;
+		$posttype = get_post_type();
+
 		$args = array(
 			'post_type' => 'archive_page',
-			'posts_per_page' => 1,
+			'posts_per_page' => -1,
 			'fields' => 'ids',
-			'no_found_rows' => true,
-			'update_post_term_cache' => false,
-			'update_post_meta_cache' => false
-		);
-
-		if ( self::$instance->get_archive_type() == 'posttype' ) {
-			$posttype = self::$instance->get_posttype();
-			$args['meta_query'] = array(
-				'relation' => 'AND',
-				array(
-					'key'     => 'appears_on',
-					'value'   => 'posttype',
-					'compare' => '=',
-				),
+			'meta_query' => array(
 				array(
 					'key' => 'connected_posttype',
 					'value' => $posttype,
 					'compare' => '='
 				)
-			);
+			)
+		);
+		$loop = new WP_Query( $args );
+		$posts = $loop->posts;
 
-		} else {
-			$taxonomy = self::$instance->get_taxonomy();
-			if( empty( $taxonomy ) ) return false;
-			$args['meta_query'] = array(
-				'relation' => 'AND',
-				array(
-					'key'     => 'appears_on',
-					'value'   => 'taxonomy',
-					'compare' => '=',
-				),
-				array(
-					'key' => 'connected_taxonomy',
-					'value' => $taxonomy,
-					'compare' => '='
-				)
-			);
-			$args['tax_query'] = array(
-				array(
-					'taxonomy' => $taxonomy,
-					'field' => 'term_id',
-					'terms' => array( get_queried_object_id() ),
-					'include_children' => false,
-				)
-			);
+		if( !empty($posts) ){
+			foreach ($posts as $post_id) {
+				$connected_taxonomy = get_post_meta($post_id, 'connected_'.$posttype.'_taxonomy', true);
+				if( empty($connected_taxonomy) ){
+					// the archive page is configured to work with any taxonomy of the selected posttype
+					// break the foreach to return the latest published
+					$is_connected = $post_id;
+					break;
+				} else { 
+					$connected_terms = get_post_meta($post_id, 'connected_'.$connected_taxonomy.'_terms', true);
+
+					if( is_array($connected_terms) && !empty($connected_terms) ){
+						// the archive page is configured to work with certain terms
+						$term = get_queried_object_id();
+						if( in_array( $term, $connected_terms) ){
+							$is_connected = $post_id;
+							break;
+						}
+					} else {
+						// the archive page is configured to work with a certain taxonomy
+						$taxonomy = self::$instance->get_taxonomy();
+						if( $connected_taxonomy == $taxonomy ){
+							$is_connected = $post_id;
+							break;
+						}
+					}
+				}
+			}
 		}
 
-		$loop = new WP_Query( $args );
+		if( !$is_connected && is_home() ) return get_option('page_for_posts');
 
-		if( empty( $loop->posts ) ){
-			return false;
-		}else{
-			return $loop->posts[0];
+		return $is_connected;
+	}
+
+	/**
+	 * Post meta related methods
+	 */
+	private function check_if_meta_exists($meta_name){
+		$meta_data = false;
+
+		$archive_page_id = self::$instance->get_archive_id();
+
+		if ( !empty($archive_page_id) ){
+			$post_meta = get_post_meta( $archive_page_id, $meta_name, true );
+			if( $post_meta ) $meta_data = $post_meta;
+		}
+
+		return $meta_data;
+	}
+
+	public function get_loop_columns(){
+		$loop_columns = array(
+			'desktop' => LISTING_DESKTOP_COLUMNS,
+			'laptop' => LISTING_LAPTOP_COLUMNS,
+			'tablet' => LISTING_TABLET_COLUMNS,
+			'mobile' => LISTING_MOBILE_COLUMNS
+		);
+	
+		$meta_data = self::$instance->check_if_meta_exists('loop_columns');
+		if ( $meta_data ) $loop_columns = $meta_data;
+
+		return $loop_columns;
+	}
+
+	public function get_columns_gap(){
+		$loop_columns_gap = array(
+			'desktop' => LISTING_DESKTOP_GAP,
+			'laptop' => LISTING_LAPTOP_GAP,
+			'tablet' => LISTING_TABLET_GAP,
+			'mobile' => LISTING_MOBILE_GAP
+		);
+	
+		$meta_data = self::$instance->check_if_meta_exists('loop_columns_gap');
+		if ( $meta_data ) $loop_columns_gap = $meta_data;
+
+		return $loop_columns_gap;
+	}
+
+	public function get_postcard_settings(){
+		$postcard_settings = array(
+			'template' => '',
+			'on_click_post' => '',
+			'on_click_scroll_to' => ''
+		);
+	
+		$meta_data = self::$instance->check_if_meta_exists('postcard_settings');
+		if ( $meta_data ) $postcard_settings = $meta_data;
+
+		return $postcard_settings;
+	}
+
+	public function get_page_template_settings(){
+		$page_template_settings = array(
+			'class' => 'main-content--sidebar-left',
+			'has_sidebar' => true
+		);
+	
+		$archive_page_id = self::$instance->get_archive_id();
+
+		if ( !empty($archive_page_id) ){
+			$page_template = get_post_meta( $archive_page_id, 'page_template', true );
+			if( !empty($page_template) && $page_template != 'hide-sidebar' ){
+				$page_template_settings['class'] = $page_template;
+				$page_template_settings['has_sidebar'] = true;
+			}
+			if( $page_template === 'hide-sidebar' ){
+				$page_template_settings['class'] = '';
+				$page_template_settings['has_sidebar'] = false;
+			}
+		}
+
+		return $page_template_settings;
+	}
+
+	/**
+	 * Redirect single archive_page to connected archive
+	 */
+	function redirect_single() {
+		if( !is_singular( 'archive_page' ) ) return;
+
+		$archive_page_id = get_the_ID();
+		$redirect_to = null;
+
+		$connected_posttype = get_post_meta($archive_page_id, 'connected_posttype', true);
+		if ($connected_posttype == 'post') {
+			$redirect_to = get_permalink( get_option( 'page_for_posts' ) );
+		} else {
+			$redirect_to = home_url($connected_posttype);
+		}
+
+		$connected_taxonomy = get_post_meta($archive_page_id, 'connected_'.$connected_posttype.'_taxonomy', true);
+		if( !empty($connected_taxonomy) ){
+			$connected_taxonomy_url_slug = ($connected_taxonomy == 'product_cat') ? 'categoria-producto' : $connected_taxonomy;
+			$redirect_to = get_home_url() . '/' . $connected_taxonomy_url_slug . '/';
+		}
+	
+		$connected_terms = get_post_meta($archive_page_id, 'connected_'.$connected_taxonomy.'_terms', true);
+		if( is_array($connected_terms) && !empty($connected_terms) ){
+			$term_link = get_term_link( (int) $connected_terms[0], $connected_taxonomy );
+			if ( ! is_wp_error( $term_link ) ) {
+				$redirect_to = $term_link;
+			}
+		}
+
+		if ($redirect_to) {
+			wp_redirect( $redirect_to );
+			exit;
 		}
 	}
 }
