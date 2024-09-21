@@ -3,14 +3,20 @@
         border: 1px solid var(--primary-color-light)
         padding: 20px
         position: relative
-
-    &--style1 &__date
-        font-size: 13px
-        margin-bottom: 0
     
     &--style1 &__title
         font-size: 19px
         margin-bottom: 0
+
+    &--style1 &__postdata
+        display: flex
+        flex-wrap: wrap
+        align-items: center
+        gap: 10px
+        font-size: 13px
+        margin-bottom: 10px
+        p
+            margin-bottom: 0
     
     &--style1 &__image
         padding-bottom: 55%
@@ -34,3 +40,6 @@
             background-color: var(--primary-color)
             color: #fff
             padding: 0 8px
+
+    &--style1 &__link
+        text-align: right

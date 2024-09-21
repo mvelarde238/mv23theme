@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.14 24-09-20
 - Archive Pages CPT Refactorization
+- Standarize postcard 1 y 2
 
 1.5.13 24-09-19
 - Feat: filter_tab_styles_for_accordion_component

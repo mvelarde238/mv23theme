@@ -13,28 +13,47 @@
     &--style2 &__content
         width: calc(100% - 180px) !important
         padding-top: 0px
-        padding-left: 30px
+        padding-left: 20px
     
     &--style2 &__title
         font-size: 20px
+        margin-bottom: 5px
+
+    &--style2 &__postdata
+        display: flex
+        flex-wrap: wrap
+        align-items: center
+        gap: 10px
+        font-size: 13px
         margin-bottom: 10px
+        p
+            margin-bottom: 0
+    
+    &--style2 &__tags
+        display: flex
+        flex-wrap: wrap
+        gap: 3px
+        span
+            display: inline-block
+            font-size: 12px
+            background-color: var(--primary-color)
+            color: #fff
+            padding: 0 8px
     
     &--style2 &__link
         text-align: right
-        margin-top: 5px
 
 @media #{$small-and-down}
     .postcard
-        &--style2
-            align-items: start
+        &--style2 &__content-wrapper
+            flex-wrap: wrap
         &--style2 &__image
-            width: 80px !important
+            width: 100% !important
             padding-bottom: 80px !important
             height: 80px
+            margin-bottom: 20px
         &--style2 &__content
-            width: calc(100% - 80px) !important
-            padding-left: 20px
+            width: 100% !important
+            padding-left: 0
         &--style2 &__title
             font-size: 18px
-        &--style2 &__link
-            text-align: left
