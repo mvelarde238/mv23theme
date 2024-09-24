@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.16 24-09-24
+- Implement open in popup in woocommerce postcard
+
 1.5.15 24-09-23
 - Shop header sidebar implementation
 

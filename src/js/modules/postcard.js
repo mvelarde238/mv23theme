@@ -29,9 +29,22 @@
                 },
                 success: function success(response) {
                     $postModal.attr('data-status','');
-                    var content = $('.main', response);
+                    
                     if(response) {
-                        $postModal_content.html( content.html() );
+                        var main = $('.main', response);
+                        var is_woocommerce = $(main).find('.woocommerce-product-gallery').length;
+
+                        var content_wrapper = document.createElement('div');
+                        if ( is_woocommerce ) content_wrapper.className = "woocommerce woocommerce-page woocommerce-js";
+                        content_wrapper.innerHTML = main.html();
+
+                        $postModal_content.html( content_wrapper );
+
+                        /** Initialize product gallery **/
+                        if ( is_woocommerce ) {
+                            $postModal_content.find('.woocommerce-product-gallery').css('opacity',1);
+                            $postModal_content.find('.woocommerce-product-gallery').find('img').attr('class','zoom');
+                        }
                     }
                 }
             });
