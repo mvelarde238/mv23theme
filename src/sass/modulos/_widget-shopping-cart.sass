@@ -29,10 +29,9 @@
     .button
         flex-grow: 1
         text-align: center
-    .button:not(.checkout)
-        @extend .btn
     .button.checkout
-        @extend .btn
-        @extend .btn--main-color
-        
-            
+        background-color: var(--primary-color)
+        color: #fff
+        &:hover
+            background-color: var(--secondary-color)
+            color: #fff
