@@ -84,6 +84,7 @@ class MV23_Theme extends Theme {
         $this->loader->add_action( 'after_setup_theme', $woocommerce_support, 'add_theme_support' );
         $this->loader->add_action( 'woocommerce_before_main_content', $woocommerce_support, 'before_main_content', 10);
         $this->loader->add_action( 'woocommerce_after_main_content', $woocommerce_support, 'after_main_content', 10);
+        $this->loader->add_action( 'woocommerce_before_shop_loop', $woocommerce_support, 'show_shop_header_sidebar', 15);
 
         // Theme Options
         $theme_options = Theme_Options::getInstance();

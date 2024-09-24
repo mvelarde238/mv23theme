@@ -66,9 +66,20 @@ class Admin extends Theme {
 		));
 
 		if(WOOCOMMERCE_IS_ACTIVE){
+            register_sidebar(array(
+                'id' => 'shop_header_sidebar',
+                'name' => 'Shop Header',
+                'description' => 'Widgets en el título de la tienda',
+                'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                'after_widget' => '</div>',
+                'before_title' => '<h4 class="widgettitle">',
+                'after_title' => '</h4>',
+            ));
+            
 			register_sidebar(array(
-				'id' => 'shop_sidebar',
+                'id' => 'shop_sidebar',
 				'name' => 'Shop Sidebar',
+                'description' => 'Widgets en el sidebar de la tienda',
 				'before_widget' => '<div id="%1$s" class="widget component %2$s">',
 				'after_widget' => '</div>',
 				'before_title' => '<h4 class="widgettitle">',

@@ -44,4 +44,12 @@ class WooCommerce_Support{
         </div>
         <?php
     }
+
+    public function show_shop_header_sidebar(){
+        if (is_active_sidebar( 'shop_header_sidebar' )):
+            echo '<div class="shop-header-sidebar">';
+            dynamic_sidebar( 'shop_header_sidebar' );
+            echo '</div>';
+        endif;
+    }
 }

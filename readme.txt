@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.15 24-09-23
+- Shop header sidebar implementation
+
 1.5.14 24-09-20
 - Archive Pages CPT Refactorization
 - Standarize postcard 1 y 2
