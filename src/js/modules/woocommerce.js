@@ -7,39 +7,28 @@
         // ****************************************************************************************************
         // ****************************************************************************************************
 
-        function get_items_in_cart_qty(cart_fragments){
-            var TotalCount = 0;
-
-            if(cart_fragments != null){
-                var cartCount = cart_fragments['div.widget_shopping_cart_content'].split('<span class=\"quantity\">');
-                for (let index = 1; index < cartCount.length; index++) {
-                    var item = cartCount[index];
-                    var ItemCount = item.split(' &times;')[0];
-                    TotalCount += parseInt(ItemCount);
-                }
-            } else {
-                TotalCount = MV23_GLOBALS.items_in_cart;
-            }
-
-            return TotalCount;
-        }
-
-        function show_cart_item_qty(cart_fragments = null){
-            // var qty = getCookie('woocommerce_items_in_cart'); // boolean cookie :/
-            var qty = get_items_in_cart_qty(cart_fragments);
-
+        function show_cart_item_qty(){
             $('.cart-items-qty').remove();
-            if(qty != "" && qty != 0){
-                $('.show-cart-items-qty').append(' <span class="cart-items-qty">'+qty+'</span>');
-            }
+            
+            $.ajax({
+                url: MV23_GLOBALS.ajaxUrl,
+                type: 'POST',
+                data: {
+                    action: 'get_cart_quantity',
+                },
+                success: function(response) {
+                    if(response != "" && response != 0){
+                        $('.show-cart-items-qty').append(' <span class="cart-items-qty">'+response+'</span>');
+                    }
+                }
+            });
         }
+        
         show_cart_item_qty();
 
-        $( document.body ).on( 'added_to_cart', function(event, fragments, cart_hash, btn){
-            show_cart_item_qty(fragments);
-        });
-        $( document.body ).on( 'removed_from_cart', function(event, fragments, cart_hash, btn){
-            show_cart_item_qty(fragments);
+        // Escuchar el evento 'added_to_cart' para actualizar el fragmento del carrito
+        $(document.body).on('added_to_cart wc_fragments_refreshed wc_fragments_loaded', function() {
+            show_cart_item_qty();
         });
 
         if( MV23_GLOBALS.open_minicart_on_add_to_cart ){

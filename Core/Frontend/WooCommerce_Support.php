@@ -52,4 +52,18 @@ class WooCommerce_Support{
             echo '</div>';
         endif;
     }
+
+    public function get_cart_unique_items_count() {
+        if ( ! WC()->cart ) {
+            echo 0;
+            wp_die();
+        }
+    
+        $cart_items = WC()->cart->get_cart();
+    
+        $unique_items_count = count( $cart_items );
+    
+        echo $unique_items_count;
+        wp_die();
+    }
 }

@@ -79,12 +79,15 @@ class MV23_Theme extends Theme {
         $this->loader->add_filter( 'the_content', $page, 'filter_the_content', 100 );
         $this->loader->add_filter( 'rest_prepare_page', $page, 'add_page_modules_to_rest_api', 10, 3 );
 
-        $woocommerce_support = new WooCommerce_Support();
-
-        $this->loader->add_action( 'after_setup_theme', $woocommerce_support, 'add_theme_support' );
-        $this->loader->add_action( 'woocommerce_before_main_content', $woocommerce_support, 'before_main_content', 10);
-        $this->loader->add_action( 'woocommerce_after_main_content', $woocommerce_support, 'after_main_content', 10);
-        $this->loader->add_action( 'woocommerce_before_shop_loop', $woocommerce_support, 'show_shop_header_sidebar', 15);
+        if( WOOCOMMERCE_IS_ACTIVE ){
+            $woocommerce_support = new WooCommerce_Support();
+            $this->loader->add_action( 'after_setup_theme', $woocommerce_support, 'add_theme_support' );
+            $this->loader->add_action( 'woocommerce_before_main_content', $woocommerce_support, 'before_main_content', 10);
+            $this->loader->add_action( 'woocommerce_after_main_content', $woocommerce_support, 'after_main_content', 10);
+            $this->loader->add_action( 'woocommerce_before_shop_loop', $woocommerce_support, 'show_shop_header_sidebar', 15);
+            $this->loader->add_action( 'wp_ajax_get_cart_quantity', $woocommerce_support, 'get_cart_unique_items_count');
+            $this->loader->add_action( 'wp_ajax_nopriv_get_cart_quantity', $woocommerce_support, 'get_cart_unique_items_count');
+        }
 
         // Theme Options
         $theme_options = Theme_Options::getInstance();
