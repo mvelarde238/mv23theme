@@ -22,7 +22,6 @@ Container::create( 'actions_container' )
     
                 Field::create( 'complex', 'enlace' )->hide_label()->rows_layout()->add_fields(array(
                     Field::create( 'radio', 'url_type','Seleccione que contenido se abrirá al hacer clic:')->set_orientation( 'horizontal' )->add_options( array(
-                        '' => 'Desactivar',
                         'interna' => 'Página Interna',
                         'externa' => 'Página Externa',
                     )),

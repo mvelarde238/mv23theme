@@ -91,7 +91,7 @@ class Core{
         // uncomment just to generate the container json:
         // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/common-settings.php' );
         // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/scroll-animations.php' );
-        // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/actions.php' );
+        // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/actions-container.php' );
         // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/blocks-layout-settings.php' );
         // require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/popup/blocks-layout-container.php' );
 

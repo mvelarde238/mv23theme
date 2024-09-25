@@ -62,7 +62,6 @@ var actions_container = [
                                     "name": "url_type",
                                     "label": "Seleccione que contenido se abrirá al hacer clic:",
                                     "options": {
-                                        "": "Desactivar",
                                         "interna": "Página Interna",
                                         "externa": "Página Externa"
                                     },
@@ -83,7 +82,7 @@ var actions_container = [
                                             }
                                         ]
                                     ],
-                                    "nonce": "af63cc34a7",
+                                    "nonce": "ed05c1f4da",
                                     "multiple": false,
                                     "button_text": "Selecciona la página",
                                     "hide_filters": false
@@ -142,7 +141,7 @@ var actions_container = [
                                     "hide_label": true,
                                     "file_type": "image",
                                     "basic": false,
-                                    "nonce": "d8d8e33b03"
+                                    "nonce": "0ba8cb23b3"
                                 }
                             ],
                             "layout": "rows",
@@ -196,8 +195,8 @@ var actions_container = [
                                             }
                                         ]
                                     ],
-                                    "field_index": 3,
-                                    "nonce": "8416e83e07"
+                                    "field_index": 4,
+                                    "nonce": "96ed8ebdb4"
                                 },
                                 {
                                     "type": "Video",
@@ -215,7 +214,7 @@ var actions_container = [
                                     ],
                                     "file_type": "video",
                                     "basic": false,
-                                    "nonce": "4b48bda822"
+                                    "nonce": "a6ddddf5d6"
                                 }
                             ],
                             "layout": "rows",
@@ -287,7 +286,7 @@ var actions_container = [
                                     "name": "id",
                                     "label": "Id",
                                     "hide_label": true,
-                                    "nonce": "2a0ab8786c",
+                                    "nonce": "fceb4f0c26",
                                     "multiple": false,
                                     "button_text": "Select",
                                     "hide_filters": false

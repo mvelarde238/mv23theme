@@ -34,9 +34,11 @@ mv23 changelog-------------------------
     (core/js/uf.js:368)
 - Commented nonce verify cuz not working when is called from common settings container popup
     - for image video preview
-    (core/classes/Field/File.php:237)
+    (core/classes/Field/File.php:327)
     - for embed preview
     (core/classes/Field/Embed.php:137)
+    - for wp_object
+    (core/classes/Field/WP_Object.php:255)
 
 01-07-2024
 - Add suffix/prefix/placeholder properties to Number field
