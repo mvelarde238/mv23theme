@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.17 24-09-25
+- Align horizontal nav 3 items content to bottom
+
 1.5.16 24-09-24
 - Implement open in popup in woocommerce postcard
 - Improve get cart items quantity
