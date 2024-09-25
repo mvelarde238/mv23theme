@@ -26,3 +26,10 @@ li.product:before
 // Hide related products in post modal
 .post-modal .related.products
     display: none
+
+@media only screen and (max-width: #{$menu-breakpoint})
+    // fix woo products width in mobile
+    .listing.component
+        .woocommerce ul.products[class*=columns-] li.product, 
+        .woocommerce-page ul.products[class*=columns-] li.product
+            width: initial

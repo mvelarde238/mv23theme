@@ -5,6 +5,7 @@ CHANGELOG
 1.5.16 24-09-24
 - Implement open in popup in woocommerce postcard
 - Improve get cart items quantity
+- fix woo products width in mobile
 
 1.5.15 24-09-23
 - Shop header sidebar implementation
