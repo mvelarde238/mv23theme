@@ -8,7 +8,8 @@
 
 // Project configuration
 var project = 'mv23theme', // Nombre de proyecto, usado como nombre de archivo al momento de crear el zip
-	url = 'mv23.com', // Local Development URL for BrowserSync. Default: './'
+	url = 'www.tad.posicionarweb.cl', // Local Development URL for BrowserSync. Default: './'
+	// url = 'mv23.comtad', // Local Development URL for BrowserSync. Default: './'
 	build = '../', // Folder donde se guarda el zip 
 	buildInclude = [
 		// Archivos que se van a guardar en el zip
@@ -101,7 +102,7 @@ gulp.task('sass', function () {
         // includePaths: [parenttheme_path+'sass/'] this is for child themes
     }).on('error', sass.logError))
 	.pipe(mergeQueries({ log: true }))
-	.pipe(minifyCSS())
+	// .pipe(minifyCSS())
 	.pipe(gulp.dest('../assets/css/'))
 	.pipe(browserSync.stream());
 });
