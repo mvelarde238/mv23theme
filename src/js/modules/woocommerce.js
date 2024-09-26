@@ -5,6 +5,18 @@
             is_single = $('body').hasClass('single-product');
 
         // ****************************************************************************************************
+        // ADD TOGGLE BUTTON TO ITEMS IN PRODUCTS CATEGORY WIDGET
+        // ****************************************************************************************************
+        
+        $('.widget_product_categories .children').hide();
+        $('<button class="toggle-submenu"></button>').insertBefore( $('.widget_product_categories .children') );
+
+        $('.widget_product_categories').on('click','.toggle-submenu',function(){
+            $(this).parent().children('.children').slideToggle();
+        });
+
+        // ****************************************************************************************************
+        // SHOW CART ITEM QUANTITY
         // ****************************************************************************************************
 
         function show_cart_item_qty(){

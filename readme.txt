@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.17 24-09-26
+- Toggle button implementation in WooCommerce product categories widget
+
 1.5.16 24-09-24
 - Implement open in popup in woocommerce postcard
 - Improve get cart items quantity

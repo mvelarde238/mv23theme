@@ -27,9 +27,21 @@ li.product:before
 .post-modal .related.products
     display: none
 
+// toggle button in product categories widget
+.widget_product_categories 
+    .toggle-submenu
+        margin-left: 5px
+        &::before
+            content: '\f107'
+            font: normal normal normal 19px/1 FontAwesome
+            display: inline-block
+        &:has(+.children[style*="display: block"]):before
+            transform: scaleY(-1)
+
 @media only screen and (max-width: #{$menu-breakpoint})
     // fix woo products width in mobile
     .listing.component
         .woocommerce ul.products[class*=columns-] li.product, 
         .woocommerce-page ul.products[class*=columns-] li.product
             width: initial
+            
