@@ -21,6 +21,7 @@ use Core\Posttype\MV23_Library;
 use Core\Posttype\Accordion;
 use Core\Posttype\Post;
 use Core\Posttype\Menu_Item;
+use Core\Posttype\Megamenu;
 
 class MV23_Theme extends Theme {
 
@@ -227,6 +228,12 @@ class MV23_Theme extends Theme {
 
         // Add the meta boxes
         $this->loader->add_action( 'uf.init', $menu_item, 'add_meta_boxes' );
+
+        // Megamenu
+        $megamenu = Megamenu::getInstance();
+
+        // Add the meta boxes
+        $this->loader->add_action( 'uf.init', $megamenu, 'add_meta_boxes' );
     }
 
     private function define_cleanup_hooks() {
