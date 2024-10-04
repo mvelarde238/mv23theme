@@ -1,9 +1,9 @@
 <?php
-namespace Offcanvas_Elements\TriggerEvent;
+namespace Core\Offcanvas_Elements\TriggerEvent;
 
-use Offcanvas_Elements\TriggerEvent;
+use Core\Offcanvas_Elements\TriggerEvent;
 use Ultimate_Fields\Field;
-use Offcanvas_Elements\Core;
+use Core\Offcanvas_Elements\Core;
 
 /**
  * Handles custom events

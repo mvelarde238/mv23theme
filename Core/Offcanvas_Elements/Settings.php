@@ -1,7 +1,7 @@
 <?php
-namespace Offcanvas_Elements;
+namespace Core\Offcanvas_Elements;
 
-use Offcanvas_Elements\Core;
+use Core\Offcanvas_Elements\Core;
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 use Core\Builder\Blocks_Layout;
@@ -53,19 +53,19 @@ class Settings {
 		switch ($key) {
 			case 'restrictions':
 				return array(
-					\Offcanvas_Elements\Restriction\Page::class,
-					\Offcanvas_Elements\Restriction\User::class,
-					\Offcanvas_Elements\Restriction\Device::class,
-					\Offcanvas_Elements\Restriction\Plugin::class,
-					// \Offcanvas_Elements\Restriction\Browser::class,
+					\Core\Offcanvas_Elements\Restriction\Page::class,
+					\Core\Offcanvas_Elements\Restriction\User::class,
+					\Core\Offcanvas_Elements\Restriction\Device::class,
+					\Core\Offcanvas_Elements\Restriction\Plugin::class,
+					// \Core\Offcanvas_Elements\Restriction\Browser::class,
 				);
 				break;
 			
 			case 'trigger_events':
 				return array(
-					\Offcanvas_Elements\TriggerEvent\Click::class,
-					\Offcanvas_Elements\TriggerEvent\Scroll::class,
-					\Offcanvas_Elements\TriggerEvent\CustomEvent::class
+					\Core\Offcanvas_Elements\TriggerEvent\Click::class,
+					\Core\Offcanvas_Elements\TriggerEvent\Scroll::class,
+					\Core\Offcanvas_Elements\TriggerEvent\CustomEvent::class
 				);
 
 			default:
@@ -140,19 +140,19 @@ class Settings {
 			Field::create('image_select', $slug.'_type', __('Type','default') )->show_label()->add_options(array(
 				'modal' => array(
 					'label' => __('Modal','default'),
-					'image' => get_template_directory_uri() . '/modules/offcanvas-elements/images/modal.png'
+					'image' => OFFCANVAS_ELEMENTS_PATH . '/images/modal.png'
 				),
 				'sidenav' => array(
 					'label' => __('Sidenav','default'),
-					'image' => get_template_directory_uri() . '/modules/offcanvas-elements/images/sidenav.png'
+					'image' => OFFCANVAS_ELEMENTS_PATH . '/images/sidenav.png'
 				),
 				'bottom_sheet' => array(
 					'label' => __('Bottom Sheet','default'),
-					'image' => get_template_directory_uri() . '/modules/offcanvas-elements/images/bottom_sheet.png'
+					'image' => OFFCANVAS_ELEMENTS_PATH . '/images/bottom_sheet.png'
 				)
 				// 'tap_target' => array(
 				// 	'label' => __('Tap Target','default'),
-				// 	'image' => get_template_directory_uri() . '/modules/offcanvas-elements/images/tap_target.png'
+				// 	'image' => OFFCANVAS_ELEMENTS_PATH . '/images/tap_target.png'
 				// )
 			)),
 			Field::create( 'section', '__content', __('Content','default') ),

@@ -1,9 +1,12 @@
 <?php
-namespace Offcanvas_Elements;
+namespace Core\Offcanvas_Elements;
 
-use Offcanvas_Elements\Settings;
+use Core\Offcanvas_Elements\Settings;
 use Core\Builder\Blocks_Layout;
 use Core\Utils\CPT;
+
+define ('OFFCANVAS_ELEMENTS_DIR', __DIR__);
+define ('OFFCANVAS_ELEMENTS_PATH', get_template_directory_uri() . '/Core/Offcanvas_Elements');
 
 class Core{
 	private static $instance = null;
@@ -20,30 +23,15 @@ class Core{
     }
     
     // Constructor privado para evitar la creación directa de la instancia
-    private function __construct(){
-        $core_directory = trailingslashit( dirname( __DIR__ ) );
-        require_once( __DIR__ . '/Autoloader.php' );
-		new Autoloader( 'Offcanvas_Elements', $core_directory . DIRECTORY_SEPARATOR . 'classes' );
+    private function __construct(){}
 
-        $this->add_action( 'after_setup_theme', array($this, 'register_post_type'), 4 );
-        $this->add_action( 'uf.init', array($this, 'register_settings') );
-        $this->add_action( 'wp_enqueue_scripts', function(){
-            $theme = wp_get_theme();
-            $text_domain = $theme->get( 'TextDomain' );
+    public function enqueue_scripts(){
+        $theme = wp_get_theme();
+        $text_domain = $theme->get( 'TextDomain' );
 
-            $this->set_elements();
-            wp_localize_script( $text_domain . '-scripts', strtoupper( $this->get_plural_slug() ), $this->get_elements() );
-        },1000);
-        $this->add_action( 'footer_code', array($this, 'print_elements') );
-        $this->add_action( 'save_post', array($this, 'handle_save_post_hook'), 99, 3 );
+        $this->set_elements();
+        wp_localize_script( $text_domain . '-scripts', strtoupper( $this->get_plural_slug() ), $this->get_elements() );
     }
-
-    /**
-     * Helper function to add add_action WordPress filters.
-     */
-    private function add_action( $action, $function, $priority = 10, $accepted_args = 1 ) {
-        add_action( $action, $function, $priority, $accepted_args );
-    }  
 
     public function get_slug(){
         return $this->slug;

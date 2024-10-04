@@ -1,5 +1,5 @@
 <?php
-namespace Offcanvas_Elements;
+namespace Core\Offcanvas_Elements;
 
 use Ultimate_Fields\Container\Repeater_Group;
 

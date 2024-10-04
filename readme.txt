@@ -5,6 +5,7 @@ CHANGELOG
 1.5.18 24-10-04
 - Fix Header styles
 - Core\Builder Namespace
+- Core\Offcanvas_Elements Namespace
 
 1.5.17 24-09-26
 - Toggle button implementation in WooCommerce product categories widget

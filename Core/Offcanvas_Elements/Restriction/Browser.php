@@ -1,5 +1,5 @@
 <?php
-namespace Offcanvas_Elements\Restriction;
+namespace Core\Offcanvas_Elements\Restriction;
 
 use Offcanvas_Elements\Restriction;
 use Ultimate_Fields\Field;

@@ -1,9 +1,9 @@
 <?php
-namespace Offcanvas_Elements\Restriction;
+namespace Core\Offcanvas_Elements\Restriction;
 
-use Offcanvas_Elements\Restriction;
 use Ultimate_Fields\Field;
-use Offcanvas_Elements\Core;
+use Core\Offcanvas_Elements\Restriction;
+use Core\Offcanvas_Elements\Core;
 
 /**
  * Handles the plugin restriction
