@@ -84,7 +84,6 @@ class Core{
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/menu-item-data.php' );
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/menu-item-megamenu.php' );
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/accordion-settings.php' );
-        require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/library-item-data.php' );
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/post-format.php' );
         require_once( THEME_CUSTOM_FIELDS_DIR.'/containers/featured-video.php' );
 

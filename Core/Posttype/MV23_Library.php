@@ -3,6 +3,8 @@ namespace Core\Posttype;
 
 use Core\Utils\CPT;
 use WP_Query;
+use Ultimate_Fields\Container;
+use Ultimate_Fields\Field;
 
 class MV23_Library {
 
@@ -11,10 +13,6 @@ class MV23_Library {
 	public static function getInstance() {
         if (self::$instance == null) {
             self::$instance = new MV23_Library();
-
-			add_action("wp_ajax_mv23_library_save_item", array( self::$instance, "save_item") );
-			add_action("wp_ajax_load_mv23_library_gallery", array( self::$instance, "load_gallery") );
-			add_action("wp_ajax_mv23_library_action", array( self::$instance, "library_action") );
         }
         return self::$instance;
     }
@@ -44,6 +42,12 @@ class MV23_Library {
 			'singular' => 'Categoría',
 			'plural' => 'Categorías',
 			'slug' => 'mv23_library_tax'
+		));
+	}
+
+	public function add_meta_boxes(){
+		Container::create( 'library_item_data' )->add_location( 'post_type', array('mv23_library') )->add_fields(array(
+			Field::create( 'textarea', 'library_item_data' ),
 		));
 	}
 

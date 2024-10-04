@@ -17,6 +17,7 @@ use Core\Admin\TinyMCE;
 use Core\Frontend\Page;
 use Core\Theme_Options\Theme_Options;
 use Core\Posttype\Archive_Page;
+use Core\Posttype\MV23_Library;
 
 class MV23_Theme extends Theme {
 
@@ -194,6 +195,17 @@ class MV23_Theme extends Theme {
 
         // redirect single archive page to connected posttype / taxonomy / term
         $this->loader->add_action( 'template_redirect', $archive_pages, 'redirect_single' );
+
+        // MV23 Library
+        $mv23_library = MV23_Library::getInstance();
+
+        // Add the meta boxes
+        $this->loader->add_action( 'uf.init', $mv23_library, 'add_meta_boxes' );
+
+        // ajax functions for MV23 library CPT
+        $this->loader->add_action( 'wp_ajax_mv23_library_save_item', $mv23_library, 'save_item' );
+		$this->loader->add_action( 'wp_ajax_load_mv23_library_gallery', $mv23_library, 'load_gallery' );
+		$this->loader->add_action( 'wp_ajax_mv23_library_action', $mv23_library, 'library_action' );
     }
 
     private function define_cleanup_hooks() {
