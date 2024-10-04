@@ -5,13 +5,13 @@
 
 namespace Core\Frontend;
 
-use Core\Includes\Theme as Theme;
+use Core\Includes\Theme_Header_Data;
 use Core\Frontend\Shortcodes as Shortcodes;
 use Core\Frontend\Page;
 use Core\Frontend\Header;
 use Core\Theme_Options\Theme_Options;
 
-class Frontend extends Theme {
+class Frontend extends Theme_Header_Data {
 
     public function __construct() { 
         parent::__construct();

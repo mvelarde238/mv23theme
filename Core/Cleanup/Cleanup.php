@@ -11,9 +11,9 @@
 
 namespace Core\Cleanup;
 
-use \Core\Includes\Theme as Theme;
+use \Core\Includes\Theme_Header_Data;
 
-class Cleanup extends Theme {
+class Cleanup extends Theme_Header_Data {
 
     public function __construct() { 
         parent::__construct();

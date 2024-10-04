@@ -1,7 +1,7 @@
 <?php
 namespace Core\Includes;
 
-class Theme {
+class Theme_Header_Data {
 
     protected $theme_name = null;
     protected $version = null;

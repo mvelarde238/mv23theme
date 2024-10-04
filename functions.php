@@ -13,7 +13,7 @@ require_once( 'Core/Includes/constants.php' );
 require_once( 'ultimate-fields/ultimate-fields.php' );
 
 /* Run main theme class */
-$theme = new \Core\MV23_Theme();
+$theme = new \Core\Theme();
 $theme->init();
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>

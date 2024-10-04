@@ -5,7 +5,7 @@
 
 namespace Core\Admin;
 
-use Core\Includes\Theme as Theme;
+use Core\Includes\Theme_Header_Data;
 use Core\Posttype\Footer;
 use Core\Posttype\Accordion;
 use Core\Posttype\Megamenu;
@@ -15,7 +15,7 @@ use Core\Posttype\Reusable_Section_CPT;
 use Core\Posttype\Archive_Page;
 use Core\Theme_Options\Theme_Options;
 
-class Admin extends Theme {
+class Admin extends Theme_Header_Data {
 
     public function __construct() { 
         parent::__construct();

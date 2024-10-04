@@ -5,7 +5,7 @@
 
 namespace Core;
 
-use Core\Includes\Theme;
+use Core\Includes\Theme_Header_Data;
 use Core\Includes\Loader;
 use Core\Frontend\Frontend;
 use Core\Frontend\WooCommerce_Support;
@@ -26,7 +26,7 @@ use Core\Builder\Core as Builder;
 use Core\Offcanvas_Elements\Core as Offcanvas_Elements;
 use Core\Migrator\Core as Migrator;
 
-class MV23_Theme extends Theme {
+class Theme extends Theme_Header_Data {
 
     protected $loader;
     

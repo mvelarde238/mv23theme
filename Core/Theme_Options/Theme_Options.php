@@ -1,7 +1,7 @@
 <?php
 namespace Core\Theme_Options;
 
-use Core\Includes\Theme as Theme;
+use Core\Includes\Theme_Header_Data;
 use Ultimate_Fields\Options_Page;
 use Ultimate_Fields\Field\Font;
 use Core\Utils\Helpers;
@@ -10,7 +10,7 @@ use Core\Theme_Options\UF_Container\Social_Media;
 use Core\Theme_Options\UF_Container\Global_Options;
 use Core\Theme_Options\UF_Container\Custom_Scripts;
 
-class Theme_Options extends Theme{
+class Theme_Options extends Theme_Header_Data{
 	private static $instance = null;
 
     private $slug = 'theme-options-menu';
