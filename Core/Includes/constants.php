@@ -41,3 +41,29 @@ if( !defined('MODAL_OUT_DURATION') ) define( 'MODAL_OUT_DURATION', 1);
 
 if( !defined('OPEN_MINICART_ON_ADD_TO_CART') ) define ('OPEN_MINICART_ON_ADD_TO_CART', true);
 if( !defined('MINICART_SIDENAV_POSITION') ) define ('MINICART_SIDENAV_POSITION', 'right');
+
+if( !defined('LOGOS_QUANTITY') ) define ('LOGOS_QUANTITY', 2);
+
+if( !defined('LISTING_CPTS') ) define( 'LISTING_CPTS', array('post' => 'Entradas'));
+if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array( array( 'cpt_slug' => 'post', 'slug' => 'category' ) ));
+if( !defined('LISTING_TEMPLATES') ) define( 'LISTING_TEMPLATES', array('' => 'Estilo por defecto', 'carrusel' => 'Carrusel'));
+if( !defined('LISTING_PAGINATION_TYPES') ) define( 'LISTING_PAGINATION_TYPES', array('none' => 'Ninguno', 'classic' => 'Numérico', 'load_more' => 'Cargar más'));
+if( !defined('LISTING_POST_TEMPLATE') ) define( 'LISTING_POST_TEMPLATE', array('' => 'Estilo por defecto','post-horizontal' => 'Post Horizontal'));
+
+// BUILDER CONSTANTS
+
+if( !defined('ULTIMATE_FIELDS_DISABLE_UI') ) define ('ULTIMATE_FIELDS_DISABLE_UI', true);
+if( !defined('DEFAULT_COLOR_SCHEME') ) define( 'DEFAULT_COLOR_SCHEME', '');
+if( !defined('DEFAULT_TEXT_COLOR') ) define( 'DEFAULT_TEXT_COLOR', 'text-color-default');
+if( !defined('COLUMNS_QUANTITY') ) define ('COLUMNS_QUANTITY', 4);
+if( !defined('USE_REUSABLE_SECTIONS_AS_PAGE_MODULE') ) define ('USE_REUSABLE_SECTIONS_AS_PAGE_MODULE', false);
+
+if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','megamenu','archive_page','footer'));
+if( !defined('PAGE_SETTINGS_POSTTYPES') ) define ('PAGE_SETTINGS_POSTTYPES', array('page','archive_page'));
+if( !defined('CONTENT_BUILDER_POSTTYPES') ) define ('CONTENT_BUILDER_POSTTYPES', array());
+
+if( !defined('COMPONENTS_WRAPPER') ) define ('COMPONENTS_WRAPPER', true);
+if( !defined('CARD') ) define ('CARD', false);
+if( !defined('SIMPLE_COLUMNS') ) define ('SIMPLE_COLUMNS', false);
+if( !defined('ITEMS_GRID') ) define ('ITEMS_GRID', false);
+if( !defined('CONTENT_SLIDER') ) define ('CONTENT_SLIDER', false);

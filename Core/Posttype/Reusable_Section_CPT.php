@@ -1,12 +1,12 @@
 <?php
 namespace Core\Posttype;
 
-use Theme_Custom_Fields\Component;
+use Core\Builder\Component;
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
-use Theme_Custom_Fields\Template_Engine;
+use Core\Builder\Template_Engine;
 use Core\Utils\CPT;
-use Content_Selector;
+use Core\Builder\Content_Selector;
 
 class Reusable_Section_CPT {
 

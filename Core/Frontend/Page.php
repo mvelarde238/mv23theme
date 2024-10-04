@@ -1,8 +1,8 @@
 <?php
 namespace Core\Frontend;
 
-use Theme_Custom_Fields\Template_Engine;
-use Blocks_Layout;
+use Core\Builder\Template_Engine;
+use Core\Builder\Blocks_Layout;
 use Core\Posttype\Archive_Page;
 
 class Page{

@@ -22,6 +22,7 @@ use Core\Posttype\Accordion;
 use Core\Posttype\Post;
 use Core\Posttype\Menu_Item;
 use Core\Posttype\Megamenu;
+use Core\Builder\Core as Builder;
 
 class MV23_Theme extends Theme {
 
@@ -33,7 +34,6 @@ class MV23_Theme extends Theme {
     }
     
     public function init_modules(){
-        require_once( get_template_directory() . '/modules/custom-fields/index.php' );
         require_once( get_template_directory() . '/modules/offcanvas-elements/index.php' );
         require_once( get_template_directory() . '/modules/migrator/index.php' );
     }
@@ -190,6 +190,14 @@ class MV23_Theme extends Theme {
 
         // show post types count
         $this->loader->add_action( 'init', $theme_options, 'show_cpt_count', 999 );
+
+        // Builder
+        $builder = Builder::getInstance();
+
+        // $this->loader->add_action( 'after_setup_theme', $builder, 'init_components', 15 ); // theme launch at 10
+        $this->loader->add_action( 'uf.init', $builder, 'init_components');
+        $this->loader->add_action( 'uf.init', $builder, 'add_meta_boxes');
+        $this->loader->add_action( 'init', $builder, 'hide_editor');
 
         // Archive Pages
         $archive_pages = Archive_Page::getInstance();

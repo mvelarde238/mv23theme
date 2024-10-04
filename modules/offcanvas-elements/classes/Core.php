@@ -2,7 +2,7 @@
 namespace Offcanvas_Elements;
 
 use Offcanvas_Elements\Settings;
-use \Blocks_Layout;
+use Core\Builder\Blocks_Layout;
 use Core\Utils\CPT;
 
 class Core{

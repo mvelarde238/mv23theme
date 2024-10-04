@@ -4,7 +4,7 @@ namespace Offcanvas_Elements;
 use Offcanvas_Elements\Core;
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
-use Blocks_Layout;
+use Core\Builder\Blocks_Layout;
 
 /**
  * Handles settings on the post type edit screen.
