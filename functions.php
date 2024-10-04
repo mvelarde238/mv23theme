@@ -14,7 +14,6 @@ require_once( 'ultimate-fields/ultimate-fields.php' );
 
 /* Run main theme class */
 $theme = new \Core\MV23_Theme();
-$theme->init_modules();
 $theme->init();
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>

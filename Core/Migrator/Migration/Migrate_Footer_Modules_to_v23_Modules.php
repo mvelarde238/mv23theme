@@ -1,5 +1,5 @@
 <?php
-namespace Theme_Migrator\Migration;
+namespace Core\Migrator\Migration;
 
 class Migrate_Footer_Modules_to_v23_Modules{
     public function __construct(){}

@@ -1,9 +1,9 @@
 <?php
-namespace Theme_Migrator\Migration;
+namespace Core\Migrator\Migration;
 
-use Theme_Migrator\Core;
-use Theme_Migrator\Migration\Migrate_Page_Header_0_4_X_to_0_5_0;
-use Theme_Migrator\Migration\Migrate_Footer_Modules_to_v23_Modules;
+use Core\Migrator\Core;
+use Core\Migrator\Migration\Migrate_Page_Header_0_4_X_to_0_5_0;
+use Core\Migrator\Migration\Migrate_Footer_Modules_to_v23_Modules;
 
 class Migrate_0_4_X_to_0_5_0{
     private static $instance = null;

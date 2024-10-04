@@ -24,6 +24,7 @@ use Core\Posttype\Menu_Item;
 use Core\Posttype\Megamenu;
 use Core\Builder\Core as Builder;
 use Core\Offcanvas_Elements\Core as Offcanvas_Elements;
+use Core\Migrator\Core as Migrator;
 
 class MV23_Theme extends Theme {
 
@@ -34,11 +35,10 @@ class MV23_Theme extends Theme {
         $this->loader = new Loader();
     }
     
-    public function init_modules(){
-        require_once( get_template_directory() . '/modules/migrator/index.php' );
-    }
-    
     public function init(){
+        // init migrator module
+        Migrator::getInstance();
+        
         $this->define_frontend_hooks();
         $this->define_admin_hooks();
         $this->define_cleanup_hooks();

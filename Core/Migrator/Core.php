@@ -1,7 +1,10 @@
 <?php
-namespace Theme_Migrator;
+namespace Core\Migrator;
 
-use Theme_Migrator\Migration\Migrate_0_4_X_to_0_5_0;
+use Core\Migrator\Migration\Migrate_0_4_X_to_0_5_0;
+
+define ('THEME_MIGRATOR_DIR', __DIR__);
+define ('THEME_MIGRATOR_PATH', get_template_directory_uri() . '/Core/Migrator');
 
 class Core{
 
@@ -17,10 +20,6 @@ class Core{
     }
     
     private function __construct(){
-        $core_directory = trailingslashit( dirname( __DIR__ ) );
-        require_once( __DIR__ . '/Autoloader.php' );
-        new Autoloader( 'Theme_Migrator', $core_directory . DIRECTORY_SEPARATOR . 'classes' );
-
         $this->slug = 'theme-migrator';
 
         // if( $this->theme_version_is_less( THEME_VERSION, '0.5.0' ) ){

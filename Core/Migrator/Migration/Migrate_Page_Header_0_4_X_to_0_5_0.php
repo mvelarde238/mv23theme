@@ -1,7 +1,7 @@
 <?php
-namespace Theme_Migrator\Migration;
+namespace Core\Migrator\Migration;
 
-use Theme_Migrator\Migration\Migrate_0_4_X_to_0_5_0;
+use Core\Migrator\Migration\Migrate_0_4_X_to_0_5_0;
 
 class Migrate_Page_Header_0_4_X_to_0_5_0{
     public $page_id = null;
