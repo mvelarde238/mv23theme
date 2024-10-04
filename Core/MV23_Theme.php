@@ -20,6 +20,7 @@ use Core\Posttype\Archive_Page;
 use Core\Posttype\MV23_Library;
 use Core\Posttype\Accordion;
 use Core\Posttype\Post;
+use Core\Posttype\Menu_Item;
 
 class MV23_Theme extends Theme {
 
@@ -220,6 +221,12 @@ class MV23_Theme extends Theme {
 
         // Add the meta boxes
         $this->loader->add_action( 'uf.init', $post, 'add_meta_boxes' );
+
+        // Menu_Item
+        $menu_item = Menu_Item::getInstance();
+
+        // Add the meta boxes
+        $this->loader->add_action( 'uf.init', $menu_item, 'add_meta_boxes' );
     }
 
     private function define_cleanup_hooks() {
