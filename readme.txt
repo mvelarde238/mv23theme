@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.18 24-09-27
+- Fix Header styles
+
 1.5.17 24-09-26
 - Toggle button implementation in WooCommerce product categories widget
 

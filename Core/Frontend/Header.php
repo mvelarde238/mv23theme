@@ -65,7 +65,8 @@ class Header{
 			$header_bgc = $key.'_header_bgc';
 			$bgc = $this->get_meta( $header_bgc );
 			$alpha = ($bgc && isset($bgc['alpha'])) ? $bgc['alpha'] : '100';
-			$styles[] = ($bgc && $bgc['add_bgc']) ? '--'.$key.'-header-color: rgba('.Helpers::hexToRgb($bgc['bgc'],$alpha).');' : '';
+			$color = ($bgc['add_bgc']) ? 'rgba('.Helpers::hexToRgb($bgc['bgc'],$alpha).')' : 'initial';
+			$styles[] = '--'.$key.'-header-color:'.$color.';';
 		} 
 
 		$this->styles = $styles;

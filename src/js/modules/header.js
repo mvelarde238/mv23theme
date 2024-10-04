@@ -52,11 +52,13 @@
             show: function(){
                 $logo.attr('src', STICKY_HEADER.logo);
                 $header.attr('class', STICKY_HEADER.classes);
+                $header.attr('style', STICKY_HEADER.styles);
                 set_header_height();
             },
             hide: function(){
                 $logo.attr('src', STATIC_HEADER.logo);
                 $header.attr('class', STATIC_HEADER.classes);
+                $header.attr('style', STATIC_HEADER.styles);
                 set_header_height();
             }
         }
