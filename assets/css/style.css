@@ -6084,7 +6084,22 @@ table > tbody > tr:nth-child(even) {
 .horizontal-nav-1 .menu .menu-item__label {
 	font-size: 14px;
 	line-height: 18px;
+}
+
+.vertical-nav-1 .menu > li > a,
+.horizontal-nav-3 .menu > li > a,
+.horizontal-nav-2 .menu > li > a,
+.horizontal-nav-1 .menu > li > a,
+.horizontal-nav-3 .menu .-secondary > li > a,
+.horizontal-nav-2 .menu .-secondary > li > a,
+.horizontal-nav-1 .menu .-secondary > li > a {
 	white-space: nowrap;
+}
+
+.vertical-nav-1 .menu .menu-item__label,
+.horizontal-nav-3 .menu .menu-item__label,
+.horizontal-nav-2 .menu .menu-item__label,
+.horizontal-nav-1 .menu .menu-item__label {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
@@ -6138,6 +6153,7 @@ table > tbody > tr:nth-child(even) {
 	padding: 12px 20px;
 	line-height: 18px;
 	color: var(--font-color);
+	white-space: initial;
 }
 
 .horizontal-nav-3 .menu > li.hidden-text > a > .menu-item__label,

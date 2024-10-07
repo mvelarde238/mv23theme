@@ -23,9 +23,12 @@
     .menu-item__label
         font-size: 14px
         line-height: 18px
+    & > li > a
         white-space: nowrap
+    .menu-item__label
         overflow: hidden
         text-overflow: ellipsis
+
     .menu-item__icon
         margin-right: 8px
         img
@@ -44,6 +47,7 @@
         padding: 12px 20px
         line-height: 18px
         color: var(--font-color)
+        white-space: initial
 
 %hidden-label
     &>li.hidden-text>a>.menu-item__label
