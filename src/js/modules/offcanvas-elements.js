@@ -200,6 +200,7 @@ window['OffCanvas_Elements'] = (function(){
         },
         _handle_styles(){
             let { settings, offcanvas_element, M_instance, type } = this;
+            const modal_content = offcanvas_element.querySelector('.modal-content');
 
             if( settings.background_color.use ) offcanvas_element.style.backgroundColor = this._format_color(settings.background_color.color, settings.background_color.alpha);
             if( settings.max_width ) offcanvas_element.style.maxWidth = settings.max_width+'px';
@@ -208,6 +209,15 @@ window['OffCanvas_Elements'] = (function(){
                 let color_scheme_class = ( settings.background_color.color_scheme === 'dark-scheme' ) ? 'text-color-2' : 'text-color-1';
                 offcanvas_element.classList.add( color_scheme_class );
             }
+            if( settings.hasOwnProperty('padding') && settings.padding.use ){
+                for (const [key, value] of Object.entries(settings.padding)) {
+                    if( ['top','right','bottom','left'].includes(key) ){
+                        let capitalized_key = key.charAt(0).toUpperCase() + key.slice(1);
+                        let propertyName = 'padding'+capitalized_key;                        
+                        modal_content.style[propertyName] = value+'px';
+                    }
+                }
+            } 
                 
             let overlay = ( type === 'sidenav' ) ? M_instance._overlay : M_instance.$overlay[0];
             if( settings.overlay_color.use ) overlay.style.backgroundColor = this._format_color(settings.overlay_color.color, settings.overlay_color.alpha);

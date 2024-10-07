@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.19 24-10-07
 - Fix menu item white space
+- Padding implementation in Offcanvas Elements
 
 1.5.18 24-10-04
 - Fix Header styles

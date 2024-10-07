@@ -207,12 +207,20 @@ class Settings {
 			'dark-scheme' => __('Dark','default')
 		);
 
+		$padding_field = Field::create( 'complex', 'padding', __('Padding', 'default') )->add_fields(array(
+			Field::create( 'checkbox', 'use' )->fancy()->set_width( 20 ),
+			Field::create( 'number', 'top', __('Top','default') )->set_suffix('px')->set_placeholder('24')->add_dependency('use')->set_width( 20 ),
+			Field::create( 'number', 'right', __('Right','default') )->set_suffix('px')->set_placeholder('24')->add_dependency('use')->set_width( 20 ),
+			Field::create( 'number', 'bottom', __('Bottom','default') )->set_suffix('px')->set_placeholder('24')->add_dependency('use')->set_width( 20 ),
+			Field::create( 'number', 'left', __('Left','default') )->set_suffix('px')->set_placeholder('24')->add_dependency('use')->set_width( 20 )
+		));
+
 		return array(
 			Field::create('tab', __('Settings','default') ),
 
 			Field::create('complex',$slug.'_modal_settings' )->set_layout('rows')->hide_label()->add_dependency($slug.'_type','modal','=')->add_fields(array( 
 				Field::create( 'checkbox', 'dismissible' )->set_description(__('Allow modal to be dismissed by keyboard or overlay click.','default'))->set_default_value(1)->fancy(),
-				Field::create( 'checkbox', 'close_on_click' )->set_description(__('Closes element on <a> clicks.','default'))->fancy(),
+				Field::create( 'checkbox', 'close_on_click' )->set_description(__('Closes element on link clicks.','default'))->fancy(),
 				Field::create( 'complex', 'background_color' )->add_fields(array(
 					Field::create( 'checkbox', 'use' )->set_default_value(1)->fancy()->hide_label()->set_width( 20 ),
 					Field::create( 'select', 'color_scheme', __('Color Scheme','default') )->add_options( $color_schemes )->set_width( 20 ),
@@ -228,6 +236,7 @@ class Settings {
 				// 	Field::create( 'checkbox', 'use' )->set_default_value(1)->fancy()->hide_label()->set_width( 50 ),
 				// 	Field::create( 'text', 'number' )->set_default_value(40)->set_suffix('px')->add_dependency('use')->hide_label()->set_width( 50 )
 				// )),
+				$padding_field,
 				Field::create( 'number', 'max_width' )->set_default_value(666)->set_suffix('px'),
 				Field::create( 'complex', 'overlay_color', __('Overlay Color','default') )->add_fields(array(
 					Field::create( 'checkbox', 'use' )->set_default_value(1)->fancy()->hide_label()->set_width( 20 ),
@@ -238,13 +247,14 @@ class Settings {
 
 			Field::create('complex',$slug.'_bottom_sheet_settings')->set_layout('rows')->hide_label()->add_dependency($slug.'_type','bottom_sheet','=')->add_fields(array( 
 				Field::create( 'checkbox', 'dismissible' )->set_description(__('Allow modal to be dismissed by keyboard or overlay click.','default'))->set_default_value(1)->fancy(),
-				Field::create( 'checkbox', 'close_on_click' )->set_description(__('Closes element on <a> clicks.','default'))->fancy(),
+				Field::create( 'checkbox', 'close_on_click' )->set_description(__('Closes element on link clicks.','default'))->fancy(),
 				Field::create( 'complex', 'background_color' )->add_fields(array(
 					Field::create( 'checkbox', 'use' )->set_default_value(1)->fancy()->hide_label()->set_width( 20 ),
 					Field::create( 'select', 'color_scheme', __('Color Scheme','default') )->add_options( $color_schemes )->set_width( 20 ),
 					Field::create( 'color', 'color' )->set_default_value('#ffffff')->add_dependency('use')->set_width( 30 ),
 					Field::create( 'number', 'alpha', __('Opacity','default') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 30 )
 				)),
+				$padding_field,
 				Field::create( 'number', 'max_height' )->set_default_value(140)->set_suffix('px'),
 				Field::create( 'complex', 'overlay_color', __('Overlay Color','default') )->add_fields(array(
 					Field::create( 'checkbox', 'use' )->set_default_value(1)->fancy()->hide_label()->set_width( 20 ),
@@ -265,6 +275,7 @@ class Settings {
 					Field::create( 'color', 'color' )->set_default_value('#ffffff')->add_dependency('use')->set_width( 30 ),
 					Field::create( 'number', 'alpha', __('Opacity','default') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 30 )
 				)),
+				$padding_field,
 				Field::create( 'number', 'max_width' )->set_default_value(300)->set_suffix('px'),
 				Field::create( 'complex', 'overlay_color', __('Overlay Color','default') )->add_fields(array(
 					Field::create( 'checkbox', 'use' )->set_default_value(1)->fancy()->hide_label()->set_width( 20 ),
