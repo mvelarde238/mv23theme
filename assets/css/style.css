@@ -6886,7 +6886,6 @@ img.zoom {
 
 .columns {
 	display: grid;
-	gap: 20px;
 }
 
 /* hack to prevent "2big" components
@@ -7966,6 +7965,7 @@ img.zoom {
 
 .columns {
 	grid-template-columns: var(--t-grid);
+	gap: var(--t-gap, 20px);
 }
 
 .column {
@@ -8453,6 +8453,7 @@ img.zoom {
 
 .columns {
 	grid-template-columns: var(--l-grid);
+	gap: var(--l-gap, 20px);
 }
 
 .column {
@@ -9303,6 +9304,7 @@ table {
 
 .columns {
 	grid-template-columns: var(--m-grid);
+	gap: var(--m-gap, 20px);
 }
 
 .column {

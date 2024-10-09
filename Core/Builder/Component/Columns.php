@@ -79,6 +79,14 @@ class Columns extends Component {
 			}
 		}
 
+		// gap
+		foreach ($device as $key) {
+			$gap_meta = $key.'_gap';
+			if( isset($args[$gap_meta]) ){
+				$columns_styles[] = '--'.$key.'-gap:'.$args[$gap_meta].'px';
+			}
+		}
+
 		$columns = array();
 		array_push($columns, $args['column_1']);
 		array_push($columns, $args['column_2']);

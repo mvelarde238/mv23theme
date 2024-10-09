@@ -3,7 +3,7 @@ use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 
 $columns_settings = array(
-	Field::create( 'tab', 'Columnas Settings' )
+	Field::create( 'tab', __('Columns Settings','default') )
 );
 
 Container::create( '_column_fields' )

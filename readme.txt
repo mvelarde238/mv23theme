@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.20 24-10-08
+- gap implementation in row setings
+
 1.5.19 24-10-07
 - Fix menu item white space
 - Padding implementation in Offcanvas Elements
