@@ -168,7 +168,8 @@ class Theme_Options extends Theme_Header_Data{
                             $custom_font_urls[] = 'url('.wp_get_attachment_url($file).')';
                         }
                         $css .= 'src:'.implode(', ',$custom_font_urls).';';
-                        $css .= '}\n ';
+                        $css .= '} ';
+                        // $css .= '}\n '; // didnt worked in marine farm project
 
                         // font rule
                         if( $item['scope'] != 'any' ) $css .= $selector.' {font-family: ' . $name . ', Sans-Serif;}';
