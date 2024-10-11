@@ -5,6 +5,7 @@ CHANGELOG
 1.5.20 24-10-08
 - gap implementation in row setings
 - remove line break from css tipography rules\n didnt worked in marine farm project
+- add filter_style_formats hook
 
 1.5.19 24-10-07
 - Fix menu item white space

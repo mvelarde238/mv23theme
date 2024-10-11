@@ -214,7 +214,7 @@ class TinyMCE{
 
     public function add_style_formats($initArray) {  
         // Define the style_formats array
-        $style_formats = $this->get_style_formats();
+        $style_formats = apply_filters( 'filter_style_formats', $this->get_style_formats());
         // Insert the array, JSON ENCODED, into 'style_formats'
         $initArray['style_formats'] = json_encode( $style_formats );  
         return $initArray;  
