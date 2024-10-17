@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.21 24-10-17
+- Fix: dont apply heading typography to b / strong tags
+
 1.5.20 24-10-08
 - gap implementation in row setings
 - remove line break from css tipography rules\n didnt worked in marine farm project

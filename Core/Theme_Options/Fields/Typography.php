@@ -62,7 +62,7 @@ class Typography {
                         Field::create( 'select', 'scope' )->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options(array(
                             'any' => 'Any, just load the font',
                             'global' => 'Global (body)',
-                            'headings' => 'Headings (h1, h2, h3, h4, h5, h6, b, strong)',
+                            'headings' => 'Headings (h1, h2, h3, h4, h5, h6)',
                             'custom' => 'Custom CSS selector'
                         )),
                         Field::create( 'text', 'selector' )->add_dependency('scope','custom')

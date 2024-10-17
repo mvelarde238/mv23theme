@@ -135,7 +135,7 @@ class Theme_Options extends Theme_Header_Data{
         $fonts = get_option('fonts');
         $apply_to = array(
             'global' => 'body',
-            'headings' => 'h1,h2,h3,h4,h5,h6,b,strong'
+            'headings' => 'h1,h2,h3,h4,h5,h6'
         );
 
         if( is_array($fonts) && !empty($fonts) ){
