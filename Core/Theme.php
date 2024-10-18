@@ -16,6 +16,7 @@ use Core\Admin\Hardening_WP;
 use Core\Admin\TinyMCE;
 use Core\Frontend\Page;
 use Core\Theme_Options\Theme_Options;
+use Core\Theme_Options\Manager;
 use Core\Posttype\Archive_Page;
 use Core\Posttype\MV23_Library;
 use Core\Posttype\Accordion;
@@ -175,6 +176,7 @@ class Theme extends Theme_Header_Data {
 
         // Theme Options
         $theme_options = Theme_Options::getInstance();
+        $theme_options_manager = Manager::getInstance();
         
         // add options page
         $this->loader->add_action( 'uf.init', $theme_options, 'init_options_page' );
@@ -190,6 +192,12 @@ class Theme extends Theme_Header_Data {
 
         // show post types count
         $this->loader->add_action( 'init', $theme_options, 'show_cpt_count', 999 );
+
+        // add theme options export / import manager
+        $this->loader->add_action( 'admin_menu', $theme_options_manager, 'register_metabox' );
+        $this->loader->add_action( 'admin_enqueue_scripts', $theme_options_manager, 'enqueue_script' );
+        $this->loader->add_action( 'wp_ajax_export_theme_options', $theme_options_manager, 'export_options_via_ajax' );
+        $this->loader->add_action( 'wp_ajax_import_theme_options', $theme_options_manager, 'import_options_via_ajax' );
 
         // Builder
         $builder = Builder::getInstance();
