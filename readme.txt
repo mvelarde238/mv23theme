@@ -5,6 +5,7 @@ CHANGELOG
 1.5.21 24-10-17
 - Fix: dont apply heading typography to b / strong tags
 - Fix modal close in testimonial modal
+- Feature: Theme Options Manager
 
 1.5.20 24-10-08
 - gap implementation in row setings
