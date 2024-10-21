@@ -82,6 +82,7 @@ class Frontend extends Theme_Header_Data {
                 'scrollIndicators' => SCROLL_INDICATORS,
                 'open_minicart_on_add_to_cart' => OPEN_MINICART_ON_ADD_TO_CART,
                 'minicart_sidenav_position' => MINICART_SIDENAV_POSITION,
+                'woocommerce_is_active' => WOOCOMMERCE_IS_ACTIVE,
                 'items_in_cart' => (WOOCOMMERCE_IS_ACTIVE) ? WC()->cart->get_cart_contents_count() : null,
                 'menu_breakpoint' => 896
             )); 

@@ -1,8 +1,10 @@
 (function($,c){      
     $(function() {
-        var is_checkout = $('body').hasClass('woocommerce-checkout'),
-            is_cart = $('body').hasClass('woocommerce-cart'),
-            is_single = $('body').hasClass('single-product');
+        if(!MV23_GLOBALS.woocommerce_is_active) return;
+
+        // var is_checkout = $('body').hasClass('woocommerce-checkout'),
+        //     is_cart = $('body').hasClass('woocommerce-cart'),
+        //     is_single = $('body').hasClass('single-product');
 
         // ****************************************************************************************************
         // ADD TOGGLE BUTTON TO ITEMS IN PRODUCTS CATEGORY WIDGET

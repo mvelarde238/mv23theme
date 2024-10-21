@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.22 24-10-21
+- MV23_GLOBALS.woocommerce_is_active implementation
+
 1.5.21 24-10-17
 - Fix: dont apply heading typography to b / strong tags
 - Fix modal close in testimonial modal
