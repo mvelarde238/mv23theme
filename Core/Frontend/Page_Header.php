@@ -55,6 +55,7 @@ class Page_Header{
 	public function display(){
 		$args = array( '__type' => 'page_header' );
 		$args['settings'] = $this->settings;
+		$args['additional_classes'] = [ 'page-header--'.$this->content_type ];
 
 		echo Template_Engine::component_wrapper( 'start', $args );
 
