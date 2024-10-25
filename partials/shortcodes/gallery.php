@@ -3,6 +3,9 @@ function print_theme_gallery( $atts ) {
 	$a = shortcode_atts( array(
         'ids' => '',
         'columns' => 4,
+        'l_gap' => '4px',
+        't_gap' => '4px',
+        'm_gap' => '4px',
         'size' => 'large',
         'targetsize' => 'full',
         'link' => 'file',
@@ -69,7 +72,7 @@ function print_theme_gallery( $atts ) {
             echo '<div class="theme-gallery theme-gallery--masonry" style="--d-columns:'.$a['columns'].'; --l-columns:'.$a['columns'].'; --t-columns:3; --m-columns:2; --aspect-ratio:'.$a['aspectratio'].'"">';
             echo '<div class="theme-gallery theme-gallery__item-sizer"></div>';
         } else {
-            echo '<div class="theme-gallery has-columns" style="--d-gap:4px; --l-gap:4px; --t-gap:4px; --m-gap:4px; --d-columns:'.$a['columns'].'; --l-columns:'.$a['columns'].'; --t-columns:3; --m-columns:2; --aspect-ratio:'.$a['aspectratio'].'">';
+            echo '<div class="theme-gallery has-columns" style="--d-gap:'.$a['l_gap'].'; --l-gap:'.$a['l_gap'].'; --t-gap:'.$a['t_gap'].'; --m-gap:'.$a['m_gap'].'; --d-columns:'.$a['columns'].'; --l-columns:'.$a['columns'].'; --t-columns:3; --m-columns:2; --aspect-ratio:'.$a['aspectratio'].'">';
         }
 
         foreach ($attachments as $attachment_id) :

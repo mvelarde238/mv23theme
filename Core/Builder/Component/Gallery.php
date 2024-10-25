@@ -151,6 +151,13 @@ class Gallery extends Component {
         $fields[] = Field::create( 'message', 'gallery_id_usage', 'Usar la siguiente clase para abrir la galería:' )->set_description('show-gallery--{gallery_id}')->add_dependency('gallery_id','','!=')->set_width(70);
         $fields[] = Field::create( 'checkbox', 'hide_gallery','Ocultar la galería' )->set_text( 'Activar' );
 
+        // ITEMS GAP
+        $fields[] = Field::create( 'complex', 'items_gap', __('Space between items') )->add_fields(array(
+            Field::create( 'number', 'l_gap', __('Gap on desktop','default') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 ),
+            Field::create( 'number', 't_gap', __('Gap on tablet','default') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 ),
+            Field::create( 'number', 'm_gap', __('Gap on mobile','default') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 )
+        ));
+
 		return $fields;
 	}
 
@@ -182,9 +189,18 @@ class Gallery extends Component {
         	$shortcode .= ' ids="'.$ids.'"';
         }
 
+        if(isset($args['items_gap'])){
+            $shortcode .= ' d_gap="'.$args['items_gap']['l_gap'].'px"';
+            $shortcode .= ' l_gap="'.$args['items_gap']['l_gap'].'px"';
+            $shortcode .= ' t_gap="'.$args['items_gap']['t_gap'].'px"'; 
+            $shortcode .= ' m_gap="'.$args['items_gap']['m_gap'].'px"';
+        }
+
         $shortcode .= ']';
 
-        if($aspect_ratio != 'default') $args['additional_styles'] = array( '--aspect-ratio:'.$aspect_ratio );
+        $additional_styles = array();
+        if($aspect_ratio != 'default') $additional_styles[] = '--aspect-ratio:'.$aspect_ratio;
+        $args['additional_styles'] = $additional_styles;
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);

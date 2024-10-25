@@ -7,6 +7,7 @@ CHANGELOG
 - Space around implementation in blocks layout
 - mobile-1-1de2-1de2 column width implementation
 - Fix layerslider arrows over sidenav
+- Items gap implementation in Gallery Component
 
 1.5.22 24-10-21
 - MV23_GLOBALS.woocommerce_is_active implementation
