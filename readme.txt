@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.23 24-10-24
+- Masonry need to be activated in theme options to be used
+
 1.5.22 24-10-21
 - MV23_GLOBALS.woocommerce_is_active implementation
 - Add page header content type css class

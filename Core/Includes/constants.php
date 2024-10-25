@@ -1,6 +1,7 @@
 <?php
 define ('IS_MOBILE', wp_is_mobile());
 define ('GM_IS_ACTIVE', get_option('activate_gm'));
+define ('MASONRY_IS_ACTIVE', get_option('activate_masonry'));
 define ('SCROLL_ANIMATIONS', scroll_animation_is_active());
 define ('SCROLL_INDICATORS', scroll_indicators_is_active());
 define ('FONT_AWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css');

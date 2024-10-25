@@ -3,13 +3,15 @@
         // ****************************************************************************************************
         // ****************************************************************************************************
 
-        setTimeout(function(){
-            $('.theme-gallery--masonry').masonry({
-                itemSelector: '.theme-gallery__item',
-                columnWidth: '.theme-gallery__item-sizer',
-                percentPosition: true
-            });
-        }, 1);
+        if(MV23_GLOBALS.masonry_is_active){
+            setTimeout(function(){
+                $('.theme-gallery--masonry').masonry({
+                    itemSelector: '.theme-gallery__item',
+                    columnWidth: '.theme-gallery__item-sizer',
+                    percentPosition: true
+                });
+            }, 1);
+        }
 
         // ****************************************************************************************************
         // OPEN FANCYBOX GALLERY BY SLUG WITH A LINK: 

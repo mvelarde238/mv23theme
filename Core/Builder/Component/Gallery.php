@@ -55,7 +55,7 @@ class Gallery extends Component {
         
         // gallery settings
         $fields[] = Field::create( 'tab', 'Gallery Settings' );
-        $fields[] = Field::create( 'complex', 'wp_media_folder_settings', 'Settings' )->add_fields(array(
+        $wp_media_folder_settings = array(
             // Field::create( 'checkbox', 'autoinsert' )->set_text( '¿Autoinsertar las imágenes agregadas a la galerîa?' ), // the shortcode needs the attachments id's
             Field::create( 'select', 'display', 'Tipo')->add_options( array(
                 'default' => 'Default',
@@ -92,8 +92,13 @@ class Gallery extends Component {
             //     'DESC' => 'Descendente',
             //     'ASC' => 'Ascendente',
             // ))->set_width(14),
-        ));
-
+        );
+        
+        if( !MASONRY_IS_ACTIVE ){
+            $wp_media_folder_settings[] = Field::create( 'message', 'masonry_message', __('Activate Masonry') )->set_description('You have to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')->add_dependency('display', 'masonry', '=')->set_attr( 'style', 'background:#470e0e;color:#fff;width:100%;' );;
+        }
+        $fields[] = Field::create( 'complex', 'wp_media_folder_settings', 'Settings' )->add_fields( $wp_media_folder_settings );
+        
         $fields[] = Field::create( 'image_select', 'aspect_ratio' )->add_options(array(
                 '1/1'  => array(
                     'label' => '1:1',

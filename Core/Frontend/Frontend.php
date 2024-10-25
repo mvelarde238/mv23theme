@@ -52,7 +52,7 @@ class Frontend extends Theme_Header_Data {
             wp_register_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', array(), '', true );
             wp_enqueue_script( 'jquery' );
     
-            wp_enqueue_script( 'jquery-masonry' );
+            if (MASONRY_IS_ACTIVE) wp_enqueue_script( 'jquery-masonry' );
     
             wp_register_script( $this->text_domain . '-scripts', $this->theme_path . '/assets/js/scripts.js', array(), $this->version, true );
     
@@ -84,7 +84,8 @@ class Frontend extends Theme_Header_Data {
                 'minicart_sidenav_position' => MINICART_SIDENAV_POSITION,
                 'woocommerce_is_active' => WOOCOMMERCE_IS_ACTIVE,
                 'items_in_cart' => (WOOCOMMERCE_IS_ACTIVE) ? WC()->cart->get_cart_contents_count() : null,
-                'menu_breakpoint' => 896
+                'menu_breakpoint' => 896,
+                'masonry_is_active' => MASONRY_IS_ACTIVE
             )); 
     
             wp_enqueue_script( $this->text_domain . '-scripts' );
