@@ -87,7 +87,8 @@ return Container::create( '_row-settings' )->add_fields( array(
         ))->add_dependency('quantity','3','='),
     Field::create( 'select', 'm_grid_3', __('Width on mobile','default'))->set_width( 25 )->add_options( array(
             '1f' => '100%',
-            '1fr 1fr 1fr' => '1/3 + 1/3 + 1/3'
+            '1fr 1fr 1fr' => '1/3 + 1/3 + 1/3',
+            'mobile-1-1de2-1de2' => '1 + 1/2 + 1/2'
         ))->add_dependency('quantity','3','='),
 
     Field::create( 'select', 'l_grid_4', __('Columns Width','default'))->set_width( 25 )->add_options( array(
