@@ -51,6 +51,7 @@ var blocks_layout_settings_container = [
             "flex-start": "Start",
             "center": "Centrar",
             "space-between": "Space Between",
+            "space-around": "Space Around",
             "flex-end": "End"
         },
         "use_select2": false,
@@ -65,6 +66,7 @@ var blocks_layout_settings_container = [
             "flex-start": "Start",
             "center": "Centrar",
             "space-between": "Space Between",
+            "space-around": "Space Around",
             "flex-end": "End"
         },
         "use_select2": false,

@@ -6,6 +6,7 @@ $alignment = array(
     'flex-start'   => __('Start','default'),
     'center' => __('Center','default'),
     'space-between' => __('Space Between','default'),
+    'space-around' => __('Space Around','default'),
     'flex-end' => __('End','default')
 );
 

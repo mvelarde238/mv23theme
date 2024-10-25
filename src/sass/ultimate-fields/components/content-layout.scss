@@ -5,10 +5,12 @@
 	&.jc-flex-start{ justify-content: flex-start; }
 	&.jc-flex-end{ justify-content: flex-end; }
 	&.jc-space-between{ justify-content: space-between; }
+	&.jc-space-around{ justify-content: space-around; }
 	&.ai-center{ align-items: center; }
 	&.ai-flex-start{ align-items: flex-start; }
 	&.ai-flex-end{ align-items: flex-end; }
 	&.ai-space-between{ align-items: space-between; }
+	&.ai-space-around{ align-items: space-around; }
 }
 
 .content-layout.layout-flex{
