@@ -9,6 +9,7 @@ CHANGELOG
 - Fix layerslider arrows over sidenav
 - Items gap implementation in Gallery Component
 - v23ToggleBox 5.8.32: Fix togglebox inside togglebox
+- Fix css styles for togglebox inside togglebox
 
 1.5.22 24-10-21
 - MV23_GLOBALS.woocommerce_is_active implementation

@@ -2,10 +2,10 @@
     &[data-template="tab"].tab-style1
         border: 1px solid var(--ui-color-2)
 
-    &[data-template="tab"].tab-style1 &__nav
+    &[data-template="tab"].tab-style1 > &__nav
         display: flex
 
-    &[data-template="tab"].tab-style1 &__btn
+    &[data-template="tab"].tab-style1 > &__nav > &__btn
         width: 100%
         margin: 0
         padding: 30px 5px
@@ -34,5 +34,5 @@
             border-bottom: 3px solid var(--ui-color-1)
             margin-bottom: -3px
 
-    &[data-template="tab"].tab-style1 &__items
+    &[data-template="tab"].tab-style1 > &__items
         padding: 20px
