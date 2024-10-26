@@ -420,7 +420,7 @@ class Listing extends Component {
         <?php 
         endif;
     
-        echo '<br>';
+        if( $pagination_type) echo '<br>';
         echo '<div class="pagination">';
         if ( $query->max_num_pages > 1 ){
             switch($pagination_type){

@@ -10,6 +10,7 @@ CHANGELOG
 - Items gap implementation in Gallery Component
 - v23ToggleBox 5.8.32: Fix togglebox inside togglebox
 - Fix css styles for togglebox inside togglebox
+- Fix Listing component is showing br separation when pagination is not needed
 
 1.5.22 24-10-21
 - MV23_GLOBALS.woocommerce_is_active implementation
