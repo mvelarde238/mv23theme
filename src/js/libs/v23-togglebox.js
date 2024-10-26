@@ -21,7 +21,7 @@
 	"use strict";
 
 	var instances = [],
-		version = '5.8.31',
+		version = '5.8.32',
 		timers = {};
 
 	/**
@@ -55,8 +55,8 @@
 		this.items = [];
 		this._saveItems();
 		if (this.items.length > 0) {
-			this._handle_template();
 			this._attach_click_events();
+			this._handle_template();
 			this._change_active_tab_if_hash_in_url();
 			this._attach_resize_events();
 			this._attach_hashchange_events();
@@ -122,12 +122,13 @@
 			return true;
 		},
 		_saveItems(){
-			var btns = this.el.getElementsByClassName('v23-togglebox__btn');
+			var btns = this.nav.getElementsByClassName('v23-togglebox__btn');
+			this.btns = btns;
 			for (var i = 0; i < btns.length; i++) {
 				var boxid = btns[i].dataset.boxid;
 
 				if (boxid) {
-					var boxEl = this.el.querySelector(boxid);
+					var boxEl = this.itemsBox.querySelector(boxid);
 					if ( boxEl && boxEl.nodeType && boxEl.nodeType === 1 ) {
 						this.items.push({ btn: btns[i], box: boxEl });
 					}
@@ -136,7 +137,9 @@
 			}
 		},
 		_attach_click_events(){
-			_on(this.el, 'click', this._open_tab);
+			for (var i = 0; i < this.btns.length; i++) {
+				_on(this.btns[i], 'click', this._open_tab);
+			}
 		},
 		_open_tab(event){
 			// event.preventDefault();
