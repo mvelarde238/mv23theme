@@ -51,7 +51,9 @@ class Page_Header_Container{
             Blocks_Layout::the_field(array( 
                 'slug' => 'page_header_content', 
                 'components' => array( 'text_editor', 'image', 'spacer', 'button' )
-            ))->add_dependency( 'page_header_content_type', 'content', '=' )
+            ))->add_dependency( 'page_header_content_type', 'content', '=' ),
+            // FAKE OCE SELECTOR FOR AJAX CALLS INSIDE POP UP
+            Field::create( 'wp_object', 'id' )->add( 'posts','post_type=offcanvas_element' )->add_dependency( 'page_header_content_type', '_ALWAYS_HIDDEN', '=' )
         );
 
         $content_fields = apply_filters( 'filter_page_header_content_fields', $content_fields );

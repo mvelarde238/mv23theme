@@ -82,7 +82,7 @@ var actions_container = [
                                             }
                                         ]
                                     ],
-                                    "nonce": "ed05c1f4da",
+                                    "nonce": "118deb26d1",
                                     "multiple": false,
                                     "button_text": "Selecciona la página",
                                     "hide_filters": false
@@ -141,7 +141,7 @@ var actions_container = [
                                     "hide_label": true,
                                     "file_type": "image",
                                     "basic": false,
-                                    "nonce": "0ba8cb23b3"
+                                    "nonce": "c82be97836"
                                 }
                             ],
                             "layout": "rows",
@@ -195,8 +195,8 @@ var actions_container = [
                                             }
                                         ]
                                     ],
-                                    "field_index": 4,
-                                    "nonce": "96ed8ebdb4"
+                                    "field_index": 3,
+                                    "nonce": "44d4643e74"
                                 },
                                 {
                                     "type": "Video",
@@ -214,7 +214,7 @@ var actions_container = [
                                     ],
                                     "file_type": "video",
                                     "basic": false,
-                                    "nonce": "a6ddddf5d6"
+                                    "nonce": "db7450401e"
                                 }
                             ],
                             "layout": "rows",
@@ -286,7 +286,7 @@ var actions_container = [
                                     "name": "id",
                                     "label": "Id",
                                     "hide_label": true,
-                                    "nonce": "fceb4f0c26",
+                                    "nonce": "508aaa1c70",
                                     "multiple": false,
                                     "button_text": "Select",
                                     "hide_filters": false

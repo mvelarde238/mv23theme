@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.24 24-10-28
+- Partially fix: OCE selector not working inside popup container
+  Page header is loading an always hidden OCE selector
+
 1.5.23 24-10-24
 - Masonry need to be activated in theme options to be used
 - Space around implementation in blocks layout
