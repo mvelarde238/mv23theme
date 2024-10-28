@@ -16,6 +16,8 @@ div.mce-inline-toolbar-grp{z-index:999997 !important}
 // .uf-field.uf-field-layout-grid.uf-field-type-color { z-index: 9; } dosnt work
 // fix select2 show behind modal 
 .select2-container { z-index: 170000; }
+// fix table selects show behind popup
+.uf-overlay-open .mce-menu { z-index: 1600112 !important; }
 
 .truncate {
     display: block;
