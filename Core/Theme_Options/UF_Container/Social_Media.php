@@ -27,7 +27,7 @@ class Social_Media{
                             'vimeo' => 'Vimeo',
                             'behance' => 'Behance',
                             'github' => 'Github',
-                            'tumblr' => 'Tumblr',
+                            'tiktok' => 'Tiktok',
                             'flickr' => 'Flickr',
                             'soundcloud' => 'SoundCloud',
                             'skype' => 'Skipe',

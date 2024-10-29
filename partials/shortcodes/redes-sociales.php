@@ -17,7 +17,7 @@ function print_redes_sociales( $atts ) {
 				} else {					
 					if($red['number']) $link = 'https://api.whatsapp.com/send?phone='.$red['number'].'&text='.$red['msg'];
 				}
-				if($link) echo '<a href="'.$link.'" target="_blank"><i class="fa fa-'.$icon.'"></i></a>'; 
+				if($link) echo '<a href="'.$link.'" target="_blank"><i class="bi bi-'.$icon.'"></i></a>'; 
 			endforeach;						
 		endif ?>
 	</span>
