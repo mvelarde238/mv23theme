@@ -11,6 +11,11 @@ body
 	&.hide-sticky-header .header--sticky
 		display: none
 
+// allow main content to be placed over page header:
+.main-content
+	position: relative
+	z-index: 89
+
 .subir-page-header
 	margin-top: calc( var(--static-header-height) * -1 )
 
@@ -48,10 +53,10 @@ h1,h2,h3,h4,h5,h6,p
 		margin-bottom: 0
 
 span[style*="font-size"]
-	line-height: normal
+		line-height: normal
 
 [style*="underline"], a
-	text-underline-offset: 4px
+		text-underline-offset: 4px
 
 .img-full-width, .full-width-image
 	width: 100%
@@ -105,7 +110,7 @@ p + .pdf-responsive
 	margin-bottom: 30px
 
 // Fix layerslider arrows over sidenav
-.ls-v6 .ls-nav-prev, 
+.ls-v6 .ls-nav-prev,
 .ls-v6 .ls-nav-next
 	z-index: 100 !important
 

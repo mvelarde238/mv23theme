@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.25 24-10-29
+- allow main content to be placed over page header
+
 1.5.24 24-10-28
 - Partially fix: OCE selector not working inside popup container
   Page header is loading an always hidden OCE selector
