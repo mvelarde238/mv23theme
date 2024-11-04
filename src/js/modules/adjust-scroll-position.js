@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (hash) {
             adjustScrollPosition(hash);
         }
-    }, 100);
+    }, 400);
 });
 
 function adjustScrollPosition(anchor) {
