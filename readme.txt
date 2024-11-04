@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.26 24-11-04
 - Fix: adjutst scroll position in hash in url
+- Fix youtube icon in redes sociales shortcode
 
 1.5.25 24-10-29
 - allow main content to be placed over page header

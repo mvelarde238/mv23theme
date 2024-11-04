@@ -10,9 +10,9 @@ function print_redes_sociales( $atts ) {
 	<span class="rrss-module <?php echo $a['class']; ?>">
 		<?php if (!empty($redes_sociales)):
 			foreach ($redes_sociales as $red):
-				$icon = ($red['icon'] == 'youtube') ? 'youtube-play' : $red['icon'];
+				$icon = $red['icon'];
 				$link = '';
-				if($red['icon'] != 'whatsapp'){
+				if($icon != 'whatsapp'){
 					if($red['url']) $link = $red['url'];
 				} else {					
 					if($red['number']) $link = 'https://api.whatsapp.com/send?phone='.$red['number'].'&text='.$red['msg'];
