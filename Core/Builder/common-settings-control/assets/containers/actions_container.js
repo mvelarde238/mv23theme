@@ -29,7 +29,7 @@ var actions_container = [
                         "options": {
                             "": "Seleccionar",
                             "open-page": "Abrir nueva página",
-                            "open-image-popup": "Mostrar imágen en pop up",
+                            "open-image-popup": "Mostrar archivo en pop up",
                             "open-video-popup": "Mostrar video en pop up",
                             "toggle-box": "Mostrar / Ocultar Sección",
                             "offcanvas-element": "Mostrar Off-Canvas Element"
@@ -82,7 +82,7 @@ var actions_container = [
                                             }
                                         ]
                                     ],
-                                    "nonce": "118deb26d1",
+                                    "nonce": "58a9275b98",
                                     "multiple": false,
                                     "button_text": "Selecciona la página",
                                     "hide_filters": false
@@ -135,13 +135,13 @@ var actions_container = [
                             "description": "",
                             "fields": [
                                 {
-                                    "type": "Image",
+                                    "type": "File",
                                     "name": "internal_image",
                                     "label": "Internal Image",
                                     "hide_label": true,
-                                    "file_type": "image",
+                                    "file_type": "all",
                                     "basic": false,
-                                    "nonce": "c82be97836"
+                                    "nonce": "6a3f371cc5"
                                 }
                             ],
                             "layout": "rows",
@@ -196,7 +196,7 @@ var actions_container = [
                                         ]
                                     ],
                                     "field_index": 3,
-                                    "nonce": "44d4643e74"
+                                    "nonce": "28d15d25b1"
                                 },
                                 {
                                     "type": "Video",
@@ -214,7 +214,7 @@ var actions_container = [
                                     ],
                                     "file_type": "video",
                                     "basic": false,
-                                    "nonce": "db7450401e"
+                                    "nonce": "0143798e7b"
                                 }
                             ],
                             "layout": "rows",
@@ -286,7 +286,7 @@ var actions_container = [
                                     "name": "id",
                                     "label": "Id",
                                     "hide_label": true,
-                                    "nonce": "508aaa1c70",
+                                    "nonce": "d6d4595759",
                                     "multiple": false,
                                     "button_text": "Select",
                                     "hide_filters": false

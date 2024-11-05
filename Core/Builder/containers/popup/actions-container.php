@@ -14,7 +14,7 @@ Container::create( 'actions_container' )
                 Field::create( 'select', 'action' )->add_options( array(
                     '' => 'Seleccionar',
                     'open-page' => 'Abrir nueva página',
-                    'open-image-popup' => 'Mostrar imágen en pop up',
+                    'open-image-popup' => 'Mostrar archivo en pop up',
                     'open-video-popup' => 'Mostrar video en pop up',
                     'toggle-box' => 'Mostrar / Ocultar Sección',
                     'offcanvas-element' => 'Mostrar Off-Canvas Element'
@@ -31,7 +31,7 @@ Container::create( 'actions_container' )
                 ))->add_dependency('action','open-page','='),
     
                 Field::create( 'complex', 'image_popup' )->hide_label()->rows_layout()->add_fields(array(
-                    Field::create( 'image', 'internal_image')->hide_label()
+                    Field::create( 'file', 'internal_image')->hide_label()
                 ))->add_dependency('action','open-image-popup','='),
                 
                 Field::create( 'complex', 'video_popup' )->hide_label()->rows_layout()->add_fields(array(

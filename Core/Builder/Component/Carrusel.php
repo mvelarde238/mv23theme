@@ -51,7 +51,8 @@ class Carrusel extends Component {
                 Field::create( 'tab', __('Contenido','default') ),
                 Blocks_Layout::the_field(),
                 Field::create( 'tab', __('Settings','default') ),
-                Field::create( 'common_settings_control', 'settings' )->set_container( 'common_settings_container' )
+                Field::create( 'common_settings_control', 'settings' )->set_container( 'common_settings_container' ),
+                Field::create( 'common_settings_control', 'actions_settings' )->set_container( 'actions_container' )
             ));
         
 		$fields = array(
@@ -218,6 +219,7 @@ class Carrusel extends Component {
                         echo '<div class="carrusel__item carrusel__item--content">';
                         echo '<div '.$item_attributes.'>';
                         echo Blocks_Layout::the_content($blocks_layout);
+                        echo Template_Engine::check_actions( $items[$i] );
                         echo '</div>';
                         echo '</div>';
                     endif;
