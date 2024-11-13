@@ -88,6 +88,7 @@ class Carrusel extends Component {
                     ))->add_dependency('show_nav')->set_width( 10 ),
             Field::create( 'checkbox', 'autoplay' )->set_text('Empezar automáticamente')->set_width( 10 ),
             Field::create( 'checkbox', 'auto_height' )->set_text('Activar')->set_width( 10 ),
+            Field::create( 'checkbox', 'touch' )->set_text('Activar')->set_width( 10 ),
             Field::create( 'select', 'mode', 'Mode' )->add_options( array(
                 'carousel' => 'Carrusel',
                 'gallery' => 'Fade',
@@ -131,6 +132,7 @@ class Carrusel extends Component {
         $nav_position = (isset($args['nav_position']) && !empty($args['nav_position'])) ? $args['nav_position'] : 'bottom';
         $autoplay = (isset($args['autoplay']) && !empty($args['autoplay'])) ? $args['autoplay'] : 0;
         $auto_height = (isset($args['auto_height']) && !empty($args['auto_height'])) ? $args['auto_height'] : 0;
+        $touch = (isset($args['touch']) && !empty($args['touch'])) ? $args['touch'] : 0;
         $axis = (isset($args['axis']) && !empty($args['axis'])) ? $args['axis'] : 'horizontal';
         $mode = (isset($args['mode']) && !empty($args['mode'])) ? $args['mode'] : 'carousel';
 
@@ -172,6 +174,7 @@ class Carrusel extends Component {
             data-desktop-gutter="<?=$gutter_in_desktop?>"
             data-autoplay="<?=$autoplay?>"
             data-auto-height="<?=$auto_height?>"
+            data-touch="<?=$touch?>"
             data-axis="<?=$axis?>"
             data-mode="<?=$mode?>">
     

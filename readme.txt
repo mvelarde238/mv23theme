@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.27 13-11-04
 - UF layout_control implementation
+- data-touch implementation in carrusel and listing components
 
 1.5.26 24-11-04
 - Fix: adjutst scroll position in hash in url

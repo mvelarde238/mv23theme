@@ -388,6 +388,7 @@ class Listing extends Component {
                     <div class="<?php echo implode(' ', $carrusel_classes_array); ?>" data-controls-position="center"><div class="carrusel__slider" 
                         data-show-controls="<?=$show_controls?>" 
                         data-show-nav="<?=$show_nav?>" 
+                        data-touch="1" 
                         data-autoplay="<?=$autoplay?>" 
                         data-nav-position="bottom"
                         data-mobile="<?=$items_in_mobile?>"

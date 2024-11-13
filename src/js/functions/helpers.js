@@ -155,6 +155,7 @@ function create_tns_slider(slider){
         desktop = slider.dataset['desktop'],
         axis = slider.dataset['axis'],
         mode = slider.dataset['mode'],
+        touch = slider.dataset['touch'],
         mobile_gutter = slider.dataset['mobileGutter'],
         tablet_gutter = slider.dataset['tabletGutter'],
         laptop_gutter = slider.dataset['laptopGutter'],
@@ -164,6 +165,7 @@ function create_tns_slider(slider){
     show_nav = ( show_nav == '1' ) ? true : false;
     autoplay = ( autoplay == '1' ) ? true : false;
     autoHeight = ( autoHeight == '1' ) ? true : false;
+    touch = ( touch == '1' ) ? true : false;
     mobile = ( mobile != '' ) ? mobile : 1;
     tablet = ( tablet != '' ) ? tablet : 2;
     laptop = ( laptop != '' ) ? laptop : 3;
@@ -172,10 +174,8 @@ function create_tns_slider(slider){
     mode = ( mode != '' ) ? mode : 'carousel';
 
     var slider_options = {  
-        mode: mode,
-        touch: false,
-        container: slider, speed: 450, autoplayButton: false, autoplay: autoplay, autoplayButtonOutput: false, loop: true, axis:axis,
-        controlsText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'], rewind: true, autoHeight: autoHeight,
+        mode: mode, touch: touch, container: slider, speed: 450, autoplayButton: false, autoplay: autoplay, autoplayButtonOutput: false, loop: true, 
+        axis:axis, controlsText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'], rewind: true, autoHeight: autoHeight,
         mouseDrag: true, controls: show_controls, nav: show_nav, navPosition: nav_position, responsive : {
             1401 : {items:desktop, slideBy:desktop, gutter: desktop_gutter},
             1025 : {items:laptop, slideBy:laptop, gutter: laptop_gutter},
