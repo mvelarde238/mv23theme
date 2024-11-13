@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.27 13-11-04
+- UF layout_control implementation
+
 1.5.26 24-11-04
 - Fix: adjutst scroll position in hash in url
 - Fix youtube icon in redes sociales shortcode
