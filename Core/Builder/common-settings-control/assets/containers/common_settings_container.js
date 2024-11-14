@@ -288,7 +288,7 @@ var common_settings_container = [
                     ],
                     "file_type": "image",
                     "basic": false,
-                    "nonce": "ffa42f42cb"
+                    "nonce": "c86e38b91c"
                 },
                 {
                     "type": "Complex",
@@ -440,7 +440,7 @@ var common_settings_container = [
                     ],
                     "file_type": "video",
                     "basic": false,
-                    "nonce": "43f62fe397"
+                    "nonce": "7ce771dc76"
                 },
                 {
                     "type": "Embed",
@@ -461,8 +461,8 @@ var common_settings_container = [
                             }
                         ]
                     ],
-                    "field_index": 4,
-                    "nonce": "1b6e631c6b"
+                    "field_index": 3,
+                    "nonce": "5ebe84ad01"
                 },
                 {
                     "type": "Complex",
@@ -558,7 +558,7 @@ var common_settings_container = [
                     "text": ""
                 },
                 {
-                    "type": "Number",
+                    "type": "Text",
                     "name": "top",
                     "label": "Arriba",
                     "field_width": 20,
@@ -571,16 +571,10 @@ var common_settings_container = [
                             }
                         ]
                     ],
-                    "minimum": false,
-                    "maximum": false,
-                    "step": 1,
-                    "slider_enabled": false,
-                    "prefix": null,
-                    "suffix": "px",
-                    "placeholder": "0"
+                    "placeholder": "0px"
                 },
                 {
-                    "type": "Number",
+                    "type": "Text",
                     "name": "right",
                     "label": "Derecha",
                     "field_width": 20,
@@ -593,16 +587,10 @@ var common_settings_container = [
                             }
                         ]
                     ],
-                    "minimum": false,
-                    "maximum": false,
-                    "step": 1,
-                    "slider_enabled": false,
-                    "prefix": null,
-                    "suffix": "px",
-                    "placeholder": "0"
+                    "placeholder": "0px"
                 },
                 {
-                    "type": "Number",
+                    "type": "Text",
                     "name": "bottom",
                     "label": "Abajo",
                     "field_width": 20,
@@ -615,16 +603,10 @@ var common_settings_container = [
                             }
                         ]
                     ],
-                    "minimum": false,
-                    "maximum": false,
-                    "step": 1,
-                    "slider_enabled": false,
-                    "prefix": null,
-                    "suffix": "px",
-                    "placeholder": "20"
+                    "placeholder": "20px"
                 },
                 {
-                    "type": "Number",
+                    "type": "Text",
                     "name": "left",
                     "label": "Izquierda",
                     "field_width": 20,
@@ -637,13 +619,7 @@ var common_settings_container = [
                             }
                         ]
                     ],
-                    "minimum": false,
-                    "maximum": false,
-                    "step": 1,
-                    "slider_enabled": false,
-                    "prefix": null,
-                    "suffix": "px",
-                    "placeholder": "0"
+                    "placeholder": "0px"
                 }
             ],
             "layout": "grid",
@@ -669,7 +645,7 @@ var common_settings_container = [
                     "text": ""
                 },
                 {
-                    "type": "Number",
+                    "type": "Text",
                     "name": "top",
                     "label": "Arriba",
                     "field_width": 20,
@@ -682,16 +658,10 @@ var common_settings_container = [
                             }
                         ]
                     ],
-                    "minimum": false,
-                    "maximum": false,
-                    "step": 1,
-                    "slider_enabled": false,
-                    "prefix": null,
-                    "suffix": "px",
-                    "placeholder": "0"
+                    "placeholder": "0px"
                 },
                 {
-                    "type": "Number",
+                    "type": "Text",
                     "name": "right",
                     "label": "Derecha",
                     "field_width": 20,
@@ -704,16 +674,10 @@ var common_settings_container = [
                             }
                         ]
                     ],
-                    "minimum": false,
-                    "maximum": false,
-                    "step": 1,
-                    "slider_enabled": false,
-                    "prefix": null,
-                    "suffix": "px",
-                    "placeholder": "0"
+                    "placeholder": "0px"
                 },
                 {
-                    "type": "Number",
+                    "type": "Text",
                     "name": "bottom",
                     "label": "Abajo",
                     "field_width": 20,
@@ -726,16 +690,10 @@ var common_settings_container = [
                             }
                         ]
                     ],
-                    "minimum": false,
-                    "maximum": false,
-                    "step": 1,
-                    "slider_enabled": false,
-                    "prefix": null,
-                    "suffix": "px",
-                    "placeholder": "0"
+                    "placeholder": "0px"
                 },
                 {
-                    "type": "Number",
+                    "type": "Text",
                     "name": "left",
                     "label": "Izquierda",
                     "field_width": 20,
@@ -748,13 +706,7 @@ var common_settings_container = [
                             }
                         ]
                     ],
-                    "minimum": false,
-                    "maximum": false,
-                    "step": 1,
-                    "slider_enabled": false,
-                    "prefix": null,
-                    "suffix": "px",
-                    "placeholder": "0"
+                    "placeholder": "0px"
                 }
             ],
             "layout": "grid",

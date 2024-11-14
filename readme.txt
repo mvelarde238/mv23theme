@@ -2,7 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
-1.5.27 13-11-04
+1.5.28 24-11-14
+- Improve Common Setting Control Margin and Padding values to allow any unit
+
+1.5.27 24-11-13
 - UF layout_control implementation
 - data-touch implementation in carrusel and listing components
 

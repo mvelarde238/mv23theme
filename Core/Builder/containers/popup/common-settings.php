@@ -116,17 +116,17 @@ Container::create( 'common_settings_container' )
         )),
         Field::create( 'complex', 'margin', __('Margin', 'default') )->add_fields(array(
             Field::create( 'checkbox', 'use' )->fancy()->set_width( 20 ),
-            Field::create( 'number', 'top', __('Top','default') )->set_suffix('px')->set_placeholder('0')->add_dependency('use')->set_width( 20 ),
-            Field::create( 'number', 'right', __('Right','default') )->set_suffix('px')->set_placeholder('0')->add_dependency('use')->set_width( 20 ),
-            Field::create( 'number', 'bottom', __('Bottom','default') )->set_suffix('px')->set_placeholder('20')->add_dependency('use')->set_width( 20 ),
-            Field::create( 'number', 'left', __('Left','default') )->set_suffix('px')->set_placeholder('0')->add_dependency('use')->set_width( 20 )
+            Field::create( 'text', 'top', __('Top','default') )->set_placeholder('0px')->add_dependency('use')->set_width( 20 ),
+            Field::create( 'text', 'right', __('Right','default') )->set_placeholder('0px')->add_dependency('use')->set_width( 20 ),
+            Field::create( 'text', 'bottom', __('Bottom','default') )->set_placeholder('20px')->add_dependency('use')->set_width( 20 ),
+            Field::create( 'text', 'left', __('Left','default') )->set_placeholder('0px')->add_dependency('use')->set_width( 20 )
         )),
         Field::create( 'complex', 'padding', __('Padding', 'default') )->add_fields(array(
             Field::create( 'checkbox', 'use' )->fancy()->set_width( 20 ),
-            Field::create( 'number', 'top', __('Top','default') )->set_suffix('px')->set_placeholder('0')->add_dependency('use')->set_width( 20 ),
-            Field::create( 'number', 'right', __('Right','default') )->set_suffix('px')->set_placeholder('0')->add_dependency('use')->set_width( 20 ),
-            Field::create( 'number', 'bottom', __('Bottom','default') )->set_suffix('px')->set_placeholder('0')->add_dependency('use')->set_width( 20 ),
-            Field::create( 'number', 'left', __('Left','default') )->set_suffix('px')->set_placeholder('0')->add_dependency('use')->set_width( 20 )
+            Field::create( 'text', 'top', __('Top','default') )->set_placeholder('0px')->add_dependency('use')->set_width( 20 ),
+            Field::create( 'text', 'right', __('Right','default') )->set_placeholder('0px')->add_dependency('use')->set_width( 20 ),
+            Field::create( 'text', 'bottom', __('Bottom','default') )->set_placeholder('0px')->add_dependency('use')->set_width( 20 ),
+            Field::create( 'text', 'left', __('Left','default') )->set_placeholder('0px')->add_dependency('use')->set_width( 20 )
         )),
         Field::create( 'complex', 'border_radius', __('Border Radius', 'default') )->add_fields(array(
             Field::create( 'checkbox', 'use' )->fancy()->set_width( 20 ),

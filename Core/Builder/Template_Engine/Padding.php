@@ -10,13 +10,22 @@ Class Padding{
 
         if ( isset($args['settings']['padding'])  ) {
             $padding_settings = $args['settings']['padding'];
+            $paddings = array('top','right','bottom','left');
 
-            if ( $padding_settings['top'] != '' ) $styles[] = 'padding-top:'.$padding_settings['top'].'px';  
-            if ( $padding_settings['bottom'] != '' ) $styles[] = 'padding-bottom:'.$padding_settings['bottom'].'px';  
-            if ( $padding_settings['left'] != '' ) $styles[] = 'padding-left:'.$padding_settings['left'].'px';  
-            if ( $padding_settings['right'] != '' ) $styles[] = 'padding-right:'.$padding_settings['right'].'px'; 
+            foreach ($paddings as $key) {
+                if ( $padding_settings[$key] != '' ) $styles[] = 'padding-'.$key.':'.self::format_padding_value($padding_settings[$key]);  
+            }
         }
 
         return $styles;
+    }
+
+    private static function format_padding_value( $value ){
+        $formatted_value = ( self::isNumeric($value) ) ? $value.'px' : $value;
+        return $formatted_value;
+    }
+
+    private static function isNumeric($str){
+        return preg_match('/^[0-9]+$/', $str);
     }
 }

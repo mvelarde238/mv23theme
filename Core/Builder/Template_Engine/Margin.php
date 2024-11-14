@@ -11,13 +11,22 @@ Class Margin{
 
         if ( isset($settings['margin'])  ) {
             $margin_settings = $settings['margin'];
+            $margins = array('top','right','bottom','left');
 
-            if ( $margin_settings['top'] != '' ) $styles[] = 'margin-top:'.$margin_settings['top'].'px';  
-            if ( $margin_settings['bottom'] != '' ) $styles[] = 'margin-bottom:'.$margin_settings['bottom'].'px';  
-            if ( $margin_settings['left'] != '' ) $styles[] = 'margin-left:'.$margin_settings['left'].'px';  
-            if ( $margin_settings['right'] != '' ) $styles[] = 'margin-right:'.$margin_settings['right'].'px'; 
+            foreach ($margins as $key) {
+                if ( $margin_settings[$key] != '' ) $styles[] = 'margin-'.$key.':'.self::format_margin_value($margin_settings[$key]);  
+            }
         }
 
         return $styles;
+    }
+
+    private static function format_margin_value( $value ){
+        $formatted_value = ( self::isNumeric($value) ) ? $value.'px' : $value;
+        return $formatted_value;
+    }
+
+    private static function isNumeric($str){
+        return preg_match('/^[0-9]+$/', $str);
     }
 }
