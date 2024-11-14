@@ -5,6 +5,7 @@ CHANGELOG
 1.5.28 24-11-14
 - Improve Common Setting Control Margin and Padding values to allow any unit
 - Fix .column alignment
+- Fix: allow extended background in mobile
 
 1.5.27 24-11-13
 - UF layout_control implementation

@@ -64,18 +64,17 @@ img[data-fancybox], img.zoom
 	margin-left: -50vw !important
 	margin-right: -50vw !important
 
-@media #{$large-and-up}
-	.extend-bg-to-left,
-	.extend-bg-to-right
+.extend-bg-to-left,
+.extend-bg-to-right
+	position: relative
+	*:not(.extended-bg)
 		position: relative
-		*:not(.extended-bg)
-			position: relative
-			z-index: 56
-	.extended-bg
-		position: absolute
-		top: 0
-		height: 100%
-		pointer-events: none
+		z-index: 56
+.extended-bg
+	position: absolute
+	top: 0
+	height: 100%
+	pointer-events: none
 
 @media #{$small-and-down}
 	.page-module
