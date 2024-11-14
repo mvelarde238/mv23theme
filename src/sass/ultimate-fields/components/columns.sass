@@ -10,9 +10,7 @@
     // alignment
     &[style*="-alignment"]
         display: flex
-        flex-wrap: wrap
-        &>div[class*="component"]
-            width: 100%
+        flex-direction: column
 
 // DESKTOP
 @media #{$large-and-up}
@@ -21,7 +19,7 @@
         gap: var(--l-gap, 20px)
     .column
         order: var(--l-order)
-        align-items: var(--l-alignment)
+        justify-content: var(--l-alignment)
 
 // TABLET
 @media #{$medium-only}
@@ -30,7 +28,7 @@
         gap: var(--t-gap, 20px)
     .column
         order: var(--t-order)
-        align-items: var(--t-alignment)
+        justify-content: var(--t-alignment)
 
     .tablet-1-1de2-1de2,
     .tablet-1de2-1de2-1,
@@ -59,7 +57,7 @@
         gap: var(--m-gap, 20px)
     .column
         order: var(--m-order)
-        align-items: var(--m-alignment)
+        justify-content: var(--m-alignment)
 
     .mobile-1-1de2-1de2
         &>.column:nth-child(1)
