@@ -102,7 +102,7 @@ class Admin extends Theme_Header_Data {
         $theme_fonts = Theme_Options::getInstance()->get_theme_fonts();
 
         $styles = array_merge(
-            array( $this->theme_path . '/assets/css/editor-style.css' ),
+            array( $this->theme_path . '/assets/css/editor-style.css?'.$this->version ),
             $theme_fonts['urls']
         );
 
