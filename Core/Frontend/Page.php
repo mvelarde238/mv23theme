@@ -45,15 +45,27 @@ class Page{
 	public function filter_the_content($content){
         if( is_singular() || is_page() ){
 			$page = new Page();
+			$page_is_private = self::page_is_private(); 
             ob_start();
             if ($content) echo '<div class="page-module"><div class="component">' . $content . '</div></div>';
-			echo $page->the_content();
+			if( !$page_is_private ) echo $page->the_content();
             $filtered_content = ob_get_clean();
             return $filtered_content;
         } else {
             return $content;
         }
     }
+
+	private function page_is_private(){
+		$is_private = false;
+
+		if (post_password_required()) $is_private = true;
+	
+		global $post;
+		if (get_post_status($post) === 'private') $is_private = true;
+
+		return $is_private;
+	}
 
 	public function add_page_modules_to_rest_api($data, $post, $context){
 		$page = new Page();
