@@ -8,6 +8,7 @@ CHANGELOG
 - Compile editor sass files
 - Fix version nomenclature in common settings control
 - Fix: --sticky-header-height starts in 0 to avoid .sticky elements "jumping"
+- Fix: remove .header__content padding transition
 
 1.5.28 24-11-14
 - Improve Common Setting Control Margin and Padding values to allow any unit
