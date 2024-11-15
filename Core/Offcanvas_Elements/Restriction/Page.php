@@ -74,7 +74,7 @@ class Page extends Restriction {
 		 * @param string[] $post_types The post types to ignore.
 		 * @return string[]
 		 */
-		$excluded = array( 'attachment', 'footer', 'v23accordion', 'reusable_section', 'megamenu', 'mv23_library', 'archive_page', Core::getInstance()->get_slug() );
+		$excluded = array( 'attachment', 'footer', 'reusable_section', 'megamenu', 'mv23_library', 'archive_page', Core::getInstance()->get_slug() );
 
 		foreach( get_post_types( array( 'public' => true ), 'objects' ) as $id => $post_type ) {
 			if( in_array( $id, $excluded ) ) {

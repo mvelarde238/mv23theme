@@ -60,7 +60,6 @@ class Theme_Options extends Theme_Header_Data{
             'edit.php?post_type=offcanvas_element',
             'custom-scripts-options', 
             'edit.php?post_type=megamenu', 
-            'edit.php?post_type=v23accordion', 
             'edit.php?post_type=reusable_section' 
         );
     
@@ -88,7 +87,6 @@ class Theme_Options extends Theme_Header_Data{
     
         $custom_posts = array(
             array( 'slug'=>'megamenu', 'name'=>'Megamenú' ),
-            array( 'slug'=>'v23accordion', 'name'=>'Accordions' ),
             array( 'slug'=>'reusable_section', 'name'=>__('Reusable Sections') )
         );
     

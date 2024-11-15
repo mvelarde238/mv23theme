@@ -7,7 +7,6 @@ namespace Core\Admin;
 
 use Core\Includes\Theme_Header_Data;
 use Core\Posttype\Footer;
-use Core\Posttype\Accordion;
 use Core\Posttype\Megamenu;
 use Core\Posttype\Portfolio;
 use Core\Posttype\MV23_Library;
@@ -165,7 +164,6 @@ class Admin extends Theme_Header_Data {
 
     public function register_custom_posttypes() {
         Footer::getInstance()->register_posttype();
-        Accordion::getInstance()->register_posttype();
         Megamenu::getInstance()->register_posttype();
         Reusable_Section_CPT::getInstance()->register_posttype();
         Archive_Page::getInstance()->register_posttype();

@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.29 24-11-15
+- Accordion CPT removed
+
 1.5.28 24-11-14
 - Improve Common Setting Control Margin and Padding values to allow any unit
 - Fix .column alignment

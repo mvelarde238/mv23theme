@@ -19,7 +19,6 @@ use Core\Theme_Options\Theme_Options;
 use Core\Theme_Options\Manager;
 use Core\Posttype\Archive_Page;
 use Core\Posttype\MV23_Library;
-use Core\Posttype\Accordion;
 use Core\Posttype\Post;
 use Core\Posttype\Menu_Item;
 use Core\Posttype\Megamenu;
@@ -235,12 +234,6 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'wp_ajax_mv23_library_save_item', $mv23_library, 'save_item' );
 		$this->loader->add_action( 'wp_ajax_load_mv23_library_gallery', $mv23_library, 'load_gallery' );
 		$this->loader->add_action( 'wp_ajax_mv23_library_action', $mv23_library, 'library_action' );
-
-        // Accordion
-        $accordion = Accordion::getInstance();
-
-        // Add the meta boxes
-        $this->loader->add_action( 'uf.init', $accordion, 'add_meta_boxes' );
 
         // Post
         $post = Post::getInstance();
