@@ -7,6 +7,7 @@ CHANGELOG
 - Remove background color from .uf-file-preview for png with white content
 - Compile editor sass files
 - Fix version nomenclature in common settings control
+- Fix: --sticky-header-height starts in 0 to avoid .sticky elements "jumping"
 
 1.5.28 24-11-14
 - Improve Common Setting Control Margin and Padding values to allow any unit
