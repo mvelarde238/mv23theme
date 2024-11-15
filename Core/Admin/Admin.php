@@ -102,7 +102,7 @@ class Admin extends Theme_Header_Data {
         $theme_fonts = Theme_Options::getInstance()->get_theme_fonts();
 
         $styles = array_merge(
-            array( $this->theme_path . '/assets/css/editor-style.css?'.$this->version ),
+            array( $this->theme_path . '/assets/css/editor-style.css?ver='.$this->version ),
             $theme_fonts['urls']
         );
 
@@ -151,7 +151,7 @@ class Admin extends Theme_Header_Data {
     }
 
     public function customize_login_css() {
-        wp_enqueue_style( 'login_css', get_stylesheet_directory_uri() . '/assets/css/login.css', false );
+        wp_enqueue_style( 'login_css', get_stylesheet_directory_uri() . '/assets/css/login.css', false, $this->version );
     }
     
     public function customize_login_url() {  
