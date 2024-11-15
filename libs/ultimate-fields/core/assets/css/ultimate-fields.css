@@ -981,7 +981,6 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 .uf-file-preview {
   display: block;
   border-bottom: 1px solid #ccc;
-  background: #fff;
   text-align: center;
 }
 .uf-file-preview img {

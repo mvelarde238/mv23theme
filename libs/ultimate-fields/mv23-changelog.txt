@@ -1,5 +1,10 @@
 mv23 changelog-------------------------
 
+- 15-11-2024
+- Remove background color from .uf-file-preview for png with white content
+    (core/assets/sass/field/_file.scss)
+- Start updating the plugin version to avoid cache 
+
 - 20-09-2024
 - ID property implementation to avoid undefined property on theme options page 
     (core/classes/Options_Page.php:156)
