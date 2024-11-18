@@ -13,6 +13,7 @@ class Shortcodes{
         get_template_part( 'partials/shortcodes/gallery' );
         get_template_part( 'partials/shortcodes/comments-area' );
         get_template_part( 'partials/shortcodes/nav' );
+        get_template_part( 'partials/shortcodes/social-share' );
 
         if (IS_MULTILANGUAGE) {
         	get_template_part( 'partials/shortcodes/idiomas' );

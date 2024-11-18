@@ -26,6 +26,8 @@ if( !$single_page['hide_sidebar'] ) array_push($main_content_classes, $single_pa
 					<?php the_content(); ?>
 				</article>
 
+				<?php get_template_part('partials/social-share'); ?>
+
 				<?php get_template_part('partials/comments'); ?>
 			<?php endwhile; endif; ?>
 		</main>

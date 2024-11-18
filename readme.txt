@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.30 24-11-18
+- Sharer.js implementation
+
 1.5.29 24-11-15
 - Accordion CPT removed
 - Remove background color from .uf-file-preview for png with white content

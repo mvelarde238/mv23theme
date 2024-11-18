@@ -1,0 +1,75 @@
+.social-share-buttons
+    display: flex
+    flex-wrap: wrap
+    gap: 10px
+    button
+        padding: 8px 15px
+        border-radius: 4px
+        border: 0
+        background-color: var(--font-color)
+        color: #fff
+        text-shadow: 0 0 5px rgba(0,0,0,.4)
+        cursor: pointer
+        i
+            margin-right: 5px
+        &:hover
+            opacity: .9
+
+        &[data-sharer="twitter"] 
+            background-color: #000000
+            // background-color: #1da1f2
+        &[data-sharer="threads"] 
+            background-color: #000000
+        &[data-sharer="facebook"] 
+            background-color: #1877f2
+        &[data-sharer="linkedin"] 
+            background-color: #0a66c2
+        &[data-sharer="email"] 
+            background-color: #d44638
+        &[data-sharer="whatsapp"] 
+            background-color: #25d366
+        &[data-sharer="telegram"] 
+            background-color: #0088cc
+        &[data-sharer="viber"] 
+            background-color: #665cac
+        &[data-sharer="pinterest"] 
+            background-color: #e60023
+        &[data-sharer="tumblr"] 
+            background-color: #001935
+        &[data-sharer="hacker news"] 
+            background-color: #ff6600
+        &[data-sharer="reddit"] 
+            background-color: #ff4500
+        &[data-sharer="vk.com"] 
+            background-color: #4680c2
+        &[data-sharer="buffer"] 
+            background-color: #168eea
+        &[data-sharer="xing"] 
+            background-color: #026466
+        &[data-sharer="line"] 
+            background-color: #00c300
+        &[data-sharer="instapaper"] 
+            background-color: #000000
+        &[data-sharer="pocket"] 
+            background-color: #ef4056
+        &[data-sharer="flipboard"] 
+            background-color: #e12828
+        &[data-sharer="weibo"] 
+            background-color: #e6162d
+        &[data-sharer="blogger"] 
+            background-color: #f57d00
+        &[data-sharer="baidu"] 
+            background-color: #2932e1
+        &[data-sharer="ok.ru"] 
+            background-color: #f58220
+        &[data-sharer="evernote"] 
+            background-color: #00a82d
+        &[data-sharer="skype"] 
+            background-color: #00aff0
+        &[data-sharer="trello"] 
+            background-color: #0079bf
+        &[data-sharer="diaspora"] 
+            background-color: #000000
+
+#more-social-share-modal
+    max-width: 520px
