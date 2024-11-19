@@ -85,14 +85,20 @@ class SocialShare {
         // Atributos del shortcode
         $atts = shortcode_atts([
             'networks' => '',
-            'limit' => $this->limit
+            'limit' => $this->limit,
+            'alignment' => ''
         ], $atts);
 
         // Obtener redes sociales seleccionadas o usar todas por defecto
         $selected_networks = $atts['networks'] ? explode(',', $atts['networks']) : array_keys($this->social_networks);
 
+        
+        
         $limit = $atts['limit'];
-        $output = '<div class="social-share-buttons">';
+        $output = '<div class="social-share-buttons"';
+        // buttons alignment
+        if($atts['alignment']) $output .= 'style="justify-content:'.esc_attr($atts['alignment']).'"';
+        $output .= '>';
         $output .= $this->generate_buttons($selected_networks, 0, $limit);
         if( count($selected_networks) > $limit ) $output .= '<button class="modal-trigger" href="#more-social-share-modal"><i class="bi bi-three-dots"></i> more</button>';
         $output .= '</div>';
