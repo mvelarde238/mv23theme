@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.31 24-11-21
+- lang_switcher shortcode implementation
+
 1.5.30 24-11-18
 - Sharer.js implementation
 

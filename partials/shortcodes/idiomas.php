@@ -1,7 +1,7 @@
 <?php
 function print_idiomas( $atts ){
 	$a = shortcode_atts( array(
-		'class' => 'style1',
+		'class' => '',
 		'text' => ''
 	), $atts );
 	ob_start();
@@ -40,3 +40,36 @@ function print_idiomas( $atts ){
 	return ob_get_clean();
 }
 add_shortcode( 'idiomas', 'print_idiomas' );
+
+function custom_lang_switcher( $atts ) {
+	$output = '';
+	if ( function_exists( 'pll_the_languages' ) ) {
+		$args = shortcode_atts( array(
+			'class'                  => '',
+			'echo'                   => 0,
+			'show_flags'             => 0,
+			'show_names'             => 1,
+			'dropdown'               => 0,
+			'hide_if_empty'          => 1,
+			'display_names_as'       => 'name', // Whether to display the language name or its slug, valid options are 'slug' and 'name'
+			'force_home'             => 0,
+			'hide_if_no_translation' => 0, 
+			'hide_current'           => 0,
+			'post_id'                => null,
+			'raw'                    => 0, // Return a raw array instead of html markup if set to 1
+			'item_spacing'           => 'preserve', //Whether to preserve or discard whitespace between list items, valid options are 'preserve' and 'discard'
+			'admin_render'           => 0, // Allows to force the current language code in an admin context if set, default to 0. Need to set the admin_current_lang argument below.
+			'admin_current_lang'     => null, // The current language code in an admin context. Need to set the admin_render to 1, defaults not set.
+			// 'classes'                => array(), // A list of CSS classes to set to each elements outputted.
+			// 'link_classes'           => array() // A list of CSS classes to set to each link outputted.
+		), $atts );
+
+		$output = ($args['dropdown']) ? '<div ' : '<ul ';
+		$output .= 'class="polylang_langswitcher '.$args['class'].'">'.pll_the_languages( $args );
+		$output .= ($args['dropdown']) ? '</div>' : '</ul>';
+	}
+
+	return $output;
+}
+
+add_shortcode( 'lang_switcher', 'custom_lang_switcher' );
