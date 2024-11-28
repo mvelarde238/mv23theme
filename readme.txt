@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.32 24-11-28
+- Move Theme_Migrator UI to a safer place
+
 1.5.31 24-11-21
 - lang_switcher shortcode implementation
 

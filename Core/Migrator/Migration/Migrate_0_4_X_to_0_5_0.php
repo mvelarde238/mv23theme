@@ -48,16 +48,16 @@ class Migrate_0_4_X_to_0_5_0{
         $slug = Core::getInstance()->get_slug();
 
         add_submenu_page(
-            // 'theme-options-menu', // dosnt work
-            'index.php',
+            'theme-options',
             __('Theme Migrator', 'default'),
             __('Theme Migrator', 'default'),
             'manage_options',
             $slug,
-            array($this, 'display')
+            array($this, 'display'),
+            60
         );
 
-        $this->migrator_url = admin_url('index.php?page='.$slug);
+        $this->migrator_url = admin_url('admin.php?page='.$slug);
     }
 
     public function display(){
@@ -76,7 +76,7 @@ class Migrate_0_4_X_to_0_5_0{
     }
 
     public function enqueue_migrator_scripts( $hook ) {
-        if ( 'dashboard_page_theme-migrator' != $hook ) return;
+        if ( 'admin_page_theme-migrator' != $hook ) return;
 
         $slug = Core::getInstance()->get_slug();
 
@@ -89,7 +89,7 @@ class Migrate_0_4_X_to_0_5_0{
     }
     
     public function enqueue_migrator_styles( $hook ) {
-        if ( 'dashboard_page_theme-migrator' != $hook ) return;
+        if ( 'admin_page_theme-migrator' != $hook ) return;
 
         $slug = Core::getInstance()->get_slug();
         wp_enqueue_style($slug.'-style', THEME_MIGRATOR_PATH . '/styles/styles.css', array(), '1.0');
