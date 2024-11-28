@@ -153,36 +153,35 @@ class Theme_Options extends Theme_Header_Data{
                 }   
                 if( $item['__type'] == 'custom_font' ){
                     $files = $item['files'];
-                    if( is_array($files) && !empty($files) ){
-                        $name = $item['name'];
-                        $variant = $item['variant'];
-                        $type = $item['type'];
-                        $names[] = $name;
-                        // font urls
-                        $custom_font_urls = array();
-                        if($type == 'file'){
-                            foreach ($files as $file) {
-                                $custom_font_urls[] = 'url('.wp_get_attachment_url($file).')';
-                            }
-                        }
-                        if($type == 'url' && isset($item['urls']) && is_array($item['urls']) && !empty($item['urls'])){
-                            foreach ($item['urls'] as $group_item) {
-                                if($group_item['url']) $custom_font_urls[] = 'url('.$group_item['url'].')';
-                            }
-                        }
-                        if( !empty($custom_font_urls) ){
-                            // font face
-                            $css .= '@font-face {';
-                            $css .= 'font-family: '.$name.';';
-                            $css .= 'font-weight: '.$variant.';';
-                            $css .= 'src:'.implode(', ',$custom_font_urls).';';
-                            $css .= '} ';
-                            // $css .= '}\n '; // didnt worked in marine farm project
-    
-                            // font rule
-                            if( $item['scope'] != 'any' ) $css .= $selector.' {font-family: ' . $name . ', Sans-Serif;}';
+                    $name = $item['name'];
+                    $variant = $item['variant'];
+                    $type = (isset($item['type'])) ? $item['type'] : null;
+                    $names[] = $name;
+                    // font urls
+                    $custom_font_urls = array();
+                    if($type == 'file' && is_array($files) && !empty($files)){
+                        foreach ($files as $file) {
+                            $custom_font_urls[] = 'url('.wp_get_attachment_url($file).')';
                         }
                     }
+                    if($type == 'url' && isset($item['urls']) && is_array($item['urls']) && !empty($item['urls'])){
+                        foreach ($item['urls'] as $group_item) {
+                            if($group_item['url']) $custom_font_urls[] = 'url('.$group_item['url'].')';
+                        }
+                    }
+                    if( !empty($custom_font_urls) ){
+                        // font face
+                        $css .= '@font-face {';
+                        $css .= 'font-family: '.$name.';';
+                        $css .= 'font-weight: '.$variant.';';
+                        $css .= 'src:'.implode(', ',$custom_font_urls).';';
+                        $css .= '} ';
+                        // $css .= '}\n '; // didnt worked in marine farm project
+
+                        // font rule
+                        if( $item['scope'] != 'any' ) $css .= $selector.' {font-family: ' . $name . ', Sans-Serif;}';
+                    }
+                    
                 }
             }
         }
