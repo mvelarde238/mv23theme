@@ -156,21 +156,30 @@ class Theme_Options extends Theme_Header_Data{
                     if( is_array($files) && !empty($files) ){
                         $name = $item['name'];
                         $variant = $item['variant'];
+                        $type = $item['type'];
                         $names[] = $name;
-                        // font face
-                        $css .= '@font-face {';
-                        $css .= 'font-family: '.$name.';';
-                        $css .= 'font-weight: '.$variant.';';
+                        // font urls
                         $custom_font_urls = array();
-                        foreach ($files as $file) {
-                            $custom_font_urls[] = 'url('.wp_get_attachment_url($file).')';
+                        if($type == 'file'){
+                            foreach ($files as $file) {
+                                $custom_font_urls[] = 'url('.wp_get_attachment_url($file).')';
+                            }
                         }
-                        $css .= 'src:'.implode(', ',$custom_font_urls).';';
-                        $css .= '} ';
-                        // $css .= '}\n '; // didnt worked in marine farm project
-
-                        // font rule
-                        if( $item['scope'] != 'any' ) $css .= $selector.' {font-family: ' . $name . ', Sans-Serif;}';
+                        if($type == 'url' && $item['url']){
+                            $custom_font_urls[] = 'url('.$item['url'].')';
+                        }
+                        if( !empty($custom_font_urls) ){
+                            // font face
+                            $css .= '@font-face {';
+                            $css .= 'font-family: '.$name.';';
+                            $css .= 'font-weight: '.$variant.';';
+                            $css .= 'src:'.implode(', ',$custom_font_urls).';';
+                            $css .= '} ';
+                            // $css .= '}\n '; // didnt worked in marine farm project
+    
+                            // font rule
+                            if( $item['scope'] != 'any' ) $css .= $selector.' {font-family: ' . $name . ', Sans-Serif;}';
+                        }
                     }
                 }
             }

@@ -54,10 +54,16 @@ class Typography {
                                 '800' => '800',
                                 '900' => '900'
                             ))->set_width(20),
+                            Field::create( 'select', 'type' )->set_input_type( 'radio' )->add_options(array(
+                                'file' => 'File',
+                                'url' => 'Url'
+                            ))->set_width(20),
                             Field::create( 'gallery', 'files', __('@font-face files ( woff2, woff )') )
                                 ->set_file_type('font/woff, font/woff2')
                                 ->set_attr( 'class', 'hide-gallery-order' )
-                                ->set_width(60)
+                                ->add_dependency( 'type', 'file' )
+                                ->set_width(40),
+                            Field::create( 'text', 'url' )->add_dependency( 'type', 'url' )->set_width(100),
                         )),
                         Field::create( 'select', 'scope' )->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options(array(
                             'any' => 'Any, just load the font',
