@@ -165,8 +165,10 @@ class Theme_Options extends Theme_Header_Data{
                                 $custom_font_urls[] = 'url('.wp_get_attachment_url($file).')';
                             }
                         }
-                        if($type == 'url' && $item['url']){
-                            $custom_font_urls[] = 'url('.$item['url'].')';
+                        if($type == 'url' && isset($item['urls']) && is_array($item['urls']) && !empty($item['urls'])){
+                            foreach ($item['urls'] as $group_item) {
+                                if($group_item['url']) $custom_font_urls[] = 'url('.$group_item['url'].')';
+                            }
                         }
                         if( !empty($custom_font_urls) ){
                             // font face

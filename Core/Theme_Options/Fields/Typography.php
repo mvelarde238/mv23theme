@@ -63,7 +63,15 @@ class Typography {
                                 ->set_attr( 'class', 'hide-gallery-order' )
                                 ->add_dependency( 'type', 'file' )
                                 ->set_width(40),
-                            Field::create( 'text', 'url' )->add_dependency( 'type', 'url' )->set_width(100),
+                            Field::create( 'repeater', 'urls', __('Urls for @font-face css declaration ( woff2, woff )') )
+                                ->set_add_text('Add a url')
+                                ->set_layout( 'table' )
+                                ->add_dependency( 'type', 'url' )
+                                ->add_group('item', array(
+                                    'fields' => array(
+                                        Field::create( 'text', 'url' )
+                                    )
+                                ))->set_width(100)
                         )),
                         Field::create( 'select', 'scope' )->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options(array(
                             'any' => 'Any, just load the font',
