@@ -155,7 +155,7 @@ class Theme_Options extends Theme_Header_Data{
                     $files = $item['files'];
                     $name = $item['name'];
                     $variant = $item['variant'];
-                    $type = (isset($item['type'])) ? $item['type'] : null;
+                    $type = (isset($item['type'])) ? $item['type'] : 'file';
                     $names[] = $name;
                     // font urls
                     $custom_font_urls = array();
