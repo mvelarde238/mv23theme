@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.33 24-12-04
+- Fix adjust scroll position script to take the header height value direct from the .header
+
 1.5.32 24-11-28
 - Move Theme_Migrator UI to a safer place
 - Font url implementation in Theme Options - Typography

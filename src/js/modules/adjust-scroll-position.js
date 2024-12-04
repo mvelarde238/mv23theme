@@ -10,8 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
 function adjustScrollPosition(anchor) {
     const targetElement = document.querySelector(anchor);
     if (targetElement) {
-        var bodyStyles = window.getComputedStyle(document.body);
-        var sticky_header_height = bodyStyles.getPropertyValue('--sticky-header-height');
+        let header = document.getElementById("header"),
+            sticky_header_height = header.offsetHeight;
+
         const headerHeight = parseInt(sticky_header_height);
         const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
 
