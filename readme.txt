@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.34 24-12-05
+- Remove text transform uppercase from button
+
 1.5.33 24-12-04
 - Fix adjust scroll position script to take the header height value direct from the .header
 
