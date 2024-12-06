@@ -45,7 +45,8 @@ class Page_Header{
 		$this->content = ($content) ? $content : array();
 	}
 	private function set_settings(){
-		$this->settings = get_metadata($this->page_type, $this->page_ID, 'page_header_settings', true);
+		$settings = get_metadata($this->page_type, $this->page_ID, 'page_header_settings', true);
+		$this->settings = ($settings) ? $settings : array();
 	}
 	private function set_slider(){
 		$slider = get_metadata($this->page_type, $this->page_ID, 'page_header_slider', true);
