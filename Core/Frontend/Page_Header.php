@@ -56,6 +56,11 @@ class Page_Header{
 		$args = array( '__type' => 'page_header' );
 		$args['settings'] = $this->settings;
 		$args['additional_classes'] = [ 'page-header--'.$this->content_type ];
+		
+		// force containered page header
+		if( !isset($args['settings']['layout']) || $args['settings']['layout']['key'] == 'layout1' ){
+			$args['settings']['layout'] = array('use'=>1,'key'=>'layout2');
+		}
 
 		echo Template_Engine::component_wrapper( 'start', $args );
 
@@ -87,6 +92,10 @@ class Page_Header{
 		}
 
 		echo Template_Engine::component_wrapper( 'end', $args );
+
+		// echo '<pre>';
+		// print_r($args);
+		// echo '</pre>';
 	}
 
 	public function the_content(){
