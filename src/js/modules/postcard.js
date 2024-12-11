@@ -10,7 +10,7 @@
         scrollDuration = MV23_GLOBALS.listingPortfolioScrollDuration,
         expanderResponse = '<div class="expander-response"></div>',
         closeBtn = '<div class="expander-close"></div>',
-        expanderInner = '<div class="expander-inner container">'+expanderResponse+closeBtn+'</div>',
+        expanderInner = '<div class="expander-inner">'+expanderResponse+closeBtn+'</div>',
         loading = '<div class="expander-loading"></div>';
 
     $(document).on('click', '.trigger-post-action', function(event){

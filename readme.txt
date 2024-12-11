@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.35 24-12-10
+- Remove .container from .expander-inner
+
 1.5.34 24-12-05
 - Remove text transform uppercase from button
 - Force containered page header
