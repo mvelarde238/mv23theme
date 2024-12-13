@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.36 24-12-12
+- CONTENT_BUILDER_SETTINGS constant implementation
+
 1.5.35 24-12-10
 - Remove .container from .expander-inner
 
