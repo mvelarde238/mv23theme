@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.37 24-12-17
+- Add outline to table in editor styles
+
 1.5.36 24-12-12
 - CONTENT_BUILDER_SETTINGS constant implementation
 
