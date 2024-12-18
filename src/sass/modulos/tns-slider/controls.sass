@@ -1,49 +1,29 @@
 .tns-control-position
     button[data-controls="prev"]
-        left: 10px
+        left: 0
     button[data-controls="next"]
-        right: 10px
+        right: 0
 
     &[data-controls-position='top']
-        padding-top: 60px
-    &[data-controls-position='top'] .tns-controls button
-        top: -50px
+        &.without-navigation
+            padding-top: var(--controls-size) !important
+        .tns-controls button
+            top: 0
+
     &[data-controls-position='center'] .tns-controls button
         top: 0
         bottom: 0
         margin: auto
-    &[data-controls-position='bottom'] .tns-controls button
-        bottom: 25px
-    
-    // container width and up
-    @media only screen and (min-width: #{$container-width + 80px})
-        &[data-controls-position='center'] .tns-controls button
-            &[data-controls="prev"]
-                left: -20px
-            &[data-controls="next"]
-                right: -20px
-        // fix controls position inside components:
-        &.carrusel-inside-component
-            button[data-controls=prev]
-                left: -40px !important
-            button[data-controls=next]
-                right: -40px !important
+        &[data-controls="prev"]
+            left: calc( calc( var(--controls-size) / 2 ) * -1  )
+        &[data-controls="next"]
+            right: calc( calc( var(--controls-size) / 2 ) * -1  )
 
-    // container width and down
-    @media only screen and (max-width: #{$container-width + 80px})
-        &[data-controls-position='center'] .tns-controls button
-            top: initial
-            bottom: 25px
-        &[data-controls-position='center'],
-        &[data-controls-position='bottom']
-            &.without-navigation .tns-outer
-                padding-bottom: 80px !important
-        // fix controls position inside components:
-        &.carrusel-inside-component
-            button[data-controls="prev"]
-                left: 0px !important
-            button[data-controls="next"]
-                right: 0px !important
+    &[data-controls-position='bottom']
+        &.without-navigation
+            padding-bottom: var(--controls-size) !important
+        .tns-controls button
+            bottom: 0
     
 .tns-control-buttons
     z-index: 89
@@ -51,9 +31,8 @@
     button[data-controls="prev"],
     button[data-controls="next"]
         position: absolute
-        width: 38px
-        height: 38px
-        line-height: 37px
+        width: var(--controls-size)
+        height: var(--controls-size)
         padding: 0
         background-color: var(--ui-color-3)
         color: var(--ui-color-1)
@@ -65,7 +44,9 @@
         border: 0
         i
             font-size: 33px
-            line-height: 38px
+            line-height: var(--controls-size)
+        &:active
+            transform: scale(.9)
 
     button[data-controls="prev"]
         box-shadow: -4px 4px 10px var(--ui-color-2)

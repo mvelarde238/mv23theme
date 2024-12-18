@@ -1,24 +1,23 @@
 .tns-navigation
-    position: static
-    left: 0
-    bottom: 20px
     z-index: 56
-    width: calc( 100% - 120px )
+    height: var(--controls-size)
+    width: fit-content
+    max-width: calc( 90% - calc( var(--controls-size) * 2 ) )
     margin: auto
-    padding: 30px 0
     display: flex
-    flex-wrap: wrap
-    justify-content: center
+    gap: 15px
+    align-items: center
+    overflow: auto
+    padding: 0 15px
 
     button
         background-color: var(--ui-color-2)
-        height: 6px
-        width: 6px
-        border-radius: 50%
+        height: 6px !important
+        width: 6px !important
         border: 0
-        margin: 10px
-        padding: 0
+        border-radius: 50%
         outline: 0
+        padding-left: 0
 
         &.tns-nav-active
             background-color: var(--ui-color-1)

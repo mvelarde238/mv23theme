@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.38 24-12-18
+- Carrusel Comp.: fix controls position
+
 1.5.37 24-12-17
 - Add outline to table in editor styles
 

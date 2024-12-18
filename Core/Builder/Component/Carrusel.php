@@ -81,11 +81,16 @@ class Carrusel extends Component {
             
             Field::create( 'tab', 'Carrusel' ),
             Field::create( 'checkbox', 'show_controls' )->set_text('Mostrar Flechas')->set_width( 10 ),
+            Field::create( 'select', 'controls_position' )->add_options( array(
+                'center' => __('Center','default'),
+                'bottom' => __('Bottom','default'),
+                'top' => __('Top','default'),
+            ))->add_dependency('show_controls')->set_width( 10 ),
             Field::create( 'checkbox', 'show_nav' )->set_text('Mostrar indicadores de página')->set_width( 10 ),
             Field::create( 'select', 'nav_position' )->add_options( array(
-                        'bottom' => 'Abajo',
-                        'top' => 'Arriba',
-                    ))->add_dependency('show_nav')->set_width( 10 ),
+                'bottom' => __('Bottom','default'),
+                'top' => __('Top','default'),
+            ))->add_dependency('show_nav')->set_width( 10 ),
             Field::create( 'checkbox', 'autoplay' )->set_text('Empezar automáticamente')->set_width( 10 ),
             Field::create( 'checkbox', 'auto_height' )->set_text('Activar')->set_width( 10 ),
             Field::create( 'checkbox', 'touch' )->set_text('Activar')->set_width( 10 ),
@@ -124,7 +129,8 @@ class Carrusel extends Component {
 	public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
         
-		$args['additional_classes'] = array();
+		$args['additional_classes'] = array('component');
+        $args['additional_attributes'] = array();
 
         $items = $args['items'];
         $show_controls = (isset($args['show_controls']) && !empty($args['show_controls'])) ? $args['show_controls'] : 0;
@@ -153,9 +159,17 @@ class Carrusel extends Component {
         $gutter_in_laptop = (isset($args['gutter_in_laptop'])) ? $args['gutter_in_laptop'] : 0;
         $gutter_in_desktop = (isset($args['gutter_in_desktop'])) ? $args['gutter_in_desktop'] : 0;
 
-        $args['additional_classes'][] = 'nav-position-'.$nav_position;
-        if( !$show_nav ) $args['additional_classes'][] = 'without-navigation';
-        $args['additional_attributes'] = array( 'data-controls-position="center"' );
+        if( $show_nav ){
+            $nav_position = $args['nav_position'] ?? 'bottom';
+            $args['additional_attributes'][] = 'data-nav-position="'.$nav_position.'"';
+        } else {
+            $args['additional_classes'][] = 'without-navigation';
+        }
+
+        if( $show_controls ){
+            $controls_position = $args['controls_position'] ?? 'center';
+            $args['additional_attributes'][] = 'data-controls-position="'.$controls_position.'"';
+        }
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args); ?>
