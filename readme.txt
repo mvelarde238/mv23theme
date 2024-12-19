@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.39 24-12-19
 - Horizontal Nav 4 styles implementation in Menu Component
+- Implement --accent-colors in .menu-comp
 
 1.5.38 24-12-18
 - Carrusel Comp.: fix controls position

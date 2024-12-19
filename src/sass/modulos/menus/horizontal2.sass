@@ -3,7 +3,7 @@
     @extend %horizontal-sub-menu-styles
 
     .menu
-        border-bottom: 1px solid var(--primary-color-light)
+        border-bottom: 1px solid var(--accent-color-2)
         @extend %shared-horizontal-navs-styles
         @extend %hidden-label
         @extend %fix-for-hidden-label
@@ -11,10 +11,10 @@
         @extend %current-menu-item-styles
 
         >li:not(:first-child)
-            border-left: 1px solid var(--primary-color-light)
+            border-left: 1px solid var(--accent-color-2)
         >li
             &:hover
-                background-color: var(--primary-color-lighter)
+                background-color: var(--accent-color-3)
         >li>a
             padding: 15px 15px
             text-align: center
@@ -29,7 +29,7 @@
                 bottom: 0
                 left: 0
                 width: 100%
-                background-color: var(--primary-color)
+                background-color: var(--accent-color-1)
                 height: 4px
 
     @extend %item-has-children-arrow-visibility

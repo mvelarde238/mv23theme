@@ -1,3 +1,8 @@
+.menu-comp
+    --accent-color-1: var(--primary-color)
+    --accent-color-2: var(--primary-color-light)
+    --accent-color-3: var(--primary-color-lighter)
+    
 %clear-unordered-list
     ul
         margin: 0
@@ -38,10 +43,10 @@
 %sub-menu-item-styles
     &>li
         &:not(:last-child)
-            border-bottom: 1px solid var(--primary-color-lighter)
+            border-bottom: 1px solid var(--accent-color-3)
         &:has( .toggle-submenu[aria-expanded="true"] )>a,
         &:hover>a
-            background-color: var(--primary-color-lighter)
+            background-color: var(--accent-color-3)
     a
         font-size: 13px
         padding: 12px 20px
@@ -62,7 +67,7 @@
     justify-content: center
     .-secondary
         background-color: #fff
-        box-shadow: 0 2px 5px var(--primary-color-lighter)
+        box-shadow: 0 2px 5px var(--accent-color-3)
         @extend %menu-item-styles
         @extend %sub-menu-item-styles
 
@@ -126,7 +131,7 @@
     .toggle-submenu
         width: 35px
         height: 30px
-        border: 1px solid var(--primary-color-light)
+        border: 1px solid var(--accent-color-2)
         background-color: transparent
         border-radius: 3px
         outline: 0
@@ -134,7 +139,7 @@
         &:before
             content: '\f107'
             font: normal normal normal 19px/1 FontAwesome
-            color: var(--primary-color)
+            color: var(--accent-color-1)
             transform-origin: center
         &[aria-expanded="true"]
             transform: scaleY(-1)
