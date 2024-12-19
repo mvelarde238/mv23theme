@@ -37,6 +37,7 @@ class Menu extends Component {
                 array( 'slug' => 'horizontal-nav-1', 'name' => __('Horizontal Nav 1','default'), 'image' => '' ),
                 array( 'slug' => 'horizontal-nav-2', 'name' => __('Horizontal Nav 2','default'), 'image' => '' ),
                 array( 'slug' => 'horizontal-nav-3', 'name' => __('Horizontal Nav 3','default'), 'image' => '' ),
+                array( 'slug' => 'horizontal-nav-4', 'name' => __('Horizontal Nav 4','default'), 'image' => '' ),
                 array( 'slug' => 'vertical-nav-1', 'name' => __('Vertical Nav 1','default'), 'image' => '' ),
                 array( 'slug' => 'unordered-list', 'name' => __('None','default'), 'image' => '' )
             ) 

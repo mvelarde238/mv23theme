@@ -1,0 +1,45 @@
+.horizontal-nav-4
+    --icon-size: 22px
+    @extend %basic-global-menu-styles
+    @extend %horizontal-sub-menu-styles
+
+    .menu
+        align-items: center
+
+        @extend %shared-horizontal-navs-styles
+        @extend %hidden-label
+        @extend %fix-for-hidden-label
+        @extend %menu-item-styles
+        @extend %current-menu-item-styles
+
+        >li
+            // max-width: 160px
+            &:not(:last-child)
+                margin-right: 6px
+            & > a
+                padding: 10px
+                white-space: initial
+                display: flex
+                align-items: center
+            &:hover
+                background-color: var(--primary-color-lighter)
+            & > a .menu-item__icon
+                font-size: var(--icon-size)
+                line-height: var(--icon-size)
+                margin-right: 10px
+                img
+                    min-width: var(--icon-size)
+                    max-height: var(--icon-size)
+
+    @extend %item-has-children-arrow-visibility
+
+    @media only screen and (max-width: #{$menu-breakpoint})
+        .toggle-submenu
+            position: absolute
+            top: 0
+            bottom: 0
+            margin: auto
+            right: 5px
+        .menu, .sub-menu
+            li.menu-item-has-children>a
+                padding-right: 50px
