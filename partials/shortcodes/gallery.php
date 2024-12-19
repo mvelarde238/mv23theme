@@ -130,7 +130,7 @@ function print_theme_gallery( $atts ) {
                 case 'application/pdf':
                     $attachment_type = 'pdf';
                     $url = wp_get_attachment_url($attachment_id);
-                    echo '<img src="'.get_stylesheet_directory_uri().'/assets/images/pdf_poster.jpg">';
+                    echo '<img src="'.get_template_directory_uri().'/assets/images/pdf_poster.jpg">';
                     break;
                 
                 default:
@@ -167,7 +167,7 @@ function print_theme_gallery( $atts ) {
                     $attachment_type === 'pdf'
                 ){
                     $imagen = get_the_post_thumbnail_url( $attachment_id, 'full' );
-                    $thumb_url = ($imagen) ? $imagen : get_stylesheet_directory_uri().'/assets/images/'.$attachment_type.'_poster.jpg';
+                    $thumb_url = ($imagen) ? $imagen : get_template_directory_uri().'/assets/images/'.$attachment_type.'_poster.jpg';
                     $attachment_link_html .= ' data-thumb="'.$thumb_url.'"';
                 }
                 $attachment_link_html .= '></a>';
