@@ -24,6 +24,13 @@
             padding-bottom: var(--controls-size) !important
         .tns-controls button
             bottom: 0
+
+    @media only screen and (max-width: #{$container-width + 80px})
+        &[data-controls-position='center'] .tns-controls button
+            &[data-controls="prev"]
+                left: -10px
+            &[data-controls="next"]
+                right: -10px
     
 .tns-control-buttons
     z-index: 89
