@@ -287,6 +287,7 @@ class Listing extends Component {
                     $show_tax = $args[$tax.'-filter']['show'];
                     if($show_tax){
                         $default_term = $args[$tax.'-filter']['default_value'];
+                        array_push($query_taxonomies,$tax);
                         array_push($filter_taxonomies,$tax);
                         array_push($filter_default_terms,$default_term);
                     }

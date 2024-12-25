@@ -3,7 +3,8 @@ CHANGELOG
 **************************************************************************************************
 
 1.5.40 24-12-25
-- Fix toggle-box funcionality after ajax refresh
+- Fix .toggle-box funcionality after ajax refresh on listings
+- Fix Listing Component: taxonomy not displaying in data attributte when tax filter is active
 
 1.5.39 24-12-19
 - Horizontal Nav 4 styles implementation in Menu Component
