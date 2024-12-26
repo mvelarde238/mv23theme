@@ -33,8 +33,8 @@
       // }
 
       document.addEventListener('click', (event) => {
-        event.preventDefault();
         if (event.target && event.target.hasAttribute('data-sharer')) {
+          event.preventDefault();
           Sharer.add(event.target);
         }
       });

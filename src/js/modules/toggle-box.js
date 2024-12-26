@@ -16,10 +16,10 @@
         }
 
         $('body').on('click', '.toggle-box', function(ev){
-            ev.preventDefault();
             var selector = this.dataset.selector;
             var scrollToBox = this.dataset.scrollToBox;
             if(selector){
+                ev.preventDefault();
                 var boxes = document.querySelectorAll(selector);
                 for (var ind = 0; ind < boxes.length; ind++) {
                     if (boxes[ind].style.display === 'none' || boxes[ind].style.display === '') {
