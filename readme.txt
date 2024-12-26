@@ -5,6 +5,7 @@ CHANGELOG
 1.5.40 24-12-25
 - Fix .toggle-box funcionality after ajax refresh on listings
 - Fix Listing Component: taxonomy not displaying in data attributte when tax filter is active
+- Fix sharer.js to work after ajax refresh
 
 1.5.39 24-12-19
 - Horizontal Nav 4 styles implementation in Menu Component
