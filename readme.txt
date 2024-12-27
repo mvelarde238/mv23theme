@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.41 24-12-27
+- --bold-font-weight implementation in Theme Options
+
 1.5.40 24-12-25
 - Fix .toggle-box funcionality after ajax refresh on listings
 - Fix Listing Component: taxonomy not displaying in data attributte when tax filter is active

@@ -86,6 +86,7 @@ $container-width: 1240px !default; // used in some @media queries
 	--font-size: 16px;
 	--line-height: 180%;
 	--font-weight: 300;
+	--bold-font-weight: bold;
 	--h1-line-height: #{$headings-line-height};
 	--h2-line-height: #{$headings-line-height};
 	--h3-line-height: #{$headings-line-height};

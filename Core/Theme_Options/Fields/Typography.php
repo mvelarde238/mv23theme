@@ -104,6 +104,10 @@ class Typography {
             $count++;
         }
 
+        $bold_fields = array(Field::create( 'complex', 'bold', __('Bold, Strong','default') )->add_fields(array(
+            Field::create( 'text', 'font_weight' )->set_validation_rule($font_weight_rule)->set_placeholder(700)->set_attr('style','width:30%; min-width:50px;')
+        )));
+
         // $hints_field = array(Field::create( 'complex', 'hints' )->add_fields(array(
         //     Field::create( 'message', 'font_size_hint' )->set_description('Valid values for font size: 12px, 1.5em, 2rem, 120%, small, medium, etc','default')->hide_label(),
         //     Field::create( 'message', 'line_height_hint' )->set_description('Valid values for line_height: 1.5, 2, ..., 20px, 2em, 150%, normal, etc','default')->hide_label(), 
@@ -111,6 +115,6 @@ class Typography {
         // )));
 
         // return array_merge( $fields, $heading_fields, $hints_field );
-        return array_merge( $fields, $heading_fields );
+        return array_merge( $fields, $heading_fields, $bold_fields );
     }
 }

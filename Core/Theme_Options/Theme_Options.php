@@ -232,19 +232,20 @@ class Theme_Options extends Theme_Header_Data{
         }
 
         // typography
-        $typography_options = array('paragraph', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6');
+        $typography_options = array('paragraph', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'bold');
         $props = array('font_size','line_height','font_weight');
         
         foreach ($typography_options as $option) {
 
+            $is_paragraph = ( $option == 'paragraph' );
             $is_heading = (strlen($option) == 2 );
             $option_name = ( $is_heading ) ? $option.'_heading' : $option;
             $the_option = get_option( $option_name );
 
             if( $the_option ) {
                 foreach ($props as $prop) {
-                    if ( $the_option[$prop] ){
-                        $css_property_name = ( !$is_heading ) ? '--'.$prop : '--'.$option.'-'.$prop;
+                    if ( isset($the_option[$prop]) && $the_option[$prop] ){
+                        $css_property_name = ( $is_paragraph ) ? '--'.$prop : '--'.$option.'-'.$prop;
                         $properties[] = str_replace('_','-',$css_property_name).':'.$the_option[$prop];
                     } 
                 }

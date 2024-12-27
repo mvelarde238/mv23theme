@@ -34,6 +34,10 @@ p{
   margin-bottom: 22px;
 }
 
+strong, b{
+  font-weight: var(--bold-font-weight);
+}
+
 @media #{$small-and-down}{
   h1{ font-size: 20px }
   h2{ font-size: 19px }
