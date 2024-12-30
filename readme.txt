@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.41 24-12-30
+- Flip Box Comp: allow 'flip-box' component class to be added from another component definition
+
 1.5.41 24-12-27
 - --bold-font-weight implementation in Theme Options
 
