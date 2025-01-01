@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.42 25-01-01
 - Reorder Button Component Settings
+- UF Feature removed: Show filename in repeater group title preview
 
 1.5.41 24-12-30
 - Flip Box Comp: allow 'flip-box' component class to be added from another component definition

@@ -464,9 +464,10 @@
 				var data = this.model.datastore.toJSON();
 				// data.fields = this.model.get( 'fields' );
 
-				if(data.hasOwnProperty('file')){
-					title = data.file_prepared[0].filename;
-				} else if( 
+				// if(data.hasOwnProperty('file')){
+					// title = data.file_prepared[0].filename;
+				// } else 
+				if( 
 					data.__type == 'page_module' && 
 					data.hasOwnProperty('settings') && 
 					data.settings.hasOwnProperty('main_attributes') &&

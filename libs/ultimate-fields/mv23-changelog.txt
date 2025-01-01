@@ -1,5 +1,8 @@
 mv23 changelog-------------------------
 
+- 01-01-2025
+- (core/js/container/group.js::467 - 469) Commented Feature: Show filename in repeater group title preview 
+
 - 15-11-2024
 - Remove background color from .uf-file-preview for png with white content
     (core/assets/sass/field/_file.scss)
