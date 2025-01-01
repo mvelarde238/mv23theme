@@ -18,11 +18,11 @@ class Button extends Component {
         return 'dashicons-button';
     }
 
-    // public static function get_title_template() {
-	// 	$template = '<%= text %>';
+    public static function get_title_template() {
+		$template = '<%= text %>';
 		
-	// 	return $template;
-	// }
+		return $template;
+	}
 
     public static function get_layout(){
         return 'table';
@@ -39,17 +39,6 @@ class Button extends Component {
                 'btn btn--secondary-color' => 'Botón Corporativo 2',
                 'btn btn--white' => 'Botón Blanco'
             ))->set_default_value('btn btn--main-color')->set_width(25),
-            Field::create( 'radio', 'alignment', 'Alineación')->add_options( array(
-                'left' => 'Izquierda',
-                'center' => 'Centro',
-                'right' => 'Derecha'
-            ))->set_orientation( 'horizontal' )->set_width(25),
-            Field::create( 'radio', 'size', 'Tamaño')->add_options( array(
-                'small' => 'Normal',
-                'medium' => 'Mediano',
-                'big' => 'Grande'
-            ))->set_orientation( 'horizontal' )->set_width(25),
-            Field::create( 'checkbox', 'fullwidth','Botón de ancho completo' )->set_text( 'Activar' )->set_width(25),
     
             Field::create( 'radio', 'type','Tipo')->set_orientation( 'horizontal' )->add_options( array(
                 'link' => 'Link',
@@ -58,12 +47,12 @@ class Button extends Component {
     
             Field::create( 'file', 'file', 'File' )->add_dependency('type','download','=')->set_width(25),
     
-            Field::create( 'radio', 'url_type','Origen:')->set_orientation( 'horizontal' )->add_options( array(
+            Field::create( 'radio', 'url_type','Destino:')->set_orientation( 'horizontal' )->add_options( array(
                 'interna' => 'Página Interna',
-                'externa' => 'Página Externa',
+                'externa' => 'Otro',
             ))->add_dependency('type','link','=')->set_width(25),
-            Field::create( 'wp_object', 'post', 'URL Interna' )->set_button_text( 'Selecciona la página' )->add_dependency('type','link','=')->add_dependency('url_type','interna','=')->set_width(25),
-            Field::create( 'text', 'url', 'URL Externa' )->add_dependency('type','link','=')->add_dependency('url_type','externa','=')->set_width(25),
+            Field::create( 'wp_object', 'post', '' )->set_button_text( 'Selecciona la página' )->add_dependency('type','link','=')->add_dependency('url_type','interna','=')->set_width(25),
+            Field::create( 'text', 'url', '' )->add_dependency('type','link','=')->add_dependency('url_type','externa','=')->set_width(25),
     
             Field::create( 'checkbox', 'new_tab', 'Abrir en una nueva ventana' )->set_text( 'Activar' )->set_width(25),
     
@@ -77,7 +66,27 @@ class Button extends Component {
                 'right' => 'Derecha'
             ))->set_orientation( 'horizontal' )->set_width(25),
     
-            Field::create( 'tab', 'Mobile Options' ),
+            Field::create( 'tab', __('Others','default') ),
+            Field::create( 'radio', 'alignment', 'Alineación')->add_options( array(
+                'left' => 'Izquierda',
+                'center' => 'Centro',
+                'right' => 'Derecha'
+            ))->set_orientation( 'horizontal' )->set_width(25),
+            Field::create( 'radio', 'size', 'Tamaño')->add_options( array(
+                'small' => 'Normal',
+                'medium' => 'Mediano',
+                'big' => 'Grande'
+            ))->set_orientation( 'horizontal' )->set_width(25),
+            Field::create( 'checkbox', 'fullwidth','Botón de ancho completo' )->set_text( 'Activar' )->set_width(25),
+            Field::create( 'repeater', 'attributes', 'Attributos' )->set_add_text('Agregar')
+                ->set_layout( 'table' )
+                ->add_group('item', array(
+                    'title_template' => '<%= attribute %> : <%= value %>',
+                    'fields' => array(
+                        Field::create( 'text', 'attribute' )->set_width( 50 ),
+                        Field::create( 'text', 'value' )->set_width( 50 ),
+                    )
+            )),
             Field::create( 'checkbox', 'add_responsive' )->set_text( 'Cambiar alineación en móviles' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
             Field::create( 'select', 'tablet_text_align','Alineación en Tablets')->add_options( array(
                 '' => 'Seleccionar',
@@ -90,18 +99,7 @@ class Button extends Component {
                 'left' => 'Izquierda',
                 'center' => 'Centro',
                 'right' => 'Derecha',
-            ))->set_width(50)->add_dependency('add_responsive'),
-    
-            Field::create( 'tab', 'Attributes' ),
-            Field::create( 'repeater', 'attributes', 'Attributos' )->set_add_text('Agregar')->hide_label()
-                ->set_layout( 'table' )
-                ->add_group('item', array(
-                    'title_template' => '<%= attribute %> : <%= value %>',
-                    'fields' => array(
-                        Field::create( 'text', 'attribute' )->set_width( 50 ),
-                        Field::create( 'text', 'value' )->set_width( 50 ),
-                    )
-                ))
+            ))->set_width(50)->add_dependency('add_responsive')            
         );
 
 		return $fields;
