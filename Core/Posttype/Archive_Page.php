@@ -98,6 +98,9 @@ class Archive_Page {
 		// --------------------------------------------------------------------------------------------------------------------------------------------------------------
 		// --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+		// In archives page '' -> load posttype card template
+		$post_template = array_merge( array( '__post' => 'Post' ), LISTING_POST_TEMPLATE );
+
 		$archive_loop_fields = array(
 			Field::create( 'tab', 'loop_settings_tabs', __('Loop Settings','default') ),
 			Field::create( 'message', 'lelmsg')
@@ -123,7 +126,7 @@ class Archive_Page {
 
 			Field::create( 'tab', 'postcard_settings_tab', __('Post card settings','default') ),
 			Field::create( 'complex', 'postcard_settings' )->hide_label()->add_fields(array(
-				Field::create( 'radio', 'template' )->set_orientation( 'vertical' )->add_options(LISTING_POST_TEMPLATE),
+				Field::create( 'radio', 'template' )->set_orientation( 'vertical' )->add_options($post_template), 
             	Field::create( 'select', 'on_click_post', 'Al hacer click en el post:' )->add_options(array(
             	    'redirect' => 'Redirigir a la página del post',
             	    'show-expander' => 'Mostrar el post en la misma página',

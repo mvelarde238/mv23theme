@@ -5,6 +5,7 @@ CHANGELOG
 1.5.43 25-01-02
 - Fix missing filter index in Listing Component arguments
 - remove_empty_paragraphs() js function implementation
+- Allow usign default post postcard in cpt archive pages
 
 1.5.42 25-01-01
 - Reorder Button Component Settings
