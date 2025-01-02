@@ -80,6 +80,8 @@ class Page_Header{
 			default:
 				echo '<div class="component center-align">';
 				if (is_archive()) :
+					$posttype = get_post_type();
+					echo '<p class="center mb0" style="font-size:13px;text-transform:uppercase;">'.$posttype.'</p>';
 					the_archive_title( '<h1>', '</h1>' );
 				elseif( is_search() ):
 					$searchkey = $_GET['s'];
