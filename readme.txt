@@ -7,6 +7,7 @@ CHANGELOG
 - remove_empty_paragraphs() js function implementation
 - Allow usign default post postcard in cpt archive pages
 - Show post type name in archive page header
+- Components_Wrapper Component title named to Wrapper
 
 1.5.42 25-01-01
 - Reorder Button Component Settings

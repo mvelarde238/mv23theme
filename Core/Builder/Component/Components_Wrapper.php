@@ -12,7 +12,7 @@ class Components_Wrapper extends Component {
     public function __construct() {
 		parent::__construct(
 			'components_wrapper',
-			__( 'Components Wrapper', 'default' )
+			__( 'Wrapper', 'default' )
 		);
 	}
 
