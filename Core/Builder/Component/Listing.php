@@ -179,7 +179,6 @@ class Listing extends Component {
         
 		$args['additional_classes'] = array('component');
 
-        $posts_meta = $args['posts'];
         $source_type = $args['show']; // auto || manual
         $items_in_desktop = $args['items_in_desktop'];
         $items_in_laptop = $args['items_in_laptop'];
@@ -200,10 +199,12 @@ class Listing extends Component {
         $pagination_type = $args['pagination_type'];
         $on_click_post = ( isset($args['on_click_post']) ) ? $args['on_click_post'] : 'redirect';
         $on_click_scroll_to = ( isset($args['on_click_scroll_to']) ) ? $args['on_click_scroll_to'] : '';
+        $filter = $args['filter'] ?? 0;
             
         if ($source_type == 'manual') {
             $posttype = '';
             $posts_ids = array();
+            $posts_meta = $args['posts'];
             foreach ($posts_meta as $post) {
                 array_push($posts_ids, str_replace('post_','',$post) );
             };
@@ -295,7 +296,7 @@ class Listing extends Component {
             }
         
             // check date params
-            if($args['filter']){
+            if($filter){
                 $date_params = array();
                 if( $args['year-filter']['show'] && $args['year-filter']['default'] ) $date_params['year'] = $args['year-filter']['default'];
                 if( count($date_params) ) $args_query['date_query'] = array( $date_params );
@@ -348,7 +349,7 @@ class Listing extends Component {
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
         
-        if($args['filter']) {
+        if($filter) {
             $show_month = 0;
             if( isset($args['month-filter']) ){
                 $show_month = $args['month-filter']['show'];
