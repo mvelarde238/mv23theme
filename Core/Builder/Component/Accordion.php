@@ -145,7 +145,7 @@ class Accordion extends Component {
                     $slug = ($itemid) ? $itemid : sanitize_title($title);
                     if( preg_match('@[0-9]@i',$slug) ) $slug = 'tab-'.$slug;
     
-                    $identifier = $item['identifier'];
+                    $identifier = $item['identifier'] ?? '';
     
                     switch ($identifier) {
                         case 'image':
@@ -165,7 +165,7 @@ class Accordion extends Component {
                             break;
                     };
     
-                    $content_element = $item['content_element'];
+                    $content_element = $item['content_element'] ?? '';
                     $contenido = '';
     
                     if ($content_element == 'page' && $item['page']) {
