@@ -35,9 +35,17 @@ class Components_Wrapper extends Component {
 	}
 
 	public static function get_fields() {
+		$blocks_layout_args = array( 'exclude' => array('inner_columns') );
+
+		// restrict components by posttype
+		$posttype = $_GET['post_type'] ?? get_post_type( $_GET['post'] ?? null);
+		if( $posttype && is_array(CONTENT_BUILDER_SETTINGS) && isset(CONTENT_BUILDER_SETTINGS[$posttype]) ){
+            $blocks_layout_args = wp_parse_args( CONTENT_BUILDER_SETTINGS[$posttype], $blocks_layout_args );
+        }
+
 		$fields = array( 
             Field::create( 'tab', __('Contenido','default') ),
-            Blocks_Layout::the_field( array( 'exclude' => array('inner_columns') ) ),
+            Blocks_Layout::the_field( $blocks_layout_args ),
 			Blocks_Layout_Settings::the_field()
         );
 

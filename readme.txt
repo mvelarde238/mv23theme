@@ -8,6 +8,7 @@ CHANGELOG
 - Allow usign default post postcard in cpt archive pages
 - Show post type name in archive page header
 - Components_Wrapper Component title named to Wrapper
+- Components_Wrapper feature: restrict components by posttype
 
 1.5.42 25-01-01
 - Reorder Button Component Settings
