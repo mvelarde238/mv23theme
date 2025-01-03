@@ -9,6 +9,7 @@ CHANGELOG
 - Show post type name in archive page header
 - Components_Wrapper Component title named to Wrapper
 - Components_Wrapper feature: restrict components by posttype
+- filter_header_options implementation
 
 1.5.42 25-01-01
 - Reorder Button Component Settings

@@ -51,14 +51,14 @@
             },
             show: function(){
                 $logo.attr('src', STICKY_HEADER.logo);
-                $header.attr('class', STICKY_HEADER.classes);
-                $header.attr('style', STICKY_HEADER.styles);
+                $header.attr('class', STICKY_HEADER.classes.join(' '));
+                $header.attr('style', STICKY_HEADER.styles.join(' '));
                 set_header_height();
             },
             hide: function(){
                 $logo.attr('src', STATIC_HEADER.logo);
-                $header.attr('class', STATIC_HEADER.classes);
-                $header.attr('style', STATIC_HEADER.styles);
+                $header.attr('class', STATIC_HEADER.classes.join(' '));
+                $header.attr('style', STATIC_HEADER.styles.join(' '));
                 set_header_height();
             }
         }

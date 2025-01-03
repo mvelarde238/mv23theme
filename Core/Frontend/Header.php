@@ -99,12 +99,13 @@ class Header{
 	}
 
 	public function get_options(){
+		$header_type = $this->header_type;
 		$options = array();
 	
 		$options['logo'] = $this->get_logo();
-		$options['styles'] = implode(' ', $this->get_styles() );
-		$options['classes'] = implode(' ', $this->get_classes() );
-	
-		return $options;
+		$options['styles'] = $this->get_styles();
+		$options['classes'] = $this->get_classes();
+
+		return apply_filters('filter_header_options', $options, $header_type);
 	}
 }
