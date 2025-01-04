@@ -147,7 +147,6 @@
 			// event.preventDefault();
 			var item = _hasClass(event.target, 'v23-togglebox__btn') ? event.target : _findAncestor(event.target, '.v23-togglebox__btn');
 			if(item) this._handle_active_class(item);
-			if( this.options.multistep ) this._add_multistep_mode_classes();
 		},
 		_handle_active_class(btn){
 			if (btn) { // method is triggered by a user click event
@@ -204,6 +203,7 @@
 					_addClass(this.items[0].box, 'active');	
 				}
 			}
+			if( this.options.multistep ) this._add_multistep_mode_classes();
 		},
 		_add_multistep_mode_classes(){
 			let foundActive = false;
