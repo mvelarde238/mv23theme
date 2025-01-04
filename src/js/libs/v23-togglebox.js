@@ -21,7 +21,7 @@
 	"use strict";
 
 	var instances = [],
-		version = '5.8.33',
+		version = '5.8.34',
 		timers = {};
 
 	/**
@@ -71,13 +71,15 @@
 				dataBreakpoints = this.el.dataset.breakpoints,
 				dataHeaderHeight = this.el.dataset.headerheight,
 				dataScrolltop = this.el.dataset.scrolltop,
-				dataScrollto = this.el.dataset.scrollto;
+				dataScrollto = this.el.dataset.scrollto,
+				dataStartIndex = this.el.dataset.startIndex;
 
 			if (dataTemplate != undefined) dataOptions.initialTemplate = dataTemplate;
 			if (dataBreakpoints != undefined) dataOptions.breakpoints = this._handleDataBreakpoints(dataBreakpoints); 
             if (dataHeaderHeight != undefined) dataOptions.headerHeight = dataHeaderHeight;
             if (dataScrolltop != undefined) dataOptions.scrolltop = dataScrolltop;
             if (dataScrollto != undefined) dataOptions.scrollto = dataScrollto;
+            if (dataStartIndex != undefined) dataOptions.startIndex = parseInt(dataStartIndex);
             if (this.el.hasAttribute("data-multistep")) dataOptions.multistep = 1;
 			
             // js-options are overriddden if data-options are passed
@@ -92,7 +94,8 @@
 				headerHeight : 0,
 				scrolltop : 0,
 				scrollto : 'btn', // el, btn, item
-				multistep : 0
+				multistep : 0,
+				startIndex: 0 // initial active tab index
 			};
 			
 			// Set default options
@@ -199,8 +202,9 @@
 				};				
 
 				if (this.activeTemplate === 'tab') {
-					_addClass(this.items[0].btn, 'active');
-					_addClass(this.items[0].box, 'active');	
+					let startIndex = this.options.startIndex;
+					_addClass(this.items[startIndex].btn, 'active');
+					_addClass(this.items[startIndex].box, 'active');	
 				}
 			}
 			if( this.options.multistep ) this._add_multistep_mode_classes();
