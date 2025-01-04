@@ -111,6 +111,12 @@ $container-width: 1240px !default; // used in some @media queries
 	--container-width: #{$container-width};
 	--fancybox-zIndex: 1600;
 	--sidebar-width: 280px;
+	--form-ui-color-1: var(--primary-color);
+    --form-ui-color-2: var(--primary-color-light);
+    --form-ui-color-3: var(--primary-color-lighter);
+	--table-ui-color-1: var(--primary-color);
+	--table-ui-color-2: var(--primary-color-light);
+	--table-ui-color-3: var(--primary-color-lighter);
 } 
 
 $page-module-padding: 40px 0 !default;

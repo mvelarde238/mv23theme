@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.45 25-01-03
 - v23ToggleBox 5.8.34: Add startIndex option to handle the initial active tab index
+- --form-ui-color and --table-ui-color css vars implementation
 
 1.5.44 25-01-03
 - v23ToggleBox 5.8.33: Add multistep mode

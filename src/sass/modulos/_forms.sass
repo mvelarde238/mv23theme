@@ -21,33 +21,34 @@ input:not([type="submit"]),
 textarea, select
     font-weight: normal
     border: 1px solid
-    border-color: var(--primary-color-light)
-    background-color: var(--primary-color-lighter)
+    border-color: var(--form-ui-color-2)
+    background-color: var(--form-ui-color-3)
     border-radius: 4px
 
 input[type="radio"],
 input[type="checkbox"]
-    accent-color: var(--primary-color)
+    accent-color: var(--form-ui-color-1)
 
 input[type="file"]
     background-color: transparent
     border: 0
     border-radius: 0
 
-input[type="submit"]
-    background-color: var(--primary-color)
+input[type="submit"],
+button[type="submit"]
+    background-color: var(--form-ui-color-1)
     color: #fff
     font-weight: var(--bold-font-weight)
     text-transform: uppercase
-    border: 3px solid var(--primary-color)
+    border: 3px solid var(--form-ui-color-1)
     padding: 17px 40px
     width: 100%
     border-radius: 0 25px 0 25px
     transition: 500ms all
     font-size: 16px
     border-radius: 5px
-    background-color: var(--primary-color)
-    border-color: var(--primary-color)
+    background-color: var(--form-ui-color-1)
+    border-color: var(--form-ui-color-1)
     &:hover
         box-shadow: initial
         background-color: var(--primary-color-dark)
@@ -76,8 +77,8 @@ textarea
     .wpcf7-list-item
         margin-left: 0
         border: 1px solid
-        border-color: var(--primary-color-light)
-        background-color: var(--primary-color-lighter)
+        border-color: var(--form-ui-color-2)
+        background-color: var(--form-ui-color-3)
         border-radius: 4px
         label
             padding: 11px 15px
