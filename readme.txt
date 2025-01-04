@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.44 25-01-03
+- v23ToggleBox 5.8.33: Add multistep mode
+
 1.5.43 25-01-02
 - Fix missing filter index in Listing Component arguments
 - remove_empty_paragraphs() js function implementation

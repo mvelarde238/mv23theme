@@ -4,7 +4,7 @@
  * @license MIT
  */
 
- (function v23ToggleBoxModule(factory) {
+(function v23ToggleBoxModule(factory) {
 	"use strict";
 
 	if (typeof define === "function" && define.amd) {
@@ -21,7 +21,7 @@
 	"use strict";
 
 	var instances = [],
-		version = '5.8.32',
+		version = '5.8.33',
 		timers = {};
 
 	/**
@@ -78,6 +78,7 @@
             if (dataHeaderHeight != undefined) dataOptions.headerHeight = dataHeaderHeight;
             if (dataScrolltop != undefined) dataOptions.scrolltop = dataScrolltop;
             if (dataScrollto != undefined) dataOptions.scrollto = dataScrollto;
+            if (this.el.hasAttribute("data-multistep")) dataOptions.multistep = 1;
 			
             // js-options are overriddden if data-options are passed
 			this.options = options = _extend(options, dataOptions);
@@ -90,7 +91,8 @@
 				},
 				headerHeight : 0,
 				scrolltop : 0,
-				scrollto : 'btn' // el, btn, item
+				scrollto : 'btn', // el, btn, item
+				multistep : 0
 			};
 			
 			// Set default options
@@ -145,6 +147,7 @@
 			// event.preventDefault();
 			var item = _hasClass(event.target, 'v23-togglebox__btn') ? event.target : _findAncestor(event.target, '.v23-togglebox__btn');
 			if(item) this._handle_active_class(item);
+			if( this.options.multistep ) this._add_multistep_mode_classes();
 		},
 		_handle_active_class(btn){
 			if (btn) { // method is triggered by a user click event
@@ -201,6 +204,22 @@
 					_addClass(this.items[0].box, 'active');	
 				}
 			}
+		},
+		_add_multistep_mode_classes(){
+			let foundActive = false;
+
+			for (var i = 0; i < this.btns.length; i++) {
+				let button = this.btns[i];
+				button.classList.remove('completed-step', 'pending-step');
+			
+				if (button.classList.contains('active')) {
+					foundActive = true;
+				} else if (!foundActive) {
+					button.classList.add('completed-step');
+				} else {
+					button.classList.add('pending-step');
+				}
+  			};
 		},
 		_handle_hash_in_url(hash = ''){
 			var urlObj = new URL(this.initialUrl);
