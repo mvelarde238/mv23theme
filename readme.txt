@@ -2,7 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
-1.5.45 25-01-03
+1.5.46 25-01-05
+- Fix remove_empty_paragraphs() function: dont remove p that hasAttributes to work with cf7
+
+1.5.45 25-01-04
 - v23ToggleBox 5.8.34: Add startIndex option to handle the initial active tab index
 - --form-ui-color and --table-ui-color css vars implementation
 

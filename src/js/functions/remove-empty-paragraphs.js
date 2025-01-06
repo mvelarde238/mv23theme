@@ -5,7 +5,7 @@ function remove_empty_paragraphs() {
     // Itera sobre cada elemento <p>
     paragraphs.forEach((p) => {
         // Verifica si el <p> está vacío o contiene solo espacios
-        if (p.innerHTML.trim() === '' ) {
+        if ( p.innerHTML.trim() === '' && !p.hasAttributes() ) {
             // Elimina el elemento <p> del DOM
             p.remove();
         }
