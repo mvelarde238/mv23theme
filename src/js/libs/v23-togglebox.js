@@ -21,7 +21,7 @@
 	"use strict";
 
 	var instances = [],
-		version = '5.8.34',
+		version = '5.8.35',
 		timers = {};
 
 	/**
@@ -145,6 +145,11 @@
 			for (var i = 0; i < this.btns.length; i++) {
 				_on(this.btns[i], 'click', this._open_tab);
 			}
+
+			const go_to_step_btn = this.el.querySelectorAll('.go-to-step');
+			for (var i = 0; i < go_to_step_btn.length; i++) {
+				_on(go_to_step_btn[i], 'click', this._go_to_step);
+			}
 		},
 		_open_tab(event){
 			// event.preventDefault();
@@ -184,7 +189,11 @@
 							if( scrollToElement.length ){
 								$("html, body").animate({ 
 									scrollTop: ( scrollToElement.offset().top - MV23_GLOBALS.headerHeight) }, 
-									{ duration: 800, queue: false, easing: 'easeOutCubic' }
+									{ 
+										duration: 800, 
+										queue: false
+										// easing: 'easeOutCubic' 
+									}
 								);
 							}
 						} 
@@ -224,6 +233,13 @@
 					button.classList.add('pending-step');
 				}
   			};
+		},
+		_go_to_step(ev){
+			const boxID = ev.target.dataset.boxid;
+			if(boxID){
+				const togglebox_btn = this.el.querySelector('.v23-togglebox__btn[data-boxid="'+boxID+'"]');
+				if( togglebox_btn ) togglebox_btn.click();
+			}
 		},
 		_handle_hash_in_url(hash = ''){
 			var urlObj = new URL(this.initialUrl);

@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.47 25-01-08
 - ADJUST_SCROLL_POSITION constant implementation
+- v23ToggleBox 5.8.35: Add _go_to_step() method
 
 1.5.46 25-01-05
 - Fix remove_empty_paragraphs() function: dont remove p that hasAttributes to work with cf7
