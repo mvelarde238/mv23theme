@@ -6,6 +6,7 @@ define ('SCROLL_ANIMATIONS', scroll_animation_is_active());
 define ('SCROLL_INDICATORS', scroll_indicators_is_active());
 define ('FONT_AWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css');
 define ('BOOTSTRAP_ICONS', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+define ('ADJUST_SCROLL_POSITION', false);
 
 // define ('IS_MULTILANGUAGE', class_exists('Polylang') );
 $polylang_path = trailingslashit( WP_PLUGIN_DIR ) . 'polylang/polylang.php';

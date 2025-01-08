@@ -8,3 +8,14 @@ var viewport = updateViewportDimensions(),
 
 do_get_implementation();
 remove_empty_paragraphs();
+
+document.addEventListener("DOMContentLoaded", () => {
+	if (MV23_GLOBALS.adjustScrollPosition){
+		setTimeout(() => {
+			const hash = window.location.hash;
+			if (hash) {
+				adjustScrollPosition(hash);
+			}
+		}, 400);
+	}
+});

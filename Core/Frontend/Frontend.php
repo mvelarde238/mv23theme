@@ -80,6 +80,7 @@ class Frontend extends Theme_Header_Data {
                 'carousels' => array(),
                 'scrollAnimations' => SCROLL_ANIMATIONS,
                 'scrollIndicators' => SCROLL_INDICATORS,
+                'adjustScrollPosition' => ADJUST_SCROLL_POSITION,
                 'open_minicart_on_add_to_cart' => OPEN_MINICART_ON_ADD_TO_CART,
                 'minicart_sidenav_position' => MINICART_SIDENAV_POSITION,
                 'woocommerce_is_active' => WOOCOMMERCE_IS_ACTIVE,

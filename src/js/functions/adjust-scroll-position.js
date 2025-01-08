@@ -1,12 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => {
-        const hash = window.location.hash;
-        if (hash) {
-            adjustScrollPosition(hash);
-        }
-    }, 400);
-});
-
 function adjustScrollPosition(anchor) {
     const targetElement = document.querySelector(anchor);
     if (targetElement) {
