@@ -360,7 +360,7 @@ class Theme_Options extends Theme_Header_Data{
     }
 
     public function enqueue_uf_customize_preview_script(){
-        $uri = $this->theme_path . '/assets/js/customizer.js';
+        $uri = $this->theme_uri . '/assets/js/customizer.js';
 	    wp_enqueue_script( 'theme-custom-fields', $uri, array( 'jquery', 'uf-customize-preview' ), '1.0', true );
     }
 }

@@ -7,6 +7,7 @@ class Theme_Header_Data {
     protected $version = null;
     protected $text_domain = null;
     protected $theme_path = null;
+    protected $theme_uri = null;
     private $template = null;
 
     public function __construct() {
@@ -17,7 +18,8 @@ class Theme_Header_Data {
         $this->theme_name = $theme->get( 'Name' );
         $this->version = $theme->get( 'Version' );
         $this->text_domain = $theme->get( 'TextDomain' );
-        $this->theme_path = get_template_directory_uri();
+        $this->theme_path = get_template_directory();
+        $this->theme_uri = get_template_directory_uri();
     }
 
     public function get_template() {

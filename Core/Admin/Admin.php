@@ -25,9 +25,9 @@ class Admin extends Theme_Header_Data {
         wp_enqueue_style( $this->text_domain.'-font-awesome', FONT_AWESOME, array(), $this->version );
         wp_enqueue_style( $this->text_domain.'-bootstrap-icons', BOOTSTRAP_ICONS, array(), $this->version );
 
-        wp_enqueue_style( $this->text_domain.'-admin-styles', $this->theme_path . '/assets/css/admin-styles.css', array(), $this->version);
+        wp_enqueue_style( $this->text_domain.'-admin-styles', $this->theme_uri . '/assets/css/admin-styles.css', array(), $this->version);
 
-        wp_register_script( $this->text_domain.'-admin-scripts', $this->theme_path . '/assets/js/admin-scripts.js', array('jquery'), $this->version, false );
+        wp_register_script( $this->text_domain.'-admin-scripts', $this->theme_uri . '/assets/js/admin-scripts.js', array('jquery'), $this->version, false );
         wp_localize_script( $this->text_domain.'-admin-scripts', 'MV23_GLOBALS', array( 
             'ajaxUrl' => admin_url( 'admin-ajax.php' )
         ));
@@ -102,7 +102,7 @@ class Admin extends Theme_Header_Data {
         $theme_fonts = Theme_Options::getInstance()->get_theme_fonts();
 
         $styles = array_merge(
-            array( $this->theme_path . '/assets/css/editor-style.css?ver='.$this->version ),
+            array( $this->theme_uri . '/assets/css/editor-style.css?ver='.$this->version ),
             $theme_fonts['urls']
         );
 

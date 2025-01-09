@@ -19,7 +19,7 @@ class Frontend extends Theme_Header_Data {
 
     public function enqueue_styles() {
         if (!is_admin()) {
-            wp_enqueue_style( $this->text_domain.'-styles', $this->theme_path . '/assets/css/style.css', array(), $this->version, 'all' );
+            wp_enqueue_style( $this->text_domain.'-styles', $this->theme_uri . '/assets/css/style.css', array(), $this->version, 'all' );
             wp_enqueue_style( $this->text_domain.'-font-awesome', FONT_AWESOME, array(), $this->version, 'all' );
             wp_enqueue_style( $this->text_domain.'-bootstrap-icons', BOOTSTRAP_ICONS, array(), $this->version, 'all' );
         }
@@ -42,7 +42,7 @@ class Frontend extends Theme_Header_Data {
             if (GM_IS_ACTIVE) wp_enqueue_script( 'googleapis', $gm_url, array(), '1.0', true);
     
             if( SCROLL_ANIMATIONS ){
-                wp_enqueue_script( 'scroll-animations', $this->theme_path . '/assets/js/scrollmagic.js', array(), '1.0', false);
+                wp_enqueue_script( 'scroll-animations', $this->theme_uri . '/assets/js/scrollmagic.js', array(), '1.0', false);
                 if( SCROLL_INDICATORS ){
                     wp_enqueue_script( 'scroll-indicators', 'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js', array('scroll-animations'), '1.0', false);
                 }
@@ -54,7 +54,7 @@ class Frontend extends Theme_Header_Data {
     
             if (MASONRY_IS_ACTIVE) wp_enqueue_script( 'jquery-masonry' );
     
-            wp_register_script( $this->text_domain . '-scripts', $this->theme_path . '/assets/js/scripts.js', array(), $this->version, true );
+            wp_register_script( $this->text_domain . '-scripts', $this->theme_uri . '/assets/js/scripts.js', array(), $this->version, true );
     
             $static_header = new Header();
             $sticky_header = new Header('sticky');
@@ -106,7 +106,7 @@ class Frontend extends Theme_Header_Data {
     }
 
     public function load_theme_textdomain() {
-        load_theme_textdomain( $this->text_domain , $this->theme_path . '/languages' );
+        load_theme_textdomain( $this->text_domain, $this->theme_path . '/languages' );
     }
 
     public function title_meta_tag( $title, $sep, $seplocation ) {
