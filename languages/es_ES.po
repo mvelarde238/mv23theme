@@ -1,0 +1,1639 @@
+# Copyright (C) 2025 Miguel Velarde
+# This file is distributed under the WTFPL.
+msgid ""
+msgstr ""
+"Project-Id-Version: MV23 Theme 1.5.48\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/mv23theme\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-01-09T18:55:51+01:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.0-alpha-e9cb0df\n"
+
+#. Theme Name of the theme
+msgid "MV23 Theme"
+msgstr ""
+
+#. Theme URI of the theme
+msgid "http://mv23.com"
+msgstr ""
+
+#. Description of the theme
+msgid "MV23 website"
+msgstr ""
+
+#. Author of the theme
+msgid "Miguel Velarde"
+msgstr ""
+
+#. Author URI of the theme
+msgid "http://www.velarde23.com"
+msgstr ""
+
+#: 404.php:9
+msgid "404 ERROR. Sorry, this page isn't available"
+msgstr "ERROR 404. Lo sentimos, esta página no está disponible"
+
+#: 404.php:10
+msgid "The link you followed may be broken, or the page may have been removed."
+msgstr "El link que has seguido podría estar roto o el contenido pudo haber sido borrado."
+
+#: 404.php:11
+msgid "Go back to Home"
+msgstr "Volver al Inicio"
+
+#: comments.php:6
+msgid "0 comentarios"
+msgstr ""
+
+#: comments.php:6
+msgid "Un comentario"
+msgstr ""
+
+#: comments.php:6
+msgid "<span>%</span> comentarios"
+msgstr ""
+
+#: comments.php:18
+msgid "<cite class=\"fn\">%1$s</cite> %2$s"
+msgstr ""
+
+#: comments.php:18
+msgid "(Edit)"
+msgstr ""
+
+#: comments.php:19
+msgid "F jS, Y"
+msgstr ""
+
+#: comments.php:24
+msgid "Gracias, tu comentario será publicado cuando sea aprobado."
+msgstr ""
+
+#: comments.php:41
+msgid "Responder"
+msgstr ""
+
+#: comments.php:52
+msgid "&larr; Comentarios anteriores"
+msgstr ""
+
+#: comments.php:53
+msgid "Mas comentarios &rarr;"
+msgstr ""
+
+#: comments.php:58
+msgid "Se han bloqueado los comentarios para esta publicación."
+msgstr ""
+
+#: Core/Admin/Admin.php:40
+msgid "Main nav"
+msgstr ""
+
+#: Core/Admin/Admin.php:41
+msgid "Mobile header buttons"
+msgstr ""
+
+#: Core/Admin/Admin.php:50
+msgid "Widgets to be used in the header"
+msgstr ""
+
+#: Core/Admin/Admin.php:60
+msgid "Widgets to be used in the sidebar"
+msgstr ""
+
+#: Core/Builder/common-settings-control/classes/Field.php:66
+msgid "Save Settings"
+msgstr ""
+
+#: Core/Builder/common-settings-control/classes/Field.php:70
+msgid "Add Settings"
+msgstr ""
+
+#: Core/Builder/common-settings/actions.php:52
+#: Core/Builder/Component/Menu.php:55
+#: Core/Builder/Component/Text_Editor.php:35
+#: Core/Builder/Component/Text_Editor.php:41
+#: Core/Builder/containers/popup/actions-container.php:53
+#: Core/Offcanvas_Elements/Restriction/Plugin.php:62
+#: Core/Posttype/Menu_Item.php:75
+#: Core/Posttype/Reusable_Section_CPT.php:113
+#: Core/Theme_Options/Fields/Header.php:13
+msgid "Select"
+msgstr ""
+
+#: Core/Builder/common-settings/columns.php:6
+msgid "Columns Settings"
+msgstr ""
+
+#: Core/Builder/common-settings/columns.php:11
+msgid "Order"
+msgstr ""
+
+#: Core/Builder/common-settings/columns.php:12
+#: Core/Builder/common-settings/columns.php:23
+#: Core/Offcanvas_Elements/Restriction/Device.php:57
+msgid "Desktop"
+msgstr ""
+
+#: Core/Builder/common-settings/columns.php:15
+#: Core/Builder/common-settings/columns.php:30
+msgid "Tablet"
+msgstr ""
+
+#: Core/Builder/common-settings/columns.php:18
+#: Core/Builder/common-settings/columns.php:36
+#: Core/Offcanvas_Elements/Restriction/Device.php:58
+msgid "Mobile"
+msgstr ""
+
+#: Core/Builder/common-settings/columns.php:22
+msgid "Content alignment"
+msgstr ""
+
+#: Core/Builder/common-settings/columns.php:24
+#: Core/Builder/common-settings/columns.php:31
+#: Core/Builder/common-settings/columns.php:37
+#: Core/Builder/Component/Carrusel.php:87
+#: Core/Builder/Component/Carrusel.php:92
+#: Core/Builder/containers/popup/common-settings.php:92
+#: Core/Builder/containers/popup/common-settings.php:119
+#: Core/Builder/containers/popup/common-settings.php:126
+#: Core/Offcanvas_Elements/Settings.php:212
+msgid "Top"
+msgstr ""
+
+#: Core/Builder/common-settings/columns.php:25
+#: Core/Builder/common-settings/columns.php:32
+#: Core/Builder/common-settings/columns.php:38
+#: Core/Builder/Component/Carrusel.php:85
+#: Core/Builder/Component/Flip_Box.php:44
+#: Core/Builder/Component/Image.php:47
+#: Core/Builder/Component/Text_Editor.php:37
+#: Core/Builder/Component/Text_Editor.php:43
+#: Core/Builder/containers/popup/blocks-layout-settings.php:7
+#: Core/Builder/containers/popup/common-settings.php:86
+#: Core/Builder/containers/popup/common-settings.php:91
+msgid "Center"
+msgstr ""
+
+#: Core/Builder/common-settings/columns.php:26
+#: Core/Builder/common-settings/columns.php:33
+#: Core/Builder/common-settings/columns.php:39
+#: Core/Builder/Component/Carrusel.php:86
+#: Core/Builder/Component/Carrusel.php:91
+#: Core/Builder/containers/popup/common-settings.php:93
+#: Core/Builder/containers/popup/common-settings.php:121
+#: Core/Builder/containers/popup/common-settings.php:128
+#: Core/Offcanvas_Elements/Settings.php:214
+msgid "Bottom"
+msgstr ""
+
+#: Core/Builder/common-settings/columns.php:27
+#: Core/Builder/common-settings/columns.php:34
+#: Core/Builder/common-settings/columns.php:40
+msgid "Distribute"
+msgstr ""
+
+#: Core/Builder/common-settings/columns.php:28
+msgid "Fixed"
+msgstr ""
+
+#: Core/Builder/common-settings/row.php:6
+msgid "Row Settings"
+msgstr ""
+
+#: Core/Builder/common-settings/row.php:14
+#: Core/Builder/common-settings/row.php:74
+#: Core/Builder/common-settings/row.php:94
+msgid "Columns Width"
+msgstr ""
+
+#: Core/Builder/common-settings/row.php:55
+#: Core/Builder/common-settings/row.php:81
+#: Core/Builder/common-settings/row.php:97
+msgid "Width on tablet"
+msgstr ""
+
+#: Core/Builder/common-settings/row.php:64
+#: Core/Builder/common-settings/row.php:88
+#: Core/Builder/common-settings/row.php:101
+msgid "Width on mobile"
+msgstr ""
+
+#: Core/Builder/common-settings/row.php:106
+#: Core/Posttype/Archive_Page.php:119
+msgid "Space between columns"
+msgstr ""
+
+#: Core/Builder/common-settings/row.php:107
+#: Core/Builder/Component/Gallery.php:156
+msgid "Gap on desktop"
+msgstr ""
+
+#: Core/Builder/common-settings/row.php:108
+#: Core/Builder/Component/Gallery.php:157
+msgid "Gap on tablet"
+msgstr ""
+
+#: Core/Builder/common-settings/row.php:109
+#: Core/Builder/Component/Gallery.php:158
+msgid "Gap on mobile"
+msgstr ""
+
+#: Core/Builder/Component.php:119
+#: Core/Builder/Component/Carrusel.php:53
+#: Core/Builder/Component/Content_Slider.php:33
+#: Core/Builder/Component/Icon_and_Text.php:96
+#: Core/Builder/Component/Items_Grid.php:38
+#: Core/Offcanvas_Elements/Settings.php:219
+msgid "Settings"
+msgstr ""
+
+#: Core/Builder/Component.php:125
+msgid "Add Scroll Animations"
+msgstr ""
+
+#: Core/Builder/Component.php:129
+msgid "Add Actions"
+msgstr ""
+
+#: Core/Builder/Component/Accordion.php:16
+msgid "Accordion"
+msgstr ""
+
+#: Core/Builder/Component/Accordion.php:51
+#: Core/Builder/Component/Accordion.php:57
+#: Core/Builder/Component/Accordion.php:78
+#: Core/Builder/Component/Button.php:33
+#: Core/Builder/Component/Card.php:24
+#: Core/Builder/Component/Carrusel.php:39
+#: Core/Builder/Component/Carrusel.php:51
+#: Core/Builder/Component/Carrusel.php:59
+#: Core/Builder/Component/Components_Wrapper.php:47
+#: Core/Builder/Component/Content_Slider.php:24
+#: Core/Builder/Component/Content_Slider.php:31
+#: Core/Builder/Component/Gallery.php:46
+#: Core/Builder/Component/Html.php:23
+#: Core/Builder/Component/Image.php:39
+#: Core/Builder/Component/Items_Grid.php:36
+#: Core/Builder/Component/Items_Grid.php:43
+#: Core/Builder/Component/Listing.php:63
+#: Core/Builder/Component/Map.php:33
+#: Core/Builder/Component/Simple_Columns.php:32
+#: Core/Builder/Component/Slider.php:33
+#: Core/Builder/Component/Spacer.php:29
+#: Core/Builder/Component/Testimonials.php:33
+#: Core/Builder/Component/Video.php:34
+msgid "Contenido"
+msgstr ""
+
+#: Core/Builder/Component/Accordion.php:89
+#: Core/Builder/containers/popup/common-settings.php:23
+#: Core/Builder/containers/popup/common-settings.php:25
+#: Core/Offcanvas_Elements/Settings.php:160
+msgid "Layout"
+msgstr ""
+
+#: Core/Builder/Component/Accordion.php:90
+msgid "Text"
+msgstr ""
+
+#: Core/Builder/Component/Accordion.php:91
+#: Core/Offcanvas_Elements/Restriction/Page.php:27
+msgid "Page"
+msgstr ""
+
+#: Core/Builder/Component/Accordion.php:92
+#: Core/Posttype/Reusable_Section_CPT.php:96
+msgid "Reusable Section"
+msgstr ""
+
+#: Core/Builder/Component/Button.php:13
+msgid "Button"
+msgstr ""
+
+#: Core/Builder/Component/Button.php:69
+msgid "Others"
+msgstr ""
+
+#: Core/Builder/Component/Card.php:14
+msgid "Card"
+msgstr ""
+
+#: Core/Builder/Component/Carrusel.php:15
+msgid "Carrusel"
+msgstr ""
+
+#: Core/Builder/Component/Columns.php:14
+msgid "Columns"
+msgstr ""
+
+#: Core/Builder/Component/Columns.php:37
+#: Core/Builder/Component/Flip_Box.php:49
+#: Core/Builder/Component/Inner_Columns.php:33
+#: Core/Builder/Component/Menu.php:54
+#: Core/Builder/Component/Page_Module.php:29
+#: Core/Builder/Component/Text_Editor.php:29
+#: Core/Builder/containers/page-header.php:39
+#: Core/Offcanvas_Elements/Settings.php:139
+#: Core/Offcanvas_Elements/Settings.php:158
+msgid "Content"
+msgstr ""
+
+#: Core/Builder/Component/Columns.php:40
+#: Core/Builder/Component/Inner_Columns.php:36
+msgid "Column"
+msgstr ""
+
+#: Core/Builder/Component/Components_Wrapper.php:15
+msgid "Wrapper"
+msgstr ""
+
+#: Core/Builder/Component/Content_Slider.php:14
+msgid "Content Slider"
+msgstr ""
+
+#: Core/Builder/Component/Content_Slider.php:26
+msgid "Add Slide"
+msgstr ""
+
+#: Core/Builder/Component/Content_Slider.php:32
+#: Core/Builder/Component/Items_Grid.php:37
+#: Core/Builder/Component/Page_Module.php:30
+msgid "Components"
+msgstr ""
+
+#: Core/Builder/Component/Flip_Box.php:14
+msgid "Flip_Box"
+msgstr ""
+
+#: Core/Builder/Component/Flip_Box.php:43
+#: Core/Builder/containers/popup/blocks-layout-settings.php:6
+msgid "Start"
+msgstr ""
+
+#: Core/Builder/Component/Flip_Box.php:45
+#: Core/Builder/containers/popup/blocks-layout-settings.php:10
+msgid "End"
+msgstr ""
+
+#: Core/Builder/Component/Flip_Box.php:68
+#: Core/Builder/Component/Flip_Box.php:73
+msgid "Horizontal Alignment"
+msgstr ""
+
+#: Core/Builder/Component/Flip_Box.php:69
+#: Core/Builder/Component/Flip_Box.php:74
+msgid "Vertical Alignment"
+msgstr ""
+
+#: Core/Builder/Component/Flip_Box.php:77
+msgid "Box Settings"
+msgstr ""
+
+#: Core/Builder/Component/Flip_Box.php:96
+#: Core/Builder/Component/Image.php:52
+#: Core/Builder/Component/Video.php:72
+msgid "Aspect Ratio"
+msgstr ""
+
+#: Core/Builder/Component/Gallery.php:13
+msgid "Gallery"
+msgstr ""
+
+#: Core/Builder/Component/Gallery.php:98
+#: Core/Theme_Options/UF_Container/Global_Options.php:22
+msgid "Activate Masonry"
+msgstr ""
+
+#: Core/Builder/Component/Gallery.php:155
+msgid "Space between items"
+msgstr ""
+
+#: Core/Builder/Component/Html.php:13
+msgid "Code"
+msgstr ""
+
+#: Core/Builder/Component/Icon_and_Text.php:14
+msgid "Icon and Text"
+msgstr ""
+
+#: Core/Builder/Component/Icon_and_Text.php:62
+msgid "Icon Aligment"
+msgstr ""
+
+#: Core/Builder/Component/Icon_and_Text.php:70
+msgid "Icon Alignment"
+msgstr ""
+
+#: Core/Builder/Component/Icon_and_Text.php:82
+#: Core/Builder/Component/Menu.php:67
+#: Core/Posttype/Menu_Item.php:40
+msgid "Style"
+msgstr ""
+
+#: Core/Builder/Component/Icon_and_Text.php:118
+#: Core/Offcanvas_Elements/Restriction/Page.php:92
+#: Core/Offcanvas_Elements/Settings.php:205
+msgid "Default"
+msgstr ""
+
+#: Core/Builder/Component/Image.php:14
+#: Core/Builder/Component/Image.php:40
+msgid "Image"
+msgstr ""
+
+#: Core/Builder/Component/Image.php:41
+msgid "Expand on click"
+msgstr ""
+
+#: Core/Builder/Component/Image.php:42
+msgid "Show the image in a popup."
+msgstr ""
+
+#: Core/Builder/Component/Image.php:43
+msgid "Full Width"
+msgstr ""
+
+#: Core/Builder/Component/Image.php:44
+msgid "Let the image fill the full width of the available space."
+msgstr ""
+
+#: Core/Builder/Component/Image.php:45
+msgid "Alignment"
+msgstr ""
+
+#: Core/Builder/Component/Image.php:46
+#: Core/Builder/Component/Text_Editor.php:36
+#: Core/Builder/Component/Text_Editor.php:42
+#: Core/Builder/containers/popup/common-settings.php:87
+#: Core/Builder/containers/popup/common-settings.php:122
+#: Core/Builder/containers/popup/common-settings.php:129
+#: Core/Offcanvas_Elements/Settings.php:215
+#: Core/Offcanvas_Elements/Settings.php:268
+msgid "Left"
+msgstr ""
+
+#: Core/Builder/Component/Image.php:48
+#: Core/Builder/Component/Text_Editor.php:38
+#: Core/Builder/Component/Text_Editor.php:44
+#: Core/Builder/containers/popup/common-settings.php:88
+#: Core/Builder/containers/popup/common-settings.php:120
+#: Core/Builder/containers/popup/common-settings.php:127
+#: Core/Offcanvas_Elements/Settings.php:213
+#: Core/Offcanvas_Elements/Settings.php:269
+msgid "Right"
+msgstr ""
+
+#: Core/Builder/Component/Image.php:51
+#: Core/Builder/Component/Video.php:71
+msgid "Size"
+msgstr ""
+
+#: Core/Builder/Component/Image.php:105
+#: Core/Builder/Component/Video.php:125
+msgid "Object Fit"
+msgstr ""
+
+#: Core/Builder/Component/Image.php:106
+#: Core/Builder/Component/Video.php:127
+#: Core/Builder/containers/popup/common-settings.php:76
+msgid "Cover"
+msgstr ""
+
+#: Core/Builder/Component/Image.php:107
+#: Core/Builder/Component/Video.php:126
+msgid "Contain"
+msgstr ""
+
+#: Core/Builder/Component/Inner_Columns.php:14
+msgid "Inner Columns"
+msgstr ""
+
+#: Core/Builder/Component/Items_Grid.php:15
+msgid "Items Grid"
+msgstr ""
+
+#: Core/Builder/Component/Listing.php:14
+msgid "Listing"
+msgstr ""
+
+#: Core/Builder/Component/Map.php:13
+msgid "Map"
+msgstr ""
+
+#: Core/Builder/Component/Menu.php:14
+msgid "Menu"
+msgstr ""
+
+#: Core/Builder/Component/Menu.php:37
+msgid "Horizontal Nav 1"
+msgstr ""
+
+#: Core/Builder/Component/Menu.php:38
+msgid "Horizontal Nav 2"
+msgstr ""
+
+#: Core/Builder/Component/Menu.php:39
+msgid "Horizontal Nav 3"
+msgstr ""
+
+#: Core/Builder/Component/Menu.php:40
+msgid "Horizontal Nav 4"
+msgstr ""
+
+#: Core/Builder/Component/Menu.php:41
+msgid "Vertical Nav 1"
+msgstr ""
+
+#: Core/Builder/Component/Menu.php:42
+#: Core/Builder/containers/page-header.php:40
+msgid "None"
+msgstr ""
+
+#: Core/Builder/Component/Menu.php:56
+msgid "Show a particular menu"
+msgstr ""
+
+#: Core/Builder/Component/Menu.php:57
+msgid "Select a location. If a menu is assigned to that location, it will be displayed"
+msgstr ""
+
+#: Core/Builder/Component/Page_Module.php:16
+msgid "Module"
+msgstr ""
+
+#: Core/Builder/Component/Simple_Columns.php:14
+msgid "Simple Columns"
+msgstr ""
+
+#: Core/Builder/Component/Slider.php:13
+msgid "Slider"
+msgstr ""
+
+#: Core/Builder/Component/Spacer.php:13
+msgid "Spacer"
+msgstr ""
+
+#: Core/Builder/Component/Testimonials.php:13
+msgid "Testimonials"
+msgstr ""
+
+#: Core/Builder/Component/Text_Editor.php:13
+msgid "Text editor"
+msgstr ""
+
+#: Core/Builder/Component/Text_Editor.php:32
+msgid "Change text alignment on mobile devices"
+msgstr ""
+
+#: Core/Builder/Component/Text_Editor.php:34
+msgid "Text alignment on tablet"
+msgstr ""
+
+#: Core/Builder/Component/Text_Editor.php:40
+msgid "Text alignment on mobile"
+msgstr ""
+
+#: Core/Builder/Component/Video.php:14
+msgid "Video"
+msgstr ""
+
+#: Core/Builder/Component/Video.php:35
+#: Core/Builder/containers/popup/common-settings.php:101
+#: Core/Posttype/Post.php:48
+msgid "Source"
+msgstr ""
+
+#: Core/Builder/containers/page-header.php:37
+msgid "Page Title"
+msgstr ""
+
+#: Core/Builder/containers/popup/actions-container.php:9
+msgid "Add Action"
+msgstr ""
+
+#: Core/Builder/containers/popup/blocks-layout-settings.php:8
+msgid "Space Between"
+msgstr ""
+
+#: Core/Builder/containers/popup/blocks-layout-settings.php:9
+msgid "Space Around"
+msgstr ""
+
+#: Core/Builder/containers/popup/blocks-layout-settings.php:21
+msgid "The width of the components will be as configured"
+msgstr ""
+
+#: Core/Builder/containers/popup/blocks-layout-settings.php:22
+msgid "The width of the components will be determined by their content."
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:10
+msgid "ID"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:14
+msgid "Class"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:31
+msgid "Helpers"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:48
+#: Core/Posttype/Menu_Item.php:41
+msgid "Background color"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:51
+#: Core/Offcanvas_Elements/Settings.php:227
+#: Core/Offcanvas_Elements/Settings.php:243
+#: Core/Offcanvas_Elements/Settings.php:254
+#: Core/Offcanvas_Elements/Settings.php:261
+#: Core/Offcanvas_Elements/Settings.php:275
+#: Core/Offcanvas_Elements/Settings.php:282
+#: Core/Theme_Options/Fields/Header.php:20
+msgid "Opacity"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:58
+msgid "Font color"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:71
+msgid "Background Image"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:77
+msgid "Auto"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:80
+msgid "No repeat"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:81
+msgid "Repeat"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:82
+msgid "Repeat X"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:83
+msgid "Repeat Y"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:98
+msgid "Video background"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:102
+msgid "Media"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:103
+msgid "External"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:117
+msgid "Margin"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:124
+#: Core/Offcanvas_Elements/Settings.php:210
+msgid "Padding"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:131
+msgid "Border Radius"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:133
+msgid "Top Left"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:134
+msgid "Top Right"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:135
+msgid "Bottom Right"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:136
+msgid "Bottom Left"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:138
+#: Core/Posttype/Menu_Item.php:58
+msgid "Border"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:142
+msgid "Border Top"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:147
+msgid "Border Right"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:152
+msgid "Border Bottom"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:157
+msgid "Border Left"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:162
+msgid "Box Shadow"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:181
+#: Core/Builder/containers/popup/common-settings.php:183
+msgid "Visibility"
+msgstr ""
+
+#: Core/Builder/containers/popup/common-settings.php:190
+msgid "Responsive"
+msgstr ""
+
+#: Core/Builder/containers/popup/scroll-animations.php:70
+msgid "Add animation"
+msgstr ""
+
+#: Core/Builder/Content_Selector.php:25
+msgid "Add"
+msgstr ""
+
+#: Core/Frontend/Frontend.php:134
+msgid "Page %s"
+msgstr ""
+
+#: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:36
+#: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:52
+#: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:53
+msgid "Theme Migrator"
+msgstr ""
+
+#: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:38
+msgid "Current theme version is less than 0.5.0 and need to be migrated. Please make a database backup and follow the next link: %s"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Browser.php:26
+msgid "Browser"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Device.php:26
+msgid "Device"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Device.php:48
+msgid "Browser type"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Device.php:50
+msgid "Show the element based on devices"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Device.php:54
+msgid "Devices"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Device.php:61
+msgid "The element will be displayed on all of the checked devices."
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:101
+#: Core/Offcanvas_Elements/Restriction/Plugin.php:68
+msgid "Restriction type"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:103
+msgid "Show the element based on a particular post or page"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:104
+msgid "Show the element based on page type"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:107
+#: Core/Theme_Options/Fields/Single_Pages.php:34
+msgid "Post Types"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:111
+msgid "The element will be displayed on all of the checked post types above."
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:115
+msgid "Templates"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:117
+#: Core/Offcanvas_Elements/Restriction/Page.php:141
+msgid "Show on"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:121
+#: Core/Offcanvas_Elements/Restriction/Page.php:144
+msgid "Hide on"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:128
+msgid "The element will only appear on the checked templates, if any. If none are checked, the container will appear on all pages."
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:134
+msgid "Control the visiblity of the container based on the terms of the \"%s\" taxonomy."
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:190
+#: Core/Offcanvas_Elements/Restriction/Page.php:193
+#: Core/Offcanvas_Elements/Restriction/Plugin.php:74
+msgid "Item"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:197
+#: Core/Offcanvas_Elements/Restriction/Plugin.php:81
+msgid "Operator"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:201
+msgid "is"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:202
+msgid "is not"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:205
+msgid "Item type"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:209
+msgid "the current post/page"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Page.php:210
+msgid "the parent of the current post/page"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Plugin.php:29
+#: Core/Offcanvas_Elements/Restriction/Plugin.php:77
+msgid "Plugin"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Plugin.php:70
+msgid "Show the element based on a particular plugin"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Plugin.php:85
+msgid "is active"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/Plugin.php:86
+msgid "is not active"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/User.php:26
+msgid "User"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/User.php:51
+msgid "Visitor"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/User.php:55
+msgid "Roles"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Restriction/User.php:59
+msgid "Select the roles, which should have access to this element or leave blank for all roles."
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:86
+msgid "Add Restriction"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:87
+msgid "Add restrictions to show the element based on conditions."
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:99
+msgid "Restrictions"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:113
+msgid "Add Trigger Event"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:114
+msgid "Add at least one trigger event to show the element."
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:126
+msgid "Trigger"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:140
+msgid "Type"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:142
+msgid "Modal"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:146
+msgid "Sidenav"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:150
+msgid "Bottom Sheet"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:159
+msgid "Content Type"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:161
+msgid "Asynchronous Content"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:164
+msgid "Asynchronous Content Settings"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:165
+msgid "When this setting is active the content will be generated using an asynchronous function"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:167
+msgid "Content Source"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:168
+msgid "Page: generate the content from an internal page"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:169
+msgid "Url: generate the content from an url"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:170
+msgid "Link: generate the content dinamically from the link clicked"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:172
+msgid "Page item"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:173
+msgid "Enter the url"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:174
+msgid "Use trigger events tab to add a CSS selector for the link source"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:175
+msgid "Clear the content on close"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:176
+msgid "Load the content in an iframe"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:177
+msgid "Let you choose only the sections you want"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:178
+msgid "CSS Selector for cherry picked sections"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:178
+msgid "Please enter the CSS selector that matches the section(s) you want to display in the offcanvas element."
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:180
+msgid "HTML Attributes"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:180
+msgid "Add Attribute"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:183
+msgid "Status"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:184
+msgid "Before Send"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:185
+msgid "Success"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:186
+msgid "Error"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:188
+msgid "HTML Atribute"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:189
+msgid "Value"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:206
+#: Core/Theme_Options/Fields/Colors.php:30
+#: Core/Theme_Options/Fields/Colors.php:48
+msgid "Light"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:207
+#: Core/Theme_Options/Fields/Colors.php:40
+#: Core/Theme_Options/Fields/Colors.php:58
+msgid "Dark"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:211
+#: Core/Offcanvas_Elements/Settings.php:225
+#: Core/Offcanvas_Elements/Settings.php:241
+#: Core/Offcanvas_Elements/Settings.php:252
+#: Core/Offcanvas_Elements/Settings.php:259
+#: Core/Offcanvas_Elements/Settings.php:273
+#: Core/Offcanvas_Elements/Settings.php:280
+msgid "Customize"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:222
+#: Core/Offcanvas_Elements/Settings.php:249
+msgid "Allow modal to be dismissed by keyboard or overlay click."
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:223
+#: Core/Offcanvas_Elements/Settings.php:250
+#: Core/Offcanvas_Elements/Settings.php:271
+msgid "Closes element on link clicks."
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:228
+#: Core/Offcanvas_Elements/Settings.php:255
+#: Core/Offcanvas_Elements/Settings.php:276
+msgid "Text Color Scheme"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:240
+#: Core/Offcanvas_Elements/Settings.php:258
+#: Core/Offcanvas_Elements/Settings.php:279
+msgid "Overlay Color"
+msgstr ""
+
+#: Core/Offcanvas_Elements/Settings.php:271
+msgid "Close on click"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Click.php:26
+msgid "Click"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Click.php:48
+msgid "Selector"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Click.php:49
+msgid "Please enter the CSS selector that matches the element(s) which will act as a trigger to display the offcanvas element. For example, if clicking a button should be used, enter the CSS selector for that button."
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Click.php:52
+msgid "Delegate event to Body"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Click.php:52
+msgid "Delegate event to document.body. Useful for async content pages."
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/CustomEvent.php:27
+msgid "Custom Event"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/CustomEvent.php:57
+msgid "Use a custom event"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/CustomEvent.php:59
+msgid "Use a "
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/CustomEvent.php:63
+msgid "Event Source"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/CustomEvent.php:64
+msgid "Event name"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/CustomEvent.php:65
+msgid "Please enter the event name that will trigger the display of the element. For example, \"theme_document_ready\" will show the element once the page is fully loaded."
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:26
+msgid "Scroll"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:61
+msgid "Activate advanced animations in Theme Options -> Global Options"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:63
+msgid "Trigger Element"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:64
+msgid "Trigger Hook"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:65
+msgid "onEnter"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:66
+msgid "onCenter"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:67
+msgid "onLeave"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:70
+msgid "Add indicators"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:73
+msgid "Settings type"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:75
+msgid "Use basic settings"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:76
+msgid "Use ScrollMagic library settings"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:78
+msgid "Please enter a number that represents the vertical scroll position required to show the element"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:82
+msgid "(optional) Create a custom visualization cookie"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:83
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:94
+#: Core/Posttype/Post.php:47
+msgid "Activate"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:84
+msgid "Name"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:85
+msgid "Storage type"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:87
+msgid "Session: The data is stored only for the duration of a session, i.e., until the browser (or tab) is closed"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:88
+msgid "Local: The stored data will persist even after closing and reopening the browser"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:93
+msgid "(optional) Set the cookie expiration time"
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:93
+msgid "The cookie will be deleted after X time from creation."
+msgstr ""
+
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:95
+msgid "Expiration time"
+msgstr ""
+
+#: Core/Posttype/Archive_Page.php:72
+msgid "Any"
+msgstr ""
+
+#: Core/Posttype/Archive_Page.php:105
+msgid "Loop Settings"
+msgstr ""
+
+#: Core/Posttype/Archive_Page.php:108
+msgid "Place these shortcodes in the page content: [posts] [pagination]"
+msgstr ""
+
+#: Core/Posttype/Archive_Page.php:111
+msgid "Columns quantity"
+msgstr ""
+
+#: Core/Posttype/Archive_Page.php:127
+msgid "Post card settings"
+msgstr ""
+
+#: Core/Posttype/Archive_Page.php:143
+msgid "Page template"
+msgstr ""
+
+#. Template Name of the theme
+#: Core/Posttype/Archive_Page.php:145
+msgid "Left Sidebar"
+msgstr ""
+
+#. Template Name of the theme
+#: Core/Posttype/Archive_Page.php:146
+msgid "Right Sidebar"
+msgstr ""
+
+#: Core/Posttype/Archive_Page.php:147
+msgid "Hide Sidebar"
+msgstr ""
+
+#: Core/Posttype/Footer.php:36
+msgid "Title"
+msgstr ""
+
+#: Core/Posttype/Footer.php:37
+#: Core/Theme_Options/Fields/Header.php:18
+msgid "Use"
+msgstr ""
+
+#: Core/Posttype/Footer.php:38
+msgid "Date"
+msgstr ""
+
+#: Core/Posttype/Menu_Item.php:46
+msgid "Text color"
+msgstr ""
+
+#: Core/Posttype/Menu_Item.php:50
+msgid "Border radius"
+msgstr ""
+
+#: Core/Posttype/Menu_Item.php:54
+msgid "Min Width"
+msgstr ""
+
+#: Core/Posttype/Menu_Item.php:63
+msgid "Box shadow"
+msgstr ""
+
+#: Core/Posttype/Menu_Item.php:75
+msgid "OffCanvas Element"
+msgstr ""
+
+#: Core/Posttype/Post.php:34
+msgid "Standard"
+msgstr ""
+
+#: Core/Posttype/Post.php:35
+msgid "Link"
+msgstr ""
+
+#: Core/Posttype/Reusable_Section_CPT.php:33
+#: Core/Theme_Options/Theme_Options.php:90
+msgid "Reusable Sections"
+msgstr ""
+
+#: Core/Posttype/Reusable_Section_CPT.php:46
+msgid "Choose"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Colors.php:13
+msgid "Main colors"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Colors.php:21
+msgid "Add color"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Colors.php:35
+#: Core/Theme_Options/Fields/Colors.php:53
+msgid "Lighter"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Header.php:12
+msgid "Logo"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Header.php:14
+msgid "Select image"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Header.php:16
+msgid "Logo Height"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Header.php:17
+msgid "Background Color"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Header.php:27
+msgid "Text Color"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Page_Container.php:10
+msgid "Container"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Page_Container.php:13
+#: Core/Theme_Options/Fields/Single_Pages.php:24
+msgid "Add rule"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Single_Pages.php:20
+msgid "Single Pages"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Single_Pages.php:40
+msgid "Sidebar Right"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Single_Pages.php:41
+msgid "Sidebar Left"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Typography.php:18
+msgid "Add font"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Typography.php:61
+msgid "@font-face files ( woff2, woff )"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Typography.php:66
+msgid "Urls for @font-face css declaration ( woff2, woff )"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Typography.php:86
+msgid "Paragraphs"
+msgstr ""
+
+#: Core/Theme_Options/Fields/Typography.php:107
+msgid "Bold, Strong"
+msgstr ""
+
+#: Core/Theme_Options/Manager.php:21
+msgid "Export/Import"
+msgstr ""
+
+#: Core/Theme_Options/Manager.php:22
+msgid "Export/Import Options"
+msgstr ""
+
+#: Core/Theme_Options/UF_Container/Global_Options.php:14
+msgid "Google Maps"
+msgstr ""
+
+#: Core/Theme_Options/UF_Container/Global_Options.php:15
+msgid "Activate Google Maps"
+msgstr ""
+
+#: Core/Theme_Options/UF_Container/Global_Options.php:15
+#: Core/Theme_Options/UF_Container/Global_Options.php:22
+#: Core/Theme_Options/UF_Container/Global_Options.php:30
+msgid "Activar"
+msgstr ""
+
+#: Core/Theme_Options/UF_Container/Global_Options.php:21
+msgid "Masonry Gallery"
+msgstr ""
+
+#: Core/Theme_Options/UF_Container/Main.php:15
+msgid "Theme Options"
+msgstr ""
+
+#: Core/Utils/CPT.php:408
+#: Core/Utils/CPT.php:409
+#: Core/Utils/CPT.php:410
+#: Core/Utils/CPT.php:411
+#: Core/Utils/CPT.php:506
+#: Core/Utils/CPT.php:507
+#: Core/Utils/CPT.php:508
+#: Core/Utils/CPT.php:635
+msgid "%s"
+msgstr ""
+
+#: Core/Utils/CPT.php:412
+msgid "Add New"
+msgstr ""
+
+#: Core/Utils/CPT.php:413
+#: Core/Utils/CPT.php:513
+msgid "Add New %s"
+msgstr ""
+
+#: Core/Utils/CPT.php:414
+#: Core/Utils/CPT.php:510
+msgid "Edit %s"
+msgstr ""
+
+#: Core/Utils/CPT.php:415
+msgid "New %s"
+msgstr ""
+
+#: Core/Utils/CPT.php:416
+#: Core/Utils/CPT.php:511
+msgid "View %s"
+msgstr ""
+
+#: Core/Utils/CPT.php:417
+#: Core/Utils/CPT.php:517
+msgid "Search %s"
+msgstr ""
+
+#: Core/Utils/CPT.php:418
+#: Core/Utils/CPT.php:522
+msgid "No %s found"
+msgstr ""
+
+#: Core/Utils/CPT.php:419
+msgid "No %s found in Trash"
+msgstr ""
+
+#: Core/Utils/CPT.php:420
+#: Core/Utils/CPT.php:516
+msgid "Parent %s:"
+msgstr ""
+
+#: Core/Utils/CPT.php:509
+msgid "All %s"
+msgstr ""
+
+#: Core/Utils/CPT.php:512
+msgid "Update %s"
+msgstr ""
+
+#: Core/Utils/CPT.php:514
+msgid "New %s Name"
+msgstr ""
+
+#: Core/Utils/CPT.php:515
+msgid "Parent %s"
+msgstr ""
+
+#: Core/Utils/CPT.php:518
+msgid "Popular %s"
+msgstr ""
+
+#: Core/Utils/CPT.php:519
+msgid "Seperate %s with commas"
+msgstr ""
+
+#: Core/Utils/CPT.php:520
+msgid "Add or remove %s"
+msgstr ""
+
+#: Core/Utils/CPT.php:521
+msgid "Choose from most used %s"
+msgstr ""
+
+#: Core/Utils/CPT.php:709
+msgid "No %s"
+msgstr ""
+
+#: Core/Utils/CPT.php:835
+msgid "Show all %s"
+msgstr ""
+
+#: Core/Utils/CPT.php:1053
+#: Core/Utils/CPT.php:1056
+#: Core/Utils/CPT.php:1058
+msgid "%s updated."
+msgstr ""
+
+#: Core/Utils/CPT.php:1054
+msgid "Custom field updated."
+msgstr ""
+
+#: Core/Utils/CPT.php:1055
+msgid "Custom field deleted."
+msgstr ""
+
+#: Core/Utils/CPT.php:1057
+msgid "%2$s restored to revision from %1$s"
+msgstr ""
+
+#: Core/Utils/CPT.php:1059
+msgid "%s saved."
+msgstr ""
+
+#: Core/Utils/CPT.php:1060
+msgid "%s submitted."
+msgstr ""
+
+#: Core/Utils/CPT.php:1062
+msgid "%2$s scheduled for: <strong>%1$s</strong>."
+msgstr ""
+
+#: Core/Utils/CPT.php:1063
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: Core/Utils/CPT.php:1066
+msgid "%s draft updated."
+msgstr ""
+
+#: Core/Utils/CPT.php:1085
+#: Core/Utils/CPT.php:1086
+#: Core/Utils/CPT.php:1087
+#: Core/Utils/CPT.php:1088
+#: Core/Utils/CPT.php:1089
+msgid "%s "
+msgid_plural "%s "
+msgstr[0] ""
+msgstr[1] ""
+
+#: libs/ultimate-fields-layout-control-master/classes/Field.php:78
+#: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:45
+msgid "Save Layout"
+msgstr ""
+
+#: libs/ultimate-fields-layout-control-master/classes/Field.php:82
+#: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:48
+msgid "Load Layout"
+msgstr ""
+
+#: libs/ultimate-fields-layout-control-master/classes/Field.php:86
+#: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:51
+msgid "Enter layout name..."
+msgstr ""
+
+#: libs/ultimate-fields-layout-control-master/classes/Field.php:90
+#: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:54
+msgid "Select Layout"
+msgstr ""
+
+#: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:22
+msgid "Layout Control"
+msgstr ""
+
+#: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:35
+msgid "Field"
+msgstr ""
+
+#: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:36
+msgid "Please select the field to control."
+msgstr ""
+
+#: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:40
+msgid "Strings"
+msgstr ""
+
+#: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:43
+msgid "Save Text"
+msgstr ""
+
+#: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:46
+msgid "Load Text"
+msgstr ""
+
+#: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:49
+msgid "Placeholder Text"
+msgstr ""
+
+#: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:52
+msgid "Dropdown Title"
+msgstr ""
+
+#: libs/ultimate-fields-layout-control-master/templates/field/layout-chooser.php:17
+msgid "No layouts found..."
+msgstr ""
+
+#: libs/ultimate-fields-layout-control-master/templates/field/layout-chooser.php:22
+msgid "Cancel"
+msgstr ""
+
+#: partials/404.php:4
+msgid "La página que estás buscando no existe."
+msgstr ""
+
+#: partials/404.php:5
+msgid "Volver al Inicio"
+msgstr ""
+
+#: search.php:23
+msgid "No hubieron resultados"
+msgstr ""

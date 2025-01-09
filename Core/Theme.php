@@ -77,7 +77,7 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'wp_head', $frontend, 'add_custom_meta_tags');
 
         // Load theme's translated strings.
-        // $this->loader->add_action( 'after_setup_theme', $frontend, 'load_theme_textdomain', 1 );
+        $this->loader->add_action( 'after_setup_theme', $frontend, 'load_theme_textdomain', 1 );
 
         $page = new Page();
 

@@ -106,7 +106,7 @@ class Frontend extends Theme_Header_Data {
     }
 
     public function load_theme_textdomain() {
-        // load_theme_textdomain( $this->text_domain , $this->theme_path . '/languages' );
+        load_theme_textdomain( $this->text_domain , $this->theme_path . '/languages' );
     }
 
     public function title_meta_tag( $title, $sep, $seplocation ) {

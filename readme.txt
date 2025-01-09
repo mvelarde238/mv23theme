@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.48 25-01-09
 - OCE Improvements: .sidenav max-width 360px, padding allow any value and better estructure for settings
+- Create po - mo files and load text domain
 
 1.5.47 25-01-08
 - ADJUST_SCROLL_POSITION constant implementation
