@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.48 25-01-09
+- OCE Improvements: .sidenav max-width 360px, padding allow any value and better estructure for settings
+
 1.5.47 25-01-08
 - ADJUST_SCROLL_POSITION constant implementation
 - v23ToggleBox 5.8.35: Add _go_to_step() method
