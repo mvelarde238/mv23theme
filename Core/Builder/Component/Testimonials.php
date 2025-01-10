@@ -10,7 +10,7 @@ class Testimonials extends Component {
     public function __construct() {
 		parent::__construct(
 			'testimonials',
-			__( 'Testimonials', 'default' )
+			__( 'Testimonials', 'mv23theme' )
 		);
 	}
 
@@ -30,7 +30,7 @@ class Testimonials extends Component {
 
 	public static function get_fields() {
 		$fields = array( 
-            Field::create( 'tab', __('Contenido','default') ),
+            Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'repeater', 'testimonials' )->set_add_text('Agregar')->add_group( 'testimonial', array(
                 'edit_mode' => 'popup',
                 'title_template' => '<% if (type == "text"){ %>

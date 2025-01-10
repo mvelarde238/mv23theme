@@ -22,7 +22,7 @@ class Content_Selector{
             'slug' => 'components',
             'title' => 'Components',
             'hide_label' => true,
-            'add_text' => __('Add', 'default'),
+            'add_text' => __('Add', 'mv23theme'),
             'components' => array(),
             'exclude' => array()
         );

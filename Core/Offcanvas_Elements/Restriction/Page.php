@@ -24,7 +24,7 @@ class Page extends Restriction {
 	 * @return string
 	 */
 	public static function get_name() {
-		return __( 'Page', 'default' );
+		return __( 'Page', 'mv23theme' );
 	}
 
 	/**
@@ -89,7 +89,7 @@ class Page extends Restriction {
 
 		# Prepare page templates
 		$templates = array(
-			'default' => __( 'Default' )
+			'mv23theme' => __( 'Default' )
 		);
 
 		$raw = wp_get_theme()->get_page_templates();
@@ -98,50 +98,50 @@ class Page extends Restriction {
 		}
 
 		# Add the choice to show the element based on rules or actual posts
-		$fields[] = Field::create( 'radio', 'restriction_type', __( 'Restriction type', 'default' ) )
+		$fields[] = Field::create( 'radio', 'restriction_type', __( 'Restriction type', 'mv23theme' ) )
 			->add_options(array(
-			    'post'     => __( 'Show the element based on a particular post or page', 'default' ),
-				'posttype' => __( 'Show the element based on page type', 'default' )
+			    'post'     => __( 'Show the element based on a particular post or page', 'mv23theme' ),
+				'posttype' => __( 'Show the element based on page type', 'mv23theme' )
 			));
 
-		$fields[] = Field::create( 'multiselect', 'post_types', __( 'Post Types', 'default' ) )
+		$fields[] = Field::create( 'multiselect', 'post_types', __( 'Post Types', 'mv23theme' ) )
 			->required()
 			->add_options( $post_types )
 			->set_input_type( 'checkbox' )
-			->set_description( __( 'The element will be displayed on all of the checked post types above.', 'default' ) )
+			->set_description( __( 'The element will be displayed on all of the checked post types above.', 'mv23theme' ) )
 			->add_dependency( 'restriction_type', 'posttype' );
 
 		if( count( $templates ) > 1 ) {
-			$fields[] = Field::create( 'complex', 'templates', __( 'Templates', 'default' ) )
+			$fields[] = Field::create( 'complex', 'templates', __( 'Templates', 'mv23theme' ) )
 				->add_fields(array(
-					Field::create( 'multiselect', 'visible', __( 'Show on', 'default' ) )
+					Field::create( 'multiselect', 'visible', __( 'Show on', 'mv23theme' ) )
 						->add_options( $templates )
 						->set_input_type( 'checkbox' )
 						->set_width( 50 ),
-					Field::create( 'multiselect', 'hidden', __( 'Hide on', 'default' ) )
+					Field::create( 'multiselect', 'hidden', __( 'Hide on', 'mv23theme' ) )
 						->add_options( $templates )
 						->set_input_type( 'checkbox' )
 						->set_width( 50 )
 				))
 				->add_dependency( 'restriction_type', 'posttype' )
 				->add_dependency( 'post_types', 'page', 'contains' )
-				->set_description( __( 'The element will only appear on the checked templates, if any. If none are checked, the container will appear on all pages.', 'default' ) )
+				->set_description( __( 'The element will only appear on the checked templates, if any. If none are checked, the container will appear on all pages.', 'mv23theme' ) )
 				;
 		}
 
 		# Add taxonomies
 		foreach( get_taxonomies( array( 'show_ui' => true, 'hierarchical' => true ), 'objects' ) as $slug => $taxonomy ) {
-			$description = __( 'Control the visiblity of the container based on the terms of the "%s" taxonomy.', 'default' );
+			$description = __( 'Control the visiblity of the element based on the terms of a taxonomy.', 'mv23theme' );
 			$description = sprintf( $description, $taxonomy->labels->name );
 			$fields[] = Field::create( 'complex', $slug, $taxonomy->labels->name )
 				->set_description( $description )
 				->add_dependency( 'restriction_type', 'posttype' )
 				->add_dependency( 'post_types', $taxonomy->object_type, 'contains' )
 				->add_fields(array(
-					Field::create( 'wp_objects', 'visible', __( 'Show on', 'default' ) )
+					Field::create( 'wp_objects', 'visible', __( 'Show on', 'mv23theme' ) )
 						->add( 'terms', 'taxonomy=' . $slug )
 						->set_width( 50 ),
-					Field::create( 'wp_objects', 'hidden', __( 'Hide on', 'default' ) )
+					Field::create( 'wp_objects', 'hidden', __( 'Hide on', 'mv23theme' ) )
 						->add( 'terms', 'taxonomy=' . $slug )
 						->set_width( 50 )
 				));
@@ -156,14 +156,14 @@ class Page extends Restriction {
 		// 		$options[ $format ] = get_post_format_string( $format );
 		// 	}
 
-		// 	$fields[] = Field::create( 'complex', 'post_formats', __( 'Formats', 'default' ) )
+		// 	$fields[] = Field::create( 'complex', 'post_formats', __( 'Formats', 'mv23theme' ) )
 		// 		->add_fields(array(
-		// 			Field::create( 'multiselect', 'visible', __( 'Show on', 'default' ) )
+		// 			Field::create( 'multiselect', 'visible', __( 'Show on', 'mv23theme' ) )
 		// 				->add_options( $options )
 		// 				->set_input_type( 'checkbox' )
 		// 				->set_orientation( 'horizontal' )
 		// 				->set_width( 50 ),
-		// 			Field::create( 'multiselect', 'hidden', __( 'Hide on', 'default' ) )
+		// 			Field::create( 'multiselect', 'hidden', __( 'Hide on', 'mv23theme' ) )
 		// 				->add_options( $options )
 		// 				->set_input_type( 'checkbox' )
 		// 				->set_orientation( 'horizontal' )
@@ -171,43 +171,43 @@ class Page extends Restriction {
 		// 		))
 		// 		->add_dependency( 'restriction_type', 'posttype' )
 		// 		->add_dependency( 'post_types', 'post', 'contains' )
-		// 		->set_description( __( 'The element will only appear on the checked formats, if any.', 'default' ) );
+		// 		->set_description( __( 'The element will only appear on the checked formats, if any.', 'mv23theme' ) );
 		// }
 
-		// $fields[] = Field::create( 'complex' , 'levels', __( 'Levels', 'default' ) )
+		// $fields[] = Field::create( 'complex' , 'levels', __( 'Levels', 'mv23theme' ) )
 		// 	->add_dependency( 'post_types', array_keys( $hierarchical ), 'contains' )
 		// 	->add_dependency( 'restriction_type', 'posttype' )
-		// 	->set_description( __( 'Enter as numbers, separated by commas.', 'default' ) )
+		// 	->set_description( __( 'Enter as numbers, separated by commas.', 'mv23theme' ) )
 		// 	->add_fields(array(
-		// 		Field::create( 'text', 'visible', __( 'Show on', 'default' ) )
+		// 		Field::create( 'text', 'visible', __( 'Show on', 'mv23theme' ) )
 		// 			->set_default_value( '0' )
 		// 			->set_width( 50 ),
-		// 		Field::create( 'text', 'hidden', __( 'Hide on', 'default' ) )
+		// 		Field::create( 'text', 'hidden', __( 'Hide on', 'mv23theme' ) )
 		// 			->set_default_value( '0' )
 		// 			->set_width( 50 ),
 		// 	));
 
-		$fields[] = Field::create( 'complex', 'item', __( 'Item', 'default' ) )
+		$fields[] = Field::create( 'complex', 'item', __( 'Item', 'mv23theme' ) )
 			->add_dependency( 'restriction_type', 'post' )
 			->add_fields(array(
-				Field::create( 'wp_object', 'post', __( 'Item', 'default' ) )
+				Field::create( 'wp_object', 'post', __( 'Item', 'mv23theme' ) )
 					->add( 'posts' )
 					->set_width( 50 )
 					->hide_label(),
-				Field::create( 'select', 'operator', __( 'Operator', 'default' ) )
+				Field::create( 'select', 'operator', __( 'Operator', 'mv23theme' ) )
 					->set_input_type( 'radio' )
 					->add_dependency( 'post', '', 'NOT_NULL' )
 					->add_options(array(
-						'is'     => __( 'is', 'default' ),
-						'is_not' => __( 'is not', 'default' )
+						'is'     => __( 'is', 'mv23theme' ),
+						'is_not' => __( 'is not', 'mv23theme' )
 					))
 					->set_width( 20 ),
-				Field::create( 'select', 'type', __( 'Item type', 'default' ) )
+				Field::create( 'select', 'type', __( 'Item type', 'mv23theme' ) )
 					->set_input_type( 'radio' )
 					->add_dependency( 'post', '', 'NOT_NULL' )
 					->add_options(array(
-						'post'   => __( 'the current post/page', 'default' ),
-						'parent' => __( 'the parent of the current post/page', 'default' )
+						'post'   => __( 'the current post/page', 'mv23theme' ),
+						'parent' => __( 'the parent of the current post/page', 'mv23theme' )
 					))
 					->set_width( 30 )
 			));

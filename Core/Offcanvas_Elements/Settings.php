@@ -83,8 +83,8 @@ class Settings {
 
 		$restrictions_field = Field::create( 'repeater', $slug.'_restrictions' )
 			->set_chooser_type( 'tags' )
-			->set_add_text( __('Add Restriction','default') )
-            ->set_description( __('Add restrictions to show the element based on conditions.','default') );
+			->set_add_text( __('Add Restriction','mv23theme') )
+            ->set_description( __('Add restrictions to show the element based on conditions.','mv23theme') );
 
 		# Generate all restrictions
 		$restrictions_classes = self::get_classes_for( 'restrictions' );
@@ -96,7 +96,7 @@ class Settings {
 		}
 
 		return array( 
-            Field::create('tab', __('Restrictions','default') ),
+            Field::create('tab', __('Restrictions','mv23theme') ),
             $restrictions_field 
         );
 	}
@@ -110,8 +110,8 @@ class Settings {
 
 		$trigger_events_field = Field::create( 'repeater', $slug.'_trigger_events' )
 			->set_chooser_type( 'tags' )
-			->set_add_text( __('Add Trigger Event','default') )
-            ->set_description( __('Add at least one trigger event to show the element.','default') );
+			->set_add_text( __('Add Trigger Event','mv23theme') )
+            ->set_description( __('Add at least one trigger event to show the element.','mv23theme') );
 
 		# Generate all trigger_events
 		$trigger_events_classes = self::get_classes_for( 'trigger_events' );
@@ -123,7 +123,7 @@ class Settings {
 		}
 
 		return array( 
-            Field::create('tab', __('Trigger','default') ),
+            Field::create('tab', __('Trigger','mv23theme') ),
             $trigger_events_field 
         );
 	}
@@ -136,57 +136,57 @@ class Settings {
 		$slug = Core::getInstance()->get_slug();
 
 		return array(
-			Field::create('tab', __('Content','default') ),
-			Field::create('image_select', $slug.'_type', __('Type','default') )->show_label()->add_options(array(
+			Field::create('tab', __('Content','mv23theme') ),
+			Field::create('image_select', $slug.'_type', __('Type','mv23theme') )->show_label()->add_options(array(
 				'modal' => array(
-					'label' => __('Modal','default'),
+					'label' => __('Modal','mv23theme'),
 					'image' => OFFCANVAS_ELEMENTS_PATH . '/images/modal.png'
 				),
 				'sidenav' => array(
-					'label' => __('Sidenav','default'),
+					'label' => __('Sidenav','mv23theme'),
 					'image' => OFFCANVAS_ELEMENTS_PATH . '/images/sidenav.png'
 				),
 				'bottom_sheet' => array(
-					'label' => __('Bottom Sheet','default'),
+					'label' => __('Bottom Sheet','mv23theme'),
 					'image' => OFFCANVAS_ELEMENTS_PATH . '/images/bottom_sheet.png'
 				)
 				// 'tap_target' => array(
-				// 	'label' => __('Tap Target','default'),
+				// 	'label' => __('Tap Target','mv23theme'),
 				// 	'image' => OFFCANVAS_ELEMENTS_PATH . '/images/tap_target.png'
 				// )
 			)),
-			Field::create( 'section', '__content', __('Content','default') ),
-			Field::create('radio', $slug.'_content_type',__('Content Type','default'))->set_orientation('horizontal')->add_options(array(
-				'layout' => __('Layout','default'), 
-				'async' => __('Asynchronous Content','default') 
+			Field::create( 'section', '__content', __('Content','mv23theme') ),
+			Field::create('radio', $slug.'_content_type',__('Content Type','mv23theme'))->set_orientation('horizontal')->add_options(array(
+				'layout' => __('Layout','mv23theme'), 
+				'async' => __('Asynchronous Content','mv23theme') 
 			)),
 			Blocks_Layout::the_field(array( 'slug' => $slug.'_content', 'hide_label' => false ))->add_dependency($slug.'_content_type','layout','='),
 			Field::create( 'complex', $slug.'_async_settings', __('Asynchronous Content Settings') )->add_dependency($slug.'_content_type','async','=')->set_layout('rows')->hide_label()->add_fields(array(
-				Field::create( 'message', '_hint-1','' )->set_description( __('When this setting is active the content will be generated using an asynchronous function','default') ),
+				Field::create( 'message', '_hint-1','' )->set_description( __('When this setting is active the content will be generated using an asynchronous function','mv23theme') ),
 				Field::create( 'complex', '_fields_group_1', '' )->merge()->add_fields(array(
-					Field::create( 'radio', 'content_source', __('Content Source','default') )->add_options(array(
-						'page' => __( 'Page: generate the content from an internal page', 'default' ),
-						'url' => __( 'Url: generate the content from an url', 'default' ),
-						'link' => __( 'Link: generate the content dinamically from the link clicked', 'default' )
+					Field::create( 'radio', 'content_source', __('Content Source','mv23theme') )->add_options(array(
+						'page' => __( 'Page: generate the content from an internal page', 'mv23theme' ),
+						'url' => __( 'Url: generate the content from an url', 'mv23theme' ),
+						'link' => __( 'Link: generate the content dinamically from the link clicked', 'mv23theme' )
 					))->set_width(50),
-					Field::create( 'wp_object', 'page_source', __( 'Page item', 'default' ) )->add( 'posts' )->add_dependency('content_source','page','=')->add_dependency('../../'.$slug.'_content_type','async','=')->required()->set_width(50),
-					Field::create( 'text', 'url_source', __( 'Enter the url', 'default' ) )->add_dependency('content_source','url','=')->add_dependency('../../'.$slug.'_content_type','async','=')->required(),
-					Field::create( 'message', '_url_source_hint' )->set_description(__('Use trigger events tab to add a CSS selector for the link source','default'))->add_dependency('content_source','link','=')->hide_label(),
-					Field::create( 'checkbox', 'clear_on_close' )->set_description(__('Clear the content on close','default'))->set_default_value(1)->fancy()->set_width(20),
-					Field::create( 'checkbox', 'load_on_iframe' )->set_description(__('Load the content in an iframe','default'))->set_default_value(1)->fancy()->set_width(20),
-					Field::create( 'checkbox', 'cherry_pick_sections' )->set_description(__('Let you choose only the sections you want','default'))->fancy()->add_dependency('load_on_iframe','1','!=')->set_width(20),
-					Field::create( 'text', 'cherry_picked_sections', __( 'CSS Selector for cherry picked sections', 'default' ) )->set_description( __( 'Please enter the CSS selector that matches the section(s) you want to display in the offcanvas element.', 'default' ) )->add_dependency('cherry_pick_sections')->add_dependency('load_on_iframe','1','!='),
+					Field::create( 'wp_object', 'page_source', __( 'Page item', 'mv23theme' ) )->add( 'posts' )->add_dependency('content_source','page','=')->add_dependency('../../'.$slug.'_content_type','async','=')->required()->set_width(50),
+					Field::create( 'text', 'url_source', __( 'Enter the url', 'mv23theme' ) )->add_dependency('content_source','url','=')->add_dependency('../../'.$slug.'_content_type','async','=')->required(),
+					Field::create( 'message', '_url_source_hint' )->set_description(__('Use trigger events tab to add a CSS selector for the link source','mv23theme'))->add_dependency('content_source','link','=')->hide_label(),
+					Field::create( 'checkbox', 'clear_on_close', __('Clear on close','mv23theme') )->set_description(__('Clear the content on close','mv23theme'))->set_default_value(1)->fancy()->set_width(20),
+					Field::create( 'checkbox', 'load_on_iframe', __('Load on iframe','mv23theme') )->set_description(__('Load the content in an iframe','mv23theme'))->set_default_value(1)->fancy()->set_width(20),
+					Field::create( 'checkbox', 'cherry_pick_sections' )->set_description(__('Let you choose only the sections you want','mv23theme'))->fancy()->add_dependency('load_on_iframe','1','!=')->set_width(20),
+					Field::create( 'text', 'cherry_picked_sections', __( 'CSS Selector for cherry picked sections', 'mv23theme' ) )->set_description( __( 'Please enter the CSS selector that matches the section(s) you want to display in the offcanvas element.', 'mv23theme' ) )->add_dependency('cherry_pick_sections')->add_dependency('load_on_iframe','1','!='),
 				)),
-				Field::create( 'repeater', 'attributes', __('HTML Attributes','default') )->set_layout( 'table' )->set_add_text(__('Add Attribute','default'))
+				Field::create( 'repeater', 'attributes', __('HTML Attributes','mv23theme') )->set_layout( 'table' )->set_add_text(__('Add Attribute','mv23theme'))
             		->add_group('item', array(
             		    'fields' => array(
-            		        Field::create( 'select', 'status', __('Status','default') )->set_width( 30 )->add_options(array(
-								'beforeSend' => __('Before Send','default'), 
-								'success' => __('Success','default'), 
-								'error' => __('Error','default') 
+            		        Field::create( 'select', 'status', __('Status','mv23theme') )->set_width( 30 )->add_options(array(
+								'beforeSend' => __('Before Send','mv23theme'), 
+								'success' => __('Success','mv23theme'), 
+								'error' => __('Error','mv23theme') 
 							)),
-            		        Field::create( 'text', 'attribute', __('HTML Atribute','default') )->set_width( 30 ),
-            		        Field::create( 'text', 'value', __('Value','default') )->set_width( 30 )
+            		        Field::create( 'text', 'attribute', __('HTML Atribute','mv23theme') )->set_width( 30 ),
+            		        Field::create( 'text', 'value', __('Value','mv23theme') )->set_width( 30 )
             		    )
 					)
 				)
@@ -202,88 +202,88 @@ class Settings {
 		$slug = Core::getInstance()->get_slug();
 
 		$color_schemes = array(
-			'' => __('Default','default'),
-			'default-scheme' => __('Light','default'),
-			'dark-scheme' => __('Dark','default')
+			'' => __('Default','mv23theme'),
+			'default-scheme' => __('Light','mv23theme'),
+			'dark-scheme' => __('Dark','mv23theme')
 		);
 
-		$padding_field = Field::create( 'complex', 'padding', __('Padding', 'default') )->add_fields(array(
-			Field::create( 'checkbox', 'use', __('Customize','default') )->fancy()->set_width( 20 ),
-			Field::create( 'text', 'top', __('Top','default') )->set_placeholder('24px')->add_dependency('use')->set_width( 20 ),
-			Field::create( 'text', 'right', __('Right','default') )->set_placeholder('24px')->add_dependency('use')->set_width( 20 ),
-			Field::create( 'text', 'bottom', __('Bottom','default') )->set_placeholder('24px')->add_dependency('use')->set_width( 20 ),
-			Field::create( 'text', 'left', __('Left','default') )->set_placeholder('24px')->add_dependency('use')->set_width( 20 )
+		$padding_field = Field::create( 'complex', 'padding', __('Padding', 'mv23theme') )->add_fields(array(
+			Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
+			Field::create( 'text', 'top', __('Top','mv23theme') )->set_placeholder('24px')->add_dependency('use')->set_width( 20 ),
+			Field::create( 'text', 'right', __('Right','mv23theme') )->set_placeholder('24px')->add_dependency('use')->set_width( 20 ),
+			Field::create( 'text', 'bottom', __('Bottom','mv23theme') )->set_placeholder('24px')->add_dependency('use')->set_width( 20 ),
+			Field::create( 'text', 'left', __('Left','mv23theme') )->set_placeholder('24px')->add_dependency('use')->set_width( 20 )
 		));
 
 		return array(
-			Field::create('tab', __('Settings','default') ),
+			Field::create('tab', __('Settings','mv23theme') ),
 
 			Field::create('complex',$slug.'_modal_settings' )->set_layout('rows')->hide_label()->add_dependency($slug.'_type','modal','=')->add_fields(array( 
-				Field::create( 'checkbox', 'dismissible' )->set_description(__('Allow modal to be dismissed by keyboard or overlay click.','default'))->set_default_value(1)->fancy(),
-				Field::create( 'checkbox', 'close_on_click' )->set_description(__('Closes element on link clicks.','default'))->fancy(),
+				Field::create( 'checkbox', 'dismissible' )->set_description(__('Allow modal to be dismissed by keyboard or overlay click.','mv23theme'))->set_default_value(1)->fancy(),
+				Field::create( 'checkbox', 'close_on_click' )->set_description(__('Closes element on link clicks.','mv23theme'))->fancy(),
 				Field::create( 'complex', 'background_color' )->add_fields(array(
-					Field::create( 'checkbox', 'use', __('Customize','default') )->fancy()->set_width( 20 ),
+					Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
 					Field::create( 'color', 'color' )->set_default_value('#ffffff')->add_dependency('use')->set_width( 30 ),
-					Field::create( 'number', 'alpha', __('Opacity','default') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 30 ),
-					Field::create( 'select', 'color_scheme', __('Text Color Scheme','default') )->add_dependency('use')->add_options( $color_schemes )->set_width( 20 )
+					Field::create( 'number', 'alpha', __('Opacity','mv23theme') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 30 ),
+					Field::create( 'select', 'color_scheme', __('Text Color Scheme','mv23theme') )->add_dependency('use')->add_options( $color_schemes )->set_width( 20 )
 				)),
 				// Field::create( 'complex', 'close_icon_color' )->add_fields(array(
-				// 	Field::create( 'checkbox', 'use', __('Customize','default') )->fancy()->hide_label()->set_width( 20 ),
+				// 	Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->hide_label()->set_width( 20 ),
 				// 	Field::create( 'color', 'color' )->set_default_value('#000000')->add_dependency('use')->set_width( 30 ),
-				// 	Field::create( 'number', 'alpha', __('Opacity','default') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 40 )
+				// 	Field::create( 'number', 'alpha', __('Opacity','mv23theme') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 40 )
 				// )),
 				// Field::create( 'complex', 'padding' )->add_fields(array(
-				// 	Field::create( 'checkbox', 'use', __('Customize','default') )->fancy()->hide_label()->set_width( 50 ),
+				// 	Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->hide_label()->set_width( 50 ),
 				// 	Field::create( 'text', 'number' )->set_default_value(40)->set_suffix('px')->add_dependency('use')->hide_label()->set_width( 50 )
 				// )),
 				$padding_field,
-				Field::create( 'complex', 'overlay_color', __('Overlay Color','default') )->add_fields(array(
-					Field::create( 'checkbox', 'use', __('Customize','default') )->fancy()->set_width( 20 ),
+				Field::create( 'complex', 'overlay_color', __('Overlay Color','mv23theme') )->add_fields(array(
+					Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
 					Field::create( 'color', 'color' )->set_default_value('#000000')->add_dependency('use')->set_width( 30 ),
-					Field::create( 'number', 'alpha', __('Opacity','default') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(50)->set_width( 40 )
+					Field::create( 'number', 'alpha', __('Opacity','mv23theme') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(50)->set_width( 40 )
 				)),
 				Field::create( 'number', 'max_width' )->set_default_value(666)->set_suffix('px'),
 			)),
 
 			Field::create('complex',$slug.'_bottom_sheet_settings')->set_layout('rows')->hide_label()->add_dependency($slug.'_type','bottom_sheet','=')->add_fields(array( 
-				Field::create( 'checkbox', 'dismissible' )->set_description(__('Allow modal to be dismissed by keyboard or overlay click.','default'))->set_default_value(1)->fancy(),
-				Field::create( 'checkbox', 'close_on_click' )->set_description(__('Closes element on link clicks.','default'))->fancy(),
+				Field::create( 'checkbox', 'dismissible' )->set_description(__('Allow modal to be dismissed by keyboard or overlay click.','mv23theme'))->set_default_value(1)->fancy(),
+				Field::create( 'checkbox', 'close_on_click' )->set_description(__('Closes element on link clicks.','mv23theme'))->fancy(),
 				Field::create( 'complex', 'background_color' )->add_fields(array(
-					Field::create( 'checkbox', 'use', __('Customize','default') )->fancy()->set_width( 20 ),
+					Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
 					Field::create( 'color', 'color' )->set_default_value('#ffffff')->add_dependency('use')->set_width( 30 ),
-					Field::create( 'number', 'alpha', __('Opacity','default') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 30 ),
-					Field::create( 'select', 'color_scheme', __('Text Color Scheme','default') )->add_dependency('use')->add_options( $color_schemes )->set_width( 20 )
+					Field::create( 'number', 'alpha', __('Opacity','mv23theme') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 30 ),
+					Field::create( 'select', 'color_scheme', __('Text Color Scheme','mv23theme') )->add_dependency('use')->add_options( $color_schemes )->set_width( 20 )
 				)),
 				$padding_field,
-				Field::create( 'complex', 'overlay_color', __('Overlay Color','default') )->add_fields(array(
-					Field::create( 'checkbox', 'use', __('Customize','default') )->fancy()->set_width( 20 ),
+				Field::create( 'complex', 'overlay_color', __('Overlay Color','mv23theme') )->add_fields(array(
+					Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
 					Field::create( 'color', 'color' )->set_default_value('#000000')->add_dependency('use')->set_width( 30 ),
-					Field::create( 'number', 'alpha', __('Opacity','default') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(50)->set_width( 40 )
+					Field::create( 'number', 'alpha', __('Opacity','mv23theme') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(50)->set_width( 40 )
 				)),
 				Field::create( 'number', 'max_height' )->set_default_value(140)->set_suffix('px')
 			)),
 
 			Field::create('complex',$slug.'_sidenav_settings')->set_layout('rows')->hide_label()->add_dependency($slug.'_type','sidenav','=')->add_fields(array( 
-				Field::create( 'select', 'position' )->add_options(array(
+				Field::create( 'select', 'position', __('Position','mv23theme') )->add_options(array(
 					'left' => __('Left'),
 					'right' => __('Right')
 				))->set_input_type( 'radio' )->set_orientation( 'horizontal' ),
-				Field::create( 'checkbox', 'close_on_click', __('Close on click','default') )->set_description(__('Closes element on link clicks.','default'))->fancy(),
-				Field::create( 'complex', 'background_color' )->add_fields(array(
-					Field::create( 'checkbox', 'use', __('Customize','default') )->fancy()->set_width( 20 ),
+				Field::create( 'checkbox', 'close_on_click', __('Close on click','mv23theme') )->set_description(__('Closes element on link clicks.','mv23theme'))->fancy(),
+				Field::create( 'complex', 'background_color', __('Background Color','mv23theme') )->add_fields(array(
+					Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
 					Field::create( 'color', 'color' )->set_default_value('#ffffff')->add_dependency('use')->set_width( 30 ),
-					Field::create( 'number', 'alpha', __('Opacity','default') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 30 ),
-					Field::create( 'select', 'color_scheme', __('Text Color Scheme','default') )->add_dependency('use')->add_options( $color_schemes )->set_width( 20 )
+					Field::create( 'number', 'alpha', __('Opacity','mv23theme') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 30 ),
+					Field::create( 'select', 'color_scheme', __('Text Color Scheme','mv23theme') )->add_dependency('use')->add_options( $color_schemes )->set_width( 20 )
 				)),
 				$padding_field,
-				Field::create( 'complex', 'overlay_color', __('Overlay Color','default') )->add_fields(array(
-					Field::create( 'checkbox', 'use', __('Customize','default') )->fancy()->set_width( 20 ),
+				Field::create( 'complex', 'overlay_color', __('Overlay Color','mv23theme') )->add_fields(array(
+					Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
 					Field::create( 'color', 'color' )->set_default_value('#000000')->add_dependency('use')->set_width( 30 ),
-					Field::create( 'number', 'alpha', __('Opacity','default') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(50)->set_width( 40 )
+					Field::create( 'number', 'alpha', __('Opacity','mv23theme') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(50)->set_width( 40 )
 				)),
-				Field::create( 'number', 'max_width' )->set_default_value(360)->set_suffix('px'),
-				// Field::create( 'complex', '__on_open-wrapper', __('On open callback','default') )->merge()->add_fields(array(
-					// Field::create( 'textarea', 'on_open' )->set_description( __('A function to be called when sideNav is opened.','default') )->set_attr(array(
+				Field::create( 'number', 'max_width', __('Max Width','mv23theme') )->set_default_value(360)->set_suffix('px'),
+				// Field::create( 'complex', '__on_open-wrapper', __('On open callback','mv23theme') )->merge()->add_fields(array(
+					// Field::create( 'textarea', 'on_open' )->set_description( __('A function to be called when sideNav is opened.','mv23theme') )->set_attr(array(
 						// 'data-type' => 'html'
 					// ))->hide_label()
 					// Field::create( 'message', 'Hint_1' )->set_description('Usar < script >...< /script >')->hide_label(),

@@ -10,7 +10,7 @@ class Gallery extends Component {
     public function __construct() {
 		parent::__construct(
 			'gallery',
-			__( 'Gallery', 'default' )
+			__( 'Gallery', 'mv23theme' )
 		);
 	}
 
@@ -43,7 +43,7 @@ class Gallery extends Component {
         if(WPMEDIAFOLDER_IS_ACTIVE) $sources = array_merge( array('wp-media' => 'Seleccionar folder'), $sources );
         
         // basic fields
-        $fields[] = Field::create( 'tab', __('Contenido','default') );
+        $fields[] = Field::create( 'tab', __('Content','mv23theme') );
         $fields[] = Field::create( 'radio', 'source', 'Fuente')->set_orientation('horizontal')->add_options( $sources )->set_width(100);
         $fields[] = Field::create( 'gallery', 'gallery' )->add_dependency('source', 'manual', '=')->hide_label()->set_width(100);
         
@@ -58,7 +58,7 @@ class Gallery extends Component {
         $wp_media_folder_settings = array(
             // Field::create( 'checkbox', 'autoinsert' )->set_text( '¿Autoinsertar las imágenes agregadas a la galerîa?' ), // the shortcode needs the attachments id's
             Field::create( 'select', 'display', 'Tipo')->add_options( array(
-                'default' => 'Default',
+                'mv23theme' => 'Default',
                 'slider' => 'Slider',
                 'masonry' => 'Masonry',
                 // 'porfolio' => 'Portfolio'
@@ -140,8 +140,8 @@ class Gallery extends Component {
                     'label' => '1:2.5',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-1-2_5.png'
                 ),
-                'default'  => array(
-                    'label' => 'default',
+                'mv23theme'  => array(
+                    'label' => 'mv23theme',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default-b.png'
                 ),
             ));
@@ -153,9 +153,9 @@ class Gallery extends Component {
 
         // ITEMS GAP
         $fields[] = Field::create( 'complex', 'items_gap', __('Space between items') )->add_fields(array(
-            Field::create( 'number', 'l_gap', __('Gap on desktop','default') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 ),
-            Field::create( 'number', 't_gap', __('Gap on tablet','default') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 ),
-            Field::create( 'number', 'm_gap', __('Gap on mobile','default') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 )
+            Field::create( 'number', 'l_gap', __('Gap on desktop','mv23theme') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 ),
+            Field::create( 'number', 't_gap', __('Gap on tablet','mv23theme') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 ),
+            Field::create( 'number', 'm_gap', __('Gap on mobile','mv23theme') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 )
         ));
 
 		return $fields;
@@ -199,7 +199,7 @@ class Gallery extends Component {
         $shortcode .= ']';
 
         $additional_styles = array();
-        if($aspect_ratio != 'default') $additional_styles[] = '--aspect-ratio:'.$aspect_ratio;
+        if($aspect_ratio != 'mv23theme') $additional_styles[] = '--aspect-ratio:'.$aspect_ratio;
         $args['additional_styles'] = $additional_styles;
         
 		ob_start();

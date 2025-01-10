@@ -9,15 +9,15 @@ class Social_Media{
         Container::create( 'rrss_options' ) 
             ->add_location( 'options', 'theme-options' )
             ->set_layout( 'grid' )
-            ->set_title('Redes Sociales')
+            ->set_title( __('Social Networks','mv23theme') )
             ->add_fields(array(
-                Field::create( 'repeater', 'rrss', 'Redes Sociales' )->set_add_text('Agregar')->hide_label()
+                Field::create( 'repeater', 'rrss', __('Social Networks','mv23theme') )->set_add_text(__('Add','mv23theme'))->hide_label()
                 // ->set_layout( 'table' )
-                ->add_group('Red Social', array(
+                ->add_group(__('Social Network','mv23theme'), array(
                     'title_template' => '<%= icon %> : <%= url %>',
                     'fields' => array(
-                        Field::create( 'select', 'icon', 'Red Social')->add_options( array(
-                            '' => '--Seleccione--',
+                        Field::create( 'select', 'icon', __('Social Network','mv23theme'))->add_options( array(
+                            '' => __('Select','mv23theme'),
                             'facebook' => 'Facebook',
                             'twitter' => 'Twitter',
                             'instagram' => 'Instagram',
@@ -36,8 +36,8 @@ class Social_Media{
                             'envelope' => 'Mail'
                         ))->set_width( 25 ),
                         Field::create( 'text', 'url' )->set_width( 75 )->add_dependency('icon','whatsapp','!='),
-                        Field::create( 'text', 'number' )->set_width( 25 )->add_dependency('icon','whatsapp','='),
-                        Field::create( 'text', 'msg', 'Message' )->set_width( 50 )->add_dependency('icon','whatsapp','=')->set_default_value('Hola, necesito más información...'),
+                        Field::create( 'text', 'number', __('Phone number','mv23theme') )->set_width( 25 )->add_dependency('icon','whatsapp','='),
+                        Field::create( 'text', 'msg', __('Message','mv23theme') )->set_width( 50 )->add_dependency('icon','whatsapp','=')->set_default_value(__('Hello, I need more information about...','mv23theme')),
                     )
                 ))
             ));

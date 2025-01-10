@@ -30,7 +30,8 @@ class Reusable_Section_CPT {
         new CPT(
             array(
                 'post_type_name' => 'reusable_section',
-                'plural' => __('Reusable Sections', 'default'),
+                'singular' => __('Reusable Section', 'mv23theme'),
+                'plural' => __('Reusable Sections', 'mv23theme')
             ), 
             array(
                 'show_in_menu' => 'theme-options-menu',
@@ -43,7 +44,7 @@ class Reusable_Section_CPT {
     }
 
     public function get_reusable_sections(){
-        $reusable_sections = array( '0'=>__('Choose','default') );
+        $reusable_sections = array( '0'=>__('Choose','mv23theme') );
         
         $sections = get_posts( array('post_type' => 'reusable_section','posts_per_page' => -1, 'post_status' => 'publish') );
 
@@ -93,7 +94,7 @@ class Reusable_Section extends Component{
     public function __construct() {
 		self::$the_group = parent::__construct(
 			'reusable_section',
-			__( 'Reusable Section', 'default' ),
+			__( 'Reusable Section', 'mv23theme' ),
             array(
                 'add_common_settings' => false
             )
@@ -110,7 +111,7 @@ class Reusable_Section extends Component{
 
     public static function get_fields() {
         $fields = array( 
-            Field::create( 'select', 'reusable_section', __('Select', 'default') )->add_options( Reusable_Section_CPT::getInstance()->get_reusable_sections() )
+            Field::create( 'select', 'reusable_section', __('Select', 'mv23theme') )->add_options( Reusable_Section_CPT::getInstance()->get_reusable_sections() )
         );
 
 		return $fields;

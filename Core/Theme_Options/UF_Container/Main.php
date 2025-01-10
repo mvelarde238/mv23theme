@@ -12,7 +12,7 @@ use Core\Theme_Options\Fields\Single_Pages;
 class Main{
     public static function init(){
         Container::create( 'main_theme_options' )
-            ->set_title( __('Theme Options','default') )
+            ->set_title( __('Theme Options','mv23theme') )
             ->set_description_position('label')
             ->add_location( 'options', 'theme-options' )
             ->add_location( 'customizer', array(

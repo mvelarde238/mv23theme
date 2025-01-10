@@ -23,7 +23,7 @@ class Device extends Restriction {
 	 * @return string
 	 */
 	public static function get_name() {
-		return __( 'Device', 'default' );
+		return __( 'Device', 'mv23theme' );
 	}
 
 	/**
@@ -45,20 +45,20 @@ class Device extends Restriction {
 	public static function get_fields() {
 		$fields = array();
 
-		$fields[] = Field::create( 'radio', 'restriction_type', __( 'Browser type', 'default' ) )
+		$fields[] = Field::create( 'radio', 'restriction_type', __( 'Device type', 'mv23theme' ) )
             ->add_options(array(
-                'devices' => __( 'Show the element based on devices', 'default' ),
-                // 'rules'     => __( 'Show the element based on rules', 'default' )
+                'devices' => __( 'Show the element based on devices', 'mv23theme' ),
+                // 'rules'     => __( 'Show the element based on rules', 'mv23theme' )
             ));
 
-        $fields[] = Field::create( 'multiselect', 'devices', __( 'Devices', 'default' ) )
+        $fields[] = Field::create( 'multiselect', 'devices', __( 'Devices', 'mv23theme' ) )
             ->required()
             ->add_options( array(
-                'desktop' => __('Desktop','default'),
-                'mobile' => __('Mobile','default')
+                'desktop' => __('Desktop','mv23theme'),
+                'mobile' => __('Mobile','mv23theme')
             ))
             ->set_input_type( 'checkbox' )
-            ->set_description( __( 'The element will be displayed on all of the checked devices.', 'default' ) )
+            ->set_description( __( 'The element will be displayed on all of the checked devices.', 'mv23theme' ) )
             ->add_dependency( 'restriction_type', 'devices' );
 
 		return $fields;

@@ -11,7 +11,7 @@ class Listing extends Component {
     public function __construct() {
 		parent::__construct(
 			'listing',
-			__( 'Listing', 'default' )
+			__( 'Listing', 'mv23theme' )
 		);
 	}
 
@@ -60,7 +60,7 @@ class Listing extends Component {
         }
 
         $listing_fields_1 = array( 
-            Field::create( 'tab', __('Contenido','default') ),
+            Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'radio', 'show','Seleccione qué entradas se van a mostrar:')->set_orientation( 'horizontal' )->add_options( array(
                 'auto'=>'Automático (últimos posts publicados)',
                 'manual'=>'Manual',
@@ -166,7 +166,7 @@ class Listing extends Component {
         array_push($listing_fields_filter, Field::create( 'complex', 'year-filter', 'Año' )->add_fields(array(
             Field::create( 'checkbox', 'show' )->set_text( 'Mostrar' )->hide_label(),
             Field::create( 'number', 'first_year', 'Primer Año' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value(2012)->set_width(50),
-            Field::create( 'number', 'default', 'Default value' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value('')->set_width(50),
+            Field::create( 'number', 'mv23theme', 'Default value' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value('')->set_width(50),
         ))->add_dependency('filter')->set_width(10) );
 
 		$fields = array_merge( $listing_fields_1, $listing_fields_2, $listing_fields_filter );
@@ -298,7 +298,7 @@ class Listing extends Component {
             // check date params
             if($filter){
                 $date_params = array();
-                if( $args['year-filter']['show'] && $args['year-filter']['default'] ) $date_params['year'] = $args['year-filter']['default'];
+                if( $args['year-filter']['show'] && $args['year-filter']['mv23theme'] ) $date_params['year'] = $args['year-filter']['mv23theme'];
                 if( count($date_params) ) $args_query['date_query'] = array( $date_params );
             }
         }
@@ -361,7 +361,7 @@ class Listing extends Component {
             if( isset($args['year-filter']) ){
                 $show_year = $args['year-filter']['show'];
                 $firstyear = $args['year-filter']['first_year'];
-                $default_year = $args['year-filter']['default'];
+                $default_year = $args['year-filter']['mv23theme'];
             }
             
             echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_year="'.$show_year.'" show_month="'.$show_month.'" default_year="'.$default_year.'" filter_taxonomies="'.implode(',',$filter_taxonomies).'" filter_default_terms="'.implode(',',$filter_default_terms).'"]');

@@ -33,11 +33,9 @@ class Migrate_0_4_X_to_0_5_0{
     }
 
     public function theme_is_less_than_0_5_0_notice() {
-        $link_text = __('Theme Migrator', 'default');
-        $translated_text = sprintf(
-            __('Current theme version is less than 0.5.0 and need to be migrated. Please make a database backup and follow the next link: %s', 'default'),
-            '<a href="' . esc_url($this->migrator_url) . '">' . esc_html($link_text) . '</a>'
-        );
+        $link_text = __('Theme Migrator', 'mv23theme');
+        /* translators: %s: migrator url link */
+        $translated_text = sprintf( __('Current theme version is less than 0.5.0 and need to be migrated. Please make a database backup and follow the next link: %s', 'mv23theme'), '<a href="' . esc_url($this->migrator_url) . '">' . esc_html($link_text) . '</a>');
 
         echo '<div class="notice notice-error is-dismissible">';
         echo '<p>' . $translated_text . '</p>';
@@ -49,8 +47,8 @@ class Migrate_0_4_X_to_0_5_0{
 
         add_submenu_page(
             'theme-options',
-            __('Theme Migrator', 'default'),
-            __('Theme Migrator', 'default'),
+            __('Theme Migrator', 'mv23theme'),
+            __('Theme Migrator', 'mv23theme'),
             'manage_options',
             $slug,
             array($this, 'display'),
@@ -388,7 +386,7 @@ class Migrate_0_4_X_to_0_5_0{
 
         if( $component['__type'] == 'imagen' && !empty($component['aspect_ratio']) ){
             $translate_aspect_ratio = array(
-                'aspect-ratio-default' => 'default',
+                'aspect-ratio-default' => 'mv23theme',
                 'aspect-ratio-4-3' => '4/3',
                 'aspect-ratio-1-1' => '1/1',
                 'aspect-ratio-16-9' => '16/9',

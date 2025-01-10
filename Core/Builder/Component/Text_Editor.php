@@ -10,7 +10,7 @@ class Text_Editor extends Component {
     public function __construct() {
 		parent::__construct(
 			'text_editor',
-			__( 'Text editor', 'default' )
+			__( 'Text editor', 'mv23theme' )
 		);
 	}
 
@@ -26,22 +26,22 @@ class Text_Editor extends Component {
 
 	public static function get_fields() {
 		$fields = array( 
-			Field::create( 'tab', __('Content','default') ),
+			Field::create( 'tab', __('Content','mv23theme') ),
 			Field::create( 'wysiwyg', 'content' )->hide_label()->set_rows( 20 ),
 			Field::create( 'checkbox', 'add_responsive' )
-				->set_text( __('Change text alignment on mobile devices','default') )
+				->set_text( __('Change text alignment on mobile devices','mv23theme') )
 				->hide_label(),
-			Field::create( 'select', 'tablet_text_align',__('Text alignment on tablet','default'))->add_options( array(
-				'' => __('Select','default'),
-				'left' => __('Left','default'),
-				'center' => __('Center','default'),
-				'right' => __('Right','default')
+			Field::create( 'select', 'tablet_text_align',__('Text alignment on tablet','mv23theme'))->add_options( array(
+				'' => __('Select','mv23theme'),
+				'left' => __('Left','mv23theme'),
+				'center' => __('Center','mv23theme'),
+				'right' => __('Right','mv23theme')
 			))->set_width(50)->add_dependency('add_responsive'),
-			Field::create( 'select', 'mobile_text_align',__('Text alignment on mobile','default'))->add_options( array(
-				'' => __('Select','default'),
-				'left' => __('Left','default'),
-				'center' => __('Center','default'),
-				'right' => __('Right','default')
+			Field::create( 'select', 'mobile_text_align',__('Text alignment on mobile','mv23theme'))->add_options( array(
+				'' => __('Select','mv23theme'),
+				'left' => __('Left','mv23theme'),
+				'center' => __('Center','mv23theme'),
+				'right' => __('Right','mv23theme')
 			))->set_width(50)->add_dependency('add_responsive'),
 		);
 

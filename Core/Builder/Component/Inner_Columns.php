@@ -11,7 +11,7 @@ class Inner_Columns extends Component{
     public function __construct() {
 		parent::__construct(
 			'inner_columns',
-			__( 'Inner Columns', 'default' )
+			__( 'Inner Columns', 'mv23theme' )
 		);
 	}
 
@@ -30,10 +30,10 @@ class Inner_Columns extends Component{
 	}
 
 	public static function get_fields() {
-		$fields = array( Field::create( 'tab', __('Content','default') ) );
+		$fields = array( Field::create( 'tab', __('Content','mv23theme') ) );
 
         for ($i=1; $i <= COLUMNS_QUANTITY; $i++) { 
-            $col = Content_Selector::the_field( 'column_'.$i, __('Column','default') )
+            $col = Content_Selector::the_field( 'column_'.$i, __('Column','mv23theme') )
                 ->set_attr( 'style', 'width:25%' );
 
             if($i > 1) $col->add_dependency('quantity',($i-1),'>');

@@ -11,7 +11,7 @@ class Icon_and_Text extends Component {
     public function __construct() {
 		parent::__construct(
 			'icon_and_text',
-			__( 'Icon and Text', 'default' )
+			__( 'Icon and Text', 'mv23theme' )
 		);
 	}
 
@@ -59,7 +59,7 @@ class Icon_and_Text extends Component {
             ))->set_width(30),
 
             // ALIGMENT
-            Field::create( 'select', 'itopalign', __('Icon Aligment', 'default'))
+            Field::create( 'select', 'itopalign', __('Icon Aligment', 'mv23theme'))
                 ->set_input_type( 'radio' )
                 ->set_orientation( 'horizontal' )
                 ->add_options(array(
@@ -67,7 +67,7 @@ class Icon_and_Text extends Component {
                     'left'  => 'Izquierda',
                     'right'  => 'Derecha',
                 ))->add_dependency('iposition','top','='),
-            Field::create( 'select', 'ialign', __('Icon Alignment', 'default'))
+            Field::create( 'select', 'ialign', __('Icon Alignment', 'mv23theme'))
                 ->set_input_type( 'radio' )
                 ->set_orientation( 'horizontal' )
                 ->add_options(array(
@@ -79,8 +79,8 @@ class Icon_and_Text extends Component {
 
             // STYLE
             Field::create( 'section', 'icon_style' ),
-            Field::create( 'image_select', 'istyle', __('Style','default'))->add_options(array(
-                'default'  => array(
+            Field::create( 'image_select', 'istyle', __('Style','mv23theme'))->add_options(array(
+                'mv23theme'  => array(
                     'label' => 'Normal',
                     'image' =>  BUILDER_PATH.'/assets/images/icon-default.png'
                 ),
@@ -93,7 +93,7 @@ class Icon_and_Text extends Component {
                     'image' =>  BUILDER_PATH.'/assets/images/icon-circle-outline.png'
                 ),
             ))->set_width(30),
-            Field::create( 'complex', '_icon_styles_wrapper', __('Settings','default') )->merge()->add_fields(array(
+            Field::create( 'complex', '_icon_styles_wrapper', __('Settings','mv23theme') )->merge()->add_fields(array(
                 Field::create( 'number', 'ifontsize', 'Tamaño')->set_default_value(40)->set_suffix('px')->set_width(25),
                 Field::create( 'color', 'icolor', 'Color del ícono')->set_width(25),
                 Field::create( 'checkbox', 'ihas_bgc','Activar fondo' )->fancy()->add_dependency('../istyle','circle-outline','=')->set_width(25),
@@ -115,7 +115,7 @@ class Icon_and_Text extends Component {
             Field::create( 'select', 'horizontal_alignment', 'Alineación Horizontal')
                 ->set_description( "This setting allows you to align the entire component." )
                 ->add_options(array(
-                    ''  => __('Default','default'),
+                    ''  => __('Default','mv23theme'),
                     'left'  => 'Izquierda',
                     'center'  => 'Al Centro',
                     'right'  => 'Derecha'
@@ -163,7 +163,7 @@ class Icon_and_Text extends Component {
         $icon_style = ($icon_style) ? 'style="'.$icon_style.'"' : '';
 
         $classes = array('icon-wrapper');
-        if($args['istyle']!='default') array_push($classes, 'icon--'.$args['istyle']);
+        if($args['istyle']!='mv23theme') array_push($classes, 'icon--'.$args['istyle']);
         if(isset($args['hide-icon-on-mobile']) && $args['hide-icon-on-mobile']) array_push($classes, 'hide-on-small-only');
         $icon_class = (!empty($classes)) ? 'class="'.implode(' ',$classes).'"' : '';
 
@@ -177,7 +177,7 @@ class Icon_and_Text extends Component {
         echo Template_Engine::component_wrapper('start', $args);
 
         echo '<div '.$icon_class.' '.$icon_style.'>';
-	    if ($args['istyle']!='default') { echo '<span style="background-color:'.$backgroundColor.'">'; } else { echo '<span>'; };
+	    if ($args['istyle']!='mv23theme') { echo '<span style="background-color:'.$backgroundColor.'">'; } else { echo '<span>'; };
 	    echo $element;
 	    echo '</span>';
 	    echo '</div>';

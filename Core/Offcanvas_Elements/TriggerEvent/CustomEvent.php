@@ -24,7 +24,7 @@ class CustomEvent extends TriggerEvent {
 	 * @return string
 	 */
 	public static function get_name() {
-		return __( 'Custom Event', 'default' );
+		return __( 'Custom Event', 'mv23theme' );
 	}
 
 	/**
@@ -54,15 +54,15 @@ class CustomEvent extends TriggerEvent {
             )
         );
         
-        $event_sources_options = array( 'custom' => __( 'Use a custom event', 'default' ) );
+        $event_sources_options = array( 'custom' => __( 'Use a custom event', 'mv23theme' ) );
         foreach ($event_sources as $source => $events) {
-            $event_sources_options[$source] = __( 'Use a '.$source.' event', 'default' );
+            $event_sources_options[$source] = __( 'Use a '.$source.' event', 'mv23theme' );
         }
 
 		$fields = array(
-            Field::create( 'radio', 'event_source', __( 'Event Source', 'default' ) )->add_options( $event_sources_options ),
-            Field::create( 'text', 'event_name', __( 'Event name', 'default' ) )
-            ->set_description( __( 'Please enter the event name that will trigger the display of the element. For example, "theme_document_ready" will show the element once the page is fully loaded.', 'default' ) )->add_dependency('event_source','custom','=')->required()
+            Field::create( 'radio', 'event_source', __( 'Event Source', 'mv23theme' ) )->add_options( $event_sources_options ),
+            Field::create( 'text', 'event_name', __( 'Event name', 'mv23theme' ) )
+            ->set_description( __( 'Please enter the event name that will trigger the display of the element. For example, "theme_document_ready" will show the element once the page is fully loaded.', 'mv23theme' ) )->add_dependency('event_source','custom','=')->required()
         );
 
         foreach ($event_sources as $source => $events) {

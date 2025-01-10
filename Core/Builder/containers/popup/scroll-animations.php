@@ -67,7 +67,7 @@ $scroll_animation_settings_fileds = array(
 if( SCROLL_INDICATORS ) array_push($scroll_animation_settings_fileds, Field::create( 'checkbox', 'add_indicators', 'Indicadores' )->set_text('Activar')->set_width( 25 ));
 
 array_push($scroll_animation_fields, Field::create( 'repeater', 'groups' )
-    ->set_add_text( __('Add animation','default') )
+    ->set_add_text( __('Add animation','mv23theme') )
     ->add_group('group1', array(
         'title' => 'Scroll Animation',
         'edit_mode' => 'popup',

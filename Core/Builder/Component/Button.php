@@ -10,7 +10,7 @@ class Button extends Component {
     public function __construct() {
 		parent::__construct(
 			'button',
-			__( 'Button', 'default' )
+			__( 'Button', 'mv23theme' )
 		);
 	}
 
@@ -30,7 +30,7 @@ class Button extends Component {
 
 	public static function get_fields() {
 		$fields = array(
-            Field::create( 'tab', __('Contenido','default') ), 
+            Field::create( 'tab', __('Content','mv23theme') ), 
             Field::create( 'text', 'text', 'Texto del botón')->set_width(25),
             Field::create( 'select', 'style', 'Estilo')->add_options( array(
                 '' => 'Link',
@@ -66,7 +66,7 @@ class Button extends Component {
                 'right' => 'Derecha'
             ))->set_orientation( 'horizontal' )->set_width(25),
     
-            Field::create( 'tab', __('Others','default') ),
+            Field::create( 'tab', __('Others','mv23theme') ),
             Field::create( 'radio', 'alignment', 'Alineación')->add_options( array(
                 'left' => 'Izquierda',
                 'center' => 'Centro',

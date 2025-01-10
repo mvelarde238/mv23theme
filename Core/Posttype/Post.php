@@ -31,8 +31,8 @@ class Post {
 	                ->set_input_type( 'radio' )
                     ->hide_label()
 	                ->add_options(array(
-	                	''   => __('Standard','default'),
-	                	'link'   => __('Link','default')
+	                	''   => __('Standard','mv23theme'),
+	                	'link'   => __('Link','mv23theme')
                     )),
                 Field::create( 'text', 'post_link' )->add_dependency('post_format','link','=')
             ));
@@ -44,8 +44,8 @@ class Post {
                 'priority' => 'low'
             ))
             ->add_fields(array(
-                Field::create( 'checkbox', 'use_featured_video' )->set_text( __('Activate', 'default') )->fancy()->hide_label(),
-                Field::create( 'radio', 'featured_video_source', __('Source','default'))
+                Field::create( 'checkbox', 'use_featured_video' )->set_text( __('Activate', 'mv23theme') )->fancy()->hide_label(),
+                Field::create( 'radio', 'featured_video_source', __('Source','mv23theme'))
                     ->set_orientation( 'horizontal' )
                     ->add_options( array(
                         'selfhosted' => 'Medios',

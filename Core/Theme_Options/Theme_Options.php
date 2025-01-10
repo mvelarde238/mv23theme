@@ -35,8 +35,8 @@ class Theme_Options extends Theme_Header_Data{
 
     public function init_options_page(){
         if( current_user_can('administrator') ){
-            Options_Page::create( $this->slug, 'Theme Options' )->set_position( 2 )->set_capability( 'manage_options' );
-            Options_Page::create( 'theme-options', 'Theme Options' )->set_parent( $this->slug );
+            Options_Page::create( $this->slug, __( 'Theme Options', 'mv23theme' ) )->set_position( 2 )->set_capability( 'manage_options' );
+            Options_Page::create( 'theme-options', __( 'Theme Options', 'mv23theme' ) )->set_parent( $this->slug );
             Options_Page::create( 'custom-scripts-options', 'Custom Scripts' )->set_parent( $this->slug );
 
             // load uf-containers
@@ -115,8 +115,8 @@ class Theme_Options extends Theme_Header_Data{
                     $field_name = 'logo_v'.$i;
                     break;
             }
-            $field_title = 'Logo Versión '.$i;
-            self::$logos_field_names[$field_name] = $field_title;
+            /* translators: %s: number */
+            self::$logos_field_names[$field_name] = sprintf(__('Version %s','mv23theme'), $i);
         }
         self::$logos_field_names['custom'] = 'Custom';
     }

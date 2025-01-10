@@ -3,7 +3,7 @@ if (post_password_required()) return;
 ?>
 <?php if (have_comments()) : ?>
     <div id="comments" class="comments-area">
-        <h4 id="comments-title"><?php comments_number(__('0 comentarios', 'default'), __('Un comentario', 'default'), __('<span>%</span> comentarios', 'default')); ?></h4>
+        <h4 id="comments-title"><?php comments_number(__('0 comments', 'mv23theme'), __('One comment', 'mv23theme'), __('<span>%</span> comments', 'mv23theme')); ?></h4>
 
         <section class="commentlist">
             <?php
@@ -14,14 +14,15 @@ if (post_password_required()) return;
                     <article class="cf">
                         <header class="comment-author">
                             <?php echo get_avatar($comment, $size = '32', ''); ?>
-
-                            <?php printf(__('<cite class="fn">%1$s</cite> %2$s', 'default'), get_comment_author_link(), edit_comment_link(__('(Edit)', 'default'), '  ', '')) ?>
-                            <time class="comment-date" datetime="<?php echo comment_time('Y-m-j'); ?>"><a href="<?php echo htmlspecialchars(get_comment_link($comment->comment_ID)) ?>"><?php comment_time(__('F jS, Y', 'default')); ?> </a></time>
+                            <?php 
+                            /* translators: %1$s: comment author link, %2$s: comment link */
+                            printf(__('<cite class="fn">%1$s</cite> %2$s', 'mv23theme'), get_comment_author_link(), edit_comment_link(__('(Edit)', 'mv23theme'), '  ', '')) ?>
+                            <time class="comment-date" datetime="<?php echo comment_time('Y-m-j'); ?>"><a href="<?php echo htmlspecialchars(get_comment_link($comment->comment_ID)) ?>"><?php comment_time(__('F jS, Y', 'mv23theme')); ?> </a></time>
                         </header>
 
                         <section class="comment-content cf">
                             <?php if ($comment->comment_approved == '0') : ?>
-                                <p class="alert-info"><?php _e('Gracias, tu comentario será publicado cuando sea aprobado.', 'default') ?></p>
+                                <p class="alert-info"><?php _e('Thank you, your comment will be published once approved.', 'mv23theme') ?></p>
                             <?php endif; ?>
                             <?php comment_text() ?>
                         </section>
@@ -38,7 +39,7 @@ if (post_password_required()) return;
                 'avatar_size'       => 40,
                 'callback'          => 'mv23_comments',
                 'type'              => 'all',
-                'reply_text'        => __('Responder', 'default'),
+                'reply_text'        => __('Reply', 'mv23theme'),
                 'page'              => '',
                 'per_page'          => '',
                 'reverse_top_level' => null,
@@ -49,13 +50,13 @@ if (post_password_required()) return;
 
         <?php if (get_comment_pages_count() > 1 && get_option('page_comments')) : ?>
             <nav class="navigation comment-navigation" role="navigation">
-                <div class="comment-nav-prev"><?php previous_comments_link(__('&larr; Comentarios anteriores', 'default')); ?></div>
-                <div class="comment-nav-next"><?php next_comments_link(__('Mas comentarios &rarr;', 'default')); ?></div>
+                <div class="comment-nav-prev"><?php previous_comments_link(__('&larr; Previous comments', 'mv23theme')); ?></div>
+                <div class="comment-nav-next"><?php next_comments_link(__('More comments &rarr;', 'mv23theme')); ?></div>
             </nav>
         <?php endif; ?>
 
         <?php if (!comments_open()) : ?>
-            <p class="no-comments center"><strong><?php _e('Se han bloqueado los comentarios para esta publicación.', 'default'); ?></strong></p>
+            <p class="no-comments center"><strong><?php _e('Comments are not allowed on this post.', 'mv23theme'); ?></strong></p>
         <?php endif; ?>
 
     </div>

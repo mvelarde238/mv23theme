@@ -23,7 +23,7 @@ class User extends Restriction {
 	 * @return string
 	 */
 	public static function get_name() {
-		return __( 'User', 'default' );
+		return __( 'User', 'mv23theme' );
 	}
 
 	/**
@@ -48,15 +48,15 @@ class User extends Restriction {
 			$roles[ $slug ] = translate_user_role( $role[ 'name' ] );
 		}
 
-		$roles['visitor'] = __('Visitor','default');
+		$roles['visitor'] = __('Visitor','mv23theme');
 
 		$fields = array();
 
-		$fields[] = Field::create( 'multiselect', 'roles', __( 'Roles', 'default' ) )
+		$fields[] = Field::create( 'multiselect', 'roles', __( 'Roles', 'mv23theme' ) )
 			->required()
             ->set_input_type( 'checkbox' )
             ->add_options( $roles )
-            ->set_description( __( 'Select the roles, which should have access to this element or leave blank for all roles.', 'default' ) );
+            ->set_description( __( 'Select the roles, which should have access to this element or leave blank for all roles.', 'mv23theme' ) );
 
 		return $fields;
 	}

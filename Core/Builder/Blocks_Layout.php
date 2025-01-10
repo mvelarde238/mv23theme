@@ -21,9 +21,9 @@ class Blocks_Layout{
 
         $defaults = array(
             'slug' => 'blocks_layout',
-            'title' => 'Blocks Layout',
+            'title' => __('Blocks Layout','mv23theme'),
             'hide_label' => true,
-            'placeholder' => 'Arrastre un componente aquí',
+            'placeholder' => __('Drag a component here','mv23theme'),
             'components' => array(),
             'exclude' => array(),
             'columns' => 12,

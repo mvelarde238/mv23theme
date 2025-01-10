@@ -20,7 +20,7 @@
 				<div class="page-module"><div class="component">
 					<article id="post-not-found" class="hentry cf">
 						<header class="article-header">
-							<h3 class="center"><?php _e( 'No hubieron resultados', 'mv23' ); ?></h3>
+							<h3 class="center"><?php _e( 'No results', 'mv23theme' ); ?></h3>
 						</header>
 					</article>
 				</div></div>

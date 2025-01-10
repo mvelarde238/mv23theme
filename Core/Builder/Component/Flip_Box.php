@@ -11,7 +11,7 @@ class Flip_Box extends Component {
     public function __construct() {
 		parent::__construct(
 			'flip_box',
-			__( 'Flip_Box', 'default' )
+			__( 'Flip Box', 'mv23theme' )
 		);
 	}
 
@@ -40,13 +40,13 @@ class Flip_Box extends Component {
 	public static function get_fields() {
         $components = array( 'text_editor', 'image', 'spacer', 'button', 'video', 'map', 'icon_and_text', 'menu', 'carrusel' );
         $alignments = array(
-            'start' => __('Start','default'),
-            'center' => __('Center','default'),
-            'end' => __('End','default')
+            'start' => __('Start','mv23theme'),
+            'center' => __('Center','mv23theme'),
+            'end' => __('End','mv23theme')
         );
 
 		$fields = array( 
-            Field::create( 'tab', __('Content','default') ),
+            Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'complex', 'front_content' )->add_fields(array(
                 Blocks_Layout::the_field(array( 
                     'slug' => 'blocks_layout', 
@@ -65,16 +65,16 @@ class Flip_Box extends Component {
 
             Field::create( 'complex', '_front_settings_wrapper' )->hide_label()->merge()->add_fields(array(
                 Field::create( 'common_settings_control', 'front_settings' )->set_container( 'common_settings_container' )->set_width(30),
-                Field::create( 'select', 'front_justify_content', __('Horizontal Alignment','default'))->add_options( $alignments )->set_width(30),
-                Field::create( 'select', 'front_align_items', __('Vertical Alignment','default'))->add_options( $alignments )->set_width(30)
+                Field::create( 'select', 'front_justify_content', __('Horizontal Alignment','mv23theme'))->add_options( $alignments )->set_width(30),
+                Field::create( 'select', 'front_align_items', __('Vertical Alignment','mv23theme'))->add_options( $alignments )->set_width(30)
             ))->set_width(50),
             Field::create( 'complex', '_back_settings_wrapper' )->hide_label()->merge()->add_fields(array(
                 Field::create( 'common_settings_control', 'back_settings' )->set_container( 'common_settings_container' )->set_width(30),
-                Field::create( 'select', 'back_justify_content', __('Horizontal Alignment','default'))->add_options( $alignments )->set_width(30),
-                Field::create( 'select', 'back_align_items', __('Vertical Alignment','default'))->add_options( $alignments )->set_width(30)
+                Field::create( 'select', 'back_justify_content', __('Horizontal Alignment','mv23theme'))->add_options( $alignments )->set_width(30),
+                Field::create( 'select', 'back_align_items', __('Vertical Alignment','mv23theme'))->add_options( $alignments )->set_width(30)
             ))->set_width(50),
             
-            Field::create( 'tab', __('Box Settings','default') ),
+            Field::create( 'tab', __('Box Settings','mv23theme') ),
             Field::create( 'image_select', 'flip_effect' )->show_label()->add_options(array(
                 'horizontal-flip'  => array(
                     'label' => 'Horizontal flip',

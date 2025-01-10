@@ -12,7 +12,7 @@ class Components_Wrapper extends Component {
     public function __construct() {
 		parent::__construct(
 			'components_wrapper',
-			__( 'Wrapper', 'default' )
+			__( 'Wrapper', 'mv23theme' )
 		);
 	}
 
@@ -44,7 +44,7 @@ class Components_Wrapper extends Component {
         }
 
 		$fields = array( 
-            Field::create( 'tab', __('Contenido','default') ),
+            Field::create( 'tab', __('Content','mv23theme') ),
             Blocks_Layout::the_field( $blocks_layout_args ),
 			Blocks_Layout_Settings::the_field()
         );

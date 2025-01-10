@@ -25,7 +25,7 @@ class Page_Header_Container{
         return Container::create('page_header')
             ->add_location('post_type', PAGE_HEADER_IN)
             ->add_location('taxonomy', UF_TAXONOMIES)
-            ->set_title('Page Header')
+            ->set_title(__('Page Header','mv23theme'))
             ->set_layout('grid');
     }
 
@@ -34,16 +34,16 @@ class Page_Header_Container{
         $page_header_content_types = apply_filters(
             'filter_page_header_content_types',
             array(
-                'default' => __('Page Title','default'),
+                'mv23theme' => __('Page Title','mv23theme'),
                 'slider' => 'Slider',
-                'content' => __('Content','default'),
-                'none' => __('None','default')
+                'content' => __('Content','mv23theme'),
+                'none' => __('None','mv23theme')
             )
         );
 
         $content_fields = array(
-            Field::create( 'radio', 'page_header_content_type')->set_orientation('horizontal')->add_options($page_header_content_types)->set_width(50),
-            Field::create( 'common_settings_control', 'page_header_settings' )->set_container( 'common_settings_container' )->set_width(50),
+            Field::create( 'radio', 'page_header_content_type', __('Content type','mv23theme'))->set_orientation('horizontal')->add_options($page_header_content_types)->set_width(50),
+            Field::create( 'common_settings_control', 'page_header_settings', __('Settings','mv23theme') )->set_container( 'common_settings_container' )->set_width(50),
             Field::create( 'complex', 'page_header_slider' )->add_dependency('page_header_content_type', 'slider', '=')->hide_label()->add_fields(array(
                 Field::create('textarea', 'desktop')->set_rows(1)->set_width(50),
                 Field::create('textarea', 'mobile')->set_rows(1)->set_width(50),

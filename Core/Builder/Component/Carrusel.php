@@ -12,7 +12,7 @@ class Carrusel extends Component {
     public function __construct() {
 		parent::__construct(
 			'carrusel',
-			__( 'Carrusel', 'default' )
+			__( 'Carrusel', 'mv23theme' )
 		);
 	}
 
@@ -36,7 +36,7 @@ class Carrusel extends Component {
 
 	public static function get_fields() {
         $content_group = new Repeater_Group( 'Content' );
-		$content_group->set_title( __('Contenido','default') )
+		$content_group->set_title( __('Content','mv23theme') )
             ->set_edit_mode('popup')
             ->set_title_template( '<% if ( blocks_layout.length ){ %>
                     <% if ( blocks_layout[0][0].__type == "editor-de-texto" ){ %>
@@ -48,15 +48,15 @@ class Carrusel extends Component {
                     This item is empty
                 <% } %>') 
 			->add_fields(array(
-                Field::create( 'tab', __('Contenido','default') ),
+                Field::create( 'tab', __('Content','mv23theme') ),
                 Blocks_Layout::the_field(),
-                Field::create( 'tab', __('Settings','default') ),
+                Field::create( 'tab', __('Settings','mv23theme') ),
                 Field::create( 'common_settings_control', 'settings' )->set_container( 'common_settings_container' ),
                 Field::create( 'common_settings_control', 'actions_settings' )->set_container( 'actions_container' )
             ));
         
 		$fields = array(
-            Field::create( 'tab', __('Contenido','default') ),
+            Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'repeater', 'items', '' )
                 ->set_add_text('Agregar')
                 ->set_chooser_type( 'dropdown' )
@@ -82,14 +82,14 @@ class Carrusel extends Component {
             Field::create( 'tab', 'Carrusel' ),
             Field::create( 'checkbox', 'show_controls' )->set_text('Mostrar Flechas')->set_width( 10 ),
             Field::create( 'select', 'controls_position' )->add_options( array(
-                'center' => __('Center','default'),
-                'bottom' => __('Bottom','default'),
-                'top' => __('Top','default'),
+                'center' => __('Center','mv23theme'),
+                'bottom' => __('Bottom','mv23theme'),
+                'top' => __('Top','mv23theme'),
             ))->add_dependency('show_controls')->set_width( 10 ),
             Field::create( 'checkbox', 'show_nav' )->set_text('Mostrar indicadores de página')->set_width( 10 ),
             Field::create( 'select', 'nav_position' )->add_options( array(
-                'bottom' => __('Bottom','default'),
-                'top' => __('Top','default'),
+                'bottom' => __('Bottom','mv23theme'),
+                'top' => __('Top','mv23theme'),
             ))->add_dependency('show_nav')->set_width( 10 ),
             Field::create( 'checkbox', 'autoplay' )->set_text('Empezar automáticamente')->set_width( 10 ),
             Field::create( 'checkbox', 'auto_height' )->set_text('Activar')->set_width( 10 ),

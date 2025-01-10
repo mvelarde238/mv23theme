@@ -26,7 +26,7 @@ class Plugin extends Restriction {
 	 * @return string
 	 */
 	public static function get_name() {
-		return __( 'Plugin', 'default' );
+		return __( 'Plugin', 'mv23theme' );
 	}
 
 	/**
@@ -59,31 +59,31 @@ class Plugin extends Restriction {
         ));
         self::$plugins = $plugins;
 
-        $plugin_ids = array( '' => __('Select','default') );
+        $plugin_ids = array( '' => __('Select','mv23theme') );
         foreach ($plugins as $plugin) {
             $plugin_ids[ $plugin['slug'] ] = $plugin['name'];
         }
 
 		# Add the choice to show the element based on actual plugin or rules(?)
-		$fields[] = Field::create( 'radio', 'restriction_type', __( 'Restriction type', 'default' ) )
+		$fields[] = Field::create( 'radio', 'restriction_type', __( 'Restriction type', 'mv23theme' ) )
 			->add_options(array(
-			    'plugin'     => __( 'Show the element based on a particular plugin', 'default' ),
-				// 'posttype' => __( 'Show the element based on page type', 'default' )
+			    'plugin'     => __( 'Show the element based on a particular plugin', 'mv23theme' ),
+				// 'posttype' => __( 'Show the element based on page type', 'mv23theme' )
 			));
 
-        $fields[] = Field::create( 'complex', 'item', __( 'Item', 'default' ) )
+        $fields[] = Field::create( 'complex', 'item', __( 'Item', 'mv23theme' ) )
 			->add_dependency( 'restriction_type', 'plugin' )
 			->add_fields(array(
-				Field::create( 'select', 'plugin', __( 'Plugin', 'default' ) )
+				Field::create( 'select', 'plugin', __( 'Plugin', 'mv23theme' ) )
                     ->add_options( $plugin_ids )
 					->set_width( 50 )
 					->hide_label(),
-				Field::create( 'select', 'operator', __( 'Operator', 'default' ) )
+				Field::create( 'select', 'operator', __( 'Operator', 'mv23theme' ) )
                     ->add_dependency( 'plugin', '', '!=' )
 					->set_input_type( 'radio' )
 					->add_options(array(
-						'is_active'     => __( 'is active', 'default' ),
-						'is_not_active' => __( 'is not active', 'default' )
+						'is_active'     => __( 'is active', 'mv23theme' ),
+						'is_not_active' => __( 'is not active', 'mv23theme' )
 					))
 					->set_width( 50 )
 			));

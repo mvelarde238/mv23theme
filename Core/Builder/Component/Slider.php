@@ -10,7 +10,7 @@ class Slider extends Component {
     public function __construct() {
 		parent::__construct(
 			'slider',
-			__( 'Slider', 'default' )
+			__( 'Slider', 'mv23theme' )
 		);
 	}
 
@@ -30,7 +30,7 @@ class Slider extends Component {
 
 	public static function get_fields() {
 		$fields = array(
-            Field::create( 'tab', __('Contenido','default')),
+            Field::create( 'tab', __('Content','mv23theme')),
             Field::create( 'textarea', 'slider_desktop' )->set_rows( 1 )->set_width( 50 ),
             Field::create( 'textarea', 'slider_movil' )->set_rows( 1 )->set_width( 50 ),
         );

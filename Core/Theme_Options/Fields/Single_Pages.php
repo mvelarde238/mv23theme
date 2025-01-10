@@ -17,11 +17,11 @@ class Single_Pages {
 		}
 
         $fields = array(
-            Field::create( 'tab', __('Single Pages','default') ),
+            Field::create( 'tab', __('Single Pages','mv23theme') ),
 
             Field::create( 'repeater', 'single_pages_settings' )
                 ->set_chooser_type( 'tags' )
-                ->set_add_text(__('Add rule','default'))
+                ->set_add_text(__('Add rule','mv23theme'))
                 ->hide_label()
                 ->add_group( 'single', array(
                     'title_template' => '<% if( hide_sidebar ){ %>
@@ -31,16 +31,16 @@ class Single_Pages {
                      <% } %>',
                     'edit_mode' => 'popup',
                     'fields' => array(
-                        Field::create( 'multiselect', 'post_types', __( 'Post Types', 'default' ) )
+                        Field::create( 'multiselect', 'post_types', __( 'Post Types', 'mv23theme' ) )
                             ->required()
 			                ->add_options( $post_types )
                             ->set_orientation( 'horizontal' )
 			                ->set_input_type( 'checkbox' )->set_width(20),
-                        Field::create( 'select', 'page_template' )->add_options(array(
-                            'main-content--sidebar-right' => __('Sidebar Right','deafult'),
-                            'main-content--sidebar-left' => __('Sidebar Left','deafult')
+                        Field::create( 'select', 'page_template', __( 'Page Template', 'mv23theme' ) )->add_options(array(
+                            'main-content--sidebar-right' => __('Sidebar Right','mv23theme'),
+                            'main-content--sidebar-left' => __('Sidebar Left','mv23theme')
                         ))->add_dependency('hide_sidebar',0)->set_width(20),
-                        Field::create( 'checkbox', 'hide_sidebar' )->fancy()->set_width(20),
+                        Field::create( 'checkbox', 'hide_sidebar', __('Hide Sidebar','mv23theme') )->fancy()->set_width(20),
                     )
                 ))
         );

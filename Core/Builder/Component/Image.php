@@ -11,7 +11,7 @@ class Image extends Component {
     public function __construct() {
 		parent::__construct(
 			'image',
-			__( 'Image', 'default' )
+			__( 'Image', 'mv23theme' )
 		);
 	}
 
@@ -36,22 +36,22 @@ class Image extends Component {
 	public static function get_fields() {
 
 		$fields = array(
-            Field::create( 'tab', __('Contenido','default') ),
-            Field::create( 'image', 'image', __('Image','default') ),
-            Field::create( 'checkbox', 'expand_on_click', __('Expand on click','default') )->fancy()
-                ->set_text( __( 'Show the image in a popup.', 'default' ) ),
-            Field::create( 'checkbox', 'full_width', __( 'Full Width', 'default' )  )->fancy()
-                ->set_text( __( 'Let the image fill the full width of the available space.', 'default' ) ),
-            Field::create( 'select', 'alignment', __('Alignment','default'))->add_options( array(
-                'left' => __('Left','default'),
-                'center' => __('Center','default'),
-                'right' => __('Right','default'),
+            Field::create( 'tab', __('Content','mv23theme') ),
+            Field::create( 'image', 'image', __('Image','mv23theme') ),
+            Field::create( 'checkbox', 'expand_on_click', __('Expand on click','mv23theme') )->fancy()
+                ->set_text( __( 'Show the image in a popup.', 'mv23theme' ) ),
+            Field::create( 'checkbox', 'full_width', __( 'Full Width', 'mv23theme' )  )->fancy()
+                ->set_text( __( 'Let the image fill the full width of the available space.', 'mv23theme' ) ),
+            Field::create( 'select', 'alignment', __('Alignment','mv23theme'))->add_options( array(
+                'left' => __('Left','mv23theme'),
+                'center' => __('Center','mv23theme'),
+                'right' => __('Right','mv23theme'),
             ))->add_dependency('full_width',0),
     
-            Field::create( 'tab', __('Size','default') ),
+            Field::create( 'tab', __('Size','mv23theme') ),
             Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->add_options(array(
-                'default'  => array(
-                    'label' => 'default',
+                'mv23theme'  => array(
+                    'label' => 'mv23theme',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default.png'
                 ),
                 '1/1'  => array(
@@ -102,10 +102,10 @@ class Image extends Component {
             Field::create( 'text', 'custom_aspect_ratio' )
                 ->set_validation_rule('^(\d+(\.\d+)?)(\s*\/\s*(\d+(\.\d+)?))?$')
                 ->add_dependency( 'aspect_ratio', 'custom' ),
-            Field::create( 'select', 'object_fit', __('Object Fit','default'))->add_options( array(
-                'cover' => __('Cover','default'),
-                'contain' => __('Contain','default'),
-            ))->add_dependency('aspect_ratio','default','!=')
+            Field::create( 'select', 'object_fit', __('Object Fit','mv23theme'))->add_options( array(
+                'cover' => __('Cover','mv23theme'),
+                'contain' => __('Contain','mv23theme'),
+            ))->add_dependency('aspect_ratio','mv23theme','!=')
         );
 
 		return $fields;
@@ -145,7 +145,7 @@ class Image extends Component {
 
         $args['additional_styles'] = array();
 
-        $aspect_ratio = ( isset($args['aspect_ratio']) && $args['aspect_ratio'] != 'default' ) ? $args['aspect_ratio'] : false;
+        $aspect_ratio = ( isset($args['aspect_ratio']) && $args['aspect_ratio'] != 'mv23theme' ) ? $args['aspect_ratio'] : false;
         if( $aspect_ratio ){
             $aspect_ratio_value = ( $args['aspect_ratio'] != 'custom' ) ? $args['aspect_ratio'] : $args['custom_aspect_ratio'];
             $args['additional_styles'][] = '--aspect-ratio:'.$aspect_ratio_value;

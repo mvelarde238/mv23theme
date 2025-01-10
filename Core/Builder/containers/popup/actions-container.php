@@ -6,7 +6,7 @@ Container::create( 'actions_container' )
     ->add_location( 'post_type', UF_POSTTYPES )
     ->set_layout( 'rows' )
     ->add_fields(array(
-        Field::create( 'repeater', 'actions' )->set_add_text( __('Add Action','default') )->add_group( 'Action', array(
+        Field::create( 'repeater', 'actions' )->set_add_text( __('Add Action','mv23theme') )->add_group( 'Action', array(
             'fields' => array(
                 Field::create( 'select', 'trigger' )->add_options( array(
                     'click' => 'Click'

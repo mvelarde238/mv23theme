@@ -12,7 +12,7 @@ class Items_Grid extends Component {
     public function __construct() {
 		parent::__construct(
 			'items_grid',
-			__( 'Items Grid', 'default' )
+			__( 'Items Grid', 'mv23theme' )
 		);
 	}
 
@@ -33,14 +33,14 @@ class Items_Grid extends Component {
                     This item is empty
                 <% } %>') 
 			->add_fields(array(
-                Field::create( 'tab', __('Contenido','default') ),
-                Content_Selector::the_field('components', __('Components','default'), array( 'exclude' => array('inner_columns') ) ),
-                Field::create( 'tab', __('Settings','default') ),
+                Field::create( 'tab', __('Content','mv23theme') ),
+                Content_Selector::the_field('components', __('Components','mv23theme'), array( 'exclude' => array('inner_columns') ) ),
+                Field::create( 'tab', __('Settings','mv23theme') ),
                 Field::create( 'common_settings_control', 'settings' )->set_container( 'common_settings_container' )
             ));
 
 		$fields = array(
-            Field::create( 'tab', __('Contenido','default') ),
+            Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'repeater', 'items', '' )
                 ->set_add_text('Agregar')
                 ->add_group( $content_group ),

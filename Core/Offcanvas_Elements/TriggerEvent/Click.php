@@ -23,7 +23,7 @@ class Click extends TriggerEvent {
 	 * @return string
 	 */
 	public static function get_name() {
-		return __( 'Click', 'default' );
+		return __( 'Click', 'mv23theme' );
 	}
 
 	/**
@@ -45,11 +45,11 @@ class Click extends TriggerEvent {
 	public static function get_fields() {
 		$fields = array();
 
-		$fields[] = Field::create( 'text', 'selector', __( 'Selector', 'default' ) )
-            ->set_description( __( 'Please enter the CSS selector that matches the element(s) which will act as a trigger to display the offcanvas element. For example, if clicking a button should be used, enter the CSS selector for that button.', 'default' ) )
+		$fields[] = Field::create( 'text', 'selector', __( 'Selector', 'mv23theme' ) )
+            ->set_description( __( 'Please enter the CSS selector that matches the element(s) which will act as a trigger to display the offcanvas element. For example, if clicking a button should be used, enter the CSS selector for that button.', 'mv23theme' ) )
             ->required();
 
-		$fields[] = Field::create( 'checkbox', 'delegate_to_body', __('Delegate event to Body','default') )->set_description(__('Delegate event to document.body. Useful for async content pages.','default'))->fancy();
+		$fields[] = Field::create( 'checkbox', 'delegate_to_body', __('Delegate event to Body','mv23theme') )->set_description(__('Delegate event to document.body. Useful for async content pages.','mv23theme'))->fancy();
 
 		return $fields;
 	}

@@ -11,7 +11,7 @@ class Card extends Component {
     public function __construct() {
 		parent::__construct(
 			'card',
-			__( 'Card', 'default' )
+			__( 'Card', 'mv23theme' )
 		);
 	}
 
@@ -21,7 +21,7 @@ class Card extends Component {
 
 	public static function get_fields() {
 		$fields = array( 
-            Field::create( 'tab', __('Contenido','default') ),
+            Field::create( 'tab', __('Content','mv23theme') ),
             Field::create('radio', 'content_type')->set_orientation('horizontal')->add_options(array(
                 'components' => 'Componentes',
                 'simple' => 'Simple'
@@ -33,7 +33,7 @@ class Card extends Component {
             Field::create( 'tab', 'Tamaño' ),
             Field::create( 'image_select', 'aspect_ratio' )->add_options(array(
                 'aspect-ratio-default'  => array(
-                    'label' => 'default',
+                    'label' => 'mv23theme',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default.png'
                 ),
                 'aspect-ratio-4-3'  => array(

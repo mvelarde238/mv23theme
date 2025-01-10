@@ -10,7 +10,7 @@ class Map extends Component {
     public function __construct() {
 		parent::__construct(
 			'map',
-			__( 'Map', 'default' )
+			__( 'Map', 'mv23theme' )
 		);
 	}
 
@@ -30,7 +30,7 @@ class Map extends Component {
 
 	public static function get_fields() {
 		$fields = array(
-            Field::create( 'tab', __('Contenido','default')),
+            Field::create( 'tab', __('Content','mv23theme')),
             Field::create( 'map', 'location' )->set_output_width( '100%' )->set_output_height( 280 ),
             Field::create( 'image', 'icono' )->set_width( 50 ),
             Field::create( 'complex', 'height')->add_fields(array(

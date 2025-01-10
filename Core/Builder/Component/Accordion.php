@@ -13,7 +13,7 @@ class Accordion extends Component {
     public function __construct() {
 		parent::__construct(
 			'accordion',
-			__( 'Accordion', 'default' )
+			__( 'Accordion', 'mv23theme' )
 		);
 	}
 
@@ -48,13 +48,13 @@ class Accordion extends Component {
         );
 
         $fields = array(
-            Field::create( 'tab', __('Contenido','default') ),
+            Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'repeater', 'accordion' )
                 ->set_add_text('Agregar Item')
                 ->add_group('Item', array(
                     'edit_mode' => 'popup',
                     'fields' => array(
-                        Field::create( 'tab', __('Contenido','default') ),
+                        Field::create( 'tab', __('Content','mv23theme') ),
                         Field::create( 'text', 'title', 'Título' )->set_width( 30 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
                         Field::create( 'radio', 'identifier','Seleccione que mostrar antes del título:')->set_orientation( 'horizontal' )->add_options( array(
                                 '' => 'Nada',
@@ -75,7 +75,7 @@ class Accordion extends Component {
                         ))->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
                         
                         Field::create( 'section', 'Contenido del Item:' ),
-                        Field::create( 'wysiwyg', 'content', __('Contenido','default') )->add_dependency('content_element','text','=')->hide_label()->set_rows( 30 ),
+                        Field::create( 'wysiwyg', 'content', __('Content','mv23theme') )->add_dependency('content_element','text','=')->hide_label()->set_rows( 30 ),
                         Blocks_Layout::the_field( array() )->add_dependency('content_element','layout','='),
                         Field::create( 'wp_objects', 'page', 'Página' )->add( 'posts', 'page' )->set_button_text( 'Selecciona la página' )->add_dependency('content_element','page','=')->hide_label(),
                         Field::create( 'select', 'reusable_section', 'Seleccionar Sección Reusable' )
@@ -86,10 +86,10 @@ class Accordion extends Component {
                         Field::create( 'tab', 'Otros' ),
                         Field::create( 'text', 'itemid', 'ID' ),
                         Field::create( 'radio', 'content_element','Seleccione que mostrar como Contenido:')->set_orientation( 'horizontal' )->add_options( array(
-                            'layout' => __('Layout','default'),
-                            'text' => __('Text','default'),
-                            'page' => __('Page','default'),
-                            'reusable_section' => __( 'Reusable Section', 'default' ),
+                            'layout' => __('Layout','mv23theme'),
+                            'text' => __('Text','mv23theme'),
+                            'page' => __('Page','mv23theme'),
+                            'reusable_section' => __( 'Reusable Section', 'mv23theme' ),
                         ))->set_default_value('layout'),
                     )
                 )

@@ -26,7 +26,7 @@ Container::create( 'icon' )
             'right' => 'Derecha'
         ))->set_width(20),
         Field::create( 'select', 'style', 'Estilo')->add_options( array(
-            'default' => 'Normal',
+            'mv23theme' => 'Normal',
             'circle' => 'Circular',
             'circle-outline' => 'Circular y Lineal',
         ))->set_width(20),

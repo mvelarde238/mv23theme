@@ -11,7 +11,7 @@ class Simple_Columns extends Component {
     public function __construct() {
 		parent::__construct(
 			'simple_columns',
-			__( 'Simple Columns', 'default' )
+			__( 'Simple Columns', 'mv23theme' )
 		);
 	}
 
@@ -29,7 +29,7 @@ class Simple_Columns extends Component {
 
 	public static function get_fields() {
 		$fields = array( 
-            Field::create( 'tab', __('Contenido','default') ),
+            Field::create( 'tab', __('Content','mv23theme') ),
             Blocks_Layout::the_field(),
             Field::create( 'tab', 'Márgenes' ),
             Field::create( 'number', 'components_margin', 'Márgenes de los componentes internos' )->enable_slider( 0, 20 )->set_default_value(20)

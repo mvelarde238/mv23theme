@@ -4,13 +4,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MV23 Theme 1.5.48\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/mv23theme\n"
+"POT-Creation-Date: 2025-01-10T18:44:07+01:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-09T18:55:51+01:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.0-alpha-e9cb0df\n"
 
 #. Theme Name of the theme
@@ -33,105 +34,118 @@ msgstr ""
 msgid "http://www.velarde23.com"
 msgstr ""
 
-#: 404.php:9
+#: 404.php:9 partials/404.php:3
 msgid "404 ERROR. Sorry, this page isn't available"
 msgstr "ERROR 404. Lo sentimos, esta página no está disponible"
 
-#: 404.php:10
+#: 404.php:10 partials/404.php:4
 msgid "The link you followed may be broken, or the page may have been removed."
-msgstr "El link que has seguido podría estar roto o el contenido pudo haber sido borrado."
+msgstr ""
+"El link que has seguido podría estar roto o el contenido pudo haber sido "
+"borrado."
 
-#: 404.php:11
+#: 404.php:11 partials/404.php:5
 msgid "Go back to Home"
 msgstr "Volver al Inicio"
 
 #: comments.php:6
-msgid "0 comentarios"
-msgstr ""
+msgid "0 comments"
+msgstr "0 comentarios"
 
 #: comments.php:6
-msgid "Un comentario"
-msgstr ""
+msgid "One comment"
+msgstr "Un comentario"
 
 #: comments.php:6
-msgid "<span>%</span> comentarios"
-msgstr ""
+msgid "<span>%</span> comments"
+msgstr "<span>%</span> comentarios"
 
-#: comments.php:18
+#. translators: %1$s: comment author link, %2$s: comment link
+#: comments.php:19
 msgid "<cite class=\"fn\">%1$s</cite> %2$s"
 msgstr ""
 
-#: comments.php:18
-msgid "(Edit)"
-msgstr ""
-
+#. translators: %1$s: comment author link, %2$s: comment link
 #: comments.php:19
+msgid "(Edit)"
+msgstr "(Editar)"
+
+#: comments.php:20
 msgid "F jS, Y"
 msgstr ""
 
-#: comments.php:24
-msgid "Gracias, tu comentario será publicado cuando sea aprobado."
-msgstr ""
+#: comments.php:25
+msgid "Thank you, your comment will be published once approved."
+msgstr "Gracias, tu comentario será publicado cuando sea aprobado."
 
-#: comments.php:41
-msgid "Responder"
-msgstr ""
-
-#: comments.php:52
-msgid "&larr; Comentarios anteriores"
-msgstr ""
+#: comments.php:42
+msgid "Reply"
+msgstr "Responder"
 
 #: comments.php:53
-msgid "Mas comentarios &rarr;"
-msgstr ""
+msgid "&larr; Previous comments"
+msgstr "&larr; Comentarios anteriores"
 
-#: comments.php:58
-msgid "Se han bloqueado los comentarios para esta publicación."
-msgstr ""
+#: comments.php:54
+msgid "More comments &rarr;"
+msgstr "Más comentarios &rarr;"
+
+#: comments.php:59
+msgid "Comments are not allowed on this post."
+msgstr "Se han bloqueado los comentarios para esta publicación."
 
 #: Core/Admin/Admin.php:40
 msgid "Main nav"
-msgstr ""
+msgstr "Menú Principal"
 
 #: Core/Admin/Admin.php:41
 msgid "Mobile header buttons"
-msgstr ""
+msgstr "Botones en el header para móviles"
 
 #: Core/Admin/Admin.php:50
 msgid "Widgets to be used in the header"
-msgstr ""
+msgstr "Widgets que se muestran en el header"
 
 #: Core/Admin/Admin.php:60
 msgid "Widgets to be used in the sidebar"
-msgstr ""
+msgstr "Widgets que se muestran en el sidebar"
+
+#: Core/Builder/Blocks_Layout.php:24
+msgid "Blocks Layout"
+msgstr "Estructura de bloques"
+
+#: Core/Builder/Blocks_Layout.php:26
+msgid "Drag a component here"
+msgstr "Arrastre un componente aquí"
 
 #: Core/Builder/common-settings-control/classes/Field.php:66
 msgid "Save Settings"
-msgstr ""
+msgstr "Guardar Ajustes"
 
 #: Core/Builder/common-settings-control/classes/Field.php:70
 msgid "Add Settings"
-msgstr ""
+msgstr "Agregar Ajustes"
 
 #: Core/Builder/common-settings/actions.php:52
-#: Core/Builder/Component/Menu.php:55
-#: Core/Builder/Component/Text_Editor.php:35
+#: Core/Builder/Component/Menu.php:55 Core/Builder/Component/Text_Editor.php:35
 #: Core/Builder/Component/Text_Editor.php:41
+#: Core/Builder/containers/page-settings.php:16
 #: Core/Builder/containers/popup/actions-container.php:53
 #: Core/Offcanvas_Elements/Restriction/Plugin.php:62
-#: Core/Posttype/Menu_Item.php:75
-#: Core/Posttype/Reusable_Section_CPT.php:113
+#: Core/Posttype/Menu_Item.php:75 Core/Posttype/Reusable_Section_CPT.php:114
 #: Core/Theme_Options/Fields/Header.php:13
+#: Core/Theme_Options/Fields/Header.php:28
+#: Core/Theme_Options/UF_Container/Social_Media.php:20
 msgid "Select"
-msgstr ""
+msgstr "Seleccionar"
 
 #: Core/Builder/common-settings/columns.php:6
 msgid "Columns Settings"
-msgstr ""
+msgstr "Ajustes de la Columna"
 
 #: Core/Builder/common-settings/columns.php:11
 msgid "Order"
-msgstr ""
+msgstr "Orden"
 
 #: Core/Builder/common-settings/columns.php:12
 #: Core/Builder/common-settings/columns.php:23
@@ -152,7 +166,7 @@ msgstr ""
 
 #: Core/Builder/common-settings/columns.php:22
 msgid "Content alignment"
-msgstr ""
+msgstr "Alineación del contenido"
 
 #: Core/Builder/common-settings/columns.php:24
 #: Core/Builder/common-settings/columns.php:31
@@ -164,21 +178,20 @@ msgstr ""
 #: Core/Builder/containers/popup/common-settings.php:126
 #: Core/Offcanvas_Elements/Settings.php:212
 msgid "Top"
-msgstr ""
+msgstr "Arriba"
 
 #: Core/Builder/common-settings/columns.php:25
 #: Core/Builder/common-settings/columns.php:32
 #: Core/Builder/common-settings/columns.php:38
 #: Core/Builder/Component/Carrusel.php:85
-#: Core/Builder/Component/Flip_Box.php:44
-#: Core/Builder/Component/Image.php:47
+#: Core/Builder/Component/Flip_Box.php:44 Core/Builder/Component/Image.php:47
 #: Core/Builder/Component/Text_Editor.php:37
 #: Core/Builder/Component/Text_Editor.php:43
 #: Core/Builder/containers/popup/blocks-layout-settings.php:7
 #: Core/Builder/containers/popup/common-settings.php:86
 #: Core/Builder/containers/popup/common-settings.php:91
 msgid "Center"
-msgstr ""
+msgstr "Centro"
 
 #: Core/Builder/common-settings/columns.php:26
 #: Core/Builder/common-settings/columns.php:33
@@ -190,135 +203,141 @@ msgstr ""
 #: Core/Builder/containers/popup/common-settings.php:128
 #: Core/Offcanvas_Elements/Settings.php:214
 msgid "Bottom"
-msgstr ""
+msgstr "Abajo"
 
 #: Core/Builder/common-settings/columns.php:27
 #: Core/Builder/common-settings/columns.php:34
 #: Core/Builder/common-settings/columns.php:40
 msgid "Distribute"
-msgstr ""
+msgstr "Distribuir"
 
 #: Core/Builder/common-settings/columns.php:28
 msgid "Fixed"
-msgstr ""
+msgstr "Fijar"
 
 #: Core/Builder/common-settings/row.php:6
 msgid "Row Settings"
-msgstr ""
+msgstr "Ajustes de la fila"
+
+#: Core/Builder/common-settings/row.php:7 Core/Posttype/Archive_Page.php:111
+msgid "Columns quantity"
+msgstr "Cantidad de Columnas"
 
 #: Core/Builder/common-settings/row.php:14
 #: Core/Builder/common-settings/row.php:74
 #: Core/Builder/common-settings/row.php:94
 msgid "Columns Width"
-msgstr ""
+msgstr "Tamaño de las columnas"
 
 #: Core/Builder/common-settings/row.php:55
 #: Core/Builder/common-settings/row.php:81
 #: Core/Builder/common-settings/row.php:97
 msgid "Width on tablet"
-msgstr ""
+msgstr "Tamaño en tablet"
 
 #: Core/Builder/common-settings/row.php:64
 #: Core/Builder/common-settings/row.php:88
 #: Core/Builder/common-settings/row.php:101
 msgid "Width on mobile"
-msgstr ""
+msgstr "Tamaño en móviles"
 
-#: Core/Builder/common-settings/row.php:106
-#: Core/Posttype/Archive_Page.php:119
+#: Core/Builder/common-settings/row.php:106 Core/Posttype/Archive_Page.php:119
 msgid "Space between columns"
-msgstr ""
+msgstr "Espacio entre columnas"
 
 #: Core/Builder/common-settings/row.php:107
 #: Core/Builder/Component/Gallery.php:156
 msgid "Gap on desktop"
-msgstr ""
+msgstr "Espacio en desktop"
 
 #: Core/Builder/common-settings/row.php:108
 #: Core/Builder/Component/Gallery.php:157
 msgid "Gap on tablet"
-msgstr ""
+msgstr "Espacio en tablet"
 
 #: Core/Builder/common-settings/row.php:109
 #: Core/Builder/Component/Gallery.php:158
 msgid "Gap on mobile"
-msgstr ""
+msgstr "Espacio en móviles"
 
-#: Core/Builder/Component.php:119
-#: Core/Builder/Component/Carrusel.php:53
+#: Core/Builder/Component.php:119 Core/Builder/Component/Carrusel.php:53
 #: Core/Builder/Component/Content_Slider.php:33
 #: Core/Builder/Component/Icon_and_Text.php:96
 #: Core/Builder/Component/Items_Grid.php:38
+#: Core/Builder/containers/page-header.php:46
 #: Core/Offcanvas_Elements/Settings.php:219
 msgid "Settings"
-msgstr ""
+msgstr "Ajustes"
 
 #: Core/Builder/Component.php:125
 msgid "Add Scroll Animations"
-msgstr ""
+msgstr "Agregar Animaciones"
 
 #: Core/Builder/Component.php:129
 msgid "Add Actions"
-msgstr ""
+msgstr "Agregar Acciones"
 
 #: Core/Builder/Component/Accordion.php:16
 msgid "Accordion"
-msgstr ""
+msgstr "Acordeón"
 
 #: Core/Builder/Component/Accordion.php:51
 #: Core/Builder/Component/Accordion.php:57
-#: Core/Builder/Component/Accordion.php:78
-#: Core/Builder/Component/Button.php:33
-#: Core/Builder/Component/Card.php:24
-#: Core/Builder/Component/Carrusel.php:39
+#: Core/Builder/Component/Accordion.php:78 Core/Builder/Component/Button.php:33
+#: Core/Builder/Component/Card.php:24 Core/Builder/Component/Carrusel.php:39
 #: Core/Builder/Component/Carrusel.php:51
-#: Core/Builder/Component/Carrusel.php:59
+#: Core/Builder/Component/Carrusel.php:59 Core/Builder/Component/Columns.php:37
 #: Core/Builder/Component/Components_Wrapper.php:47
 #: Core/Builder/Component/Content_Slider.php:24
 #: Core/Builder/Component/Content_Slider.php:31
-#: Core/Builder/Component/Gallery.php:46
-#: Core/Builder/Component/Html.php:23
-#: Core/Builder/Component/Image.php:39
+#: Core/Builder/Component/Flip_Box.php:49 Core/Builder/Component/Gallery.php:46
+#: Core/Builder/Component/Html.php:23 Core/Builder/Component/Image.php:39
+#: Core/Builder/Component/Inner_Columns.php:33
 #: Core/Builder/Component/Items_Grid.php:36
 #: Core/Builder/Component/Items_Grid.php:43
-#: Core/Builder/Component/Listing.php:63
-#: Core/Builder/Component/Map.php:33
+#: Core/Builder/Component/Listing.php:63 Core/Builder/Component/Map.php:33
+#: Core/Builder/Component/Menu.php:54 Core/Builder/Component/Page_Module.php:29
 #: Core/Builder/Component/Simple_Columns.php:32
-#: Core/Builder/Component/Slider.php:33
-#: Core/Builder/Component/Spacer.php:29
+#: Core/Builder/Component/Slider.php:33 Core/Builder/Component/Spacer.php:29
 #: Core/Builder/Component/Testimonials.php:33
+#: Core/Builder/Component/Text_Editor.php:29
 #: Core/Builder/Component/Video.php:34
-msgid "Contenido"
-msgstr ""
+#: Core/Builder/containers/page-header.php:39
+#: Core/Offcanvas_Elements/Settings.php:139
+#: Core/Offcanvas_Elements/Settings.php:158
+msgid "Content"
+msgstr "Contenido"
 
 #: Core/Builder/Component/Accordion.php:89
 #: Core/Builder/containers/popup/common-settings.php:23
 #: Core/Builder/containers/popup/common-settings.php:25
 #: Core/Offcanvas_Elements/Settings.php:160
 msgid "Layout"
-msgstr ""
+msgstr "Estructura"
 
 #: Core/Builder/Component/Accordion.php:90
 msgid "Text"
-msgstr ""
+msgstr "Texto"
 
 #: Core/Builder/Component/Accordion.php:91
+#: Core/Builder/containers/page-settings.php:10
 #: Core/Offcanvas_Elements/Restriction/Page.php:27
 msgid "Page"
-msgstr ""
+msgstr "Página"
 
 #: Core/Builder/Component/Accordion.php:92
-#: Core/Posttype/Reusable_Section_CPT.php:96
+#: Core/Posttype/Reusable_Section_CPT.php:33
+#: Core/Posttype/Reusable_Section_CPT.php:97
 msgid "Reusable Section"
-msgstr ""
+msgstr "Sección Reusable"
 
 #: Core/Builder/Component/Button.php:13
 msgid "Button"
-msgstr ""
+msgstr "Botón"
 
 #: Core/Builder/Component/Button.php:69
 msgid "Others"
-msgstr ""
+msgstr "Otro"
 
 #: Core/Builder/Component/Card.php:14
 msgid "Card"
@@ -330,111 +349,97 @@ msgstr ""
 
 #: Core/Builder/Component/Columns.php:14
 msgid "Columns"
-msgstr ""
-
-#: Core/Builder/Component/Columns.php:37
-#: Core/Builder/Component/Flip_Box.php:49
-#: Core/Builder/Component/Inner_Columns.php:33
-#: Core/Builder/Component/Menu.php:54
-#: Core/Builder/Component/Page_Module.php:29
-#: Core/Builder/Component/Text_Editor.php:29
-#: Core/Builder/containers/page-header.php:39
-#: Core/Offcanvas_Elements/Settings.php:139
-#: Core/Offcanvas_Elements/Settings.php:158
-msgid "Content"
-msgstr ""
+msgstr "Columnas"
 
 #: Core/Builder/Component/Columns.php:40
 #: Core/Builder/Component/Inner_Columns.php:36
 msgid "Column"
-msgstr ""
+msgstr "Columna"
 
 #: Core/Builder/Component/Components_Wrapper.php:15
 msgid "Wrapper"
-msgstr ""
+msgstr "Contenedor"
 
 #: Core/Builder/Component/Content_Slider.php:14
 msgid "Content Slider"
-msgstr ""
+msgstr "Slider de Contenidos"
 
 #: Core/Builder/Component/Content_Slider.php:26
 msgid "Add Slide"
-msgstr ""
+msgstr "Agregar Slide"
 
 #: Core/Builder/Component/Content_Slider.php:32
 #: Core/Builder/Component/Items_Grid.php:37
 #: Core/Builder/Component/Page_Module.php:30
 msgid "Components"
-msgstr ""
+msgstr "Componentes"
 
 #: Core/Builder/Component/Flip_Box.php:14
-msgid "Flip_Box"
+msgid "Flip Box"
 msgstr ""
 
 #: Core/Builder/Component/Flip_Box.php:43
 #: Core/Builder/containers/popup/blocks-layout-settings.php:6
 msgid "Start"
-msgstr ""
+msgstr "Al principio"
 
 #: Core/Builder/Component/Flip_Box.php:45
 #: Core/Builder/containers/popup/blocks-layout-settings.php:10
 msgid "End"
-msgstr ""
+msgstr "Al final"
 
 #: Core/Builder/Component/Flip_Box.php:68
 #: Core/Builder/Component/Flip_Box.php:73
 msgid "Horizontal Alignment"
-msgstr ""
+msgstr "Alineación horizontal"
 
 #: Core/Builder/Component/Flip_Box.php:69
 #: Core/Builder/Component/Flip_Box.php:74
 msgid "Vertical Alignment"
-msgstr ""
+msgstr "Alineación Vertical"
 
 #: Core/Builder/Component/Flip_Box.php:77
 msgid "Box Settings"
 msgstr ""
 
-#: Core/Builder/Component/Flip_Box.php:96
-#: Core/Builder/Component/Image.php:52
+#: Core/Builder/Component/Flip_Box.php:96 Core/Builder/Component/Image.php:52
 #: Core/Builder/Component/Video.php:72
 msgid "Aspect Ratio"
 msgstr ""
 
 #: Core/Builder/Component/Gallery.php:13
 msgid "Gallery"
-msgstr ""
+msgstr "Galería"
 
 #: Core/Builder/Component/Gallery.php:98
-#: Core/Theme_Options/UF_Container/Global_Options.php:22
+#: Core/Theme_Options/UF_Container/Global_Options.php:23
 msgid "Activate Masonry"
-msgstr ""
+msgstr "Activar Masonry"
 
 #: Core/Builder/Component/Gallery.php:155
 msgid "Space between items"
-msgstr ""
+msgstr "Espacio entre items"
 
 #: Core/Builder/Component/Html.php:13
 msgid "Code"
-msgstr ""
+msgstr "Código"
 
 #: Core/Builder/Component/Icon_and_Text.php:14
 msgid "Icon and Text"
-msgstr ""
+msgstr "Icono y Texto"
 
 #: Core/Builder/Component/Icon_and_Text.php:62
 msgid "Icon Aligment"
-msgstr ""
+msgstr "Alineación del icono"
 
 #: Core/Builder/Component/Icon_and_Text.php:70
 msgid "Icon Alignment"
-msgstr ""
+msgstr "Alineación del icono"
 
 #: Core/Builder/Component/Icon_and_Text.php:82
-#: Core/Builder/Component/Menu.php:67
-#: Core/Posttype/Menu_Item.php:40
+#: Core/Builder/Component/Menu.php:67 Core/Posttype/Menu_Item.php:40
 msgid "Style"
-msgstr ""
+msgstr "Estilo"
 
 #: Core/Builder/Component/Icon_and_Text.php:118
 #: Core/Offcanvas_Elements/Restriction/Page.php:92
@@ -442,30 +447,29 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: Core/Builder/Component/Image.php:14
-#: Core/Builder/Component/Image.php:40
+#: Core/Builder/Component/Image.php:14 Core/Builder/Component/Image.php:40
 msgid "Image"
-msgstr ""
+msgstr "Imágen"
 
 #: Core/Builder/Component/Image.php:41
 msgid "Expand on click"
-msgstr ""
+msgstr "Expandir al hacer clic"
 
 #: Core/Builder/Component/Image.php:42
 msgid "Show the image in a popup."
-msgstr ""
+msgstr "Mostrar la imágen en un pop up"
 
 #: Core/Builder/Component/Image.php:43
 msgid "Full Width"
-msgstr ""
+msgstr "Ancho completo"
 
 #: Core/Builder/Component/Image.php:44
 msgid "Let the image fill the full width of the available space."
-msgstr ""
+msgstr "Permitir que la imágen se extienda todo el espacio disponible."
 
 #: Core/Builder/Component/Image.php:45
 msgid "Alignment"
-msgstr ""
+msgstr "Alineación"
 
 #: Core/Builder/Component/Image.php:46
 #: Core/Builder/Component/Text_Editor.php:36
@@ -476,7 +480,7 @@ msgstr ""
 #: Core/Offcanvas_Elements/Settings.php:215
 #: Core/Offcanvas_Elements/Settings.php:268
 msgid "Left"
-msgstr ""
+msgstr "Izquierda"
 
 #: Core/Builder/Component/Image.php:48
 #: Core/Builder/Component/Text_Editor.php:38
@@ -487,36 +491,32 @@ msgstr ""
 #: Core/Offcanvas_Elements/Settings.php:213
 #: Core/Offcanvas_Elements/Settings.php:269
 msgid "Right"
-msgstr ""
+msgstr "Derecha"
 
-#: Core/Builder/Component/Image.php:51
-#: Core/Builder/Component/Video.php:71
+#: Core/Builder/Component/Image.php:51 Core/Builder/Component/Video.php:71
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
-#: Core/Builder/Component/Image.php:105
-#: Core/Builder/Component/Video.php:125
+#: Core/Builder/Component/Image.php:105 Core/Builder/Component/Video.php:125
 msgid "Object Fit"
 msgstr ""
 
-#: Core/Builder/Component/Image.php:106
-#: Core/Builder/Component/Video.php:127
+#: Core/Builder/Component/Image.php:106 Core/Builder/Component/Video.php:127
 #: Core/Builder/containers/popup/common-settings.php:76
 msgid "Cover"
 msgstr ""
 
-#: Core/Builder/Component/Image.php:107
-#: Core/Builder/Component/Video.php:126
+#: Core/Builder/Component/Image.php:107 Core/Builder/Component/Video.php:126
 msgid "Contain"
 msgstr ""
 
 #: Core/Builder/Component/Inner_Columns.php:14
 msgid "Inner Columns"
-msgstr ""
+msgstr "Columnas Internas"
 
 #: Core/Builder/Component/Items_Grid.php:15
 msgid "Items Grid"
-msgstr ""
+msgstr "Grid de Items"
 
 #: Core/Builder/Component/Listing.php:14
 msgid "Listing"
@@ -524,52 +524,56 @@ msgstr ""
 
 #: Core/Builder/Component/Map.php:13
 msgid "Map"
-msgstr ""
+msgstr "Mapa"
 
 #: Core/Builder/Component/Menu.php:14
 msgid "Menu"
-msgstr ""
+msgstr "Menú"
 
 #: Core/Builder/Component/Menu.php:37
 msgid "Horizontal Nav 1"
-msgstr ""
+msgstr "Menú horizontal 1"
 
 #: Core/Builder/Component/Menu.php:38
 msgid "Horizontal Nav 2"
-msgstr ""
+msgstr "Menú horizontal 2"
 
 #: Core/Builder/Component/Menu.php:39
 msgid "Horizontal Nav 3"
-msgstr ""
+msgstr "Menú horizontal 3"
 
 #: Core/Builder/Component/Menu.php:40
 msgid "Horizontal Nav 4"
-msgstr ""
+msgstr "Menú horizontal 4"
 
 #: Core/Builder/Component/Menu.php:41
 msgid "Vertical Nav 1"
-msgstr ""
+msgstr "Menú Vertical 1"
 
 #: Core/Builder/Component/Menu.php:42
 #: Core/Builder/containers/page-header.php:40
 msgid "None"
-msgstr ""
+msgstr "Ninguno"
 
 #: Core/Builder/Component/Menu.php:56
 msgid "Show a particular menu"
-msgstr ""
+msgstr "Mostrar un menú en particular"
 
 #: Core/Builder/Component/Menu.php:57
-msgid "Select a location. If a menu is assigned to that location, it will be displayed"
+msgid ""
+"Select a location. If a menu is assigned to that location, it will be "
+"displayed"
 msgstr ""
+"Selecciona una ubicación. Si un menú está asignado a esa ubicación se "
+"mostrará"
 
 #: Core/Builder/Component/Page_Module.php:16
 msgid "Module"
-msgstr ""
+msgstr "Módulo"
 
 #: Core/Builder/Component/Simple_Columns.php:14
 msgid "Simple Columns"
-msgstr ""
+msgstr "Columnas Simples"
 
 #: Core/Builder/Component/Slider.php:13
 msgid "Slider"
@@ -577,27 +581,27 @@ msgstr ""
 
 #: Core/Builder/Component/Spacer.php:13
 msgid "Spacer"
-msgstr ""
+msgstr "Separador"
 
 #: Core/Builder/Component/Testimonials.php:13
 msgid "Testimonials"
-msgstr ""
+msgstr "Testimonios"
 
 #: Core/Builder/Component/Text_Editor.php:13
 msgid "Text editor"
-msgstr ""
+msgstr "Editor de Texto"
 
 #: Core/Builder/Component/Text_Editor.php:32
 msgid "Change text alignment on mobile devices"
-msgstr ""
+msgstr "Cambiar alineación del texto en móviles"
 
 #: Core/Builder/Component/Text_Editor.php:34
 msgid "Text alignment on tablet"
-msgstr ""
+msgstr "Alineación en tablets"
 
 #: Core/Builder/Component/Text_Editor.php:40
 msgid "Text alignment on mobile"
-msgstr ""
+msgstr "Alineación en móviles"
 
 #: Core/Builder/Component/Video.php:14
 msgid "Video"
@@ -607,15 +611,142 @@ msgstr ""
 #: Core/Builder/containers/popup/common-settings.php:101
 #: Core/Posttype/Post.php:48
 msgid "Source"
-msgstr ""
+msgstr "Fuente"
+
+#: Core/Builder/containers/page-content.php:7
+#: Core/Builder/containers/page-content.php:12
+msgid "Page Content"
+msgstr "Contenido de la página"
+
+#: Core/Builder/containers/page-content.php:15
+msgid "Add Module"
+msgstr "Agregar Módulo"
+
+#: Core/Builder/containers/page-header.php:28
+msgid "Page Header"
+msgstr "Header de la página"
 
 #: Core/Builder/containers/page-header.php:37
 msgid "Page Title"
-msgstr ""
+msgstr "Titulo de la página"
+
+#: Core/Builder/containers/page-header.php:45
+msgid "Content type"
+msgstr "Tipo de contenido"
+
+#: Core/Builder/containers/page-settings.php:7
+msgid "Page Settings"
+msgstr "Ajustes de la página"
+
+#: Core/Builder/containers/page-settings.php:11
+#: Core/Builder/containers/page-settings.php:30
+#: Core/Offcanvas_Elements/Settings.php:272
+#: Core/Theme_Options/Fields/Header.php:17
+msgid "Background Color"
+msgstr "Color de fondo"
+
+#: Core/Builder/containers/page-settings.php:12
+#: Core/Builder/containers/page-settings.php:31
+#: Core/Builder/containers/page-settings.php:50
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:83
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:94
+#: Core/Posttype/Footer.php:41 Core/Posttype/Post.php:47
+#: Core/Theme_Options/UF_Container/Global_Options.php:16
+#: Core/Theme_Options/UF_Container/Global_Options.php:23
+#: Core/Theme_Options/UF_Container/Global_Options.php:31
+msgid "Activate"
+msgstr "Activar"
+
+#: Core/Builder/containers/page-settings.php:15
+#: Core/Theme_Options/Fields/Header.php:27
+msgid "Text Color"
+msgstr "Color del texto"
+
+#: Core/Builder/containers/page-settings.php:17
+#: Core/Builder/containers/page-settings.php:37
+#: Core/Builder/containers/page-settings.php:56
+#: Core/Offcanvas_Elements/Settings.php:207
+#: Core/Theme_Options/Fields/Colors.php:40
+#: Core/Theme_Options/Fields/Colors.php:58
+msgid "Dark"
+msgstr "Oscuro"
+
+#: Core/Builder/containers/page-settings.php:18
+#: Core/Builder/containers/page-settings.php:38
+#: Core/Builder/containers/page-settings.php:57
+#: Core/Offcanvas_Elements/Settings.php:206
+#: Core/Theme_Options/Fields/Colors.php:30
+#: Core/Theme_Options/Fields/Colors.php:48
+msgid "Light"
+msgstr "Claro"
+
+#: Core/Builder/containers/page-settings.php:20
+msgid "Remove body padding top"
+msgstr "Eliminar el espacio superior del body"
+
+#: Core/Builder/containers/page-settings.php:22
+msgid "Static Header"
+msgstr "Header Estático"
+
+#: Core/Builder/containers/page-settings.php:23
+msgid "Hide"
+msgstr "Ocultar"
+
+#: Core/Builder/containers/page-settings.php:23
+msgid "Hide static header"
+msgstr "Ocultar el header estático"
+
+#: Core/Builder/containers/page-settings.php:24
+msgid "Hide logo"
+msgstr "Ocultar el logo"
+
+#: Core/Builder/containers/page-settings.php:24
+msgid "Hide the header logo"
+msgstr "Ocultar el logo del header"
+
+#: Core/Builder/containers/page-settings.php:25
+#: Core/Offcanvas_Elements/Settings.php:211
+#: Core/Offcanvas_Elements/Settings.php:225
+#: Core/Offcanvas_Elements/Settings.php:241
+#: Core/Offcanvas_Elements/Settings.php:252
+#: Core/Offcanvas_Elements/Settings.php:259
+#: Core/Offcanvas_Elements/Settings.php:273
+#: Core/Offcanvas_Elements/Settings.php:280
+msgid "Customize"
+msgstr "Personalizar"
+
+#: Core/Builder/containers/page-settings.php:25
+msgid "Customize static header"
+msgstr "Personalizar el header estático"
+
+#: Core/Builder/containers/page-settings.php:26
+#: Core/Builder/containers/page-settings.php:45
+msgid "Logo Version"
+msgstr "Versión del logo"
+
+#: Core/Builder/containers/page-settings.php:29
+#: Core/Builder/containers/page-settings.php:48
+msgid "Select the logo"
+msgstr "Selecciona el logo"
+
+#: Core/Builder/containers/page-settings.php:33
+#: Core/Builder/containers/page-settings.php:52
+msgid "Alpha"
+msgstr "Transparencia"
+
+#: Core/Builder/containers/page-settings.php:33
+#: Core/Builder/containers/page-settings.php:52
+msgid "Use a number from 1 to 100"
+msgstr "Use un número del 1 al 100"
+
+#: Core/Builder/containers/page-settings.php:35
+#: Core/Builder/containers/page-settings.php:54
+msgid "Font Color"
+msgstr "Color del texto"
 
 #: Core/Builder/containers/popup/actions-container.php:9
 msgid "Add Action"
-msgstr ""
+msgstr "Agregar acción"
 
 #: Core/Builder/containers/popup/blocks-layout-settings.php:8
 msgid "Space Between"
@@ -627,11 +758,12 @@ msgstr ""
 
 #: Core/Builder/containers/popup/blocks-layout-settings.php:21
 msgid "The width of the components will be as configured"
-msgstr ""
+msgstr "El tamaño de ancho de los componentes será el que se ha configurado"
 
 #: Core/Builder/containers/popup/blocks-layout-settings.php:22
 msgid "The width of the components will be determined by their content."
 msgstr ""
+"El tamaño de ancho de los componentes estará determinado por su contenido."
 
 #: Core/Builder/containers/popup/common-settings.php:10
 msgid "ID"
@@ -639,7 +771,7 @@ msgstr ""
 
 #: Core/Builder/containers/popup/common-settings.php:14
 msgid "Class"
-msgstr ""
+msgstr "Classes"
 
 #: Core/Builder/containers/popup/common-settings.php:31
 msgid "Helpers"
@@ -648,7 +780,7 @@ msgstr ""
 #: Core/Builder/containers/popup/common-settings.php:48
 #: Core/Posttype/Menu_Item.php:41
 msgid "Background color"
-msgstr ""
+msgstr "Color de fondo"
 
 #: Core/Builder/containers/popup/common-settings.php:51
 #: Core/Offcanvas_Elements/Settings.php:227
@@ -659,51 +791,52 @@ msgstr ""
 #: Core/Offcanvas_Elements/Settings.php:282
 #: Core/Theme_Options/Fields/Header.php:20
 msgid "Opacity"
-msgstr ""
+msgstr "Transparencia"
 
 #: Core/Builder/containers/popup/common-settings.php:58
+#: Core/Theme_Options/Fields/Colors.php:16
 msgid "Font color"
-msgstr ""
+msgstr "Color del texto"
 
 #: Core/Builder/containers/popup/common-settings.php:71
 msgid "Background Image"
-msgstr ""
+msgstr "Imágen de fondo"
 
 #: Core/Builder/containers/popup/common-settings.php:77
 msgid "Auto"
-msgstr ""
+msgstr "Automático"
 
 #: Core/Builder/containers/popup/common-settings.php:80
 msgid "No repeat"
-msgstr ""
+msgstr "No repetir"
 
 #: Core/Builder/containers/popup/common-settings.php:81
 msgid "Repeat"
-msgstr ""
+msgstr "Repetir"
 
 #: Core/Builder/containers/popup/common-settings.php:82
 msgid "Repeat X"
-msgstr ""
+msgstr "Repetir horizontalmente"
 
 #: Core/Builder/containers/popup/common-settings.php:83
 msgid "Repeat Y"
-msgstr ""
+msgstr "Repetir Verticalmente"
 
 #: Core/Builder/containers/popup/common-settings.php:98
 msgid "Video background"
-msgstr ""
+msgstr "Video de fondo"
 
 #: Core/Builder/containers/popup/common-settings.php:102
 msgid "Media"
-msgstr ""
+msgstr "Medios"
 
 #: Core/Builder/containers/popup/common-settings.php:103
 msgid "External"
-msgstr ""
+msgstr "Externo"
 
 #: Core/Builder/containers/popup/common-settings.php:117
 msgid "Margin"
-msgstr ""
+msgstr "Márgen"
 
 #: Core/Builder/containers/popup/common-settings.php:124
 #: Core/Offcanvas_Elements/Settings.php:210
@@ -712,53 +845,53 @@ msgstr ""
 
 #: Core/Builder/containers/popup/common-settings.php:131
 msgid "Border Radius"
-msgstr ""
+msgstr "Redondear"
 
 #: Core/Builder/containers/popup/common-settings.php:133
 msgid "Top Left"
-msgstr ""
+msgstr "Arriba a la izquierda"
 
 #: Core/Builder/containers/popup/common-settings.php:134
 msgid "Top Right"
-msgstr ""
+msgstr "Arriba a la derecha"
 
 #: Core/Builder/containers/popup/common-settings.php:135
 msgid "Bottom Right"
-msgstr ""
+msgstr "Abajo a la derecha"
 
 #: Core/Builder/containers/popup/common-settings.php:136
 msgid "Bottom Left"
-msgstr ""
+msgstr "Abajo a la izquierda"
 
 #: Core/Builder/containers/popup/common-settings.php:138
 #: Core/Posttype/Menu_Item.php:58
 msgid "Border"
-msgstr ""
+msgstr "Bordes"
 
 #: Core/Builder/containers/popup/common-settings.php:142
 msgid "Border Top"
-msgstr ""
+msgstr "Borde superior"
 
 #: Core/Builder/containers/popup/common-settings.php:147
 msgid "Border Right"
-msgstr ""
+msgstr "Borde derecho"
 
 #: Core/Builder/containers/popup/common-settings.php:152
 msgid "Border Bottom"
-msgstr ""
+msgstr "Borde inferior"
 
 #: Core/Builder/containers/popup/common-settings.php:157
 msgid "Border Left"
-msgstr ""
+msgstr "Borde izquierdo"
 
 #: Core/Builder/containers/popup/common-settings.php:162
 msgid "Box Shadow"
-msgstr ""
+msgstr "Sombra"
 
 #: Core/Builder/containers/popup/common-settings.php:181
 #: Core/Builder/containers/popup/common-settings.php:183
 msgid "Visibility"
-msgstr ""
+msgstr "Visibilidad"
 
 #: Core/Builder/containers/popup/common-settings.php:190
 msgid "Responsive"
@@ -766,62 +899,67 @@ msgstr ""
 
 #: Core/Builder/containers/popup/scroll-animations.php:70
 msgid "Add animation"
-msgstr ""
+msgstr "Agregar animación"
 
 #: Core/Builder/Content_Selector.php:25
+#: Core/Theme_Options/UF_Container/Social_Media.php:14
 msgid "Add"
-msgstr ""
+msgstr "Agregar"
 
-#: Core/Frontend/Frontend.php:134
+#. translators: %s: page number
+#: Core/Frontend/Frontend.php:135
 msgid "Page %s"
-msgstr ""
+msgstr "Página %s"
 
 #: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:36
-#: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:52
-#: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:53
+#: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:50
+#: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:51
 msgid "Theme Migrator"
 msgstr ""
 
+#. translators: %s: migrator url link
 #: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:38
-msgid "Current theme version is less than 0.5.0 and need to be migrated. Please make a database backup and follow the next link: %s"
+msgid ""
+"Current theme version is less than 0.5.0 and need to be migrated. Please "
+"make a database backup and follow the next link: %s"
 msgstr ""
 
 #: Core/Offcanvas_Elements/Restriction/Browser.php:26
 msgid "Browser"
-msgstr ""
+msgstr "Navegador"
 
 #: Core/Offcanvas_Elements/Restriction/Device.php:26
 msgid "Device"
-msgstr ""
+msgstr "Dispositivo"
 
 #: Core/Offcanvas_Elements/Restriction/Device.php:48
-msgid "Browser type"
-msgstr ""
+msgid "Device type"
+msgstr "Typo de dispositivo"
 
 #: Core/Offcanvas_Elements/Restriction/Device.php:50
 msgid "Show the element based on devices"
-msgstr ""
+msgstr "Mostrar el elemento en base al dispositivo"
 
 #: Core/Offcanvas_Elements/Restriction/Device.php:54
 msgid "Devices"
-msgstr ""
+msgstr "Dispositivos"
 
 #: Core/Offcanvas_Elements/Restriction/Device.php:61
 msgid "The element will be displayed on all of the checked devices."
-msgstr ""
+msgstr "El elemento se mostrará en todos los dispositivos seleccionados."
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:101
 #: Core/Offcanvas_Elements/Restriction/Plugin.php:68
 msgid "Restriction type"
-msgstr ""
+msgstr "Tipo de restricción"
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:103
 msgid "Show the element based on a particular post or page"
-msgstr ""
+msgstr "Mostrar el elemento en una página o entrada en particular"
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:104
 msgid "Show the element based on page type"
-msgstr ""
+msgstr "Mostrar el elemento basado en el tipo de página"
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:107
 #: Core/Theme_Options/Fields/Single_Pages.php:34
@@ -830,7 +968,7 @@ msgstr ""
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:111
 msgid "The element will be displayed on all of the checked post types above."
-msgstr ""
+msgstr "El elemento se mostrará en todas los post types seleccionados debajo."
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:115
 msgid "Templates"
@@ -839,20 +977,25 @@ msgstr ""
 #: Core/Offcanvas_Elements/Restriction/Page.php:117
 #: Core/Offcanvas_Elements/Restriction/Page.php:141
 msgid "Show on"
-msgstr ""
+msgstr "Mostrar en"
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:121
 #: Core/Offcanvas_Elements/Restriction/Page.php:144
 msgid "Hide on"
-msgstr ""
+msgstr "Ocultar en"
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:128
-msgid "The element will only appear on the checked templates, if any. If none are checked, the container will appear on all pages."
+msgid ""
+"The element will only appear on the checked templates, if any. If none are "
+"checked, the container will appear on all pages."
 msgstr ""
+"El elemento solo se mostrará en los templates seleccionados. Si ninguna está "
+"seleccionado, el elemento aparecerá en todas las páginas."
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:134
-msgid "Control the visiblity of the container based on the terms of the \"%s\" taxonomy."
+msgid "Control the visiblity of the element based on the terms of a taxonomy."
 msgstr ""
+"Controla la visibilidad del elemento basado en los términos de una categoría"
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:190
 #: Core/Offcanvas_Elements/Restriction/Page.php:193
@@ -863,27 +1006,27 @@ msgstr ""
 #: Core/Offcanvas_Elements/Restriction/Page.php:197
 #: Core/Offcanvas_Elements/Restriction/Plugin.php:81
 msgid "Operator"
-msgstr ""
+msgstr "Operador"
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:201
 msgid "is"
-msgstr ""
+msgstr "es"
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:202
 msgid "is not"
-msgstr ""
+msgstr "no es"
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:205
 msgid "Item type"
-msgstr ""
+msgstr "Tipo de item"
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:209
 msgid "the current post/page"
-msgstr ""
+msgstr "La entrada o post actual"
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:210
 msgid "the parent of the current post/page"
-msgstr ""
+msgstr "El padre de la entrada o página actual"
 
 #: Core/Offcanvas_Elements/Restriction/Plugin.php:29
 #: Core/Offcanvas_Elements/Restriction/Plugin.php:77
@@ -892,43 +1035,48 @@ msgstr ""
 
 #: Core/Offcanvas_Elements/Restriction/Plugin.php:70
 msgid "Show the element based on a particular plugin"
-msgstr ""
+msgstr "Muestra el elemento basado en un plugin en particular"
 
 #: Core/Offcanvas_Elements/Restriction/Plugin.php:85
 msgid "is active"
-msgstr ""
+msgstr "está activo"
 
 #: Core/Offcanvas_Elements/Restriction/Plugin.php:86
 msgid "is not active"
-msgstr ""
+msgstr "no está activo"
 
 #: Core/Offcanvas_Elements/Restriction/User.php:26
 msgid "User"
-msgstr ""
+msgstr "Usuario"
 
 #: Core/Offcanvas_Elements/Restriction/User.php:51
 msgid "Visitor"
-msgstr ""
+msgstr "Visitante"
 
 #: Core/Offcanvas_Elements/Restriction/User.php:55
 msgid "Roles"
 msgstr ""
 
 #: Core/Offcanvas_Elements/Restriction/User.php:59
-msgid "Select the roles, which should have access to this element or leave blank for all roles."
+msgid ""
+"Select the roles, which should have access to this element or leave blank "
+"for all roles."
 msgstr ""
+"Selecciona los roles que deberían tener acceso a este elemento o deja en "
+"blanco para todos los roles."
 
 #: Core/Offcanvas_Elements/Settings.php:86
 msgid "Add Restriction"
-msgstr ""
+msgstr "Agregar restricción"
 
 #: Core/Offcanvas_Elements/Settings.php:87
 msgid "Add restrictions to show the element based on conditions."
 msgstr ""
+"Agrega restriccíones para mostrar el elemento basado en ciertas condiciones"
 
 #: Core/Offcanvas_Elements/Settings.php:99
 msgid "Restrictions"
-msgstr ""
+msgstr "Restricciones"
 
 #: Core/Offcanvas_Elements/Settings.php:113
 msgid "Add Trigger Event"
@@ -936,15 +1084,16 @@ msgstr ""
 
 #: Core/Offcanvas_Elements/Settings.php:114
 msgid "Add at least one trigger event to show the element."
-msgstr ""
+msgstr "Agrega por lo menos un trigger event para mostrar el elemento"
 
 #: Core/Offcanvas_Elements/Settings.php:126
 msgid "Trigger"
-msgstr ""
+msgstr "Disparador"
 
 #: Core/Offcanvas_Elements/Settings.php:140
+#: Core/Theme_Options/Fields/Typography.php:59
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: Core/Offcanvas_Elements/Settings.php:142
 msgid "Modal"
@@ -960,148 +1109,153 @@ msgstr ""
 
 #: Core/Offcanvas_Elements/Settings.php:159
 msgid "Content Type"
-msgstr ""
+msgstr "Tipo de contenido"
 
 #: Core/Offcanvas_Elements/Settings.php:161
 msgid "Asynchronous Content"
-msgstr ""
+msgstr "Contenido Asíncrono"
 
 #: Core/Offcanvas_Elements/Settings.php:164
 msgid "Asynchronous Content Settings"
-msgstr ""
+msgstr "Settings del Contenido Asíncrono"
 
 #: Core/Offcanvas_Elements/Settings.php:165
-msgid "When this setting is active the content will be generated using an asynchronous function"
+msgid ""
+"When this setting is active the content will be generated using an "
+"asynchronous function"
 msgstr ""
+"Cuando este setting está activo el contenido será generado usando una "
+"función asíncrona"
 
 #: Core/Offcanvas_Elements/Settings.php:167
 msgid "Content Source"
-msgstr ""
+msgstr "Fuente del contenido"
 
 #: Core/Offcanvas_Elements/Settings.php:168
 msgid "Page: generate the content from an internal page"
-msgstr ""
+msgstr "Página: genera el contenido desde una página interna"
 
 #: Core/Offcanvas_Elements/Settings.php:169
 msgid "Url: generate the content from an url"
-msgstr ""
+msgstr "Url: genera el contenido desde una url"
 
 #: Core/Offcanvas_Elements/Settings.php:170
 msgid "Link: generate the content dinamically from the link clicked"
-msgstr ""
+msgstr "Link: genera el contenido dinamicamente del enlace que se haga clic"
 
 #: Core/Offcanvas_Elements/Settings.php:172
 msgid "Page item"
-msgstr ""
+msgstr "Página"
 
 #: Core/Offcanvas_Elements/Settings.php:173
 msgid "Enter the url"
-msgstr ""
+msgstr "Ingresa la url"
 
 #: Core/Offcanvas_Elements/Settings.php:174
 msgid "Use trigger events tab to add a CSS selector for the link source"
 msgstr ""
+"Usa el tab -Disparador- para agregar un selector CSS que coincida con el link"
+
+#: Core/Offcanvas_Elements/Settings.php:175
+msgid "Clear on close"
+msgstr "Limpiar al cerrar"
 
 #: Core/Offcanvas_Elements/Settings.php:175
 msgid "Clear the content on close"
-msgstr ""
+msgstr "Borrar el contenido al cerrar el elemento"
+
+#: Core/Offcanvas_Elements/Settings.php:176
+msgid "Load on iframe"
+msgstr "Cargar en un iframe"
 
 #: Core/Offcanvas_Elements/Settings.php:176
 msgid "Load the content in an iframe"
-msgstr ""
+msgstr "Cargar el contendio en un iframe"
 
 #: Core/Offcanvas_Elements/Settings.php:177
 msgid "Let you choose only the sections you want"
-msgstr ""
+msgstr "Te permite cargar solo el contenido que quieras"
 
 #: Core/Offcanvas_Elements/Settings.php:178
 msgid "CSS Selector for cherry picked sections"
-msgstr ""
+msgstr "Selector CSS que coincida con el contenido que quieres mostrar"
 
 #: Core/Offcanvas_Elements/Settings.php:178
-msgid "Please enter the CSS selector that matches the section(s) you want to display in the offcanvas element."
+msgid ""
+"Please enter the CSS selector that matches the section(s) you want to "
+"display in the offcanvas element."
 msgstr ""
+"Por favor, ingresar el CCS selector que coincida con la sección(es) que "
+"quierass mostrar en el elemento."
 
 #: Core/Offcanvas_Elements/Settings.php:180
 msgid "HTML Attributes"
-msgstr ""
+msgstr "Atributos HTML"
 
 #: Core/Offcanvas_Elements/Settings.php:180
 msgid "Add Attribute"
-msgstr ""
+msgstr "Agregar atributo"
 
 #: Core/Offcanvas_Elements/Settings.php:183
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #: Core/Offcanvas_Elements/Settings.php:184
 msgid "Before Send"
-msgstr ""
+msgstr "Antes de envíar"
 
 #: Core/Offcanvas_Elements/Settings.php:185
 msgid "Success"
-msgstr ""
+msgstr "Éxito"
 
 #: Core/Offcanvas_Elements/Settings.php:186
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: Core/Offcanvas_Elements/Settings.php:188
 msgid "HTML Atribute"
-msgstr ""
+msgstr "Atributo HMTL"
 
 #: Core/Offcanvas_Elements/Settings.php:189
 msgid "Value"
-msgstr ""
-
-#: Core/Offcanvas_Elements/Settings.php:206
-#: Core/Theme_Options/Fields/Colors.php:30
-#: Core/Theme_Options/Fields/Colors.php:48
-msgid "Light"
-msgstr ""
-
-#: Core/Offcanvas_Elements/Settings.php:207
-#: Core/Theme_Options/Fields/Colors.php:40
-#: Core/Theme_Options/Fields/Colors.php:58
-msgid "Dark"
-msgstr ""
-
-#: Core/Offcanvas_Elements/Settings.php:211
-#: Core/Offcanvas_Elements/Settings.php:225
-#: Core/Offcanvas_Elements/Settings.php:241
-#: Core/Offcanvas_Elements/Settings.php:252
-#: Core/Offcanvas_Elements/Settings.php:259
-#: Core/Offcanvas_Elements/Settings.php:273
-#: Core/Offcanvas_Elements/Settings.php:280
-msgid "Customize"
-msgstr ""
+msgstr "Valor"
 
 #: Core/Offcanvas_Elements/Settings.php:222
 #: Core/Offcanvas_Elements/Settings.php:249
 msgid "Allow modal to be dismissed by keyboard or overlay click."
 msgstr ""
+"Permitir que el modal pueda ser cerrado por teclado o haciendo clic en el "
+"overlay."
 
 #: Core/Offcanvas_Elements/Settings.php:223
 #: Core/Offcanvas_Elements/Settings.php:250
 #: Core/Offcanvas_Elements/Settings.php:271
 msgid "Closes element on link clicks."
-msgstr ""
+msgstr "Cierra el elemento cuando se haga clic en un link."
 
 #: Core/Offcanvas_Elements/Settings.php:228
 #: Core/Offcanvas_Elements/Settings.php:255
 #: Core/Offcanvas_Elements/Settings.php:276
 msgid "Text Color Scheme"
-msgstr ""
+msgstr "Color scheme del texto"
 
 #: Core/Offcanvas_Elements/Settings.php:240
 #: Core/Offcanvas_Elements/Settings.php:258
 #: Core/Offcanvas_Elements/Settings.php:279
 msgid "Overlay Color"
-msgstr ""
+msgstr "Color de la capa overlay"
+
+#: Core/Offcanvas_Elements/Settings.php:267
+msgid "Position"
+msgstr "Posición"
 
 #: Core/Offcanvas_Elements/Settings.php:271
 msgid "Close on click"
-msgstr ""
+msgstr "Cerrar al hacer clic"
+
+#: Core/Offcanvas_Elements/Settings.php:284
+msgid "Max Width"
+msgstr "Tamaño máximo"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Click.php:26
 msgid "Click"
@@ -1112,24 +1266,31 @@ msgid "Selector"
 msgstr ""
 
 #: Core/Offcanvas_Elements/TriggerEvent/Click.php:49
-msgid "Please enter the CSS selector that matches the element(s) which will act as a trigger to display the offcanvas element. For example, if clicking a button should be used, enter the CSS selector for that button."
+msgid ""
+"Please enter the CSS selector that matches the element(s) which will act as "
+"a trigger to display the offcanvas element. For example, if clicking a "
+"button should be used, enter the CSS selector for that button."
 msgstr ""
+"Por favor, ingrese el selector CSS que coincida con el elemento(s) que "
+"funcionará como trigger para mostrar el elemento. Por ejemplo, si el trigger "
+"debería ser un botón, ingrese el selector CSS de ese botón."
 
 #: Core/Offcanvas_Elements/TriggerEvent/Click.php:52
 msgid "Delegate event to Body"
-msgstr ""
+msgstr "Delegar el evento al body"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Click.php:52
 msgid "Delegate event to document.body. Useful for async content pages."
 msgstr ""
+"Delega el evento a document.body. útil para páginas con contenido asíncrono."
 
 #: Core/Offcanvas_Elements/TriggerEvent/CustomEvent.php:27
 msgid "Custom Event"
-msgstr ""
+msgstr "Evento personalizado"
 
 #: Core/Offcanvas_Elements/TriggerEvent/CustomEvent.php:57
 msgid "Use a custom event"
-msgstr ""
+msgstr "Usar un evento personalizado"
 
 #: Core/Offcanvas_Elements/TriggerEvent/CustomEvent.php:59
 msgid "Use a "
@@ -1137,15 +1298,21 @@ msgstr ""
 
 #: Core/Offcanvas_Elements/TriggerEvent/CustomEvent.php:63
 msgid "Event Source"
-msgstr ""
+msgstr "Fuente del evento"
 
 #: Core/Offcanvas_Elements/TriggerEvent/CustomEvent.php:64
 msgid "Event name"
-msgstr ""
+msgstr "Nombre del evento"
 
 #: Core/Offcanvas_Elements/TriggerEvent/CustomEvent.php:65
-msgid "Please enter the event name that will trigger the display of the element. For example, \"theme_document_ready\" will show the element once the page is fully loaded."
+msgid ""
+"Please enter the event name that will trigger the display of the element. "
+"For example, \"theme_document_ready\" will show the element once the page is "
+"fully loaded."
 msgstr ""
+"Por favor, ingrese el nombre del evento que hará que se muestre el elemento. "
+"Por ejemplo \"theme_document_ready\" mostrará el elemento cuando la página "
+"carge completamente."
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:26
 msgid "Scroll"
@@ -1153,7 +1320,7 @@ msgstr ""
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:61
 msgid "Activate advanced animations in Theme Options -> Global Options"
-msgstr ""
+msgstr "Activar animaciones avanzadas en Theme Options -> Global Options"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:63
 msgid "Trigger Element"
@@ -1165,140 +1332,153 @@ msgstr ""
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:65
 msgid "onEnter"
-msgstr ""
+msgstr "Cuando ingresa"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:66
 msgid "onCenter"
-msgstr ""
+msgstr "Cuando se centra"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:67
 msgid "onLeave"
-msgstr ""
+msgstr "Cuando sale"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:70
 msgid "Add indicators"
-msgstr ""
+msgstr "Mostrar indicadores"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:73
 msgid "Settings type"
-msgstr ""
+msgstr "Tipo de ajustes"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:75
 msgid "Use basic settings"
-msgstr ""
+msgstr "Usar ajustes básicos"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:76
 msgid "Use ScrollMagic library settings"
-msgstr ""
+msgstr "Usar ajustes de la librería ScrollMagic"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:78
-msgid "Please enter a number that represents the vertical scroll position required to show the element"
+msgid ""
+"Please enter a number that represents the vertical scroll position required "
+"to show the element"
 msgstr ""
+"Por favor, ingrese un número que represente la posición del scroll vertical "
+"requerido para mostrar el elemento"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:82
 msgid "(optional) Create a custom visualization cookie"
-msgstr ""
-
-#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:83
-#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:94
-#: Core/Posttype/Post.php:47
-msgid "Activate"
-msgstr ""
+msgstr "(opcional) Crear una cookie de visualización"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:84
+#: Core/Theme_Options/Fields/Typography.php:43
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:85
 msgid "Storage type"
-msgstr ""
+msgstr "Tipo de almacenamiento"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:87
-msgid "Session: The data is stored only for the duration of a session, i.e., until the browser (or tab) is closed"
+msgid ""
+"Session: The data is stored only for the duration of a session, i.e., until "
+"the browser (or tab) is closed"
 msgstr ""
+"Sesión: la data se guarda solo la duración de una sesión, por ejemplo, hasta "
+"que se cierre el navegador o el tab"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:88
-msgid "Local: The stored data will persist even after closing and reopening the browser"
+msgid ""
+"Local: The stored data will persist even after closing and reopening the "
+"browser"
 msgstr ""
+"Local: la data guardada se mantendrá incluso si se cierra y se vuelve abrir "
+"el navegador "
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:93
 msgid "(optional) Set the cookie expiration time"
-msgstr ""
+msgstr "(opcional) Configura el tiempo de expiración de la cookie"
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:93
 msgid "The cookie will be deleted after X time from creation."
-msgstr ""
+msgstr "La cookie se borrará después de X tiempo luego de ser creada."
 
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:95
 msgid "Expiration time"
-msgstr ""
+msgstr "Tiempo de expiración"
 
 #: Core/Posttype/Archive_Page.php:72
 msgid "Any"
-msgstr ""
+msgstr "Cualquiera"
 
 #: Core/Posttype/Archive_Page.php:105
 msgid "Loop Settings"
-msgstr ""
+msgstr "Ajustes del loop"
 
 #: Core/Posttype/Archive_Page.php:108
 msgid "Place these shortcodes in the page content: [posts] [pagination]"
 msgstr ""
-
-#: Core/Posttype/Archive_Page.php:111
-msgid "Columns quantity"
-msgstr ""
+"Ubica estos shortcodes en el contenido de la página: [posts] [pagination]"
 
 #: Core/Posttype/Archive_Page.php:127
 msgid "Post card settings"
-msgstr ""
+msgstr "Ajustes del post card"
 
 #: Core/Posttype/Archive_Page.php:143
 msgid "Page template"
-msgstr ""
+msgstr "Template de la página"
 
 #. Template Name of the theme
 #: Core/Posttype/Archive_Page.php:145
 msgid "Left Sidebar"
-msgstr ""
+msgstr "Sidebar a la izquierda"
 
 #. Template Name of the theme
 #: Core/Posttype/Archive_Page.php:146
 msgid "Right Sidebar"
-msgstr ""
+msgstr "Sidebar a la derecha"
 
 #: Core/Posttype/Archive_Page.php:147
+#: Core/Theme_Options/Fields/Single_Pages.php:43
 msgid "Hide Sidebar"
-msgstr ""
+msgstr "Ocultar sidebar"
 
-#: Core/Posttype/Footer.php:36
+#: Core/Posttype/Footer.php:27
+#: Core/Theme_Options/UF_Container/Global_Options.php:13
+msgid "Footer"
+msgstr "Pie de Página"
+
+#: Core/Posttype/Footer.php:28
+msgid "Footers"
+msgstr "Pie de Página"
+
+#: Core/Posttype/Footer.php:40
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
-#: Core/Posttype/Footer.php:37
-#: Core/Theme_Options/Fields/Header.php:18
-msgid "Use"
-msgstr ""
-
-#: Core/Posttype/Footer.php:38
+#: Core/Posttype/Footer.php:42
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
+
+#: Core/Posttype/Footer.php:114
+msgid "Activate Theme Footer"
+msgstr "Activar Pie de Página"
 
 #: Core/Posttype/Menu_Item.php:46
 msgid "Text color"
-msgstr ""
+msgstr "Color del texto"
 
 #: Core/Posttype/Menu_Item.php:50
 msgid "Border radius"
-msgstr ""
+msgstr "Redondeado"
 
 #: Core/Posttype/Menu_Item.php:54
 msgid "Min Width"
-msgstr ""
+msgstr "Tamaño mìnimo"
 
 #: Core/Posttype/Menu_Item.php:63
 msgid "Box shadow"
-msgstr ""
+msgstr "Sombras"
 
 #: Core/Posttype/Menu_Item.php:75
 msgid "OffCanvas Element"
@@ -1306,33 +1486,61 @@ msgstr ""
 
 #: Core/Posttype/Post.php:34
 msgid "Standard"
-msgstr ""
+msgstr "Estàndar"
 
 #: Core/Posttype/Post.php:35
 msgid "Link"
 msgstr ""
 
-#: Core/Posttype/Reusable_Section_CPT.php:33
+#: Core/Posttype/Reusable_Section_CPT.php:34
 #: Core/Theme_Options/Theme_Options.php:90
 msgid "Reusable Sections"
-msgstr ""
+msgstr "Secciones reusables"
 
-#: Core/Posttype/Reusable_Section_CPT.php:46
+#: Core/Posttype/Reusable_Section_CPT.php:47
 msgid "Choose"
-msgstr ""
+msgstr "Escoger"
+
+#: Core/Theme_Options/Fields/Colors.php:11
+msgid "Colors"
+msgstr "Colores"
 
 #: Core/Theme_Options/Fields/Colors.php:13
 msgid "Main colors"
-msgstr ""
+msgstr "Colores principales"
+
+#: Core/Theme_Options/Fields/Colors.php:14
+msgid "Primary color"
+msgstr "Color Principal"
+
+#: Core/Theme_Options/Fields/Colors.php:15
+msgid "Secondary color"
+msgstr "Color secundario"
+
+#: Core/Theme_Options/Fields/Colors.php:17
+msgid "Headings color"
+msgstr "Color de títulos"
+
+#: Core/Theme_Options/Fields/Colors.php:20
+msgid "Colorpicker palette"
+msgstr "Paleta de colores para el ColorPicker"
 
 #: Core/Theme_Options/Fields/Colors.php:21
 msgid "Add color"
-msgstr ""
+msgstr "Agregar color"
+
+#: Core/Theme_Options/Fields/Colors.php:29
+msgid "Primary color variations"
+msgstr "Variaciones del color principal"
 
 #: Core/Theme_Options/Fields/Colors.php:35
 #: Core/Theme_Options/Fields/Colors.php:53
 msgid "Lighter"
-msgstr ""
+msgstr "Más claro"
+
+#: Core/Theme_Options/Fields/Colors.php:47
+msgid "Secondary color variations"
+msgstr "Variaciones del color secundario"
 
 #: Core/Theme_Options/Fields/Header.php:12
 msgid "Logo"
@@ -1340,263 +1548,323 @@ msgstr ""
 
 #: Core/Theme_Options/Fields/Header.php:14
 msgid "Select image"
-msgstr ""
+msgstr "Selecciona una imágen"
 
 #: Core/Theme_Options/Fields/Header.php:16
-msgid "Logo Height"
-msgstr ""
+msgid "Logo Max Height"
+msgstr "Tamaño Máximo del logo"
 
-#: Core/Theme_Options/Fields/Header.php:17
-msgid "Background Color"
-msgstr ""
-
-#: Core/Theme_Options/Fields/Header.php:27
-msgid "Text Color"
-msgstr ""
+#: Core/Theme_Options/Fields/Header.php:18
+msgid "Use"
+msgstr "Usar"
 
 #: Core/Theme_Options/Fields/Page_Container.php:10
 msgid "Container"
-msgstr ""
+msgstr "Contenedor"
 
 #: Core/Theme_Options/Fields/Page_Container.php:13
 #: Core/Theme_Options/Fields/Single_Pages.php:24
 msgid "Add rule"
-msgstr ""
+msgstr "Agregar regla"
+
+#: Core/Theme_Options/Fields/Page_Container.php:23
+#: Core/Theme_Options/Fields/Typography.php:27
+#: Core/Theme_Options/Fields/Typography.php:78
+msgid "Scope"
+msgstr "Alcance"
+
+#: Core/Theme_Options/Fields/Page_Container.php:34
+msgid "Width"
+msgstr "Tamaño"
 
 #: Core/Theme_Options/Fields/Single_Pages.php:20
 msgid "Single Pages"
-msgstr ""
+msgstr "Páginas Single"
+
+#: Core/Theme_Options/Fields/Single_Pages.php:39
+msgid "Page Template"
+msgstr "Template de la página"
 
 #: Core/Theme_Options/Fields/Single_Pages.php:40
 msgid "Sidebar Right"
-msgstr ""
+msgstr "Sidebar a la derecha"
 
 #: Core/Theme_Options/Fields/Single_Pages.php:41
 msgid "Sidebar Left"
-msgstr ""
+msgstr "Sidebar a la Izquierda"
+
+#: Core/Theme_Options/Fields/Typography.php:15
+msgid "Typography"
+msgstr "Tipografía"
+
+#: Core/Theme_Options/Fields/Typography.php:17
+msgid "Fonts"
+msgstr "Tipografías"
 
 #: Core/Theme_Options/Fields/Typography.php:18
 msgid "Add font"
-msgstr ""
+msgstr "Agregar tipografía"
+
+#: Core/Theme_Options/Fields/Typography.php:21
+#: Core/Theme_Options/Fields/Typography.php:26
+msgid "Google Font"
+msgstr "Fuente de Google"
+
+#: Core/Theme_Options/Fields/Typography.php:28
+#: Core/Theme_Options/Fields/Typography.php:79
+msgid "Any, just load the font"
+msgstr "Ninguna, solo carga la fuente"
+
+#: Core/Theme_Options/Fields/Typography.php:29
+#: Core/Theme_Options/Fields/Typography.php:80
+msgid "Global (body)"
+msgstr "Alcance global (body)"
+
+#: Core/Theme_Options/Fields/Typography.php:30
+msgid "Headings (h1, h2, h3, h4, h5, h6, b, strong)"
+msgstr "Títulos (h1, h2, h3, h4, h5, h6, b, strong)"
+
+#: Core/Theme_Options/Fields/Typography.php:31
+#: Core/Theme_Options/Fields/Typography.php:82
+msgid "Custom CSS selector"
+msgstr "Selector CSS personalizado"
+
+#: Core/Theme_Options/Fields/Typography.php:37
+msgid "Custom Font"
+msgstr "Fuente personalizada"
+
+#: Core/Theme_Options/Fields/Typography.php:42
+msgid "Custom font data"
+msgstr "Datos de la fuente personalizada"
+
+#: Core/Theme_Options/Fields/Typography.php:44
+msgid "Variant"
+msgstr "Variante"
+
+#: Core/Theme_Options/Fields/Typography.php:60
+msgid "File"
+msgstr "Archivo"
 
 #: Core/Theme_Options/Fields/Typography.php:61
+msgid "Url"
+msgstr "Url"
+
+#: Core/Theme_Options/Fields/Typography.php:63
 msgid "@font-face files ( woff2, woff )"
 msgstr ""
 
-#: Core/Theme_Options/Fields/Typography.php:66
+#: Core/Theme_Options/Fields/Typography.php:68
 msgid "Urls for @font-face css declaration ( woff2, woff )"
+msgstr "Urls para ser usadas en la declaración CSS @font-face ( woff2, woff )"
+
+#: Core/Theme_Options/Fields/Typography.php:69
+msgid "Add a url"
+msgstr "Agregar una url"
+
+#: Core/Theme_Options/Fields/Typography.php:81
+msgid "Headings (h1, h2, h3, h4, h5, h6)"
 msgstr ""
 
-#: Core/Theme_Options/Fields/Typography.php:86
+#: Core/Theme_Options/Fields/Typography.php:88
 msgid "Paragraphs"
-msgstr ""
+msgstr "Párrafos"
 
-#: Core/Theme_Options/Fields/Typography.php:107
+#: Core/Theme_Options/Fields/Typography.php:89
+#: Core/Theme_Options/Fields/Typography.php:102
+msgid "Font size"
+msgstr "Tamaño de la fuente"
+
+#: Core/Theme_Options/Fields/Typography.php:90
+#: Core/Theme_Options/Fields/Typography.php:103
+msgid "Line height"
+msgstr "Interlineado"
+
+#: Core/Theme_Options/Fields/Typography.php:91
+#: Core/Theme_Options/Fields/Typography.php:104
+#: Core/Theme_Options/Fields/Typography.php:110
+msgid "Font weight"
+msgstr "Peso del texto"
+
+#: Core/Theme_Options/Fields/Typography.php:109
 msgid "Bold, Strong"
-msgstr ""
+msgstr "Negritas"
 
 #: Core/Theme_Options/Manager.php:21
 msgid "Export/Import"
-msgstr ""
+msgstr "Exportar/Importar"
 
 #: Core/Theme_Options/Manager.php:22
 msgid "Export/Import Options"
-msgstr ""
+msgstr "Opciones de Exportar/Importar"
 
-#: Core/Theme_Options/UF_Container/Global_Options.php:14
+#: Core/Theme_Options/Theme_Options.php:38
+#: Core/Theme_Options/Theme_Options.php:39
+#: Core/Theme_Options/UF_Container/Main.php:15
+msgid "Theme Options"
+msgstr "Ajustes del Tema"
+
+#. translators: %s: number
+#: Core/Theme_Options/Theme_Options.php:119
+msgid "Version %s"
+msgstr "Versión %s"
+
+#: Core/Theme_Options/UF_Container/Global_Options.php:10
+msgid "Global Options"
+msgstr "Opciones Globales"
+
+#: Core/Theme_Options/UF_Container/Global_Options.php:15
 msgid "Google Maps"
 msgstr ""
 
-#: Core/Theme_Options/UF_Container/Global_Options.php:15
+#: Core/Theme_Options/UF_Container/Global_Options.php:16
 msgid "Activate Google Maps"
-msgstr ""
+msgstr "Activar Google Maps"
 
-#: Core/Theme_Options/UF_Container/Global_Options.php:15
+#: Core/Theme_Options/UF_Container/Global_Options.php:17
+msgid "Google Map Services"
+msgstr "Servicios de Google Maps"
+
 #: Core/Theme_Options/UF_Container/Global_Options.php:22
-#: Core/Theme_Options/UF_Container/Global_Options.php:30
-msgid "Activar"
-msgstr ""
-
-#: Core/Theme_Options/UF_Container/Global_Options.php:21
 msgid "Masonry Gallery"
-msgstr ""
+msgstr "Galería Masonry"
 
-#: Core/Theme_Options/UF_Container/Main.php:15
-msgid "Theme Options"
+#: Core/Theme_Options/UF_Container/Global_Options.php:26
+msgid ""
+"The theme hides the text editor on pages and products, show it in the "
+"following places:"
 msgstr ""
+"El theme oculta el editor de texto en páginas y productos, mostrarlo en los "
+"siguientes lugares:"
 
-#: Core/Utils/CPT.php:408
-#: Core/Utils/CPT.php:409
-#: Core/Utils/CPT.php:410
-#: Core/Utils/CPT.php:411
-#: Core/Utils/CPT.php:506
-#: Core/Utils/CPT.php:507
-#: Core/Utils/CPT.php:508
-#: Core/Utils/CPT.php:635
-msgid "%s"
-msgstr ""
+#: Core/Theme_Options/UF_Container/Global_Options.php:27
+msgid "Pages"
+msgstr "Páginas"
 
-#: Core/Utils/CPT.php:412
-msgid "Add New"
-msgstr ""
+#: Core/Theme_Options/UF_Container/Global_Options.php:28
+msgid "Products"
+msgstr "Productos"
 
-#: Core/Utils/CPT.php:413
-#: Core/Utils/CPT.php:513
-msgid "Add New %s"
-msgstr ""
+#: Core/Theme_Options/UF_Container/Global_Options.php:30
+msgid "Activate Scroll Animations"
+msgstr "Activar Animaciones Avanzadas"
 
-#: Core/Utils/CPT.php:414
-#: Core/Utils/CPT.php:510
-msgid "Edit %s"
-msgstr ""
+#: Core/Theme_Options/UF_Container/Global_Options.php:32
+msgid "Activate indicators"
+msgstr "Mostrar indicadores"
 
-#: Core/Utils/CPT.php:415
-msgid "New %s"
-msgstr ""
+#: Core/Theme_Options/UF_Container/Global_Options.php:34
+msgid "Deactive theme styles in comments"
+msgstr "Desactivar estilos del tema en comentarios"
 
-#: Core/Utils/CPT.php:416
-#: Core/Utils/CPT.php:511
-msgid "View %s"
-msgstr ""
+#: Core/Theme_Options/UF_Container/Global_Options.php:34
+msgid "Deactivate"
+msgstr "Desactivar"
 
-#: Core/Utils/CPT.php:417
-#: Core/Utils/CPT.php:517
-msgid "Search %s"
-msgstr ""
+#: Core/Theme_Options/UF_Container/Social_Media.php:12
+#: Core/Theme_Options/UF_Container/Social_Media.php:14
+msgid "Social Networks"
+msgstr "Redes Sociales"
 
-#: Core/Utils/CPT.php:418
-#: Core/Utils/CPT.php:522
-msgid "No %s found"
-msgstr ""
+#: Core/Theme_Options/UF_Container/Social_Media.php:16
+#: Core/Theme_Options/UF_Container/Social_Media.php:19
+msgid "Social Network"
+msgstr "Red Social"
 
-#: Core/Utils/CPT.php:419
-msgid "No %s found in Trash"
-msgstr ""
+#: Core/Theme_Options/UF_Container/Social_Media.php:39
+msgid "Phone number"
+msgstr "Número de teléfono"
 
-#: Core/Utils/CPT.php:420
-#: Core/Utils/CPT.php:516
-msgid "Parent %s:"
-msgstr ""
+#: Core/Theme_Options/UF_Container/Social_Media.php:40
+msgid "Message"
+msgstr "Mensaje"
 
-#: Core/Utils/CPT.php:509
-msgid "All %s"
-msgstr ""
+#: Core/Theme_Options/UF_Container/Social_Media.php:40
+msgid "Hello, I need more information about..."
+msgstr "Hola, necesito más información acerca de..."
 
-#: Core/Utils/CPT.php:512
-msgid "Update %s"
-msgstr ""
-
-#: Core/Utils/CPT.php:514
-msgid "New %s Name"
-msgstr ""
-
-#: Core/Utils/CPT.php:515
-msgid "Parent %s"
-msgstr ""
-
-#: Core/Utils/CPT.php:518
-msgid "Popular %s"
-msgstr ""
-
-#: Core/Utils/CPT.php:519
-msgid "Seperate %s with commas"
-msgstr ""
-
-#: Core/Utils/CPT.php:520
-msgid "Add or remove %s"
-msgstr ""
-
-#: Core/Utils/CPT.php:521
-msgid "Choose from most used %s"
-msgstr ""
-
-#: Core/Utils/CPT.php:709
+#. translators: %s: taxonomy name
+#: Core/Utils/CPT.php:718
 msgid "No %s"
-msgstr ""
+msgstr "No hay %s"
 
-#: Core/Utils/CPT.php:835
-msgid "Show all %s"
-msgstr ""
+#. translators: %1$s: show all options, %2$s: taxonomy name
+#: Core/Utils/CPT.php:846
+msgid "Show all %2$s"
+msgstr "Mostrar todos los %2$s"
 
-#: Core/Utils/CPT.php:1053
-#: Core/Utils/CPT.php:1056
-#: Core/Utils/CPT.php:1058
+#. translators: %s: singular name of the post type
+#: Core/Utils/CPT.php:1065 Core/Utils/CPT.php:1069 Core/Utils/CPT.php:1073
 msgid "%s updated."
-msgstr ""
+msgstr "%s actualizado"
 
-#: Core/Utils/CPT.php:1054
+#: Core/Utils/CPT.php:1066
 msgid "Custom field updated."
-msgstr ""
+msgstr "Campo personalizado actualizado."
 
-#: Core/Utils/CPT.php:1055
+#: Core/Utils/CPT.php:1067
 msgid "Custom field deleted."
-msgstr ""
+msgstr "Campo personalizado borrado."
 
-#: Core/Utils/CPT.php:1057
+#. translators: %2$s: post revision title, %1$s: singular name of the post type
+#: Core/Utils/CPT.php:1071
 msgid "%2$s restored to revision from %1$s"
-msgstr ""
+msgstr "%2$s devuelto a revision desde %1$s"
 
-#: Core/Utils/CPT.php:1059
+#. translators: %s: singular name of the post type
+#: Core/Utils/CPT.php:1075
 msgid "%s saved."
-msgstr ""
+msgstr "%s guardado"
 
-#: Core/Utils/CPT.php:1060
+#. translators: %s: singular name of the post type
+#: Core/Utils/CPT.php:1077
 msgid "%s submitted."
-msgstr ""
+msgstr "%s enviado."
 
-#: Core/Utils/CPT.php:1062
+#. translators: %2$s: fecha programada, %1$s: singular name of the post type
+#: Core/Utils/CPT.php:1079
 msgid "%2$s scheduled for: <strong>%1$s</strong>."
-msgstr ""
+msgstr "%2$s programado para: <strong>%1$s</strong>."
 
-#: Core/Utils/CPT.php:1063
+#: Core/Utils/CPT.php:1080
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: Core/Utils/CPT.php:1066
+#. translators: %s: singular name of the post type
+#: Core/Utils/CPT.php:1084
 msgid "%s draft updated."
-msgstr ""
-
-#: Core/Utils/CPT.php:1085
-#: Core/Utils/CPT.php:1086
-#: Core/Utils/CPT.php:1087
-#: Core/Utils/CPT.php:1088
-#: Core/Utils/CPT.php:1089
-msgid "%s "
-msgid_plural "%s "
-msgstr[0] ""
-msgstr[1] ""
+msgstr "%s - borrador actualizado."
 
 #: libs/ultimate-fields-layout-control-master/classes/Field.php:78
 #: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:45
 msgid "Save Layout"
-msgstr ""
+msgstr "Guardar Estructura"
 
 #: libs/ultimate-fields-layout-control-master/classes/Field.php:82
 #: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:48
 msgid "Load Layout"
-msgstr ""
+msgstr "Cargar Estructura"
 
 #: libs/ultimate-fields-layout-control-master/classes/Field.php:86
 #: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:51
 msgid "Enter layout name..."
-msgstr ""
+msgstr "Ingresa el nombre de la estructura..."
 
 #: libs/ultimate-fields-layout-control-master/classes/Field.php:90
 #: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:54
 msgid "Select Layout"
-msgstr ""
+msgstr "Selecciona una estructura"
 
 #: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:22
 msgid "Layout Control"
-msgstr ""
+msgstr "Control de estructuras"
 
 #: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:35
 msgid "Field"
-msgstr ""
+msgstr "Campo"
 
 #: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:36
 msgid "Please select the field to control."
-msgstr ""
+msgstr "Por favor seleccione el campo a ser controlado"
 
 #: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:40
 msgid "Strings"
@@ -1604,11 +1872,11 @@ msgstr ""
 
 #: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:43
 msgid "Save Text"
-msgstr ""
+msgstr "Guardar texto"
 
 #: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:46
 msgid "Load Text"
-msgstr ""
+msgstr "Cargar texto"
 
 #: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:49
 msgid "Placeholder Text"
@@ -1616,24 +1884,67 @@ msgstr ""
 
 #: libs/ultimate-fields-layout-control-master/classes/Field_Helper.php:52
 msgid "Dropdown Title"
-msgstr ""
+msgstr "Título del dropdown"
 
 #: libs/ultimate-fields-layout-control-master/templates/field/layout-chooser.php:17
 msgid "No layouts found..."
-msgstr ""
+msgstr "No se encontraron estructuras"
 
 #: libs/ultimate-fields-layout-control-master/templates/field/layout-chooser.php:22
 msgid "Cancel"
-msgstr ""
-
-#: partials/404.php:4
-msgid "La página que estás buscando no existe."
-msgstr ""
-
-#: partials/404.php:5
-msgid "Volver al Inicio"
-msgstr ""
+msgstr "Cancelar"
 
 #: search.php:23
-msgid "No hubieron resultados"
-msgstr ""
+msgid "No results"
+msgstr "No hubieron resultados"
+
+#~ msgid "%s"
+#~ msgstr "%s"
+
+#~ msgid "Add New"
+#~ msgstr "Agregar nuevo"
+
+#~ msgid "Add New %s"
+#~ msgstr "Agregar nuevo %s"
+
+#~ msgid "Edit %s"
+#~ msgstr "Editar %s"
+
+#~ msgid "New %s"
+#~ msgstr "Nuevo %s"
+
+#~ msgid "View %s"
+#~ msgstr "Ver %s"
+
+#~ msgid "Search %s"
+#~ msgstr "Buscar %s"
+
+#~ msgid "No %s found"
+#~ msgstr "No hubieron resultados"
+
+#~ msgid "No %s found in Trash"
+#~ msgstr "No hay %s en la papelera"
+
+#~ msgid "All %s"
+#~ msgstr "Todos"
+
+#~ msgid "Update %s"
+#~ msgstr "Actualizar %s"
+
+#~ msgid "New %s Name"
+#~ msgstr "Nuevo %s"
+
+#~ msgid "Parent %s"
+#~ msgstr "%s Padre"
+
+#~ msgid "Popular %s"
+#~ msgstr "Popular %s"
+
+#~ msgid "Seperate %s with commas"
+#~ msgstr "Separar %s con comas"
+
+#~ msgid "Add or remove %s"
+#~ msgstr "Agregar o eliminar %s"
+
+#~ msgid "Choose from most used %s"
+#~ msgstr "Escoger entre los %s más usados"

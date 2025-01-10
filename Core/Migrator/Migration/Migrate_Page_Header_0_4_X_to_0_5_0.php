@@ -28,7 +28,7 @@ class Migrate_Page_Header_0_4_X_to_0_5_0{
             foreach ($old_page_header_rows as $row) {
                 if( $row->meta_key == 'page_header_element' ){
                     $translate_element = array(
-                        'default' => 'default',
+                        'mv23theme' => 'mv23theme',
                         'slider' => 'slider',
                         'contenido' => 'content',
                         'ninguno' => 'none'

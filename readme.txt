@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.49 25-01-10
+- Internationalized files
+
 1.5.48 25-01-09
 - OCE Improvements: .sidenav max-width 360px, padding allow any value and better estructure for settings
 - Create po - mo files and load text domain

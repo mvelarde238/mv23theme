@@ -3,41 +3,41 @@ use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 
 $columns_settings = array(
-	Field::create( 'tab', __('Columns Settings','default') )
+	Field::create( 'tab', __('Columns Settings','mv23theme') )
 );
 
 Container::create( '_column_fields' )
 ->add_fields( array(
-        Field::create( 'complex', 'order_wrapper', __('Order','default') )->merge()->add_fields(array(
-            Field::create( 'select', 'order', __('Desktop','default'))->add_options( array(
+        Field::create( 'complex', 'order_wrapper', __('Order','mv23theme') )->merge()->add_fields(array(
+            Field::create( 'select', 'order', __('Desktop','mv23theme'))->add_options( array(
                 '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4',
             ))->set_width(30),
-            Field::create( 'select', 'tablet_order', __('Tablet','default'))->add_options( array(
+            Field::create( 'select', 'tablet_order', __('Tablet','mv23theme'))->add_options( array(
                 '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4',
             ))->set_width(30),
-            Field::create( 'select', 'mobile_order', __('Mobile','default'))->add_options( array(
+            Field::create( 'select', 'mobile_order', __('Mobile','mv23theme'))->add_options( array(
                 '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4',
             ))->set_width(30)
         )),
-        Field::create( 'complex', 'alignment_wrapper', __('Content alignment','default') )->merge()->add_fields(array(
-            Field::create( 'select', 'content_alignment',__('Desktop','default'))->add_options( array(
-                'flex-start' => __('Top','default'),
-                'center' => __('Center','default'),
-                'flex-end' => __('Bottom','default'),
-                'space-between' => __('Distribute','default'),
-                'pinned' => __('Fixed','default'),
+        Field::create( 'complex', 'alignment_wrapper', __('Content alignment','mv23theme') )->merge()->add_fields(array(
+            Field::create( 'select', 'content_alignment',__('Desktop','mv23theme'))->add_options( array(
+                'flex-start' => __('Top','mv23theme'),
+                'center' => __('Center','mv23theme'),
+                'flex-end' => __('Bottom','mv23theme'),
+                'space-between' => __('Distribute','mv23theme'),
+                'pinned' => __('Fixed','mv23theme'),
             ))->set_width(30),
-            Field::create( 'select', 'tablet_content_alignment',__('Tablet','default'))->add_options( array(
-                'flex-start' => __('Top','default'),
-                'center' => __('Center','default'),
-                'flex-end' => __('Bottom','default'),
-                'space-between' => __('Distribute','default')
+            Field::create( 'select', 'tablet_content_alignment',__('Tablet','mv23theme'))->add_options( array(
+                'flex-start' => __('Top','mv23theme'),
+                'center' => __('Center','mv23theme'),
+                'flex-end' => __('Bottom','mv23theme'),
+                'space-between' => __('Distribute','mv23theme')
             ))->set_width(30),
-            Field::create( 'select', 'mobile_content_alignment',__('Mobile','default'))->add_options( array(
-                'flex-start' => __('Top','default'),
-                'center' => __('Center','default'),
-                'flex-end' => __('Bottom','default'),
-                'space-between' => __('Distribute','default')
+            Field::create( 'select', 'mobile_content_alignment',__('Mobile','mv23theme'))->add_options( array(
+                'flex-start' => __('Top','mv23theme'),
+                'center' => __('Center','mv23theme'),
+                'flex-end' => __('Bottom','mv23theme'),
+                'space-between' => __('Distribute','mv23theme')
             ))->set_width(30)
         )),
         Field::create( 'common_settings_control', 'settings' )->set_container( 'common_settings_container' )

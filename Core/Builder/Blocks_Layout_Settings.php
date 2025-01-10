@@ -26,7 +26,7 @@ class Blocks_Layout_Settings{
         $args = wp_parse_args( $args, $defaults );
 
         $the_field = Field::create( 'common_settings_control', $args['slug'] )
-            ->set_add_text( __($args['title'], 'default') )
+            ->set_add_text( __($args['title'], 'mv23theme') )
             ->set_container( 'blocks_layout_settings_container' );
 
         if($args['hide_label']) $the_field->hide_label();

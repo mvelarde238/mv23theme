@@ -13,7 +13,7 @@ class Page_Module extends Component{
     
     public static function the_group() {
         $page_module_group = Repeater_Group::create( 'page_module' )
-            ->set_title( __( 'Module', 'default' ) )
+            ->set_title( __( 'Module', 'mv23theme' ) )
             ->set_icon( 'dashicons dashicons-welcome-widgets-menus' )
             ->add_fields( self::get_fields() );
 
@@ -26,8 +26,8 @@ class Page_Module extends Component{
 
 	public static function get_fields() {
         $fields = array( 
-            Field::create( 'tab', __('Content','default') ),
-            Content_Selector::the_field('components', __('Components','default'), array( 'exclude' => array('inner_columns', 'card') ) )
+            Field::create( 'tab', __('Content','mv23theme') ),
+            Content_Selector::the_field('components', __('Components','mv23theme'), array( 'exclude' => array('inner_columns', 'card') ) )
         );
 
 		return $fields;

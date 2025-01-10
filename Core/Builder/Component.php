@@ -116,17 +116,17 @@ abstract class Component {
 		foreach ($args as $setting_name) {
 			if( $setting_name == 'all' ){
 				$component->add_fields(array(
-					Field::create( 'tab', __('Settings','default') ),
+					Field::create( 'tab', __('Settings','mv23theme') ),
 					Field::create( 'common_settings_control', 'settings' )
 						->set_container( 'common_settings_container' )
 						->set_width(30),
 					Field::create( 'common_settings_control', 'scroll_animations_settings' )
 						->set_container( 'scroll_animations_container' )
-						->set_add_text( __('Add Scroll Animations', 'default') )
+						->set_add_text( __('Add Scroll Animations', 'mv23theme') )
 						->set_width(30),
 					Field::create( 'common_settings_control', 'actions_settings' )
 						->set_container( 'actions_container' )
-						->set_add_text( __('Add Actions', 'default') )
+						->set_add_text( __('Add Actions', 'mv23theme') )
 						->set_width(30)
 				));
 		// 		$all = array('main','video-background','margins','borders','box-shadow','animation','scroll-animations');

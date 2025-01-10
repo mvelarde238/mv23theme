@@ -69,7 +69,7 @@ class Archive_Page {
 		
 		# Add taxonomies
 		foreach ($post_types as $post_type_id => $post_type_name) {
-			$taxonomies = array( '' => __('Any','default') );
+			$taxonomies = array( '' => __('Any','mv23theme') );
 			foreach( get_taxonomies( array( 'object_type' => array($post_type_id), 'show_ui' => true ), 'objects' ) as $slug => $taxonomy ) {
 				$taxonomies[$slug] = $taxonomy->labels->name;
 			}
@@ -102,13 +102,13 @@ class Archive_Page {
 		$post_template = array_merge( array( '__post' => 'Post' ), LISTING_POST_TEMPLATE );
 
 		$archive_loop_fields = array(
-			Field::create( 'tab', 'loop_settings_tabs', __('Loop Settings','default') ),
+			Field::create( 'tab', 'loop_settings_tabs', __('Loop Settings','mv23theme') ),
 			Field::create( 'message', 'lelmsg')
 				->hide_label()
-				->set_description( __('Place these shortcodes in the page content: [posts] [pagination]'), 'default' )
+				->set_description( __('Place these shortcodes in the page content: [posts] [pagination]'), 'mv23theme' )
 				->set_attr( 'style', 'background-color:#eeeeee;color:#000' ),
 
-			Field::create( 'tab', 'loop_columns_tabs', __('Columns quantity','default') ),
+			Field::create( 'tab', 'loop_columns_tabs', __('Columns quantity','mv23theme') ),
 			Field::create( 'complex', 'loop_columns' )->hide_label()->add_fields(array(
 				Field::create( 'number', 'desktop' )->set_default_value(LISTING_DESKTOP_COLUMNS)->set_suffix('columns in desktop')->hide_label(),
 				Field::create( 'number', 'laptop' )->set_default_value(LISTING_LAPTOP_COLUMNS)->set_suffix('columns in laptop')->hide_label(),
@@ -116,7 +116,7 @@ class Archive_Page {
 				Field::create( 'number', 'mobile' )->set_default_value(LISTING_MOBILE_COLUMNS)->set_suffix('columns in mobile')->hide_label(),
 			)),
 
-			Field::create( 'tab', 'space_between_columns_tab', __('Space between columns','default') ),
+			Field::create( 'tab', 'space_between_columns_tab', __('Space between columns','mv23theme') ),
 			Field::create( 'complex', 'loop_columns_gap' )->hide_label()->add_fields(array(
 				Field::create( 'number', 'desktop')->set_default_value(LISTING_DESKTOP_GAP)->set_suffix('px in desktop')->hide_label(),
 				Field::create( 'number', 'laptop' )->set_default_value(LISTING_LAPTOP_GAP)->set_suffix('px in laptop')->hide_label(),
@@ -124,7 +124,7 @@ class Archive_Page {
 				Field::create( 'number', 'mobile' )->set_default_value(LISTING_MOBILE_GAP)->set_suffix('px in mobile')->hide_label(),
 			)),
 
-			Field::create( 'tab', 'postcard_settings_tab', __('Post card settings','default') ),
+			Field::create( 'tab', 'postcard_settings_tab', __('Post card settings','mv23theme') ),
 			Field::create( 'complex', 'postcard_settings' )->hide_label()->add_fields(array(
 				Field::create( 'radio', 'template' )->set_orientation( 'vertical' )->add_options($post_template), 
             	Field::create( 'select', 'on_click_post', 'Al hacer click en el post:' )->add_options(array(
@@ -140,11 +140,11 @@ class Archive_Page {
             	))->add_dependency( 'on_click_post', 'show-expander', '=' ),
 			)),
 
-			Field::create( 'tab', 'page_template_tab', __('Page template','default') ),
+			Field::create( 'tab', 'page_template_tab', __('Page template','mv23theme') ),
 			Field::create( 'select', 'page_template')->hide_label()->add_options(array(
 				'main-content--sidebar-left' => __('Left Sidebar','deafult'),
 				'main-content--sidebar-right' => __('Right Sidebar','deafult'),
-				'hide-sidebar' => __('Hide Sidebar','default')
+				'hide-sidebar' => __('Hide Sidebar','mv23theme')
 			))
 		);
 

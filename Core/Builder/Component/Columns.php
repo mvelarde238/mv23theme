@@ -11,7 +11,7 @@ class Columns extends Component {
     public function __construct() {
 		parent::__construct(
 			'columns',
-			__( 'Columns', 'default' )
+			__( 'Columns', 'mv23theme' )
 		);
 	}
 
@@ -34,10 +34,10 @@ class Columns extends Component {
 	}
 
 	public static function get_fields() {
-		$fields = array( Field::create( 'tab', __('Content','default') ) );
+		$fields = array( Field::create( 'tab', __('Content','mv23theme') ) );
 
         for ($i=1; $i <= COLUMNS_QUANTITY; $i++) { 
-            $col = Content_Selector::the_field( 'column_'.$i, __('Column','default') )
+            $col = Content_Selector::the_field( 'column_'.$i, __('Column','mv23theme') )
 				// ->set_width(25) not working
 				->set_attr( 'style', 'width:25%' );
 	

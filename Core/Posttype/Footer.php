@@ -22,7 +22,11 @@ class Footer {
 
 	public function register_posttype(){
         $footers = new CPT(
-            'footer',
+            array(
+                'post_type_name' => 'footer',
+                'singular' => __('Footer', 'mv23theme'),
+                'plural' => __('Footers', 'mv23theme')
+            ), 
             array(
                 'show_in_menu' => 'theme-options-menu',
                 'show_in_nav_menus' => false,
@@ -34,7 +38,7 @@ class Footer {
         $footers->columns(array(
             'cb' => '<input type="checkbox" />',
             'title' => __('Title'),
-            'is_theme_footer' => __('Use'),
+            'is_theme_footer' => __('Activate','mv23theme'),
             'date' => __('Date')
         ));
 
@@ -107,7 +111,7 @@ class Footer {
     	$actions['save_as_theme_footer_post'] = sprintf(
     		'<a href="%1$s">%2$s</a>',
     		$url,
-    		'Use as theme footer'
+    		__('Activate Theme Footer','mv23theme')
     	);
 
         return $actions;

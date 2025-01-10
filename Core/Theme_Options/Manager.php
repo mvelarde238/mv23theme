@@ -18,8 +18,8 @@ class Manager {
     public function register_metabox() {
         add_submenu_page(
             'theme-options',
-            __('Export/Import','default'),
-            __('Export/Import Options','default'),
+            __('Export/Import','mv23theme'),
+            __('Export/Import Options','mv23theme'),
             'manage_options',              
             'theme-options-manager', 
             array($this, 'render_metabox'),

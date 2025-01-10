@@ -131,7 +131,8 @@ class Frontend extends Theme_Header_Data {
   
         // Add a page number if necessary:
         if ( $paged >= 2 || $page >= 2 ) {
-            $title .= " {$sep} " . sprintf( __( 'Page %s', 'dbt' ), max( $paged, $page ) );
+            /* translators: %s: page number */
+            $title .= " {$sep} " . sprintf( __( 'Page %s', 'mv23theme' ), max( $paged, $page ) );
         }
   
         return $title;

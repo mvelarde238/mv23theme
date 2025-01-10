@@ -11,7 +11,7 @@ class Content_Slider extends Component {
     public function __construct() {
 		parent::__construct(
 			'content_slider',
-			__( 'Content Slider', 'default' )
+			__( 'Content Slider', 'mv23theme' )
 		);
 	}
 
@@ -21,16 +21,16 @@ class Content_Slider extends Component {
 
 	public static function get_fields() {
 		$fields = array(
-            Field::create( 'tab', __('Contenido','default') ),
+            Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'repeater', 'items' )
-                ->set_add_text( __('Add Slide', 'default') )
+                ->set_add_text( __('Add Slide', 'mv23theme') )
                 ->hide_label()
                 ->add_group('Item', array(
                     'edit_mode' => 'popup',
                     'fields' => array(
-                        Field::create( 'tab', __('Contenido','default') ),
-                        Content_Selector::the_field( 'components', __('Components','default') ),
-                        Field::create( 'tab', __('Settings','default') ),
+                        Field::create( 'tab', __('Content','mv23theme') ),
+                        Content_Selector::the_field( 'components', __('Components','mv23theme') ),
+                        Field::create( 'tab', __('Settings','mv23theme') ),
                         Field::create( 'text', 'title', 'Título para el menú' ),
                         // Field::create( 'tab', 'Settings' ),
                         // Field::create( 'image', 'bgi', 'Imágen de Fondo' )->set_width( 25 ),

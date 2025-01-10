@@ -11,7 +11,7 @@ class Video extends Component {
     public function __construct() {
 		parent::__construct(
 			'video',
-			__( 'Video', 'default' )
+			__( 'Video', 'mv23theme' )
 		);
 	}
 
@@ -31,8 +31,8 @@ class Video extends Component {
 
 	public static function get_fields() {
 		$fields = array(
-            Field::create( 'tab', __('Contenido','default') ),
-            Field::create( 'radio', 'video_source', __('Source','default'))
+            Field::create( 'tab', __('Content','mv23theme') ),
+            Field::create( 'radio', 'video_source', __('Source','mv23theme'))
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
                     'selfhosted' => 'Medios',
@@ -68,10 +68,10 @@ class Video extends Component {
                 ->add_dependency('video_source','external','=')
                 ->add_dependency('external_url','','!='),
     
-            Field::create( 'tab', __('Size','default') ),
+            Field::create( 'tab', __('Size','mv23theme') ),
             Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->add_options(array(
-                'default'  => array(
-                    'label' => 'default',
+                'mv23theme'  => array(
+                    'label' => 'mv23theme',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default.png'
                 ),
                 '1/1'  => array(
@@ -122,10 +122,10 @@ class Video extends Component {
             Field::create( 'text', 'custom_aspect_ratio' )
                 ->set_validation_rule('^(\d+(\.\d+)?)(\s*\/\s*(\d+(\.\d+)?))?$')
                 ->add_dependency( 'aspect_ratio', 'custom' ),
-            Field::create( 'select', 'object_fit', __('Object Fit','default'))->add_options( array(
-                'contain' => __('Contain','default'),
-                'cover' => __('Cover','default'),
-            ))->add_dependency('aspect_ratio','default','!=')
+            Field::create( 'select', 'object_fit', __('Object Fit','mv23theme'))->add_options( array(
+                'contain' => __('Contain','mv23theme'),
+                'cover' => __('Cover','mv23theme'),
+            ))->add_dependency('aspect_ratio','mv23theme','!=')
         );
 
 		return $fields;
@@ -155,7 +155,7 @@ class Video extends Component {
             );
         }
 
-        $aspect_ratio = ( isset($args['aspect_ratio']) && $args['aspect_ratio'] != 'default' ) ? $args['aspect_ratio'] : false;
+        $aspect_ratio = ( isset($args['aspect_ratio']) && $args['aspect_ratio'] != 'mv23theme' ) ? $args['aspect_ratio'] : false;
         if( $aspect_ratio ){
             $aspect_ratio_value = ( $args['aspect_ratio'] != 'custom' ) ? $args['aspect_ratio'] : $args['custom_aspect_ratio'];
             $args['additional_styles'][] = '--aspect-ratio:'.$aspect_ratio_value;

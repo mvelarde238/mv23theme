@@ -63,11 +63,11 @@ class Field extends Base_Field {
 
 		$save_text = $this->save_text
 			? $this->save_text
-			: __( 'Save Settings', 'uf-common-settings-control' );
+			: __( 'Save Settings', 'mv23theme' );
 
         $add_text = $this->add_text
 			? $this->add_text
-			: __( 'Add Settings', 'uf-common-settings-control' );
+			: __( 'Add Settings', 'mv23theme' );
 
 		$data[ 'container' ]      = $this->container;
 		$data[ 'type' ]           = 'Common_Settings_Control';

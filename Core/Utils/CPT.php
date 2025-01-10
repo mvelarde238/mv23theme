@@ -200,7 +200,7 @@ class CPT {
 
         // rewrite post update messages
         $this->add_filter( 'post_updated_messages', array( &$this, 'updated_messages' ) );
-        $this->add_filter( 'bulk_post_updated_messages', array( &$this, 'bulk_updated_messages' ), 10, 2 );
+        // $this->add_filter( 'bulk_post_updated_messages', array( &$this, 'bulk_updated_messages' ), 10, 2 );
     }
 
     /**
@@ -405,19 +405,27 @@ class CPT {
 
         // Default labels.
         $labels = array(
-            'name'               => sprintf( __( '%s', $this->textdomain ), $plural ),
-            'singular_name'      => sprintf( __( '%s', $this->textdomain ), $singular ),
-            'menu_name'          => sprintf( __( '%s', $this->textdomain ), $plural ),
-            'all_items'          => sprintf( __( '%s', $this->textdomain ), $plural ),
-            'add_new'            => __( 'Add New', $this->textdomain ),
-            'add_new_item'       => sprintf( __( 'Add New %s', $this->textdomain ), $singular ),
-            'edit_item'          => sprintf( __( 'Edit %s', $this->textdomain ), $singular ),
-            'new_item'           => sprintf( __( 'New %s', $this->textdomain ), $singular ),
-            'view_item'          => sprintf( __( 'View %s', $this->textdomain ), $singular ),
-            'search_items'       => sprintf( __( 'Search %s', $this->textdomain ), $plural ),
-            'not_found'          => sprintf( __( 'No %s found', $this->textdomain ), $plural ),
-            'not_found_in_trash' => sprintf( __( 'No %s found in Trash', $this->textdomain ), $plural ),
-            'parent_item_colon'  => sprintf( __( 'Parent %s:', $this->textdomain ), $singular )
+            'name'               => $plural,
+            'singular_name'      => $singular,
+            'menu_name'          => $plural,
+            // 'all_items'          => $plural,
+            // 'add_new'            => __( 'Add New', $this->textdomain ),
+            // /* translators: %s: singular name of the post type */
+            // 'add_new_item'       => sprintf( __( 'Add New %s', $this->textdomain ), $singular ),
+            // /* translators: %s: singular name of the post type */
+            // 'edit_item'          => sprintf( __( 'Edit %s', $this->textdomain ), $singular ),
+            // /* translators: %s: singular name of the post type */
+            // 'new_item'           => sprintf( __( 'New %s', $this->textdomain ), $singular ),
+            // /* translators: %s: singular name of the post type */
+            // 'view_item'          => sprintf( __( 'View %s', $this->textdomain ), $singular ),
+            // /* translators: %s: plural name of the post type */
+            // 'search_items'       => sprintf( __( 'Search %s', $this->textdomain ), $plural ),
+            // /* translators: %s: plural name of the post type */
+            // 'not_found'          => sprintf( __( 'No %s found', $this->textdomain ), $plural ),
+            // /* translators: %s: plural name of the post type */
+            // 'not_found_in_trash' => sprintf( __( 'No %s found in Trash', $this->textdomain ), $plural ),
+            // /* translators: %s: singular name of the post type */
+            // 'parent_item_colon'  => sprintf( __( 'Parent %s:', $this->textdomain ), $singular )
         );
 
         // Default options.
@@ -503,23 +511,23 @@ class CPT {
 
         // Default labels.
         $labels = array(
-            'name'                       => sprintf( __( '%s', $this->textdomain ), $plural ),
-            'singular_name'              => sprintf( __( '%s', $this->textdomain ), $singular ),
-            'menu_name'                  => sprintf( __( '%s', $this->textdomain ), $plural ),
-            'all_items'                  => sprintf( __( 'All %s', $this->textdomain ), $plural ),
-            'edit_item'                  => sprintf( __( 'Edit %s', $this->textdomain ), $singular ),
-            'view_item'                  => sprintf( __( 'View %s', $this->textdomain ), $singular ),
-            'update_item'                => sprintf( __( 'Update %s', $this->textdomain ), $singular ),
-            'add_new_item'               => sprintf( __( 'Add New %s', $this->textdomain ), $singular ),
-            'new_item_name'              => sprintf( __( 'New %s Name', $this->textdomain ), $singular ),
-            'parent_item'                => sprintf( __( 'Parent %s', $this->textdomain ), $plural ),
-            'parent_item_colon'          => sprintf( __( 'Parent %s:', $this->textdomain ), $plural ),
-            'search_items'               => sprintf( __( 'Search %s', $this->textdomain ), $plural ),
-            'popular_items'              => sprintf( __( 'Popular %s', $this->textdomain ), $plural ),
-            'separate_items_with_commas' => sprintf( __( 'Seperate %s with commas', $this->textdomain ), $plural ),
-            'add_or_remove_items'        => sprintf( __( 'Add or remove %s', $this->textdomain ), $plural ),
-            'choose_from_most_used'      => sprintf( __( 'Choose from most used %s', $this->textdomain ), $plural ),
-            'not_found'                  => sprintf( __( 'No %s found', $this->textdomain ), $plural ),
+            'name'                       => $plural,
+            'singular_name'              => $singular,
+            'menu_name'                  => $plural,
+            // 'all_items'                  => sprintf( __( 'All %s', $this->textdomain ), $plural ),
+            // 'edit_item'                  => sprintf( __( 'Edit %s', $this->textdomain ), $singular ),
+            // 'view_item'                  => sprintf( __( 'View %s', $this->textdomain ), $singular ),
+            // 'update_item'                => sprintf( __( 'Update %s', $this->textdomain ), $singular ),
+            // 'add_new_item'               => sprintf( __( 'Add New %s', $this->textdomain ), $singular ),
+            // 'new_item_name'              => sprintf( __( 'New %s Name', $this->textdomain ), $singular ),
+            // 'parent_item'                => sprintf( __( 'Parent %s', $this->textdomain ), $plural ),
+            // 'parent_item_colon'          => sprintf( __( 'Parent %s:', $this->textdomain ), $plural ),
+            // 'search_items'               => sprintf( __( 'Search %s', $this->textdomain ), $plural ),
+            // 'popular_items'              => sprintf( __( 'Popular %s', $this->textdomain ), $plural ),
+            // 'separate_items_with_commas' => sprintf( __( 'Seperate %s with commas', $this->textdomain ), $plural ),
+            // 'add_or_remove_items'        => sprintf( __( 'Add or remove %s', $this->textdomain ), $plural ),
+            // 'choose_from_most_used'      => sprintf( __( 'Choose from most used %s', $this->textdomain ), $plural ),
+            // 'not_found'                  => sprintf( __( 'No %s found', $this->textdomain ), $plural ),
         );
 
         // Default options.
@@ -632,7 +640,7 @@ class CPT {
                                 $taxonomy_object = get_taxonomy( $tax );
 
                                 // Column key is the slug, value is friendly name.
-                                $new_columns[ $tax ] = sprintf( __( '%s', $this->textdomain ), $taxonomy_object->labels->name );
+                                $new_columns[ $tax ] = $taxonomy_object->labels->name;
                             }
                         }
                     }
@@ -706,6 +714,7 @@ class CPT {
                     $taxonomy_object = get_taxonomy( $column );
 
                     // Echo no terms.
+                    /* translators: %s: taxonomy name */
                     printf( __( 'No %s', $this->textdomain ), $taxonomy_object->labels->name );
                 }
 
@@ -829,10 +838,12 @@ class CPT {
                     if ( $terms ) {
 
                         // Set up select box.
+                        /* translators: %s: taxonomy slug */
                         printf( ' &nbsp;<select name="%s" class="postform">', $tax_slug );
 
                         // Default show all.
-                        printf( '<option value="0">%s</option>', sprintf( __( 'Show all %s', $this->textdomain ), $tax->label ) );
+                        /* translators: %1$s: show all options, %2$s: taxonomy name */
+                        printf( '<option value="0">%1$s</option>', sprintf( __( 'Show all %2$s', $this->textdomain ), $tax->label ) );
 
                         // Foreach term create an option field...
                         foreach ( $terms as $term ) {
@@ -1050,19 +1061,26 @@ class CPT {
 
         $messages[$this->post_type_name] = array(
             0 => '',
+            /* translators: %s: singular name of the post type */
             1 => sprintf( __( '%s updated.', $this->textdomain ), $singular ),
             2 => __( 'Custom field updated.', $this->textdomain ),
             3 => __( 'Custom field deleted.', $this->textdomain ),
+            /* translators: %s: singular name of the post type */
             4 => sprintf( __( '%s updated.', $this->textdomain ), $singular ),
+            /* translators: %2$s: post revision title, %1$s: singular name of the post type */
             5 => isset( $_GET['revision'] ) ? sprintf( __( '%2$s restored to revision from %1$s', $this->textdomain ), wp_post_revision_title( (int) $_GET['revision'], false ), $singular ) : false,
+            /* translators: %s: singular name of the post type */
             6 => sprintf( __( '%s updated.', $this->textdomain ), $singular ),
+            /* translators: %s: singular name of the post type */
             7 => sprintf( __( '%s saved.', $this->textdomain ), $singular ),
+            /* translators: %s: singular name of the post type */
             8 => sprintf( __( '%s submitted.', $this->textdomain ), $singular ),
-            9 => sprintf(
-                __( '%2$s scheduled for: <strong>%1$s</strong>.', $this->textdomain ),
+            /* translators: %2$s: fecha programada, %1$s: singular name of the post type */
+            9 => sprintf( __( '%2$s scheduled for: <strong>%1$s</strong>.', $this->textdomain ),
                 date_i18n( __( 'M j, Y @ G:i', $this->textdomain ), strtotime( $post->post_date ) ),
                 $singular
             ),
+            /* translators: %s: singular name of the post type */
             10 => sprintf( __( '%s draft updated.', $this->textdomain ), $singular ),
         );
 
@@ -1078,16 +1096,17 @@ class CPT {
      */
     function bulk_updated_messages( $bulk_messages, $bulk_counts ) {
 
-        $singular = $this->singular;
-        $plural = $this->plural;
+        // $singular = $this->singular;
+        // $plural = $this->plural;
 
-        $bulk_messages[ $this->post_type_name ] = array(
-            'updated'   => _n( '%s '.$singular.' updated.', '%s '.$plural.' updated.', $bulk_counts['updated'] ),
-            'locked'    => _n( '%s '.$singular.' not updated, somebody is editing it.', '%s '.$plural.' not updated, somebody is editing them.', $bulk_counts['locked'] ),
-            'deleted'   => _n( '%s '.$singular.' permanently deleted.', '%s '.$plural.' permanently deleted.', $bulk_counts['deleted'] ),
-            'trashed'   => _n( '%s '.$singular.' moved to the Trash.', '%s '.$plural.' moved to the Trash.', $bulk_counts['trashed'] ),
-            'untrashed' => _n( '%s '.$singular.' restored from the Trash.', '%s '.$plural.' restored from the Trash.', $bulk_counts['untrashed'] ),
-        );
+        // $bulk_messages[ $this->post_type_name ] = array(
+        //     /* translators: %s: singular name of the post type */
+        //     'updated'   => _n( '%s '.$singular.' updated.', '%s '.$plural.' updated.', $bulk_counts['updated'] ),
+        //     'locked'    => _n( '%s '.$singular.' not updated, somebody is editing it.', '%s '.$plural.' not updated, somebody is editing them.', $bulk_counts['locked'] ),
+        //     'deleted'   => _n( '%s '.$singular.' permanently deleted.', '%s '.$plural.' permanently deleted.', $bulk_counts['deleted'] ),
+        //     'trashed'   => _n( '%s '.$singular.' moved to the Trash.', '%s '.$plural.' moved to the Trash.', $bulk_counts['trashed'] ),
+        //     'untrashed' => _n( '%s '.$singular.' restored from the Trash.', '%s '.$plural.' restored from the Trash.', $bulk_counts['untrashed'] ),
+        // );
 
         return $bulk_messages;
     }
