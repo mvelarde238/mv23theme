@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.50 25-01-23
+- Refactorize IS_MULTILANGUAGE constant to avoid error on deactivating Polylang
+
 1.5.49 25-01-10
 - Files internazionalization
 

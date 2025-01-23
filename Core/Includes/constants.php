@@ -9,8 +9,7 @@ define ('BOOTSTRAP_ICONS', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/
 define ('ADJUST_SCROLL_POSITION', false);
 
 // define ('IS_MULTILANGUAGE', class_exists('Polylang') );
-$polylang_path = trailingslashit( WP_PLUGIN_DIR ) . 'polylang/polylang.php';
-define ('IS_MULTILANGUAGE', in_array( $polylang_path, wp_get_active_and_valid_plugins() ));
+define ('IS_MULTILANGUAGE', function_exists('pll_the_languages') );
 
 $plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'woocommerce/woocommerce.php';
 define ('WOOCOMMERCE_IS_ACTIVE', in_array( $plugin_path, wp_get_active_and_valid_plugins() ));
