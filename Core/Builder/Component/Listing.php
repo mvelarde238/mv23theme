@@ -361,7 +361,7 @@ class Listing extends Component {
             if( isset($args['year-filter']) ){
                 $show_year = $args['year-filter']['show'];
                 $firstyear = $args['year-filter']['first_year'];
-                $default_year = $args['year-filter']['mv23theme'];
+                $default_year = $args['year-filter']['default'];
             }
             
             echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_year="'.$show_year.'" show_month="'.$show_month.'" default_year="'.$default_year.'" filter_taxonomies="'.implode(',',$filter_taxonomies).'" filter_default_terms="'.implode(',',$filter_default_terms).'"]');
