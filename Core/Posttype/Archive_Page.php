@@ -175,11 +175,40 @@ class Archive_Page {
 	}
 
 	/**
+	 * Get Archive post type
+	 */
+	public function get_archive_post_type(){
+		$post_type = get_post_type();
+	
+		// when term is emtpy get_post_type() return empty
+		if( empty($post_type) ){
+			// trying this to get the post type
+			$post_type = get_taxonomy(get_queried_object()->taxonomy)->object_type[0];
+		}
+	
+		return $post_type;
+	}
+
+	public function depurar(){
+		$archive_page_id = self::$instance->get_archive_id();
+		$posttype = self::$instance->get_archive_post_type();
+
+		// global $wp_query;
+
+		return array(
+			'id' => $archive_page_id,
+			'posttype' => $posttype,
+			'P2' => get_taxonomy(get_queried_object()->taxonomy)->object_type[0]
+			// 'query' => $wp_query
+		);
+	}
+
+	/**
 	 * Get Archive page ID in archive.php
 	 */
 	public function get_archive_id() {
 		$is_connected = 0;
-		$posttype = get_post_type();
+		$posttype = self::$instance->get_archive_post_type();
 
 		$args = array(
 			'post_type' => 'archive_page',
