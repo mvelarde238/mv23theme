@@ -842,8 +842,8 @@ class CPT {
                         printf( ' &nbsp;<select name="%s" class="postform">', $tax_slug );
 
                         // Default show all.
-                        /* translators: %1$s: show all options, %2$s: taxonomy name */
-                        printf( '<option value="0">%1$s</option>', sprintf( __( 'Show all %2$s', $this->textdomain ), $tax->label ) );
+                        /* translators: %1$s: show all options, %s: taxonomy name */
+                        printf( '<option value="0">%1$s</option>', sprintf( __( 'Show all %s', $this->textdomain ), $tax->label ) );
 
                         // Foreach term create an option field...
                         foreach ( $terms as $term ) {

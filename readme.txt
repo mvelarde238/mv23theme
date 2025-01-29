@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.51 25-01-29
+- Fix issue related to translation code in cpt admin list
+
 1.5.50 25-01-23
 - Refactorize IS_MULTILANGUAGE constant to avoid error on deactivating Polylang
 - Fix listing -default- argument name affected by internazionalization
