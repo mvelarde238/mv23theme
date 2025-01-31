@@ -5,6 +5,7 @@ CHANGELOG
 1.5.52 25-01-31
 - Fix Archive_Page::get_archive_post_type() in is_post_type_archive page
 - Fix toggle-box.js script: slideDown wasnt adding display block
+- Use locate_template() in the autoloader to check for the class in the child theme
 
 1.5.51 25-01-29
 - Fix issue related to translation code in cpt admin list

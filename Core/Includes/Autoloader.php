@@ -21,11 +21,10 @@ class Autoloader {
     private function loadClass( $namespace ) {
         $fullClassPath = $this->fullClassPath( $namespace );
 
-        // echo $namespace . '<br>';
-        // echo $fullClassPath . '<br>';
-
         if( $this->classInNamespace( $namespace ) && $this->classFileExists( $fullClassPath ) ) {
-            require_once $fullClassPath;
+            // require_once $fullClassPath;
+            // Use locate_template() function to check for the class in the child theme
+            locate_template( $this->convertNamespace( $namespace ) . $this->extention, true, true);
         }
     }
 
