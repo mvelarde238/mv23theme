@@ -24,9 +24,9 @@
                 for (var ind = 0; ind < boxes.length; ind++) {
                     if (boxes[ind].style.display === 'none' || boxes[ind].style.display === '') {
                         $(this).parent().addClass('active');
-                        $(boxes[ind]).slideDown();
+                        $(boxes[ind]).slideDown(function() {$(this).css('display', 'block');});
                         
-                        if(scrollToBox){
+                        if(scrollToBox != 0){
                             $("html, body").animate({ scrollTop: ($(boxes[ind]).offset().top - headerHeight) }, {duration: 800, queue: false});
                         }
                     } else {
