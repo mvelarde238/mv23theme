@@ -183,24 +183,14 @@ class Archive_Page {
 		// when term is emtpy get_post_type() return empty
 		if( empty($post_type) ){
 			// trying this to get the post type
-			$post_type = get_taxonomy(get_queried_object()->taxonomy)->object_type[0];
+			if( is_post_type_archive() ){
+				$post_type = get_queried_object()->name;
+			} else {
+				$post_type = get_taxonomy(get_queried_object()->taxonomy)->object_type[0];
+			}
 		}
 	
 		return $post_type;
-	}
-
-	public function depurar(){
-		$archive_page_id = self::$instance->get_archive_id();
-		$posttype = self::$instance->get_archive_post_type();
-
-		// global $wp_query;
-
-		return array(
-			'id' => $archive_page_id,
-			'posttype' => $posttype,
-			'P2' => get_taxonomy(get_queried_object()->taxonomy)->object_type[0]
-			// 'query' => $wp_query
-		);
 	}
 
 	/**
