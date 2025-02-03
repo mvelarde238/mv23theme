@@ -111,9 +111,9 @@ class Button extends Component {
 		$args['additional_classes'] = array('component');
         $args['__type'] = 'button-cmp';
 
-        $style = $args['style'];
+        $class = $args['style'];
         $fullwidth = (isset($args['fullwidth'])) ? $args['fullwidth'] : false;
-        if($fullwidth) $style .= ' btn-block';
+        if($fullwidth) $class .= ' btn-block';
             
         $text = $args['text'] ?: 'Botón';
         $icon = (isset( $args['icon'])) ? $args['icon'] : null;
@@ -121,13 +121,13 @@ class Button extends Component {
             $icon_position = $args['icon_position'] ?: 'left';
             $icon_prefix = (str_starts_with($icon,'fa')) ? 'fa' : 'bi';
             $icon_html = '<i class="'.$icon_prefix.' '.$icon.'"></i>';
-            $style .= ' btn--icon-'.$args['icon_position'];
+            $class .= ' btn--icon-'.$args['icon_position'];
         
             $text = ( $icon_position === 'left' ) ? $icon_html.' '.$text : $text.' '.$icon_html;
         } 
         
         $size = (isset($args['size'])) ? $args['size'] : false;
-        if($size) $style .= ' btn--'.$args['size'];
+        if($size) $class .= ' btn--'.$args['size'];
 
         $type = $args['type'];
         $href = '#';
@@ -159,7 +159,11 @@ class Button extends Component {
         if( is_array($attributes) && count($attributes) > 0 ){
             foreach ($attributes as $item) {
                 if( $item['attribute'] && $item['value'] ){
-                    $additional_attrs .= ' '.$item['attribute'].'="'.$item['value'].'"';
+                    if( $item['attribute'] == 'class' ){
+                        $class .= ' '.$item['value'];
+                    } else {
+                        $additional_attrs .= ' '.$item['attribute'].'="'.$item['value'].'"';
+                    }
                 }
             }
         }
@@ -172,7 +176,7 @@ class Button extends Component {
 		
 		ob_start();
         echo Template_Engine::component_wrapper('start', $args);
-        if($text) echo '<a href="'.$href.'" '.$attrs.' class="'.$style.'"'.$additional_attrs.'>'.$text.'</a>';
+        if($text) echo '<a href="'.$href.'" '.$attrs.' class="'.$class.'"'.$additional_attrs.'>'.$text.'</a>';
         echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
