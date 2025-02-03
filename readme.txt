@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.53 25-02-03
+- Fix autoloader to work in childtheme
+
 1.5.52 25-01-31
 - Fix Archive_Page::get_archive_post_type() in is_post_type_archive page
 - Fix toggle-box.js script: slideDown wasnt adding display block
