@@ -34,7 +34,7 @@ class Page_Header_Container{
         $page_header_content_types = apply_filters(
             'filter_page_header_content_types',
             array(
-                'mv23theme' => __('Page Title','mv23theme'),
+                'default' => __('Page Title','mv23theme'),
                 'slider' => 'Slider',
                 'content' => __('Content','mv23theme'),
                 'none' => __('None','mv23theme')

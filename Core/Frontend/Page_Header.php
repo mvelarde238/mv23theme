@@ -38,7 +38,7 @@ class Page_Header{
 
  	private function set_content_type(){
 		$content_type = get_metadata($this->page_type, $this->page_ID, 'page_header_content_type', true);
-		$this->content_type = ($content_type) ? $content_type : 'mv23theme';
+		$this->content_type = ($content_type) ? $content_type : 'default';
 	}
 	private function set_content(){
 		$content = get_metadata($this->page_type, $this->page_ID, 'page_header_content', true);

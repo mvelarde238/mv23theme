@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.54 25-02-10
 - Fix 2 in listing -default- argument name affected by internazionalization
+- Fix Page header -default- argument name affected by internazionalization
 
 1.5.53 25-02-03
 - Fix autoloader to work in childtheme
