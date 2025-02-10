@@ -166,7 +166,7 @@ class Listing extends Component {
         array_push($listing_fields_filter, Field::create( 'complex', 'year-filter', 'Año' )->add_fields(array(
             Field::create( 'checkbox', 'show' )->set_text( 'Mostrar' )->hide_label(),
             Field::create( 'number', 'first_year', 'Primer Año' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value(2012)->set_width(50),
-            Field::create( 'number', 'mv23theme', 'Default value' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value('')->set_width(50),
+            Field::create( 'number', 'default', 'Default value' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value('')->set_width(50),
         ))->add_dependency('filter')->set_width(10) );
 
 		$fields = array_merge( $listing_fields_1, $listing_fields_2, $listing_fields_filter );
@@ -298,7 +298,7 @@ class Listing extends Component {
             // check date params
             if($filter){
                 $date_params = array();
-                if( $args['year-filter']['show'] && $args['year-filter']['mv23theme'] ) $date_params['year'] = $args['year-filter']['mv23theme'];
+                if( $args['year-filter']['show'] && $args['year-filter']['default'] ) $date_params['year'] = $args['year-filter']['default'];
                 if( count($date_params) ) $args_query['date_query'] = array( $date_params );
             }
         }
