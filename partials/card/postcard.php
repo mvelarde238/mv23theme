@@ -91,7 +91,7 @@ if( !empty($args['on_click_scroll_to']) ) $postcard_attributes[] = 'data-scroll-
 
 		<p><?php echo do_shortcode(wpautop($excerpt)) ?></p>
 		<div class="postcard__link">
-			<a class="btn btn--main-color trigger-post-action" href="<?=$link?>">Leer más</a>
+			<a class="btn trigger-post-action" href="<?=$link?>"><?php _e('Read More','mv23theme') ?></a>
 		</div>
 		<div class="postcard__tags text-color-2">
 			<?php if( is_array($tags) && count($tags) > 0 ){

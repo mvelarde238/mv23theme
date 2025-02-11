@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MV23 Theme 1.5.48\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/mv23theme\n"
-"POT-Creation-Date: 2025-01-10T18:44:07+01:00\n"
+"POT-Creation-Date: 2025-02-11T02:30:41+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1787,9 +1787,10 @@ msgstr "Hola, necesito más información acerca de..."
 msgid "No %s"
 msgstr "No hay %s"
 
-#. translators: %1$s: show all options, %2$s: taxonomy name
+#. translators: %1$s: show all options, %s: taxonomy name
 #: Core/Utils/CPT.php:846
-msgid "Show all %2$s"
+#, fuzzy
+msgid "Show all %s"
 msgstr "Mostrar todos los %2$s"
 
 #. translators: %s: singular name of the post type
@@ -1893,6 +1894,10 @@ msgstr "No se encontraron estructuras"
 #: libs/ultimate-fields-layout-control-master/templates/field/layout-chooser.php:22
 msgid "Cancel"
 msgstr "Cancelar"
+
+#: partials/card/postcard.php:94
+msgid "Read More"
+msgstr "Leer Más"
 
 #: search.php:23
 msgid "No results"
