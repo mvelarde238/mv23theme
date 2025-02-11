@@ -19,7 +19,7 @@ var common_settings_container = [
                 {
                     "type": "Text",
                     "name": "class",
-                    "label": "Class",
+                    "label": "Classes",
                     "field_width": 50,
                     "description": "<p>Clases de la sección, usar solo minúsculas y guiones ( -/_ )</p>\n"
                 }
@@ -162,7 +162,7 @@ var common_settings_container = [
                 {
                     "type": "Number",
                     "name": "alpha",
-                    "label": "Opacity",
+                    "label": "Transparencia",
                     "field_width": 30,
                     "default_value": 100,
                     "dependencies": [
@@ -191,7 +191,7 @@ var common_settings_container = [
     {
         "type": "Complex",
         "name": "font_color",
-        "label": "Font color",
+        "label": "Color del texto",
         "group": {
             "id": "complex_group",
             "title": "Complex Group",
@@ -258,7 +258,7 @@ var common_settings_container = [
     {
         "type": "Complex",
         "name": "background_image",
-        "label": "Imagen de fondo",
+        "label": "Imágen de fondo",
         "group": {
             "id": "complex_group",
             "title": "Complex Group",
@@ -288,7 +288,7 @@ var common_settings_container = [
                     ],
                     "file_type": "image",
                     "basic": false,
-                    "nonce": "c86e38b91c"
+                    "nonce": "62055e8115"
                 },
                 {
                     "type": "Complex",
@@ -315,7 +315,7 @@ var common_settings_container = [
                                 "label": "Size",
                                 "options": {
                                     "cover": "Cover",
-                                    "auto": "Auto"
+                                    "auto": "Automático"
                                 },
                                 "use_select2": false,
                                 "input_type": "select",
@@ -326,10 +326,10 @@ var common_settings_container = [
                                 "name": "repeat",
                                 "label": "Repeat",
                                 "options": {
-                                    "no-repeat": "No repeat",
-                                    "repeat": "Repeat",
-                                    "repeat-x": "Repeat X",
-                                    "repeat-y": "Repeat Y"
+                                    "no-repeat": "No repetir",
+                                    "repeat": "Repetir",
+                                    "repeat-x": "Repetir horizontalmente",
+                                    "repeat-y": "Repetir Verticalmente"
                                 },
                                 "use_select2": false,
                                 "input_type": "select",
@@ -340,7 +340,7 @@ var common_settings_container = [
                                 "name": "position_x",
                                 "label": "Position X",
                                 "options": {
-                                    "center": "Centrar",
+                                    "center": "Centro",
                                     "left": "Izquierda",
                                     "right": "Derecha"
                                 },
@@ -353,7 +353,7 @@ var common_settings_container = [
                                 "name": "position_y",
                                 "label": "Position Y",
                                 "options": {
-                                    "center": "Centrar",
+                                    "center": "Centro",
                                     "top": "Arriba",
                                     "bottom": "Abajo"
                                 },
@@ -383,7 +383,7 @@ var common_settings_container = [
     {
         "type": "Complex",
         "name": "video_background",
-        "label": "Video background",
+        "label": "Video de fondo",
         "group": {
             "id": "complex_group",
             "title": "Complex Group",
@@ -413,7 +413,7 @@ var common_settings_container = [
                     ],
                     "options": {
                         "selfhosted": "Medios",
-                        "external": "External"
+                        "external": "Externo"
                     },
                     "use_select2": false,
                     "input_type": "radio",
@@ -440,7 +440,7 @@ var common_settings_container = [
                     ],
                     "file_type": "video",
                     "basic": false,
-                    "nonce": "7ce771dc76"
+                    "nonce": "b91d49c26f"
                 },
                 {
                     "type": "Embed",
@@ -461,8 +461,8 @@ var common_settings_container = [
                             }
                         ]
                     ],
-                    "field_index": 3,
-                    "nonce": "5ebe84ad01"
+                    "field_index": 4,
+                    "nonce": "576888b958"
                 },
                 {
                     "type": "Complex",
@@ -542,8 +542,46 @@ var common_settings_container = [
     },
     {
         "type": "Complex",
+        "name": "slider_background",
+        "label": "Slider background",
+        "group": {
+            "id": "complex_group",
+            "title": "Complex Group",
+            "description": "",
+            "fields": [
+                {
+                    "type": "Checkbox",
+                    "name": "use",
+                    "label": "Use",
+                    "field_width": 20,
+                    "fancy": true,
+                    "text": ""
+                },
+                {
+                    "type": "Text",
+                    "name": "shortcode",
+                    "label": "Shortcode",
+                    "field_width": 50,
+                    "dependencies": [
+                        [
+                            {
+                                "field": "use",
+                                "value": true,
+                                "compare": "="
+                            }
+                        ]
+                    ]
+                }
+            ],
+            "layout": "grid",
+            "style": "auto",
+            "description_position": "input"
+        }
+    },
+    {
+        "type": "Complex",
         "name": "margin",
-        "label": "Margin",
+        "label": "Márgen",
         "group": {
             "id": "complex_group",
             "title": "Complex Group",
@@ -717,7 +755,7 @@ var common_settings_container = [
     {
         "type": "Complex",
         "name": "border_radius",
-        "label": "Border Radius",
+        "label": "Redondear",
         "group": {
             "id": "complex_group",
             "title": "Complex Group",
@@ -828,7 +866,7 @@ var common_settings_container = [
     {
         "type": "Complex",
         "name": "border",
-        "label": "Borde",
+        "label": "Bordes",
         "group": {
             "id": "complex_group",
             "title": "Complex Group",
@@ -881,7 +919,7 @@ var common_settings_container = [
                             {
                                 "type": "Number",
                                 "name": "width",
-                                "label": "Border Top",
+                                "label": "Borde superior",
                                 "field_width": 10,
                                 "minimum": false,
                                 "maximum": false,
@@ -949,7 +987,7 @@ var common_settings_container = [
                             {
                                 "type": "Number",
                                 "name": "width",
-                                "label": "Border Right",
+                                "label": "Borde derecho",
                                 "field_width": 10,
                                 "minimum": false,
                                 "maximum": false,
@@ -1017,7 +1055,7 @@ var common_settings_container = [
                             {
                                 "type": "Number",
                                 "name": "width",
-                                "label": "Border Bottom",
+                                "label": "Borde inferior",
                                 "field_width": 10,
                                 "minimum": false,
                                 "maximum": false,
@@ -1085,7 +1123,7 @@ var common_settings_container = [
                             {
                                 "type": "Number",
                                 "name": "width",
-                                "label": "Border Left",
+                                "label": "Borde izquierdo",
                                 "field_width": 10,
                                 "minimum": false,
                                 "maximum": false,
@@ -1135,7 +1173,7 @@ var common_settings_container = [
     {
         "type": "Complex",
         "name": "box_shadow",
-        "label": "Box Shadow",
+        "label": "Sombra",
         "group": {
             "id": "complex_group",
             "title": "Complex Group",
@@ -1273,7 +1311,7 @@ var common_settings_container = [
     {
         "type": "Complex",
         "name": "visibility",
-        "label": "Visibility",
+        "label": "Visibilidad",
         "group": {
             "id": "complex_group",
             "title": "Complex Group",
@@ -1290,7 +1328,7 @@ var common_settings_container = [
                 {
                     "type": "Select",
                     "name": "key",
-                    "label": "Visibility",
+                    "label": "Visibilidad",
                     "field_width": 50,
                     "dependencies": [
                         [

@@ -1,0 +1,24 @@
+:has(> .slider-background)
+    overflow: hidden
+    position: relative
+    background-color: #000
+    background-image: url() !important
+    .ls-wp-container
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translateY(-50%) translateX(-50%) scale(1.01)
+        z-index: 1
+        pointer-events: none
+        width: 100%
+    .slider-background ~ *
+        position: relative
+        z-index: 56
+
+html body #slider-background.ls-overflow-visible
+    position: absolute
+    top: 0
+    left: 0
+    width: 100% !important
+    height: 100% !important
+    overflow: hidden !important

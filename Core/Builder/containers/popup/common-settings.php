@@ -114,6 +114,10 @@ Container::create( 'common_settings_container' )
                 Field::create( 'number', 'opacity' )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width(20)
             ))->hide_label()->add_dependency('use')
         )),
+        Field::create( 'complex', 'slider_background', __('Slider background', 'mv23theme') )->add_fields(array(
+            Field::create( 'checkbox', 'use' )->fancy()->set_width( 20 ),
+            Field::create( 'text', 'shortcode')->add_dependency('use')->set_width( 50 )
+        )),
         Field::create( 'complex', 'margin', __('Margin', 'mv23theme') )->add_fields(array(
             Field::create( 'checkbox', 'use' )->fancy()->set_width( 20 ),
             Field::create( 'text', 'top', __('Top','mv23theme') )->set_placeholder('0px')->add_dependency('use')->set_width( 20 ),

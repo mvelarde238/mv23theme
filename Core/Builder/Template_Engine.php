@@ -79,6 +79,7 @@ class Template_Engine{
         if ($key == 'start'){
             echo '<div '.$attributes.'>';
             echo self::check_video_background( $args );
+            echo self::check_slider_background( $args );
             echo self::check_layout('start', $args);
         }
         if ($key == 'end'){  
@@ -110,6 +111,17 @@ class Template_Engine{
             $video .= '>'.$code.'</div>';
         } 
         return $video;
+    }
+
+    public static function check_slider_background( $args ){
+        $slider_background = '';
+        if( isset($args['settings']['slider_background']) ){
+            $slider_background_settings = $args['settings']['slider_background'];
+            if($slider_background_settings['use'] && !empty($slider_background_settings['shortcode'])){
+                $slider_background = '<div id="slider-background" class="slider-background">'.do_shortcode($slider_background_settings['shortcode']).'</div>';
+            }
+        }
+        return $slider_background;
     }
 
     public static function is_private( $args ){
