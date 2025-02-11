@@ -2,7 +2,7 @@ var common_settings_container = [
     {
         "type": "Complex",
         "name": "main_attributes",
-        "label": "Main Attributes",
+        "label": "Atributos HTML",
         "group": {
             "id": "complex_group",
             "title": "Complex Group",
@@ -14,14 +14,14 @@ var common_settings_container = [
                     "label": "ID",
                     "validation_rule": "^[a-z][a-za-z0-9_-]+$",
                     "field_width": 50,
-                    "description": "<p>Identificador -ID- de la sección, usar solo minúsculas y guiones ( - )</p>\n"
+                    "description": "<p>Identificador -ID- de la sección, usar solo minúsculas y guiones (-)</p>\n"
                 },
                 {
                     "type": "Text",
                     "name": "class",
                     "label": "Classes",
                     "field_width": 50,
-                    "description": "<p>Clases de la sección, usar solo minúsculas y guiones ( -/_ )</p>\n"
+                    "description": "<p>Clases de la sección, usar solo minúsculas y guiones ( - )</p>\n"
                 }
             ],
             "layout": "grid",
@@ -41,7 +41,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "use",
-                    "label": "Use",
+                    "label": "Activar",
                     "field_width": 50,
                     "fancy": true,
                     "text": ""
@@ -61,9 +61,9 @@ var common_settings_container = [
                         ]
                     ],
                     "options": {
-                        "layout1": "Estándar",
+                        "layout1": "Layout Estándar",
                         "layout2": "Fondo extendido / Contenido centrado",
-                        "layout3": "Todo extendido"
+                        "layout3": "Todo Extendido"
                     },
                     "use_select2": false,
                     "input_type": "select",
@@ -78,7 +78,7 @@ var common_settings_container = [
     {
         "type": "Complex",
         "name": "helpers",
-        "label": "Helpers",
+        "label": "Ayudas",
         "group": {
             "id": "complex_group",
             "title": "Complex Group",
@@ -87,7 +87,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "use",
-                    "label": "Use",
+                    "label": "Activar",
                     "field_width": 50,
                     "fancy": true,
                     "text": ""
@@ -108,14 +108,14 @@ var common_settings_container = [
                         ]
                     ],
                     "options": {
-                        "disable-link-to-embed-conversion": "Disable link to embed conversion",
-                        "overflow-scroll": "Overflow scroll",
-                        "overflow-hidden": "Overflow hidden",
+                        "disable-link-to-embed-conversion": "Deshabilitar que los links se conviertan en embeds",
+                        "overflow-scroll": "Habilitar overflow scroll",
+                        "overflow-hidden": "Habilitar overflow hidden",
                         "hide-br": "Ocultar saltos de línea en tablet y móviles",
-                        "hide-br-tablet": "Ocultar saltos de línea en tablet",
+                        "hide-br-tablet": "Ocultar saltos de línea en tablets",
                         "hide-br-mobile": "Ocultar saltos de línea en móviles",
-                        "extend-bg-to-left": "Extend background to left",
-                        "extend-bg-to-right": "Extend background to right"
+                        "extend-bg-to-left": "Extender el fondo a la izquierda",
+                        "extend-bg-to-right": "Extender el fondo a la derecha"
                     },
                     "use_select2": true,
                     "input_type": "checkbox",
@@ -139,7 +139,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "use",
-                    "label": "Use",
+                    "label": "Activar",
                     "field_width": 20,
                     "fancy": true,
                     "text": ""
@@ -200,7 +200,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "use",
-                    "label": "Use",
+                    "label": "Activar",
                     "field_width": 20,
                     "fancy": true,
                     "text": ""
@@ -208,9 +208,9 @@ var common_settings_container = [
                 {
                     "type": "Select",
                     "name": "color_scheme",
-                    "label": "Color Scheme",
+                    "label": "Esquema de color",
                     "field_width": 30,
-                    "description": "<p>Some components use the .dark-scheme CSS class to adjust their color styles for better appearance in dark mode.</p>\n",
+                    "description": "<p>Algunos componentes usan la opción Dark Mode para modificar sus colores para una mejor presentación sobre fondos oscuros.</p>\n",
                     "dependencies": [
                         [
                             {
@@ -221,9 +221,9 @@ var common_settings_container = [
                         ]
                     ],
                     "options": {
-                        "default_scheme": "Default Scheme",
-                        "dark_scheme": "Dark Scheme",
-                        "custom": "Custom"
+                        "default_scheme": "Esquema de color por defecto",
+                        "dark_scheme": "Esquema Oscuro (Dark Mode)",
+                        "custom": "Personalizado"
                     },
                     "use_select2": false,
                     "input_type": "select",
@@ -267,7 +267,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "use",
-                    "label": "Use",
+                    "label": "Activar",
                     "field_width": 20,
                     "fancy": true,
                     "text": ""
@@ -275,7 +275,7 @@ var common_settings_container = [
                 {
                     "type": "Image",
                     "name": "image",
-                    "label": "Image",
+                    "label": "Imágen",
                     "field_width": 20,
                     "dependencies": [
                         [
@@ -312,7 +312,7 @@ var common_settings_container = [
                             {
                                 "type": "Select",
                                 "name": "size",
-                                "label": "Size",
+                                "label": "Tamaño",
                                 "options": {
                                     "cover": "Cover",
                                     "auto": "Automático"
@@ -324,7 +324,7 @@ var common_settings_container = [
                             {
                                 "type": "Select",
                                 "name": "repeat",
-                                "label": "Repeat",
+                                "label": "Repetir",
                                 "options": {
                                     "no-repeat": "No repetir",
                                     "repeat": "Repetir",
@@ -338,7 +338,7 @@ var common_settings_container = [
                             {
                                 "type": "Select",
                                 "name": "position_x",
-                                "label": "Position X",
+                                "label": "Posición en el eje horizontzal",
                                 "options": {
                                     "center": "Centro",
                                     "left": "Izquierda",
@@ -351,7 +351,7 @@ var common_settings_container = [
                             {
                                 "type": "Select",
                                 "name": "position_y",
-                                "label": "Position Y",
+                                "label": "Posición en el eje vertical",
                                 "options": {
                                     "center": "Centro",
                                     "top": "Arriba",
@@ -392,7 +392,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "use",
-                    "label": "Use",
+                    "label": "Activar",
                     "field_width": 20,
                     "fancy": true,
                     "text": ""
@@ -467,7 +467,7 @@ var common_settings_container = [
                 {
                     "type": "Complex",
                     "name": "video_settings",
-                    "label": "Video Settings",
+                    "label": "Ajustes del Video",
                     "hide_label": true,
                     "dependencies": [
                         [
@@ -486,7 +486,7 @@ var common_settings_container = [
                             {
                                 "type": "Color",
                                 "name": "background_color",
-                                "label": "Background Color",
+                                "label": "Color de fondo",
                                 "field_width": 20,
                                 "default_value": "#000000"
                             },
@@ -517,7 +517,7 @@ var common_settings_container = [
                             {
                                 "type": "Number",
                                 "name": "opacity",
-                                "label": "Opacity",
+                                "label": "Transparencia",
                                 "field_width": 20,
                                 "default_value": 100,
                                 "minimum": 0,
@@ -543,7 +543,7 @@ var common_settings_container = [
     {
         "type": "Complex",
         "name": "slider_background",
-        "label": "Slider background",
+        "label": "Slider de fondo",
         "group": {
             "id": "complex_group",
             "title": "Complex Group",
@@ -552,7 +552,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "use",
-                    "label": "Use",
+                    "label": "Activar",
                     "field_width": 20,
                     "fancy": true,
                     "text": ""
@@ -590,7 +590,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "use",
-                    "label": "Use",
+                    "label": "Activar",
                     "field_width": 20,
                     "fancy": true,
                     "text": ""
@@ -677,7 +677,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "use",
-                    "label": "Use",
+                    "label": "Activar",
                     "field_width": 20,
                     "fancy": true,
                     "text": ""
@@ -764,7 +764,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "use",
-                    "label": "Use",
+                    "label": "Activar",
                     "field_width": 20,
                     "fancy": true,
                     "text": ""
@@ -875,7 +875,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "use",
-                    "label": "Use",
+                    "label": "Activar",
                     "field_width": 50,
                     "fancy": true,
                     "text": ""
@@ -883,7 +883,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "unlock",
-                    "label": "Unlock",
+                    "label": "Desbloquear",
                     "field_width": 50,
                     "dependencies": [
                         [
@@ -1182,7 +1182,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "use",
-                    "label": "Use",
+                    "label": "Activar",
                     "fancy": true,
                     "text": ""
                 },
@@ -1251,7 +1251,7 @@ var common_settings_container = [
                                 {
                                     "type": "Number",
                                     "name": "alpha",
-                                    "label": "Porcentaje de Intensidad",
+                                    "label": "Intensidad",
                                     "tab": "Avanzado",
                                     "field_width": 50,
                                     "default_value": 15,
@@ -1280,10 +1280,10 @@ var common_settings_container = [
                                 {
                                     "type": "Text",
                                     "name": "spread",
-                                    "label": "Spread",
+                                    "label": "Extensión",
                                     "tab": "Avanzado",
                                     "field_width": 25,
-                                    "description": "<p>A positive value increases the size of the shadow, a negative value decreases the size of the shadow</p>\n",
+                                    "description": "<p>Un valor positivo incrementa el tamaño de la sombra, un valor negativo  la hace más pequeña</p>\n",
                                     "suffix": "px"
                                 }
                             ],
@@ -1320,7 +1320,7 @@ var common_settings_container = [
                 {
                     "type": "Checkbox",
                     "name": "use",
-                    "label": "Use",
+                    "label": "Activar",
                     "field_width": 50,
                     "fancy": true,
                     "text": ""
@@ -1343,7 +1343,7 @@ var common_settings_container = [
                         "all": "Visible para todos los usuarios",
                         "user_is_logged_in": "Visible para usuarios registrados",
                         "user_is_not_logged_in": "Visible para usuarios no registrados",
-                        "is_private": "Solo visible para usuarios admin."
+                        "is_private": "Visible para usuarios administradores"
                     },
                     "use_select2": false,
                     "input_type": "select",
@@ -1366,24 +1366,24 @@ var common_settings_container = [
             "fields": [
                 {
                     "type": "Checkbox",
-                    "name": "hide_on_mobile",
-                    "label": "Hide On Mobile",
+                    "name": "Ocultar en móviles",
+                    "label": "Ocultar En Móviles",
                     "field_width": 30,
                     "fancy": true,
                     "text": ""
                 },
                 {
                     "type": "Checkbox",
-                    "name": "hide_on_tablet",
-                    "label": "Hide On Tablet",
+                    "name": "Ocultar en tablets",
+                    "label": "Ocultar En Tablets",
                     "field_width": 30,
                     "fancy": true,
                     "text": ""
                 },
                 {
                     "type": "Checkbox",
-                    "name": "hide_on_desktop",
-                    "label": "Hide On Desktop",
+                    "name": "Ocultar en desktop",
+                    "label": "Ocultar En Desktop",
                     "field_width": 30,
                     "fancy": true,
                     "text": ""
