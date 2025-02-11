@@ -100,7 +100,7 @@ if( !empty($args['on_click_scroll_to']) ) $postcard_attributes[] = 'data-scroll-
 			</div>
 			<?php if($excerpt) echo '<div class="postcard__excerpt">'.$excerpt.'</div>'; ?>
 			<div class="postcard__link">
-				<a class="trigger-post-action" href="<?=$link?>">Leer más →</a>
+				<a class="trigger-post-action" href="<?=$link?>"><?php _e('Read More','mv23theme') ?> →</a>
 			</div>
 		</div>
 	</div>
