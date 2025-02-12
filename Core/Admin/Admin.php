@@ -220,4 +220,8 @@ class Admin extends Theme_Header_Data {
         
         return $mimes;
     }
+
+    public function lower_yoast_metabox_priority( $priority ) {
+        return 'core';
+    }
 }

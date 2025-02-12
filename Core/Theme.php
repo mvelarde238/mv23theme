@@ -146,6 +146,9 @@ class Theme extends Theme_Header_Data {
         // add support for fonts mime types
         $this->loader->add_filter( 'upload_mimes', $admin, 'custom_mime_types_support' );
 
+        // Lowers the metabox priority to 'core' for Yoast SEO's metabox
+        $this->loader->add_filter( 'wpseo_metabox_prio', $admin, 'lower_yoast_metabox_priority' );
+
         // ajax callback to load posts in listing component
         $ajax_load_posts = new Ajax_Load_Posts();
 

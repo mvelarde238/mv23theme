@@ -5,6 +5,7 @@ CHANGELOG
 1.5.55 25-02-11
 - Slider background implementation in common settings
 - Common Settings Translation
+- Lowers the metabox priority to 'core' for Yoast SEO's metabox
 
 1.5.54 25-02-10
 - Fix 2 in listing -default- argument name affected by internazionalization
