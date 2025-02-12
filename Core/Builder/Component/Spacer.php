@@ -19,7 +19,7 @@ class Spacer extends Component {
     }
 
     public static function get_title_template() {
-		$template = '<%= height %><%= unit %>';
+		$template = '<%= spacer_options_wrapper.height %><%= spacer_options_wrapper.unit %>';
 		
 		return $template;
 	}
@@ -27,8 +27,10 @@ class Spacer extends Component {
 	public static function get_fields() {
 		$fields = array( 
             Field::create( 'tab', __('Content','mv23theme') ),
-            Field::create( 'number', 'height', 'Tamaño de alto' )->set_default_value( '30' )->set_width( 50 ),
-            Field::create( 'text', 'unit', 'Medida (px,%,vh..)' )->set_default_value( 'px' )->set_width( 50 ),
+			Field::create( 'complex', 'spacer_options_wrapper' )->hide_label()->add_fields(array(
+				Field::create( 'number', 'height', 'Tamaño de alto' )->set_default_value( '30' )->set_width( 50 ),
+				Field::create( 'text', 'unit', 'Medida (px,%,vh..)' )->set_default_value( 'px' )->set_width( 50 )
+			))
         );
 
 		return $fields;
