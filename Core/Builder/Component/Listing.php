@@ -448,7 +448,7 @@ class Listing extends Component {
                 case 'load_more':
                     $load_more_text = LISTING_LOAD_MORE_TEXT;
                     $current_lang = (function_exists('pll_current_language')) ? pll_current_language() : 'es';
-                    echo '<p class="aligncenter"><button class="btn load_more_posts" data-paged="2">'.$load_more_text[$current_lang].'</button></p>'; 
+                    echo '<p class="aligncenter"><button class="btn load_more_posts" data-paged="2"><i class="bi bi-arrow-repeat"></i>'.$load_more_text[$current_lang].'</button></p>'; 
                     break;
     
                 default:

@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.56 25-02-13
 - Listing structure (view and js) refactorization
+- Listing component: Load more posts button icon
 
 1.5.55 25-02-11
 - Slider background implementation in common settings

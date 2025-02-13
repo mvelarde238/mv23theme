@@ -1,3 +1,10 @@
+.listing
+    .load_more_posts i
+        margin-right: 8px
+        display: inline-block
+    &[data-status="loading"] .load_more_posts i
+        animation: rotating1 1.2s linear infinite
+
 .posts-listing
     .carrusel__slider
         align-items: flex-start
@@ -12,3 +19,9 @@
         right: initial !important
         margin-left: initial !important
         margin-right: initial !important
+
+@keyframes rotating1
+    from
+        -webkit-transform: rotate(0deg)
+    to
+        -webkit-transform: rotate(360deg)
