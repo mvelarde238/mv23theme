@@ -27,7 +27,7 @@ class Spacer extends Component {
 	public static function get_fields() {
 		$fields = array( 
             Field::create( 'tab', __('Content','mv23theme') ),
-			Field::create( 'complex', 'spacer_options_wrapper' )->hide_label()->add_fields(array(
+			Field::create( 'complex', 'spacer_options_wrapper' )->merge()->hide_label()->add_fields(array(
 				Field::create( 'number', 'height', 'Tamaño de alto' )->set_default_value( '30' )->set_width( 50 ),
 				Field::create( 'text', 'unit', 'Medida (px,%,vh..)' )->set_default_value( 'px' )->set_width( 50 )
 			))
