@@ -4,34 +4,27 @@
     var current_lang = MV23_GLOBALS.lang;
     var loading_text = MV23_GLOBALS.listing_loading_text[current_lang];
 
-    function do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, on_click_scroll_to, wookey, pagination_type){
+    function do_the_ajax($component, $listing, $pagination, $filter, paged, action){
+
+        var formData = create_form_data($filter),
+            listing_args = $component.attr('data-listing-args'),
+            paged = paged || 1,
+            listing_template = listing_args.listing_template,
+            scrollTop = listing_args.scrollTop;
+
+        formData.append('action', "load_posts");
+        formData.append('nonce', MV23_GLOBALS.nonce);
+        formData.append('lang', MV23_GLOBALS.lang);
+        formData.append('listing_args', listing_args);
+        formData.append('paged', paged);
 
         $.ajax({
             type: 'POST',
             dataType: "json",
             url: MV23_GLOBALS.ajaxUrl,
-            data: { 
-                action: "load_posts",
-                nonce: MV23_GLOBALS.nonce,
-                lang: MV23_GLOBALS.lang,
-                post_template: post_template,
-                listing_template: listing_template,
-                on_click_post: on_click_post,
-                on_click_scroll_to: on_click_scroll_to,
-                terms: (filterValues.terms) ? filterValues.terms : terms,
-                paged: paged || 1,
-                per_page: per_page,
-                offset: offset,
-                order: order,
-                orderby: orderby,
-                wookey: wookey,
-                posttype : posttype,
-                taxonomies: taxonomies,
-                search: filterValues.search,
-                year: filterValues.year,
-                month: filterValues.month,
-                pagination_type: pagination_type
-            },
+            data: formData,
+            processData: false,
+            contentType: false,
             beforeSend: function(){
                 $component.attr('data-status','loading');
                 $pagination && $pagination.html('<p class="center">'+loading_text+'</p>');
@@ -63,12 +56,12 @@
                         $listing.trigger('listingUpdated', {listing:$listing, items:$items, action:action, response:response});
                         $pagination && $pagination.html(response.pagination);
 
-                        var scrolltop = $component.attr("data-scrolltop");
-                        if(scrolltop) {
+                        if(scrollTop) {
                             var headerHeight = MV23_GLOBALS.headerHeight;
                             $("html, body").animate({ scrollTop: ($component.offset().top - headerHeight) }, {duration: 800, queue: false, easing: 'easeOutCubic'});
                         }
                         break;
+
                     case 'error':
                         if ( listing_template === 'carrusel' ) {
                             carousel.destroy();
@@ -79,6 +72,7 @@
                         if ( listing_template === 'carrusel' ) MV23_GLOBALS.carousels[ tns_uid ] = create_tns_slider( $items_container[0] );
                         $pagination && $pagination.html('');
                         break;
+
                     default:
                         c(response);
                 }
@@ -93,111 +87,36 @@
         return (paged) ? paged : 1;
     }
 
-    function getFilterValues($filter){
-        var $year_selector = $filter.find('.posts-filter__year-select'),
-            $month_selector = $filter.find('.posts-filter__month-select'),
-            $search_input = $filter.find('.posts-filter__search-input'),
-            $terms_selects = $filter.find('.posts-filter__term-select'),
-            year = ($year_selector.length) ? $year_selector.val() : '',
-            month = ($month_selector.length) ? $month_selector.val() : '',
-            search = ($search_input.length) ? $search_input.val() : '',
-            terms = '';
-
-        if( $terms_selects.length ){
-            var term_values = [];
-            $terms_selects.each(function(i,elem){
-                term_values.push( $(elem).val() );
-            });
-            var are_terms_selected = false;
-            for (let i = 0; i < term_values.length; i++) {
-                if( term_values != '' ){
-                    are_terms_selected = true;
-                    break;
-                } 
-            }
-            if(are_terms_selected) terms = term_values.join();
-        }
-
-        var areParams = (terms == '' && year == '' && month == '' && search == '') ? false : true;
-
-        return {areParams:areParams, terms:terms, search:search, year:year, month:month}
-    };
-
     if( $components.length ){
         $components.each(function(i, e){
             var $component = $(e),
-                $filter = $component.find('.posts-filter'),
-                $listing = $component.find('.posts-listing');
+                $filter = $component.find('.posts-filter form'),
+                $listing = $component.find('.posts-listing'),
+                $pagination = $component.find('.pagination');
     
             $component.on('click','a.page-numbers', function(event){
                 event.preventDefault();
                 var href = event.target.getAttribute('href'),
                     paged = getPagedParameter(href),
-                    $pagination = $component.find('.pagination'),
-                    posttype = $component.attr("data-posttype"),
-                    taxonomies = $component.attr("data-taxonomies"),
-                    terms = $component.attr("data-terms"),
-                    post_template = $component.attr("post-template"),
-                    listing_template = $component.attr("listing-template"),                    
-                    on_click_post = $component.attr("on-click-post"),
-                    on_click_scroll_to = $component.attr("on-click-scroll-to"),
-                    per_page = $component.attr("data-qty"),
-                    offset = $component.attr("data-offset"),
-                    order = $component.attr("data-order"),
-                    orderby = $component.attr("data-orderby"),
-                    wookey = $component.attr("data-wookey"),
-                    pagination_type = $component.attr("data-pagination"),
-                    action = 'replace',
-                    filterValues = getFilterValues($filter);
-                
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, on_click_scroll_to, wookey, pagination_type);
+                    action = 'replace';
+                    
+                do_the_ajax($component, $listing, $pagination, $filter, paged, action);
             });
             
             $component.on('click','.load_more_posts', function(event){
                 event.preventDefault();
                 var $this = $(this),
                     paged = $this.attr("data-paged"),
-                    $pagination = null,
-                    posttype = $component.attr("data-posttype"),
-                    taxonomies = $component.attr("data-taxonomies"),
-                    terms = $component.attr("data-terms"),
-                    post_template = $component.attr("post-template"),
-                    listing_template = $component.attr("listing-template"),                    
-                    on_click_post = $component.attr("on-click-post"),
-                    on_click_scroll_to = $component.attr("on-click-scroll-to"),
-                    per_page = $component.attr("data-qty"),
-                    offset = $component.attr("data-offset"),
-                    order = $component.attr("data-order"),
-                    orderby = $component.attr("data-orderby"),
-                    wookey = $component.attr("data-wookey"),
-                    pagination_type = $component.attr("data-pagination"),
-                    action = 'append',
-                    filterValues = getFilterValues($filter);
-                
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, on_click_scroll_to, wookey, pagination_type);
+                    action = 'append';
+
+                do_the_ajax($component, $listing, null, $filter, paged, action);
             });
             
             $component.on('click','.posts-filter__submit',function(ev){
                 ev.preventDefault();
-                var $pagination = $component.find('.pagination'),
-                    posttype = $component.attr("data-posttype"),
-                    taxonomies = $component.attr("data-taxonomies"),
-                    terms = $component.attr("data-terms"),
-                    post_template = $component.attr("post-template"),
-                    listing_template = $component.attr("listing-template"),                    
-                    on_click_post = $component.attr("on-click-post"),
-                    on_click_scroll_to = $component.attr("on-click-scroll-to"),
-                    per_page = $component.attr("data-qty"),
-                    offset = $component.attr("data-offset"),
-                    order = $component.attr("data-order"),
-                    orderby = $component.attr("data-orderby"),
-                    wookey = $component.attr("data-wookey"),
-                    pagination_type = $component.attr("data-pagination"),
-                    paged = 1,
-                    action = 'replace',
-                    filterValues = getFilterValues($filter);
+                var paged = 1, action = 'replace';
 
-                do_the_ajax($component, terms, paged, post_template, per_page, $listing, $pagination, posttype, taxonomies, action, filterValues, order, orderby, offset, listing_template, on_click_post, on_click_scroll_to, wookey, pagination_type);
+                do_the_ajax($component, $listing, $pagination, $filter, paged, action);
             });
 
             $component.on('listingUpdated', function(e,data){

@@ -218,13 +218,13 @@ class Listing extends Component {
         
         if ($source_type == 'auto') {
             $posttype = $args['posttype'];
-            $qty = (isset($args['qty'])) ? $args['qty'] : 3;
+            $posts_per_page = (isset($args['qty'])) ? $args['qty'] : 3;
             $order = (isset($args['order'])) ? $args['order'] : 'DESC';
             $orderby = (isset($args['orderby'])) ? $args['orderby'] : 'date';
             $offset = (isset($args['offset'])) ? $args['offset'] : 0;
             $args_query = array( 
                 'post_type' => $posttype,
-                'posts_per_page' => $qty,
+                'posts_per_page' => $posts_per_page,
                 'order' => $order,
                 'orderby' => $orderby,
                 'offset' => $offset,
@@ -326,25 +326,23 @@ class Listing extends Component {
         
         $query = new WP_Query( $args_query ); 
 
-        $args['additional_attributes'] = array( 
-            'data-posttype="'.$posttype.'"',
-            'data-taxonomies="'.implode(',',$query_taxonomies).'"',
-            'data-terms="'.implode(',',$query_terms).'"',
-            'post-template="'.$postcard_template.'"',
-            'listing-template="'.$listing_template.'"',
-            'on-click-post="'.$on_click_post.'"',
-            'on-click-scroll-to="'.$on_click_scroll_to.'"',
-            'data-wookey="'.$woocommerce_key.'"',
-            'data-scrolltop="'.$scrolltop.'"',
-            'data-pagination="'.$pagination_type.'"'
+        $listing_args = array(
+            'post_template' => $postcard_template,
+            'listing_template' => $listing_template,
+            'on_click_post' => $on_click_post,
+            'on_click_scroll_to' => $on_click_scroll_to,
+            'taxonomies' => $query_taxonomies,
+            'terms' => $query_terms,
+            'per_page' => $posts_per_page,
+            'offset' => $offset,
+            'order' => $order,
+            'orderby' => $orderby,
+            'wookey' => $woocommerce_key,
+            'posttype' => $posttype,
+            'pagination_type' => $pagination_type,
+            'scrollTop' => $scrolltop
         );
-
-        if ($source_type == 'auto') {
-            $args['additional_attributes'][] = 'data-qty="'.$qty.'"';
-            $args['additional_attributes'][] = 'data-offset="'.$offset.'"';
-            $args['additional_attributes'][] = 'data-order="'.$order.'"';
-            $args['additional_attributes'][] = 'data-orderby="'.$orderby.'"';
-        }
+        $args['additional_attributes'][] = "data-listing-args='".json_encode($listing_args)."'";
 
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);

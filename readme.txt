@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.56 25-02-13
+- Listing structure (view and js) refactorization
+
 1.5.55 25-02-11
 - Slider background implementation in common settings
 - Common Settings Translation

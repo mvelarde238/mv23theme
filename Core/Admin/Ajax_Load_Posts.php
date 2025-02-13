@@ -16,28 +16,28 @@ class Ajax_Load_Posts{
             array("es" => "No hubieron resultados", "en" => "No matches were found"),
             array("es" => "No se enviaron parámetros", "en" => "No parameters were sent")
         );
+
+        $filter_values = $_REQUEST;
+        $paged = $_REQUEST["paged"];
         $lang = $_REQUEST["lang"];
 
-        $posttype = $_REQUEST["posttype"];
-        $paged = $_REQUEST["paged"];
-        $taxonomies = explode(',',$_REQUEST["taxonomies"]);
-        $terms = explode(',',$_REQUEST["terms"]);
-        $search = $_REQUEST["search"];
-        $year = $_REQUEST["year"];
-        $month = $_REQUEST["month"];
-        $postcard_template = $_REQUEST["post_template"];
-        $listing_template = $_REQUEST["listing_template"];
-        $on_click_post = $_REQUEST["on_click_post"];
-        $on_click_scroll_to = $_REQUEST["on_click_scroll_to"];
-        $per_page = $_REQUEST["per_page"];
-        $offset = $_REQUEST["offset"];
-        $order = $_REQUEST["order"];
-        $orderby = $_REQUEST["orderby"];
-        $wookey = $_REQUEST["wookey"];
-        $pagination_type = $_REQUEST["pagination_type"];
+        $listing_args = json_decode(stripslashes($_REQUEST['listing_args']), true);
+        $posttype = $listing_args["posttype"];
+        $taxonomies = $listing_args["taxonomies"];
+        $terms = $listing_args["terms"];
+        $postcard_template = $listing_args["post_template"];
+        $listing_template = $listing_args["listing_template"];
+        $on_click_post = $listing_args["on_click_post"];
+        $on_click_scroll_to = $listing_args["on_click_scroll_to"];
+        $per_page = $listing_args["per_page"];
+        // $offset = (int) $listing_args["offset"];
+        $order = $listing_args["order"];
+        $orderby = $listing_args["orderby"];
+        $wookey = $listing_args["wookey"];
+        $pagination_type = $listing_args["pagination_type"];
 
         if ( $posttype && $paged && $per_page ) {
-            $paged = ($paged) ? $paged : 1;
+            $paged = ($paged) ? (int) $paged : 1;
 
             $args_query = array( 
                 'post_type' => $posttype, 
@@ -51,18 +51,17 @@ class Ajax_Load_Posts{
 
             if( is_array($taxonomies) && is_array($terms) ){
                 $tax_query = array( 'relation' => 'AND' );
-                $count = 0;
+
                 foreach ($taxonomies as $tax) {
-                    if( isset($terms[$count]) && !empty($terms[$count]) ){   
+                    if( isset( $filter_values[$tax] ) && !empty( $filter_values[$tax] ) ){   
                         array_push($tax_query, array(
                             'taxonomy' => $tax,
                             'field' => 'term_id',
-                            'terms' => array( $terms[$count] ),
+                            'terms' => array( $filter_values[$tax] ),
                             'include_children' => true,
                             'operator' => 'IN'
                         ));
                     }
-                    $count++;
                 }
 
                 if($wookey == 'featured'){
@@ -77,11 +76,14 @@ class Ajax_Load_Posts{
                 if( count($tax_query) > 1 ) $args_query['tax_query'] = $tax_query;
             }
 
-            if ($search) {
-                $args_query['s'] =  $search;
+            if ( isset($filter_values['search']) && !empty($filter_values['search']) ) {
+                $args_query['s'] =  $filter_values['search'];
             }
     
-            if ($year || $month) {
+            if ( isset($filter_values['year']) || isset($filter_values['month']) ) {
+                $year = $filter_values['year'] ?? null;
+                $month = $filter_values['month'] ?? null;
+
                 switch ($posttype) {
                     case 'event':
                         if ($year && $month) $dates = array( $year.'-'.$month.'-01 01:00:00', $year.'-'.$month.'-31 23:59:59' );
@@ -151,8 +153,7 @@ class Ajax_Load_Posts{
                     }
                     if($pagination_type == 'load_more'){
                         $load_more_text = LISTING_LOAD_MORE_TEXT;
-                        $current_lang = (function_exists('pll_current_language')) ? pll_current_language() : 'es';
-                        echo '<p class="aligncenter"><button class="btn load_more_posts" data-paged="2">'.$load_more_text[$current_lang].'</button></p>'; 
+                        echo '<p class="aligncenter"><button class="btn load_more_posts" data-paged="2">'.$load_more_text[$lang].'</button></p>'; 
                     }
                     $result['pagination'] = ob_get_clean();
                     $result['max_num_pages'] = $query->max_num_pages;

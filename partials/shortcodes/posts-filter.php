@@ -36,7 +36,7 @@ function print_posts_filter( $atts ) {
         <form action="" method="GET">
             <div class="field-wrapper">
                 <span class="field-desc"><?php echo $search[$current_lang] ?></span>
-                <input type="text" class="posts-filter__search-input">
+                <input type="text" name="search" class="posts-filter__search-input">
             </div>
             <?php if ( is_array($taxonomies) && count($taxonomies) > 0 ) : 
                 $count = 0;
@@ -50,7 +50,7 @@ function print_posts_filter( $atts ) {
                         ?>
                         <div class="field-wrapper">
                             <span class="field-desc"><?php echo $tax_name[$current_lang] ?></span>
-                            <select class="posts-filter__term-select">
+                            <select name="<?=$tax?>" class="posts-filter__term-select">
                                 <option value=""><?php echo $all[$current_lang] ?></option>
                                 <?php foreach ($terms as $term): ?>
                                     <option value="<?php echo $term->term_id ?>" <?php selected( $default_term, $term->term_id, true) ?>><?php echo $term->name ?></option>
@@ -65,7 +65,7 @@ function print_posts_filter( $atts ) {
             <?php if ($a['show_month']) : ?>
             <div class="field-wrapper">
                 <span class="field-desc"><?php echo $month[$current_lang] ?></span>
-                <select class="posts-filter__month-select">
+                <select name="month" class="posts-filter__month-select">
                     <option value=""><?php echo $allm[$current_lang] ?></option>
                     <?php for ($i=0; $i < count($months[$current_lang]); $i++) {
                         $value = ( $i < 10 ) ? '0'.($i+1) : $i+1;  
@@ -77,7 +77,7 @@ function print_posts_filter( $atts ) {
             <?php if ($a['show_year']) : ?>
             <div class="field-wrapper">
                 <span class="field-desc"><?php echo $year[$current_lang] ?></span>
-                <select name="Y" class="posts-filter__year-select">
+                <select name="year" class="posts-filter__year-select">
                     <option value=""><?php echo $allm[$current_lang] ?></option>
                     <?php for ($i=$current_year; $i >= $first_year ; $i--) { ?>
                         <option value="<?=$i?>" <?php selected( $a['default_year'], $i, true) ?>><?=$i?></option>
@@ -86,9 +86,7 @@ function print_posts_filter( $atts ) {
             </div>
             <?php endif; ?>
             <div class="field-wrapper">
-                <input type="hidden" value="<?=$a['posttype']?>" class="posts-filter__posttype">
-                <input type="hidden" value="<?=$a['filter_taxonomies']?>" class="posts-filter__taxonomies">
-                <button class="posts-filter__submit btn btn--main-color btn-block"><?php echo $filter[$current_lang] ?></button>
+                <button type="submit" class="posts-filter__submit btn btn--main-color btn-block"><?php echo $filter[$current_lang] ?></button>
             </div>
         </form>
     </div>
