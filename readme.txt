@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.57 25-02-14
+- Add .qodo folder to .gitignore
+
 1.5.56 25-02-13
 - Listing structure (view and js) refactorization
 - Listing component: Load more posts button icon
