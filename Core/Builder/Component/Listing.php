@@ -19,13 +19,9 @@ class Listing extends Component {
         return 'dashicons-screenoptions';
     }
 
-    public static function get_layout(){
-        return 'grid';
-    }
-
     public static function get_title_template() {
 		$template = '<% if ( show == "auto" || (show == "manual" && posts.lenght) ){ %>
-            Auto | Show <%= ( qty != "-1" ) ? qty : "all" %> <%= posttype %> 
+            Auto | Show <%= ( other_settings_wrapper.qty != "-1" ) ? other_settings_wrapper.qty : "all" %> <%= posttype %> 
             <%= (list_template) ? " | List template: "+list_template : "" %> 
             <%= (post_template) ? " | Post template: "+post_template : "" %> 
         <% } else { %>
@@ -61,113 +57,132 @@ class Listing extends Component {
 
         $listing_fields_1 = array( 
             Field::create( 'tab', __('Content','mv23theme') ),
-            Field::create( 'radio', 'show','Seleccione qué entradas se van a mostrar:')->set_orientation( 'horizontal' )->add_options( array(
-                'auto'=>'Automático (últimos posts publicados)',
+            Field::create( 'radio', 'show', __('Source','mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
+                'auto'=>__('Automatic (Latest published posts)','mv23theme'),
                 'manual'=>'Manual',
             )),
-            Field::create( 'wp_objects', 'posts', '' )->set_button_text( 'Selecciona los posts' )->add_dependency('show','manual','='),
+            Field::create( 'wp_objects', 'posts', '' )->set_button_text( __('Select the posts','mv23theme') )->add_dependency('show','manual','='),
         
-            Field::create( 'number', 'qty', 'Cantidad de posts' )->add_dependency('show','auto','=')->set_default_value(3)->set_width(16),
-            Field::create( 'select', 'posttype', 'Tipo de Posts' )->add_dependency('show','auto','=')->add_options($listing_cpts)->set_width(16),
+            Field::create( 'select', 'posttype', __('Post type','mv23theme') )->add_options($listing_cpts)->add_dependency('show','auto','=')
         );
 
         if(WOOCOMMERCE_IS_ACTIVE){
-            $woocommerce_keys_field = Field::create('select','woocommerce_key','WooCommerce Tag')->add_dependency('show','auto','=')->add_dependency('posttype', 'product', '=')->set_width(16)->add_options(array(
-                '' => 'Ninguno',
-                'featured' => 'Destacados',
-                'on_sale' => 'En Oferta',
-                'best_selling' => 'Más vendidos'
-            ));
+            $woocommerce_keys_field = Field::create('select','woocommerce_key','WooCommerce Tag')
+                ->add_dependency('show','auto','=')
+                ->add_dependency('../posttype', 'product', '=')
+                ->add_options(array(
+                    '' => __('None','mv23theme'),
+                    'featured' => __('Featured','mv23theme'),
+                    'on_sale' => __('On Sale','mv23theme'),
+                    'best_selling' => __('Best Selling','mv23theme')
+                ))->set_width(16);
+
             array_push($listing_fields_1, $woocommerce_keys_field);
         }
 
         if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
-            $taxonomies_field = Field::create( 'complex', 'taxonomies_field' )->set_width(50)->hide_label();
+            $taxonomies_field = Field::create( 'complex', 'taxonomies_field', __('Categories','mv23theme') )
+                ->add_dependency('show','auto','=');
+
             foreach($listing_taxonomies as $tax){
                 $taxonomies_field->add_fields( array(
-                    Field::create( 'multiselect', $tax['slug'] )->add_terms( $tax['slug'] )->add_dependency('../show','auto','=')->add_dependency('../posttype', $tax['cpt_slug'], '=')->set_width(20) 
+                    Field::create( 'multiselect', $tax['slug'] )->add_terms( $tax['slug'] )
+                        ->add_dependency('../posttype', $tax['cpt_slug'], '=')
+                        ->set_width(20)
                 ));
             }
             array_push($listing_fields_1, $taxonomies_field);
         }
 
         $listing_fields_2 = array( 
-            Field::create( 'select', 'order', 'Orden' )->add_dependency('show','auto','=')->add_options(array(
-                'DESC' => 'Descendente',
-                'ASC' => 'Ascendente'
-            ))->set_width(25),
-            Field::create( 'select', 'orderby', 'Ordenar por:' )->add_dependency('show','auto','=')->add_options(array(
-                'date' => 'Fecha',
-                'title' => 'Título',
-                'name' => 'Slug',
-                'rand' => 'Random',
-                'menu_order' => 'Personalizado',
-                // 'comment_count' => 'Comentarios'
-            ))->set_width(25),
-            Field::create( 'number', 'offset', 'Offset' )->add_dependency('show','auto','=')->set_width(25),
+            Field::create( 'complex', 'other_settings_wrapper', '' )->merge()->add_fields(array(
+                Field::create( 'number', 'qty', __('Number of posts','mv23theme') )->set_default_value(3)->set_width(25),
+                Field::create( 'select', 'order', __('Order','mv23theme') )->add_options(array(
+                    'DESC' => __('Descending','mv23theme'),
+                    'ASC' => __('Ascending','mv23theme')
+                ))->set_width(25),
+                Field::create( 'select', 'orderby', __('Order by','mv23theme') )->add_options(array(
+                    'date' => __('Date','mv23theme'),
+                    'title' => __('Title','mv23theme'),
+                    'name' => __('Name','mv23theme'),
+                    'rand' => __('Random','mv23theme'),
+                    'menu_order' => __('Custom','mv23theme'),
+                    // 'comment_count' => __('Comentarios','mv23theme')
+                ))->set_width(25),
+                Field::create( 'number', 'offset', 'Offset' )->set_width(25),
+            ))->add_dependency('show','auto','='),
             
-            Field::create( 'tab', 'List Template'),
-            Field::create( 'radio', 'list_template', 'Template' )->set_orientation( 'horizontal' )->add_options($listing_templates)->hide_label(),
+            Field::create( 'tab', __('List Template','mv23theme')),
+            Field::create( 'radio', 'list_template', 'Template' )->set_orientation( 'horizontal' )->add_options($listing_templates),
             
-            Field::create( 'checkbox', 'show_controls' )->set_width( 33 )->set_text('Mostrar Flechas')->add_dependency('list_template','carrusel','='),
-            Field::create( 'checkbox', 'show_nav' )->set_width( 33 )->set_text('Mostrar indicadores de página')->add_dependency('list_template','carrusel','='),
-            Field::create( 'checkbox', 'autoplay' )->set_width( 33 )->set_text('Empezar automáticamente')->add_dependency('list_template','carrusel','='),
+            Field::create( 'complex', 'carrusel_settings_wrapper', '' )->merge()->add_fields(array(
+                Field::create( 'checkbox', 'show_controls' )->set_width( 33 )->hide_label()->set_text(__('Show controls','mv23theme')),
+                Field::create( 'checkbox', 'show_nav' )->set_width( 33 )->hide_label()->set_text(__('Show carrusel nav','mv23theme')),
+                Field::create( 'checkbox', 'autoplay' )->set_width( 33 )->hide_label()->set_text(__('Start automatically','mv23theme'))
+            ))->add_dependency('list_template','carrusel','='),
             
-            Field::create( 'section', 'Cantidad de columnas' ),
-            Field::create( 'number', 'items_in_desktop', 'Columnas en desktop' )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(3),
-            Field::create( 'number', 'items_in_laptop', 'Columnas en laptop' )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(3),
-            Field::create( 'number', 'items_in_tablet', 'Columnas en tablet' )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(2),
-            Field::create( 'number', 'items_in_mobile', 'Columnas en móviles' )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(1),
+            Field::create( 'complex', 'columns_qty_wrapper', __('Number of Columns','mv23theme') )->merge()->add_fields(array(
+                Field::create( 'number', 'items_in_desktop', __('Desktop','mv23theme') )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(3),
+                Field::create( 'number', 'items_in_laptop', __('Laptop','mv23theme') )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(3),
+                Field::create( 'number', 'items_in_tablet', __('Tablet','mv23theme') )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(2),
+                Field::create( 'number', 'items_in_mobile', __('Mobile','mv23theme') )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(1)
+            )),
             
-            Field::create( 'section', 'Espacio entre las columnas' ),
-            Field::create( 'number', 'd_gap', 'En desktop' )->set_default_value(50)->set_width( 25 ),
-            Field::create( 'number', 'l_gap', 'En laptop' )->set_default_value(40)->set_width( 25 ),
-            Field::create( 'number', 't_gap', 'En tablet' )->set_default_value(30)->set_width( 25 ),
-            Field::create( 'number', 'm_gap', 'En móviles' )->set_default_value(20)->set_width( 25 ),
+            Field::create( 'complex', 'gap_wrapper', __('Space between columns','mv23theme') )->merge()->add_fields(array(
+                Field::create( 'number', 'd_gap', __('Desktop','mv23theme') )->set_default_value(50)->set_width( 25 ),
+                Field::create( 'number', 'l_gap', __('Laptop','mv23theme') )->set_default_value(40)->set_width( 25 ),
+                Field::create( 'number', 't_gap', __('Tablet','mv23theme') )->set_default_value(30)->set_width( 25 ),
+                Field::create( 'number', 'm_gap', __('Mobile','mv23theme') )->set_default_value(20)->set_width( 25 )
+            )),
             
-            Field::create( 'tab', 'Post Template'),
-            Field::create( 'radio', 'post_template', 'Template' )->set_orientation( 'vertical' )->add_options($listing_post_template)->hide_label(),
-            Field::create( 'section', 'Acciones' ),
-            Field::create( 'select', 'on_click_post', 'Al hacer click en el post:' )->add_options(array(
-                'redirect' => 'Redirigir a la página del post',
-                'show-expander' => 'Mostrar el post en la misma página',
-                'show-popup' => 'Mostrar el post en un popup',
-                'none' => 'Ninguna'
-            ))->set_width( 50 ),
-            Field::create( 'select', 'on_click_scroll_to', 'Al hacer click mover el scroll a:' )->add_options(array(
-                '' => 'No mover el scroll',
-                'postcard' => 'Al post card',
-                'expander' => 'Al expander'
-            ))->add_dependency( 'on_click_post', 'show-expander', '=' )->set_width( 50 ),
+            Field::create( 'tab', __('Post Card','mv23theme')),
+            Field::create( 'radio', 'post_template', 'Template' )->set_orientation( 'vertical' )->add_options($listing_post_template),
+            Field::create( 'select', 'on_click_post', __('On click the post card:','mv23theme') )->add_options(array(
+                'redirect' => __('Redirect to the post page','mv23theme'),
+                'show-expander' => __('Show the post in the same page','mv23theme'),
+                'show-popup' => __('Show the post on a pop up','mv23theme'),
+                'none' => __('None','mv23theme')
+            )),
+            Field::create( 'select', 'on_click_scroll_to', __('On click, scroll to:','mv23theme') )->add_options(array(
+                '' => __('Dont move the scroll','mv23theme'),
+                'postcard' => __('To the post card','mv23theme'),
+                'expander' => __('To the expander','mv23theme'),
+            ))->add_dependency( 'on_click_post', 'show-expander', '=' ),
             
-            Field::create( 'tab', 'Paginado'),
-            Field::create( 'select', 'pagination_type', 'Paginado' )->add_dependency('show','auto','=')->add_options(LISTING_PAGINATION_TYPES)->hide_label()->set_width( 25 ),
-            Field::create( 'checkbox', 'scrolltop' )->set_text('Scroll to top')->add_dependency('pagination_type','classic','=')->hide_label()->set_width( 25 ),
+            Field::create( 'tab', __('Pagination','mv23theme')),
+            Field::create( 'select', 'pagination_type', __('Pagination type','mv23theme') )->add_dependency('show','auto','=')->add_options(LISTING_PAGINATION_TYPES),
+            Field::create( 'checkbox', 'scrolltop', '' )->set_text(__('Scroll to top','mv23theme'))->add_dependency('pagination_type','classic','='),
         );
 
         $listing_fields_filter = array(
-            Field::create( 'tab', 'Filter'),
-            Field::create( 'checkbox', 'filter', 'Filtro' )->set_text( 'Mostrar Filtros' )->set_width(10)
+            Field::create( 'tab', __('Filter','mv23theme')),
+            Field::create( 'checkbox', 'filter', __('Filter','mv23theme') )->set_text( __('Show filters','mv23theme') )->fancy()
         );
 
         if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
             foreach($listing_taxonomies as $tax){
                 array_push($listing_fields_filter, 
-                    Field::create( 'complex', $tax['slug'].'-filter', $tax['slug'] )->add_fields(array(
-                        Field::create( 'checkbox', 'show' )->set_text( 'Mostrar' )->hide_label(),
-                        Field::create( 'select', 'default_value' )->add_terms( $tax['slug'] )->add_dependency('show')
-                    ))->add_dependency('filter')->add_dependency('show','auto','=')->add_dependency('posttype', $tax['cpt_slug'], '=')->set_width(10)
+                    Field::create( 'complex', $tax['slug'].'-filter', $tax['slug'] )
+                        ->add_dependency('show','auto','=')
+                        ->add_dependency('filter')
+                        ->add_dependency('posttype', $tax['cpt_slug'], '=')
+                        ->add_fields(array(
+                            Field::create( 'checkbox', 'show' )->set_text( __('Activate','mv23theme') )->fancy()->hide_label()->set_width(50),
+                            Field::create( 'select', 'default_value', __('Default value','mv23theme') )->add_terms( $tax['slug'] )->add_dependency('show')->set_width(50)
+                        ))
                 );
             }
         }
 
-        array_push($listing_fields_filter, Field::create( 'complex', 'month-filter', 'Mes' )->add_fields(array(Field::create( 'checkbox', 'show' )->set_text( 'Mostrar' )->hide_label()))->add_dependency('filter')->set_width(10) );
+        array_push($listing_fields_filter, Field::create( 'complex', 'month-filter', __('Month','mv23theme') )->add_fields(array(
+            Field::create( 'checkbox', 'show' )->set_text( __('Activate','mv23theme') )->fancy()->hide_label()
+        ))->add_dependency('filter'));
 
-        array_push($listing_fields_filter, Field::create( 'complex', 'year-filter', 'Año' )->add_fields(array(
-            Field::create( 'checkbox', 'show' )->set_text( 'Mostrar' )->hide_label(),
-            Field::create( 'number', 'first_year', 'Primer Año' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value(2012)->set_width(50),
-            Field::create( 'number', 'default', 'Default value' )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value('')->set_width(50),
-        ))->add_dependency('filter')->set_width(10) );
+        array_push($listing_fields_filter, Field::create( 'complex', 'year-filter', __('Year','mv23theme') )->add_fields(array(
+            Field::create( 'checkbox', 'show' )->set_text( __('Activate','mv23theme') )->fancy()->hide_label()->set_width(30),
+            Field::create( 'number', 'first_year')->set_prefix(__('First year','mv23theme'))->hide_label()->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value(2012)->set_width(30),
+            Field::create( 'number', 'default' )->set_prefix(__('Default value','mv23theme'))->hide_label()->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value('')->set_width(30),
+        ))->add_dependency('filter') );
 
 		$fields = array_merge( $listing_fields_1, $listing_fields_2, $listing_fields_filter );
 

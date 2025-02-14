@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.57 25-02-14
 - Add .qodo folder to .gitignore
+- Reorder Listing component settings
 
 1.5.56 25-02-13
 - Listing structure (view and js) refactorization

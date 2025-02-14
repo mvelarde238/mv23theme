@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MV23 Theme 1.5.48\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/mv23theme\n"
-"POT-Creation-Date: 2025-02-11T22:14:55+01:00\n"
+"POT-Creation-Date: 2025-02-14T21:29:52+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,22 +144,29 @@ msgid "Columns Settings"
 msgstr "Ajustes de la Columna"
 
 #: Core/Builder/common-settings/columns.php:11
+#: Core/Builder/Component/Listing.php:104
 msgid "Order"
 msgstr "Orden"
 
 #: Core/Builder/common-settings/columns.php:12
 #: Core/Builder/common-settings/columns.php:23
+#: Core/Builder/Component/Listing.php:129
+#: Core/Builder/Component/Listing.php:136
 #: Core/Offcanvas_Elements/Restriction/Device.php:57
 msgid "Desktop"
 msgstr ""
 
 #: Core/Builder/common-settings/columns.php:15
 #: Core/Builder/common-settings/columns.php:30
+#: Core/Builder/Component/Listing.php:131
+#: Core/Builder/Component/Listing.php:138
 msgid "Tablet"
 msgstr ""
 
 #: Core/Builder/common-settings/columns.php:18
 #: Core/Builder/common-settings/columns.php:36
+#: Core/Builder/Component/Listing.php:132
+#: Core/Builder/Component/Listing.php:139
 #: Core/Offcanvas_Elements/Restriction/Device.php:58
 msgid "Mobile"
 msgstr ""
@@ -241,7 +248,8 @@ msgstr "Tamaño en tablet"
 msgid "Width on mobile"
 msgstr "Tamaño en móviles"
 
-#: Core/Builder/common-settings/row.php:106 Core/Posttype/Archive_Page.php:119
+#: Core/Builder/common-settings/row.php:106
+#: Core/Builder/Component/Listing.php:135 Core/Posttype/Archive_Page.php:119
 msgid "Space between columns"
 msgstr "Espacio entre columnas"
 
@@ -524,6 +532,214 @@ msgstr "Grid de Items"
 msgid "Listing"
 msgstr ""
 
+#: Core/Builder/Component/Listing.php:64 Core/Builder/Component/Video.php:35
+#: Core/Builder/containers/popup/common-settings.php:96
+#: Core/Posttype/Post.php:48
+msgid "Source"
+msgstr "Fuente"
+
+#: Core/Builder/Component/Listing.php:65
+msgid "Automatic (Latest published posts)"
+msgstr "Automátco (últimos post publicados)"
+
+#: Core/Builder/Component/Listing.php:68
+msgid "Select the posts"
+msgstr "Selecciona los posts"
+
+#: Core/Builder/Component/Listing.php:70
+msgid "Post type"
+msgstr "Tipo de contenido"
+
+#: Core/Builder/Component/Listing.php:78 Core/Builder/Component/Listing.php:148
+#: Core/Builder/Component/Menu.php:42
+#: Core/Builder/containers/page-header.php:40 Core/Includes/constants.php:51
+msgid "None"
+msgstr "Ninguno"
+
+#: Core/Builder/Component/Listing.php:79
+msgid "Featured"
+msgstr "Destacados"
+
+#: Core/Builder/Component/Listing.php:80
+msgid "On Sale"
+msgstr "En Oferta"
+
+#: Core/Builder/Component/Listing.php:81
+msgid "Best Selling"
+msgstr "Más Vendidos"
+
+#: Core/Builder/Component/Listing.php:88
+msgid "Categories"
+msgstr "Categorías"
+
+#: Core/Builder/Component/Listing.php:103
+msgid "Number of posts"
+msgstr "Número de posts"
+
+#: Core/Builder/Component/Listing.php:105
+msgid "Descending"
+msgstr "Descendente"
+
+#: Core/Builder/Component/Listing.php:106
+msgid "Ascending"
+msgstr "Ascendente"
+
+#: Core/Builder/Component/Listing.php:108
+msgid "Order by"
+msgstr "Ordenar por"
+
+#: Core/Builder/Component/Listing.php:109 Core/Posttype/Footer.php:42
+msgid "Date"
+msgstr "Fecha"
+
+#: Core/Builder/Component/Listing.php:110 Core/Posttype/Footer.php:40
+msgid "Title"
+msgstr "Título"
+
+#: Core/Builder/Component/Listing.php:111
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:84
+#: Core/Theme_Options/Fields/Typography.php:43
+msgid "Name"
+msgstr "Nombre"
+
+#: Core/Builder/Component/Listing.php:112
+msgid "Random"
+msgstr "Random"
+
+#: Core/Builder/Component/Listing.php:113
+#: Core/Builder/containers/popup/common-settings.php:61
+msgid "Custom"
+msgstr "Personalizado"
+
+#: Core/Builder/Component/Listing.php:119
+msgid "List Template"
+msgstr "Template del listado"
+
+#: Core/Builder/Component/Listing.php:123
+msgid "Show controls"
+msgstr "Mostrar controles"
+
+#: Core/Builder/Component/Listing.php:124
+msgid "Show carrusel nav"
+msgstr "Mostrar navegación inferior"
+
+#: Core/Builder/Component/Listing.php:125
+msgid "Start automatically"
+msgstr "Empezar automáticamente"
+
+#: Core/Builder/Component/Listing.php:128
+msgid "Number of Columns"
+msgstr "Número de Columnas"
+
+#: Core/Builder/Component/Listing.php:130
+#: Core/Builder/Component/Listing.php:137
+msgid "Laptop"
+msgstr ""
+
+#: Core/Builder/Component/Listing.php:142
+msgid "Post Card"
+msgstr "Post Card"
+
+#: Core/Builder/Component/Listing.php:144
+msgid "On click the post card:"
+msgstr "Al hacer click en el post card:"
+
+#: Core/Builder/Component/Listing.php:145
+msgid "Redirect to the post page"
+msgstr "Redirigir a la página del post"
+
+#: Core/Builder/Component/Listing.php:146
+msgid "Show the post in the same page"
+msgstr "Mostrar el post en la misma página"
+
+#: Core/Builder/Component/Listing.php:147
+msgid "Show the post on a pop up"
+msgstr "Mostrar el post en un pop up"
+
+#: Core/Builder/Component/Listing.php:150
+msgid "On click, scroll to:"
+msgstr "Al hacer click mover el scroll a:"
+
+#: Core/Builder/Component/Listing.php:151
+msgid "Dont move the scroll"
+msgstr "No mover el scroll"
+
+#: Core/Builder/Component/Listing.php:152
+msgid "To the post card"
+msgstr "Al post card"
+
+#: Core/Builder/Component/Listing.php:153
+msgid "To the expander"
+msgstr "Al contenido"
+
+#: Core/Builder/Component/Listing.php:156
+msgid "Pagination"
+msgstr "Paginado"
+
+#: Core/Builder/Component/Listing.php:157
+msgid "Pagination type"
+msgstr "Tipo de paginado"
+
+#: Core/Builder/Component/Listing.php:158
+msgid "Scroll to top"
+msgstr "Mover el scroll arriba"
+
+#: Core/Builder/Component/Listing.php:162
+#: Core/Builder/Component/Listing.php:163
+msgid "Filter"
+msgstr "Filtro"
+
+#: Core/Builder/Component/Listing.php:163
+msgid "Show filters"
+msgstr "Mostrar filtros"
+
+#: Core/Builder/Component/Listing.php:174
+#: Core/Builder/Component/Listing.php:182
+#: Core/Builder/Component/Listing.php:186
+#: Core/Builder/containers/page-settings.php:12
+#: Core/Builder/containers/page-settings.php:31
+#: Core/Builder/containers/page-settings.php:50
+#: Core/Builder/containers/popup/common-settings.php:19
+#: Core/Builder/containers/popup/common-settings.php:27
+#: Core/Builder/containers/popup/common-settings.php:44
+#: Core/Builder/containers/popup/common-settings.php:54
+#: Core/Builder/containers/popup/common-settings.php:67
+#: Core/Builder/containers/popup/common-settings.php:94
+#: Core/Builder/containers/popup/common-settings.php:106
+#: Core/Builder/containers/popup/common-settings.php:107
+#: Core/Builder/containers/popup/common-settings.php:108
+#: Core/Builder/containers/popup/common-settings.php:113
+#: Core/Builder/containers/popup/common-settings.php:117
+#: Core/Builder/containers/popup/common-settings.php:124
+#: Core/Builder/containers/popup/common-settings.php:131
+#: Core/Builder/containers/popup/common-settings.php:138
+#: Core/Builder/containers/popup/common-settings.php:162
+#: Core/Builder/containers/popup/common-settings.php:181
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:83
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:94
+#: Core/Posttype/Footer.php:41 Core/Posttype/Post.php:47
+#: Core/Theme_Options/UF_Container/Global_Options.php:16
+#: Core/Theme_Options/UF_Container/Global_Options.php:23
+#: Core/Theme_Options/UF_Container/Global_Options.php:31
+msgid "Activate"
+msgstr "Activar"
+
+#: Core/Builder/Component/Listing.php:181
+msgid "Month"
+msgstr "Mes"
+
+#: Core/Builder/Component/Listing.php:185
+msgid "Year"
+msgstr "Año"
+
+#: Core/Builder/Component/Listing.php:187
+msgid "First year"
+msgstr "Primero año"
+
+#: Core/Builder/Component/Listing.php:188
+msgid "Default value"
+msgstr "Valor Inicial"
+
 #: Core/Builder/Component/Map.php:13
 msgid "Map"
 msgstr "Mapa"
@@ -551,11 +767,6 @@ msgstr "Menú horizontal 4"
 #: Core/Builder/Component/Menu.php:41
 msgid "Vertical Nav 1"
 msgstr "Menú Vertical 1"
-
-#: Core/Builder/Component/Menu.php:42
-#: Core/Builder/containers/page-header.php:40
-msgid "None"
-msgstr "Ninguno"
 
 #: Core/Builder/Component/Menu.php:56
 msgid "Show a particular menu"
@@ -609,12 +820,6 @@ msgstr "Alineación en móviles"
 msgid "Video"
 msgstr ""
 
-#: Core/Builder/Component/Video.php:35
-#: Core/Builder/containers/popup/common-settings.php:96
-#: Core/Posttype/Post.php:48
-msgid "Source"
-msgstr "Fuente"
-
 #: Core/Builder/containers/page-content.php:7
 #: Core/Builder/containers/page-content.php:12
 msgid "Page Content"
@@ -646,34 +851,6 @@ msgstr "Ajustes de la página"
 #: Core/Theme_Options/Fields/Header.php:17
 msgid "Background Color"
 msgstr "Color de fondo"
-
-#: Core/Builder/containers/page-settings.php:12
-#: Core/Builder/containers/page-settings.php:31
-#: Core/Builder/containers/page-settings.php:50
-#: Core/Builder/containers/popup/common-settings.php:19
-#: Core/Builder/containers/popup/common-settings.php:27
-#: Core/Builder/containers/popup/common-settings.php:44
-#: Core/Builder/containers/popup/common-settings.php:54
-#: Core/Builder/containers/popup/common-settings.php:67
-#: Core/Builder/containers/popup/common-settings.php:94
-#: Core/Builder/containers/popup/common-settings.php:106
-#: Core/Builder/containers/popup/common-settings.php:107
-#: Core/Builder/containers/popup/common-settings.php:108
-#: Core/Builder/containers/popup/common-settings.php:113
-#: Core/Builder/containers/popup/common-settings.php:117
-#: Core/Builder/containers/popup/common-settings.php:124
-#: Core/Builder/containers/popup/common-settings.php:131
-#: Core/Builder/containers/popup/common-settings.php:138
-#: Core/Builder/containers/popup/common-settings.php:162
-#: Core/Builder/containers/popup/common-settings.php:181
-#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:83
-#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:94
-#: Core/Posttype/Footer.php:41 Core/Posttype/Post.php:47
-#: Core/Theme_Options/UF_Container/Global_Options.php:16
-#: Core/Theme_Options/UF_Container/Global_Options.php:23
-#: Core/Theme_Options/UF_Container/Global_Options.php:31
-msgid "Activate"
-msgstr "Activar"
 
 #: Core/Builder/containers/page-settings.php:15
 #: Core/Theme_Options/Fields/Header.php:27
@@ -894,10 +1071,6 @@ msgstr "Esquema de color por defecto"
 msgid "Dark Scheme"
 msgstr "Esquema Oscuro (Dark Mode)"
 
-#: Core/Builder/containers/popup/common-settings.php:61
-msgid "Custom"
-msgstr "Personalizado"
-
 #: Core/Builder/containers/popup/common-settings.php:66
 msgid "Background Image"
 msgstr "Imágen de fondo"
@@ -1109,6 +1282,26 @@ msgstr "Agregar animación"
 #: Core/Frontend/Frontend.php:135
 msgid "Page %s"
 msgstr "Página %s"
+
+#: Core/Includes/constants.php:50
+msgid "Default Listing Template"
+msgstr "Listing template por defecto"
+
+#: Core/Includes/constants.php:51
+msgid "Numeric pagination"
+msgstr "Paginado numérico"
+
+#: Core/Includes/constants.php:51
+msgid "Load more pagination"
+msgstr "Cargar más"
+
+#: Core/Includes/constants.php:52
+msgid "Default Post Card Template"
+msgstr "Post Card por defecto"
+
+#: Core/Includes/constants.php:52
+msgid "Horizontal Post"
+msgstr "Post horizontal"
 
 #: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:36
 #: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:50
@@ -1565,11 +1758,6 @@ msgstr ""
 msgid "(optional) Create a custom visualization cookie"
 msgstr "(opcional) Crear una cookie de visualización"
 
-#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:84
-#: Core/Theme_Options/Fields/Typography.php:43
-msgid "Name"
-msgstr "Nombre"
-
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:85
 msgid "Storage type"
 msgstr "Tipo de almacenamiento"
@@ -1646,14 +1834,6 @@ msgstr "Pie de Página"
 #: Core/Posttype/Footer.php:28
 msgid "Footers"
 msgstr "Pie de Página"
-
-#: Core/Posttype/Footer.php:40
-msgid "Title"
-msgstr "Título"
-
-#: Core/Posttype/Footer.php:42
-msgid "Date"
-msgstr "Fecha"
 
 #: Core/Posttype/Footer.php:114
 msgid "Activate Theme Footer"

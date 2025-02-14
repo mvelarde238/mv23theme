@@ -47,9 +47,9 @@ if( !defined('LOGOS_QUANTITY') ) define ('LOGOS_QUANTITY', 2);
 
 if( !defined('LISTING_CPTS') ) define( 'LISTING_CPTS', array('post' => 'Entradas'));
 if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array( array( 'cpt_slug' => 'post', 'slug' => 'category' ) ));
-if( !defined('LISTING_TEMPLATES') ) define( 'LISTING_TEMPLATES', array('' => 'Estilo por defecto', 'carrusel' => 'Carrusel'));
-if( !defined('LISTING_PAGINATION_TYPES') ) define( 'LISTING_PAGINATION_TYPES', array('none' => 'Ninguno', 'classic' => 'Numérico', 'load_more' => 'Cargar más'));
-if( !defined('LISTING_POST_TEMPLATE') ) define( 'LISTING_POST_TEMPLATE', array('' => 'Estilo por defecto','post-horizontal' => 'Post Horizontal'));
+if( !defined('LISTING_TEMPLATES') ) define( 'LISTING_TEMPLATES', array('' => __('Default Listing Template','mv23theme'), 'carrusel' => 'Carrusel'));
+if( !defined('LISTING_PAGINATION_TYPES') ) define( 'LISTING_PAGINATION_TYPES', array('none' => __('None','mv23theme'), 'classic' => __('Numeric pagination','mv23theme'), 'load_more' => __('Load more pagination','mv23theme')));
+if( !defined('LISTING_POST_TEMPLATE') ) define( 'LISTING_POST_TEMPLATE', array('' => __('Default Post Card Template','mv23theme'),'post-horizontal' => __('Horizontal Post','mv23theme')));
 
 // BUILDER CONSTANTS
 
