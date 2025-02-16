@@ -2,6 +2,8 @@
 namespace Core\Posttype;
 
 use Core\Utils\CPT;
+use Ultimate_Fields\Container;
+use Ultimate_Fields\Field;
 
 class Footer {
 
@@ -43,6 +45,22 @@ class Footer {
         ));
 
         $footers->populate_column('is_theme_footer', array($this, 'handle_is_theme_footer_admin_column'));
+    }
+
+    public function add_meta_boxes(){
+        $datastore = new \Ultimate_Fields\Datastore\Options;
+
+        $location = new \Ultimate_Fields\Location\Post_Type('footer');
+	    $location->overwrite_datastore( $datastore );
+        $location->context = 'side';
+
+        Container::create( 'page_footer' ) 
+            ->add_location( $location )
+            ->add_fields(array(
+                Field::create( 'wp_object', 'theme_footer_post', __('Footer','mv23theme') )
+                    ->add( 'posts', 'post_type=footer' )
+                    ->hide_label()
+            ));
     }
 
     /*

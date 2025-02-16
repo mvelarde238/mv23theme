@@ -22,6 +22,7 @@ use Core\Posttype\MV23_Library;
 use Core\Posttype\Post;
 use Core\Posttype\Menu_Item;
 use Core\Posttype\Megamenu;
+use Core\Posttype\Footer;
 use Core\Builder\Core as Builder;
 use Core\Offcanvas_Elements\Core as Offcanvas_Elements;
 use Core\Migrator\Core as Migrator;
@@ -230,8 +231,6 @@ class Theme extends Theme_Header_Data {
 
         // MV23 Library
         $mv23_library = MV23_Library::getInstance();
-
-        // Add the meta boxes
         $this->loader->add_action( 'uf.init', $mv23_library, 'add_meta_boxes' );
 
         // ajax functions for MV23 library CPT
@@ -241,21 +240,19 @@ class Theme extends Theme_Header_Data {
 
         // Post
         $post = Post::getInstance();
-
-        // Add the meta boxes
         $this->loader->add_action( 'uf.init', $post, 'add_meta_boxes' );
 
         // Menu_Item
         $menu_item = Menu_Item::getInstance();
-
-        // Add the meta boxes
         $this->loader->add_action( 'uf.init', $menu_item, 'add_meta_boxes' );
 
         // Megamenu
         $megamenu = Megamenu::getInstance();
-
-        // Add the meta boxes
         $this->loader->add_action( 'uf.init', $megamenu, 'add_meta_boxes' );
+        
+        // Footer
+        $footer = Footer::getInstance();
+        $this->loader->add_action( 'uf.init', $footer, 'add_meta_boxes' );
     }
 
     private function define_cleanup_hooks() {
