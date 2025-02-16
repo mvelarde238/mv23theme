@@ -3,6 +3,7 @@ namespace Core\Builder;
 
 use Core\Builder\Common_Settings;
 use Core\Builder\Component\Components_Wrapper;
+use Ultimate_Fields\Container;
 
 define ('BUILDER_DIR', __DIR__);
 define ('BUILDER_PATH', get_template_directory_uri() . '/Core/Builder');
@@ -12,6 +13,13 @@ class Core{
 	private static $instance = null;
 
     private static $components = array();
+
+    private static $popup_containers = array(
+        'actions_container',
+        'blocks_layout_settings_container',
+        'common_settings_container',
+        'scroll_animations_container'
+    );
 
     /**
      * Holds the list of components class names that will be registered in the Builder
@@ -69,17 +77,26 @@ class Core{
         require_once( BUILDER_DIR.'/containers/content-blocks.php' );
         require_once( BUILDER_DIR.'/containers/page-settings.php' );
 
-        // uncomment just to generate the container json:
-        // require_once( BUILDER_DIR.'/containers/popup/common-settings.php' );
-        // require_once( BUILDER_DIR.'/containers/popup/scroll-animations.php' );
-        // require_once( BUILDER_DIR.'/containers/popup/actions-container.php' );
-        // require_once( BUILDER_DIR.'/containers/popup/blocks-layout-settings.php' );
-        // require_once( BUILDER_DIR.'/containers/popup/blocks-layout-container.php' );
+        // load containers that wil be generated in a pop up:
+        foreach (self::$popup_containers as $container) {
+            require_once( BUILDER_DIR.'/containers/popup/'.$container.'.php' );
+        }
 
         /**
          * Let child theme register its own meta boxes
          */
 	    do_action('theme_add_meta_boxes');
+    }
+
+    public function register_popup_containers(){
+        $popup_containers = array();
+		foreach( Container::get_registered() as $container ) {
+            $container_id = $container->get_id(); 
+			if( in_array($container_id, self::$popup_containers) ) {
+				$popup_containers[$container_id] = $container->export_fields_settings();
+			}
+		}
+		wp_localize_script( 'uf-field-common-settings-control', 'POPUP_CONTAINERS', $popup_containers);
     }
 
     public function init_components(){

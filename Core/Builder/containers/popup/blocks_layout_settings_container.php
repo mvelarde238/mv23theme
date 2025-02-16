@@ -11,7 +11,7 @@ $alignment = array(
 );
 
 Container::create( 'blocks_layout_settings_container' ) 
-    ->add_location( 'post_type', UF_POSTTYPES )
+    // ->add_location( 'post_type', UF_POSTTYPES )
     ->set_layout( 'rows' )
     ->add_fields(array(
         Field::create('select','layout')->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options(array(
@@ -23,25 +23,3 @@ Container::create( 'blocks_layout_settings_container' )
         Field::create('select','justify_content')->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options($alignment),
         Field::create('select','align_items')->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options($alignment)
     ));
-
-add_action('admin_head', 'container_to_object');
-
-function container_to_object() {
-    $container_data = array();
-    foreach( Container::get_registered() as $container ) {
-        if( $container->get_id() == 'blocks_layout_settings_container' ) {
-            $container_data = $container->export_fields_settings();
-        }
-    }
-    $container_data = json_encode( $container_data );
-    ?>
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Admin inline script loaded');
-            var containerData = <?php echo $container_data; ?>;
-            console.log(containerData);
-        });
-    </script>
-    <?php
-}
-    

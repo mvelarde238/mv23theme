@@ -206,13 +206,11 @@
             // set a initial raw_data state
             that.model.datastore.set( 'raw_data', storedValues );
 
-            fields = ( window[containerName] ) 
-                ? window[containerName] 
-                : [];
+			fields = POPUP_CONTAINERS[containerName] ?? [];
 
 			var _popup_container = this.$el.container({
 				fields: fields,
-				id:     'common_settings_container',
+				id:     'popup_container',
 				layout: 'row',
 				validation_enabled: true
 			}, storedValues );

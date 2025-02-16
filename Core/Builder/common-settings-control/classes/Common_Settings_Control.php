@@ -69,16 +69,8 @@ class Common_Settings_Control {
         $assets = BUILDER_PATH . '/common-settings-control/assets/';
 		$v      = $this->version;
 		
-		// CONTAINERS JSON
-		wp_register_script( 'common_settings_container', $assets . 'containers/common_settings_container.js', array( 'uf-field' ), $v );
-		wp_register_script( 'scroll_animations_container', $assets . 'containers/scroll_animations_container.js', array( 'uf-field' ), $v );
-		wp_register_script( 'actions_container', $assets . 'containers/actions_container.js', array( 'uf-field' ), $v );
-		wp_register_script( 'blocks_layout_settings_container', $assets . 'containers/blocks_layout_settings_container.js', array( 'uf-field' ), $v );
-		wp_register_script( 'blocks_layout_container', $assets . 'containers/blocks_layout_container.js', array( 'uf-field' ), $v );
-		
 		// FIELD SCRIPT
 		wp_register_script( 'uf-field-common-settings-control', $assets . 'field-common-settings-control.js', array( 'uf-field' ), $v );
-
 		// wp_register_style( 'uf-field-common-settings-control', $assets . 'common-settings-control.css', array( 'ultimate-fields-css' ), $v );
 	}
 }

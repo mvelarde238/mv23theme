@@ -207,6 +207,7 @@ class Theme extends Theme_Header_Data {
         // $this->loader->add_action( 'after_setup_theme', $builder, 'init_components', 15 ); // theme launch at 10
         $this->loader->add_action( 'uf.init', $builder, 'init_components');
         $this->loader->add_action( 'uf.init', $builder, 'add_meta_boxes');
+        $this->loader->add_action( 'uf.register_scripts', $builder, 'register_popup_containers', 20);
         $this->loader->add_action( 'init', $builder, 'hide_editor');
 
         // Off Canvas Elements
