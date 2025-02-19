@@ -187,8 +187,8 @@ Container::create( 'common_settings_container' )
             ))->add_dependency('use')->set_width(50)
         )),
         Field::create( 'complex', 'responsive', __('Responsive','mv23theme') )->add_fields(array(
-            Field::create( 'checkbox', __('hide_on_mobile','mv23theme') )->fancy()->set_width(30),
-            Field::create( 'checkbox', __('hide_on_tablet','mv23theme') )->fancy()->set_width(30),
-            Field::create( 'checkbox', __('hide_on_desktop','mv23theme') )->fancy()->set_width(30)
+            Field::create( 'checkbox', 'hide_on_mobile', __('hide_on_mobile','mv23theme') )->fancy()->set_width(30),
+            Field::create( 'checkbox', 'hide_on_tablet', __('hide_on_tablet','mv23theme') )->fancy()->set_width(30),
+            Field::create( 'checkbox', 'hide_on_desktop', __('hide_on_desktop','mv23theme') )->fancy()->set_width(30)
         ))
     ));  
