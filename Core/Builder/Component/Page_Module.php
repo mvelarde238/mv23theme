@@ -42,6 +42,7 @@ class Page_Module extends Component{
 		ob_start();
         echo '<section '.$attributes.'>';
         echo Template_Engine::check_video_background( $args );
+        echo Template_Engine::check_slider_background( $args );
         echo Template_Engine::check_layout('start', $args);
 
 		foreach ($components as $component) {
