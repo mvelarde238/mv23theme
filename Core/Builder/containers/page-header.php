@@ -5,6 +5,7 @@ use Core\Builder\Blocks_Layout;
 
 if( !defined('PAGE_HEADER_IN') ) define ('PAGE_HEADER_IN', array('page','archive_page'));
 if( !defined('UF_TAXONOMIES') ) define ('UF_TAXONOMIES', array('category'));
+if( !defined('PAGE_HEADER_COMPONENTS') ) define ('PAGE_HEADER_COMPONENTS', array( 'text_editor', 'image', 'spacer', 'button', 'components_wrapper' ));
 
 class Page_Header_Container{
 	private static $instance = null;
@@ -50,7 +51,7 @@ class Page_Header_Container{
             ))->set_width(50),
             Blocks_Layout::the_field(array( 
                 'slug' => 'page_header_content', 
-                'components' => array( 'text_editor', 'image', 'spacer', 'button' )
+                'components' => PAGE_HEADER_COMPONENTS
             ))->add_dependency( 'page_header_content_type', 'content', '=' ),
             // FAKE OCE SELECTOR FOR AJAX CALLS INSIDE POP UP
             Field::create( 'wp_object', 'id' )->add( 'posts','post_type=offcanvas_element' )->add_dependency( 'page_header_content_type', '_ALWAYS_HIDDEN', '=' )

@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.58 25-02-19
+- PAGE_HEADER_COMPONENTS implementation
+
 1.5.57 25-02-14
 - Add .qodo folder to .gitignore
 - Reorder Listing component settings
