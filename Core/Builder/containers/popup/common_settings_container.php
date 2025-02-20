@@ -24,7 +24,7 @@ Container::create( 'common_settings_container' )
             ))->add_dependency('use')->set_width( 50 )
         )),
         Field::create( 'complex', 'helpers', __('Helpers','mv23theme') )->add_fields(array(
-            Field::create( 'checkbox', 'use', __('Activate','mv23theme') )->fancy()->set_width(50),
+            Field::create( 'checkbox', 'use', __('Activate','mv23theme') )->fancy()->set_width(10),
             Field::create( 'multiselect', 'list')
                 ->hide_label()
                 ->set_input_type( 'checkbox' )
@@ -37,8 +37,9 @@ Container::create( 'common_settings_container' )
                     'hide-br-tablet' => __('Hide line breaks on tablets only','mv23theme'),
                     'hide-br-mobile' => __('Hide line breaks on mobile devices only','mv23theme'),
                     'extend-bg-to-left' => __('Extend background to left','mv23theme'),
-                    'extend-bg-to-right' => __('Extend background to right','mv23theme')
-                ))->add_dependency('use')->set_width( 50 )
+                    'extend-bg-to-right' => __('Extend background to right','mv23theme'),
+                    'full-height' => __('Full Height','mv23theme')
+                ))->add_dependency('use')->set_width( 80 )
         )),
         Field::create( 'complex', 'background_color', __('Background color', 'mv23theme') )->add_fields(array(
             Field::create( 'checkbox', 'use', __('Activate','mv23theme') )->fancy()->set_width( 20 ),

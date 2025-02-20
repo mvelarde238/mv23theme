@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.59 25-02-20
+- .full-height implementation in common settings
+
 1.5.58 25-02-19
 - PAGE_HEADER_COMPONENTS implementation
 - check_slider_background() implementation in Page Module
