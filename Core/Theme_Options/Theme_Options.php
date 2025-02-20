@@ -87,7 +87,7 @@ class Theme_Options extends Theme_Header_Data{
     
         $custom_posts = array(
             array( 'slug'=>'megamenu', 'name'=>'Megamenú' ),
-            array( 'slug'=>'reusable_section', 'name'=>__('Reusable Sections') )
+            array( 'slug'=>'reusable_section', 'name'=>__('Reusable Sections','mv23theme') )
         );
     
         foreach($custom_posts as $cpt){
