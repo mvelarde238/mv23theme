@@ -4,6 +4,7 @@ CHANGELOG
 
 1.5.59 25-02-20
 - .full-height implementation in common settings
+- Fix: Core\Builder::register_popup_containers() to load only on admin screens
 
 1.5.58 25-02-19
 - PAGE_HEADER_COMPONENTS implementation

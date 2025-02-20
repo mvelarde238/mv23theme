@@ -89,6 +89,8 @@ class Core{
     }
 
     public function register_popup_containers(){
+        if(!is_admin()) return;
+
         $popup_containers = array();
 		foreach( Container::get_registered() as $container ) {
             $container_id = $container->get_id(); 
