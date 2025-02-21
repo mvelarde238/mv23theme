@@ -1,7 +1,6 @@
 <?php
 namespace Core\Builder;
 
-use Core\Builder\Common_Settings;
 use Core\Builder\Component\Components_Wrapper;
 use Ultimate_Fields\Container;
 
@@ -105,8 +104,6 @@ class Core{
         $this->add_core_components_on_demand();
 
         do_action('theme_init_components');
-
-        Common_Settings::getInstance();
 
         foreach( self::$core_components as $key => $components_group ) {
             foreach ($components_group as $component) {

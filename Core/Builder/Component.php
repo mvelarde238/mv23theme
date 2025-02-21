@@ -3,7 +3,6 @@ namespace Core\Builder;
 
 use Ultimate_Fields\Container\Repeater_Group;
 use Core\Builder\Core;
-use Core\Builder\Common_Settings;
 use Core\Builder\Template_Engine;
 use Ultimate_Fields\Field;
 
@@ -26,8 +25,7 @@ abstract class Component {
 		if( $title_template ) $component->set_title_template( $title_template );
 		
 		if( $args['add_common_settings'] ){
-			$common_settings = static::get_common_settings();
-			if( $common_settings ) self::add_common_settings( $component, $common_settings );
+			self::add_common_settings( $component );
 		}
 
 		$layout = static::get_layout();
@@ -89,15 +87,6 @@ abstract class Component {
 	}
 
 	/**
-	 * Returns the common settings fields slugs
-	 *
-	 * @return array
-	 */
-	/* abstract */ public static function get_common_settings() {
-		return array( 'all' );
-	}
-
-	/**
 	 * Returns the component's html output
 	 *
 	 * @return string html
@@ -111,32 +100,22 @@ abstract class Component {
 	 *
 	 * @return Ultimate_Fields\Container\Repeater_Group instance
 	 */
-	protected static function add_common_settings( $component, $args = array() ) {
+	protected static function add_common_settings( $component ) {
 
-		foreach ($args as $setting_name) {
-			if( $setting_name == 'all' ){
-				$component->add_fields(array(
-					Field::create( 'tab', __('Settings','mv23theme') ),
-					Field::create( 'common_settings_control', 'settings' )
-						->set_container( 'common_settings_container' )
-						->set_width(30),
-					Field::create( 'common_settings_control', 'scroll_animations_settings' )
-						->set_container( 'scroll_animations_container' )
-						->set_add_text( __('Add Scroll Animations', 'mv23theme') )
-						->set_width(30),
-					Field::create( 'common_settings_control', 'actions_settings' )
-						->set_container( 'actions_container' )
-						->set_add_text( __('Add Actions', 'mv23theme') )
-						->set_width(30)
-				));
-		// 		$all = array('main','video-background','margins','borders','box-shadow','animation','scroll-animations');
-		// 		foreach ($all as $a) {
-		// 			$component->add_fields( Common_Settings::get_fields( $a ) );
-		// 		}
-			} else {
-				$component->add_fields( Common_Settings::get_fields( $setting_name ) );
-			}
-		}
+		$component->add_fields(array(
+			Field::create( 'tab', __('Settings','mv23theme') ),
+			Field::create( 'common_settings_control', 'settings' )
+				->set_container( 'common_settings_container' )
+				->set_width(30),
+			Field::create( 'common_settings_control', 'scroll_animations_settings' )
+				->set_container( 'scroll_animations_container' )
+				->set_add_text( __('Add Scroll Animations', 'mv23theme') )
+				->set_width(30),
+			Field::create( 'common_settings_control', 'actions_settings' )
+				->set_container( 'actions_container' )
+				->set_add_text( __('Add Actions', 'mv23theme') )
+				->set_width(30)
+		));
 		 
 		return $component;
 	}

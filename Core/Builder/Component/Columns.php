@@ -5,6 +5,8 @@ use Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Content_Selector;
 use Core\Builder\Template_Engine;
+use Core\Builder\Utils\Row_Settings;
+use Core\Builder\Utils\Columns_Settings;
 
 class Columns extends Component {
 
@@ -45,11 +47,7 @@ class Columns extends Component {
             $fields[] = $col;
         }
 
-		return $fields;
-	}
-
-    public static function get_common_settings() {
-		return array( 'row', 'columns', 'all' );
+		return array_merge($fields, Row_Settings::get_fields(), Columns_Settings::get_fields());
 	}
 
 	public static function display( $args ){

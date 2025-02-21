@@ -93,10 +93,6 @@ class Card extends Component {
 		return $fields;
 	}
 
-    public static function get_common_settings() {
-		return array( 'all' );
-	}
-
 	public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
 

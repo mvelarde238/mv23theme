@@ -17,7 +17,7 @@ class Page_Module extends Component{
             ->set_icon( 'dashicons dashicons-welcome-widgets-menus' )
             ->add_fields( self::get_fields() );
 
-        parent::add_common_settings( $page_module_group, self::get_common_settings() );
+        parent::add_common_settings( $page_module_group );
 
         Template_Engine::getInstance()->register_component( $page_module_group->get_id(), get_called_class() );
 
