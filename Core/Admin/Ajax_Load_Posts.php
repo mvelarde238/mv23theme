@@ -29,10 +29,10 @@ class Ajax_Load_Posts{
         $listing_template = $listing_args["listing_template"];
         $on_click_post = $listing_args["on_click_post"];
         $on_click_scroll_to = $listing_args["on_click_scroll_to"];
-        $per_page = $listing_args["per_page"];
-        // $offset = (int) $listing_args["offset"];
-        $order = $listing_args["order"];
-        $orderby = $listing_args["orderby"];
+        $per_page = $listing_args["per_page"] ?? null;
+        // $offset = (int) $listing_args["offset"] ?? null;
+        $order = $listing_args["order"] ?? null;
+        $orderby = $listing_args["orderby"] ?? null;
         $wookey = $listing_args["wookey"];
         $pagination_type = $listing_args["pagination_type"];
 
@@ -41,13 +41,14 @@ class Ajax_Load_Posts{
 
             $args_query = array( 
                 'post_type' => $posttype, 
-                'paged' => $paged, 
-                'order' => $order,
-                'orderby' => $orderby,
-                // 'offset' => $offset, // not working
-                'posts_per_page' => $per_page,
+                'paged' => $paged,
                 'post_status' => 'publish',
             );
+
+            if( $order ) $args_query['order'] = $order;
+            if( $orderby ) $args_query['orderby'] = $orderby;
+            if( $per_page ) $args_query['posts_per_page'] = $per_page;
+            // if( $offset ) $args_query['offset'] = $offset; // not working ?
 
             if( is_array($taxonomies) && is_array($terms) ){
                 $tax_query = array( 'relation' => 'AND' );
