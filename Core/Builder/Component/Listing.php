@@ -348,15 +348,17 @@ class Listing extends Component {
             'on_click_scroll_to' => $on_click_scroll_to,
             'taxonomies' => $query_taxonomies,
             'terms' => $query_terms,
-            'per_page' => $posts_per_page,
-            'offset' => $offset,
-            'order' => $order,
-            'orderby' => $orderby,
             'wookey' => $woocommerce_key,
             'posttype' => $posttype,
             'pagination_type' => $pagination_type,
             'scrollTop' => $scrolltop
         );
+        if ($source_type == 'auto') {
+            $listing_args['per_page'] = $posts_per_page;
+            $listing_args['offset'] = $offset;
+            $listing_args['order'] = $order;
+            $listing_args['orderby'] = $orderby;
+        }
         $args['additional_attributes'][] = "data-listing-args='".json_encode($listing_args)."'";
 
 		ob_start();

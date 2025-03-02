@@ -2,6 +2,11 @@
 CHANGELOG
 **************************************************************************************************
 
+1.5.60 25-02-25
+- Redirect if author is in the query string
+- Avoid user enumeration from the REST API
+- Fix undefined params in Manual Listing
+
 1.5.59 25-02-20
 - .full-height implementation in common settings
 - Fix: Core\Builder::register_popup_containers() to load only on admin screens

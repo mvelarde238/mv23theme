@@ -176,6 +176,12 @@ class Theme extends Theme_Header_Data {
 
         // Disable admin bar on the frontend of your website for subscribers.
         $this->loader->add_action( 'after_setup_theme', $hardening_wp, 'disable_admin_bar' );
+        
+        // Redirect if author is in the query string
+        $this->loader->add_action( 'template_redirect', $hardening_wp, 'redirect_author_page' );
+
+        // Avoid user enumeration from the REST API
+        $this->loader->add_filter( 'rest_endpoints', $hardening_wp, 'disable_rest_endpoints' );
 
         // Theme Options
         $theme_options = Theme_Options::getInstance();
