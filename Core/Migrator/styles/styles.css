@@ -2,6 +2,9 @@ button{
     span{
         display: none
     }
+    i{
+      margin-top: 3px;  
+    }
 	&[data-status="initial"]{
 		span:nth-child(1){
             display: initial

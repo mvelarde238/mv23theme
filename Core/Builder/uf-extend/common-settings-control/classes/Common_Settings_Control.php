@@ -66,7 +66,7 @@ class Common_Settings_Control {
 	 */
 	public function register_scripts() {
 		// $assets = plugins_url( 'assets/', $this->plugin_file );
-        $assets = BUILDER_PATH . '/common-settings-control/assets/';
+        $assets = BUILDER_PATH . '/uf-extend/common-settings-control/assets/';
 		$v      = $this->version;
 		
 		// FIELD SCRIPT

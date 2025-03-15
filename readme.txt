@@ -2,6 +2,16 @@
 CHANGELOG
 **************************************************************************************************
 
+2.0.1 25-03-15
+-----------------------------------------------------------------------------------------------------
+- !IMPORTANT: Columns Layout Field replace Column and Inner Column Component
+- ! Use theme-migrator to transform columns into rows
+- Removed Hook: before_adding_Columns_components
+- Removed Hook: before_adding_Inner_Columns_components
+- Added Hook: before_adding_Row_components
+- Added Hook: before_adding_Inner_Row_components
+-----------------------------------------------------------------------------------------------------
+
 1.5.60 25-02-25
 - Redirect if author is in the query string
 - Avoid user enumeration from the REST API

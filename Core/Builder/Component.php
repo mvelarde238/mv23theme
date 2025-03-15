@@ -103,7 +103,7 @@ abstract class Component {
 	protected static function add_common_settings( $component ) {
 
 		$component->add_fields(array(
-			Field::create( 'tab', __('Settings','mv23theme') ),
+			Field::create( 'tab', __('Settings','mv23theme') )->set_icon('dashicons-admin-appearance'),
 			Field::create( 'common_settings_control', 'settings' )
 				->set_container( 'common_settings_container' )
 				->set_width(30),

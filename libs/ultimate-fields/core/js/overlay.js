@@ -370,6 +370,8 @@
 			});
 		}
 
+		if( args.hasOwnProperty('onOpen') && typeof args.onOpen == 'function' ) args.onOpen( view );
+
 		return current;
 	}
 

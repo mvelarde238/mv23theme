@@ -27,7 +27,7 @@ class Page_Module extends Component{
 	public static function get_fields() {
         $fields = array( 
             Field::create( 'tab', __('Content','mv23theme') ),
-            Content_Selector::the_field('components', __('Components','mv23theme'), array( 'exclude' => array('inner_columns', 'card') ) )
+            Content_Selector::the_field('components', __('Components','mv23theme'), array( 'exclude' => array('inner_row', 'card') ) )
         );
 
 		return $fields;

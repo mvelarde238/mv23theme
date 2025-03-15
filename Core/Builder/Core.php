@@ -6,7 +6,8 @@ use Ultimate_Fields\Container;
 
 define ('BUILDER_DIR', __DIR__);
 define ('BUILDER_PATH', get_template_directory_uri() . '/Core/Builder');
-require_once( 'common-settings-control/common-settings-control.php' );
+require_once( 'uf-extend/common-settings-control/common-settings-control.php' );
+require_once( 'uf-extend/columns-layout/columns-layout.php' );
 
 class Core{
 	private static $instance = null;
@@ -17,7 +18,9 @@ class Core{
         'actions_container',
         'blocks_layout_settings_container',
         'common_settings_container',
-        'scroll_animations_container'
+        'scroll_animations_container',
+        'row_settings_container',
+        'column_settings_container'
     );
 
     /**
@@ -44,8 +47,8 @@ class Core{
         'theme' => array(),
         'wrappers' => array(
             'Flip_Box',
-            'Inner_Columns',
-            'Columns'
+            'Inner_Row',
+            'Row'
         )
     );
 
@@ -115,10 +118,10 @@ class Core{
     }
 
     public function add_core_components_on_demand(){
-        add_action( 'before_adding_Inner_Columns_components', function(){
+        add_action( 'before_adding_Inner_Row_components', function(){
             if(SIMPLE_COLUMNS) new \Core\Builder\Component\Simple_Columns;
         });
-        add_action( 'before_adding_Columns_components', function(){
+        add_action( 'before_adding_Row_components', function(){
             if(COMPONENTS_WRAPPER) new Components_Wrapper();
             if(CARD) new \Core\Builder\Component\Card();
             if(ITEMS_GRID) new \Core\Builder\Component\Items_Grid;

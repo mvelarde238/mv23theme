@@ -1,6 +1,7 @@
 <?php
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
+use Ultimate_Fields\Container\Layout_Group;
 use Core\Builder\Blocks_Layout;
 
 if( !defined('PAGE_HEADER_IN') ) define ('PAGE_HEADER_IN', array('page','archive_page'));

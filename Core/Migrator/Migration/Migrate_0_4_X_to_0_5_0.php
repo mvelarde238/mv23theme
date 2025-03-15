@@ -8,8 +8,6 @@ use Core\Migrator\Migration\Migrate_Footer_Modules_to_v23_Modules;
 class Migrate_0_4_X_to_0_5_0{
     private static $instance = null;
 
-    private $migrator_url;
-
     private $batch_size;
 
     public static function getInstance() {
@@ -24,12 +22,11 @@ class Migrate_0_4_X_to_0_5_0{
     }
 
     public function migrate(){
-        add_action( 'admin_menu', array($this, 'add_admin_page') );
+        add_action( 'theme_migrator_display', array( $this, 'display') );
         // add_action( 'admin_notices', array($this, 'theme_is_less_than_0_5_0_notice') );
         add_action( 'wp_ajax_process_page_data', array($this, 'ajax_process_page_data') );
         add_action( 'wp_ajax_after_data_migration', array($this, 'ajax_after_data_migration') );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_migrator_scripts') );
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_migrator_styles') );
     }
 
     public function theme_is_less_than_0_5_0_notice() {
@@ -42,26 +39,11 @@ class Migrate_0_4_X_to_0_5_0{
         echo '</div>';
     }
 
-    public function add_admin_page(){
-        $slug = Core::getInstance()->get_slug();
-
-        add_submenu_page(
-            'theme-options',
-            __('Theme Migrator', 'mv23theme'),
-            __('Theme Migrator', 'mv23theme'),
-            'manage_options',
-            $slug,
-            array($this, 'display'),
-            60
-        );
-
-        $this->migrator_url = admin_url('admin.php?page='.$slug);
-    }
-
     public function display(){
         ?>
         <div class="wrap">
             <div class="theme-migrator">
+                <h3>Migrate 0.4.X to 1.5.0</h3>
                 <button class="theme-migrator__init button-primary" data-status="initial">
                     <span><i class="dashicons dashicons-migrate uf-button-icon"></i> INIT MIGRATION</span>
                     <span><i class="dashicons dashicons-admin-generic uf-button-icon"></i> PROCESSING</span>
@@ -84,13 +66,6 @@ class Migrate_0_4_X_to_0_5_0{
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('process_page_data_nonce')
         ));
-    }
-    
-    public function enqueue_migrator_styles( $hook ) {
-        if ( 'admin_page_theme-migrator' != $hook ) return;
-
-        $slug = Core::getInstance()->get_slug();
-        wp_enqueue_style($slug.'-style', THEME_MIGRATOR_PATH . '/styles/styles.css', array(), '1.0');
     }
 
     public function ajax_process_page_data() {

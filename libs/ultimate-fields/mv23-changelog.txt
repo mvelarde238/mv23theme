@@ -1,5 +1,8 @@
 mv23 changelog-------------------------
 
+- 12-03-225
+- (core/js/overlay.js:373) Add onOpen overlay method
+
 - 01-01-2025
 - (core/js/container/group.js::467 - 469) Commented Feature: Show filename in repeater group title preview 
 
