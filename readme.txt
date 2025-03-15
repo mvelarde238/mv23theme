@@ -4,7 +4,7 @@ CHANGELOG
 
 2.0.1 25-03-15
 -----------------------------------------------------------------------------------------------------
-- !IMPORTANT: Columns Layout Field replace Column and Inner Column Component
+- !IMPORTANT: V.2.0.1: Columns Layout Field replace Column and Inner Column Component
 - ! Use theme-migrator to transform columns into rows
 - Removed Hook: before_adding_Columns_components
 - Removed Hook: before_adding_Inner_Columns_components
