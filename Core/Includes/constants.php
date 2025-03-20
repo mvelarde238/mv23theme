@@ -1,6 +1,8 @@
 <?php
 define ('IS_MOBILE', wp_is_mobile());
-define ('GM_IS_ACTIVE', get_option('activate_gm'));
+define ('GM_IS_ACTIVE', get_option( 'uf_google_maps_api_key' ) && get_option('activate_gm'));
+define ('LEAFLET_IS_ACTIVE', get_option('activate_leaflet'));
+define ('INITIAL_MAP_POSITION', array('lat' => -33.4377756, 'lng' => -70.6504502, 'zoom' => 12));
 define ('MASONRY_IS_ACTIVE', get_option('activate_masonry'));
 define ('SCROLL_ANIMATIONS', scroll_animation_is_active());
 define ('SCROLL_INDICATORS', scroll_indicators_is_active());

@@ -1,6 +1,14 @@
 mv23 changelog-------------------------
 
-- 12-03-225
+- 20-03-2025
+- Leaflet Maps Implementation:
+  (core/classes/Core.php)
+  (core/classes/Field/Map.php)
+  (core/js/field/map.js)
+  (core/templates/field/map-base.php)
+  (core/templates/field/map-error.php)
+
+- 12-03-2025
 - (core/js/overlay.js:373) Add onOpen overlay method
 
 - 01-01-2025

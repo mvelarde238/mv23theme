@@ -62,6 +62,7 @@ class Map extends Field {
 	public function export_field() {
 		$settings = parent::export_field();
 
+		$settings[ 'initial_map_position' ] = INITIAL_MAP_POSITION;
 		$settings[ 'height' ]  = $this->get_height();
 		$settings[ 'api_key' ] = $this->get_api_key();
 

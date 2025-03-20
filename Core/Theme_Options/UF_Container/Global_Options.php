@@ -11,13 +11,6 @@ class Global_Options{
             ->add_location( 'options', 'theme-options' )
             ->add_fields(array(
                 Field::create( 'wp_object', 'theme_footer_post', __('Footer','mv23theme') )->add( 'posts', 'post_type=footer' ),
-        
-                Field::create( 'complex', 'google_map_wrapper', __('Google Maps','mv23theme') )->merge()->add_fields(array(
-                    Field::create( 'checkbox', 'activate_gm', __('Activate Google Maps','mv23theme') )->set_text(__('Activate','mv23theme'))->set_width(50),
-                    Field::create( 'multiselect', 'gm_services', __('Google Map Services','mv23theme'))->set_input_type( 'checkbox' )->set_orientation( 'horizontal' )->add_options( array(
-                        'places' => 'Places'
-                        ))->add_dependency('activate_gm')->set_width(50),
-                )),
 
                 Field::create( 'complex', 'masonry_wrapper', __('Masonry Gallery','mv23theme') )->merge()->add_fields(array(
                     Field::create( 'checkbox', 'activate_masonry', __('Activate Masonry','mv23theme') )->set_text(__('Activate','mv23theme')),

@@ -269,33 +269,45 @@ class Core {
 	 * @since 3.0
 	 */
 	public function register_scripts() {		
-		$src = 'https://maps.googleapis.com/maps/api/js?libraries=places';
-		if( defined('MV23_GOOGLE_API_KEY') ){
-			$src .= '&key=' . MV23_GOOGLE_API_KEY;
-		} else if( $key = get_option( 'uf_google_maps_api_key' ) ) {
-			$src .= '&key=' . esc_attr( $key );
-		} else {
+		// Register Google Maps
+		if( get_option( 'uf_google_maps_api_key' ) && get_option('activate_gm') ){
+			$src = 'https://maps.googleapis.com/maps/api/js?libraries=places';
+			$src .= '&key=' . esc_attr( get_option( 'uf_google_maps_api_key' ) );
+			
+			/**
+			 * Allows the URL that is used for loading Google Maps to be modified.
+			 *
+			 * The field instance is also provided in case it's needed, but in most
+			 * cases this should be the same for all map fields.
+			 *
+			 * @since 3.0
+			 *
+			 * @param string $src The (script) source URL for the Google Maps API.
+			 */
+			$src = apply_filters( 'uf.field.map.api_url', $src );
+
+			wp_register_script( 'uf-gmaps', $src, array(), '3.27.9', true );
+
+		// } else {
 			// Ensure that there is something to autoload, so additional queries can be avoided.
-			update_option( 'uf_google_maps_api_key', '', true );
+			// update_option( 'uf_google_maps_api_key', '', true );
 		}
 
 		/**
-		 * Allows the URL that is used for loading Google Maps to be modified.
-		 *
-		 * The field instance is also provided in case it's needed, but in most
-		 * cases this should be the same for all map fields.
-		 *
-		 * @since 3.0
-		 *
-		 * @param string $src The (script) source URL for the Google Maps API.
+		 * Add Leaflet scripts and styles.
 		 */
-		$src = apply_filters( 'uf.field.map.api_url', $src );
-		wp_register_script( 'uf-gmaps', $src, array(), '3.27.9', true );
+		wp_register_script( 'uf-leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js', array(), '1.0', true);
+		wp_register_script( 'uf-leaflet-geocoder', 'https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js', array('uf-leaflet'), '1.0', true);
+		
+		wp_enqueue_style( 'uf-leaflet-css', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css', array(), '1.0', 'all' );
+		wp_enqueue_style( 'uf-leaflet-geocoder-css', 'https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css', array('uf-leaflet-css'), '1.0', 'all' );
 		
 		// Prepare some shortcuts
 		$js     = ULTIMATE_FIELDS_URL . 'js/';
 		$assets = ULTIMATE_FIELDS_URL . 'assets/';
 		$v      = ULTIMATE_FIELDS_VERSION;
+		$map_deps = array('uf-field', 'uf-leaflet', 'uf-leaflet-geocoder');
+		if (wp_script_is('uf-gmaps', 'registered')) $map_deps[] = 'uf-gmaps';
 
 		// Register vendor scripts and styles
 		wp_register_script( 'uf-select2', ULTIMATE_FIELDS_URL . 'assets/js/select2/select2.min.js', array( 'jquery' ), $v );
@@ -356,8 +368,8 @@ class Core {
 		wp_register_script( 'uf-field-font',            $js . 'field/font.js',             array( 'uf-field', 'uf-overlay', 'uf-pagination' ), $v );
 		wp_register_script( 'uf-field-icon',            $js . 'field/icon.js',             array( 'uf-field', 'uf-overlay', 'uf-tab' ), $v );
 		wp_register_script( 'uf-field-sidebar',         $js . 'field/sidebar.js',          array( 'uf-field' ), $v );
-		wp_register_script( 'uf-field-map',             $js . 'field/map.js',              array( 'uf-field', 'uf-gmaps' ), $v );
-		wp_register_script( 'uf-field-map-multiple',    $js . 'field/map_multiple.js',     array( 'uf-field', 'uf-gmaps' ), $v );
+		wp_register_script( 'uf-field-map',             $js . 'field/map.js',              $map_deps, $v );
+		wp_register_script( 'uf-field-map-multiple',    $js . 'field/map_multiple.js',     $map_deps, $v );
 		wp_register_script( 'uf-field-number',          $js . 'field/number.js',           array( 'uf-field', 'jquery-ui-slider' ), $v );
 		wp_register_script( 'uf-field-embed',           $js . 'field/embed.js',            array( 'uf-field' ), $v );
 		wp_register_script( 'uf-field-layout',          $js . 'field/layout.js',           array( 'uf-field', 'uf-field-repeater', 'uf-layout' ), $v );
@@ -371,7 +383,7 @@ class Core {
 
 		// Footer scripts
 		wp_register_script( 'uf-customize-preview',     $js . 'customizer-front-end.js',   array( 'customize-preview' ), $v, true );
-		wp_register_script( 'uf-map-start',             $js . 'front-end/map.js',          array( 'jquery', 'uf-gmaps' ), $v, true );
+		// wp_register_script( 'uf-map-start',             $js . 'front-end/map.js',          array( 'jquery' ), $v, true );
 
 		// The admin-menu dependency is needed in the backend, in order to enqueue new styles after those of WordPress.
 		wp_register_style( 'ultimate-fields-css', ULTIMATE_FIELDS_URL . 'assets/css/ultimate-fields.css', array( 'admin-menu' ), ULTIMATE_FIELDS_VERSION );

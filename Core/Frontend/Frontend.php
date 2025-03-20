@@ -32,14 +32,21 @@ class Frontend extends Theme_Header_Data {
             if ( is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) {
                 wp_enqueue_script( 'comment-reply' );
             }
-
-            $google_api_key = ( defined('MV23_GOOGLE_API_KEY') ) ? MV23_GOOGLE_API_KEY : '';
-    
+            
             // adding scripts files in the footer
-            $gm_url = 'https://maps.googleapis.com/maps/api/js?key='.$google_api_key;
-            $gm_services = get_option('gm_services') ? get_option('gm_services') : array();
-            if( count($gm_services) ) $gm_url .= '&libraries='. implode(",", $gm_services);
-            if (GM_IS_ACTIVE) wp_enqueue_script( 'googleapis', $gm_url, array(), '1.0', true);
+            
+            if ( GM_IS_ACTIVE) {
+                $google_api_key = get_option( 'uf_google_maps_api_key' );
+                $gm_url = 'https://maps.googleapis.com/maps/api/js?key='.$google_api_key;
+                $gm_services = get_option('gm_services') ? get_option('gm_services') : array();
+                if( count($gm_services) ) $gm_url .= '&libraries='. implode(",", $gm_services);
+                wp_enqueue_script( 'googleapis', $gm_url, array(), '1.0', true);
+            }
+
+            if( LEAFLET_IS_ACTIVE ){
+                wp_enqueue_script( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js', array(), '1.0', true);
+                wp_enqueue_style( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css', array(), '1.0', 'all' );
+            }
     
             if( SCROLL_ANIMATIONS ){
                 wp_enqueue_script( 'scroll-animations', $this->theme_uri . '/assets/js/scrollmagic.js', array(), '1.0', false);

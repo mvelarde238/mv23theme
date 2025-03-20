@@ -44,14 +44,19 @@ class Map extends Component {
 
 		return $fields;
 	}
-
+    
     public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
-        
-		$args['additional_classes'] = array('component');
 
         $location = $args['location'];
         if (!is_array($location)) return '';
+        if (!isset($location['latLng'])) return '';
+        
+        $provider = $location['provider'] ?? '';
+        if($provider == 'google' && !GM_IS_ACTIVE) return; 
+        if($provider == 'leaflet' && !LEAFLET_IS_ACTIVE) return; 
+        
+		$args['additional_classes'] = array('component');
         
         $info = (isset($args['info'])) ? $args['info'] : '';
         $lat = $location['latLng']['lat'];
@@ -59,15 +64,21 @@ class Map extends Component {
         $zoom = $location['zoom'];
         $icono = $args['icono'];
         $icono = wp_get_attachment_url($icono);
-
         $height = (isset($args['height']) && $args['height'] && is_array($args['height'])) ? $args['height'] : array( 'height'=>280, 'unit'=>'px' );
         $height_style = 'style="height:'.$height['height'].$height['unit'].'"';
 
 		ob_start();
         echo Template_Engine::component_wrapper('start', $args);
-        if($lat && $lng) : ?>
-            <div class="map__gmap" <?=$height_style?>  data-lat="<?=$lat?>" data-lng="<?=$lng?>" data-icon="<?=$icono?>" data-zoom="<?=$zoom?>">
-                <?php if($info) echo '<div class="infowindow">'.do_shortcode(wpautop(oembed($info))).'</div>'; ?>
+        if($lat && $lng) : 
+            $map_id = uniqid('map_');
+            ?>
+            <div id="<?=$map_id?>" class="map__gmap" <?=$height_style?> 
+                data-lat="<?=$lat?>" 
+                data-lng="<?=$lng?>" 
+                data-icon="<?=$icono?>" 
+                data-zoom="<?=$zoom?>" 
+                data-provider="<?=$provider?>">
+                <?php if($info) echo '<template class="infowindow">'.do_shortcode(wpautop(oembed($info))).'</template>'; ?>
             </div>
         <?php endif;
         echo Template_Engine::component_wrapper('end', $args);

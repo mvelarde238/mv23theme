@@ -1,6 +1,11 @@
 <div class="uf-map-error">
-	<p>
-		<span class="dashicons dashicons-admin-site"></span>
-		<?php _e( 'The Google Maps script could not be loaded. Please check if you have network connection and contact the site\'s administrator if you do.', 'ultimate-fields' ) ?>
-	</p>
+    <p>
+        <span class="dashicons dashicons-admin-site"></span>
+        <?php 
+        printf(
+            __( 'The Google Maps script could not be loaded. Please enter an API key at the following URL: <a href="%s" target="_blank">Theme Options</a>', 'ultimate-fields' ),
+            esc_url( admin_url( 'admin.php?page=theme-options#maps_options' ) )
+        );
+        ?>
+    </p>
 </div>

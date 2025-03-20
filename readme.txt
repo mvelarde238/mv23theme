@@ -2,6 +2,14 @@
 CHANGELOG
 **************************************************************************************************
 
+2.0.2 25-03-20
+-----------------------------------------------------------------------------------------------------
+- !IMPORTANT: Leaflet Maps Implementation
+- ! Use theme-migrator to transform google maps into leaflet maps
+- Added Constant: INITIAL_MAP_POSITION => array('lat' => ..., 'lng' => ..., 'zoom' => 12)
+- A google api key is needed to load google maps
+-----------------------------------------------------------------------------------------------------
+
 2.0.1 25-03-15
 -----------------------------------------------------------------------------------------------------
 - !IMPORTANT: V.2.0.1: Columns Layout Field replace Column and Inner Column Component
