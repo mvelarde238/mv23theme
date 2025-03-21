@@ -50,8 +50,8 @@ class Image extends Component {
     
             Field::create( 'tab', __('Size','mv23theme') ),
             Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->add_options(array(
-                'mv23theme'  => array(
-                    'label' => 'mv23theme',
+                'default' => array(
+                    'label' => 'default',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default.png'
                 ),
                 '1/1'  => array(
@@ -105,7 +105,7 @@ class Image extends Component {
             Field::create( 'select', 'object_fit', __('Object Fit','mv23theme'))->add_options( array(
                 'cover' => __('Cover','mv23theme'),
                 'contain' => __('Contain','mv23theme'),
-            ))->add_dependency('aspect_ratio','mv23theme','!=')
+            ))->add_dependency('aspect_ratio','default','!=')
         );
 
 		return $fields;

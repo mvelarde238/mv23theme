@@ -89,7 +89,7 @@ class Page extends Restriction {
 
 		# Prepare page templates
 		$templates = array(
-			'mv23theme' => __( 'Default' )
+			'default' => __( 'Default' )
 		);
 
 		$raw = wp_get_theme()->get_page_templates();

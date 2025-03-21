@@ -3,6 +3,7 @@ CHANGELOG
 **************************************************************************************************
 
 2.0.3 25-03-21
+- Fix settings affected by internazionalization
 - Group related migration with a horizontal bar
 
 2.0.2 25-03-20

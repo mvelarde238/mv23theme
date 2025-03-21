@@ -216,7 +216,7 @@ class Migrate_Gmaps_to_Leaflet{
         // END
 
         $new_component = $component;
-        $new_component['__lel2'] = 'lel2';
+        // $new_component['__lel2'] = 'lel2';
         
         if( $component['__type'] == 'map' ){
             $new_component['location']['provider'] = 'leaflet';

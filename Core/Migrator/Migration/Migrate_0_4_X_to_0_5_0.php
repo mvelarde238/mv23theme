@@ -361,7 +361,7 @@ class Migrate_0_4_X_to_0_5_0{
 
         if( $component['__type'] == 'imagen' && !empty($component['aspect_ratio']) ){
             $translate_aspect_ratio = array(
-                'aspect-ratio-default' => 'mv23theme',
+                'aspect-ratio-default' => 'default',
                 'aspect-ratio-4-3' => '4/3',
                 'aspect-ratio-1-1' => '1/1',
                 'aspect-ratio-16-9' => '16/9',

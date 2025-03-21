@@ -58,7 +58,7 @@ class Gallery extends Component {
         $wp_media_folder_settings = array(
             // Field::create( 'checkbox', 'autoinsert' )->set_text( '¿Autoinsertar las imágenes agregadas a la galerîa?' ), // the shortcode needs the attachments id's
             Field::create( 'select', 'display', 'Tipo')->add_options( array(
-                'mv23theme' => 'Default',
+                'default' => 'Default',
                 'slider' => 'Slider',
                 'masonry' => 'Masonry',
                 // 'porfolio' => 'Portfolio'
@@ -140,8 +140,8 @@ class Gallery extends Component {
                     'label' => '1:2.5',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-1-2_5.png'
                 ),
-                'mv23theme'  => array(
-                    'label' => 'mv23theme',
+                'default' => array(
+                    'label' => 'default',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default-b.png'
                 ),
             ));

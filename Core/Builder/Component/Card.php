@@ -33,7 +33,7 @@ class Card extends Component {
             Field::create( 'tab', 'Tamaño' ),
             Field::create( 'image_select', 'aspect_ratio' )->add_options(array(
                 'aspect-ratio-default'  => array(
-                    'label' => 'mv23theme',
+                    'label' => 'default',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default.png'
                 ),
                 'aspect-ratio-4-3'  => array(

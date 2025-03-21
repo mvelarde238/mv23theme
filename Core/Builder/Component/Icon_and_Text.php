@@ -80,7 +80,7 @@ class Icon_and_Text extends Component {
             // STYLE
             Field::create( 'section', 'icon_style' ),
             Field::create( 'image_select', 'istyle', __('Style','mv23theme'))->add_options(array(
-                'mv23theme'  => array(
+                'default' => array(
                     'label' => 'Normal',
                     'image' =>  BUILDER_PATH.'/assets/images/icon-default.png'
                 ),
