@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.0.4 25-04-15
+- v23ToggleBox 5.8.36: Add delay option to ensure all elements inside are loaded
+
 2.0.3 25-03-21
 - Fix settings affected by internazionalization
 - Group related migration with a horizontal bar

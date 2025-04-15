@@ -21,7 +21,7 @@
 	"use strict";
 
 	var instances = [],
-		version = '5.8.35',
+		version = '5.8.36',
 		timers = {};
 
 	/**
@@ -55,11 +55,15 @@
 		this.items = [];
 		this._saveItems();
 		if (this.items.length > 0) {
-			this._attach_click_events();
-			this._handle_template();
-			this._change_active_tab_if_hash_in_url();
-			this._attach_resize_events();
-			this._attach_hashchange_events();
+			setTimeout(() => {
+				this._attach_click_events();
+				this._handle_template();
+				this._change_active_tab_if_hash_in_url();
+				this._attach_resize_events();
+				this._attach_hashchange_events();
+	
+				_addClass(this.el, 'v23-togglebox-initialized');
+			}, this.options.delay);
 		}
 	};
 
@@ -72,7 +76,8 @@
 				dataHeaderHeight = this.el.dataset.headerheight,
 				dataScrolltop = this.el.dataset.scrolltop,
 				dataScrollto = this.el.dataset.scrollto,
-				dataStartIndex = this.el.dataset.startIndex;
+				dataStartIndex = this.el.dataset.startIndex,
+				dataDelay = this.el.dataset.delay;
 
 			if (dataTemplate != undefined) dataOptions.initialTemplate = dataTemplate;
 			if (dataBreakpoints != undefined) dataOptions.breakpoints = this._handleDataBreakpoints(dataBreakpoints); 
@@ -81,6 +86,7 @@
             if (dataScrollto != undefined) dataOptions.scrollto = dataScrollto;
             if (dataStartIndex != undefined) dataOptions.startIndex = parseInt(dataStartIndex);
             if (this.el.hasAttribute("data-multistep")) dataOptions.multistep = 1;
+            if (dataDelay != undefined) dataOptions.delay = parseInt(dataDelay);
 			
             // js-options are overriddden if data-options are passed
 			this.options = options = _extend(options, dataOptions);
@@ -95,7 +101,8 @@
 				scrolltop : 0,
 				scrollto : 'btn', // el, btn, item
 				multistep : 0,
-				startIndex: 0 // initial active tab index
+				startIndex: 0, // initial active tab index
+				delay: 0 // add a delay to ensure all elements inside are loaded
 			};
 			
 			// Set default options

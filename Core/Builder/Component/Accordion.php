@@ -121,11 +121,11 @@ class Accordion extends Component {
 
         $items = $args['accordion'];
 
-        $data_attributes = '';
-        if($args['desktop_template'] == 'accordion') $data_attributes .= 'data-template="accordion" ';
-        if($args['mobile_template'] == 'tab') $data_attributes .= 'data-breakpoints="768|tab" ';
+        $togglebox_attributes = $args['togglebox_attributes'] ?? array();
+        if($args['desktop_template'] == 'accordion') $togglebox_attributes[] = 'data-template="accordion"';
+        if($args['mobile_template'] == 'tab') $togglebox_attributes[] = 'data-breakpoints="768|tab"';
         $tab_settings = (isset($args['tab_settings'])) ? $args['tab_settings'] : array('close_first_tab'=>0);
-        if( $tab_settings['close_first_tab'] == 1 ) $data_attributes .= 'data-openfirsttab="false" ';
+        if( $tab_settings['close_first_tab'] == 1 ) $togglebox_attributes[] = 'data-openfirsttab="false"';
 
         $tab_style = (isset($args['tab_style'])) ? $args['tab_style'] : 'style1';
         if($tab_style == 'style1' || $tab_style == 'style2') $tab_style = 'tab-'.$tab_style;
@@ -134,7 +134,7 @@ class Accordion extends Component {
 		echo Template_Engine::component_wrapper('start', $args);
 
         if (is_array($items) && count($items)>0): ?>
-            <div class="v23-togglebox <?php echo $tab_style ?>" <?=$data_attributes?>>
+            <div class="v23-togglebox <?php echo $tab_style ?>" <?php echo implode(' ',$togglebox_attributes) ?>>
                 <?php
                 $nav = '<div class="v23-togglebox__nav">';
                 $itemsbox = '<div class="v23-togglebox__items">';
