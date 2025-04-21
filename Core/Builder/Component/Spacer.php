@@ -42,7 +42,8 @@ class Spacer extends Component {
 		$args['additional_classes'] = array('component');
 
         $unit = ( isset($args['unit']) ) ? $args['unit'] : 'px';
-        $args['additional_styles'] = array( 'height:'.$args['height'].$unit );
+		$height = ( isset($args['height']) ) ? $args['height'] : 30;
+        $args['additional_styles'] = array( 'height:'.$height.$unit );
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
