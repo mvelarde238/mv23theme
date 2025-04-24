@@ -133,6 +133,36 @@ class TinyMCE{
 					)
 				)
 			),
+			array(
+				'title' => __('Font Weight', 'mv23theme'),
+				'items' => array(
+					array(
+						'title' => 'Light (300)',
+            			'inline' => 'span',
+            			'classes' => 'fw-300'
+					),
+					array(
+						'title' => 'Regular (400)',
+            			'inline' => 'span',
+            			'classes' => 'fw-400'
+					),
+					array(
+						'title' => 'Medium (500)',
+            			'inline' => 'span',
+            			'classes' => 'fw-500'
+					),
+					array(
+						'title' => 'Semi Bold (600)',
+						'inline' => 'span',
+						'classes' => 'fw-600'
+					),
+					array(
+						'title' => 'Bold (700)',
+            			'inline' => 'span',
+            			'classes' => 'fw-700'
+					)
+				)
+			),
 			array(  
 			    'title' => 'Botones',
 			    'items' => array(

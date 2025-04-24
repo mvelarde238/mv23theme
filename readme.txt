@@ -4,6 +4,7 @@ CHANGELOG
 
 2.0.5 25-04-24
 - Add backcolor to tinyMCE
+- Add font weight selector in style formats (tinymce)
 
 2.0.4 25-04-15
 - v23ToggleBox 5.8.36: Add delay option to ensure all elements inside are loaded
