@@ -18,10 +18,19 @@ class TinyMCE{
 
     public function filter_buttons_in_second_row($mce_buttons){
         array_unshift($mce_buttons, 'styleselect', 'fontsizeselect', 'fontselect');
-        $mce_buttons[] = 'underline';
-        $mce_buttons[] = 'alignjustify';
-        $mce_buttons[] = 'table';
-        return $mce_buttons;
+
+		$new_mce_buttons = [];
+    	foreach ($mce_buttons as $buton) {
+    	    $new_mce_buttons[] = $buton;
+    	    if ($buton === 'forecolor') {
+    	        $new_mce_buttons[] = 'backcolor';
+    	    }
+    	}
+
+        $new_mce_buttons[] = 'underline';
+        $new_mce_buttons[] = 'alignjustify';
+        $new_mce_buttons[] = 'table';
+        return $new_mce_buttons;
     }
 
     public function add_font_sizes($initArray){
