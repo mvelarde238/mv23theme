@@ -163,6 +163,66 @@ class TinyMCE{
 					)
 				)
 			),
+			array(
+				'title' => __('Line Height', 'mv23theme'),
+				'items' => array(
+					array(
+						'title' => 'Line Height 100%',
+						'selector' => 'p',
+						'classes' => 'lh-100'
+					),
+					array(
+						'title' => 'Line Height 110%',
+						'selector' => 'p',
+						'classes' => 'lh-110'
+					),
+					array(
+						'title' => 'Line Height 120%',
+						'selector' => 'p',
+						'classes' => 'lh-120'
+					),
+					array(
+						'title' => 'Line Height 130%',
+						'selector' => 'p',
+						'classes' => 'lh-130'
+					),
+					array(
+						'title' => 'Line Height 140%',
+						'selector' => 'p',
+						'classes' => 'lh-140'
+					),
+					array(
+						'title' => 'Line Height 150%',
+						'selector' => 'p',
+						'classes' => 'lh-150'
+					),
+					array(
+						'title' => 'Line Height 160%',
+						'selector' => 'p',
+						'classes' => 'lh-160'
+					),
+					array(
+						'title' => 'Line Height 170%',
+						'selector' => 'p',
+						'classes' => 'lh-170'
+					),
+					array(
+						'title' => 'Line Height 180%',
+						'selector' => 'p',
+						'classes' => 'lh-180'
+					),
+					array(
+						'title' => 'Line Height 190%',
+						'selector' => 'p',
+						'classes' => 'lh-190'
+					),
+					array(
+						'title' => 'Line Height 200%',
+						'selector' => 'p',
+						'classes' => 'lh-200'
+					)
+				)
+			),
 			array(  
 			    'title' => 'Botones',
 			    'items' => array(

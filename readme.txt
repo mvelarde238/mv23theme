@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.0.6 25-04-25
+- Add line height selector in style formats (tinymce)
+
 2.0.5 25-04-24
 - Add backcolor to tinyMCE
 - Add font weight selector in style formats (tinymce)
