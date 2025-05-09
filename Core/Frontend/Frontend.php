@@ -49,10 +49,7 @@ class Frontend extends Theme_Header_Data {
             }
     
             if( SCROLL_ANIMATIONS ){
-                wp_enqueue_script( 'scroll-animations', $this->theme_uri . '/assets/js/scrollmagic.js', array(), '1.0', false);
-                if( SCROLL_INDICATORS ){
-                    wp_enqueue_script( 'scroll-indicators', 'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js', array('scroll-animations'), '1.0', false);
-                }
+                wp_enqueue_script( 'scroll-animations', $this->theme_uri . '/assets/js/gsap.js', array(), '1.0', false);
             }
     
             wp_deregister_script( 'jquery' );
@@ -86,7 +83,6 @@ class Frontend extends Theme_Header_Data {
                 'listingPortfolioScrollDuration' => LISTING_PORTFOLIO_SCROLL_DURATION,
                 'carousels' => array(),
                 'scrollAnimations' => SCROLL_ANIMATIONS,
-                'scrollIndicators' => SCROLL_INDICATORS,
                 'adjustScrollPosition' => ADJUST_SCROLL_POSITION,
                 'open_minicart_on_add_to_cart' => OPEN_MINICART_ON_ADD_TO_CART,
                 'minicart_sidenav_position' => MINICART_SIDENAV_POSITION,

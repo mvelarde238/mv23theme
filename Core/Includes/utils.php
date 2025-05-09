@@ -27,15 +27,6 @@ if(!function_exists('scroll_animation_is_active')){
     }
 }
 
-if(!function_exists('scroll_indicators_is_active')){
-    function scroll_indicators_is_active(){
-        $is_active = false;
-        $the_option = get_option('scroll_animations');
-        if($the_option) $is_active = $the_option['activate_indicators'];
-        return $is_active;
-    }
-}
-
 if(!function_exists('get_video_details_from_url')){
     function get_video_details_from_url( $url ){
         $video_details = array();

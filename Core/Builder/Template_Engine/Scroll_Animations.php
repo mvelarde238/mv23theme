@@ -21,36 +21,54 @@ Class Scroll_Animations{
                     foreach ($args['scroll_animations_settings']['groups'] as $group) {
     
                         $settings = $group['settings'];
-                        if( IS_MOBILE && isset($settings['turn_off_in_mobile']) && $settings['turn_off_in_mobile'] == 1 ) continue;           
+                        if( IS_MOBILE && isset($settings['disable_on_mobile']) && $settings['disable_on_mobile'] == 1 ) continue;           
     
-                        $trigger_element = ($settings['trigger-element']['el'] == 'selector' ) ? $settings['trigger-element']['selector'] : 'this';
-                        $element = ($settings['element']['el'] == 'this' ) ? 'this' : $settings['element']['selector'];
-    
-                        $from = array();
-                        foreach ($group['animated_properties']['from'] as $item) {
-                            if($item['value'] != '') $from[$item['property']] = $item['value'];
-                        }
-    
-                        $to = array();
-                        foreach ($group['animated_properties']['to'] as $item) {
-                            if($item['value'] != '') $to[$item['property']] = $item['value'];
-                        }
-    
-                        $add_indicators = ( SCROLL_INDICATORS ) ? ((isset($settings['add_indicators'])) ? $settings['add_indicators'] : false) : false;
-                        $set_pin = (isset($settings['set_pin'])) ? $settings['set_pin'] : false;
+                        $trigger_element = ($settings['trigger_element']['el'] == 'selector' ) ? $settings['trigger_element']['selector'] : 'this';
+                        $start = ($settings['start_at']['hook'] != 'custom') ? $settings['start_at']['hook'] : $settings['start_at']['custom_hook'];
+                        $end = ( isset($settings['end_at']['customize']) && $settings['end_at']['customize'] ) ? $settings['end_at']['custom'] : '+='.$settings['end_at']['basic'];
+                        $add_indicators = (isset($settings['add_indicators'])) ? $settings['add_indicators'] : false;
+                        $pin_settings = $settings['pin_settings'] ?? array( 'pinned_el' => 'trigger_el', 'selector' => '', 'push_followers' => 1 );
                         $trigger_carrusel = (isset($settings['trigger_carrusel'])) ? $settings['trigger_carrusel'] : false;
+                        $set_pin = $settings['set_pin'] ?? false;
+
+                        $timeline = array();
+                        $timeline_raw = $group['timeline'] ?? false;
+                        if( $timeline_raw ){
+                            foreach ($timeline_raw as $tween_raw) {
+                                $tween = array();
+
+                                $tween[] = $tween_raw['element'];
+
+                                $from = array();
+                                $from_raw = $tween_raw['animated_properties']['from'] ?? array();
+                                foreach ($from_raw as $item) {
+                                    if($item['value'] != '') $from[$item['property']] = $item['value'];
+                                }
+                                $tween[] = $from;
     
+                                $to = array();
+                                $to_raw = $tween_raw['animated_properties']['to'] ?? array();
+                                foreach ($to_raw as $item) {
+                                    if($item['value'] != '') $to[$item['property']] = $item['value'];
+                                }
+                                $tween[] = $to;
+
+                                $position = ($tween_raw['position']['key'] == 'custom') ? $tween_raw['position']['custom_key'] : $tween_raw['position']['key'];
+                                $tween[] = $position;
+
+                                $timeline[] = $tween;
+                            }
+                        }
+                            
                         array_push($scroll_animations, array(
                             'trigger_element' => $trigger_element,
-                            'element' => array('key'=>$settings['element']['el'], 'el'=>$element),
-                            'trigger_hook' => $settings['trigger-hook'],
-                            'duration' => $settings['duration'],
-                            'offset' => $settings['offset'],
+                            'start' => $start,
+                            'end' => $end,
                             'add_indicators' => $add_indicators,
                             'set_pin' => $set_pin,
+                            'pin_settings' => $pin_settings,
                             'trigger_carrusel' => $trigger_carrusel,
-                            'from' => json_encode($from),
-                            'to' => json_encode($to)
+                            'timeline' => $timeline
                         ));
                     }
                     

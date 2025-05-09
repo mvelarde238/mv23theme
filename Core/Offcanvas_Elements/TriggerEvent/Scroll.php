@@ -36,7 +36,7 @@ class Scroll extends TriggerEvent {
         <% if(settings_type == "basic"){ %>
             <%= scroll_top %>px 
         <% } else { %>
-            <%= scrollmagic_settings.trigger_element %>
+            <%= gsap_settings.trigger_element %>
         <% } %>
         <% if(_custom_cookie_wrapper.custom_cookie){ %>
             limited by <%= _custom_cookie_wrapper.storage_type %> storage
@@ -56,28 +56,35 @@ class Scroll extends TriggerEvent {
 	 */
 	public static function get_fields() {
 
-        $scrollMagic_fields = array();
+        $gsap_fields = array();
+        $read_only_styles = 'pointer-events:none;opacity:.6;background-color:#eee;';
         if( !SCROLL_ANIMATIONS ){
-            $scrollMagic_fields[] = Field::create( 'message', 'Hint_1' )->set_description( __('Activate advanced animations in Theme Options -> Global Options','mv23theme') )->hide_label();
+            $gsap_fields[] = Field::create( 'message', 'Hint_1' )->set_description( __('Activate advanced animations in Theme Options -> Global Options','mv23theme') )->hide_label();
         }
-        $scrollMagic_fields[] = Field::create( 'text', 'trigger_element', __('Trigger Element','mv23theme') )->add_dependency( '../settings_type','scrollmagic','=' )->required()->set_width( 20 );
-        $scrollMagic_fields[] = Field::create( 'select', 'trigger_hook', __('Trigger Hook','mv23theme') )->add_options( array(
-            'onEnter' => __('onEnter','mv23theme'),
-            'onCenter' => __('onCenter','mv23theme'),
-            'onLeave' => __('onLeave','mv23theme')
+        $gsap_fields[] = Field::create( 'text', 'trigger_element', __('Trigger Element','mv23theme') )->add_dependency( '../settings_type','gsap','=' )->required()->set_width( 20 );
+        $gsap_fields[] = Field::create( 'complex', 'start_at', __('Start at','mv23theme') )->add_fields(array(
+            Field::create( 'select', 'hook', 'Trigger Point' )->add_options( array(
+                'top bottom' => __('Bottom of viewport','mv23theme'),
+                'top center' => __('Middle of viewport','mv23theme'),
+                'top top' => __('Top of viewport','mv23theme'),
+                'custom' => __('Custom','mv23theme')
+            ))->hide_label()->set_width( 50 ),
+            Field::create( 'text', 'Hint_1' )->add_dependency('hook','top bottom')->set_default_value( 'top bottom' )->hide_label()->set_width( 50 )->set_attr( 'style', $read_only_styles ),
+            Field::create( 'text', 'Hint_2' )->add_dependency('hook','top center')->set_default_value( 'top center' )->hide_label()->set_width( 50 )->set_attr( 'style', $read_only_styles ),
+            Field::create( 'text', 'Hint_3' )->add_dependency('hook','top top')->set_default_value( 'top top' )->hide_label()->set_width( 50 )->set_attr( 'style', $read_only_styles ),
+            Field::create( 'text', 'custom_hook' )->add_dependency('hook','custom')->hide_label()->set_width( 50 )
         ))->set_width( 20 );
-        $scrollMagic_fields[] = Field::create( 'number', 'offset' )->set_default_value(0)->set_suffix('pixels')->set_placeholder('0')->set_width( 20 );
-        if( SCROLL_INDICATORS ) $scrollMagic_fields[] = Field::create( 'checkbox', 'add_indicators', __('Add indicators','') )->fancy()->set_width( 20 );
+        $gsap_fields[] = Field::create( 'checkbox', 'add_indicators', __('Add indicators','mv23theme') )->fancy()->set_width( 20 );
 
 		$fields = array(
             Field::create( 'radio', 'settings_type', __( 'Settings type', 'mv23theme' ) )
                 ->add_options(array(
                     'basic'     => __( 'Use basic settings', 'mv23theme' ),
-                    'scrollmagic' => __( 'Use ScrollMagic library settings', 'mv23theme' )
+                    'gsap' => __( 'Use GSAP library settings', 'mv23theme' )
             )),
             Field::create( 'number', 'scroll_top' )->set_suffix('pixels')->set_description(__('Please enter a number that represents the vertical scroll position required to show the element','mv23theme'))->add_dependency( 'settings_type','basic','=' )->required(),
 
-            Field::create( 'complex', 'scrollmagic_settings' )->add_dependency( 'settings_type','scrollmagic','=' )->add_fields($scrollMagic_fields),
+            Field::create( 'complex', 'gsap_settings' )->add_dependency( 'settings_type','gsap','=' )->add_fields($gsap_fields),
 
             Field::create( 'complex', '_custom_cookie_wrapper', __('(optional) Create a custom visualization cookie','mv23theme') )->merge()->add_fields(array(
                 Field::create( 'checkbox', 'custom_cookie', __('Activate','mv23theme') )->fancy()->set_width(50),

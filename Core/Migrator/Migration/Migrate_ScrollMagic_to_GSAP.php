@@ -3,14 +3,14 @@ namespace Core\Migrator\Migration;
 
 use Core\Migrator\Core;
 
-class Migrate_Gmaps_to_Leaflet{
+class Migrate_ScrollMagic_to_GSAP{
     private static $instance = null;
 
     private $batch_size;
 
     public static function getInstance() {
         if (self::$instance == null) {
-            self::$instance = new Migrate_Gmaps_to_Leaflet();
+            self::$instance = new Migrate_ScrollMagic_to_GSAP();
         }
         return self::$instance;
     }
@@ -22,16 +22,16 @@ class Migrate_Gmaps_to_Leaflet{
     public function migrate(){
         add_action( 'theme_migrator_display', array( $this, 'display') );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_migrator_scripts') );
-        add_action( 'wp_ajax_process_gmaps_to_leaflet', array($this, 'ajax_process_page_data') );
-        add_action( 'wp_ajax_after_gmaps_to_leaflet', array($this, 'ajax_after_data_migration') );
+        add_action( 'wp_ajax_process_scrollmagic_to_gsap', array($this, 'ajax_process_page_data') );
+        add_action( 'wp_ajax_after_scrollmagic_to_gsap', array($this, 'ajax_after_data_migration') );
     }
 
     public function display(){
         ?>
         <div class="wrap">
             <div class="theme-migrator">
-                <h3>―――― Migrate Google Maps to Leaflet Maps ( For version > 2.0.1 )</h3>
-                ――――― <button class="theme-migrator__init-gm-to-leaflet button-primary" data-status="initial">
+                <h3>―――― Migrate ScrollMagic to GSAP ( For version >= 2.1.0 )</h3>
+                ――――― <button class="theme-migrator__init-sm-to-gsap button-primary" data-status="initial">
                     <span><i class="dashicons dashicons-migrate uf-button-icon"></i> INIT MIGRATION</span>
                     <span><i class="dashicons dashicons-admin-generic uf-button-icon"></i> PROCESSING</span>
                     <span><i class="dashicons dashicons-saved uf-button-icon"></i> MIGRATION COMPLETE</span>
@@ -47,7 +47,7 @@ class Migrate_Gmaps_to_Leaflet{
 
         $slug = Core::getInstance()->get_slug();
 
-        wp_enqueue_script($slug.'-gm-to-leaflet', THEME_MIGRATOR_PATH . '/scripts/migrate-gmaps-to-leaflet.js', array('jquery'), '1.0', true);
+        wp_enqueue_script($slug.'-sm-to-gsap', THEME_MIGRATOR_PATH . '/scripts/migrate-scroll-magic-to-gsap.js', array('jquery'), '1.0', true);
     }
 
     public function ajax_process_page_data() {
@@ -82,7 +82,7 @@ class Migrate_Gmaps_to_Leaflet{
         ));
 
         $general_control = array();
-        $do_the_update = true;
+        $do_the_update = false;
     
         foreach ($pages as $page) {
             $old_data = maybe_unserialize($page->meta_value);
@@ -133,6 +133,11 @@ class Migrate_Gmaps_to_Leaflet{
 
         foreach ($page_modules_data as $module) {
             if( $module['__type'] == 'page_module' ){
+
+                // Migrate the page module data
+                $module['scroll_animations_settings'] = $this->migrate_animation_data( $module['scroll_animations_settings'] );
+
+                // Migrate the inner components of the page module
                 if( isset($module['components']) && is_array($module['components']) && !empty($module['components']) ){
 
                     $migrated_components = array();
@@ -216,13 +221,74 @@ class Migrate_Gmaps_to_Leaflet{
         // END
 
         $new_component = $component;
-        // $new_component['__lel2'] = 'lel2';
+        $new_component['scroll_animations_settings'] = $this->migrate_animation_data( $component['scroll_animations_settings'] );
+
+        unset( $new_component['__lel2'] );
+        unset( $new_component['__lel3'] );
+        unset( $new_component['scroll_animation_settings'] );
+        unset( $new_component['start'] );
+        unset( $new_component['duration'] );
         
-        if( $component['__type'] == 'map' ){
-            $new_component['location']['provider'] = 'leaflet';
-        }
+        // if( $component['__type'] == 'map' ){ ...}
 
         return $new_component;
+    }
+
+    public function migrate_animation_data( $animations ){
+        $new_animation = [];
+        
+        if( isset($animations['groups']) && is_array($animations['groups']) ){
+            $new_animation['groups'] = array();
+            foreach ($animations['groups'] as $group) {
+                $new_group = array();
+
+                // MIGRATE SETTINGS
+                $settings = $group['settings'];
+
+                $start_dictionary = array(
+                    'onEnter' => ['top', 'bottom'],
+                    'onCenter' => ['top', 'center'],
+                    'onLeave' => ['top', 'top']
+                );
+                $start_translated = $start_dictionary[$settings['trigger-hook']];
+                if( $settings['offset'] != '0' ){
+                    $start_translated[0] = $settings['offset'];
+                    $start = array( 'hook' => 'custom', 'custom_hook' => implode(' ',$start_translated) );
+                } else {
+                    $start = array( 'hook' => implode(' ',$start_translated), 'custom_hook' => '' );
+                }
+
+                $new_group['settings'] = array(
+                    'trigger_element' => $settings['trigger-element'],
+                    'start_at' => $start,
+                    'end_at' => array( 'basic' => $settings['duration'], 'customize' => false, 'custom' => '' ),
+                    'set_pin' => $settings['set_pin'] ?? false,
+                    'pin_settings' => array( 'pinned_el' => 'trigger_el', 'selector' => '', 'push_followers' => false ),
+                    'trigger_carrusel' => $settings['trigger_carrusel'] ?? false,
+                    'disable_on_mobile' => $settings['turn_off_in_mobile'] ?? false,
+                    'add_indicators' => $settings['add_indicators'] ?? false
+                );
+                
+                // MIGRATE TIMELINE
+                $animated_properties = $group['animated_properties'];
+                $timeline = array( 'groups' => array(
+                    'element' => $settings['element'],
+                    'animated_properties' => array(
+                        'from' => $animated_properties['from'] ?? array(),
+                        'to' => $animated_properties['to'] ?? array()
+                    ),
+                    'position' => array(
+                        'key' => '',
+                        'custom_key' => ''
+                    )
+                ));
+                $new_group['timeline'] = $timeline;
+
+                $new_animation['groups'][] = $new_group;
+            }
+        }
+
+        return $new_animation;
     }
 
     public function has_inner_components( $component_type ){
@@ -245,8 +311,7 @@ class Migrate_Gmaps_to_Leaflet{
     public function ajax_after_data_migration() {
         check_ajax_referer('process_page_data_nonce', 'nonce');
 
-        update_option('activate_gm', '', true);
-        update_option('activate_leaflet', 1, true);
+        // ...
 
         wp_send_json_success(array(
             'complete' => true

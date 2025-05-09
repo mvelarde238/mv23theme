@@ -3,7 +3,7 @@
     	var animatedElements = $('[data-scroll-animations]');
 
     	if (MV23_GLOBALS.scrollAnimations && animatedElements.length > 0) {
-            var controller = new ScrollMagic.Controller();
+            gsap.registerPlugin(ScrollTrigger); 
 
             for (var i = 0; i < animatedElements.length; i++) {
     			var elem = animatedElements[i],
@@ -11,82 +11,109 @@
 
                 if( scrollAnimations.length > 0 ){
                     scrollAnimations.forEach(group => {
-                        var triggerElement = ( group['trigger_element'] != 'this' ) ? $(elem).find(group['trigger_element']) : elem;           
+                        var triggerElement = ( group['trigger_element'] != 'this' ) ? $(elem).find(group['trigger_element']) : elem;
 
                         if( triggerElement.length ){
                             for (let index = 0; index < triggerElement.length; index++) {
                                 var _tgrEl = triggerElement[index];
-                                var tweenElem = ( group['trigger_element'] != group['element']['el'] ) ? $(_tgrEl).find(group['element']['el']) : _tgrEl;
-                                addAnimation(_tgrEl, tweenElem, group); 
+                                addAnimation(_tgrEl, group); 
                             }
                         } else {
-                            var tweenElem = null;
-                            switch ( group['element']['key'] ) {
-                                case 'selector':
-                                    tweenElem = $(elem).find(group['element']['el']);
-                                    break;
-                                    
-                                case 'outer_selector':
-                                    tweenElem = $(group['element']['el'])[0];
-                                    break;
-
-                                default:
-                                    tweenElem = elem;
-                                    break;
-                            }
-                            if(tweenElem) addAnimation(triggerElement, tweenElem, group);
+                            addAnimation(triggerElement, group);
                         }
                     });
                 }
             }
     	}
 
-        function addAnimation(triggerElement,tweenElem,group){
-            var from = JSON.parse(group['from']);
-            var to = JSON.parse(group['to']);
-            var addIndicators = group['add_indicators'];
-            var setPin = group['set_pin'];
-            var triggerCarrusel = group['trigger_carrusel'];
+        function addAnimation(triggerElement,group){
+            var scrollTriggerOptions = {
+                trigger: triggerElement,
+                start: group['start'],
+                end: group['end'],
+                toggleActions: 'play none play reverse',
+                scrub: false
+            };
 
-            // var timeline = new TimelineMax();
-            // timeline.from(tweenElem, 1, from);
-            // timeline.to(tweenElem, 1, to);
-            var tween = TweenMax.fromTo(tweenElem, 1, from, to );
-            
-            var scene = new ScrollMagic.Scene({
-                triggerElement: triggerElement, 
-                duration: group['duration'], 
-                triggerHook: group['trigger_hook'], 
-                offset: group['offset']
-            })
-            .setTween(tween)
-            .addTo(controller);
+            if( group['end'] != '+=0' ) scrollTriggerOptions.scrub = true;
+            if( group['add_indicators'] == '1') scrollTriggerOptions.markers = true; 
 
-            if(setPin) scene.setPin(triggerElement);
+            // pin settings
+            if(group['set_pin']) {
+                var pinned_element = null, 
+                    pin_settings = group['pin_settings'],
+                    push_followers = pin_settings['push_followers'] ?? true;
 
-            if( triggerCarrusel ){ // trgigger carrusel next / prev
-                scene.on("progress", function (e) {
-                    var carrusels = ( $(triggerElement).hasClass('carrusel') ) ? $(triggerElement) : $(triggerElement).find('.carrusel');
-                    if( carrusels.length ){
-                        for (var i = 0; i < carrusels.length; i++) {
-                            var carrusel_uid = $(carrusels[i]).attr('data-tns-uid');
-                            var carrusel = MV23_GLOBALS.carousels[carrusel_uid];
-                            if( carrusel ){
-                                var nth_slides = carrusel.getInfo().slideCount;
-                                for (let i = 1; i <= nth_slides; i++) {
-                                    if( e.progress >= ( (1/nth_slides)*(i-1) ) && e.progress <= ( (1/nth_slides)*i ) ){
-                                        var slide_should_be_here = i - 1; // slide index starts in 0
-                                        carrusel.goTo(slide_should_be_here);
-                                    }
-                                }
+                if( pin_settings['pinned_el'] === 'trigger_el' ) pinned_element = triggerElement;
+                if( pin_settings['pinned_el'] === 'selector' ) pinned_element = pin_settings['selector'];
+
+                if( pinned_element ) {
+                    scrollTriggerOptions.pin = pinned_element;
+                    scrollTriggerOptions.pinSpacing = push_followers;
+                }
+            }
+
+            if( group['trigger_carrusel'] ){
+                scrollTriggerOptions.onUpdate = gsapScroll => { trigger_carrusel(gsapScroll, triggerElement) };
+            } 
+
+            var timeline = gsap.timeline({
+                scrollTrigger: scrollTriggerOptions
+            });
+
+            if( group['timeline'].length ){
+                group['timeline'].forEach(tween_obj => {
+                    var _tweenElem = get_tweenElem(triggerElement, tween_obj[0]);
+                    var from = tween_obj[1];
+                    var to = tween_obj[2];
+                    var position = (tween_obj[3] != '') ? tween_obj[3] : null;
+
+                    // normalize yoyo and repeat values
+                    if( to.hasOwnProperty('yoyo') ) to.yoyo = true;
+                    if( to.hasOwnProperty('repeat') ) to.repeat = parseInt(to.repeat);
+                    if( to.hasOwnProperty('duration') ) to.duration = parseInt(to.duration);
+
+                    timeline.fromTo(_tweenElem, from, to, position);
+                });
+            }
+        }
+
+        function get_tweenElem(triggerElement, obj){
+            var tweenElem = null;
+            switch ( obj['el'] ) {
+                case 'selector':
+                    tweenElem = $(triggerElement).find(obj['selector']);
+                    break;
+                    
+                case 'outer_selector':
+                    tweenElem = $(obj['selector'])[0];
+                    break;
+
+                default:
+                    tweenElem = triggerElement;
+                    break;
+            }
+            return tweenElem;
+        }
+
+        function trigger_carrusel(gsapScroll, triggerElement){
+            var progress = gsapScroll.progress;
+            var carrusels = ( $(triggerElement).hasClass('carrusel') ) ? $(triggerElement) : $(triggerElement).find('.carrusel');
+            if( carrusels.length ){
+                for (var i = 0; i < carrusels.length; i++) {
+                    var carrusel_uid = $(carrusels[i]).attr('data-tns-uid');
+                    var carrusel = MV23_GLOBALS.carousels[carrusel_uid];
+                    if( carrusel ){
+                        var nth_slides = carrusel.getInfo().slideCount;
+                        for (let i = 1; i <= nth_slides; i++) {
+                            if( progress >= ( (1/nth_slides)*(i-1) ) && progress <= ( (1/nth_slides)*i ) ){
+                                var slide_should_be_here = i - 1; // slide index starts in 0
+                                carrusel.goTo(slide_should_be_here);
                             }
                         }
                     }
-
-                });
+                }
             }
-            
-            if( MV23_GLOBALS.scrollIndicators && addIndicators == '1') scene.addIndicators(); 
         }
  	});
 })(jQuery,console.log);

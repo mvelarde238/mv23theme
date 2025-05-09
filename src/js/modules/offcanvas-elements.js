@@ -258,8 +258,8 @@ window['OffCanvas_Elements'] = (function(){
                             this._handle_basic_scroll_event( triggerData, storage, cookie_name );
                         }
 
-                        if( triggerData.settings_type == 'scrollmagic' && MV23_GLOBALS.scrollAnimations ){
-                            this._handle_scrollmagic_event( triggerData, storage, cookie_name );
+                        if( triggerData.settings_type == 'gsap' && MV23_GLOBALS.scrollAnimations ){
+                            this._handle_gsap_event( triggerData, storage, cookie_name );
                         }
                         break;
                 
@@ -322,45 +322,44 @@ window['OffCanvas_Elements'] = (function(){
                 }
             });
         },
-        _handle_scrollmagic_event(triggerData, storage, cookie_name ){
+        _handle_gsap_event(triggerData, storage, cookie_name ){
             let { M_instance } = this;
 
             // cookie name need to be unique if there are two scroll triggers for the same offcanvas element
             if( !triggerData.custom_cookie ) cookie_name = '_'+cookie_name; 
-            const scrollmagic_settings = triggerData.scrollmagic_settings;
-            const trigger_element = document.querySelectorAll(scrollmagic_settings.trigger_element);
+            const gsap_settings = triggerData.gsap_settings;
+            const trigger_element = document.querySelectorAll(gsap_settings.trigger_element);
             
             if( trigger_element.length ){
-                var controller = new ScrollMagic.Controller();
-                const trigger_hook = scrollmagic_settings.trigger_hook;
-                const offset = scrollmagic_settings.offset;
-                const add_indicators = scrollmagic_settings.add_indicators;
+                gsap.registerPlugin(ScrollTrigger);
+                const start = (gsap_settings.start_at.hook != 'custom') ? gsap_settings.start_at.hook : gsap_settings.start_at.custom_hook;
+                const add_indicators = gsap_settings.add_indicators;
 
                 for (let i = 0; i < trigger_element.length; i++) {
-                    var scene = new ScrollMagic.Scene({
-                        triggerElement: trigger_element[i], 
-                        triggerHook: trigger_hook, 
-                        offset: offset
-                    })
-                    .addTo(controller);
 
-                    scene.on("enter", function (event) {
-                        if( triggerData.custom_cookie && storage.getItem(cookie_name) ) return;
+                    var scrollTriggerOptions = {
+                        trigger: trigger_element[i],
+                        start: start,
+                        onEnter: function() {
+                            if( triggerData.custom_cookie && storage.getItem(cookie_name) ) return;
                         
-                        M_instance.open();
-                        
-                        if(triggerData.custom_cookie){
-                            storage.setItem(cookie_name,'true');
+                            M_instance.open();
                             
-                            if( triggerData.cookie_expiration ){
-                                setTimeout(() => {
-                                    storage.removeItem(cookie_name);
-                                }, triggerData.expiration_time);
+                            if(triggerData.custom_cookie){
+                                storage.setItem(cookie_name,'true');
+
+                                if( triggerData.cookie_expiration ){
+                                    setTimeout(() => {
+                                        storage.removeItem(cookie_name);
+                                    }, triggerData.expiration_time);
+                                }
                             }
                         }
-                    });
+                    };
 
-                    if( MV23_GLOBALS.scrollIndicators && add_indicators ) scene.addIndicators(); 
+                    if( add_indicators ) scrollTriggerOptions.markers = true; 
+
+                    ScrollTrigger.create(scrollTriggerOptions);
                 }
             }
         },

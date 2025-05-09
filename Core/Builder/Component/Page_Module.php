@@ -40,6 +40,7 @@ class Page_Module extends Component{
         $attributes = Template_Engine::generate_attributes( $args );
 
 		ob_start();
+        echo Template_Engine::check_full_width('start', $args);
         echo '<section '.$attributes.'>';
         echo Template_Engine::check_video_background( $args );
         echo Template_Engine::check_slider_background( $args );
@@ -51,6 +52,7 @@ class Page_Module extends Component{
 		
         echo Template_Engine::check_layout('end', $args);
         echo '</section>';
+        echo Template_Engine::check_full_width('end', $args);
 		return ob_get_clean();
 	}
 }

@@ -4,6 +4,7 @@ namespace Core\Migrator;
 use Core\Migrator\Migration\Migrate_0_4_X_to_0_5_0;
 use Core\Migrator\Migration\Migrate_1_5_X_to_2_0_1;
 use Core\Migrator\Migration\Migrate_Gmaps_to_Leaflet;
+use Core\Migrator\Migration\Migrate_ScrollMagic_to_GSAP;
 
 define ('THEME_MIGRATOR_DIR', __DIR__);
 define ('THEME_MIGRATOR_PATH', get_template_directory_uri() . '/Core/Migrator');
@@ -29,6 +30,7 @@ class Core{
             Migrate_0_4_X_to_0_5_0::getInstance()->migrate();
             Migrate_1_5_X_to_2_0_1::getInstance()->migrate();
             Migrate_Gmaps_to_Leaflet::getInstance()->migrate();
+            Migrate_ScrollMagic_to_GSAP::getInstance()->migrate();
         // }
 
         add_action( 'admin_menu', array($this, 'add_admin_page') );

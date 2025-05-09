@@ -34,11 +34,6 @@ Class Classes{
             if( isset($responsive['hide_on_tablet']) && $responsive['hide_on_tablet'] ) $classes[] = 'hide-on-med-only';
             if( isset($responsive['hide_on_mobile']) && $responsive['hide_on_mobile'] ) $classes[] = 'hide-on-small-only';
         } 
-
-        if (isset($args['settings']['layout'])) {
-            $layout = $args['settings']['layout']['key'];
-            if ( !empty($layout) && ($layout == 'layout2' || $layout == 'layout3') ) $classes[] = 'full-width';
-        }
         
         $color_scheme = self::get_color_scheme( $args );
         if ( $color_scheme ) $classes[] = $color_scheme;

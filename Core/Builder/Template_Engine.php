@@ -72,11 +72,20 @@ class Template_Engine{
         if ($key == 'end' && in_array($layout, $containered_layouts) ) return '</div>';
     }
 
+    public static function check_full_width( $key, $args ){
+        $layout = (isset($args['settings']['layout'])) ? $args['settings']['layout']['key'] : 'layout1';
+        $full_width_layouts = array('layout2','layout3');
+
+        if ($key == 'start' && in_array($layout, $full_width_layouts) ) return '<div class="full-width">';
+        if ($key == 'end' && in_array($layout, $full_width_layouts) ) return '</div>';
+    }
+
     public static function component_wrapper( $key, $args ){
         $attributes = self::generate_attributes( $args );
 
         ob_start();
         if ($key == 'start'){
+            echo self::check_full_width('start', $args);
             echo '<div '.$attributes.'>';
             echo self::check_video_background( $args );
             echo self::check_slider_background( $args );
@@ -86,6 +95,7 @@ class Template_Engine{
             echo self::check_actions( $args );
             echo self::check_layout('end', $args);
             echo '</div>';
+            echo self::check_full_width('end', $args);
         } 
         return ob_get_clean();
     }
