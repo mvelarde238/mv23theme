@@ -4,6 +4,7 @@ CHANGELOG
 
 2.1.0 25-05-09
 - GSAP Animations replace ScrollMagic (!use migrator)
+- Special title styles wrapper apply to paragraphs
 
 2.0.6 25-04-25
 - Add line height selector in style formats (tinymce)
