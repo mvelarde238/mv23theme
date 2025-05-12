@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.1.1 25-05-12
+- Use locate_template() to load Components to check for the class in the child theme
+
 2.1.0 25-05-09
 - GSAP Animations replace ScrollMagic (!use migrator)
 - Special title styles wrapper apply to paragraphs

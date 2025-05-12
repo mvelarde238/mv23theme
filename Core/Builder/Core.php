@@ -111,7 +111,8 @@ class Core{
         foreach( self::$core_components as $key => $components_group ) {
             foreach ($components_group as $component) {
                 do_action('before_adding_'.$component.'_components');
-                require_once( BUILDER_DIR.'/Component/'.$component.'.php' );
+                // Use locate_template() function to check for the class in the child theme
+                locate_template( 'Core/Builder/Component/'.$component.'.php', true, true);
             }
             do_action('add_'.$key.'_components');
         }
