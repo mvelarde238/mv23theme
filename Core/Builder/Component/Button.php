@@ -29,16 +29,19 @@ class Button extends Component {
     }
 
 	public static function get_fields() {
+
+        $button_styles = apply_filters( 'filter_core_button_styles', array(
+            '' => 'Link',
+            'btn' => 'Botón Simple',
+            'btn btn--main-color' => 'Botón Corporativo 1',
+            'btn btn--secondary-color' => 'Botón Corporativo 2',
+            'btn btn--white' => 'Botón Blanco'
+        ));
+
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme') ), 
             Field::create( 'text', 'text', 'Texto del botón')->set_width(25),
-            Field::create( 'select', 'style', 'Estilo')->add_options( array(
-                '' => 'Link',
-                'btn' => 'Botón Simple',
-                'btn btn--main-color' => 'Botón Corporativo 1',
-                'btn btn--secondary-color' => 'Botón Corporativo 2',
-                'btn btn--white' => 'Botón Blanco'
-            ))->set_default_value('btn btn--main-color')->set_width(25),
+            Field::create( 'select', 'style', 'Estilo')->add_options( $button_styles )->set_default_value('btn btn--main-color')->set_width(25),
     
             Field::create( 'radio', 'type','Tipo')->set_orientation( 'horizontal' )->add_options( array(
                 'link' => 'Link',

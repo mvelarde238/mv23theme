@@ -4,6 +4,7 @@ CHANGELOG
 
 2.1.1 25-05-12
 - Use locate_template() to load Components to check for the class in the child theme
+- filter_core_button_styles implementation
 
 2.1.0 25-05-09
 - GSAP Animations replace ScrollMagic (!use migrator)
