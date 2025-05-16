@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.1.2 25-05-16
+- Fix scroll animations scripts to work with to() from() and fromTo()
+
 2.1.1 25-05-12
 - Use locate_template() to load Components to check for the class in the child theme
 - filter_core_button_styles implementation

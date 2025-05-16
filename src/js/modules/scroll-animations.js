@@ -31,7 +31,7 @@
                 trigger: triggerElement,
                 start: group['start'],
                 end: group['end'],
-                toggleActions: 'play none play reverse',
+                toggleActions: 'restart none none reset',
                 scrub: false
             };
 
@@ -64,18 +64,30 @@
             if( group['timeline'].length ){
                 group['timeline'].forEach(tween_obj => {
                     var _tweenElem = get_tweenElem(triggerElement, tween_obj[0]);
-                    var from = tween_obj[1];
-                    var to = tween_obj[2];
-                    var position = (tween_obj[3] != '') ? tween_obj[3] : null;
+                    var from = normalize_properties(tween_obj[1]);
+                    var to = normalize_properties(tween_obj[2]);
+                    var position = (tween_obj[3] != '') ? tween_obj[3] : "+=0";
 
-                    // normalize yoyo and repeat values
-                    if( to.hasOwnProperty('yoyo') ) to.yoyo = true;
-                    if( to.hasOwnProperty('repeat') ) to.repeat = parseInt(to.repeat);
-                    if( to.hasOwnProperty('duration') ) to.duration = parseInt(to.duration);
-
-                    timeline.fromTo(_tweenElem, from, to, position);
+                    if( Object.keys(to).length > 0 && Object.keys(from).length > 0 ){
+                        timeline.fromTo(_tweenElem, from, to, position);
+                    } else {
+                        if( Object.keys(from).length > 0 ){
+                            timeline.from(_tweenElem, from, position);
+                        }
+                        if( Object.keys(to).length > 0 ){
+                            timeline.to(_tweenElem, to, position);
+                        }
+                    }
                 });
             }
+        }
+
+        function normalize_properties(obj){
+            if( obj.hasOwnProperty('duration') ) obj.duration = parseFloat(obj.duration);
+            if( obj.hasOwnProperty('delay') ) obj.delay = parseFloat(obj.delay);
+            if( obj.hasOwnProperty('yoyo') ) obj.yoyo = true;
+            if( obj.hasOwnProperty('repeat') ) obj.repeat = parseInt(obj.repeat);
+            return obj;
         }
 
         function get_tweenElem(triggerElement, obj){
