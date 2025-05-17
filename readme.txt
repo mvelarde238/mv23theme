@@ -7,6 +7,7 @@ CHANGELOG
 - Refactor Common Settings position
 - Add toggle_actions setting to Scroll Animations
 - Add animation_name to Scroll Animations
+- Add rule_name to Page_Container group
 
 2.1.2 25-05-16
 - Fix scroll animations scripts to work with to() from() and fromTo()

@@ -15,11 +15,18 @@ class Page_Container {
                 ->add_group( 'item', array(
                     'edit_mode' => 'popup',
                     'title_template' => '<% if( scope != "custom" ){ %>
+                        <% if( rule_name ){ %>
+                            <%= rule_name %> |  
+                        <% } %>
                         .<%= scope %>: <%= width %>px
                     <% } else { %>
+                        <% if( rule_name ){ %>
+                            <%= rule_name %> |  
+                        <% } %>
                         <%= selector %>: <%= width %>px
                     <% } %>',
                     'fields' => array(
+                        Field::create( 'text', 'rule_name' )->set_width(25),
                         Field::create( 'select', 'scope', __('Scope','mv23theme') )->add_options(array(
                             'global' => 'Global',
                             'header' => 'Header',
@@ -29,9 +36,9 @@ class Page_Container {
                             'archive' => 'Archive',
                             'blog' => 'Blog',
                             'custom' => 'Custom'
-                        ))->set_width(30),
-                        Field::create( 'text', 'selector' )->add_dependency('scope','custom')->set_width(30),
-                        Field::create( 'number', 'width', __('Width','mv23theme') )->set_suffix('px')->set_placeholder('1240')->required()->set_width(30)
+                        ))->set_width(25),
+                        Field::create( 'text', 'selector' )->add_dependency('scope','custom')->set_width(25),
+                        Field::create( 'number', 'width', __('Width','mv23theme') )->set_suffix('px')->set_placeholder('1240')->required()->set_width(25)
                     )
             ))
         );
