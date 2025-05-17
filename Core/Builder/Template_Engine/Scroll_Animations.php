@@ -45,15 +45,19 @@ Class Scroll_Animations{
 
                                 $from = array();
                                 $from_raw = $tween_raw['animated_properties']['from'] ?? array();
-                                foreach ($from_raw as $item) {
-                                    if($item['value'] != '') $from[$item['property']] = $item['value'];
+                                if( is_array($from_raw) ){
+                                    foreach ($from_raw as $item) {
+                                        if($item['value'] != '') $from[$item['property']] = $item['value'];
+                                    }
                                 }
                                 $tween[] = $from;
     
                                 $to = array();
                                 $to_raw = $tween_raw['animated_properties']['to'] ?? array();
-                                foreach ($to_raw as $item) {
-                                    if($item['value'] != '') $to[$item['property']] = $item['value'];
+                                if(is_array($to_raw)){
+                                    foreach ($to_raw as $item) {
+                                        if($item['value'] != '') $to[$item['property']] = $item['value'];
+                                    }
                                 }
                                 $tween[] = $to;
 
