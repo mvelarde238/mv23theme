@@ -40,7 +40,8 @@ Container::create( 'row_settings_container' )
                 array( 'value' => '1fr 2fr 1fr', 'label' => '1/4 + 2/4 + 1/4' ),
                 array( 'value' => '2fr 1fr 1fr', 'label' => '1/2 + 1/4 + 1/4' ),
                 array( 'value' => '1fr 1fr 2fr', 'label' => '1/4 + 1/4 + 1/2' ),
-                array( 'value' => '1fr 6fr 1fr', 'label' => '1/8 + 6/8 + 1/8' )
+                array( 'value' => '1fr 6fr 1fr', 'label' => '1/8 + 6/8 + 1/8' ),
+                array( 'value' => '2fr 1fr 2fr', 'label' => '2/5 + 1/5 + 2/5' )
             ))
         ),
         Field::create( 'image_select', 'l_grid_4',__('Columns Width','mv23theme'))->show_label()->add_options(
