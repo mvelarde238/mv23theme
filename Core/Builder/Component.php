@@ -17,16 +17,15 @@ abstract class Component {
 		$args = wp_parse_args( $args, $defaults );
 
 		$component = new Repeater_Group( $slug );
-		$component->set_title( $name )
-			->add_fields( static::get_fields() )
-			->set_description_position( 'label' );
-
-		$title_template = static::get_title_template();
-		if( $title_template ) $component->set_title_template( $title_template );
-		
+		$component->set_title( $name );
 		if( $args['add_common_settings'] ){
 			self::add_common_settings( $component );
 		}
+		$component->add_fields( static::get_fields() );
+		$component->set_description_position( 'label' );
+
+		$title_template = static::get_title_template();
+		if( $title_template ) $component->set_title_template( $title_template );
 
 		$layout = static::get_layout();
 		if( !empty($layout) ) $component->set_layout( $layout );
@@ -103,18 +102,24 @@ abstract class Component {
 	protected static function add_common_settings( $component ) {
 
 		$component->add_fields(array(
-			Field::create( 'tab', __('Settings','mv23theme') )->set_icon('dashicons-admin-appearance'),
-			Field::create( 'common_settings_control', 'settings' )
-				->set_container( 'common_settings_container' )
-				->set_width(30),
-			Field::create( 'common_settings_control', 'scroll_animations_settings' )
-				->set_container( 'scroll_animations_container' )
-				->set_add_text( __('Add Scroll Animations', 'mv23theme') )
-				->set_width(30),
-			Field::create( 'common_settings_control', 'actions_settings' )
-				->set_container( 'actions_container' )
-				->set_add_text( __('Add Actions', 'mv23theme') )
-				->set_width(30)
+			Field::create( 'complex', 'common_settings_wrapper' )
+				->merge()->hide_label()
+				->set_attr( 'class', 'components-settings-complex-styles' )
+				->add_fields(array(
+					Field::create( 'common_settings_control', 'settings' )
+						->set_container( 'common_settings_container' )
+						->set_add_text( __('Settings', 'mv23theme') )
+						// ->set_icon( 'dashicons-admin-appearance' )
+						->hide_label(),
+					Field::create( 'common_settings_control', 'scroll_animations_settings' )
+						->set_container( 'scroll_animations_container' )
+						->set_add_text( __('Scroll Animations', 'mv23theme') )
+						->hide_label(),
+					Field::create( 'common_settings_control', 'actions_settings' )
+					->set_container( 'actions_container' )
+						->set_add_text( __('Actions', 'mv23theme') )
+						->hide_label(),
+				))
 		));
 		 
 		return $component;

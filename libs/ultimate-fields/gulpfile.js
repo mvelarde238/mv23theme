@@ -43,7 +43,7 @@ const sourcemaps = require( 'gulp-sourcemaps' );
 // core mv23
 var url = 'mv23.com';
 
-gulp.task('core', function() {
+gulp.task('ufcoresass', function() {
 	const path = 'core';
 	return gulp.src( './' + path + '/assets/sass/*.scss' )
 		.pipe( sourcemaps.init() )
@@ -61,5 +61,5 @@ gulp.task('serve', function () {
 		injectChanges: true
 	});
 
-	gulp.watch(['./core/assets/sass/**/*.scss'], gulp.series('core'));
+	gulp.watch(['./core/assets/sass/**/*.scss'], gulp.series('ufcoresass'));
 });

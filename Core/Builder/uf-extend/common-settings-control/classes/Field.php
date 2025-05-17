@@ -37,6 +37,14 @@ class Field extends Base_Field {
 	protected $add_text;
 
 	/**
+	 * Holds the icon, which will be used for the button.
+	 *
+	 * @since 1.1
+	 * @var string
+	 */
+	protected $icon;
+
+	/**
 	 * Enqueues all scripts and templates, needed for the field.
 	 *
 	 * @since 1.0
@@ -74,6 +82,7 @@ class Field extends Base_Field {
 		$data[ 'nonce' ]          = wp_create_nonce( $this->get_nonce_action() );
 		$data[ 'save_text' ]      = $save_text;
 		$data[ 'add_text' ]       = $add_text;
+		$data[ 'icon' ]           = $this->get_icon();
 
 		return $data;
 	}
@@ -165,4 +174,12 @@ class Field extends Base_Field {
 		return $this->add_text;
 	}
 
+	public function set_icon( $icon ) {
+		$this->icon = $icon;
+		return $this;
+	}
+
+	public function get_icon() {
+		return $this->icon ?? 'dashicons-migrate';
+	}
 }

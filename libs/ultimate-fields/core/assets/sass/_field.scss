@@ -269,3 +269,39 @@
 		margin-left: 250px;
 	}
 }
+
+// Common Settings Styles
+.components-settings-complex-styles{
+	background-color:#F0F0F0 !important;
+
+	.uf-fields-layout-grid{
+		display: flex;
+		justify-content: end;
+	}
+
+	.uf-field-layout-grid{
+		background-color:transparent;
+		flex-grow:0;
+		width: initial !important;
+		border-top: 0;
+		padding: 0;
+		font-weight: bold;
+		min-width: 0;
+	}
+	
+	.button-primary{
+		font-size: 12px;
+		background: transparent;
+		border: 0;
+		color: inherit;
+		padding: 5px 10px 4px 10px;
+		border-radius: 0;
+		min-height: auto;
+		line-height: initial;
+		color: $wp-blue;
+		.uf-button-icon{
+			margin: 2px 5px 0 0;
+			font-size: 15px;
+		}
+	}
+}

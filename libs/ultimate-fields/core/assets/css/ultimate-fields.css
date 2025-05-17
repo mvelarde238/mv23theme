@@ -667,6 +667,38 @@
   margin-left: 250px;
 }
 
+.components-settings-complex-styles {
+  background-color: #F0F0F0 !important;
+}
+.components-settings-complex-styles .uf-fields-layout-grid {
+  display: flex;
+  justify-content: end;
+}
+.components-settings-complex-styles .uf-field-layout-grid {
+  background-color: transparent;
+  flex-grow: 0;
+  width: initial !important;
+  border-top: 0;
+  padding: 0;
+  font-weight: bold;
+  min-width: 0;
+}
+.components-settings-complex-styles .button-primary {
+  font-size: 12px;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  padding: 5px 10px 4px 10px;
+  border-radius: 0;
+  min-height: auto;
+  line-height: initial;
+  color: #0073aa;
+}
+.components-settings-complex-styles .button-primary .uf-button-icon {
+  margin: 2px 5px 0 0;
+  font-size: 15px;
+}
+
 .uf-existing-message .uf-field-input-wrap {
   background: #DC4141;
 }

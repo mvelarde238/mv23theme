@@ -43,7 +43,7 @@
 			var addButton = new UltimateFields.Button({
                 text: this.model.get( 'add_text' ),
 				type: 'primary',
-                icon: 'dashicons-migrate',
+                icon: this.model.get( 'icon' ),
 				callback: _.bind( this.openPopUp, this )
 			});
 
