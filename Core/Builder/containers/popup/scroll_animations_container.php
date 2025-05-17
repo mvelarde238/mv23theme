@@ -44,17 +44,6 @@ $css_properties = array(
 
 $read_only_styles = 'pointer-events:none;opacity:.6;background-color:#eee;';
 
-$lel = array(
-        'play' => 'Play',
-        'pause' => 'Pause',
-        'resume' => 'Resume',
-        'reset' => 'Reset',
-        'reverse' => 'Reverse',
-        'restart' => 'Restart',
-        'complete' => 'Complete',
-        'none' => 'None'
-    );
-
 $scroll_animation_fields = array();
 
 if( !SCROLL_ANIMATIONS ){
@@ -64,6 +53,8 @@ if( !SCROLL_ANIMATIONS ){
 }
 
 $scroll_animation_settings_fields = array(
+    Field::create( 'text', 'animation_name', __('Name', 'mv23theme') )->set_placeholder( 'Animation name' ),
+
     Field::create( 'complex', 'trigger_element', __('Trigger','mv23theme') )->add_fields(array(
         Field::create( 'select', 'el' )->add_options( array(
             'this' => __('Component','mv23theme'),
@@ -136,7 +127,7 @@ array_push($scroll_animation_fields, Field::create( 'repeater', 'groups' )
     ->add_group('group1', array(
         'title' => 'Scroll Animation',
         'edit_mode' => 'popup',
-        'title_template' => '<%= settings["element"]["selector"] %>',
+        'title_template' => '<%= settings["animation_name"] %>',
         'fields' => array(
             Field::create( 'complex', 'settings' )->add_fields( $scroll_animation_settings_fields )
                 ->hide_label()->rows_layout()
