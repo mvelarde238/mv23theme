@@ -5,6 +5,7 @@ CHANGELOG
 2.1.3 25-05-17
 - Row settings implementation: 2/5 + 1/5 + 2/5 columns width
 - Refactor Common Settings position
+- Add toggle_actions setting to Scroll Animations
 
 2.1.2 25-05-16
 - Fix scroll animations scripts to work with to() from() and fromTo()

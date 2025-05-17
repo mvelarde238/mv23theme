@@ -44,6 +44,17 @@ $css_properties = array(
 
 $read_only_styles = 'pointer-events:none;opacity:.6;background-color:#eee;';
 
+$lel = array(
+        'play' => 'Play',
+        'pause' => 'Pause',
+        'resume' => 'Resume',
+        'reset' => 'Reset',
+        'reverse' => 'Reverse',
+        'restart' => 'Restart',
+        'complete' => 'Complete',
+        'none' => 'None'
+    );
+
 $scroll_animation_fields = array();
 
 if( !SCROLL_ANIMATIONS ){
@@ -79,6 +90,16 @@ $scroll_animation_settings_fields = array(
         Field::create( 'checkbox', 'customize' )->set_text( __('Customize','mv23theme') )->fancy()->hide_label()->set_width( 50 ),
         Field::create( 'text', 'custom' )->add_dependency('customize')->hide_label()->set_width( 50 )
     )),
+
+    // advanced settings
+    Field::create( 'checkbox', 'set_advanced_settings' )
+        ->hide_label()
+        ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
+        ->set_text( __('Advanced Settings','mv23theme') ),
+    Field::create( 'text', 'toggle_actions', 'toggleActions' )
+        ->set_placeholder( 'play none none reset' )
+        ->set_description( 'onEnter, onLeave, onEnterBack, onLeaveBack' )
+        ->add_dependency('set_advanced_settings'),
 
     // pin settings
     Field::create( 'checkbox', 'set_pin' )

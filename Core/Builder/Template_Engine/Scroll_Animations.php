@@ -23,6 +23,10 @@ Class Scroll_Animations{
                         $settings = $group['settings'];
                         if( IS_MOBILE && isset($settings['disable_on_mobile']) && $settings['disable_on_mobile'] == 1 ) continue;           
     
+                        $toggle_actions = 'play none none reset';
+                        if( isset($settings['set_advanced_settings']) && $settings['set_advanced_settings'] && $settings['toggle_actions'] ){
+                            $toggle_actions = $settings['toggle_actions'];
+                        }
                         $trigger_element = ($settings['trigger_element']['el'] == 'selector' ) ? $settings['trigger_element']['selector'] : 'this';
                         $start = ($settings['start_at']['hook'] != 'custom') ? $settings['start_at']['hook'] : $settings['start_at']['custom_hook'];
                         $end = ( isset($settings['end_at']['customize']) && $settings['end_at']['customize'] ) ? $settings['end_at']['custom'] : '+='.$settings['end_at']['basic'];
@@ -61,6 +65,7 @@ Class Scroll_Animations{
                         }
                             
                         array_push($scroll_animations, array(
+                            'toggle_actions' => $toggle_actions,
                             'trigger_element' => $trigger_element,
                             'start' => $start,
                             'end' => $end,

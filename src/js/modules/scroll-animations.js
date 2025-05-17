@@ -31,7 +31,7 @@
                 trigger: triggerElement,
                 start: group['start'],
                 end: group['end'],
-                toggleActions: 'restart none none reset',
+                toggleActions: group['toggle_actions'],
                 scrub: false
             };
 
