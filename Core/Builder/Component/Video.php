@@ -35,8 +35,8 @@ class Video extends Component {
             Field::create( 'radio', 'video_source', __('Source','mv23theme'))
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
-                    'selfhosted' => 'Medios',
-                    'external' => 'Externo'
+                    'selfhosted' => __('Media','mv23theme'),
+                    'external' => __('External','mv23theme')
                 ))->set_width(50),
 
             Field::create( 'embed', 'external_url', 'URL')->add_dependency('video_source','external','=')->set_width(50),

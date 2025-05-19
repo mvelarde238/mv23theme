@@ -10,6 +10,7 @@ CHANGELOG
 - Add rule_name to Page_Container group
 - Add scaleX, scaleY to Scroll Animations
 - Add toggle_class setting to Scroll Animations
+- Image Comp. Feature: external image
 
 2.1.2 25-05-16
 - Fix scroll animations scripts to work with to() from() and fromTo()

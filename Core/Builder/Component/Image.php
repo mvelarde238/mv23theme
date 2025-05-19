@@ -37,7 +37,17 @@ class Image extends Component {
 
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme') ),
-            Field::create( 'image', 'image', __('Image','mv23theme') ),
+            Field::create( 'radio', 'image_source', __('Source','mv23theme'))
+                ->set_orientation( 'horizontal' )
+                ->add_options( array(
+                    'selfhosted' => __('Media','mv23theme'),
+                    'external' => __('External','mv23theme')
+                )),
+
+            Field::create( 'image', 'image', __('Image','mv23theme') )->add_dependency('image_source','selfhosted','='),
+            Field::create( 'text', 'external_image', 'URL')->add_dependency('image_source','external','='),
+            Field::create( 'text', 'external_image_credits', __('Credits','mv23theme'))->add_dependency('image_source','external','='),
+
             Field::create( 'checkbox', 'expand_on_click', __('Expand on click','mv23theme') )->fancy()
                 ->set_text( __( 'Show the image in a popup.', 'mv23theme' ) ),
             Field::create( 'checkbox', 'full_width', __( 'Full Width', 'mv23theme' )  )->fancy()
@@ -115,10 +125,23 @@ class Image extends Component {
         if( Template_Engine::is_private( $args ) ) return;
         
 		$args['additional_classes'] = array('component','media');
+
+        $attachment = false;
+        $image_source = $args['image_source'] ?? 'selfhosted';
         
-        if ($args['image']){
-            $attachment = get_post( $args['image'] );
-        } else {
+        if( $image_source == 'selfhosted' ){
+            if( $args['image'] ) $attachment = get_post( $args['image'] );
+        }
+
+        if( $image_source == 'external' && $args['external_image'] ){
+            $attachment = new stdClass();
+            $attachment->ID = 0;
+            $attachment->guid = $args['external_image'];
+            $attachment->post_title = '';
+            $attachment->post_excerpt = $args['external_image_credits'];
+        }
+
+        if( !$attachment ){
             $attachment = new stdClass();
             $attachment->ID = 0;
             $attachment->guid = get_stylesheet_directory_uri().'/assets/images/nothumb.jpg';
