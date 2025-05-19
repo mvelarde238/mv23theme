@@ -79,7 +79,7 @@ $scroll_animation_settings_fields = array(
     )),
 
     Field::create( 'complex', 'end_at', __('Distance the animation lasts','mv23theme') )->add_fields(array(
-        Field::create( 'text', 'basic' )->set_prefix('+=')->set_default_value('200')->set_suffix('px / %')->hide_label()->add_dependency('customize',1,'!=')->set_width( 50 ),
+        Field::create( 'text', 'basic' )->set_prefix('+=')->set_suffix('px / %')->hide_label()->add_dependency('customize',1,'!=')->set_width( 50 ),
         Field::create( 'checkbox', 'customize' )->set_text( __('Customize','mv23theme') )->fancy()->hide_label()->set_width( 50 ),
         Field::create( 'text', 'custom' )->add_dependency('customize')->hide_label()->set_width( 50 )
     )),
@@ -93,6 +93,14 @@ $scroll_animation_settings_fields = array(
         ->set_placeholder( 'play none none reset' )
         ->set_description( 'onEnter, onLeave, onEnterBack, onLeaveBack' )
         ->add_dependency('set_advanced_settings'),
+    Field::create( 'complex', 'toggle_class', __('Toggle Class','mv23theme') )->add_fields(array(
+        Field::create( 'select', 'el' )->add_options( array(
+            'this' => __('Trigger Element','mv23theme'),
+            'selector' => __('Selector','mv23theme')
+        ))->hide_label()->set_width( 30 ),
+        Field::create( 'text', 'selector' )->add_dependency('el','selector','=')->hide_label()->set_description('Targets')->set_width( 30 ),
+        Field::create( 'text', 'classname' )->hide_label()->set_description('Class Name')->set_width( 30 ),
+    ))->add_dependency('set_advanced_settings'),
 
     // pin settings
     Field::create( 'checkbox', 'set_pin' )
@@ -144,7 +152,7 @@ array_push($scroll_animation_fields, Field::create( 'repeater', 'groups' )
                     'fields' => array(
                         Field::create( 'complex', 'element', __('Animated Element','mv23theme') )->add_fields(array(
                             Field::create( 'select', 'el' )->add_options( array(
-                                'this' => __('Component','mv23theme'),
+                                'this' => __('Trigger Element','mv23theme'),
                                 'selector' => __('Inner Element','mv23theme'),
                                 'outer_selector' => __('Outer Element','mv23theme')
                             ))->hide_label()->set_width( 50 ),
