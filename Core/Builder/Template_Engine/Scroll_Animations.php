@@ -23,16 +23,18 @@ Class Scroll_Animations{
                         $settings = $group['settings'];
                         if( IS_MOBILE && isset($settings['disable_on_mobile']) && $settings['disable_on_mobile'] == 1 ) continue;           
     
-                        $toggle_actions = 'play none none reset';
-                        if( isset($settings['set_advanced_settings']) && $settings['set_advanced_settings'] && $settings['toggle_actions'] ){
-                            $toggle_actions = $settings['toggle_actions'];
-                        }
                         $trigger_element = ($settings['trigger_element']['el'] == 'selector' ) ? $settings['trigger_element']['selector'] : 'this';
                         $start = ($settings['start_at']['hook'] != 'custom') ? $settings['start_at']['hook'] : $settings['start_at']['custom_hook'];
                         $add_indicators = (isset($settings['add_indicators'])) ? $settings['add_indicators'] : false;
                         $pin_settings = $settings['pin_settings'] ?? array( 'pinned_el' => 'trigger_el', 'selector' => '', 'push_followers' => 1 );
                         $trigger_carrusel = (isset($settings['trigger_carrusel'])) ? $settings['trigger_carrusel'] : false;
                         $set_pin = $settings['set_pin'] ?? false;
+
+                        // toggle actions setting
+                        $toggle_actions = 'play none none reset';
+                        if( isset($settings['set_advanced_settings']) && $settings['set_advanced_settings'] && $settings['toggle_actions'] ){
+                            $toggle_actions = $settings['toggle_actions'];
+                        }
 
                         // end setting
                         $end = '';
@@ -42,19 +44,21 @@ Class Scroll_Animations{
                             if( $settings['end_at']['basic'] ) $end = '+='.$settings['end_at']['basic'];
                         }
 
-                        // set toggle class
+                        // toggle class setting
                         $toggle_class = '';
-                        $toggle_class_key = $settings['toggle_class']['el'] ?? 'this';
-                        $toggle_class_class = $settings['toggle_class']['classname'] ?? '';
-                        if( $toggle_class_key == 'this' ){
-                            $toggle_class = $toggle_class_class;
-                        }else{
-                            $toggle_class_selector = $settings['toggle_class']['selector'] ?? '';
-                            if( $toggle_class_selector ){
-                                $toggle_class = array(
-                                    'targets' => $toggle_class_selector,
-                                    'className' => $toggle_class_class
-                                );
+                        if( isset($settings['set_advanced_settings']) && $settings['set_advanced_settings'] ){
+                            $toggle_class_key = $settings['toggle_class']['el'] ?? 'this';
+                            $toggle_class_class = $settings['toggle_class']['classname'] ?? '';
+                            if( $toggle_class_key == 'this' ){
+                                $toggle_class = $toggle_class_class;
+                            }else{
+                                $toggle_class_selector = $settings['toggle_class']['selector'] ?? '';
+                                if( $toggle_class_selector ){
+                                    $toggle_class = array(
+                                        'targets' => $toggle_class_selector,
+                                        'className' => $toggle_class_class
+                                    );
+                                }
                             }
                         }
 
