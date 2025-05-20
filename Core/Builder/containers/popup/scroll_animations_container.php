@@ -31,7 +31,6 @@ $css_properties = array(
     'textShadow' => __('Text Shadow','mv23theme'),
     'borderRadius' => __('Border Radius','mv23theme'),
     'filter' => __('Image filter','mv23theme'),
-    'className' => 'Toggle (+/-=class)',
     'duration' => __('Duration','mv23theme'),
     'delay' => __('Delay','mv23theme'),
     'ease' => __('Easing','mv23theme'),
