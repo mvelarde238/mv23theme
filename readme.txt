@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.1.4 25-05-20
+- css line height standarization
+
 2.1.3 25-05-17
 - Row settings implementation: 2/5 + 1/5 + 2/5 columns width
 - Refactor Common Settings position
