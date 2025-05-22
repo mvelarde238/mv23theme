@@ -11,8 +11,10 @@
 			<%= text %>
 		</button>
 	
+		<% if( name === 'components' ) { %>
 		<button type="button" class="button uf-button uf-repeater-library-button">
 			<span class="dashicons dashicons-open-folder uf-button-icon" style="margin-right: 0 !important;"></span>
 		</button>
+		<% } %>
 	</div>
 </div>

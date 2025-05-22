@@ -1,5 +1,11 @@
 mv23 changelog-------------------------
 
+- 22-05-2025
+- Use components library button just in components repeater
+    (core/js/field/repeater.js:528)
+    (core/templates/field/repeater/dropdown.php:14:18)
+ 
+
 - 21-05-2025
 - Add layout grid classes (.uf-fields-layout-grid/.uf-field-layout-grid) to repeater-table elements for proper rendering
     (core/templates/field/repeater/table-row.php:10)

@@ -524,7 +524,8 @@
 
 			$dropdown = this.$dropdown = $(tmpl({
 				groups: this.model.get( 'groups' ),
-				text:   this.model.get( 'add_text' ) || UltimateFields.L10N.localize( 'repeater-add' )
+				text:   this.model.get( 'add_text' ) || UltimateFields.L10N.localize( 'repeater-add' ),
+				name:   this.model.get( 'name' )
 			}));
 
 			// When the select changes, use the new group
