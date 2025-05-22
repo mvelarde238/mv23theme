@@ -7,7 +7,7 @@
 	<span class="dashicons dashicons-sort"></span>
 </div>
 
-<div class="uf-fields uf-boxed-fields uf-group-fields"></div>
+<div class="uf-fields uf-boxed-fields uf-group-fields uf-fields-layout-grid"></div>
 
 <a href="#" class="uf-group-control uf-group-control-remove" title="<?php esc_attr_e( 'Remove', 'ultimate-fields' ); ?>">
 	<span class="dashicons dashicons-trash"></span>

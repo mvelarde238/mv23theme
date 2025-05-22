@@ -12,6 +12,13 @@
     }
 }
 
+// Prefixes
+.uf-field-input:has(>.uf-field-prefix),
+.uf-field-input:has(>.uf-field-suffix) {
+	display: flex;
+	align-items: center;
+}
+
 .uf-field-suffix,
 .uf-field-prefix {
 	display: flex;

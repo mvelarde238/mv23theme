@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.2.0 25-05-22
+- Migrate timeline group to groups (!use migrator)
+
 2.1.4 25-05-20
 - css line height standarization
 

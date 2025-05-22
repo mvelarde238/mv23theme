@@ -783,6 +783,12 @@
   width: 100%;
 }
 
+.uf-field-input:has(> .uf-field-prefix),
+.uf-field-input:has(> .uf-field-suffix) {
+  display: flex;
+  align-items: center;
+}
+
 .uf-field-suffix,
 .uf-field-prefix {
   display: flex;
@@ -2972,6 +2978,12 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 }
 .uf-field-type-color .wp-color-result {
   margin: 0;
+}
+.uf-field-type-color .wp-picker-container .wp-color-result.button {
+  margin-bottom: 0;
+}
+.uf-field-type-color:has(.wp-picker-active) .uf-field-prefix {
+  display: none;
 }
 
 .uf-icon-popup, .uf-icon-lists, .uf-icon-list, .uf-icon-sidebar {

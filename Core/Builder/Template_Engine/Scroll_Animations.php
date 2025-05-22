@@ -70,23 +70,21 @@ Class Scroll_Animations{
 
                                 $tween[] = $tween_raw['element'];
 
-                                $from = array();
-                                $from_raw = $tween_raw['animated_properties']['from'] ?? array();
-                                if( is_array($from_raw) ){
-                                    foreach ($from_raw as $item) {
-                                        if($item['value'] != '') $from[$item['property']] = $item['value'];
+                                foreach (['from','to'] as $key) {
+                                    $from_or_to = array();
+                                    $from_or_to_raw = $tween_raw['animated_properties'][$key] ?? array();
+                                    if( is_array($from_or_to_raw) ){
+                                        foreach ($from_or_to_raw as $item) {
+                                            if( isset($item['custom']) && $item['custom'] ){
+                                                if($item['custom_value'] != '') $from_or_to[$item['property']] = $item['custom_value'];
+                                            } else {
+                                                // BOOLEANS
+                                                if($item['value']) $from_or_to[$item['property']] = $item['value'];
+                                            }
+                                        }
                                     }
+                                    $tween[] = $from_or_to;
                                 }
-                                $tween[] = $from;
-    
-                                $to = array();
-                                $to_raw = $tween_raw['animated_properties']['to'] ?? array();
-                                if(is_array($to_raw)){
-                                    foreach ($to_raw as $item) {
-                                        if($item['value'] != '') $to[$item['property']] = $item['value'];
-                                    }
-                                }
-                                $tween[] = $to;
 
                                 $position = ($tween_raw['position']['key'] == 'custom') ? $tween_raw['position']['custom_key'] : $tween_raw['position']['key'];
                                 $tween[] = $position;

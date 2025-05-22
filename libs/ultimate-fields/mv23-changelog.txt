@@ -1,5 +1,15 @@
 mv23 changelog-------------------------
 
+- 21-05-2025
+- Add layout grid classes (.uf-fields-layout-grid/.uf-field-layout-grid) to repeater-table elements for proper rendering
+    (core/templates/field/repeater/table-row.php:10)
+    (core/js/field/base.js:459)
+- Removed: Wrap width for fields inside repeater table
+    (core/js/field/base.js:466-468)
+- Move suffix and prefix properties to Base Field (implemented in select and color)
+    (core/classes/Field.php)
+    (sass/field/_text.scss)
+
 - 20-03-2025
 - Leaflet Maps Implementation:
   (core/classes/Core.php)
@@ -62,7 +72,7 @@ mv23 changelog-------------------------
 01-07-2024
 - Add suffix/prefix/placeholder properties to Number field
     (core/classes/Field/Number.php)
-    (ibs/ultimate-fields/core/js/field/number.js)
+    (core/js/field/number.js)
     (core/assets/css/ultimate-fields.css)
 - Image_Select -> show_label implementation
     (core/classes/Field/Image_Select.php)  

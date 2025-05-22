@@ -156,6 +156,20 @@ abstract class Field {
 	protected $sanitization_callback;
 
 	/**
+	 * The prefix is a value, which gets displayed before the field.
+	 *
+	 * @var string
+	 */
+	protected $prefix;
+
+	/**
+	 * The suffix is a value, which gets displayed after the field.
+	 *
+	 * @var string
+	 */
+	protected $suffix;
+
+	/**
 	 * Creates a new field based on type, name and eventually label.
 	 *
 	 * @param  string $type  The lowercase basename of the field (ex. 'text')
@@ -309,6 +323,8 @@ abstract class Field {
 		if( $this->description )        $data[ 'description' ]        = wpautop( $this->description );
 		if( $this->default_value )      $data[ 'default_value' ]      = $this->default_value;
 		if( $this->html_attributes )    $data[ 'html_attributes' ]    = $this->html_attributes;
+		if( $this->prefix )             $data[ 'prefix' ]             = $this->prefix;
+		if( $this->suffix )             $data[ 'suffix' ]             = $this->suffix;
 
 		if( ! empty( $this->dependencies ) ) {
 			$data[ 'dependencies' ] = $this->export_dependencies();
@@ -743,6 +759,50 @@ abstract class Field {
 	}
 
 	/**
+	 * Sets the prefix is of the field, which gets displayed before it.
+	 *
+	 * @since 3.0
+	 *
+	 * @param string $prefix The prefix.
+	 * @return Ultimate_Fields\Field\Number The field.
+	 */
+	public function set_prefix( $prefix  ) {
+		$this->prefix = $prefix;
+
+		return $this;
+	}
+
+	/**
+	 * Returns the prefix of the field.
+	 *
+	 * @return string
+	 */
+	public function get_prefix() {
+		return $this->prefix;
+	}
+
+	/**
+	 * Sets the suffix is of the field, which gets displayed after it.
+	 *
+	 * @param string $suffix The suffix.
+	 * @return Ultimate_Fields\Field\Number The field.
+	 */
+	public function set_suffix( $suffix  ) {
+		$this->suffix = $suffix;
+
+		return $this;
+	}
+
+	/**
+	 * Returns the suffix of the field.
+	 *
+	 * @return string
+	 */
+	public function get_suffix() {
+		return $this->suffix;
+	}
+
+	/**
 	 * Changes the description of the field.
 	 *
 	 * The description is displayed either beneath the label of the field or below it's input (default).
@@ -866,6 +926,8 @@ abstract class Field {
 			'dependencies'       => 'set_dependencies',
 			'html_attributes'    => 'set_attr',
 			'required'           => 'required',
+			'suffix'            => 'set_suffix',
+			'prefix'            => 'set_prefix',
 			'validation_message' => 'set_validation_message',
 			'validation_rule'    => 'set_validation_rule'
 		));
@@ -894,6 +956,8 @@ abstract class Field {
 			'default_value'      => array( 'default_value', '' ),
 			'hide_label'         => array( 'hide_label', false ),
 			'field_width'        => array( 'field_width', 100 ),
+			'prefix'            => array( 'prefix', null ),
+			'suffix'            => array( 'suffix', null ),
 			'description'        => array( 'description', '' ),
 			'validation_message' => array( 'validation_message', null ),
 			'validation_rule'    => array( 'validation_rule', null ),

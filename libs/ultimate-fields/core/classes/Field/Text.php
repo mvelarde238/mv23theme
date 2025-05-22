@@ -34,22 +34,6 @@ class Text extends Field {
 	protected $placeholder;
 
 	/**
-	 * The prefix is a value, which gets displayed before the field.
-	 *
-	 * @since 3.0
-	 * @var string
-	 */
-	protected $prefix;
-
-	/**
-	 * The suffix is a value, which gets displayed after the field.
-	 *
-	 * @since 3.0
-	 * @var string
-	 */
-	protected $suffix;
-
-	/**
 	 * Holds the output format(ter): none or html.
 	 *
 	 * @since 3.0
@@ -167,56 +151,6 @@ class Text extends Field {
 	}
 
 	/**
-	 * Sets the prefix is of the field, which gets displayed before it.
-	 *
-	 * @since 3.0
-	 *
-	 * @param string $prefix The prefix.
-	 * @return Ultimate_Fields\Field\Text The field.
-	 */
-	public function set_prefix( $prefix  ) {
-		$this->prefix = $prefix;
-
-		return $this;
-	}
-
-	/**
-	 * Returns the prefix of the field.
-	 *
-	 * @since 3.0
-	 *
-	 * @return string
-	 */
-	public function get_prefix() {
-		return $this->prefix;
-	}
-
-	/**
-	 * Sets the suffix is of the field, which gets displayed after it.
-	 *
-	 * @since 3.0
-	 *
-	 * @param string $suffix The suffix.
-	 * @return Ultimate_Fields\Field\Text The field.
-	 */
-	public function set_suffix( $suffix  ) {
-		$this->suffix = $suffix;
-
-		return $this;
-	}
-
-	/**
-	 * Returns the suffix of the field.
-	 *
-	 * @since 3.0
-	 *
-	 * @return string
-	 */
-	public function get_suffix() {
-		return $this->suffix;
-	}
-
-	/**
 	 * Allow a custom placeholder to be used for the fields' input.
 	 *
 	 * @since 3.0
@@ -274,14 +208,6 @@ class Text extends Field {
 	public function export_field() {
 		$settings = parent::export_field();
 
-		if( $this->prefix ) {
-			$settings[ 'prefix' ] = $this->prefix;
-		}
-
-		if( $this->suffix ) {
-			$settings[ 'suffix' ] = $this->suffix;
-		}
-
 		if( $this->placeholder ) {
 			$settings[ 'placeholder' ] = $this->placeholder;
 		}
@@ -311,8 +237,6 @@ class Text extends Field {
 			'suggestions'   => 'add_suggestions',
 			'datalist'   	=> 'add_datalist',
 			'placeholder'   => 'set_placeholder',
-			'prefix'        => 'set_prefix',
-			'suffix'        => 'set_suffix',
 			'output_format' => 'set_output_format'
 		));
 	}
@@ -331,8 +255,6 @@ class Text extends Field {
 			'suggestions'   => array( 'suggestions', array() ),
 			'datalist'      => array( 'datalist', array() ),
 			'placeholder'   => array( 'placeholder', null ),
-			'prefix'        => array( 'prefix', null ),
-			'suffix'        => array( 'suffix', null ),
 			'output_format' => array( 'output_format', 'html' )
 		));
 

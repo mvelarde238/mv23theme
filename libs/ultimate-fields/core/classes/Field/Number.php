@@ -42,20 +42,6 @@ class Number extends Field {
 	protected $slider_enabled = false;
 
 	/**
-	 * The prefix is a value, which gets displayed before the field.
-	 *
-	 * @var string
-	 */
-	protected $prefix;
-
-	/**
-	 * The suffix is a value, which gets displayed after the field.
-	 *
-	 * @var string
-	 */
-	protected $suffix;
-
-	/**
 	 * This is the value, which would be displayed as a placeholder within the field.
 	 *
 	 * @var string
@@ -196,51 +182,7 @@ class Number extends Field {
 		$this->slider_enabled = false;
 
 		return $this;
-	}
-
-	/**
-	 * Sets the prefix is of the field, which gets displayed before it.
-	 *
-	 * @since 3.0
-	 *
-	 * @param string $prefix The prefix.
-	 * @return Ultimate_Fields\Field\Number The field.
-	 */
-	public function set_prefix( $prefix  ) {
-		$this->prefix = $prefix;
-
-		return $this;
-	}
-
-	/**
-	 * Returns the prefix of the field.
-	 *
-	 * @return string
-	 */
-	public function get_prefix() {
-		return $this->prefix;
-	}
-
-	/**
-	 * Sets the suffix is of the field, which gets displayed after it.
-	 *
-	 * @param string $suffix The suffix.
-	 * @return Ultimate_Fields\Field\Number The field.
-	 */
-	public function set_suffix( $suffix  ) {
-		$this->suffix = $suffix;
-
-		return $this;
-	}
-
-	/**
-	 * Returns the suffix of the field.
-	 *
-	 * @return string
-	 */
-	public function get_suffix() {
-		return $this->suffix;
-	}
+	}	
 
 	/**
 	 * Allow a custom placeholder to be used for the fields' input.
@@ -267,8 +209,6 @@ class Number extends Field {
 			'maximum'        => $this->get_maximum(),
 			'step'           => $this->get_step(),
 			'slider_enabled' => $this->slider_enabled,
-			'prefix' => $this->prefix,
-			'suffix' => $this->suffix,
 			'placeholder' => $this->placeholder
 		));
 	}
@@ -298,8 +238,6 @@ class Number extends Field {
 				'number_minimum' => 'set_minimum',
 				'number_maximum' => 'set_maximum',
 				'number_step'    => 'set_step',
-				'prefix'        => 'set_prefix',
-				'suffix'        => 'set_suffix',
 				'placeholder'   => 'set_placeholder'
 			));
 		}
@@ -320,8 +258,6 @@ class Number extends Field {
 			'maximum'        => array( 'number_maximum', false ),
 			'step'           => array( 'number_step', 1 ),
 			'slider_enabled' => array( 'number_slider', false ),
-			'prefix'        => array( 'prefix', null ),
-			'suffix'        => array( 'suffix', null ),
 			'placeholder'   => array( 'placeholder', null )
 		));
 

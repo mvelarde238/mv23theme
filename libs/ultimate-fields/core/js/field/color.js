@@ -14,6 +14,12 @@
 			var that = this,
 				$input, args, color;
 
+			if( prefix = this.model.get( 'prefix' ) ) {
+				$( '<span class="uf-field-prefix" />' )
+					.html( prefix )
+					.appendTo( this.$el );
+			}
+
 			color = this.model.getValue() || '';
 
 			args = {

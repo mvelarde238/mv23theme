@@ -91,6 +91,12 @@
 
 			this.$el.empty();
 
+			if( prefix = this.model.get( 'prefix' ) ) {
+				$( '<span class="uf-field-prefix" />' )
+					.html( prefix )
+					.appendTo( this.$el );
+			}
+
 			// Create a basic select and add options to it
 			$input = $( '<select></select>' );
 

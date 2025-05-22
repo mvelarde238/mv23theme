@@ -10,4 +10,12 @@
 	.wp-color-result {
 		margin: 0;
 	}
+
+	.wp-picker-container .wp-color-result.button{
+		margin-bottom: 0;
+	}
+
+	&:has(.wp-picker-active) .uf-field-prefix{
+		display: none;
+	}
 }

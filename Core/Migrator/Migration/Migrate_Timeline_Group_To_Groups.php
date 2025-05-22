@@ -3,14 +3,15 @@ namespace Core\Migrator\Migration;
 
 use Core\Migrator\Core;
 
-class Migrate_ScrollMagic_to_GSAP{
+class Migrate_Timeline_Group_To_Groups{
     private static $instance = null;
 
     private $batch_size;
+    private $do_the_update = true;
 
     public static function getInstance() {
         if (self::$instance == null) {
-            self::$instance = new Migrate_ScrollMagic_to_GSAP();
+            self::$instance = new Migrate_Timeline_Group_To_Groups();
         }
         return self::$instance;
     }
@@ -22,16 +23,16 @@ class Migrate_ScrollMagic_to_GSAP{
     public function migrate(){
         add_action( 'theme_migrator_display', array( $this, 'display') );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_migrator_scripts') );
-        add_action( 'wp_ajax_process_scrollmagic_to_gsap', array($this, 'ajax_process_page_data') );
-        add_action( 'wp_ajax_after_scrollmagic_to_gsap', array($this, 'ajax_after_data_migration') );
+        add_action( 'wp_ajax_process_tm_group_to_groups', array($this, 'ajax_process_page_data') );
+        add_action( 'wp_ajax_after_tm_group_to_groups', array($this, 'ajax_after_data_migration') );
     }
 
     public function display(){
         ?>
         <div class="wrap">
             <div class="theme-migrator">
-                <h3>―――― Migrate ScrollMagic to GSAP ( For version >= 2.1.0 )</h3>
-                ――――― <button class="theme-migrator__init-sm-to-gsap button-primary" data-status="initial">
+                <h3>―――― Migrate Timeline Group to Groups ( For version >= 2.2.0 )</h3>
+                ――――― <button class="theme-migrator__init-tm-group-to-groups button-primary" data-status="initial">
                     <span><i class="dashicons dashicons-migrate uf-button-icon"></i> INIT MIGRATION</span>
                     <span><i class="dashicons dashicons-admin-generic uf-button-icon"></i> PROCESSING</span>
                     <span><i class="dashicons dashicons-saved uf-button-icon"></i> MIGRATION COMPLETE</span>
@@ -47,7 +48,7 @@ class Migrate_ScrollMagic_to_GSAP{
 
         $slug = Core::getInstance()->get_slug();
 
-        wp_enqueue_script($slug.'-sm-to-gsap', THEME_MIGRATOR_PATH . '/scripts/migrate-scroll-magic-to-gsap.js', array('jquery'), '1.0', true);
+        wp_enqueue_script($slug.'-tm-group-to-groups', THEME_MIGRATOR_PATH . '/scripts/migrate-timeline-group-to-groups.js', array('jquery'), '1.0', true);
     }
 
     public function ajax_process_page_data() {
@@ -82,7 +83,7 @@ class Migrate_ScrollMagic_to_GSAP{
         ));
 
         $general_control = array();
-        $do_the_update = true;
+        $do_the_update = $this->do_the_update;
     
         foreach ($pages as $page) {
             $old_data = maybe_unserialize($page->meta_value);
@@ -221,14 +222,11 @@ class Migrate_ScrollMagic_to_GSAP{
         // END
 
         $new_component = $component;
-        $new_component['scroll_animations_settings'] = $this->migrate_animation_data( $component['scroll_animations_settings'] );
+        if( isset($component['scroll_animations_settings']) ){
+            $new_component['scroll_animations_settings'] = $this->migrate_animation_data( $component['scroll_animations_settings'] );
+        }
 
-        unset( $new_component['__lel2'] );
-        unset( $new_component['__lel3'] );
-        unset( $new_component['scroll_animation_settings'] );
-        unset( $new_component['start'] );
-        unset( $new_component['duration'] );
-        
+        // unset( $new_component['__lel2'] );
         // if( $component['__type'] == 'map' ){ ...}
 
         return $new_component;
@@ -240,49 +238,51 @@ class Migrate_ScrollMagic_to_GSAP{
         if( isset($animations['groups']) && is_array($animations['groups']) ){
             $new_animation['groups'] = array();
             foreach ($animations['groups'] as $group) {
-                $new_group = array();
-
-                // MIGRATE SETTINGS
-                $settings = $group['settings'];
-
-                $start_dictionary = array(
-                    'onEnter' => ['top', 'bottom'],
-                    'onCenter' => ['top', 'center'],
-                    'onLeave' => ['top', 'top']
-                );
-                $start_translated = $start_dictionary[$settings['trigger-hook']];
-                if( $settings['offset'] != '0' ){
-                    $start_translated[0] = $settings['offset'];
-                    $start = array( 'hook' => 'custom', 'custom_hook' => implode(' ',$start_translated) );
-                } else {
-                    $start = array( 'hook' => implode(' ',$start_translated), 'custom_hook' => '' );
-                }
-
-                $new_group['settings'] = array(
-                    'trigger_element' => $settings['trigger-element'],
-                    'start_at' => $start,
-                    'end_at' => array( 'basic' => $settings['duration'], 'customize' => false, 'custom' => '' ),
-                    'set_pin' => $settings['set_pin'] ?? false,
-                    'pin_settings' => array( 'pinned_el' => 'trigger_el', 'selector' => '', 'push_followers' => false ),
-                    'trigger_carrusel' => $settings['trigger_carrusel'] ?? false,
-                    'disable_on_mobile' => $settings['turn_off_in_mobile'] ?? false,
-                    'add_indicators' => $settings['add_indicators'] ?? false
-                );
+                $new_group = $group;
                 
                 // MIGRATE TIMELINE
-                $animated_properties = $group['animated_properties'];
-                $timeline = array( 'groups' => array(
-                    'element' => $settings['element'],
-                    'animated_properties' => array(
-                        'from' => $animated_properties['from'] ?? array(),
-                        'to' => $animated_properties['to'] ?? array()
-                    ),
-                    'position' => array(
-                        'key' => '',
-                        'custom_key' => ''
-                    )
-                ));
-                $new_group['timeline'] = $timeline;
+                $timeline = $group['timeline'] ?? array();
+                $new_timeline = array();
+            
+                foreach ($timeline as $timeline_group) {
+                    $new_timeline_group = $timeline_group;
+                    $new_timeline_group['animated_properties'] = array();
+
+                    foreach (['from','to'] as $key) {
+                        $old_from_to = $timeline_group['animated_properties'][$key] ?? array();
+                        $new_timeline_group['animated_properties'][$key] = array();
+                        $index = 0;
+                        if( is_array($old_from_to) ){
+                            foreach ($old_from_to as $prop) {
+                                if( $prop['__type'] == 'property' ){
+                                    if( $prop['property'] == 'yoyo' || $prop['property'] == 'repeatRefresh' ){
+                                        // BOOLEANS
+                                        $new_timeline_group['animated_properties'][$key][] = array(
+                                            '__index' => $index,
+                                            '__type' => strtolower($prop['property']),
+                                            'property' => $prop['property'],
+                                            'value' => true
+                                        );
+                                    } else {
+                                        $new_timeline_group['animated_properties'][$key][] = array(
+                                            '__index' => $index,
+                                            '__type' => strtolower($prop['property']),
+                                            'property' => $prop['property'],
+                                            'value' => '',
+                                            'custom' => true,
+                                            'custom_value' => $prop['value']
+                                        );
+                                    }
+                                }
+                                $index++;
+                            }
+                        }
+                    }
+
+                    $new_timeline[] = $new_timeline_group;
+                }
+
+                $new_group['timeline'] = $new_timeline;
 
                 $new_animation['groups'][] = $new_group;
             }

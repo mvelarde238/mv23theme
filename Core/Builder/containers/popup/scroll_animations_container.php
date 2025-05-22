@@ -1,51 +1,10 @@
 <?php
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
-
-$css_properties = array(
-    'opacity' => __('Opacity','mv23theme'),
-    'autoAlpha' => __('Auto Alpha','mv23theme'),
-    'scale' => __('Scale','mv23theme'),
-    'x' => __('X Axis','mv23theme'),
-    'y' => __('Y Axis','mv23theme'),
-    'z' => __('Z Axis','mv23theme'),
-    'xPercent' => __('X Percent','mv23theme'),
-    'yPercent' => __('Y Percent','mv23theme'),
-    'skew' => __('Skew','mv23theme'),
-    'scaleX' => __('Scale X','mv23theme'),
-    'scaleY' => __('Scale Y','mv23theme'),
-    'backgroundColor' => __('Background Color','mv23theme'),
-    'backgroundPosition' => __('Background Position','mv23theme'),
-    'color' => __('Text Color','mv23theme'),
-    'letterSpacing' => __('Letter Spacing','mv23theme'),
-    'rotation' => __('Rotation','mv23theme'),
-    'repeat' => __('Repeat','mv23theme'),
-    'repeatDelay' => __('Repeat Delay','mv23theme'),
-    'repeatRefresh' => __('Repeat Refresh','mv23theme'),
-    'yoyo' => 'YoYo',
-    'padding' => __('Padding','mv23theme'),
-    'border' => __('Border','mv23theme'),
-    'margin' => __('Margin','mv23theme'),
-    'zIndex' => 'Z-Index',
-    'boxShadow' => __('Box Shadow','mv23theme'),
-    'textShadow' => __('Text Shadow','mv23theme'),
-    'borderRadius' => __('Border Radius','mv23theme'),
-    'filter' => __('Image filter','mv23theme'),
-    'duration' => __('Duration','mv23theme'),
-    'delay' => __('Delay','mv23theme'),
-    'ease' => __('Easing','mv23theme'),
-    'stagger' => __('Stagger','mv23theme'),
-    'transformOrigin' => __('Transform Origin','mv23theme'),
-    'ease' => __('Easing','mv23theme')
-    // 'width' => 'Width',
-    // 'height' => 'Height',
-    // 'fontSize' => 'Font Size',
-    // 'toggleClass' => 'Toggle Class' // dosnt work
-);
-
-$read_only_styles = 'pointer-events:none;opacity:.6;background-color:#eee;';
+use Core\Builder\Animations\Animated_Properties_Repeater;
 
 $scroll_animation_fields = array();
+$read_only_styles = 'pointer-events:none;opacity:.6;background-color:#eee;';
 
 if( !SCROLL_ANIMATIONS ){
     array_push($scroll_animation_fields, 
@@ -159,23 +118,8 @@ array_push($scroll_animation_fields, Field::create( 'repeater', 'groups' )
                         )),
 
                         Field::create( 'complex', 'animated_properties', __('Animated properties','mv23theme') )->add_fields(array(
-                            Field::create( 'repeater', 'from', __('Initial CSS values (from)', 'mv23theme') )->set_add_text(__('Add CSS property','mv23theme'))
-                                ->set_layout( 'table' )
-                                ->add_group('Property', array(
-                                    'fields' => array(
-                                        Field::create( 'select', 'property')->add_options( $css_properties )->set_width( 50 ),
-                                        Field::create( 'text', 'value' )->set_width( 50 )
-                                    )
-                            ))->set_width( 50 ),
-                    
-                            Field::create( 'repeater', 'to', __('Final CSS values (to)', 'mv23theme') )->set_add_text(__('Add CSS property','mv23theme'))
-                                ->set_layout( 'table' )
-                                ->add_group('Property', array(
-                                    'fields' => array(
-                                        Field::create( 'select', 'property')->add_options( $css_properties )->set_width( 50 ),
-                                        Field::create( 'text', 'value' )->set_width( 50 )
-                                    )
-                            ))->set_width( 50 )
+                            Animated_Properties_Repeater::getRepeater('from', __('Initial CSS values (from)', 'mv23theme'))->set_width(50),
+                            Animated_Properties_Repeater::getRepeater('to', __('Final CSS values (to)', 'mv23theme'))->set_width(50)
                         )),
 
                         Field::create( 'complex', 'position', __('Position (Optional)','mv23theme') )->add_fields(array(

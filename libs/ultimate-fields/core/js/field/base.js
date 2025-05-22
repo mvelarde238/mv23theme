@@ -18,7 +18,9 @@
 			validation_message:   false,
 			description_position: 'input',
 			validation_enabled:   false,
-			html_attributes:      {}
+			html_attributes:      {},
+			prefix:               '',
+			suffix:               '',
 		},
 
 		/**
@@ -456,16 +458,16 @@
 
 	// Table cell wrap
 	field.TableWrap = field.Wrap.extend({
-		className: 'uf-field uf-table-cell',
+		className: 'uf-field uf-table-cell uf-field-layout-grid',
 
 		render: function() {
 			// Normal render
 			field.Wrap.prototype.render.call( this );
 
 			// Wrap width
-			this.$el.css({
-				width: this.model.get( 'field_width' ) + '%'
-			});
+			// this.$el.css({
+				// width: this.model.get( 'field_width' ) + '%'
+			// });
 		},
 
 		/**
