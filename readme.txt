@@ -4,6 +4,7 @@ CHANGELOG
 
 2.2.0 25-05-22
 - Migrate timeline group to groups (!use migrator)
+- UF fix: Use components library button just in components repeater
 
 2.1.4 25-05-20
 - css line height standarization
