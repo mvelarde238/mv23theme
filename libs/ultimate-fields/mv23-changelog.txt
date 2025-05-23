@@ -1,10 +1,13 @@
 mv23 changelog-------------------------
 
+- 23-05-2025
+- Fix: Show common_settings_wrapper.settings.main_attributes.id in page_module group
+    (core/js/container/group.js:472-477)
+
 - 22-05-2025
 - Use components library button just in components repeater
     (core/js/field/repeater.js:528)
     (core/templates/field/repeater/dropdown.php:14:18)
- 
 
 - 21-05-2025
 - Add layout grid classes (.uf-fields-layout-grid/.uf-field-layout-grid) to repeater-table elements for proper rendering

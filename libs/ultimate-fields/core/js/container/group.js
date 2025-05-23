@@ -469,11 +469,12 @@
 				// } else 
 				if( 
 					data.__type == 'page_module' && 
-					data.hasOwnProperty('settings') && 
-					data.settings.hasOwnProperty('main_attributes') &&
-					data.settings.main_attributes.hasOwnProperty('id') 
+					data.hasOwnProperty('common_settings_wrapper') && 
+					data.common_settings_wrapper.hasOwnProperty('settings') && 
+					data.common_settings_wrapper.settings.hasOwnProperty('main_attributes') &&
+					data.common_settings_wrapper.settings.main_attributes.hasOwnProperty('id') 
 				) {
-					title = data.settings.main_attributes.id;
+					title = data.common_settings_wrapper.settings.main_attributes.id;
 				} else {
 					title = tmpl( data );
 				}

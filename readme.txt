@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.2.1 25-05-23
+- Fix: Show common_settings_wrapper.settings.main_attributes.id in page_module group
+
 2.2.0 25-05-22
 - Migrate timeline group to groups (!use migrator)
 - UF fix: Use components library button just in components repeater
