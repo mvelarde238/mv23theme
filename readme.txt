@@ -5,6 +5,7 @@ CHANGELOG
 2.2.1 25-05-23
 - UF Fix: Show common_settings_wrapper.settings.main_attributes.id in page_module group
 - UF Fix: Use a prompt to paste settings between components if navigator is not available
+- Feature: Implement overflow in Core\Builder\Animations\Properties
 
 2.2.0 25-05-22
 - Migrate timeline group to groups (!use migrator)

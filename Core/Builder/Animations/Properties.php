@@ -117,6 +117,12 @@ class Properties
                 'amount:1|from:edges|grid:auto' => 'amount:1|from:edges|grid:auto',
                 'amount:1|from:random|grid:auto' => 'amount:1|from:random|grid:auto'
             ]],
+            ['key' => 'overflow', 'label' => 'Overflow', 'type' => 'select', 'options' => [
+                'visible' => 'Visible',
+                'hidden' => 'Hidden',
+                'scroll' => 'Scroll',
+                'auto' => 'Auto'
+            ]]
             // ['key' => 'width', 'label' => 'Width', 'type' => 'number'],
             // ['key' => 'height', 'label' => 'Height', 'type' => 'number'],
             // ['key' => 'fontSize', 'label' => 'Font Size', 'type' => 'number'],
