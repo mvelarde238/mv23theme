@@ -258,11 +258,15 @@
 				textarea.select();
 				document.execCommand('copy');
 				document.body.removeChild(textarea);
+				console.log('Texto copiado al portapapeles (execCommand)');
+
+				// Fallback para guardar en localStorage, not used really
+				localStorage.setItem('copied_settings', texto);
 			} else {
 				// Utiliza el API del portapapeles si está disponible
 				navigator.clipboard.writeText(texto).then(
 					() => {
-						console.log('Texto copiado al portapapeles');
+						console.log('Texto copiado al portapapeles (navigator)');
 					},
 					err => {
 						console.error('No se pudo copiar el texto: ', err);
@@ -271,19 +275,32 @@
 			}
 		},
 
+		leerPortapapeles: async function() {
+			let text = '';
+
+			if (!navigator.clipboard) {
+				// Si el API del portapapeles no está disponible, solicita al usuario que pegue el texto manualmente
+				text = prompt('No se pudo acceder al portapapeles. Por favor, pega el texto aquí:');
+			} else {
+				text = await navigator.clipboard.readText();
+			}
+
+			return text;
+		},
+
 		copy: function() {
 			var settings = this.model.datastore.clone();
 
 			this.copiarAlPortapapeles( JSON.stringify(settings.attributes) ); 
-			// get the copied text is dificult without navigator api so it not implemented in "paste" method
 
-			localStorage.setItem('copied_settings', JSON.stringify(settings.attributes));
 			this.hideContextMenu();
 		},
 
-		paste: function() {
+		paste: async function() {
 			this.hideContextMenu();
-			var copied_settings = localStorage.getItem('copied_settings');
+
+			const copied_settings = await this.leerPortapapeles();
+
 			if (copied_settings) {
 				var settings = JSON.parse(copied_settings),
 					component_type = this.model.datastore.attributes.__type;

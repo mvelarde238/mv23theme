@@ -3,6 +3,8 @@ mv23 changelog-------------------------
 - 23-05-2025
 - Fix: Show common_settings_wrapper.settings.main_attributes.id in page_module group
     (core/js/container/group.js:472-477)
+- Use a prompt to paste settings between components if navigator is not available
+    (core/js/container/group.js:478-490)
 
 - 22-05-2025
 - Use components library button just in components repeater
