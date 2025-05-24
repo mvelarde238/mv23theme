@@ -87,6 +87,7 @@ class Template_Engine{
         if ($key == 'start'){
             echo self::check_full_width('start', $args);
             echo '<div '.$attributes.'>';
+            do_action( 'after_component_wrapper_start', $args );
             echo self::check_video_background( $args );
             echo self::check_slider_background( $args );
             echo self::check_layout('start', $args);
@@ -94,6 +95,7 @@ class Template_Engine{
         if ($key == 'end'){  
             echo self::check_actions( $args );
             echo self::check_layout('end', $args);
+            do_action( 'before_component_wrapper_end', $args );
             echo '</div>';
             echo self::check_full_width('end', $args);
         } 
