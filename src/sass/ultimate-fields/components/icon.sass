@@ -2,15 +2,25 @@
 	img
 		max-width: initial
 	&--circle,
-	&--circle-outline
+	&--circle-outline,
+	&--square,
+	&--square-outline
 		span
 			justify-content: center
 			display: inline-flex
 			width: 2em
 			align-items: center
 			height: 2em
-			border-radius: 50%
+	&--circle,
 	&--circle-outline
+		span
+			border-radius: 50%
+	&--square,
+	&--square-outline
+		span
+			border-radius: 8px
+	&--circle-outline,
+	&--square-outline
 		span
 			border: 1px solid
 

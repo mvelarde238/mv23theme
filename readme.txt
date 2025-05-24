@@ -4,6 +4,7 @@ CHANGELOG
 
 2.2.2 25-05-24
 - Allow 'Icon_And_Text' component classes to be added from another component definition
+- Icon And Text feature: square style
 
 2.2.1 25-05-23
 - UF Fix: Show common_settings_wrapper.settings.main_attributes.id in page_module group

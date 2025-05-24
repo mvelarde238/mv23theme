@@ -92,6 +92,14 @@ class Icon_and_Text extends Component {
                     'label' => 'Circular y Lineal',
                     'image' =>  BUILDER_PATH.'/assets/images/icon-circle-outline.png'
                 ),
+                'square'  => array(
+                    'label' => __('Square','mv23theme'),
+                    'image' =>  BUILDER_PATH.'/assets/images/icon-square.png'
+                ),
+                'square-outline'  => array(
+                    'label' => __('Square and Lineal','mv23theme'),
+                    'image' =>  BUILDER_PATH.'/assets/images/icon-square-outline.png'
+                ),
             ))->set_width(30),
             Field::create( 'complex', '_icon_styles_wrapper', __('Settings','mv23theme') )->merge()->add_fields(array(
                 Field::create( 'number', 'ifontsize', 'Tamaño')->set_default_value(40)->set_suffix('px')->set_width(25),
@@ -168,8 +176,13 @@ class Icon_and_Text extends Component {
         $icon_class = (!empty($classes)) ? 'class="'.implode(' ',$classes).'"' : '';
 
         $hasBackground = false;
-        if ($args['istyle'] == 'circle' ) $hasBackground = true;
-        if ($args['istyle'] == 'circle-outline' && $args['ihas_bgc'] == 1 ) $hasBackground = true;
+        if ($args['istyle'] == 'circle' || $args['istyle'] == 'square') $hasBackground = true;
+        if (
+            ( $args['istyle'] == 'circle-outline' && $args['ihas_bgc'] == 1 ) ||
+            ( $args['istyle'] == 'square-outline' && $args['ihas_bgc'] == 1 ) 
+        ){
+            $hasBackground = true;
+        } 
         $ibgc = ($args['ibgc'] == '') ? Theme_Options::getInstance()->get_property('primary_color') : $args['ibgc'];
         $backgroundColor = ( $hasBackground ) ? $ibgc : '';
 		
