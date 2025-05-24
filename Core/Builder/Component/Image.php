@@ -124,6 +124,7 @@ class Image extends Component {
     public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
         
+        $args['lel'] = 'media-lel';
 		$args['additional_classes'] = array('component','media');
 
         $attachment = false;
@@ -183,11 +184,13 @@ class Image extends Component {
         $attributes = Template_Engine::generate_attributes( $args );
         ob_start();
         echo '<div '.$attributes.'>';
+        do_action( 'after_component_wrapper_start', $args );
         echo Template_Engine::check_layout('start', $args);
 		echo '<img '.implode(' ',$image_attributes).'>';
         if( $caption ) echo '<p class="media-caption">'.esc_html($caption).'</p>';
         echo Template_Engine::check_actions( $args );
         echo Template_Engine::check_layout('end', $args);
+        do_action( 'before_component_wrapper_end', $args );
         echo '</div>';
         return ob_get_clean();
 	}

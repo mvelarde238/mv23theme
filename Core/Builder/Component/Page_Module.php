@@ -41,6 +41,7 @@ class Page_Module extends Component{
 		ob_start();
         echo Template_Engine::check_full_width('start', $args);
         echo '<section '.$attributes.'>';
+        do_action( 'after_component_wrapper_start', $args );
         echo Template_Engine::check_video_background( $args );
         echo Template_Engine::check_slider_background( $args );
         echo Template_Engine::check_layout('start', $args);
@@ -50,6 +51,7 @@ class Page_Module extends Component{
 		}
 		
         echo Template_Engine::check_layout('end', $args);
+        do_action( 'before_component_wrapper_end', $args );
         echo '</section>';
         echo Template_Engine::check_full_width('end', $args);
 		return ob_get_clean();

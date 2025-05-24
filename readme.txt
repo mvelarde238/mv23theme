@@ -7,6 +7,7 @@ CHANGELOG
 - Icon And Text feature: square style
 - Action Hooks implementation in Template_Engine: 
   "after_component_wrapper_start", "before_component_wrapper_end"
+- Add components action hooks on components that dont use wrapper function
 - Remove yoyo from normalized properties in scroll-animations.js
 - Improve Common Setting Control to show an indicator when has values
 - Improve Common Setting Control to remove empty arrays from animation and actions settings

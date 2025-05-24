@@ -173,11 +173,13 @@ class Video extends Component {
         $attributes = Template_Engine::generate_attributes( $args );
         ob_start();
         echo '<div '.$attributes.'>';
+        do_action( 'after_component_wrapper_start', $args );
         echo Template_Engine::check_layout('start', $args);
         echo '<div class="video-wrapper" style="'.$video_data['styles'].'">'.$video_data['code'].'</div>';
         if( $caption ) echo '<p class="media-caption">'.esc_html($caption).'</p>';
         echo Template_Engine::check_actions( $args );
         echo Template_Engine::check_layout('end', $args);
+        do_action( 'before_component_wrapper_end', $args );
         echo '</div>';
         return ob_get_clean();
 	}
