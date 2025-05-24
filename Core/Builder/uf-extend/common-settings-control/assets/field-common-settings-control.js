@@ -131,7 +131,12 @@
                 			processed_data = that.filterData( this.model.get( 'container' ), raw_data );
 
 							// check has-values class
-							if( _.isEmpty(processed_data) ) this.model.get('_view').find('.uf-button').removeClass('has-values');
+							const _button = this.model.get('_view').find('.uf-button');
+							if( _.isEmpty(processed_data) ) {
+								_button.removeClass('has-values');
+							} else {
+								_button.addClass('has-values');
+							}
 
                 			that.trigger( 'save', e, processed_data );
 							
@@ -226,21 +231,21 @@
             	});
 			}
 
-			// if( container_name == 'actions_container' ){
-			// 	Object.entries(raw_data).forEach(entry => {
-			// 		if( entry[0] == 'actions' && entry[1].length === 0 ){
-			// 			delete raw_data.actions;
-			// 		}
-			// 	});
-			// }
+			if( container_name == 'actions_container' ){
+				Object.entries(raw_data).forEach(entry => {
+					if( entry[0] == 'actions' && entry[1].length === 0 ){
+						delete raw_data.actions;
+					}
+				});
+			}
 
-			// if( container_name == 'scroll_animations_container' ){
-			// 	Object.entries(raw_data).forEach(entry => {
-			// 		if( entry[0] == 'groups' && entry[1].length === 0 ){
-			// 			delete raw_data.groups;
-			// 		}
-			// 	});
-			// }
+			if( container_name == 'scroll_animations_container' ){
+				Object.entries(raw_data).forEach(entry => {
+					if( entry[0] == 'groups' && entry[1].length === 0 ){
+						delete raw_data.groups;
+					}
+				});
+			}
 
             return raw_data;
         }
