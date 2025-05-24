@@ -86,7 +86,6 @@
         function normalize_properties(obj){
             if( obj.hasOwnProperty('duration') ) obj.duration = parseFloat(obj.duration);
             if( obj.hasOwnProperty('delay') ) obj.delay = parseFloat(obj.delay);
-            if( obj.hasOwnProperty('yoyo') ) obj.yoyo = true;
             if( obj.hasOwnProperty('repeat') ) obj.repeat = parseInt(obj.repeat);
             return obj;
         }
