@@ -53,7 +53,7 @@ gulp.task('ufcoresass', function() {
         .pipe(browserSync.stream());
 });
 
-gulp.task('serve', function () {
+gulp.task('ufcoreserve', function () {
 	var files = [];
 
 	browserSync.init(files, {

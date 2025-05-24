@@ -34,17 +34,24 @@
 		 */
 		render: function() {
 			var that = this,
-				tmpl = UltimateFields.template('common-settings-control');
+				tmpl = UltimateFields.template('common-settings-control'),
+				has_value_class, storedValues, fieldname = this.model.get( 'name' );
 
 			// Start with the base
 			this.$el.html( tmpl( this.model.toJSON() ) );
+
+			storedValues = ( this.model.datastore.get( fieldname ) ) ? 
+                this.model.datastore.get( fieldname ) :
+                {};
+			has_value_class = ( !_.isEmpty(storedValues) ) ? 'has-values' : '';
             
             // add a button to open a pop up
 			var addButton = new UltimateFields.Button({
                 text: this.model.get( 'add_text' ),
 				type: 'primary',
                 icon: this.model.get( 'icon' ),
-				callback: _.bind( this.openPopUp, this )
+				callback: _.bind( this.openPopUp, this ),
+				cssClass: has_value_class
 			});
 
 			addButton.$el.appendTo( this.$el.find( '.common-settings-control__add' ) );
@@ -77,6 +84,9 @@
 
 			// save a reference to the uf overlay
 			this.model.set( '_overlayLayer', overlayLayer);
+
+			// save a reference to the view
+			this.model.set( '_view', this.$el);
 
 			// Listen for saving
 			view.on( 'save', function(e, filtered_data) {
@@ -119,6 +129,10 @@
 							$('.colour-picker').iris('hide');
 
                 			processed_data = that.filterData( this.model.get( 'container' ), raw_data );
+
+							// check has-values class
+							if( _.isEmpty(processed_data) ) this.model.get('_view').find('.uf-button').removeClass('has-values');
+
                 			that.trigger( 'save', e, processed_data );
 							
 						} else {

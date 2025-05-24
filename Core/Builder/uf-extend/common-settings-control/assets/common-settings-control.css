@@ -1,0 +1,11 @@
+.uf-button.has-values{
+	&:after{
+		content: '';
+		display: inline-block;
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		margin-left: 5px;
+		background-color: #50c435;
+	}
+}

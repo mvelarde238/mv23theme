@@ -54,7 +54,7 @@ class Field extends Base_Field {
 		wp_enqueue_style( 'uf-flexdatalist-css' );
 		wp_enqueue_script( $this->container );
 		wp_enqueue_script( 'uf-field-common-settings-control' );
-		// wp_enqueue_style( 'uf-field-common-settings-control' );
+		wp_enqueue_style( 'uf-field-common-settings-control' );
 
 		Template::add( 'common-settings-control', 'field/common-settings-control' );
 	}

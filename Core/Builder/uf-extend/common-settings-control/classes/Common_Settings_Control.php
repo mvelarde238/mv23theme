@@ -71,6 +71,6 @@ class Common_Settings_Control {
 		
 		// FIELD SCRIPT
 		wp_register_script( 'uf-field-common-settings-control', $assets . 'field-common-settings-control.js', array( 'uf-field' ), $v );
-		// wp_register_style( 'uf-field-common-settings-control', $assets . 'common-settings-control.css', array( 'ultimate-fields-css' ), $v );
+		wp_register_style( 'uf-field-common-settings-control', $assets . 'common-settings-control.css', array( 'ultimate-fields-css' ), $v );
 	}
 }

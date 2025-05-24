@@ -6,7 +6,9 @@ CHANGELOG
 - Allow 'Icon_And_Text' component classes to be added from another component definition
 - Icon And Text feature: square style
 - Action Hooks implementation in Template_Engine: 
-  "after_component_wrapper_start", "before_component_wrapper_end" 
+  "after_component_wrapper_start", "before_component_wrapper_end"
+- Remove yoyo from normalized properties in scroll-animations.js
+- Improve Common Setting Control to show an indicator when has values
 
 2.2.1 25-05-23
 - UF Fix: Show common_settings_wrapper.settings.main_attributes.id in page_module group
