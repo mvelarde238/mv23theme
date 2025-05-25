@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+- 24-05-2025
+- Feature: settings of inner wrapper can be pasted into components wrapper and viceversa
+    (core/js/container/group.js:302-333)
+
 - 23-05-2025
 - Fix: Show common_settings_wrapper.settings.main_attributes.id in page_module group
     (core/js/container/group.js:472-477)

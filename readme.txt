@@ -11,6 +11,8 @@ CHANGELOG
 - Remove yoyo from normalized properties in scroll-animations.js
 - Improve Common Setting Control to show an indicator when has values
 - Improve Common Setting Control to remove empty arrays from animation and actions settings
+- Components Wrapper is not anymore a on-demand component
+- Inner Wrapper Component implementation
 
 2.2.1 25-05-23
 - UF Fix: Show common_settings_wrapper.settings.main_attributes.id in page_module group

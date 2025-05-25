@@ -41,6 +41,10 @@ class Row extends Component {
 		$components = Core::getInstance()->get_components();
 		if(is_array($components) && count($components) > 0){
             foreach ($components as $component) {
+
+				$exclude = array('inner_wrapper');
+				if( in_array($component->get_id(), $exclude) ) continue;
+
                 $options = array(
                     'min_width' => 1,
                     'title' => $component->get_title(),

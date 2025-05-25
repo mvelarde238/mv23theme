@@ -299,26 +299,38 @@
 		paste: async function() {
 			this.hideContextMenu();
 
-			const copied_settings = await this.leerPortapapeles();
+			let copied_settings_string = await this.leerPortapapeles(),
+				do_the_update;
 
-			if (copied_settings) {
-				var settings = JSON.parse(copied_settings),
+			if (copied_settings_string) {
+				var copied_settings = JSON.parse(copied_settings_string),
 					component_type = this.model.datastore.attributes.__type;
 				
-				if( component_type == settings.__type ){
-					// fix group position
-					settings.__index = this.model.datastore.attributes.__index;
+				if( component_type == copied_settings.__type ){
+					do_the_update = true;
 
-					this.model.datastore.set( settings );
+					// fix group position
+					copied_settings.__index = this.model.datastore.attributes.__index;
+
+				} else if ( component_type === 'components_wrapper' || component_type === 'inner_wrapper' ) {
+					do_the_update = true;
+
+					// fix component __type
+					copied_settings.__type = component_type;
+
+				} else {
+					do_the_update = false;
+					alert('The settings of a "'+copied_settings.__type+'" component cannot be pasted in a "'+component_type+'" component.');
+				}
+
+				if( do_the_update ){
+					this.model.datastore.set( copied_settings );
 
 					// used by repeater.js to REFRESH the brand new group
 					this.trigger( 'uf-paste', {});
 
 					// show the group
 					this.openPopup();
-
-				} else {
-					alert('The settings of a "'+settings.__type+'" component cannot be pasted in a "'+component_type+'" component.');
 				}
 			} else {
 				alert('There are no settings to paste.');

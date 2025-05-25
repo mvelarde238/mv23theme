@@ -7,11 +7,11 @@ use Core\Builder\Template_Engine;
 use Core\Builder\Blocks_Layout;
 use Core\Builder\Blocks_Layout_Settings;
 
-class Components_Wrapper extends Component {
+class Inner_Wrapper extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'components_wrapper',
+			'inner_wrapper',
 			__( 'Wrapper', 'mv23theme' )
 		);
 	}
@@ -66,4 +66,4 @@ class Components_Wrapper extends Component {
 	}
 }
 
-new Components_Wrapper();
+new Inner_Wrapper();

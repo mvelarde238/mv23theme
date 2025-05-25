@@ -65,7 +65,6 @@ if( !defined('PAGE_SETTINGS_POSTTYPES') ) define ('PAGE_SETTINGS_POSTTYPES', arr
 if( !defined('CONTENT_BUILDER_POSTTYPES') ) define ('CONTENT_BUILDER_POSTTYPES', array());
 if( !defined('CONTENT_BUILDER_SETTINGS') ) define ('CONTENT_BUILDER_SETTINGS', array());
 
-if( !defined('COMPONENTS_WRAPPER') ) define ('COMPONENTS_WRAPPER', true);
 if( !defined('CARD') ) define ('CARD', false);
 if( !defined('SIMPLE_COLUMNS') ) define ('SIMPLE_COLUMNS', false);
 if( !defined('ITEMS_GRID') ) define ('ITEMS_GRID', false);

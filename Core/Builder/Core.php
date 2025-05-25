@@ -40,14 +40,16 @@ class Core{
             'Html',
             'Gallery',
             'Testimonials',
-            'Menu',
-            'Carrusel',
-            'Accordion'
+            'Menu'
         ),
         'theme' => array(),
         'wrappers' => array(
+            'Inner_Wrapper',
+            'Carrusel',
+            'Accordion',
             'Flip_Box',
             'Inner_Row',
+            'Components_Wrapper',
             'Row'
         )
     );
@@ -123,7 +125,6 @@ class Core{
             if(SIMPLE_COLUMNS) new \Core\Builder\Component\Simple_Columns;
         });
         add_action( 'before_adding_Row_components', function(){
-            if(COMPONENTS_WRAPPER) new Components_Wrapper();
             if(CARD) new \Core\Builder\Component\Card();
             if(ITEMS_GRID) new \Core\Builder\Component\Items_Grid;
             if(CONTENT_SLIDER) new \Core\Builder\Component\Content_Slider;
