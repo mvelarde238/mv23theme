@@ -224,4 +224,9 @@ class Admin extends Theme_Header_Data {
     public function lower_yoast_metabox_priority( $priority ) {
         return 'core';
     }
+
+    public function extend_nav_widget() {
+        unregister_widget('WP_Nav_Menu_Widget');
+        register_widget('Core\Admin\Extend_Nav_Menu_Widget');
+    }
 }

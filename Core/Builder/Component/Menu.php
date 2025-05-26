@@ -30,7 +30,7 @@ class Menu extends Component {
 		return $template;
 	}
 
-	public static function get_fields() {
+    public static function get_menu_styles() {
         $menu_styles = apply_filters( 
             'theme_nav_styles', 
             array( 
@@ -42,13 +42,22 @@ class Menu extends Component {
                 array( 'slug' => 'unordered-list', 'name' => __('None','mv23theme'), 'image' => '' )
             ) 
         );
-        
+        return $menu_styles;
+    }
+
+    public static function get_menu_styles_image_select() {
         $images_path = BUILDER_PATH.'/assets/images/';
-        $menu_styles_for_image_select = array();
+        $menu_styles = self::get_menu_styles();
+        $menu_styles_image_select = array();
         foreach ($menu_styles as $style) {
             $image_path = ( $style['image'] != '' ) ? $style['image'] : $images_path.$style['slug'].'.png';
-            $menu_styles_for_image_select[ $style['slug'] ] = array( 'label' => $style['name'], 'image' => $image_path );
+            $menu_styles_image_select[ $style['slug'] ] = array( 'label' => $style['name'], 'image' => $image_path );
         }
+        return $menu_styles_image_select;
+    }
+
+	public static function get_fields() {
+        $menu_styles_image_select = self::get_menu_styles_image_select();
 
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme')),
@@ -65,7 +74,7 @@ class Menu extends Component {
                 ->add_dependency('type','location','=')
                 ->set_width(50),
             Field::create( 'image_select', 'style', __('Style','mv23theme') )
-                ->add_options( $menu_styles_for_image_select )
+                ->add_options( $menu_styles_image_select )
                 ->add_dependency( 'type', 'menu' )
                 ->add_dependency( 'menu', '0', '!=' )
                 ->add_dependency_group()

@@ -150,6 +150,9 @@ class Theme extends Theme_Header_Data {
         // Lowers the metabox priority to 'core' for Yoast SEO's metabox
         $this->loader->add_filter( 'wpseo_metabox_prio', $admin, 'lower_yoast_metabox_priority' );
 
+        // Extend Nav Menu Widget
+        $this->loader->add_filter( 'widgets_init', $admin, 'extend_nav_widget' );
+
         // ajax callback to load posts in listing component
         $ajax_load_posts = new Ajax_Load_Posts();
 
