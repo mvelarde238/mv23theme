@@ -122,6 +122,13 @@ class Properties
                 'hidden' => 'Hidden',
                 'scroll' => 'Scroll',
                 'auto' => 'Auto'
+            ]],
+            ['key' => 'clipPath', 'label' => 'Clip Path', 'type' => 'select', 'options' => [
+                'circle(100% at 50% 50%)' => 'circle(100% at 50% 50%)',
+                'ellipse(60% 40% at 50% 50%)' => 'ellipse(60% 40% at 50% 50%)',
+                'inset(10% 20%)' => 'inset(10% 20%)',
+                'polygon(50% 0%, 100% 100%, 0% 100%)' => 'polygon(50% 0%, 100% 100%, 0% 100%)',
+                'path("M10 10 H 90 V 90 H 10 L 10 10")' => 'path("M10 10 H 90 V 90 H 10 L 10 10")'
             ]]
             // ['key' => 'width', 'label' => 'Width', 'type' => 'number'],
             // ['key' => 'height', 'label' => 'Height', 'type' => 'number'],
