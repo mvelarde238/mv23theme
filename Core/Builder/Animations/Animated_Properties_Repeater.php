@@ -39,34 +39,34 @@ class Animated_Properties_Repeater
                 }
 
                 $group = Repeater_Group::create($key)
-                    ->set_title(__($label, 'mv23theme'))
+                    ->set_title(__($label, '_mv23theme'))
                     ->add_fields(array(
                         $field
                     ));
             } elseif ($type === 'color') {
                 $group = Repeater_Group::create($key)
-                    ->set_title(__($label, 'mv23theme'))
+                    ->set_title(__($label, '_mv23theme'))
                     ->add_fields(array(
-                        Field::create('color', 'value')->set_prefix(__($label, 'mv23theme'))->add_dependency('custom', '1', '!='),
+                        Field::create('color', 'value')->set_prefix(__($label, '_mv23theme'))->add_dependency('custom', '1', '!='),
                     ));
             } elseif ($type === 'text') {
                 $group = Repeater_Group::create($key)
-                    ->set_title(__($label, 'mv23theme'))
+                    ->set_title(__($label, '_mv23theme'))
                     ->add_fields(array(
-                        Field::create('text', 'value')->set_prefix(__($label, 'mv23theme'))->add_dependency('custom', '1', '!='),
+                        Field::create('text', 'value')->set_prefix(__($label, '_mv23theme'))->add_dependency('custom', '1', '!='),
                     ));
             } elseif ($type === 'boolean') {
                 $group = Repeater_Group::create($key)
-                    ->set_title(__($label, 'mv23theme'))
+                    ->set_title(__($label, '_mv23theme'))
                     ->add_fields(array(
-                        Field::create('checkbox', 'value')->set_text( sprintf( __('Enable %s', 'mv23theme'), $label ) )
+                        Field::create('checkbox', 'value')->set_text( sprintf( __('Enable %s', '_mv23theme'), $label ) )
                     ));
             } elseif ($type === 'select') {
                 $group = Repeater_Group::create($key)
-                    ->set_title(__($label, 'mv23theme'))
+                    ->set_title(__($label, '_mv23theme'))
                     ->add_fields(array(
                         Field::create('select', 'value')
-                            ->set_prefix(__($label, 'mv23theme'))
+                            ->set_prefix(__($label, '_mv23theme'))
                             ->add_options($property['options'])
                             ->add_dependency('custom', '1', '!=')
                     ));
@@ -76,7 +76,7 @@ class Animated_Properties_Repeater
             }
 
             if ($type != 'boolean') {
-                $group->add_field(Field::create('text', 'custom_value')->set_prefix(__($label, 'mv23theme'))->add_dependency('custom'));
+                $group->add_field(Field::create('text', 'custom_value')->set_prefix(__($label, '_mv23theme'))->add_dependency('custom'));
                 $group->add_field(Field::create('checkbox', 'custom')->set_attr('style', $small_checkbox_styles)->set_text('<span class="dashicons dashicons-edit"></span>'));
             }
 

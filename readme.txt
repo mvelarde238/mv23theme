@@ -4,6 +4,7 @@ CHANGELOG
 
 2.2.3 25-05-26
 - Feature: Implement clipPath in Core\Builder\Animations\Properties
+- Reorder animation properties alphabetically
 
 2.2.2 25-05-24
 - Allow 'Icon_And_Text' component classes to be added from another component definition
