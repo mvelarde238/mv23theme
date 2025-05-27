@@ -97,6 +97,8 @@ class Properties
                 'amount:1|from:edges|grid:auto' => 'amount:1|from:edges|grid:auto',
                 'amount:1|from:random|grid:auto' => 'amount:1|from:random|grid:auto'
                 ]],
+            ['key' => 'strokeDasharray', 'label' => 'Stroke dash array', 'type' => 'number'],
+            ['key' => 'strokeDashoffset', 'label' => 'Stroke dash offset', 'type' => 'number'],
             ['key' => 'color', 'label' => 'Text Color', 'type' => 'color'],
             ['key' => 'textShadow', 'label' => 'Text Shadow', 'type' => 'select', 'options' => [
                 'none' => 'None',

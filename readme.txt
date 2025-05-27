@@ -6,6 +6,7 @@ CHANGELOG
 - Feature: Implement clipPath in Core\Builder\Animations\Properties
 - Reorder animation properties alphabetically
 - Extend_Nav_Menu_Widget Class implementation
+- Feature: Implement strokeDasharray and strokeDashoffset in Core\Builder\Animations\Properties
 
 2.2.2 25-05-24
 - Allow 'Icon_And_Text' component classes to be added from another component definition
