@@ -419,15 +419,19 @@ class Listing extends Component {
                 <?php endif; ?>
     
                 <?php 
+                $count = 0;
                 while ( $query->have_posts() ) : $query->the_post();
                     if($listing_template == 'carrusel') echo '<div>';
+
+                    $_postcard_template = apply_filters('filter_listing_postcard_template', $postcard_template, $count);
                     
-                    get_template_part( 'partials/card/postcard', $postcard_template, array( 
+                    get_template_part( 'partials/card/postcard', $_postcard_template, array( 
                         'on_click_post' => $on_click_post,
                         'on_click_scroll_to' => $on_click_scroll_to
                     ));
 
                     if($listing_template == 'carrusel') echo '</div>';
+                    $count++;
                 endwhile; 
                 ?>
     

@@ -11,11 +11,18 @@ $postcard_template = ( !empty($postcard_settings['template']) ) ? $postcard_sett
 ?>
 <div class="component">
 	<div class="posts-listing has-columns" style="--d-gap:<?=$gap['desktop']?>px; --l-gap:<?=$gap['laptop']?>px; --t-gap:<?=$gap['tablet']?>px; --m-gap:<?=$gap['mobile']?>px; --d-columns:<?=$columns['desktop']?>; --l-columns:<?=$columns['laptop']?>; --t-columns:<?=$columns['tablet']?>; --m-columns:<?=$columns['mobile']?>;">
-		<?php while (have_posts()) : the_post();
-			get_template_part( 'partials/card/postcard', $postcard_template, array( 
+		<?php 
+		$count = 0;
+		while (have_posts()) : the_post();
+
+			$_postcard_template = apply_filters('filter_listing_postcard_template', $postcard_template, $count);
+
+			get_template_part( 'partials/card/postcard', $_postcard_template, array( 
                 'on_click_post' => $postcard_settings['on_click_post'],
                 'on_click_scroll_to' => $postcard_settings['on_click_scroll_to']
             ));
+
+			$count++;
 		endwhile; ?>
 	</div>
 </div>

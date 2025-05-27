@@ -7,6 +7,7 @@ CHANGELOG
 - Reorder animation properties alphabetically
 - Extend_Nav_Menu_Widget Class implementation
 - Feature: Implement strokeDasharray and strokeDashoffset in Core\Builder\Animations\Properties
+- Filter hooks implementation in loops: filter_listing_postcard_template
 
 2.2.2 25-05-24
 - Allow 'Icon_And_Text' component classes to be added from another component definition
