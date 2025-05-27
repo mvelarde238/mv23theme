@@ -323,7 +323,7 @@ class Theme_Options extends Theme_Header_Data{
                     $queried_object = get_queried_object();
                     $posttype = $queried_object->post_type;
                     if( in_array($posttype, $setting['post_types']) ){
-                        $page_settings['single']['hide_sidebar'] = $setting['hide_sidebar'];
+                        $page_settings['single']['hide_sidebar'] = $setting['hide_sidebar'] ?? false;
                         $page_settings['single']['page_template'] = $setting['page_template'];
                     }
                 }

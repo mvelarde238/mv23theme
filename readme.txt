@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.2.4 25-05-27
+- Fix undefined array key hide_sidebar
+
 2.2.3 25-05-26
 - Feature: Implement clipPath in Core\Builder\Animations\Properties
 - Reorder animation properties alphabetically
