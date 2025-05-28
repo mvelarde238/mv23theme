@@ -14,6 +14,7 @@ class Shortcodes{
         get_template_part( 'partials/shortcodes/comments-area' );
         get_template_part( 'partials/shortcodes/nav' );
         get_template_part( 'partials/shortcodes/social-share' );
+        get_template_part( 'partials/shortcodes/archive-title' );
 
         if (IS_MULTILANGUAGE) {
         	get_template_part( 'partials/shortcodes/idiomas' );
