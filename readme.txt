@@ -7,6 +7,7 @@ CHANGELOG
 - Fix undefined repeater dropdown template in theme options
 - Add img vertical aligment selector in style formats (tinymce)
 - Apply css var properties on .text-color-1
+- Fix LISTING_EXPANDER_HEIGHT
 
 2.2.4 25-05-27
 - Fix undefined array key hide_sidebar

@@ -36,8 +36,9 @@ if( !defined('SEARCH_PLACEHOLDER') ) define ('SEARCH_PLACEHOLDER', array('es' =>
 if( !defined('USE_PORTFOLIO_CPT') ) define( 'USE_PORTFOLIO_CPT', false);
 if( !defined('LISTING_LOADING_TEXT') ) define( 'LISTING_LOADING_TEXT', array('es' => 'Cargando...', 'en' => 'Loading...' ));
 if( !defined('LISTING_LOAD_MORE_TEXT') ) define( 'LISTING_LOAD_MORE_TEXT', array('es' => 'Cargar más...', 'en' => 'Load more...' ));
-if( !defined('LISTING_PORTFOLIO_EXPANDER_HEIGHT') ) define( 'LISTING_PORTFOLIO_EXPANDER_HEIGHT', '500px');
-if( !defined('LISTING_PORTFOLIO_SCROLL_DURATION') ) define( 'LISTING_PORTFOLIO_SCROLL_DURATION', '500');
+if( !defined('LISTING_EXPANDER_HEIGHT') ) define( 'LISTING_EXPANDER_HEIGHT', '500px');
+if( !defined('LISTING_EXPANDER_RESPONSE_HEIGHT') ) define( 'LISTING_EXPANDER_RESPONSE_HEIGHT', '500px');
+if( !defined('LISTING_EXPANDER_SCROLL_DURATION') ) define( 'LISTING_EXPANDER_SCROLL_DURATION', '500');
 
 if( !defined('MODAL_OUT_DURATION') ) define( 'MODAL_OUT_DURATION', 1);
 

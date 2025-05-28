@@ -7,7 +7,8 @@
     // create expander elements
     var headerHeight = MV23_GLOBALS.headerHeight,
         expanderHeight = MV23_GLOBALS.expanderHeight,
-        scrollDuration = MV23_GLOBALS.listingPortfolioScrollDuration,
+        expanderResponseHeight = MV23_GLOBALS.expanderResponseHeight,
+        scrollDuration = MV23_GLOBALS.expanderScrollDuration,
         expanderResponse = '<div class="expander-response"></div>',
         closeBtn = '<div class="expander-close"></div>',
         expanderInner = '<div class="expander-inner">'+expanderResponse+closeBtn+'</div>',
@@ -71,6 +72,7 @@
                     $postcard.addClass('active');
                     $expanderTarget.css('paddingBottom', expanderHeight);
                     $expanderTarget.append('<div class="expander">'+expanderInner+'</div>');
+                    $expanderTarget.find('.expander-response').css('height', expanderResponseHeight);
                     $expanderTarget.find('.expander').append(loading);
                     if( scrollTo == 'postcard' || scrollTo == 'expander' ){
                         var $element = (scrollTo == 'postcard') ? $postcard : $expanderTarget.find('.expander');
@@ -81,7 +83,7 @@
                     var content = $('.main', response);
                     if(response) {
                         $expanderTarget.find('.expander-loading').remove();
-                        $expanderTarget.find('.expander-response').css('height', expanderHeight).html( content.html() );
+                        $expanderTarget.find('.expander-response').html( content.html() );
                         // colorbox
                         // $expanderTarget.find('.expander-response .zoom').colorbox({ rel:'expander-group', maxHeight:"96%", maxWidth: "96%" });
                     }
