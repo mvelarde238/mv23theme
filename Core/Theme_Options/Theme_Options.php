@@ -309,7 +309,7 @@ class Theme_Options extends Theme_Header_Data{
             }
         }
         
-        if( !empty($root_lines) ) $css .= ':root {'.implode(';', $root_lines ).'}';
+        if( !empty($root_lines) ) $css .= ':root, .text-color-1 {'.implode(';', $root_lines ).'}';
         if( !empty($css) ) wp_add_inline_style( 'mv23theme-styles', $css );
     }
 
