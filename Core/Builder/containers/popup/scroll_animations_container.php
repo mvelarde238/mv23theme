@@ -8,7 +8,7 @@ $read_only_styles = 'pointer-events:none;opacity:.6;background-color:#eee;';
 
 if( !SCROLL_ANIMATIONS ){
     array_push($scroll_animation_fields, 
-        Field::create( 'message', 'Hint_1' )->set_description( __('Activate scroll animations on Theme Options -> Global Options','mv23theme') )->hide_label()
+        Field::create( 'message', 'Hint_1' )->set_description( __('Activate scroll animations on Theme Options -> Global Animations','mv23theme') )->hide_label()
     );
 }
 

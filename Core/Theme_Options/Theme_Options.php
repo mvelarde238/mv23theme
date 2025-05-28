@@ -10,6 +10,7 @@ use Core\Theme_Options\UF_Container\Social_Media;
 use Core\Theme_Options\UF_Container\Maps_Options;
 use Core\Theme_Options\UF_Container\Global_Options;
 use Core\Theme_Options\UF_Container\Custom_Scripts;
+use Core\Theme_Options\UF_Container\Global_Animations;
 
 class Theme_Options extends Theme_Header_Data{
 	private static $instance = null;
@@ -46,6 +47,7 @@ class Theme_Options extends Theme_Header_Data{
             Social_Media::init();
             Maps_Options::init();
             Global_Options::init();
+            Global_Animations::init();
         }
     }
 

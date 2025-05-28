@@ -10,6 +10,7 @@ use Core\Frontend\Shortcodes as Shortcodes;
 use Core\Frontend\Page;
 use Core\Frontend\Header;
 use Core\Theme_Options\Theme_Options;
+use Core\Builder\Template_Engine\Scroll_Animations;
 
 class Frontend extends Theme_Header_Data {
 
@@ -177,6 +178,14 @@ class Frontend extends Theme_Header_Data {
         if (!empty($style)) {
             $style = 'style="'.$style.'"';		
         }
+
+        if( SCROLL_ANIMATIONS ){
+            $global_animations = get_option('global_animations');
+            if( !empty($global_animations) ){
+                $style = ' '.Scroll_Animations::get_attribute( $global_animations );
+            } 
+        }
+
         echo $style;
     }
 

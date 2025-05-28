@@ -20,9 +20,6 @@ class Global_Options{
                     'page' => __('Pages','mv23theme'),
                     'product' => __('Products','mv23theme')
                 )),
-                Field::create( 'complex', 'scroll_animations', __('Activate Scroll Animations','mv23theme') )->add_fields(array(
-                    Field::create( 'checkbox', 'activate' )->set_text(__('Activate','mv23theme'))->hide_label()->set_width( 50 )
-                )),
                 Field::create( 'checkbox', 'disable_comments_styles', __('Deactive theme styles in comments','mv23theme') )->set_text(__('Deactivate','mv23theme')),
             ));
     }

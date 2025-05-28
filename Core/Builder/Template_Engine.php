@@ -56,7 +56,17 @@ class Template_Engine{
         if( $id ) $attributes[] = $id;
         if( $class ) $attributes[] = $class;
         if( $style_data['attribute'] ) $attributes[] = $style_data['attribute'];
-        if( SCROLL_ANIMATIONS ) $attributes[] = Scroll_Animations::get_attributes( $args );
+        if( SCROLL_ANIMATIONS ){
+            if( 
+                isset($args['scroll_animations_settings']) && 
+                is_array($args['scroll_animations_settings']) && 
+                isset($args['scroll_animations_settings']['groups']) && 
+                is_array($args['scroll_animations_settings']['groups']) )
+            {
+                $animations_settings = $args['scroll_animations_settings'];
+                $attributes[] = Scroll_Animations::get_attribute( $animations_settings );
+            }
+        } 
         if (isset($args['additional_attributes']) && is_array($args['additional_attributes']) && !empty($args['additional_attributes'])){
             $attributes = array_merge( $attributes, $args['additional_attributes'] );
         }

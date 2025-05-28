@@ -23,6 +23,8 @@
                         }
                     });
                 }
+
+                elem.removeAttribute('data-scroll-animations');
             }
     	}
 
@@ -65,18 +67,20 @@
             if( group['timeline'].length ){
                 group['timeline'].forEach(tween_obj => {
                     var _tweenElem = get_tweenElem(triggerElement, tween_obj[0]);
-                    var from = normalize_properties(tween_obj[1]);
-                    var to = normalize_properties(tween_obj[2]);
-                    var position = (tween_obj[3] != '') ? tween_obj[3] : "+=0";
-
-                    if( Object.keys(to).length > 0 && Object.keys(from).length > 0 ){
-                        timeline.fromTo(_tweenElem, from, to, position);
-                    } else {
-                        if( Object.keys(from).length > 0 ){
-                            timeline.from(_tweenElem, from, position);
-                        }
-                        if( Object.keys(to).length > 0 ){
-                            timeline.to(_tweenElem, to, position);
+                    if( _tweenElem.length ){
+                        var from = normalize_properties(tween_obj[1]);
+                        var to = normalize_properties(tween_obj[2]);
+                        var position = (tween_obj[3] != '') ? tween_obj[3] : "+=0";
+    
+                        if( Object.keys(to).length > 0 && Object.keys(from).length > 0 ){
+                            timeline.fromTo(_tweenElem, from, to, position);
+                        } else {
+                            if( Object.keys(from).length > 0 ){
+                                timeline.from(_tweenElem, from, position);
+                            }
+                            if( Object.keys(to).length > 0 ){
+                                timeline.to(_tweenElem, to, position);
+                            }
                         }
                     }
                 });
