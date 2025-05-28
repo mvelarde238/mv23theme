@@ -268,6 +268,32 @@ class TinyMCE{
 			    'selector' => 'p, h1, h2, h3, h4, h5, h6, a, img',
 			    'classes' => 'clearfix'
 			),
+			array(
+				'title' => __('Image Alignment', 'mv23theme'),
+				'items' => array(
+					array(  
+					    'title' => __('Top','mv23theme'),  
+					    'selector' => 'img',
+					    'styles' => array(
+							'verticalAlign' => 'top'
+			    		)
+					),
+					array(  
+					    'title' => __('Middle','mv23theme'),  
+					    'selector' => 'img',
+					    'styles' => array(
+							'verticalAlign' => 'middle'
+			    		)
+					),
+					array(  
+					    'title' => __('Bottom','mv23theme'),  
+					    'selector' => 'img',
+					    'styles' => array(
+							'verticalAlign' => 'bottom'
+			    		)
+					)
+				)
+			),
 			array(  
 			    'title' => 'Imagen Ancho Completo',  
 			    'selector' => 'img',
