@@ -4,6 +4,7 @@ CHANGELOG
 
 2.2.5 25-05-28
 - Global_Aninations Class implementation in theme options
+- Fix undefined repeater dropdown template in theme options
 
 2.2.4 25-05-27
 - Fix undefined array key hide_sidebar

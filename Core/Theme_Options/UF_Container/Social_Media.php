@@ -12,6 +12,7 @@ class Social_Media{
             ->set_title( __('Social Networks','mv23theme') )
             ->add_fields(array(
                 Field::create( 'repeater', 'rrss', __('Social Networks','mv23theme') )->set_add_text(__('Add','mv23theme'))->hide_label()
+                    ->set_chooser_type('dropdown')
                 // ->set_layout( 'table' )
                 ->add_group(__('Social Network','mv23theme'), array(
                     'title_template' => '<%= icon %> : <%= url %>',
