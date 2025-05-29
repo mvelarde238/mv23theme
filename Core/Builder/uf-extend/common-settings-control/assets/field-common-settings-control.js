@@ -120,13 +120,13 @@
 						var processed_data, 
 							raw_data = this.model.get('raw_data');
 
-						$('.wp-color-picker').wpColorPicker('close');
+						this.$el.find('.wp-color-picker').wpColorPicker('close');
 
 						var errors = this.model.get('_popup_container').model.validate();
 
 						if( ! errors ) {
 							
-							$('.colour-picker').iris('hide');
+							this.$el.find('.colour-picker').iris('hide');
 
                 			processed_data = that.filterData( this.model.get( 'container' ), raw_data );
 
