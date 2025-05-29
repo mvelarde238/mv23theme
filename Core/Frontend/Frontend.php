@@ -183,7 +183,7 @@ class Frontend extends Theme_Header_Data {
         if( SCROLL_ANIMATIONS ){
             $global_animations = get_option('global_animations');
             if( !empty($global_animations) ){
-                $style = ' '.Scroll_Animations::get_attribute( $global_animations );
+                $style .= ' '.Scroll_Animations::get_attribute( $global_animations );
             } 
         }
 
