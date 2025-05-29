@@ -9,6 +9,7 @@ CHANGELOG
 - Apply css var properties on .text-color-1
 - Fix LISTING_EXPANDER_HEIGHT
 - archive_title shortcode implementation
+- UF Enhancement: Improved file preview for images with better sizing and background handling
 
 2.2.4 25-05-27
 - Fix undefined array key hide_sidebar

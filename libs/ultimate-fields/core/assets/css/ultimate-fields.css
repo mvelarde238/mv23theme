@@ -1011,7 +1011,10 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 
 .uf-file {
   display: inline-block;
-  background: #eee;
+  background: #f8f7f7;
+  background-image: linear-gradient(45deg, #ccc 26%, transparent 26%), linear-gradient(135deg, #ccc 26%, transparent 26%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(135deg, transparent 75%, #ccc 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 0, 10px -10px, 0px 10px;
   border: 1px solid #ccc;
   max-width: 100%;
   box-sizing: border-box;
@@ -1025,7 +1028,8 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   display: block;
   margin: 0 auto;
   max-width: 100%;
-  height: auto;
+  width: auto;
+  height: 100px;
 }
 .uf-file-preview .icon {
   display: inline-block;
@@ -1040,6 +1044,7 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   margin: 8px 8px 8px 0;
 }
 .uf-file-buttons {
+  background: #f8f7f7;
   display: flex;
   text-align: center;
   padding: 8px;

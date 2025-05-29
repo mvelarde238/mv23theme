@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+- 28-05-2025
+- Enhancement: Improved file preview for images with better sizing and background handling
+    (core/assets/sass/field/_file.scss)
+
 - 24-05-2025
 - Feature: settings of inner wrapper can be pasted into components wrapper and viceversa
     (core/js/container/group.js:302-333)
