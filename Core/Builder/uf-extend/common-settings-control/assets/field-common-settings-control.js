@@ -131,11 +131,11 @@
                 			processed_data = that.filterData( this.model.get( 'container' ), raw_data );
 
 							// check has-values class
-							const _button = this.model.get('_view').find('.uf-button');
+							const _button = this.model.get('_view')?.find('.uf-button');
 							if( _.isEmpty(processed_data) ) {
-								_button.removeClass('has-values');
+								_button?.removeClass('has-values');
 							} else {
-								_button.addClass('has-values');
+								_button?.addClass('has-values');
 							}
 
                 			that.trigger( 'save', e, processed_data );
