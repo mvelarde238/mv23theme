@@ -13,6 +13,7 @@ class TinyMCE{
 
     public function filter_buttons_in_first_row($mce_buttons) {
         array_push($mce_buttons, 'icon_mce_button' );
+		// array_push($mce_buttons, 'fontweightselect');
         return $mce_buttons;
     }
 
@@ -337,12 +338,12 @@ class TinyMCE{
 		);
 	}
 
-    public function add_style_formats($initArray) {  
+    public function add_style_formats($tinymce_init_params) {  
         // Define the style_formats array
         $style_formats = apply_filters( 'filter_style_formats', $this->get_style_formats());
         // Insert the array, JSON ENCODED, into 'style_formats'
-        $initArray['style_formats'] = json_encode( $style_formats );  
-        return $initArray;  
+        $tinymce_init_params['style_formats'] = json_encode( $style_formats );
+        return $tinymce_init_params;  
     }
 
     public function get_custom_colors(){
@@ -423,6 +424,7 @@ class TinyMCE{
 
     public function add_icon_plugin($plugins) {
         $plugins['icon_mce_button'] = get_template_directory_uri() .'/assets/js/mce-icon-button.js';
+		// $plugins['fontweightselect'] = get_template_directory_uri() . '/assets/js/mce-fontweightselect.js';
         return $plugins;
     }
 }
