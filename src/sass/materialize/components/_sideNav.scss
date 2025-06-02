@@ -96,10 +96,6 @@
 
     cursor: initial;
     pointer-events: none;
-    color: rgba(0,0,0,.54);
-    font-size: $sidenav-font-size;
-    font-weight: 500;
-    line-height: $sidenav-line-height;
   }
 
   .user-view {
@@ -130,12 +126,6 @@
     .circle {
       height: 64px;
       width: 64px;
-    }
-
-    .name,
-    .email {
-      font-size: $sidenav-font-size;
-      line-height: calc($sidenav-line-height / 2);
     }
 
     .name {

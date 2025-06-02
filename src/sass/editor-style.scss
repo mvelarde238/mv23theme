@@ -1,14 +1,13 @@
 @import "materialize/components/color-variables";
-@import "materialize/components/overriden-variables";
 @import "materialize/components/variables";
 
 body#tinymce.wp-editor {
 	background-color: var(--primary-color-lighter);
 	margin: 30px;
-	color: var(--font-color);
 	@include css-properties;
-	@include general-tipography-styles;
+	@include typography-properties;
 	@import "materialize/components/typography";
+	@include general-tipography-styles;
 	@import "materialize/components/global";
 	@import "materialize/components/buttons";
 	@import "modulos/blockquote";
@@ -23,7 +22,6 @@ body#tinymce.wp-editor {
 	@import "modulos/theme-list";
 	@import "modulos/special-list-1";
 	@import "modulos/table";
-	@import "modulos/typography";
 	table td,
     table th{
         outline: 1px dashed silver;

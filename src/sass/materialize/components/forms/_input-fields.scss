@@ -3,8 +3,6 @@
 
 /* Style Placeholders */
 
-/* Style Placeholders */
-
 ::placeholder {
   color: $placeholder-text-color;
 }
@@ -40,21 +38,15 @@ input[type=tel]:not(.browser-default),
 input[type=number]:not(.browser-default),
 input[type=search]:not(.browser-default),
 textarea.materialize-textarea {
-
   // General Styles
-  background-color: transparent;
-  border: none;
-  border-bottom: $input-border;
-  border-radius: 0;
   outline: none;
-  height: $input-height;
   width: 100%;
-  font-size: $input-font-size;
   margin: $input-margin;
-  padding: $input-padding;
+  padding: var(--button-padding);
   box-shadow: none;
   box-sizing: border-box;
   transition: box-shadow .3s, border .3s;
+  line-height: var(--global-line-height);
 
   // Disabled input style
   &:disabled,
@@ -198,7 +190,6 @@ textarea.materialize-textarea {
     top: -3px;
     left: 8px;
     height: 100%;
-    font-size: 15px;
     cursor: text;
     transition: transform .2s ease-out, color .2s ease-out;
     transform-origin: 0% 100%;
@@ -238,9 +229,9 @@ textarea.materialize-textarea {
   .prefix {
     position: absolute;
     width: $input-height;
-    font-size: $input-icon-size;
+    font-size: var(--input-icon-size);
     transition: color .2s;
-    top: calc(($input-height - $input-icon-size) / 2);
+    // top: calc(($input-height - $input-icon-size) / 2);
 
     &.active { color: $input-focus-color; }
   }
@@ -314,7 +305,7 @@ textarea.materialize-textarea {
     right: 1rem;
     color: transparent;
     cursor: pointer;
-    font-size: $input-icon-size;
+    font-size: var(--input-icon-size);
     transition: .3s color;
   }
 }

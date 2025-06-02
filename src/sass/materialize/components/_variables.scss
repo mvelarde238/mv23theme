@@ -36,16 +36,6 @@
 $font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !default;
 $off-black: rgba(0, 0, 0, 0.87) !default;
 
-// Header Styles
-$h1-fontsize: 28px !default;
-$h2-fontsize: 26px !default; // 3.56rem
-$h3-fontsize: 24px !default; // 2.92rem cheked
-$h4-fontsize: 22px !default; // 2.28rem
-$h5-fontsize: 20px !default; // 1.64rem cheked
-$h6-fontsize: 18px !default; // 1rem
-$headings-line-height: 140%;
-$headings-font-weight: 700;
-
 // 1. Colors
 // ==========================================================================
 
@@ -83,28 +73,6 @@ $container-width: 1240px !default; // used in some @media queries
 	--font-color: #{$font-color};
 	--font-color-2: #{$font-color-2};
 	--headings-color: inherit;
-	--font-size: 16px;
-	--line-height: 180%;
-	--font-weight: 300;
-	--bold-font-weight: bold;
-	--h1-line-height: #{$headings-line-height};
-	--h2-line-height: #{$headings-line-height};
-	--h3-line-height: #{$headings-line-height};
-	--h4-line-height: #{$headings-line-height};
-	--h5-line-height: #{$headings-line-height};
-	--h6-line-height: #{$headings-line-height};
-	--h1-font-size: #{$h1-fontsize};
-	--h2-font-size: #{$h2-fontsize};
-	--h3-font-size: #{$h3-fontsize};
-	--h4-font-size: #{$h4-fontsize};
-	--h5-font-size: #{$h5-fontsize};
-	--h6-font-size: #{$h6-fontsize};
-	--h1-font-weight: #{$headings-font-weight};
-	--h2-font-weight: #{$headings-font-weight};
-	--h3-font-weight: #{$headings-font-weight};
-	--h4-font-weight: #{$headings-font-weight};
-	--h5-font-weight: #{$headings-font-weight};
-	--h6-font-weight: #{$headings-font-weight};
 	--static-header-color: initial;
 	--static-header-logo-height: 60px;
 	--sticky-header-logo-height: 40px;
@@ -118,6 +86,33 @@ $container-width: 1240px !default; // used in some @media queries
 	--table-ui-color-2: var(--primary-color-light);
 	--table-ui-color-3: var(--primary-color-lighter);
 } 
+
+@mixin typography-properties{
+	--text-xxs: clamp(0.63rem, 0.60rem + 0.2vw, 0.75rem);   /* ~??px → 12px */
+	--text-xs: clamp(0.75rem, 0.72rem + 0.2vw, 0.875rem);   /* ~12px → 14px */
+  	--text-s:  clamp(0.875rem, 0.84rem + 0.2vw, 1rem);       /* ~14px → 16px */
+  	--text-m:  clamp(1rem, 0.96rem + 0.25vw, 1.125rem);      /* ~16px → 18px */
+  	--text-l:  clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);    /* ~18px → 20px */
+  	--text-xl: clamp(1.25rem, 1.15rem + 0.35vw, 1.5rem);      /* ~20px → 24px */
+
+	--global-font-size: var(--text-s);
+	--heading-h1: 2.2em;
+	--heading-h2: 1.9em;
+	--heading-h3: 1.7em;
+	--heading-h4: 1.5em;
+	--heading-h5: 1.2em;
+	--heading-h6: 1em;
+	
+	--global-line-height: 1.6;
+	--headings-line-height: 1.3;
+
+	--normal-font-weight: 400;
+	--bold-font-weight: 700;
+	--headings-font-weight: var(--bold-font-weight);
+	
+	--text-block-spacing: 1.5rem;
+	--button-padding: .5em 1em;	
+}
 
 $page-module-padding: 40px 0 !default;
 $scroll-width: 4px !default;
@@ -154,13 +149,8 @@ $badge-height: 22px !default;
 // ==========================================================================
 
 // Shared styles
-$button-border: 1px solid !default;
+$button-border: 0px !default;
 $button-background-focus: lighten($secondary-color, 4%) !default;
-$button-font-size: inherit !default;
-$button-icon-font-size: inherit !default;
-$button-height: 36px !default;
-$button-padding: 8px 1rem !default;
-$button-radius: 8px !default;
 
 // Disabled styles
 $button-disabled-background: #DFDFDF !default;
@@ -169,19 +159,6 @@ $button-disabled-color: #9F9F9F !default;
 // Raised buttons
 $button-raised-background: transparent !default;
 $button-raised-background-hover: $primary-color !default;
-$button-raised-color: #000 !default;
-
-// Large buttons
-$button-large-font-size: 15px !default;
-$button-large-icon-font-size: 1.6rem !default;
-$button-large-height: $button-height * 1.5 !default;
-$button-floating-large-size: 56px !default;
-
-// Small buttons
-$button-small-font-size: 13px !default;
-$button-small-icon-font-size: 1.2rem !default;
-$button-small-height: $button-height * .9 !default;
-$button-floating-small-size: $button-height * .9 !default;
 
 // Flat buttons
 $button-flat-color: #343434 !default;
@@ -193,7 +170,6 @@ $button-floating-background-hover: $button-floating-background !default;
 $button-floating-color: #fff !default;
 $button-floating-size: 40px !default;
 $button-floating-radius: 50% !default;
-
 
 // 4. Cards
 // ==========================================================================
@@ -269,16 +245,13 @@ $input-background: #fff !default;
 $input-error-color: $error-color !default;
 $input-success-color: $success-color !default;
 $input-focus-color: $secondary-color !default;
-$input-font-size: 16px !default;
 $input-margin-bottom: 8px;
 $input-margin: 0 0 $input-margin-bottom 0 !default;
 $input-padding: 12px 15px 12px !default;
-$label-font-size: .8rem !default;
 $input-disabled-color: rgba(0,0,0, .42) !default;
 $input-disabled-solid-color: #949494 !default;
 $input-disabled-border: 2px dotted $input-disabled-color !default;
 $input-invalid-border: 2px solid $input-error-color !default;
-$input-icon-size: 2rem;
 $placeholder-text-color: inherit !default;
 
 // Radio Buttons
@@ -333,12 +306,12 @@ $navbar-brand-font-size: 2.1rem !default;
 // ==========================================================================
 
 $sidenav-width: 360px !default;
-$sidenav-font-size: 14px !default;
-$sidenav-font-color: rgba(0,0,0,.87) !default;
+// $sidenav-font-size: 14px !default;
+// $sidenav-font-color: rgba(0,0,0,.87) !default;
 $sidenav-bg-color: #fff !default;
 $sidenav-padding: 16px !default;
-$sidenav-item-height: 48px !default;
-$sidenav-line-height: $sidenav-item-height !default;
+// $sidenav-item-height: 48px !default;
+// $sidenav-line-height: $sidenav-item-height !default;
 
 
 // 15. Photo Slider

@@ -1,7 +1,5 @@
 label
     font-weight: var(--bold-font-weight)
-    font-size: 15px
-    line-height: 16px
     i
         margin-right: 8px
 
@@ -19,7 +17,6 @@ input[type=time]:not(.browser-default),
 input[type=url]:not(.browser-default), textarea.materialize-textarea,
 input:not([type="submit"]),
 textarea, select
-    font-weight: normal
     border: 1px solid
     border-color: var(--form-ui-color-2)
     background-color: var(--form-ui-color-3)
@@ -37,32 +34,29 @@ input[type="file"]
 input[type="submit"],
 button[type="submit"]
     color: #fff
+    line-height: var(--global-line-height)
     font-weight: var(--bold-font-weight)
     cursor: pointer
-    border: 3px solid var(--form-ui-color-1)
-    padding: 17px 40px
+    border: 0
+    padding: var(--button-padding)
     width: 100%
-    border-radius: 0 25px 0 25px
+    border-radius: 2px
     transition: 500ms all
-    font-size: 16px
-    border-radius: 5px
     background-color: var(--form-ui-color-1)
+    border: 1px solid var(--form-ui-color-1)
     &:hover
         box-shadow: initial
         background-color: var(--primary-color-dark)
-        border-color: var(--primary-color-dark)
 
 select
     width: 100%
     margin-bottom: 8px
     margin-top: 0 !important
-    padding: 9px 10px
+    padding: var(--button-padding)
     @extend .scroll
 
 textarea
-    height: 120px
-    height: 150px
-    padding: 20px 15px
+    padding: var(--button-padding)
     &:focus
         outline: 0
 
@@ -81,7 +75,7 @@ textarea
         border-radius: 4px
         label
             padding: 11px 15px
-            font-size: 13px
+            font-size: var(--text-xs)
             line-height: 18px
             display: block
             cursor: pointer
@@ -106,7 +100,7 @@ textarea
         display: none
 
 .wpcf7-not-valid-tip
-    font-size: 12px
+    font-size: var(--text-xs)
 
 input.wpcf7-not-valid
     border-color: #f58181 !important

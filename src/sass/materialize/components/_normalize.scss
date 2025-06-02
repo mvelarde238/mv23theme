@@ -44,11 +44,6 @@ section {
  * `article` contexts in Chrome, Firefox, and Safari.
  */
 
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-
 /* Grouping content
    ========================================================================== */
 
@@ -149,9 +144,9 @@ mark {
  * Add the correct font size in all browsers.
  */
 
-small {
-  font-size: 80%;
-}
+// small {
+//   font-size: 80%;
+// }
 
 /**
  * Prevent `sub` and `sup` elements from affecting the line height in
@@ -227,7 +222,6 @@ textarea {
   color: inherit;
   font-family: sans-serif; /* 1 */
   font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
 }
 

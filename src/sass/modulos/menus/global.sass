@@ -20,14 +20,12 @@
             text-decoration: none
 
 %basic-global-menu-styles
+    font-size: var(--text-xs)
     @extend %clear-unordered-list
     @extend %clear-links
     @extend %toggle-submenu-styles
 
 %menu-item-styles
-    .menu-item__label
-        font-size: 14px
-        line-height: 18px
     & > li > a
         white-space: nowrap
     .menu-item__label
@@ -48,9 +46,7 @@
         &:hover>a
             background-color: var(--accent-color-3)
     a
-        font-size: 13px
         padding: 12px 20px
-        line-height: 18px
         color: var(--font-color)
         white-space: initial
 
