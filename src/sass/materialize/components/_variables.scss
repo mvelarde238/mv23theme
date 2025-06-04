@@ -102,6 +102,12 @@ $container-width: 1240px !default; // used in some @media queries
 	--heading-h4: 1.5em;
 	--heading-h5: 1.2em;
 	--heading-h6: 1em;
+	--heading-h1-line-height: var(--headings-line-height);
+	--heading-h2-line-height: var(--headings-line-height);
+	--heading-h3-line-height: var(--headings-line-height);
+	--heading-h4-line-height: var(--headings-line-height);
+	--heading-h5-line-height: var(--headings-line-height);
+	--heading-h6-line-height: var(--headings-line-height);
 	
 	--global-line-height: 1.6;
 	--headings-line-height: 1.3;
