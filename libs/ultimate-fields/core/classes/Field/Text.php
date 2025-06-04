@@ -56,7 +56,8 @@ class Text extends Field {
 	 */
 	public function enqueue_scripts() {
 		if( ! empty( $this->suggestions ) ) {
-			wp_enqueue_script( 'jquery-ui-autocomplete' );
+			// wp_enqueue_script( 'jquery-ui-autocomplete' );
+			wp_enqueue_script( 'uf-dropdown-input' );
 		}
 		if( ! empty( $this->datalist ) ) {
 			wp_enqueue_script( 'uf-flexdatalist' );

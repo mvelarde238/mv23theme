@@ -16,7 +16,7 @@ class Main{
             ->set_description_position('label')
             ->add_location( 'options', 'theme-options' )
             ->add_location( 'customizer', array(
-                'postmessage_fields' => array( 'colors_wrapper', 'primary_color_variations', 'secondary_color_variations', 'paragraph', 'h1_heading', 'h2_heading', 'h3_heading', 'h4_heading', 'h5_heading', 'h6_heading', 'static_header_logo_height', 'sticky_header_logo_height', 'static_header_bgc', 'sticky_header_bgc', 'containers_width' )
+                'postmessage_fields' => array( 'colors_wrapper', 'primary_color_variations', 'secondary_color_variations', 'typography_css_vars', 'static_header_logo_height', 'sticky_header_logo_height', 'static_header_bgc', 'sticky_header_bgc', 'containers_width' )
             ))
             ->add_fields( Logos::get_fields() )
             ->add_fields( Colors::get_fields() )

@@ -5,118 +5,220 @@ use Ultimate_Fields\Field;
 
 class Typography {
 
-    public static function get_fields(){
-        $font_size_rule = '^(?:(\d+(\.\d+)?(px|em|rem|vw|vh|%)|xx-small|x-small|small|medium|large|x-large|xx-large|smaller|larger))$';
-        $line_height_rule = '^(?:(\d+(\.\d+)?(px|em|rem|vw|vh|%)?|normal))$';
-        $font_weight_rule = '^(?:(normal|bold|bolder|lighter|[1-9]00))$';
-        $google_api_key = ( defined('MV23_GOOGLE_API_KEY') ) ? MV23_GOOGLE_API_KEY : '';
+    private static function get_google_api_key(){
+        return defined('MV23_GOOGLE_API_KEY') ? MV23_GOOGLE_API_KEY : '';
+    }
 
+    private static function get_google_font_group(){
+        return array(
+            'title' => __('Google Font','mv23theme'),
+            'layout' => 'rows',
+            'edit_mode' => 'popup',
+            'title_template' => '<%= (scope != "custom") ? scope : selector %> font: <%= google_font.family %> <%= google_font.variants.join(",") %>',
+            'fields' => array(
+                Field::create( 'font', 'google_font', __('Google Font','mv23theme') )->set_api_key( self::get_google_api_key() ),
+                Field::create( 'select', 'scope', __('Scope','mv23theme') )->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options(array(
+                    'any' => __('Any, just load the font','mv23theme'),
+                    'global' => __('Global (body)','mv23theme'),
+                    'headings' => __('Headings (h1, h2, h3, h4, h5, h6, b, strong)','mv23theme'),
+                    'custom' => __('Custom CSS selector','mv23theme')
+                )),
+                Field::create( 'text', 'selector' )->add_dependency('scope','custom')
+            )
+        );
+    }
+
+    private static function get_custom_font_group(){
+        return array(
+            'title' => __('Custom Font','mv23theme'),
+            'layout' => 'rows',
+            'edit_mode' => 'popup',
+            'title_template' => '<%= (scope != "custom") ? scope : selector %> font: <%= custom_font_data.name %>',
+            'fields' => array(
+                Field::create( 'complex', 'custom_font_data', __('Custom font data','mv23theme') )->merge()->add_fields(array(
+                    Field::create( 'text', 'name', __('Name','mv23theme') )->required()->set_width(20),
+                    Field::create( 'select', 'variant', __('Variant','mv23theme') )->add_options(array(
+                        'normal' => 'Normal',
+                        'bold' => 'Bold',
+                        'bolder' => 'Bolder',
+                        'lighter' => 'Lighter',
+                        '100' => '100',
+                        '200' => '200',
+                        '300' => '300',
+                        '400' => '400',
+                        '500' => '500',
+                        '600' => '600',
+                        '700' => '700',
+                        '800' => '800',
+                        '900' => '900'
+                    ))->set_width(20),
+                    Field::create( 'select', 'type', __('Type','mv23theme') )->set_input_type( 'radio' )->add_options(array(
+                        'file' => __('File','mv23theme'),
+                        'url' => __('Url','mv23theme')
+                    ))->set_width(20),
+                    Field::create( 'gallery', 'files', __('@font-face files ( woff2, woff )','mv23theme') )
+                        ->set_file_type('font/woff, font/woff2')
+                        ->set_attr( 'class', 'hide-gallery-order' )
+                        ->add_dependency( 'type', 'file' )
+                        ->set_width(40),
+                    Field::create( 'repeater', 'urls', __('Urls for @font-face css declaration ( woff2, woff )','mv23theme') )
+                        ->set_add_text(__('Add a url','mv23theme'))
+                        ->set_layout( 'table' )
+                        ->add_dependency( 'type', 'url' )
+                        ->add_group('item', array(
+                            'fields' => array(
+                                Field::create( 'text', 'url' )
+                            )
+                        ))->set_width(100)
+                )),
+                Field::create( 'select', 'scope', __('Scope','mv23theme') )->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options(array(
+                    'any' => __('Any, just load the font','mv23theme'),
+                    'global' => __('Global (body)','mv23theme'),
+                    'headings' => __('Headings (h1, h2, h3, h4, h5, h6)','mv23theme'),
+                    'custom' => __('Custom CSS selector','mv23theme')
+                )),
+                Field::create( 'text', 'selector' )->add_dependency('scope','custom')
+            )
+        );
+    }
+
+    private static function get_css_properties(){
+        $font_weight_options = [
+            '100' => '100 - Ultra Light',
+            '200' => '200 - Extra Light',
+            '300' => '300 - Light',
+            '400' => '400 - Normal',
+            '500' => '500 - Medium',
+            '600' => '600 - Semi Bold',
+            '700' => '700 - Bold',
+            '800' => '800 - Extra Bold',
+            '900' => '900 - Black',
+            'var(--bold-font-weight)' => 'var(--bold-font-weight)'
+        ];
+
+        return [
+            ['type' => 'tab', 'label' => 'General' ],
+            [
+                'key' => '--global-font-size', 'label' => 'Global Font Size', 'type' => 'select', 'placeholder' => 'var(--text-s)', 'options' => [
+                    'var(--text-xxs)' => 'var(--text-xxs)',
+                    'var(--text-xs)' => 'var(--text-xs)',
+                    'var(--text-s)' => 'var(--text-s)',
+                    'var(--text-m)' => 'var(--text-m)',
+                    'var(--text-l)' => 'var(--text-l)',
+                    'var(--text-xl)' => 'var(--text-xl)'
+                ]
+            ],
+            ['key' => '--global-line-height', 'label' => 'Global Line Height', 'type' => 'text', 'placeholder' => '1.6' ],
+            ['key' => '--text-blocks-spacing', 'label' => 'Text Blocks Spacing', 'type' => 'text', 'placeholder' => '1.5rem' ],
+            ['key' => '--normal-font-weight', 'label' => 'Normal Font Weight', 'type' => 'select', 'placeholder' => '400', 'options' => $font_weight_options ],
+            ['key' => '--bold-font-weight', 'label' => 'Bold Font Weight', 'type' => 'select', 'placeholder' => '700', 'options' => $font_weight_options ],
+            ['key' => '--headings-font-weight', 'label' => 'Headings Font Weight', 'type' => 'select', 'placeholder' => 'var(--bold-font-weight)', 'options' => $font_weight_options ],
+            ['key' => '--headings-line-height', 'label' => 'Headings Line Height', 'type' => 'text', 'placeholder' => '1.3' ],
+            ['type' => 'tab', 'label' => 'Headings' ],
+            ['key' => 'heading-h1', 'label' => 'Heading H1', 'type' => 'complex', 'fields' => [
+                ['key' => '--heading-h1', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '2.2em'],
+                ['key' => '--heading-h1-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
+            ]],
+            ['key' => 'heading-h2', 'label' => 'Heading H2', 'type' => 'complex', 'fields' => [
+                ['key' => '--heading-h2', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1.9em'],
+                ['key' => '--heading-h2-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
+            ]],
+            ['key' => 'heading-h3', 'label' => 'Heading H3', 'type' => 'complex', 'fields' => [
+                ['key' => '--heading-h3', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1.7em'],
+                ['key' => '--heading-h3-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
+            ]],
+            ['key' => 'heading-h4', 'label' => 'Heading H4', 'type' => 'complex', 'fields' => [
+                ['key' => '--heading-h4', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1.5em'],
+                ['key' => '--heading-h4-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
+            ]],
+            ['key' => 'heading-h5', 'label' => 'Heading H5', 'type' => 'complex', 'fields' => [
+                ['key' => '--heading-h5', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1.2em'],
+                ['key' => '--heading-h5-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
+            ]],
+            ['key' => 'heading-h6', 'label' => 'Heading H6', 'type' => 'complex', 'fields' => [
+                ['key' => '--heading-h6', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1em'],
+                ['key' => '--heading-h6-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
+            ]],
+            ['type' => 'tab', 'label' => 'Type Scale' ],
+            ['key' => '--text-xss', 'label' => 'XXS Paragraphs (--text-xss)', 'type' => 'text', 'placeholder' => 'clamp(0.63rem, 0.60rem + 0.2vw, 0.75rem)' ],
+            ['key' => '--text-xs', 'label' => 'XS Paragraphs (--text-xs)', 'type' => 'text', 'placeholder' => 'clamp(0.75rem, 0.72rem + 0.2vw, 0.875rem)' ],
+            ['key' => '--text-s', 'label' => 'S Paragraphs (--text-s)', 'type' => 'text', 'placeholder' => 'clamp(0.875rem, 0.84rem + 0.2vw, 1rem)' ],
+            ['key' => '--text-m', 'label' => 'M Paragraphs (--text-m)', 'type' => 'text', 'placeholder' => 'clamp(1rem, 0.96rem + 0.25vw, 1.125rem)' ],
+            ['key' => '--text-l', 'label' => 'L Paragraphs (--text-l)', 'type' => 'text', 'placeholder' => 'clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem)' ],
+            ['key' => '--text-xl', 'label' => 'XL Paragraphs (--text-xl)', 'type' => 'text', 'placeholder' => 'clamp(1.25rem, 1.15rem + 0.35vw, 1.5rem)' ]
+        ];
+    }
+
+    private static function get_css_properties_fields(){
+        $fields = [];
+
+        foreach (self::get_css_properties() as $property) {
+            $key = $property['key'] ?? '';
+            $label = $property['label'];
+            $type = $property['type'];
+
+            if ($type === 'tab') {
+                $field = Field::create('tab', $label );
+
+            } elseif ($type === 'text') {
+                $field = Field::create('text', $key, $key)->set_placeholder( $property['placeholder'] ?? '' );
+
+            } elseif ($type === 'select') {
+                $property_options = $property['options'];
+                if($property['placeholder']) $property_options[''] = $property['placeholder'];
+
+                $field = Field::create('text', $key, $key)
+                    ->set_placeholder( $property['placeholder'] ?? '' )
+                    ->add_suggestions( array_keys($property_options) );
+
+            } elseif ($type === 'complex') {
+                $complex_fields = array();
+
+                foreach ($property['fields'] as $f) {
+                    $complex_fields[] = Field::create($f['type'], $f['key'])
+                        ->hide_label()
+                        ->set_width(20)
+                        ->set_prefix($f['label'])
+                        ->set_placeholder( $f['placeholder'] ?? '' );
+                }
+
+                $field = Field::create('complex', $key, $key)
+                    ->set_prefix(__($label, '_mv23theme'))
+                    ->add_fields( $complex_fields )
+                    ->merge();
+
+            } else {
+                // Handle other types if needed
+                continue;
+            }
+
+            $fields[] = $field;
+        }
+
+        return $fields;
+    }
+
+    public static function get_css_properties_complex(){
+        $complex = Field::create( 'complex', 'typography_css_vars', __('Typography CSS Vars','mv23theme') )
+            ->add_fields( self::get_css_properties_fields() )
+            ->rows_layout();
+
+        return $complex;
+    }
+
+    public static function get_fields(){
         $fields = array(
             Field::create( 'tab', 'typography', __('Typography','mv23theme') ),
 
             Field::create( 'repeater', 'fonts', __('Fonts','mv23theme') )
                 ->set_add_text(__('Add font','mv23theme'))
                 ->set_chooser_type( 'tags' )
-                ->add_group( 'google_font', array(
-                    'title' => __('Google Font','mv23theme'),
-                    'layout' => 'rows',
-                    'edit_mode' => 'popup',
-                    'title_template' => '<%= (scope != "custom") ? scope : selector %> font: <%= google_font.family %> <%= google_font.variants.join(",") %>',
-                    'fields' => array(
-                        Field::create( 'font', 'google_font', __('Google Font','mv23theme') )->set_api_key( $google_api_key ),
-                        Field::create( 'select', 'scope', __('Scope','mv23theme') )->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options(array(
-                            'any' => __('Any, just load the font','mv23theme'),
-                            'global' => __('Global (body)','mv23theme'),
-                            'headings' => __('Headings (h1, h2, h3, h4, h5, h6, b, strong)','mv23theme'),
-                            'custom' => __('Custom CSS selector','mv23theme')
-                        )),
-                        Field::create( 'text', 'selector' )->add_dependency('scope','custom')
-                    )
-                ))
-                ->add_group( 'custom_font', array(
-                    'title' => __('Custom Font','mv23theme'),
-                    'layout' => 'rows',
-                    'edit_mode' => 'popup',
-                    'title_template' => '<%= (scope != "custom") ? scope : selector %> font: <%= custom_font_data.name %>',
-                    'fields' => array(
-                        Field::create( 'complex', 'custom_font_data', __('Custom font data','mv23theme') )->merge()->add_fields(array(
-                            Field::create( 'text', 'name', __('Name','mv23theme') )->required()->set_width(20),
-                            Field::create( 'select', 'variant', __('Variant','mv23theme') )->add_options(array(
-                                'normal' => 'Normal',
-                                'bold' => 'Bold',
-                                'bolder' => 'Bolder',
-                                'lighter' => 'Lighter',
-                                '100' => '100',
-                                '200' => '200',
-                                '300' => '300',
-                                '400' => '400',
-                                '500' => '500',
-                                '600' => '600',
-                                '700' => '700',
-                                '800' => '800',
-                                '900' => '900'
-                            ))->set_width(20),
-                            Field::create( 'select', 'type', __('Type','mv23theme') )->set_input_type( 'radio' )->add_options(array(
-                                'file' => __('File','mv23theme'),
-                                'url' => __('Url','mv23theme')
-                            ))->set_width(20),
-                            Field::create( 'gallery', 'files', __('@font-face files ( woff2, woff )','mv23theme') )
-                                ->set_file_type('font/woff, font/woff2')
-                                ->set_attr( 'class', 'hide-gallery-order' )
-                                ->add_dependency( 'type', 'file' )
-                                ->set_width(40),
-                            Field::create( 'repeater', 'urls', __('Urls for @font-face css declaration ( woff2, woff )','mv23theme') )
-                                ->set_add_text(__('Add a url','mv23theme'))
-                                ->set_layout( 'table' )
-                                ->add_dependency( 'type', 'url' )
-                                ->add_group('item', array(
-                                    'fields' => array(
-                                        Field::create( 'text', 'url' )
-                                    )
-                                ))->set_width(100)
-                        )),
-                        Field::create( 'select', 'scope', __('Scope','mv23theme') )->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options(array(
-                            'any' => __('Any, just load the font','mv23theme'),
-                            'global' => __('Global (body)','mv23theme'),
-                            'headings' => __('Headings (h1, h2, h3, h4, h5, h6)','mv23theme'),
-                            'custom' => __('Custom CSS selector','mv23theme')
-                        )),
-                        Field::create( 'text', 'selector' )->add_dependency('scope','custom')
-                    )
-            )),
-            
-            Field::create( 'complex', 'paragraph', __('Paragraphs','mv23theme') )->add_fields(array(
-                Field::create( 'text', 'font_size', __('Font size','mv23theme') )->set_validation_rule($font_size_rule)->set_placeholder('16px')->set_attr('style','width:30%; min-width:50px;'),
-                Field::create( 'text', 'line_height', __('Line height','mv23theme') )->set_validation_rule($line_height_rule)->set_placeholder('180%')->set_attr('style','width:30%; min-width:50px;'),
-                Field::create( 'text', 'font_weight', __('Font weight','mv23theme') )->set_validation_rule($font_weight_rule)->set_placeholder('normal')->set_attr('style','width:30%; min-width:50px;')
-            ))
+                ->add_group( 'google_font', self::get_google_font_group() )
+                ->add_group( 'custom_font', self::get_custom_font_group() ),
+
+            self::get_css_properties_complex()
         );
 
-        $heading_fields = array();
-        $headings = array('h1','h2','h3','h4','h5','h6');
-        $heading_default_sizes = array('28px', '26px', '24px', '22px', '20px', '18px');
-        $count = 0;
-        foreach ($headings as $heading) {
-            $placeholder = $heading_default_sizes[$count];
-            $heading_fields[] = Field::create( 'complex', $heading.'_heading' )->add_fields(array(
-                Field::create( 'text', 'font_size', __('Font size','mv23theme') )->set_validation_rule($font_size_rule)->set_placeholder($placeholder)->set_attr('style','width:30%; min-width:50px;'),
-                Field::create( 'text', 'line_height', __('Line height','mv23theme') )->set_validation_rule($line_height_rule)->set_placeholder('140%')->set_attr('style','width:30%; min-width:50px;'),
-                Field::create( 'text', 'font_weight', __('Font weight','mv23theme') )->set_validation_rule($font_weight_rule)->set_placeholder('bold')->set_attr('style','width:30%; min-width:50px;')
-            ));
-            $count++;
-        }
-
-        $bold_fields = array(Field::create( 'complex', 'bold', __('Bold, Strong','mv23theme') )->add_fields(array(
-            Field::create( 'text', 'font_weight', __('Font weight','mv23theme') )->set_validation_rule($font_weight_rule)->set_placeholder(700)->set_attr('style','width:30%; min-width:50px;')
-        )));
-
-        // $hints_field = array(Field::create( 'complex', 'hints' )->add_fields(array(
-        //     Field::create( 'message', 'font_size_hint' )->set_description('Valid values for font size: 12px, 1.5em, 2rem, 120%, small, medium, etc','mv23theme')->hide_label(),
-        //     Field::create( 'message', 'line_height_hint' )->set_description('Valid values for line_height: 1.5, 2, ..., 20px, 2em, 150%, normal, etc','mv23theme')->hide_label(), 
-        //     Field::create( 'message', 'font_weight_hint' )->set_description('Valid values for font weight: normal, bold, bolder, lighter, 100, 200, ..., 900','mv23theme')->hide_label()
-        // )));
-
-        // return array_merge( $fields, $heading_fields, $hints_field );
-        return array_merge( $fields, $heading_fields, $bold_fields );
+        return $fields;
     }
 }

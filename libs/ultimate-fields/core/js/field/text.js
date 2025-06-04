@@ -69,9 +69,9 @@
 			}
 
 			// Add autocomplete suggestions
-			$( document ).on( 'uf-init', function() {
+			// $( document ).on( 'uf-init', function() {
 				that.addAutoComplete( $input );
-			});
+			// });
 
 			// Add JQuery Flexdatalist
 			that.addFlexdatalist( $input );
@@ -115,16 +115,37 @@
 		 * Adds autocomplete options to the field.
 		 */
 		addAutoComplete: function( $input ) {
-			var that = this, suggestions = this.model.get( 'suggestions' );
+			var that = this, 
+				model = this.model,
+				suggestions = this.model.get( 'suggestions' );
 
 			if( ! ( suggestions && suggestions.length ) ) {
 				return;
 			}
 
+			const $wrapper = $('<div class="dropdown-wrapper"></div>');
+			const $row = $('<div class="input-row"></div>');
+			const $button = $('<button type="button" class="dropdown-button">▼</button>');
+
+			// Reorganizar DOM
+			$input.after($wrapper);
+			$input.detach().appendTo($row);
+			$button.appendTo($row);
+			$row.appendTo($wrapper);
+
+			// Crear el DropdownInput pasando el wrapper DOM nativo
+			new DropdownInput(
+				$wrapper.get(0), 
+				suggestions,
+				function(selectedValue) {
+					model.setValue(selectedValue);
+				}
+			);
+
 			// Add the UI widget
-			$input.autocomplete({
-				source: suggestions
-			});
+			// $input.autocomplete({
+			// 	source: suggestions
+			// });
 		},
 
 		/**

@@ -143,6 +143,21 @@ class Complex extends Field {
 	}
 
 	/**
+	 * Adds field to the complex group.
+	 *
+	 * @since 3.0
+	 *
+	 * @param mixed[] $field The sub-fields to add.
+	 * @return Ultimate_Fields\Field\Complex
+	 */
+	public function add_field( $field ) {
+		$group = $this->get_group();
+		$group->add_field( $field );
+
+		return $this;
+	}
+
+	/**
 	 * Instruct the field to load an existing container.
 	 *
 	 * @since 3.0

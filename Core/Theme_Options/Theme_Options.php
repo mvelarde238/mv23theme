@@ -235,27 +235,6 @@ class Theme_Options extends Theme_Header_Data{
             if( $percentage ) $properties[] = '--secondary-color-'.$variation.':color-mix( in srgb, var(--secondary-color), white '.$percentage.'% )';
         }
 
-        // typography
-        $typography_options = array('paragraph', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'bold');
-        $props = array('font_size','line_height','font_weight');
-        
-        foreach ($typography_options as $option) {
-
-            $is_paragraph = ( $option == 'paragraph' );
-            $is_heading = (strlen($option) == 2 );
-            $option_name = ( $is_heading ) ? $option.'_heading' : $option;
-            $the_option = get_option( $option_name );
-
-            if( $the_option ) {
-                foreach ($props as $prop) {
-                    if ( isset($the_option[$prop]) && $the_option[$prop] ){
-                        $css_property_name = ( $is_paragraph ) ? '--'.$prop : '--'.$option.'-'.$prop;
-                        $properties[] = str_replace('_','-',$css_property_name).':'.$the_option[$prop];
-                    } 
-                }
-            }
-        }
-
         // header
         $header_options = array('static_header_bgc','sticky_header_bgc','static_header_logo_height','sticky_header_logo_height');
         $header_properties = array('--static-header-color','--sticky-header-color','--static-header-logo-height','--sticky-header-logo-height');
@@ -286,6 +265,14 @@ class Theme_Options extends Theme_Header_Data{
                         $properties[] = '.'.$item['scope'].'{--container-width:'.$width.'px}';
                     }
                 }
+            }
+        }
+
+        // typography css vars
+        $typography_css_vars = get_option('typography_css_vars');
+        if( is_array($typography_css_vars) ){
+            foreach ($typography_css_vars as $prop => $value) {
+                if($value) $properties[] = $prop.':'.$value;
             }
         }
 

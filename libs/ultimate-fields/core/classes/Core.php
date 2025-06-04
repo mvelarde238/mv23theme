@@ -315,6 +315,7 @@ class Core {
 		wp_register_script( 'uf-timepicker', $assets . 'js/jquery-ui-timepicker-addon.js', array( 'jquery-ui-datepicker', 'jquery-ui-slider' ), $v );
 		wp_register_script( 'uf-flexdatalist', ULTIMATE_FIELDS_URL . 'assets/js/flexdatalist/jquery.flexdatalist.js', array( 'jquery' ), $v );
 		wp_register_style( 'uf-flexdatalist-css', ULTIMATE_FIELDS_URL . 'assets/css/flexdatalist/jquery.flexdatalist.min.css', array(), ULTIMATE_FIELDS_VERSION );
+		wp_register_script( 'uf-dropdown-input', ULTIMATE_FIELDS_URL . 'assets/js/dropdown-input/dropdown-input.js', array( 'jquery' ), $v );
 
 		// Register regular scripts
 		wp_register_script( 'uf-core',                  $js . 'uf.js',                     array( 'jquery', 'underscore', 'backbone' ), $v );

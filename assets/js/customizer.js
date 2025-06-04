@@ -64,18 +64,23 @@
         set_CSS_prop('--secondary-color-dark', 'color-mix( in srgb, var(--secondary-color), black '+values.dark_secondary_color_percentage+'%');
     });
 
-    // TYPOGRAPHY
-    ['paragraph', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].forEach(element => {
+    UF_Customize.bind( 'typography_css_vars', ( properties, context ) => {
+        for (const key in properties) {
+            let value = properties[key];
 
-        let is_heading = ( element.length === 2 );
-        let option_name = ( is_heading ) ? element+'_heading' : element;
-        
-        UF_Customize.bind( option_name, ( values, context ) => {
-            ['font-size','line-height','font-weight'].forEach(prop=>{
-                let css_property_name = ( !is_heading ) ? '--'+prop : '--'+element+'-'+prop;
-                set_CSS_prop(css_property_name, values[prop.replace('-','_')]);
-            });
-        });        
+            if( key.startsWith('--') ){
+                set_CSS_prop(key,value);
+            } else {
+                // is headings complex
+                let heading_complex = value;
+                for (const _key in heading_complex) {
+                    let _value = heading_complex[_key];
+                    if( _key.startsWith('--') ){
+                        set_CSS_prop(_key,_value);
+                    }
+                }
+            }
+        }
     });
 
     // HEADER

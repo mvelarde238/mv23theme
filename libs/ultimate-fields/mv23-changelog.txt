@@ -1,5 +1,19 @@
 mv23 changelog-------------------------
 
+- 02-06-2025
+- Limit the amount of times a group can be added 
+    (core/js/field/repeater.js:352-363)
+- add_field method implementation in Complex field
+    (core/classes/Field/Complex.php:145-158)
+- DropdownInput replace jquery-ui-autocomplete
+    (core/assets/js/dropdown-input/)
+    (core/assets/sass/field/_dropdown-input.scss)
+    (core/classes/Core.php:318)
+    (core/classes/Field/Text.php:60)
+    (core/js/field/text.js:73 | 118-143)
+    (core/assets/sass/_field.scss) remove 3 z-index on input
+
+
 - 28-05-2025
 - Enhancement: Improved file preview for images with better sizing and background handling
     (core/assets/sass/field/_file.scss)
