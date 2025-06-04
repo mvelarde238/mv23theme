@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.3.0 25-06-04
+- Migrate typography options to typography_css_vars (!use migrator)
+
 2.2.5 25-05-28
 - Global_Aninations Class implementation in theme options
 - Fix undefined repeater dropdown template in theme options
