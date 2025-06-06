@@ -48,7 +48,7 @@ $scroll_animation_settings_fields = array(
         ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
         ->set_text( __('Advanced Settings','mv23theme') ),
     Field::create( 'text', 'toggle_actions', 'toggleActions' )
-        ->set_placeholder( 'play none none reset' )
+        ->set_placeholder( 'play none none reverse' )
         ->set_description( 'onEnter, onLeave, onEnterBack, onLeaveBack' )
         ->add_dependency('set_advanced_settings'),
     Field::create( 'complex', 'toggle_class', __('Toggle Class','mv23theme') )->add_fields(array(

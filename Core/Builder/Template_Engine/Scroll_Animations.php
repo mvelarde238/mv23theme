@@ -24,7 +24,7 @@ Class Scroll_Animations{
                 $set_pin = $settings['set_pin'] ?? false;
 
                 // toggle actions setting
-                $toggle_actions = 'play none none reset';
+                $toggle_actions = 'play none none reverse';
                 if( isset($settings['set_advanced_settings']) && $settings['set_advanced_settings'] && $settings['toggle_actions'] ){
                     $toggle_actions = $settings['toggle_actions'];
                 }
