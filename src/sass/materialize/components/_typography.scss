@@ -11,15 +11,13 @@ body {
     @include general-tipography-styles;
 }
 
-p, blockquote {
-    margin-bottom: var(--text-block-spacing);
-}
-
 h1,h2,h3,h4,h5,h6 {    
     line-height: var(--headings-line-height);
     font-weight: var(--headings-font-weight);
-    margin-top: var(--text-block-spacing);
-    margin-bottom: calc(var(--text-block-spacing) / 2);
+    color: var(--headings-color);
+    a {
+        color: var(--headings-color)
+    }
 }
 
 h1 { font-size: var(--heading-h1); }
@@ -28,6 +26,14 @@ h3 { font-size: var(--heading-h3); }
 h4 { font-size: var(--heading-h4); }
 h5 { font-size: var(--heading-h5); }
 h6 { font-size: var(--heading-h6); }
+
+h1,h2,h3,h4,h5,h6,p,blockquote,ul,ol,table{
+    margin-top: 0;
+    margin-bottom: var(--text-block-spacing);
+    &:last-child{
+        margin-bottom: 0
+    }
+}
 
 span[style*="font-size"]{
     line-height: var(--global-line-height);
@@ -52,26 +58,10 @@ strong, b { font-weight: var(--bold-font-weight); }
         }
     }
 }
-
-h1,h2,h3,h4,h5,h6,p,blockquote{
-    &:first-child{
-        margin-top: 0
-    }
-    &:last-child{
-        margin-bottom: 0
-    }
-}
         
 em { font-style: italic; }
 .thin { font-weight: 300; }
 .light { font-weight: 300; }
-
-h1,h2,h3,h4,h5,h6 {
-    color: var(--headings-color);
-    a {
-        color: var(--headings-color)
-    }
-}
 
 a {
     color: var(--primary-color);

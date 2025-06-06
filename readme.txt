@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.3.1 25-06-05
+- Fix some typography spacing styles
+
 2.3.0 25-06-04
 - Migrate typography options to typography_css_vars (!use migrator)
 
