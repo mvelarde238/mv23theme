@@ -78,11 +78,15 @@
 				id   = this.id + '_id';
 
 			// Initialize the editor
+			let initial_content_style = tinyMCEPreInit.mceInit[ 'uf_dummy_editor_id' ].content_style ?? '';
+			let custom_content_style = this.model.get( 'content_style' ) ?? '';
+
 			mceInit = $.extend( {}, tinyMCEPreInit.mceInit[ 'uf_dummy_editor_id' ], {
 				body_class: id,
 				elements: id,
 				rows: this.model.get( 'rows' ) || 10,
-				selector: '#' + id
+				selector: '#' + id,
+				content_style: initial_content_style+custom_content_style
 			});
 
 			// Setup TinyMCE if available

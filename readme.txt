@@ -5,6 +5,7 @@ CHANGELOG
 2.3.1 25-06-05
 - Fix some typography spacing styles
 - GSAP Animations fix: set default toggleActions to "play none none reverse" in animation settings
+- UF Feature: add set_content_style in wysiwyg field
 
 2.3.0 25-06-04
 - Migrate typography options to typography_css_vars (!use migrator)

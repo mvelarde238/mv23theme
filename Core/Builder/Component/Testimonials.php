@@ -29,6 +29,8 @@ class Testimonials extends Component {
 	}
 
 	public static function get_fields() {
+        $wysiwyg_styles = 'body#tinymce.wp-editor{font-size: var(--text-xs);}';
+
 		$fields = array( 
             Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'repeater', 'testimonials' )->set_add_text('Agregar')->add_group( 'testimonial', array(
@@ -43,8 +45,8 @@ class Testimonials extends Component {
                         'text' => 'Texto', 'video' => 'Video'
                     )),
                     Field::create( 'image', 'author_img' )->add_dependency('type', 'text', '=')->set_width(25),
-                    Field::create( 'wysiwyg', 'author' )->add_dependency('type', 'text', '=')->set_width(70),
-                    Field::create( 'wysiwyg', 'comment' )->add_dependency('type', 'text', '='),
+                    Field::create( 'wysiwyg', 'author' )->add_dependency('type', 'text', '=')->set_content_style($wysiwyg_styles)->set_width(70),
+                    Field::create( 'wysiwyg', 'comment' )->add_dependency('type', 'text', '=')->set_content_style($wysiwyg_styles),
                     Field::create( 'video', 'video' )->add_dependency('type', 'video', '=')->set_width(25),
                 )
             )),

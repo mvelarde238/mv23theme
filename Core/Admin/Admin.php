@@ -110,7 +110,7 @@ class Admin extends Theme_Header_Data {
     }
 
     public function add_editor_inline_style( $settings ) {
-        $settings['content_style'] = '';
+        $settings['content_style'] = $settings['content_style'] ?? '';
 
         $theme_options = Theme_Options::getInstance();
         $theme_fonts = $theme_options->get_theme_fonts();

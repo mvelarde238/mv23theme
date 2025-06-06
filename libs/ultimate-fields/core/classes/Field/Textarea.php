@@ -45,6 +45,13 @@ class Textarea extends Field {
 	protected $paragraphs = false;
 
 	/**
+	 * Add some css styles to the body
+	 *
+	 * @var bool
+	 */
+	protected $content_style = '';
+
+	/**
 	 * Enqueues the scripts for the field.
 	 *
 	 * @since 3.0
@@ -79,6 +86,15 @@ class Textarea extends Field {
 		return $this->rows;
 	}
 
+	public function set_content_style( $content_style ) {
+		$this->content_style = $content_style;
+
+		return $this;
+	}
+	public function get_content_style() {
+		return $this->content_style;
+	}
+
 	/**
 	 * Exports the field's settings.
 	 *
@@ -90,6 +106,7 @@ class Textarea extends Field {
 		$settings = parent::export_field();
 
 		$settings[ 'rows' ] = $this->rows;
+		$settings[ 'content_style' ] = $this->content_style;
 
 		return $settings;
 	}
@@ -106,6 +123,7 @@ class Textarea extends Field {
 
 		$this->proxy_data_to_setters( $data, array(
 			'rows'              => 'set_rows',
+			'content_style'              => 'set_content_style',
 			'apply_the_content' => 'apply_the_content',
 			'apply_shortcodes'  => 'do_shortcodes',
 			'apply_wpautop'     => 'add_paragraphs'
@@ -124,6 +142,7 @@ class Textarea extends Field {
 
 		$this->export_properties( $settings, array(
 			'rows'        => array( 'rows', 8 ),
+			'content_style'        => array( 'content_style', 8 ),
 			'the_content' => array( 'apply_the_content', false ),
 			'shortcodes'  => array( 'apply_shortcodes', false ),
 			'paragraphs'  => array( 'apply_wpautop', false )

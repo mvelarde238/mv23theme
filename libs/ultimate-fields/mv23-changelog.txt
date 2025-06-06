@@ -1,5 +1,11 @@
 mv23 changelog-------------------------
 
+- 05-06-2025
+- Feature: add set_content_style in wysiwyg field
+    (core/classes/Field/Textarea.php)
+    (core/js/field/wysiwyg.js)
+
+
 - 02-06-2025
 - Limit the amount of times a group can be added 
     (core/js/field/repeater.js:352-363)
