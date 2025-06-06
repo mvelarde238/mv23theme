@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.3.2 25-06-06
+- UF Fix: Limit the amount of times a group can be added script position
+
 2.3.1 25-06-05
 - Fix some typography spacing styles
 - GSAP Animations fix: set default toggleActions to "play none none reverse" in animation settings

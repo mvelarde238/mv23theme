@@ -349,19 +349,6 @@
 		addGroup: function( options ) {
 			var that = this, datastore, model, view, args, forceDefaults;
 
-			// limit the amount of times a group can be added
-			var group_settings = _.findWhere( this.model.get( 'groups' ), { id: options.type });
-			if( group_settings.maximum > 0 ){
-				let count = 0;
-				this.model.groups.forEach(_group => {
-					if( _group.id === options.type ) count++;
-				});
-				if( count >= group_settings.maximum ){
-					if( !options.silent ) alert('This options group cant be added.');
-					return;
-				} 
-			}
-
 			// Check if defaults should be used
 			if( options && ! ( 'data' in options ) ) {
 				forceDefaults = true;
@@ -375,6 +362,19 @@
 				replace:   false,
 				datastore: false
 			}, options );
+
+			// limit the amount of times a group can be added
+			var group_settings = _.findWhere( this.model.get( 'groups' ), { id: options.type });
+			if( group_settings.maximum > 0 ){
+				let count = 0;
+				this.model.groups.forEach(_group => {
+					if( _group.id === options.type ) count++;
+				});
+				if( count >= group_settings.maximum ){
+					if( !options.silent ) alert('This options group cant be added.');
+					return;
+				} 
+			}
 
 			// Prepare a new datastore for the group or use an existing one
 			if( options.datastore ) {

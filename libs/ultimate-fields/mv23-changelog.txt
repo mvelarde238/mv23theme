@@ -1,10 +1,13 @@
 mv23 changelog-------------------------
 
+- 06-06-2025
+- Fix: Limit the amount of times a group can be added script position (changed 02-06-2025)
+    (core/js/field/repeater.js:366-377)
+
 - 05-06-2025
 - Feature: add set_content_style in wysiwyg field
     (core/classes/Field/Textarea.php)
     (core/js/field/wysiwyg.js)
-
 
 - 02-06-2025
 - Limit the amount of times a group can be added 
