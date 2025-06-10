@@ -6,6 +6,7 @@ use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Core\Builder\Blocks_Layout;
 use Ultimate_Fields\Container\Repeater_Group;
+use Core\Builder\Blocks_Layout_Settings;
 
 class Carrusel extends Component {
 
@@ -50,6 +51,7 @@ class Carrusel extends Component {
 			->add_fields(array(
                 Field::create( 'tab', __('Content','mv23theme') ),
                 Blocks_Layout::the_field(),
+                Blocks_Layout_Settings::the_field(),
                 Field::create( 'tab', __('Settings','mv23theme') ),
                 Field::create( 'common_settings_control', 'settings' )->set_container( 'common_settings_container' ),
                 Field::create( 'common_settings_control', 'actions_settings' )->set_container( 'actions_container' )
@@ -235,7 +237,7 @@ class Carrusel extends Component {
                         $item_attributes = Template_Engine::generate_attributes( $items[$i] );    
                         echo '<div class="carrusel__item carrusel__item--content">';
                         echo '<div '.$item_attributes.'>';
-                        echo Blocks_Layout::the_content($blocks_layout);
+                        echo Blocks_Layout::the_content($blocks_layout, array('component_args' => $items[$i]));
                         echo Template_Engine::check_actions( $items[$i] );
                         echo '</div>';
                         echo '</div>';
