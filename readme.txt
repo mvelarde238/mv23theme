@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.3.3 25-06-10
+- Columns Layout Field improvement: groups can be duplicated
+
 2.3.2 25-06-06
 - UF Fix: Limit the amount of times a group can be added script position
 
