@@ -120,7 +120,7 @@ class Theme_Options extends Theme_Header_Data{
                     break;
             }
             /* translators: %s: number */
-            self::$logos_field_names[$field_name] = sprintf(__('Version %s','mv23theme'), $i);
+            self::$logos_field_names[$field_name] = sprintf('Version %s', $i);
         }
         self::$logos_field_names['custom'] = 'Custom';
     }
