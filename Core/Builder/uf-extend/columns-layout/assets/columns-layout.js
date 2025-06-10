@@ -95,6 +95,8 @@
 	 * This is a class, which represents elements/blocks/group.
 	 */
 	columns_layout.Element = function( args ) {
+		var that = this; 
+
 		if( 'string' == typeof args.el ) {
 			this.$el = $( '<div />' )
 				.addClass( args.el )
@@ -115,6 +117,12 @@
 
 		// Add final elements if possible
 		this.addFinalElements();
+
+		// Duplicate element on request
+		this.$el.on( 'duplicateElementRequest', function(ev, args) {
+			// Bubble the event up to layout
+			that.trigger( 'columnBubbleDuplication', ev, args);
+		});
 	}
 
 	// Add methods to elements
@@ -162,7 +170,7 @@
 		 * Starts the process of resizing.
 		 */
 		startDragging: function( e ) {
-			// Bubble the event to up layout
+			// Bubble the event up to layout
 			this.trigger( 'draggingStarted', e );
 			return;
 		},
@@ -243,6 +251,11 @@
 			// Bubble up the event when moving
 			element.on( 'draggingStarted', function( e ) {
 				that.trigger( 'elementDraggingStarted', e, element );
+			});
+
+			// Bubble up the event when duplicating
+			element.on( 'columnBubbleDuplication', function( e, args ) {
+				that.trigger( 'duplicateElement', e, args );
 			});
 		},
 
@@ -673,6 +686,10 @@
 				that.save();
 			});
 
+			column.on( 'duplicateElement', function(e, args) {
+				that.duplicateElement(args);
+			});
+
 			this.$el.trigger( 'uf-setup-column', column );
 
 			return column;
@@ -745,9 +762,9 @@
 				that.prototypeDown( e, $prototype );
 			});
 
-			// $prototype.on( 'click', function( e ) {
-			// 	that.prototypeClicked( e, $prototype );
-			// });
+			$prototype.on( 'click', function( e ) {
+				that.prototypeClicked( e, $prototype );
+			});
 		},
 
 		/**
@@ -795,43 +812,50 @@
 		},
 
 		/**
-		 * When a prototype is clicked, it should be added on a new column.
+		 * Add a new element
+		 */
+		addElement: function( elementType, columnIndex, data = {} ){
+			var that = this, element, column;
+
+			// Create the element
+			element = new columns_layout.Element({
+				el:     'uf-columns-layout-element',
+				width:  1,
+				type:   that.getTypeSettings( elementType )
+			});
+
+			// Add the element to the column and adjust things
+			column = this.__columns[columnIndex];
+			if( data.insertAfter ){ 
+				element.$el.insertAfter( data.insertAfter );
+			} else { 
+				element.$el.appendTo( column.$groups ); 
+			}
+			element.adjustToColumns();
+			this.args.populateElement( element, data );
+			element.addFinalElements();
+
+			// Add to the collection
+			column.addElement( element );
+
+			// Save
+			this.save();
+		},
+
+		/**
+		 * When a prototype is clicked, it should be added on the first column
 		 */
 		prototypeClicked: function( e, $prototype ) {
-			// var that = this, column, element, type;
+			e.preventDefault();
+			this.addElement( $prototype.data( 'type' ), 0 );
+		},
 
-			// e.preventDefault();
-
-			// if( that.__columns.length == 13 ) return;
-
-			// // Initialize the column
-			// column = this.emptyColumn;
-
-			// // Create the element
-			// type = that.getTypeSettings( $prototype.data( 'type' ) );
-			// element = new columns_layout.Element({
-			// 	el:     'uf-columns-layout-element',
-			// 	width:  Math.min( type.max, this.args.columns ),
-			// 	type:   type
-			// });
-
-			// // Add the element to the column and adjust things
-			// element.$el.appendTo( column.$groups );
-			// element.adjustToColumns();
-			// this.args.populateElement( element );
-			// element.addFinalElements();
-
-			// // Clean up the column
-			// column.$el.removeClass( 'uf-columns-layout-empty-column' );
-
-			// // Add to the collection
-			// column.addElement( element );
-
-			// // Finally, add another empty column
-			// this.addEmptyColumn();
-
-			// // Save
-			// this.save();
+		/**
+		 * Duplicate an element whenn requested
+		 */
+		duplicateElement: function( args ){
+			// here args.data is used to send the datastore
+			this.addElement( args.type, args.columnIndex, args );
 		},
 
 		/**
@@ -1101,7 +1125,7 @@
 				$column.find( '.' + that.args.element ).each(function() {
 					var $element = $( this );
 					
-					$element.data( 'element' ).setAttributes({
+					$element.data( 'element' )?.setAttributes({
 						index: index++,
 						// preserve 'row' name because we are extending layout groups
 						row: column

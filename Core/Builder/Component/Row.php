@@ -15,6 +15,10 @@ class Row extends Component {
 		);
 	}
 
+	// public static function get_edit_mode() {
+	// 	return 'inline';
+	// }
+
 	public static function get_icon() {
         return 'dashicons-columns';
     }

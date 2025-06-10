@@ -36,6 +36,13 @@
 		},
 
 		/**
+		 * Forces columns to be cached/saved properly.
+		 */
+		// refresh: function() {
+		// 	this.__columns.sort();
+		// },
+
+		/**
 		 * Starts listening for data changes.
 		 */
 		listenToGroupChanges: function() {
@@ -229,26 +236,27 @@
 		/**
 		 * Creates and prepares the view for a group.
 		 */
-		prepareGroupView: function( type, data, currentIndex ) {
+		prepareGroupView: function( type, data ) {
 			var that = this, settings, datastore, model, view;
 
 			settings = _.findWhere( this.model.get( 'groups' ), {
 				id: type
 			});
 
-			datastore = new UltimateFields.Datastore( data || {} );
-			datastore.parent = this.model.datastore;
+			if( data && data.datastore ){
+				datastore = data.datastore;
+			} else {
+				datastore = new UltimateFields.Datastore( data || {} );
+				datastore.parent = this.model.datastore;
+			}	
 
-			// datastore.set( '__index', options.index );
 			datastore.set( '__type', type );
 
 			// Prepare the container model
 			model = new UltimateFields.Container.Layout_Group.Model( settings );
 			model.set( '__type', settings.id );
 			model.setDatastore( datastore );
-			if( currentIndex ) {
-				model.set( 'displayed_index', currentIndex )
-			}
+			if( data && data.displayedIndex ) model.set( 'displayed_index', data.displayedIndex );
 
 			// Push the datastore to the columns
 			this.model.__columns.add( datastore, {
@@ -265,16 +273,25 @@
 				model: model
 			});
 
+			view.on( 'uf-duplicate', function( data ) {
+				view.$el.trigger('duplicateElementRequest', {
+					columnIndex: model.get('row'),
+					type: model.get('__type'),
+					datastore: data.datastore,
+					insertAfter: view.$el.parent('.uf-columns-layout-element')
+				});
+			});
+
 			return view;
 		},
 
 		/**
 		 * Populates an element once its within the columns_layout.
 		 */
-		populateElement: function( element ) {
-			var that = this, view;
+		populateElement: function( element, data = {} ) {
+			var view;
 
-			view = this.prepareGroupView( element.type.id );
+			view = this.prepareGroupView( element.type.id, data );
 			element.$el.append( view.$el );
 			view.render();
 
@@ -292,7 +309,7 @@
 		 * Adds the existing data to the view.
 		 */
 		addExistingData: function() {
-			var that = this, $content = this.$el.find( '.uf-columns-layout-content' ), columnIndex = 0, elementIndex = 0, totalIndex = 1;
+			var that = this, $content = this.$el.find( '.uf-columns-layout-content' ), columnIndex = 0;
 
 			var field_value = this.model.getValue() ?? [];
 			var field_content = ( field_value['content'] && field_value['content'].length ) ? field_value['content'] : [[],[]];
@@ -319,9 +336,9 @@
 						})
 						.appendTo( $columnGroups );
 
-					view = that.prepareGroupView( element.__type, element, totalIndex++ );
+					view = that.prepareGroupView( element.__type, element );
 					// preserve 'row' name because we are extending layout groups
-					view.model.set( 'row', elementIndex );
+					view.model.set( 'row', columnIndex );
 					$element.append( view.$el );
 					view.render();
 
@@ -335,8 +352,6 @@
 							layoutElement.trigger( 'destroy' );
 						});
 					});
-
-					elementIndex++;
 				});
 
 				columnIndex++;
