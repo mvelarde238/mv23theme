@@ -10,6 +10,8 @@ class Migrate_0_4_X_to_0_5_0{
 
     private $batch_size;
 
+    private $do_the_update = true;
+
     public static function getInstance() {
         if (self::$instance == null) {
             self::$instance = new Migrate_0_4_X_to_0_5_0();
@@ -76,7 +78,7 @@ class Migrate_0_4_X_to_0_5_0{
 
         if( $offset == 0 ){
             $footer_migrator = new Migrate_Footer_Modules_to_v23_Modules();
-            $footer_migrator->migrate();
+            if( $this->do_the_update ) $footer_migrator->migrate();
         }
     
         // Procesar un lote de datos
@@ -122,33 +124,33 @@ class Migrate_0_4_X_to_0_5_0{
                     if( $section_type && $section_type == 'componente' ){
                         $old_data = get_post_meta($page->post_id, 'componentes', true);
                         $new_reusable_section_data = $this->migrate_seccion_reusable_components_data($old_data);
-                        update_post_meta( $page->post_id, 'components', $new_reusable_section_data );
+                        if( $this->do_the_update ) update_post_meta( $page->post_id, 'components', $new_reusable_section_data );
                         $page_control['meta'] = 'componentes';
                         $page_control['new_data'] = $new_reusable_section_data;
                     } else {
                         $new_reusable_section_data = $this->migrate_seccion_reusable_modules_data($old_data);
-                        update_post_meta( $page->post_id, 'components', $new_reusable_section_data );
+                        if( $this->do_the_update ) update_post_meta( $page->post_id, 'components', $new_reusable_section_data );
                         $page_control['new_data'] = $new_reusable_section_data;
                     }
                 } else {
                     $new_page_modules_data = $this->migrate_page_modules_data($old_data);
-                    update_post_meta( $page->post_id, 'page_modules', $new_page_modules_data );
+                    if( $this->do_the_update ) update_post_meta( $page->post_id, 'page_modules', $new_page_modules_data );
                     $page_control['new_data'] = $new_page_modules_data;
                 }
             }
             if( $page->meta_key == 'content_layout' ){
                 $new_blocks_layout_data = $this->migrate_content_layout_data($old_data);
-                update_post_meta($page->post_id, 'blocks_layout', $new_blocks_layout_data);
+                if( $this->do_the_update ) update_post_meta($page->post_id, 'blocks_layout', $new_blocks_layout_data);
                 $page_control['new_data'] = $new_blocks_layout_data;
             }
             if( $page->meta_key == 'offcanvas_element_content' ){
                 $new_blocks_layout_data = $this->migrate_content_layout_data($old_data);
-                update_post_meta($page->post_id, 'offcanvas_element_content', $new_blocks_layout_data);
+                if( $this->do_the_update ) update_post_meta($page->post_id, 'offcanvas_element_content', $new_blocks_layout_data);
                 $page_control['new_data'] = $new_blocks_layout_data;
             }
             if( $page->meta_key == 'page_header_element' ){
                 $page_header_migrator = new Migrate_Page_Header_0_4_X_to_0_5_0( $page->post_id );
-                $new_data = $page_header_migrator->migrate();
+                $new_data = $page_header_migrator->migrate( $this->do_the_update );
                 $page_control['new_data'] = $new_data;
             }
             
@@ -166,17 +168,19 @@ class Migrate_0_4_X_to_0_5_0{
 
         global $wpdb;
 
-        // delete orphaned post meta
-        $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key IN ('v23_modulos', 'content_layout', 'page_header_element')");
-
-        // change seccion_reusable post type
-        $old_post_type = 'seccion_reusable';
-        $new_post_type = 'reusable_section';
-        $wpdb->query( $wpdb->prepare("UPDATE {$wpdb->posts} SET post_type = %s WHERE post_type = %s", $new_post_type, $old_post_type ) );
-        $wpdb->query( $wpdb->prepare("UPDATE {$wpdb->posts} SET guid = REPLACE(guid, %s, %s) WHERE post_type = %s", '/' . $old_post_type . '/', '/' . $new_post_type . '/',  $new_post_type) );
-        wp_cache_flush();
-                    
-        // add_option( 'theme_version', '0.5.0' );
+        if( $this->do_the_update ) {
+            // delete orphaned post meta
+            $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key IN ('v23_modulos', 'content_layout', 'page_header_element')");
+    
+            // change seccion_reusable post type
+            $old_post_type = 'seccion_reusable';
+            $new_post_type = 'reusable_section';
+            $wpdb->query( $wpdb->prepare("UPDATE {$wpdb->posts} SET post_type = %s WHERE post_type = %s", $new_post_type, $old_post_type ) );
+            $wpdb->query( $wpdb->prepare("UPDATE {$wpdb->posts} SET guid = REPLACE(guid, %s, %s) WHERE post_type = %s", '/' . $old_post_type . '/', '/' . $new_post_type . '/',  $new_post_type) );
+            wp_cache_flush();
+                        
+            // add_option( 'theme_version', '0.5.0' );
+        }
 
         wp_send_json_success(array(
             'complete' => true
@@ -324,6 +328,7 @@ class Migrate_0_4_X_to_0_5_0{
 
     public function migrate_component_data( $component ){
         $new_component = $component;
+        $new_component = apply_filters( 'on-migrate-0-4-X-to-0-5-0-start', $component );
 
         $new_component['settings'] = $this->migrate_settings_data( $component );
         $new_component['scroll_animations_settings'] = $this->migrate_scroll_animations_data( $component );

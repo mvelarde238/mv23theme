@@ -11,7 +11,7 @@ class Migrate_Page_Header_0_4_X_to_0_5_0{
         $this->page_id = $page_id;
     }
 
-    public function migrate(){
+    public function migrate( $do_the_update ){
         if( $this->page_id != null){
             global $wpdb;
 
@@ -34,21 +34,21 @@ class Migrate_Page_Header_0_4_X_to_0_5_0{
                         'ninguno' => 'none'
                      );
                     $new_value = ( isset($translate_element[ $row->meta_value ]) ) ? $translate_element[ $row->meta_value ] : $row->meta_value;
-                    update_post_meta($this->page_id, 'page_header_content_type', $new_value);
+                    if($do_the_update) update_post_meta($this->page_id, 'page_header_content_type', $new_value);
                     $this->new_data['page_header_content_type'] = $new_value;
                 }
                 if( $row->meta_key == 'slider_desktop' ){
                     if(!empty($row->meta_value)) $page_header_slider['desktop'] = $row->meta_value;
-                    delete_post_meta( $this->page_id, $row->meta_key );
+                    if($do_the_update) delete_post_meta( $this->page_id, $row->meta_key );
                 }
                 if( $row->meta_key == 'slider_movil' ){
                     if(!empty($row->meta_value)) $page_header_slider['mobile'] = $row->meta_value;
-                    delete_post_meta( $this->page_id, $row->meta_key );
+                    if($do_the_update) delete_post_meta( $this->page_id, $row->meta_key );
                 }
                 if( $row->meta_key == 'page_header_content2' ){
                     $old_data = maybe_unserialize($row->meta_value);
                     $page_header_content = Migrate_0_4_X_to_0_5_0::getInstance()->migrate_content_layout_data( $old_data );
-                    delete_post_meta( $this->page_id, $row->meta_key );
+                    if($do_the_update) delete_post_meta( $this->page_id, $row->meta_key );
                 }
                 if( $row->meta_key == 'page_header_content' && !empty($row->meta_value) ){
                     $page_header_content = array(
@@ -96,23 +96,23 @@ class Migrate_Page_Header_0_4_X_to_0_5_0{
                         }
                         if( $row->meta_key == 'page_header_layout' ) $fake_settings_data[ 'layout' ] = $row->meta_value;
                     }
-                    delete_post_meta( $this->page_id, $row->meta_key );
+                    if($do_the_update) delete_post_meta( $this->page_id, $row->meta_key );
                 }
 
                 $ancient_settings = array('page_header_content_bg', 'page_header_content_bgc', 'page_header_content_bgc_alpha', 'page_header_section');
                 if( in_array( $row->meta_key, $ancient_settings ) ){
-                    delete_post_meta( $this->page_id, $row->meta_key );
+                    if($do_the_update) delete_post_meta( $this->page_id, $row->meta_key );
                 }
             }
 
-            update_post_meta($this->page_id, 'page_header_slider', $page_header_slider);
+            if($do_the_update) update_post_meta($this->page_id, 'page_header_slider', $page_header_slider);
             $this->new_data['page_header_slider'] = $page_header_slider;
 
-            update_post_meta($this->page_id, 'page_header_content', $page_header_content);
+            if($do_the_update) update_post_meta($this->page_id, 'page_header_content', $page_header_content);
             $this->new_data['page_header_content'] = $page_header_content;
 
             $page_header_settings = Migrate_0_4_X_to_0_5_0::getInstance()->migrate_settings_data($fake_settings_data);
-            update_post_meta($this->page_id, 'page_header_settings', $page_header_settings);
+            if($do_the_update) update_post_meta($this->page_id, 'page_header_settings', $page_header_settings);
             $this->new_data['page_header_settings'] = $page_header_settings;
         }
 
