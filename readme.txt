@@ -4,6 +4,7 @@ CHANGELOG
 
 2.3.4 25-06-11
 - Ignore revisions on Migrators
+- Add typography_css_vars to Theme Options Manager
 
 2.3.3 25-06-10
 - Columns Layout Field improvement: groups can be duplicated

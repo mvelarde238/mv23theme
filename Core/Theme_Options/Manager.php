@@ -68,7 +68,7 @@ class Manager {
         check_ajax_referer('theme_options_manager_nonce', 'nonce');
 
         $options = array();
-        $options_list = array('primary_color','secondary_color','font_color','headings_color','colorpicker_palette','light_primary_color_percentage','lighter_primary_color_percentage','dark_primary_color_percentage','light_secondary_color_percentage','lighter_secondary_color_percentage','dark_secondary_color_percentage','fonts','paragraph','h1_heading','h2_heading','h3_heading','h4_heading','h5_heading','h6_heading','static_header_logo_height','static_header_bgc','static_header_color_scheme','sticky_header_logo_height','sticky_header_bgc','sticky_header_color_scheme','containers_width','single_pages_settings');
+        $options_list = array('primary_color','secondary_color','font_color','headings_color','colorpicker_palette','light_primary_color_percentage','lighter_primary_color_percentage','dark_primary_color_percentage','light_secondary_color_percentage','lighter_secondary_color_percentage','dark_secondary_color_percentage','fonts','typography_css_vars','static_header_logo','custom_static_header_logo','static_header_logo_height','static_header_bgc','static_header_color_scheme','sticky_header_logo','custom_sticky_header_logo','sticky_header_logo_height','sticky_header_bgc','sticky_header_color_scheme','containers_width','single_pages_settings');
 
         foreach ($options_list as $opttion_name) {
             $options[$opttion_name] = get_option($opttion_name);
