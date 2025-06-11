@@ -6,6 +6,7 @@ CHANGELOG
 - Columns Layout Field improvement: groups can be duplicated
 - Fix _load_textdomain_just_in_time
 - Blocks Layout Settings implementation in Carrusel
+- Carrusel Comp: autoplayTimeout and speed implementation
 
 2.3.2 25-06-06
 - UF Fix: Limit the amount of times a group can be added script position

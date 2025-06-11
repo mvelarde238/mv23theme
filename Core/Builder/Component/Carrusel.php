@@ -21,9 +21,9 @@ class Carrusel extends Component {
         return 'dashicons-slides';
     }
 
-    public static function get_layout(){
-        return 'grid';
-    }
+    // public static function get_layout(){
+    //     return 'grid';
+    // }
 
     public static function get_title_template() {
 		$template = '<% if ( items.length ){ %>
@@ -59,7 +59,8 @@ class Carrusel extends Component {
         
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme') ),
-            Field::create( 'repeater', 'items', '' )
+            Field::create( 'repeater', 'items' )
+                ->hide_label()
                 ->set_add_text('Agregar')
                 ->set_chooser_type( 'dropdown' )
                 ->add_group( $content_group )
@@ -81,48 +82,88 @@ class Carrusel extends Component {
                     )
                 )),
             
-            Field::create( 'tab', 'Carrusel' ),
-            Field::create( 'checkbox', 'show_controls' )->set_text('Mostrar Flechas')->set_width( 10 ),
-            Field::create( 'select', 'controls_position' )->add_options( array(
-                'center' => __('Center','mv23theme'),
-                'bottom' => __('Bottom','mv23theme'),
-                'top' => __('Top','mv23theme'),
-            ))->add_dependency('show_controls')->set_width( 10 ),
-            Field::create( 'checkbox', 'show_nav' )->set_text('Mostrar indicadores de página')->set_width( 10 ),
-            Field::create( 'select', 'nav_position' )->add_options( array(
-                'bottom' => __('Bottom','mv23theme'),
-                'top' => __('Top','mv23theme'),
-            ))->add_dependency('show_nav')->set_width( 10 ),
-            Field::create( 'checkbox', 'autoplay' )->set_text('Empezar automáticamente')->set_width( 10 ),
-            Field::create( 'checkbox', 'auto_height' )->set_text('Activar')->set_width( 10 ),
-            Field::create( 'checkbox', 'touch' )->set_text('Activar')->set_width( 10 ),
-            Field::create( 'select', 'mode', 'Mode' )->add_options( array(
-                'carousel' => 'Carrusel',
-                'gallery' => 'Fade',
-            ))->set_width( 10 ),
-            Field::create( 'select', 'axis', 'Axis' )->add_options( array(
-                'horizontal' => 'Horizontal',
-                'vertical' => 'Vertical',
-            ))->add_dependency('mode','carousel','=')->set_width( 10 ),
+            Field::create( 'tab', 'Settings' ),
+            Field::create( 'complex', '_controls_wrapper', 'Show Controls' )->merge()->add_fields(array(
+                Field::create( 'checkbox', 'show_controls' )->hide_label()->set_text('Mostrar flechas')->set_width( 30 ),
+                Field::create( 'select', 'controls_position' )->add_options( array(
+                    'center' => __('Center','mv23theme'),
+                    'bottom' => __('Bottom','mv23theme'),
+                    'top' => __('Top','mv23theme'),
+                ))->add_dependency('show_controls')
+                ->hide_label()
+                ->set_prefix( 'Controls position:' )
+                ->set_width( 30 )
+            )),
+            Field::create( 'complex', '_nav_wrapper', 'Show Nav' )->merge()->add_fields(array(
+                Field::create( 'checkbox', 'show_nav' )->hide_label()->set_text('Mostrar indicadores de página')->set_width( 30 ),
+                Field::create( 'select', 'nav_position' )->add_options( array(
+                    'bottom' => __('Bottom','mv23theme'),
+                    'top' => __('Top','mv23theme'),
+                ))->add_dependency('show_nav')
+                ->hide_label()
+                ->set_prefix( 'Nav position:' )
+                ->set_width( 30 )
+            )),
+            Field::create( 'complex', '_autoplay_wrapper', 'Autoplay' )->merge()->add_fields(array(
+                Field::create( 'checkbox', 'autoplay' )->set_text('Empezar automáticamente')->hide_label()->set_width( 30 ),
+                Field::create( 'number', 'autoplay_timeout' )
+                    ->set_prefix('autoplayTimeout:')
+                    ->set_default_value(5000)
+                    ->set_placeholder('5000')
+                    ->set_suffix( 'ms' )
+                    ->hide_label()
+                    ->add_dependency( 'autoplay' )
+                    ->set_width( 30 ),
+            )),
+
+            Field::create( 'complex', '_mode_wrapper', 'Mode' )->merge()->add_fields(array(
+                Field::create( 'select', 'mode' )->add_options( array(
+                    'carousel' => 'Carrusel',
+                    'gallery' => 'Fade',
+                ))->hide_label()->set_width( 30 ),
+                Field::create( 'select', 'axis' )->add_options( array(
+                    'horizontal' => 'Horizontal',
+                    'vertical' => 'Vertical',
+                ))->add_dependency('mode','carousel','=')
+                    ->set_prefix('Axis:')
+                    ->hide_label()
+                    ->set_width( 30 ),
+                Field::create( 'number', 'speed' )
+                    ->set_prefix('Animation Speed:')
+                    ->set_default_value(450)
+                    ->set_placeholder('450')
+                    ->set_suffix( 'ms' )
+                    ->hide_label()
+                    ->set_width( 30 )
+            )),
+
+            Field::create( 'checkbox', 'auto_height' )->set_text('Activar'),
+            Field::create( 'checkbox', 'touch' )->set_text('Activar'),
         
-            Field::create( 'section','lel','Cantidad de Items visibles'),
-            Field::create( 'number', 'items_in_desktop', 'Items en desktop' )->set_default_value( '4' )->set_width( 25 ),
-            Field::create( 'number', 'items_in_laptop', 'Items en laptop' )->set_default_value( '3' )->set_width( 25 ),
-            Field::create( 'number', 'items_in_tablet', 'Items en tablet' )->set_default_value( '2' )->set_width( 25 ),
-            Field::create( 'number', 'items_in_mobile', 'Items en móviles' )->set_default_value( '1' )->set_width( 25 ),
+            Field::create( 'complex', '_items_wrapper', 'Cantidad de Items visibles' )->merge()->add_fields(array(
+                Field::create( 'number', 'items_in_desktop', 'Items en desktop' )->set_default_value( '4' )->set_width( 25 ),
+                Field::create( 'number', 'items_in_laptop', 'Items en laptop' )->set_default_value( '3' )->set_width( 25 ),
+                Field::create( 'number', 'items_in_tablet', 'Items en tablet' )->set_default_value( '2' )->set_width( 25 ),
+                Field::create( 'number', 'items_in_mobile', 'Items en móviles' )->set_default_value( '1' )->set_width( 25 )
+            )),
         
-            Field::create( 'section','gat-betwwen-items','Espacio entre items'),
-            Field::create( 'number', 'gutter_in_desktop', 'Gutter en desktop' )->set_default_value( '0' )->set_width( 25 ),
-            Field::create( 'number', 'gutter_in_laptop', 'Gutter en laptop' )->set_default_value( '0' )->set_width( 25 ),
-            Field::create( 'number', 'gutter_in_tablet', 'Gutter en tablet' )->set_default_value( '0' )->set_width( 25 ),
-            Field::create( 'number', 'gutter_in_mobile', 'Gutter en móviles' )->set_default_value( '0' )->set_width( 25 ),
+            Field::create( 'complex', '_gutter_wrapper', 'Espacio entre items' )->merge()->add_fields(array(
+                Field::create( 'number', 'gutter_in_desktop', 'Gutter en desktop' )->set_default_value( '0' )->set_width( 25 ),
+                Field::create( 'number', 'gutter_in_laptop', 'Gutter en laptop' )->set_default_value( '0' )->set_width( 25 ),
+                Field::create( 'number', 'gutter_in_tablet', 'Gutter en tablet' )->set_default_value( '0' )->set_width( 25 ),
+                Field::create( 'number', 'gutter_in_mobile', 'Gutter en móviles' )->set_default_value( '0' )->set_width( 25 )
+            )),
     
-            Field::create( 'section','tamanio-de-imagenes','Tamaño de imágenes'),
-            Field::create( 'select', 'imgs_height', 'Seleccionar:' )->add_options( array(
-                'auto' => 'Automático',
-                'custom' => 'Personalizar',
-            ))->set_width( 25 ),
-            Field::create( 'number', 'img_max_height', 'Tamaño de alto máximo en pixeles' )->set_default_value( '60' )->add_dependency('imgs_height','custom','=')->set_width( 25 ),
+            Field::create( 'complex', '_images_wrapper', 'Tamaño de imágenes' )->merge()->add_fields(array(
+                Field::create( 'select', 'imgs_height' )->add_options( array(
+                    'auto' => 'Automático',
+                    'custom' => 'Personalizar',
+                ))->hide_label()->set_width( 25 ),
+                Field::create( 'number', 'img_max_height', 'Tamaño de alto máximo en pixeles' )
+                    ->set_default_value( '60' )
+                    ->add_dependency('imgs_height','custom','=')
+                    ->set_width( 25 ),
+            ))
         );
 
 		return $fields;
@@ -139,6 +180,8 @@ class Carrusel extends Component {
         $show_nav = (isset($args['show_nav']) && !empty($args['show_nav'])) ? $args['show_nav'] : 0;
         $nav_position = (isset($args['nav_position']) && !empty($args['nav_position'])) ? $args['nav_position'] : 'bottom';
         $autoplay = (isset($args['autoplay']) && !empty($args['autoplay'])) ? $args['autoplay'] : 0;
+        $autoplay_timeout = (isset($args['autoplay_timeout']) && !empty($args['autoplay_timeout'])) ? $args['autoplay_timeout'] : 5000;
+        $speed = (isset($args['speed']) && !empty($args['speed'])) ? $args['speed'] : 450;
         $auto_height = (isset($args['auto_height']) && !empty($args['auto_height'])) ? $args['auto_height'] : 0;
         $touch = (isset($args['touch']) && !empty($args['touch'])) ? $args['touch'] : 0;
         $axis = (isset($args['axis']) && !empty($args['axis'])) ? $args['axis'] : 'horizontal';
@@ -189,6 +232,8 @@ class Carrusel extends Component {
             data-laptop-gutter="<?=$gutter_in_laptop?>"
             data-desktop-gutter="<?=$gutter_in_desktop?>"
             data-autoplay="<?=$autoplay?>"
+            data-speed="<?=$speed?>"
+            data-autoplay-timeout="<?=$autoplay_timeout?>"
             data-auto-height="<?=$auto_height?>"
             data-touch="<?=$touch?>"
             data-axis="<?=$axis?>"
