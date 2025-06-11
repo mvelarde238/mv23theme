@@ -89,7 +89,8 @@ class Page{
 
 		// return '<p>ID: '.$page_ID.'</p>';
 
-		$page_modules = ($page_ID != null) ? $page_modules = get_post_meta($page_ID, 'page_modules', true) : null;
+		$content_meta = ( get_post_type($page_ID) === 'reusable_section' ) ? 'components' : 'page_modules';
+		$page_modules = ($page_ID != null) ? $page_modules = get_post_meta($page_ID, $content_meta, true) : null;
 		$blocks_layout = ($page_ID != null) ? get_post_meta($page_ID, 'blocks_layout', true) : null;
 
 		if (is_array($page_modules) || is_array($blocks_layout)) :
