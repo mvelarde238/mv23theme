@@ -99,6 +99,7 @@ class Migrate_0_4_X_to_0_5_0{
             FROM {$wpdb->postmeta} pm
             JOIN {$wpdb->posts} p ON pm.post_id = p.ID
             WHERE pm.meta_key IN ('v23_modulos', 'content_layout', 'page_header_element', 'offcanvas_element_content')
+            AND p.post_type != 'revision'
             LIMIT %d OFFSET %d",
             $batch_size,
             $offset
