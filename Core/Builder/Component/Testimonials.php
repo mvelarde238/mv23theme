@@ -78,6 +78,7 @@ class Testimonials extends Component {
             data-show-controls="1" 
             data-show-nav="1" 
             data-autoplay="0" 
+            data-speed="450"
             data-nav-position="bottom"
             data-mobile="<?=$items_in_mobile?>"
             data-tablet="<?=$items_in_tablet?>"
