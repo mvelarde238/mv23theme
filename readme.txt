@@ -8,6 +8,7 @@ CHANGELOG
 - on-migrate-0-4-X-to-0-5-0-start filter implementation
 - Implement reusable_section in Core\Frontend\Page the_content method
 - Listing component send all arguments to postcard
+- Add data-speed to testimonials carrusel
 
 2.3.3 25-06-10
 - Columns Layout Field improvement: groups can be duplicated
