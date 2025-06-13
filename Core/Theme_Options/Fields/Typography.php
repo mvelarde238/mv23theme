@@ -105,7 +105,8 @@ class Typography {
                     'var(--text-s)' => 'var(--text-s)',
                     'var(--text-m)' => 'var(--text-m)',
                     'var(--text-l)' => 'var(--text-l)',
-                    'var(--text-xl)' => 'var(--text-xl)'
+                    'var(--text-xl)' => 'var(--text-xl)',
+                    'var(--text-xxl)' => 'var(--text-xxl)'
                 ]
             ],
             ['key' => '--global-line-height', 'label' => 'Global Line Height', 'type' => 'text', 'placeholder' => '1.6' ],
@@ -145,7 +146,8 @@ class Typography {
             ['key' => '--text-s', 'label' => 'S Paragraphs (--text-s)', 'type' => 'text', 'placeholder' => 'clamp(0.875rem, 0.84rem + 0.2vw, 1rem)' ],
             ['key' => '--text-m', 'label' => 'M Paragraphs (--text-m)', 'type' => 'text', 'placeholder' => 'clamp(1rem, 0.96rem + 0.25vw, 1.125rem)' ],
             ['key' => '--text-l', 'label' => 'L Paragraphs (--text-l)', 'type' => 'text', 'placeholder' => 'clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem)' ],
-            ['key' => '--text-xl', 'label' => 'XL Paragraphs (--text-xl)', 'type' => 'text', 'placeholder' => 'clamp(1.25rem, 1.15rem + 0.35vw, 1.5rem)' ]
+            ['key' => '--text-xl', 'label' => 'XL Paragraphs (--text-xl)', 'type' => 'text', 'placeholder' => 'clamp(1.25rem, 1.15rem + 0.35vw, 1.5rem)' ],
+            ['key' => '--text-xxl', 'label' => 'XXL Paragraphs (--text-xxl)', 'type' => 'text', 'placeholder' => 'clamp(1.5rem, 1.25rem + 0.40vw, 2rem)' ]
         ];
     }
 
