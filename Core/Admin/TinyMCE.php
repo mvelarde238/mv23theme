@@ -13,6 +13,7 @@ class TinyMCE{
 
     public function filter_buttons_in_first_row($mce_buttons) {
         array_push($mce_buttons, 'icon_mce_button' );
+        // array_push($mce_buttons, 'fontSizeSelector' );
 		// array_push($mce_buttons, 'fontweightselect');
         return $mce_buttons;
     }
@@ -89,252 +90,334 @@ class TinyMCE{
     * Wrapper whether or not to add a new block-level element around any selected elements
     */
     public function get_style_formats(){ 
-		return array(  
-			array(  
-				'title' => 'Títulos',	
-				'items' => array(
-					array(
-						'title' => 'Titulo con línea',
-						'block' => 'div',
-						'classes' => 'special-title-1',
-						'wrapper' => true,
-					),
-					array(
-						'title' => 'Titulo con fondo',
-						'block' => 'div',
-						'classes' => 'special-title-2',
-						'wrapper' => true,
-					),
-					array(
-						'title' => 'Titulo subrayado 1',
-						'block' => 'div',
-						'classes' => 'special-title-3',
-						'wrapper' => true,
-					),
-					array(
-						'title' => 'Titulo subrayado 2',
-						'block' => 'div',
-						'classes' => 'special-title-4',
-						'wrapper' => true,
-					),
+
+		$titles_style_formats = apply_filters( 'filter_titles_style_formats', array(
+			'title' => 'Títulos',
+			'items' => array(
+				array(
+					'title' => 'Titulo con línea',
+					'block' => 'div',
+					'classes' => 'special-title-1',
+					'wrapper' => true,
+				),
+				array(
+					'title' => 'Titulo con fondo',
+					'block' => 'div',
+					'classes' => 'special-title-2',
+					'wrapper' => true,
+				),
+				array(
+					'title' => 'Titulo subrayado 1',
+					'block' => 'div',
+					'classes' => 'special-title-3',
+					'wrapper' => true,
+				),
+				array(
+					'title' => 'Titulo subrayado 2',
+					'block' => 'div',
+					'classes' => 'special-title-4',
+					'wrapper' => true,
+				),
+			)
+		));
+
+		$lists_style_formats = apply_filters( 'filter_lists_style_formats', array(
+			'title' => 'Listas',
+			'items' => array(
+				array(  
+					'title' => 'Theme List',  
+					'selector' => 'ul, ol', 
+					'classes' => 'theme-list',
+				),
+				array(  
+					'title' => 'Lista Resaltada',  
+					'selector' => 'ul, ol', 
+					'classes' => 'special-list-1',
 				)
-			),
-			array(  
-				'title' => 'Listas',
-				'items' => array(
-					array(  
-						'title' => 'Theme List',  
-						'selector' => 'ul, ol', 
-						'classes' => 'theme-list',
-					),
-					array(  
-						'title' => 'Lista Resaltada',  
-						'selector' => 'ul, ol', 
-						'classes' => 'special-list-1',
-					)
+			)
+		));
+
+		$font_weight_style_formats = apply_filters( 'filter_font_weight_style_formats', array(
+			'title' => __('Font Weight', 'mv23theme'),
+			'items' => array(
+				array(
+					'title' => 'Light (300)',
+        			'inline' => 'span',
+        			'classes' => 'fw-300'
+				),
+				array(
+					'title' => 'Regular (400)',
+        			'inline' => 'span',
+        			'classes' => 'fw-400'
+				),
+				array(
+					'title' => 'Medium (500)',
+        			'inline' => 'span',
+        			'classes' => 'fw-500'
+				),
+				array(
+					'title' => 'Semi Bold (600)',
+					'inline' => 'span',
+					'classes' => 'fw-600'
+				),
+				array(
+					'title' => 'Bold (700)',
+        			'inline' => 'span',
+        			'classes' => 'fw-700'
 				)
-			),
-			array(
-				'title' => __('Font Weight', 'mv23theme'),
-				'items' => array(
-					array(
-						'title' => 'Light (300)',
-            			'inline' => 'span',
-            			'classes' => 'fw-300'
-					),
-					array(
-						'title' => 'Regular (400)',
-            			'inline' => 'span',
-            			'classes' => 'fw-400'
-					),
-					array(
-						'title' => 'Medium (500)',
-            			'inline' => 'span',
-            			'classes' => 'fw-500'
-					),
-					array(
-						'title' => 'Semi Bold (600)',
-						'inline' => 'span',
-						'classes' => 'fw-600'
-					),
-					array(
-						'title' => 'Bold (700)',
-            			'inline' => 'span',
-            			'classes' => 'fw-700'
-					)
+			)
+		));
+
+		$line_height_style_formats = apply_filters( 'filter_line_height_style_formats', array(
+			'title' => __('Line Height', 'mv23theme'),
+			'items' => array(
+				array(
+					'title' => 'Line Height 100%',
+					'selector' => 'p',
+					'classes' => 'lh-100'
+				),
+				array(
+					'title' => 'Line Height 110%',
+					'selector' => 'p',
+					'classes' => 'lh-110'
+				),
+				array(
+					'title' => 'Line Height 120%',
+					'selector' => 'p',
+					'classes' => 'lh-120'
+				),
+				array(
+					'title' => 'Line Height 130%',
+					'selector' => 'p',
+					'classes' => 'lh-130'
+				),
+				array(
+					'title' => 'Line Height 140%',
+					'selector' => 'p',
+					'classes' => 'lh-140'
+				),
+				array(
+					'title' => 'Line Height 150%',
+					'selector' => 'p',
+					'classes' => 'lh-150'
+				),
+				array(
+					'title' => 'Line Height 160%',
+					'selector' => 'p',
+					'classes' => 'lh-160'
+				),
+				array(
+					'title' => 'Line Height 170%',
+					'selector' => 'p',
+					'classes' => 'lh-170'
+				),
+				array(
+					'title' => 'Line Height 180%',
+					'selector' => 'p',
+					'classes' => 'lh-180'
+				),
+				array(
+					'title' => 'Line Height 190%',
+					'selector' => 'p',
+					'classes' => 'lh-190'
+				),
+				array(
+					'title' => 'Line Height 200%',
+					'selector' => 'p',
+					'classes' => 'lh-200'
 				)
-			),
-			array(
-				'title' => __('Line Height', 'mv23theme'),
-				'items' => array(
-					array(
-						'title' => 'Line Height 100%',
-						'selector' => 'p',
-						'classes' => 'lh-100'
-					),
-					array(
-						'title' => 'Line Height 110%',
-						'selector' => 'p',
-						'classes' => 'lh-110'
-					),
-					array(
-						'title' => 'Line Height 120%',
-						'selector' => 'p',
-						'classes' => 'lh-120'
-					),
-					array(
-						'title' => 'Line Height 130%',
-						'selector' => 'p',
-						'classes' => 'lh-130'
-					),
-					array(
-						'title' => 'Line Height 140%',
-						'selector' => 'p',
-						'classes' => 'lh-140'
-					),
-					array(
-						'title' => 'Line Height 150%',
-						'selector' => 'p',
-						'classes' => 'lh-150'
-					),
-					array(
-						'title' => 'Line Height 160%',
-						'selector' => 'p',
-						'classes' => 'lh-160'
-					),
-					array(
-						'title' => 'Line Height 170%',
-						'selector' => 'p',
-						'classes' => 'lh-170'
-					),
-					array(
-						'title' => 'Line Height 180%',
-						'selector' => 'p',
-						'classes' => 'lh-180'
-					),
-					array(
-						'title' => 'Line Height 190%',
-						'selector' => 'p',
-						'classes' => 'lh-190'
-					),
-					array(
-						'title' => 'Line Height 200%',
-						'selector' => 'p',
-						'classes' => 'lh-200'
-					)
+			)
+		));
+
+		$buttons_style_formats = apply_filters( 'filter_buttons_style_formats', array(  
+		    'title' => 'Botones',
+		    'items' => array(
+		    	array(  
+				    'title' => 'Botón Simple',  
+				    'selector' => 'a',
+				    'classes' => 'btn',
+				),
+				array(  
+				    'title' => 'Botón Corporativo 1',  
+				    'selector' => 'a',
+				    'classes' => 'btn btn--main-color',
+				),
+				array(  
+				    'title' => 'Botón Corporativo 2',  
+				    'selector' => 'a',
+				    'classes' => 'btn btn--secondary-color',
+				),
+				array(  
+				    'title' => 'Botón Blanco',  
+				    'selector' => 'a',
+				    'classes' => 'btn btn--white',
+				),
+				array(  
+				    'title' => 'Botón Ancho Completo',  
+				    'selector' => 'a',
+				    'classes' => 'btn btn-block',
 				)
-			),
-			array(  
-			    'title' => 'Botones',
-			    'items' => array(
-			    	array(  
-					    'title' => 'Botón Simple',  
-					    'selector' => 'a',
-					    'classes' => 'btn',
-					),
-					array(  
-					    'title' => 'Botón Corporativo 1',  
-					    'selector' => 'a',
-					    'classes' => 'btn btn--main-color',
-					),
-					array(  
-					    'title' => 'Botón Corporativo 2',  
-					    'selector' => 'a',
-					    'classes' => 'btn btn--secondary-color',
-					),
-					array(  
-					    'title' => 'Botón Blanco',  
-					    'selector' => 'a',
-					    'classes' => 'btn btn--white',
-					),
-					array(  
-					    'title' => 'Botón Ancho Completo',  
-					    'selector' => 'a',
-					    'classes' => 'btn btn-block',
-					)
-			    )
-			),
-			array(  
+		    )
+		));
+
+		$images_aligment_style_formats = apply_filters( 'filter_images_aligment_style_formats', array(
+			'title' => __('Image Alignment', 'mv23theme'),
+			'items' => array(
+				array(  
+				    'title' => __('Top','mv23theme'),  
+				    'selector' => 'img',
+				    'styles' => array(
+						'verticalAlign' => 'top'
+		    		)
+				),
+				array(  
+				    'title' => __('Middle','mv23theme'),  
+				    'selector' => 'img',
+				    'styles' => array(
+						'verticalAlign' => 'middle'
+		    		)
+				),
+				array(  
+				    'title' => __('Bottom','mv23theme'),  
+				    'selector' => 'img',
+				    'styles' => array(
+						'verticalAlign' => 'bottom'
+		    		)
+				)
+			)
+		));
+
+		$images_style_formats = apply_filters( 'filter_images_style_formats', array(
+			'title' => __('Images', 'mv23theme'),
+			'items' => array(
+				array(  
+				    'title' => 'Imagen Ancho Completo',  
+				    'selector' => 'img',
+				    'classes' => 'img-full-width'
+				),
+				array(  
+				    'title' => 'Imagen Ancho Completo en móvil',  
+				    'selector' => 'img',
+				    'classes' => 'movil-img-full-width'
+				),
+				array(  
+				    'title' => 'Imagen Circular',  
+				    'selector' => 'img',
+				    'classes' => 'circle'
+				),
+				$images_aligment_style_formats
+			)
+		));
+
+		$general_style_formats = apply_filters( 'filter_general_style_formats', array(
+			'title' => __('General', 'mv23theme'),
+			'items' => array(
+				array(  
 			    'title' => 'Quitar Margen Inferior',  
 			    'selector' => 'p, h1, h2, h3, h4, h5, h6, a, img',
 			    'classes' => 'mb0'
-			),
-			array(  
-			    'title' => 'Quitar Margen Superior',  
-			    'selector' => 'p, h1, h2, h3, h4, h5, h6, a, img',
-			    'classes' => 'mt0'
-			),
-			array(  
-			    'title' => 'Clearfix',  
-			    'selector' => 'p, h1, h2, h3, h4, h5, h6, a, img',
-			    'classes' => 'clearfix'
-			),
-			array(
-				'title' => __('Image Alignment', 'mv23theme'),
-				'items' => array(
-					array(  
-					    'title' => __('Top','mv23theme'),  
-					    'selector' => 'img',
-					    'styles' => array(
-							'verticalAlign' => 'top'
-			    		)
-					),
-					array(  
-					    'title' => __('Middle','mv23theme'),  
-					    'selector' => 'img',
-					    'styles' => array(
-							'verticalAlign' => 'middle'
-			    		)
-					),
-					array(  
-					    'title' => __('Bottom','mv23theme'),  
-					    'selector' => 'img',
-					    'styles' => array(
-							'verticalAlign' => 'bottom'
-			    		)
-					)
+				),
+				array(  
+				    'title' => 'Quitar Margen Superior',  
+				    'selector' => 'p, h1, h2, h3, h4, h5, h6, a, img',
+				    'classes' => 'mt0'
+				),
+				array(  
+				    'title' => 'Clearfix',  
+				    'selector' => 'p, h1, h2, h3, h4, h5, h6, a, img',
+				    'classes' => 'clearfix'
+				),
+				array(  
+				    'title' => 'Ocultar en tablet y móvil',  
+				    'selector' => 'p, h1, h2, h3, h4, h5, h6, a, img',
+				    'classes' => 'hide-on-med-and-down'
+				),
+				array(  
+				    'title' => 'Ocultar en móvil',  
+				    'selector' => 'p, h1, h2, h3, h4, h5, h6, a, img',
+				    'classes' => 'hide-on-small-only'
 				)
-			),
-			array(  
-			    'title' => 'Imagen Ancho Completo',  
-			    'selector' => 'img',
-			    'classes' => 'img-full-width'
-			),
-			array(  
-			    'title' => 'Imagen Ancho Completo en móvil',  
-			    'selector' => 'img',
-			    'classes' => 'movil-img-full-width'
-			),
-			array(  
-			    'title' => 'Imagen Circular',  
-			    'selector' => 'img',
-			    'classes' => 'circle'
-			),
-			array(  
-			    'title' => 'Ocultar en tablet y móvil',  
-			    'selector' => 'p, h1, h2, h3, h4, h5, h6, a, img',
-			    'classes' => 'hide-on-med-and-down'
-			),
-			array(  
-			    'title' => 'Ocultar en móvil',  
-			    'selector' => 'p, h1, h2, h3, h4, h5, h6, a, img',
-			    'classes' => 'hide-on-small-only'
-			),
-			// array(
-			//     'title' => 'Texto grande',
-			//     'inline' => 'span',
-			//     'classes' => 'fit-text',
-			//     'wrapper' => false,
-			// ),
-			// array(
-			//     'title' => 'Red Uppercase Text',
-			//     'inline' => 'span',
-			//     'styles' => array(
-			//         'color' => '#ff0000',
-			//         'fontWeight' => 'bold',
-			//         'textTransform' => 'uppercase'
-			//     )
-			// )
+				// array(
+				//     'title' => 'Texto grande',
+				//     'inline' => 'span',
+				//     'classes' => 'fit-text',
+				//     'wrapper' => false,
+				// ),
+				// array(
+				//     'title' => 'Red Uppercase Text',
+				//     'inline' => 'span',
+				//     'styles' => array(
+				//         'color' => '#ff0000',
+				//         'fontWeight' => 'bold',
+				//         'textTransform' => 'uppercase'
+				//     )
+				// )
+			)
+		));
+
+		$font_size_style_formats = apply_filters( 'filter_font_size_style_formats', array(
+			'title' => __('Font Size', 'mv23theme'),
+			'items' => array(
+				array(  
+				    'title' => __('Text XXS','mv23theme'),
+				    'block' => 'div',
+					'wrapper' => true,
+				    'styles' => array(
+						'fontSize' => 'var(--text-xxs)'
+		    		)
+				),
+				array(  
+				    'title' => __('Text XS','mv23theme'),
+				    'block' => 'div',
+					'wrapper' => true,
+				    'styles' => array(
+						'fontSize' => 'var(--text-xs)'
+		    		)
+				),
+				array(  
+				    'title' => __('Text S','mv23theme'),
+				    'block' => 'div',
+					'wrapper' => true,
+				    'styles' => array(
+						'fontSize' => 'var(--text-s)'
+		    		)
+				),
+				array(  
+				    'title' => __('Text M','mv23theme'),
+				    'block' => 'div',
+					'wrapper' => true,
+				    'styles' => array(
+						'fontSize' => 'var(--text-m)'
+		    		)
+				),
+				array(  
+				    'title' => __('Text L','mv23theme'),
+				    'block' => 'div',
+					'wrapper' => true,
+				    'styles' => array(
+						'fontSize' => 'var(--text-l)'
+		    		)
+				),
+				array(  
+				    'title' => __('Text XL','mv23theme'),
+				    'block' => 'div',
+					'wrapper' => true,
+				    'styles' => array(
+						'fontSize' => 'var(--text-xl)'
+		    		)
+				),
+			)
+		));
+
+		return array(  
+			$titles_style_formats,
+			$lists_style_formats,
+			$font_weight_style_formats,
+			$line_height_style_formats,
+			$buttons_style_formats,
+			$general_style_formats,
+			$images_style_formats,
+			$font_size_style_formats
 		);
 	}
 
@@ -417,13 +500,10 @@ class TinyMCE{
         return $initArray;  
     }
 
-    public function add_table_plugin($plugins) {
+    public function add_plugins($plugins) {
         $plugins['table'] = get_template_directory_uri() .'/assets/js/mce-table-plugin.min.js';
-        return $plugins;
-    }
-
-    public function add_icon_plugin($plugins) {
-        $plugins['icon_mce_button'] = get_template_directory_uri() .'/assets/js/mce-icon-button.js';
+		$plugins['icon_mce_button'] = get_template_directory_uri() .'/assets/js/mce-icon-button.js';
+		// $plugins['fontSizeCleaner'] = get_template_directory_uri() . '/assets/js/mce-font-size-cleaner.js';
 		// $plugins['fontweightselect'] = get_template_directory_uri() . '/assets/js/mce-fontweightselect.js';
         return $plugins;
     }

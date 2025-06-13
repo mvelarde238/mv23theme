@@ -72,7 +72,7 @@ class Migrate_2_2_X_to_2_3_0{
             '--heading-h5-line-height' => '',
             '--heading-h6' => '',
             '--heading-h6-line-height' => '',
-            '--text-xss' => '',
+            '--text-xxs' => '',
             '--text-xs' => '',
             '--text-s' => '',
             '--text-m' => '',

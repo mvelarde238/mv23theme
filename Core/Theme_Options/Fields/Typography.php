@@ -140,7 +140,7 @@ class Typography {
                 ['key' => '--heading-h6-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['type' => 'tab', 'label' => 'Type Scale' ],
-            ['key' => '--text-xss', 'label' => 'XXS Paragraphs (--text-xss)', 'type' => 'text', 'placeholder' => 'clamp(0.63rem, 0.60rem + 0.2vw, 0.75rem)' ],
+            ['key' => '--text-xxs', 'label' => 'XXS Paragraphs (--text-xxs)', 'type' => 'text', 'placeholder' => 'clamp(0.63rem, 0.60rem + 0.2vw, 0.75rem)' ],
             ['key' => '--text-xs', 'label' => 'XS Paragraphs (--text-xs)', 'type' => 'text', 'placeholder' => 'clamp(0.75rem, 0.72rem + 0.2vw, 0.875rem)' ],
             ['key' => '--text-s', 'label' => 'S Paragraphs (--text-s)', 'type' => 'text', 'placeholder' => 'clamp(0.875rem, 0.84rem + 0.2vw, 1rem)' ],
             ['key' => '--text-m', 'label' => 'M Paragraphs (--text-m)', 'type' => 'text', 'placeholder' => 'clamp(1rem, 0.96rem + 0.25vw, 1.125rem)' ],

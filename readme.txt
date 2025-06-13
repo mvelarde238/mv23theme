@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.3.5 25-06-13
+- Add font_size style formats and filter_*_style_formats
+
 2.3.4 25-06-11
 - Ignore revisions on Migrators
 - Add typography_css_vars to Theme Options Manager

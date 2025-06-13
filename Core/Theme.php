@@ -168,8 +168,7 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_filter( 'tiny_mce_before_init', $tinymce, 'add_font_families' );
         $this->loader->add_filter( 'tiny_mce_before_init', $tinymce, 'add_style_formats' );
         $this->loader->add_filter( 'tiny_mce_before_init', $tinymce, 'add_theme_colors' );
-        $this->loader->add_filter( 'mce_external_plugins', $tinymce, 'add_table_plugin' );
-        $this->loader->add_filter( 'mce_external_plugins', $tinymce, 'add_icon_plugin' );
+        $this->loader->add_filter( 'mce_external_plugins', $tinymce, 'add_plugins' );
 
         // Hardening WordPress
         $hardening_wp = new Hardening_WP;
