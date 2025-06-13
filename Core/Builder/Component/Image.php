@@ -125,7 +125,8 @@ class Image extends Component {
         if( Template_Engine::is_private( $args ) ) return;
         
         $args['lel'] = 'media-lel';
-		$args['additional_classes'] = array('component','media');
+		$args['additional_classes'][] = 'component';
+		$args['additional_classes'][] = 'media';
 
         $attachment = false;
         $image_source = $args['image_source'] ?? 'selfhosted';
