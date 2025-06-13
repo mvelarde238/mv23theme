@@ -6,6 +6,7 @@ CHANGELOG
 - Add font_size style formats and filter_*_style_formats
 - Implement --text-xxl in type scale
 - Allow Image component classes to be added from another component definition
+- Implement Core\Builder\Template_Engine\Color for custom color
 
 2.3.4 25-06-11
 - Ignore revisions on Migrators
