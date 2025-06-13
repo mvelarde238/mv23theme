@@ -7,6 +7,8 @@ CHANGELOG
 - Implement --text-xxl in type scale
 - Allow Image component classes to be added from another component definition
 - Implement Core\Builder\Template_Engine\Color for custom color
+- Implement filter_accordion_styles_for_accordion_component
+- !important: acc-style1 implementation
 
 2.3.4 25-06-11
 - Ignore revisions on Migrators

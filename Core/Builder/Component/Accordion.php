@@ -47,6 +47,16 @@ class Accordion extends Component {
             )
         );
 
+        $accordion_styles = apply_filters(
+            'filter_accordion_styles_for_accordion_component',
+            array(
+                'style1'  => array(
+                    'label' => 'Accordion style 1',
+                    'image' => BUILDER_PATH . '/assets/images/accordion-style-1.png'
+                )
+            )
+        );
+
         $fields = array(
             Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'repeater', 'accordion' )
@@ -100,6 +110,7 @@ class Accordion extends Component {
                 'tab' => 'Tab',
             ))->set_default_value('accordion')->set_width(25),
             Field::create( 'image_select', 'tab_style', 'Apariencia' )->add_options( $tab_styles )->show_label()->add_dependency('desktop_template','tab','=')->set_width(25),
+            Field::create( 'image_select', 'accordion_style', 'Apariencia' )->add_options( $accordion_styles )->show_label()->add_dependency('desktop_template','accordion','=')->set_width(25),
             Field::create('complex','tab_settings')->add_fields(array(
                 Field::create('checkbox','close_first_tab')->set_text('Cerrar primer tab')->hide_label()
             ))->set_width(25)->add_dependency('desktop_template','tab','='),
@@ -129,12 +140,15 @@ class Accordion extends Component {
 
         $tab_style = (isset($args['tab_style'])) ? $args['tab_style'] : 'style1';
         if($tab_style == 'style1' || $tab_style == 'style2') $tab_style = 'tab-'.$tab_style;
+
+        $accordion_style = (isset($args['accordion_style'])) ? $args['accordion_style'] : 'style1';
+        if($accordion_style == 'style1' ) $accordion_style = 'acc-'.$accordion_style;
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
 
         if (is_array($items) && count($items)>0): ?>
-            <div class="v23-togglebox <?php echo $tab_style ?>" <?php echo implode(' ',$togglebox_attributes) ?>>
+            <div class="v23-togglebox <?php echo $tab_style .' '. $accordion_style ?>" <?php echo implode(' ',$togglebox_attributes) ?>>
                 <?php
                 $nav = '<div class="v23-togglebox__nav">';
                 $itemsbox = '<div class="v23-togglebox__items">';
