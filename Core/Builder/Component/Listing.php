@@ -407,6 +407,7 @@ class Listing extends Component {
                         data-show-nav="<?=$show_nav?>" 
                         data-touch="1" 
                         data-autoplay="<?=$autoplay?>" 
+                        data-speed="450"
                         data-nav-position="bottom"
                         data-mobile="<?=$items_in_mobile?>"
                         data-tablet="<?=$items_in_tablet?>"
