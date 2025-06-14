@@ -422,6 +422,8 @@ class Listing extends Component {
                 <?php 
                 $count = 0;
                 while ( $query->have_posts() ) : $query->the_post();
+                    $args['count'] = $count;
+                    
                     if($listing_template == 'carrusel') echo '<div>';
 
                     $_postcard_template = apply_filters('filter_listing_postcard_template', $postcard_template, $count);
