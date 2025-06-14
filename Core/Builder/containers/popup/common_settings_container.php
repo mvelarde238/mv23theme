@@ -53,16 +53,15 @@ Container::create( 'common_settings_container' )
         )),
         Field::create( 'complex', 'font_color', __('Font color', 'mv23theme') )->add_fields(array(
             Field::create( 'checkbox', 'use', __('Activate','mv23theme') )->fancy()->set_width( 20 ),
+            Field::create( 'color', 'color' )->add_dependency('use')->set_width( 30 ),
             Field::create( 'select', 'color_scheme', __('Color Scheme','mv23theme') )
                 ->add_dependency('use')
                 ->set_description( __("Some components use the .dark-scheme CSS class to adjust their color styles for better appearance in dark mode.",'mv23theme') )
                 ->add_options(array(
                     'default_scheme' => __('Default Scheme','mv23theme'),
-                    'dark_scheme' => __('Dark Scheme','mv23theme'),
-                    'custom' => __('Custom','mv23theme')
+                    'dark_scheme' => __('Dark Scheme','mv23theme')
                 ))
-                ->set_width( 30 ),
-            Field::create( 'color', 'color' )->add_dependency('use')->add_dependency('color_scheme','custom')->set_width( 30 ),
+                ->set_width( 30 )
         )),
         Field::create( 'complex', 'background_image', __('Background Image', 'mv23theme') )->add_fields(array(
             Field::create( 'checkbox', 'use', __('Activate','mv23theme') )->fancy()->set_width( 20 ),

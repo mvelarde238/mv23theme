@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.3.6 25-06-14
+- Improve Common Settings Control to allow mixing dark scheme with custom color
+
 2.3.5 25-06-13
 - Add font_size style formats and filter_*_style_formats
 - Implement --text-xxl in type scale

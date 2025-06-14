@@ -9,11 +9,7 @@ Class Color{
         $styles = array();
         $settings = ( isset($args['settings']) ) ? $args['settings'] : array();
 
-	    if (
-            isset( $settings['font_color'] ) &&              
-            !empty( $settings['font_color']['color_scheme'] ) &&
-            $settings['font_color']['color_scheme'] == 'custom' &&
-            !empty( $settings['font_color']['color'] ) ) {
+	    if ( isset( $settings['font_color'] ) && !empty( $settings['font_color']['color'] ) ) {
 
             $color = $settings['font_color']['color'];
 
