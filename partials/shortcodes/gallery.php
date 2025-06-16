@@ -63,6 +63,7 @@ function print_theme_gallery( $atts ) {
                 data-tablet="3"
                 data-laptop="<?=$a['columns']?>"
                 data-desktop="<?=$a['columns']?>"
+                data-speed="450"
                 data-mobile-gutter="4"
                 data-tablet-gutter="4"
                 data-laptop-gutter="4"

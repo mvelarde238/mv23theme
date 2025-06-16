@@ -171,7 +171,13 @@ class Gallery extends Component {
         if($hide_gallery) $args['additional_classes'][] = 'hide';
 
         $source = ( isset($args['source']) ) ? $args['source'] : 'wp-media'; // default for backward compatibility
-        $settings = $args['wp_media_folder_settings'];
+        $settings = $args['wp_media_folder_settings'] ?? array(
+            'link' => 'file',
+            'columns' => 4,
+            'size' => 'large',
+            'targetsize' => 'full',
+            'display' => 'default'
+        );
         $aspect_ratio = ( isset($args['aspect_ratio']) && $args['aspect_ratio'] != 'aspect-ratio-default' ) ? $args['aspect_ratio'] : 'aspect-ratio-default';
         $shortcode_name = ($source === 'manual') ? 'theme_gallery' : 'theme_gallery';
         $gallery_id = (isset($args['gallery_id'])) ? $args['gallery_id'] : '';

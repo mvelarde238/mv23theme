@@ -4,6 +4,8 @@ CHANGELOG
 
 2.3.7 25-06-15
 - Image Comp. Fix: credits can be null
+- Fix: Add data-speed to theme_gallery shortcode
+- Add Gallery Comp. default values for gallery settings
 
 2.3.6 25-06-14
 - Improve Common Settings Control to allow mixing dark scheme with custom color
