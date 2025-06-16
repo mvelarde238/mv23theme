@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.3.7 25-06-15
+- Image Comp. Fix: credits can be null
+
 2.3.6 25-06-14
 - Improve Common Settings Control to allow mixing dark scheme with custom color
 - Fix: Add data-speed to listing carrusel

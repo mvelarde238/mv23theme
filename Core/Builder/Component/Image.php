@@ -140,7 +140,7 @@ class Image extends Component {
             $attachment->ID = 0;
             $attachment->guid = $args['external_image'];
             $attachment->post_title = '';
-            $attachment->post_excerpt = $args['external_image_credits'];
+            $attachment->post_excerpt = $args['external_image_credits'] ?? '';
         }
 
         if( !$attachment ){
