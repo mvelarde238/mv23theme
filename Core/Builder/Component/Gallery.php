@@ -18,10 +18,6 @@ class Gallery extends Component {
         return 'dashicons-images-alt2';
     }
 
-    public static function get_layout(){
-        return 'grid';
-    }
-
     public static function get_title_template() {
 		$template = '<% if ( source == "manual" && gallery != "" || source == "wp-media" && wp_media_folder != 0 ){ %>
             <%= source %>
@@ -55,7 +51,7 @@ class Gallery extends Component {
         
         // gallery settings
         $fields[] = Field::create( 'tab', 'Gallery Settings' );
-        $wp_media_folder_settings = array(
+        $gallery_settings = array(
             // Field::create( 'checkbox', 'autoinsert' )->set_text( '¿Autoinsertar las imágenes agregadas a la galerîa?' ), // the shortcode needs the attachments id's
             Field::create( 'select', 'display', 'Tipo')->add_options( array(
                 'default' => 'Default',
@@ -95,11 +91,13 @@ class Gallery extends Component {
         );
         
         if( !MASONRY_IS_ACTIVE ){
-            $wp_media_folder_settings[] = Field::create( 'message', 'masonry_message', __('Activate Masonry') )->set_description('You have to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')->add_dependency('display', 'masonry', '=')->set_attr( 'style', 'background:#470e0e;color:#fff;width:100%;' );;
+            $gallery_settings[] = Field::create( 'message', 'masonry_message', __('Activate Masonry') )->set_description('You have to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')->add_dependency('display', 'masonry', '=')->set_attr( 'style', 'background:#470e0e;color:#fff;width:100%;' );;
         }
-        $fields[] = Field::create( 'complex', 'wp_media_folder_settings', 'Settings' )->add_fields( $wp_media_folder_settings );
+        $fields[] = Field::create( 'complex', 'wp_media_folder_settings', 'Settings' )->add_fields( $gallery_settings )->set_layout('rows')->hide_label();
         
-        $fields[] = Field::create( 'image_select', 'aspect_ratio' )->add_options(array(
+        // images settings
+        $fields[] = Field::create( 'tab', 'Images Settings' );
+        $fields[] = Field::create( 'image_select', 'aspect_ratio', __('Images aspect ratio','mv23theme') )->add_options(array(
                 '1/1'  => array(
                     'label' => '1:1',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-1-1.png'
@@ -145,18 +143,24 @@ class Gallery extends Component {
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default-b.png'
                 ),
             ));
-
-        $fields[] = Field::create( 'tab', 'Advanced' );
-        $fields[] = Field::create( 'text', 'gallery_id' )->set_width(30);
-        $fields[] = Field::create( 'message', 'gallery_id_usage', 'Usar la siguiente clase para abrir la galería:' )->set_description('show-gallery--{gallery_id}')->add_dependency('gallery_id','','!=')->set_width(70);
-        $fields[] = Field::create( 'checkbox', 'hide_gallery','Ocultar la galería' )->set_text( 'Activar' );
-
+        $fields[] = Field::create( 'checkbox', 'force_fullwidth_images', __('Force fullwidth images','mv23theme') )->set_text( 'Activar' );
+        // ROW QUANTITY
+        // $fields[] = Field::create( 'complex', 'items_in', __('Items visibles') )->add_fields(array(
+        //     Field::create( 'number', 'l_items', __('Items on desktop','mv23theme') )->set_placeholder('4')->set_default_value('4')->set_width( 30 ),
+        //     Field::create( 'number', 't_items', __('Items on tablet','mv23theme') )->set_placeholder('3')->set_default_value('3')->set_width( 30 ),
+        //     Field::create( 'number', 'm_items', __('Items on mobile','mv23theme') )->set_placeholder('2')->set_default_value('2')->set_width( 30 )
+        // ));
         // ITEMS GAP
         $fields[] = Field::create( 'complex', 'items_gap', __('Space between items') )->add_fields(array(
             Field::create( 'number', 'l_gap', __('Gap on desktop','mv23theme') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 ),
             Field::create( 'number', 't_gap', __('Gap on tablet','mv23theme') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 ),
             Field::create( 'number', 'm_gap', __('Gap on mobile','mv23theme') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 )
         ));
+
+        $fields[] = Field::create( 'tab', 'Advanced' );
+        $fields[] = Field::create( 'text', 'gallery_id' )->set_width(30);
+        $fields[] = Field::create( 'message', 'gallery_id_usage', 'Usar la siguiente clase para abrir la galería:' )->set_description('show-gallery--{gallery_id}')->add_dependency('gallery_id','','!=')->set_width(70);
+        $fields[] = Field::create( 'checkbox', 'hide_gallery','Ocultar la galería' )->set_text( 'Activar' );
 
 		return $fields;
 	}
@@ -170,7 +174,7 @@ class Gallery extends Component {
         $hide_gallery = ( isset($args['hide_gallery']) ) ? $args['hide_gallery'] : false;
         if($hide_gallery) $args['additional_classes'][] = 'hide';
 
-        $source = ( isset($args['source']) ) ? $args['source'] : 'wp-media'; // default for backward compatibility
+        $source = $args['source'] ?? 'manual';
         $settings = $args['wp_media_folder_settings'] ?? array(
             'link' => 'file',
             'columns' => 4,
@@ -185,7 +189,7 @@ class Gallery extends Component {
         $shortcode = '['.$shortcode_name.' link="'.$settings['link'].'" columns="'.$settings['columns'].'"  size="'.$settings['size'].'" targetsize="'.$settings['targetsize'].'" aspectratio="'.$aspect_ratio.'" display="'.$settings['display'].'" gallery_id="'.$gallery_id.'"';
 
         if($source == 'wp-media'){
-        	$wp_media_folder = $args['wp_media_folder'];
+        	$wp_media_folder = $args['wp_media_folder'] ?? 0;
         	if($wp_media_folder){
         		$shortcode .= ' wpmf_folder_id="'.$wp_media_folder.'" wpmf_autoinsert="1"';
         	}
@@ -201,6 +205,9 @@ class Gallery extends Component {
             $shortcode .= ' t_gap="'.$args['items_gap']['t_gap'].'px"'; 
             $shortcode .= ' m_gap="'.$args['items_gap']['m_gap'].'px"';
         }
+
+        $force_fullwidth_images = ( isset($args['force_fullwidth_images']) && $args['force_fullwidth_images'] ) ? '1' : '0';
+        $shortcode .= ' force_fullwidth_images="'.$force_fullwidth_images.'"';
 
         $shortcode .= ']';
 

@@ -4,6 +4,7 @@ CHANGELOG
 
 2.3.9 25-06-18
 - UF Feature: Add a gallery remove confirm message
+- Gallery Comp. Implementation: force_fullwidth_images
 
 2.3.8 25-06-17
 - Implement -none- post action in postcard.js

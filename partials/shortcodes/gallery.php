@@ -1,4 +1,6 @@
 <?php
+use Core\Builder\Template_Engine;
+
 function print_theme_gallery( $atts ) {
 	$a = shortcode_atts( array(
         'ids' => '',
@@ -12,7 +14,8 @@ function print_theme_gallery( $atts ) {
         'aspectratio' => '',
         'display' => 'default',
         'wpmf_folder_id' => null,
-        'gallery_id' => null
+        'gallery_id' => null,
+        'force_fullwidth_images' => false
     ), $atts );
 
     $attachments = array();
@@ -105,7 +108,11 @@ function print_theme_gallery( $atts ) {
                         </div>
                         <?php
                     } else {
-                        echo '<img src="'.$url.'">';
+                        $image_attrs['additional_attributes'] = array('src="'.$url.'"');
+                        if( $a['force_fullwidth_images'] ){
+                            $image_attrs['additional_attributes'][] = 'style=width:100%;';
+                        }
+                        echo '<img '.Template_Engine::generate_attributes($image_attrs).'>';
                     }
                     break;
 
