@@ -1,5 +1,10 @@
 mv23 changelog-------------------------
 
+- 18-06-2025
+- Feature: Add a gallery remove confirm message
+    (core/classes/Field/Gallery.php:79)
+    (core/js/field/gallery.js:89-92)
+
 - 06-06-2025
 - Fix: Limit the amount of times a group can be added script position (changed 02-06-2025)
     (core/js/field/repeater.js:366-377)

@@ -86,8 +86,10 @@
 				text: UltimateFields.L10N.localize( 'gallery-remove' ),
 				icon: 'dashicons-no',
 				callback: function() {
-					that.model.setValue( [] );
-					that.updateView();
+					if( confirm( UltimateFields.L10N.localize( 'gallery-remove-confirm' ) ) ) {
+						that.model.setValue( [] );
+						that.updateView();
+					}
 				}
 			});
 
