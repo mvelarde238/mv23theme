@@ -6,6 +6,7 @@ CHANGELOG
 - UF Feature: Add a gallery remove confirm message
 - Gallery Comp. Implementation: force_fullwidth_images
 - Migrate gallery component settings (!use migrator)
+- Fix uf images preview size
 
 2.3.8 25-06-17
 - Implement -none- post action in postcard.js
