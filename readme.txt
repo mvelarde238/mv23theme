@@ -2,7 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
-2.3.7 25-06-15
+2.3.8 25-06-17
+- Implement -none- post action in postcard.js
+
+2.3.7 25-06-16
 - Image Comp. Fix: credits can be null
 - Fix: Add data-speed to theme_gallery shortcode
 - Add Gallery Comp. default values for gallery settings

@@ -20,6 +20,11 @@
             url = this.getAttribute('href'),
             action = $postcard.attr('data-action');
 
+        if( action == 'none' ){
+            event.preventDefault();
+            return;
+        }
+
         if( action == 'show-popup' ){
             event.preventDefault();
 
