@@ -50,53 +50,79 @@ class Gallery extends Component {
         }
         
         // gallery settings
-        $fields[] = Field::create( 'tab', 'Gallery Settings' );
-        $gallery_settings = array(
-            // Field::create( 'checkbox', 'autoinsert' )->set_text( '¿Autoinsertar las imágenes agregadas a la galerîa?' ), // the shortcode needs the attachments id's
-            Field::create( 'select', 'display', 'Tipo')->add_options( array(
+        $fields[] = Field::create( 'tab', 'Settings' );
+        
+        // Field::create( 'checkbox', 'autoinsert' )->set_text( '¿Autoinsertar las imágenes agregadas a la galerîa?' ); // the shortcode needs the attachments id's
+
+        $fields[] = Field::create( 'select', 'display', 'Tipo')->add_options( array(
                 'default' => 'Default',
                 'slider' => 'Slider',
                 'masonry' => 'Masonry',
                 // 'porfolio' => 'Portfolio'
-            ))->set_width(14),
-            Field::create( 'number', 'columns', 'Columnas' )->set_default_value(4)->set_width(10),
-            Field::create( 'select', 'link', 'Acción al hacer click')->add_options( array(
+        ));
+        if( !MASONRY_IS_ACTIVE ){
+            $fields[] = Field::create( 'message', 'masonry_message', __('Activate Masonry','mv23theme') )->set_description('You have to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')->add_dependency('display', 'masonry', '=')->set_attr( 'style', 'background:#470e0e;color:#fff;width:100%;' );;
+        }
+
+        $fields[] = Field::create( 'select', 'link', 'Acción al hacer click')->add_options( array(
                 'none' => 'Ninguna',
                 'file' => 'Mostrar en Pop-up',
                 'post' => 'Página de imágen',
                 'custom' => 'Link Personalizado'
-            ))->set_default_value('file')->set_width(14),
-            Field::create( 'select', 'size', 'Image size')->add_options( array(
+            ))->set_default_value('file');
+
+        $fields[] = Field::create( 'select', 'size', 'Image size')->add_options( array(
                 'thumbnail' => 'Thumbnail',
                 'medium' => 'Medium',
                 'large' => 'Large',
                 'full' => 'Full',
-            ))->set_default_value('large')->set_width(14),
-            Field::create( 'select', 'targetsize', 'Lightbox size')->add_options( array(
-                'thumbnail' => 'Thumbnail',
-                'medium' => 'Medium',
-                'large' => 'Large',
-                'full' => 'Full',
-            ))->set_default_value('full')->add_dependency('link','file','=')->set_width(14),
-            // Field::create( 'select', 'orderby', 'Ordenar por')->add_options( array(
-            //     'custom' => 'Personalizado',
-            //     'rand' => 'Random',
-            //     'title' => 'Tìtulo',
-            //     'date' => 'Fecha'
-            // ))->add_dependency('../wp_media_folder','0','!=')->set_width(14),
-            // Field::create( 'select', 'order', 'Orden')->add_options( array(
-            //     'DESC' => 'Descendente',
-            //     'ASC' => 'Ascendente',
-            // ))->set_width(14),
-        );
+            ))->set_default_value('large');
         
-        if( !MASONRY_IS_ACTIVE ){
-            $gallery_settings[] = Field::create( 'message', 'masonry_message', __('Activate Masonry') )->set_description('You have to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')->add_dependency('display', 'masonry', '=')->set_attr( 'style', 'background:#470e0e;color:#fff;width:100%;' );;
-        }
-        $fields[] = Field::create( 'complex', 'wp_media_folder_settings', 'Settings' )->add_fields( $gallery_settings )->set_layout('rows')->hide_label();
+        $fields[] = Field::create( 'select', 'targetsize', 'Lightbox size')->add_options( array(
+                'thumbnail' => 'Thumbnail',
+                'medium' => 'Medium',
+                'large' => 'Large',
+                'full' => 'Full',
+            ))->set_default_value('full')->add_dependency('link','file','=');
+
+        // Field::create( 'select', 'orderby', 'Ordenar por')->add_options( array(
+        //     'custom' => 'Personalizado',
+        //     'rand' => 'Random',
+        //     'title' => 'Tìtulo',
+        //     'date' => 'Fecha'
+        // ))->add_dependency('../wp_media_folder','0','!=');
+        // Field::create( 'select', 'order', 'Orden')->add_options( array(
+        //     'DESC' => 'Descendente',
+        //     'ASC' => 'Ascendente',
+        // ));
+
+        $fields[] = Field::create( 'complex', '_gallery_id_wrapper', 'ID de la galería' )->merge()->add_fields(array(
+            Field::create( 'text', 'gallery_id' )
+                ->set_width( 50 ),
+            Field::create( 'checkbox', 'hide_gallery' )->set_text( __('Activate', 'mv23theme') )->set_width( 50 ),
+            Field::create( 'message', 'gallery_id_usage' )
+                ->set_description(__('Use <strong>show-gallery--GALLERY-ID</strong> css class on a button to open the gallery in the frontend', 'mv23theme'))
+                ->add_dependency('gallery_id','','!=')->hide_label()->set_width(100)
+        ));
+
+        // columns and gutter settings
+        $fields[] = Field::create( 'tab', __('Columns','mv23theme') );
+        $fields[] = Field::create( 'complex', '_items_wrapper', __('Columns', 'mv23theme') )->merge()->add_fields(array(
+             Field::create( 'number', 'items_in_desktop', __('Columns on desktop', 'mv23theme') )->set_default_value( '4' )->set_width( 25 ),
+             Field::create( 'number', 'items_in_laptop', __('Columns on laptop', 'mv23theme') )->set_default_value( '3' )->set_width( 25 ),
+             Field::create( 'number', 'items_in_tablet', __('Columns on tablet', 'mv23theme') )->set_default_value( '2' )->set_width( 25 ),
+             Field::create( 'number', 'items_in_mobile', __('Columns on mobile', 'mv23theme') )->set_default_value( '2' )->set_width( 25 )
+        ));
+
+        $fields[] = Field::create( 'complex', '_gutter_wrapper', __('Space between items', 'mv23theme') )->merge()->add_fields(array(
+            Field::create( 'number', 'gutter_in_desktop', __('Gap on desktop', 'mv23theme') )->set_default_value( '4' )->set_width( 25 ),
+            Field::create( 'number', 'gutter_in_laptop', __('Gap on laptop', 'mv23theme') )->set_default_value( '4' )->set_width( 25 ),
+            Field::create( 'number', 'gutter_in_tablet', __('Gap on tablet', 'mv23theme') )->set_default_value( '4' )->set_width( 25 ),
+            Field::create( 'number', 'gutter_in_mobile', __('Gap on mobile', 'mv23theme') )->set_default_value( '4' )->set_width( 25 )
+        ));
         
         // images settings
-        $fields[] = Field::create( 'tab', 'Images Settings' );
+        $fields[] = Field::create( 'tab', __('Images', 'mv23theme') );
         $fields[] = Field::create( 'image_select', 'aspect_ratio', __('Images aspect ratio','mv23theme') )->add_options(array(
                 '1/1'  => array(
                     'label' => '1:1',
@@ -144,23 +170,6 @@ class Gallery extends Component {
                 ),
             ));
         $fields[] = Field::create( 'checkbox', 'force_fullwidth_images', __('Force fullwidth images','mv23theme') )->set_text( 'Activar' );
-        // ROW QUANTITY
-        // $fields[] = Field::create( 'complex', 'items_in', __('Items visibles') )->add_fields(array(
-        //     Field::create( 'number', 'l_items', __('Items on desktop','mv23theme') )->set_placeholder('4')->set_default_value('4')->set_width( 30 ),
-        //     Field::create( 'number', 't_items', __('Items on tablet','mv23theme') )->set_placeholder('3')->set_default_value('3')->set_width( 30 ),
-        //     Field::create( 'number', 'm_items', __('Items on mobile','mv23theme') )->set_placeholder('2')->set_default_value('2')->set_width( 30 )
-        // ));
-        // ITEMS GAP
-        $fields[] = Field::create( 'complex', 'items_gap', __('Space between items') )->add_fields(array(
-            Field::create( 'number', 'l_gap', __('Gap on desktop','mv23theme') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 ),
-            Field::create( 'number', 't_gap', __('Gap on tablet','mv23theme') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 ),
-            Field::create( 'number', 'm_gap', __('Gap on mobile','mv23theme') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')->set_width( 30 )
-        ));
-
-        $fields[] = Field::create( 'tab', 'Advanced' );
-        $fields[] = Field::create( 'text', 'gallery_id' )->set_width(30);
-        $fields[] = Field::create( 'message', 'gallery_id_usage', 'Usar la siguiente clase para abrir la galería:' )->set_description('show-gallery--{gallery_id}')->add_dependency('gallery_id','','!=')->set_width(70);
-        $fields[] = Field::create( 'checkbox', 'hide_gallery','Ocultar la galería' )->set_text( 'Activar' );
 
 		return $fields;
 	}
@@ -175,18 +184,26 @@ class Gallery extends Component {
         if($hide_gallery) $args['additional_classes'][] = 'hide';
 
         $source = $args['source'] ?? 'manual';
-        $settings = $args['wp_media_folder_settings'] ?? array(
-            'link' => 'file',
-            'columns' => 4,
-            'size' => 'large',
-            'targetsize' => 'full',
-            'display' => 'default'
-        );
+        $link = $args['link'] ?? 'file';
+        $size = $args['size'] ?? 'large';
+        $targetsize = $args['targetsize'] ?? 'full';
+        $display = $args['display'] ?? 'default';
+
+        $d_columns = $args['items_in_desktop'] ?? 4;
+        $l_columns = $args['items_in_laptop'] ?? 3;
+        $t_columns = $args['items_in_tablet'] ?? 2;
+        $m_columns = $args['items_in_mobile'] ?? 1;
+
+        $d_gap = $args['gutter_in_desktop'] ?? 4;
+        $l_gap = $args['gutter_in_laptop'] ?? 4;
+        $t_gap = $args['gutter_in_tablet'] ?? 4;
+        $m_gap = $args['gutter_in_mobile'] ?? 4;
+
         $aspect_ratio = ( isset($args['aspect_ratio']) && $args['aspect_ratio'] != 'aspect-ratio-default' ) ? $args['aspect_ratio'] : 'aspect-ratio-default';
         $shortcode_name = ($source === 'manual') ? 'theme_gallery' : 'theme_gallery';
         $gallery_id = (isset($args['gallery_id'])) ? $args['gallery_id'] : '';
 
-        $shortcode = '['.$shortcode_name.' link="'.$settings['link'].'" columns="'.$settings['columns'].'"  size="'.$settings['size'].'" targetsize="'.$settings['targetsize'].'" aspectratio="'.$aspect_ratio.'" display="'.$settings['display'].'" gallery_id="'.$gallery_id.'"';
+        $shortcode = '['.$shortcode_name.' link="'.$link.'" d_columns="'.$d_columns.'" l_columns="'.$l_columns.'" t_columns="'.$t_columns.'" m_columns="'.$m_columns.'" d_gap="'.$d_gap.'" l_gap="'.$l_gap.'" t_gap="'.$t_gap.'" m_gap="'.$m_gap.'" size="'.$size.'" targetsize="'.$targetsize.'" aspectratio="'.$aspect_ratio.'" display="'.$display.'" gallery_id="'.$gallery_id.'"';
 
         if($source == 'wp-media'){
         	$wp_media_folder = $args['wp_media_folder'] ?? 0;
@@ -199,20 +216,13 @@ class Gallery extends Component {
         	$shortcode .= ' ids="'.$ids.'"';
         }
 
-        if(isset($args['items_gap'])){
-            $shortcode .= ' d_gap="'.$args['items_gap']['l_gap'].'px"';
-            $shortcode .= ' l_gap="'.$args['items_gap']['l_gap'].'px"';
-            $shortcode .= ' t_gap="'.$args['items_gap']['t_gap'].'px"'; 
-            $shortcode .= ' m_gap="'.$args['items_gap']['m_gap'].'px"';
-        }
-
         $force_fullwidth_images = ( isset($args['force_fullwidth_images']) && $args['force_fullwidth_images'] ) ? '1' : '0';
         $shortcode .= ' force_fullwidth_images="'.$force_fullwidth_images.'"';
 
         $shortcode .= ']';
 
         $additional_styles = array();
-        if($aspect_ratio != 'mv23theme') $additional_styles[] = '--aspect-ratio:'.$aspect_ratio;
+        if($aspect_ratio != 'default') $additional_styles[] = '--aspect-ratio:'.$aspect_ratio;
         $args['additional_styles'] = $additional_styles;
         
 		ob_start();

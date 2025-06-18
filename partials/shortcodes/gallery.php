@@ -4,10 +4,14 @@ use Core\Builder\Template_Engine;
 function print_theme_gallery( $atts ) {
 	$a = shortcode_atts( array(
         'ids' => '',
-        'columns' => 4,
-        'l_gap' => '4px',
-        't_gap' => '4px',
-        'm_gap' => '4px',
+        'd_columns' => 4,
+        'l_columns' => 3,
+        't_columns' => 2,
+        'm_columns' => 2,
+        'd_gap' => 4,
+        'l_gap' => 4,
+        't_gap' => 4,
+        'm_gap' => 4,
         'size' => 'large',
         'targetsize' => 'full',
         'link' => 'file',
@@ -62,21 +66,22 @@ function print_theme_gallery( $atts ) {
                 data-show-nav="1" 
                 data-autoplay="0" 
                 data-nav-position="bottom"
-                data-mobile="2"
-                data-tablet="3"
-                data-laptop="<?=$a['columns']?>"
-                data-desktop="<?=$a['columns']?>"
+                data-mobile="<?=$a['m_columns']?>"
+                data-tablet="<?=$a['t_columns']?>"
+                data-laptop="<?=$a['l_columns']?>"
+                data-desktop="<?=$a['d_columns']?>"
                 data-speed="450"
-                data-mobile-gutter="4"
-                data-tablet-gutter="4"
-                data-laptop-gutter="4"
-                data-desktop-gutter="4">
+                data-touch="1"
+                data-mobile-gutter="<?=$a['m_gap']?>"
+                data-tablet-gutter="<?=$a['t_gap']?>"
+                data-laptop-gutter="<?=$a['l_gap']?>"
+                data-desktop-gutter="<?=$a['d_gap']?>">
             <?php
         } else if ( $a['display'] == 'masonry' ) {
-            echo '<div class="theme-gallery theme-gallery--masonry" style="--d-columns:'.$a['columns'].'; --l-columns:'.$a['columns'].'; --t-columns:3; --m-columns:2; --aspect-ratio:'.$a['aspectratio'].'"">';
+            echo '<div class="theme-gallery theme-gallery--masonry" style="--d-gap:'.$a['d_gap'].'px; --l-gap:'.$a['l_gap'].'px; --t-gap:'.$a['t_gap'].'px; --m-gap:'.$a['m_gap'].'px; --d-columns:'.$a['d_columns'].'; --l-columns:'.$a['l_columns'].'; --t-columns:'.$a['t_columns'].'; --m-columns:'.$a['m_columns'].'; --aspect-ratio:'.$a['aspectratio'].'"">';
             echo '<div class="theme-gallery theme-gallery__item-sizer"></div>';
         } else {
-            echo '<div class="theme-gallery has-columns" style="--d-gap:'.$a['l_gap'].'; --l-gap:'.$a['l_gap'].'; --t-gap:'.$a['t_gap'].'; --m-gap:'.$a['m_gap'].'; --d-columns:'.$a['columns'].'; --l-columns:'.$a['columns'].'; --t-columns:3; --m-columns:2; --aspect-ratio:'.$a['aspectratio'].'">';
+            echo '<div class="theme-gallery has-columns" style="--d-gap:'.$a['d_gap'].'px; --l-gap:'.$a['l_gap'].'px; --t-gap:'.$a['t_gap'].'px; --m-gap:'.$a['m_gap'].'px; --d-columns:'.$a['d_columns'].'; --l-columns:'.$a['l_columns'].'; --t-columns:'.$a['t_columns'].'; --m-columns:'.$a['m_columns'].'; --aspect-ratio:'.$a['aspectratio'].'">';
         }
 
         foreach ($attachments as $attachment_id) :
