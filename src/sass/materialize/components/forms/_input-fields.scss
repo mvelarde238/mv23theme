@@ -3,25 +3,25 @@
 
 /* Style Placeholders */
 
-::placeholder {
-  color: $placeholder-text-color;
-}
+// ::placeholder {
+//   color: $placeholder-text-color;
+// }
 
-::-webkit-input-placeholder {
-  color: $placeholder-text-color;
-}
+// ::-webkit-input-placeholder {
+//   color: $placeholder-text-color;
+// }
 
-:-moz-placeholder { /* Firefox 18- */
-  color: $placeholder-text-color;
-}
+// :-moz-placeholder { /* Firefox 18- */
+//   color: $placeholder-text-color;
+// }
 
-::-moz-placeholder {  /* Firefox 19+ */
-  color: $placeholder-text-color;
-}
+// ::-moz-placeholder {  /* Firefox 19+ */
+//   color: $placeholder-text-color;
+// }
 
-:-ms-input-placeholder {
-  color: $placeholder-text-color;
-}
+// :-ms-input-placeholder {
+//   color: $placeholder-text-color;
+// }
 
 /* Text inputs */
 
