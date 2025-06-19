@@ -68,6 +68,7 @@ class Frontend extends Theme_Header_Data {
     
             wp_localize_script( $this->text_domain . '-scripts', 'MV23_GLOBALS', array(
                 'pageID' => get_the_ID(),
+                'isSingle' => is_single(),
                 'isMobile' => wp_is_mobile(), 
                 'ajaxUrl' => admin_url( 'admin-ajax.php' ), 
                 'homeUrl' => home_url(), 

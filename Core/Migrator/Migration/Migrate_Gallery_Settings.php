@@ -31,7 +31,7 @@ class Migrate_Gallery_Settings{
         ?>
         <div class="wrap">
             <div class="theme-migrator">
-                <h3>―――― Migrate Gallery Settings ( For version >= 2.3.9 )</h3>
+                <h3>―――― Migrate Gallery Settings ( For version >= 2.4.0 )</h3>
                 ――――― <button class="theme-migrator__init-new-gallery-settings button-primary" data-status="initial">
                     <span><i class="dashicons dashicons-migrate uf-button-icon"></i> INIT MIGRATION</span>
                     <span><i class="dashicons dashicons-admin-generic uf-button-icon"></i> PROCESSING</span>

@@ -2,7 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
-2.3.9 25-06-18
+2.4.1 25-06-19
+- Implement isSingle in MV23_GLOBALS
+
+2.4.0 25-06-18
 - UF Feature: Add a gallery remove confirm message
 - Gallery Comp. Implementation: force_fullwidth_images
 - Migrate gallery component settings (!use migrator)
