@@ -111,7 +111,22 @@ class Listing extends Component {
                 ))->set_width(25),
                 Field::create( 'number', 'offset', 'Offset' )->set_width(25),
             ))->add_dependency('show','auto','='),
-            
+
+            Field::create( 'complex', '_set_post_status_wrapper', '' )->merge()->add_fields(array(
+                Field::create( 'checkbox', 'set_post_status' )
+                ->set_text( __('Set post status','mv23theme') )
+                    ->hide_label()->fancy()->set_width(25),
+                Field::create( 'multiselect', 'post_status' )->add_options(array(
+                    'publish' => __('Published','mv23theme'),
+                    'draft' => __('Draft','mv23theme'),
+                    'pending' => __('Pending','mv23theme'),
+                    'future' => __('Scheduled','mv23theme'),
+                    'private' => __('Private','mv23theme'),
+                    'inherit' => __('Inherit','mv23theme'),
+                    'trash' => __('Trash','mv23theme')
+                ))->add_dependency('set_post_status')->hide_label()->set_width(70)
+            ))->add_dependency('show','auto','='),
+
             Field::create( 'tab', __('List Template','mv23theme')),
             Field::create( 'radio', 'list_template', 'Template' )->set_orientation( 'horizontal' )->add_options($listing_templates),
             
@@ -215,6 +230,7 @@ class Listing extends Component {
         $on_click_post = ( isset($args['on_click_post']) ) ? $args['on_click_post'] : 'redirect';
         $on_click_scroll_to = ( isset($args['on_click_scroll_to']) ) ? $args['on_click_scroll_to'] : '';
         $filter = $args['filter'] ?? 0;
+        $post_status = ( isset($args['set_post_status']) && $args['set_post_status'] ) ? $args['post_status'] : 'publish';
             
         if ($source_type == 'manual') {
             $posttype = '';
@@ -243,7 +259,7 @@ class Listing extends Component {
                 'order' => $order,
                 'orderby' => $orderby,
                 'offset' => $offset,
-                'post_status' => 'publish'
+                'post_status' => $post_status
             );
         
             // check if tax_query is needed 
@@ -351,7 +367,8 @@ class Listing extends Component {
             'wookey' => $woocommerce_key,
             'posttype' => $posttype,
             'pagination_type' => $pagination_type,
-            'scrollTop' => $scrolltop
+            'scrollTop' => $scrolltop,
+            'post_status' => $post_status
         );
         if ($source_type == 'auto') {
             $listing_args['per_page'] = $posts_per_page;

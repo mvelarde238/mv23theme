@@ -35,6 +35,7 @@ class Ajax_Load_Posts{
         $orderby = $listing_args["orderby"] ?? null;
         $wookey = $listing_args["wookey"];
         $pagination_type = $listing_args["pagination_type"];
+        $post_status = $listing_args["post_status"] ?? 'publish';
 
         if ( $posttype && $paged && $per_page ) {
             $paged = ($paged) ? (int) $paged : 1;
@@ -42,7 +43,7 @@ class Ajax_Load_Posts{
             $args_query = array( 
                 'post_type' => $posttype, 
                 'paged' => $paged,
-                'post_status' => 'publish',
+                'post_status' => $post_status
             );
 
             if( $order ) $args_query['order'] = $order;
@@ -54,15 +55,14 @@ class Ajax_Load_Posts{
                 $tax_query = array( 'relation' => 'AND' );
 
                 foreach ($taxonomies as $tax) {
-                    if( isset( $filter_values[$tax] ) && !empty( $filter_values[$tax] ) ){   
-                        array_push($tax_query, array(
-                            'taxonomy' => $tax,
-                            'field' => 'term_id',
-                            'terms' => array( $filter_values[$tax] ),
-                            'include_children' => true,
-                            'operator' => 'IN'
-                        ));
-                    }
+                    $_terms = ( isset( $filter_values[$tax] ) && !empty( $filter_values[$tax] ) ) ? array($filter_values[$tax]) : $terms;
+                    array_push($tax_query, array(
+                        'taxonomy' => $tax,
+                        'field' => 'term_id',
+                        'terms' => $_terms,
+                        'include_children' => true,
+                        'operator' => 'IN'
+                    ));
                 }
 
                 if($wookey == 'featured'){
@@ -165,7 +165,6 @@ class Ajax_Load_Posts{
             } else {
                 $result['status'] = "error";
                 $result['message'] = $texts[0][$lang];
-                $result['tax_query'] = $tax_query;
             }
 
         } else {

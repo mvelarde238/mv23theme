@@ -7,6 +7,7 @@ CHANGELOG
 - Gallery Comp. Implementation: force_fullwidth_images
 - Migrate gallery component settings (!use migrator)
 - Fix uf images preview size
+- Listing Comp. Implementation: set_post_status
 
 2.3.8 25-06-17
 - Implement -none- post action in postcard.js
