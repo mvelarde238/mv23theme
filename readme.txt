@@ -6,6 +6,7 @@ CHANGELOG
 - Implement isSingle in MV23_GLOBALS
 - Remove placeholder color
 - Menu and Testimonials Comp: move text-xs to component definition to be overridable
+- Fix: Ensure SVG header logo displays correct height across browsers
 
 2.4.0 25-06-18
 - UF Feature: Add a gallery remove confirm message

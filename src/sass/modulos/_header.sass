@@ -4,10 +4,10 @@
 	left: 0
 	z-index: 896
 	width: 100%
-	background-color: var(--static-header-color)
+	background-color: var(--static-header-color) 
 
 	&__content
-		padding: 20px 0
+		padding: 12px 0
 		display: flex
 		align-items: center
 		justify-content: flex-end
@@ -30,13 +30,12 @@
 		img
 			max-height: var(--static-header-logo-height)
 			transition: 500ms all
+			&[src*='.svg']
+				height: var(--static-header-logo-height)
 
 	&--sticky
 		background-color: var(--sticky-header-color)
 		box-shadow: 0 10px 20px rgba(0,0,0,.1)
-	&--sticky &__content
-		padding-top: 8px
-		padding-bottom: 8px
 	&--sticky &__logo img 
 		max-height: var(--sticky-header-logo-height)
 
