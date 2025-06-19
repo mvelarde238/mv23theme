@@ -5,6 +5,7 @@ CHANGELOG
 2.4.1 25-06-19
 - Implement isSingle in MV23_GLOBALS
 - Remove placeholder color
+- Menu and Testimonials Comp: move text-xs to component definition to be overridable
 
 2.4.0 25-06-18
 - UF Feature: Add a gallery remove confirm message
