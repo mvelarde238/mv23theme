@@ -63,6 +63,7 @@ class Properties
                 'sepia(100%)' => 'Sepia 100%',
                 'none' => 'None'
                 ]],
+            ['key' => 'height', 'label' => 'Height', 'type' => 'text'],
             ['key' => 'letterSpacing', 'label' => 'Letter Spacing', 'type' => 'text'],
             ['key' => 'margin', 'label' => 'Margin', 'type' => 'select', 'options' => self::get_default_space_options()],
             ['key' => 'opacity', 'label' => 'Opacity', 'type' => 'number', 'enable_slider' => true, 'min' => 0, 'max' => 1, 'step' => 0.01],
@@ -120,6 +121,7 @@ class Properties
                 'bottom center' => 'Bottom Center',
                 'bottom right' => 'Bottom Right'
                 ]],
+            ['key' => 'width', 'label' => 'Width', 'type' => 'text'],
             ['key' => 'xPercent', 'label' => 'X Percent', 'type' => 'select', 'options' => self::get_default_percentage_positions()],
             ['key' => 'x', 'label' => 'X Position', 'type' => 'select', 'options' => self::get_default_positions()],
             ['key' => 'yPercent', 'label' => 'Y Percent', 'type' => 'select', 'options' => self::get_default_percentage_positions()],
@@ -127,8 +129,6 @@ class Properties
             ['key' => 'yoyo', 'label' => 'Yoyo Effect', 'type' => 'boolean'],
             ['key' => 'zIndex', 'label' => 'Z Index', 'type' => 'number', 'enable_slider' => true, 'min' => -10, 'max' => 500, 'step' => 1],
             ['key' => 'z', 'label' => 'Z Position', 'type' => 'select', 'options' => self::get_default_positions()]
-            // ['key' => 'width', 'label' => 'Width', 'type' => 'number'],
-            // ['key' => 'height', 'label' => 'Height', 'type' => 'number'],
             // ['key' => 'fontSize', 'label' => 'Font Size', 'type' => 'number'],
         ];
     }

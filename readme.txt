@@ -4,6 +4,7 @@ CHANGELOG
 
 2.4.2 25-06-20
 - Allow Video component classes to be added from another component definition
+- Add width and height to Scroll Animations
 
 2.4.1 25-06-19
 - Implement isSingle in MV23_GLOBALS
