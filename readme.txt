@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.4.2 25-06-20
+- Allow Image component classes to be added from another component definition
+
 2.4.1 25-06-19
 - Implement isSingle in MV23_GLOBALS
 - Remove placeholder color

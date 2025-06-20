@@ -134,7 +134,9 @@ class Video extends Component {
     public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
         
-		$args['additional_classes'] = array('component','media');
+		$args['additional_classes'][] = 'component';
+		$args['additional_classes'][] = 'media';
+        
         $video_data = Template_Engine_Video::get_video_data($args);
         if( empty($video_data['code']) ) return;
     

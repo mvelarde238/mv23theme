@@ -124,7 +124,6 @@ class Image extends Component {
     public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
         
-        $args['lel'] = 'media-lel';
 		$args['additional_classes'][] = 'component';
 		$args['additional_classes'][] = 'media';
 
