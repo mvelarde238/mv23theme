@@ -78,7 +78,8 @@ class Migrate_2_2_X_to_2_3_0{
             '--text-m' => '',
             '--text-l' => '',
             '--text-xl' => '',
-            '--text-xxl' => ''
+            '--text-xxl' => '',
+            '--text-xxxl' => ''
         ];
 
         foreach ($old_options as $option) {

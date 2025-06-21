@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.4.3 25-06-21
+- Implement --text-xxxl in type scale
+
 2.4.2 25-06-20
 - Allow Video component classes to be added from another component definition
 - Add width and height to Scroll Animations

@@ -88,21 +88,24 @@ $container-width: 1240px !default; // used in some @media queries
 } 
 
 @mixin typography-properties{
-	--text-xxs: clamp(0.63rem, 0.60rem + 0.2vw, 0.75rem);   /* ~??px → 12px */
-	--text-xs: clamp(0.75rem, 0.72rem + 0.2vw, 0.875rem);   /* ~12px → 14px */
-  	--text-s:  clamp(0.875rem, 0.84rem + 0.2vw, 1rem);       /* ~14px → 16px */
-  	--text-m:  clamp(1rem, 0.96rem + 0.25vw, 1.125rem);      /* ~16px → 18px */
-  	--text-l:  clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);    /* ~18px → 20px */
-  	--text-xl: clamp(1.25rem, 1.15rem + 0.35vw, 1.5rem);      /* ~20px → 24px */
-  	--text-xxl: clamp(1.5rem, 1.25rem + 0.40vw, 2rem);      /* ~24px → 27px */
+	// Fluid Typography based on: https://www.fluid-type-scale.com/calculate?minFontSize=16&minWidth=320&minRatio=1.125&maxFontSize=18&maxWidth=1240&maxRatio=1.2&steps=xxs%2Cxs%2Cs%2Cm%2Cl%2Cxl%2Cxxl%2Cxxxl&baseStep=m&prefix=text&useContainerWidth=undefined&includeFallbacks=undefined&useRems=true&remValue=16&decimals=2&previewFont=Inter&previewText=Almost+before+we+knew+it%2C+we+had+left+the+ground&previewWidth=1240
+	--text-xxs: clamp(0.7rem, -0.09vi + 0.72rem, 0.65rem);
+	--text-xs: clamp(0.79rem, -0.02vi + 0.79rem, 0.78rem);
+	--text-s: clamp(0.89rem, 0.08vi + 0.87rem, 0.94rem);
+	--text-m: clamp(1rem, 0.22vi + 0.96rem, 1.13rem);
+	--text-l: clamp(1.13rem, 0.39vi + 1.05rem, 1.35rem);
+	--text-xl: clamp(1.27rem, 0.62vi + 1.14rem, 1.62rem);
+	--text-xxl: clamp(1.42rem, 0.9vi + 1.24rem, 1.94rem);
+	--text-xxxl: clamp(1.6rem, 1.27vi + 1.35rem, 2.33rem);
 
 	--global-font-size: var(--text-s);
-	--heading-h1: 2.2em;
-	--heading-h2: 1.9em;
-	--heading-h3: 1.7em;
-	--heading-h4: 1.5em;
-	--heading-h5: 1.2em;
-	--heading-h6: 1em;
+
+	--heading-h1: var(--text-xxxl);
+	--heading-h2: var(--text-xxl);
+	--heading-h3: var(--text-xl);
+	--heading-h4: var(--text-l);
+	--heading-h5: var(--text-m);
+	--heading-h6: var(--text-s);
 	--heading-h1-line-height: var(--headings-line-height);
 	--heading-h2-line-height: var(--headings-line-height);
 	--heading-h3-line-height: var(--headings-line-height);

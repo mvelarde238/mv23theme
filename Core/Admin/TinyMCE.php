@@ -413,6 +413,14 @@ class TinyMCE{
 				    'styles' => array(
 						'fontSize' => 'var(--text-xxl)'
 		    		)
+				),
+				array(  
+				    'title' => __('Text XXXL','mv23theme'),
+				    'block' => 'div',
+					'wrapper' => true,
+				    'styles' => array(
+						'fontSize' => 'var(--text-xxxl)'
+		    		)
 				)
 			)
 		));

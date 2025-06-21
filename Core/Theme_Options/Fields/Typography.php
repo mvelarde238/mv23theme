@@ -106,7 +106,8 @@ class Typography {
                     'var(--text-m)' => 'var(--text-m)',
                     'var(--text-l)' => 'var(--text-l)',
                     'var(--text-xl)' => 'var(--text-xl)',
-                    'var(--text-xxl)' => 'var(--text-xxl)'
+                    'var(--text-xxl)' => 'var(--text-xxl)',
+                    'var(--text-xxxl)' => 'var(--text-xxxl)'
                 ]
             ],
             ['key' => '--global-line-height', 'label' => 'Global Line Height', 'type' => 'text', 'placeholder' => '1.6' ],
@@ -117,37 +118,38 @@ class Typography {
             ['key' => '--headings-line-height', 'label' => 'Headings Line Height', 'type' => 'text', 'placeholder' => '1.3' ],
             ['type' => 'tab', 'label' => 'Headings' ],
             ['key' => 'heading-h1', 'label' => 'Heading H1', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h1', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '2.2em'],
+                ['key' => '--heading-h1', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => 'var(--text-xxxl)'],
                 ['key' => '--heading-h1-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['key' => 'heading-h2', 'label' => 'Heading H2', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h2', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1.9em'],
+                ['key' => '--heading-h2', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => 'var(--text-xxl)'],
                 ['key' => '--heading-h2-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['key' => 'heading-h3', 'label' => 'Heading H3', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h3', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1.7em'],
+                ['key' => '--heading-h3', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => 'var(--text-xl)'],
                 ['key' => '--heading-h3-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['key' => 'heading-h4', 'label' => 'Heading H4', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h4', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1.5em'],
+                ['key' => '--heading-h4', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => 'var(--text-l)'],
                 ['key' => '--heading-h4-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['key' => 'heading-h5', 'label' => 'Heading H5', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h5', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1.2em'],
+                ['key' => '--heading-h5', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => 'var(--text-m)'],
                 ['key' => '--heading-h5-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['key' => 'heading-h6', 'label' => 'Heading H6', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h6', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1em'],
+                ['key' => '--heading-h6', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => 'var(--text-s)'],
                 ['key' => '--heading-h6-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['type' => 'tab', 'label' => 'Type Scale' ],
-            ['key' => '--text-xxs', 'label' => 'XXS Paragraphs (--text-xxs)', 'type' => 'text', 'placeholder' => 'clamp(0.63rem, 0.60rem + 0.2vw, 0.75rem)' ],
-            ['key' => '--text-xs', 'label' => 'XS Paragraphs (--text-xs)', 'type' => 'text', 'placeholder' => 'clamp(0.75rem, 0.72rem + 0.2vw, 0.875rem)' ],
-            ['key' => '--text-s', 'label' => 'S Paragraphs (--text-s)', 'type' => 'text', 'placeholder' => 'clamp(0.875rem, 0.84rem + 0.2vw, 1rem)' ],
-            ['key' => '--text-m', 'label' => 'M Paragraphs (--text-m)', 'type' => 'text', 'placeholder' => 'clamp(1rem, 0.96rem + 0.25vw, 1.125rem)' ],
-            ['key' => '--text-l', 'label' => 'L Paragraphs (--text-l)', 'type' => 'text', 'placeholder' => 'clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem)' ],
-            ['key' => '--text-xl', 'label' => 'XL Paragraphs (--text-xl)', 'type' => 'text', 'placeholder' => 'clamp(1.25rem, 1.15rem + 0.35vw, 1.5rem)' ],
-            ['key' => '--text-xxl', 'label' => 'XXL Paragraphs (--text-xxl)', 'type' => 'text', 'placeholder' => 'clamp(1.5rem, 1.25rem + 0.40vw, 2rem)' ]
+            ['key' => '--text-xxs', 'label' => 'XXS Paragraphs (--text-xxs)', 'type' => 'text', 'placeholder' => 'clamp(0.7rem, -0.09vi + 0.72rem, 0.65rem)' ],
+            ['key' => '--text-xs', 'label' => 'XS Paragraphs (--text-xs)', 'type' => 'text', 'placeholder' => 'clamp(0.79rem, -0.02vi + 0.79rem, 0.78rem)' ],
+            ['key' => '--text-s', 'label' => 'S Paragraphs (--text-s)', 'type' => 'text', 'placeholder' => 'clamp(0.89rem, 0.08vi + 0.87rem, 0.94rem)' ],
+            ['key' => '--text-m', 'label' => 'M Paragraphs (--text-m)', 'type' => 'text', 'placeholder' => 'clamp(1rem, 0.22vi + 0.96rem, 1.13rem)' ],
+            ['key' => '--text-l', 'label' => 'L Paragraphs (--text-l)', 'type' => 'text', 'placeholder' => 'clamp(1.13rem, 0.39vi + 1.05rem, 1.35rem)' ],
+            ['key' => '--text-xl', 'label' => 'XL Paragraphs (--text-xl)', 'type' => 'text', 'placeholder' => 'clamp(1.27rem, 0.62vi + 1.14rem, 1.62rem)' ],
+            ['key' => '--text-xxl', 'label' => 'XXL Paragraphs (--text-xxl)', 'type' => 'text', 'placeholder' => 'clamp(1.42rem, 0.9vi + 1.24rem, 1.94rem)' ],
+            ['key' => '--text-xxxl', 'label' => 'XXL Paragraphs (--text-xxxl)', 'type' => 'text', 'placeholder' => 'clamp(1.6rem, 1.27vi + 1.35rem, 2.33rem)' ]
         ];
     }
 
