@@ -100,12 +100,13 @@ $container-width: 1240px !default; // used in some @media queries
 
 	--global-font-size: var(--text-s);
 
-	--heading-h1: var(--text-xxxl);
-	--heading-h2: var(--text-xxl);
-	--heading-h3: var(--text-xl);
-	--heading-h4: var(--text-l);
-	--heading-h5: var(--text-m);
-	--heading-h6: var(--text-s);
+	--heading-h1: 2.33em;
+	--heading-h2: 1.94em;
+	--heading-h3: 1.62em;
+	--heading-h4: 1.35em;
+	--heading-h5: 1.13em;
+	--heading-h6: 0.94em;
+
 	--heading-h1-line-height: var(--headings-line-height);
 	--heading-h2-line-height: var(--headings-line-height);
 	--heading-h3-line-height: var(--headings-line-height);

@@ -4,6 +4,7 @@ CHANGELOG
 
 2.4.3 25-06-21
 - Implement --text-xxxl in type scale
+- Typography improvements: switch to using em units for better scalability and consistency
 
 2.4.2 25-06-20
 - Allow Video component classes to be added from another component definition

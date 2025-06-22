@@ -118,27 +118,27 @@ class Typography {
             ['key' => '--headings-line-height', 'label' => 'Headings Line Height', 'type' => 'text', 'placeholder' => '1.3' ],
             ['type' => 'tab', 'label' => 'Headings' ],
             ['key' => 'heading-h1', 'label' => 'Heading H1', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h1', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => 'var(--text-xxxl)'],
+                ['key' => '--heading-h1', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '2.33em'],
                 ['key' => '--heading-h1-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['key' => 'heading-h2', 'label' => 'Heading H2', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h2', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => 'var(--text-xxl)'],
+                ['key' => '--heading-h2', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1.94em'],
                 ['key' => '--heading-h2-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['key' => 'heading-h3', 'label' => 'Heading H3', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h3', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => 'var(--text-xl)'],
+                ['key' => '--heading-h3', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1.62em'],
                 ['key' => '--heading-h3-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['key' => 'heading-h4', 'label' => 'Heading H4', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h4', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => 'var(--text-l)'],
+                ['key' => '--heading-h4', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1.35em'],
                 ['key' => '--heading-h4-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['key' => 'heading-h5', 'label' => 'Heading H5', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h5', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => 'var(--text-m)'],
+                ['key' => '--heading-h5', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '1.13em'],
                 ['key' => '--heading-h5-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['key' => 'heading-h6', 'label' => 'Heading H6', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h6', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => 'var(--text-s)'],
+                ['key' => '--heading-h6', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '0.94em'],
                 ['key' => '--heading-h6-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['type' => 'tab', 'label' => 'Type Scale' ],
