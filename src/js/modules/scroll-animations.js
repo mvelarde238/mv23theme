@@ -91,6 +91,17 @@
             if( obj.hasOwnProperty('duration') ) obj.duration = parseFloat(obj.duration);
             if( obj.hasOwnProperty('delay') ) obj.delay = parseFloat(obj.delay);
             if( obj.hasOwnProperty('repeat') ) obj.repeat = parseInt(obj.repeat);
+            if( obj.hasOwnProperty('stagger') ){
+                let stagger_string = obj.stagger;
+
+                const stagger_obj = stagger_string.split('|').reduce((acc, pair) => {
+                    const [key, value] = pair.split(':');
+                    acc[key] = isNaN(value) ? value : Number(value);
+                    return acc;
+                }, {})
+
+                obj.stagger = stagger_obj;
+            }
             return obj;
         }
 

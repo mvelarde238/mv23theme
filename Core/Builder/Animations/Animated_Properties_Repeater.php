@@ -76,7 +76,11 @@ class Animated_Properties_Repeater
             }
 
             if ($type != 'boolean') {
-                $group->add_field(Field::create('text', 'custom_value')->set_prefix(__($label, '_mv23theme'))->add_dependency('custom'));
+                $custom_field = Field::create('text', 'custom_value')->set_prefix(__($label, '_mv23theme'))->add_dependency('custom');
+
+                if( $type === 'select' && $key === 'stagger' ) $custom_field->set_default_value( 'amount:1|from:start|grid:auto' );
+
+                $group->add_field( $custom_field );
                 $group->add_field(Field::create('checkbox', 'custom')->set_attr('style', $small_checkbox_styles)->set_text('<span class="dashicons dashicons-edit"></span>'));
             }
 
