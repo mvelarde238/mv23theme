@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+2.4.4 25-06-23
+- counter.js implementation (GSAP version)
+  jquery.waypoints.js script moved to /ignore folder
+
 2.4.3 25-06-21
 - Implement --text-xxxl in type scale
 - Typography improvements: switch to using em units for better scalability and consistency
