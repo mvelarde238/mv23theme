@@ -48,6 +48,7 @@ class Properties
                 'path("M10 10 H 90 V 90 H 10 L 10 10")' => 'path("M10 10 H 90 V 90 H 10 L 10 10")',
                 'polygon(50% 0%, 100% 100%, 0% 100%)' => 'polygon(50% 0%, 100% 100%, 0% 100%)'
             ]],
+            ['key' => 'customProperty', 'label' => 'Custom Property', 'type' => 'complex'],
             ['key' => 'delay', 'label' => 'Delay (seconds)', 'type' => 'number', 'enable_slider' => true, 'min' => 0, 'max' => 10, 'step' => 0.1],
             ['key' => 'duration', 'label' => 'Duration (seconds)', 'type' => 'number', 'enable_slider' => true, 'min' => 0, 'max' => 10, 'step' => 0.1],
             ['key' => 'ease', 'label' => 'Ease', 'type' => 'select', 'options' => self::get_default_ease_options()],

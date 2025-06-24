@@ -6,6 +6,7 @@ CHANGELOG
 - counter.js implementation (GSAP version)
   jquery.waypoints.js script moved to /ignore folder
 - Normalize stagger property handling in scroll-animation.js script
+- customProperty implementation in ..\Animations\Properties
 
 2.4.3 25-06-21
 - Implement --text-xxxl in type scale

@@ -71,7 +71,11 @@ Class Scroll_Animations{
                                     if( isset($item['custom']) && $item['custom'] ){
                                         if($item['custom_value'] != '') $from_or_to[$item['property']] = $item['custom_value'];
                                     } else {
-                                        $from_or_to[$item['property']] = $item['value'];
+                                        if( $item['property'] != 'customProperty' ){
+                                            $from_or_to[$item['property']] = $item['value'];
+                                        } else {
+                                            if( !empty($item['custom_prop']) ) $from_or_to[$item['custom_prop']] = $item['value'];
+                                        }
                                     }
                                 }
                             }

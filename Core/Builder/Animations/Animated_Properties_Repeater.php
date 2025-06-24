@@ -55,6 +55,7 @@ class Animated_Properties_Repeater
                     ->add_fields(array(
                         Field::create('text', 'value')->set_prefix(__($label, '_mv23theme'))->add_dependency('custom', '1', '!='),
                     ));
+
             } elseif ($type === 'boolean') {
                 $group = Repeater_Group::create($key)
                     ->set_title(__($label, '_mv23theme'))
@@ -70,12 +71,22 @@ class Animated_Properties_Repeater
                             ->add_options($property['options'])
                             ->add_dependency('custom', '1', '!=')
                     ));
+            } elseif ($type === 'complex') {
+                $group = Repeater_Group::create($key)
+                    ->set_title(__($label, '_mv23theme'))
+                    ->add_fields(array(
+                        Field::create('text', 'custom_prop'),
+                        Field::create('text', 'value')
+                    ));
+
             } else {
                 // Handle other types if needed
                 continue;
             }
 
-            if ($type != 'boolean') {
+            $types_without_custom = array('boolean','text','complex');
+
+            if ( !in_array($type, $types_without_custom) ) {
                 $custom_field = Field::create('text', 'custom_value')->set_prefix(__($label, '_mv23theme'))->add_dependency('custom');
 
                 if( $type === 'select' && $key === 'stagger' ) $custom_field->set_default_value( 'amount:1|from:start|grid:auto' );
