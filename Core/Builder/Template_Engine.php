@@ -117,21 +117,14 @@ class Template_Engine{
     }
 
     public static function check_video_background( $args ){
-        return ( isset($args['settings']['video_background']) ) ?
-            self::check_video_settings( $args['settings']['video_background'] ) :
-            '';
-    }
-
-    public static function check_video_settings( $args ){
         $video = '';
-        $video_data = Video::get_video_data( $args );
-        if($video_data['code']){
-            $code = $video_data['code'];
-            $styles = $video_data['styles'];
-            $video = '<div class="video-background"'; 
-            if( $styles ) $video .= ' style="'.$styles.'"';
-            $video .= '>'.$code.'</div>';
-        } 
+        
+        if ( isset($args['settings']['video_background']) ) {
+            $args['settings']['video_background']['video_settings']['classes'] = 'video-background'; 
+            $video_data = Video::get_video_data( $args['settings']['video_background'] );
+            if($video_data['code']) $video = $video_data['code'];
+        }
+        
         return $video;
     }
 

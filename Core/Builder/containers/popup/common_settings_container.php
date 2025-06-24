@@ -102,7 +102,7 @@ Container::create( 'common_settings_container' )
             Field::create( 'embed', 'external_url', 'URL')->add_dependency('use')->add_dependency('video_source','external','=')->set_width(30),
 
             Field::create( 'complex', 'video_settings', __('Video Settings','mv23theme') )->add_fields(array(
-                Field::create( 'color', 'background_color', __('Background color','mv23theme') )->set_default_value('#000000')->set_width(20),
+                Field::create( 'color', 'background_color', __('Background color','mv23theme') )->set_width(20),
                 Field::create( 'checkbox', 'autoplay' )->set_text( __('Activate','mv23theme') )->set_width(20),
                 Field::create( 'checkbox', 'muted' )->set_text( __('Activate','mv23theme') )->set_width(20),
                 Field::create( 'checkbox', 'loop' )->set_text( __('Activate','mv23theme') )->set_width(20),
