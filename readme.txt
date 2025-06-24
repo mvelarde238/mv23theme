@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.4.5 25-06-24
+- base_font_size option replace --global-font-size selector on Theme_Options\Fields\Typography
+
 2.4.4 25-06-23
 - counter.js implementation (GSAP version)
   jquery.waypoints.js script moved to /ignore folder

@@ -53,7 +53,7 @@ class Migrate_2_2_X_to_2_3_0{
 
         $old_options = ['paragraph','h1_heading','h2_heading','h3_heading','h4_heading','h5_heading','h6_heading','bold'];
         $typography_css_vars = [
-            '--global-font-size' => '',
+            'base_font_size' => '',
             '--global-line-height' => '',
             '--text-blocks-spacing' => '',
             '--normal-font-weight' => '',
@@ -87,7 +87,7 @@ class Migrate_2_2_X_to_2_3_0{
             $control['old_data'][$option] = $option_value;
 
             if( $option === 'paragraph' ){
-                if( $option_value['font_size'] ) $typography_css_vars['--global-font-size'] = $option_value['font_size'];
+                if( $option_value['font_size'] ) $typography_css_vars['base_font_size'] = $option_value['font_size'];
                 if( $option_value['line_height'] ) $typography_css_vars['--global-line-height'] = $option_value['line_height'];
                 if( $option_value['font_weight'] ) $typography_css_vars['--normal-font-weight'] = $option_value['font_weight'];
 

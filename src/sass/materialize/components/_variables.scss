@@ -98,7 +98,7 @@ $container-width: 1240px !default; // used in some @media queries
 	--text-xxl: clamp(1.42rem, 0.9vi + 1.24rem, 1.94rem);
 	--text-xxxl: clamp(1.6rem, 1.27vi + 1.35rem, 2.33rem);
 
-	--global-font-size: var(--text-s);
+	--global-font-size: var(--text-m);
 
 	--heading-h1: 2.33em;
 	--heading-h2: 1.94em;

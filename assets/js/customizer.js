@@ -1,6 +1,7 @@
 (function(c) {
     const UF_Customize = UltimateFields.customize;
         body = document.querySelector('body'),
+        html = document.querySelector('html'),
         root = document.querySelector(':root');
 
     function hexToRgba(hex, alpha) {
@@ -71,13 +72,18 @@
             if( key.startsWith('--') ){
                 set_CSS_prop(key,value);
             } else {
-                // is headings complex
-                let heading_complex = value;
-                for (const _key in heading_complex) {
-                    let _value = heading_complex[_key];
-                    if( _key.startsWith('--') ){
-                        set_CSS_prop(_key,_value);
+                if( key.startsWith('heading') ){
+                    // is headings complex
+                    let heading_complex = value;
+                    for (const _key in heading_complex) {
+                        let _value = heading_complex[_key];
+                        if( _key.startsWith('--') ){
+                            set_CSS_prop(_key,_value);
+                        }
                     }
+                } else {
+                    // is base font sise
+                    html.style.setProperty('font-size', value);
                 }
             }
         }

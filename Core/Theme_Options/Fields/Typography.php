@@ -98,18 +98,7 @@ class Typography {
 
         return [
             ['type' => 'tab', 'label' => 'General' ],
-            [
-                'key' => '--global-font-size', 'label' => 'Global Font Size', 'type' => 'select', 'placeholder' => 'var(--text-s)', 'options' => [
-                    'var(--text-xxs)' => 'var(--text-xxs)',
-                    'var(--text-xs)' => 'var(--text-xs)',
-                    'var(--text-s)' => 'var(--text-s)',
-                    'var(--text-m)' => 'var(--text-m)',
-                    'var(--text-l)' => 'var(--text-l)',
-                    'var(--text-xl)' => 'var(--text-xl)',
-                    'var(--text-xxl)' => 'var(--text-xxl)',
-                    'var(--text-xxxl)' => 'var(--text-xxxl)'
-                ]
-            ],
+            ['key' => 'base_font_size', 'label' => 'Base Font Size', 'type' => 'text', 'placeholder' => '16px'],
             ['key' => '--global-line-height', 'label' => 'Global Line Height', 'type' => 'text', 'placeholder' => '1.6' ],
             ['key' => '--text-blocks-spacing', 'label' => 'Text Blocks Spacing', 'type' => 'text', 'placeholder' => '1.5rem' ],
             ['key' => '--normal-font-weight', 'label' => 'Normal Font Weight', 'type' => 'select', 'placeholder' => '400', 'options' => $font_weight_options ],
@@ -159,19 +148,20 @@ class Typography {
         foreach (self::get_css_properties() as $property) {
             $key = $property['key'] ?? '';
             $label = $property['label'];
+            $field_label = str_starts_with($key, '--') ? $key : $label;
             $type = $property['type'];
 
             if ($type === 'tab') {
                 $field = Field::create('tab', $label );
 
             } elseif ($type === 'text') {
-                $field = Field::create('text', $key, $key)->set_placeholder( $property['placeholder'] ?? '' );
+                $field = Field::create('text', $key, $field_label)->set_placeholder( $property['placeholder'] ?? '' );
 
             } elseif ($type === 'select') {
                 $property_options = $property['options'];
                 if($property['placeholder']) $property_options[''] = $property['placeholder'];
 
-                $field = Field::create('text', $key, $key)
+                $field = Field::create('text', $key, $field_label)
                     ->set_placeholder( $property['placeholder'] ?? '' )
                     ->add_suggestions( array_keys($property_options) );
 
@@ -186,7 +176,7 @@ class Typography {
                         ->set_placeholder( $f['placeholder'] ?? '' );
                 }
 
-                $field = Field::create('complex', $key, $key)
+                $field = Field::create('complex', $key, $field_label)
                     ->set_prefix(__($label, '_mv23theme'))
                     ->add_fields( $complex_fields )
                     ->merge();

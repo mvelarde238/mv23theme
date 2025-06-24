@@ -272,7 +272,26 @@ class Theme_Options extends Theme_Header_Data{
         $typography_css_vars = get_option('typography_css_vars');
         if( is_array($typography_css_vars) ){
             foreach ($typography_css_vars as $prop => $value) {
-                if($value) $properties[] = $prop.':'.$value;
+                if($value){
+                    if( str_starts_with($prop,'--') ){
+                        $properties[] = $prop.':'.$value;
+                    }
+                } 
+            }
+        }
+
+        return $properties;
+    }
+
+    public function get_html_properties(){
+        $properties = [];
+
+        $typography_css_vars = get_option('typography_css_vars');
+        if( is_array($typography_css_vars) ){
+            foreach ($typography_css_vars as $prop => $value) {
+                if($value && $prop === 'base_font_size' ){
+                    if($value != '16px') $properties[] = 'font-size:'.$value;
+                }
             }
         }
 
@@ -294,6 +313,12 @@ class Theme_Options extends Theme_Header_Data{
                     $css .= $prop;
                 }
             }
+        }
+
+        $html_properties = self::$instance->get_html_properties();
+        if( !empty($html_properties) ){
+            $html_properties = implode(';', $html_properties);
+            if( !empty($html_properties) ) $css .= 'html{'.$html_properties.'}';
         }
         
         if( !empty($root_lines) ) $css .= ':root, .text-color-1 {'.implode(';', $root_lines ).'}';
@@ -352,6 +377,6 @@ class Theme_Options extends Theme_Header_Data{
 
     public function enqueue_uf_customize_preview_script(){
         $uri = $this->theme_uri . '/assets/js/customizer.js';
-	    wp_enqueue_script( 'theme-custom-fields', $uri, array( 'jquery', 'uf-customize-preview' ), '1.0', true );
+	    wp_enqueue_script( 'theme-custom-fields', $uri, array( 'jquery', 'uf-customize-preview' ), $this->version, true );
     }
 }

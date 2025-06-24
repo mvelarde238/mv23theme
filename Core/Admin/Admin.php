@@ -124,6 +124,12 @@ class Admin extends Theme_Header_Data {
             $settings['content_style'] .= str_replace(':root', 'body#tinymce.wp-editor', $css_properties);
         }
 
+        $html_properties = $theme_options->get_html_properties();
+        if( !empty($html_properties) ){
+            $html_properties_css = 'html {'.implode(';', $html_properties ).'}';
+            $settings['content_style'] .= str_replace(':root', 'body#tinymce.wp-editor', $html_properties_css);
+        }
+
         return $settings;
     }
 
