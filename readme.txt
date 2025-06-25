@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.4.6 25-06-25
+- Add playsinline attribute to playable videos for improved mobile compatibility
+
 2.4.5 25-06-24
 - base_font_size option replace --global-font-size selector on Theme_Options\Fields\Typography
 

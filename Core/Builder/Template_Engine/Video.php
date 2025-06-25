@@ -36,10 +36,10 @@ Class Video{
                     $video_data['code'] = '<video ';
                     if( $video_settings['classes'] ) $video_data['code'] .= ' class="'.$video_settings['classes'].'"';
                     if( $video_type == 'playable' ) $video_data['code'] .= ' controls';
-                    if( $video_settings['muted'] ) $video_data['code'] .= ' muted="muted"';
+                    if( $video_settings['muted'] ) $video_data['code'] .= ' muted';
                     if( $video_settings['loop'] ) $video_data['code'] .= ' loop';
                     if( $poster ) $video_data['code'] .= ' poster="'.$poster.'"';
-                    if( $video_settings['autoplay'] ) $video_data['code'] .= ' autoplay';
+                    if( $video_settings['autoplay'] ) $video_data['code'] .= ' autoplay playsinline';
                     if( count($video_styles) ) $video_data['code'] .= ' style="'.implode(';',$video_styles).'"';
                     $video_data['code'] .= '><source src="'.$video_url.'">Your browser does not support the video tag.</video>';
                 }
