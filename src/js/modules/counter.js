@@ -1,6 +1,8 @@
 (function ($, c) {
     $(function () {
 
+        if( !MV23_GLOBALS.scrollAnimations ) return;
+
         gsap.registerPlugin(ScrollTrigger);
 
         document.querySelectorAll('.counter').forEach(function (counter) {

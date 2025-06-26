@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.4.7 25-06-26
+- Add validation to ensure GSAP is loaded before initializing counter.js
+
 2.4.6 25-06-25
 - Add playsinline attribute to playable videos for improved mobile compatibility
 
