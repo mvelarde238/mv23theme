@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.4.8 25-06-27
+- Validate column gap to avoid empty CSS values
+
 2.4.7 25-06-26
 - Add validation to ensure GSAP is loaded before initializing counter.js
 

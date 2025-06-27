@@ -107,7 +107,9 @@ class Row extends Component {
 		foreach ($devices as $key) {
 			$gap_meta = $key.'_gap';
 			if( isset($row_settings[$gap_meta]) ){
-				$columns_styles[] = '--'.$key.'-gap:'.$row_settings[$gap_meta].'px';
+				if( !empty($row_settings[$gap_meta]) ){
+					$columns_styles[] = '--'.$key.'-gap:'.$row_settings[$gap_meta].'px';
+				}
 			}
 		}
 
