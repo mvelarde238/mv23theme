@@ -107,8 +107,11 @@ class Row extends Component {
 		foreach ($devices as $key) {
 			$gap_meta = $key.'_gap';
 			if( isset($row_settings[$gap_meta]) ){
-				if( !empty($row_settings[$gap_meta]) ){
-					$columns_styles[] = '--'.$key.'-gap:'.$row_settings[$gap_meta].'px';
+				if( $row_settings[$gap_meta] != '' ){
+					// format gap value: numeric values will be converted to px
+					$formatted_gap = ( preg_match('/^[0-9]+$/', $row_settings[$gap_meta]) ) ? $row_settings[$gap_meta].'px' : $row_settings[$gap_meta];
+					// add gap to styles
+					$columns_styles[] = '--'.$key.'-gap:'.$formatted_gap;
 				}
 			}
 		}

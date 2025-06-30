@@ -59,7 +59,7 @@ Container::create( 'row_settings_container' )
                 array( 'value' => 'repeat(6, 1fr)', 'label' => '1/6', 'image' => '1fr-1fr-1fr-1fr-1fr-1fr' )
             ))
         ),
-        Field::create( 'number', 'l_gap', __('Space between columns','mv23theme') )->set_placeholder('20')->set_default_value('20')->set_suffix('px'),
+        Field::create( 'text', 'l_gap', __('Space between columns','mv23theme') )->set_placeholder('20px'),
 
         // TABLET -----------------------------------------------------------------------------------------------------------------------------------------------
         Field::create('tab','Tablet')->set_icon( 'dashicons-tablet' ),
@@ -100,7 +100,7 @@ Container::create( 'row_settings_container' )
                 array( 'value' => '1fr', 'label' => '100%', 'image' => '6-columns-1fr' )
             ))
         ),
-        Field::create( 'number', 't_gap', __('Space between columns','mv23theme') )->set_placeholder('20')->set_default_value('20')->set_suffix('px'),
+        Field::create( 'text', 't_gap', __('Space between columns','mv23theme') )->set_placeholder('20px'),
 
         // MOBILE -----------------------------------------------------------------------------------------------------------------------------------------------
         Field::create('tab','Mobile')->set_icon( 'dashicons-smartphone' ),
@@ -141,5 +141,5 @@ Container::create( 'row_settings_container' )
                 array( 'value' => '1fr', 'label' => '100%', 'image' => '6-columns-1fr' )
             ))
         ),
-        Field::create( 'number', 'm_gap', __('Space between columns','mv23theme') )->set_placeholder('20')->set_default_value('20')->set_suffix('px')
+        Field::create( 'text', 'm_gap', __('Space between columns','mv23theme') )->set_placeholder('20px')
     ));
