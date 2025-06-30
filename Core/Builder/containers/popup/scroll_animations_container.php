@@ -90,7 +90,33 @@ $scroll_animation_settings_fields = array(
     Field::create( 'checkbox', 'add_indicators' )
         ->hide_label()
         ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
-        ->set_text( __('Show indicators','mv23theme') )
+        ->set_text( __('Show indicators','mv23theme') ),
+
+    // initial rules settings
+    Field::create( 'checkbox', 'set_initial_rules' )
+        ->hide_label()
+        ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
+        ->set_text( __('Set initial rules','mv23theme') ),
+    Field::create( 'repeater', 'initial_rules' )
+        ->set_add_text( __('Add rule','mv23theme') )
+        ->hide_label()
+        ->add_group('rule', array(
+            'edit_mode' => 'popup',
+            'layout' => 'rows',
+            'title_template' => '<% if(element["el"] == "this"){ %>Trigger element<% } else { %><%= element["selector"] %><% } %>
+                <% if(rules.length > 0){ %> - <%= rules.length %> rules (<%= rules[0] && rules[0].property ? rules[0].property : "" %>)<% } %>',
+            'fields' => array(
+                Field::create( 'complex', 'element', __('Affected Element','mv23theme') )->add_fields(array(
+                    Field::create( 'select', 'el' )->add_options( array(
+                        'this' => __('Trigger Element','mv23theme'),
+                        'selector' => __('Inner Element','mv23theme'),
+                        'outer_selector' => __('Outer Element','mv23theme')
+                    ))->hide_label()->set_width( 50 ),
+                    Field::create( 'text', 'selector' )->add_dependency('el','this','!=')->hide_label()->set_width( 50 )
+                )),
+                Animated_Properties_Repeater::getRepeater('rules', __('Rules', 'mv23theme'))
+            )
+        ))->add_dependency('set_initial_rules')
 );
 
 array_push($scroll_animation_fields, Field::create( 'repeater', 'groups' )
@@ -105,12 +131,12 @@ array_push($scroll_animation_fields, Field::create( 'repeater', 'groups' )
                 ->hide_label()->rows_layout()
                 ->set_width( 50 ),
 
-            Field::create( 'repeater', 'timeline', __('Timeline', 'mv23theme') )
+            Field::create( 'repeater', 'timeline', __('Animation Timeline', 'mv23theme') )
                 ->set_add_text(__('Add animation','mv23theme'))
                 ->add_group('tween', array(
                     'edit_mode' => 'popup',
                     'layout' => 'rows',
-                    'title_template' => '<%= element["selector"] %>',
+                    'title_template' => '<% if(element["el"] == "this"){ %>Trigger element<% } else { %><%= element["selector"] %><% } %>',
                     'fields' => array(
                         Field::create( 'complex', 'element', __('Animated Element','mv23theme') )->add_fields(array(
                             Field::create( 'select', 'el' )->add_options( array(

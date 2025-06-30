@@ -7,6 +7,7 @@ CHANGELOG
 - Implement --l/t/m-columns-gap in theme options
 - Row component placeholder now uses the columns gap value defined in theme options
 - Scroll Animation improvement: add disable_everywhere setting
+- Scroll Animation improvement: add gsap.set() initial rules functionality
 
 2.4.8 25-06-27
 - Validate column gap to avoid empty CSS values

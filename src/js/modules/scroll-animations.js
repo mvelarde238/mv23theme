@@ -13,6 +13,17 @@
                     scrollAnimations.forEach(group => {
                         var triggerElement = ( group['trigger_element'] != 'this' ) ? $(elem).find(group['trigger_element']) : elem;
 
+                        // set initial rules
+                        if( group['initial_rules'] && group['initial_rules'].length ){
+                            group['initial_rules'].forEach(initial_rule => {
+                                var target = get_target(triggerElement, initial_rule[0]);
+                                if( target.length || target instanceof Element ){
+                                    gsap.set(target, initial_rule[1]);
+                                }
+                            });
+                        }
+
+                        // add animations
                         if( triggerElement.length ){
                             for (let index = 0; index < triggerElement.length; index++) {
                                 var _tgrEl = triggerElement[index];
@@ -66,7 +77,7 @@
 
             if( group['timeline'].length ){
                 group['timeline'].forEach(tween_obj => {
-                    var _tweenElem = get_tweenElem(triggerElement, tween_obj[0]);
+                    var _tweenElem = get_target(triggerElement, tween_obj[0]);
                     if( _tweenElem.length || _tweenElem instanceof Element ){
                         var from = normalize_properties(tween_obj[1]);
                         var to = normalize_properties(tween_obj[2]);
@@ -105,22 +116,22 @@
             return obj;
         }
 
-        function get_tweenElem(triggerElement, obj){
-            var tweenElem = null;
+        function get_target(triggerElement, obj){
+            var targetElem = null;
             switch ( obj['el'] ) {
                 case 'selector':
-                    tweenElem = $(triggerElement).find(obj['selector']);
+                    targetElem = $(triggerElement).find(obj['selector']);
                     break;
                     
                 case 'outer_selector':
-                    tweenElem = $(obj['selector'])[0];
+                    targetElem = $(obj['selector'])[0];
                     break;
 
                 default:
-                    tweenElem = triggerElement;
+                    targetElem = triggerElement;
                     break;
             }
-            return tweenElem;
+            return targetElem;
         }
 
         function trigger_carrusel(gsapScroll, triggerElement){

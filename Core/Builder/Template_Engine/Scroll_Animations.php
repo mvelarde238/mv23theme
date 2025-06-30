@@ -61,25 +61,10 @@ Class Scroll_Animations{
                 if( $timeline_raw ){
                     foreach ($timeline_raw as $tween_raw) {
                         $tween = array();
-
                         $tween[] = $tween_raw['element'];
 
                         foreach (['from','to'] as $key) {
-                            $from_or_to = array();
-                            $from_or_to_raw = $tween_raw['animated_properties'][$key] ?? array();
-                            if( is_array($from_or_to_raw) ){
-                                foreach ($from_or_to_raw as $item) {
-                                    if( isset($item['custom']) && $item['custom'] ){
-                                        if($item['custom_value'] != '') $from_or_to[$item['property']] = $item['custom_value'];
-                                    } else {
-                                        if( $item['property'] != 'customProperty' ){
-                                            $from_or_to[$item['property']] = $item['value'];
-                                        } else {
-                                            if( !empty($item['custom_prop']) ) $from_or_to[$item['custom_prop']] = $item['value'];
-                                        }
-                                    }
-                                }
-                            }
+                            $from_or_to = self::process_raw_properties($tween_raw['animated_properties'][$key]);
                             $tween[] = $from_or_to;
                         }
 
@@ -87,6 +72,19 @@ Class Scroll_Animations{
                         $tween[] = $position;
 
                         $timeline[] = $tween;
+                    }
+                }
+
+                // initial rules setting
+                $initial_rules = array();
+                if( isset($settings['set_initial_rules']) && $settings['set_initial_rules'] ){
+                    if(is_array($settings['initial_rules']) && !empty($settings['initial_rules'])){
+                        foreach ($settings['initial_rules'] as $rule_group) {
+                            $rule_data = array();
+                            $rule_data[] = $rule_group['element'];
+                            $rule_data[] = self::process_raw_properties($rule_group['rules']);
+                            $initial_rules[] = $rule_data;
+                        }
                     }
                 }
                             
@@ -100,7 +98,8 @@ Class Scroll_Animations{
                     'pin_settings' => $pin_settings,
                     'trigger_carrusel' => $trigger_carrusel,
                     'timeline' => $timeline,
-                    'toggle_class' => $toggle_class
+                    'toggle_class' => $toggle_class,
+                    'initial_rules' => $initial_rules
                 ));
             }
                     
@@ -108,5 +107,29 @@ Class Scroll_Animations{
         }
 
         return $scroll_data_attributes;
+    }
+
+    private static function process_raw_properties($raw_properties) {
+        $processed_properties = array();
+
+        if( is_array($raw_properties) && !empty($raw_properties) ) {
+            foreach ($raw_properties as $property) {
+                if (isset($property['custom']) && $property['custom']) {
+                    if ($property['custom_value'] != '') {
+                        $processed_properties[$property['property']] = $property['custom_value'];
+                    }
+                } else {
+                    if ($property['property'] != 'customProperty') {
+                        $processed_properties[$property['property']] = $property['value'];
+                    } else {
+                        if (!empty($property['custom_prop'])) {
+                            $processed_properties[$property['custom_prop']] = $property['value'];
+                        }
+                    }
+                }
+            }
+        }
+
+        return $processed_properties;
     }
 }
