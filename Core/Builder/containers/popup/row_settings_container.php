@@ -19,7 +19,7 @@ function create_columns_width_settings($options){
 
 function get_gap_placeholder($prefix) {
     $typography_css_vars = get_option('typography_css_vars', array());
-    return $typography_css_vars['--'.$prefix.'-columns-gap'] ? $typography_css_vars['--'.$prefix.'-columns-gap'] : '20px';
+    return $typography_css_vars['--'.$prefix.'-columns-gap'] ?? '20px';
 }
 
 Container::create( 'row_settings_container' ) 
