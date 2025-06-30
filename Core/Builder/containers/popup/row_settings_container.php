@@ -17,6 +17,11 @@ function create_columns_width_settings($options){
     return $settings;
 }
 
+function get_gap_placeholder($prefix) {
+    $typography_css_vars = get_option('typography_css_vars', array());
+    return $typography_css_vars['--'.$prefix.'-columns-gap'] ? $typography_css_vars['--'.$prefix.'-columns-gap'] : '20px';
+}
+
 Container::create( 'row_settings_container' ) 
     // ->add_location( 'post_type', UF_POSTTYPES )
     ->set_layout( 'rows' )
@@ -59,7 +64,7 @@ Container::create( 'row_settings_container' )
                 array( 'value' => 'repeat(6, 1fr)', 'label' => '1/6', 'image' => '1fr-1fr-1fr-1fr-1fr-1fr' )
             ))
         ),
-        Field::create( 'text', 'l_gap', __('Space between columns','mv23theme') )->set_placeholder('20px'),
+        Field::create( 'text', 'l_gap', __('Space between columns','mv23theme') )->set_placeholder( get_gap_placeholder('l') ),
 
         // TABLET -----------------------------------------------------------------------------------------------------------------------------------------------
         Field::create('tab','Tablet')->set_icon( 'dashicons-tablet' ),
@@ -100,7 +105,7 @@ Container::create( 'row_settings_container' )
                 array( 'value' => '1fr', 'label' => '100%', 'image' => '6-columns-1fr' )
             ))
         ),
-        Field::create( 'text', 't_gap', __('Space between columns','mv23theme') )->set_placeholder('20px'),
+        Field::create( 'text', 't_gap', __('Space between columns','mv23theme') )->set_placeholder( get_gap_placeholder('t') ),
 
         // MOBILE -----------------------------------------------------------------------------------------------------------------------------------------------
         Field::create('tab','Mobile')->set_icon( 'dashicons-smartphone' ),
@@ -141,5 +146,5 @@ Container::create( 'row_settings_container' )
                 array( 'value' => '1fr', 'label' => '100%', 'image' => '6-columns-1fr' )
             ))
         ),
-        Field::create( 'text', 'm_gap', __('Space between columns','mv23theme') )->set_placeholder('20px')
+        Field::create( 'text', 'm_gap', __('Space between columns','mv23theme') )->set_placeholder( get_gap_placeholder('m') )
     ));
