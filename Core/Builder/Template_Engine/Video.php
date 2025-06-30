@@ -6,7 +6,6 @@ Class Video{
         $video_data = array( 'url' => null, 'code' => null );
 
         $video_source = ( isset($args['video_source']) ) ? $args['video_source'] : 'selfhosted';
-        $video_type = ( isset($args['video_type']) ) ? $args['video_type'] : 'popable';
 
         $defaults = array(
             'bgc' => "",
