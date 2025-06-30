@@ -10,6 +10,7 @@ Class Video{
 
         $defaults = array(
             'bgc' => "",
+            'controls' => 1,
             'loop' => 0,
             'muted' => 0,
             'autoplay' => 0,
@@ -35,7 +36,7 @@ Class Video{
                     $video_data['url'] = $video_url;
                     $video_data['code'] = '<video ';
                     if( $video_settings['classes'] ) $video_data['code'] .= ' class="'.$video_settings['classes'].'"';
-                    if( $video_type == 'playable' ) $video_data['code'] .= ' controls';
+                    if( $video_settings['controls'] ) $video_data['code'] .= ' controls';
                     if( $video_settings['muted'] ) $video_data['code'] .= ' muted';
                     if( $video_settings['loop'] ) $video_data['code'] .= ' loop';
                     if( $poster ) $video_data['code'] .= ' poster="'.$poster.'"';
@@ -59,7 +60,7 @@ Class Video{
                     'noInfo' => '&showinfo=0&rel=0',
                     'autoplay' => '&autoplay=0'
                 );
-                if( $video_type != 'playable' ) $video_args['noControls'] = '&controls=0';
+                if( !$video_settings['controls'] ) $video_args['noControls'] = '&controls=0';
                 if( $video_settings['muted'] ) $video_args['muted'] = '&mute=1';
                 if( $video_settings['autoplay'] ) $video_args['autoplay'] = '&autoplay=1';
                 if( $video_settings['loop'] ) $video_args['loop'] = '&loop=1';            

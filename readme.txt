@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+2.5.0 25-06-30
+- Migrate video component settings (!use migrator)
+  Add a checkbox for video controls and expand_on_click setting
+
 2.4.9 25-06-30
 - Row Component improvement: gap property now accepts any CSS unit; numeric values are automatically converted to px
 - Implement --l/t/m-columns-gap in theme options

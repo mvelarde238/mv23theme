@@ -42,12 +42,7 @@ class Video extends Component {
             Field::create( 'embed', 'external_url', 'URL')->add_dependency('video_source','external','=')->set_width(50),
             Field::create( 'video', 'video' )->add_dependency('video_source','selfhosted','=')->set_width(50),
     
-            Field::create('radio', 'video_type', 'Formato:')
-                ->set_orientation('horizontal')
-                ->add_options(array(
-                    'playable' => 'Reproducible',
-                    'popable' => 'Abrir en Pop Up'
-                ))
+            Field::create('checkbox', 'expand_on_click', __('Expand on click','mv23theme'))->fancy()
                 ->add_dependency('video_source','selfhosted','=')
                 // ->add_dependency('video','','NOT_NULL')
                 ->add_dependency_group()
@@ -55,12 +50,12 @@ class Video extends Component {
                 ->add_dependency('external_url','','!='),
             
             Field::create( 'complex', 'video_settings' )->add_fields(array(
-                    Field::create( 'color', 'bgc', 'Color de Fondo' )->set_default_value('#000000')->set_width(20),
-                    Field::create( 'checkbox', 'autoplay', 'AutoPlay' )->set_text( 'Activar' )->set_width(20),
-                    Field::create( 'checkbox', 'muted', 'Muted' )->set_text( 'Activar' )->set_width(20),
-                    Field::create( 'checkbox', 'loop', 'Bucle' )->set_text( 'Activar' )->set_width(20),
-                    Field::create( 'number', 'opacity', 'Transparencia' )
-                        ->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width(20)
+                    Field::create( 'color', 'bgc', __('Background color','mv23theme') )->set_default_value('#000000')->set_width(10),
+                    Field::create( 'checkbox', 'controls', __('Controls','mv23theme') )->set_text( __('Activate','mv23theme') )->set_default_value(1)->set_width(10),
+                    Field::create( 'checkbox', 'autoplay', __('AutoPlay','mv23theme') )->set_text( __('Activate','mv23theme') )->set_width(10),
+                    Field::create( 'checkbox', 'muted', __('Muted','mv23theme') )->set_text( __('Activate','mv23theme') )->set_width(10),
+                    Field::create( 'checkbox', 'loop', __('Loop','mv23theme') )->set_text( __('Activate','mv23theme') )->set_width(10),
+                    Field::create( 'number', 'opacity', __('Opacity','mv23theme') )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width(10)
                 ))
                 ->add_dependency('video_source','selfhosted','=')
                 // ->add_dependency('video','','NOT_NULL')
@@ -141,8 +136,9 @@ class Video extends Component {
         if( empty($video_data['code']) ) return;
     
         $video_source = ( isset($args['video_source']) ) ? $args['video_source'] : 'selfhosted';
-        $video_type = ( isset($args['video_type']) ) ? $args['video_type'] : 'popable';
-        if( $video_type == 'popable' ){
+
+        $expand_on_click = ( isset($args['expand_on_click']) && $args['expand_on_click'] ) ? true : false;
+        if( $expand_on_click ){
             $video_key = ( $video_source === 'selfhosted' ) ? 'internal' : 'external';
             $args['actions_settings'] = array();
             $args['actions_settings']['actions'] = array(
@@ -166,7 +162,6 @@ class Video extends Component {
         $object_fit = ( isset($args['object_fit']) && $args['object_fit'] != 'contain' ) ? $args['object_fit'] : false;
         if( $object_fit ) $args['additional_styles'][] = '--object-fit:'.$object_fit;
     
-        $args['additional_classes'][] = $video_type;
         $args['additional_classes'][] = $video_source;
 
         $attachment = ($video_source === 'selfhosted') ? get_post( $args['video']['videos'][0] ): null;
