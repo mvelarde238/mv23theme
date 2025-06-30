@@ -83,6 +83,10 @@ $scroll_animation_settings_fields = array(
         ->hide_label()
         ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
         ->set_text( __('Disable on mobile', 'mv23theme') ),
+    Field::create( 'checkbox', 'disable_everywhere', __('Disable everywhere', 'mv23theme') )
+        ->hide_label()
+        ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
+        ->set_text( __('Disable everywhere', 'mv23theme') ),
     Field::create( 'checkbox', 'add_indicators' )
         ->hide_label()
         ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
@@ -95,7 +99,7 @@ array_push($scroll_animation_fields, Field::create( 'repeater', 'groups' )
     ->add_group('group1', array(
         'title' => 'Scroll Animation',
         'edit_mode' => 'popup',
-        'title_template' => '<%= settings["animation_name"] %>',
+        'title_template' => '<%= settings["animation_name"] %> <% if(settings["disable_everywhere"] == 1){ %> <span style="color:red;font-weight:bold;">(disabled)</span> <% } %>',
         'fields' => array(
             Field::create( 'complex', 'settings' )->add_fields( $scroll_animation_settings_fields )
                 ->hide_label()->rows_layout()

@@ -14,6 +14,7 @@ Class Scroll_Animations{
             foreach ($animations_settings['groups'] as $group) {
     
                 $settings = $group['settings'];
+                if( isset($settings['disable_everywhere']) && $settings['disable_everywhere'] == 1 ) continue;
                 if( IS_MOBILE && isset($settings['disable_on_mobile']) && $settings['disable_on_mobile'] == 1 ) continue;           
     
                 $trigger_element = ($settings['trigger_element']['el'] == 'selector' ) ? $settings['trigger_element']['selector'] : 'this';

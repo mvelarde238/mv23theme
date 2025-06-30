@@ -6,6 +6,7 @@ CHANGELOG
 - Row Component improvement: gap property now accepts any CSS unit; numeric values are automatically converted to px
 - Implement --l/t/m-columns-gap in theme options
 - Row component placeholder now uses the columns gap value defined in theme options
+- Scroll Animation improvement: add disable_everywhere setting
 
 2.4.8 25-06-27
 - Validate column gap to avoid empty CSS values
