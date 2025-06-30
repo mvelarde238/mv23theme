@@ -123,6 +123,10 @@ $container-width: 1240px !default; // used in some @media queries
 	
 	--text-block-spacing: 1.5rem;
 	--button-padding: .5em 1em;	
+
+	--l-columns-gap: 20px;
+	--t-columns-gap: 20px;
+	--m-columns-gap: 20px;
 }
 
 $page-module-padding: 40px 0 !default;

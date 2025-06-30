@@ -105,6 +105,11 @@ class Typography {
             ['key' => '--bold-font-weight', 'label' => 'Bold Font Weight', 'type' => 'select', 'placeholder' => '700', 'options' => $font_weight_options ],
             ['key' => '--headings-font-weight', 'label' => 'Headings Font Weight', 'type' => 'select', 'placeholder' => 'var(--bold-font-weight)', 'options' => $font_weight_options ],
             ['key' => '--headings-line-height', 'label' => 'Headings Line Height', 'type' => 'text', 'placeholder' => '1.3' ],
+            ['key' => 'columns-gap', 'label' => 'Columns Gap', 'type' => 'complex', 'fields' => [
+                ['key' => '--l-columns-gap', 'label' => 'Desktop', 'type' => 'text', 'placeholder' => '20px'],
+                ['key' => '--t-columns-gap', 'label' => 'Tablet', 'type' => 'text', 'placeholder' => '20px'],
+                ['key' => '--m-columns-gap', 'label' => 'Mobile', 'type' => 'text', 'placeholder' => '20px']
+            ]],
             ['type' => 'tab', 'label' => 'Headings' ],
             ['key' => 'heading-h1', 'label' => 'Heading H1', 'type' => 'complex', 'fields' => [
                 ['key' => '--heading-h1', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '2.33em'],

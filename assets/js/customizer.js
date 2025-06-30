@@ -81,8 +81,17 @@
                             set_CSS_prop(_key,_value);
                         }
                     }
+                } else if( key == 'columns-gap' ) {
+                    // is columns gap complex
+                    let columns_gap = value;
+                    for (const _key in columns_gap) {
+                        let _value = columns_gap[_key];
+                        if( _key.startsWith('--') ){
+                            set_CSS_prop(_key,_value);
+                        }
+                    }
                 } else {
-                    // is base font sise
+                    // is base font size
                     html.style.setProperty('font-size', value);
                 }
             }

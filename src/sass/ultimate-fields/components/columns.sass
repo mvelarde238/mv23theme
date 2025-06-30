@@ -1,6 +1,5 @@
 .columns
     display: grid
-    // gap: 20px
     
 /* hack to prevent "2big" components
     (slider, adaptive menu, etc)
@@ -16,7 +15,7 @@
 @media #{$large-and-up}
     .columns
         grid-template-columns: var(--l-grid)
-        gap: var(--l-gap, 20px)
+        gap: var(--l-gap, var(--l-columns-gap))
     .column
         order: var(--l-order)
         justify-content: var(--l-alignment)
@@ -25,7 +24,7 @@
 @media #{$medium-only}
     .columns
         grid-template-columns: var(--t-grid)
-        gap: var(--t-gap, 20px)
+        gap: var(--t-gap, var(--t-columns-gap))
     .column
         order: var(--t-order)
         justify-content: var(--t-alignment)
@@ -54,7 +53,7 @@
 @media #{$small-and-down}
     .columns
         grid-template-columns: var(--m-grid)
-        gap: var(--m-gap, 20px)
+        gap: var(--m-gap, var(--m-columns-gap))
     .column
         order: var(--m-order)
         justify-content: var(--m-alignment)

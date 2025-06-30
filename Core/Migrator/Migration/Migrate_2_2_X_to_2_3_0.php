@@ -79,7 +79,10 @@ class Migrate_2_2_X_to_2_3_0{
             '--text-l' => '',
             '--text-xl' => '',
             '--text-xxl' => '',
-            '--text-xxxl' => ''
+            '--text-xxxl' => '',
+            '--l-columns-gap' => '',
+            '--t-columns-gap' => '',
+            '--m-columns-gap' => ''
         ];
 
         foreach ($old_options as $option) {
