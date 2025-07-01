@@ -102,11 +102,12 @@ Container::create( 'common_settings_container' )
             Field::create( 'embed', 'external_url', 'URL')->add_dependency('use')->add_dependency('video_source','external','=')->set_width(30),
 
             Field::create( 'complex', 'video_settings', __('Video Settings','mv23theme') )->add_fields(array(
-                Field::create( 'color', 'background_color', __('Background color','mv23theme') )->set_width(20),
-                Field::create( 'checkbox', 'autoplay' )->set_text( __('Activate','mv23theme') )->set_width(20),
-                Field::create( 'checkbox', 'muted' )->set_text( __('Activate','mv23theme') )->set_width(20),
-                Field::create( 'checkbox', 'loop' )->set_text( __('Activate','mv23theme') )->set_width(20),
-                Field::create( 'number', 'opacity', __('Opacity','mv23theme') )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width(20)
+                Field::create( 'color', 'bgc', __('Background color','mv23theme') )->set_width(10),
+                Field::create( 'checkbox', 'controls', __('Controls','mv23theme') )->set_text( __('Activate','mv23theme') )->set_width(10),
+                Field::create( 'checkbox', 'autoplay', __('AutoPlay','mv23theme') )->set_text( __('Activate','mv23theme') )->set_default_value(1)->set_width(10),
+                Field::create( 'checkbox', 'muted', __('Muted','mv23theme') )->set_text( __('Activate','mv23theme') )->set_default_value(1)->set_width(10),
+                Field::create( 'checkbox', 'loop', __('Loop','mv23theme') )->set_text( __('Activate','mv23theme') )->set_default_value(1)->set_width(10),
+                Field::create( 'number', 'opacity', __('Opacity','mv23theme') )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width(10)
             ))->hide_label()->add_dependency('use')
         )),
         Field::create( 'complex', 'slider_background', __('Slider background', 'mv23theme') )->add_fields(array(

@@ -76,7 +76,7 @@ class Migrate_Video_Settings{
             "SELECT pm.meta_id, pm.post_id, pm.meta_key, pm.meta_value, p.post_type
             FROM {$wpdb->postmeta} pm
             JOIN {$wpdb->posts} p ON pm.post_id = p.ID
-            WHERE pm.meta_key IN ('page_modules','components','offcanvas_element_content', 'blocks_layout')
+            WHERE pm.meta_key IN ('page_modules','components','offcanvas_element_content', 'blocks_layout','page_header_settings')
             AND p.post_type != 'revision'
             LIMIT %d OFFSET %d",
             $batch_size,
@@ -119,6 +119,12 @@ class Migrate_Video_Settings{
                 $new_blocks_layout_data = $this->migrate_content_layout_data($old_data);
                 if($do_the_update) update_post_meta($page->post_id, 'blocks_layout', $new_blocks_layout_data);
                 $page_control['new_data'] = $new_blocks_layout_data;
+            }
+
+            if( $page->meta_key == 'page_header_settings' ){
+                $new_page_header_settings_data = $this->migrate_settings_data($old_data);
+                if($do_the_update) update_post_meta($page->post_id, 'page_header_settings', $new_page_header_settings_data);
+                $page_control['new_data'] = $new_page_header_settings_data;
             }
 
             $general_control[] = $page_control;
@@ -232,7 +238,27 @@ class Migrate_Video_Settings{
             unset( $new_component['video_type'] );
         }
 
+        $new_componnent['settings'] = $this->migrate_settings_data( $component['settings'] );
+
         return $new_component;
+    }
+
+    public function migrate_settings_data( $old_settings ){
+        $new_settings = $old_settings;
+
+        if( is_array($old_settings) && !empty($old_settings) ){
+            if( isset($old_settings['video_background']) ){
+                $old_video_settings = $old_settings['video_background']['video_settings'];
+
+                // migrate video settings
+                $old_video_settings['controls'] = false;
+                $old_video_settings['bgc'] = $old_video_settings['background_color'] ?? '';
+                unset( $old_video_settings['background_color'] );
+                $new_settings['video_background']['video_settings'] = $old_video_settings;
+            }
+        }
+
+        return $new_settings;
     }
 
     public function has_inner_components( $component_type ){

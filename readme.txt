@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.5.1 25-07-01
+- Add support for migrating video_background settings on page_header_settings
+
 2.5.0 25-06-30
 - Migrate video component settings (!use migrator)
   Add a checkbox for video controls and expand_on_click setting
