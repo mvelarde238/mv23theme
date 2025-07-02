@@ -6,6 +6,7 @@ CHANGELOG
 - Add support for migrating video_background settings on page_header_settings
 - feat: improve GSAP ScrollTrigger integration and AJAX compatibility
   DEBUG_SCRIPTS constant implementation
+- .sticky-posts-filter class implementation
 
 2.5.0 25-06-30
 - Migrate video component settings (!use migrator)
