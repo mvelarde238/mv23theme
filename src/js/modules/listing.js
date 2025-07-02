@@ -9,8 +9,8 @@
         var formData = create_form_data($filter),
             listing_args = $component.attr('data-listing-args'),
             paged = paged || 1,
-            listing_template = listing_args.listing_template,
-            scrollTop = listing_args.scrollTop;
+            listing_template = JSON.parse(listing_args).listing_template,
+            scrollTop = JSON.parse(listing_args).scrollTop;
 
         formData.append('action', "load_posts");
         formData.append('nonce', MV23_GLOBALS.nonce);
@@ -58,7 +58,7 @@
 
                         if(scrollTop) {
                             var headerHeight = MV23_GLOBALS.headerHeight;
-                            $("html, body").animate({ scrollTop: ($component.offset().top - headerHeight) }, {duration: 800, queue: false, easing: 'easeOutCubic'});
+                            $("html, body").animate({ scrollTop: ($component.offset().top - headerHeight) }, {duration: 800, queue: false});
                         }
                         break;
 
@@ -76,6 +76,19 @@
                     default:
                         c(response);
                 }
+
+                // Refresh ScrollTrigger breakpoints after content update
+                setTimeout(function() {
+                    if (typeof window.gsap !== 'undefined' && window.gsap.ScrollTrigger) {
+                        if (DEBUG) console.log('Refreshing ScrollTrigger');
+                        window.gsap.ScrollTrigger.refresh();
+                    } else if (typeof window.ScrollTrigger !== 'undefined') {
+                        if (DEBUG) console.log('Refreshing ScrollTrigger (global)');
+                        window.ScrollTrigger.refresh();
+                    } else {
+                        if (DEBUG) console.log('GSAP ScrollTrigger not available - gsap:', typeof window.gsap, 'ScrollTrigger:', typeof window.ScrollTrigger);
+                    }
+                }, 100); // Small delay to ensure DOM updates are complete
             }
         });
     }

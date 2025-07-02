@@ -4,6 +4,8 @@ CHANGELOG
 
 2.5.1 25-07-01
 - Add support for migrating video_background settings on page_header_settings
+- feat: improve GSAP ScrollTrigger integration and AJAX compatibility
+  DEBUG_SCRIPTS constant implementation
 
 2.5.0 25-06-30
 - Migrate video component settings (!use migrator)

@@ -50,7 +50,7 @@ class Frontend extends Theme_Header_Data {
             }
     
             if( SCROLL_ANIMATIONS ){
-                wp_enqueue_script( 'scroll-animations', $this->theme_uri . '/assets/js/gsap.js', array(), '1.0', false);
+                wp_enqueue_script( 'scroll-animations', $this->theme_uri . '/assets/js/gsap.js', array(), '1.0', true);
             }
     
             wp_deregister_script( 'jquery' );
@@ -58,8 +58,12 @@ class Frontend extends Theme_Header_Data {
             wp_enqueue_script( 'jquery' );
     
             if (MASONRY_IS_ACTIVE) wp_enqueue_script( 'jquery-masonry' );
+
+            // Ensure GSAP is loaded before main scripts
+            $dependencies = array();
+            if( SCROLL_ANIMATIONS ) $dependencies[] = 'scroll-animations';
     
-            wp_register_script( $this->text_domain . '-scripts', $this->theme_uri . '/assets/js/scripts.js', array(), $this->version, true );
+            wp_register_script( $this->text_domain . '-scripts', $this->theme_uri . '/assets/js/scripts.js', $dependencies, $this->version, true );
     
             $static_header = new Header();
             $sticky_header = new Header('sticky');
@@ -92,7 +96,8 @@ class Frontend extends Theme_Header_Data {
                 'woocommerce_is_active' => WOOCOMMERCE_IS_ACTIVE,
                 'items_in_cart' => (WOOCOMMERCE_IS_ACTIVE) ? WC()->cart->get_cart_contents_count() : null,
                 'menu_breakpoint' => 896,
-                'masonry_is_active' => MASONRY_IS_ACTIVE
+                'masonry_is_active' => MASONRY_IS_ACTIVE,
+                'debug' => DEBUG_SCRIPTS
             )); 
     
             wp_enqueue_script( $this->text_domain . '-scripts' );
