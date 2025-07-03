@@ -155,7 +155,6 @@ class Settings {
 				// 	'image' => OFFCANVAS_ELEMENTS_PATH . '/images/tap_target.png'
 				// )
 			)),
-			Field::create( 'section', '__content', __('Content','mv23theme') ),
 			Field::create('radio', $slug.'_content_type',__('Content Type','mv23theme'))->set_orientation('horizontal')->add_options(array(
 				'layout' => __('Layout','mv23theme'), 
 				'async' => __('Asynchronous Content','mv23theme') 
@@ -201,42 +200,27 @@ class Settings {
 	public function generate_settings_fields() {
 		$slug = Core::getInstance()->get_slug();
 
-		$color_schemes = array(
-			'' => __('Default','mv23theme'),
-			'default-scheme' => __('Light','mv23theme'),
-			'dark-scheme' => __('Dark','mv23theme')
-		);
-
-		$padding_field = Field::create( 'complex', 'padding', __('Padding', 'mv23theme') )->add_fields(array(
-			Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
-			Field::create( 'text', 'top', __('Top','mv23theme') )->set_placeholder('24px')->add_dependency('use')->set_width( 20 ),
-			Field::create( 'text', 'right', __('Right','mv23theme') )->set_placeholder('24px')->add_dependency('use')->set_width( 20 ),
-			Field::create( 'text', 'bottom', __('Bottom','mv23theme') )->set_placeholder('24px')->add_dependency('use')->set_width( 20 ),
-			Field::create( 'text', 'left', __('Left','mv23theme') )->set_placeholder('24px')->add_dependency('use')->set_width( 20 )
-		));
-
 		return array(
 			Field::create('tab', __('Settings','mv23theme') ),
+
+			Field::create( 'complex', '_common_settings_wrapper' )
+				->merge()->hide_label()
+				->set_attr( 'class', 'components-settings-complex-styles' )
+				->add_fields(array(
+					Field::create( 'common_settings_control', $slug.'_settings' )
+						->set_container( 'common_settings_container' )
+						->set_add_text( __('Settings', 'mv23theme') )
+						->hide_label()
+				)),
 
 			Field::create('complex',$slug.'_modal_settings' )->set_layout('rows')->hide_label()->add_dependency($slug.'_type','modal','=')->add_fields(array( 
 				Field::create( 'checkbox', 'dismissible' )->set_description(__('Allow modal to be dismissed by keyboard or overlay click.','mv23theme'))->set_default_value(1)->fancy(),
 				Field::create( 'checkbox', 'close_on_click' )->set_description(__('Closes element on link clicks.','mv23theme'))->fancy(),
-				Field::create( 'complex', 'background_color' )->add_fields(array(
-					Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
-					Field::create( 'color', 'color' )->set_default_value('#ffffff')->add_dependency('use')->set_width( 30 ),
-					Field::create( 'number', 'alpha', __('Opacity','mv23theme') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 30 ),
-					Field::create( 'select', 'color_scheme', __('Text Color Scheme','mv23theme') )->add_dependency('use')->add_options( $color_schemes )->set_width( 20 )
-				)),
 				// Field::create( 'complex', 'close_icon_color' )->add_fields(array(
 				// 	Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->hide_label()->set_width( 20 ),
 				// 	Field::create( 'color', 'color' )->set_default_value('#000000')->add_dependency('use')->set_width( 30 ),
 				// 	Field::create( 'number', 'alpha', __('Opacity','mv23theme') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 40 )
 				// )),
-				// Field::create( 'complex', 'padding' )->add_fields(array(
-				// 	Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->hide_label()->set_width( 50 ),
-				// 	Field::create( 'text', 'number' )->set_default_value(40)->set_suffix('px')->add_dependency('use')->hide_label()->set_width( 50 )
-				// )),
-				$padding_field,
 				Field::create( 'complex', 'overlay_color', __('Overlay Color','mv23theme') )->add_fields(array(
 					Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
 					Field::create( 'color', 'color' )->set_default_value('#000000')->add_dependency('use')->set_width( 30 ),
@@ -248,13 +232,6 @@ class Settings {
 			Field::create('complex',$slug.'_bottom_sheet_settings')->set_layout('rows')->hide_label()->add_dependency($slug.'_type','bottom_sheet','=')->add_fields(array( 
 				Field::create( 'checkbox', 'dismissible' )->set_description(__('Allow modal to be dismissed by keyboard or overlay click.','mv23theme'))->set_default_value(1)->fancy(),
 				Field::create( 'checkbox', 'close_on_click' )->set_description(__('Closes element on link clicks.','mv23theme'))->fancy(),
-				Field::create( 'complex', 'background_color' )->add_fields(array(
-					Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
-					Field::create( 'color', 'color' )->set_default_value('#ffffff')->add_dependency('use')->set_width( 30 ),
-					Field::create( 'number', 'alpha', __('Opacity','mv23theme') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 30 ),
-					Field::create( 'select', 'color_scheme', __('Text Color Scheme','mv23theme') )->add_dependency('use')->add_options( $color_schemes )->set_width( 20 )
-				)),
-				$padding_field,
 				Field::create( 'complex', 'overlay_color', __('Overlay Color','mv23theme') )->add_fields(array(
 					Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
 					Field::create( 'color', 'color' )->set_default_value('#000000')->add_dependency('use')->set_width( 30 ),
@@ -269,13 +246,6 @@ class Settings {
 					'right' => __('Right')
 				))->set_input_type( 'radio' )->set_orientation( 'horizontal' ),
 				Field::create( 'checkbox', 'close_on_click', __('Close on click','mv23theme') )->set_description(__('Closes element on link clicks.','mv23theme'))->fancy(),
-				Field::create( 'complex', 'background_color', __('Background Color','mv23theme') )->add_fields(array(
-					Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
-					Field::create( 'color', 'color' )->set_default_value('#ffffff')->add_dependency('use')->set_width( 30 ),
-					Field::create( 'number', 'alpha', __('Opacity','mv23theme') )->add_dependency('use')->set_placeholder('0')->enable_slider(0,100,1)->set_default_value(100)->set_width( 30 ),
-					Field::create( 'select', 'color_scheme', __('Text Color Scheme','mv23theme') )->add_dependency('use')->add_options( $color_schemes )->set_width( 20 )
-				)),
-				$padding_field,
 				Field::create( 'complex', 'overlay_color', __('Overlay Color','mv23theme') )->add_fields(array(
 					Field::create( 'checkbox', 'use', __('Customize','mv23theme') )->fancy()->set_width( 20 ),
 					Field::create( 'color', 'color' )->set_default_value('#000000')->add_dependency('use')->set_width( 30 ),

@@ -1,4 +1,4 @@
-<div id="video-modal" class="video-modal modal">
+<div id="video-modal" class="video-modal modal theme-modal">
 	<div class="modal-content">
 		<div class="video-modal__box">
 			<div class="responsive-video"></div>

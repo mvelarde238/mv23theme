@@ -1,6 +1,6 @@
 (function($,c){      
     $(function() {
-        var modals = document.getElementsByClassName('modal');
+        var modals = document.getElementsByClassName('theme-modal');
 
         for (var i = 0; i < modals.length; i++) {
             var el = modals[i],

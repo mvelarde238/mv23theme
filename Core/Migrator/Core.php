@@ -9,6 +9,7 @@ use Core\Migrator\Migration\Migrate_Timeline_Group_To_Groups;
 use Core\Migrator\Migration\Migrate_2_2_X_to_2_3_0;
 use Core\Migrator\Migration\Migrate_Gallery_Settings;
 use Core\Migrator\Migration\Migrate_Video_Settings;
+use Core\Migrator\Migration\Migrate_OCE_Settings;
 
 define ('THEME_MIGRATOR_DIR', __DIR__);
 define ('THEME_MIGRATOR_PATH', get_template_directory_uri() . '/Core/Migrator');
@@ -39,6 +40,7 @@ class Core{
             Migrate_2_2_X_to_2_3_0::getInstance()->migrate();
             Migrate_Gallery_Settings::getInstance()->migrate();
             Migrate_Video_Settings::getInstance()->migrate();
+            Migrate_OCE_Settings::getInstance()->migrate();
         // }
 
         add_action( 'admin_menu', array($this, 'add_admin_page') );

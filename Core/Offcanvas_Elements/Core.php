@@ -4,6 +4,7 @@ namespace Core\Offcanvas_Elements;
 use Core\Offcanvas_Elements\Settings;
 use Core\Builder\Blocks_Layout;
 use Core\Utils\CPT;
+use Core\Builder\Template_Engine;
 
 define ('OFFCANVAS_ELEMENTS_DIR', __DIR__);
 define ('OFFCANVAS_ELEMENTS_PATH', get_template_directory_uri() . '/Core/Offcanvas_Elements');
@@ -116,25 +117,35 @@ class Core{
                 $content = ( $content_type == 'async' ) ? null : get_post_meta( $post_id, $this->slug.'_content', true );
     
                 $kebab_cased_slug = str_replace('_','-',$this->slug);
-                $element_id = $kebab_cased_slug.'-'.$post_id;
+                $settings = get_post_meta( $post_id, $this->slug.'_settings', true );
+                if( !is_array($settings) ) $settings = array();
+
+                if( isset($settings['main_attributes']) && isset($settings['main_attributes']['id']) ) {
+                    $element_id = $settings['main_attributes']['id'];
+                } else {
+                    $element_id = $kebab_cased_slug.'-'.$post_id;
+                    $settings['main_attributes']['id'] = $element_id;
+                }
+
                 $element_classes = [ $kebab_cased_slug, str_replace('_','-',$type) ];
                 if( $type === 'bottom_sheet' ) $element_classes[] = 'modal';
     
                 $trigger_events = get_post_meta( $post_id, $this->slug.'_trigger_events', true );
                 $async_settings = get_post_meta( $post_id, $this->slug.'_async_settings', true );
-                $settings = get_post_meta( $post_id, $this->slug.'_'.$type.'_settings', true );
+                $oce_settings = get_post_meta( $post_id, $this->slug.'_'.$type.'_settings', true );
 
                 $this->elements[] = array(
                     'id' => $element_id,
                     'is_restricted' => $is_restricted,
                     'title' => get_the_title($post_id),
-                    'class' => implode(' ',$element_classes),
+                    'additional_classes' => $element_classes,
                     'type' => $type,
                     'content' => $content,
                     'content_type' => $content_type,
-                    'settings' => $settings,
+                    'oce_settings' => $oce_settings,
                     'async_settings' => $async_settings,
-                    'trigger_events' => $trigger_events
+                    'trigger_events' => $trigger_events,
+                    'settings' => $settings
                 );
             }
         }
@@ -145,20 +156,26 @@ class Core{
     }
 
     function print_elements(){
-        foreach ( $this->get_elements() as $element ) { ?>
-            <div id="<?=$element['id']?>" class="<?=$element['class']?>">
+        foreach ( $this->get_elements() as $element_args ) { 
 
-                <div class="modal-content">
-                    <?php if($element['content']) echo Blocks_Layout::the_content($element['content']); ?>
-                </div>
+            $modal_content_args = array();
+            if (array_key_exists('padding', $element_args['settings'])) {
+                $modal_content_args['settings']['padding'] = $element_args['settings']['padding'];
+            }
+            unset($element_args['settings']['padding']);
+            $attributes = Template_Engine::generate_attributes( $element_args );
+            $content_attributes = Template_Engine::generate_attributes( $modal_content_args );
 
-                <?php if( $element['type'] === 'sidenav' ){
-                    echo '<a href="#!" class="sidenav-close"></a>';
-                } else {
-                    if( $element['settings']['dismissible'] ) echo '<a href="#!" class="modal-close"></a>';
-                } ?>
-            </div>
-            <?php
+            echo '<div '.$attributes.'>';
+            echo '<div class="modal-content" '.$content_attributes.'>';
+            if($element_args['content']) echo Blocks_Layout::the_content($element_args['content']);
+            echo '</div>';
+            if( $element_args['type'] === 'sidenav' ){
+                echo '<a href="#!" class="sidenav-close"></a>';
+            } else {
+                if( $element_args['oce_settings']['dismissible'] ) echo '<a href="#!" class="modal-close"></a>';
+            }
+            echo '</div>';
         }
     }
 

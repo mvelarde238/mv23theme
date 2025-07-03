@@ -8,7 +8,7 @@ window['OffCanvas_Elements'] = (function(){
         this.content_type = element_data.content_type;
         this.trigger_events = element_data.trigger_events || [];
         this.async_settings = element_data.async_settings;
-        this.settings = element_data.settings;
+        this.oce_settings = element_data.oce_settings;
 
         // Bind all private methods
 		for (var fn in this) {
@@ -178,51 +178,34 @@ window['OffCanvas_Elements'] = (function(){
             if(debug) console.log(msg, error);
         },
         _handle_callback_settings(){
-            if (typeof this.settings.on_open === 'string' && this.settings.on_open.trim() !== '') {
-                let callbackFunction = new Function('return ' + this.settings.on_open)();
+            if (typeof this.oce_settings.on_open === 'string' && this.oce_settings.on_open.trim() !== '') {
+                let callbackFunction = new Function('return ' + this.oce_settings.on_open)();
                 if (typeof callbackFunction === 'function') {
-                    if( this.settings.on_open ) M_instance_options.onOpenStart = callbackFunction;
+                    if( this.oce_settings.on_open ) M_instance_options.onOpenStart = callbackFunction;
                 }
             }
         },
         _create_the_M_instance(){
-            let { settings, type, M_instance_options, offcanvas_element } = this;
+            let { oce_settings, type, M_instance_options, offcanvas_element } = this;
 
             if( type === 'modal' ||  type === 'bottom_sheet'){
-                M_instance_options.dismissible = settings.dismissible;
+                M_instance_options.dismissible = oce_settings.dismissible;
                 this.M_instance = M.Modal.init( offcanvas_element, M_instance_options );
             }
             if( type === 'sidenav'){
-                M_instance_options.edge = settings.position;
+                M_instance_options.edge = oce_settings.position;
                 M_instance_options.draggable = false;
                 this.M_instance = M.Sidenav.init( offcanvas_element, M_instance_options );
             }
         },
         _handle_styles(){
-            let { settings, offcanvas_element, M_instance, type } = this;
-            const modal_content = offcanvas_element.querySelector('.modal-content');
+            let { oce_settings, offcanvas_element, M_instance, type } = this;
 
-            if( settings.background_color.use ) {
-                offcanvas_element.style.backgroundColor = this._format_color(settings.background_color.color, settings.background_color.alpha);
-                if( settings.background_color.color_scheme && settings.background_color.color_scheme != '' ){
-                    let color_scheme_class = ( settings.background_color.color_scheme === 'dark-scheme' ) ? 'text-color-2' : 'text-color-1';
-                    offcanvas_element.classList.add( color_scheme_class );
-                }
-            }
-            if( settings.max_width ) offcanvas_element.style.maxWidth = settings.max_width+'px';
-            if( settings.max_height ) offcanvas_element.style.maxHeight = settings.max_height+'px';
-            if( settings.hasOwnProperty('padding') && settings.padding.use ){
-                for (const [key, value] of Object.entries(settings.padding)) {
-                    if( ['top','right','bottom','left'].includes(key) ){
-                        let capitalized_key = key.charAt(0).toUpperCase() + key.slice(1);
-                        let propertyName = 'padding'+capitalized_key;
-                        modal_content.style[propertyName] = this._format_padding_value(value);
-                    }
-                }
-            } 
+            if( oce_settings.max_width ) offcanvas_element.style.maxWidth = oce_settings.max_width+'px';
+            if( oce_settings.max_height ) offcanvas_element.style.maxHeight = oce_settings.max_height+'px';
                 
             let overlay = ( type === 'sidenav' ) ? M_instance._overlay : M_instance.$overlay[0];
-            if( settings.overlay_color.use ) overlay.style.backgroundColor = this._format_color(settings.overlay_color.color, settings.overlay_color.alpha);
+            if( oce_settings.overlay_color.use ) overlay.style.backgroundColor = this._format_color(oce_settings.overlay_color.color, oce_settings.overlay_color.alpha);
         },
         _stringIsNumeric(str) {
             return /^[0-9]+$/.test(str);
@@ -364,9 +347,8 @@ window['OffCanvas_Elements'] = (function(){
             }
         },
         _handle_close_on_click_setting(){
-            let { settings, offcanvas_element, type } = this;
-            console.log()
-            let close_on_click = settings.close_on_click || false;
+            let { oce_settings, offcanvas_element, type } = this;
+            let close_on_click = oce_settings.close_on_click || false;
             if( close_on_click ){
                 let close_on_click_class = (type === 'sidenav') ? 'sidenav-close' : 'modal-close';
                 offcanvas_element.querySelectorAll('a').forEach(element => {
