@@ -8,6 +8,7 @@ use Core\Builder\Template_Engine\Borders;
 use Core\Builder\Template_Engine\Box_Shadow;
 use Core\Builder\Template_Engine\Background;
 use Core\Builder\Template_Engine\Color;
+use Core\Builder\Template_Engine\Width;
 
 Class Style{
     /**
@@ -36,6 +37,9 @@ Class Style{
 
         $font = Font::get_styles($args);
         if( !empty($borders) ) $styles = array_merge( $styles, $font );
+
+        $widths = Width::get_styles($args);
+        if( !empty($widths) ) $styles = array_merge( $styles, $widths );
 
         if (isset($args['additional_styles']) && is_array($args['additional_styles']) && !empty($args['additional_styles'])){
             $styles = array_merge( $args['additional_styles'], $styles );

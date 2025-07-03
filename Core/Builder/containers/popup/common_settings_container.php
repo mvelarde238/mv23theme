@@ -114,6 +114,12 @@ Container::create( 'common_settings_container' )
             Field::create( 'checkbox', 'use', __('Activate','mv23theme') )->fancy()->set_width( 20 ),
             Field::create( 'text', 'shortcode')->add_dependency('use')->set_width( 50 )
         )),
+        Field::create( 'complex', 'width', __('Width', 'mv23theme') )->add_fields(array(
+            Field::create( 'checkbox', 'use', __('Activate','mv23theme') )->fancy()->set_width( 20 ),
+            Field::create( 'text', 'max_width', __('Max Width','mv23theme') )->set_placeholder('100%')->add_dependency('use')->set_width( 20 ),
+            Field::create( 'text', 'width', __('Width','mv23theme') )->set_placeholder('100%')->add_dependency('use')->set_width( 20 ),
+            Field::create( 'text', 'min_width', __('Min Width','mv23theme') )->set_placeholder('auto')->add_dependency('use')->set_width( 20 )
+        )),
         Field::create( 'complex', 'margin', __('Margin', 'mv23theme') )->add_fields(array(
             Field::create( 'checkbox', 'use', __('Activate','mv23theme') )->fancy()->set_width( 20 ),
             Field::create( 'text', 'top', __('Top','mv23theme') )->set_placeholder('0px')->add_dependency('use')->set_width( 20 ),
