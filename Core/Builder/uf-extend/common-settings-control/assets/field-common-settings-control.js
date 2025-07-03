@@ -167,10 +167,11 @@
 		 * Renders the fields in the pop up
 		 */
 		addContainer: function() {
-			var that = this, fields, storedValues, containerName;
+			var that = this, fields, storedValues, containerName, hiddenFields;
 
             containerName = this.model.get( 'container' );
 			storedValues = this.model.get( 'storedValues' );
+			hiddenFields = this.model.get( 'hidden_fields' );
 
             // set a initial raw_data state
             that.model.set( 'raw_data', storedValues );
@@ -183,6 +184,13 @@
 				layout: 'row',
 				validation_enabled: true
 			}, storedValues );
+
+			// hide some fields if needed
+			if( hiddenFields && hiddenFields.length > 0 ){
+				hiddenFields.forEach(element => {
+					this.$el.find( '.uf-field-name-' + element ).hide();
+				});
+			}
 
 			// save a reference to the uf container to validate it
 			this.model.set( '_popup_container', _popup_container);

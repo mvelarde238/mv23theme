@@ -209,6 +209,7 @@ class Settings {
 				->add_fields(array(
 					Field::create( 'common_settings_control', $slug.'_settings' )
 						->set_container( 'common_settings_container' )
+						->set_hidden_fields( array('layout', 'helpers', 'visibility', 'responsive') )
 						->set_add_text( __('Settings', 'mv23theme') )
 						->hide_label()
 				)),

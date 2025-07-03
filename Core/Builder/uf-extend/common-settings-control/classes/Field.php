@@ -3,8 +3,6 @@ namespace Ultimate_Fields\Common_Settings_Control;
 
 use Ultimate_Fields\Field as Base_Field;
 use Ultimate_Fields\Template;
-use Ultimate_Fields\Container;
-use Ultimate_Fields\Common_Settings_Control\Common_Settings_Control;
 
 /**
  * Handles the display of the field, which will handle the common settings.
@@ -45,6 +43,14 @@ class Field extends Base_Field {
 	protected $icon;
 
 	/**
+	 * Holds the hidden fields, which will not be displayed in the popup container.
+	 *
+	 * @since 1.0.4
+	 * @var string[]
+	 */
+	protected $hidden_fields;
+
+	/**
 	 * Enqueues all scripts and templates, needed for the field.
 	 *
 	 * @since 1.0
@@ -83,6 +89,7 @@ class Field extends Base_Field {
 		$data[ 'save_text' ]      = $save_text;
 		$data[ 'add_text' ]       = $add_text;
 		$data[ 'icon' ]           = $this->get_icon();
+		$data[ 'hidden_fields' ]  = $this->get_hidden_fields();
 
 		return $data;
 	}
@@ -181,5 +188,14 @@ class Field extends Base_Field {
 
 	public function get_icon() {
 		return $this->icon ?? 'dashicons-migrate';
+	}
+
+	public function set_hidden_fields( $hidden_fields ) {
+		$this->hidden_fields = $hidden_fields;
+		return $this;
+	}
+
+	public function get_hidden_fields() {
+		return $this->hidden_fields ?? array();
 	}
 }

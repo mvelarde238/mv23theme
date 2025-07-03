@@ -10,5 +10,5 @@ add_action( 'uf.extend', function(){
 	new Autoloader( 'Ultimate_Fields\\Common_Settings_Control', __DIR__ . '/classes' );
 
 	// Let the base class add all necessary hooks
-	new Common_Settings_Control( __FILE__, '1.0.3' );
+	new Common_Settings_Control( __FILE__, '1.0.4' );
 });
