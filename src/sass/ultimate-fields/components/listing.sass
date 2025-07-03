@@ -5,11 +5,6 @@
     &[data-status="loading"] .load_more_posts i
         animation: rotating1 1.2s linear infinite
 
-.sticky-posts-filter .posts-filter
-    background-color: #fff
-    position: sticky
-    top: var(--sticky-header-height)
-
 .posts-listing
     .carrusel__slider
         align-items: flex-start
@@ -33,3 +28,9 @@
         -webkit-transform: rotate(0deg)
     to
         -webkit-transform: rotate(360deg)
+
+@media only screen and (min-width: #{$menu-breakpoint})
+    .sticky-posts-filter .posts-filter
+        background-color: #fff
+        position: sticky
+        top: var(--sticky-header-height)
