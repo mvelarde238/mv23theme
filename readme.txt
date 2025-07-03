@@ -4,6 +4,7 @@ CHANGELOG
 
 2.6.1 25-07-03
 - Improve Common Settings Control to handle fields that won't be displayed in the popup container
+- Video and Share modals removed
 
 2.6.0 25-07-02
 - Migrate Offcanvas Elements settings (!use migrator)

@@ -12,7 +12,6 @@
                 onCloseEnd: function(modal, trigger) {
                     var empty_on_close = $(modal).hasClass('empty-on-close');
                     if(empty_on_close) $(modal).find('.modal-content').empty();
-                    $('#video-modal .responsive-video').html(''); 
                 } 
             });
     
