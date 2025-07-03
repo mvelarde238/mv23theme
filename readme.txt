@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.6.0 25-07-02
+- Migrate Offcanvas Elements settings (!use migrator)
+
 2.5.1 25-07-01
 - Add support for migrating video_background settings on page_header_settings
 - feat: improve GSAP ScrollTrigger integration and AJAX compatibility
