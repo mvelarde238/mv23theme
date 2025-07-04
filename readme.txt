@@ -7,6 +7,7 @@ CHANGELOG
 - Video and Share modals removed
 - Fix .sticky-posts-filter class implementation: disable on tablet and mobile
 - Width implementation in common settings container
+- Gallery improvement: use custom link from wp media folder
 
 2.6.0 25-07-02
 - Migrate Offcanvas Elements settings (!use migrator)

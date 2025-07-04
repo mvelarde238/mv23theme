@@ -165,8 +165,8 @@ function print_theme_gallery( $atts ) {
                         break;
 
                     case 'custom':
-                        $attachment_link = '#';
-                        // TODO: CHECK HOW TO GET THIS METADATA EN WP MEDIA FOLDER
+                        $wpmf_link = get_post_meta($attachment_id, '_wpmf_gallery_custom_image_link', true);
+                        $attachment_link = $wpmf_link ? $wpmf_link : '#';
                         break;
                     
                     default:
@@ -174,7 +174,17 @@ function print_theme_gallery( $atts ) {
                         break;
                 }
                 $caption = ( wp_get_attachment_caption($attachment_id) ) ? wp_get_attachment_caption($attachment_id) : '';
-                $attachment_link_html = '<a data-fancybox="'.$gallery_id.'" href="'.$attachment_link.'" class="'.$link_class.'" data-caption="'.$caption.'"';
+                $attachment_link_html = '<a ';
+                $dont_use_fancybox = array('custom', 'post', 'none');
+                if(!in_array($a['link'], $dont_use_fancybox)) $attachment_link_html .= 'data-fancybox="'.$gallery_id.'" ';
+                if( $a['link'] == 'custom' || $a['link'] == 'post' ){
+                    // get attachment target
+                    $attachment_target = get_post_meta($attachment_id, '_gallery_link_target', true);
+                    if( $attachment_target && $attachment_target == '_blank' ){
+                        $attachment_link_html .= 'target="_blank" rel="noopener noreferrer" ';
+                    } 
+                }
+                $attachment_link_html .= 'href="'.$attachment_link.'" class="'.$link_class.'" data-caption="'.$caption.'"';
                 if( 
                     ( $attachment_type === 'video' && !$is_remote_video ) ||
                     $attachment_type === 'pdf'
