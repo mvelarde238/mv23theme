@@ -1,0 +1,28 @@
+%override-text-block-spacing
+    h1, h2, h3, h4, h5, h6, p
+        --text-block-spacing: 0px
+
+%basic-tagline-styles
+    .heading__tagline
+        font-size: 0.875rem
+        color: color-mix(in srgb, currentColor 60%, transparent)
+
+%basic-global-heading-styles
+    --accent-color: var(--primary-color)
+    @extend %override-text-block-spacing
+    @extend %basic-tagline-styles
+
+%add-small-text-block-spacing
+    h1, h2, h3, h4, h5, h6, p
+        --text-block-spacing: .3em
+
+@import "default"
+@import "style1"
+@import "style2"
+@import "style3"
+@import "style4"
+@import "style5"
+@import "style6"
+@import "style7"
+@import "style8"
+@import "style9"

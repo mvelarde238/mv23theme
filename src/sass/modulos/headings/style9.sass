@@ -1,0 +1,26 @@
+.heading--style9
+    @extend %basic-global-heading-styles
+    @extend %add-small-text-block-spacing
+
+    .highlighted
+        display: inline-block
+        border: 1px solid
+        padding: 0.5em 25px
+        position: relative
+        &:before, &:after
+            content: ''
+            position: absolute
+            top: 50%
+            height: 1px
+            border-bottom: 1px solid
+            width: 20px
+        &::before
+            left: -10px
+        &::after
+            right: -10px
+    
+    &.left-align .heading__tagline
+        margin-left: 25px
+
+    &.right-align .heading__tagline
+        margin-right: 25px

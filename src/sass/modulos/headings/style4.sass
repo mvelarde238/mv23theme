@@ -1,0 +1,42 @@
+.heading--style4
+    @extend %basic-global-heading-styles
+    --line-thickness: 3px
+    --line-width: clamp(120px, 40%, 220px)
+    --accent-color: currentColor
+
+    h1, h2, h3, h4, h5, h6, p
+        --text-block-spacing: calc( .3em + var(--line-thickness) )
+
+    .highlighted
+        padding-bottom: calc( var(--line-thickness) + 0.3em )
+        position: relative
+
+        &:before
+            content: ''
+            position: absolute
+            left: 0
+            bottom: 0
+            width: 100%
+            height: 1px
+            background-color: var(--accent-color)
+
+        &:after
+            content: ''
+            position: absolute
+            left: 0
+            bottom: calc( var(--line-thickness) * -1 )
+            height: var(--line-thickness)
+            background: var(--accent-color)
+            width: var(--line-width)
+
+    &.right-align
+        .highlighted
+            &:after
+                left: initial
+                right: 0
+
+    &.center-align
+        .highlighted
+            &:after
+                margin: auto
+                right: 0

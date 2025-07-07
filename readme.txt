@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.6.2 25-07-06
+- Heading Component Implementation
+
 2.6.1 25-07-03
 - Improve Common Settings Control to handle fields that won't be displayed in the popup container
 - Video and Share modals removed

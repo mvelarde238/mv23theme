@@ -1,0 +1,30 @@
+.heading--style3
+    @extend %basic-global-heading-styles
+    @extend %add-small-text-block-spacing
+    --line-thickness: 3px
+    --line-width: clamp(120px, 40%, 220px)
+    --accent-color: currentColor
+
+    .highlighted
+        padding-bottom: calc( var(--line-thickness) + 0.3em )
+        position: relative
+        &:after
+            content: ''
+            position: absolute
+            left: 0
+            bottom: 0
+            height: var(--line-thickness)
+            background: var(--accent-color)
+            width: var(--line-width)
+    
+    &.right-align
+        .highlighted
+            &:after
+                left: initial
+                right: 0
+    
+    &.center-align
+        .highlighted
+            &:after
+                margin: auto
+                right: 0

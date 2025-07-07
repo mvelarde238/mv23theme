@@ -29,6 +29,7 @@ class Core{
     private static $core_components = array(
         'core' => array(
             'Text_Editor',
+            'Heading',
             'Image',
             'Video',
             'Button',

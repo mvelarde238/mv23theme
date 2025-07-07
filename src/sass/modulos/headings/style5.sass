@@ -1,0 +1,22 @@
+.heading--style5
+    @extend .heading--style4
+    --line-width: 50px
+    --line-thickness: 4px
+
+    .highlighted
+        &:after
+            bottom: calc( calc(var(--line-thickness) / 2) * -1 )
+        &:before
+            width: 150px
+
+    &.right-align
+        .highlighted
+            &:before
+                left: initial
+                right: 0
+
+    &.center-align
+        .highlighted 
+            &:before
+                right: 0
+                margin: auto

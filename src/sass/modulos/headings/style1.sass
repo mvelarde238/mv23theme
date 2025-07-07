@@ -1,0 +1,43 @@
+.heading--style1
+    @extend %basic-global-heading-styles
+    --line-thickness: 1px
+    --accent-color: currentColor
+
+    .highlighted
+        display: flex
+        &:after
+            content: ""
+            flex: 1 1
+            margin: auto
+            border-bottom: var(--line-thickness) solid var(--accent-color)
+            opacity: 0.5
+            margin-left: 15px
+        &:before
+            border-bottom: var(--line-thickness) solid var(--accent-color)
+            opacity: 0.5
+            display: none
+
+    &.center-align
+        .highlighted
+            &:before,&:after
+                content: ""
+                flex: 1 1
+                margin: auto
+            &:before
+                margin-right: 15px
+                display: initial
+                width: 100%
+                border-radius: 0
+            &:after
+                margin-left: 15px
+
+    &.right-align
+        .highlighted
+            &:after
+                display: none
+            &:before
+                content: ""
+                flex: 1 1
+                margin: auto
+                margin-right: 15px
+                display: initial

@@ -1,0 +1,34 @@
+.heading--style7
+    @extend %basic-global-heading-styles
+    @extend %add-small-text-block-spacing
+    --accent-color: var(--primary-color)
+    --line-thickness: 1px
+
+    .highlighted 
+        position: relative
+        span
+            color: #fff
+            display: inline-block
+            background-color: var(--accent-color)
+            padding: .4em 25px .3em 25px
+            border-radius: 1em
+            width: fit-content
+            position: relative
+            z-index: 2
+        &:after
+            content: ''
+            flex-grow: 1
+            height: var(--line-thickness)
+            background-color: color-mix(in srgb, var(--accent-color) 60%, transparent)
+            position: absolute
+            top: 50%
+            left: 0
+            right: 0
+            width: 100%
+            z-index: 1
+
+    &.left-align .heading__tagline
+        margin-left: 25px
+
+    &.right-align .heading__tagline
+        margin-right: 25px
