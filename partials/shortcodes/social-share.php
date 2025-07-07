@@ -100,10 +100,10 @@ class SocialShare {
         if($atts['alignment']) $output .= 'style="justify-content:'.esc_attr($atts['alignment']).'"';
         $output .= '>';
         $output .= $this->generate_buttons($selected_networks, 0, $limit);
-        if( count($selected_networks) > $limit ) $output .= '<button class="modal-trigger" href="#more-social-share-modal"><i class="bi bi-three-dots"></i> more</button>';
+        if( count($selected_networks) > $limit ) $output .= '<button class="modal-trigger" data-target="more-social-share-modal"><i class="bi bi-three-dots"></i> more</button>';
         $output .= '</div>';
 
-        $output .= '<div id="more-social-share-modal" class="modal"><div class="modal-content">';
+        $output .= '<div id="more-social-share-modal" class="modal theme-modal"><div class="modal-content">';
         $output .= '<div class="social-share-buttons">';
         $output .= $this->generate_buttons($selected_networks, $limit, 999);
         $output .= '</div>';

@@ -7,6 +7,7 @@ CHANGELOG
   alpha, baackground image settings
 - --icon-separation implementation in buttons.sass
 - Single Page settings: added settings to hide the post title and social share buttons
+- Fix social share js implementation
 
 2.6.2 25-07-06
 - Heading Component Implementation
