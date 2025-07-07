@@ -3,7 +3,8 @@ CHANGELOG
 **************************************************************************************************
 
 2.6.3 25-07-07
-- Fix Template_Engine\Background: properly handle cases where the optional alpha setting is undefined by setting a default value to prevent errors
+- Fix Template_Engine\Background: properly handle cases where optional settings are undefined by setting a default value to prevent errors
+  alpha, baackground image settings
 
 2.6.2 25-07-06
 - Heading Component Implementation

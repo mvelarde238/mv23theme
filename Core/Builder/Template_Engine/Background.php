@@ -30,7 +30,14 @@ Class Background{
             if( $bgi_url ){
                 $styles[] = 'background-image:url('.$bgi_url.')';
 
-                $bgi_settings = $settings['background_image']['settings'];
+                $default_bgi_settings = array(
+                    'size' => 'auto',
+                    'repeat' => 'repeat',
+                    'position_x' => 'left',
+                    'position_y' => 'top',
+                    'parallax' => false
+                );
+                $bgi_settings = wp_parse_args( $settings['background_image']['settings'], $default_bgi_settings );
 
                 if ($bgi_settings['size'] != 'auto') $styles[] = 'background-size: '.$bgi_settings['size'];
                 if ($bgi_settings['repeat'] != 'repeat') $styles[] = 'background-repeat: '.$bgi_settings['repeat'];
