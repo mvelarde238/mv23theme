@@ -57,6 +57,13 @@ class Accordion extends Component {
             )
         );
 
+        $blocks_layout_args = array();
+        // restrict components by posttype
+		$posttype = $_GET['post_type'] ?? get_post_type( $_GET['post'] ?? null);
+		if( $posttype && is_array(CONTENT_BUILDER_SETTINGS) && isset(CONTENT_BUILDER_SETTINGS[$posttype]) ){
+            $blocks_layout_args = wp_parse_args( CONTENT_BUILDER_SETTINGS[$posttype], $blocks_layout_args );
+        }
+
         $fields = array(
             Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'repeater', 'accordion' )
@@ -86,7 +93,7 @@ class Accordion extends Component {
                         
                         Field::create( 'section', 'Contenido del Item:' ),
                         Field::create( 'wysiwyg', 'content', __('Content','mv23theme') )->add_dependency('content_element','text','=')->hide_label()->set_rows( 30 ),
-                        Blocks_Layout::the_field( array() )->add_dependency('content_element','layout','='),
+                        Blocks_Layout::the_field( $blocks_layout_args )->add_dependency('content_element','layout','='),
                         Field::create( 'wp_objects', 'page', 'Página' )->add( 'posts', 'page' )->set_button_text( 'Selecciona la página' )->add_dependency('content_element','page','=')->hide_label(),
                         Field::create( 'select', 'reusable_section', 'Seleccionar Sección Reusable' )
                             ->add_options( Reusable_Section_CPT::getInstance()->get_reusable_sections() )
