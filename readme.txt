@@ -6,6 +6,7 @@ CHANGELOG
 - Fix Template_Engine\Background: properly handle cases where optional settings are undefined by setting a default value to prevent errors
   alpha, baackground image settings
 - --icon-separation implementation in buttons.sass
+- Single Page settings: added settings to hide the post title and social share buttons
 
 2.6.2 25-07-06
 - Heading Component Implementation

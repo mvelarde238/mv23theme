@@ -41,6 +41,8 @@ class Single_Pages {
                             'main-content--sidebar-left' => __('Sidebar Left','mv23theme')
                         ))->add_dependency('hide_sidebar',0)->set_width(20),
                         Field::create( 'checkbox', 'hide_sidebar', __('Hide Sidebar','mv23theme') )->fancy()->set_width(20),
+                        Field::create( 'checkbox', 'hide_post_title', __('Hide Post Title','mv23theme') )->fancy()->set_width(20),
+                        Field::create( 'checkbox', 'hide_social_share', __('Hide Social Share','mv23theme') )->fancy()->set_width(20)
                     )
                 ))
         );
