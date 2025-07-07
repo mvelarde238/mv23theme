@@ -16,7 +16,7 @@ Class Background{
             !empty( $settings['background_color']['color'] ) ) {
 
             $color = $settings['background_color']['color'];
-            $alpha = $settings['background_color']['alpha'];
+            $alpha = $settings['background_color']['alpha'] ?? 100;
             $bgc = ( $alpha != 100 ) ? 'rgba('.Helpers::hexToRgb( $color, $alpha ).')' : $color;
 
 	        $styles[] = 'background-color:'.$bgc;

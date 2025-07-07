@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.6.3 25-07-07
+- Fix Template_Engine\Background: properly handle cases where the optional alpha setting is undefined by setting a default value to prevent errors
+
 2.6.2 25-07-06
 - Heading Component Implementation
 - Feat: template engine generate simplified padding/margin styles with CSS shorthand optimization
