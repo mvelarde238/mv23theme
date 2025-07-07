@@ -47,6 +47,7 @@ class Core{
         'wrappers' => array(
             'Inner_Wrapper',
             'Carrusel',
+            'Inner_Accordion',
             'Accordion',
             'Flip_Box',
             'Inner_Row',
