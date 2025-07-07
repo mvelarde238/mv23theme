@@ -4,6 +4,9 @@
 
     &[data-template="tab"].tab-style1 > &__nav
         display: flex
+        max-width: 90vw
+        overflow-x: auto
+        overflow-y: hidden
 
     &[data-template="tab"].tab-style1 > &__nav > &__btn
         width: 100%
@@ -17,6 +20,7 @@
         font-size: .8em
         font-weight: var(--bold-font-weight)
         transition: 200ms all
+        line-height: 100%
         img
             height: 23px
             display: block
@@ -32,7 +36,6 @@
             background-color: var(--ui-color-3)
         &.active
             border-bottom: 3px solid var(--ui-color-1)
-            margin-bottom: -3px
 
     &[data-template="tab"].tab-style1 > &__items
         padding: 20px
