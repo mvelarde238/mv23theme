@@ -5,6 +5,7 @@ CHANGELOG
 2.6.2 25-07-06
 - Heading Component Implementation
 - Feat: template engine generate simplified padding/margin styles with CSS shorthand optimization
+- Fix: Template_Engine validates border width values against '' instead of using empty() function; values could be 0
 
 2.6.1 25-07-03
 - Improve Common Settings Control to handle fields that won't be displayed in the popup container
