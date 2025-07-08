@@ -201,15 +201,19 @@ class Heading extends Component {
         $tagline_html_tag = $args['tagline']['html_tag'] ?? 'p';
 
         // additional classes
-        $args['additional_classes'][] = $args['text_align'] .'-align';
-        $args['additional_classes'][] = 'heading--' . $args['preset'];
+        $text_align = $args['text_align'] ?? 'left';
+        $args['additional_classes'][] = $text_align . '-align';
+
+        $preset = $args['preset'] ?? 'default'; 
+        $args['additional_classes'][] = 'heading--' . $preset;
 
         // add accent color to additional styles
-        if( $args['accent_color']['use_color'] && !empty($args['accent_color']['color']) ) {
-            $args['additional_styles'][] = '--accent-color: ' . $args['accent_color']['color'];
+        $accent_color = $args['accent_color'] ?? array('use_color' => false, 'color' => '', 'color_variable' => '');
+        if( $accent_color['use_color'] && !empty($accent_color['color']) ) {
+            $args['additional_styles'][] = '--accent-color: ' . $accent_color['color'];
         } else {
-            if( !empty($args['accent_color']['color_variable']) ) {
-                $maybe_color_variable = $args['accent_color']['color_variable'];
+            if( !empty($accent_color['color_variable']) ) {
+                $maybe_color_variable = $accent_color['color_variable'];
                 if( str_starts_with($maybe_color_variable, '--') ) {
                     $args['additional_styles'][] = '--accent-color: var(' . $maybe_color_variable . ')';
                 } else { // if it does not start with '--', assume it's a color value
@@ -258,7 +262,7 @@ class Heading extends Component {
             if( !empty($contents[$key]['content']) ) {
 
                 // if the preset is wrapped, wrap the content in a span
-                if( in_array($args['preset'], $wrapped_presets) ) {
+                if( in_array($preset, $wrapped_presets) ) {
                     $contents[$key]['content'] = '<span>' . $contents[$key]['content'] . '</span>';
                 }
 

@@ -209,24 +209,24 @@ class Listing extends Component {
         
 		$args['additional_classes'] = array('component');
 
-        $source_type = $args['show']; // auto || manual
-        $items_in_desktop = $args['items_in_desktop'];
-        $items_in_laptop = $args['items_in_laptop'];
-        $items_in_tablet = $args['items_in_tablet'];
-        $items_in_mobile = $args['items_in_mobile'];
-        $d_gap = $args['d_gap'];
-        $l_gap = $args['l_gap'];
-        $t_gap = $args['t_gap'];
-        $m_gap = $args['m_gap'];
-        $postcard_template = $args['post_template'];
-        $listing_template = $args['list_template'];
+        $source_type = $args['show'] ?? 'auto'; // auto || manual
+        $items_in_desktop = $args['items_in_desktop'] ?? 3;
+        $items_in_laptop = $args['items_in_laptop'] ?? 3;
+        $items_in_tablet = $args['items_in_tablet'] ?? 2;
+        $items_in_mobile = $args['items_in_mobile'] ?? 1;
+        $d_gap = $args['d_gap'] ?? 50;
+        $l_gap = $args['l_gap'] ?? 40;
+        $t_gap = $args['t_gap'] ?? 30;
+        $m_gap = $args['m_gap'] ?? 20;
+        $postcard_template = $args['post_template'] ?? '';
+        $listing_template = $args['list_template'] ?? '';
         $scrolltop = ( isset($args['scrolltop']) ) ? $args['scrolltop'] : '';
         $filter_taxonomies = array();
         $filter_default_terms = array();
         $query_taxonomies = array();
         $query_terms = array();
         $woocommerce_key = ( WOOCOMMERCE_IS_ACTIVE && isset($args['woocommerce_key']) ) ? $args['woocommerce_key'] : '';
-        $pagination_type = $args['pagination_type'];
+        $pagination_type = $args['pagination_type'] ?? 'none';
         $on_click_post = ( isset($args['on_click_post']) ) ? $args['on_click_post'] : 'redirect';
         $on_click_scroll_to = ( isset($args['on_click_scroll_to']) ) ? $args['on_click_scroll_to'] : '';
         $filter = $args['filter'] ?? 0;
@@ -248,7 +248,7 @@ class Listing extends Component {
         }
         
         if ($source_type == 'auto') {
-            $posttype = $args['posttype'];
+            $posttype = $args['posttype'] ?? '';
             $posts_per_page = (isset($args['qty'])) ? $args['qty'] : 3;
             $order = (isset($args['order'])) ? $args['order'] : 'DESC';
             $orderby = (isset($args['orderby'])) ? $args['orderby'] : 'date';
