@@ -261,6 +261,7 @@ class Listing extends Component {
                 'offset' => $offset,
                 'post_status' => $post_status
             );
+            if( isset($args['post__not_in']) ) $args_query['post__not_in'] = $args['post__not_in'];
         
             // check if tax_query is needed 
             $taxonomy_field = ( isset($args['taxonomies_field']) ) ? $args['taxonomies_field'] : null;
