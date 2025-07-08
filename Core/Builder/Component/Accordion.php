@@ -69,7 +69,8 @@ class Accordion extends Component {
             Field::create( 'repeater', 'accordion' )
                 ->set_add_text(  __('Add Item','mv23theme') )
                 ->add_group('Item', array(
-                    'edit_mode' => 'popup',
+                    'edit_mode' => 'popup',                    
+                    'title_template' => '<% if ( title ){ %><%= title %> <% } %><% if ( subtitle ){ %> - <%= subtitle %><% } %>',
                     'layout' => 'rows',
                     'fields' => array(
                         Field::create( 'tab', __('Content','mv23theme') ),
