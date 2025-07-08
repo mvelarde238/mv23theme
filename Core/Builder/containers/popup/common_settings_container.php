@@ -67,10 +67,9 @@ Container::create( 'common_settings_container' )
             Field::create( 'checkbox', 'use', __('Activate','mv23theme') )->fancy()->set_width( 20 ),
             Field::create( 'image', 'image', __('Image','mv23theme') )->add_dependency('use')->set_width( 20 ),
             Field::create( 'complex', 'settings' )->add_fields(array(
-	        	Field::create( 'select', 'size', __('Size','mv23theme') )->add_options( array(
-	        	    'cover' => __('Cover','mv23theme'),
-	        	    'auto' => __('Auto','mv23theme'),
-	        	)),
+                Field::create( 'text', 'size', __('Size','mv23theme') )->add_suggestions( array(
+                    'cover', 'auto', 'contain', '100% 100%', '100% auto', 'auto 100%'
+                )),
 	        	Field::create( 'select', 'repeat', __('Repeat','mv23theme') )->add_options( array(
 	        	    'no-repeat' => __('No repeat','mv23theme'),
 	        	    'repeat' => __('Repeat','mv23theme'),
