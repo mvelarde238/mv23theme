@@ -34,16 +34,15 @@
             font-size: var(--icon-size)
         &.active, &:hover
             background-color: var(--ui-color-3)
-        &.active:before
-            content: ''
+        &.active:after
+            content: "\F231"
+            font-family: 'bootstrap-icons' !important
+            line-height: 100%
             position: absolute
             top: 15px
-            right: -8px
-            width: 0
-            height: 0
-            border-style: solid
-            border-width: 7.5px 0 7.5px 5px
-            border-color: transparent transparent transparent var(--ui-color-1)
+            right: 0
+            color: var(--ui-color-1)
+            transform: translateX(100%)
         
     &[data-template="tab"].tab-style2 > &__nav > &__btn > &__title
         font-weight: var(--bold-font-weight)

@@ -12,6 +12,7 @@ CHANGELOG
 - Accordion Comp: restrict components by posttype
 - Inner Accordion component implementation
 - Accordion Component: styles standarization and subtitle implementation
+- Accordion Component use bootstrap icon for caret icon
 
 2.6.2 25-07-06
 - Heading Component Implementation

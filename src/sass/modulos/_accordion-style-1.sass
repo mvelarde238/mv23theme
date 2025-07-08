@@ -28,17 +28,15 @@
             background-color: var(--ui-color-3)
 
         &:after
-            content: ""
+            content: "\F229"
+            font-family: 'bootstrap-icons' !important
             position: absolute
-            top: 0
-            bottom: 0
+            top: 50%
+            transform: translateY(-50%)
             right: 10px
             margin: auto
-            width: 0
-            height: 0
-            border-style: solid
-            border-width: 7px 5px 0 5px
-            border-color: var(--ui-color-1) transparent transparent transparent
+            line-height: 100%
+            color: var(--ui-color-1)
         
     &[data-template="accordion"].acc-style1 > &__items > &__btn > &__title
         font-weight: var(--bold-font-weight)
