@@ -6,7 +6,7 @@ use Core\Builder\Blocks_Layout;
 
 if( !defined('PAGE_HEADER_IN') ) define ('PAGE_HEADER_IN', array('page','archive_page'));
 if( !defined('UF_TAXONOMIES') ) define ('UF_TAXONOMIES', array('category'));
-if( !defined('PAGE_HEADER_COMPONENTS') ) define ('PAGE_HEADER_COMPONENTS', array( 'text_editor', 'image', 'spacer', 'button', 'components_wrapper' ));
+if( !defined('PAGE_HEADER_COMPONENTS') ) define ('PAGE_HEADER_COMPONENTS', array( 'text_editor', 'image', 'slider', 'spacer', 'button', 'components_wrapper' ));
 
 class Page_Header_Container{
 	private static $instance = null;

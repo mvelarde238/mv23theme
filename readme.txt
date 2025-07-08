@@ -8,6 +8,7 @@ CHANGELOG
 - Background image size settings in commom settings container refactorized from select to text with suggestions
 - Set default values on Heading and Listing Components
 - 'post__not_in' argument partially implemented on Listing Component, no setting added
+- Include slider on PAGE_HEADER_COMPONENTS constant
 
 2.6.3 25-07-07
 - Fix Template_Engine\Background: properly handle cases where optional settings are undefined by setting a default value to prevent errors
