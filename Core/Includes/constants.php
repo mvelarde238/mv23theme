@@ -30,6 +30,7 @@ if( !defined('CF7_EMAIL_BUTTON_COLOR') ) define ('CF7_EMAIL_BUTTON_COLOR', '#071
 if( !defined('CF7_EMAIL_LOGO') ) define ('CF7_EMAIL_LOGO', false);
 
 if( !defined('MAIN_NAV_STYLE') ) define ('MAIN_NAV_STYLE', array('horizontal-nav','horizontal-nav-1'));
+if( !defined('MOBILE_NAV_STYLE') ) define ('MOBILE_NAV_STYLE', array('horizontal-nav','horizontal-nav-1'));
 // if( !defined('MENU_ITEM_DATA_LOCATIONS') ) define ('MENU_ITEM_DATA_LOCATIONS', array('main-nav'));
 
 if( !defined('SEARCH_PLACEHOLDER') ) define ('SEARCH_PLACEHOLDER', array('es' => 'Buscar...', 'en' => 'Search...' ));

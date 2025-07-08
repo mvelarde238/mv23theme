@@ -1,7 +1,8 @@
 <?php
 use Core\Frontend\Nav_Walker;
+$mobile_nav_classes = array_merge( array('mobile-header-buttons', 'menu-comp'), MOBILE_NAV_STYLE );
 ?>
-<div class="mobile-header-buttons menu-comp horizontal-nav-1">
+<div class="<?php echo implode(" ", $mobile_nav_classes) ?>">
 	<?php
 	wp_nav_menu(array(
 		'container' => false,                           
