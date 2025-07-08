@@ -67,31 +67,41 @@ class Accordion extends Component {
         $fields = array(
             Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'repeater', 'accordion' )
-                ->set_add_text('Agregar Item')
+                ->set_add_text(  __('Add Item','mv23theme') )
                 ->add_group('Item', array(
                     'edit_mode' => 'popup',
+                    'layout' => 'rows',
                     'fields' => array(
                         Field::create( 'tab', __('Content','mv23theme') ),
-                        Field::create( 'text', 'title', 'Título' )->set_width( 30 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
-                        Field::create( 'radio', 'identifier','Seleccione que mostrar antes del título:')->set_orientation( 'horizontal' )->add_options( array(
-                                '' => 'Nada',
-                                'icon' => 'Icono',
-                                'image' => 'Imagen',
-                        ))->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
-                        Field::create( 'icon', 'icon', 'Icono' )
-                            ->add_set( 'bootstrap-icons' )
-                            ->add_set( 'font-awesome' )
-                            ->add_dependency('identifier','icon','=')->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
-                        Field::create( 'image', 'image', 'Imágen' )->add_dependency('identifier','image','=')->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
-                        Field::create( 'select', 'image_size', 'Tamaño de la imágen' )
-                            ->add_dependency('identifier','image','=')
-                            ->add_dependency('../tab_style','style1','=')
-                            ->add_options(array(
-                                'iconsize' => 'Pequeño',
-                                'auto' => 'Automático'
-                        ))->set_width( 15 )->set_attr( 'style', 'background: #eeee; width: 15%;' ),
-                        
-                        Field::create( 'section', 'Contenido del Item:' ),
+                        Field::create( 'text', 'title' )
+                            ->set_attr( 'style', 'background-color: #f0f0f0;' ),
+                        Field::create( 'text', 'subtitle' ),
+                        Field::create( 'complex', '__identifier-wrapper', __('Element before the title','mv23theme'))->merge()->add_fields(array(
+                            Field::create( 'radio', 'identifier' )->set_orientation( 'horizontal' )->hide_label()->add_options( array(
+                                '' => __('None','mv23theme'),
+                                'icon' => __('Icon','mv23theme'),
+                                'image' => __('Image','mv23theme'),
+                            ))->set_width( 15 ),
+                            Field::create( 'icon', 'icon', __('Icon','mv23theme') )
+                                ->hide_label()
+                                ->add_set( 'bootstrap-icons' )
+                                ->add_set( 'font-awesome' )
+                                ->add_dependency('identifier','icon','=')->set_width( 15 ),
+                            Field::create( 'image', 'image', __('Image','mv23theme') )
+                                ->hide_label()
+                                ->add_dependency('identifier','image','=')
+                                ->set_width( 15 ),
+                            Field::create( 'select', 'image_size' )
+                                ->hide_label()
+                                ->add_dependency('identifier','image','=')
+                                ->set_prefix(__('Image Size','mv23theme'))
+                                ->add_options(array(
+                                    'iconsize' => __('Small','mv23theme'),
+                                    'auto' => __('Automatic','mv23theme')
+                            ))->set_width( 15 )
+                        )),
+
+                        Field::create( 'section', __('Item content:','mv23theme') ),
                         Field::create( 'wysiwyg', 'content', __('Content','mv23theme') )->add_dependency('content_element','text','=')->hide_label()->set_rows( 30 ),
                         Blocks_Layout::the_field( $blocks_layout_args )->add_dependency('content_element','layout','='),
                         Field::create( 'wp_objects', 'page', 'Página' )->add( 'posts', 'page' )->set_button_text( 'Selecciona la página' )->add_dependency('content_element','page','=')->hide_label(),
@@ -99,31 +109,31 @@ class Accordion extends Component {
                             ->add_options( Reusable_Section_CPT::getInstance()->get_reusable_sections() )
                             ->add_dependency('content_element','reusable_section','=')
                             ->hide_label(),
-    
-                        Field::create( 'tab', 'Otros' ),
+
+                        Field::create( 'tab', __('Other','mv23theme') ),
                         Field::create( 'text', 'itemid', 'ID' ),
-                        Field::create( 'radio', 'content_element','Seleccione que mostrar como Contenido:')->set_orientation( 'horizontal' )->add_options( array(
+                        Field::create( 'radio', 'content_element', __('Select what to display as Content:','mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
                             'layout' => __('Layout','mv23theme'),
                             'text' => __('Text','mv23theme'),
                             'page' => __('Page','mv23theme'),
                             'reusable_section' => __( 'Reusable Section', 'mv23theme' ),
-                        ))->set_default_value('layout'),
+                        ))->set_default_value('layout')
                     )
                 )
             ),
             Field::create( 'tab', 'Desktop' ),
-            Field::create( 'select', 'desktop_template', 'Apariencia en Desktop' )->add_options( array(    
+            Field::create( 'select', 'desktop_template', __('Desktop Appearance','mv23theme') )->add_options( array(    
                 'accordion' => 'Accordion',
                 'tab' => 'Tab',
             ))->set_default_value('accordion')->set_width(25),
-            Field::create( 'image_select', 'tab_style', 'Apariencia' )->add_options( $tab_styles )->show_label()->add_dependency('desktop_template','tab','=')->set_width(25),
-            Field::create( 'image_select', 'accordion_style', 'Apariencia' )->add_options( $accordion_styles )->show_label()->add_dependency('desktop_template','accordion','=')->set_width(25),
+            Field::create( 'image_select', 'tab_style', __('Appearance','mv23theme') )->add_options( $tab_styles )->show_label()->add_dependency('desktop_template','tab','=')->set_width(25),
+            Field::create( 'image_select', 'accordion_style', __('Appearance','mv23theme') )->add_options( $accordion_styles )->show_label()->add_dependency('desktop_template','accordion','=')->set_width(25),
             Field::create('complex','tab_settings')->add_fields(array(
-                Field::create('checkbox','close_first_tab')->set_text('Cerrar primer tab')->hide_label()
+                Field::create('checkbox','close_first_tab')->set_text(__('Close first tab','mv23theme'))->hide_label()
             ))->set_width(25)->add_dependency('desktop_template','tab','='),
         
             Field::create( 'tab', 'Mobile' ),
-            Field::create( 'select', 'mobile_template', 'Apariencia en Móviles' )->add_options( array(    
+            Field::create( 'select', 'mobile_template', __('Mobile Appearance','mv23theme') )->add_options( array(    
                 'accordion' => 'Accordion',
                 'tab' => 'Tab',
             ))->set_default_value('accordion')->set_width(33)
@@ -159,9 +169,10 @@ class Accordion extends Component {
                 <?php
                 $nav = '<div class="v23-togglebox__nav">';
                 $itemsbox = '<div class="v23-togglebox__items">';
-                $count = 0;
+                $count = 1;
                 foreach ($items as $item): 
-                    $title = $item['title'];
+                    $title = '<span class="v23-togglebox__title">'.$item['title'].'</span>';
+                    $subtitle = (isset($item['subtitle']) && $item['subtitle']) ? '<span class="v23-togglebox__subtitle">'.$item['subtitle'].'</span>' : '';
                     $itemid = (isset($item['itemid'])) ? $item['itemid'] : false;
                     $slug = ($itemid) ? $itemid : sanitize_title($title);
                     if( preg_match('@[0-9]@i',$slug) ) $slug = 'tab-'.$slug;
@@ -178,7 +189,7 @@ class Accordion extends Component {
                         case 'icon':
                             $icon = $item['icon'];
                             $icon_prefix = (str_starts_with($icon,'fa')) ? 'fa' : 'bi';
-                            $icon_html = ($icon) ? '<span class="'.$icon_prefix.' '.$icon.'"></span>' : '';
+                            $icon_html = ($icon) ? '<i class="'.$icon_prefix.' '.$icon.'"></i>' : '';
                             break;
     
                         default:
@@ -218,8 +229,9 @@ class Accordion extends Component {
                     } else {
                         $contenido = '<div class="component">'.do_shortcode(wpautop($item['content'])).'</div>';
                     }
-    
-                    $nav .= '<p class="v23-togglebox__btn" data-boxid="#'.$slug.'">'.$icon_html.$title.'</p>';
+
+                    $count_str = ($count < 10) ? '0'.$count : $count;
+                    $nav .= '<p class="v23-togglebox__btn" data-boxid="#'.$slug.'" data-count="'.$count_str.'">'.$icon_html.$title.$subtitle.'</p>';
                     $itemsbox .= '<div id="'.$slug.'" class="v23-togglebox__item">'.$contenido.'</div>';
                     $count++;
                 endforeach; 
