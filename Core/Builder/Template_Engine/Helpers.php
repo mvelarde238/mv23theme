@@ -36,14 +36,6 @@ class Helpers {
             return $top . ' ' . $right . ' ' . $bottom . ' ' . $left;
         }
         
-        // If only one value is set
-        if (count($values) === 1) {
-            if ($top !== null) return $property.'-top:' . $top;
-            if ($right !== null) return $property.'-right:' . $right;
-            if ($bottom !== null) return $property.'-bottom:' . $bottom;
-            if ($left !== null) return $property.'-left:' . $left;
-        }
-        
         // For partial values, we can't simplify safely
         return null;
     }

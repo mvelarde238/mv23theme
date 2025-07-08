@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.6.4 26-07-08
+- Fix Core\Builder\Template_Engine\Helpers::simplify_values to avoid sending no simplified values
+
 2.6.3 25-07-07
 - Fix Template_Engine\Background: properly handle cases where optional settings are undefined by setting a default value to prevent errors
   alpha, baackground image settings
