@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+2.6.5 26-07-09
+- Gallery Component Improvements:
+  Translate component, add gallery_type image select, center items on default and carrusel gallery
+
 2.6.4 26-07-08
 - Fix Core\Builder\Template_Engine\Helpers::simplify_values to avoid sending no simplified values
 - MOBILE_NAV_STYLE constant implementation

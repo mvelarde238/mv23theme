@@ -34,19 +34,19 @@ class Gallery extends Component {
 		$fields = array();
 
         $sources = array(
-            'manual' => 'Seleccionar imágenes'
+            'manual' => __('Select Images', 'mv23theme'),
         );
-        if(WPMEDIAFOLDER_IS_ACTIVE) $sources = array_merge( array('wp-media' => 'Seleccionar folder'), $sources );
+        if(WPMEDIAFOLDER_IS_ACTIVE) $sources = array_merge( array('wp-media' => __('Select Folder', 'mv23theme')), $sources );
         
         // basic fields
         $fields[] = Field::create( 'tab', __('Content','mv23theme') );
-        $fields[] = Field::create( 'radio', 'source', 'Fuente')->set_orientation('horizontal')->add_options( $sources )->set_width(100);
-        $fields[] = Field::create( 'gallery', 'gallery' )->add_dependency('source', 'manual', '=')->hide_label()->set_width(100);
+        $fields[] = Field::create( 'radio', 'source', __('Source', 'mv23theme'))->set_orientation('horizontal')->add_options( $sources )->set_width(100);
+        $fields[] = Field::create( 'gallery', 'gallery' )->add_dependency('source', 'manual', '=')->set_width(100);
         
         if(WPMEDIAFOLDER_IS_ACTIVE) {
             // wp media fields
             $fields[] = Field::create( 'select', 'wp_media_folder' )->add_terms( 'wpmf-category' )->fancy()->set_width(25)->add_dependency('source', 'wp-media', '=');
-            $fields[] = Field::create( 'message', 'wp_media_folder_message', 'Página de creación de galerías' )->set_description('<a href="'.admin_url().'upload.php" target="_blank">WP Media Folders</a>')->add_dependency('source', 'wp-media', '=')->set_width(70);    
+            $fields[] = Field::create( 'message', 'wp_media_folder_message', __('WP Media Folder', 'mv23theme') )->set_description('<a href="'.admin_url().'upload.php" target="_blank">'.__('Create a new WP Media Folder', 'mv23theme').'</a>')->add_dependency('source', 'wp-media', '=')->set_width(70);
         }
         
         // gallery settings
@@ -54,36 +54,29 @@ class Gallery extends Component {
         
         // Field::create( 'checkbox', 'autoinsert' )->set_text( '¿Autoinsertar las imágenes agregadas a la galerîa?' ); // the shortcode needs the attachments id's
 
-        $fields[] = Field::create( 'select', 'display', 'Tipo')->add_options( array(
-                'default' => 'Default',
-                'slider' => 'Slider',
-                'masonry' => 'Masonry',
-                // 'porfolio' => 'Portfolio'
-        ));
+        $fields[] = Field::create( 'image_select', 'display', __('Gallery type','mv23theme') )
+            ->show_label()
+            ->add_options(array(
+                'default' => array(
+                    'label' => 'default',
+                    'image' => BUILDER_PATH.'/assets/images/galleries/default.png'
+                ),
+                'slider' => array(
+                    'label' => 'slider',
+                    'image' => BUILDER_PATH.'/assets/images/galleries/slider.png'
+                ),
+                'masonry' => array(
+                    'label' => 'masonry',
+                    'image' => BUILDER_PATH.'/assets/images/galleries/masonry.png'
+                )
+                // 'porfolio' => array(
+                //     'label' => 'portfolio',
+                //     'image' => BUILDER_PATH.'/assets/images/galleries/portfolio.png'
+                // ),
+            ));
         if( !MASONRY_IS_ACTIVE ){
-            $fields[] = Field::create( 'message', 'masonry_message', __('Activate Masonry','mv23theme') )->set_description('You have to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')->add_dependency('display', 'masonry', '=')->set_attr( 'style', 'background:#470e0e;color:#fff;width:100%;' );;
+            $fields[] = Field::create( 'message', 'masonry_message', __('Activate Masonry','mv23theme') )->set_description('You need to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')->add_dependency('display', 'masonry', '=')->set_attr( 'style', 'background:#ffe8e8;width:100%;' );;
         }
-
-        $fields[] = Field::create( 'select', 'link', 'Acción al hacer click')->add_options( array(
-                'none' => 'Ninguna',
-                'file' => 'Mostrar en Pop-up',
-                'post' => 'Página de imágen',
-                'custom' => 'Link Personalizado'
-            ))->set_default_value('file');
-
-        $fields[] = Field::create( 'select', 'size', 'Image size')->add_options( array(
-                'thumbnail' => 'Thumbnail',
-                'medium' => 'Medium',
-                'large' => 'Large',
-                'full' => 'Full',
-            ))->set_default_value('large');
-        
-        $fields[] = Field::create( 'select', 'targetsize', 'Lightbox size')->add_options( array(
-                'thumbnail' => 'Thumbnail',
-                'medium' => 'Medium',
-                'large' => 'Large',
-                'full' => 'Full',
-            ))->set_default_value('full')->add_dependency('link','file','=');
 
         // Field::create( 'select', 'orderby', 'Ordenar por')->add_options( array(
         //     'custom' => 'Personalizado',
@@ -96,17 +89,7 @@ class Gallery extends Component {
         //     'ASC' => 'Ascendente',
         // ));
 
-        $fields[] = Field::create( 'complex', '_gallery_id_wrapper', 'ID de la galería' )->merge()->add_fields(array(
-            Field::create( 'text', 'gallery_id' )
-                ->set_width( 50 ),
-            Field::create( 'checkbox', 'hide_gallery' )->set_text( __('Activate', 'mv23theme') )->set_width( 50 ),
-            Field::create( 'message', 'gallery_id_usage' )
-                ->set_description(__('Use <strong>show-gallery--GALLERY-ID</strong> css class on a button to open the gallery in the frontend', 'mv23theme'))
-                ->add_dependency('gallery_id','','!=')->hide_label()->set_width(100)
-        ));
-
         // columns and gutter settings
-        $fields[] = Field::create( 'tab', __('Columns','mv23theme') );
         $fields[] = Field::create( 'complex', '_items_wrapper', __('Columns', 'mv23theme') )->merge()->add_fields(array(
              Field::create( 'number', 'items_in_desktop', __('Columns on desktop', 'mv23theme') )->set_default_value( '4' )->set_width( 25 ),
              Field::create( 'number', 'items_in_laptop', __('Columns on laptop', 'mv23theme') )->set_default_value( '3' )->set_width( 25 ),
@@ -122,8 +105,8 @@ class Gallery extends Component {
         ));
         
         // images settings
-        $fields[] = Field::create( 'tab', __('Images', 'mv23theme') );
-        $fields[] = Field::create( 'image_select', 'aspect_ratio', __('Images aspect ratio','mv23theme') )->add_options(array(
+        $fields[] = Field::create( 'tab', __('Image Settings', 'mv23theme') );
+        $fields[] = Field::create( 'image_select', 'aspect_ratio', __('Aspect ratio','mv23theme') )->add_options(array(
                 '1/1'  => array(
                     'label' => '1:1',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-1-1.png'
@@ -166,10 +149,41 @@ class Gallery extends Component {
                 ),
                 'default' => array(
                     'label' => 'default',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default-b.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default.png'
                 ),
             ));
-        $fields[] = Field::create( 'checkbox', 'force_fullwidth_images', __('Force fullwidth images','mv23theme') )->set_text( 'Activar' );
+        $fields[] = Field::create( 'select', 'link', __('Click Action', 'mv23theme'))->add_options( array(
+                'none' => __('None', 'mv23theme'),
+                'file' => __('Show in LightBox', 'mv23theme'),
+                'post' => __('Image Page', 'mv23theme'),
+                'custom' => __('Custom Link', 'mv23theme')
+            ))->set_default_value('file');
+
+        $fields[] = Field::create( 'select', 'size', __('Image Quality', 'mv23theme'))->add_options( array(
+                'thumbnail' => __('Thumbnail', 'mv23theme'),
+                'medium' => __('Medium', 'mv23theme'),
+                'large' => __('Large', 'mv23theme'),
+                'full' => __('Full', 'mv23theme'),
+            ))->set_default_value('large');
+
+        $fields[] = Field::create( 'select', 'targetsize', __('LightBox quality size', 'mv23theme'))->add_options( array(
+                'thumbnail' => __('Thumbnail', 'mv23theme'),
+                'medium' => __('Medium', 'mv23theme'),
+                'large' => __('Large', 'mv23theme'),
+                'full' => __('Full', 'mv23theme'),
+            ))->set_default_value('full')->add_dependency('link','file','=');
+        $fields[] = Field::create( 'checkbox', 'force_fullwidth_images', __('Force fullwidth images','mv23theme') )->set_text( __('Activate', 'mv23theme') );
+
+        // advanced settings
+        $fields[] = Field::create( 'tab', __('Advanced Settings', 'mv23theme') );
+        $fields[] = Field::create( 'complex', '_gallery_id_wrapper', __('Gallery ID', 'mv23theme') )->merge()->add_fields(array(
+            Field::create( 'text', 'gallery_id' )
+                ->set_width( 50 ),
+            Field::create( 'checkbox', 'hide_gallery' )->set_text( __('Activate', 'mv23theme') )->set_width( 50 ),
+            Field::create( 'message', 'gallery_id_usage' )
+                ->set_description(__('Use <strong>show-gallery--GALLERY-ID</strong> css class on a button to open the gallery in the frontend', 'mv23theme'))
+                ->add_dependency('gallery_id','','!=')->hide_label()->set_width(100)
+        ));
 
 		return $fields;
 	}
