@@ -134,16 +134,7 @@ class Typography {
             ['key' => 'heading-h6', 'label' => 'Heading H6', 'type' => 'complex', 'fields' => [
                 ['key' => '--heading-h6', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '0.94em'],
                 ['key' => '--heading-h6-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
-            ]],
-            ['type' => 'tab', 'label' => 'Type Scale' ],
-            ['key' => '--text-xxs', 'label' => 'XXS Paragraphs (--text-xxs)', 'type' => 'text', 'placeholder' => 'clamp(0.7rem, -0.09vi + 0.72rem, 0.65rem)' ],
-            ['key' => '--text-xs', 'label' => 'XS Paragraphs (--text-xs)', 'type' => 'text', 'placeholder' => 'clamp(0.79rem, -0.02vi + 0.79rem, 0.78rem)' ],
-            ['key' => '--text-s', 'label' => 'S Paragraphs (--text-s)', 'type' => 'text', 'placeholder' => 'clamp(0.89rem, 0.08vi + 0.87rem, 0.94rem)' ],
-            ['key' => '--text-m', 'label' => 'M Paragraphs (--text-m)', 'type' => 'text', 'placeholder' => 'clamp(1rem, 0.22vi + 0.96rem, 1.13rem)' ],
-            ['key' => '--text-l', 'label' => 'L Paragraphs (--text-l)', 'type' => 'text', 'placeholder' => 'clamp(1.13rem, 0.39vi + 1.05rem, 1.35rem)' ],
-            ['key' => '--text-xl', 'label' => 'XL Paragraphs (--text-xl)', 'type' => 'text', 'placeholder' => 'clamp(1.27rem, 0.62vi + 1.14rem, 1.62rem)' ],
-            ['key' => '--text-xxl', 'label' => 'XXL Paragraphs (--text-xxl)', 'type' => 'text', 'placeholder' => 'clamp(1.42rem, 0.9vi + 1.24rem, 1.94rem)' ],
-            ['key' => '--text-xxxl', 'label' => 'XXL Paragraphs (--text-xxxl)', 'type' => 'text', 'placeholder' => 'clamp(1.6rem, 1.27vi + 1.35rem, 2.33rem)' ]
+            ]]
         ];
     }
 

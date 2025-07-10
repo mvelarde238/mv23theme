@@ -362,65 +362,49 @@ class TinyMCE{
 				    'title' => __('Text XXS','mv23theme'),
 				    'block' => 'div',
 					'wrapper' => true,
-				    'styles' => array(
-						'fontSize' => 'var(--text-xxs)'
-		    		)
+					'classes' => 'text-xxs'
 				),
 				array(  
 				    'title' => __('Text XS','mv23theme'),
 				    'block' => 'div',
 					'wrapper' => true,
-				    'styles' => array(
-						'fontSize' => 'var(--text-xs)'
-		    		)
+					'classes' => 'text-xs'
 				),
 				array(  
 				    'title' => __('Text S','mv23theme'),
 				    'block' => 'div',
 					'wrapper' => true,
-				    'styles' => array(
-						'fontSize' => 'var(--text-s)'
-		    		)
+					'classes' => 'text-s'
 				),
 				array(  
 				    'title' => __('Text M','mv23theme'),
 				    'block' => 'div',
 					'wrapper' => true,
-				    'styles' => array(
-						'fontSize' => 'var(--text-m)'
-		    		)
+					'classes' => 'text-m'
 				),
 				array(  
 				    'title' => __('Text L','mv23theme'),
 				    'block' => 'div',
 					'wrapper' => true,
-				    'styles' => array(
-						'fontSize' => 'var(--text-l)'
-		    		)
+					'classes' => 'text-l'
 				),
 				array(  
 				    'title' => __('Text XL','mv23theme'),
 				    'block' => 'div',
 					'wrapper' => true,
-				    'styles' => array(
-						'fontSize' => 'var(--text-xl)'
-		    		)
+					'classes' => 'text-xl'
 				),
 				array(  
 				    'title' => __('Text XXL','mv23theme'),
 				    'block' => 'div',
 					'wrapper' => true,
-				    'styles' => array(
-						'fontSize' => 'var(--text-xxl)'
-		    		)
+					'classes' => 'text-xxl'
 				),
 				array(  
 				    'title' => __('Text XXXL','mv23theme'),
 				    'block' => 'div',
 					'wrapper' => true,
-				    'styles' => array(
-						'fontSize' => 'var(--text-xxxl)'
-		    		)
+					'classes' => 'text-xxxl'
 				)
 			)
 		));

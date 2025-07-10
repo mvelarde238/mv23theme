@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.6.6 26-07-10
+- Type Scale removed, all typography scale is handled by base font size
+
 2.6.5 26-07-09
 - Gallery Component Improvements:
   Translate component, add gallery_type image select, center items on default and carrusel gallery

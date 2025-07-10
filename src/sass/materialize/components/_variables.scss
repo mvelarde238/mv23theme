@@ -88,24 +88,23 @@ $container-width: 1240px !default; // used in some @media queries
 } 
 
 @mixin typography-properties{
-	// Fluid Typography based on: https://www.fluid-type-scale.com/calculate?minFontSize=16&minWidth=320&minRatio=1.125&maxFontSize=18&maxWidth=1240&maxRatio=1.2&steps=xxs%2Cxs%2Cs%2Cm%2Cl%2Cxl%2Cxxl%2Cxxxl&baseStep=m&prefix=text&useContainerWidth=undefined&includeFallbacks=undefined&useRems=true&remValue=16&decimals=2&previewFont=Inter&previewText=Almost+before+we+knew+it%2C+we+had+left+the+ground&previewWidth=1240
-	--text-xxs: clamp(0.7rem, -0.09vi + 0.72rem, 0.65rem);
-	--text-xs: clamp(0.79rem, -0.02vi + 0.79rem, 0.78rem);
-	--text-s: clamp(0.89rem, 0.08vi + 0.87rem, 0.94rem);
-	--text-m: clamp(1rem, 0.22vi + 0.96rem, 1.13rem);
-	--text-l: clamp(1.13rem, 0.39vi + 1.05rem, 1.35rem);
-	--text-xl: clamp(1.27rem, 0.62vi + 1.14rem, 1.62rem);
-	--text-xxl: clamp(1.42rem, 0.9vi + 1.24rem, 1.94rem);
-	--text-xxxl: clamp(1.6rem, 1.27vi + 1.35rem, 2.33rem);
+	--global-font-size: clamp(0.875rem, 0.83rem + 0.143vi, 1rem); // 14 to 16 pixels
 
-	--global-font-size: var(--text-m);
+	--text-xxs: 0.78em;
+	--text-xs: 0.875em;
+	--text-s: 0.9375em;
+	--text-m: 1em;
+	--text-l: 1.35em;
+	--text-xl: 1.62em;
+	--text-xxl: 1.94em;
+	--text-xxxl: 2.33em;
 
 	--heading-h1: 2.33em;
 	--heading-h2: 1.94em;
 	--heading-h3: 1.62em;
 	--heading-h4: 1.35em;
-	--heading-h5: 1.13em;
-	--heading-h6: 0.94em;
+	--heading-h5: 1em;
+	--heading-h6: 0.9375em;
 
 	--heading-h1-line-height: var(--headings-line-height);
 	--heading-h2-line-height: var(--headings-line-height);
@@ -121,7 +120,7 @@ $container-width: 1240px !default; // used in some @media queries
 	--bold-font-weight: 700;
 	--headings-font-weight: var(--bold-font-weight);
 	
-	--text-block-spacing: 1.5rem;
+	--text-block-spacing: 1.5em;
 	--button-padding: .5em 1em;	
 
 	--l-columns-gap: 20px;
