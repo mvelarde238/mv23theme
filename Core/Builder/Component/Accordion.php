@@ -161,6 +161,14 @@ class Accordion extends Component {
 
         $accordion_style = (isset($args['accordion_style'])) ? $args['accordion_style'] : 'style1';
         if($accordion_style == 'style1' ) $accordion_style = 'acc-'.$accordion_style;
+
+        // .maybe-fix-scroll-position implementation
+        if( 
+            ( $args['desktop_template'] == 'accordion' || $args['mobile_template'] == 'accordion' ) ||
+            ( ($args['desktop_template'] == 'tab' || $args['mobile_template'] == 'tab') && $args['tab_style'] == 'style1' )
+        ) {
+            $accordion_style .= ' maybe-fix-scroll-position';
+        }
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
@@ -176,7 +184,7 @@ class Accordion extends Component {
                     $subtitle = (isset($item['subtitle']) && $item['subtitle']) ? '<span class="v23-togglebox__subtitle">'.$item['subtitle'].'</span>' : '';
                     $itemid = (isset($item['itemid'])) ? $item['itemid'] : false;
                     $slug = ($itemid) ? $itemid : sanitize_title($title);
-                    if( preg_match('@[0-9]@i',$slug) ) $slug = 'tab-'.$slug;
+                    if( preg_match('@^[0-9]@',$slug) ) $slug = 'item-'.$slug;
     
                     $identifier = $item['identifier'] ?? '';
     

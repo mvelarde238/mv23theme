@@ -9,10 +9,12 @@
 
     &[data-template="tab"].tab-style2 > &__items
         width: 70%
-        padding: 40px 20px
         border-top: 1px solid var(--ui-color-2)
         border-right: 1px solid var(--ui-color-2)
         border-radius: 0 15px 0 0
+
+    &[data-template="tab"].tab-style2 > &__items > &__item.active
+        padding: 40px 20px
 
     &[data-template="tab"].tab-style2 > &__nav > &__btn
         padding: 15px
