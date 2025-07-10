@@ -11,6 +11,9 @@
 
             V23_ToggleBox.create( el, options );
         }
+
+        // Refresh ScrollTrigger breakpoints after content update
+        refreshScrollTriggerBreakpoints();
         
         // ****************************************************************************************************
     });
