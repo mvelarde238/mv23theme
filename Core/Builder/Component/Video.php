@@ -41,22 +41,22 @@ class Video extends Component {
 
             Field::create( 'embed', 'external_url', 'URL')->add_dependency('video_source','external','=')->set_width(50),
             Field::create( 'video', 'video' )->add_dependency('video_source','selfhosted','=')->set_width(50),
-    
-            Field::create('checkbox', 'expand_on_click', __('Expand on click','mv23theme'))->fancy()
+            
+            Field::create( 'complex', 'video_settings' )->add_fields(array(
+                    Field::create( 'checkbox', 'controls', __('Controls','mv23theme') )->fancy()->set_width(10),
+                    Field::create( 'checkbox', 'autoplay', __('AutoPlay','mv23theme') )->fancy()->set_width(10),
+                    Field::create( 'checkbox', 'muted', __('Muted','mv23theme') )->fancy()->set_width(10),
+                    Field::create( 'checkbox', 'loop', __('Loop','mv23theme') )->fancy()->set_width(10),
+                    Field::create( 'color', 'bgc', __('Background color','mv23theme') )->set_default_value('#000000')->set_width(10),
+                    Field::create( 'number', 'opacity', __('Opacity','mv23theme') )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width(10)
+                ))
                 ->add_dependency('video_source','selfhosted','=')
                 // ->add_dependency('video','','NOT_NULL')
                 ->add_dependency_group()
                 ->add_dependency('video_source','external','=')
                 ->add_dependency('external_url','','!='),
-            
-            Field::create( 'complex', 'video_settings' )->add_fields(array(
-                    Field::create( 'color', 'bgc', __('Background color','mv23theme') )->set_default_value('#000000')->set_width(10),
-                    Field::create( 'checkbox', 'controls', __('Controls','mv23theme') )->set_text( __('Activate','mv23theme') )->set_default_value(1)->set_width(10),
-                    Field::create( 'checkbox', 'autoplay', __('AutoPlay','mv23theme') )->set_text( __('Activate','mv23theme') )->set_width(10),
-                    Field::create( 'checkbox', 'muted', __('Muted','mv23theme') )->set_text( __('Activate','mv23theme') )->set_width(10),
-                    Field::create( 'checkbox', 'loop', __('Loop','mv23theme') )->set_text( __('Activate','mv23theme') )->set_width(10),
-                    Field::create( 'number', 'opacity', __('Opacity','mv23theme') )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width(10)
-                ))
+
+            Field::create('checkbox', 'expand_on_click', __('Expand on click','mv23theme'))->fancy()
                 ->add_dependency('video_source','selfhosted','=')
                 // ->add_dependency('video','','NOT_NULL')
                 ->add_dependency_group()

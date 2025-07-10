@@ -5,6 +5,7 @@ CHANGELOG
 2.6.5 26-07-09
 - Gallery Component Improvements:
   Translate component, add gallery_type image select, center items on default and carrusel gallery
+- Check Video Component Issue: controls setting need to be activated manually
 
 2.6.4 26-07-08
 - Fix Core\Builder\Template_Engine\Helpers::simplify_values to avoid sending no simplified values
