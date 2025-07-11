@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.6.7 26-07-11
+- Fix 3 columns 1/1.5/1.5 width on mobile and add .mobile-1de2-1de2-1
+
 2.6.6 26-07-10
 - Type Scale removed, all typography scale is handled by base font size
 

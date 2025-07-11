@@ -126,7 +126,7 @@ Container::create( 'row_settings_container' )
                 array( 'value' => '1fr', 'label' => '100%', 'image' => '3-columns-1fr' ),
                 array( 'value' => '1fr 1fr 1fr', 'label' => '1/3 + 1/3 + 1/3' ),
                 array( 'value' => 'mobile-1-1de2-1de2', 'label' => '1 + 1/2 + 1/2', 'image' => 'tablet-1-1de2-1de2' ),
-                // array( 'value' => 'mobile-1de2-1de2-1', 'label' => '1/2 + 1/2 + 1' ),
+                array( 'value' => 'mobile-1de2-1de2-1', 'label' => '1/2 + 1/2 + 1', 'image' => 'tablet-1de2-1de2-1' ),
                 // array( 'value' => 'mobile-1de2-1-1de2', 'label' => '1/2 + 1 + 1/2' )
             ))
         ),
