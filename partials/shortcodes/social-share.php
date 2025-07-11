@@ -2,6 +2,8 @@
 class SocialShare {
     private $social_networks;
     private $limit;
+    private $more_text = 'more';
+    private $more_icon = 'bi-three-dots';
 
     public function __construct() {
         $this->limit = 5;
@@ -86,6 +88,8 @@ class SocialShare {
         $atts = shortcode_atts([
             'networks' => '',
             'limit' => $this->limit,
+            'more_text' => $this->more_text,
+            'more_icon' => $this->more_icon,
             'alignment' => ''
         ], $atts);
 
@@ -100,7 +104,7 @@ class SocialShare {
         if($atts['alignment']) $output .= 'style="justify-content:'.esc_attr($atts['alignment']).'"';
         $output .= '>';
         $output .= $this->generate_buttons($selected_networks, 0, $limit);
-        if( count($selected_networks) > $limit ) $output .= '<button class="modal-trigger" data-target="more-social-share-modal"><i class="bi bi-three-dots"></i> more</button>';
+        if( count($selected_networks) > $limit ) $output .= '<button class="modal-trigger" data-target="more-social-share-modal"><i class="bi '.$atts['more_icon'].'"></i> '.$atts['more_text'].'</button>';
         $output .= '</div>';
 
         $output .= '<div id="more-social-share-modal" class="modal theme-modal"><div class="modal-content">';
