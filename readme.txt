@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.6.8 26-07-12
+- Gallery Component Improvements: Add gsap marquee, item size, reorder settings
+
 2.6.7 26-07-11
 - Fix 3 columns 1/1.5/1.5 width on mobile and add .mobile-1de2-1de2-1
 - Social share shortcode improvements: add more_text and more_icon attributes

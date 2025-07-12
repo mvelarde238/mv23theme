@@ -1,5 +1,6 @@
 <?php
 use Core\Builder\Template_Engine;
+use Core\Builder\Template_Engine\Video as Video_Template_Engine;
 
 function print_theme_gallery( $atts ) {
 	$a = shortcode_atts( array(
@@ -19,7 +20,9 @@ function print_theme_gallery( $atts ) {
         'display' => 'default',
         'wpmf_folder_id' => null,
         'gallery_id' => null,
-        'force_fullwidth_images' => false
+        'marquee_speed' => 18,
+        'fade_color' => '#ffffff',
+        'size_styles' => ''
     ), $atts );
 
     $attachments = array();
@@ -59,8 +62,24 @@ function print_theme_gallery( $atts ) {
         $rand_id = 'gallery_'.substr(md5(microtime()),rand(0,26),5);
         $gallery_id = ( $a['gallery_id'] ) ? : $rand_id;
 
+        $carrusel_styles = array();
+        if( $a['aspectratio'] ) $carrusel_styles[] = '--aspect-ratio:'.$a['aspectratio'];
+        if( $a['display'] != 'slider' ) {
+            $carrusel_styles[] = '--d-gap:'.$a['d_gap'].'px';
+            $carrusel_styles[] = '--l-gap:'.$a['l_gap'].'px';
+            $carrusel_styles[] = '--t-gap:'.$a['t_gap'].'px';
+            $carrusel_styles[] = '--m-gap:'.$a['m_gap'].'px';
+            $carrusel_styles[] = '--d-columns:'.$a['d_columns'];
+            $carrusel_styles[] = '--l-columns:'.$a['l_columns'];
+            $carrusel_styles[] = '--t-columns:'.$a['t_columns'];
+            $carrusel_styles[] = '--m-columns:'.$a['m_columns'];
+        }
+        if( $a['display'] === 'marquee' ) {
+            $carrusel_styles[] = '--fade-color:'.$a['fade_color'];
+        }
+
         if( $a['display'] == 'slider' ){ ?>
-            <div class="theme-gallery carrusel carrusel-inside-component" data-controls-position="center" style="--aspect-ratio:<?=$a['aspectratio']?>">
+            <div class="theme-gallery carrusel carrusel-inside-component" data-controls-position="center" style="<?=implode(';',$carrusel_styles)?>">
             <div class="carrusel__slider" 
                 data-show-controls="1" 
                 data-show-nav="1" 
@@ -78,10 +97,15 @@ function print_theme_gallery( $atts ) {
                 data-desktop-gutter="<?=$a['d_gap']?>">
             <?php
         } else if ( $a['display'] == 'masonry' ) {
-            echo '<div class="theme-gallery theme-gallery--masonry" style="--d-gap:'.$a['d_gap'].'px; --l-gap:'.$a['l_gap'].'px; --t-gap:'.$a['t_gap'].'px; --m-gap:'.$a['m_gap'].'px; --d-columns:'.$a['d_columns'].'; --l-columns:'.$a['l_columns'].'; --t-columns:'.$a['t_columns'].'; --m-columns:'.$a['m_columns'].'; --aspect-ratio:'.$a['aspectratio'].'"">';
+            echo '<div class="theme-gallery theme-gallery--masonry" style="'.implode(';', $carrusel_styles).'">';
             echo '<div class="theme-gallery theme-gallery__item-sizer"></div>';
+
+        } else if ( $a['display'] == 'marquee' ) {
+            echo '<div class="theme-gallery theme-gallery__marquee" data-speed="'.$a['marquee_speed'].'" style="'.implode(';', $carrusel_styles).'">';
+            echo '<div class="theme-gallery__marquee-track">';
+
         } else {
-            echo '<div class="theme-gallery has-columns" style="--d-gap:'.$a['d_gap'].'px; --l-gap:'.$a['l_gap'].'px; --t-gap:'.$a['t_gap'].'px; --m-gap:'.$a['m_gap'].'px; --d-columns:'.$a['d_columns'].'; --l-columns:'.$a['l_columns'].'; --t-columns:'.$a['t_columns'].'; --m-columns:'.$a['m_columns'].'; --aspect-ratio:'.$a['aspectratio'].'">';
+            echo '<div class="theme-gallery has-columns" style="'.implode(';', $carrusel_styles).'">';
         }
 
         foreach ($attachments as $attachment_id) :
@@ -96,7 +120,7 @@ function print_theme_gallery( $atts ) {
                 case 'image/png':
                 case 'image/gif':
                     $attachment_type = 'image';
-                    $url = wp_get_attachment_image_url($attachment_id, $a['size']);
+                    $attach_url = wp_get_attachment_image_url($attachment_id, $a['size']);
 
                     // WP MEDIA FOLDER PLUGIN: REMOTE VIDEO SUPPORT
                     $remote_video = get_post_meta($attachment_id,'wpmf_remote_video_link',true);
@@ -104,21 +128,30 @@ function print_theme_gallery( $atts ) {
                         $is_remote_video = true;
                         $attachment_type = 'video';
                         $url = $remote_video;
-                        $media_class = ($a['link'] != 'none') ? 'popable' : 'playable';
-                        ?>
-                        <div class="media video has-video-background <?=$media_class?>">
-                            <div class="media__element video-background" style="background-color:#000000;">
-                                <?php echo wp_oembed_get($remote_video); ?>   
-                            </div>
-                        </div>
-                        <?php
-                    } else {
-                        $image_attrs['additional_attributes'] = array('src="'.$url.'"');
-                        if( $a['force_fullwidth_images'] ){
-                            $image_attrs['additional_attributes'][] = 'style=width:100%;';
+
+                        $video_args = array(
+                            'video_source' => 'external',
+                            'external_url' => $url,
+                            'video_settings' => array()
+                        );
+                        if( !empty($a['size_styles'])){
+                            $video_args['video_settings']['styles'] = $a['size_styles'];
+                        }
+
+                        $video_data = Video_Template_Engine::get_video_data( $video_args );
+                        if( !empty($video_data['code']) ) echo $video_data['code'];
+
+                    } else { // is a normal attachment image
+                        $url = $attach_url;
+                        $image_attrs = array();
+                        $image_attrs['additional_attributes'] = array('src="'.$attach_url.'"');
+    
+                        if( !empty($a['size_styles'])){
+                            $image_attrs['additional_attributes'][] = 'style="'.$a['size_styles'].'"';
                         }
                         echo '<img '.Template_Engine::generate_attributes($image_attrs).'>';
                     }
+
                     break;
 
                 case 'video/mpeg':
@@ -126,24 +159,44 @@ function print_theme_gallery( $atts ) {
                 case 'video/quicktime':
                     $attachment_type = 'video';
                     $url = wp_get_attachment_url($attachment_id);
-                    $media_class = ($a['link'] != 'none') ? 'popable' : 'playable';
-                    $video_attrs = ($a['link'] != 'none') ? '' : 'controls';
-                    ?>
-                    <div class="media video selfhosted has-video-background <?=$media_class?>">
-                        <div class="media__element video-background" style="background-color:#000000;">
-                            <video <?=$video_attrs?>>
-                                <source src="<?=$url?>">
-                                Your browser does not support the video tag.
-                            </video>                            
-                        </div>
-                    </div>
-                    <?php
+
+                    $video_args = array(
+                        'video' => array(
+                            'videos' => array($attachment_id),
+                            'poster' => null
+                        ),
+                        'video_settings' => array()
+                    );
+
+                    if ($a['link'] != 'none'){
+                        $video_args['video_settings']['controls'] = 0;
+                        $video_args['video_settings']['autoplay'] = 1;
+                        $video_args['video_settings']['muted'] = 1;
+                        $video_args['video_settings']['loop'] = 1;
+                    } 
+
+                    if( !empty($a['size_styles'])){
+                        $video_args['video_settings']['styles'] = $a['size_styles'];
+                    }
+
+                    $video_data = Video_Template_Engine::get_video_data( $video_args );
+                    if( !empty($video_data['code']) ) echo $video_data['code'];
+                    
                     break;
 
                 case 'application/pdf':
                     $attachment_type = 'pdf';
                     $url = wp_get_attachment_url($attachment_id);
-                    echo '<img src="'.get_template_directory_uri().'/assets/images/pdf_poster.jpg">';
+
+                    $image_attrs = array();
+                    $image_attrs['additional_attributes'] = array(
+                        'src="'.get_template_directory_uri().'/assets/images/pdf_poster.jpg"'
+                    );
+
+                    if( !empty($a['size_styles'])){
+                        $image_attrs['additional_attributes'][] = 'style="'.$a['size_styles'].'"';
+                    }
+                    echo '<img '.Template_Engine::generate_attributes($image_attrs).'>';
                     break;
                 
                 default:
@@ -157,7 +210,6 @@ function print_theme_gallery( $atts ) {
                 switch ($a['link']) {
                     case 'file':
                         $attachment_link = ($attachment_type === 'image') ? wp_get_attachment_image_url($attachment_id, $a['targetsize']) : $url;
-                        // $link_class .= ($attachment_type === 'image') ? ' zoom' : ' zoom-video';
                         break;
 
                     case 'post':
@@ -202,7 +254,7 @@ function print_theme_gallery( $atts ) {
         endforeach;
         
         echo '</div>';
-        if( $a['display'] == 'slider' ) echo '</div>';
+        if( $a['display'] == 'slider' || $a['display'] == 'marquee' ) echo '</div>';
     }
 	return ob_get_clean();
 }

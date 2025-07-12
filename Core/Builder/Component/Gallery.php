@@ -50,8 +50,8 @@ class Gallery extends Component {
         }
         
         // gallery settings
-        $fields[] = Field::create( 'tab', 'Settings' );
-        
+        $fields[] = Field::create( 'tab', __('Gallery Settings', 'mv23theme') );
+
         // Field::create( 'checkbox', 'autoinsert' )->set_text( '¿Autoinsertar las imágenes agregadas a la galerîa?' ); // the shortcode needs the attachments id's
 
         $fields[] = Field::create( 'image_select', 'display', __('Gallery type','mv23theme') )
@@ -65,6 +65,10 @@ class Gallery extends Component {
                     'label' => 'slider',
                     'image' => BUILDER_PATH.'/assets/images/galleries/slider.png'
                 ),
+                'marquee' => array(
+                    'label' => 'marquee',
+                    'image' => BUILDER_PATH.'/assets/images/galleries/marquee.png'
+                ),
                 'masonry' => array(
                     'label' => 'masonry',
                     'image' => BUILDER_PATH.'/assets/images/galleries/masonry.png'
@@ -75,8 +79,21 @@ class Gallery extends Component {
                 // ),
             ));
         if( !MASONRY_IS_ACTIVE ){
-            $fields[] = Field::create( 'message', 'masonry_message', __('Activate Masonry','mv23theme') )->set_description('You need to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')->add_dependency('display', 'masonry', '=')->set_attr( 'style', 'background:#ffe8e8;width:100%;' );;
+            $fields[] = Field::create( 'message', 'masonry_message', __('Activate Masonry','mv23theme') )->set_description('You need to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')->add_dependency('display', 'masonry', '=')->set_attr( 'style', 'background:#ffe8e8;width:100%;' );
         }
+        if( !SCROLL_ANIMATIONS ){
+            $fields[] = Field::create( 'message', 'marquee_message', __('Activate GSAP Animations','mv23theme') )->set_description('You need to activate GSAP animations to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate GSAP Animations</a>')->add_dependency('display', 'marquee', '=')->set_attr( 'style', 'background:#ffe8e8;width:100%;' );
+        }
+
+        $fields[] = Field::create( 'complex', 'marquee_settings', __('Marquee Settings', 'mv23theme') )->merge()->add_fields(array(
+            Field::create( 'number', 'marquee_speed', __('Marquee Animation Speed', 'mv23theme') )
+                ->set_default_value(18)
+                ->set_suffix(__('Seconds', 'mv23theme'))
+                ->set_attr( 'style', 'flex-grow: initial;' ),
+            Field::create( 'color', 'fade_color', __('Fade Color', 'mv23theme') )
+                ->set_default_value('#ffffff')
+                ->set_attr( 'style', 'flex-grow: initial;' )
+        ))->add_dependency('display', 'marquee', '=');
 
         // Field::create( 'select', 'orderby', 'Ordenar por')->add_options( array(
         //     'custom' => 'Personalizado',
@@ -90,12 +107,13 @@ class Gallery extends Component {
         // ));
 
         // columns and gutter settings
+        $columns_suggestions = array( '4', '3', '2', '1', 'auto' );
         $fields[] = Field::create( 'complex', '_items_wrapper', __('Columns', 'mv23theme') )->merge()->add_fields(array(
-             Field::create( 'number', 'items_in_desktop', __('Columns on desktop', 'mv23theme') )->set_default_value( '4' )->set_width( 25 ),
-             Field::create( 'number', 'items_in_laptop', __('Columns on laptop', 'mv23theme') )->set_default_value( '3' )->set_width( 25 ),
-             Field::create( 'number', 'items_in_tablet', __('Columns on tablet', 'mv23theme') )->set_default_value( '2' )->set_width( 25 ),
-             Field::create( 'number', 'items_in_mobile', __('Columns on mobile', 'mv23theme') )->set_default_value( '2' )->set_width( 25 )
-        ));
+            Field::create( 'text', 'items_in_desktop', __('Columns on desktop', 'mv23theme') )->set_default_value( '4' )->set_width( 25 )->add_suggestions( $columns_suggestions ),
+            Field::create( 'text', 'items_in_laptop', __('Columns on laptop', 'mv23theme') )->set_default_value( '3' )->set_width( 25 )->add_suggestions( $columns_suggestions ),
+            Field::create( 'text', 'items_in_tablet', __('Columns on tablet', 'mv23theme') )->set_default_value( '2' )->set_width( 25 )->add_suggestions( $columns_suggestions ),
+            Field::create( 'text', 'items_in_mobile', __('Columns on mobile', 'mv23theme') )->set_default_value( '2' )->set_width( 25 )->add_suggestions( $columns_suggestions )
+        ))->add_dependency('display', 'marquee', '!=');
 
         $fields[] = Field::create( 'complex', '_gutter_wrapper', __('Space between items', 'mv23theme') )->merge()->add_fields(array(
             Field::create( 'number', 'gutter_in_desktop', __('Gap on desktop', 'mv23theme') )->set_default_value( '4' )->set_width( 25 ),
@@ -105,8 +123,10 @@ class Gallery extends Component {
         ));
         
         // images settings
-        $fields[] = Field::create( 'tab', __('Image Settings', 'mv23theme') );
-        $fields[] = Field::create( 'image_select', 'aspect_ratio', __('Aspect ratio','mv23theme') )->add_options(array(
+        $fields[] = Field::create( 'tab', __('Images Settings', 'mv23theme') );
+        $fields[] = Field::create( 'image_select', 'aspect_ratio', __('Aspect ratio','mv23theme') )
+            ->set_description(__('Appearance of the images in the gallery. If you select "default" the images will keep their original aspect ratio.', 'mv23theme'))
+            ->add_options(array(
                 '1/1'  => array(
                     'label' => '1:1',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-1-1.png'
@@ -152,27 +172,39 @@ class Gallery extends Component {
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default.png'
                 ),
             ));
-        $fields[] = Field::create( 'select', 'link', __('Click Action', 'mv23theme'))->add_options( array(
+
+        // size settings
+        $size_suggestions = array( '100%', '200px', 'auto' );
+
+        $fields[] = Field::create( 'complex', 'images_width', __('Image Width', 'mv23theme') )->add_fields(array(
+            Field::create( 'checkbox', 'use', __('Customise','mv23theme') )->fancy()->set_width( 20 ),
+            Field::create( 'text', 'max_width', __('Max Width','mv23theme') )->set_placeholder('auto')->add_suggestions($size_suggestions)->add_dependency('use')->set_width( 20 ),
+            Field::create( 'text', 'width', __('Width','mv23theme') )->set_placeholder('auto')->add_suggestions($size_suggestions)->add_dependency('use')->set_width( 20 ),
+            Field::create( 'text', 'min_width', __('Min Width','mv23theme') )->set_placeholder('auto')->add_suggestions($size_suggestions)->add_dependency('use')->set_width( 20 )
+        ));
+
+        $fields[] = Field::create( 'complex', 'images_height', __('Image Height', 'mv23theme') )->add_fields(array(
+            Field::create( 'checkbox', 'use', __('Customise','mv23theme') )->fancy()->set_width( 20 ),
+            Field::create( 'text', 'max_height', __('Max Height','mv23theme') )->set_placeholder('auto')->add_suggestions($size_suggestions)->add_dependency('use')->set_width( 20 ),
+            Field::create( 'text', 'height', __('Height','mv23theme') )->set_placeholder('auto')->add_suggestions($size_suggestions)->add_dependency('use')->set_width( 20 ),
+            Field::create( 'text', 'min_height', __('Min Height','mv23theme') )->set_placeholder('auto')->add_suggestions($size_suggestions)->add_dependency('use')->set_width( 20 )
+        ));
+
+        // action settings
+        $fields[] = Field::create( 'complex', '_action_wrapper', __('Action Settings', 'mv23theme') )->merge()->add_fields(array(
+            Field::create( 'select', 'link', __('On Click', 'mv23theme'))->add_options( array(
                 'none' => __('None', 'mv23theme'),
                 'file' => __('Show in LightBox', 'mv23theme'),
-                'post' => __('Image Page', 'mv23theme'),
-                'custom' => __('Custom Link', 'mv23theme')
-            ))->set_default_value('file');
-
-        $fields[] = Field::create( 'select', 'size', __('Image Quality', 'mv23theme'))->add_options( array(
+                'post' => __('Go to Image Page', 'mv23theme'),
+                'custom' => __('Go to custom link', 'mv23theme')
+            ))->set_default_value('file')->set_attr('style', 'flex-grow: initial;'),
+            Field::create( 'select', 'targetsize', __('LightBox quality size', 'mv23theme'))->add_options( array(
                 'thumbnail' => __('Thumbnail', 'mv23theme'),
                 'medium' => __('Medium', 'mv23theme'),
                 'large' => __('Large', 'mv23theme'),
                 'full' => __('Full', 'mv23theme'),
-            ))->set_default_value('large');
-
-        $fields[] = Field::create( 'select', 'targetsize', __('LightBox quality size', 'mv23theme'))->add_options( array(
-                'thumbnail' => __('Thumbnail', 'mv23theme'),
-                'medium' => __('Medium', 'mv23theme'),
-                'large' => __('Large', 'mv23theme'),
-                'full' => __('Full', 'mv23theme'),
-            ))->set_default_value('full')->add_dependency('link','file','=');
-        $fields[] = Field::create( 'checkbox', 'force_fullwidth_images', __('Force fullwidth images','mv23theme') )->set_text( __('Activate', 'mv23theme') );
+            ))->set_default_value('full')->add_dependency('link','file','=')->set_attr('style', 'flex-grow: initial;'),
+        ));
 
         // advanced settings
         $fields[] = Field::create( 'tab', __('Advanced Settings', 'mv23theme') );
@@ -184,6 +216,12 @@ class Gallery extends Component {
                 ->set_description(__('Use <strong>show-gallery--GALLERY-ID</strong> css class on a button to open the gallery in the frontend', 'mv23theme'))
                 ->add_dependency('gallery_id','','!=')->hide_label()->set_width(100)
         ));
+        $fields[] = Field::create( 'select', 'size', __('Image Quality', 'mv23theme'))->add_options( array(
+                'thumbnail' => __('Thumbnail', 'mv23theme'),
+                'medium' => __('Medium', 'mv23theme'),
+                'large' => __('Large', 'mv23theme'),
+                'full' => __('Full', 'mv23theme'),
+            ))->set_default_value('large');
 
 		return $fields;
 	}
@@ -213,11 +251,13 @@ class Gallery extends Component {
         $t_gap = $args['gutter_in_tablet'] ?? 4;
         $m_gap = $args['gutter_in_mobile'] ?? 4;
 
-        $aspect_ratio = ( isset($args['aspect_ratio']) && $args['aspect_ratio'] != 'aspect-ratio-default' ) ? $args['aspect_ratio'] : 'aspect-ratio-default';
         $shortcode_name = ($source === 'manual') ? 'theme_gallery' : 'theme_gallery';
         $gallery_id = (isset($args['gallery_id'])) ? $args['gallery_id'] : '';
 
-        $shortcode = '['.$shortcode_name.' link="'.$link.'" d_columns="'.$d_columns.'" l_columns="'.$l_columns.'" t_columns="'.$t_columns.'" m_columns="'.$m_columns.'" d_gap="'.$d_gap.'" l_gap="'.$l_gap.'" t_gap="'.$t_gap.'" m_gap="'.$m_gap.'" size="'.$size.'" targetsize="'.$targetsize.'" aspectratio="'.$aspect_ratio.'" display="'.$display.'" gallery_id="'.$gallery_id.'"';
+        $shortcode = '['.$shortcode_name.' link="'.$link.'" d_columns="'.$d_columns.'" l_columns="'.$l_columns.'" t_columns="'.$t_columns.'" m_columns="'.$m_columns.'" d_gap="'.$d_gap.'" l_gap="'.$l_gap.'" t_gap="'.$t_gap.'" m_gap="'.$m_gap.'" size="'.$size.'" targetsize="'.$targetsize.'" display="'.$display.'" gallery_id="'.$gallery_id.'"';
+
+        $aspect_ratio = $args['aspect_ratio'] ?? 'default';
+        if($aspect_ratio != 'default') $shortcode .= ' aspectratio="'.$aspect_ratio.'"';
 
         if($source == 'wp-media'){
         	$wp_media_folder = $args['wp_media_folder'] ?? 0;
@@ -230,14 +270,34 @@ class Gallery extends Component {
         	$shortcode .= ' ids="'.$ids.'"';
         }
 
-        $force_fullwidth_images = ( isset($args['force_fullwidth_images']) && $args['force_fullwidth_images'] ) ? '1' : '0';
-        $shortcode .= ' force_fullwidth_images="'.$force_fullwidth_images.'"';
+        if( $display == 'marquee' ){
+            $marquee_speed = ( isset($args['marquee_speed']) && is_numeric($args['marquee_speed']) ) ? $args['marquee_speed'] : 18;
+            $shortcode .= ' marquee_speed="'.$marquee_speed.'"';
 
+            $fade_color = $args['fade_color'] ?? '#ffffff';
+            $shortcode .= ' marquee_fade_color="'.$fade_color.'"';
+        }
+
+        // handle size styles in shorcode size_styles='max-width: 100%;...'
+        $size_styles = '';
+        $size_properties = array('height', 'width');
+        foreach($size_properties as $size_property){
+            if( isset($args['images_'.$size_property]) && is_array($args['images_'.$size_property]) ){
+                $use = $args['images_'.$size_property]['use'] ?? false;
+                if($use){
+                    $_properties = array('max_'.$size_property, $size_property, 'min_'.$size_property);
+                    foreach($_properties as $property){
+                        if( isset($args['images_'.$size_property][$property]) && $args['images_'.$size_property][$property] != '' ){
+                            $size_styles .= $property.': '.$args['images_'.$size_property][$property].';';
+                        }
+                    }
+                }
+            }
+        }
+        if($size_styles) $shortcode .= ' size_styles="'.$size_styles.'"';
+
+        // end of shortcode
         $shortcode .= ']';
-
-        $additional_styles = array();
-        if($aspect_ratio != 'default') $additional_styles[] = '--aspect-ratio:'.$aspect_ratio;
-        $args['additional_styles'] = $additional_styles;
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);

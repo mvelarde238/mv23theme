@@ -14,7 +14,8 @@ Class Video{
             'muted' => 0,
             'autoplay' => 0,
             'opacity' => 100,
-            'classes' => ''
+            'classes' => '', // 'class1 class2 ...'
+            'styles' => '' // 'property1: value; property2: value; ...'
         );
         // source could be common settings or component Video
         $video_settings_source = (isset($args['video_settings'])) ? $args['video_settings'] : $args;
@@ -40,6 +41,7 @@ Class Video{
                     if( $video_settings['loop'] ) $video_data['code'] .= ' loop';
                     if( $poster ) $video_data['code'] .= ' poster="'.$poster.'"';
                     if( $video_settings['autoplay'] ) $video_data['code'] .= ' autoplay playsinline';
+                    if( $video_settings['styles'] ) $video_styles = array_merge($video_styles, explode(';', $video_settings['styles']));
                     if( count($video_styles) ) $video_data['code'] .= ' style="'.implode(';',$video_styles).'"';
                     $video_data['code'] .= '><source src="'.$video_url.'">Your browser does not support the video tag.</video>';
                 }
@@ -64,6 +66,7 @@ Class Video{
                 if( $video_settings['autoplay'] ) $video_args['autoplay'] = '&autoplay=1';
                 if( $video_settings['loop'] ) $video_args['loop'] = '&loop=1';            
                 if( $video_settings['classes'] ) $video_args['classes'] = $video_settings['classes'];
+                if( $video_settings['styles'] ) $video_styles = array_merge($video_styles, explode(';', $video_settings['styles']));
                 if( count($video_styles) ) $video_args['style'] = implode(';',$video_styles);
 
                 $video_data['code'] = wp_oembed_get( $video_url, $video_args );
