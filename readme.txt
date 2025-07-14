@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.6.9 26-07-14
+- Improve social share ui
+
 2.6.8 26-07-12
 - Gallery Component Improvements: Add gsap marquee, item size, reorder settings
 

@@ -1,76 +1,116 @@
+.social-share 
+    padding: 10px 0
+    --fade-color: var(--primary-color-lighter)
+    h6
+        margin-bottom: 10px
+        text-transform: uppercase
+
 .social-share-buttons
     display: flex
-    flex-wrap: wrap
-    gap: 10px
-    button
-        padding: 8px 15px
-        border-radius: 4px
-        border: 0
-        background-color: var(--font-color)
-        color: #fff
-        text-shadow: 0 0 5px rgba(0,0,0,.4)
-        cursor: pointer
-        i
-            margin-right: 5px
-        &:hover
-            opacity: .9
+    overflow: auto
+    padding-bottom: 10px
 
-        &[data-sharer="twitter"] 
+    &-wrapper
+        position: relative
+        max-width: 90vw
+        // fade element
+        &::after
+            content: ''
+            position: absolute
+            top: 0
+            height: 100%
+            width: 100px
+            pointer-events: none
+            z-index: 2
+            right: 0
+            background: linear-gradient(to left, var(--fade-color), transparent)
+
+    button
+        border: 0
+        background: transparent
+        cursor: pointer
+        display: flex
+        flex-direction: column
+        align-items: center
+        gap: 10px
+        padding: 15px
+        min-width: 100px
+
+        &:not(:last-child)
+            border-right: 1px solid color-mix(in srgb, currentColor 10%, transparent)
+
+        span
+            // icon
+            &:first-child
+                padding: 5px 7px
+                border-radius: 3px
+                background-color: var(--font-color)
+                color: #fff 
+            // label
+            &:last-child
+                font-size: .9em
+
+        &:hover
+            background-color: var(--primary-color-lighter)
+            opacity: .85
+
+        &[data-sharer="twitter"] span:first-child
             background-color: #000000
             // background-color: #1da1f2
-        &[data-sharer="threads"] 
+        &[data-sharer="threads"] span:first-child
             background-color: #000000
-        &[data-sharer="facebook"] 
+        &[data-sharer="facebook"] span:first-child
             background-color: #1877f2
-        &[data-sharer="linkedin"] 
+        &[data-sharer="linkedin"] span:first-child
             background-color: #0a66c2
-        &[data-sharer="email"] 
+        &[data-sharer="email"] span:first-child
             background-color: #d44638
-        &[data-sharer="whatsapp"] 
+        &[data-sharer="whatsapp"] span:first-child
             background-color: #25d366
-        &[data-sharer="telegram"] 
+        &[data-sharer="telegram"] span:first-child
             background-color: #0088cc
-        &[data-sharer="viber"] 
+        &[data-sharer="viber"] span:first-child
             background-color: #665cac
-        &[data-sharer="pinterest"] 
+        &[data-sharer="pinterest"] span:first-child
             background-color: #e60023
-        &[data-sharer="tumblr"] 
+        &[data-sharer="tumblr"] span:first-child
             background-color: #001935
-        &[data-sharer="hacker news"] 
+        &[data-sharer="hacker news"] span:first-child
             background-color: #ff6600
-        &[data-sharer="reddit"] 
+        &[data-sharer="reddit"] span:first-child
             background-color: #ff4500
-        &[data-sharer="vk.com"] 
+        &[data-sharer="vk.com"] span:first-child
             background-color: #4680c2
-        &[data-sharer="buffer"] 
+        &[data-sharer="buffer"] span:first-child
             background-color: #168eea
-        &[data-sharer="xing"] 
+        &[data-sharer="xing"] span:first-child
             background-color: #026466
-        &[data-sharer="line"] 
+        &[data-sharer="line"] span:first-child
             background-color: #00c300
-        &[data-sharer="instapaper"] 
+        &[data-sharer="instapaper"] span:first-child
             background-color: #000000
-        &[data-sharer="pocket"] 
+        &[data-sharer="pocket"] span:first-child
             background-color: #ef4056
-        &[data-sharer="flipboard"] 
+        &[data-sharer="flipboard"] span:first-child
             background-color: #e12828
-        &[data-sharer="weibo"] 
+        &[data-sharer="weibo"] span:first-child
             background-color: #e6162d
-        &[data-sharer="blogger"] 
+        &[data-sharer="blogger"] span:first-child
             background-color: #f57d00
-        &[data-sharer="baidu"] 
+        &[data-sharer="baidu"] span:first-child
             background-color: #2932e1
-        &[data-sharer="ok.ru"] 
+        &[data-sharer="ok.ru"] span:first-child
             background-color: #f58220
-        &[data-sharer="evernote"] 
+        &[data-sharer="evernote"] span:first-child
             background-color: #00a82d
-        &[data-sharer="skype"] 
+        &[data-sharer="skype"] span:first-child
             background-color: #00aff0
-        &[data-sharer="trello"] 
+        &[data-sharer="trello"] span:first-child
             background-color: #0079bf
-        &[data-sharer="diaspora"] 
+        &[data-sharer="diaspora"] span:first-child
             background-color: #000000
 
 #more-social-share-modal
-    max-width: 520px
-    transform: translateY(50%) !important
+    border-radius: 20px 20px 0 0
+    min-height: 160px
+    --fade-color: #fff

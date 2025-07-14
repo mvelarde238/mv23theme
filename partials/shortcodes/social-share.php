@@ -65,7 +65,7 @@ class SocialShare {
                 $icon = $this->social_networks[$network]['icon'];
                 $buttons .= sprintf(
                     '<button data-title="%s" data-url="%s" data-sharer="%s">
-                        <i class="bi %s"></i> %s
+                        <span><i class="bi %s"></i></span> <span>%s</span>
                     </button>',
                     esc_attr($page_title),
                     esc_url($current_url),
@@ -87,6 +87,7 @@ class SocialShare {
         // Atributos del shortcode
         $atts = shortcode_atts([
             'networks' => '',
+            'title' => 'Share this post:',
             'limit' => $this->limit,
             'more_text' => $this->more_text,
             'more_icon' => $this->more_icon,
@@ -96,20 +97,28 @@ class SocialShare {
         // Obtener redes sociales seleccionadas o usar todas por defecto
         $selected_networks = $atts['networks'] ? explode(',', $atts['networks']) : array_keys($this->social_networks);
 
-        
-        
+        $output = '<div class="social-share text-xs">';
+        $output .= '<h6>'.esc_html($atts['title']).'</h6>';
         $limit = $atts['limit'];
-        $output = '<div class="social-share-buttons"';
+        $output .= '<div class="social-share-buttons-wrapper">';
+        $output .= '<div class="social-share-buttons"';
         // buttons alignment
-        if($atts['alignment']) $output .= 'style="justify-content:'.esc_attr($atts['alignment']).'"';
+        if($atts['alignment']) $output .= ' style="justify-content:'.esc_attr($atts['alignment']).'"';
         $output .= '>';
         $output .= $this->generate_buttons($selected_networks, 0, $limit);
-        if( count($selected_networks) > $limit ) $output .= '<button class="modal-trigger" data-target="more-social-share-modal"><i class="bi '.$atts['more_icon'].'"></i> '.$atts['more_text'].'</button>';
+        if( count($selected_networks) > $limit ) $output .= '<button class="modal-trigger" data-target="more-social-share-modal"><span><i class="bi '.$atts['more_icon'].'"></i></span> <span>'.$atts['more_text'].'</span></button>';
+        $output .= '</div>';
         $output .= '</div>';
 
-        $output .= '<div id="more-social-share-modal" class="modal theme-modal"><div class="modal-content">';
+        $output .= '<div id="more-social-share-modal" class="modal bottom-sheet theme-modal text-xs"><div class="modal-content">';
+        $output .= '<div class="container">';
+        $output .= '<h6>'.esc_html($atts['title']).'</h6>';
+        $output .= '<div class="social-share-buttons-wrapper">';
         $output .= '<div class="social-share-buttons">';
         $output .= $this->generate_buttons($selected_networks, $limit, 999);
+        $output .= '</div>';
+        $output .= '</div>';
+        $output .= '</div>';
         $output .= '</div>';
         $output .= '</div></div>';
 
