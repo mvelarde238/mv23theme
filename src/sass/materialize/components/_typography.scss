@@ -11,8 +11,7 @@ body {
     @include general-tipography-styles;
 }
 
-h1,h2,h3,h4,h5,h6 {    
-    line-height: var(--headings-line-height);
+h1,h2,h3,h4,h5,h6 {
     font-weight: var(--headings-font-weight);
     color: var(--headings-color);
     a {
@@ -20,12 +19,12 @@ h1,h2,h3,h4,h5,h6 {
     }
 }
 
-h1 { font-size: var(--heading-h1); }
-h2 { font-size: var(--heading-h2); }
-h3 { font-size: var(--heading-h3); }
-h4 { font-size: var(--heading-h4); }
-h5 { font-size: var(--heading-h5); }
-h6 { font-size: var(--heading-h6); }
+h1 { font-size: var(--heading-h1); line-height: var(--heading-h1-line-height); }
+h2 { font-size: var(--heading-h2); line-height: var(--heading-h2-line-height); }
+h3 { font-size: var(--heading-h3); line-height: var(--heading-h3-line-height); }
+h4 { font-size: var(--heading-h4); line-height: var(--heading-h4-line-height); }
+h5 { font-size: var(--heading-h5); line-height: var(--heading-h5-line-height); }
+h6 { font-size: var(--heading-h6); line-height: var(--heading-h6-line-height); }
 
 h1,h2,h3,h4,h5,h6,p,blockquote,ul,ol,table{
     margin-top: 0;

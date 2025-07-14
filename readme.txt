@@ -4,6 +4,7 @@ CHANGELOG
 
 2.6.9 26-07-14
 - Improve social share ui
+- Fix: use heading-h{x}-line-height settings in sass file
 
 2.6.8 26-07-12
 - Gallery Component Improvements: Add gsap marquee, item size, reorder settings
