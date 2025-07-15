@@ -30,7 +30,6 @@ Container::create( 'common_settings_container' )
                 ->set_input_type( 'checkbox' )
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
-                    'disable-link-to-embed-conversion' => __('Disable link to embed conversion','mv23theme'),
                     'overflow-scroll' => __('Overflow scroll','mv23theme'),
                     'overflow-hidden' => __('Overflow hidden','mv23theme'),
                     'hide-br' => __('Hide line breaks on tablets and mobile devices','mv23theme'),

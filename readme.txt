@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.6.10 26-07-15
+- Remove disable-link-to-embed-conversion script, unexpected behavior in some contexts
+
 2.6.9 26-07-14
 - Improve social share ui
 - Fix: use heading-h{x}-line-height settings in sass file
