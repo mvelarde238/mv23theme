@@ -5,6 +5,7 @@ CHANGELOG
 2.6.10 26-07-15
 - Remove disable-link-to-embed-conversion script, unexpected behavior in some contexts
 - Fix: parse gutter values as integers in TNS slider config
+- ADJUST_SCROLL_POSITION and DEBUG_SCRIPTS constants can now be overridden by defining them in child theme
 
 2.6.9 26-07-14
 - Improve social share ui
