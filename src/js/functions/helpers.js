@@ -158,10 +158,10 @@ function create_tns_slider(slider){
         axis = slider.dataset['axis'],
         mode = slider.dataset['mode'],
         touch = slider.dataset['touch'],
-        mobile_gutter = slider.dataset['mobileGutter'],
-        tablet_gutter = slider.dataset['tabletGutter'],
-        laptop_gutter = slider.dataset['laptopGutter'],
-        desktop_gutter = slider.dataset['desktopGutter'];
+        mobile_gutter = parseInt(slider.dataset['mobileGutter']),
+        tablet_gutter = parseInt(slider.dataset['tabletGutter']),
+        laptop_gutter = parseInt(slider.dataset['laptopGutter']),
+        desktop_gutter = parseInt(slider.dataset['desktopGutter']);
 
     show_controls = ( show_controls == '1' ) ? true : false;
     show_nav = ( show_nav == '1' ) ? true : false;
@@ -180,7 +180,8 @@ function create_tns_slider(slider){
         speed: speed,
         autoplayTimeout: autoplay_timeout,
         axis:axis, controlsText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'], rewind: true, autoHeight: autoHeight,
-        mouseDrag: true, controls: show_controls, nav: show_nav, navPosition: nav_position, responsive : {
+        mouseDrag: true, swipeAngle: false,
+        controls: show_controls, nav: show_nav, navPosition: nav_position, responsive : {
             1401 : {items:desktop, slideBy:desktop, gutter: desktop_gutter},
             1025 : {items:laptop, slideBy:laptop, gutter: laptop_gutter},
             601 : {items:tablet, slideBy:tablet, gutter: tablet_gutter},
