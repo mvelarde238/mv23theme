@@ -3,7 +3,7 @@ CHANGELOG
 **************************************************************************************************
 
 2.6.11 26-07-16
-- Load animations on theme_document_ready
+- Load animations on DOMContentLoaded
 
 2.6.10 26-07-15
 - Remove disable-link-to-embed-conversion script, unexpected behavior in some contexts
