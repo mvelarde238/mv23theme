@@ -4,6 +4,7 @@ CHANGELOG
 
 2.6.11 26-07-16
 - Load animations on DOMContentLoaded
+- Load Leaflet styles just in admin
 
 2.6.10 26-07-15
 - Remove disable-link-to-embed-conversion script, unexpected behavior in some contexts

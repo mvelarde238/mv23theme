@@ -76,6 +76,8 @@ class Map extends Field {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'uf-field-map' );
+		wp_enqueue_style( 'uf-leaflet-css' );
+		wp_enqueue_style( 'uf-leaflet-geocoder-css' );
 
 		# Add templates
 		Template::add( 'map-base', 'field/map-base' );
