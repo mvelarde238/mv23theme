@@ -1,5 +1,5 @@
 (function($,c){      
-    $(function() {
+    document.body.addEventListener('theme_document_ready', function() {
     	var animatedElements = $('[data-scroll-animations]');
 
     	if (MV23_GLOBALS.scrollAnimations && animatedElements.length > 0) {
