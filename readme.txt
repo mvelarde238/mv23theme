@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.7.1 26-07-17
+- Standarize Migrators with an abstract class Core\Migrator\Base\Migrate_Components_Settings
+
 2.7.0 26-07-17
 - v23ToggleBox 9.0.0: Merge with changes made in github repo:
   handle style for diferent devices with breakpoints

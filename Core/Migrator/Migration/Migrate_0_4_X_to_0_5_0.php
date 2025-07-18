@@ -62,12 +62,7 @@ class Migrate_0_4_X_to_0_5_0{
 
         $slug = Core::getInstance()->get_slug();
 
-        wp_enqueue_script($slug.'-script', THEME_MIGRATOR_PATH . '/scripts/migrate-0-4-X-to-0-5-0.js', array('jquery'), '1.0', true);
-        
-        wp_localize_script($slug.'-script', 'THEME_MIGRATOR_GLOBALS', array(
-            'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('process_page_data_nonce')
-        ));
+        wp_enqueue_script($slug.'-script', THEME_MIGRATOR_PATH . '/scripts/migrate-0-4-X-to-0-5-0.js', array($slug.'-scripts'), '1.0', true);
     }
 
     public function ajax_process_page_data() {

@@ -21,6 +21,8 @@ class Core{
 
     private $slug;
 
+    private $version = '1.1.0';
+
     public static function getInstance() {
         if (self::$instance == null) {
             self::$instance = new Core();
@@ -39,6 +41,7 @@ class Core{
             Migrate_ScrollMagic_to_GSAP::getInstance()->migrate();
             Migrate_Timeline_Group_To_Groups::getInstance()->migrate();
             Migrate_2_2_X_to_2_3_0::getInstance()->migrate();
+            // these migrators extend Core\Migrator\Base\Migrate_Components_Settings:
             Migrate_Gallery_Settings::getInstance()->migrate();
             Migrate_Video_Settings::getInstance()->migrate();
             Migrate_OCE_Settings::getInstance()->migrate();
@@ -46,7 +49,7 @@ class Core{
         // }
 
         add_action( 'admin_menu', array($this, 'add_admin_page') );
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_migrator_styles') );
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_migrator_scripts') );
     }
 
     public function add_admin_page(){
@@ -69,11 +72,17 @@ class Core{
         do_action('theme_migrator_display');
     }
 
-    public function enqueue_migrator_styles( $hook ) {
+    public function enqueue_migrator_scripts( $hook ) {
         if ( 'admin_page_theme-migrator' != $hook ) return;
 
         $slug = self::$instance->get_slug();
-        wp_enqueue_style($slug.'-style', THEME_MIGRATOR_PATH . '/styles/styles.css', array(), '1.0');
+        wp_enqueue_script($slug.'-scripts', THEME_MIGRATOR_PATH . '/scripts/script.js', array('jquery'), $this->version, true);
+        wp_enqueue_style($slug.'-styles', THEME_MIGRATOR_PATH . '/styles/styles.css', array(), $this->version);
+
+        wp_localize_script($slug.'-scripts', 'THEME_MIGRATOR_GLOBALS', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('process_page_data_nonce')
+        ));
     }
 
     public function theme_version_is_less($current_version, $other_version) {

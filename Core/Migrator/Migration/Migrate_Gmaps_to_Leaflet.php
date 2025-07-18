@@ -47,7 +47,7 @@ class Migrate_Gmaps_to_Leaflet{
 
         $slug = Core::getInstance()->get_slug();
 
-        wp_enqueue_script($slug.'-gm-to-leaflet', THEME_MIGRATOR_PATH . '/scripts/migrate-gmaps-to-leaflet.js', array('jquery'), '1.0', true);
+        wp_enqueue_script($slug.'-gm-to-leaflet', THEME_MIGRATOR_PATH . '/scripts/migrate-gmaps-to-leaflet.js', array($slug.'-scripts'), '1.0', true);
     }
 
     public function ajax_process_page_data() {

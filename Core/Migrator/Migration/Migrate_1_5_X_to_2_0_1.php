@@ -47,7 +47,7 @@ class Migrate_1_5_X_to_2_0_1{
 
         $slug = Core::getInstance()->get_slug();
 
-        wp_enqueue_script($slug.'-script-2-0-1', THEME_MIGRATOR_PATH . '/scripts/migrate-1-5-X-to-2-0-1.js', array('jquery'), '1.0', true);
+        wp_enqueue_script($slug.'-script-2-0-1', THEME_MIGRATOR_PATH . '/scripts/migrate-1-5-X-to-2-0-1.js', array($slug.'-scripts'), '1.0', true);
     }
 
     public function ajax_process_page_data() {

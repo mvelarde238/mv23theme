@@ -47,7 +47,7 @@ class Migrate_ScrollMagic_to_GSAP{
 
         $slug = Core::getInstance()->get_slug();
 
-        wp_enqueue_script($slug.'-sm-to-gsap', THEME_MIGRATOR_PATH . '/scripts/migrate-scroll-magic-to-gsap.js', array('jquery'), '1.0', true);
+        wp_enqueue_script($slug.'-sm-to-gsap', THEME_MIGRATOR_PATH . '/scripts/migrate-scroll-magic-to-gsap.js', array($slug.'-scripts'), '1.0', true);
     }
 
     public function ajax_process_page_data() {

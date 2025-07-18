@@ -1,13 +1,10 @@
 jQuery(document).ready(function($) {
-    var offset = 0;
-    var $migration_btn = null;
-
-    function processNextBatch() {
+    function processNextBatch(button, action, offset) {
         $.ajax({
-            url: ajaxurl,
+            url: THEME_MIGRATOR_GLOBALS.ajax_url,
             method: 'POST',
             data: {
-                action: 'process_new_accordion_settings',
+                action: 'process_'+action,
                 nonce: THEME_MIGRATOR_GLOBALS.nonce,
                 offset: offset
             },
@@ -18,56 +15,60 @@ jQuery(document).ready(function($) {
                     console.log( offset, response.data.control );
                     
                     if (!response.data.complete) {
-                        processNextBatch();
+                        processNextBatch( button, action, offset );
                     } else {
                         offset = 0;
-                        console.log('Data migration complete');
-                        afterDataMigration();
+                        console.log('Data migration complete', action);
+                        afterDataMigration( button, action );
                     }
                 } else {
-                    $migration_btn.attr('data-status','failed');
-                    console.error('Error in components data migration process');
+                    button.attr('data-status','failed');
+                    console.error('Error in components data migration process', action);
                 }
             },
             error: function() {
-                $migration_btn.attr('data-status','failed');
-                console.error('processNextBatch() AJAX Error');
+                button.attr('data-status','failed');
+                console.error('processNextBatch() AJAX Error', action);
             }
         });
     }
 
-    function afterDataMigration() {
+    function afterDataMigration(button, action) {
         console.log('Updating Database...');
         $.ajax({
-            url: ajaxurl,
+            url: THEME_MIGRATOR_GLOBALS.ajax_url,
             method: 'POST',
             data: {
-                action: 'after_new_accordion_settings',
+                action: 'after_' + action,
                 nonce: THEME_MIGRATOR_GLOBALS.nonce
             },
             success: function(response) {
                 if (response.success) {
                     if (response.data.complete) {
                         console.log('Database Updated');
-                        $migration_btn.attr('data-status','complete');
+                        button.attr('data-status','complete');
                     }
                 } else {
-                    $migration_btn.attr('data-status','failed');
+                    button.attr('data-status','failed');
                     console.error('Error updating database');
                 }
             },
             error: function() {
-                $migration_btn.attr('data-status','failed');
+                button.attr('data-status','failed');
                 console.error('afterDataMigration() AJAX Error');
             }
         });
     }
+    
+    $('.theme-migrator__init-process').on('click', function(e) {
+        e.preventDefault();
+        var offset = 0;
+        var button = $(this);
+        var action = button.data('action');
 
-    // Init the process
-    $(document).on('click', '.theme-migrator__init-new_accordion_settings[data-status="initial"]', function(){
-        $migration_btn = $(this);
-        $migration_btn.attr('data-status','processing');
-        console.log('Migrating Accordion Settings data...');
-        processNextBatch();
+        // Handle the migration process
+        button.attr('data-status','processing');
+        console.log('Migrating data...', action);
+        processNextBatch(button, action, offset);
     });
 });

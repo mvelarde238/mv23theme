@@ -1,8 +1,6 @@
 <?php
 namespace Core\Migrator\Base;
 
-use Core\Migrator\Core;
-
 abstract class Migrate_Components_Settings{
 
     private $batch_size;
@@ -19,7 +17,6 @@ abstract class Migrate_Components_Settings{
 
     /* abstract */ public function migrate(){
         add_action( 'theme_migrator_display', array( $this, 'display') );
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_migrator_scripts') );
         add_action( 'wp_ajax_process_'.str_replace('-', '_', $this->slug), array($this, 'ajax_process_page_data') );
         add_action( 'wp_ajax_after_'.str_replace('-', '_', $this->slug), array($this, 'ajax_after_data_migration') );
     }
@@ -29,7 +26,7 @@ abstract class Migrate_Components_Settings{
         <div class="wrap">
             <div class="theme-migrator">
                 <h3><?php echo esc_html( $this->title ); ?></h3>
-                ――――― <button class="theme-migrator__init-<?php echo esc_attr( $this->slug ); ?> button-primary" data-status="initial">
+                ――――― <button class="theme-migrator__init-process button-primary" data-action="<?php echo esc_attr( $this->slug ); ?>" data-status="initial">
                     <span><i class="dashicons dashicons-migrate uf-button-icon"></i> INIT MIGRATION</span>
                     <span><i class="dashicons dashicons-admin-generic uf-button-icon"></i> PROCESSING</span>
                     <span><i class="dashicons dashicons-saved uf-button-icon"></i> MIGRATION COMPLETE</span>
@@ -38,14 +35,6 @@ abstract class Migrate_Components_Settings{
             </div>
         </div>
         <?php
-    }
-
-    /* abstract */ public function enqueue_migrator_scripts( $hook ) {
-        if ( 'admin_page_theme-migrator' != $hook ) return;
-
-        $slug = Core::getInstance()->get_slug();
-
-        wp_enqueue_script($slug.'-'.$this->slug, THEME_MIGRATOR_PATH . '/scripts/'.$this->slug.'.js', array('jquery'), '1.0', true);
     }
 
     /* abstract */ public function ajax_process_page_data() {
@@ -74,6 +63,7 @@ abstract class Migrate_Components_Settings{
             FROM {$wpdb->postmeta} pm
             JOIN {$wpdb->posts} p ON pm.post_id = p.ID
             WHERE pm.meta_key IN ('page_modules','components','offcanvas_element_content', 'blocks_layout','page_header_settings')
+            -- AND p.ID = 734 _refactorizing-custom-fields
             AND p.post_type != 'revision'
             LIMIT %d OFFSET %d",
             $batch_size,
@@ -226,6 +216,25 @@ abstract class Migrate_Components_Settings{
                         $item_count++;
                     }
                 }
+                if( $has_inner_components['where'] == 'in-carrusel-content' ){
+                    $item_count = 0;
+                    foreach ($component['items'] as $item) {
+                        $migrated = $this->migrate_content_layout_data( $item['blocks_layout'] );
+                        $component['items'][$item_count]['blocks_layout'] = $migrated;
+                        $item_count++;
+                    }
+                }
+                if( $has_inner_components['where'] == 'in-components-wrapper-content' ){
+                    $migrated = $this->migrate_content_layout_data( $component['blocks_layout'] );
+                    $component['blocks_layout'] = $migrated;
+                }
+                if( $has_inner_components['where'] == 'in-flip-box-content' ){
+                    $migrated = $this->migrate_content_layout_data( $component['front_content']['blocks_layout'] );
+                    $component['front_content']['blocks_layout'] = $migrated;
+
+                    $migrated = $this->migrate_content_layout_data( $component['back_content']['blocks_layout'] );
+                    $component['back_content']['blocks_layout'] = $migrated;
+                }
             }
         }
         // END
@@ -260,7 +269,11 @@ abstract class Migrate_Components_Settings{
             // 'inner_row' => array( 'column_1', 'column_2', 'column_3', 'column_4' ) // old way
             'row' => 'in-row-content',
             'inner_row' => 'in-row-content',
-            'accordion' => 'in-accordion-content'
+            'accordion' => 'in-accordion-content',
+            'carrusel' => 'in-carrusel-content',
+            'components_wrapper' => 'in-components-wrapper-content',
+            'inner_wrapper' => 'in-components-wrapper-content',
+            'flip_box' => 'in-flip-box-content'
         ));
 
         $check = isset( $has_inner_components[$component_type] );

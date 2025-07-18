@@ -43,7 +43,7 @@ class Migrate_2_2_X_to_2_3_0{
 
         $slug = Core::getInstance()->get_slug();
 
-        wp_enqueue_script($slug.'-init-2-3-0', THEME_MIGRATOR_PATH . '/scripts/migrate-2-2-X-to-2-3-0.js', array('jquery'), '1.0', true);
+        wp_enqueue_script($slug.'-init-2-3-0', THEME_MIGRATOR_PATH . '/scripts/migrate-2-2-X-to-2-3-0.js', array($slug.'-scripts'), '1.0', true);
     }
 
     public function ajax_process_typography_options() {

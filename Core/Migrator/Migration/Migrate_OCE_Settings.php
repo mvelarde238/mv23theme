@@ -22,7 +22,6 @@ class Migrate_OCE_Settings{
 
     public function migrate(){
         add_action( 'theme_migrator_display', array( $this, 'display') );
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_migrator_scripts') );
         add_action( 'wp_ajax_process_new_oce_settings', array($this, 'ajax_process_page_data') );
         add_action( 'wp_ajax_after_new_oce_settings', array($this, 'ajax_after_data_migration') );
     }
@@ -32,7 +31,7 @@ class Migrate_OCE_Settings{
         <div class="wrap">
             <div class="theme-migrator">
                 <h3>―――― Migrate Off-Canvas Element Settings ( For version >= 2.6.0 )</h3>
-                ――――― <button class="theme-migrator__init-new-oce-settings button-primary" data-status="initial">
+                ――――― <button class="theme-migrator__init-process button-primary" data-action="new_oce_settings" data-status="initial">
                     <span><i class="dashicons dashicons-migrate uf-button-icon"></i> INIT MIGRATION</span>
                     <span><i class="dashicons dashicons-admin-generic uf-button-icon"></i> PROCESSING</span>
                     <span><i class="dashicons dashicons-saved uf-button-icon"></i> MIGRATION COMPLETE</span>
@@ -41,14 +40,6 @@ class Migrate_OCE_Settings{
             </div>
         </div>
         <?php
-    }
-
-    public function enqueue_migrator_scripts( $hook ) {
-        if ( 'admin_page_theme-migrator' != $hook ) return;
-
-        $slug = Core::getInstance()->get_slug();
-
-        wp_enqueue_script($slug.'-new-oce-settings', THEME_MIGRATOR_PATH . '/scripts/migrate-oce-settings.js', array('jquery'), '1.0', true);
     }
 
     public function ajax_process_page_data() {

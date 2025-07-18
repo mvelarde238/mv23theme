@@ -48,7 +48,7 @@ class Migrate_Timeline_Group_To_Groups{
 
         $slug = Core::getInstance()->get_slug();
 
-        wp_enqueue_script($slug.'-tm-group-to-groups', THEME_MIGRATOR_PATH . '/scripts/migrate-timeline-group-to-groups.js', array('jquery'), '1.0', true);
+        wp_enqueue_script($slug.'-tm-group-to-groups', THEME_MIGRATOR_PATH . '/scripts/migrate-timeline-group-to-groups.js', array($slug.'-scripts'), '1.0', true);
     }
 
     public function ajax_process_page_data() {
