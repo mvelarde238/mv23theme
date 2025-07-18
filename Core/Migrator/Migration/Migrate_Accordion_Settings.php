@@ -29,11 +29,15 @@ class Migrate_Accordion_Settings extends Migrate_Components_Settings {
             $tab_style = $component['tab_style'] ?? 'style1';
             $acc_style = $component['accordion_style'] ?? 'style1';
 
+            $new_tab_style = ( $tab_style == 'style1' || $tab_style == 'style2' ) ? 'tab-' . $tab_style : $tab_style; 
+            $new_acc_style = ( $acc_style == 'style1' ) ? 'accordion-' . $acc_style : $acc_style; 
+
             // migrate styles
-            $new_component['desktop_tab_style'] = 'tab-' . $tab_style;
-            $new_component['desktop_accordion_style'] = 'accordion-' . $acc_style;
-            $new_component['mobile_tab_style'] = 'tab-' . $tab_style;
-            $new_component['mobile_accordion_style'] = 'accordion-' . $acc_style;
+            $new_component['desktop_tab_style'] = $new_tab_style;
+            $new_component['mobile_tab_style'] = $new_tab_style;
+
+            $new_component['desktop_accordion_style'] = $new_acc_style;
+            $new_component['mobile_accordion_style'] = $new_tab_style;
 
             // unset old settings
             unset( $new_component['tab_style'] );
