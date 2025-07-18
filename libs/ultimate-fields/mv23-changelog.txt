@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+- 18-07-2025
+- Feature: Select field builds hierarchical options for terms with proper indentation
+    (core/classes/Field/Select.php)
+
 - 18-06-2025
 - Feature: Add a gallery remove confirm message
     (core/classes/Field/Gallery.php:79)

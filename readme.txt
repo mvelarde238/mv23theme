@@ -2,41 +2,44 @@
 CHANGELOG
 **************************************************************************************************
 
-2.7.1 26-07-17
+2.7.2 25-07-18
+- UF Feature: Select field builds hierarchical options for terms with proper indentation
+
+2.7.1 25-07-17
 - Standarize Migrators with an abstract class Core\Migrator\Base\Migrate_Components_Settings
 
-2.7.0 26-07-17
+2.7.0 25-07-17
 - v23ToggleBox 9.0.0: Merge with changes made in github repo:
   handle style for diferent devices with breakpoints
 - set --text-blocks-spacing to 24px
 
-2.6.11 26-07-16
+2.6.11 25-07-16
 - Load animations on DOMContentLoaded
 - Load Leaflet styles just in admin
 
-2.6.10 26-07-15
+2.6.10 25-07-15
 - Remove disable-link-to-embed-conversion script, unexpected behavior in some contexts
 - Fix: parse gutter values as integers in TNS slider config
 - ADJUST_SCROLL_POSITION and DEBUG_SCRIPTS constants can now be overridden by defining them in child theme
 - Fix menu items alignment
 - Add grab cursor to .tns-inner
 
-2.6.9 26-07-14
+2.6.9 25-07-14
 - Improve social share ui
 - Fix: use heading-h{x}-line-height settings in sass file
 
-2.6.8 26-07-12
+2.6.8 25-07-12
 - Gallery Component Improvements: Add gsap marquee, item size, reorder settings
 
-2.6.7 26-07-11
+2.6.7 25-07-11
 - Fix 3 columns 1/1.5/1.5 width on mobile and add .mobile-1de2-1de2-1
 - Social share shortcode improvements: add more_text and more_icon attributes
 - Remove margin bottom from spacer component
 
-2.6.6 26-07-10
+2.6.6 25-07-10
 - Type Scale removed, all typography scale is handled by base font size
 
-2.6.5 26-07-09
+2.6.5 25-07-09
 - Gallery Component Improvements:
   Translate component, add gallery_type image select, center items on default and carrusel gallery
 - Check Video Component Issue: controls setting need to be activated manually
@@ -44,7 +47,7 @@ CHANGELOG
 - .maybe-fix-scroll-position implementation for Accordion Component
 - refreshScrollTriggerBreakpoints() implementation on listing and toggleboxes files
 
-2.6.4 26-07-08
+2.6.4 25-07-08
 - Fix Core\Builder\Template_Engine\Helpers::simplify_values to avoid sending no simplified values
 - MOBILE_NAV_STYLE constant implementation
 - Background image size settings in commom settings container refactorized from select to text with suggestions
