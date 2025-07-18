@@ -100,7 +100,7 @@ class Typography {
             ['type' => 'tab', 'label' => 'General' ],
             ['key' => 'base_font_size', 'label' => 'Base Font Size', 'type' => 'text', 'placeholder' => '16px'],
             ['key' => '--global-line-height', 'label' => 'Global Line Height', 'type' => 'text', 'placeholder' => '1.6' ],
-            ['key' => '--text-blocks-spacing', 'label' => 'Text Blocks Spacing', 'type' => 'text', 'placeholder' => '1.5rem' ],
+            ['key' => '--text-blocks-spacing', 'label' => 'Blocks Spacing', 'type' => 'text', 'placeholder' => '24px' ],
             ['key' => '--normal-font-weight', 'label' => 'Normal Font Weight', 'type' => 'select', 'placeholder' => '400', 'options' => $font_weight_options ],
             ['key' => '--bold-font-weight', 'label' => 'Bold Font Weight', 'type' => 'select', 'placeholder' => '700', 'options' => $font_weight_options ],
             ['key' => '--headings-font-weight', 'label' => 'Headings Font Weight', 'type' => 'select', 'placeholder' => 'var(--bold-font-weight)', 'options' => $font_weight_options ],

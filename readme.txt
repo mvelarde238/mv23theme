@@ -5,6 +5,7 @@ CHANGELOG
 2.7.0 26-07-17
 - v23ToggleBox 9.0.0: Merge with changes made in github repo:
   handle style for diferent devices with breakpoints
+- set --text-blocks-spacing to 24px
 
 2.6.11 26-07-16
 - Load animations on DOMContentLoaded
