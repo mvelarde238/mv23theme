@@ -97,7 +97,8 @@ class Frontend extends Theme_Header_Data {
                 'items_in_cart' => (WOOCOMMERCE_IS_ACTIVE) ? WC()->cart->get_cart_contents_count() : null,
                 'menu_breakpoint' => 896,
                 'masonry_is_active' => MASONRY_IS_ACTIVE,
-                'debug' => DEBUG_SCRIPTS
+                'debug' => DEBUG_SCRIPTS,
+                'maybeFixScrollPositionStyles' => MAYBE_FIX_SCROLL_POSITION_STYLES
             )); 
     
             wp_enqueue_script( $this->text_domain . '-scripts' );

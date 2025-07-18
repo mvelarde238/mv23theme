@@ -101,7 +101,7 @@ gulp.task('sass', function () {
         // includePaths: [parenttheme_path+'sass/'] this is for child themes
     }).on('error', sass.logError))
 	.pipe(mergeQueries({ log: true }))
-	.pipe(minifyCSS())
+	// .pipe(minifyCSS())
 	.pipe(gulp.dest('../assets/css/'))
 	.pipe(browserSync.stream());
 });

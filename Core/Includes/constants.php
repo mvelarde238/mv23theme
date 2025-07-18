@@ -73,3 +73,5 @@ if( !defined('CARD') ) define ('CARD', false);
 if( !defined('SIMPLE_COLUMNS') ) define ('SIMPLE_COLUMNS', false);
 if( !defined('ITEMS_GRID') ) define ('ITEMS_GRID', false);
 if( !defined('CONTENT_SLIDER') ) define ('CONTENT_SLIDER', false);
+
+if( !defined('MAYBE_FIX_SCROLL_POSITION_STYLES') ) define ('MAYBE_FIX_SCROLL_POSITION_STYLES', array('tab-style1', 'accordion-style1'));

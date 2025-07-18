@@ -1,10 +1,10 @@
 .v23-togglebox
-    &[data-template="accordion"].acc-style1
+    &[data-style="accordion-style1"]
         --icon-size: 1.5em
         border: 1px solid var(--ui-color-2)
         border-radius: 5px
 
-    &[data-template="accordion"].acc-style1 > &__items > &__btn
+    &[data-style="accordion-style1"] > &__items > &__btn
         margin: 0
         padding: 15px
         cursor: pointer
@@ -39,15 +39,15 @@
             color: var(--ui-color-1)
             display: inline-table
         
-    &[data-template="accordion"].acc-style1 > &__items > &__btn > &__title
+    &[data-style="accordion-style1"] > &__items > &__btn > &__title
         font-weight: var(--bold-font-weight)
 
-    &[data-template="accordion"].acc-style1 > &__items > &__btn > &__subtitle
+    &[data-style="accordion-style1"] > &__items > &__btn > &__subtitle
         font-size: .9em
         color: color-mix(in srgb, currentColor 60%, transparent)
         margin-left: 5px
         &::before
             content: '- '
     
-    &[data-template="accordion"].acc-style1 > &__items > &__item
+    &[data-style="accordion-style1"] > &__items > &__item
         padding: 20px

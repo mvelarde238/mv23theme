@@ -36,11 +36,11 @@ class Accordion extends Component {
         $tab_styles = apply_filters(
             'filter_tab_styles_for_accordion_component',
             array(
-                'style1'  => array(
+                'tab-style1'  => array(
                     'label' => 'Tab style 1',
                     'image' => BUILDER_PATH . '/assets/images/tab-style-1.png'
                 ),
-                'style2'  => array(
+                'tab-style2'  => array(
                     'label' => 'Tab style 2',
                     'image' => BUILDER_PATH . '/assets/images/tab-style-2.png'
                 )
@@ -50,7 +50,7 @@ class Accordion extends Component {
         $accordion_styles = apply_filters(
             'filter_accordion_styles_for_accordion_component',
             array(
-                'style1'  => array(
+                'accordion-style1'  => array(
                     'label' => 'Accordion style 1',
                     'image' => BUILDER_PATH . '/assets/images/accordion-style-1.png'
                 )
@@ -126,18 +126,20 @@ class Accordion extends Component {
             Field::create( 'select', 'desktop_template', __('Desktop Appearance','mv23theme') )->add_options( array(    
                 'accordion' => 'Accordion',
                 'tab' => 'Tab',
-            ))->set_default_value('accordion')->set_width(25),
-            Field::create( 'image_select', 'tab_style', __('Appearance','mv23theme') )->add_options( $tab_styles )->show_label()->add_dependency('desktop_template','tab','=')->set_width(25),
-            Field::create( 'image_select', 'accordion_style', __('Appearance','mv23theme') )->add_options( $accordion_styles )->show_label()->add_dependency('desktop_template','accordion','=')->set_width(25),
+            ))->set_default_value('accordion'),
+            Field::create( 'image_select', 'desktop_tab_style', __('Appearance','mv23theme') )->add_options( $tab_styles )->show_label()->add_dependency('desktop_template','tab','='),
+            Field::create( 'image_select', 'desktop_accordion_style', __('Appearance','mv23theme') )->add_options( $accordion_styles )->show_label()->add_dependency('desktop_template','accordion','='),
             Field::create('complex','tab_settings')->add_fields(array(
                 Field::create('checkbox','close_first_tab')->set_text(__('Close first tab','mv23theme'))->hide_label()
-            ))->set_width(25)->add_dependency('desktop_template','tab','='),
+            ))->add_dependency('desktop_template','tab','='),
         
             Field::create( 'tab', 'Mobile' ),
             Field::create( 'select', 'mobile_template', __('Mobile Appearance','mv23theme') )->add_options( array(    
                 'accordion' => 'Accordion',
                 'tab' => 'Tab',
-            ))->set_default_value('accordion')->set_width(33)
+            ))->set_default_value('accordion'),
+            Field::create( 'image_select', 'mobile_tab_style', __('Appearance','mv23theme') )->add_options( $tab_styles )->show_label()->add_dependency('mobile_template','tab','='),
+            Field::create( 'image_select', 'mobile_accordion_style', __('Appearance','mv23theme') )->add_options( $accordion_styles )->show_label()->add_dependency('mobile_template','accordion','=')
         );
 
 		return $fields;
@@ -150,31 +152,32 @@ class Accordion extends Component {
 
         $items = $args['accordion'];
 
+        // classes for the togglebox
+        $togglebox_classes = array('v23-togglebox');
+        
+        // data breakpoints
+        $breakpoints = array();
+
+        $desktop_template = $args['desktop_template'] ?? 'accordion';
+        $desktop_style = $args['desktop_' . $desktop_template . '_style'] ?? $desktop_template . '-style1';
+        array_push($breakpoints, 'desktop|' . $desktop_template . '|'. $desktop_style);
+
+        $mobile_template = $args['mobile_template'] ?? 'accordion';
+        $mobile_style = $args['mobile_' . $mobile_template . '_style'] ?? $mobile_template . '-style1';
+        array_push($breakpoints, '768|' . $mobile_template . '|'. $mobile_style);
+
+        // additional attributes for the togglebox
         $togglebox_attributes = $args['togglebox_attributes'] ?? array();
-        if($args['desktop_template'] == 'accordion') $togglebox_attributes[] = 'data-template="accordion"';
-        if($args['mobile_template'] == 'tab') $togglebox_attributes[] = 'data-breakpoints="768|tab"';
         $tab_settings = (isset($args['tab_settings'])) ? $args['tab_settings'] : array('close_first_tab'=>0);
         if( $tab_settings['close_first_tab'] == 1 ) $togglebox_attributes[] = 'data-openfirsttab="false"';
-
-        $tab_style = (isset($args['tab_style'])) ? $args['tab_style'] : 'style1';
-        if($tab_style == 'style1' || $tab_style == 'style2') $tab_style = 'tab-'.$tab_style;
-
-        $accordion_style = (isset($args['accordion_style'])) ? $args['accordion_style'] : 'style1';
-        if($accordion_style == 'style1' ) $accordion_style = 'acc-'.$accordion_style;
-
-        // .maybe-fix-scroll-position implementation
-        if( 
-            ( $args['desktop_template'] == 'accordion' || $args['mobile_template'] == 'accordion' ) ||
-            ( ($args['desktop_template'] == 'tab' || $args['mobile_template'] == 'tab') && $args['tab_style'] == 'style1' )
-        ) {
-            $accordion_style .= ' maybe-fix-scroll-position';
-        }
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
 
         if (is_array($items) && count($items)>0): ?>
-            <div class="v23-togglebox <?php echo $tab_style .' '. $accordion_style ?>" <?php echo implode(' ',$togglebox_attributes) ?>>
+            <div class="<?php echo implode(' ', $togglebox_classes) ?>" 
+                data-breakpoints="<?php echo implode(',', $breakpoints) ?>" 
+                <?php echo implode(' ',$togglebox_attributes) ?>>
                 <?php
                 $nav = '<div class="v23-togglebox__nav">';
                 $itemsbox = '<div class="v23-togglebox__items">';

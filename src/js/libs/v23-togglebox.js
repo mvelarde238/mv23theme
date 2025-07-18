@@ -21,7 +21,7 @@
 	"use strict";
 
 	var instances = [],
-		version = '5.8.36',
+		version = '9.0.0',
 		timers = {};
 
 	/**
@@ -41,6 +41,7 @@
 		this.activeTemplate = null;
 		this.initialUrl = window.location.href;
 		this._handleOptions(options);
+		this.options.previousBreakpoint = null;
 
 		// Bind all private methods
 		for (var fn in this) {
@@ -95,7 +96,8 @@
 			var defaults = {
 				initialTemplate : 'tab',
 				breakpoints : {
-					768 : {template:'accordion'}
+					desktop: { template: 'tab', style: '' },
+					768: { template:'accordion', style: '' }
 				},
 				headerHeight : 0,
 				scrolltop : 0,
@@ -106,9 +108,9 @@
 			};
 			
 			// Set default options
-			for (var name in defaults) {
-				!(name in options) && (options[name] = defaults[name]);
-			}
+			this.options = {...defaults, ...options, ...dataOptions};
+
+			if( !('desktop' in this.options.breakpoints) ) this.options.breakpoints.desktop = { template: 'tab', style: '' };
 		},
 		_handleDataBreakpoints(str){
 			var _obj = {},
@@ -118,7 +120,12 @@
 				items.map( item =>{
 					if(item != ''){
 						var options = item.split('|');
-						if(Array.isArray(options) && options.length && options[0]) _obj[parseInt(options[0])] = {template:options[1]};
+						if(Array.isArray(options) && options.length && options[0]) {
+							_obj[options[0]] = { 
+								template: options[1],
+								style: options[2] || ''
+							};
+						}
 					}
 				});
 			} 
@@ -164,12 +171,15 @@
 			if(item) this._handle_active_class(item);
 		},
 		_handle_active_class(btn){
+			const currentBreakpoint = this._get_current_breakpoint(),
+				activeTemplate = this.options.breakpoints[currentBreakpoint].template; 
+				
 			if (btn) { // method is triggered by a user click event
 				for (var i = 0; i < this.items.length; i++) {
 					let item = this.el.querySelector( this.items[i].btn.dataset.boxid );
 
 					if ( this.items[i].btn.dataset.boxid === btn.dataset.boxid ) {
-						if (this.activeTemplate === 'accordion'){
+						if (activeTemplate === 'accordion'){
 							_toggleClass(btn, 'active');
 							_toggleClass(item, 'active');
 						} else {
@@ -217,7 +227,7 @@
 					_removeClass(this.items[i].box, 'active');	
 				};				
 
-				if (this.activeTemplate === 'tab') {
+				if (activeTemplate === 'tab') {
 					let startIndex = this.options.startIndex;
 					_addClass(this.items[startIndex].btn, 'active');
 					_addClass(this.items[startIndex].box, 'active');	
@@ -271,36 +281,47 @@
     	    } 
 		},
 		_handle_template(){
-			var previousTemplate = this.activeTemplate,
-				template = this._get_viewport_template(_getViewportDimensions().width);
+			var previousBreakpoint = this._get_previous_breakpoint(),
+				currentBreakpoint = this._get_current_breakpoint(),
+				{template, style} = this.options.breakpoints[currentBreakpoint];
 				
-			if(previousTemplate != template){
-				this.el.dataset.template = this.activeTemplate = template;
+			if(currentBreakpoint != previousBreakpoint){
+				const previousTemplate = this.options.breakpoints[previousBreakpoint];
 
-				for (var i = 0; i < this.items.length; i++) {
-					if(template=='tab') this.nav.appendChild(this.items[i].btn);
-					if(template=='accordion') _insertBefore(this.items[i].btn, this.items[i].box);
-				};
+				if(template != previousTemplate){
+					for (var i = 0; i < this.items.length; i++) {
+						if(template=='tab') this.nav.appendChild(this.items[i].btn);
+						if(template=='accordion') _insertBefore(this.items[i].btn, this.items[i].box);
+					};
+				}
+
+				this.el.dataset.template = template;
+				this.el.dataset.style = style;
 				this._handle_active_class();
+				this.options.previousBreakpoint = currentBreakpoint;
 			}
 		},
-		_get_viewport_template(viewportWidth){
-			var newTemplate = null,
-				breakpoints = this.options.breakpoints;
+		_get_previous_breakpoint(){
+			return this.options.previousBreakpoint;
+		},
+		_get_current_breakpoint(){
+			var viewportWidth = _getViewportDimensions().width,
+				breakpoints = this.options.breakpoints,
+				breakpoint = null;
 				
 			if( Object.keys(breakpoints).length > 0 ){
 				var breakpointZones = [];
-
+					
 				for(var bp in breakpoints){
-					if (bp >= viewportWidth) { breakpointZones.push(bp); }
+					if (bp != 'desktop' && bp >= viewportWidth) { breakpointZones.push(bp); }
 				}
 				if( breakpointZones.length ){
 					var shortest = Math.min.apply(Math, breakpointZones);
-					newTemplate = breakpoints[shortest].template;
+						breakpoint = shortest;
 				}
 			} 
 
-			return newTemplate || this.options.initialTemplate;
+			return breakpoint || 'desktop';
 		},
 		_attach_resize_events(){
 			var timeToWaitForLast = 100, 
@@ -332,6 +353,9 @@
 			if(!options.silent){
 				if(options.id === undefined) return;
 
+				const currentBreakpoint = this._get_current_breakpoint(),
+					activeTemplate = this.options.breakpoints[currentBreakpoint].template;
+
 				var newBtn = this.items[0].btn.cloneNode(true);
 				newBtn.innerHTML = (options.btn && options.btn.content) ? options.btn.content : 'New Item';
 				newBtn.dataset.boxid = '#'+options.id;
@@ -340,8 +364,8 @@
 				newBox.innerHTML = (options.box && options.box.content) ? options.box.content : 'Lorem ipsum dolor sit amet consectetur...';
 				newBox.id = options.id;
 				
-				if(this.activeTemplate == 'tab') this.nav.appendChild(newBtn);
-				if(this.activeTemplate == 'accordion') this.itemsBox.appendChild(newBtn);
+				if(activeTemplate == 'tab') this.nav.appendChild(newBtn);
+				if(activeTemplate == 'accordion') this.itemsBox.appendChild(newBtn);
 				this.itemsBox.appendChild(newBox);
 			} else {
 				var newBtn = options.btn;
@@ -377,7 +401,9 @@
 						this.items[options.setActive].btn.click();
 					}
 				} else {
-					if(this.activeTemplate == 'tab' && _hasClass(deletedItem[0].btn,'active')){
+					const currentBreakpoint = this._get_current_breakpoint(),
+						activeTemplate = this.options.breakpoints[currentBreakpoint].template;
+					if(activeTemplate == 'tab' && _hasClass(deletedItem[0].btn,'active')){
 						this.items[(this.items.length - 1)].btn.click();
 					}
 				}

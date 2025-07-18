@@ -1,22 +1,22 @@
 .v23-togglebox
-    &[data-template="tab"].tab-style2
+    &[data-style="tab-style2"]
         --icon-size: 1.5em
         display: flex
         justify-content: space-between
 
-    &[data-template="tab"].tab-style2 > &__nav
+    &[data-style="tab-style2"] > &__nav
         width: 30%
 
-    &[data-template="tab"].tab-style2 > &__items
+    &[data-style="tab-style2"] > &__items
         width: 70%
         border-top: 1px solid var(--ui-color-2)
         border-right: 1px solid var(--ui-color-2)
         border-radius: 0 15px 0 0
 
-    &[data-template="tab"].tab-style2 > &__items > &__item.active
+    &[data-style="tab-style2"] > &__items > &__item.active
         padding: 40px 20px
 
-    &[data-template="tab"].tab-style2 > &__nav > &__btn
+    &[data-style="tab-style2"] > &__nav > &__btn
         padding: 15px
         cursor: pointer
         margin: 0
@@ -46,10 +46,10 @@
             color: var(--ui-color-1)
             transform: translateX(100%)
         
-    &[data-template="tab"].tab-style2 > &__nav > &__btn > &__title
+    &[data-style="tab-style2"] > &__nav > &__btn > &__title
         font-weight: var(--bold-font-weight)
 
-    &[data-template="tab"].tab-style2 > &__nav > &__btn > &__subtitle
+    &[data-style="tab-style2"] > &__nav > &__btn > &__subtitle
         display: block
         font-size: .9em
         color: color-mix(in srgb, currentColor 60%, transparent)
