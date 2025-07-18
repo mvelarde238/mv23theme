@@ -34,7 +34,7 @@ class Items_Grid extends Component {
                 <% } %>') 
 			->add_fields(array(
                 Field::create( 'tab', __('Content','mv23theme') ),
-                Content_Selector::the_field('components', __('Components','mv23theme'), array( 'exclude' => array('inner_row') ) ),
+                Content_Selector::the_field('components', __('Components','mv23theme'), array( 'exclude' => array() ) ),
                 Field::create( 'tab', __('Settings','mv23theme') ),
                 Field::create( 'common_settings_control', 'settings' )->set_container( 'common_settings_container' )
             ));

@@ -11,6 +11,7 @@ use Core\Migrator\Migration\Migrate_Gallery_Settings;
 use Core\Migrator\Migration\Migrate_Video_Settings;
 use Core\Migrator\Migration\Migrate_OCE_Settings;
 use Core\Migrator\Migration\Migrate_Accordion_Settings;
+use Core\Migrator\Migration\Migrate_Inner_Components;
 
 define ('THEME_MIGRATOR_DIR', __DIR__);
 define ('THEME_MIGRATOR_PATH', get_template_directory_uri() . '/Core/Migrator');
@@ -46,6 +47,7 @@ class Core{
             Migrate_Video_Settings::getInstance()->migrate();
             Migrate_OCE_Settings::getInstance()->migrate();
             Migrate_Accordion_Settings::getInstance()->migrate();
+            Migrate_Inner_Components::getInstance()->migrate();
         // }
 
         add_action( 'admin_menu', array($this, 'add_admin_page') );

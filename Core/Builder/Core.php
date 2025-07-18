@@ -50,8 +50,8 @@ class Core{
             'Inner_Accordion',
             'Accordion',
             'Flip_Box',
-            'Inner_Row',
             'Components_Wrapper',
+            'Inner_Row',
             'Row'
         )
     );

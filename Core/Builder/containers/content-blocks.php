@@ -9,7 +9,7 @@ if( is_array(CONTENT_BUILDER_POSTTYPES) && count(CONTENT_BUILDER_POSTTYPES) > 0 
         // set Blocks_Layout arguments
         $blocks_layout_args = array( 
             'add_layout_control' => 0,
-            'exclude' => array( 'inner_row' ) 
+            'exclude' => array() 
         );
         if( is_array(CONTENT_BUILDER_SETTINGS) && isset(CONTENT_BUILDER_SETTINGS[$posttype]) ){
             $blocks_layout_args = wp_parse_args( CONTENT_BUILDER_SETTINGS[$posttype], $blocks_layout_args );

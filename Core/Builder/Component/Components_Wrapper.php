@@ -35,7 +35,7 @@ class Components_Wrapper extends Component {
 	}
 
 	public static function get_fields() {
-		$blocks_layout_args = array( 'exclude' => array('inner_row') );
+		$blocks_layout_args = array();
 
 		// restrict components by posttype
 		$posttype = $_GET['post_type'] ?? get_post_type( $_GET['post'] ?? null);

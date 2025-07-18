@@ -26,7 +26,7 @@ class Page_Module extends Component{
 
 	public static function get_fields() {
         $fields = array( 
-            Content_Selector::the_field('components', __('Components','mv23theme'), array( 'exclude' => array('inner_row', 'card', 'inner_wrapper') ) )
+            Content_Selector::the_field('components', __('Components','mv23theme'), array( 'exclude' => array('card') ) )
         );
 
 		return $fields;

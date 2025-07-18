@@ -268,11 +268,11 @@ abstract class Migrate_Components_Settings{
             // 'row' => array( 'column_1', 'column_2', 'column_3', 'column_4' ), // old way
             // 'inner_row' => array( 'column_1', 'column_2', 'column_3', 'column_4' ) // old way
             'row' => 'in-row-content',
-            'inner_row' => 'in-row-content',
+            'inner_row' => 'in-row-content', // for backward compatibility with versions < 2.8.0
             'accordion' => 'in-accordion-content',
             'carrusel' => 'in-carrusel-content',
             'components_wrapper' => 'in-components-wrapper-content',
-            'inner_wrapper' => 'in-components-wrapper-content',
+            'inner_wrapper' => 'in-components-wrapper-content', // for backward compatibility with versions < 2.8.0
             'flip_box' => 'in-flip-box-content'
         ));
 

@@ -46,7 +46,7 @@ class Row extends Component {
 		if(is_array($components) && count($components) > 0){
             foreach ($components as $component) {
 
-				$exclude = array('inner_wrapper');
+				$exclude = array();
 				if( in_array($component->get_id(), $exclude) ) continue;
 
                 $options = array(
