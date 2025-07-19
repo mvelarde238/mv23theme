@@ -357,17 +357,24 @@ class Theme_Options extends Theme_Header_Data{
     public function enqueue_admin_scripts(){
         $theme_options = self::$instance;
 		$theme_colors = array('#000000','#ffffff');
+        $added_colors = array();
 		
         $options = array('primary_color','secondary_color','font_color','headings_color','colorpicker_palette');
         foreach ($options as $option_name) {
             if( $option_name != 'colorpicker_palette' ){
                 $the_color = $theme_options->get_property($option_name);
-                if( $the_color ) $theme_colors[] = $the_color;
+                if( $the_color && !in_array($the_color, $added_colors) ){
+                    $theme_colors[] = $the_color;
+                    $added_colors[] = $the_color;
+                } 
             } else {
                 $colorpicker_palette = $theme_options->get_property('colorpicker_palette');
                 if( is_array($colorpicker_palette) && !empty($colorpicker_palette) ){
                     foreach ($colorpicker_palette as $item) {
-                        if($item['color']) $theme_colors[] = $item['color'];
+                        if($item['color'] && !in_array($item['color'], $added_colors)){
+                            $theme_colors[] = $item['color'];
+                            $added_colors[] = $item['color'];
+                        }
                     }
                 }
             }

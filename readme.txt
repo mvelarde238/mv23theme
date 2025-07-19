@@ -7,6 +7,7 @@ CHANGELOG
 - Standardize migrators descriptions
 - Migrate Slider Comp. to Shortcode Component (!use migrator)
 - Update .po and .mo files
+- Avoid adding repeated colors to colorpicker palette
 
 2.7.2 25-07-18
 - UF Feature: Select field builds hierarchical options for terms with proper indentation

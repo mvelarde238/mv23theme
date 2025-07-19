@@ -432,22 +432,31 @@ class TinyMCE{
     public function get_custom_colors(){
 		$theme_options = Theme_Options::getInstance();
 		$theme_colors = array();
+		$added_colors = array();
 		
         $options = array('primary_color','secondary_color','font_color','headings_color','colorpicker_palette');
 		foreach ($options as $option_name) {
             if( $option_name != 'colorpicker_palette' ){
                 $the_color = $theme_options->get_property($option_name);
                 if( $the_color ) {
-					$theme_colors[] = '"'.str_replace('#', '', $the_color).'"';
-					$theme_colors[] = '"'.$option_name.'"';
+					// Check if the color is already added to avoid duplicates
+					if( !in_array($the_color, $added_colors) ){
+						$theme_colors[] = '"'.str_replace('#', '', $the_color).'"';
+						$theme_colors[] = '"'.$option_name.'"';
+						$added_colors[] = $the_color;
+					}
 				}
             } else {
                 $colorpicker_palette = $theme_options->get_property('colorpicker_palette');
                 if( is_array($colorpicker_palette) && !empty($colorpicker_palette) ){
                     foreach ($colorpicker_palette as $item) {
                         if( $item['color'] ){
-							$theme_colors[] = '"'.str_replace('#', '', $item['color']).'"';
-							$theme_colors[] = '"'.$option_name.'"';
+							// Check if the color is already added to avoid duplicates
+							if( !in_array($item['color'], $added_colors) ){
+								$theme_colors[] = '"'.str_replace('#', '', $item['color']).'"';
+								$theme_colors[] = '"'.$option_name.'"';
+								$added_colors[] = $item['color'];
+							}
 						}
                     }
                 }
