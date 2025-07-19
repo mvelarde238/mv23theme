@@ -7,6 +7,7 @@ define ('MASONRY_IS_ACTIVE', get_option('activate_masonry'));
 define ('SCROLL_ANIMATIONS', scroll_animation_is_active());
 define ('FONT_AWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css');
 define ('BOOTSTRAP_ICONS', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+define ('ADJUST_SCROLL_POSITION', adjust_scroll_position_is_active());
 
 // define ('IS_MULTILANGUAGE', class_exists('Polylang') );
 define ('IS_MULTILANGUAGE', function_exists('pll_the_languages') );
@@ -17,7 +18,6 @@ define ('WOOCOMMERCE_IS_ACTIVE', in_array( $plugin_path, wp_get_active_and_valid
 $wp_media_folder_path = trailingslashit( WP_PLUGIN_DIR ) . 'wp-media-folder/wp-media-folder.php';
 define ('WPMEDIAFOLDER_IS_ACTIVE', in_array( $wp_media_folder_path, wp_get_active_and_valid_plugins() ));
 
-if( !defined('ADJUST_SCROLL_POSITION') ) define ('ADJUST_SCROLL_POSITION', false);
 if( !defined('DEBUG_SCRIPTS') ) define ('DEBUG_SCRIPTS', false);
 
 if( !defined('STICKY_HEADER_BREAKPOINT') ) define ('STICKY_HEADER_BREAKPOINT', 20);
