@@ -5,25 +5,25 @@ use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 
-class Slider extends Component {
+class Shortcode extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'slider',
-			__( 'Slider', 'mv23theme' )
+			'shortcode',
+			__( 'Shortcode', 'mv23theme' )
 		);
 	}
 
 	public static function get_icon() {
-        return 'dashicons-slides';
+        return 'dashicons-shortcode';
     }
 
     public static function get_title_template() {
-		$template = '<% if ( slider_desktop || slider_movil ){ %>
-            <%= "Desktop: "+slider_desktop  %> | <%= "Mobile: "+slider_movil %>
+		$template = '<% if ( desktop || mobile ){ %>
+            <%= "Desktop: "+desktop  %> | <%= "Mobile: "+mobile %>
         <% } else { %>
-            There isnt any slide
-        <%  } %>';
+            There isnt any shortcode defined
+        <% } %>';
 		
 		return $template;
 	}
@@ -31,8 +31,10 @@ class Slider extends Component {
 	public static function get_fields() {
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme')),
-            Field::create( 'textarea', 'slider_desktop' )->set_rows( 1 )->set_width( 50 ),
-            Field::create( 'textarea', 'slider_movil' )->set_rows( 1 )->set_width( 50 ),
+			Field::create( 'complex', '_shortcodes-wrapper' )->merge()->hide_label()->add_fields(array(
+				Field::create( 'textarea', 'desktop' )->set_rows( 1 )->set_width( 50 ),
+				Field::create( 'textarea', 'mobile' )->set_rows( 1 )->set_width( 50 )
+			))
         );
 
 		return $fields;
@@ -43,16 +45,16 @@ class Slider extends Component {
 		
 		$args['additional_classes'] = array('component');
 
-		$slider_desktop = $args['slider_desktop'];
-		$slider_movil = $args['slider_movil'];
-		if (empty($slider_desktop) && empty($slider_movil)) return;
+		$desktop = $args['desktop'];
+		$mobile = $args['mobile'];
+		if (empty($desktop) && empty($mobile)) return;
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
-		echo ( IS_MOBILE ) ? do_shortcode($slider_movil) : do_shortcode($slider_desktop);
+		echo ( IS_MOBILE ) ? do_shortcode($mobile) : do_shortcode($desktop);
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
 }
 
-new Slider();
+new Shortcode();

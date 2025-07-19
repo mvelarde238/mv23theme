@@ -36,7 +36,7 @@ class Core{
             'Spacer',
             'Map',
             'Icon_and_Text',
-            'Slider',
+            'Shortcode',
             'Listing',
             'Html',
             'Gallery',
