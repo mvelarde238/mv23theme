@@ -4,6 +4,7 @@ CHANGELOG
 
 2.8.0 25-07-18
 - Migrate Inner Components (!use migrator)
+- Standardize migrators descriptions
 
 2.7.2 25-07-18
 - UF Feature: Select field builds hierarchical options for terms with proper indentation

@@ -16,7 +16,7 @@ class Migrate_Accordion_Settings extends Migrate_Components_Settings {
     private function __construct(){
         $batch_size = 3;
         $do_the_update = true;
-        $title = '―――― Migrate Accordion Settings ( For version >= 2.7.0 )';
+        $title = '―――― Migrate Accordion Settings ( To level up to versions >= 2.7.0 )';
         $slug = 'new_accordion_settings';
         
         parent::__construct( $batch_size, $do_the_update, $title, $slug );

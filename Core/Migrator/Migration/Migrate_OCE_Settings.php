@@ -30,7 +30,7 @@ class Migrate_OCE_Settings{
         ?>
         <div class="wrap">
             <div class="theme-migrator">
-                <h3>―――― Migrate Off-Canvas Element Settings ( For version >= 2.6.0 )</h3>
+                <h3>―――― Migrate Off-Canvas Element Settings ( To level up to versions >= 2.6.0 )</h3>
                 ――――― <button class="theme-migrator__init-process button-primary" data-action="new_oce_settings" data-status="initial">
                     <span><i class="dashicons dashicons-migrate uf-button-icon"></i> INIT MIGRATION</span>
                     <span><i class="dashicons dashicons-admin-generic uf-button-icon"></i> PROCESSING</span>

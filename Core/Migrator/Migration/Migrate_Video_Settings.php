@@ -16,7 +16,7 @@ class Migrate_Video_Settings extends Migrate_Components_Settings {
     private function __construct(){
         $batch_size = 3;
         $do_the_update = true;
-        $title = '―――― Migrate Video Settings ( For version >= 2.5.0 )';
+        $title = '―――― Migrate Video Settings ( To level up to versions >= 2.5.0 )';
         $slug = 'new_video_settings';
 
         parent::__construct( $batch_size, $do_the_update, $title, $slug );

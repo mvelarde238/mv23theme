@@ -30,7 +30,7 @@ class Migrate_ScrollMagic_to_GSAP{
         ?>
         <div class="wrap">
             <div class="theme-migrator">
-                <h3>―――― Migrate ScrollMagic to GSAP ( For version >= 2.1.0 )</h3>
+                <h3>―――― Migrate ScrollMagic to GSAP ( To level up to versions >= 2.1.0 )</h3>
                 ――――― <button class="theme-migrator__init-sm-to-gsap button-primary" data-status="initial">
                     <span><i class="dashicons dashicons-migrate uf-button-icon"></i> INIT MIGRATION</span>
                     <span><i class="dashicons dashicons-admin-generic uf-button-icon"></i> PROCESSING</span>

@@ -16,7 +16,7 @@ class Migrate_Gallery_Settings extends Migrate_Components_Settings {
     private function __construct(){
         $batch_size = 3;
         $do_the_update = false;
-        $title = '―――― Migrate Gallery Settings ( For version >= 2.4.0 )';
+        $title = '―――― Migrate Gallery Settings ( To level up to versions >= 2.4.0 )';
         $slug = 'new_gallery_setting';
         
         parent::__construct( $batch_size, $do_the_update, $title, $slug );
