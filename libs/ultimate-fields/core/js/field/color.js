@@ -27,6 +27,9 @@
 				palettes: COLOR_PICKER.palettes,
 				change: function( e, ui ) {
 					that.model.setValue( ui.color.toString() );
+				},
+				clear: function( e, ui ) {
+					that.model.setValue( '' );
 				}
 			}
 

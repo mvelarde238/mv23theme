@@ -3,6 +3,8 @@ mv23 changelog-------------------------
 - 18-07-2025
 - Feature: Select field builds hierarchical options for terms with proper indentation
     (core/classes/Field/Select.php)
+- Feature: Add clear event handler to color picker field
+    (core/js/field/color.js)
 
 - 18-06-2025
 - Feature: Add a gallery remove confirm message
