@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MV23 Theme 1.5.48\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/mv23theme\n"
-"POT-Creation-Date: 2025-07-19T02:25:54+02:00\n"
+"POT-Creation-Date: 2025-07-20T03:29:52+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,8 +130,8 @@ msgstr "Interlineado"
 msgid "Image Alignment"
 msgstr "Alineación del icono"
 
-#: Core/Admin/TinyMCE.php:267 Core/Builder/Component/Carrusel.php:91
-#: Core/Builder/Component/Carrusel.php:101
+#: Core/Admin/TinyMCE.php:267 Core/Builder/Component/Carousel.php:122
+#: Core/Builder/Component/Carousel.php:132
 #: Core/Builder/containers/popup/column_settings_container.php:15
 #: Core/Builder/containers/popup/column_settings_container.php:28
 #: Core/Builder/containers/popup/column_settings_container.php:40
@@ -145,8 +145,8 @@ msgstr "Arriba"
 msgid "Middle"
 msgstr "Centro"
 
-#: Core/Admin/TinyMCE.php:281 Core/Builder/Component/Carrusel.php:90
-#: Core/Builder/Component/Carrusel.php:100
+#: Core/Admin/TinyMCE.php:281 Core/Builder/Component/Carousel.php:121
+#: Core/Builder/Component/Carousel.php:131
 #: Core/Builder/containers/popup/column_settings_container.php:17
 #: Core/Builder/containers/popup/column_settings_container.php:30
 #: Core/Builder/containers/popup/column_settings_container.php:42
@@ -228,7 +228,7 @@ msgstr "Estructura de bloques"
 msgid "Drag a component here"
 msgstr "Arrastre un componente aquí"
 
-#: Core/Builder/Component.php:111 Core/Builder/Component/Carrusel.php:55
+#: Core/Builder/Component.php:111 Core/Builder/Component/Carousel.php:55
 #: Core/Builder/Component/Content_Slider.php:33
 #: Core/Builder/Component/Heading.php:111
 #: Core/Builder/Component/Heading.php:134
@@ -258,9 +258,9 @@ msgstr "Acordeón"
 #: Core/Builder/Component/Accordion.php:76
 #: Core/Builder/Component/Accordion.php:106
 #: Core/Builder/Component/Button.php:42 Core/Builder/Component/Card.php:24
-#: Core/Builder/Component/Carrusel.php:40
-#: Core/Builder/Component/Carrusel.php:52
-#: Core/Builder/Component/Carrusel.php:61
+#: Core/Builder/Component/Carousel.php:40
+#: Core/Builder/Component/Carousel.php:52
+#: Core/Builder/Component/Carousel.php:61
 #: Core/Builder/Component/Components_Wrapper.php:47
 #: Core/Builder/Component/Content_Slider.php:24
 #: Core/Builder/Component/Content_Slider.php:31
@@ -283,6 +283,7 @@ msgid "Content"
 msgstr "Contenido"
 
 #: Core/Builder/Component/Accordion.php:70
+#: Core/Builder/Component/Carousel.php:64
 #, fuzzy
 msgid "Add Item"
 msgstr "Agregar nuevo"
@@ -292,6 +293,7 @@ msgid "Element before the title"
 msgstr "Elemento antes del título"
 
 #: Core/Builder/Component/Accordion.php:82
+#: Core/Builder/Component/Carousel.php:73
 #: Core/Builder/Component/Gallery.php:196 Core/Builder/Component/Listing.php:74
 #: Core/Builder/Component/Listing.php:159 Core/Builder/Component/Menu.php:42
 #: Core/Builder/containers/page-header.php:42
@@ -304,7 +306,8 @@ msgid "Icon"
 msgstr "Icono"
 
 #: Core/Builder/Component/Accordion.php:84
-#: Core/Builder/Component/Accordion.php:91 Core/Builder/Component/Image.php:14
+#: Core/Builder/Component/Accordion.php:91
+#: Core/Builder/Component/Carousel.php:68 Core/Builder/Component/Image.php:14
 #: Core/Builder/Component/Image.php:47
 #: Core/Builder/containers/popup/common_settings_container.php:67
 msgid "Image"
@@ -392,11 +395,82 @@ msgstr "Otro"
 msgid "Card"
 msgstr ""
 
-#: Core/Builder/Component/Carrusel.php:16
-msgid "Carrusel"
+#: Core/Builder/Component/Carousel.php:16
+msgid "Carousel"
+msgstr "Carrusel"
+
+#: Core/Builder/Component/Carousel.php:72
+#, fuzzy
+msgid "Select the content to open on click:"
+msgstr "Seleccione que elemento mostrar al hacer clic"
+
+#: Core/Builder/Component/Carousel.php:74
+#: Core/Builder/Component/Carousel.php:78
+msgid "Internal Page"
+msgstr "Página interna"
+
+#: Core/Builder/Component/Carousel.php:75
+#, fuzzy
+msgid "External Page"
+msgstr "Página externa"
+
+#: Core/Builder/Component/Carousel.php:76
+#, fuzzy
+msgid "Show image in a PopUp"
+msgstr "Mostrar la imágen en un pop up"
+
+#: Core/Builder/Component/Carousel.php:78
+#, fuzzy
+msgid "Select Page"
+msgstr "Selecciona una página"
+
+#: Core/Builder/Component/Carousel.php:79
+#, fuzzy
+msgid "External URL"
+msgstr "URL externa"
+
+#: Core/Builder/Component/Carousel.php:80
+msgid "Open in a new window."
+msgstr "Abrir en una nueva ventana"
+
+#: Core/Builder/Component/Carousel.php:88
+#, fuzzy
+msgid "Carousel type"
+msgstr "Tipo de carrusel"
+
+#: Core/Builder/Component/Carousel.php:103
+#: Core/Builder/Component/Gallery.php:85
+#, fuzzy
+msgid "Activate GSAP Animations"
+msgstr "Activar Animaciones GSAP"
+
+#: Core/Builder/Component/Carousel.php:107
+#: Core/Builder/Component/Gallery.php:88
+msgid "Marquee Settings"
 msgstr ""
 
-#: Core/Builder/Component/Carrusel.php:89
+#: Core/Builder/Component/Carousel.php:108
+#: Core/Builder/Component/Gallery.php:89
+msgid "Marquee Animation Speed"
+msgstr "Velocidad de la animación"
+
+#: Core/Builder/Component/Carousel.php:110
+#: Core/Builder/Component/Gallery.php:91
+msgid "Seconds"
+msgstr "Segundos"
+
+#: Core/Builder/Component/Carousel.php:112
+#: Core/Builder/Component/Gallery.php:93
+#, fuzzy
+msgid "Fade Color"
+msgstr "Color del difuminado"
+
+#: Core/Builder/Component/Carousel.php:118
+#, fuzzy
+msgid "Show arrows"
+msgstr "Mostrar controles"
+
+#: Core/Builder/Component/Carousel.php:120
 #: Core/Builder/Component/Flip_Box.php:44
 #: Core/Builder/Component/Heading.php:143 Core/Builder/Component/Image.php:57
 #: Core/Builder/Component/Text_Editor.php:37
@@ -409,6 +483,104 @@ msgstr ""
 #: Core/Builder/containers/popup/common_settings_container.php:84
 msgid "Center"
 msgstr "Centro"
+
+#: Core/Builder/Component/Carousel.php:129
+#, fuzzy
+msgid "Show page indicators"
+msgstr "Mostrar indicadores de página"
+
+#: Core/Builder/Component/Carousel.php:139
+#, fuzzy
+msgid "Start Automatically"
+msgstr "Empezar automáticamente"
+
+#: Core/Builder/Component/Carousel.php:182
+#, fuzzy
+msgid "Activate Auto Height"
+msgstr "Activar Altura adaptable"
+
+#: Core/Builder/Component/Carousel.php:183
+#, fuzzy
+msgid "Activate Touch"
+msgstr "Activar Touch"
+
+#: Core/Builder/Component/Carousel.php:185
+#: Core/Builder/Component/Gallery.php:111 Core/Builder/Component/Row.php:14
+msgid "Columns"
+msgstr "Columnas"
+
+#: Core/Builder/Component/Carousel.php:186
+#: Core/Builder/Component/Gallery.php:112
+#, fuzzy
+msgid "Columns on desktop"
+msgstr "Columnas en desktop"
+
+#: Core/Builder/Component/Carousel.php:187
+#: Core/Builder/Component/Gallery.php:113
+#, fuzzy
+msgid "Columns on laptop"
+msgstr "Columnas en laptop"
+
+#: Core/Builder/Component/Carousel.php:188
+#: Core/Builder/Component/Gallery.php:114
+#, fuzzy
+msgid "Columns on tablet"
+msgstr "Columnas en tablet"
+
+#: Core/Builder/Component/Carousel.php:189
+#: Core/Builder/Component/Gallery.php:115
+#, fuzzy
+msgid "Columns on mobile"
+msgstr "Columnas en móviles"
+
+#: Core/Builder/Component/Carousel.php:192
+#: Core/Builder/Component/Gallery.php:118
+msgid "Space between items"
+msgstr "Espacio entre items"
+
+#: Core/Builder/Component/Carousel.php:193
+#: Core/Builder/Component/Gallery.php:119
+msgid "Gap on desktop"
+msgstr "Espacio en desktop"
+
+#: Core/Builder/Component/Carousel.php:194
+#: Core/Builder/Component/Gallery.php:120
+#, fuzzy
+msgid "Gap on laptop"
+msgstr "Espacio en desktop"
+
+#: Core/Builder/Component/Carousel.php:195
+#: Core/Builder/Component/Gallery.php:121
+msgid "Gap on tablet"
+msgstr "Espacio en tablet"
+
+#: Core/Builder/Component/Carousel.php:196
+#: Core/Builder/Component/Gallery.php:122
+msgid "Gap on mobile"
+msgstr "Espacio en móviles"
+
+#: Core/Builder/Component/Carousel.php:199
+#, fuzzy
+msgid "Images Size"
+msgstr "Tamaño de imagen"
+
+#: Core/Builder/Component/Carousel.php:201
+#, fuzzy
+msgid "Auto"
+msgstr "Automático"
+
+#: Core/Builder/Component/Carousel.php:202
+#: Core/Builder/Component/Listing.php:109
+#: Core/Builder/containers/popup/scroll_animations_container.php:31
+#: Core/Builder/containers/popup/scroll_animations_container.php:165
+#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:70
+msgid "Custom"
+msgstr "Personalizado"
+
+#: Core/Builder/Component/Carousel.php:204
+#, fuzzy
+msgid "Max height in pixels"
+msgstr "Altura Máxima en pixeles"
 
 #: Core/Builder/Component/Components_Wrapper.php:15
 msgid "Wrapper"
@@ -505,74 +677,6 @@ msgstr "Tipo de galería"
 msgid "Activate Masonry"
 msgstr "Activar Masonry"
 
-#: Core/Builder/Component/Gallery.php:85
-#, fuzzy
-msgid "Activate GSAP Animations"
-msgstr "Activar Animaciones GSAP"
-
-#: Core/Builder/Component/Gallery.php:88
-#, fuzzy
-msgid "Marquee Settings"
-msgstr ""
-
-#: Core/Builder/Component/Gallery.php:89
-msgid "Marquee Animation Speed"
-msgstr "Velocidad de la animación"
-
-#: Core/Builder/Component/Gallery.php:91
-msgid "Seconds"
-msgstr "Segundos"
-
-#: Core/Builder/Component/Gallery.php:93
-#, fuzzy
-msgid "Fade Color"
-msgstr "Color del difuminado"
-
-#: Core/Builder/Component/Gallery.php:111 Core/Builder/Component/Row.php:14
-msgid "Columns"
-msgstr "Columnas"
-
-#: Core/Builder/Component/Gallery.php:112
-#, fuzzy
-msgid "Columns on desktop"
-msgstr "Columnas en desktop"
-
-#: Core/Builder/Component/Gallery.php:113
-#, fuzzy
-msgid "Columns on laptop"
-msgstr "Columnas en laptop"
-
-#: Core/Builder/Component/Gallery.php:114
-#, fuzzy
-msgid "Columns on tablet"
-msgstr "Columnas en tablet"
-
-#: Core/Builder/Component/Gallery.php:115
-#, fuzzy
-msgid "Columns on mobile"
-msgstr "Columnas en móviles"
-
-#: Core/Builder/Component/Gallery.php:118
-msgid "Space between items"
-msgstr "Espacio entre items"
-
-#: Core/Builder/Component/Gallery.php:119
-msgid "Gap on desktop"
-msgstr "Espacio en desktop"
-
-#: Core/Builder/Component/Gallery.php:120
-#, fuzzy
-msgid "Gap on laptop"
-msgstr "Espacio en desktop"
-
-#: Core/Builder/Component/Gallery.php:121
-msgid "Gap on tablet"
-msgstr "Espacio en tablet"
-
-#: Core/Builder/Component/Gallery.php:122
-msgid "Gap on mobile"
-msgstr "Espacio en móviles"
-
 #: Core/Builder/Component/Gallery.php:126
 #, fuzzy
 msgid "Images Settings"
@@ -586,8 +690,9 @@ msgstr ""
 msgid ""
 "Appearance of the images in the gallery. If you select \"default\" the "
 "images will keep their original aspect ratio."
-msgstr "Apariencia de las imágenes en la galeria. Seleccione -default- "
-" para que mantengan su aspecto original."
+msgstr ""
+"Apariencia de las imágenes en la galeria. Seleccione -default-  para que "
+"mantengan su aspecto original."
 
 #: Core/Builder/Component/Gallery.php:179
 #, fuzzy
@@ -735,8 +840,9 @@ msgstr "Activar"
 msgid ""
 "Use <strong>show-gallery--GALLERY-ID</strong> css class on a button to open "
 "the gallery in the frontend"
-msgstr "Usar la clase css <strong>show-gallery--GALLERY-ID</strong> en un botón para abrir "
-"la galeria en un LightBox"
+msgstr ""
+"Usar la clase css <strong>show-gallery--GALLERY-ID</strong> en un botón para "
+"abrir la galeria en un LightBox"
 
 #: Core/Builder/Component/Gallery.php:219
 #, fuzzy
@@ -835,12 +941,10 @@ msgid "After Heading"
 msgstr "Después del título"
 
 #: Core/Builder/Component/Heading.php:155
-#, fuzzy
 msgid "Accent Color"
 msgstr ""
 
 #: Core/Builder/Component/Heading.php:164
-#, fuzzy
 msgid "Use Color"
 msgstr ""
 
@@ -1032,13 +1136,6 @@ msgstr "Nombre"
 msgid "Random"
 msgstr "Random"
 
-#: Core/Builder/Component/Listing.php:109
-#: Core/Builder/containers/popup/scroll_animations_container.php:31
-#: Core/Builder/containers/popup/scroll_animations_container.php:165
-#: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:70
-msgid "Custom"
-msgstr "Personalizado"
-
 #: Core/Builder/Component/Listing.php:117
 msgid "Set post status"
 msgstr "Estado del post"
@@ -1082,7 +1179,8 @@ msgid "Show controls"
 msgstr "Mostrar controles"
 
 #: Core/Builder/Component/Listing.php:135
-msgid "Show carrusel nav"
+#, fuzzy
+msgid "Show carousel nav"
 msgstr "Mostrar navegación"
 
 #: Core/Builder/Component/Listing.php:136
@@ -1233,7 +1331,7 @@ msgstr "Menú Vertical 1"
 #: Core/Offcanvas_Elements/Restriction/Plugin.php:62
 #: Core/Posttype/Menu_Item.php:75 Core/Posttype/Reusable_Section_CPT.php:114
 #: Core/Theme_Options/Fields/Header.php:13
-#: Core/Theme_Options/Fields/Header.php:28
+#: Core/Theme_Options/Fields/Header.php:37
 #: Core/Theme_Options/UF_Container/Social_Media.php:21
 msgid "Select"
 msgstr "Seleccionar"
@@ -1298,7 +1396,6 @@ msgstr "Controles"
 
 #: Core/Builder/Component/Video.php:47
 #: Core/Builder/containers/popup/common_settings_container.php:105
-#, fuzzy
 msgid "AutoPlay"
 msgstr ""
 
@@ -1325,7 +1422,7 @@ msgstr "Color de fondo"
 #: Core/Offcanvas_Elements/Settings.php:228
 #: Core/Offcanvas_Elements/Settings.php:239
 #: Core/Offcanvas_Elements/Settings.php:253
-#: Core/Theme_Options/Fields/Header.php:20
+#: Core/Theme_Options/Fields/Header.php:29
 msgid "Opacity"
 msgstr "Transparencia"
 
@@ -1356,12 +1453,12 @@ msgstr "Ajustes de la página"
 
 #: Core/Builder/containers/page-settings.php:11
 #: Core/Builder/containers/page-settings.php:30
-#: Core/Theme_Options/Fields/Header.php:17
+#: Core/Theme_Options/Fields/Header.php:26
 msgid "Background Color"
 msgstr "Color de fondo"
 
 #: Core/Builder/containers/page-settings.php:15
-#: Core/Theme_Options/Fields/Header.php:27
+#: Core/Theme_Options/Fields/Header.php:36
 msgid "Text Color"
 msgstr "Color del texto"
 
@@ -1903,7 +2000,6 @@ msgid "Add animation"
 msgstr "Agregar animación"
 
 #: Core/Builder/containers/popup/scroll_animations_container.php:134
-#, fuzzy
 msgid "Animation Timeline"
 msgstr ""
 
@@ -2005,7 +2101,7 @@ msgstr "Agregar Ajustes"
 msgid "Page %s"
 msgstr "Página %s"
 
-#: Core/Migrator/Core.php:64 Core/Migrator/Core.php:65
+#: Core/Migrator/Core.php:66 Core/Migrator/Core.php:67
 #: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:35
 msgid "Theme Migrator"
 msgstr ""
@@ -2598,7 +2694,19 @@ msgstr "Selecciona una imágen"
 msgid "Logo Max Height"
 msgstr "Tamaño Máximo del logo"
 
-#: Core/Theme_Options/Fields/Header.php:18
+#: Core/Theme_Options/Fields/Header.php:20
+msgid "Adjust scroll position"
+msgstr "Ajustar la posición del scroll"
+
+#: Core/Theme_Options/Fields/Header.php:21
+msgid ""
+"If sticky header logo is smaller than static header logo this setting needs "
+"to be enabled."
+msgstr ""
+"Si el logo del sticky header es más pequeño que el logo del header estático "
+"esta configuración debe estar activada."
+
+#: Core/Theme_Options/Fields/Header.php:27
 msgid "Use"
 msgstr "Usar"
 
