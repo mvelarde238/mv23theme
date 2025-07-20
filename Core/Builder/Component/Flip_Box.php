@@ -38,7 +38,7 @@ class Flip_Box extends Component {
     }
 
 	public static function get_fields() {
-        $components = array( 'text_editor', 'image', 'spacer', 'button', 'video', 'map', 'icon_and_text', 'menu', 'carrusel' );
+        $components = array( 'text_editor', 'image', 'spacer', 'button', 'video', 'map', 'icon_and_text', 'menu', 'carousel' );
         $alignments = array(
             'start' => __('Start','mv23theme'),
             'center' => __('Center','mv23theme'),

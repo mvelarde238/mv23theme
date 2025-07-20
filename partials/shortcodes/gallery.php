@@ -62,25 +62,25 @@ function print_theme_gallery( $atts ) {
         $rand_id = 'gallery_'.substr(md5(microtime()),rand(0,26),5);
         $gallery_id = ( $a['gallery_id'] ) ? : $rand_id;
 
-        $carrusel_styles = array();
-        if( $a['aspectratio'] ) $carrusel_styles[] = '--aspect-ratio:'.$a['aspectratio'];
+        $carousel_styles = array();
+        if( $a['aspectratio'] ) $carousel_styles[] = '--aspect-ratio:'.$a['aspectratio'];
         if( $a['display'] != 'slider' ) {
-            $carrusel_styles[] = '--d-gap:'.$a['d_gap'].'px';
-            $carrusel_styles[] = '--l-gap:'.$a['l_gap'].'px';
-            $carrusel_styles[] = '--t-gap:'.$a['t_gap'].'px';
-            $carrusel_styles[] = '--m-gap:'.$a['m_gap'].'px';
-            $carrusel_styles[] = '--d-columns:'.$a['d_columns'];
-            $carrusel_styles[] = '--l-columns:'.$a['l_columns'];
-            $carrusel_styles[] = '--t-columns:'.$a['t_columns'];
-            $carrusel_styles[] = '--m-columns:'.$a['m_columns'];
+            $carousel_styles[] = '--d-gap:'.$a['d_gap'].'px';
+            $carousel_styles[] = '--l-gap:'.$a['l_gap'].'px';
+            $carousel_styles[] = '--t-gap:'.$a['t_gap'].'px';
+            $carousel_styles[] = '--m-gap:'.$a['m_gap'].'px';
+            $carousel_styles[] = '--d-columns:'.$a['d_columns'];
+            $carousel_styles[] = '--l-columns:'.$a['l_columns'];
+            $carousel_styles[] = '--t-columns:'.$a['t_columns'];
+            $carousel_styles[] = '--m-columns:'.$a['m_columns'];
         }
         if( $a['display'] === 'marquee' ) {
-            $carrusel_styles[] = '--fade-color:'.$a['fade_color'];
+            $carousel_styles[] = '--fade-color:'.$a['fade_color'];
         }
 
         if( $a['display'] == 'slider' ){ ?>
-            <div class="theme-gallery carrusel carrusel-inside-component" data-controls-position="center" style="<?=implode(';',$carrusel_styles)?>">
-            <div class="carrusel__slider" 
+            <div class="theme-gallery carousel carousel-inside-component" data-controls-position="center" style="<?=implode(';',$carousel_styles)?>">
+            <div class="carousel__slider" 
                 data-show-controls="1" 
                 data-show-nav="1" 
                 data-autoplay="0" 
@@ -97,15 +97,15 @@ function print_theme_gallery( $atts ) {
                 data-desktop-gutter="<?=$a['d_gap']?>">
             <?php
         } else if ( $a['display'] == 'masonry' ) {
-            echo '<div class="theme-gallery theme-gallery--masonry" style="'.implode(';', $carrusel_styles).'">';
+            echo '<div class="theme-gallery theme-gallery--masonry" style="'.implode(';', $carousel_styles).'">';
             echo '<div class="theme-gallery theme-gallery__item-sizer"></div>';
 
         } else if ( $a['display'] == 'marquee' ) {
-            echo '<div class="theme-gallery theme-gallery__marquee" data-speed="'.$a['marquee_speed'].'" style="'.implode(';', $carrusel_styles).'">';
-            echo '<div class="theme-gallery__marquee-track">';
+            echo '<div class="theme-gallery theme-gallery__marquee marquee" data-speed="'.$a['marquee_speed'].'" style="'.implode(';', $carousel_styles).'">';
+            echo '<div class="marquee-track">';
 
         } else {
-            echo '<div class="theme-gallery has-columns" style="'.implode(';', $carrusel_styles).'">';
+            echo '<div class="theme-gallery has-columns" style="'.implode(';', $carousel_styles).'">';
         }
 
         foreach ($attachments as $attachment_id) :

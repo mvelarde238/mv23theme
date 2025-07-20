@@ -140,59 +140,6 @@ $.fn.serializeObject = function()
 };
 
 // ****************************************************************************************************
-// CREATE TNS SLIDER
-// ****************************************************************************************************
-
-function create_tns_slider(slider){   
-    var show_controls = slider.dataset['showControls'],
-        nav_position = slider.dataset['navPosition'],
-        show_nav = slider.dataset['showNav'],
-        autoplay = slider.dataset['autoplay'],
-        autoplay_timeout = parseInt(slider.dataset['autoplayTimeout']),
-        speed = parseInt(slider.dataset['speed']),
-        autoHeight = slider.dataset['autoHeight'],
-        mobile = slider.dataset['mobile'],
-        tablet = slider.dataset['tablet'],
-        laptop = slider.dataset['laptop'],
-        desktop = slider.dataset['desktop'],
-        axis = slider.dataset['axis'],
-        mode = slider.dataset['mode'],
-        touch = slider.dataset['touch'],
-        mobile_gutter = parseInt(slider.dataset['mobileGutter']),
-        tablet_gutter = parseInt(slider.dataset['tabletGutter']),
-        laptop_gutter = parseInt(slider.dataset['laptopGutter']),
-        desktop_gutter = parseInt(slider.dataset['desktopGutter']);
-
-    show_controls = ( show_controls == '1' ) ? true : false;
-    show_nav = ( show_nav == '1' ) ? true : false;
-    autoplay = ( autoplay == '1' ) ? true : false;
-    autoHeight = ( autoHeight == '1' ) ? true : false;
-    touch = ( touch == '1' ) ? true : false;
-    mobile = ( mobile != '' ) ? mobile : 1;
-    tablet = ( tablet != '' ) ? tablet : 2;
-    laptop = ( laptop != '' ) ? laptop : 3;
-    desktop = ( desktop != '' ) ? desktop : 4;
-    axis = ( axis != '' ) ? axis : 'horizontal',
-    mode = ( mode != '' ) ? mode : 'carousel';
-
-    var slider_options = {  
-        mode: mode, touch: touch, container: slider, autoplayButton: false, autoplay: autoplay, autoplayButtonOutput: false, loop: true, 
-        speed: speed,
-        autoplayTimeout: autoplay_timeout,
-        axis:axis, controlsText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'], rewind: true, autoHeight: autoHeight,
-        mouseDrag: true, swipeAngle: false,
-        controls: show_controls, nav: show_nav, navPosition: nav_position, responsive : {
-            1401 : {items:desktop, slideBy:desktop, gutter: desktop_gutter},
-            1025 : {items:laptop, slideBy:laptop, gutter: laptop_gutter},
-            601 : {items:tablet, slideBy:tablet, gutter: tablet_gutter},
-            100 : {items:mobile, slideBy:mobile, gutter: mobile_gutter},
-        }
-    };   
-        
-    return tns(slider_options);
-}
-
-// ****************************************************************************************************
 // GET A COOKIE
 // ****************************************************************************************************
 

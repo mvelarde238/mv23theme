@@ -62,7 +62,7 @@ class Testimonials extends Component {
     public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
         
-		$args['additional_classes'] = array('carrusel');
+		$args['additional_classes'] = array('carousel');
 		$args['additional_attributes'] = array('data-controls-position="center"');
         
         $testimonials = $args['testimonials'];
@@ -74,7 +74,7 @@ class Testimonials extends Component {
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
         ?>
-        <div class="testimonials-list carrusel__slider" 
+        <div class="testimonials-list carousel__slider" 
             data-show-controls="1" 
             data-show-nav="1" 
             data-autoplay="0" 

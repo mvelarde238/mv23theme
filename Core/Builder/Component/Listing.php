@@ -130,9 +130,9 @@ class Listing extends Component {
             Field::create( 'tab', __('List Template','mv23theme')),
             Field::create( 'radio', 'list_template', 'Template' )->set_orientation( 'horizontal' )->add_options($listing_templates),
             
-            Field::create( 'complex', 'carrusel_settings_wrapper', '' )->merge()->add_fields(array(
+            Field::create( 'complex', 'carousel_settings_wrapper', '' )->merge()->add_fields(array(
                 Field::create( 'checkbox', 'show_controls' )->set_width( 33 )->hide_label()->set_text(__('Show controls','mv23theme')),
-                Field::create( 'checkbox', 'show_nav' )->set_width( 33 )->hide_label()->set_text(__('Show carrusel nav','mv23theme')),
+                Field::create( 'checkbox', 'show_nav' )->set_width( 33 )->hide_label()->set_text(__('Show carousel nav','mv23theme')),
                 Field::create( 'checkbox', 'autoplay' )->set_width( 33 )->hide_label()->set_text(__('Start automatically','mv23theme'))
             ))->add_dependency('list_template','carrusel','='),
             
@@ -417,10 +417,10 @@ class Listing extends Component {
                     $show_nav = (!empty($args['show_nav'])) ? $args['show_nav'] : 0;
                     $autoplay = (!empty($args['autoplay'])) ? $args['autoplay'] : 0;
     
-                    $carrusel_classes_array = array('carrusel','carrusel-inside-component');
-                    if( !$show_nav ) array_push($carrusel_classes_array,'without-navigation');
+                    $carousel_classes_array = array('carousel','carousel-inside-component');
+                    if( !$show_nav ) array_push($carousel_classes_array,'without-navigation');
                     ?>
-                    <div class="<?php echo implode(' ', $carrusel_classes_array); ?>" data-controls-position="center"><div class="carrusel__slider" 
+                    <div class="<?php echo implode(' ', $carousel_classes_array); ?>" data-controls-position="center"><div class="carousel__slider" 
                         data-show-controls="<?=$show_controls?>" 
                         data-show-nav="<?=$show_nav?>" 
                         data-touch="1" 

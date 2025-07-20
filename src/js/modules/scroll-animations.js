@@ -68,7 +68,7 @@
             }
 
             if( group['trigger_carrusel'] ){
-                scrollTriggerOptions.onUpdate = gsapScroll => { trigger_carrusel(gsapScroll, triggerElement) };
+                scrollTriggerOptions.onUpdate = gsapScroll => { trigger_carousel(gsapScroll, triggerElement) };
             } 
 
             var timeline = gsap.timeline({
@@ -134,24 +134,24 @@
             return targetElem;
         }
 
-        function trigger_carrusel(gsapScroll, triggerElement){
+        function trigger_carousel(gsapScroll, triggerElement){
             var progress = gsapScroll.progress;
-            var carrusels = ( $(triggerElement).hasClass('carrusel') ) ? $(triggerElement) : $(triggerElement).find('.carrusel');
-            if( carrusels.length ){
-                for (var i = 0; i < carrusels.length; i++) {
-                    var carrusel_uid = $(carrusels[i]).attr('data-tns-uid');
-                    var carrusel = MV23_GLOBALS.carousels[carrusel_uid];
-                    if( carrusel ){
-                        var nth_slides = carrusel.getInfo().slideCount;
+            var carousels = $(triggerElement).find('.carousel__slider');
+            if( carousels.length ){
+                for (var i = 0; i < carousels.length; i++) {
+                    var carousel_uid = $(carousels[i]).attr('data-tns-uid');
+                    var carousel = MV23_GLOBALS.carousels[carousel_uid];
+                    if( carousel ){
+                        var nth_slides = carousel.getInfo().slideCount;
                         for (let i = 1; i <= nth_slides; i++) {
                             if( progress >= ( (1/nth_slides)*(i-1) ) && progress <= ( (1/nth_slides)*i ) ){
                                 var slide_should_be_here = i - 1; // slide index starts in 0
-                                carrusel.goTo(slide_should_be_here);
+                                carousel.goTo(slide_should_be_here);
                             }
                         }
                     }
                 }
             }
-        }
+        }       
  	});
 })(jQuery,console.log);

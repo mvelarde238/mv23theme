@@ -60,9 +60,9 @@
             event.preventDefault();
             var scrollTo = $postcard.attr('data-scroll-to');
                 
-            var listingIsCarrusel = $listing.hasClass('posts-listing--carrusel');
+            var listingIsCarousel = $listing.hasClass('posts-listing--carrusel');
             // where to add the expander
-            var $expanderTarget = ( listingIsCarrusel ) ? $listing : $postcard;
+            var $expanderTarget = ( listingIsCarousel ) ? $listing : $postcard;
 
             // reset all
             var $listingItems = $listing.find('.postcard');
@@ -106,8 +106,8 @@
         var $listingItems = $listing.find('.postcard'); 
         $listingItems.removeClass('active');
         
-        var listingIsCarrusel = $listing.hasClass('posts-listing--carrusel');
-        var $expanderTarget = ( listingIsCarrusel ) ? $listing : $listingItems;
+        var listingIsCarousel = $listing.hasClass('posts-listing--carrusel');
+        var $expanderTarget = ( listingIsCarousel ) ? $listing : $listingItems;
         $expanderTarget.attr('style', '');
     });
             

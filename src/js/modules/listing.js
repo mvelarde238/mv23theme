@@ -31,9 +31,9 @@
             },
             success: function(response) {
                 $component.attr('data-status','loaded');
-                var $items_container = ( listing_template === 'carrusel' ) ? $listing.find('.carrusel__slider') : $listing;
+                var $items_container = ( listing_template === 'carrusel' ) ? $listing.find('.carousel__slider') : $listing;
                 if ( listing_template === 'carrusel' ) {
-                    var tns_uid = $listing.find('.carrusel').attr('data-tns-uid');
+                    var tns_uid = $listing.find('.carousel').attr('data-tns-uid');
                     var carousel = MV23_GLOBALS.carousels[ tns_uid ];
                 }
 
@@ -43,7 +43,7 @@
 
                         if ( listing_template === 'carrusel' ){
                             carousel.destroy();
-                            $items_container = $listing.find('.carrusel__slider');
+                            $items_container = $listing.find('.carousel__slider');
                             if(action === 'replace') $items_container.html('');
                         } 
                         if(action === 'replace') $items_container.html($items);
@@ -65,7 +65,7 @@
                     case 'error':
                         if ( listing_template === 'carrusel' ) {
                             carousel.destroy();
-                            $items_container = $listing.find('.carrusel__slider');
+                            $items_container = $listing.find('.carousel__slider');
                             $items_container.html('');
                         }
                         $items_container.html('<p class="center posts-filter-error-msg">'+response.message+'</p>');

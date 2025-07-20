@@ -10,6 +10,7 @@ CHANGELOG
 - Avoid repeated colors in colorpicker palette
 - ADJUST_SCROLL_POSITION should be activated via sticky header settings instead of by defining a constant
 - UF Feature: Add clear event handler to color picker field
+- Migrate Carrusel Comp. to Carousel Component (!use migrator)
 
 2.7.2 25-07-18
 - UF Feature: Select field builds hierarchical options for terms with proper indentation

@@ -16,43 +16,9 @@
 .theme-gallery.has-columns
     justify-content: center
 
-.theme-gallery.carrusel
-    .carrusel__slider
+.theme-gallery.carousel
+    .carousel__slider
         margin: auto
-
-.theme-gallery__marquee
-    width: 100%
-    display: flex
-    overflow: hidden
-    --fade-color: #fff
-    --fade-width: 100px
-    position: relative
-    &-track
-        display: flex
-        align-items: center
-        flex-shrink: 0
-        @media #{$large-and-up}
-            gap: var(--d-gap)
-        @media #{$medium-only}
-            gap: var(--t-gap)
-        @media #{$small-and-down}
-            gap: var(--m-gap)
-    // fade elements
-    &::before,
-    &::after
-        content: ''
-        position: absolute
-        top: 0
-        height: 100%
-        width: var(--fade-width)
-        pointer-events: none
-        z-index: 2
-    &::before
-        left: 0
-        background: linear-gradient(to right, var(--fade-color), transparent)
-    &::after
-        right: 0
-        background: linear-gradient(to left, var(--fade-color), transparent)
 
 .theme-gallery--masonry
     display: flex

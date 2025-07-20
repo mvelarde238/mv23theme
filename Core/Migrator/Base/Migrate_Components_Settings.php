@@ -216,7 +216,7 @@ abstract class Migrate_Components_Settings{
                         $item_count++;
                     }
                 }
-                if( $has_inner_components['where'] == 'in-carrusel-content' ){
+                if( $has_inner_components['where'] == 'in-carousel-content' ){
                     $item_count = 0;
                     foreach ($component['items'] as $item) {
                         $migrated = $this->migrate_content_layout_data( $item['blocks_layout'] );
@@ -270,7 +270,8 @@ abstract class Migrate_Components_Settings{
             'row' => 'in-row-content',
             'inner_row' => 'in-row-content', // for backward compatibility with versions < 2.8.0
             'accordion' => 'in-accordion-content',
-            'carrusel' => 'in-carrusel-content',
+            'carrusel' => 'in-carousel-content', // for backward compatibility with versions < 2.8.0
+            'carousel' => 'in-carousel-content',
             'components_wrapper' => 'in-components-wrapper-content',
             'inner_wrapper' => 'in-components-wrapper-content', // for backward compatibility with versions < 2.8.0
             'flip_box' => 'in-flip-box-content'
