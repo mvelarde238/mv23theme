@@ -10,5 +10,5 @@ add_action( 'uf.extend', function(){
 	new Autoloader( 'Ultimate_Fields\\Columns_Layout', __DIR__ . '/classes' );
 
 	// Let the base class add all necessary hooks
-	new Columns_Layout( __FILE__, '1.0.4' );
+	new Columns_Layout( __FILE__, '1.0.5' );
 });

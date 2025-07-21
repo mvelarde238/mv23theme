@@ -76,6 +76,8 @@
 		bindToElement: function( element ) {
 			var that       = this,
 				$indicator = this.$el.find( '.uf-layout-group-width' );
+				// force a width value to avoid undefined warning on save
+				force_width = 999;
 
 			$indicator.text( element.width );
 
@@ -83,7 +85,7 @@
 				$indicator.text( element.width );
 
 				// Save the width, as this is the real size of the element
-				that.model.datastore.set( '__width', element.width );
+				that.model.datastore.set( '__width', force_width );
 			});
 
 			// Update the display for temporary sizes
@@ -93,7 +95,7 @@
 
 			// Update positions
 			element.on( 'update-attributes', function( attributes ) {
-				that.model.datastore.set( '__width', element.width, {
+				that.model.datastore.set( '__width', force_width, {
 					silent: true
 				});
 
