@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.8.1 25-07-21
+- Fix some issues on uf columns layout
+
 2.8.0 25-07-18
 - Migrate Inner Components (!use migrator)
 - Standardize migrators descriptions
