@@ -207,22 +207,36 @@ class Select extends Field {
 			if( $this->get_input_type() == 'select' ) $options = array('--Selecciona--');
 
 			if ($this->taxonomy == 'category') {
-				$categories = get_categories('hide_empty=1&type=post&hierarchical=1&orderby=name&order=ASC');
-				$options = array_merge($options, $this->build_hierarchical_options($categories));
+				$categories = get_categories('hide_empty=1&depth=1&type=post');
+				foreach($categories as $category) {
+					$options[ $category->term_id ] = esc_html( $category->cat_name );
+				}
 			} else {
-				// $query_params = ( $this->query_params ) ? $this->query_params : '&hide_empty=1';
-				$terms = get_terms(array(
-					'taxonomy' => $this->taxonomy,
-					'hide_empty' => true,
-					'hierarchical' => true,
-					'orderby' => 'name',
-					'order' => 'ASC'
-				));
-				
-				if (!is_wp_error($terms) && !empty($terms)) {
-					$options = array_merge($options, $this->build_hierarchical_options($terms));
+				$query_params = ( $this->query_params ) ? $this->query_params : '&hide_empty=1&depth=1';
+				$terms = get_terms('taxonomy='.$this->taxonomy.$query_params); 
+				foreach($terms as $term) {
+					if( is_object($term) ){
+						$options[ $term->term_id ] = esc_html( $term->name );
+					}
 				}
 			}
+			// if ($this->taxonomy == 'category') {
+			// 	$categories = get_categories('hide_empty=1&type=post&hierarchical=1&orderby=name&order=ASC');
+			// 	$options = array_merge($options, $this->build_hierarchical_options($categories));
+			// } else {
+			// 	// $query_params = ( $this->query_params ) ? $this->query_params : '&hide_empty=1';
+			// 	$terms = get_terms(array(
+			// 		'taxonomy' => $this->taxonomy,
+			// 		'hide_empty' => true,
+			// 		'hierarchical' => true,
+			// 		'orderby' => 'name',
+			// 		'order' => 'ASC'
+			// 	));
+				
+			// 	if (!is_wp_error($terms) && !empty($terms)) {
+			// 		$options = array_merge($options, $this->build_hierarchical_options($terms));
+			// 	}
+			// }
 			$this->options = $options;
 
 		} elseif( 'users' == $this->options_type ) {

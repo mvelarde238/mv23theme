@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.8.1 25-07-22
+- Provisional fix hierarchical terms on uf select field
+
 2.8.1 25-07-21
 - Fix some issues on uf columns layout
 
