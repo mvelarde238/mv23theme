@@ -1,4 +1,4 @@
-.uf-button.has-values{
+.has-values{
 	&:after{
 		content: '';
 		display: inline-block;

@@ -213,12 +213,12 @@
 
 		this.$el.on( 'click', '.uf-columns-layout-column-appearance', function( e ) {
 			e.preventDefault();
-			that.handle_column_appearance_on_click();
+			that.handle_column_appearance_on_click( e );
 		});
 
 		this.$el.on( 'click', '.uf-columns-layout-column-settings', function( e ) {
 			e.preventDefault();
-			that.handle_column_settings_on_click();
+			that.handle_column_settings_on_click( e );
 		});
 	}
 
@@ -461,7 +461,7 @@
 		/**
 		 * Handle column appearance
 		 */
-		handle_column_appearance_on_click: function(){
+		handle_column_appearance_on_click: function(ev){
 			var that = this, overlayLayer, column_settings, common_settings_popup_view;
 
 			column_settings = that.$el.data('column_settings') ?? {};
@@ -471,6 +471,7 @@
 					container: 'common_settings_container',
 					storedValues: column_settings,
 					save_text: 'Save Settings'
+					// _triggerButton: ev.target
 				}, 
 			});
 
@@ -497,7 +498,7 @@
 		/**
 		 * Handle column settings
 		 */
-		handle_column_settings_on_click: function(){
+		handle_column_settings_on_click: function(ev){
 			var that = this, overlayLayer, column_settings, common_settings_popup_view;
 
 			column_settings = that.$el.data('column_settings') ?? {};
@@ -507,6 +508,7 @@
 					container: 'column_settings_container',
 					storedValues: column_settings,
 					save_text: 'Save Settings'
+					// _triggerButton: ev.target
 				}, 
 			});
 
@@ -612,7 +614,7 @@
 
 			this.$el.on( 'click', '.uf-columns-layout-row-settings', function( e ) {
 				e.preventDefault();
-				that.handle_row_settings_on_click();
+				that.handle_row_settings_on_click( e );
 			});
 
 			// Once everything is in place, let external elements know what's where
@@ -1043,7 +1045,7 @@
 		/**
 		 * Handle row settings
 		 */
-		handle_row_settings_on_click: function(){
+		handle_row_settings_on_click: function(ev){
 			var that = this, overlayLayer, row_settings, common_settings_popup_view;
 
 			row_settings = that.$el.data('row_settings') ?? {};
@@ -1053,6 +1055,8 @@
 					container: 'row_settings_container',
 					storedValues: row_settings,
 					save_text: 'Save Settings'
+					// dont send _triggerButton, because row settings has always values
+					// _triggerButton: ev.target
 				}, 
 			});
 

@@ -85,8 +85,8 @@
 			// save a reference to the uf overlay
 			this.model.set( '_overlayLayer', overlayLayer);
 
-			// save a reference to the view
-			this.model.set( '_view', this.$el);
+			// save a reference to the trigger button
+			this.model.set( '_triggerButton', this.$el.find('.uf-button') );
 
 			// Listen for saving
 			view.on( 'save', function(e, filtered_data) {
@@ -131,7 +131,7 @@
                 			processed_data = that.filterData( this.model.get( 'container' ), raw_data );
 
 							// check has-values class
-							const _button = this.model.get('_view')?.find('.uf-button');
+							const _button = $( this.model.get('_triggerButton') );
 							if( _.isEmpty(processed_data) ) {
 								_button?.removeClass('has-values');
 							} else {
@@ -232,7 +232,7 @@
             	            if( entry[1].layout == 'layout1' ) delete raw_data.other_settings.layout;
             	       }
             	   } else {
-            	        if( !entry[1].hasOwnProperty('use' ) || entry[1].use == false ){
+            	        if( _.isObject(entry[1]) && (!entry[1].hasOwnProperty('use' ) || entry[1].use == false) ){
 							delete raw_data[ entry[0] ];
 						} 
             	   };

@@ -172,6 +172,10 @@
 			this.$el.data('row_settings', row_settings );
 			this.model.set('row_settings', row_settings );
 
+			// Add has-value class if there is any value, commented because row settings has always values
+			// var row_has_settings_class = ( !_.isEmpty(row_settings) ) ? 'has-values' : '';
+			// this.$el.find('.uf-columns-layout-row-settings').addClass( row_has_settings_class );
+
 			// Add all existing elements
 			this.addExistingData();
 
