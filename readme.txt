@@ -4,6 +4,7 @@ CHANGELOG
 
 2.8.3 25-07-23
 - Update editor sass file
+- Fix adjust_scroll_position_is_active() function
 
 2.8.2 25-07-22
 - UF Fix: Select field with taxonomies now preserves hierarchical order in JavaScript
