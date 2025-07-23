@@ -1,5 +1,14 @@
 mv23 changelog-------------------------
 
+- 22-07-2025
+- Fix: Select field with taxonomies now preserves hierarchical order in JavaScript
+  JavaScript was automatically reordering numeric keys in options object, breaking the hierarchical structure.
+  Solution: Convert options from associative array to indexed array of objects to preserve order.
+    (core/classes/Field/Select.php: export_field() method lines 346-365)
+    (core/js/field/select.js: getOptionsArray() method lines 20-45)
+    (core/js/field/select.js: renderSelect() method lines 139-175)
+    (core/js/field/select.js: renderRadios() method lines 197-220)
+
 - 18-07-2025
 - Feature: Select field builds hierarchical options for terms with proper indentation
     (core/classes/Field/Select.php)

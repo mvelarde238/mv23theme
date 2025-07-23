@@ -11,7 +11,42 @@
 		 * Returns the options for the field.
 		 */
 		getOptions: function() {
-			return this.get( 'options' );
+			var options = this.get( 'options' );
+			
+			// If options is an array (new format), convert it back to object for compatibility
+			if( _.isArray( options ) ) {
+				var optionsObj = {};
+				_.each( options, function( option ) {
+					optionsObj[ option.value ] = option.label;
+				});
+				return optionsObj;
+			}
+			
+			// Return as-is for backwards compatibility
+			return options;
+		},
+
+		/**
+		 * Returns the options as an array to preserve order.
+		 */
+		getOptionsArray: function() {
+			var options = this.get( 'options' );
+			
+			// If options is already an array (new format), return as-is
+			if( _.isArray( options ) ) {
+				return options;
+			}
+			
+			// Convert object to array for backwards compatibility
+			var optionsArray = [];
+			_.each( options, function( label, value ) {
+				optionsArray.push({
+					value: value,
+					label: label
+				});
+			});
+			
+			return optionsArray;
 		},
 
 		/**
@@ -100,7 +135,11 @@
 			// Create a basic select and add options to it
 			$input = $( '<select></select>' );
 
-			_.each( that.model.getOptions(), function( label, key ) {
+			// Use getOptionsArray to preserve order
+			_.each( that.model.getOptionsArray(), function( option ) {
+				var key = option.value;
+				var label = option.label;
+				
 				if( 'object' != typeof label ) {
 					// Normal option
 					var $option = $( '<option />' )
@@ -154,8 +193,10 @@
 			// Generate a name for the inputs
 			name = 'uf-radio-' + ( selectField.lastListName++ );
 
-			// Add options
-			_.each( this.model.getOptions(), function( option, value ) {
+			// Add options using getOptionsArray to preserve order
+			_.each( this.model.getOptionsArray(), function( option ) {
+				var value = option.value;
+				var label = option.label;
 				var $label, $input;
 
 				$input = $( '<input type="radio" />' ).attr({
@@ -164,7 +205,7 @@
 				});
 				if( value == current ) $input.prop( 'checked', true );
 
-				$label = $( '<label />' ).html( option ).prepend( $input );
+				$label = $( '<label />' ).html( label ).prepend( $input );
 
 				$list.append( $( '<li />' ).append( $label ) );
 			});

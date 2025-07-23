@@ -7,6 +7,7 @@ namespace Ultimate_Fields\Field;
 
 use Ultimate_Fields\Field;
 use Ultimate_Fields\Template;
+use Ultimate_Fields\Helper\Hierarchical_Terms;
 
 class Select extends Field {
 	/**
@@ -207,37 +208,12 @@ class Select extends Field {
 			if( $this->get_input_type() == 'select' ) $options = array('--Selecciona--');
 
 			if ($this->taxonomy == 'category') {
-				$categories = get_categories('hide_empty=1&depth=1&type=post');
-				foreach($categories as $category) {
-					$options[ $category->term_id ] = esc_html( $category->cat_name );
-				}
+				$terms_helper = new Hierarchical_Terms( 'category' );
+				$this->options = $terms_helper->get_terms_array();
 			} else {
-				$query_params = ( $this->query_params ) ? $this->query_params : '&hide_empty=1&depth=1';
-				$terms = get_terms('taxonomy='.$this->taxonomy.$query_params); 
-				foreach($terms as $term) {
-					if( is_object($term) ){
-						$options[ $term->term_id ] = esc_html( $term->name );
-					}
-				}
+				$terms_helper = new Hierarchical_Terms( $this->taxonomy );
+				$this->options = $terms_helper->get_terms_array( $this->taxonomy );
 			}
-			// if ($this->taxonomy == 'category') {
-			// 	$categories = get_categories('hide_empty=1&type=post&hierarchical=1&orderby=name&order=ASC');
-			// 	$options = array_merge($options, $this->build_hierarchical_options($categories));
-			// } else {
-			// 	// $query_params = ( $this->query_params ) ? $this->query_params : '&hide_empty=1';
-			// 	$terms = get_terms(array(
-			// 		'taxonomy' => $this->taxonomy,
-			// 		'hide_empty' => true,
-			// 		'hierarchical' => true,
-			// 		'orderby' => 'name',
-			// 		'order' => 'ASC'
-			// 	));
-				
-			// 	if (!is_wp_error($terms) && !empty($terms)) {
-			// 		$options = array_merge($options, $this->build_hierarchical_options($terms));
-			// 	}
-			// }
-			$this->options = $options;
 
 		} elseif( 'users' == $this->options_type ) {
 			$options = array('--Selecciona--');
@@ -274,46 +250,6 @@ class Select extends Field {
 		$this->query_params = $query_params;
 
 		return $this;
-	}
-
-	/**
-	 * Builds hierarchical options for terms with proper indentation
-	 *
-	 * @since mv23
-	 *
-	 * @param array $terms Array of term objects
-	 * @param int $parent Parent term ID (default: 0 for top-level)
-	 * @param string $indent Indentation prefix
-	 * @return array Formatted options array
-	 */
-	protected function build_hierarchical_options($terms, $parent = 0, $indent = '') {
-		$options = array();
-		
-		foreach ($terms as $term) {
-			// For categories, use cat_ID and cat_name
-			if (isset($term->cat_ID)) {
-				$term_id = $term->cat_ID;
-				$term_name = $term->cat_name;
-				$term_parent = $term->parent;
-			} else {
-				// For regular terms, use term_id and name
-				$term_id = $term->term_id;
-				$term_name = $term->name;
-				$term_parent = $term->parent;
-			}
-			
-			// Only process terms that belong to the current parent level
-			if ($term_parent == $parent) {
-				// Add current term with indentation
-				$options[$term_id] = $indent . esc_html($term_name);
-				
-				// Recursively add child terms
-				$child_options = $this->build_hierarchical_options($terms, $term_id, $indent . '— ');
-				$options = array_merge($options, $child_options);
-			}
-		}
-		
-		return $options;
 	}
 
 	/**
@@ -410,7 +346,18 @@ class Select extends Field {
 	public function export_field() {
 		$settings = parent::export_field();
 
-		$settings[ 'options' ]     = $this->get_options();
+		// Convert options to array format to preserve order in JavaScript
+		$options = $this->get_options();
+		$options_array = array();
+		
+		foreach( $options as $key => $value ) {
+			$options_array[] = array(
+				'value' => $key,
+				'label' => $value
+			);
+		}
+
+		$settings[ 'options' ]     = $options_array;
 		$settings[ 'use_select2' ] = $this->use_select2;
 		$settings[ 'input_type' ]  = $this->input_type;
 		$settings[ 'orientation' ] = $this->orientation;
