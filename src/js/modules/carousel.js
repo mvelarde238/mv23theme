@@ -18,17 +18,26 @@
         }
 
         // go to slide implementation
-        // example <button class="go-to-slide" data-slide="8" data-slider-uid="uniqueId"></button>
+        // example <button class="go-to-slide" data-slide="8" data-slider-uid="uniqueId" data-scroll="true"></button>
 
         $('.go-to-slide').on('click', function(e) {
             e.preventDefault();
-            var slide = $(this).data('slide');
-            if (typeof slide === 'undefined') slide = 1; // default to first slide if not specified
+            var slide = $(this).data('slide') ?? 1;
+            var scroll = $(this).data('scroll') ?? false;
+
             var sliderUid = $(this).data('slider-uid');
 
             if (MV23_GLOBALS.carousels[sliderUid]) {
                 if (DEBUG) console.log('Going to slide ' + slide + ' in carousel with UID ' + sliderUid);
+                
                 MV23_GLOBALS.carousels[sliderUid].goTo(slide - 1); // -1 because TNS is 0-indexed
+                if (scroll) {
+                    // Adjust scroll position if needed
+                    var target = MV23_GLOBALS.carousels[sliderUid].getInfo().container;
+                    var headerHeight = MV23_GLOBALS.headerHeight;
+                    $("html, body").animate({ scrollTop: ($(target).offset().top - headerHeight) }, { duration: 800, queue: false });
+                }
+
             } else {
                 if (DEBUG) console.warn('Carousel with UID ' + sliderUid + ' not found.');
             }
