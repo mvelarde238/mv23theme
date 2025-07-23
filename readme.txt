@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.8.3 25-07-23
+- Update editor sass file
+
 2.8.2 25-07-22
 - UF Fix: Select field with taxonomies now preserves hierarchical order in JavaScript
   JavaScript was automatically reordering numeric keys in options object, breaking the hierarchical structure.
