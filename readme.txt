@@ -6,6 +6,7 @@ CHANGELOG
 - UF Fix: Select field with taxonomies now preserves hierarchical order in JavaScript
   JavaScript was automatically reordering numeric keys in options object, breaking the hierarchical structure.
   Solution: Convert options from associative array to indexed array of objects to preserve order.
+- ULTIMATE_FIELDS_VERSION constants updated to 3.2.0 to serve actualized files
 
 2.8.1 25-07-21
 - Fix some issues on uf columns layout

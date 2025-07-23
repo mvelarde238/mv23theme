@@ -1,6 +1,6 @@
 mv23 changelog-------------------------
 
-- 22-07-2025
+- 3.2.0 22-07-2025
 - Fix: Select field with taxonomies now preserves hierarchical order in JavaScript
   JavaScript was automatically reordering numeric keys in options object, breaking the hierarchical structure.
   Solution: Convert options from associative array to indexed array of objects to preserve order.
