@@ -23,12 +23,12 @@
         $('.go-to-slide').on('click', function(e) {
             e.preventDefault();
             var slide = $(this).data('slide');
-            if (typeof slide === 'undefined') slide = 0;
+            if (typeof slide === 'undefined') slide = 1; // default to first slide if not specified
             var sliderUid = $(this).data('slider-uid');
 
             if (MV23_GLOBALS.carousels[sliderUid]) {
                 if (DEBUG) console.log('Going to slide ' + slide + ' in carousel with UID ' + sliderUid);
-                MV23_GLOBALS.carousels[sliderUid].goTo(slide);
+                MV23_GLOBALS.carousels[sliderUid].goTo(slide - 1); // -1 because TNS is 0-indexed
             } else {
                 if (DEBUG) console.warn('Carousel with UID ' + sliderUid + ' not found.');
             }
