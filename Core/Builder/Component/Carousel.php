@@ -205,7 +205,11 @@ class Carousel extends Component {
                     ->set_default_value( '60' )
                     ->add_dependency('imgs_height','custom','=')
                     ->set_width( 25 ),
-            ))
+                )),
+
+            Field::create('text', 'slider_uid', __('Slider UID', 'mv23theme'))
+                ->set_description(__('This is used to identify the slider in the JS code. If you leave it empty, a random UID will be generated.', 'mv23theme'))
+                ->set_attr( 'style', 'flex-grow: initial;' )
         );
 
 		return array_merge(
@@ -237,6 +241,7 @@ class Carousel extends Component {
         $touch = $args['touch'] ?? 0;
         $axis = $args['axis'] ?? 'horizontal';
         $mode = $args['mode'] ?? 'carousel';
+        $slider_uid = $args['slider_uid'] ?? '';
 
         $items_in_mobile = $args['items_in_mobile'];
         $items_in_tablet = $args['items_in_tablet'];
@@ -289,7 +294,8 @@ class Carousel extends Component {
                 data-auto-height="<?=$auto_height?>"
                 data-touch="<?=$touch?>"
                 data-axis="<?=$axis?>"
-                data-mode="<?=$mode?>">
+                data-mode="<?=$mode?>"
+                data-slider-uid="<?=$slider_uid?>">
         <?php else: 
             $marquee_speed = ( isset($args['marquee_speed']) && is_numeric($args['marquee_speed']) ) ? $args['marquee_speed'] : 18;
             $fade_color = $args['fade_color'] ?? '#ffffff';
