@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.8.4 25-07-24
+- Improve Heading Component: show currentColor as default accent color
+
 2.8.3 25-07-23
 - Update editor sass file
 - Fix adjust_scroll_position_is_active() function

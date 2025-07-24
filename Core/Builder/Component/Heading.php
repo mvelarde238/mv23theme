@@ -155,8 +155,8 @@ class Heading extends Component {
             Field::create( 'complex', 'accent_color', __( 'Accent Color', 'mv23theme' ) )
                 ->add_fields( array(
                     Field::create( 'text', 'color_variable' )
-                        ->set_placeholder( '--primary-color' )
-                        ->add_suggestions( array('--primary-color', '--secondary-color'))
+                        ->set_placeholder( 'currentColor' )
+                        ->add_suggestions( array('currentColor', '--primary-color', '--secondary-color'))
                         ->add_dependency( 'use_color', 0 )
                         ->set_attr( 'style', 'flex-grow: initial;' )
                         ->hide_label()
