@@ -8,6 +8,8 @@ define ('SCROLL_ANIMATIONS', scroll_animation_is_active());
 define ('FONT_AWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css');
 define ('BOOTSTRAP_ICONS', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
 define ('ADJUST_SCROLL_POSITION', adjust_scroll_position_is_active());
+define ('POSTS_SUBSCRIPTION', posts_subscription_is_active());
+define ('TRACK_POSTS_DATA', track_posts_data_is_active());
 
 // define ('IS_MULTILANGUAGE', class_exists('Polylang') );
 define ('IS_MULTILANGUAGE', function_exists('pll_the_languages') );
@@ -37,6 +39,7 @@ if( !defined('MOBILE_NAV_STYLE') ) define ('MOBILE_NAV_STYLE', array('horizontal
 if( !defined('SEARCH_PLACEHOLDER') ) define ('SEARCH_PLACEHOLDER', array('es' => 'Buscar...', 'en' => 'Search...' ));
 
 if( !defined('USE_PORTFOLIO_CPT') ) define( 'USE_PORTFOLIO_CPT', false);
+if( !defined('USE_DOCUMENT_CPT') ) define( 'USE_DOCUMENT_CPT', false);
 if( !defined('LISTING_LOADING_TEXT') ) define( 'LISTING_LOADING_TEXT', array('es' => 'Cargando...', 'en' => 'Loading...' ));
 if( !defined('LISTING_LOAD_MORE_TEXT') ) define( 'LISTING_LOAD_MORE_TEXT', array('es' => 'Cargar más...', 'en' => 'Load more...' ));
 if( !defined('LISTING_EXPANDER_HEIGHT') ) define( 'LISTING_EXPANDER_HEIGHT', '500px');

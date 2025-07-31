@@ -36,6 +36,31 @@ if(!function_exists('adjust_scroll_position_is_active')){
     }
 }
 
+if(!function_exists('posts_subscription_is_active')){
+    function posts_subscription_is_active(){
+        $is_active = false;
+        $posts_subscription_settings = get_option('posts_subscription_settings');
+        if($posts_subscription_settings){
+            if( $posts_subscription_settings['activate'] && !empty($posts_subscription_settings['form_shortcode']) ) {
+                $is_active = true;
+            }
+        }
+
+        return $is_active;
+    }
+}
+
+if(!function_exists('track_posts_data_is_active')){
+    function track_posts_data_is_active(){
+        $is_active = false;
+        $track_posts_data_settings = get_option('track_posts_data_settings');
+        if($track_posts_data_settings && $track_posts_data_settings['activate']) {
+            $is_active = true;
+        }
+        return $is_active;
+    }
+}
+
 if(!function_exists('get_video_details_from_url')){
     function get_video_details_from_url( $url ){
         $video_details = array();

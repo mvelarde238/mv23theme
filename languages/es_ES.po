@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MV23 Theme 1.5.48\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/mv23theme\n"
-"POT-Creation-Date: 2025-07-20T03:29:52+02:00\n"
+"POT-Creation-Date: 2025-07-31T17:28:14+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,19 +94,19 @@ msgstr "Más comentarios &rarr;"
 msgid "Comments are not allowed on this post."
 msgstr "Se han bloqueado los comentarios para esta publicación."
 
-#: Core/Admin/Admin.php:40
+#: Core/Admin/Admin.php:41
 msgid "Main nav"
 msgstr "Menú Principal"
 
-#: Core/Admin/Admin.php:41
+#: Core/Admin/Admin.php:42
 msgid "Mobile header buttons"
 msgstr "Botones en el header para móviles"
 
-#: Core/Admin/Admin.php:50
+#: Core/Admin/Admin.php:51
 msgid "Widgets to be used in the header"
 msgstr "Widgets que se muestran en el header"
 
-#: Core/Admin/Admin.php:60
+#: Core/Admin/Admin.php:61
 msgid "Widgets to be used in the sidebar"
 msgstr "Widgets que se muestran en el sidebar"
 
@@ -269,7 +269,7 @@ msgstr "Acordeón"
 #: Core/Builder/Component/Heading.php:128 Core/Builder/Component/Html.php:23
 #: Core/Builder/Component/Image.php:39 Core/Builder/Component/Items_Grid.php:36
 #: Core/Builder/Component/Items_Grid.php:43
-#: Core/Builder/Component/Listing.php:59 Core/Builder/Component/Map.php:33
+#: Core/Builder/Component/Listing.php:68 Core/Builder/Component/Map.php:33
 #: Core/Builder/Component/Menu.php:63 Core/Builder/Component/Row.php:67
 #: Core/Builder/Component/Shortcode.php:33
 #: Core/Builder/Component/Simple_Columns.php:32
@@ -294,8 +294,8 @@ msgstr "Elemento antes del título"
 
 #: Core/Builder/Component/Accordion.php:82
 #: Core/Builder/Component/Carousel.php:73
-#: Core/Builder/Component/Gallery.php:196 Core/Builder/Component/Listing.php:74
-#: Core/Builder/Component/Listing.php:159 Core/Builder/Component/Menu.php:42
+#: Core/Builder/Component/Gallery.php:196 Core/Builder/Component/Listing.php:83
+#: Core/Builder/Component/Listing.php:168 Core/Builder/Component/Menu.php:42
 #: Core/Builder/containers/page-header.php:42
 msgid "None"
 msgstr "Ninguno"
@@ -570,7 +570,7 @@ msgid "Auto"
 msgstr "Automático"
 
 #: Core/Builder/Component/Carousel.php:202
-#: Core/Builder/Component/Listing.php:109
+#: Core/Builder/Component/Listing.php:118
 #: Core/Builder/containers/popup/scroll_animations_container.php:31
 #: Core/Builder/containers/popup/scroll_animations_container.php:165
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:70
@@ -581,6 +581,17 @@ msgstr "Personalizado"
 #, fuzzy
 msgid "Max height in pixels"
 msgstr "Altura Máxima en pixeles"
+
+#: Core/Builder/Component/Carousel.php:210
+msgid "Slider UID"
+msgstr "Slider UID"
+
+#: Core/Builder/Component/Carousel.php:211
+msgid ""
+"This is used to identify the slider in the JS code. If you leave it empty, a "
+"random UID will be generated."
+msgstr "Usado para identificar el slider in el código JS. Si lo dejas vacío, "
+" se generará un UID aleatorio."
 
 #: Core/Builder/Component/Components_Wrapper.php:15
 msgid "Wrapper"
@@ -648,7 +659,7 @@ msgid "Select Folder"
 msgstr "Seleccionar folder"
 
 #: Core/Builder/Component/Gallery.php:43 Core/Builder/Component/Image.php:40
-#: Core/Builder/Component/Listing.php:60 Core/Builder/Component/Video.php:35
+#: Core/Builder/Component/Listing.php:69 Core/Builder/Component/Video.php:35
 #: Core/Builder/containers/popup/common_settings_container.php:94
 #: Core/Posttype/Post.php:48
 msgid "Source"
@@ -709,23 +720,22 @@ msgstr "Personalizar"
 #: Core/Builder/containers/popup/common_settings_container.php:117
 #: Core/Offcanvas_Elements/Settings.php:255
 msgid "Max Width"
-msgstr "Tamaño máximo"
+msgstr "Anchura máxima"
 
 #: Core/Builder/Component/Gallery.php:182
 #: Core/Builder/containers/popup/common_settings_container.php:115
 #: Core/Builder/containers/popup/common_settings_container.php:118
 #: Core/Theme_Options/Fields/Page_Container.php:41
 msgid "Width"
-msgstr "Tamaño"
+msgstr "Ancho"
 
 #: Core/Builder/Component/Gallery.php:183
 #: Core/Builder/containers/popup/common_settings_container.php:119
 #: Core/Posttype/Menu_Item.php:54
 msgid "Min Width"
-msgstr "Tamaño mìnimo"
+msgstr "Anchura mìnima"
 
 #: Core/Builder/Component/Gallery.php:186
-#, fuzzy
 msgid "Image Height"
 msgstr "Altura de la imagen"
 
@@ -803,9 +813,9 @@ msgid "Gallery ID"
 msgstr "ID de la Galería"
 
 #: Core/Builder/Component/Gallery.php:214
-#: Core/Builder/Component/Listing.php:185
-#: Core/Builder/Component/Listing.php:193
-#: Core/Builder/Component/Listing.php:197
+#: Core/Builder/Component/Listing.php:194
+#: Core/Builder/Component/Listing.php:202
+#: Core/Builder/Component/Listing.php:206
 #: Core/Builder/containers/page-settings.php:12
 #: Core/Builder/containers/page-settings.php:31
 #: Core/Builder/containers/page-settings.php:50
@@ -1066,232 +1076,234 @@ msgstr "Grid de Items"
 msgid "Listing"
 msgstr ""
 
-#: Core/Builder/Component/Listing.php:61
+#: Core/Builder/Component/Listing.php:70
 msgid "Automatic (Latest published posts)"
 msgstr "Automátco (últimos post publicados)"
 
-#: Core/Builder/Component/Listing.php:64
+#: Core/Builder/Component/Listing.php:73
 msgid "Select the posts"
 msgstr "Selecciona los posts"
 
-#: Core/Builder/Component/Listing.php:66
+#: Core/Builder/Component/Listing.php:75
 msgid "Post type"
 msgstr "Tipo de contenido"
 
-#: Core/Builder/Component/Listing.php:75
+#: Core/Builder/Component/Listing.php:84
 msgid "Featured"
 msgstr "Destacados"
 
-#: Core/Builder/Component/Listing.php:76
+#: Core/Builder/Component/Listing.php:85
 msgid "On Sale"
 msgstr "En Oferta"
 
-#: Core/Builder/Component/Listing.php:77
+#: Core/Builder/Component/Listing.php:86
 msgid "Best Selling"
 msgstr "Más Vendidos"
 
-#: Core/Builder/Component/Listing.php:84
+#: Core/Builder/Component/Listing.php:93
 msgid "Categories"
 msgstr "Categorías"
 
-#: Core/Builder/Component/Listing.php:99
+#: Core/Builder/Component/Listing.php:108
 msgid "Number of posts"
 msgstr "Número de posts"
 
-#: Core/Builder/Component/Listing.php:100
+#: Core/Builder/Component/Listing.php:109
 #: Core/Builder/containers/popup/column_settings_container.php:11
 #: Core/Builder/containers/popup/column_settings_container.php:24
 #: Core/Builder/containers/popup/column_settings_container.php:36
 msgid "Order"
 msgstr "Orden"
 
-#: Core/Builder/Component/Listing.php:101
+#: Core/Builder/Component/Listing.php:110
 msgid "Descending"
 msgstr "Descendente"
 
-#: Core/Builder/Component/Listing.php:102
+#: Core/Builder/Component/Listing.php:111
 msgid "Ascending"
 msgstr "Ascendente"
 
-#: Core/Builder/Component/Listing.php:104
+#: Core/Builder/Component/Listing.php:113
 msgid "Order by"
 msgstr "Ordenar por"
 
-#: Core/Builder/Component/Listing.php:105 Core/Posttype/Footer.php:44
+#: Core/Builder/Component/Listing.php:114 Core/Posttype/Document.php:60
+#: Core/Posttype/Footer.php:44
 msgid "Date"
 msgstr "Fecha"
 
-#: Core/Builder/Component/Listing.php:106 Core/Posttype/Footer.php:42
+#: Core/Builder/Component/Listing.php:115 Core/Posttype/Document.php:56
+#: Core/Posttype/Footer.php:42
 msgid "Title"
 msgstr "Título"
 
-#: Core/Builder/Component/Listing.php:107
+#: Core/Builder/Component/Listing.php:116
 #: Core/Builder/containers/popup/scroll_animations_container.php:16
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:91
 #: Core/Theme_Options/Fields/Typography.php:39
 msgid "Name"
 msgstr "Nombre"
 
-#: Core/Builder/Component/Listing.php:108
+#: Core/Builder/Component/Listing.php:117
 msgid "Random"
 msgstr "Random"
 
-#: Core/Builder/Component/Listing.php:117
+#: Core/Builder/Component/Listing.php:126
 msgid "Set post status"
 msgstr "Estado del post"
 
-#: Core/Builder/Component/Listing.php:120
+#: Core/Builder/Component/Listing.php:129
 msgid "Published"
 msgstr "Publicado"
 
-#: Core/Builder/Component/Listing.php:121
+#: Core/Builder/Component/Listing.php:130
 msgid "Draft"
 msgstr "Borrador"
 
-#: Core/Builder/Component/Listing.php:122
+#: Core/Builder/Component/Listing.php:131
 #, fuzzy
 msgid "Pending"
 msgstr "Pendiente"
 
-#: Core/Builder/Component/Listing.php:123
+#: Core/Builder/Component/Listing.php:132
 msgid "Scheduled"
 msgstr "Programado"
 
-#: Core/Builder/Component/Listing.php:124
+#: Core/Builder/Component/Listing.php:133
 #, fuzzy
 msgid "Private"
 msgstr "Privado"
 
-#: Core/Builder/Component/Listing.php:125
+#: Core/Builder/Component/Listing.php:134
 msgid "Inherit"
 msgstr ""
 
-#: Core/Builder/Component/Listing.php:126
+#: Core/Builder/Component/Listing.php:135
 msgid "Trash"
 msgstr "Papelera"
 
-#: Core/Builder/Component/Listing.php:130
+#: Core/Builder/Component/Listing.php:139
 msgid "List Template"
 msgstr "Template del listado"
 
-#: Core/Builder/Component/Listing.php:134
+#: Core/Builder/Component/Listing.php:143
 msgid "Show controls"
 msgstr "Mostrar controles"
 
-#: Core/Builder/Component/Listing.php:135
+#: Core/Builder/Component/Listing.php:144
 #, fuzzy
 msgid "Show carousel nav"
 msgstr "Mostrar navegación"
 
-#: Core/Builder/Component/Listing.php:136
+#: Core/Builder/Component/Listing.php:145
 msgid "Start automatically"
 msgstr "Empezar automáticamente"
 
-#: Core/Builder/Component/Listing.php:139
+#: Core/Builder/Component/Listing.php:148
 msgid "Number of Columns"
 msgstr "Número de Columnas"
 
-#: Core/Builder/Component/Listing.php:140
-#: Core/Builder/Component/Listing.php:147
+#: Core/Builder/Component/Listing.php:149
+#: Core/Builder/Component/Listing.php:156
 #: Core/Offcanvas_Elements/Restriction/Device.php:57
 msgid "Desktop"
 msgstr ""
 
-#: Core/Builder/Component/Listing.php:141
-#: Core/Builder/Component/Listing.php:148
+#: Core/Builder/Component/Listing.php:150
+#: Core/Builder/Component/Listing.php:157
 msgid "Laptop"
 msgstr ""
 
-#: Core/Builder/Component/Listing.php:142
-#: Core/Builder/Component/Listing.php:149
+#: Core/Builder/Component/Listing.php:151
+#: Core/Builder/Component/Listing.php:158
 msgid "Tablet"
 msgstr ""
 
-#: Core/Builder/Component/Listing.php:143
-#: Core/Builder/Component/Listing.php:150
+#: Core/Builder/Component/Listing.php:152
+#: Core/Builder/Component/Listing.php:159
 #: Core/Offcanvas_Elements/Restriction/Device.php:58
 msgid "Mobile"
 msgstr ""
 
-#: Core/Builder/Component/Listing.php:146
+#: Core/Builder/Component/Listing.php:155
 #: Core/Builder/containers/popup/row_settings_container.php:67
 #: Core/Builder/containers/popup/row_settings_container.php:108
 #: Core/Builder/containers/popup/row_settings_container.php:149
-#: Core/Posttype/Archive_Page.php:119
+#: Core/Posttype/Archive_Page.php:122
 msgid "Space between columns"
 msgstr "Espacio entre columnas"
 
-#: Core/Builder/Component/Listing.php:153
+#: Core/Builder/Component/Listing.php:162
 msgid "Post Card"
 msgstr "Post Card"
 
-#: Core/Builder/Component/Listing.php:155
+#: Core/Builder/Component/Listing.php:164
 msgid "On click the post card:"
 msgstr "Al hacer click en el post card:"
 
-#: Core/Builder/Component/Listing.php:156
+#: Core/Builder/Component/Listing.php:165
 msgid "Redirect to the post page"
 msgstr "Redirigir a la página del post"
 
-#: Core/Builder/Component/Listing.php:157
+#: Core/Builder/Component/Listing.php:166
 msgid "Show the post in the same page"
 msgstr "Mostrar el post en la misma página"
 
-#: Core/Builder/Component/Listing.php:158
+#: Core/Builder/Component/Listing.php:167
 msgid "Show the post on a pop up"
 msgstr "Mostrar el post en un pop up"
 
-#: Core/Builder/Component/Listing.php:161
+#: Core/Builder/Component/Listing.php:170
 msgid "On click, scroll to:"
 msgstr "Al hacer click mover el scroll a:"
 
-#: Core/Builder/Component/Listing.php:162
+#: Core/Builder/Component/Listing.php:171
 msgid "Dont move the scroll"
 msgstr "No mover el scroll"
 
-#: Core/Builder/Component/Listing.php:163
+#: Core/Builder/Component/Listing.php:172
 msgid "To the post card"
 msgstr "Al post card"
 
-#: Core/Builder/Component/Listing.php:164
+#: Core/Builder/Component/Listing.php:173
 msgid "To the expander"
 msgstr "Al contenido"
 
-#: Core/Builder/Component/Listing.php:167
+#: Core/Builder/Component/Listing.php:176
 msgid "Pagination"
 msgstr "Paginado"
 
-#: Core/Builder/Component/Listing.php:168
+#: Core/Builder/Component/Listing.php:177
 msgid "Pagination type"
 msgstr "Tipo de paginado"
 
-#: Core/Builder/Component/Listing.php:169
+#: Core/Builder/Component/Listing.php:178
 msgid "Scroll to top"
 msgstr "Mover el scroll arriba"
 
-#: Core/Builder/Component/Listing.php:173
-#: Core/Builder/Component/Listing.php:174
+#: Core/Builder/Component/Listing.php:182
+#: Core/Builder/Component/Listing.php:183
 msgid "Filter"
 msgstr "Filtro"
 
-#: Core/Builder/Component/Listing.php:174
+#: Core/Builder/Component/Listing.php:183
 msgid "Show filters"
 msgstr "Mostrar filtros"
 
-#: Core/Builder/Component/Listing.php:186
-#: Core/Builder/Component/Listing.php:199
+#: Core/Builder/Component/Listing.php:195
+#: Core/Builder/Component/Listing.php:208
 msgid "Default value"
 msgstr "Valor Inicial"
 
-#: Core/Builder/Component/Listing.php:192
+#: Core/Builder/Component/Listing.php:201
 msgid "Month"
 msgstr "Mes"
 
-#: Core/Builder/Component/Listing.php:196
+#: Core/Builder/Component/Listing.php:205
 msgid "Year"
 msgstr "Año"
 
-#: Core/Builder/Component/Listing.php:198
+#: Core/Builder/Component/Listing.php:207
 msgid "First year"
 msgstr "Primero año"
 
@@ -2097,9 +2109,21 @@ msgid "Add Settings"
 msgstr "Agregar Ajustes"
 
 #. translators: %s: page number
-#: Core/Frontend/Frontend.php:147
+#: Core/Frontend/Frontend.php:149
 msgid "Page %s"
 msgstr "Página %s"
+
+#: Core/Frontend/Post_Card.php:141
+msgid "Like"
+msgstr "Me gusta"
+
+#: Core/Frontend/Post_Card.php:152 single-document.php:114
+msgid "Preview"
+msgstr "Previsualizar"
+
+#: Core/Frontend/Post_Card.php:163 single-document.php:126
+msgid "Download"
+msgstr "Descargar"
 
 #: Core/Migrator/Core.php:66 Core/Migrator/Core.php:67
 #: Core/Migrator/Migration/Migrate_0_4_X_to_0_5_0.php:35
@@ -2152,8 +2176,10 @@ msgstr "Mostrar el elemento basado en el tipo de página"
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:107
 #: Core/Theme_Options/Fields/Single_Pages.php:34
+#: Core/Theme_Options/UF_Container/Posts_Subscription.php:57
+#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:61
 msgid "Post Types"
-msgstr ""
+msgstr "Tipos de contenido"
 
 #: Core/Offcanvas_Elements/Restriction/Page.php:111
 msgid "The element will be displayed on all of the checked post types above."
@@ -2292,7 +2318,7 @@ msgstr ""
 msgid "Bottom Sheet"
 msgstr ""
 
-#: Core/Offcanvas_Elements/Settings.php:158
+#: Core/Offcanvas_Elements/Settings.php:158 Core/Posttype/Document.php:73
 msgid "Content Type"
 msgstr "Tipo de contenido"
 
@@ -2559,41 +2585,126 @@ msgstr "Tiempo de expiración"
 msgid "Any"
 msgstr "Cualquiera"
 
-#: Core/Posttype/Archive_Page.php:105
+#: Core/Posttype/Archive_Page.php:108
 msgid "Loop Settings"
 msgstr "Ajustes del loop"
 
-#: Core/Posttype/Archive_Page.php:108
+#: Core/Posttype/Archive_Page.php:111
 msgid "Place these shortcodes in the page content: [posts] [pagination]"
 msgstr ""
 "Ubica estos shortcodes en el contenido de la página: [posts] [pagination]"
 
-#: Core/Posttype/Archive_Page.php:111
+#: Core/Posttype/Archive_Page.php:114
 msgid "Columns quantity"
 msgstr "Cantidad de Columnas"
 
-#: Core/Posttype/Archive_Page.php:127
+#: Core/Posttype/Archive_Page.php:130
 msgid "Post card settings"
 msgstr "Ajustes del post card"
 
-#: Core/Posttype/Archive_Page.php:143
+#: Core/Posttype/Archive_Page.php:146
 msgid "Page template"
 msgstr "Template de la página"
 
 #. Template Name of the theme
-#: Core/Posttype/Archive_Page.php:145
+#: Core/Posttype/Archive_Page.php:148
 msgid "Left Sidebar"
 msgstr "Sidebar a la izquierda"
 
 #. Template Name of the theme
-#: Core/Posttype/Archive_Page.php:146
+#: Core/Posttype/Archive_Page.php:149
 msgid "Right Sidebar"
 msgstr "Sidebar a la derecha"
 
-#: Core/Posttype/Archive_Page.php:147
+#: Core/Posttype/Archive_Page.php:150
 #: Core/Theme_Options/Fields/Single_Pages.php:43
 msgid "Hide Sidebar"
 msgstr "Ocultar sidebar"
+
+#: Core/Posttype/Document.php:39
+msgid "Document Category"
+msgstr "Categoría de documento"
+
+#: Core/Posttype/Document.php:40
+msgid "Document Categories"
+msgstr "Categorías"
+
+#: Core/Posttype/Document.php:57 Core/Posttype/Document.php:74
+#: Core/Posttype/Document.php:78 Core/Theme_Options/Fields/Typography.php:56
+msgid "File"
+msgstr "Archivo"
+
+#: Core/Posttype/Document.php:58
+msgid "Tracked Data"
+msgstr "Tracked Data"
+
+#: Core/Posttype/Document.php:59
+msgid "Category"
+msgstr "Categoría"
+
+#: Core/Posttype/Document.php:75 Core/Theme_Options/Fields/Typography.php:57
+msgid "Url"
+msgstr "Url"
+
+#: Core/Posttype/Document.php:77
+msgid "URL"
+msgstr "URL"
+
+#: Core/Posttype/Document.php:79
+msgid "Description"
+msgstr "Descripción"
+
+#: Core/Posttype/Document.php:80
+msgid "Metrics"
+msgstr "Métricas"
+
+#: Core/Posttype/Document.php:81
+msgid "Views"
+msgstr "Vistas"
+
+#: Core/Posttype/Document.php:82
+msgid "Downloads"
+msgstr "Descargas"
+
+#: Core/Posttype/Document.php:83
+msgid "Previews"
+msgstr "Previsualizaciones"
+
+#: Core/Posttype/Document.php:84
+msgid "Likes"
+msgstr "Likes"
+
+#: Core/Posttype/Document.php:86
+msgid "Post Subscription"
+msgstr "Suscripción al post"
+
+#: Core/Posttype/Document.php:89
+msgid "Override Global Posts Subscription"
+msgstr "Sobreescribir la suscripción a los posts global"
+
+#: Core/Posttype/Document.php:94
+msgid "Enable Post Subscription"
+msgstr "Habilitar suscripción al post"
+
+#: Core/Posttype/Document.php:120
+msgid "View File"
+msgstr "Ver archivo"
+
+#: Core/Posttype/Document.php:122
+msgid "No file attached"
+msgstr "No hay archivo adjunto "
+
+#: Core/Posttype/Document.php:133 Core/Posttype/Document.php:134
+msgid "Subscribe to continue: %s"
+msgstr "Solicitar suscripción: %s"
+
+#: Core/Posttype/Document.php:133
+msgid "Yes"
+msgstr "Sí"
+
+#: Core/Posttype/Document.php:134
+msgid "No"
+msgstr "No"
 
 #: Core/Posttype/Footer.php:29 Core/Posttype/Footer.php:60
 #: Core/Theme_Options/UF_Container/Global_Options.php:13
@@ -2633,7 +2744,7 @@ msgid "Link"
 msgstr ""
 
 #: Core/Posttype/Reusable_Section_CPT.php:34
-#: Core/Theme_Options/Theme_Options.php:94
+#: Core/Theme_Options/Theme_Options.php:98
 msgid "Reusable Sections"
 msgstr "Secciones reusables"
 
@@ -2781,14 +2892,6 @@ msgstr "Datos de la fuente personalizada"
 msgid "Variant"
 msgstr "Variante"
 
-#: Core/Theme_Options/Fields/Typography.php:56
-msgid "File"
-msgstr "Archivo"
-
-#: Core/Theme_Options/Fields/Typography.php:57
-msgid "Url"
-msgstr "Url"
-
 #: Core/Theme_Options/Fields/Typography.php:59
 msgid "@font-face files ( woff2, woff )"
 msgstr ""
@@ -2830,8 +2933,8 @@ msgstr "Exportar/Importar"
 msgid "Export/Import Options"
 msgstr "Opciones de Exportar/Importar"
 
-#: Core/Theme_Options/Theme_Options.php:40
-#: Core/Theme_Options/Theme_Options.php:41
+#: Core/Theme_Options/Theme_Options.php:42
+#: Core/Theme_Options/Theme_Options.php:43
 #: Core/Theme_Options/UF_Container/Main.php:15
 msgid "Theme Options"
 msgstr "Ajustes del Tema"
@@ -2907,6 +3010,26 @@ msgstr "Servicios de Google Maps"
 msgid "Google Map Services"
 msgstr "Servicios de Google Maps"
 
+#: Core/Theme_Options/UF_Container/Posts_Subscription.php:48
+msgid "Posts Subscription"
+msgstr "Suscripción a los posts"
+
+#: Core/Theme_Options/UF_Container/Posts_Subscription.php:55
+msgid "Activate Subscription"
+msgstr "Activar Suscripción"
+
+#: Core/Theme_Options/UF_Container/Posts_Subscription.php:63
+msgid "Subscription Form Source"
+msgstr "Fuente del formulario de suscripción"
+
+#: Core/Theme_Options/UF_Container/Posts_Subscription.php:65
+msgid "Contact Form 7"
+msgstr "Contact Form 7"
+
+#: Core/Theme_Options/UF_Container/Posts_Subscription.php:70
+msgid "Form Shortcode"
+msgstr "Shortcode del formulario"
+
 #: Core/Theme_Options/UF_Container/Social_Media.php:12
 #: Core/Theme_Options/UF_Container/Social_Media.php:14
 msgid "Social Networks"
@@ -2928,6 +3051,37 @@ msgstr "Mensaje"
 #: Core/Theme_Options/UF_Container/Social_Media.php:41
 msgid "Hello, I need more information about..."
 msgstr "Hola, necesito más información acerca de..."
+
+#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:49
+msgid "Track Posts Data"
+msgstr "Recolectar Posts Data"
+
+#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:56
+msgid ""
+"Activate this option to track post views, likes, previsualization and "
+"downloads."
+msgstr "Activa esta opción para recolectar visitas, likes, previsualizaciones "
+"y descargas."
+
+#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:59
+msgid "Activate Tracking"
+msgstr "Activar Recolección"
+
+#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:75
+msgid "Views: %s"
+msgstr "Vistas: %s"
+
+#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:78
+msgid "Likes: %s"
+msgstr "Likes: %s"
+
+#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:81
+msgid "Previews: %s"
+msgstr "Previsualizaciones: %s"
+
+#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:84
+msgid "Downloads: %s"
+msgstr "Descargas: %s"
 
 #. translators: %s: taxonomy name
 #: Core/Utils/CPT.php:718
@@ -3042,13 +3196,45 @@ msgstr "No se encontraron estructuras"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: partials/card/postcard-post-horizontal.php:104 partials/card/postcard.php:95
+#: partials/card/postcard-document.php:42
+msgid "Last modified"
+msgstr "Última modificación"
+
+#: partials/card/postcard-document.php:92
+msgid "More details"
+msgstr "Más detalles"
+
+#: partials/card/postcard-post-horizontal.php:41 partials/card/postcard.php:38
 msgid "Read More"
 msgstr "Leer Más"
 
 #: search.php:23
 msgid "No results"
 msgstr "No hubieron resultados"
+
+#: single-document.php:80
+msgid "Extension: "
+msgstr "Extensión: "
+
+#: single-document.php:81
+msgid "File size: "
+msgstr "Tamaño del archivo: "
+
+#: single-document.php:83
+msgid "Last modified: "
+msgstr "Última modificación: "
+
+#: single-document.php:84
+msgid "Views: "
+msgstr "Visitas: "
+
+#: single-document.php:87
+msgid "Tags: "
+msgstr "Etiquetas: "
+
+#: single-document.php:136
+msgid "Related Documents"
+msgstr "Documentos Relacionados"
 
 #~ msgid "Inner Columns"
 #~ msgstr "Columnas Internas"
@@ -3166,9 +3352,6 @@ msgstr "No hubieron resultados"
 
 #~ msgid "New %s"
 #~ msgstr "Nuevo %s"
-
-#~ msgid "View %s"
-#~ msgstr "Ver %s"
 
 #~ msgid "Search %s"
 #~ msgstr "Buscar %s"

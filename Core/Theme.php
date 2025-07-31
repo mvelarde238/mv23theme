@@ -19,6 +19,7 @@ use Core\Theme_Options\Theme_Options;
 use Core\Theme_Options\Manager;
 use Core\Posttype\Archive_Page;
 use Core\Posttype\MV23_Library;
+use Core\Posttype\Document;
 use Core\Posttype\Post;
 use Core\Posttype\Menu_Item;
 use Core\Posttype\Megamenu;
@@ -26,6 +27,8 @@ use Core\Posttype\Footer;
 use Core\Builder\Core as Builder;
 use Core\Offcanvas_Elements\Core as Offcanvas_Elements;
 use Core\Migrator\Core as Migrator;
+use Core\Theme_Options\UF_Container\Posts_Subscription;
+use Core\Theme_Options\UF_Container\Track_Posts_Data;
 
 class Theme extends Theme_Header_Data {
 
@@ -101,6 +104,16 @@ class Theme extends Theme_Header_Data {
         // load theme options frontend stuff
         $this->loader->add_action( 'wp_enqueue_scripts', $theme_options, 'add_theme_fonts' );
         $this->loader->add_action( 'wp_enqueue_scripts', $theme_options, 'add_css_properties' );
+
+        if( POSTS_SUBSCRIPTION ){
+            $posts_subscription = Posts_Subscription::getInstance();
+            $this->loader->add_filter( 'filter_post_card_permalink', $posts_subscription, 'filter_post_card_permalink', 10, 2 );
+        }
+
+        if( TRACK_POSTS_DATA ){
+            // Initialize the Track_Posts_Data instance in the frontend:
+            $track_posts_data = Track_Posts_Data::getInstance();
+        }
     }
 
     private function define_admin_hooks() {	
@@ -240,6 +253,12 @@ class Theme extends Theme_Header_Data {
         // MV23 Library
         $mv23_library = MV23_Library::getInstance();
         $this->loader->add_action( 'uf.init', $mv23_library, 'add_meta_boxes' );
+
+        // Document
+        if( USE_DOCUMENT_CPT ){
+            $document = Document::getInstance();
+            $this->loader->add_action( 'uf.init', $document, 'add_meta_boxes' );
+        }
 
         // ajax functions for MV23 library CPT
         $this->loader->add_action( 'wp_ajax_mv23_library_save_item', $mv23_library, 'save_item' );

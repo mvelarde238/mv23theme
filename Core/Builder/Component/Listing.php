@@ -55,6 +55,15 @@ class Listing extends Component {
             $listing_post_template['portfolio'] = 'Portfolio';
         }
 
+        if(USE_DOCUMENT_CPT){
+            $listing_cpts['document'] = 'Documentos';
+            array_push($listing_taxonomies, array(
+                'cpt_slug' => 'document', 
+                'slug' => 'document-cat'
+            ));
+            $listing_post_template['document'] = 'Document';
+        }
+
         $listing_fields_1 = array( 
             Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'radio', 'show', __('Source','mv23theme'))->set_orientation( 'horizontal' )->add_options( array(

@@ -9,6 +9,7 @@ use Core\Includes\Theme_Header_Data;
 use Core\Posttype\Footer;
 use Core\Posttype\Megamenu;
 use Core\Posttype\Portfolio;
+use Core\Posttype\Document;
 use Core\Posttype\MV23_Library;
 use Core\Posttype\Reusable_Section_CPT;
 use Core\Posttype\Archive_Page;
@@ -175,6 +176,7 @@ class Admin extends Theme_Header_Data {
         Archive_Page::getInstance()->register_posttype();
 
         if( USE_PORTFOLIO_CPT ) Portfolio::getInstance()->register_posttype();
+        if( USE_DOCUMENT_CPT ) Document::getInstance()->register_posttype();
         if( is_admin() ) MV23_Library::getInstance()->register_posttype();
     }
 

@@ -1,0 +1,28 @@
+.viewer
+    @extend .cover-all
+    width: 70px
+    height: 70px
+    background-color: rgba(0,0,0,.2)
+    outline: 10px solid rgba(0,0,0,.1)
+    border-radius: 50%
+    display: flex
+    align-items: center
+    justify-content: center
+    color: #fff
+    font-size: 23px
+    transform: scale(0)
+    transition-duration: 500ms
+    will-change: transform
+    z-index: 56
+
+    .text-color-2 &
+        background-color: rgba(255,255,255,.2)
+        outline: 10px solid rgba(255,255,255,.1)
+
+    &-wrapper
+        @extend .cover-all
+        background-color: #fff
+        pointer-events: none
+        opacity: 0
+        will-change: opacity
+        transition-duration: 500ms

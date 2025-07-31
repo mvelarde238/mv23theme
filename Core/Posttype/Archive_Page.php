@@ -100,6 +100,9 @@ class Archive_Page {
 
 		// In archives page '' -> load posttype card template
 		$post_template = array_merge( array( '__post' => 'Post' ), LISTING_POST_TEMPLATE );
+        if(USE_DOCUMENT_CPT) $post_template['document'] = 'Document';
+        if(USE_PORTFOLIO_CPT) $post_template['portfolio'] = 'Portfolio';
+		if(WOOCOMMERCE_IS_ACTIVE) $post_template['woocommerce1'] = 'WooCommerce Product Basic';
 
 		$archive_loop_fields = array(
 			Field::create( 'tab', 'loop_settings_tabs', __('Loop Settings','mv23theme') ),

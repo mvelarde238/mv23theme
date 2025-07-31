@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+2.8.4 25-07-31
+- Implement USE_DOCUMENT_CPT constant and other improvements
+  New Classes: Post_Card, Taxonomy_Breadcrumbs, Posts_Subscription, Track_Posts_Data
+
 2.8.3 25-07-23
 - Update editor sass file
 - Fix adjust_scroll_position_is_active() function

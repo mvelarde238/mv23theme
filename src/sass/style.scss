@@ -34,10 +34,11 @@
 @import "modulos/main";
 @import "modulos/page-header";
 @import "modulos/pagination";
+@import "modulos/viewer";
 @import "modulos/postcards/postcard";
 @import "modulos/postcards/postcard-2";
 @import "modulos/postcards/postcard-3";
-@import "modulos/post";
+@import "modulos/postcards/postcard-4";
 @import "modulos/posts-filter";
 @import "modulos/searchform";
 @import "modulos/subir-btn";
@@ -75,6 +76,10 @@
 @import "modulos/slider-background";
 @import "modulos/headings/global";
 @import "modulos/marquee";
+
+@import "modulos/pages/global";
+@import "modulos/pages/single-post";
+@import "modulos/pages/single-document";
 
 @import "plugins/contact-form-7";
 @import "plugins/theme-my-login";

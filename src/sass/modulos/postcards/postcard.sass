@@ -9,6 +9,9 @@
         font-size: 1.3em
         margin-bottom: 0
 
+    &--style1 &__excerpt
+        margin-bottom: 10px
+
     &--style1 &__postdata
         display: flex
         flex-wrap: wrap
@@ -35,12 +38,23 @@
         right: 0
         padding: 8px
         z-index: 56
-        span
+        a
             display: inline-block
             font-size: .8em
             background-color: var(--primary-color)
             color: #fff
             padding: 0 8px
+            &:hover
+                text-decoration: none
 
     &--style1 &__link
         text-align: right
+
+    // global styles
+    &__actions
+        display: flex
+        gap: 10px
+
+.processing i:before
+    content: "\F116"
+    animation: spin 2s linear infinite
