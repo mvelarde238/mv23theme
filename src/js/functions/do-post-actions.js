@@ -27,11 +27,12 @@ function do_post_action(action_key, post_id, postcard = null, count_wrapper = nu
             nonce: MV23_GLOBALS.nonce
         },
         beforeSend: function () {
-            if (count_wrapper) $(count_wrapper).addClass('loading');
+            if (count_wrapper) $(count_wrapper).parent().addClass('processing');
             let loading_event = new CustomEvent(action_key + '_loading', { detail: events_detail });
             document.body.dispatchEvent(loading_event);
         },
         success: function (response) {
+            $(count_wrapper).parent().removeClass('processing');
             if (response.success) {
                 if (count_wrapper) $(count_wrapper).text(response.data);
                 if (restrict_in_session) sessionStorage.setItem(action_session, '1');

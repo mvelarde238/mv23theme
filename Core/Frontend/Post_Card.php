@@ -132,7 +132,7 @@ class Post_Card {
         return sprintf( '%1$s','<time class="entry-time" datetime="' . get_the_time('Y-m-d', $post->ID) . '" itemprop="datePublished">' . get_the_time($date_format, $post->ID) . '</time>');
     }
 
-    public static function display_actions( $post, $actions = array() ) {
+    public static function display_actions( $post, $actions = array(), $document_link ) {
         $actions_html = '';
         $subscribe_to_continue = Posts_Subscription::post_subscription_is_active($post->ID);
 
@@ -141,10 +141,12 @@ class Post_Card {
                 $actions_html .= '<a href="#" class="like-count-js" title="' . __('Like', 'mv23theme') . '"><i class="bi bi-heart"></i> ' . do_shortcode('[post_likes]') . '</a>';
 
             } elseif ($action == 'post_previsualizations') {
-                $document_link = add_query_arg(array(
-                    'id' => $post->ID,
-                    'action' => 'subscribe-to-preview'
-                ), home_url('/'));
+                if ($subscribe_to_continue) {
+                    $document_link = add_query_arg(array(
+                        'id' => $post->ID,
+                        'action' => 'subscribe-to-preview'
+                    ), home_url('/'));
+                }
                 $actions_html .= '<a href="' . esc_url($document_link) . '"';
                 if (!$subscribe_to_continue) {
                     $actions_html .= ' class="previsualization-count-js" data-fancybox data-caption="' . esc_attr($post->post_title) . '"';
@@ -152,10 +154,12 @@ class Post_Card {
                 $actions_html .= ' title="' . __('Preview', 'mv23theme') . '"><i class="bi bi-arrows-angle-expand"></i> ' . do_shortcode('[post_previsualizations]') . '</a>';
                 
             } elseif ($action == 'post_downloads') {
-                $document_link = add_query_arg(array(
-                    'id' => $post->ID,
-                    'action' => 'subscribe-to-download'
-                ), home_url('/'));
+                if ($subscribe_to_continue) {
+                    $document_link = add_query_arg(array(
+                        'id' => $post->ID,
+                        'action' => 'subscribe-to-download'
+                    ), home_url('/'));
+                }
                 $actions_html .= '<a href="' . esc_url($document_link) . '"';
                 if (!$subscribe_to_continue) {
                     $actions_html .= ' class="download-count-js" download';

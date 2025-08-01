@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.8.5 25-08-01
+- Includes animations.sass with spin animation and some fixes in postcard
+
 2.8.4 25-07-31
 - Implement USE_DOCUMENT_CPT constant and other improvements
   New Classes: Post_Card, Taxonomy_Breadcrumbs, Posts_Subscription, Track_Posts_Data
