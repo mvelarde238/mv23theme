@@ -80,7 +80,7 @@ if($posttype == 'document') {
                         $actions = array('post_likes');
                         if( $can_be_previewed ) $actions[] = 'post_previsualizations';
                         if( !$is_remote_video ) $actions[] = 'post_downloads';
-                        echo Post_Card::display_actions($post, $actions, $document_link);
+                        echo Post_Card::display_actions($post, $document_link, $actions);
                         ?>
                     </div>
                 <?php else: ?>

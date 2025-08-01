@@ -132,7 +132,7 @@ class Post_Card {
         return sprintf( '%1$s','<time class="entry-time" datetime="' . get_the_time('Y-m-d', $post->ID) . '" itemprop="datePublished">' . get_the_time($date_format, $post->ID) . '</time>');
     }
 
-    public static function display_actions( $post, $actions = array(), $document_link ) {
+    public static function display_actions( $post, $document_link, $actions = array() ) {
         $actions_html = '';
         $subscribe_to_continue = Posts_Subscription::post_subscription_is_active($post->ID);
 

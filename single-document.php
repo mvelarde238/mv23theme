@@ -103,10 +103,12 @@ if($file_url && $subscribe_to_continue) $file_url = '#';
                             <?php
                             if($file_url){
                                 if ( $can_be_previewed ) {
-                                    $document_link = add_query_arg(array(
-                                        'id' => $id,
-                                        'action' => 'subscribe-to-preview'
-                                    ), home_url('/'));
+                                    if($subscribe_to_continue){
+                                        $document_link = add_query_arg(array(
+                                            'id' => $id,
+                                            'action' => 'subscribe-to-preview'
+                                        ), home_url('/'));
+                                    }
                                 
                                     echo '<a href="'.esc_url($document_link).'"';
                                     if(!$subscribe_to_continue) echo ' class="btn previsualization-count-js" data-fancybox data-caption="'.$caption.'"'; 
@@ -115,10 +117,12 @@ if($file_url && $subscribe_to_continue) $file_url = '#';
                                 };
 
                                 if( !$is_remote_video ): 
-                                    $document_link = add_query_arg(array(
-                                        'id' => $id,
-                                        'action' => 'subscribe-to-download'
-                                    ), home_url('/'));
+                                    if($subscribe_to_continue){
+                                        $document_link = add_query_arg(array(
+                                            'id' => $id,
+                                            'action' => 'subscribe-to-download'
+                                        ), home_url('/'));
+                                    }
                                 
                                     echo '<a href="'.esc_url($document_link).'"';
                                     if(!$subscribe_to_continue) echo ' class="btn download-count-js" download';
