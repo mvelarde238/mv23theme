@@ -129,9 +129,11 @@ class Document {
             echo Track_Posts_Data::get_data_for_admin_column($post);
         }
 
-        $subscribe_to_continue = Posts_Subscription::post_subscription_is_active($post->ID);
-        if($subscribe_to_continue) echo sprintf(__('Subscribe to continue: %s', 'mv23theme'), __('Yes', 'mv23theme')) . '<br>';
-        else echo sprintf(__('Subscribe to continue: %s', 'mv23theme'), __('No', 'mv23theme')) . '<br>';
+        if ( POSTS_SUBSCRIPTION ){
+            $subscribe_to_continue = Posts_Subscription::post_subscription_is_active($post->ID);
+            if($subscribe_to_continue) echo sprintf(__('Subscribe to continue: %s', 'mv23theme'), __('Yes', 'mv23theme')) . '<br>';
+            else echo sprintf(__('Subscribe to continue: %s', 'mv23theme'), __('No', 'mv23theme')) . '<br>';
+        }
     }
 
     public static function get_document_file_url( $post_id ){
