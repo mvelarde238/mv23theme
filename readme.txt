@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.9.0 25-08-02
+- Migrate Heading Comp. to include add_tagline setting (!use migrator)
+
 2.8.6 25-08-02
 - Fix Gallery Comp to handle no items selected
 - Fix Creation of dynamic property warnings in php 8.2+

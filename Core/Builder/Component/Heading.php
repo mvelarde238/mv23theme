@@ -113,6 +113,18 @@ class Heading extends Component {
                         ->set_attr( 'style', 'flex-grow: initial;' )
                 ) ),
 
+            Field::create( 'radio', 'text_align', __( 'Alignment', 'mv23theme' ) )
+                ->set_orientation( 'horizontal' )
+                ->add_options( array(
+                    'left' => __( 'Left', 'mv23theme' ),
+                    'center' => __( 'Center', 'mv23theme' ),
+                    'right' => __( 'Right', 'mv23theme' )
+                ) ),
+
+            Field::create( 'checkbox', 'add_tagline', __('Add Tagline','mv23theme') )
+                ->fancy()
+                ->set_attr('style','background-color:#fafafa;'),
+
             Field::create( 'complex', 'tagline', __( 'Tagline', 'mv23theme' ) )
                 ->add_fields( array(
                     Field::create( 'select', 'html_tag', __( 'HTML Tag', 'mv23theme' ) )
@@ -134,15 +146,7 @@ class Heading extends Component {
 						->set_add_text( __('Settings', 'mv23theme') )
 						->hide_label()
                         ->set_attr( 'style', 'flex-grow: initial;' )
-                ) ),
-
-            Field::create( 'radio', 'text_align', __( 'Alignment', 'mv23theme' ) )
-                ->set_orientation( 'horizontal' )
-                ->add_options( array(
-                    'left' => __( 'Left', 'mv23theme' ),
-                    'center' => __( 'Center', 'mv23theme' ),
-                    'right' => __( 'Right', 'mv23theme' )
-                ) ),
+                ) )->add_dependency( 'add_tagline' ),
 
             Field::create( 'radio', 'tagline_position', __( 'Tagline Position', 'mv23theme' ) )
                 ->set_orientation( 'horizontal' )
@@ -150,8 +154,11 @@ class Heading extends Component {
                     'before' => __( 'Before Heading', 'mv23theme' ),
                     'after' => __( 'After Heading', 'mv23theme' )
                 ) )
-                ->set_default_value( 'after' ),
-            
+                ->set_default_value( 'after' )
+                ->add_dependency( 'add_tagline' ),
+
+            Field::create( 'tab', 'style', __( 'Style', 'mv23theme' ) ),
+            Field::create( 'image_select', 'preset', __('Preset Style', 'mv23theme') )->add_options($preset_styles)->set_default_value('default'),
             Field::create( 'complex', 'accent_color', __( 'Accent Color', 'mv23theme' ) )
                 ->add_fields( array(
                     Field::create( 'text', 'color_variable' )
@@ -172,18 +179,16 @@ class Heading extends Component {
                         ->set_attr( 'style', 'flex-grow: 1;' )
                         ->hide_label()
                         ->set_width( 50 )
-                ) ),
-
+                ) )->add_dependency( 'preset', 'default', '!=' ),
             Field::create( 'radio', 'highlighted_element', __( 'Highlighted Element', 'mv23theme' ) )
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
                     'heading' => __( 'Heading', 'mv23theme' ),
                     'tagline' => __( 'Tagline', 'mv23theme' )
                 ) )
-                ->set_default_value( 'heading' ),
-
-            Field::create( 'tab', 'style', __( 'Style', 'mv23theme' ) ),
-            Field::create( 'image_select', 'preset', __('Preset Style', 'mv23theme') )->add_options($preset_styles)->set_default_value('default')
+                ->set_default_value( 'heading' )
+                ->add_dependency( 'add_tagline' )
+                ->add_dependency( 'preset', 'default', '!=' )
 		);
 
 		return $fields;
@@ -254,6 +259,13 @@ class Heading extends Component {
         $tagline_position = $args['tagline_position'] ?? 'after';
         if( $tagline_position == 'before' ) {
             $keys = ['tagline', 'heading'];
+        }
+
+        // add tagline
+        $add_tagline = $args['add_tagline'] ?? false;
+        if( !$add_tagline ) {
+            unset($contents['tagline']);
+            $keys = ['heading'];
         }
 
 		ob_start();
