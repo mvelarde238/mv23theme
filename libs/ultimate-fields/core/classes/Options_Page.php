@@ -107,6 +107,16 @@ class Options_Page {
 	public static $created = array();
 
 	/**
+	 * This property is used to prevent PHP warnings when the ID is not set:
+	 * PHP Warning:  Undefined property: Ultimate_Fields\Options_Page::$ID in 
+	 * ...\core\classes\Controller\Post_Type.php on line 122
+	 *
+	 * @since 3.2.1
+	 * @var int
+	 */
+	public $ID = 0;
+
+	/**
 	 * Creates a new page.
 	 *
 	 * @since 3.0
