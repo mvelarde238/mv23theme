@@ -6,6 +6,7 @@ CHANGELOG
 - Migrate Heading Comp. to include add_tagline setting (!use migrator)
 - Improve Spacer Comp. settings with suggestions
 - Update language files
+- Fix Carousel Comp: fade_color can be null
 
 2.8.6 25-08-02
 - Fix Gallery Comp to handle no items selected

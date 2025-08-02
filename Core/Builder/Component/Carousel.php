@@ -110,7 +110,6 @@ class Carousel extends Component {
                     ->set_suffix(__('Seconds', 'mv23theme'))
                     ->set_attr( 'style', 'flex-grow: initial;' ),
                 Field::create( 'color', 'fade_color', __('Fade Color', 'mv23theme') )
-                    ->set_default_value('#ffffff')
                     ->set_attr( 'style', 'flex-grow: initial;' )
             ))->add_dependency('carousel_type', 'marquee', '='),
 
@@ -298,7 +297,7 @@ class Carousel extends Component {
                 data-slider-uid="<?=$slider_uid?>">
         <?php else: 
             $marquee_speed = ( isset($args['marquee_speed']) && is_numeric($args['marquee_speed']) ) ? $args['marquee_speed'] : 18;
-            $fade_color = $args['fade_color'] ?? '#ffffff';
+            $fade_color = $args['fade_color'] ?? '';
             ?>
             <div class="marquee" data-speed="<?=$marquee_speed?>" style="--fade-color:<?=$fade_color?>;--d-gap:<?=$gutter_in_desktop?>px; --t-gap:<?=$gutter_in_tablet?>px; --m-gap:<?=$gutter_in_mobile?>px;">
             <div class="marquee-track">
