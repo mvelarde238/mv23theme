@@ -266,7 +266,7 @@ class Gallery extends Component {
         	}
         } else {
         	$gallery = $args['gallery'];
-        	$ids = implode(',',$gallery);
+        	$ids = (is_array($gallery)) ? implode(',',$gallery) : '';
         	$shortcode .= ' ids="'.$ids.'"';
         }
 
