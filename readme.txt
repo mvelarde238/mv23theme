@@ -4,6 +4,7 @@ CHANGELOG
 
 2.8.6 25-08-02
 - Fix Gallery Comp to handle no items selected
+- Fix Creation of dynamic property warnings in php 8.2+
 
 2.8.5 25-08-01
 - Includes animations.sass with spin animation and some fixes in postcard

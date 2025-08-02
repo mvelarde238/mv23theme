@@ -26,6 +26,8 @@ class Core{
 
     private $version = '1.1.0';
 
+    public $migrator_url;
+
     public static function getInstance() {
         if (self::$instance == null) {
             self::$instance = new Core();

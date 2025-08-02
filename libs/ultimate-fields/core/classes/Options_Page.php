@@ -153,7 +153,6 @@ class Options_Page {
 	 * @param string $title The title of the page.
 	 */
 	protected function __construct( $id, $title = null ) {
-		$this->ID    = 0;
 		$this->id    = $id;
 		$this->title = ultimate_fields()->generate_title( $id, $title );
 
