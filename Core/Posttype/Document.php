@@ -11,18 +11,28 @@ class Document {
 
     private static $instance = null;
 
+    protected $post_type_slug;
+
 	public static function getInstance() {
         if (self::$instance == null) {
-            self::$instance = new Document();
+            self::$instance = new self();
         }
         return self::$instance;
     }
 
-    private function __construct(){}
+    protected function __construct(){
+        $this->post_type_slug = 'document';
+    }
+
+    protected function get_post_type_slug() {
+        return $this->post_type_slug;
+    }
 
 	public function register_posttype(){
+        $post_type_slug = $this->post_type_slug;
+
         // add a filter to modify the post type setting
-        $document_settings = apply_filters('filter_document_post_type_settings', array(
+        $document_settings = apply_filters('filter_' . $post_type_slug . '_post_type_settings', array(
             'public' => true,
             'has_archive' => true,
             'supports' => array('title', 'thumbnail', 'revisions'),
@@ -30,43 +40,45 @@ class Document {
         ));
 
 		$document = new CPT(
-			'document', 
+			$post_type_slug, 
 			$document_settings
 		);
 
 		$document->register_taxonomy(array(
-			'taxonomy_name' => 'document-cat',
+			'taxonomy_name' => $post_type_slug . '-cat',
 			'singular' => __('Document Category', 'mv23theme'),
 			'plural' => __('Document Categories', 'mv23theme'),
 			'show_ui' => true,
-			'slug' => 'document-cat'
+			'slug' => $post_type_slug . '-cat'
 		));
 
         $document->register_taxonomy(array(
-			'taxonomy_name' => 'document-tag',
+			'taxonomy_name' => $post_type_slug . '-tag',
 			'hierarchical' => false,
 			'show_ui' => true,
 			'singular' => 'Document Tag',
 			'plural' => 'Document Tags',
-			'slug' => 'document-tag'
+			'slug' => $post_type_slug . '-tag'
 		));
 
         $document->columns(array(
             'cb' => '<input type="checkbox" />',
             'title' => __('Title', 'mv23theme'),
             'file' => __('File', 'mv23theme'),
-            'document-data' => __('Tracked Data', 'mv23theme'),
-            'document-cat' => __('Category', 'mv23theme'),
+            $post_type_slug . '-data' => __('Tracked Data', 'mv23theme'),
+            $post_type_slug . '-cat' => __('Category', 'mv23theme'),
             'date' => __('Date', 'mv23theme')
         ));
 
-        $document->populate_column('document-data', array($this, 'populate_document_data_column'));
+        $document->populate_column($post_type_slug . '-data', array($this, 'populate_document_data_column'));
         $document->populate_column('file', array($this, 'populate_document_file_column'));
 	}
 
     public function add_meta_boxes() {
+        $post_type_slug = $this->post_type_slug;
+        
         Container::create( 'document_settings' )
-            ->add_location( 'post_type', 'document', array( 
+            ->add_location( 'post_type', $post_type_slug, array( 
                 // 'context' => 'side' 
             ))
             ->add_fields(array(

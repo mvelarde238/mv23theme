@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.9.1 25-08-05
+- Make Document Class extendable
+
 2.9.0 25-08-02
 - Migrate Heading Comp. to include add_tagline setting (!use migrator)
 - Improve Spacer Comp. settings with suggestions
