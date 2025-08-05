@@ -15,7 +15,7 @@ $content_type = get_post_meta($id, 'content_type', true);
 $caption = esc_attr($title);
 $ext = ($file_url) ? pathinfo($file_url, PATHINFO_EXTENSION) : 'pdf';
 $icon = 'bi-filetype-'.$ext;
-$item_link = $file_url;
+$document_link = $file_url;
 $file_size = null;
 
 $remote_video_data = Document::get_remote_video_data($id);
