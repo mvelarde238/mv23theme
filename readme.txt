@@ -5,6 +5,11 @@ CHANGELOG
 2.9.1 25-08-05
 - Make Document Class extendable
 - UF Fix: Remove background color from .uf-file-preview to preview file names correctly
+- Fix Sass warnings:
+  Legacy JS API warnings
+  @import deprecation warnings
+  Color functions warnings (lighten, darken)
+  Global built-in functions warnings (map-has-key, map-get)
 
 2.9.0 25-08-02
 - Migrate Heading Comp. to include add_tagline setting (!use migrator)

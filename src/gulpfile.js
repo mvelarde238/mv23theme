@@ -6,6 +6,17 @@
  * @authors @mvelarde
  */
 
+// Suprimir warnings específicos de Node.js
+process.removeAllListeners('warning');
+process.on('warning', (warning) => {
+    // Ignorar warnings específicos
+    if (warning.name === 'DeprecationWarning' && 
+        (warning.code === 'DEP0180' || warning.message.includes('fs.Stats constructor'))) {
+        return;
+    }
+    console.warn(warning.name + ': ' + warning.message);
+});
+
 // Project configuration
 var project = 'mv23theme', // Nombre de proyecto, usado como nombre de archivo al momento de crear el zip
 	url = 'mv23.com', // Local Development URL for BrowserSync. Default: './'
@@ -99,6 +110,19 @@ gulp.task('sass', function () {
 	.pipe(concat('style.css'))
 	.pipe(sass({
         // includePaths: [parenttheme_path+'sass/'] this is for child themes
+        quietDeps: true,
+        verbose: false,
+        logger: {
+            warn: function(message) {
+                // Silenciar warnings específicos
+                if (message.includes('fs.Stats constructor is deprecated') || 
+                    message.includes('DEP0180')) {
+                    return;
+                }
+                console.warn(message);
+            }
+        },
+        silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'color-functions']
     }).on('error', sass.logError))
 	.pipe(mergeQueries({ log: true }))
 	.pipe(minifyCSS())
@@ -117,6 +141,9 @@ gulp.task('editorsass', function () {
     .pipe(concat('editor-style.css'))
     .pipe(sass({
         // includePaths: [parenttheme_path+'sass/'] this is for child themes
+        quietDeps: true,
+        verbose: false,
+        silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'color-functions']
     }).on('error', sass.logError))
     .pipe(minifyCSS())
     .pipe(gulp.dest('../assets/css/'))
@@ -194,7 +221,11 @@ var adminSASSFiles = [
 
 gulp.task('adminsass', function () {
 	return gulp.src(adminSASSFiles)
-		.pipe(sass().on('error', sass.logError))
+		.pipe(sass({
+			quietDeps: true,
+			verbose: false,
+			silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'color-functions']
+		}).on('error', sass.logError))
 		.pipe(minifyCSS())
 		.pipe(gulp.dest('../assets/css/'))
 		.pipe(browserSync.stream());
