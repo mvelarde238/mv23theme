@@ -10,13 +10,13 @@ class Borders{
         
         if ( isset($args['settings']['border']) ) {
             $border_settings = $args['settings']['border'];
-            $unblock = (isset($border_settings['unlock'])) ? $border_settings['unlock'] : false;
+            $unlock = (isset($border_settings['unlock'])) ? $border_settings['unlock'] : false;
             
-            if ( $unblock ) {
+            if ( $unlock ) {
 
                 $borders = array('top','bottom','right','left');
                 foreach ($borders as $border) {
-                    if( $border_settings[$border]['width'] !== '' ) {
+                    if( isset($border_settings[$border]) && $border_settings[$border]['width'] !== '' ) {
                         $border_width = $border_settings[$border]['width'] . 'px';
                         $style_and_color = $border_settings[$border]['style'] . ' ' . $border_settings[$border]['color'];
                         $styles[] = 'border-'.$border.':'.$border_width . ' ' . $style_and_color;   
