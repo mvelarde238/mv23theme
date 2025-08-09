@@ -57,6 +57,11 @@ class Page{
     }
 
 	private function page_is_private(){
+		// Si el usuario está logueado, siempre devolver false
+		if (is_user_logged_in()) {
+			return false;
+		}
+
 		$is_private = false;
 
 		if (post_password_required()) $is_private = true;
