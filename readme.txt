@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.9.3 25-08-11
+- Fix password protected page
+
 2.9.2 25-08-08
 - Show private content page to logged in users
 

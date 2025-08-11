@@ -57,19 +57,17 @@ class Page{
     }
 
 	private function page_is_private(){
-		// Si el usuario está logueado, siempre devolver false
-		if (is_user_logged_in()) {
-			return false;
-		}
-
-		$is_private = false;
-
-		if (post_password_required()) $is_private = true;
-	
 		global $post;
-		if (get_post_status($post) === 'private') $is_private = true;
-
-		return $is_private;
+		
+		if (post_password_required()) {
+			return true;
+		}
+		
+		if (get_post_status($post) === 'private' && !is_user_logged_in()) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	public function add_page_modules_to_rest_api($data, $post, $context){
