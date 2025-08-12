@@ -76,39 +76,44 @@ class Document {
 
     public function add_meta_boxes() {
         $post_type_slug = $this->post_type_slug;
+
+        $fields = array(
+            Field::create( 'radio', 'content_type', __('Content Type','mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
+                'file'=>__('File','mv23theme'),
+                'url'=>__('Url','mv23theme')
+            )),
+            Field::create( 'text', 'file_url', __('URL','mv23theme'))->add_dependency('content_type','url','='),
+            Field::create( 'file', 'file', __('File','mv23theme'))->set_output_type( 'id' )->add_dependency('content_type','file','='),
+            Field::create( 'wysiwyg', 'description', __('Description','mv23theme')),
+            Field::create( 'complex', 'metrics', __('Metrics','mv23theme') )->merge()->add_fields(array(
+                Field::create( 'number', 'post_views_count', __('Views','mv23theme'))->set_width(25),
+                Field::create( 'number', 'download_count', __('Downloads','mv23theme'))->set_width(25),
+                Field::create( 'number', 'previsualization_count', __('Previews','mv23theme'))->set_width(25),
+                Field::create( 'number', 'post_likes_count', __('Likes','mv23theme'))->set_width(25)
+            ))
+        );
         
+        if(POSTS_SUBSCRIPTION){
+            $fields[] = Field::create( 'complex', '_post_subscription_wrapper', __('Post Subscription', 'mv23theme') )->merge()->add_fields(array(
+                Field::create( 'checkbox', 'override_global_posts_subscription')
+                    ->hide_label()
+                    ->set_text(__('Override Global Posts Subscription', 'mv23theme'))
+                    ->fancy()
+                    ->set_width(50),
+                Field::create( 'checkbox', 'post_subscription')
+                    ->hide_label()
+                    ->set_text(__('Enable Post Subscription', 'mv23theme'))
+                    ->fancy()
+                    ->add_dependency('override_global_posts_subscription')
+                    ->set_width(50)
+            ));
+        }
+
         Container::create( 'document_settings' )
             ->add_location( 'post_type', $post_type_slug, array( 
                 // 'context' => 'side' 
             ))
-            ->add_fields(array(
-                Field::create( 'radio', 'content_type', __('Content Type','mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
-                    'file'=>__('File','mv23theme'),
-                    'url'=>__('Url','mv23theme')
-                )),
-                Field::create( 'text', 'file_url', __('URL','mv23theme'))->add_dependency('content_type','url','='),
-                Field::create( 'file', 'file', __('File','mv23theme'))->set_output_type( 'id' )->add_dependency('content_type','file','='),
-                Field::create( 'wysiwyg', 'description', __('Description','mv23theme')),
-                Field::create( 'complex', 'metrics', __('Metrics','mv23theme') )->merge()->add_fields(array(
-                    Field::create( 'number', 'post_views_count', __('Views','mv23theme'))->set_width(25),
-                    Field::create( 'number', 'download_count', __('Downloads','mv23theme'))->set_width(25),
-                    Field::create( 'number', 'previsualization_count', __('Previews','mv23theme'))->set_width(25),
-                    Field::create( 'number', 'post_likes_count', __('Likes','mv23theme'))->set_width(25)
-                )),
-                Field::create( 'complex', '_post_subscription_wrapper', __('Post Subscription', 'mv23theme') )->merge()->add_fields(array(
-                    Field::create( 'checkbox', 'override_global_posts_subscription')
-                        ->hide_label()
-                        ->set_text(__('Override Global Posts Subscription', 'mv23theme'))
-                        ->fancy()
-                        ->set_width(50),
-                    Field::create( 'checkbox', 'post_subscription')
-                        ->hide_label()
-                        ->set_text(__('Enable Post Subscription', 'mv23theme'))
-                        ->fancy()
-                        ->add_dependency('override_global_posts_subscription')
-                        ->set_width(50)
-                ))
-            ));
+            ->add_fields( $fields );
     }
 
     public function populate_document_file_column( $column_name, $post ){
