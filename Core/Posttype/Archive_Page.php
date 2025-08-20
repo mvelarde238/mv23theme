@@ -6,6 +6,7 @@ use WP_Query;
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 use Ultimate_Fields\Location\Post_Type;
+use Core\Frontend\Nav_Walker;
 
 define ('LISTING_DESKTOP_COLUMNS', 2);
 define ('LISTING_LAPTOP_COLUMNS', 2);
@@ -368,5 +369,101 @@ class Archive_Page {
 			wp_redirect( $redirect_to );
 			exit;
 		}
+	}
+
+	/**
+	 * Used to hook an action on_archive_listing_start
+	 * if the current term has the content type 'terms_and_posts_children' meta
+	 */
+	public function wp_head_archive() {
+		if( is_tax() || is_category() || is_tag() ){
+			$current_term = get_queried_object();
+			$content_type = get_term_meta($current_term->term_id, 'content_type', true);
+			if( $content_type === 'terms_and_posts_children' ){
+				add_action( 'on_archive_listing_start', function() use ( $current_term ) {
+					echo self::terms_and_posts_children_content($current_term);
+				});
+			}
+		}
+	}
+
+	/**
+	 * Filter the query to exclude posts from Child Terms
+	 * if the current term has the content type 'terms_and_posts_children' meta
+	 */
+	public function pre_get_posts( $query ){
+		if( 
+			!is_admin() && $query->is_main_query() 
+			&& ( $query->is_tax() || $query->is_category() || $query->is_tag() )
+		){
+			$current_term = get_queried_object();
+			$content_type = get_term_meta($current_term->term_id, 'content_type', true);
+			if( $content_type === 'terms_and_posts_children' ){
+				// filter the query to exclude posts from Child Terms
+				$taxonomy = $current_term->taxonomy;
+				$term_id = $current_term->term_id;
+				$term_slug = $current_term->slug;
+
+				// Retrieve all child terms of the specified parent term
+				$child_terms = get_terms(array(
+        			'taxonomy'   => $taxonomy,
+        			'child_of'   => $term_id,
+        			'fields'     => 'ids',
+        			'hide_empty' => false
+    			));
+    			// Include the parent term in the exclusion list
+    			$exclude_terms = $child_terms;
+
+				$exclude_query = array(
+					'taxonomy' => $taxonomy,
+					'field'    => 'term_id',
+					'terms'    => $exclude_terms,
+					'operator' => 'NOT IN',
+				);
+
+				$query->tax_query->queries[] = $exclude_query; 
+    			$query->query_vars['tax_query'] = $query->tax_query->queries;
+			}
+		}
+	}
+
+	public static function the_content() {
+		$current_term = get_queried_object();
+		$content_type = ( is_tax() || is_category() || is_tag() ) 
+			? get_term_meta($current_term->term_id, 'content_type', true)
+			: '_____void___is_post_type_date_author_etc';
+
+		ob_start();
+		if( $content_type === 'terms_hierarchy' ){
+			$content = apply_filters(
+				'filter_terms_hierarchy_content_in_archive', 
+				self::terms_hierarchy_content($current_term), 
+				$current_term
+			);
+			echo $content;
+		} else {
+			get_template_part('partials/archive');
+		}
+		return ob_get_clean();
+	}
+
+	public static function terms_and_posts_children_content($current_term) {
+		ob_start();
+        $child_terms = get_term_children($current_term->term_id, $current_term->taxonomy);
+        if ($child_terms) {
+            foreach ($child_terms as $child_term_id) {
+                $child_term = get_term($child_term_id, $current_term->taxonomy);
+				get_template_part( 'partials/card/folder', $current_term->taxonomy, array('term' => $child_term));
+            }
+        }
+		return ob_get_clean();
+	}
+
+	public static function terms_hierarchy_content($current_term){
+		ob_start();
+    	echo '<div class="component vertical-nav vertical-nav-2 menu-comp">';
+    	echo Nav_Walker::list_terms_recursive($current_term->taxonomy, $current_term->term_id, 0);
+    	echo '</div>';
+    	return ob_get_clean();
 	}
 }

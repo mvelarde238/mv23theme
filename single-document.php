@@ -3,6 +3,8 @@ use Core\Builder\Component\Listing;
 use Core\Posttype\Document;
 use Core\Frontend\Post_Card;
 use Core\Theme_Options\UF_Container\Posts_Subscription;
+use Core\Theme_Options\UF_Container\Track_Posts_Data;
+use Core\Frontend\Taxonomy_Breadcrumbs;
 
 get_header();
 $main_content_classes = array('main-content','container');
@@ -10,12 +12,11 @@ $main_content_classes = array('main-content','container');
 global $post;
 $id = get_the_ID();
 $thumb_url = Post_Card::get_thumbnail($post, 'full');
-$file_url = Document::get_document_file_url($id);
+$document_link = Document::get_document_file_url($id);
 $content_type = get_post_meta($id, 'content_type', true);
 $caption = esc_attr($title);
-$ext = ($file_url) ? pathinfo($file_url, PATHINFO_EXTENSION) : 'pdf';
+$ext = ($document_link) ? pathinfo($document_link, PATHINFO_EXTENSION) : 'pdf';
 $icon = 'bi-filetype-'.$ext;
-$document_link = $file_url;
 $file_size = null;
 
 $remote_video_data = Document::get_remote_video_data($id);
@@ -23,41 +24,40 @@ $is_remote_video = ($remote_video_data['link']) ? true : false;
 if( $is_remote_video ){
     $ext = 'video';
     $icon = $remote_video_data['icon'];
-    $document_link = $remote_video_data['link'];
 }
 
 if ( $content_type == 'file' && !$is_remote_video ) {
     $file_size = Document::get_file_size($id);
 }
 
-$thumb_url = Document::get_thumbnail($thumb_url, $ext, $file_url);
+$thumb_url = Document::get_thumbnail($thumb_url, $ext, $document_link, $id);
 $can_be_previewed = Document::can_be_previewed($ext);
 
 // tags
-$tags = get_the_terms( $id, 'document-tag' );
+$tags = Post_Card::get_secondary_taxonomy_terms($post);
 
 $subscribe_to_continue = Posts_Subscription::post_subscription_is_active($id);
-if($file_url && $subscribe_to_continue) $file_url = '#';
+if($document_link && $subscribe_to_continue) $document_link = '#';
 ?>
 
 <div id="content">
 	<div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
 		<main class="main">
-            <div class="single-document__content-wrapper disable-link-to-embed-conversion">
+            <div class="single-document__content-wrapper">
                 <div class="single-document__image-wrapper">
                     <div class="single-document__image">
                         <?php
                         if($thumb_url){
                             echo '<img src="'.$thumb_url.'" alt="Document image">';
                         } else {
-                            if($file_url) {
-                                echo '<a href="'.esc_url($file_url).'"';
+                            if($document_link) {
+                                echo '<a href="'.esc_url($document_link).'"';
                                 if(!$subscribe_to_continue) echo ' data-fancybox';
                                 if($subscribe_to_continue) echo ' data-id="'.$id.'" data-action="subscribe-to-preview"';
                                 echo ' class="previsualization-count-js">';
                             }
                             echo '<div class="img"><i class="bi '.$icon.'"></i></div>';
-                            if($file_url) echo '</a>';
+                            if($document_link) echo '</a>';
                         }
                         ?>
                     </div>
@@ -81,7 +81,9 @@ if($file_url && $subscribe_to_continue) $file_url = '#';
                         if($file_size) echo '<p><b>' . __('File size: ', 'mv23theme') . '</b>' . $file_size . '</p>';
                         $last_modified = get_the_modified_date('d/m/Y', $id);
                         echo '<p><b>' . __('Last modified: ', 'mv23theme') . '</b>' . $last_modified . '</p>';
-                        echo '<p><b>' . __('Views: ', 'mv23theme') . '</b>' . do_shortcode('[post_views]') . '</p>';
+                        if( Track_Posts_Data::track_data_is_active($post) ){
+                            echo '<p><b>' . __('Views: ', 'mv23theme') . '</b>' . do_shortcode('[post_views]') . '</p>';
+                        }
 
                         if($tags && !is_wp_error($tags) && count($tags) > 0) {
                             echo '<p><b>' . __('Tags: ', 'mv23theme') . '</b>';
@@ -99,9 +101,12 @@ if($file_url && $subscribe_to_continue) $file_url = '#';
 
                     <div>
                         <div class="single-document__actions">
-                            <a href="#" class="btn post-like-button"><i class="bi bi-heart"></i> <?php echo do_shortcode('[post_likes]'); ?></a>
                             <?php
-                            if($file_url){
+                            if( Track_Posts_Data::track_data_is_active($post) ){
+                                echo '<a href="#" class="btn like-count-js"><i class="bi bi-heart"></i> '.do_shortcode('[post_likes]').'</a>';
+                            }
+
+                            if($document_link){
                                 if ( $can_be_previewed ) {
                                     if($subscribe_to_continue){
                                         $document_link = add_query_arg(array(
@@ -141,7 +146,8 @@ if($file_url && $subscribe_to_continue) $file_url = '#';
 
                 printf('<h4 class="single-document__related-posts-title">%s</h4>', $title);
 
-                $args = array(
+                // filter the related documents arguments
+                $related_docs_args = apply_filters('filter_related_'.$post->post_type.'_args', array(
                     'show' => 'auto',
                     'post__not_in' => array($id),
                     'qty' => 5,
@@ -156,9 +162,10 @@ if($file_url && $subscribe_to_continue) $file_url = '#';
                     'post_template' => 'document',
                     'list_template' => 'carrusel',
                     'show_controls' => 1,
-                    'posttype' => 'document',
-                );
-                echo Listing::display($args);
+                    'posttype' => $post->post_type,
+                ), $id);
+
+                echo Listing::display($related_docs_args);
                 ?>
             </div>
 		</main>

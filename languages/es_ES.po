@@ -136,8 +136,8 @@ msgid "Image Alignment"
 msgstr "Alineación del icono"
 
 #: Core/Admin/TinyMCE.php:267
-#: Core/Builder/Component/Carousel.php:122
-#: Core/Builder/Component/Carousel.php:132
+#: Core/Builder/Component/Carousel.php:121
+#: Core/Builder/Component/Carousel.php:131
 #: Core/Builder/containers/popup/column_settings_container.php:15
 #: Core/Builder/containers/popup/column_settings_container.php:28
 #: Core/Builder/containers/popup/column_settings_container.php:40
@@ -152,8 +152,8 @@ msgid "Middle"
 msgstr "Centro"
 
 #: Core/Admin/TinyMCE.php:281
-#: Core/Builder/Component/Carousel.php:121
-#: Core/Builder/Component/Carousel.php:131
+#: Core/Builder/Component/Carousel.php:120
+#: Core/Builder/Component/Carousel.php:130
 #: Core/Builder/containers/popup/column_settings_container.php:17
 #: Core/Builder/containers/popup/column_settings_container.php:30
 #: Core/Builder/containers/popup/column_settings_container.php:42
@@ -211,7 +211,8 @@ msgstr "Texto XXXL"
 msgid "Add property"
 msgstr "Agregar propiedad"
 
-#: Core/Builder/Animations/Animated_Properties_Repeater.php:63
+#. translators: %s: Enable property
+#: Core/Builder/Animations/Animated_Properties_Repeater.php:64
 #, php-format
 msgid "Enable %s"
 msgstr "Habilitar %s"
@@ -281,6 +282,7 @@ msgstr "Acordeón"
 #: Core/Builder/Component/Video.php:34
 #: Core/Builder/containers/page-header.php:41
 #: Core/Offcanvas_Elements/Settings.php:139
+#: Core/Posttype/Document.php:144
 msgid "Content"
 msgstr "Contenido"
 
@@ -457,11 +459,11 @@ msgstr "Segundos"
 msgid "Fade Color"
 msgstr "Color del difuminado"
 
-#: Core/Builder/Component/Carousel.php:118
+#: Core/Builder/Component/Carousel.php:117
 msgid "Show arrows"
 msgstr "Mostrar controles"
 
-#: Core/Builder/Component/Carousel.php:120
+#: Core/Builder/Component/Carousel.php:119
 #: Core/Builder/Component/Flip_Box.php:44
 #: Core/Builder/Component/Heading.php:120
 #: Core/Builder/Component/Image.php:57
@@ -476,82 +478,82 @@ msgstr "Mostrar controles"
 msgid "Center"
 msgstr "Centro"
 
-#: Core/Builder/Component/Carousel.php:129
+#: Core/Builder/Component/Carousel.php:128
 msgid "Show page indicators"
 msgstr "Mostrar indicadores de página"
 
-#: Core/Builder/Component/Carousel.php:139
+#: Core/Builder/Component/Carousel.php:138
 msgid "Start Automatically"
 msgstr "Empezar automáticamente"
 
-#: Core/Builder/Component/Carousel.php:182
+#: Core/Builder/Component/Carousel.php:181
 msgid "Activate Auto Height"
 msgstr "Activar Altura adaptable"
 
-#: Core/Builder/Component/Carousel.php:183
+#: Core/Builder/Component/Carousel.php:182
 msgid "Activate Touch"
 msgstr "Activar Touch"
 
-#: Core/Builder/Component/Carousel.php:185
+#: Core/Builder/Component/Carousel.php:184
 #: Core/Builder/Component/Gallery.php:111
 #: Core/Builder/Component/Row.php:14
 msgid "Columns"
 msgstr "Columnas"
 
-#: Core/Builder/Component/Carousel.php:186
+#: Core/Builder/Component/Carousel.php:185
 #: Core/Builder/Component/Gallery.php:112
 msgid "Columns on desktop"
 msgstr "Columnas en desktop"
 
-#: Core/Builder/Component/Carousel.php:187
+#: Core/Builder/Component/Carousel.php:186
 #: Core/Builder/Component/Gallery.php:113
 msgid "Columns on laptop"
 msgstr "Columnas en laptop"
 
-#: Core/Builder/Component/Carousel.php:188
+#: Core/Builder/Component/Carousel.php:187
 #: Core/Builder/Component/Gallery.php:114
 msgid "Columns on tablet"
 msgstr "Columnas en tablet"
 
-#: Core/Builder/Component/Carousel.php:189
+#: Core/Builder/Component/Carousel.php:188
 #: Core/Builder/Component/Gallery.php:115
 msgid "Columns on mobile"
 msgstr "Columnas en móviles"
 
-#: Core/Builder/Component/Carousel.php:192
+#: Core/Builder/Component/Carousel.php:191
 #: Core/Builder/Component/Gallery.php:118
 msgid "Space between items"
 msgstr "Espacio entre items"
 
-#: Core/Builder/Component/Carousel.php:193
+#: Core/Builder/Component/Carousel.php:192
 #: Core/Builder/Component/Gallery.php:119
 msgid "Gap on desktop"
 msgstr "Espacio en desktop"
 
-#: Core/Builder/Component/Carousel.php:194
+#: Core/Builder/Component/Carousel.php:193
 #: Core/Builder/Component/Gallery.php:120
 msgid "Gap on laptop"
 msgstr "Espacio en desktop"
 
-#: Core/Builder/Component/Carousel.php:195
+#: Core/Builder/Component/Carousel.php:194
 #: Core/Builder/Component/Gallery.php:121
 msgid "Gap on tablet"
 msgstr "Espacio en tablet"
 
-#: Core/Builder/Component/Carousel.php:196
+#: Core/Builder/Component/Carousel.php:195
 #: Core/Builder/Component/Gallery.php:122
 msgid "Gap on mobile"
 msgstr "Espacio en móviles"
 
-#: Core/Builder/Component/Carousel.php:199
+#: Core/Builder/Component/Carousel.php:198
 msgid "Images Size"
 msgstr "Tamaño de imagen"
 
-#: Core/Builder/Component/Carousel.php:201
+#: Core/Builder/Component/Carousel.php:200
 msgid "Auto"
 msgstr "Automático"
 
-#: Core/Builder/Component/Carousel.php:202
+#: Core/Builder/Component/Carousel.php:201
 #: Core/Builder/Component/Listing.php:118
 #: Core/Builder/containers/popup/scroll_animations_container.php:31
 #: Core/Builder/containers/popup/scroll_animations_container.php:165
@@ -559,15 +561,15 @@ msgstr "Automático"
 msgid "Custom"
 msgstr "Personalizado"
 
-#: Core/Builder/Component/Carousel.php:204
+#: Core/Builder/Component/Carousel.php:203
 msgid "Max height in pixels"
 msgstr "Altura Máxima en pixeles"
 
-#: Core/Builder/Component/Carousel.php:210
+#: Core/Builder/Component/Carousel.php:209
 msgid "Slider UID"
 msgstr "Slider UID"
 
-#: Core/Builder/Component/Carousel.php:211
+#: Core/Builder/Component/Carousel.php:210
 msgid "This is used to identify the slider in the JS code. If you leave it empty, a random UID will be generated."
 msgstr "Usado para identificar el slider in el código JS. Si lo dejas vacío,  se generará un UID aleatorio."
 
@@ -1089,13 +1091,13 @@ msgid "Order by"
 msgstr "Ordenar por"
 
 #: Core/Builder/Component/Listing.php:114
-#: Core/Posttype/Document.php:60
+#: Core/Posttype/Document.php:91
 #: Core/Posttype/Footer.php:44
 msgid "Date"
 msgstr "Fecha"
 
 #: Core/Builder/Component/Listing.php:115
-#: Core/Posttype/Document.php:56
+#: Core/Posttype/Document.php:87
 #: Core/Posttype/Footer.php:42
 msgid "Title"
 msgstr "Título"
@@ -2257,7 +2259,7 @@ msgid "Bottom Sheet"
 msgstr ""
 
 #: Core/Offcanvas_Elements/Settings.php:158
-#: Core/Posttype/Document.php:73
+#: Core/Posttype/Document.php:105
 msgid "Content Type"
 msgstr "Tipo de contenido"
 
@@ -2521,93 +2523,95 @@ msgstr "Sidebar a la derecha"
 msgid "Hide Sidebar"
 msgstr "Ocultar sidebar"
 
-#: Core/Posttype/Document.php:39
+#: Core/Posttype/Document.php:64
 msgid "Document Category"
 msgstr "Categoría de documento"
 
-#: Core/Posttype/Document.php:40
+#: Core/Posttype/Document.php:65
 msgid "Document Categories"
 msgstr "Categorías"
 
-#: Core/Posttype/Document.php:57
-#: Core/Posttype/Document.php:74
-#: Core/Posttype/Document.php:78
+#: Core/Posttype/Document.php:88
+#: Core/Posttype/Document.php:106
+#: Core/Posttype/Document.php:110
 #: Core/Theme_Options/Fields/Typography.php:56
 msgid "File"
 msgstr "Archivo"
 
-#: Core/Posttype/Document.php:58
+#: Core/Posttype/Document.php:89
 msgid "Tracked Data"
 msgstr "Tracked Data"
 
-#: Core/Posttype/Document.php:59
+#: Core/Posttype/Document.php:90
 msgid "Category"
 msgstr "Categoría"
 
-#: Core/Posttype/Document.php:75
+#: Core/Posttype/Document.php:107
 #: Core/Theme_Options/Fields/Typography.php:57
 msgid "Url"
 msgstr "Url"
 
-#: Core/Posttype/Document.php:77
+#: Core/Posttype/Document.php:109
 msgid "URL"
 msgstr "URL"
 
-#: Core/Posttype/Document.php:79
+#: Core/Posttype/Document.php:111
 msgid "Description"
 msgstr "Descripción"
 
-#: Core/Posttype/Document.php:80
+#: Core/Posttype/Document.php:112
 msgid "Metrics"
 msgstr "Métricas"
 
-#: Core/Posttype/Document.php:81
+#: Core/Posttype/Document.php:113
 msgid "Views"
 msgstr "Vistas"
 
-#: Core/Posttype/Document.php:82
+#: Core/Posttype/Document.php:114
 msgid "Downloads"
 msgstr "Descargas"
 
-#: Core/Posttype/Document.php:83
+#: Core/Posttype/Document.php:115
 msgid "Previews"
 msgstr "Previsualizaciones"
 
-#: Core/Posttype/Document.php:84
+#: Core/Posttype/Document.php:116
 msgid "Likes"
 msgstr "Likes"
 
-#: Core/Posttype/Document.php:86
+#: Core/Posttype/Document.php:121
 msgid "Post Subscription"
 msgstr "Suscripción al post"
 
-#: Core/Posttype/Document.php:89
+#: Core/Posttype/Document.php:124
 msgid "Override Global Posts Subscription"
 msgstr "Sobreescribir la suscripción a los posts global"
 
-#: Core/Posttype/Document.php:94
+#: Core/Posttype/Document.php:129
 msgid "Enable Post Subscription"
 msgstr "Habilitar suscripción al post"
 
-#: Core/Posttype/Document.php:120
+#: Core/Posttype/Document.php:174
 msgid "View File"
 msgstr "Ver archivo"
 
-#: Core/Posttype/Document.php:122
+#: Core/Posttype/Document.php:176
 msgid "No file attached"
 msgstr "No hay archivo adjunto "
 
-#: Core/Posttype/Document.php:134
-#: Core/Posttype/Document.php:135
+#. translators: %s: Yes or No
+#: Core/Posttype/Document.php:189
+#: Core/Posttype/Document.php:190
 #, php-format
 msgid "Subscribe to continue: %s"
 msgstr "Solicitar suscripción: %s"
 
-#: Core/Posttype/Document.php:134
+#. translators: %s: Yes or No
+#: Core/Posttype/Document.php:189
 msgid "Yes"
 msgstr "Sí"
 
-#: Core/Posttype/Document.php:135
+#: Core/Posttype/Document.php:190
 msgid "No"
 msgstr "No"
 
@@ -2958,22 +2962,26 @@ msgstr "Activa esta opción para recolectar visitas, likes, previsualizaciones y
 msgid "Activate Tracking"
 msgstr "Activar Recolección"
 
-#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:75
+#. translators: %s: Views Count
+#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:76
 #, php-format
 msgid "Views: %s"
 msgstr "Vistas: %s"
 
-#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:78
+#. translators: %s: Likes Count
+#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:80
 #, php-format
 msgid "Likes: %s"
 msgstr "Likes: %s"
 
-#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:81
+#. translators: %s: Previews Count
+#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:84
 #, php-format
 msgid "Previews: %s"
 msgstr "Previsualizaciones: %s"
 
-#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:84
+#. translators: %s: Downloads Count
+#: Core/Theme_Options/UF_Container/Track_Posts_Data.php:88
 #, php-format
 msgid "Downloads: %s"
 msgstr "Descargas: %s"
@@ -3148,3 +3156,33 @@ msgstr "Agregar Subtítulo"
 #: Core/Builder/Component/Spacer.php:34
 msgid "Unit (px,%,vh..)"
 msgstr "Medida (px,%,vh..)"
+
+msgid "Document"
+msgstr "Documento"
+
+msgid "Documents"
+msgstr "Documentos"
+
+#: Core/Posttype/Document.php:77
+msgid "Tag"
+msgstr "Etiqueta"
+
+#: Core/Posttype/Document.php:78
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: Core/Posttype/Document.php:52
+msgid "Add New Document"
+msgstr "Añadir Documento"
+
+#: Core/Posttype/Document.php:145
+msgid "Show documents from this category"
+msgstr "Mostrar documentos de esta categoría"
+
+#: Core/Posttype/Document.php:146
+msgid "Show terms hierarchy of this category"
+msgstr "Mostrar las sub categorías de esta categoría"
+
+#: Core/Posttype/Document.php:147
+msgid "Show terms and documents from this category"
+msgstr "Mostrar las sub categorías y documentos de esta categoría"

@@ -75,7 +75,7 @@
             if( response.data_action != 'subscribe-to-preview' ) return;
 
             if (response.success) {
-                if(MV23_GLOBALS.trackPostsData) do_post_action('previsualization_count', response.data_id);
+                do_post_action('previsualization_count', response.data_id);
 
                 if(response.file_url){
                     new Fancybox([
@@ -109,7 +109,7 @@
             if( response.data_action != 'subscribe-to-download' ) return;
 
             if (response.success) {
-                if(MV23_GLOBALS.trackPostsData) do_post_action('download_count', response.data_id);
+                do_post_action('download_count', response.data_id);
                 if(response.file_url) window.location.href = response.file_url+'&nonce='+ cf7_nonce_data.nonce;
             } else {
                 switch (response.errorType) {

@@ -1,0 +1,109 @@
+.dynamic-megamenu
+    --nav-width: 360px
+    --posts-columns: 2
+    background-color: transparent
+    left: 50%
+    transform: translateX(-50%)
+    &__box
+        max-width: 1250px
+        margin: auto
+        background-color: #fff
+        display: flex
+        max-height: calc(100vh - 190px)
+    &__header,
+    &__posts
+        padding: 15px 30px
+    &__nav,
+    &__posts
+        overflow: auto
+        @extend .scroll
+    &__nav
+        background-color: var(--primary-color-lighter)
+        width: var(--nav-width)
+        border-right: 1px solid var(--primary-color-light)
+        overflow-y: scroll
+        padding: 23px 0
+        ul
+            list-style-type: none
+            padding-left: 0
+            margin: 0
+        .menuitem
+            position: relative
+        a
+            padding: 0px 50px 0 24px
+            display: inline-block
+            line-height: initial
+        .menuitem__label
+            font-size: 14px
+        a:hover
+            text-decoration: underline
+        .active
+            color: red
+        .menu-item-has-children
+            .submenu
+                margin: 7px 0
+                display: none
+        .toggle-submenu
+            width: 24px
+            height: 24px
+            position: absolute
+            top: 2px
+            right: 15px
+            border: 1px solid var(--primary-color-light)
+            background-color: transparent
+            border-radius: 3px
+            outline: 0
+            cursor: pointer
+            &:before
+                content: ''
+                width: 0
+                height: 0
+                font-size: 0px
+                border-style: solid
+                border-width: 6px 5px 0 5px
+                border-color: var(--primary-color-light) transparent transparent transparent
+                line-height: 15px
+                vertical-align: middle
+                position: absolute
+                top: 9px
+                left: 6px
+            &[aria-expanded="true"]
+                transform: scaleY(-1)
+
+    .submenu
+        display: none
+        background-color: rgba(0,0,0,.1)
+        padding: 15px 0
+
+    &__content
+        width: calc(100% - var(--nav-width))
+        display: flex
+        flex-direction: column-reverse
+        justify-content: start
+    &__header
+        border-bottom: 1px solid var(--primary-color-light)
+        position: relative
+        text-transform: uppercase
+        b
+            font-size: 11px
+    &__posts
+        ul
+            margin: 0
+            // list-style-type: none
+            padding-left: 0
+            column-gap: 50px
+            -webkit-columns: var(--posts-columns)
+            -moz-columns: var(--posts-columns)
+            columns: var(--posts-columns)
+            font-size: 14px
+            line-height: initial
+            // page-break-inside: avoid
+            // break-inside: avoid-column
+            // -webkit-column-break-inside:avoid
+            // -moz-column-break-inside:avoid
+            // -o-column-break-inside:avoid
+            // -ms-column-break-inside:avoid
+            // column-break-inside:avoid
+            // display: table
+        li
+            margin-bottom: 15px

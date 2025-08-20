@@ -1,107 +1,73 @@
 <?php
 use Core\Frontend\Post_Card;
-use Core\Posttype\Document;
 
 global $post;
-$id = $post->ID;
-$posttype = $post->post_type;
-$title = $post->post_title;
-$metadata = array();
-$link = Post_Card::get_permalink($post);
-$excerpt = Post_Card::get_excerpt($post, 110);
-$thumb_url = Post_Card::get_thumbnail($post, 'full');
-$postcard_attributes = Post_Card::build_attributes($post, $args);
-$main_terms = Post_Card::get_main_taxonomy($post);
-$tags = Post_Card::get_secondary_taxonomy($post);
 
-if($posttype == 'document') {
-    $file_url = Document::get_document_file_url($id);
-    $content_type = get_post_meta($id, 'content_type', true);
-    $caption = esc_attr($title);
-    $ext = ($file_url) ? pathinfo($file_url, PATHINFO_EXTENSION) : 'pdf';
-    $icon = 'bi-filetype-'.$ext;
-    $document_link = $file_url;
-    
-    $remote_video_data = Document::get_remote_video_data($id);
-    $is_remote_video = ($remote_video_data['link']) ? true : false;
-    if( $is_remote_video ){
-        $ext = 'video';
-        $icon = $remote_video_data['icon'];
-        $document_link = $remote_video_data['link'];
-    }
+$postcard_args = array(
+    'id' => $post->ID,
+    'posttype' => $post->post_type,
+    'title' => $post->post_title,
+    'metadata' => array(),
+    'permalink' => Post_Card::get_permalink($post),
+    'permalink_text' => __('More details','mv23theme'),
+    'permalink_icon' => 'bi-arrow-up-right',
+    'permalink_class' => 'trigger-post-action',
+    'excerpt' => Post_Card::get_excerpt($post, 110),
+    'thumbnail' => Post_Card::get_thumbnail($post, 'full'),
+    'attributes' => Post_Card::build_attributes($post, $args),
+    'main_terms' => Post_Card::get_main_taxonomy_terms($post),
+    'tags' => Post_Card::get_secondary_taxonomy_terms($post),
+    'date' => '<div><p class="postcard__date">'.Post_Card::display_date($post).'</p></div>',
+    'viewer_icon' => 'bi-eye',
+    'style' => 'style4'
+);
 
-    $metadata[] = $ext;
-
-    // FILE SIZE
-    if ( $content_type == 'file' && !$is_remote_video ) {
-        $file_size = Document::get_file_size($id);
-        $metadata[] = $file_size;
-    }
-    
-    $last_modified = get_the_modified_date('d/m/Y', $id);
-    $metadata[] = __('Last modified', 'mv23theme') . ': ' . $last_modified;
-    $title .= ' <span class="postcard__metadata text-xxs">- '. (implode(', ', $metadata)).'</span>';
-
-    $thumb_url = Document::get_thumbnail($thumb_url, $ext, $file_url);
-    $can_be_previewed = Document::can_be_previewed($ext);
-}
+$_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
 ?>
-<div class="postcard postcard--style4" <?php echo $postcard_attributes ?>>
+<div class="postcard postcard--style4" <?php echo $_args['attributes'] ?>>
 	<div class="postcard__content-wrapper">
 	    <div class="postcard__content">
 	    	<div class="postcard__postdata">
 	    		<div class="postcard__terms">
 	    			<p class="truncate">
-	    				<?php if (is_array($main_terms) && count($main_terms) > 0) {
-                	    	echo Post_Card::display_terms($main_terms,',');
+	    				<?php if (is_array($_args['main_terms']) && count($_args['main_terms']) > 0) {
+                	    	echo Post_Card::display_terms($_args['main_terms'],',');
             		    } else {
-                            echo $posttype;
+                            echo $_args['posttype'];
                         }
 	    			    ?>
 	    			</p>
 	    		</div>
 
-	    		<?php if( is_array($tags) && count($tags) > 0 ){
+	    		<?php if( is_array($_args['tags']) && count($_args['tags']) > 0 ){
 		        	echo '<div class="postcard__tags text-color-2">';
-		        	echo Post_Card::display_terms($tags);
+		        	echo Post_Card::display_terms($_args['tags']);
 		        	echo '</div>';
 		        } ?>
 	    	</div>
                 
             <div>
-                <h2 class="postcard__title"><a class="trigger-post-action" href="<?=$link?>"><?php echo $title; ?></a></h2>
-                <?php if($excerpt) echo '<div class="postcard__excerpt">'.$excerpt.'</div>'; ?>
+                <h2 class="postcard__title">
+                    <a class="<?=$_args['permalink_class']?>" href="<?=$_args['permalink']?>"><?php echo $_args['title']; ?></a>
+                </h2>
+                <?php if($_args['excerpt']) echo '<div class="postcard__excerpt">'.$_args['excerpt'].'</div>'; ?>
             </div>
                 
 	    	<div class="postcard__footer">
-                <?php if(TRACK_POSTS_DATA && $posttype == 'document'): ?>
-                    <div class="postcard__actions">
-                        <?php 
-                        $actions = array('post_likes');
-                        if( $can_be_previewed ) $actions[] = 'post_previsualizations';
-                        if( !$is_remote_video ) $actions[] = 'post_downloads';
-                        echo Post_Card::display_actions($post, $document_link, $actions);
-                        ?>
-                    </div>
-                <?php else: ?>
-                    <div>
-                        <p class="postcard__date"><?php echo Post_Card::display_date($post); ?></p>
-                    </div>
-                <?php endif; ?>
+                <?php echo $_args['date']; ?>
 
-	    		<div class="postcard__link"><a class="trigger-post-action" href="<?=$link?>"><?php _e('More details','mv23theme') ?> <i class="bi bi-arrow-up-right"></i></a></div>
+	    		<div class="postcard__link">
+                    <a class="<?=$_args['permalink_class']?>" href="<?=$_args['permalink']?>">
+                        <?php if( $_args['permalink_text'] ) echo $_args['permalink_text']; ?>
+                        <?php if( $_args['permalink_icon'] ) echo ' <i class="bi '.$_args['permalink_icon'].'"></i>'; ?>
+                    </a>
+                </div>
 	    	</div>
 	    </div>
 
-        <a href="<?=$link?>" class="trigger-post-action">
-            <img class="postcard__image" src="<?=$thumb_url?>">
-            <?php
-                if($posttype == 'document') {
-                    echo '<span class="viewer"><i class="bi '.$icon.'"></i></span>';
-                } else {
-                    echo '<span class="viewer"><i class="bi bi-eye"></i></span>';
-                }
-            ?>
+        <a href="<?=$_args['permalink']?>" class="<?=$_args['permalink_class']?>">
+            <img class="postcard__image" src="<?=$_args['thumbnail']?>">
+            <?php if($_args['viewer_icon']) echo '<span class="viewer"><i class="bi '.$_args['viewer_icon'].'"></i></span>'; ?>
         </a>
     </div>
 </div>

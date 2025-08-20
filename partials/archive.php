@@ -8,10 +8,8 @@ if ( !empty($archive_page_id) ) :
 	$page = new Page();
 	echo $page->the_content( $archive_page_id );
 else : ?>
-	<?php if (have_posts()) : ?>
-		<div class="page-module">
-			<?php get_template_part('partials/loop'); ?>
-			<?php get_template_part('partials/pagination'); ?>
-		</div>
-	<?php endif; ?>
+	<div class="page-module">
+		<?php get_template_part('partials/loop'); ?>
+		<?php if (have_posts()) get_template_part('partials/pagination'); ?>
+	</div>
 <?php endif; ?>

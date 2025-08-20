@@ -2,6 +2,28 @@
 CHANGELOG
 **************************************************************************************************
 
+2.10.0 25-08-19
+- Several changes to improve Document usage:
+  * Dynamic content settings implementation in Core\Posttype\Menu_Item and Nav_Walker
+  * Dynamic content implementation in Core\Posttype\Archive_Page
+  * dynamic-megamenu.js
+  * Document Class improvements
+  * Post_Card standarization
+  * Post_Card::get_main_taxonomy_terms, Post_Card::get_secondary_taxonomy_terms
+  * Post card folder implementation
+  * Single document standarization
+  * Taxonomy_Breadcrumbs::get_root_term() refactorization
+  * TRACK_POSTS_DATA constant removed
+  * Filter hooks added:
+  * filter_postcard
+  * filter_{posttype}_post_type_setting
+  * filter_{posttype}_main_taxonomy_settings
+  * filter_{posttype}_main_taxonomy_fields
+  * filter_related_{posttype}_args
+  * Action hooks added:
+  * Listing Comp: on_listing_start, on_listing_end
+  * Archive - loop: before_loop, on_archive_listing_start, on_archive_listing_end
+
 2.9.3 25-08-11
 - Fix password protected page
 

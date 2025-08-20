@@ -60,6 +60,7 @@ class Animated_Properties_Repeater
                 $group = Repeater_Group::create($key)
                     ->set_title(__($label, '_mv23theme'))
                     ->add_fields(array(
+                        // translators: %s: Enable property
                         Field::create('checkbox', 'value')->set_text( sprintf( __('Enable %s', '_mv23theme'), $label ) )
                     ));
             } elseif ($type === 'select') {
@@ -73,6 +74,7 @@ class Animated_Properties_Repeater
                     ));
             } elseif ($type === 'complex') {
                 $group = Repeater_Group::create($key)
+                    // translators: %s: Custom Property
                     ->set_title(__($label, '_mv23theme'))
                     ->add_fields(array(
                         Field::create('text', 'custom_prop'),

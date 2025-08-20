@@ -23,18 +23,33 @@ class Taxonomy_Breadcrumbs{
     }
 
     static function get_root_term($taxonomy = 'category'){
-        $terms_by_id = self::get_terms_ids($taxonomy);
+        $root_term = null;
 
-        // Buscar el término de nivel más alto (sin padre)
-        $root_terms = array_filter($terms_by_id, function ($term) {
-            return $term->parent === 0;
-        });
-
-        if (empty($root_terms)) {
-            return;
+        if(is_singular()){
+            $terms_by_id = self::get_terms_ids($taxonomy);
+    
+            // Buscar el término de nivel más alto (sin padre)
+            $root_terms = array_filter($terms_by_id, function ($term) {
+                return $term->parent === 0;
+            });
+            if (empty($root_terms)) {
+                return;
+            }
+    
+            $root_term = reset($root_terms);
         }
 
-        $root_term = reset($root_terms);
+        if ( is_tax() || is_category() || is_tag() ){
+            $term = get_queried_object();
+            
+            if ($term && isset($term->term_id)) {
+                $root_term = $term;
+                while ($root_term->parent != 0) {
+                    $root_term = get_term($root_term->parent, $term->taxonomy);
+                }
+            }
+        }
+
         return $root_term;
     }
 

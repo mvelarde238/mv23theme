@@ -2,29 +2,42 @@
 use Core\Frontend\Post_Card;
 
 global $post;
-$id = $post->ID;
-$title = $post->post_title;
-$link = Post_Card::get_permalink($post);
-$excerpt = Post_Card::get_excerpt($post, 110);
-$thumb_url = Post_Card::get_thumbnail($post, 'medium');
-$postcard_attributes = Post_Card::build_attributes($post, $args);
-$main_terms = Post_Card::get_main_taxonomy($post);
-$tags = Post_Card::get_secondary_taxonomy($post);
-$featured_video = Post_Card::get_featured_video($post);
+
+$postcard_args = array(
+    'id' => $post->ID,
+    'posttype' => $post->post_type,
+    'title' => $post->post_title,
+    'metadata' => array(),
+    'permalink' => Post_Card::get_permalink($post),
+    'permalink_text' => __('More details','mv23theme'),
+    'permalink_icon' => 'bi-arrow-up-right',
+    'permalink_class' => 'trigger-post-action',
+    'excerpt' => Post_Card::get_excerpt($post, 110),
+    'thumbnail' => Post_Card::get_thumbnail($post, 'full'),
+    'featured_video' => Post_Card::get_featured_video($post),
+    'attributes' => Post_Card::build_attributes($post, $args),
+    'main_terms' => Post_Card::get_main_taxonomy_terms($post),
+    'tags' => Post_Card::get_secondary_taxonomy_terms($post),
+    'date' => '<div><p class="postcard__date">'.Post_Card::display_date($post).'</p></div>',
+    'viewer_icon' => 'bi-eye',
+    'style' => 'style3'
+);
+
+$_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
 ?>
-<div class="postcard postcard--style3" <?php echo $postcard_attributes ?>>
+<div class="postcard postcard--style3" <?php echo $_args['attributes'] ?>>
     <div class="postcard__wrapper">
-        <a href="<?=$link?>" class="postcard__image trigger-post-action" style="background-image:url(<?=$thumb_url?>);">
-            <?php if($featured_video) echo $featured_video; ?>
+        <a href="<?=$_args['permalink']?>" class="postcard__image <?=$_args['permalink_class']?>" style="background-image:url(<?=$_args['thumbnail']?>);">
+            <?php if($_args['featured_video']) echo $_args['featured_video']; ?>
         </a>
         <div class="postcard__content text-color-2">
-            <h2 class="postcard__title"><?php echo $title; ?></h2>
+            <h2 class="postcard__title"><?php echo $_args['title']; ?></h2>
             <span>→</span>
-            <a class="cover-all trigger-post-action" href="<?=$link?>"></a>
+            <a class="cover-all <?=$_args['permalink_class']?>" href="<?=$_args['permalink']?>"></a>
         </div>
-        <?php if( is_array($tags) && count($tags) > 0 ){
+        <?php if( is_array($_args['tags']) && count($_args['tags']) > 0 ){
 			echo '<div class="postcard__tags text-color-2">';
-			echo Post_Card::display_terms($tags);
+			echo Post_Card::display_terms($_args['tags']);
 			echo '</div>';
 		} ?>
     </div>

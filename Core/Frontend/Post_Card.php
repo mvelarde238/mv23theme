@@ -55,24 +55,49 @@ class Post_Card {
         return implode(' ', $attributes);
     }
 
-    public static function get_main_taxonomy($post) {
-        $taxonomy = 'category'; // Default taxonomy
-        if ($post->post_type == 'document') {
-            $taxonomy = 'document-cat';
-        } elseif ($post->post_type == 'portfolio') {
-            $taxonomy = 'portfolio-cat';
+    public static function get_main_taxonomy_terms($post) {
+        $terms = array();
+        $posttype = $post->post_type;
+
+        $main_taxonomy_list = apply_filters('filter_main_taxonomy_list', array(
+            'post' => 'category',
+            'product' => 'product_cat'
+        ));
+
+        if( isset($main_taxonomy_list[$posttype]) ){
+            $terms = get_the_terms($post->ID, $main_taxonomy_list[$posttype]);
+        } else {
+            if( taxonomy_exists($posttype.'-cat') ){
+                $terms = get_the_terms($post->ID, $posttype.'-cat');
+            }
+            if( taxonomy_exists($posttype.'_cat') ){
+                $terms = get_the_terms($post->ID, $posttype.'_cat');
+            }
         }
-        return get_the_terms($post->ID, $taxonomy);
+
+        return $terms;
     }
 
-    public static function get_secondary_taxonomy($post) {
-        $taxonomy = 'post_tag'; // Default taxonomy
-        if ($post->post_type == 'document') {
-            $taxonomy = 'document-tag';
-        } elseif ($post->post_type == 'portfolio') {
-            $taxonomy = 'portfolio-tag';
+    public static function get_secondary_taxonomy_terms($post) {
+        $terms = array();
+        $posttype = $post->post_type;
+
+        $secondary_taxonomy_list = apply_filters('filter_secondary_taxonomy_list', array(
+            'post' => 'post_tag',
+            'product' => 'product_tag'
+        ));
+
+        if( isset($secondary_taxonomy_list[$posttype]) ){
+            $terms = get_the_terms($post->ID, $secondary_taxonomy_list[$posttype]);
+        } else {
+            if( taxonomy_exists($posttype.'-tag') ){
+                $terms = get_the_terms($post->ID, $posttype.'-tag');
+            }
+            if( taxonomy_exists($posttype.'_tag') ){
+                $terms = get_the_terms($post->ID, $posttype.'_tag');
+            }
         }
-        return get_the_terms($post->ID, $taxonomy);
+        return $terms;
     }
 
     public static function get_featured_video($post) {

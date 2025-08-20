@@ -9,7 +9,6 @@ define ('FONT_AWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7
 define ('BOOTSTRAP_ICONS', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
 define ('ADJUST_SCROLL_POSITION', adjust_scroll_position_is_active());
 define ('POSTS_SUBSCRIPTION', posts_subscription_is_active());
-define ('TRACK_POSTS_DATA', track_posts_data_is_active());
 
 // define ('IS_MULTILANGUAGE', class_exists('Polylang') );
 define ('IS_MULTILANGUAGE', function_exists('pll_the_languages') );

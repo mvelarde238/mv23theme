@@ -8,10 +8,14 @@ $postcard_settings = $archive_page->get_postcard_settings();
 
 $posttype = get_post_type();
 $postcard_template = ( !empty($postcard_settings['template']) ) ? $postcard_settings['template'] : $posttype;
+
+do_action('before_loop');
 ?>
 <div class="component">
 	<div class="posts-listing has-columns" style="--d-gap:<?=$gap['desktop']?>px; --l-gap:<?=$gap['laptop']?>px; --t-gap:<?=$gap['tablet']?>px; --m-gap:<?=$gap['mobile']?>px; --d-columns:<?=$columns['desktop']?>; --l-columns:<?=$columns['laptop']?>; --t-columns:<?=$columns['tablet']?>; --m-columns:<?=$columns['mobile']?>;">
-		<?php 
+		<?php
+		do_action('on_archive_listing_start');
+
 		$count = 0;
 		while (have_posts()) : the_post();
 
@@ -23,6 +27,9 @@ $postcard_template = ( !empty($postcard_settings['template']) ) ? $postcard_sett
             ));
 
 			$count++;
-		endwhile; ?>
+		endwhile;
+
+		do_action('on_archive_listing_end');
+		?>
 	</div>
 </div>

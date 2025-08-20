@@ -6,12 +6,15 @@ use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 use Core\Theme_Options\UF_Container\Posts_Subscription;
 use Core\Theme_Options\UF_Container\Track_Posts_Data;
+use Core\Frontend\Post_Card;
 
 class Document {
 
     private static $instance = null;
 
     protected $post_type_slug;
+
+    private static $registered_posttypes = array();
 
 	public static function getInstance() {
         if (self::$instance == null) {
@@ -30,21 +33,34 @@ class Document {
 
 	public function register_posttype(){
         $post_type_slug = $this->post_type_slug;
+        $plural_name = ucfirst($post_type_slug . 's');
+        $singular_name = ucfirst($post_type_slug);
 
-        // add a filter to modify the post type setting
+        // filter to modify the post type names
+        $document_names = apply_filters('filter_' . $post_type_slug . '_post_type_names', array(
+            'post_type_name' => $post_type_slug,
+            'plural' => __($plural_name, 'mv23theme'),
+            'singular' => __($singular_name, 'mv23theme')
+        ));
+        
+        // filter to modify the post type setting
         $document_settings = apply_filters('filter_' . $post_type_slug . '_post_type_settings', array(
             'public' => true,
             'has_archive' => true,
             'supports' => array('title', 'thumbnail', 'revisions'),
             'menu_icon' => 'dashicons-media-document',
+            'labels' => array(
+                'add_new_item' => __('Add New Document', 'mv23theme')
+            )
         ));
 
 		$document = new CPT(
-			$post_type_slug, 
+			$document_names, 
 			$document_settings
 		);
 
-		$document->register_taxonomy(array(
+        // filter to modify the main post type taxonomy settings
+        $main_taxonomy_settings = apply_filters('filter_' . $post_type_slug . '_main_taxonomy_settings', array(
 			'taxonomy_name' => $post_type_slug . '-cat',
 			'singular' => __('Document Category', 'mv23theme'),
 			'plural' => __('Document Categories', 'mv23theme'),
@@ -52,15 +68,21 @@ class Document {
 			'slug' => $post_type_slug . '-cat'
 		));
 
-        $document->register_taxonomy(array(
-			'taxonomy_name' => $post_type_slug . '-tag',
+		$document->register_taxonomy($main_taxonomy_settings);
+
+        // filter to modify the secondary post type taxonomy settings
+        $secondary_taxonomy_settings = apply_filters('filter_' . $post_type_slug . '_secondary_taxonomy_settings', array(
+			'taxonomy_name' => $post_type_slug . '_tag',
 			'hierarchical' => false,
 			'show_ui' => true,
-			'singular' => 'Document Tag',
-			'plural' => 'Document Tags',
-			'slug' => $post_type_slug . '-tag'
-		));
+			'singular' => __('Tag', 'mv23theme'),
+			'plural' => __('Tags', 'mv23theme'),
+			'slug' => $post_type_slug . '_tag'
+		)); 
 
+        $document->register_taxonomy($secondary_taxonomy_settings);
+
+        // handle post type admin columns
         $document->columns(array(
             'cb' => '<input type="checkbox" />',
             'title' => __('Title', 'mv23theme'),
@@ -72,7 +94,14 @@ class Document {
 
         $document->populate_column($post_type_slug . '-data', array($this, 'populate_document_data_column'));
         $document->populate_column('file', array($this, 'populate_document_file_column'));
+
+        // Populate registered_posttypes to have a control
+        self::$registered_posttypes[] = $post_type_slug;
 	}
+
+    public static function get_registered_posttypes(){
+        return self::$registered_posttypes;
+    }
 
     public function add_meta_boxes() {
         $post_type_slug = $this->post_type_slug;
@@ -110,10 +139,21 @@ class Document {
         }
 
         Container::create( 'document_settings' )
-            ->add_location( 'post_type', $post_type_slug, array( 
-                // 'context' => 'side' 
-            ))
+            ->add_location( 'post_type', $post_type_slug, array())
             ->add_fields( $fields );
+
+        // Main Taxonomy Fields
+        $main_taxonomy_fields = apply_filters('filter_'.$post_type_slug.'_main_taxonomy_fields', array(
+            Field::create( 'select', 'content_type', __('Content', 'mv23theme'))->add_options(array(
+                '' => __('Show documents from this category', 'mv23theme'),
+                'terms_hierarchy' => __('Show terms hierarchy of this category', 'mv23theme'),
+                'terms_and_posts_children' => __('Show terms and documents from this category', 'mv23theme')
+            ))
+        ));
+
+        $term_settings_container = Container::create( $post_type_slug.'_term_settings' )
+            ->add_location( 'taxonomy', $post_type_slug.'-cat', array())
+            ->add_fields($main_taxonomy_fields);
     }
 
     public function populate_document_file_column( $column_name, $post ){
@@ -142,12 +182,13 @@ class Document {
 
     public function populate_document_data_column( $column_name, $post ){
 
-        if( TRACK_POSTS_DATA ){
+        if( Track_Posts_Data::track_data_is_active($post) ){
             echo Track_Posts_Data::get_data_for_admin_column($post);
         }
 
         if ( POSTS_SUBSCRIPTION ){
             $subscribe_to_continue = Posts_Subscription::post_subscription_is_active($post->ID);
+            // translators: %s: Yes or No
             if($subscribe_to_continue) echo sprintf(__('Subscribe to continue: %s', 'mv23theme'), __('Yes', 'mv23theme')) . '<br>';
             else echo sprintf(__('Subscribe to continue: %s', 'mv23theme'), __('No', 'mv23theme')) . '<br>';
         }
@@ -160,6 +201,12 @@ class Document {
         if($content_type == 'file') {
             $file_id = get_post_meta($post_id, 'file', true);
             if($file_id) $file_url = wp_get_attachment_url($file_id);   
+
+            $remote_video_data = self::get_remote_video_data($post_id);
+            $is_remote_video = ($remote_video_data['link']) ? true : false;
+            if( $is_remote_video ){
+                $file_url = $remote_video_data['link'];
+            }
         } else {
             $file_url = get_post_meta($post_id, 'file_url', true);
         }
@@ -182,6 +229,7 @@ class Document {
                 $remote_video = get_post_meta($file_id,'wpmf_remote_video_link',true);
                 $remote_video_data['link'] = $remote_video;
                 $remote_video_data['icon'] = 'bi-youtube';
+                $remote_video_data['thumbnail'] = wp_get_attachment_url($file_id);
             }
         }
 
@@ -206,19 +254,94 @@ class Document {
         return $file_size;
     }
 
-    public static function get_thumbnail($thumb_url, $ext, $file_url) {
-        $thumbnail = $thumb_url;
-
-        $images_extensions = array('jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg', 'video');
+    public static function get_thumbnail($thumbnail_url, $ext, $document_link, $id) {
+        $images_extensions = array('jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg');
         if( in_array($ext, $images_extensions) ){
-            $thumbnail = $file_url;
+            $thumbnail_url = $document_link;
         }
 
-        return $thumbnail;
+        if($ext == 'video'){
+            $remote_video_data = self::get_remote_video_data($id);
+            $is_remote_video = ($remote_video_data['link']) ? true : false;
+            if( $is_remote_video ){
+                $thumbnail_url = $remote_video_data['thumbnail'];
+            }
+        }
+
+        return $thumbnail_url;
     }
 
     public static function can_be_previewed($ext) {
         $images_extensions = array('jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg', 'video');
         return in_array($ext, array_merge($images_extensions, array('pdf')));
+    }
+
+    // redirect to single-document.php if exists
+    public function single_template($template) {
+        global $post;
+
+        if ( in_array($post->post_type, Document::get_registered_posttypes()) ) {
+            // check single-{posttype}.php
+            $repo_template = locate_template( 'single-'.$post->post_type.'.php' );
+            if ( $repo_template ) {
+                return $repo_template;
+            }
+
+            // use single-document.php
+            $document_template = locate_template( 'single-document.php' );
+            if ( $document_template ) {
+                return $document_template;
+            }
+        }
+
+        return $template;
+    }
+
+    public function filter_postcard($postcard_args, $post, $args){
+        if ( 
+            in_array($post->post_type, Document::get_registered_posttypes()) 
+            && $postcard_args['style'] === 'style4'
+        ){
+            $id = $post->ID;
+            $document_link = self::get_document_file_url($id);
+            $ext = ($document_link) ? pathinfo($document_link, PATHINFO_EXTENSION) : 'pdf';
+            $icon = 'bi-filetype-'.$ext;
+            
+            $remote_video_data = self::get_remote_video_data($id);
+            $is_remote_video = ($remote_video_data['link']) ? true : false;
+            if( $is_remote_video ){
+                $ext = 'video';
+                $icon = $remote_video_data['icon'];
+            }
+            
+            // ADD METADATA
+            $metadata[] = $ext;
+            $content_type = get_post_meta($id, 'content_type', true);
+
+            if ( $content_type == 'file' && !$is_remote_video ) {
+                $file_size = self::get_file_size($id);
+                if($file_size) $metadata[] = $file_size;
+            }
+    
+            $last_modified = get_the_modified_date('d/m/Y', $id);
+            $metadata[] = __('Last modified', 'mv23theme') . ': ' . $last_modified;
+
+            // Filter data
+            $postcard_args['title'] .= ' <span class="postcard__metadata text-xxs">- '. (implode(', ', $metadata)).'</span>';
+            $postcard_args['thumbnail'] = self::get_thumbnail($postcard_args['thumbnail'], $ext, $document_link, $id);
+            $postcard_args['viewer_icon'] = $icon;
+            
+            if( Track_Posts_Data::track_data_is_active($post) ){
+                $actions = array('post_likes');
+                
+                $can_be_previewed = self::can_be_previewed($ext);
+                if( $can_be_previewed ) $actions[] = 'post_previsualizations';
+                
+                if( !$is_remote_video ) $actions[] = 'post_downloads';
+                
+                $postcard_args['date'] = '<div class="postcard__actions">'.Post_Card::display_actions($post, $document_link, $actions).'</div>';
+            }
+        }
+        return $postcard_args;
     }
 }

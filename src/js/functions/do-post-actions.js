@@ -39,7 +39,7 @@ function do_post_action(action_key, post_id, postcard = null, count_wrapper = nu
                 let success_event = new CustomEvent(action_key + '_success', { detail: events_detail });
                 document.body.dispatchEvent(success_event);
             } else {
-                console.log('Error: ' + response.data);
+                console.log('Error', response.data);
                 let error_event = new CustomEvent(action_key + '_error', { detail: events_detail });
                 document.body.dispatchEvent(error_event);
             }

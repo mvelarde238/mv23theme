@@ -72,17 +72,34 @@ class Track_Posts_Data{
         $data = '';
 
         $post_views_count = get_post_meta($post->ID,'post_views_count',true);
+        // translators: %s: Views Count
         if($post_views_count) $data .= sprintf(__('Views: %s', 'mv23theme'), $post_views_count) . '<br>';
 
         $likes_count = get_post_meta($post->ID,'post_likes_count',true);
+        // translators: %s: Likes Count
         if($likes_count) $data .= sprintf(__('Likes: %s', 'mv23theme'), $likes_count) . '<br>';
 
         $previsualization_count = get_post_meta($post->ID,'previsualization_count',true);
+	    // translators: %s: Previews Count
 	    if($previsualization_count) $data .= sprintf(__('Previews: %s', 'mv23theme'), $previsualization_count) . '<br>';
 
         $download_count = get_post_meta($post->ID,'download_count',true);
+	    // translators: %s: Downloads Count
 	    if($download_count) $data .= sprintf(__('Downloads: %s', 'mv23theme'), $download_count) . '<br>';
 
         return $data;
+    }
+
+    public static function track_data_is_active( $post ){
+        $is_active = false;
+
+        $track_posts_data_settings = get_option('track_posts_data_settings');
+        if($track_posts_data_settings && $track_posts_data_settings['activate']) {
+            if( in_array($post->post_type, $track_posts_data_settings['post_types']) ){
+                $is_active = true;
+            }
+        }
+
+        return $is_active;
     }
 }

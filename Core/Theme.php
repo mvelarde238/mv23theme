@@ -110,10 +110,8 @@ class Theme extends Theme_Header_Data {
             $this->loader->add_filter( 'filter_post_card_permalink', $posts_subscription, 'filter_post_card_permalink', 10, 2 );
         }
 
-        if( TRACK_POSTS_DATA ){
-            // Initialize the Track_Posts_Data instance in the frontend:
-            $track_posts_data = Track_Posts_Data::getInstance();
-        }
+        // Initialize the Track_Posts_Data instance in the frontend:
+        $track_posts_data = Track_Posts_Data::getInstance();
     }
 
     private function define_admin_hooks() {	
@@ -250,6 +248,10 @@ class Theme extends Theme_Header_Data {
         // redirect single archive page to connected posttype / taxonomy / term
         $this->loader->add_action( 'template_redirect', $archive_pages, 'redirect_single' );
 
+        // filter archive content if needed
+        $this->loader->add_action( 'wp_head', $archive_pages, 'wp_head_archive' );
+        $this->loader->add_action( 'pre_get_posts', $archive_pages, 'pre_get_posts' );
+
         // MV23 Library
         $mv23_library = MV23_Library::getInstance();
         $this->loader->add_action( 'uf.init', $mv23_library, 'add_meta_boxes' );
@@ -258,6 +260,8 @@ class Theme extends Theme_Header_Data {
         if( USE_DOCUMENT_CPT ){
             $document = Document::getInstance();
             $this->loader->add_action( 'uf.init', $document, 'add_meta_boxes' );
+            $this->loader->add_action( 'single_template', $document, 'single_template' );
+            $this->loader->add_filter( 'filter_postcard', $document, 'filter_postcard', 10, 3 );
         }
 
         // ajax functions for MV23 library CPT

@@ -447,6 +447,8 @@ class Listing extends Component {
                 <?php endif; ?>
     
                 <?php 
+                do_action('on_listing_start', $args);
+
                 $count = 0;
                 while ( $query->have_posts() ) : $query->the_post();
                     $args['count'] = $count;
@@ -460,6 +462,8 @@ class Listing extends Component {
                     if($listing_template == 'carrusel') echo '</div>';
                     $count++;
                 endwhile; 
+
+                do_action('on_listing_end', $args);
                 ?>
     
                 <?php if($listing_template == 'carrusel'): ?>
