@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.10.1 25-08-20
+- Fix common-settings-control not saving when this error happens: unsupported file type color
+
 2.10.0 25-08-19
 - Several changes to improve Document usage:
   * Dynamic content settings implementation in Core\Posttype\Menu_Item and Nav_Walker

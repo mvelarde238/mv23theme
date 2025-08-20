@@ -120,13 +120,15 @@
 						var processed_data, 
 							raw_data = this.model.get('raw_data');
 
-						this.$el.find('.wp-color-picker').wpColorPicker('close');
+						let _wp_color_picker = this.$el.find('.wp-color-picker');
+						if(_wp_color_picker.length) _wp_color_picker.wpColorPicker('close');
 
 						var errors = this.model.get('_popup_container').model.validate();
 
 						if( ! errors ) {
 							
-							this.$el.find('.colour-picker').iris('hide');
+							let _colour_picker = this.$el.find('.colour-picker');
+							if(_colour_picker.length) _colour_picker.iris('hide');
 
                 			processed_data = that.filterData( this.model.get( 'container' ), raw_data );
 
