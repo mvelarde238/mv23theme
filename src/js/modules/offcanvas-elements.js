@@ -172,6 +172,8 @@ window['OffCanvas_Elements'] = (function(){
             }
     
             el.querySelector('.modal-content').innerHTML = content;
+            
+            this._maybe_init_toggleboxes(el);
         },
         _handle_async_error(error, msg, el, debug) {
             this._check_async_attributes('error', el);
@@ -354,6 +356,14 @@ window['OffCanvas_Elements'] = (function(){
                 offcanvas_element.querySelectorAll('a').forEach(element => {
                     element.classList.add(close_on_click_class);
                 });
+            }
+        },
+        _maybe_init_toggleboxes(el){
+            var toggleboxes = el.getElementsByClassName('v23-togglebox');
+            for (var i = 0; i < toggleboxes.length; i++) {
+                var el = toggleboxes[i],
+                    options = { headerHeight : MV23_GLOBALS.headerHeight };
+                V23_ToggleBox.create( el, options );
             }
         }
     }
