@@ -5,6 +5,7 @@ CHANGELOG
 2.10.1 25-08-20
 - Fix common-settings-control not saving when this error happens: unsupported file type color
 - _maybe_init_toggleboxes() function implementation on async Offcanvas Elements
+- Move post title inside .hentry article
 
 2.10.0 25-08-19
 - Several changes to improve Document usage:

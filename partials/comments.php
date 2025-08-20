@@ -1,5 +1,5 @@
 <?php if ( comments_open() || get_comments_number() ) : ?>
-	<div class="page-module pdt0">
+	<div class="page-module pdt0 comments-section-wrapper">
         <div class="component">
 		    <?php comments_template(); ?>
 	    </div>
