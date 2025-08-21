@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.10.2 25-08-21
+- Add link to single document image
+
 2.10.1 25-08-20
 - Fix common-settings-control not saving when this error happens: unsupported file type color
 - _maybe_init_toggleboxes() function implementation on async Offcanvas Elements

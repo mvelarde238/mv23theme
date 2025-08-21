@@ -47,18 +47,26 @@ if($document_link && $subscribe_to_continue) $document_link = '#';
                 <div class="single-document__image-wrapper">
                     <div class="single-document__image">
                         <?php
-                        if($thumb_url){
-                            echo '<img src="'.$thumb_url.'" alt="Document image">';
-                        } else {
                             if($document_link) {
-                                echo '<a href="'.esc_url($document_link).'"';
-                                if(!$subscribe_to_continue) echo ' data-fancybox';
-                                if($subscribe_to_continue) echo ' data-id="'.$id.'" data-action="subscribe-to-preview"';
-                                echo ' class="previsualization-count-js">';
+                                // TOD DO: check susbscription 
+                                if( $can_be_previewed ){
+                                    echo '<a href="'.esc_url($document_link).'"';
+                                    if(!$subscribe_to_continue) echo ' class="previsualization-count-js" data-fancybox data-caption="'.$caption.'"'; 
+                                    echo ' title="'.__('Preview', 'mv23theme').'">';
+                                } else {
+                                    if( !$is_remote_video ): 
+                                        echo '<a href="'.esc_url($document_link).'"';
+                                        if(!$subscribe_to_continue) echo ' class="download-count-js" download';
+                                        echo ' title="'.__('Download', 'mv23theme').'">';
+                                    endif;
+                                }
                             }
-                            echo '<div class="img"><i class="bi '.$icon.'"></i></div>';
-                            if($document_link) echo '</a>';
-                        }
+                            if( !str_contains($thumb_url, 'nothumb') ){
+                                echo '<img src="'.$thumb_url.'" alt="Document image">';
+                            } else {
+                                echo '<div class="img"><i class="bi '.$icon.'"></i></div>';
+                            }
+                            if($document_link && $can_be_previewed) echo '</a>';
                         ?>
                     </div>
                 </div>
