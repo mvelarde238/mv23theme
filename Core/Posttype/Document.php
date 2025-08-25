@@ -122,7 +122,7 @@ class Document {
             ))
         );
         
-        if(POSTS_SUBSCRIPTION){
+        if( in_array($post_type_slug, POSTS_SUBSCRIPTION['post_types']) ){
             $fields[] = Field::create( 'complex', '_post_subscription_wrapper', __('Post Subscription', 'mv23theme') )->merge()->add_fields(array(
                 Field::create( 'checkbox', 'override_global_posts_subscription')
                     ->hide_label()
@@ -182,22 +182,28 @@ class Document {
 
     public function populate_document_data_column( $column_name, $post ){
 
-        if( Track_Posts_Data::track_data_is_active($post) ){
+        if( Track_Posts_Data::is_active($post) ){
             echo Track_Posts_Data::get_data_for_admin_column($post);
         }
 
-        if ( POSTS_SUBSCRIPTION ){
-            $subscribe_to_continue = Posts_Subscription::post_subscription_is_active($post->ID);
+        if( in_array($post->post_type, POSTS_SUBSCRIPTION['post_types']) ){
+            $subscribe_to_continue = Posts_Subscription::is_active($post);
             // translators: %s: Yes or No
             if($subscribe_to_continue) echo sprintf(__('Subscribe to continue: %s', 'mv23theme'), __('Yes', 'mv23theme')) . '<br>';
             else echo sprintf(__('Subscribe to continue: %s', 'mv23theme'), __('No', 'mv23theme')) . '<br>';
         }
     }
 
-    public static function get_document_file_url( $post_id ){
-        $content_type = get_post_meta($post_id, 'content_type', true);
+    public static function get_document_data( $post_id ){
         $file_url = '';
-
+        $icon = '';
+        $ext = null;
+        $file_size = null;
+        $is_remote_video = false;
+        $can_be_previewed = true;
+        
+        // file url
+        $content_type = get_post_meta($post_id, 'content_type', true);
         if($content_type == 'file') {
             $file_id = get_post_meta($post_id, 'file', true);
             if($file_id) $file_url = wp_get_attachment_url($file_id);   
@@ -211,7 +217,39 @@ class Document {
             $file_url = get_post_meta($post_id, 'file_url', true);
         }
 
-        return $file_url;
+        // extension 
+        if($file_url) $ext = pathinfo($file_url, PATHINFO_EXTENSION);
+        if( $is_remote_video ) $ext = 'video';
+        
+        // icon
+        $icon = ($ext) ? 'bi-filetype-'.$ext : 'bi-file-earmark';
+        if( $is_remote_video ) $icon = $remote_video_data['icon'];
+
+        // can be previewed
+        $can_be_previewed_ext = array('jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg', 'video', 'pdf');
+        $can_be_previewed = in_array($ext, $can_be_previewed_ext);
+
+        // file size
+        $file_id = get_post_meta($post_id, 'file', true);
+        if($content_type == 'file' && $file_id && !$is_remote_video) {
+            $file_path = get_attached_file( $file_id );
+            if(file_exists($file_path)) {
+                $file_size_bytes = filesize( $file_path );
+                $file_size_kb = round( $file_size_bytes / 1024, 2 );
+                $file_size_mb = round( $file_size_bytes / 1024 / 1024, 2 );
+                $file_size = (  $file_size_mb > 1 ) ? intval($file_size_mb). ' MB' : intval($file_size_kb) . ' KB';
+            }
+        }
+        
+        return array(
+            'file_url' => $file_url,
+            'icon' => $icon,
+            'extension' => $ext,
+            'is_remote_video' => $is_remote_video,
+            'can_be_previewed' => $can_be_previewed,
+            'file_size' => $file_size,
+            'last_modified' => get_the_modified_date('d/m/Y', $post_id)
+        );
     }
 
     // WP MEDIA FOLDER PLUGIN: REMOTE VIDEO SUPPORT
@@ -236,24 +274,6 @@ class Document {
         return $remote_video_data;
     }
 
-    public static function get_file_size( $post_id ){
-        $file_size = null;
-        $content_type = get_post_meta($post_id, 'content_type', true);
-        if($content_type == 'file') {
-            $file_id = get_post_meta($post_id, 'file', true);
-            if($file_id) {
-                $file_path = get_attached_file( $file_id );
-                if(file_exists($file_path)) {
-                    $file_size_bytes = filesize( $file_path );
-                    $file_size_kb = round( $file_size_bytes / 1024, 2 );
-                    $file_size_mb = round( $file_size_bytes / 1024 / 1024, 2 );
-                    $file_size = (  $file_size_mb > 1 ) ? intval($file_size_mb). ' MB' : intval($file_size_kb) . ' KB';
-                }
-            }
-        }
-        return $file_size;
-    }
-
     public static function get_thumbnail($thumbnail_url, $ext, $document_link, $id) {
         $images_extensions = array('jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg');
         if( in_array($ext, $images_extensions) ){
@@ -269,11 +289,6 @@ class Document {
         }
 
         return $thumbnail_url;
-    }
-
-    public static function can_be_previewed($ext) {
-        $images_extensions = array('jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg', 'video');
-        return in_array($ext, array_merge($images_extensions, array('pdf')));
     }
 
     // redirect to single-document.php if exists
@@ -303,27 +318,19 @@ class Document {
             && $postcard_args['style'] === 'style4'
         ){
             $id = $post->ID;
-            $document_link = self::get_document_file_url($id);
-            $ext = ($document_link) ? pathinfo($document_link, PATHINFO_EXTENSION) : 'pdf';
-            $icon = 'bi-filetype-'.$ext;
-            
-            $remote_video_data = self::get_remote_video_data($id);
-            $is_remote_video = ($remote_video_data['link']) ? true : false;
-            if( $is_remote_video ){
-                $ext = 'video';
-                $icon = $remote_video_data['icon'];
-            }
+            $document_data = Document::get_document_data($id);
+            $document_link = $document_data['file_url'];
+            $ext = $document_data['extension'];
+            $icon = $document_data['icon'];
+            $is_remote_video = $document_data['is_remote_video'];
+            $can_be_previewed = $document_data['can_be_previewed'];
+            $file_size = $document_data['file_size'];
+            $last_modified = $document_data['last_modified'];
             
             // ADD METADATA
-            $metadata[] = $ext;
-            $content_type = get_post_meta($id, 'content_type', true);
-
-            if ( $content_type == 'file' && !$is_remote_video ) {
-                $file_size = self::get_file_size($id);
-                if($file_size) $metadata[] = $file_size;
-            }
-    
-            $last_modified = get_the_modified_date('d/m/Y', $id);
+            $metadata = array();
+            if($ext) $metadata[] = $ext;
+            if($file_size) $metadata[] = $file_size;
             $metadata[] = __('Last modified', 'mv23theme') . ': ' . $last_modified;
 
             // Filter data
@@ -331,10 +338,9 @@ class Document {
             $postcard_args['thumbnail'] = self::get_thumbnail($postcard_args['thumbnail'], $ext, $document_link, $id);
             $postcard_args['viewer_icon'] = $icon;
             
-            if( Track_Posts_Data::track_data_is_active($post) ){
+            if( Track_Posts_Data::is_active($post) ){
                 $actions = array('post_likes');
                 
-                $can_be_previewed = self::can_be_previewed($ext);
                 if( $can_be_previewed ) $actions[] = 'post_previsualizations';
                 
                 if( !$is_remote_video ) $actions[] = 'post_downloads';

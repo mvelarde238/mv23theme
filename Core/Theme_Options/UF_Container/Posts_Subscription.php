@@ -76,14 +76,7 @@ class Posts_Subscription{
     }
 
     public function filter_post_card_permalink($permalink, $post) {
-        $posts_subscription_settings = get_option('posts_subscription_settings');
-
-        $post_types = $posts_subscription_settings['post_types'];
-        if( !is_array($post_types) || !in_array($post->post_type, $post_types) ) {
-            return $permalink;
-        }
-
-        if( !self::post_subscription_is_active($post->ID) ) {
+        if( !self::is_active($post) ) {
             return $permalink;
         }
 
@@ -95,18 +88,32 @@ class Posts_Subscription{
         return $permalink;
     }
 
-    public static function post_subscription_is_active( $post_id ){
+    public static function is_active( $post ){
         $is_active = false;
 
-        $override_global_posts_subscription = get_post_meta($post_id, 'override_global_posts_subscription', true);
+        // check global settings first
+        if( in_array($post->post_type, POSTS_SUBSCRIPTION['post_types']) ) {
+            $is_active = true;
 
-        if($override_global_posts_subscription) {
-            $posts_subscription = get_post_meta($post_id, 'post_subscription', true);
-            if($posts_subscription) $is_active = true;
-        } else {
-            if(POSTS_SUBSCRIPTION) $is_active = true;
+            // check if global setting is overriden in post meta
+            $override_global_posts_subscription = get_post_meta($post->ID, 'override_global_posts_subscription', true);
+            if($override_global_posts_subscription) {
+                $posts_subscription = get_post_meta($post->ID, 'post_subscription', true);
+                $is_active = $posts_subscription;
+            }
         }
-        
+
         return $is_active;
+    }
+
+    public static function maybe_obfuscate_link( $obfuscate, $file_url, $action, $post_id ){
+        if($obfuscate){
+            return add_query_arg(array(
+                'id' => $post_id,
+                'action' => $action
+            ), home_url('/'));
+        } else {
+            return $file_url;
+        }
     }
 }

@@ -159,33 +159,25 @@ class Post_Card {
 
     public static function display_actions( $post, $document_link, $actions = array() ) {
         $actions_html = '';
-        $subscribe_to_continue = Posts_Subscription::post_subscription_is_active($post->ID);
+        $subscribe_to_continue = Posts_Subscription::is_active($post);
+
+        $preview_file_url = Posts_Subscription::maybe_obfuscate_link( $subscribe_to_continue, $document_link, 'subscribe-to-preview', $post->ID);
+
+        $download_file_url = Posts_Subscription::maybe_obfuscate_link( $subscribe_to_continue, $document_link, 'subscribe-to-download', $post->ID);
 
         foreach ($actions as $action) {
             if ($action == 'post_likes') {
                 $actions_html .= '<a href="#" class="like-count-js" title="' . __('Like', 'mv23theme') . '"><i class="bi bi-heart"></i> ' . do_shortcode('[post_likes]') . '</a>';
 
             } elseif ($action == 'post_previsualizations') {
-                if ($subscribe_to_continue) {
-                    $document_link = add_query_arg(array(
-                        'id' => $post->ID,
-                        'action' => 'subscribe-to-preview'
-                    ), home_url('/'));
-                }
-                $actions_html .= '<a href="' . esc_url($document_link) . '"';
+                $actions_html .= '<a href="' . esc_url($preview_file_url) . '"';
                 if (!$subscribe_to_continue) {
                     $actions_html .= ' class="previsualization-count-js" data-fancybox data-caption="' . esc_attr($post->post_title) . '"';
                 }
                 $actions_html .= ' title="' . __('Preview', 'mv23theme') . '"><i class="bi bi-arrows-angle-expand"></i> ' . do_shortcode('[post_previsualizations]') . '</a>';
                 
             } elseif ($action == 'post_downloads') {
-                if ($subscribe_to_continue) {
-                    $document_link = add_query_arg(array(
-                        'id' => $post->ID,
-                        'action' => 'subscribe-to-download'
-                    ), home_url('/'));
-                }
-                $actions_html .= '<a href="' . esc_url($document_link) . '"';
+                $actions_html .= '<a href="' . esc_url($download_file_url) . '"';
                 if (!$subscribe_to_continue) {
                     $actions_html .= ' class="download-count-js" download';
                 }

@@ -4,8 +4,6 @@
         $('body').on('click', '[href*="&action=subscribe-to"]', function (e) {
             e.preventDefault();
 
-            if ( !MV23_GLOBALS.postsSubscription ) return;
-
             const button = $(this),
                 href = button.attr('href'),
                 urlParams = new URLSearchParams(href.split('?')[1]),

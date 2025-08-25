@@ -105,7 +105,7 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'wp_enqueue_scripts', $theme_options, 'add_theme_fonts' );
         $this->loader->add_action( 'wp_enqueue_scripts', $theme_options, 'add_css_properties' );
 
-        if( POSTS_SUBSCRIPTION ){
+        if( POSTS_SUBSCRIPTION['enabled'] ){
             $posts_subscription = Posts_Subscription::getInstance();
             $this->loader->add_filter( 'filter_post_card_permalink', $posts_subscription, 'filter_post_card_permalink', 10, 2 );
         }

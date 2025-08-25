@@ -90,7 +90,7 @@ class Track_Posts_Data{
         return $data;
     }
 
-    public static function track_data_is_active( $post ){
+    public static function is_active( $post ){
         $is_active = false;
 
         $track_posts_data_settings = get_option('track_posts_data_settings');

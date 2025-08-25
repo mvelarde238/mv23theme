@@ -38,15 +38,20 @@ if(!function_exists('adjust_scroll_position_is_active')){
 
 if(!function_exists('posts_subscription_is_active')){
     function posts_subscription_is_active(){
-        $is_active = false;
+        $settings = array(
+            'enabled' => false,
+            'post_types' => array()
+        );
+
         $posts_subscription_settings = get_option('posts_subscription_settings');
         if($posts_subscription_settings){
             if( $posts_subscription_settings['activate'] && !empty($posts_subscription_settings['form_shortcode']) ) {
-                $is_active = true;
+                $settings['enabled'] = true;
+                $settings['post_types'] = $posts_subscription_settings['post_types'];
             }
         }
 
-        return $is_active;
+        return $settings;
     }
 }
 
