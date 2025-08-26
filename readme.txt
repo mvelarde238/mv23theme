@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.10.4 25-08-26
+- Fix thumbnail in horizontak postcard
+
 2.10.3 25-08-25
 - Review Posts Subscription
 
