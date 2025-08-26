@@ -30,7 +30,7 @@ $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
 		</a>
 		<div class="postcard__content">
 			<h2 class="postcard__title">
-				<a class="<?=$_args['permalink_class']?> href="<?=$_args['permalink']?>"><?php echo $_args['title']; ?></a>
+				<a class="<?=$_args['permalink_class']?>" href="<?=$_args['permalink']?>"><?php echo $_args['title']; ?></a>
 			</h2>
 			<div class="postcard__postdata">
 				<p class="truncate">
@@ -51,7 +51,7 @@ $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
 			</div>
 			<?php if($_args['excerpt']) echo '<div class="postcard__excerpt">'.$_args['excerpt'].'</div>'; ?>
 			<div class="postcard__link">
-				<a class="<?=$_args['permalink_class']?> href="<?=$_args['permalink']?>">
+				<a class="<?=$_args['permalink_class']?>" href="<?=$_args['permalink']?>">
 					<?php if( $_args['permalink_text'] ) echo $_args['permalink_text']; ?>
                     <?php if( $_args['permalink_icon'] ) echo ' <i class="bi '.$_args['permalink_icon'].'"></i>'; ?>
 				</a>
