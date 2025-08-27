@@ -9,11 +9,11 @@ class Logos {
         $fields = array(
             Field::create( 'tab', 'logos' )
         );
-        $_count = 0;
-        
+
         foreach ( Theme_Options::getInstance()->get_logos_field_names() as $key => $value) {
-            if( $_count < 2 ) $fields[] = Field::create( 'image', $key, $value )->set_width(25);
-            $_count++;
+            if( $key != 'custom' ) {
+                $fields[] = Field::create( 'image', $key, $value )->set_width(25);
+            }
         }
 
         return $fields;

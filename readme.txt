@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.10.5 25-08-26
+- Fix LOGOS_QUANTITY Implementation
+
 2.10.4 25-08-26
 - Fix thumbnail in horizontak postcard
 
