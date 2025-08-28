@@ -193,7 +193,7 @@ class Accordion extends Component {
     
                     switch ($identifier) {
                         case 'image':
-                            $image = wp_get_attachment_url($item['image']);
+                            $image = (is_numeric($item['image'])) ? wp_get_attachment_url($item['image']) : $item['image'];
                             $style = (isset($item['image_size']) && $item['image_size'] == 'auto') ? 'style="height:auto;width:auto;"' : '';
                             $icon_html = ($image) ? '<img '.$style.' src="'.$image .'" />' : '';
                             break;
