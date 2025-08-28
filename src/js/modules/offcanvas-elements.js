@@ -20,7 +20,7 @@ window['OffCanvas_Elements'] = (function(){
         this.M_instance = null;
         this.M_instance_options = [];
         this._handle_async_settings();
-        // this._handle_callback_settings();
+        this._handle_callback_settings();
         this._create_the_M_instance();
         if( typeof this.M_instance === "object" ){
             this._handle_styles();
@@ -180,12 +180,17 @@ window['OffCanvas_Elements'] = (function(){
             if(debug) console.log(msg, error);
         },
         _handle_callback_settings(){
-            if (typeof this.oce_settings.on_open === 'string' && this.oce_settings.on_open.trim() !== '') {
-                let callbackFunction = new Function('return ' + this.oce_settings.on_open)();
-                if (typeof callbackFunction === 'function') {
-                    if( this.oce_settings.on_open ) M_instance_options.onOpenStart = callbackFunction;
-                }
-            }
+            let { M_instance_options, offcanvas_element } = this;
+
+            M_instance_options.onOpenStart = ()=>{
+                this._maybe_reflow_map_size(offcanvas_element);
+            };
+            // if (typeof this.oce_settings.on_open === 'string' && this.oce_settings.on_open.trim() !== '') {
+            //     let callbackFunction = new Function('return ' + this.oce_settings.on_open)();
+            //     if (typeof callbackFunction === 'function') {
+            //         if( this.oce_settings.on_open ) M_instance_options.onOpenStart = callbackFunction;
+            //     }
+            // }
         },
         _create_the_M_instance(){
             let { oce_settings, type, M_instance_options, offcanvas_element } = this;
@@ -364,6 +369,15 @@ window['OffCanvas_Elements'] = (function(){
                 var el = toggleboxes[i],
                     options = { headerHeight : MV23_GLOBALS.headerHeight };
                 V23_ToggleBox.create( el, options );
+            }
+        },
+        _maybe_reflow_map_size(el){
+            var maps = el.getElementsByClassName('map__gmap');
+            for (var i = 0; i < maps.length; i++) {
+                let map = maps[i].mapObject,
+                    provider = maps[i].dataset.provider;
+
+                if( provider == 'leaflet' ) map.invalidateSize(false);
             }
         }
     }

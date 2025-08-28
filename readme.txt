@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.10.6 25-08-28
+- _maybe_reflow_map_size() function implementation on Offcanvas Elements
+
 2.10.5 25-08-26
 - Fix LOGOS_QUANTITY Implementation
 
