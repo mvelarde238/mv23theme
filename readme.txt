@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.10.7 25-08-29
+- Load Flip Box Component before Carousel
+
 2.10.6 25-08-28
 - _maybe_reflow_map_size() function implementation on Offcanvas Elements
 - Accodion title accepts an url as title image

@@ -46,10 +46,10 @@ class Core{
         'theme' => array(),
         'wrappers' => array(
             'Inner_Wrapper',
+            'Flip_Box',
             'Carousel',
             'Inner_Accordion',
             'Accordion',
-            'Flip_Box',
             'Components_Wrapper',
             'Inner_Row',
             'Row'
