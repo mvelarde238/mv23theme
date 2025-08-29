@@ -12,6 +12,9 @@ use Ultimate_Fields\Template;
  * @since 3.0
  */
 class Posts extends Type {
+
+	private $query;
+
 	/**
 	 * Returns the slug of the type.
 	 *

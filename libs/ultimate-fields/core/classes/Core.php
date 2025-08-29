@@ -58,7 +58,7 @@ class Core {
 
 		define( 'ULTIMATE_FIELDS_DIR', trailingslashit( dirname( $file ) ) );
 		define( 'ULTIMATE_FIELDS_URL', $this->get_url( $file ) );
-		define( 'ULTIMATE_FIELDS_VERSION', '3.2.2' ); // original was 3.1.1
+		define( 'ULTIMATE_FIELDS_VERSION', '3.2.3' ); // original was 3.1.1
 
 		require_once dirname( $file ) . '/api.php';
 		require_once dirname( $file ) . '/compat.php';

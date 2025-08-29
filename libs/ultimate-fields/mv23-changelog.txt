@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+- 3.2.3 28-08-2025
+- Fix: Creation of dynamic property $query
+    (core\classes\Helper\Object\Type\Posts.php:159)
+
 - 3.2.2 05-08-2025
 - Fix: Remove background color from .uf-file-preview to preview file names correctly
     (core/assets/sass/field/_file.scss)

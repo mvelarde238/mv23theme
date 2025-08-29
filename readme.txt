@@ -5,6 +5,8 @@ CHANGELOG
 2.10.6 25-08-28
 - _maybe_reflow_map_size() function implementation on Offcanvas Elements
 - Accodion title accepts an url as title image
+- UF Fix creation of dynamic property $query
+- Fix undefined array key "content" in Row component
 
 2.10.5 25-08-26
 - Fix LOGOS_QUANTITY Implementation

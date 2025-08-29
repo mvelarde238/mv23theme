@@ -79,12 +79,13 @@ class Row extends Component {
 		$columns_classes = array( 'columns' );
 		$args['__type'] = array('');
 		$columns_styles = array();
-
-		$columns_quantity = count( $args['row']['content'] );
+		
+		$row_content = $args['row']['content'] ?? array();
+		$columns_quantity = count( $row_content );
 		$devices = array( 'l','t','m' );
 		$row_settings = $args['row']['row_settings'];
 		$columns_settings = $args['row']['columns_settings'];
-		$columns = $args['row']['content'];
+		$columns = $row_content;
 
 		// columns widths
 		foreach ($devices as $key) {
