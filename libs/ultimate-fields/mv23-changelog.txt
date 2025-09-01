@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+- 3.2.3 01-09-2025
+- Fix: map.js: Save map state on zoom level change and avoid marker deletion
+    (core/js/field/map.js)
+
 - 3.2.3 28-08-2025
 - Fix: Creation of dynamic property $query
     (core\classes\Helper\Object\Type\Posts.php:159)

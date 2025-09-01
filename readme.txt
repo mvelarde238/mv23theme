@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.10.8 25-09-01
+- Fix: uf map.js: Save map state on zoom level change and avoid marker deletion
+
 2.10.7 25-08-29
 - Load Flip Box Component before Carousel
 

@@ -110,6 +110,17 @@
 				zoom: zoom
 			});
 
+			// Listener para actualizar el zoom en el modelo
+			// google.maps.event.addListener(this.map, 'zoom_changed', function() {
+			// 	var value = that.model.getValue();
+			// 	if (value && typeof value === 'object') {
+			// 		value.zoom = that.map.getZoom();
+			// 		that.model.setValue(value);
+			// 		// Opcional: actualizar la posición guardada
+			// 		that.model.google_position = value.latLng;
+			// 	}
+			// });
+
 			// Add autocomplete
 			$input = this.$el.find( '.uf-map-input' ).on( 'keydown', function( e ) {
 				if( e.which == 13 ) {
@@ -286,6 +297,15 @@
 			}
 		
 			this.L_map = L.map($map.get(0)).setView(center, zoom);
+			
+			// Listener para actualizar el zoom en el modelo
+			this.L_map.on('zoomend', function() {
+				let _value = that.model.getValue();
+				if (_value && typeof _value === 'object') {
+					const newValue = { ..._value, zoom: that.L_map.getZoom() };
+					that.model.setValue(newValue);
+				}
+			});
 		
 			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				attribution: '© OpenStreetMap contributors'
@@ -376,9 +396,9 @@
 				.openOn(that.L_map);
 
 			// Manejar el evento de cierre del popup
-			that.L_infoWindow.on('remove', function() {
-				that.clearLocation();
-			});
+			// that.L_infoWindow.on('remove', function() {
+				// that.clearLocation();
+			// });
 		
 			// Manejar el evento de arrastrar el marcador
 			that.L_marker.on('dragend', function(event) {
