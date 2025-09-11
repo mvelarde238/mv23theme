@@ -246,9 +246,14 @@ abstract class Field {
 	 *
 	 * @return mixed Either a value if available, or false.
 	 */
-	public function get_value() {
+	public function get_value( $name = null ) {
+
+		if( is_null( $name ) ) {
+			$name = $this->name;
+		}
+
 		if( $this->datastore ) {
-			return $this->datastore->get( $this->name );
+			return $this->datastore->get( $name );
 		} else {
 			return false;
 		}

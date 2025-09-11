@@ -160,6 +160,6 @@ class Missing_Features {
 			$items[] = '<li>- ' . $class_name . ' (' . $context . ')</li>';
 		}
 
-		echo '<ul>' . implode( $items, "\n" ) . '</ul>';
+		echo '<ul>' . implode( "\n", $items ) . '</ul>';
 	}
 }

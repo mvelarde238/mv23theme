@@ -8,6 +8,7 @@ define ('BUILDER_DIR', __DIR__);
 define ('BUILDER_PATH', get_template_directory_uri() . '/Core/Builder');
 require_once( 'uf-extend/common-settings-control/common-settings-control.php' );
 require_once( 'uf-extend/columns-layout/columns-layout.php' );
+require_once( 'uf-extend/ultimate-builder/ultimate-builder.php' );
 
 class Core{
 	private static $instance = null;

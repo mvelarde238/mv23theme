@@ -24,7 +24,10 @@
 			this.groups = [];
 
 			// This will indicate how many of each group we have
-			this.groupTypes = new Backbone.Collection;
+			var GroupCollection = Backbone.Collection.extend({
+				model: repeater.GroupType
+			});
+			this.groupTypes = new GroupCollection();
 			_.each( this.get( 'groups' ), function( group ) {
 				that.groupTypes.add( new repeater.GroupType({
 					id:       group.id,
