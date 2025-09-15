@@ -5,6 +5,7 @@ use Core\Frontend\Post_Card;
 use Core\Theme_Options\UF_Container\Posts_Subscription;
 use Core\Theme_Options\UF_Container\Track_Posts_Data;
 use Core\Frontend\Taxonomy_Breadcrumbs;
+use Core\Theme_Options\Theme_Options;
 
 get_header();
 $main_content_classes = array('main-content','container');
@@ -28,6 +29,9 @@ $subscribe_to_continue = Posts_Subscription::is_active($post);
 $preview_file_url = Posts_Subscription::maybe_obfuscate_link( $subscribe_to_continue, $_args['file_url'], 'subscribe-to-preview', $post->ID);
 
 $download_file_url = Posts_Subscription::maybe_obfuscate_link( $subscribe_to_continue, $_args['file_url'], 'subscribe-to-download', $post->ID);
+
+$theme_options = Theme_Options::getInstance();
+$single_page = $theme_options->get_page_template_settings('single');
 ?>
 
 <div id="content">
@@ -120,34 +124,36 @@ $download_file_url = Posts_Subscription::maybe_obfuscate_link( $subscribe_to_con
                     </div>
                 </div>
             </div>
-            <div class="single-document__related-posts">
-                <?php
-                $title = __('Related Documents', 'mv23theme');
+            <?php if(!$single_page['hide_related_posts']) : ?>
+                <div class="single-document__related-posts">
+                    <?php
+                    $title = __('Related Documents', 'mv23theme');
 
-                printf('<h4 class="single-document__related-posts-title">%s</h4>', $title);
+                    printf('<h4 class="single-document__related-posts-title">%s</h4>', $title);
 
-                // filter the related documents arguments
-                $related_docs_args = apply_filters('filter_related_'.$post->post_type.'_args', array(
-                    'show' => 'auto',
-                    'post__not_in' => array($post->ID),
-                    'qty' => 5,
-                    'items_in_desktop' => 3,
-                    'items_in_laptop' => 3,
-                    'items_in_tablet' => 3,
-                    'items_in_mobile' => 1,
-                    'd_gap' => 30,
-                    'l_gap' => 30,
-                    't_gap' => 30,
-                    'm_gap' => 15,
-                    'post_template' => 'document',
-                    'list_template' => 'carrusel',
-                    'show_controls' => 1,
-                    'posttype' => $post->post_type,
-                ), $post->ID);
+                    // filter the related documents arguments
+                    $related_docs_args = apply_filters('filter_related_'.$post->post_type.'_args', array(
+                        'show' => 'auto',
+                        'post__not_in' => array($post->ID),
+                        'qty' => 5,
+                        'items_in_desktop' => 3,
+                        'items_in_laptop' => 3,
+                        'items_in_tablet' => 3,
+                        'items_in_mobile' => 1,
+                        'd_gap' => 30,
+                        'l_gap' => 30,
+                        't_gap' => 30,
+                        'm_gap' => 15,
+                        'post_template' => 'document',
+                        'list_template' => 'carrusel',
+                        'show_controls' => 1,
+                        'posttype' => $post->post_type,
+                    ), $post->ID);
 
-                echo Listing::display($related_docs_args);
-                ?>
-            </div>
+                    echo Listing::display($related_docs_args);
+                    ?>
+                </div>
+            <?php endif; ?>
 		</main>
 	</div>
 </div>

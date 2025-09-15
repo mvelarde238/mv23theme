@@ -19,6 +19,9 @@ CHANGELOG
 - !IMPORTANT: V.3.0.0: Ultimate Builder Implementation
 -----------------------------------------------------------------------------------------------------
 
+2.10.9 25-09-15
+- Implements "hide_related_posts" setting on theme options > singles pages
+
 2.10.8 25-09-01
 - Fix: uf map.js: Save map state on zoom level change and avoid marker deletion
 

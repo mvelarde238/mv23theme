@@ -35,14 +35,15 @@ class Single_Pages {
                             ->required()
 			                ->add_options( $post_types )
                             ->set_orientation( 'horizontal' )
-			                ->set_input_type( 'checkbox' )->set_width(20),
+			                ->set_input_type( 'checkbox' )->set_width(15),
                         Field::create( 'select', 'page_template', __( 'Page Template', 'mv23theme' ) )->add_options(array(
                             'main-content--sidebar-right' => __('Sidebar Right','mv23theme'),
                             'main-content--sidebar-left' => __('Sidebar Left','mv23theme')
-                        ))->add_dependency('hide_sidebar',0)->set_width(20),
-                        Field::create( 'checkbox', 'hide_sidebar', __('Hide Sidebar','mv23theme') )->fancy()->set_width(20),
-                        Field::create( 'checkbox', 'hide_post_title', __('Hide Post Title','mv23theme') )->fancy()->set_width(20),
-                        Field::create( 'checkbox', 'hide_social_share', __('Hide Social Share','mv23theme') )->fancy()->set_width(20)
+                        ))->add_dependency('hide_sidebar',0)->set_width(15),
+                        Field::create( 'checkbox', 'hide_sidebar', __('Hide Sidebar','mv23theme') )->fancy()->set_width(15),
+                        Field::create( 'checkbox', 'hide_post_title', __('Hide Post Title','mv23theme') )->fancy()->set_width(15),
+                        Field::create( 'checkbox', 'hide_social_share', __('Hide Social Share','mv23theme') )->fancy()->set_width(15),
+                        Field::create( 'checkbox', 'hide_related_posts', __('Hide Related Posts','mv23theme') )->fancy()->set_width(15)
                     )
                 ))
         );
