@@ -119,7 +119,8 @@ class Document {
                 Field::create( 'number', 'download_count', __('Downloads','mv23theme'))->set_width(25),
                 Field::create( 'number', 'previsualization_count', __('Previews','mv23theme'))->set_width(25),
                 Field::create( 'number', 'post_likes_count', __('Likes','mv23theme'))->set_width(25)
-            ))
+            )),
+            Field::create( 'wp_objects', 'related_posts', __('Related Posts', 'mv23theme') )->add( 'posts', 'post_type='.$post_type_slug )
         );
         
         if( in_array($post_type_slug, POSTS_SUBSCRIPTION['post_types']) ){

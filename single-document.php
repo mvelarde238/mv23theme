@@ -150,6 +150,18 @@ $single_page = $theme_options->get_page_template_settings('single');
                         'posttype' => $post->post_type,
                     ), $post->ID);
 
+                    $related_posts = get_post_meta($post->ID, 'related_posts', true);
+                    if($related_posts && is_array($related_posts) && count($related_posts) > 0) {
+                        // Convert array of strings like "post_123" to array of integers like 123
+                        $related_posts_ids = array_map(function($item) {
+                            return str_replace('post_', '', $item);
+                        }, $related_posts);
+
+                        $related_docs_args['show'] = 'manual';
+                        $related_docs_args['posts'] = $related_posts_ids;
+                        unset($related_docs_args['post__not_in']);
+                    }
+
                     echo Listing::display($related_docs_args);
                     ?>
                 </div>
