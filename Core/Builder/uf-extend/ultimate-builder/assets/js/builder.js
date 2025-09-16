@@ -150,11 +150,14 @@
         initialize: function () {
 
             const that = this;
+            const contextMenu = window["gjs-context-menu"];
+            const contextMenuPlugin = contextMenu?.default || contextMenu;
+
             const rowsAndCols = window["gjs-row-and-cols"];
             const rowsAndColsPlugin = rowsAndCols?.default || rowsAndCols;
 
-            const contextMenu = window["gjs-context-menu"];
-            const contextMenuPlugin = contextMenu?.default || contextMenu;
+            const togglebox = window["gjs-togglebox"];
+            const toggleboxPlugin = togglebox?.default || togglebox;
 
             var editor = window.grapesjs.init({
                 container: this.$el[0],
@@ -169,11 +172,14 @@
                 plugins: [
                     groupComponent, 
                     rowsAndColsPlugin,
-                    contextMenuPlugin
+                    contextMenuPlugin,
+                    toggleboxPlugin
                 ],
             });
 
             editor.setStyle('body{background-color: #333;color: silver;}');
+
+            console.log('version: 1.0.6');
 
             this.add_existing_content(editor);
             this.add_all_types_as_blocks(editor);
@@ -267,6 +273,10 @@
                 $type = 'row2';
             }
 
+            if (group && group.id === 'accordion') {
+                $type = 'togglebox-wrapper';
+            }
+
             return $type;
         },
         separate_project_data: function (raw_project_data) {
@@ -285,47 +295,38 @@
                     const component = components[i];
                     const builderComponent = builderComponents[i];
 
-                    // Process any component with an ID
-                    if (component.attributes?.id) {
-                        const componentData = {
-                            type: component.type,
-                            id: component.attributes.id
-                        };
+                    const componentId = component.attributes?.id ?? null;
 
-                        // Add datastore if it exists
-                        if (component.datastore) {
-                            Object.assign(componentData, component.datastore);
+                    const componentData = {
+                        type: component.type,
+                        id: componentId
+                    };
+
+                    // Add datastore if it exists
+                    if (component.datastore) {
+                        Object.assign(componentData, component.datastore);
+                    }
                             
-                            // Clean the builder component by removing unwanted keys
-                            delete builderComponent.groupData;
-                            delete builderComponent.builder_comp_model;
-                            delete builderComponent.datastore;
-                        }
+                    // Clean the builder component by removing unwanted keys
+                    delete builderComponent.groupData;
+                    delete builderComponent.builder_comp_model;
+                    delete builderComponent.datastore;
 
-                        // Add components array if it has nested components
-                        if (component.components && Array.isArray(component.components) && component.components.length > 0) {
-                            if (!builderComponent.components) {
-                                builderComponent.components = [];
-                            }
-                            
-                            // Process nested components recursively (not top level)
-                            componentData.components = processComponents(component.components, builderComponent.components, false);
+                    // Add components array if it has nested components
+                    if (component.components && Array.isArray(component.components) && component.components.length > 0) {
+                        if (!builderComponent.components) {
+                            builderComponent.components = [];
                         }
+                        
+                        // Process nested components recursively (not top level)
+                        componentData.components = processComponents(component.components, builderComponent.components, false);
+                    }
 
-                        // Add to the appropriate array
-                        if (isTopLevel) {
-                            components_data.push(componentData);
-                        } else {
-                            processedComponents.push(componentData);
-                        }
+                    // Add to the appropriate array
+                    if (isTopLevel) {
+                        components_data.push(componentData);
                     } else {
-                        // If component doesn't have ID but has nested components, still process them
-                        if (component.components && Array.isArray(component.components)) {
-                            if (!builderComponent.components) {
-                                builderComponent.components = [];
-                            }
-                            processComponents(component.components, builderComponent.components, isTopLevel);
-                        }
+                        processedComponents.push(componentData);
                     }
                 }
 
