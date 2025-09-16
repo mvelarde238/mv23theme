@@ -2,6 +2,7 @@
 namespace Ultimate_Fields\Ultimate_Builder;
 
 use Ultimate_Fields\Template;
+use Ultimate_Fields\Ultimate_Builder\Editor;
 
 /**
  * A base class for the extension, which adds and overwrites all necessary classes.
@@ -9,6 +10,15 @@ use Ultimate_Fields\Template;
  * @since 1.0
  */
 class Ultimate_Builder {
+	/**
+	 * The ID of this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $plugin_name    The ID of this plugin.
+	 */
+	private $plugin_name;
+
 	/**
 	 * Holds the path of the plugin file in order to load assets properly.
 	 *
@@ -33,6 +43,7 @@ class Ultimate_Builder {
 	 * @param string $version     A version to be used for assets and etc.
 	 */
 	public function __construct( $plugin_file, $version ) {
+		$this->plugin_name = 'ultimate-builder';
 		$this->plugin_file = $plugin_file;
 		$this->version     = $version;
 
@@ -40,6 +51,7 @@ class Ultimate_Builder {
 
 		add_filter( 'uf.field.class', array( $this, 'generate_field_class' ), 10, 2 );
 		add_action( 'uf.register_scripts', array( $this, 'register_scripts' ) );
+		add_action( 'post_action_ultimate-builder', array( $this, 'prepare_admin_for_builder' ) );
 	}
 
 	/**
@@ -68,18 +80,77 @@ class Ultimate_Builder {
 		// $assets = plugins_url( 'assets/', $this->plugin_file );
         $assets = BUILDER_PATH . '/uf-extend/ultimate-builder/assets/';
 		$v      = $this->version;
-		
-		// GRAPES JS - Registrar sin dependencias de WordPress para evitar conflictos
-		wp_register_script( 'grapes-js', $assets . 'grapes.min.js', array(), $v );
-		wp_register_style( 'grapes-js-styles', 'https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.22.12/css/grapes.min.css', array(), $v );
 
-		// Script para resolver conflictos con Backbone de WordPress
-		wp_register_script( 'grapes-js-noconflict', $assets . 'grapes-noconflict.js', array( 'grapes-js', 'backbone', 'underscore' ), $v );
+		// FIELD SCRIPT
+		wp_register_script( 'uf-field-ultimate-builder', $assets . 'js/field-ultimate-builder.js', array(), $v );
+		// wp_register_style( 'uf-field-ultimate-builder', $assets . 'css/field-ultimate-builder.css', array( 'ultimate-fields-css' ), $v );
+	}
 
-		// FIELD SCRIPT - ahora dependen del noconflict
-		wp_register_script( 'gjs-row-and-cols', $assets . 'gjs-row-and-cols.js', array( 'uf-field', 'grapes-js-noconflict' ), $v );
-		wp_register_script( 'builder', $assets . 'builder.js', array( 'uf-field','gjs-row-and-cols' ), $v );
-		wp_register_script( 'uf-field-ultimate-builder', $assets . 'field-ultimate-builder.js', array( 'builder' ), $v );
-		wp_register_style( 'uf-field-ultimate-builder', $assets . 'ultimate-builder.css', array( 'ultimate-fields-css' ), $v );
+	public function prepare_admin_for_builder() {
+		$screen = get_current_screen();
+		if ( 
+			in_array( $screen->base, [ 'post', 'post-new' ], true ) 
+			&& isset( $_GET['action'] )
+			&& isset( $_GET['meta'] )
+			&& $_GET['action'] === 'ultimate-builder' ) 
+		{
+			$assets = BUILDER_PATH . '/uf-extend/ultimate-builder/assets/';
+			$v      = $this->version;
+
+			wp_register_style( 'grapes-js-styles', 'https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.22.12/css/grapes.min.css', array(), $v );
+			wp_register_style( 'gjs-context-menu-style', $assets . 'css/gjs-context-menu/style.css', array(), $v );
+
+			wp_register_script( 'grapes-js', 'https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.22.12/grapes.min.js', array(), $v );
+			wp_register_script( 'gjs-row-and-cols', $assets . 'js/gjs-row-and-cols.js', array(), $v );
+			wp_register_script( 'gjs-context-menu', $assets . 'js/gjs-context-menu.js', array(), $v );
+			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );
+
+			$this->filter_admin_body_class();
+			$this->clean_admin_assets();
+			$this->print_editor();
+		}
+	}
+
+	public function filter_admin_body_class(){
+		$editor_class = $this->plugin_name . '-editor';
+		add_filter( 'admin_body_class', static function($classes) use ($editor_class){
+			return "$classes is-fullscreen-mode " . $editor_class;
+		}, 10, 1 );
+	}
+
+	private function clean_admin_assets(){
+		/*
+		 * Disable Emoji replacement
+		 */
+		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+		remove_action( 'admin_print_styles', 'print_emoji_styles' );
+
+		/*
+		 * Disable menu for toggling Document Panels.
+		 */
+		add_filter( 'screen_options_show_screen', '__return_false' );
+	}
+
+	private function print_editor(){
+        global $post;
+
+		$post_meta_name = isset( $_GET['meta'] ) ? $_GET['meta'] : '';
+
+		if( !empty( $post_meta_name ) ) {
+			uf_head(array(
+				'item' => 'post_'.$post->ID,
+				'item_fields' => array( 
+					$post_meta_name
+				),
+				'containers' => array( 'test_builder' )
+			)); 
+	
+			require_once ABSPATH . 'wp-admin/admin-header.php';
+	
+			uf_form();
+	
+			require_once ABSPATH . 'wp-admin/admin-footer.php';
+			exit;
+		}
 	}
 }

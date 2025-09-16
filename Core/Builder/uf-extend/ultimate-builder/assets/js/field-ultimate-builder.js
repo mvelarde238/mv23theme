@@ -34,7 +34,8 @@
                 uf_field_model = this.model,
                 builder_data = this.model.getValue(),
                 field_name = this.model.get('name'),
-                components_data = this.model.datastore.get( field_name + '_components' );
+                components_data = this.model.datastore.get( field_name + '_components' ),
+                builder_link = this.model.datastore.get( field_name + '_builder_link' );
 
             // force initial field values
             this.model.setValue({
@@ -46,15 +47,28 @@
             // Add the CSS class and the basic layout
             this.$el.addClass('uf-ultimate-builder');
             this.$el.html(tmpl());
-            this.$el.append('<div id="gjs" style="height:0px; overflow:hidden"></div>');
 
-            // Start the external builder script
-            this.$el.builder({
-                groups: this.model.get('groups'),
-                uf_field_model: uf_field_model,
-                components_data: components_data,
-                builder_data: builder_data
-            });
+            // get action from URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var $action = urlParams.get('action'); // edit or add
+            $action = $action ? $action : 'edit';
+
+            if( $action === 'edit' ){
+                // add the builder link
+                this.$el.append('<p><a href="' + builder_link + '" class="button button-secondary">Open Builder Interface</a></p>');
+            } else {
+                // add the builder container
+                // this.$el.append('<div id="root" style="height:300px; overflow:scroll"></div>');
+                this.$el.append('<div id="gjs" style="height:0px; overflow:hidden"></div>');
+                
+                // Start the external builder script
+                this.$el.builder({
+                    groups: this.model.get('groups'),
+                    uf_field_model: uf_field_model,
+                    components_data: components_data,
+                    builder_data: builder_data
+                });
+            }
 
             return this;
         }

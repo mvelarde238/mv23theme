@@ -17,12 +17,19 @@ class Field extends Repeater {
 	 * @since 1.0
 	 */
 	public function enqueue_scripts() {
-        wp_enqueue_script( 'grapes-js' );
-		wp_enqueue_style( 'grapes-js-styles' );
-
+		
+		wp_enqueue_script( 'grapes-js' );
+		// wp_enqueue_style( 'grapes-react-styles' );
+		// wp_enqueue_script( 'grapes-react' );
+		// wp_enqueue_script( 'grapes-js-wp-compat' );
         wp_enqueue_script( 'gjs-row-and-cols' );
+		wp_enqueue_script( 'gjs-context-menu' );
+        wp_enqueue_script( 'builder' );
 		wp_enqueue_script( 'uf-field-ultimate-builder' );
+
+		wp_enqueue_style( 'grapes-js-styles' );
 		wp_enqueue_style( 'uf-field-ultimate-builder' );
+		wp_enqueue_style( 'gjs-context-menu-style' );
 
 		# Add the necessary templates
 		Template::add( 'ultimate-builder', 'ultimate-builder' );
@@ -65,9 +72,13 @@ class Field extends Repeater {
 			$components_data = array();
 		}
 
+		// export link to the builder interface
+		$builder_link = $this->get_builder_link();
+
 		return array(
 			$this->name => $builder_data,
-			$this->name.'_components' => $components_data
+			$this->name.'_components' => $components_data,
+			$this->name.'_builder_link' => $builder_link
 		);
 	}
 
@@ -100,5 +111,38 @@ class Field extends Repeater {
 
 		$this->datastore->set( $this->name, $builder_data );
 		$this->datastore->set( $this->name.'_components', $components_data );
+	}
+
+	/**
+	 * Get the link to the builder interface
+	 *
+	 * @since 1.0
+	 *
+	 * @return string
+	 */
+	private function get_builder_link() {
+		global $post;
+		$builder_link = '';
+
+		$allowed_post_types = ['post','page'];
+
+		if ( !in_array($post->post_type, $allowed_post_types) ) {
+			return $builder_link;
+		}
+		
+		if ( ! current_user_can( 'edit_post', $post->ID ) ) {
+			return $builder_link;
+		}
+		
+		$builder_link = add_query_arg(
+			[
+			  'post' => $post->ID,
+			  'action' => 'ultimate-builder',
+			  'meta' => $this->name
+			],
+			admin_url( 'post.php' )
+		);
+
+		return $builder_link;
 	}
 }

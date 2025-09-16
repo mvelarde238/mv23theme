@@ -1,0 +1,17 @@
+TODO:
+
+// PRIMERA ETAPA
+* check how to handle wrapper components
+    - gjs accordion replace accordion component
+    - gjs section replace page module
+    - gjs wrapper replace wrapper component
+    - gjs carousel replace carousel comp (?)
+    - gjs flip box replace flip box comp (?)
+    
+* check css ouput
+* save content in all components to test if they are working correctly (file, wp_object, map, icon, etc)
+* implement migrator
+
+// SEGUNDA ETAPA
+* mambo builder with react
+* render frontend on builder (?)

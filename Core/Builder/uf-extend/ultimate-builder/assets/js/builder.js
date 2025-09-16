@@ -19,6 +19,9 @@
                     droppable: false,
                     groupData: null,
                     attributes: { class: 'group-component' },
+                    styles: `
+                        .group-component { padding: 10px; }
+                    `,                
                 },
                 init() {
                     const groupData = this.get('groupData'),
@@ -34,13 +37,20 @@
                 addGroup: function () {
                     const components_data = editor.getConfig().components_data,
                         uf_field_model = editor.getConfig().uf_field_model,
-                        groups = editor.getConfig().groups;
+                        groups = editor.getConfig().groups,
+                        builderInstance = editor.getConfig().builderInstance;
 
                     let component_id = this.ccid, 
                         groupData, datastore, component_data, __type;
                         
-                    // find the corresponding component data
-                    component_data = components_data.find(c => c.id === component_id);
+                    // find the corresponding component data using the builder instance method
+                    if (builderInstance && typeof builderInstance.findComponentById === 'function') {
+                        component_data = builderInstance.findComponentById(components_data, component_id);
+                    } else {
+                        // Fallback to simple find if builderInstance is not available
+                        component_data = components_data.find(c => c.id === component_id);
+                    }
+
                     if( component_data ){
                         // this component is loading from database
                         __type = component_data?.__type;
@@ -143,18 +153,23 @@
             const rowsAndCols = window["gjs-row-and-cols"];
             const rowsAndColsPlugin = rowsAndCols?.default || rowsAndCols;
 
-            var editor = (window.createIsolatedGrapesJS || window.grapesjs.init)({
-                container: this.$el.find('#gjs')[0],
-                height: '300px',
+            const contextMenu = window["gjs-context-menu"];
+            const contextMenuPlugin = contextMenu?.default || contextMenu;
+
+            var editor = window.grapesjs.init({
+                container: this.$el[0],
+                height: '100vh',
                 blocks: ['text'],
                 storageManager: false,
                 telemetry: false,
                 uf_field_model: this.args.uf_field_model,
                 components_data: this.args.components_data,
                 groups: this.args.groups,
+                builderInstance: that,
                 plugins: [
                     groupComponent, 
-                    rowsAndColsPlugin
+                    rowsAndColsPlugin,
+                    contextMenuPlugin
                 ],
             });
 
@@ -195,72 +210,126 @@
                     uf_field_model = this.args.uf_field_model;
     
                 const values = that.separate_project_data(raw_project_data);
-                console.log(values);
+                console.log('editor update', values);
 
-                uf_field_model.setValue({
-                    'builder_data': values.builder_data,
-                    'components_data': values.components_data
-                });
-
-                uf_field_model.trigger('value-saved');
+                uf_field_model.datastore.set(
+                    uf_field_model.get('name'),
+                    {
+                        builder_data: values.builder_data,
+                        components_data: values.components_data
+                    },
+                    { silent: false }
+                );
             });
+        },
+        // Helper method to search component recursively
+        findComponentById: function (data, id) {
+            if (!Array.isArray(data)) return null;
+            
+            for (const item of data) {
+                if (item.id === id) {
+                    return item;
+                }
+                
+                // Search in nested components if they exist
+                if (item.components && Array.isArray(item.components)) {
+                    const found = this.findComponentById(item.components, id);
+                    if (found) return found;
+                }
+            }
+            
+            return null;
         },
         // READ
         add_existing_content: function (editor) {
             editor.loadProjectData(this.args.builder_data);
         },
         add_all_types_as_blocks: function (editor) {
-            const groups = this.args.groups;
+            const that = this,
+                groups = this.args.groups;
 
             _.each(groups, function (group) {
                 editor.BlockManager.add(group.id, {
                     label: group.title,
                     category: 'Basic',
+                    media: group.icon ? `<i class="dashicons ${group.icon}"></i>` : '',
                     content: {
-                        type: 'group-component',
-                        groupData: group,
-                        style: { padding: '10px' },
-                        activeOnRender: 1
+                        type: that.map_group_with_type(group),
+                        groupData: group
                     }
                 });
             });
+        },
+        map_group_with_type: function (group) {
+            let $type = 'group-component';
+
+            if (group && group.id === 'row') {
+                $type = 'row2';
+            }
+
+            return $type;
         },
         separate_project_data: function (raw_project_data) {
             const components_data = [];
             const builder_data = JSON.parse(JSON.stringify(raw_project_data)); // Deep clone
 
             // Recursive function to process components
-            const processComponents = (components, builderComponents) => {
+            const processComponents = (components, builderComponents, isTopLevel = true) => {
                 if (!Array.isArray(components) || !Array.isArray(builderComponents)) {
-                    return;
+                    return [];
                 }
+
+                const processedComponents = [];
 
                 for (let i = 0; i < components.length; i++) {
                     const component = components[i];
                     const builderComponent = builderComponents[i];
 
-                    // If it's a group-component, extract datastore and clean builder data
-                    if (component.type === 'group-component' && component.datastore && component.attributes?.id) {
-                        // Add to components_data with the component ID
-                        components_data.push({
-                            id: component.attributes.id,
-                            ...component.datastore
-                        });
+                    // Process any component with an ID
+                    if (component.attributes?.id) {
+                        const componentData = {
+                            type: component.type,
+                            id: component.attributes.id
+                        };
 
-                        // Clean the builder component by removing unwanted keys
-                        delete builderComponent.groupData;
-                        delete builderComponent.builder_comp_model;
-                        delete builderComponent.datastore;
-                    }
-
-                    // Process nested components recursively
-                    if (component.components && Array.isArray(component.components)) {
-                        if (!builderComponent.components) {
-                            builderComponent.components = [];
+                        // Add datastore if it exists
+                        if (component.datastore) {
+                            Object.assign(componentData, component.datastore);
+                            
+                            // Clean the builder component by removing unwanted keys
+                            delete builderComponent.groupData;
+                            delete builderComponent.builder_comp_model;
+                            delete builderComponent.datastore;
                         }
-                        processComponents(component.components, builderComponent.components);
+
+                        // Add components array if it has nested components
+                        if (component.components && Array.isArray(component.components) && component.components.length > 0) {
+                            if (!builderComponent.components) {
+                                builderComponent.components = [];
+                            }
+                            
+                            // Process nested components recursively (not top level)
+                            componentData.components = processComponents(component.components, builderComponent.components, false);
+                        }
+
+                        // Add to the appropriate array
+                        if (isTopLevel) {
+                            components_data.push(componentData);
+                        } else {
+                            processedComponents.push(componentData);
+                        }
+                    } else {
+                        // If component doesn't have ID but has nested components, still process them
+                        if (component.components && Array.isArray(component.components)) {
+                            if (!builderComponent.components) {
+                                builderComponent.components = [];
+                            }
+                            processComponents(component.components, builderComponent.components, isTopLevel);
+                        }
                     }
                 }
+
+                return processedComponents;
             };
 
             // Process all pages and their frames
@@ -281,7 +350,7 @@
                                 if (!builderFrame.component.components) {
                                     builderFrame.component.components = [];
                                 }
-                                processComponents(frame.component.components, builderFrame.component.components);
+                                processComponents(frame.component.components, builderFrame.component.components, true);
                             }
                         }
                     }
@@ -300,4 +369,5 @@
             new builder.Core(this, args);
         });
     }
+
 })(jQuery);

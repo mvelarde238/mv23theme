@@ -65,6 +65,8 @@ class Form {
 	 */
 	protected $item_container;
 
+	protected $labels = array();
+
 	/**
 	 * Creates a new instance of the class.
 	 *
@@ -467,6 +469,7 @@ class Form {
 
 		# Add actions
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
 	/**

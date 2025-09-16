@@ -67,6 +67,12 @@
 
 			// Listen for submission
 			this.$el.on( 'submit', _.bind( this.submit, this ) );
+
+			// force submit on click
+			// this is needed because some uf fields (like ultimate-builder) render ui and make changes inside an iframe
+			this.$el.on( 'click', '[type="submit"]', function() {
+				that.$el.trigger('submit');
+			});
 		},
 
 		/**
@@ -89,6 +95,8 @@
 		submit: function( e ) {
 			// Remove pre-existing validation messages
 			this.$el.find( '.uf-error' ).remove();
+
+			console.log( 'Submitting' );
 
 			if( ! this.validate() ) {
 				e.preventDefault();
