@@ -2,11 +2,13 @@ TODO:
 
 // PRIMERA ETAPA
 * check how to handle wrapper components
-    - gjs section replace page module
     - gjs flip box replace flip box comp (?)
     - gjs accordion replace accordion component
-    - gjs wrapper replace wrapper component
+    - gjs wrapper replace wrapper component (ojo, wrapper is body)
     - gjs carousel replace carousel comp (?)
+
+* create php component for: 
+    - section / page module
 
 * remove unnecesary fields:
     - general: styles

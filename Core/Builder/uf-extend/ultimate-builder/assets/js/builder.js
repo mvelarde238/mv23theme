@@ -40,16 +40,14 @@
                         groups = editor.getConfig().groups,
                         builderInstance = editor.getConfig().builderInstance;
 
-                    let component_id = this.ccid, 
-                        groupData, datastore, component_data, __type;
-                        
+                    let groupData, datastore, component_data, __type;
+    
                     // find the corresponding component data using the builder instance method
                     if (builderInstance && typeof builderInstance.findComponentById === 'function') {
-                        component_data = builderInstance.findComponentById(components_data, component_id);
-                    } else {
-                        // Fallback to simple find if builderInstance is not available
-                        component_data = components_data.find(c => c.id === component_id);
+                        component_data = builderInstance.findComponentById(components_data, this.get('__id') );
                     }
+
+                    // console.log( this.get('__id') );
 
                     if( component_data ){
                         // this component is loading from database
@@ -60,7 +58,7 @@
                     } else {
                         // is a non saved component
                         groupData = this.get('groupData'); // this come from the block
-                        __type = groupData.id;
+                        __type = groupData?.id;
                         datastore = new UltimateFields.Datastore({});
                         datastore.parent = uf_field_model.datastore;
                     }
@@ -159,6 +157,8 @@
             const togglebox = window["gjs-togglebox"];
             const toggleboxPlugin = togglebox?.default || togglebox;
 
+            const gjsSection = window["gjsSection"];
+
             var editor = window.grapesjs.init({
                 container: this.$el[0],
                 height: '100vh',
@@ -173,13 +173,14 @@
                     groupComponent, 
                     rowsAndColsPlugin,
                     contextMenuPlugin,
-                    toggleboxPlugin
+                    toggleboxPlugin,
+                    gjsSection
                 ],
             });
 
             editor.setStyle('body{background-color: #333;color: silver;}');
 
-            console.log('version: 1.0.6');
+            console.log('version: 1.0.9');
 
             this.add_existing_content(editor);
             this.add_all_types_as_blocks(editor);
@@ -216,6 +217,7 @@
                     uf_field_model = this.args.uf_field_model;
     
                 const values = that.separate_project_data(raw_project_data);
+                console.log('raw_project_data', raw_project_data);
                 console.log('editor update', values);
 
                 uf_field_model.datastore.set(
@@ -233,7 +235,7 @@
             if (!Array.isArray(data)) return null;
             
             for (const item of data) {
-                if (item.id === id) {
+                if (item.__id === id) {
                     return item;
                 }
                 
@@ -293,18 +295,21 @@
 
                 for (let i = 0; i < components.length; i++) {
                     const component = components[i];
-                    const builderComponent = builderComponents[i];
+                    let builderComponent = builderComponents[i];
 
-                    const componentId = component.attributes?.id ?? null;
+                    // Generate a unique ID to connect builder component with datastore
+                    const generateId = component.attributes?.id ?? component.__id ?? this.generateId();
+                    builderComponent.__id = generateId;
 
-                    const componentData = {
-                        type: component.type,
-                        id: componentId
+                    // datastore will store: component type, unique id, datastore
+                    const componentDataStore = {
+                        __cmp: component.type,
+                        __id: generateId
                     };
 
                     // Add datastore if it exists
                     if (component.datastore) {
-                        Object.assign(componentData, component.datastore);
+                        Object.assign(componentDataStore, component.datastore);
                     }
                             
                     // Clean the builder component by removing unwanted keys
@@ -319,14 +324,14 @@
                         }
                         
                         // Process nested components recursively (not top level)
-                        componentData.components = processComponents(component.components, builderComponent.components, false);
+                        componentDataStore.components = processComponents(component.components, builderComponent.components, false);
                     }
 
                     // Add to the appropriate array
                     if (isTopLevel) {
-                        components_data.push(componentData);
+                        components_data.push(componentDataStore);
                     } else {
-                        processedComponents.push(componentData);
+                        processedComponents.push(componentDataStore);
                     }
                 }
 
@@ -362,6 +367,9 @@
                 builder_data,
                 components_data
             };
+        },
+        generateId: function() {
+            return 'cmp_' + Math.random().toString(36).substr(2, 9);
         }
     });
 

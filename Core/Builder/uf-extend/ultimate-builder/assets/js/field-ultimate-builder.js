@@ -37,6 +37,8 @@
                 components_data = this.model.datastore.get( field_name + '_components' ),
                 builder_link = this.model.datastore.get( field_name + '_builder_link' );
 
+            console.log('components_data', components_data);
+
             // force initial field values
             this.model.setValue({
                 'builder_data': builder_data,
