@@ -101,6 +101,7 @@ class Ultimate_Builder {
 			wp_register_style( 'gjs-context-menu-style', $assets . 'css/gjs-context-menu/style.css', array(), $v );
 
 			wp_register_script( 'grapes-js', 'https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.22.12/grapes.min.js', array(), $v );
+			wp_register_script( 'gjs-extend-components', $assets . 'js/gjs-extend-components.js', array(), $v );
 			wp_register_script( 'gjs-context-menu', $assets . 'js/gjs-context-menu.js', array(), $v );
 			wp_register_script( 'gjs-row-and-cols', $assets . 'js/gjs-row-and-cols.js', array(), $v );
 			wp_register_script( 'gjs-togglebox', $assets . 'js/gjs-togglebox.js', array(), $v );

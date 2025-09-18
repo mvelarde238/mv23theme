@@ -4,133 +4,6 @@
 
     var builder = window.builder || {};
 
-    // Create a new component type
-    const groupComponent = (editor) => {
-        editor.DomComponents.addType('group-component', {
-            isComponent: (el) => {
-                if (el.tagName === 'DIV' && el.classList?.contains('group-component')) {
-                    return { type: 'group-component' };
-                }
-            },
-            model: {
-                defaults: {
-                    tagName: 'div',
-                    draggable: true,
-                    droppable: false,
-                    groupData: null,
-                    attributes: { class: 'group-component' },
-                    styles: `
-                        .group-component { padding: 10px; }
-                    `,                
-                },
-                init() {
-                    const groupData = this.get('groupData'),
-                        comp_name = this.get('name');
-
-                    // update the component name
-                    this.set('name', groupData?.title || comp_name);
-
-                    // Create group model and datastore
-                    this.addGroup();
-                },
-                // CREATE
-                addGroup: function () {
-                    const components_data = editor.getConfig().components_data,
-                        uf_field_model = editor.getConfig().uf_field_model,
-                        groups = editor.getConfig().groups,
-                        builderInstance = editor.getConfig().builderInstance;
-
-                    let groupData, datastore, component_data, __type;
-    
-                    // find the corresponding component data using the builder instance method
-                    if (builderInstance && typeof builderInstance.findComponentById === 'function') {
-                        component_data = builderInstance.findComponentById(components_data, this.get('__id') );
-                    }
-
-                    // console.log( this.get('__id') );
-
-                    if( component_data ){
-                        // this component is loading from database
-                        __type = component_data?.__type;
-                        datastore = new UltimateFields.Datastore(component_data);
-                        groupData = groups.find(g => g.id === __type) || {};
-                        this.set('groupData', groupData);
-                    } else {
-                        // is a non saved component
-                        groupData = this.get('groupData'); // this come from the block
-                        __type = groupData?.id;
-                        datastore = new UltimateFields.Datastore({});
-                        datastore.parent = uf_field_model.datastore;
-                    }
-                    
-                    datastore.set('__type', __type);
-                    this.set('datastore', datastore);
-
-                    // Allow arguments to be modified before creating the model, view and etc.
-                    args = {
-                        model: UltimateFields.Container.Group.Model,
-                        datastore: datastore,
-                        silent: false
-                    };
-
-                    UltimateFields.applyFilters('builder_component_classes', args);
-
-                    // Prepare the model for the pop up
-                    builder_comp_model = new args.model(_.extend({}, groupData));
-                    builder_comp_model.set('__type', __type);
-                    builder_comp_model.setDatastore(datastore);
-                    this.set('builder_comp_model', builder_comp_model);
-
-                    builder_comp_model.on( 'stateSaved', function() {
-                        editor.trigger('update');
-                    });
-                }
-            },
-            view: {
-                events: {
-                    'click .edit-btn': 'onEditClick',
-                    'uf-sorted' : 'saveSort'
-                },
-                onRender({ el }) {
-                    const groupData = this.model.get('groupData');
-
-                    // Create the edit button
-                    const btn = document.createElement('button');
-                    btn.classList.add('edit-btn');
-                    btn.innerText = 'Edit ' + groupData?.title;
-                    el.appendChild(btn);
-                },
-                onEditClick: function (ev) {
-                    ev.stopPropagation();
-                    this.openPopup();
-                },
-                openPopup: function () {
-                    var builder_comp_model = this.model.get('builder_comp_model'),
-                        view;
-
-                    // Save the state of the datastore
-                    builder_comp_model.backupState();
-
-                    view = new group.fullScreenView({
-                        model: builder_comp_model
-                    });
-
-                    UltimateFields.Overlay.show({
-                        view: view,
-                        title: builder_comp_model.datastore.get('title') || builder_comp_model.get('title'),
-                        buttons: view.getbuttons()
-                    });
-                },
-                saveSort: function () {
-                    var builder_comp_model = this.model.get('builder_comp_model');
-                    builder_comp_model.datastore.set('__index', $(this.el).index(), {
-				        silent: true
-			        });
-                }
-            }
-        });
-    };
-
     builder.Core = function ($el, args) {
         this.$el = $($el);
 
@@ -158,6 +31,9 @@
             const toggleboxPlugin = togglebox?.default || togglebox;
 
             const gjsSection = window["gjsSection"];
+            const gjsExtendComponents = window["gjsExtendComponents"];
+
+            const componentTypes = this.get_component_types();
 
             var editor = window.grapesjs.init({
                 container: this.$el[0],
@@ -168,22 +44,26 @@
                 uf_field_model: this.args.uf_field_model,
                 components_data: this.args.components_data,
                 groups: this.args.groups,
+                componentTypes: { ...componentTypes,
+                    'row2': { group: 'row' },
+                    'togglebox-wrapper': { group: 'accordion' }
+                },
                 builderInstance: that,
                 plugins: [
-                    groupComponent, 
                     rowsAndColsPlugin,
                     contextMenuPlugin,
                     toggleboxPlugin,
-                    gjsSection
+                    gjsSection,
+                    gjsExtendComponents
                 ],
             });
 
             editor.setStyle('body{background-color: #333;color: silver;}');
 
-            console.log('version: 1.0.9');
+            console.log('version: 1.0.11');
 
+            this.add_custom_components_and_blocks(editor);
             this.add_existing_content(editor);
-            this.add_all_types_as_blocks(editor);
 
             // DELETE
             editor.on(`component:remove`, (model) => {
@@ -230,6 +110,16 @@
                 );
             });
         },
+        get_component_types: function() {
+            const groups = this.args.groups,
+                componentTypes = {};
+
+            _.each(groups, function (group) {
+                componentTypes[group.id] = { group: group.id };
+            });
+
+            return componentTypes;
+        },
         // Helper method to search component recursively
         findComponentById: function (data, id) {
             if (!Array.isArray(data)) return null;
@@ -252,35 +142,69 @@
         add_existing_content: function (editor) {
             editor.loadProjectData(this.args.builder_data);
         },
-        add_all_types_as_blocks: function (editor) {
+        add_custom_components_and_blocks: function (editor) {
             const that = this,
                 groups = this.args.groups;
 
             _.each(groups, function (group) {
+                editor.DomComponents.addType(group.id, {
+                    model: {
+                        defaults: {
+                            tagName: 'div',
+                            draggable: true,
+                            droppable: false,
+                            attributes: { name: group.title }
+                        }
+                    },
+                    view: {
+                        onRender({ el }) {
+                            const type = this.model.get('type');
+                            const btn = document.createElement('button');
+                            btn.classList.add('edit-btn');
+                            btn.innerText = type;
+                            el.appendChild(btn);
+                        },
+                        events: {
+                            'click .edit-btn': 'onEditClick',
+                            // 'uf-sorted' : 'saveSort'
+                        },
+                        onEditClick: function (ev) {
+                            ev.stopPropagation();
+                            editor.select(this.model);
+                            editor.runCommand('open-datastore');
+                        },
+                        // saveSort: function () {
+                        //     var builder_comp_model = this.model.get('builder_comp_model');
+                        //     builder_comp_model.datastore.set('__index', $(this.el).index(), {
+				        //         silent: true
+			            //     });
+                        // }
+                    }
+                });
+
                 editor.BlockManager.add(group.id, {
                     label: group.title,
                     category: 'Basic',
                     media: group.icon ? `<i class="dashicons ${group.icon}"></i>` : '',
                     content: {
-                        type: that.map_group_with_type(group),
-                        groupData: group
+                        type: group.id
                     }
                 });
             });
         },
-        map_group_with_type: function (group) {
-            let $type = 'group-component';
+        // map_group_with_type: function (group) {
+        //     let $type = 'group-component';
 
-            if (group && group.id === 'row') {
-                $type = 'row2';
-            }
+        //     if (group && group.id === 'row') {
+        //         $type = 'row2';
+        //     }
 
-            if (group && group.id === 'accordion') {
-                $type = 'togglebox-wrapper';
-            }
+        //     if (group && group.id === 'accordion') {
+        //         $type = 'togglebox-wrapper';
+        //     }
 
-            return $type;
-        },
+        //     return $type;
+        // },
         separate_project_data: function (raw_project_data) {
             const components_data = [];
             const builder_data = JSON.parse(JSON.stringify(raw_project_data)); // Deep clone

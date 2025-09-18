@@ -22,6 +22,7 @@ class Field extends Repeater {
 		// wp_enqueue_style( 'grapes-react-styles' );
 		// wp_enqueue_script( 'grapes-react' );
 		// wp_enqueue_script( 'grapes-js-wp-compat' );
+		wp_enqueue_script( 'gjs-extend-components' );
 		wp_enqueue_script( 'gjs-context-menu' );
         wp_enqueue_script( 'gjs-row-and-cols' );
         wp_enqueue_script( 'gjs-togglebox' );
