@@ -33,7 +33,7 @@
             const gjsSection = window["gjsSection"];
             const gjsExtendComponents = window["gjsExtendComponents"];
 
-            const componentTypes = this.get_component_types();
+            const defaultComponentTypes = this.get_component_types();
 
             var editor = window.grapesjs.init({
                 container: this.$el[0],
@@ -44,7 +44,7 @@
                 uf_field_model: this.args.uf_field_model,
                 components_data: this.args.components_data,
                 groups: this.args.groups,
-                componentTypes: { ...componentTypes,
+                componentTypes: { ...defaultComponentTypes,
                     'row2': { group: 'row' },
                     'togglebox-wrapper': { group: 'accordion' }
                 },
@@ -60,7 +60,7 @@
 
             editor.setStyle('body{background-color: #333;color: silver;}');
 
-            console.log('version: 1.0.11');
+            console.log('version: 1.0.12');
 
             this.add_custom_components_and_blocks(editor);
             this.add_existing_content(editor);
@@ -114,8 +114,9 @@
             const groups = this.args.groups,
                 componentTypes = {};
 
+            // Map each custom component with a group key 
             _.each(groups, function (group) {
-                componentTypes[group.id] = { group: group.id };
+                componentTypes['comp_' + group.id] = { group: group.id };
             });
 
             return componentTypes;
@@ -147,21 +148,21 @@
                 groups = this.args.groups;
 
             _.each(groups, function (group) {
-                editor.DomComponents.addType(group.id, {
+                editor.DomComponents.addType( 'comp_' + group.id, {
                     model: {
                         defaults: {
                             tagName: 'div',
                             draggable: true,
                             droppable: false,
-                            attributes: { name: group.title }
+                            name: group.title
                         }
                     },
                     view: {
                         onRender({ el }) {
-                            const type = this.model.get('type');
+                            const name = this.model.get('name');
                             const btn = document.createElement('button');
                             btn.classList.add('edit-btn');
-                            btn.innerText = type;
+                            btn.innerText = name;
                             el.appendChild(btn);
                         },
                         events: {
@@ -187,24 +188,11 @@
                     category: 'Basic',
                     media: group.icon ? `<i class="dashicons ${group.icon}"></i>` : '',
                     content: {
-                        type: group.id
+                        type: 'comp_' + group.id
                     }
                 });
             });
         },
-        // map_group_with_type: function (group) {
-        //     let $type = 'group-component';
-
-        //     if (group && group.id === 'row') {
-        //         $type = 'row2';
-        //     }
-
-        //     if (group && group.id === 'accordion') {
-        //         $type = 'togglebox-wrapper';
-        //     }
-
-        //     return $type;
-        // },
         separate_project_data: function (raw_project_data) {
             const components_data = [];
             const builder_data = JSON.parse(JSON.stringify(raw_project_data)); // Deep clone

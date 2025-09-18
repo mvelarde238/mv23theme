@@ -1,10 +1,10 @@
 function gjsExtendComponents(editor) {
     const domc = editor.DomComponents;
-    const componentTypes = editor.getConfig().componentTypes || {};
-
+    
     // Extend existing component types adding groupData and datastore
     editor.on('component:create', (component) => {
-        const type = component.get('type');
+        const type = component.get('type'),
+            componentTypes = editor.getConfig().componentTypes || {};
 
         if (type && componentTypes[type]) {
             const groups = editor.getConfig().groups || [],
@@ -71,7 +71,6 @@ function gjsExtendComponents(editor) {
         };
 
         if (
-            componentTypes[component.get('type')] &&
             component.get('groupData') &&
             !toolbar.find(item => item.id === 'data-store')
         ) {
