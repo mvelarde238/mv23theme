@@ -148,6 +148,7 @@ class Ultimate_Builder {
 				'containers' => array( 'test_builder' )
 			)); 
 	
+			wp_enqueue_script( 'grapes-js' );
 			require_once ABSPATH . 'wp-admin/admin-header.php';
 	
 			uf_form();

@@ -17,11 +17,9 @@ class Field extends Repeater {
 	 * @since 1.0
 	 */
 	public function enqueue_scripts() {
-		
-		wp_enqueue_script( 'grapes-js' );
-		// wp_enqueue_style( 'grapes-react-styles' );
 		// wp_enqueue_script( 'grapes-react' );
-		// wp_enqueue_script( 'grapes-js-wp-compat' );
+		// wp_enqueue_style( 'grapes-react-styles' );
+
 		wp_enqueue_script( 'gjs-extend-components' );
 		wp_enqueue_script( 'gjs-context-menu' );
         wp_enqueue_script( 'gjs-row-and-cols' );
