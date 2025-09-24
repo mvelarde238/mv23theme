@@ -97,10 +97,19 @@ class Ultimate_Builder {
 			$assets = BUILDER_PATH . '/uf-extend/ultimate-builder/assets/';
 			$v      = $this->version;
 
-			wp_register_style( 'grapes-js-styles', 'https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.22.12/css/grapes.min.css', array(), $v );
 			wp_register_style( 'gjs-context-menu-style', $assets . 'css/gjs-context-menu/style.css', array(), $v );
 
-			wp_register_script( 'grapes-js', 'https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.22.12/grapes.min.js', array(), $v );
+			wp_register_style( 'builder-app-styles', 
+				// $assets . 'css/app.css', // right-click-builder css
+				'http://builder.lo/react/my-react-app/dist/app.css',
+				array(), $v ); 
+
+			wp_register_script( 'builder-app', 
+				// 'http://builder.lo/right-click-builder/dist/bundle.js',
+				'http://builder.lo/react/my-react-app/dist/app.js',
+				// $assets . 'js/app.js', 
+				array(), $v );
+
 			wp_register_script( 'gjs-extend-components', $assets . 'js/gjs-extend-components.js', array(), $v );
 			wp_register_script( 'gjs-context-menu', $assets . 'js/gjs-context-menu.js', array(), $v );
 			wp_register_script( 'gjs-row-and-cols', $assets . 'js/gjs-row-and-cols.js', array(), $v );
@@ -148,7 +157,8 @@ class Ultimate_Builder {
 				'containers' => array( 'test_builder' )
 			)); 
 	
-			wp_enqueue_script( 'grapes-js' );
+			wp_enqueue_script( 'builder-app' );
+			wp_enqueue_style( 'builder-app-styles' );
 			require_once ABSPATH . 'wp-admin/admin-header.php';
 	
 			uf_form();

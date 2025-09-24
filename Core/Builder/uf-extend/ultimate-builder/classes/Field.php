@@ -17,9 +17,6 @@ class Field extends Repeater {
 	 * @since 1.0
 	 */
 	public function enqueue_scripts() {
-		// wp_enqueue_script( 'grapes-react' );
-		// wp_enqueue_style( 'grapes-react-styles' );
-
 		wp_enqueue_script( 'gjs-extend-components' );
 		wp_enqueue_script( 'gjs-context-menu' );
         wp_enqueue_script( 'gjs-row-and-cols' );
@@ -28,7 +25,6 @@ class Field extends Repeater {
         wp_enqueue_script( 'builder' );
 		wp_enqueue_script( 'uf-field-ultimate-builder' );
 
-		wp_enqueue_style( 'grapes-js-styles' );
 		wp_enqueue_style( 'uf-field-ultimate-builder' );
 		wp_enqueue_style( 'gjs-context-menu-style' );
 

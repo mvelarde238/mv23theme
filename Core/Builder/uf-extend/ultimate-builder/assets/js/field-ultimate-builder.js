@@ -60,8 +60,7 @@
                 this.$el.append('<p><a href="' + builder_link + '" class="button button-secondary">Open Builder Interface</a></p>');
             } else {
                 // add the builder container
-                // this.$el.append('<div id="root" style="height:300px; overflow:scroll"></div>');
-                this.$el.append('<div id="gjs" style="height:0px; overflow:hidden"></div>');
+                this.$el.append('<div id="app"></div>');
                 
                 // Start the external builder script
                 this.$el.builder({

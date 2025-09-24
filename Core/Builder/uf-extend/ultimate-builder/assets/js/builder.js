@@ -19,7 +19,6 @@
 
     $.extend(builder.Core.prototype, {
         initialize: function () {
-
             const that = this;
             const contextMenu = window["gjs-context-menu"];
             const contextMenuPlugin = contextMenu?.default || contextMenu;
@@ -35,12 +34,9 @@
 
             const defaultComponentTypes = this.get_component_types();
 
-            var editor = window.grapesjs.init({
-                container: this.$el[0],
-                height: '100vh',
+            // INIT THE BUILDER
+            const editor = React_Builder.init( this.$el.find('#app')[0], {
                 blocks: ['text'],
-                storageManager: false,
-                telemetry: false,
                 uf_field_model: this.args.uf_field_model,
                 components_data: this.args.components_data,
                 groups: this.args.groups,
@@ -56,11 +52,15 @@
                     gjsSection,
                     gjsExtendComponents
                 ],
+                onEditor: function(editor) {
+                    console.log('editor', editor);
+                    that.on_editor_load(editor);
+                }
             });
-
+        },
+        on_editor_load: function(editor) {
+            const that = this;
             editor.setStyle('body{background-color: #333;color: silver;}');
-
-            console.log('version: 1.0.12');
 
             this.add_custom_components_and_blocks(editor);
             this.add_existing_content(editor);

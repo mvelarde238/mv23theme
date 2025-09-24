@@ -18,9 +18,11 @@ TODO:
     - flip box: layouts, alignment
     
 * check css ouput
-* save content in all components to test if they are working correctly (file, wp_object, map, icon, etc)
+* check these uf fields
+    - video no vuelve a cargar el preview but data is still there
+    - button, listing not showing post/s (wp_object/s) preview but data is still there
 * implement migrator
 
 // SEGUNDA ETAPA
-* mambo builder with react
 * render frontend on builder (?)
+* builder with react -> personalizar: spots, etc
