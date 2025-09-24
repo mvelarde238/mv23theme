@@ -35,7 +35,7 @@
             const defaultComponentTypes = this.get_component_types();
 
             // INIT THE BUILDER
-            const editor = React_Builder.init( this.$el.find('#app')[0], {
+            React_Builder.init( this.$el.find('#app')[0], {
                 blocks: ['text'],
                 uf_field_model: this.args.uf_field_model,
                 components_data: this.args.components_data,
@@ -53,7 +53,7 @@
                     gjsExtendComponents
                 ],
                 onEditor: function(editor) {
-                    console.log('editor', editor);
+                    editor.runCommand('core:component-outline');
                     that.on_editor_load(editor);
                 }
             });

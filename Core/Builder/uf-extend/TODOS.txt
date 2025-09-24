@@ -10,19 +10,28 @@ TODO:
 * create php component for: 
     - section / page module
     - fb_front?, fb_back?
+    
+* check css ouput
+* check these uf fields
+    - video no vuelve a cargar el preview but data is still there
+    - button, listing not showing post/s (wp_object/s) preview but data is still there
+
+// SEGUNDA ETAPA
+* make a copy from mainlab to mainlab_backup
+
+* implement migrator
+    - settings -> styles
+    - flip box
+        front/back_content['blocks_layout'] -> components
+        front/back_settings -> styles
+        front/back_justify_content -> styles: justify-front
+        front/back_align_items -> styles: align-items
 
 * remove unnecesary fields:
     - general: styles
     - row: columns_layout, row_settings (?)
     - accordion: layout in items
     - flip box: layouts, alignment
-    
-* check css ouput
-* check these uf fields
-    - video no vuelve a cargar el preview but data is still there
-    - button, listing not showing post/s (wp_object/s) preview but data is still there
-* implement migrator
 
-// SEGUNDA ETAPA
 * render frontend on builder (?)
 * builder with react -> personalizar: spots, etc
