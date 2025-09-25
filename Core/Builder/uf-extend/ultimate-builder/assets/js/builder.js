@@ -29,11 +29,12 @@
             const togglebox = window["gjs-togglebox"];
             const toggleboxPlugin = togglebox?.default || togglebox;
 
-            const gjsSection = window["gjsSection"];
-            const gjsExtendComponents = window["gjsExtendComponents"];
-
             const gjsFlipbox = window["gjs-flip-box"];
             const gjsFlipboxPlugin = gjsFlipbox?.default || gjsFlipbox;
+
+            const gjsSection = window["gjsSection"];
+            const gjsCompWrapper = window["gjsCompWrapper"];
+            const gjsExtendComponents = window["gjsExtendComponents"];
 
             const defaultComponentTypes = this.get_component_types();
 
@@ -47,7 +48,8 @@
                 typesControl: { ...defaultComponentTypes,
                     'flipbox': { group: 'flip_box' },
                     'row2': { group: 'row' },
-                    'togglebox-wrapper': { group: 'accordion' }
+                    'togglebox-wrapper': { group: 'accordion' },
+                    'comp-wrapper': { group: 'components_wrapper' }
                 },
                 // Control the blocks that will be rendered
                 // pass render: false to disable
@@ -55,13 +57,15 @@
                 blocksControl: {
                     'flip_box': { render: false },
                     'row': { render: false },
-                    'accordion': { render: false }
+                    'accordion': { render: false },
+                    'components_wrapper': { type: 'comp-wrapper' }
                 },
                 builderInstance: that,
                 plugins: [
                     rowsAndColsPlugin,
                     contextMenuPlugin,
                     toggleboxPlugin,
+                    gjsCompWrapper,
                     gjsSection,
                     gjsExtendComponents,
                     gjsFlipboxPlugin

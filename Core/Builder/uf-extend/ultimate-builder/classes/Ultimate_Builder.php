@@ -111,11 +111,12 @@ class Ultimate_Builder {
 				array(), $v );
 
 			wp_register_script( 'gjs-extend-components', $assets . 'js/gjs-extend-components.js', array(), $v );
-			wp_register_script( 'gjs-context-menu', $assets . 'js/gjs-context-menu.js', array(), $v );
-			wp_register_script( 'gjs-row-and-cols', $assets . 'js/gjs-row-and-cols.js', array(), $v );
-			wp_register_script( 'gjs-togglebox', $assets . 'js/gjs-togglebox.js', array(), $v );
-			wp_register_script( 'gjs-section', $assets . 'js/gjs-section.js', array(), $v );
+			wp_register_script( 'gjs-context-menu', 'http://builder.lo/gjs-context-menu/dist/index.js', array(), $v );
+			wp_register_script( 'gjs-row-and-cols', 'http://builder.lo/gjs-row-and-cols/dist/index.js', array(), $v );
+			wp_register_script( 'gjs-togglebox', 'http://builder.lo/gjs-togglebox/dist/index.js', array(), $v );
 			wp_register_script( 'gjs-flipbox', 'http://builder.lo/gjs-flip-box/dist/index.js', array(), $v );
+			wp_register_script( 'gjs-comp-wrapper', $assets . 'js/gjs-comp-wrapper.js', array(), $v );
+			wp_register_script( 'gjs-section', $assets . 'js/gjs-section.js', array(), $v );
 			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );
 
 			$this->filter_admin_body_class();

@@ -2,7 +2,6 @@ TODO:
 
 // PRIMERA ETAPA
 * check how to handle wrapper components
-    - gjs wrapper replace wrapper component (ojo, wrapper is body) no git
     - gjs carousel replace carousel comp (?)
     - gjs accordion replace accordion component
 

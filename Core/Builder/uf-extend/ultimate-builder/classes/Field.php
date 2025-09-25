@@ -20,6 +20,7 @@ class Field extends Repeater {
 		wp_enqueue_script( 'gjs-extend-components' );
 		wp_enqueue_script( 'gjs-context-menu' );
         wp_enqueue_script( 'gjs-row-and-cols' );
+		wp_enqueue_script( 'gjs-comp-wrapper' );
         wp_enqueue_script( 'gjs-togglebox' );
 		wp_enqueue_script( 'gjs-section' );
 		wp_enqueue_script( 'gjs-flipbox' );

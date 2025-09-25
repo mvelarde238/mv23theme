@@ -99,6 +99,7 @@ function gjsSection(editor) {
     // Add a block in structure category
     editor.Blocks.add( compClass, {
         label: 'Section',
+        media: '<i class="dashicons dashicons-align-wide"></i>',
         category: 'Structure',
         content: { type: compClass }
     });
