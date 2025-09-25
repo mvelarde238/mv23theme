@@ -2,14 +2,12 @@ TODO:
 
 // PRIMERA ETAPA
 * check how to handle wrapper components
-    - gjs flip box components: fb, fb_front, fb_back
-    - gjs accordion replace accordion component
-    - gjs wrapper replace wrapper component (ojo, wrapper is body)
+    - gjs wrapper replace wrapper component (ojo, wrapper is body) no git
     - gjs carousel replace carousel comp (?)
+    - gjs accordion replace accordion component
 
 * create php component for: 
-    - section / page module
-    - fb_front?, fb_back?
+    - section aka page module in order to have a datastore
     
 * check css ouput
 * check these uf fields

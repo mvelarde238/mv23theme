@@ -32,6 +32,9 @@
             const gjsSection = window["gjsSection"];
             const gjsExtendComponents = window["gjsExtendComponents"];
 
+            const gjsFlipbox = window["gjs-flip-box"];
+            const gjsFlipboxPlugin = gjsFlipbox?.default || gjsFlipbox;
+
             const defaultComponentTypes = this.get_component_types();
 
             // INIT THE BUILDER
@@ -40,9 +43,19 @@
                 uf_field_model: this.args.uf_field_model,
                 components_data: this.args.components_data,
                 groups: this.args.groups,
-                componentTypes: { ...defaultComponentTypes,
+                // Map component types to groups datastore
+                typesControl: { ...defaultComponentTypes,
+                    'flipbox': { group: 'flip_box' },
                     'row2': { group: 'row' },
                     'togglebox-wrapper': { group: 'accordion' }
+                },
+                // Control the blocks that will be rendered
+                // pass render: false to disable
+                // pass type to use a different component type
+                blocksControl: {
+                    'flip_box': { render: false },
+                    'row': { render: false },
+                    'accordion': { render: false }
                 },
                 builderInstance: that,
                 plugins: [
@@ -50,7 +63,8 @@
                     contextMenuPlugin,
                     toggleboxPlugin,
                     gjsSection,
-                    gjsExtendComponents
+                    gjsExtendComponents,
+                    gjsFlipboxPlugin
                 ],
                 onEditor: function(editor) {
                     editor.runCommand('core:component-outline');
@@ -145,7 +159,8 @@
         },
         add_custom_components_and_blocks: function (editor) {
             const that = this,
-                groups = this.args.groups;
+                groups = this.args.groups,
+                blocksControl = editor.getConfig().blocksControl || {};
 
             _.each(groups, function (group) {
                 editor.DomComponents.addType( 'comp_' + group.id, {
@@ -183,12 +198,21 @@
                     }
                 });
 
+                // Add block for this component type if not disabled
+                if ( blocksControl[group.id] && blocksControl[group.id].render === false ) {
+                    return;
+                }
+
+                const gjs_component_type = (blocksControl[group.id] && blocksControl[group.id].type) ?
+                    blocksControl[group.id].type :
+                    'comp_' + group.id;
+
                 editor.BlockManager.add(group.id, {
                     label: group.title,
                     category: 'Basic',
                     media: group.icon ? `<i class="dashicons ${group.icon}"></i>` : '',
                     content: {
-                        type: 'comp_' + group.id
+                        type: gjs_component_type
                     }
                 });
             });

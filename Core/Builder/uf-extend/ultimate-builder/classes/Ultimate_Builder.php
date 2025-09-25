@@ -115,6 +115,7 @@ class Ultimate_Builder {
 			wp_register_script( 'gjs-row-and-cols', $assets . 'js/gjs-row-and-cols.js', array(), $v );
 			wp_register_script( 'gjs-togglebox', $assets . 'js/gjs-togglebox.js', array(), $v );
 			wp_register_script( 'gjs-section', $assets . 'js/gjs-section.js', array(), $v );
+			wp_register_script( 'gjs-flipbox', 'http://builder.lo/gjs-flip-box/dist/index.js', array(), $v );
 			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );
 
 			$this->filter_admin_body_class();

@@ -22,6 +22,7 @@ class Field extends Repeater {
         wp_enqueue_script( 'gjs-row-and-cols' );
         wp_enqueue_script( 'gjs-togglebox' );
 		wp_enqueue_script( 'gjs-section' );
+		wp_enqueue_script( 'gjs-flipbox' );
         wp_enqueue_script( 'builder' );
 		wp_enqueue_script( 'uf-field-ultimate-builder' );
 
