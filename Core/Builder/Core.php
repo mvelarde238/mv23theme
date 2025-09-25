@@ -53,7 +53,8 @@ class Core{
             'Accordion',
             'Components_Wrapper',
             'Inner_Row',
-            'Row'
+            'Row',
+            'Section'
         )
     );
 

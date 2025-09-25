@@ -1,15 +1,6 @@
 TODO:
-
-/////////////////////////////////////////////////////////////////////////////////////// PRIMERA ETAPA
-* check how to handle wrapper components
-    - gjs accordion replace accordion component
-
-* create php component for: 
-    - section aka page module in order to have a datastore
-
+/////////////////////////////////////////////////////////////////////////////////////// PRIMERA ETAPA, READY!!!
 /////////////////////////////////////////////////////////////////////////////////////// SEGUNDA ETAPA
-* make a copy from mainlab to mainlab_backup
-
 * create a method that render page_content_2
 * check css ouput
 * check if all settings (id, class, layout, etc) can be migrated to styles
@@ -34,5 +25,6 @@ TODO:
     - button, listing not showing post/s (wp_object/s) preview but data is still there
 
 /////////////////////////////////////////////////////////////////////////////////////// TERCERA ETAPA
+* create php component for: container/body (?)
 * builder with react -> personalizar: spots, etc
 * render frontend on builder (?)

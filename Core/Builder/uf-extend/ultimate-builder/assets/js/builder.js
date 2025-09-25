@@ -53,7 +53,8 @@
                     'row2': { group: 'row' },
                     'togglebox-wrapper': { group: 'accordion' },
                     'carousel-wrapper': { group: 'carousel' },
-                    'comp-wrapper': { group: 'components_wrapper' }
+                    'comp-wrapper': { group: 'components_wrapper' },
+                    'section': { group: 'section' }
                 },
                 // Control the blocks that will be rendered
                 // pass render: false to disable
@@ -63,7 +64,7 @@
                     'row': { render: false },
                     'accordion': { render: false },
                     'components_wrapper': { type: 'comp-wrapper' },
-                    'carousel': { type: 'carousel-wrapper' }
+                    'carousel': { render: false }
                 },
                 builderInstance: that,
                 plugins: [
