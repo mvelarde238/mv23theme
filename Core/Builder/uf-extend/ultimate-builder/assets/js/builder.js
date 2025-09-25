@@ -32,6 +32,9 @@
             const gjsFlipbox = window["gjs-flip-box"];
             const gjsFlipboxPlugin = gjsFlipbox?.default || gjsFlipbox;
 
+            const gjsCarousel = window["gjs-carousel"];
+            const gjsCarouselPlugin = gjsCarousel?.default || gjsCarousel;
+
             const gjsSection = window["gjsSection"];
             const gjsCompWrapper = window["gjsCompWrapper"];
             const gjsExtendComponents = window["gjsExtendComponents"];
@@ -49,6 +52,7 @@
                     'flipbox': { group: 'flip_box' },
                     'row2': { group: 'row' },
                     'togglebox-wrapper': { group: 'accordion' },
+                    'carousel-wrapper': { group: 'carousel' },
                     'comp-wrapper': { group: 'components_wrapper' }
                 },
                 // Control the blocks that will be rendered
@@ -58,7 +62,8 @@
                     'flip_box': { render: false },
                     'row': { render: false },
                     'accordion': { render: false },
-                    'components_wrapper': { type: 'comp-wrapper' }
+                    'components_wrapper': { type: 'comp-wrapper' },
+                    'carousel': { type: 'carousel-wrapper' }
                 },
                 builderInstance: that,
                 plugins: [
@@ -68,7 +73,8 @@
                     gjsCompWrapper,
                     gjsSection,
                     gjsExtendComponents,
-                    gjsFlipboxPlugin
+                    gjsFlipboxPlugin,
+                    gjsCarouselPlugin
                 ],
                 onEditor: function(editor) {
                     editor.runCommand('core:component-outline');

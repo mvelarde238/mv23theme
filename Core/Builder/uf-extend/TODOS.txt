@@ -1,20 +1,19 @@
 TODO:
 
-// PRIMERA ETAPA
+/////////////////////////////////////////////////////////////////////////////////////// PRIMERA ETAPA
 * check how to handle wrapper components
-    - gjs carousel replace carousel comp (?)
     - gjs accordion replace accordion component
 
 * create php component for: 
     - section aka page module in order to have a datastore
-    
-* check css ouput
-* check these uf fields
-    - video no vuelve a cargar el preview but data is still there
-    - button, listing not showing post/s (wp_object/s) preview but data is still there
 
-// SEGUNDA ETAPA
+/////////////////////////////////////////////////////////////////////////////////////// SEGUNDA ETAPA
 * make a copy from mainlab to mainlab_backup
+
+* create a method that render page_content_2
+* check css ouput
+* check if all settings (id, class, layout, etc) can be migrated to styles
+* migrate actions to a link component?
 
 * implement migrator
     - settings -> styles
@@ -30,5 +29,10 @@ TODO:
     - accordion: layout in items
     - flip box: layouts, alignment
 
-* render frontend on builder (?)
+* check these uf fields
+    - video no vuelve a cargar el preview but data is still there
+    - button, listing not showing post/s (wp_object/s) preview but data is still there
+
+/////////////////////////////////////////////////////////////////////////////////////// TERCERA ETAPA
 * builder with react -> personalizar: spots, etc
+* render frontend on builder (?)
