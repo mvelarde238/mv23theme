@@ -1,60 +1,44 @@
 function gjsSection(editor) {
     const domc = editor.DomComponents;
-    const compClass = 'section';
 
     // Make classes private
-    const privateCls = ['.section','.section--layout1','.section--layout2','.section--layout3'];
+    const privateCls = ['.page-module', '.page-module--layout1', '.page-module--layout2', '.page-module--layout3'];
     editor.on('selector:add', selector => privateCls.indexOf(selector.getFullName()) >= 0 && selector.set('private', 1));
 
+    // Command to update section layout
     editor.Commands.add('update-section-layout', (editor, sender, options = {}) => {
         let component = options.component,
             layout = options.layout;
-        component.set({layout:layout});
+        component.set({ layout: layout });
     });
 
+    // Layout options for the section
     const layoutOptions = [
         { id: 'layout1', name: 'Default' },
-        // { id: 'layout2', name: 'Full Width' },
-        // { id: 'layout3', name: 'Full Width Stretched' }
+        { id: 'layout2', name: 'Full Width' },
+        { id: 'layout3', name: 'Full Width Stretched' }
     ];
 
-    domc.addType(compClass, {
-        isComponent: el => el.classList && el.classList.contains(compClass),
+    // Add the section type to the DomComponents
+    domc.addType('section', {
+        isComponent: el => el.classList && el.classList.contains('page-module'),
         model: {
             defaults: {
                 name: 'Section',
                 tagName: 'div',
-                // droppable: false,
                 draggable: function (target, destination) {
                     console.log('target', destination);
-                    return (destination.attributes.type) == 'wrapper'; // wrapper is body
-                    // return (destination.attributes.type) == 'container';
+                    return (destination.attributes.type) == 'container';
                 },
                 layout: 'layout1',
                 attributes: {
-                    class: compClass,
+                    class: 'page-module',
                 },
-                style: { 
-                    padding: '55px 0px 55px 0px',
-                    width: '100%',
-                    ['min-height'] : '100px'
-                },
-                // styles:`
-                //     .section--layout2,
-                //     .section--layout3{
-                //         width: 100vw !important;
-	            //         position: relative;
-	            //         left: 50%;
-	            //         right: 50%;
-	            //         margin-left: -50vw !important;
-	            //         margin-right: -50vw !important;
-                //     }
-                //     .section--layout3>div{
-                //         width: 98%;
-                //         max-width: 1280px;
-                //         margin: 0 auto;
-                //     }
-                // `,
+                styles:`
+                    .page-module{
+                        padding: 40px 0px;
+                    }
+                `,
                 traits: [
                     'id',
                     {
@@ -65,43 +49,43 @@ function gjsSection(editor) {
                         options: layoutOptions,
                     }
                 ],
-                contextMenu: function(component){
+                contextMenu: function (component) {
                     let layoutActions = {
                         type: 'options',
                         title: 'LAYOUT',
                         options: []
                     };
-                    layoutOptions.forEach((l)=>{
-                        layoutActions.options.push({ 
-                            type:'button', 
-                            command:'update-section-layout', 
-                            args:{ layout:l.id },
-                            label:l.name.toUpperCase(), 
-                            class: ()=>{
+                    layoutOptions.forEach((l) => {
+                        layoutActions.options.push({
+                            type: 'button',
+                            command: 'update-section-layout',
+                            args: { layout: l.id },
+                            label: l.name.toUpperCase(),
+                            class: () => {
                                 const layout = component.get('layout');
                                 return (l.id == layout) ? 'active' : '';
                             }
                         });
                     });
 
-                    return [ layoutActions ];
+                    return [layoutActions];
                 }
             },
-            init: function(){
+            init: function () {
                 this.on('change:layout', this.handleLayoutChange);
             },
-            handleLayoutChange: function(){
-                this.addAttributes({ 'class': `${compClass} ${compClass}--${this.get('layout')}` });
+            handleLayoutChange: function () {
+                this.addAttributes({ 'class': `page-module page-module--${this.get('layout')}` });
             }
         },
     });
 
     // Add a block in structure category
-    editor.Blocks.add( compClass, {
+    editor.Blocks.add('section', {
         label: 'Section',
         media: '<i class="dashicons dashicons-align-wide"></i>',
         category: 'Structure',
-        content: { type: compClass }
+        content: { type: 'section' }
     });
 }
 

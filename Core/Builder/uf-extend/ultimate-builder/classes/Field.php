@@ -21,6 +21,7 @@ class Field extends Repeater {
 		wp_enqueue_script( 'gjs-context-menu' );
         wp_enqueue_script( 'gjs-row-and-cols' );
 		wp_enqueue_script( 'gjs-comp-wrapper' );
+		wp_enqueue_script( 'gjs-container' );
         wp_enqueue_script( 'gjs-togglebox' );
 		wp_enqueue_script( 'gjs-section' );
 		wp_enqueue_script( 'gjs-flipbox' );
@@ -96,6 +97,7 @@ class Field extends Repeater {
 	public function save( $source ) {
 		$builder_data = array();
         $components_data = array();
+		$builder_styles = '';
 
         // error_log( print_r( $source, true ) );
 
@@ -105,12 +107,62 @@ class Field extends Repeater {
             }
             
             if( isset( $source[ $this->name ]['components_data'] ) ){
-                $components_data = $source[ $this->name ]['components_data'];
+                $components_data_raw = $source[ $this->name ]['components_data'];
+
+				// process components recursively to save their data with correct "merged fields" values
+				foreach( $components_data_raw as $component){
+					$processed_component = $this->process_component_recursively( $component );
+					if( $processed_component !== null ){
+						$components_data[] = $processed_component;
+					}
+				}
             }
-        }
+
+			if( isset( $source[ $this->name ]['css'] ) ){
+				$builder_styles = $source[ $this->name ]['css'];
+			}
+		}
 
 		$this->datastore->set( $this->name, $builder_data );
 		$this->datastore->set( $this->name.'_components', $components_data );
+		$this->datastore->set( $this->name.'_styles', $builder_styles );
+	}
+
+	/**
+	 * Process a component recursively, handling nested components
+	 *
+	 * @since 1.0
+	 *
+	 * @param array $component The component data to process
+	 * @return array|null The processed component data or null if invalid
+	 */
+	private function process_component_recursively( $component ) {
+		if( !isset( $component['__type'] ) || empty( $component['__type'] ) ){
+			return null;
+		}
+
+		if( isset( $this->groups[ $component['__type'] ] ) ){	
+			$group = $this->groups[ $component[ '__type' ] ];
+			$group->save( $component );
+			$group_processed_values = $group->get_datastore()->get_values();
+			$group_processed_values['__id'] = $component['__id'];
+		} else {
+			// component type not registered is a grapesjs built-in component
+			$group_processed_values = $component;
+		}
+
+		// if component has sub-components, process them recursively
+		if( isset( $component['components'] ) && is_array( $component['components'] ) ){
+			$group_processed_values['components'] = array();
+			foreach( $component['components'] as $sub_component ){
+				$processed_sub_component = $this->process_component_recursively( $sub_component );
+				if( $processed_sub_component !== null ){
+					$group_processed_values['components'][] = $processed_sub_component;
+				}
+			}
+		}
+
+		return $group_processed_values;
 	}
 
 	/**

@@ -35,27 +35,22 @@
             const gjsCarousel = window["gjs-carousel"];
             const gjsCarouselPlugin = gjsCarousel?.default || gjsCarousel;
 
+            const gjsContainer = window["gjsContainer"];
             const gjsSection = window["gjsSection"];
             const gjsCompWrapper = window["gjsCompWrapper"];
             const gjsExtendComponents = window["gjsExtendComponents"];
 
-            const defaultComponentTypes = this.get_component_types();
+            const typesControl = this.get_types_control();
 
             // INIT THE BUILDER
             React_Builder.init( this.$el.find('#app')[0], {
-                blocks: ['text'],
+                clearStyles: true,
+                componentFirst: true,
                 uf_field_model: this.args.uf_field_model,
                 components_data: this.args.components_data,
                 groups: this.args.groups,
                 // Map component types to groups datastore
-                typesControl: { ...defaultComponentTypes,
-                    'flipbox': { group: 'flip_box' },
-                    'row2': { group: 'row' },
-                    'togglebox-wrapper': { group: 'accordion' },
-                    'carousel-wrapper': { group: 'carousel' },
-                    'comp-wrapper': { group: 'components_wrapper' },
-                    'section': { group: 'section' }
-                },
+                typesControl: typesControl,
                 // Control the blocks that will be rendered
                 // pass render: false to disable
                 // pass type to use a different component type
@@ -75,8 +70,38 @@
                     gjsSection,
                     gjsExtendComponents,
                     gjsFlipboxPlugin,
-                    gjsCarouselPlugin
+                    gjsCarouselPlugin,
+                    gjsContainer
                 ],
+                canvasCss: `
+                    .container{
+                        margin:0 auto;
+                        width:98%;
+                        min-height:100vh;
+                        max-width:1220px;
+                    }
+                    .page-module{
+                        min-height: 100px;
+                    }
+                    .page-module--layout2,
+                    .page-module--layout3{
+                        width: 100vw !important;
+                        position: relative;
+                        left: 50%;
+                        right: 50%;
+                        margin-left: -50vw !important;
+                        margin-right: -50vw !important;
+                    }
+                    .page-module--layout3 > div{
+                        width: 98%;
+                        max-width: 1220px;
+                        margin: 0 auto;
+                    }
+                    .comp-wrapper{
+                        padding: 5px;
+                        min-height: 50px;
+                    }
+                `,
                 onEditor: function(editor) {
                     editor.runCommand('core:component-outline');
                     that.on_editor_load(editor);
@@ -85,7 +110,6 @@
         },
         on_editor_load: function(editor) {
             const that = this;
-            editor.setStyle('body{background-color: #333;color: silver;}');
 
             this.add_custom_components_and_blocks(editor);
             this.add_existing_content(editor);
@@ -129,13 +153,14 @@
                     uf_field_model.get('name'),
                     {
                         builder_data: values.builder_data,
-                        components_data: values.components_data
+                        components_data: values.components_data,
+                        css: editor.getCss()
                     },
                     { silent: false }
                 );
             });
         },
-        get_component_types: function() {
+        get_types_control: function() {
             const groups = this.args.groups,
                 componentTypes = {};
 
@@ -143,6 +168,13 @@
             _.each(groups, function (group) {
                 componentTypes['comp_' + group.id] = { group: group.id };
             });
+
+            componentTypes['flipbox'] = { group: 'flip_box' };
+            componentTypes['row2'] = { group: 'row' };
+            componentTypes['togglebox-wrapper'] = { group: 'accordion' };
+            componentTypes['carousel-wrapper'] = { group: 'carousel' };
+            componentTypes['comp-wrapper'] = { group: 'components_wrapper' };
+            componentTypes['section'] = { group: 'section' };
 
             return componentTypes;
         },
@@ -166,7 +198,11 @@
         },
         // READ
         add_existing_content: function (editor) {
-            editor.loadProjectData(this.args.builder_data);
+            if (!this.args.builder_data || !this.args.builder_data.pages) {
+                editor.setComponents({type: 'container'});
+            } else {
+                editor.loadProjectData(this.args.builder_data);
+            }
         },
         add_custom_components_and_blocks: function (editor) {
             const that = this,
@@ -249,13 +285,16 @@
                     builderComponent.__id = generateId;
 
                     // datastore will store: component type, unique id, datastore
+                    const typesControl = this.get_types_control();
+                    const __type = (typesControl[component.type]) ? typesControl[component.type].group : component.type;
                     const componentDataStore = {
-                        __cmp: component.type,
+                        __type: __type,
                         __id: generateId
                     };
 
-                    // Add datastore if it exists
+                    // Add datastore if it exists   
                     if (component.datastore) {
+                        delete component.datastore.__type;
                         Object.assign(componentDataStore, component.datastore);
                     }
                             

@@ -1,8 +1,9 @@
 TODO:
 /////////////////////////////////////////////////////////////////////////////////////// PRIMERA ETAPA, READY!!!
 /////////////////////////////////////////////////////////////////////////////////////// SEGUNDA ETAPA
-* create a method that render page_content_2
-* check css ouput
+* optimizar rendimiento:
+    - dont load the datastore or model in component?
+    - dont save in all editor update
 * check if all settings (id, class, layout, etc) can be migrated to styles
 * migrate actions to a link component?
 
@@ -26,5 +27,6 @@ TODO:
 
 /////////////////////////////////////////////////////////////////////////////////////// TERCERA ETAPA
 * create php component for: container/body (?)
+* how to handle the default Text->textnode component ?
 * builder with react -> personalizar: spots, etc
-* render frontend on builder (?)
+* render components on builder with backbone templates (?)

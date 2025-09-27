@@ -16,11 +16,6 @@ function gjsCompWrapper(editor) {
                 attributes: {
                     class: compClass,
                 },
-                styles:`
-                    .comp-wrapper{
-                        padding: 10px;
-                    }
-                `,
             },
         },
     });
