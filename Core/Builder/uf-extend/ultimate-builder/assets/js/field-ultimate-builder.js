@@ -35,14 +35,17 @@
                 builder_data = this.model.getValue(),
                 field_name = this.model.get('name'),
                 components_data = this.model.datastore.get( field_name + '_components' ),
+                styles = this.model.datastore.get( field_name + '_styles' ),
                 builder_link = this.model.datastore.get( field_name + '_builder_link' );
 
+            console.log('builder_data', builder_data);
             console.log('components_data', components_data);
 
             // force initial field values
             this.model.setValue({
                 'builder_data': builder_data,
-                'components_data': components_data
+                'components_data': components_data,
+                'css': styles
             });
             this.model.trigger('value-saved');
 
@@ -66,7 +69,7 @@
                 this.$el.builder({
                     groups: this.model.get('groups'),
                     uf_field_model: uf_field_model,
-                    components_data: components_data,
+                    initial_components_data: components_data,
                     builder_data: builder_data
                 });
             }

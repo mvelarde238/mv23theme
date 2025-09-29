@@ -2,6 +2,7 @@
 namespace Ultimate_Fields\Ultimate_Builder;
 
 use Ultimate_Fields\Field\Repeater;
+use Ultimate_Fields\Datastore\Group as Group_Datastore;
 use Ultimate_Fields\Template;
 
 /**
@@ -60,17 +61,24 @@ class Field extends Repeater {
 	 */
 	public function export_data() {    
         $builder_data = $this->get_value( $this->name );
-        $components_data = $this->get_value( $this->name.'_components' );
-
-        // error_log( print_r( $components_data, true ) );
+        $components_data_raw = $this->get_value( $this->name.'_components' );
+		$components_data = array();
+        $styles = $this->get_value( $this->name.'_styles' );
 
 		# Use the default value if needed
 		if( null === $builder_data && is_array( $this->default_value ) ) {
 			$builder_data = $this->default_value;
 		}
 
-		if( null === $components_data ) {
-			$components_data = array();
+		# If there are components, go through each of them.
+		// to ensure complex fields are sent correctly
+		if( is_array($components_data_raw) ){
+			foreach( $components_data_raw as $component){
+				$processed_component = $this->export_component_recursively( $component );
+				if( $processed_component !== null ){
+					$components_data[] = $processed_component;
+				}
+			}
 		}
 
 		// export link to the builder interface
@@ -79,8 +87,40 @@ class Field extends Repeater {
 		return array(
 			$this->name => $builder_data,
 			$this->name.'_components' => $components_data,
+			$this->name.'_styles' => $styles,
 			$this->name.'_builder_link' => $builder_link
 		);
+	}
+
+	private function export_component_recursively( $component ) {
+		if( !isset( $component['__type'] ) || empty( $component['__type'] ) ){
+			return null;
+		}
+
+		if( isset( $this->groups[ $component['__type'] ] ) ){
+			$datastore = new Group_Datastore( $component );
+			# Get the datastore and export data
+			$group = $this->groups[ $component[ '__type' ] ];
+			$group->set_datastore( $datastore );
+			$group_processed_values = $group->export_data();
+			$group_processed_values['__id'] = $component['__id'];
+		} else {
+			// component type not registered is a grapesjs built-in component
+			$group_processed_values = $component;
+		}
+
+		// if component has sub-components, process them recursively
+		if( isset( $component['components'] ) && is_array( $component['components'] ) ){
+			$group_processed_values['components'] = array();
+			foreach( $component['components'] as $sub_component ){
+				$processed_sub_component = $this->export_component_recursively( $sub_component );
+				if( $processed_sub_component !== null ){
+					$group_processed_values['components'][] = $processed_sub_component;
+				}
+			}
+		}
+
+		return $group_processed_values;
 	}
 
     /**
@@ -111,7 +151,7 @@ class Field extends Repeater {
 
 				// process components recursively to save their data with correct "merged fields" values
 				foreach( $components_data_raw as $component){
-					$processed_component = $this->process_component_recursively( $component );
+					$processed_component = $this->save_component_recursively( $component );
 					if( $processed_component !== null ){
 						$components_data[] = $processed_component;
 					}
@@ -136,7 +176,7 @@ class Field extends Repeater {
 	 * @param array $component The component data to process
 	 * @return array|null The processed component data or null if invalid
 	 */
-	private function process_component_recursively( $component ) {
+	private function save_component_recursively( $component ) {
 		if( !isset( $component['__type'] ) || empty( $component['__type'] ) ){
 			return null;
 		}
@@ -155,7 +195,7 @@ class Field extends Repeater {
 		if( isset( $component['components'] ) && is_array( $component['components'] ) ){
 			$group_processed_values['components'] = array();
 			foreach( $component['components'] as $sub_component ){
-				$processed_sub_component = $this->process_component_recursively( $sub_component );
+				$processed_sub_component = $this->save_component_recursively( $sub_component );
 				if( $processed_sub_component !== null ){
 					$group_processed_values['components'][] = $processed_sub_component;
 				}

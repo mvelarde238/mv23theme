@@ -11,7 +11,7 @@
             groups: [],
             uf_field_model: null,
             builder_data: [],
-            components_data: []
+            initial_components_data: []
         }, args);
 
         this.initialize();
@@ -47,7 +47,7 @@
                 clearStyles: true,
                 componentFirst: true,
                 uf_field_model: this.args.uf_field_model,
-                components_data: this.args.components_data,
+                initial_components_data: this.args.initial_components_data,
                 groups: this.args.groups,
                 // Map component types to groups datastore
                 typesControl: typesControl,
@@ -61,6 +61,8 @@
                     'components_wrapper': { type: 'comp-wrapper' },
                     'carousel': { render: false }
                 },
+                // Temporarily store datastores and models for each component
+                temporalCompStore: {},
                 builderInstance: that,
                 plugins: [
                     rowsAndColsPlugin,
@@ -115,38 +117,40 @@
             this.add_existing_content(editor);
 
             // DELETE
-            editor.on(`component:remove`, (model) => {
-                if (model.getType() === 'group-component') {
-                    let builder_comp_model = model.get('builder_comp_model');
+            // editor.on(`component:remove`, (model) => {
+            //     if (model.getType() === 'group-component') {
+            //         let builder_comp_model = model.get('builder_comp_model');
                     
-                    if (builder_comp_model) {
-                        // Clean up the datastore without calling destroy()
-                        if (builder_comp_model.datastore && typeof builder_comp_model.datastore.clear === 'function') {
-                            builder_comp_model.datastore.clear();
-                            builder_comp_model.datastore.parent = null;
-                        }
+            //         if (builder_comp_model) {
+            //             // Clean up the datastore without calling destroy()
+            //             if (builder_comp_model.datastore && typeof builder_comp_model.datastore.clear === 'function') {
+            //                 builder_comp_model.datastore.clear();
+            //                 builder_comp_model.datastore.parent = null;
+            //             }
                         
-                        // Clean up the model without calling destroy()
-                        if (typeof builder_comp_model.clear === 'function') {
-                            builder_comp_model.clear();
-                        }
+            //             // Clean up the model without calling destroy()
+            //             if (typeof builder_comp_model.clear === 'function') {
+            //                 builder_comp_model.clear();
+            //             }
                         
-                        // Remove event listeners
-                        builder_comp_model.off();
+            //             // Remove event listeners
+            //             builder_comp_model.off();
                         
-                        // Clear the reference
-                        model.unset('builder_comp_model');
-                    }
-                }
-            });
+            //             // Clear the reference
+            //             model.unset('builder_comp_model');
+            //         }
+            //     }
+            // });
 
             // UPDATE
             editor.on('update', () => { 
                 const raw_project_data = editor.getProjectData(),
+                    temporalCompStore = editor.getConfig().temporalCompStore || {},
                     uf_field_model = this.args.uf_field_model;
-    
-                const values = that.separate_project_data(raw_project_data);
+
+                const values = that.prepare_project_data(raw_project_data, temporalCompStore);
                 console.log('raw_project_data', raw_project_data);
+                console.log('temporalCompStore', temporalCompStore);
                 console.log('editor update', values);
 
                 uf_field_model.datastore.set(
@@ -264,7 +268,7 @@
                 });
             });
         },
-        separate_project_data: function (raw_project_data) {
+        prepare_project_data: function (raw_project_data, temporalCompStore) {
             const components_data = [];
             const builder_data = JSON.parse(JSON.stringify(raw_project_data)); // Deep clone
 
@@ -281,27 +285,30 @@
                     let builderComponent = builderComponents[i];
 
                     // Generate a unique ID to connect builder component with datastore
-                    const generateId = component.attributes?.id ?? component.__id ?? this.generateId();
-                    builderComponent.__id = generateId;
+                    const compId = component.attributes?.id ?? component.__id ?? this.generateId();
+                    builderComponent.__id = compId; // this is the connection between builder data and datastore
 
                     // datastore will store: component type, unique id, datastore
                     const typesControl = this.get_types_control();
                     const __type = (typesControl[component.type]) ? typesControl[component.type].group : component.type;
                     const componentDataStore = {
                         __type: __type,
-                        __id: generateId
+                        __id: compId
                     };
 
-                    // Add datastore if it exists   
-                    if (component.datastore) {
-                        delete component.datastore.__type;
-                        Object.assign(componentDataStore, component.datastore);
+                    // Add datastore if it exists
+                    const __tempID = component.__tempID;
+                    if ( temporalCompStore[__tempID] ) {
+                        const datastore = temporalCompStore[__tempID].datastore;
+                        if (datastore) {
+                            delete temporalCompStore[__tempID].datastore.__type;
+                            Object.assign(componentDataStore, datastore.toJSON());
+                        }
                     }
                             
                     // Clean the builder component by removing unwanted keys
-                    delete builderComponent.groupData;
-                    delete builderComponent.builder_comp_model;
-                    delete builderComponent.datastore;
+                    delete builderComponent.__tempID;
+                    delete builderComponent.__lelid;
 
                     // Add components array if it has nested components
                     if (component.components && Array.isArray(component.components) && component.components.length > 0) {

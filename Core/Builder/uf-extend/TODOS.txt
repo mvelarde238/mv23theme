@@ -2,7 +2,6 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// PRIMERA ETAPA, READY!!!
 /////////////////////////////////////////////////////////////////////////////////////// SEGUNDA ETAPA
 * optimizar rendimiento:
-    - dont load the datastore or model in component?
     - dont save in all editor update
 * check if all settings (id, class, layout, etc) can be migrated to styles
 * migrate actions to a link component?
@@ -20,10 +19,6 @@ TODO:
     - row: columns_layout, row_settings (?)
     - accordion: layout in items
     - flip box: layouts, alignment
-
-* check these uf fields
-    - video no vuelve a cargar el preview but data is still there
-    - button, listing not showing post/s (wp_object/s) preview but data is still there
 
 /////////////////////////////////////////////////////////////////////////////////////// TERCERA ETAPA
 * create php component for: container/body (?)
