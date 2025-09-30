@@ -332,14 +332,39 @@
                             const frame = page.frames[frameIndex];
                             const builderFrame = builderPage.frames[frameIndex];
 
-                            if (frame.component && frame.component.components) {
+                            if (frame.component) {
                                 if (!builderFrame.component) {
                                     builderFrame.component = {};
                                 }
-                                if (!builderFrame.component.components) {
-                                    builderFrame.component.components = [];
+                                
+                                // Process the wrapper/body component itself first
+                                if (frame.component.type) {
+                                    const wrapperComponent = {
+                                        type: frame.component.type,
+                                        attributes: frame.component.attributes || {},
+                                        __id: frame.component.__id,
+                                        __tempID: frame.component.__tempID,
+                                        components: frame.component.components || []
+                                    };
+                                    
+                                    let builderWrapperComponent = {
+                                        type: frame.component.type,
+                                        attributes: frame.component.attributes || {},
+                                        components: builderFrame.component.components || []
+                                    };
+                                    
+                                    // Process the wrapper as a top-level component
+                                    processComponents([wrapperComponent], [builderWrapperComponent], true);
+                                    
+                                    // Update the builder frame component with processed data
+                                    Object.assign(builderFrame.component, builderWrapperComponent);
+                                // } else if (frame.component.components) {
+                                    // Fallback: process only nested components if wrapper has no type
+                                    // if (!builderFrame.component.components) {
+                                        // builderFrame.component.components = [];
+                                    // }
+                                    // processComponents(frame.component.components, builderFrame.component.components, true);
                                 }
-                                processComponents(frame.component.components, builderFrame.component.components, true);
                             }
                         }
                     }

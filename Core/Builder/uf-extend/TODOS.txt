@@ -1,10 +1,7 @@
 TODO:
 /////////////////////////////////////////////////////////////////////////////////////// PRIMERA ETAPA, READY!!!
 /////////////////////////////////////////////////////////////////////////////////////// SEGUNDA ETAPA
-* check if all settings (id, class, layout, etc) can be migrated to styles
-* migrate actions to a link component?
-
-* implement migrator
+* implement migrator (if something cant be migrated, just let it be)
     - settings -> styles
     - flip box
         front/back_content['blocks_layout'] -> components
@@ -19,9 +16,10 @@ TODO:
     - flip box: layouts, alignment
 
 /////////////////////////////////////////////////////////////////////////////////////// TERCERA ETAPA
+* render components on builder with backbone templates (?)
+* builder with react -> personalizar: spots, etc
 * create php component for: container/body (?)
 * how to handle the default Text->textnode component ?
-* builder with react -> personalizar: spots, etc
-* render components on builder with backbone templates (?)
+* migrate actions to a link component?
 * Implement Post Lock Dialog -> check mambo builder plugin
 * Make toast for this message: Your data is now saved.
