@@ -39,6 +39,7 @@
             const gjsSection = window["gjsSection"];
             const gjsCompWrapper = window["gjsCompWrapper"];
             const gjsExtendComponents = window["gjsExtendComponents"];
+            const gjsBuilderCommands = window["gjsBuilderCommands"];
 
             const typesControl = this.get_types_control();
 
@@ -73,7 +74,15 @@
                     gjsExtendComponents,
                     gjsFlipboxPlugin,
                     gjsCarouselPlugin,
-                    gjsContainer
+                    gjsContainer,
+                    gjsBuilderCommands
+                ],
+                customTopbarButtonsAfter: [
+                    { 
+                        id: 'builder:save-editor', 
+                        iconClass: 'dashicons dashicons-update',
+                        options: { builder: that }
+                    }
                 ],
                 canvasCss: `
                     .container{
@@ -143,26 +152,7 @@
             // });
 
             // UPDATE
-            editor.on('update', () => { 
-                const raw_project_data = editor.getProjectData(),
-                    temporalCompStore = editor.getConfig().temporalCompStore || {},
-                    uf_field_model = this.args.uf_field_model;
-
-                const values = that.prepare_project_data(raw_project_data, temporalCompStore);
-                console.log('raw_project_data', raw_project_data);
-                console.log('temporalCompStore', temporalCompStore);
-                console.log('editor update', values);
-
-                uf_field_model.datastore.set(
-                    uf_field_model.get('name'),
-                    {
-                        builder_data: values.builder_data,
-                        components_data: values.components_data,
-                        css: editor.getCss()
-                    },
-                    { silent: false }
-                );
-            });
+            // editor.on('update', () => {});
         },
         get_types_control: function() {
             const groups = this.args.groups,

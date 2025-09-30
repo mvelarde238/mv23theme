@@ -2,14 +2,25 @@
  * Clean editor interface
  */
 /* body.ultimate-builder-editor #wpbody-content>div:not(.block-editor):not(#screen-meta),  */
-body.ultimate-builder-editor #wpfooter {
-    display: none;
-}
-body.ultimate-builder-editor #wpcontent {
-    padding-left: 0;
-}
-body.ultimate-builder-editor #wpbody-content{
-    padding-bottom: 0;
+body.ultimate-builder-editor {
+    #wpfooter {
+        display: none;
+    }
+    #wpcontent {
+        padding-left: 0;
+    }
+    #wpbody-content{
+        padding-bottom: 0;
+    }
+    .uf-form-success, 
+    .uf-form-error,
+    .uf-form-special,
+    .uf-form-footer{
+        display: none;
+    }
+    .uf-field-type-ultimate_builder{
+        padding: 0 !important;
+    }
 }
 @media (min-width: 782px){
     body.js.is-fullscreen-mode #adminmenumain, 
@@ -27,7 +38,7 @@ body.ultimate-builder-editor #wpbody-content{
 }
 
 /* POST LOCK DIALOG */
-body.mambo-builder-editor .notification-dialog{
+body.ultimate-builder-editor .notification-dialog{
     background-color: var(--ui-color-2);
     width: 500px;
 }

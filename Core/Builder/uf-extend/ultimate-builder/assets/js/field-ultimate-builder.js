@@ -38,9 +38,6 @@
                 styles = this.model.datastore.get( field_name + '_styles' ),
                 builder_link = this.model.datastore.get( field_name + '_builder_link' );
 
-            console.log('builder_data', builder_data);
-            console.log('components_data', components_data);
-
             // force initial field values
             this.model.setValue({
                 'builder_data': builder_data,

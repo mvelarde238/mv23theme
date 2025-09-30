@@ -1,8 +1,6 @@
 TODO:
 /////////////////////////////////////////////////////////////////////////////////////// PRIMERA ETAPA, READY!!!
 /////////////////////////////////////////////////////////////////////////////////////// SEGUNDA ETAPA
-* optimizar rendimiento:
-    - dont save in all editor update
 * check if all settings (id, class, layout, etc) can be migrated to styles
 * migrate actions to a link component?
 
@@ -25,3 +23,5 @@ TODO:
 * how to handle the default Text->textnode component ?
 * builder with react -> personalizar: spots, etc
 * render components on builder with backbone templates (?)
+* Implement Post Lock Dialog -> check mambo builder plugin
+* Make toast for this message: Your data is now saved.

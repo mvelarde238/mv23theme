@@ -98,6 +98,7 @@ class Ultimate_Builder {
 			$v      = $this->version;
 
 			wp_register_style( 'gjs-context-menu-style', $assets . 'css/gjs-context-menu/style.css', array(), $v );
+			wp_register_style( 'builder-admin-styles', $assets . 'css/admin.css', array(), $v );
 
 			wp_register_style( 'builder-app-styles', 
 				// $assets . 'css/app.css', // right-click-builder css
@@ -119,6 +120,7 @@ class Ultimate_Builder {
 			wp_register_script( 'gjs-comp-wrapper', $assets . 'js/gjs-comp-wrapper.js', array(), $v );
 			wp_register_script( 'gjs-container', $assets . 'js/gjs-container.js', array(), $v );
 			wp_register_script( 'gjs-section', $assets . 'js/gjs-section.js', array(), $v );
+			wp_register_script( 'gjs-builder-commands', $assets . 'js/gjs-builder-commands.js', array(), $v );
 			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );
 
 			$this->filter_admin_body_class();
@@ -163,6 +165,7 @@ class Ultimate_Builder {
 	
 			wp_enqueue_script( 'builder-app' );
 			wp_enqueue_style( 'builder-app-styles' );
+			wp_enqueue_style( 'builder-admin-styles' );
 			require_once ABSPATH . 'wp-admin/admin-header.php';
 	
 			uf_form();
