@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.10.10 25-10-13
+- Fix Archive_Page Class to get the correct post type on empty terms archive page
+
 2.10.9 25-09-15
 - Implements "hide_related_posts" setting on theme options > singles pages
 
