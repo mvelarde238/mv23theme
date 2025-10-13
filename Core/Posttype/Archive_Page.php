@@ -188,7 +188,7 @@ class Archive_Page {
 		if( empty($post_type) ){
 			// trying this to get the post type
 			if( is_post_type_archive() ){
-				$post_type = get_queried_object()->name;
+				$post_type = get_query_var( 'post_type' );
 			} else {
 				$post_type = get_taxonomy(get_queried_object()->taxonomy)->object_type[0];
 			}
