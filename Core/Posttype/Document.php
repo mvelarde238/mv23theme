@@ -114,6 +114,7 @@ class Document {
             Field::create( 'text', 'file_url', __('URL','mv23theme'))->add_dependency('content_type','url','='),
             Field::create( 'file', 'file', __('File','mv23theme'))->set_output_type( 'id' )->add_dependency('content_type','file','='),
             Field::create( 'wysiwyg', 'description', __('Description','mv23theme')),
+            Field::create( 'textarea', 'keywords', __('Keywords','mv23theme'))->set_rows(2),
             Field::create( 'complex', 'metrics', __('Metrics','mv23theme') )->merge()->add_fields(array(
                 Field::create( 'number', 'post_views_count', __('Views','mv23theme'))->set_width(25),
                 Field::create( 'number', 'download_count', __('Downloads','mv23theme'))->set_width(25),
