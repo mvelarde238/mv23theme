@@ -119,7 +119,7 @@ msgstr "Widgets que se muestran en el sidebar"
 #: Core/Builder/Component/Heading.php:160
 #: Core/Builder/Component/Icon_and_Text.php:82
 #: Core/Builder/Component/Menu.php:76
-#: Core/Posttype/Menu_Item.php:40
+#: Core/Posttype/Menu_Item.php:41
 msgid "Style"
 msgstr "Estilo"
 
@@ -282,7 +282,7 @@ msgstr "Acordeón"
 #: Core/Builder/Component/Video.php:34
 #: Core/Builder/containers/page-header.php:41
 #: Core/Offcanvas_Elements/Settings.php:139
-#: Core/Posttype/Document.php:144
+#: Core/Posttype/Document.php:149
 msgid "Content"
 msgstr "Contenido"
 
@@ -703,7 +703,7 @@ msgstr "Ancho"
 
 #: Core/Builder/Component/Gallery.php:183
 #: Core/Builder/containers/popup/common_settings_container.php:119
-#: Core/Posttype/Menu_Item.php:54
+#: Core/Posttype/Menu_Item.php:55
 msgid "Min Width"
 msgstr "Anchura mìnima"
 
@@ -1091,13 +1091,13 @@ msgid "Order by"
 msgstr "Ordenar por"
 
 #: Core/Builder/Component/Listing.php:114
-#: Core/Posttype/Document.php:91
+#: Core/Posttype/Document.php:92
 #: Core/Posttype/Footer.php:44
 msgid "Date"
 msgstr "Fecha"
 
 #: Core/Builder/Component/Listing.php:115
-#: Core/Posttype/Document.php:87
+#: Core/Posttype/Document.php:88
 #: Core/Posttype/Footer.php:42
 msgid "Title"
 msgstr "Título"
@@ -1191,7 +1191,7 @@ msgstr ""
 #: Core/Builder/containers/popup/row_settings_container.php:67
 #: Core/Builder/containers/popup/row_settings_container.php:108
 #: Core/Builder/containers/popup/row_settings_container.php:149
-#: Core/Posttype/Archive_Page.php:122
+#: Core/Posttype/Archive_Page.php:123
 msgid "Space between columns"
 msgstr "Espacio entre columnas"
 
@@ -1304,7 +1304,7 @@ msgstr "Menú Vertical 1"
 #: Core/Builder/containers/page-settings.php:16
 #: Core/Builder/containers/popup/actions_container.php:53
 #: Core/Offcanvas_Elements/Restriction/Plugin.php:62
-#: Core/Posttype/Menu_Item.php:75
+#: Core/Posttype/Menu_Item.php:76
 #: Core/Posttype/Reusable_Section_CPT.php:114
 #: Core/Theme_Options/Fields/Header.php:13
 #: Core/Theme_Options/Fields/Header.php:37
@@ -1384,7 +1384,7 @@ msgstr ""
 #: Core/Builder/Component/Video.php:50
 #: Core/Builder/containers/popup/common_settings_container.php:43
 #: Core/Builder/containers/popup/common_settings_container.php:103
-#: Core/Posttype/Menu_Item.php:41
+#: Core/Posttype/Menu_Item.php:42
 msgid "Background color"
 msgstr "Color de fondo"
 
@@ -1706,7 +1706,7 @@ msgid "Bottom Left"
 msgstr "Abajo a la izquierda"
 
 #: Core/Builder/containers/popup/common_settings_container.php:142
-#: Core/Posttype/Menu_Item.php:58
+#: Core/Posttype/Menu_Item.php:59
 msgid "Border"
 msgstr "Bordes"
 
@@ -1741,6 +1741,7 @@ msgid "Add"
 msgstr "Agregar"
 
 #: Core/Builder/containers/popup/common_settings_container.php:170
+#: Core/Posttype/Menu_Item.php:29
 msgid "Basic"
 msgstr "Básico"
 
@@ -1757,6 +1758,7 @@ msgid "Blur"
 msgstr "Desenfoque"
 
 #: Core/Builder/containers/popup/common_settings_container.php:175
+#: Core/Posttype/Menu_Item.php:77
 msgid "Advanced"
 msgstr "Avanzado"
 
@@ -2056,22 +2058,24 @@ msgid "Add Settings"
 msgstr "Agregar Ajustes"
 
 #. translators: %s: page number
-#: Core/Frontend/Frontend.php:149
+#: Core/Frontend/Frontend.php:147
 #, php-format
 msgid "Page %s"
 msgstr "Página %s"
 
-#: Core/Frontend/Post_Card.php:141
+#: Core/Frontend/Post_Card.php:170
 msgid "Like"
 msgstr "Me gusta"
 
-#: Core/Frontend/Post_Card.php:154
-#: single-document.php:116
+#: Core/Frontend/Post_Card.php:177
+#: single-document.php:47
+#: single-document.php:112
 msgid "Preview"
 msgstr "Previsualizar"
 
-#: Core/Frontend/Post_Card.php:167
-#: single-document.php:130
+#: Core/Frontend/Post_Card.php:184
+#: single-document.php:52
+#: single-document.php:119
 msgid "Download"
 msgstr "Descargar"
 
@@ -2259,7 +2263,7 @@ msgid "Bottom Sheet"
 msgstr ""
 
 #: Core/Offcanvas_Elements/Settings.php:158
-#: Core/Posttype/Document.php:105
+#: Core/Posttype/Document.php:110
 msgid "Content Type"
 msgstr "Tipo de contenido"
 
@@ -2484,134 +2488,135 @@ msgstr "La cookie se borrará después de X tiempo luego de ser creada."
 msgid "Expiration time"
 msgstr "Tiempo de expiración"
 
-#: Core/Posttype/Archive_Page.php:72
+#: Core/Posttype/Archive_Page.php:73
+#: Core/Posttype/Menu_Item.php:109
 msgid "Any"
 msgstr "Cualquiera"
 
-#: Core/Posttype/Archive_Page.php:108
+#: Core/Posttype/Archive_Page.php:109
 msgid "Loop Settings"
 msgstr "Ajustes del loop"
 
-#: Core/Posttype/Archive_Page.php:111
+#: Core/Posttype/Archive_Page.php:112
 msgid "Place these shortcodes in the page content: [posts] [pagination]"
 msgstr "Ubica estos shortcodes en el contenido de la página: [posts] [pagination]"
 
-#: Core/Posttype/Archive_Page.php:114
+#: Core/Posttype/Archive_Page.php:115
 msgid "Columns quantity"
 msgstr "Cantidad de Columnas"
 
-#: Core/Posttype/Archive_Page.php:130
+#: Core/Posttype/Archive_Page.php:131
 msgid "Post card settings"
 msgstr "Ajustes del post card"
 
-#: Core/Posttype/Archive_Page.php:146
+#: Core/Posttype/Archive_Page.php:147
 msgid "Page template"
 msgstr "Template de la página"
 
 #. Template Name of the theme
-#: Core/Posttype/Archive_Page.php:148
+#: Core/Posttype/Archive_Page.php:149
 msgid "Left Sidebar"
 msgstr "Sidebar a la izquierda"
 
 #. Template Name of the theme
-#: Core/Posttype/Archive_Page.php:149
+#: Core/Posttype/Archive_Page.php:150
 msgid "Right Sidebar"
 msgstr "Sidebar a la derecha"
 
-#: Core/Posttype/Archive_Page.php:150
+#: Core/Posttype/Archive_Page.php:151
 #: Core/Theme_Options/Fields/Single_Pages.php:43
 msgid "Hide Sidebar"
 msgstr "Ocultar sidebar"
 
-#: Core/Posttype/Document.php:64
+#: Core/Posttype/Document.php:65
 msgid "Document Category"
 msgstr "Categoría de documento"
 
-#: Core/Posttype/Document.php:65
+#: Core/Posttype/Document.php:66
 msgid "Document Categories"
 msgstr "Categorías"
 
-#: Core/Posttype/Document.php:88
-#: Core/Posttype/Document.php:106
-#: Core/Posttype/Document.php:110
+#: Core/Posttype/Document.php:89
+#: Core/Posttype/Document.php:111
+#: Core/Posttype/Document.php:115
 #: Core/Theme_Options/Fields/Typography.php:56
 msgid "File"
 msgstr "Archivo"
 
-#: Core/Posttype/Document.php:89
+#: Core/Posttype/Document.php:90
 msgid "Tracked Data"
 msgstr "Tracked Data"
 
-#: Core/Posttype/Document.php:90
+#: Core/Posttype/Document.php:91
 msgid "Category"
 msgstr "Categoría"
 
-#: Core/Posttype/Document.php:107
+#: Core/Posttype/Document.php:112
 #: Core/Theme_Options/Fields/Typography.php:57
 msgid "Url"
 msgstr "Url"
 
-#: Core/Posttype/Document.php:109
+#: Core/Posttype/Document.php:114
 msgid "URL"
 msgstr "URL"
 
-#: Core/Posttype/Document.php:111
+#: Core/Posttype/Document.php:116
 msgid "Description"
 msgstr "Descripción"
 
-#: Core/Posttype/Document.php:112
+#: Core/Posttype/Document.php:118
 msgid "Metrics"
 msgstr "Métricas"
 
-#: Core/Posttype/Document.php:113
+#: Core/Posttype/Document.php:119
 msgid "Views"
 msgstr "Vistas"
 
-#: Core/Posttype/Document.php:114
+#: Core/Posttype/Document.php:120
 msgid "Downloads"
 msgstr "Descargas"
 
-#: Core/Posttype/Document.php:115
+#: Core/Posttype/Document.php:121
 msgid "Previews"
 msgstr "Previsualizaciones"
 
-#: Core/Posttype/Document.php:116
+#: Core/Posttype/Document.php:122
 msgid "Likes"
 msgstr "Likes"
 
-#: Core/Posttype/Document.php:121
+#: Core/Posttype/Document.php:128
 msgid "Post Subscription"
 msgstr "Suscripción al post"
 
-#: Core/Posttype/Document.php:124
+#: Core/Posttype/Document.php:131
 msgid "Override Global Posts Subscription"
 msgstr "Sobreescribir la suscripción a los posts global"
 
-#: Core/Posttype/Document.php:129
+#: Core/Posttype/Document.php:136
 msgid "Enable Post Subscription"
 msgstr "Habilitar suscripción al post"
 
-#: Core/Posttype/Document.php:174
+#: Core/Posttype/Document.php:179
 msgid "View File"
 msgstr "Ver archivo"
 
-#: Core/Posttype/Document.php:176
+#: Core/Posttype/Document.php:181
 msgid "No file attached"
 msgstr "No hay archivo adjunto "
 
 #. translators: %s: Yes or No
-#: Core/Posttype/Document.php:189
-#: Core/Posttype/Document.php:190
+#: Core/Posttype/Document.php:194
+#: Core/Posttype/Document.php:195
 #, php-format
 msgid "Subscribe to continue: %s"
 msgstr "Solicitar suscripción: %s"
 
 #. translators: %s: Yes or No
-#: Core/Posttype/Document.php:189
+#: Core/Posttype/Document.php:194
 msgid "Yes"
 msgstr "Sí"
 
-#: Core/Posttype/Document.php:190
+#: Core/Posttype/Document.php:195
 msgid "No"
 msgstr "No"
 
@@ -2629,19 +2634,19 @@ msgstr "Pie de Página"
 msgid "Activate Theme Footer"
 msgstr "Activar Pie de Página"
 
-#: Core/Posttype/Menu_Item.php:46
+#: Core/Posttype/Menu_Item.php:47
 msgid "Text color"
 msgstr "Color del texto"
 
-#: Core/Posttype/Menu_Item.php:50
+#: Core/Posttype/Menu_Item.php:51
 msgid "Border radius"
 msgstr "Redondeado"
 
-#: Core/Posttype/Menu_Item.php:63
+#: Core/Posttype/Menu_Item.php:64
 msgid "Box shadow"
 msgstr "Sombras"
 
-#: Core/Posttype/Menu_Item.php:75
+#: Core/Posttype/Menu_Item.php:76
 msgid "OffCanvas Element"
 msgstr ""
 
@@ -3108,16 +3113,17 @@ msgstr "No se encontraron estructuras"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: partials/card/postcard-document.php:42
+#: Core/Posttype/Document.php:336
 msgid "Last modified"
 msgstr "Última modificación"
 
-#: partials/card/postcard-document.php:92
+#: partials/card/postcard-document.php:12
+#: partials/card/postcard-portfolio.php:12
 msgid "More details"
 msgstr "Más detalles"
 
-#: partials/card/postcard-post-horizontal.php:41
-#: partials/card/postcard.php:38
+#: partials/card/postcard-post-horizontal.php:10
+#: partials/card/postcard.php:12
 msgid "Read More"
 msgstr "Leer Más"
 
@@ -3125,19 +3131,19 @@ msgstr "Leer Más"
 msgid "No results"
 msgstr "No hubieron resultados"
 
-#: single-document.php:80
+#: single-document.php:79
 msgid "Extension: "
 msgstr "Extensión: "
 
-#: single-document.php:81
+#: single-document.php:80
 msgid "File size: "
 msgstr "Tamaño del archivo: "
 
-#: single-document.php:83
+#: single-document.php:81
 msgid "Last modified: "
 msgstr "Última modificación: "
 
-#: single-document.php:84
+#: single-document.php:83
 msgid "Views: "
 msgstr "Visitas: "
 
@@ -3145,7 +3151,7 @@ msgstr "Visitas: "
 msgid "Tags: "
 msgstr "Etiquetas: "
 
-#: single-document.php:140
+#: single-document.php:133
 msgid "Related Documents"
 msgstr "Documentos Relacionados"
 
@@ -3157,32 +3163,70 @@ msgstr "Agregar Subtítulo"
 msgid "Unit (px,%,vh..)"
 msgstr "Medida (px,%,vh..)"
 
-msgid "Document"
-msgstr "Documento"
-
-msgid "Documents"
-msgstr "Documentos"
-
-#: Core/Posttype/Document.php:77
+#: Core/Posttype/Document.php:78
 msgid "Tag"
 msgstr "Etiqueta"
 
-#: Core/Posttype/Document.php:78
+#: Core/Posttype/Document.php:79
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: Core/Posttype/Document.php:52
+#: Core/Posttype/Document.php:53
 msgid "Add New Document"
 msgstr "Añadir Documento"
 
-#: Core/Posttype/Document.php:145
+#: Core/Posttype/Document.php:150
 msgid "Show documents from this category"
 msgstr "Mostrar documentos de esta categoría"
 
-#: Core/Posttype/Document.php:146
+#: Core/Posttype/Document.php:151
 msgid "Show terms hierarchy of this category"
 msgstr "Mostrar las sub categorías de esta categoría"
 
-#: Core/Posttype/Document.php:147
+#: Core/Posttype/Document.php:152
 msgid "Show terms and documents from this category"
 msgstr "Mostrar las sub categorías y documentos de esta categoría"
+
+#: Core/Posttype/Document.php:117
+msgid "Keywords"
+msgstr "Keywords"
+
+#: Core/Posttype/Document.php:124
+msgid "Related Posts"
+msgstr "Posts Relacionados"
+
+#: Core/Posttype/Menu_Item.php:78
+msgid "Dynamic Content"
+msgstr "Contenido Dinámico"
+
+#: Core/Posttype/Menu_Item.php:84
+msgid "Select the dynamic content"
+msgstr "Seleccione el contenido dinámico"
+
+#: Core/Posttype/Menu_Item.php:85
+msgid "--Select--"
+msgstr "--Selecciona--"
+
+#: Core/Posttype/Menu_Item.php:86
+msgid "List Posts"
+msgstr "Mostrar posts"
+
+#: Core/Posttype/Menu_Item.php:87
+msgid "List Terms"
+msgstr "Listar terms"
+
+#: Core/Posttype/Menu_Item.php:88
+msgid "List Terms and Posts in Megamenu"
+msgstr "Mostrar terms y posts en un Megamenu"
+
+#: Core/Theme_Options/Fields/Single_Pages.php:46
+msgid "Hide Related Posts"
+msgstr "Ocultar posts relacionados"
+
+#: partials/shortcodes/social-share.php:5
+msgid "more"
+msgstr "más"
+
+#: partials/shortcodes/social-share.php:90
+msgid "Share this post:"
+msgstr "Comparte este post:"

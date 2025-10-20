@@ -124,6 +124,9 @@ $single_page = $theme_options->get_page_template_settings('single');
                     </div>
                 </div>
             </div>
+
+            <?php if(!$single_page['hide_social_share']) get_template_part('partials/social-share'); ?>
+
             <?php if(!$single_page['hide_related_posts']) : ?>
                 <div class="single-document__related-posts">
                     <?php

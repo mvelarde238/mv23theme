@@ -2,8 +2,6 @@
 class SocialShare {
     private $social_networks;
     private $limit;
-    private $more_text = 'more';
-    private $more_icon = 'bi-three-dots';
 
     public function __construct() {
         $this->limit = 5;
@@ -87,10 +85,10 @@ class SocialShare {
         // Atributos del shortcode
         $atts = shortcode_atts([
             'networks' => '',
-            'title' => 'Share this post:',
+            'title' => __('Share this post:', 'mv23theme'),
             'limit' => $this->limit,
-            'more_text' => $this->more_text,
-            'more_icon' => $this->more_icon,
+            'more_text' => __('more', 'mv23theme'),
+            'more_icon' => 'bi-three-dots',
             'alignment' => ''
         ], $atts);
 
