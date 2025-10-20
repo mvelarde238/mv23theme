@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.10.11 25-10-20
+- Include social share on single document and update translation
+
 2.10.10 25-10-13
 - Fix Archive_Page Class to get the correct post type on empty terms archive page
 - Keyword post meta implementation on document cpt
