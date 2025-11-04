@@ -423,12 +423,16 @@
 		 * Handles file selection.
 		 */
 		fileSelected: function( selection ) {
+			var prepared = [];
+
 			if( this.model.get( 'multiple' ) ) {
 				var ids = [];
 
 				selection.each(function( attachment ) {
 					ids.push( attachment.get( 'id' ) );
 					fileField.Cache.add( attachment );
+					
+					prepared.push( attachment.toJSON() );
 				});
 
 				this.model.setValue( ids );
@@ -440,7 +444,14 @@
 
 				// Save the value
 				this.model.setValue( attachment.get( 'id' ) );
+
+				prepared.push( attachment.toJSON() );
 			}
+
+			// Update the *_prepared value in the datastore, mv23
+			this.model.datastore.set({
+				[this.model.get( 'name' ) + '_prepared']: prepared
+			});
 
 			// Change the preview
 			this.updateView();
@@ -488,6 +499,12 @@
 				type:     'secondary',
 				callback: function() {
 					that.model.setValue( false );
+
+					// Clear the *_prepared value in the datastore, mv23
+					that.model.datastore.set({
+						[that.model.get( 'name' ) + '_prepared']: false
+					});
+
 					that.updateView();
 				}
 			});

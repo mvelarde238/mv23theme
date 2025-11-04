@@ -28,6 +28,9 @@
 				.attr( 'rows', this.model.get( 'rows' ) )
 				.val( this.model.getValue() )
 				.appendTo( this.$el );
+
+			// Assign a manual keyup handler
+			this.$el.find( 'textarea' ).on( 'keyup', _.throttle( _.bind( this.change, this ), 100 ) );
 		},
 
 		/**

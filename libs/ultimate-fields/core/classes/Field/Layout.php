@@ -238,7 +238,8 @@ class Layout extends Repeater {
 				'title_color'      => 'set_title_color',
 				'border_color'     => 'set_border_color',
 				'icon'             => 'set_icon',
-				'title_template'   => 'set_title_template'
+				'title_template'   => 'set_title_template',
+				'view_template'    => 'set_view_template',
 			));
 
 			$this->add_group( $group );

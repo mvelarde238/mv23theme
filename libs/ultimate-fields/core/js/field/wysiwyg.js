@@ -93,7 +93,7 @@
 			if( 'undefined' != typeof tinymce ) {
 				tinyMCEPreInit.mceInit[ id ] = $.extend( {}, mceInit );
 				tinyMCEPreInit.mceInit[ id ].setup = function( editor ) {
-					editor.on( 'change', function( e ) {
+					editor.on( 'change keyup', function( e ) {
 						var value = editor.getContent();
 
 						// Fix empty paragraphs before un-wpautop

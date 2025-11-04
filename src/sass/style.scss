@@ -55,9 +55,10 @@
 @import "modulos/special-list-1";
 @import "modulos/theme-list";
 @import "modulos/sidebar";
-@import "modulos/tab-style-1";
-@import "modulos/tab-style-2";
-@import "modulos/accordion-style-1";
+@import "modulos/togglebox/global";
+@import "modulos/togglebox/tab-style-1";
+@import "modulos/togglebox/tab-style-2";
+@import "modulos/togglebox/accordion-style-1";
 @import "modulos/table";
 @import "modulos/rrss-module";
 @import "modulos/modal";
@@ -95,7 +96,6 @@
 @import "ultimate-fields/components/testimonials";
 @import "ultimate-fields/components/listing";
 @import "ultimate-fields/components/content-layout";
-@import "ultimate-fields/components/accordion";
 @import "ultimate-fields/components/carousel";
 @import "ultimate-fields/components/icon";
 @import "ultimate-fields/components/expander";

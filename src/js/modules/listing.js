@@ -31,26 +31,27 @@
             },
             success: function(response) {
                 $component.attr('data-status','loaded');
-                var $items_container = ( listing_template === 'carrusel' ) ? $listing.find('.carousel__slider') : $listing;
-                if ( listing_template === 'carrusel' ) {
-                    var tns_uid = $listing.find('.carousel').attr('data-tns-uid');
-                    var carousel = MV23_GLOBALS.carousels[ tns_uid ];
+                var $items_container = ( listing_template === 'carousel' ) ? $listing.find('.carousel__slider') : $listing;
+                if ( listing_template === 'carousel' ) {
+                    var slider_uid = $listing.find('.carousel__slider').attr('data-slider-uid');
+                    var carousel = MV23_GLOBALS.carousels[ slider_uid ];
                 }
 
                 switch(response.status){
                     case 'success':
                         var $items = $(response.posts);
 
-                        if ( listing_template === 'carrusel' ){
+                        if ( listing_template === 'carousel' ){
                             carousel.destroy();
                             $items_container = $listing.find('.carousel__slider');
                             if(action === 'replace') $items_container.html('');
                         } 
                         if(action === 'replace') $items_container.html($items);
                         if(action === 'append') $items_container.append($items);
-                        if ( listing_template === 'carrusel' ) {
-                            MV23_GLOBALS.carousels[ tns_uid ] = create_tns_slider( $items_container[0] );
-                            if(action === 'append') MV23_GLOBALS.carousels[ tns_uid ].goTo('next');
+                        if ( listing_template === 'carousel' ) {
+                            MV23_GLOBALS.carousels[ slider_uid ] = create_tns_slider( $items_container[0] );
+                            $items_container.attr('data-slider-uid', slider_uid);
+                            if(action === 'append') MV23_GLOBALS.carousels[ slider_uid ].goTo('next');
                         }
 
                         $listing.trigger('listingUpdated', {listing:$listing, items:$items, action:action, response:response});
@@ -63,13 +64,16 @@
                         break;
 
                     case 'error':
-                        if ( listing_template === 'carrusel' ) {
+                        if ( listing_template === 'carousel' ) {
                             carousel.destroy();
                             $items_container = $listing.find('.carousel__slider');
                             $items_container.html('');
                         }
                         $items_container.html('<p class="center posts-filter-error-msg">'+response.message+'</p>');
-                        if ( listing_template === 'carrusel' ) MV23_GLOBALS.carousels[ tns_uid ] = create_tns_slider( $items_container[0] );
+                        if ( listing_template === 'carousel' ){
+                            MV23_GLOBALS.carousels[ slider_uid ] = create_tns_slider( $items_container[0] );
+                            $items_container.attr('data-slider-uid', slider_uid);
+                        } 
                         $pagination && $pagination.html('');
                         break;
 

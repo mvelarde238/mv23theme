@@ -2,6 +2,10 @@
     position: relative
     @extend .tns-slider-theme
 
+    &__slider:not(.tns-slider)
+        display: flex
+        overflow-x: scroll
+
     &__item
         &--image
             text-align: center

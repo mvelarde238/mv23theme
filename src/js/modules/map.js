@@ -12,6 +12,8 @@ var styleArray = [ { "stylers": [ { "hue": "#19511B" }, { "saturation": 0 }, { "
                     lng = parseFloat(element.dataset.lng),
                     zoom = parseFloat(element.dataset.zoom),
 				    icon = element.dataset.icon,
+					icon_width = parseFloat(element.dataset.iconWidth),
+					icon_height = parseFloat(element.dataset.iconHeight),
 					provider = element.dataset.provider,
 					location = [lat,lng],
                     map = null,
@@ -31,10 +33,10 @@ var styleArray = [ { "stylers": [ { "hue": "#19511B" }, { "saturation": 0 }, { "
 					}
 	
 					if(icon){
-						// marker.setIcon(L.icon({
-							// iconUrl: icon,
-							// iconSize: [38, 95]
-						// }));
+						marker.setIcon(L.icon({
+							iconUrl: icon,
+							iconSize: [icon_width, icon_height]
+						}));
 					}
 				}
 

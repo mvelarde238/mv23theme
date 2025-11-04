@@ -595,6 +595,7 @@ class Repeater extends Field {
 				'border_color'     => 'set_border_color',
 				'icon'             => 'set_icon',
 				'title_template'   => 'set_title_template',
+				'view_template'    => 'set_view_template',
 				'layout'           => 'set_layout'
 			));
 

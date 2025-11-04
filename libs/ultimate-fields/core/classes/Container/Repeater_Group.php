@@ -64,6 +64,14 @@ class Repeater_Group extends Group {
 	protected $title_template;
 
 	/**
+	 * Holds the backbone template for uf builder components.
+	 *
+	 * @since 3.2.4
+	 * @var string
+	 */
+	protected $view_template;
+
+	/**
 	 * Holds the ID of a container, whose fields will be loaded in the group, if any.
 	 *
 	 * @since 3.0
@@ -84,6 +92,10 @@ class Repeater_Group extends Group {
 
 		if( isset( $args[ 'title_template' ] ) ) {
 			$this->title_template = $args[ 'title_template' ];
+		}
+
+		if( isset( $args[ 'view_template' ] ) ) {
+			$this->view_template = $args[ 'view_template' ];
 		}
 
 		# Parse normal arguments
@@ -114,6 +126,9 @@ class Repeater_Group extends Group {
 			}
 		}
 		$settings[ 'title_template' ] = $title;
+
+		$view_template = $this->view_template;
+		$settings[ 'view_template' ] = $view_template;
 
 		# Add basic settings
 		if( is_admin() && isset( $GLOBALS[ 'wp_customize' ] ) ) {
@@ -304,6 +319,18 @@ class Repeater_Group extends Group {
 	public function get_title_template() {
 		return $this->title_template;
 	}
+	
+	public function set_view_template( $template ) {
+		if( ! is_null( $template ) ) {
+			$this->view_template = $template;
+		}
+
+		return $this;
+	}
+
+	public function get_view_template() {
+		return $this->view_template;
+	}
 
 	/**
 	 * Goes through the fields of the group and forces widths to reach 100.
@@ -423,6 +450,7 @@ class Repeater_Group extends Group {
 			'border_color'     => array( 'border_color', null ),
 			'icon'             => array( 'icon', '' ),
 			'title_template'   => array( 'title_template', null ),
+			'view_template'    => array( 'view_template', null ),
 		));
 
 		return $settings;

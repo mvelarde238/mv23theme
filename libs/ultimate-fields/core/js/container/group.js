@@ -40,6 +40,7 @@
 
 		restoreState: function() {
 			this.setDatastore( this.realDatastore );
+			this.trigger( 'stateRestored' );
 		},
 
 		/**
@@ -611,6 +612,7 @@
 			});
 
 			this.focusFirstField();
+			return this;
 		},
 
 		getbuttons: function() {
