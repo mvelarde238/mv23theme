@@ -21,13 +21,13 @@ Class Margin{
             $simplified = Helpers::simplify_values('margin', $top, $right, $bottom, $left);
 
             if ($simplified) {
-                $styles[] = 'margin:' . $simplified;
+                $styles['margin'] = $simplified;
             } else {
                 // Fall back to individual properties
-                if ($top !== null) $styles[] = 'margin-top:' . $top;
-                if ($right !== null) $styles[] = 'margin-right:' . $right;
-                if ($bottom !== null) $styles[] = 'margin-bottom:' . $bottom;
-                if ($left !== null) $styles[] = 'margin-left:' . $left;
+                if ($top !== null) $styles['margin-top'] = $top;
+                if ($right !== null) $styles['margin-right'] = $right;
+                if ($bottom !== null) $styles['margin-bottom'] = $bottom;
+                if ($left !== null) $styles['margin-left'] = $left;
             }
         }
     

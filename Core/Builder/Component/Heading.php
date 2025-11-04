@@ -18,24 +18,6 @@ class Heading extends Component {
         return 'dashicons-heading';
     }
 
-	public static function get_title_template() {
-        $template = '
-        <% if ( heading.content || tagline.content ) { %>
-            <% if ( heading.content ) { %>
-                <%= heading.content %>
-            <% } %>
-            |
-            <% if ( tagline.content ) { %>
-                <%= tagline.content %>
-            <% } %>
-        <% } else { %>
-            This component is empty
-        <% } %>
-        ';
-		
-		return $template;
-	}
-
 	public static function get_fields() {
 
         $preset_styles = apply_filters(
@@ -85,9 +67,12 @@ class Heading extends Component {
         );
 
 		$fields = array(
-            Field::create( 'tab', 'content', __( 'Content', 'mv23theme' ) ),
-			Field::create( 'complex', 'heading', __( 'Heading', 'mv23theme' ) )
+            Field::create( 'tab', __( 'Heading', 'mv23theme' ) ),
+			Field::create( 'complex', 'heading' )->hide_label()
                 ->add_fields( array(
+                    Field::create( 'textarea', 'content', __( 'Content', 'mv23theme' ) )
+                        ->set_rows( 5 )
+                        ->hide_label(),
                     Field::create( 'select', 'html_tag', __( 'HTML Tag', 'mv23theme' ) )
                         ->add_options( array(
                             'h1' => __( 'H1', 'mv23theme' ),
@@ -100,20 +85,11 @@ class Heading extends Component {
                         ->set_default_value( 'h2' )
                         ->set_prefix( 'HTML Tag:' )
                         ->hide_label()
-                        ->set_attr( 'style', 'flex-grow: initial; width: 220px;' ),
-                    Field::create( 'textarea', 'content', __( 'Content', 'mv23theme' ) )
-                        ->set_rows( 3 )
-                        ->hide_label()
-                        ->set_attr( 'style', 'flex-grow: 1;' ),
-                    Field::create( 'common_settings_control', 'settings' )
-						->set_container( 'common_settings_container' )
-						->set_hidden_fields( array('main_attributes', 'layout', 'helpers', 'margin', 'padding','background_image', 'video_background', 'slider_background', 'width', 'height', 'background_color', 'border', 'box_shadow', 'helpers', 'border_radius', 'visibility', 'responsive') )
-						->set_add_text( __('Settings', 'mv23theme') )
-						->hide_label()
-                        ->set_attr( 'style', 'flex-grow: initial;' )
                 ) ),
 
-            Field::create( 'radio', 'text_align', __( 'Alignment', 'mv23theme' ) )
+            Field::create( 'radio', 'text_align' )
+                ->hide_label()
+                ->set_prefix( __( 'Alignment', 'mv23theme' ) )
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
                     'left' => __( 'Left', 'mv23theme' ),
@@ -121,12 +97,17 @@ class Heading extends Component {
                     'right' => __( 'Right', 'mv23theme' )
                 ) ),
 
-            Field::create( 'checkbox', 'add_tagline', __('Add Tagline','mv23theme') )
+            Field::create( 'tab', 'Tagline'),
+            Field::create( 'checkbox', 'add_tagline' )
                 ->fancy()
-                ->set_attr('style','background-color:#fafafa;'),
+                ->set_text(__('Add Tagline','mv23theme'))
+                ->hide_label(),
 
-            Field::create( 'complex', 'tagline', __( 'Tagline', 'mv23theme' ) )
+            Field::create( 'complex', 'tagline' )
+                ->hide_label()
                 ->add_fields( array(
+                    Field::create( 'text', 'content', __( 'Content', 'mv23theme' ) )
+                        ->hide_label(),
                     Field::create( 'select', 'html_tag', __( 'HTML Tag', 'mv23theme' ) )
                         ->add_options( array(
                             'p' => __( 'Paragraph', 'mv23theme' ),
@@ -136,19 +117,11 @@ class Heading extends Component {
                         ->set_default_value( 'p' )
                         ->set_prefix( 'HTML Tag:' )
                         ->hide_label()
-                        ->set_attr( 'style', 'flex-grow: initial; width: 220px;' ),
-                    Field::create( 'text', 'content', __( 'Content', 'mv23theme' ) )
-                        ->hide_label()
-                        ->set_attr( 'style', 'flex-grow: 1;' ),
-                    Field::create( 'common_settings_control', 'settings' )
-						->set_container( 'common_settings_container' )
-						->set_hidden_fields( array('main_attributes', 'layout', 'helpers', 'margin', 'padding','background_image', 'video_background', 'slider_background', 'width', 'height', 'background_color', 'border', 'box_shadow', 'helpers', 'border_radius', 'visibility', 'responsive') )
-						->set_add_text( __('Settings', 'mv23theme') )
-						->hide_label()
-                        ->set_attr( 'style', 'flex-grow: initial;' )
                 ) )->add_dependency( 'add_tagline' ),
 
-            Field::create( 'radio', 'tagline_position', __( 'Tagline Position', 'mv23theme' ) )
+            Field::create( 'radio', 'tagline_position' )
+                ->hide_label()
+                ->set_prefix( __( 'Tagline Position', 'mv23theme' ) )
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
                     'before' => __( 'Before Heading', 'mv23theme' ),
@@ -158,25 +131,26 @@ class Heading extends Component {
                 ->add_dependency( 'add_tagline' ),
 
             Field::create( 'tab', 'style', __( 'Style', 'mv23theme' ) ),
-            Field::create( 'image_select', 'preset', __('Preset Style', 'mv23theme') )->add_options($preset_styles)->set_default_value('default'),
+            Field::create( 'image_select', 'preset', __('Preset Style', 'mv23theme') )
+                ->add_options($preset_styles)
+                ->hide_label()
+                ->set_default_value('default')
+                ->set_attr( 'class', 'image-select-2-cols' ),
             Field::create( 'complex', 'accent_color', __( 'Accent Color', 'mv23theme' ) )
                 ->add_fields( array(
                     Field::create( 'text', 'color_variable' )
                         ->set_placeholder( 'currentColor' )
                         ->add_suggestions( array('currentColor', '--primary-color', '--secondary-color'))
                         ->add_dependency( 'use_color', 0 )
-                        ->set_attr( 'style', 'flex-grow: initial;' )
                         ->hide_label()
                         ->set_width( 50 ),
                     Field::create( 'checkbox', 'use_color', __( 'Use Color', 'mv23theme' ) )
                         ->fancy()
                         ->set_text( __( 'Use custom color', 'mv23theme' ) )
-                        ->set_attr( 'style', 'flex-grow: initial;' )
                         ->hide_label()
                         ->set_width( 50 ),
                     Field::create( 'color', 'color', __( 'Color', 'mv23theme' ) )
                         ->add_dependency( 'use_color' )
-                        ->set_attr( 'style', 'flex-grow: 1;' )
                         ->hide_label()
                         ->set_width( 50 )
                 ) )->add_dependency( 'preset', 'default', '!=' ),
@@ -215,14 +189,14 @@ class Heading extends Component {
         // add accent color to additional styles
         $accent_color = $args['accent_color'] ?? array('use_color' => false, 'color' => '', 'color_variable' => '');
         if( $accent_color['use_color'] && !empty($accent_color['color']) ) {
-            $args['additional_styles'][] = '--accent-color: ' . $accent_color['color'];
+            $args['additional_styles']['--accent-color'] = $accent_color['color'];
         } else {
             if( !empty($accent_color['color_variable']) ) {
                 $maybe_color_variable = $accent_color['color_variable'];
                 if( str_starts_with($maybe_color_variable, '--') ) {
-                    $args['additional_styles'][] = '--accent-color: var(' . $maybe_color_variable . ')';
+                    $args['additional_styles']['--accent-color'] = 'var(' . $maybe_color_variable . ')';
                 } else { // if it does not start with '--', assume it's a color value
-                    $args['additional_styles'][] = '--accent-color: ' . $maybe_color_variable;
+                    $args['additional_styles']['--accent-color'] = $maybe_color_variable;
                 }
             }
         }
@@ -289,6 +263,49 @@ class Heading extends Component {
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
+
+    public static function get_view_template() {
+        ob_start(); 
+
+        printf(
+            '<div class="heading %s %s" style="%s;">',
+            '<%= text_align %>-align',
+            'heading--<%= preset %>',
+            '<% if( accent_color.use_color ){ %>'.
+                '--accent-color: <%= accent_color.color %>'.
+            '<% } else { %>'.
+                '<% if( accent_color.color_variable ) { %>'.
+                    '<% if( accent_color.color_variable.startsWith("--") ) { %>'.
+                        '--accent-color: var(<%= accent_color.color_variable %>)'.
+                    '<% } else { %>'.
+                        '--accent-color: <%= accent_color.color_variable %>'.
+                    '<% } %>'.
+                '<% } %>'.
+            '<% } %>'
+        );
+
+        printf(
+            '<%s class="heading__text %s">%s</%s>',
+            '<%= heading.html_tag %>',
+            '<% if( highlighted_element == "heading" ) { %>highlighted <% } %>',
+            '<span><%= heading.content %></span>',
+            '<%= heading.html_tag %>'
+        );
+
+        echo '<% if(add_tagline){ %>';
+        printf(
+            '<%s class="heading__tagline %s" data-gjs-editable="true">%s</%s>',
+            '<%= tagline.html_tag %>',
+            '<% if( highlighted_element == "tagline" ) { %>highlighted<% } %>',
+            '<span><%= tagline.content %></span>',
+            '<%= tagline.html_tag %>'
+        );
+        echo '<% } %>';
+
+        echo '</div>';
+        
+        return ob_get_clean();
+    }
 }
 
 new Heading();

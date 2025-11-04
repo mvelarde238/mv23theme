@@ -3,6 +3,7 @@ namespace Core\Builder;
 
 use Core\Builder\Component\Components_Wrapper;
 use Ultimate_Fields\Container;
+use Core\Builder\Template_Engine;
 
 define ('BUILDER_DIR', __DIR__);
 define ('BUILDER_PATH', get_template_directory_uri() . '/Core/Builder');
@@ -31,6 +32,7 @@ class Core{
         'core' => array(
             'Text_Editor',
             'Heading',
+            'Figure',
             'Image',
             'Video',
             'Button',
@@ -39,10 +41,11 @@ class Core{
             'Icon_and_Text',
             'Shortcode',
             'Listing',
-            'Html',
+            'Code',
             'Gallery',
             'Testimonials',
-            'Menu'
+            'Menu',
+            'Column'
         ),
         'theme' => array(),
         'wrappers' => array(
@@ -50,6 +53,7 @@ class Core{
             'Flip_Box',
             'Carousel',
             'Inner_Accordion',
+            'Accordion_Button',
             'Accordion',
             'Components_Wrapper',
             'Inner_Row',
@@ -163,5 +167,15 @@ class Core{
         }
 
         return $_components;
+    }
+
+    /** AJAX Handlers
+     * used for the builder to get the component view
+     * for ajaxified components rendering
+     */
+    public function ajax_get_component_view(){
+        $component_view = Template_Engine::getInstance()->handle( $_REQUEST['__type'], $_REQUEST );
+        $result = $component_view ? $component_view : 'Component view could not be generated.';
+        wp_send_json_success($result);
     }
 }

@@ -1,22 +1,17 @@
 <?php
 namespace Core\Builder\Component;
 
-use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 
-class Spacer extends Component {
+class Figure extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'spacer',
-			__( 'Spacer', 'mv23theme' )
+			'figure',
+			__( 'Figure', 'mv23theme' )
 		);
 	}
-
-	public static function get_icon() {
-        return 'dashicons-image-flip-vertical';
-    }
 
 	public static function get_fields() {
 		$fields = array();
@@ -30,9 +25,16 @@ class Spacer extends Component {
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
+
+		if( isset($args['components']) && is_array($args['components']) ){
+			foreach ($args['components'] as $component) {
+				echo Template_Engine::getInstance()->handle( $component['__type'], $component );
+			}
+		}
+
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
 }
 
-new Spacer();
+new Figure();

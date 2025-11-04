@@ -29,7 +29,7 @@ class Box_Shadow{
 
 	    			$properties[] = $property;
 	    		}
-	    		$styles[] = 'box-shadow:' . implode(',', $properties);
+	    		$styles['box-shadow'] = implode(',', $properties);
 	    	}
         
 	    }

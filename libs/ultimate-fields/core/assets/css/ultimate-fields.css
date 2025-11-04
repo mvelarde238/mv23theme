@@ -1020,7 +1020,17 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 
 .image-select-3-cols .uf-image-select {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.image-select-4-cols .uf-image-select {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.image-select-5-cols .uf-image-select {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
 .uf-file {

@@ -111,7 +111,8 @@ class Reusable_Section extends Component{
 
     public static function get_fields() {
         $fields = array( 
-            Field::create( 'select', 'reusable_section', __('Select', 'mv23theme') )->add_options( Reusable_Section_CPT::getInstance()->get_reusable_sections() )
+            Field::create( 'select', 'reusable_section', __('Select', 'mv23theme') )
+                ->add_options( Reusable_Section_CPT::getInstance()->get_reusable_sections() )
         );
 
 		return $fields;
@@ -123,9 +124,11 @@ class Reusable_Section extends Component{
         $components = get_post_meta( $args['reusable_section'],'components', true);
 
         if (is_array($components) && count($components) > 0) :
+            ob_start();
             foreach ($components as $component) {
                 echo Template_Engine::getInstance()->handle( $component['__type'], $component );
         	}
+            return ob_get_clean();
         endif;
     }
 }

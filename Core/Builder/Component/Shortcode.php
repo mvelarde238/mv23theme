@@ -18,20 +18,10 @@ class Shortcode extends Component {
         return 'dashicons-shortcode';
     }
 
-    public static function get_title_template() {
-		$template = '<% if ( desktop || mobile ){ %>
-            <%= "Desktop: "+desktop  %> | <%= "Mobile: "+mobile %>
-        <% } else { %>
-            There isnt any shortcode defined
-        <% } %>';
-		
-		return $template;
-	}
-
 	public static function get_fields() {
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme')),
-			Field::create( 'complex', '_shortcodes-wrapper' )->merge()->hide_label()->add_fields(array(
+			Field::create( 'complex', 'options' )->hide_label()->add_fields(array(
 				Field::create( 'textarea', 'desktop' )->set_rows( 1 )->set_width( 50 ),
 				Field::create( 'textarea', 'mobile' )->set_rows( 1 )->set_width( 50 )
 			))
@@ -45,8 +35,8 @@ class Shortcode extends Component {
 		
 		$args['additional_classes'] = array('component');
 
-		$desktop = $args['desktop'];
-		$mobile = $args['mobile'];
+		$desktop = $args['options']['desktop'];
+		$mobile = $args['options']['mobile'];
 		if (empty($desktop) && empty($mobile)) return;
         
 		ob_start();
@@ -54,6 +44,25 @@ class Shortcode extends Component {
 		echo ( IS_MOBILE ) ? do_shortcode($mobile) : do_shortcode($desktop);
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
+	}
+
+	public static function get_view_template() {
+		$template = '<div class="shortcode-component">
+			<% if ( options.desktop || options.mobile ){ %>
+				<div class="shortcode-desktop">
+					<strong>Desktop shortcode:</strong>
+					<div><%= options.desktop ? options.desktop : "No shortcode defined" %></div>
+				</div>
+				<div class="shortcode-mobile">
+					<strong>Mobile shortcode:</strong>
+					<div><%= options.mobile ? options.mobile : "No shortcode defined" %></div>
+				</div>
+			<% } else { %>
+				<div class="no-shortcode">There isnt any shortcode defined</div>
+			<% } %>
+		</div>';
+
+		return $template;
 	}
 }
 

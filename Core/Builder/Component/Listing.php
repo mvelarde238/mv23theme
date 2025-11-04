@@ -19,65 +19,68 @@ class Listing extends Component {
         return 'dashicons-screenoptions';
     }
 
-    public static function get_title_template() {
-		$template = '<% if ( show == "auto" || (show == "manual" && posts.lenght) ){ %>
-            Auto | Show <%= ( other_settings_wrapper.qty != "-1" ) ? other_settings_wrapper.qty : "all" %> <%= posttype %> 
-            <%= (list_template) ? " | List template: "+list_template : "" %> 
-            <%= (post_template) ? " | Post template: "+post_template : "" %> 
-        <% } else { %>
-            There arent any posts selected
-        <%  } %>';
-		
-		return $template;
-	}
-
-	public static function get_fields() {
-        $listing_cpts = LISTING_CPTS;
-        $listing_templates = LISTING_TEMPLATES;
+    public static function get_listing_taxonomies() {
         $listing_taxonomies = LISTING_TAXONOMIES;
-        $listing_post_template = LISTING_POST_TEMPLATE;
 
         if(WOOCOMMERCE_IS_ACTIVE){
-            $listing_cpts['product'] = 'Productos';
             array_push($listing_taxonomies, array(
                 'cpt_slug' => 'product', 
                 'slug' => 'product_cat'
             ));
+        } 
+
+        if(USE_PORTFOLIO_CPT){
+            array_push($listing_taxonomies, array(
+                'cpt_slug' => 'portfolio', 
+                'slug' => 'portfolio-cat'
+            ));
+        }
+
+        if(USE_DOCUMENT_CPT){
+            array_push($listing_taxonomies, array(
+                'cpt_slug' => 'document', 
+                'slug' => 'document-cat'
+            ));
+        }
+
+        return $listing_taxonomies;
+    }
+
+	public static function get_fields() {
+        $listing_cpts = LISTING_CPTS;
+        $listing_templates = LISTING_TEMPLATES;
+        $listing_taxonomies = Listing::get_listing_taxonomies();
+        $listing_post_template = LISTING_POST_TEMPLATE;
+
+        if(WOOCOMMERCE_IS_ACTIVE){
+            $listing_cpts['product'] = 'Productos';
             $listing_post_template['woocommerce1'] = 'WooCommerce Product Basic';
         } 
 
         if(USE_PORTFOLIO_CPT){
             $listing_cpts['portfolio'] = 'Portfolio';
-            array_push($listing_taxonomies, array(
-                'cpt_slug' => 'portfolio', 
-                'slug' => 'portfolio-cat'
-            ));
             $listing_post_template['portfolio'] = 'Portfolio';
         }
 
         if(USE_DOCUMENT_CPT){
             $listing_cpts['document'] = 'Documentos';
-            array_push($listing_taxonomies, array(
-                'cpt_slug' => 'document', 
-                'slug' => 'document-cat'
-            ));
             $listing_post_template['document'] = 'Document';
         }
 
         $listing_fields_1 = array( 
             Field::create( 'tab', __('Content','mv23theme') ),
-            Field::create( 'radio', 'show', __('Source','mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
+            Field::create( 'radio', 'source', __('Source','mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
                 'auto'=>__('Automatic (Latest published posts)','mv23theme'),
                 'manual'=>'Manual',
             )),
-            Field::create( 'wp_objects', 'posts', '' )->set_button_text( __('Select the posts','mv23theme') )->add_dependency('show','manual','='),
+            Field::create( 'wp_objects', 'posts', '' )->set_button_text( __('Select the posts','mv23theme') )->add_dependency('source','manual','='),
         
-            Field::create( 'select', 'posttype', __('Post type','mv23theme') )->add_options($listing_cpts)->add_dependency('show','auto','=')
+            Field::create( 'select', 'posttype', __('Post type','mv23theme') )->add_options($listing_cpts)->add_dependency('source','auto','=')
         );
 
         if(WOOCOMMERCE_IS_ACTIVE){
             $woocommerce_keys_field = Field::create('select','woocommerce_key','WooCommerce Tag')
-                ->add_dependency('show','auto','=')
+                ->add_dependency('source','auto','=')
                 ->add_dependency('../posttype', 'product', '=')
                 ->add_options(array(
                     '' => __('None','mv23theme'),
@@ -90,22 +93,24 @@ class Listing extends Component {
         }
 
         if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
-            $taxonomies_field = Field::create( 'complex', 'taxonomies_field', __('Categories','mv23theme') )
-                ->add_dependency('show','auto','=');
+            $tax_params = Field::create( 'complex', 'tax_params', __('Categories','mv23theme') )
+                ->add_dependency('source','auto','=');
 
             foreach($listing_taxonomies as $tax){
-                $taxonomies_field->add_fields( array(
-                    Field::create( 'multiselect', $tax['slug'] )->add_terms( $tax['slug'] )
+                $tax_params->add_fields( array(
+                    Field::create( 'multiselect', $tax['cpt_slug'] .'--'. $tax['slug'] )->add_terms( $tax['slug'] )
                         ->add_dependency('../posttype', $tax['cpt_slug'], '=')
                         ->set_width(20)
                 ));
             }
-            array_push($listing_fields_1, $taxonomies_field);
+            array_push($listing_fields_1, $tax_params);
         }
 
+        $width_style = 'width: 25%; min-width: initial;';
+
         $listing_fields_2 = array( 
-            Field::create( 'complex', 'other_settings_wrapper', '' )->merge()->add_fields(array(
-                Field::create( 'number', 'qty', __('Number of posts','mv23theme') )->set_default_value(3)->set_width(25),
+            Field::create( 'complex', 'query_params', '' )->merge()->add_fields(array(
+                Field::create( 'number', 'posts_per_page', __('Number of posts','mv23theme') )->set_default_value(3)->set_width(25),
                 Field::create( 'select', 'order', __('Order','mv23theme') )->add_options(array(
                     'DESC' => __('Descending','mv23theme'),
                     'ASC' => __('Ascending','mv23theme')
@@ -119,11 +124,11 @@ class Listing extends Component {
                     // 'comment_count' => __('Comentarios','mv23theme')
                 ))->set_width(25),
                 Field::create( 'number', 'offset', 'Offset' )->set_width(25),
-            ))->add_dependency('show','auto','='),
+            ))->add_dependency('source','auto','='),
 
-            Field::create( 'complex', '_set_post_status_wrapper', '' )->merge()->add_fields(array(
+            Field::create( 'complex', 'status_params', '' )->merge()->add_fields(array(
                 Field::create( 'checkbox', 'set_post_status' )
-                ->set_text( __('Set post status','mv23theme') )
+                    ->set_text( __('Set post status','mv23theme') )
                     ->hide_label()->fancy()->set_width(25),
                 Field::create( 'multiselect', 'post_status' )->add_options(array(
                     'publish' => __('Published','mv23theme'),
@@ -134,29 +139,29 @@ class Listing extends Component {
                     'inherit' => __('Inherit','mv23theme'),
                     'trash' => __('Trash','mv23theme')
                 ))->add_dependency('set_post_status')->hide_label()->set_width(70)
-            ))->add_dependency('show','auto','='),
+            ))->add_dependency('source','auto','='),
 
             Field::create( 'tab', __('List Template','mv23theme')),
-            Field::create( 'radio', 'list_template', 'Template' )->set_orientation( 'horizontal' )->add_options($listing_templates),
+            Field::create( 'radio', 'listing_template', 'Template' )->set_orientation( 'horizontal' )->add_options($listing_templates),
             
-            Field::create( 'complex', 'carousel_settings_wrapper', '' )->merge()->add_fields(array(
+            Field::create( 'complex', 'carousel_settings_wrapper' )->hide_label()->merge()->add_fields(array(
                 Field::create( 'checkbox', 'show_controls' )->set_width( 33 )->hide_label()->set_text(__('Show controls','mv23theme')),
                 Field::create( 'checkbox', 'show_nav' )->set_width( 33 )->hide_label()->set_text(__('Show carousel nav','mv23theme')),
                 Field::create( 'checkbox', 'autoplay' )->set_width( 33 )->hide_label()->set_text(__('Start automatically','mv23theme'))
-            ))->add_dependency('list_template','carrusel','='),
+            ))->add_dependency('listing_template','carousel','='),
             
             Field::create( 'complex', 'columns_qty_wrapper', __('Number of Columns','mv23theme') )->merge()->add_fields(array(
-                Field::create( 'number', 'items_in_desktop', __('Desktop','mv23theme') )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(3),
-                Field::create( 'number', 'items_in_laptop', __('Laptop','mv23theme') )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(3),
-                Field::create( 'number', 'items_in_tablet', __('Tablet','mv23theme') )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(2),
-                Field::create( 'number', 'items_in_mobile', __('Mobile','mv23theme') )->set_width( 25 )->enable_slider( 1, 12 )->set_default_value(1)
+                Field::create( 'number', 'items_in_desktop', __('Desktop','mv23theme') )->set_default_value(3)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_style),
+                Field::create( 'number', 'items_in_laptop', __('Laptop','mv23theme') )->set_default_value(3)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_style),
+                Field::create( 'number', 'items_in_tablet', __('Tablet','mv23theme') )->set_default_value(2)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_style),
+                Field::create( 'number', 'items_in_mobile', __('Mobile','mv23theme') )->set_default_value(1)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_style)
             )),
             
             Field::create( 'complex', 'gap_wrapper', __('Space between columns','mv23theme') )->merge()->add_fields(array(
-                Field::create( 'number', 'd_gap', __('Desktop','mv23theme') )->set_default_value(50)->set_width( 25 ),
-                Field::create( 'number', 'l_gap', __('Laptop','mv23theme') )->set_default_value(40)->set_width( 25 ),
-                Field::create( 'number', 't_gap', __('Tablet','mv23theme') )->set_default_value(30)->set_width( 25 ),
-                Field::create( 'number', 'm_gap', __('Mobile','mv23theme') )->set_default_value(20)->set_width( 25 )
+                Field::create( 'number', 'd_gap', __('Desktop','mv23theme') )->set_default_value(50)->set_attr('style', $width_style),
+                Field::create( 'number', 'l_gap', __('Laptop','mv23theme') )->set_default_value(40)->set_attr('style', $width_style),
+                Field::create( 'number', 't_gap', __('Tablet','mv23theme') )->set_default_value(30)->set_attr('style', $width_style),
+                Field::create( 'number', 'm_gap', __('Mobile','mv23theme') )->set_default_value(20)->set_attr('style', $width_style)
             )),
             
             Field::create( 'tab', __('Post Card','mv23theme')),
@@ -174,7 +179,7 @@ class Listing extends Component {
             ))->add_dependency( 'on_click_post', 'show-expander', '=' ),
             
             Field::create( 'tab', __('Pagination','mv23theme')),
-            Field::create( 'select', 'pagination_type', __('Pagination type','mv23theme') )->add_dependency('show','auto','=')->add_options(LISTING_PAGINATION_TYPES),
+            Field::create( 'select', 'pagination_type', __('Pagination type','mv23theme') )->add_dependency('source','auto','=')->add_options(LISTING_PAGINATION_TYPES),
             Field::create( 'checkbox', 'scrolltop', '' )->set_text(__('Scroll to top','mv23theme'))->add_dependency('pagination_type','classic','='),
         );
 
@@ -187,7 +192,7 @@ class Listing extends Component {
             foreach($listing_taxonomies as $tax){
                 array_push($listing_fields_filter, 
                     Field::create( 'complex', $tax['slug'].'-filter', $tax['slug'] )
-                        ->add_dependency('show','auto','=')
+                        ->add_dependency('source','auto','=')
                         ->add_dependency('filter')
                         ->add_dependency('posttype', $tax['cpt_slug'], '=')
                         ->add_fields(array(
@@ -218,7 +223,7 @@ class Listing extends Component {
         
 		$args['additional_classes'] = array('component');
 
-        $source_type = $args['show'] ?? 'auto'; // auto || manual
+        $listing_source = $args['source'] ?? 'auto'; // auto || manual
         $items_in_desktop = $args['items_in_desktop'] ?? 3;
         $items_in_laptop = $args['items_in_laptop'] ?? 3;
         $items_in_tablet = $args['items_in_tablet'] ?? 2;
@@ -228,7 +233,7 @@ class Listing extends Component {
         $t_gap = $args['t_gap'] ?? 30;
         $m_gap = $args['m_gap'] ?? 20;
         $postcard_template = $args['post_template'] ?? '';
-        $listing_template = $args['list_template'] ?? '';
+        $listing_template = $args['listing_template'] ?? '';
         $scrolltop = ( isset($args['scrolltop']) ) ? $args['scrolltop'] : '';
         $filter_taxonomies = array();
         $filter_default_terms = array();
@@ -241,7 +246,7 @@ class Listing extends Component {
         $filter = $args['filter'] ?? 0;
         $post_status = ( isset($args['set_post_status']) && $args['set_post_status'] ) ? $args['post_status'] : 'publish';
             
-        if ($source_type == 'manual') {
+        if ($listing_source == 'manual') {
             $posttype = '';
             $posts_ids = array();
             $posts_meta = $args['posts'];
@@ -256,9 +261,9 @@ class Listing extends Component {
             $args_query['orderby'] = 'post__in';
         }
         
-        if ($source_type == 'auto') {
+        if ($listing_source == 'auto') {
             $posttype = $args['posttype'] ?? '';
-            $posts_per_page = (isset($args['qty'])) ? $args['qty'] : 3;
+            $posts_per_page = (isset($args['posts_per_page'])) ? $args['posts_per_page'] : 3;
             $order = (isset($args['order'])) ? $args['order'] : 'DESC';
             $orderby = (isset($args['orderby'])) ? $args['orderby'] : 'date';
             $offset = (isset($args['offset'])) ? $args['offset'] : 0;
@@ -273,17 +278,21 @@ class Listing extends Component {
             if( isset($args['post__not_in']) ) $args_query['post__not_in'] = $args['post__not_in'];
         
             // check if tax_query is needed 
-            $taxonomy_field = ( isset($args['taxonomies_field']) ) ? $args['taxonomies_field'] : null;
+            $tax_params = ( isset($args['tax_params']) ) ? $args['tax_params'] : null;
             $pt_taxonomies = get_object_taxonomies( $posttype ); // get taxonomies for selected posttype 
         
-            if( is_array($taxonomy_field) ){    
+            if( is_array($tax_params) ){    
                 $tax_query = array( 'relation' => 'AND' );
-                foreach ($taxonomy_field as $tax => $terms) {
+                foreach ($tax_params as $tax => $terms) {
+                    $tax_parts = explode( '--', $tax );
+                    $tax_name = $tax_parts[1];
+                    // $tax_cpt = $tax_parts[0]; // util, but not used
+
                     // create tax_query if tax belongs to selected posttype and there are selected terms
-                    if( in_array($tax,$pt_taxonomies) && is_array($terms) && count($terms) > 0 ){
+                    if( in_array($tax_name,$pt_taxonomies) && is_array($terms) && count($terms) > 0 ){
                         if( !empty($terms[0]) ){            
                             array_push($tax_query, array(
-                                'taxonomy' => $tax,
+                                'taxonomy' => $tax_name,
                                 'field' => 'term_id',
                                 'terms' => $terms,
                                 'include_children' => true,
@@ -380,7 +389,7 @@ class Listing extends Component {
             'scrollTop' => $scrolltop,
             'post_status' => $post_status
         );
-        if ($source_type == 'auto') {
+        if ($listing_source == 'auto') {
             $listing_args['per_page'] = $posts_per_page;
             $listing_args['offset'] = $offset;
             $listing_args['order'] = $order;
@@ -413,14 +422,14 @@ class Listing extends Component {
 
         do_action( 'post_listing_header', $args );
     
-        $css_vars = ($listing_template == 'carrusel') ? ' ' : '--d-gap:'.$d_gap.'px; --l-gap:'.$l_gap.'px; --t-gap:'.$t_gap.'px; --m-gap:'.$m_gap.'px; --d-columns:'.$items_in_desktop.'; --l-columns:'.$items_in_laptop.'; --t-columns:'.$items_in_tablet.'; --m-columns:'.$items_in_mobile;
+        $css_vars = ($listing_template == 'carousel') ? ' ' : '--d-gap:'.$d_gap.'px; --l-gap:'.$l_gap.'px; --t-gap:'.$t_gap.'px; --m-gap:'.$m_gap.'px; --d-columns:'.$items_in_desktop.'; --l-columns:'.$items_in_laptop.'; --t-columns:'.$items_in_tablet.'; --m-columns:'.$items_in_mobile;
     
         if ($query->have_posts()) : 
-            $columns_class = ($listing_template == 'carrusel') ? '' : 'has-columns';
+            $columns_class = ($listing_template == 'carousel') ? '' : 'has-columns';
             $post_listing_class = 'posts-listing posts-listing--'.$listing_template . ' ' . $columns_class;
             ?>
             <div class="<?=$post_listing_class?>" style="<?=$css_vars?>">
-                <?php if($listing_template == 'carrusel'): 
+                <?php if($listing_template == 'carousel'): 
                     $show_controls = (!empty($args['show_controls'])) ? $args['show_controls'] : 0;
                     $show_nav = (!empty($args['show_nav'])) ? $args['show_nav'] : 0;
                     $show_nav = (!empty($args['show_nav'])) ? $args['show_nav'] : 0;
@@ -453,20 +462,20 @@ class Listing extends Component {
                 while ( $query->have_posts() ) : $query->the_post();
                     $args['count'] = $count;
                     
-                    if($listing_template == 'carrusel') echo '<div>';
+                    if($listing_template == 'carousel') echo '<div>';
 
                     $_postcard_template = apply_filters('filter_listing_postcard_template', $postcard_template, $count);
 
                     get_template_part( 'partials/card/postcard', $_postcard_template, $args);
 
-                    if($listing_template == 'carrusel') echo '</div>';
+                    if($listing_template == 'carousel') echo '</div>';
                     $count++;
                 endwhile; 
 
                 do_action('on_listing_end', $args);
                 ?>
     
-                <?php if($listing_template == 'carrusel'): ?>
+                <?php if($listing_template == 'carousel'): ?>
                     </div></div>
                 <?php endif; ?>
             </div>
@@ -513,6 +522,31 @@ class Listing extends Component {
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
+
+    public static function get_view_template(){
+        return '<% 
+        listing_cls = ["posts-listing", "has-columns", "listing-view--"+listing_template]
+        listing_style = []
+        post_style = ["background-color:silver; aspect-ratio:16 / 9; border-radius: 4px; display:grid; place-items:center"]
+
+        devices = ["d","l","t","m"]
+        d = ["desktop","laptop","tablet","mobile"]
+        devices.forEach(function(key,index){ 
+            columns = columns_qty_wrapper["items_in_"+d[index]]
+            gap = gap_wrapper[key+"_gap"]+"px"
+            listing_style.push("--"+key+"-columns:"+columns+"; --"+key+"-gap:"+gap)
+        })
+
+        if( listing_template === "carousel" ) listing_style.push("flex-wrap:nowrap;overflow-x:scroll")
+        if( listing_template === "carousel" ) post_style.push("flex-shrink:0")
+
+        quantity = parseInt(query_params.posts_per_page) > 0 ? parseInt(query_params.posts_per_page) : 9 
+        %>
+        <div class="<%= listing_cls.join(" ") %>" style="<%= listing_style.join(";") %>"></div>';
+    }
+    // <% for( var i = 1; i <= quantity; i++){  %>
+    //     <div style="<%= post_style.join(";") %>">Post <%= i %></div>
+    // <% } %>
 }
 
 new Listing();

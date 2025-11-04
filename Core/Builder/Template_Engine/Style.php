@@ -3,7 +3,6 @@ namespace Core\Builder\Template_Engine;
 
 use Core\Builder\Template_Engine\Margin;
 use Core\Builder\Template_Engine\Padding;
-use Core\Builder\Template_Engine\Font;
 use Core\Builder\Template_Engine\Borders;
 use Core\Builder\Template_Engine\Box_Shadow;
 use Core\Builder\Template_Engine\Background;
@@ -35,9 +34,6 @@ Class Style{
         $borders = Borders::get_styles($args);
         if( !empty($borders) ) $styles = array_merge( $styles, $borders );
 
-        $font = Font::get_styles($args);
-        if( !empty($borders) ) $styles = array_merge( $styles, $font );
-
         $widths = Width::get_styles($args);
         if( !empty($widths) ) $styles = array_merge( $styles, $widths );
 
@@ -45,16 +41,22 @@ Class Style{
             $styles = array_merge( $args['additional_styles'], $styles );
         } 
 
+        $css = '';
+        if( !empty($styles) ){
+            foreach( $styles as $key => $value ){
+                $css .= $key . ': ' . $value . '; ';
+            }
+        }
+
         return array(
             'all' => $styles,
-            'attribute' => (!empty($styles)) ? 'style="'.implode(';', $styles).'"' : '',
+            'attribute' => (!empty($styles)) ? 'style="'.$css.'"' : '',
             'margins' => $margins,
             'paddings' => $paddings,
             'background' => $background,
             'color' => $color,
             'borders' => $borders,
-            'box_shadow' => $box_shadow,
-            'font' => $font
+            'box_shadow' => $box_shadow
         );
     }
 }

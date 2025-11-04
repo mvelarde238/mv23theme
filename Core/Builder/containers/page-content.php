@@ -4,7 +4,7 @@ use Ultimate_Fields\Field;
 use Core\Builder\Component\Page_Module;
 
 use Core\Builder\Core;
-$ultimate_builder = Field::create( 'ultimate_builder', 'page_content_section_2' )->hide_label();
+$ultimate_builder = Field::create( 'ultimate_builder', 'page_content' )->hide_label();
 $components = Core::getInstance()->get_components();
 if(is_array($components) && count($components) > 0){
     foreach ($components as $component) {
@@ -15,6 +15,7 @@ if(is_array($components) && count($components) > 0){
             'title' => $component->get_title(),
             'icon' => $component->get_icon(),
             'title_template' => $component->get_title_template(),
+            'view_template' => $component->get_view_template(),
             'fields' => $component->get_fields(),
             'edit_mode' => $component->get_edit_mode(),
             'layout' => $component->get_layout()

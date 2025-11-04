@@ -19,16 +19,6 @@ class Icon_and_Text extends Component {
         return 'dashicons-align-pull-left';
     }
 
-    public static function get_title_template() {
-		$template = '<%= content.replace(/<[^>]+>/ig, "") %>';
-		
-		return $template;
-	}
-
-    public static function get_layout(){
-        return 'table';
-    }
-
 	public static function get_fields() {
 		$fields = array(
             Field::create( 'tab', 'Icono'),
@@ -56,10 +46,10 @@ class Icon_and_Text extends Component {
                     'label' => 'Derecha',
                     'image' =>  BUILDER_PATH.'/assets/images/icon-right.png'
                 ),
-            ))->set_width(30),
+            )),
 
-            // ALIGMENT
-            Field::create( 'select', 'itopalign', __('Icon Aligment', 'mv23theme'))
+            // ALIGNMENT
+            Field::create( 'select', 'itopalign', __('Icon Alignment', 'mv23theme'))
                 ->set_input_type( 'radio' )
                 ->set_orientation( 'horizontal' )
                 ->add_options(array(
@@ -74,12 +64,15 @@ class Icon_and_Text extends Component {
                     'center'  => 'Al Centro',
                     'flex-start'  => 'Arriba',
                     'flex-end'  => 'Abajo',
-                ))->set_width(33)->add_dependency('iposition','top','!='),
-            Field::create( 'checkbox', 'hide-icon-on-mobile', 'Ocultar Icono en móviles' )->fancy(),
+                ))->add_dependency('iposition','top','!='),
+            Field::create( 'checkbox', 'hide_icon_on_mobile' )
+                ->set_text( __('Hide Icon on Mobile', 'mv23theme') )
+                ->hide_label()
+                ->fancy(),
 
             // STYLE
-            Field::create( 'section', 'icon_style' ),
-            Field::create( 'image_select', 'istyle', __('Style','mv23theme'))->add_options(array(
+            Field::create( 'section', 'icon_style_section' ),
+            Field::create( 'image_select', 'istyle', __('Style','mv23theme'))->set_attr( 'class', 'image-select-5-cols' )->add_options(array(
                 'default' => array(
                     'label' => 'Normal',
                     'image' =>  BUILDER_PATH.'/assets/images/icon-default.png'
@@ -101,16 +94,18 @@ class Icon_and_Text extends Component {
                     'image' =>  BUILDER_PATH.'/assets/images/icon-square-outline.png'
                 ),
             ))->set_width(30),
-            Field::create( 'complex', '_icon_styles_wrapper', __('Settings','mv23theme') )->merge()->add_fields(array(
-                Field::create( 'number', 'ifontsize', 'Tamaño')->set_default_value(40)->set_suffix('px')->set_width(25),
-                Field::create( 'color', 'icolor', 'Color del ícono')->set_width(25),
-                Field::create( 'checkbox', 'ihas_bgc','Activar fondo' )->fancy()->add_dependency('../istyle','circle-outline','=')->set_width(25),
-                Field::create( 'color', 'ibgc', 'Color de Fondo')
+            Field::create( 'complex', 'icon_style', __('Settings','mv23theme') )->hide_label()->add_fields(array(
+                Field::create( 'number', 'fontsize', 'Tamaño')->set_default_value(40)->set_suffix('px')->set_width(25),
+                Field::create( 'color', 'color', 'Color del ícono')->set_width(25),
+                Field::create( 'checkbox', 'has_bgc','Activar fondo' )->fancy()
+                    ->add_dependency('../istyle',['circle-outline','square-outline'],'IN')
+                    ->set_width(25),
+                Field::create( 'color', 'bgcolor', 'Color de Fondo')
                     ->set_default_value( Theme_Options::getInstance()->get_property('primary_color') )
                     ->add_dependency('../istyle','circle','=')
                     ->add_dependency_group()
-                    ->add_dependency('../istyle','circle-outline','=')
-                    ->add_dependency('ihas_bgc')
+                    ->add_dependency('../istyle',['circle-outline','square-outline'],'IN')
+                    ->add_dependency('has_bgc')
                     ->set_width(25),
             )),
     
@@ -147,8 +142,8 @@ class Icon_and_Text extends Component {
 
         // **************************************************************************************************
         
-        if (isset($args['iposition']) && $args['iposition'] != 'top' && $args['ialign']){
-            $args['additional_styles'] = array( "align-items:".$args['ialign'] );
+        if (isset($args['iposition']) && $args['iposition'] != 'top' ){
+            $args['additional_styles']['align-items'] = $args['ialign'];
         } 
         
         // **************************************************************************************************
@@ -165,32 +160,32 @@ class Icon_and_Text extends Component {
         }
 
         $icon_style = '';
-        $icon_style .= 'font-size:'.$args['ifontsize'].'px;';
-        if($args['icolor']) $icon_style .= 'color:'.$args['icolor'].';';
+        $icon_style .= 'font-size:'.$args['icon_style']['fontsize'].'px;';
+        if($args['icon_style']['color']) $icon_style .= 'color:'.$args['icon_style']['color'].';';
         $icon_style .= (isset($args['iposition']) && $args['iposition'] == 'top' && isset($args['itopalign']) && $args['itopalign']) ? "text-align:".$args['itopalign'].";" : "text-align:center;";
         $icon_style = ($icon_style) ? 'style="'.$icon_style.'"' : '';
 
         $classes = array('icon-wrapper');
-        if($args['istyle']!='mv23theme') array_push($classes, 'icon--'.$args['istyle']);
-        if(isset($args['hide-icon-on-mobile']) && $args['hide-icon-on-mobile']) array_push($classes, 'hide-on-small-only');
+        if($args['istyle']!='default') array_push($classes, 'icon--'.$args['istyle']);
+        if(isset($args['hide_icon_on_mobile']) && $args['hide_icon_on_mobile']) array_push($classes, 'hide-on-small-only');
         $icon_class = (!empty($classes)) ? 'class="'.implode(' ',$classes).'"' : '';
 
         $hasBackground = false;
         if ($args['istyle'] == 'circle' || $args['istyle'] == 'square') $hasBackground = true;
         if (
-            ( $args['istyle'] == 'circle-outline' && $args['ihas_bgc'] == 1 ) ||
-            ( $args['istyle'] == 'square-outline' && $args['ihas_bgc'] == 1 ) 
+            ( $args['istyle'] == 'circle-outline' && $args['icon_style']['has_bgc'] == 1 ) ||
+            ( $args['istyle'] == 'square-outline' && $args['icon_style']['has_bgc'] == 1 ) 
         ){
             $hasBackground = true;
         } 
-        $ibgc = ($args['ibgc'] == '') ? Theme_Options::getInstance()->get_property('primary_color') : $args['ibgc'];
+        $ibgc = ($args['icon_style']['has_bgc'] == '') ? Theme_Options::getInstance()->get_property('primary_color') : $args['icon_style']['bgcolor'];
         $backgroundColor = ( $hasBackground ) ? $ibgc : '';
 		
 		ob_start();
         echo Template_Engine::component_wrapper('start', $args);
 
         echo '<div '.$icon_class.' '.$icon_style.'>';
-	    if ($args['istyle']!='mv23theme') { echo '<span style="background-color:'.$backgroundColor.'">'; } else { echo '<span>'; };
+	    if ($args['istyle']!='default') { echo '<span style="background-color:'.$backgroundColor.'">'; } else { echo '<span>'; };
 	    echo $element;
 	    echo '</span>';
 	    echo '</div>';
@@ -200,6 +195,54 @@ class Icon_and_Text extends Component {
         echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
+
+    public static function get_view_template() {
+        return '
+        <% 
+        cmp_classes = ["icon-and-text","icon--"+iposition];
+        if( horizontal_alignment && horizontal_alignment != "" ) cmp_classes.push(horizontal_alignment+"-all");
+
+        cmp_styles = [] 
+        if(iposition != "top") cmp_styles.push("align-items:"+ialign);
+        %>
+        <div class="<%= cmp_classes.join(" ") %>" style="<%= cmp_styles.join(";") %>">
+            <% 
+            icon_wrapper_classes = ["icon-wrapper"];
+            if (istyle != "default") icon_wrapper_classes.push("icon--"+istyle);
+            if (hide_icon_on_mobile) icon_wrapper_classes.push("hide-on-small-only");
+
+            icon_styles = [] 
+            icon_styles.push("font-size:"+icon_style.fontsize+"px");
+            icon_styles.push("text-align:"+itopalign);
+            if (icon_style.color) icon_styles.push("color:"+icon_style.color);
+            %>
+            <div class="<%= icon_wrapper_classes.join(" ") %>" style="<%= icon_styles.join(";") %>">
+                <%
+                span_wrapper_styles = [];
+                if ( (istyle == "circle" || istyle == "square") || 
+                     (istyle == "circle-outline" && icon_style.has_bgc) || 
+                     (istyle == "square-outline" && icon_style.has_bgc) ) {
+                    span_wrapper_styles.push("background-color:" + icon_style.bgcolor);
+                }
+                %>
+                <span style="<%= span_wrapper_styles.join(";") %>">
+                    <% if (ielement == "icono") { 
+                        icon_exists = (typeof iname === "string" && iname.length > 0);
+                        icon_prefix = ( icon_exists && iname.startsWith("fa")) ? "fa" : "bi";
+                        %>
+                        <i class="<%= icon_prefix %> <%= iname %>"></i>
+                    <% } else { 
+                        img_prepared_exists = Array.isArray(iimage_prepared) && iimage_prepared.length > 0;
+                        image_url = img_prepared_exists ? iimage_prepared[0].url : "";
+                        %>
+                        <img src="<%= image_url %>" />
+                    <% } %>
+                </span>
+            </div>
+            <div class="content-wrapper"><%= content %></div>
+        </div>
+        ';
+    }
 }
 
 new Icon_and_Text();

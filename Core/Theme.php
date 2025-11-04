@@ -229,6 +229,7 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'uf.init', $builder, 'add_meta_boxes');
         $this->loader->add_action( 'uf.register_scripts', $builder, 'register_popup_containers', 20);
         $this->loader->add_action( 'init', $builder, 'hide_editor');
+        $this->loader->add_action( 'wp_ajax_get_component_view', $builder, 'ajax_get_component_view');
 
         // Off Canvas Elements
         $offcanvas_elements = Offcanvas_Elements::getInstance();

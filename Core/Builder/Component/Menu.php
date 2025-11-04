@@ -19,17 +19,6 @@ class Menu extends Component {
         return 'dashicons-menu-alt2';
     }
 
-    public static function get_title_template() {
-		$template = '<% if ( type == "menu" && menu != 0 || type == "location" && location ){ %>
-            <%= ( type == "menu" ) ? "Menu ID: "+menu+ " | Style: "+style : "There isnt any menu selected" %>
-            <%= ( type == "location" ) ? "Menu Location: "+location+ " | Style: "+style : "There isnt any menu location selected" %>
-		<% } else { %>
-            This component is empty
-        <% } %>';
-
-		return $template;
-	}
-
     public static function get_menu_styles() {
         $menu_styles = apply_filters( 
             'theme_nav_styles', 
@@ -64,16 +53,15 @@ class Menu extends Component {
             Field::create( 'radio', 'type', __('Select','mv23theme') )->add_options(array(
                 'menu'     => __( 'Show a particular menu', 'mv23theme' ),
                 'location' => __( 'Select a location. If a menu is assigned to that location, it will be displayed', 'mv23theme' ),
-            ))->set_width(50),
+            )),
             Field::create( 'select', 'menu' )
                 ->add_terms( 'nav_menu' )
-                ->add_dependency('type','menu','=')
-                ->set_width(50),
+                ->add_dependency('type','menu','='),
             Field::create( 'select', 'location' )
                 ->add_options( get_registered_nav_menus() )
-                ->add_dependency('type','location','=')
-                ->set_width(50),
+                ->add_dependency('type','location','='),
             Field::create( 'image_select', 'style', __('Style','mv23theme') )
+                ->set_attr( 'class', 'image-select-3-cols' )
                 ->add_options( $menu_styles_image_select )
                 ->add_dependency( 'type', 'menu' )
                 ->add_dependency( 'menu', '0', '!=' )

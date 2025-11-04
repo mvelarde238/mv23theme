@@ -18,64 +18,10 @@ class Flip_Box extends Component {
 	public static function get_icon() {
         return 'dashicons-image-flip-horizontal';
     }
-
-    public static function get_title_template() {
-		$template = '<% if ( front_content.blocks_layout.length < 1 ){ %>
-            This item is empty
-        <% } else { %>
-            <% if ( front_content.blocks_layout[0][0].__type == "text_editor" ){ %>
-                <%= front_content.blocks_layout[0][0].content.replace(/<[^>]+>/ig, "") %>
-            <% } else { %>
-                <%= "First item type: "+front_content.blocks_layout[0][0].__type %>
-            <% } %>
-        <% } %>';
-		
-		return $template;
-	}
-
-    public static function get_layout(){
-        return 'grid';
-    }
-
+    
 	public static function get_fields() {
-        $components = array( 'text_editor', 'image', 'spacer', 'button', 'video', 'map', 'icon_and_text', 'menu', 'carousel' );
-        $alignments = array(
-            'start' => __('Start','mv23theme'),
-            'center' => __('Center','mv23theme'),
-            'end' => __('End','mv23theme')
-        );
-
 		$fields = array( 
-            Field::create( 'tab', __('Content','mv23theme') ),
-            Field::create( 'complex', 'front_content' )->add_fields(array(
-                Blocks_Layout::the_field(array( 
-                    'slug' => 'blocks_layout', 
-                    'components' => $components
-                )) 
-            ))->set_width(50),
-            Field::create( 'complex', 'back_content' )->add_fields(array(
-                Blocks_Layout::the_field(array( 
-                    'slug' => 'blocks_layout',
-                    'components' => $components
-                )) 
-            ))->set_width(50),
-
-            // Field::create( 'common_settings_control', 'front_content' )->set_container( 'blocks_layout_container' )->set_width(50),
-            // Field::create( 'common_settings_control', 'back_content' )->set_container( 'blocks_layout_container' )->set_width(50),
-
-            Field::create( 'complex', '_front_settings_wrapper' )->hide_label()->merge()->add_fields(array(
-                Field::create( 'common_settings_control', 'front_settings' )->set_container( 'common_settings_container' )->set_width(30),
-                Field::create( 'select', 'front_justify_content', __('Horizontal Alignment','mv23theme'))->add_options( $alignments )->set_width(30),
-                Field::create( 'select', 'front_align_items', __('Vertical Alignment','mv23theme'))->add_options( $alignments )->set_width(30)
-            ))->set_width(50),
-            Field::create( 'complex', '_back_settings_wrapper' )->hide_label()->merge()->add_fields(array(
-                Field::create( 'common_settings_control', 'back_settings' )->set_container( 'common_settings_container' )->set_width(30),
-                Field::create( 'select', 'back_justify_content', __('Horizontal Alignment','mv23theme'))->add_options( $alignments )->set_width(30),
-                Field::create( 'select', 'back_align_items', __('Vertical Alignment','mv23theme'))->add_options( $alignments )->set_width(30)
-            ))->set_width(50),
-            
-            Field::create( 'tab', __('Box Settings','mv23theme') ),
-            Field::create( 'image_select', 'flip_effect' )->show_label()->add_options(array(
+            Field::create( 'image_select', 'flip_effect' )->show_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
                 'horizontal-flip'  => array(
                     'label' => 'Horizontal flip',
                     'image' => BUILDER_PATH.'/assets/images/horizontal-flip.png'
@@ -93,7 +39,7 @@ class Flip_Box extends Component {
                     'image' => BUILDER_PATH.'/assets/images/slide-in-flip.png'
                 ),
             )),
-            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->add_options(array(
+            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
                 '4/3'  => array(
                     'label' => '4:3',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-4-3.png'
@@ -155,7 +101,7 @@ class Flip_Box extends Component {
         $aspect_ratio = ( isset($args['aspect_ratio']) ) ? $args['aspect_ratio'] : false;
         if( $aspect_ratio ){
             $aspect_ratio_value = ( $args['aspect_ratio'] != 'custom' ) ? $args['aspect_ratio'] : $args['custom_aspect_ratio'];
-            $args['additional_styles'][] = '--flip-box-aspect-ratio:'.$aspect_ratio_value;
+            $args['additional_styles']['--flip-box-aspect-ratio'] = $aspect_ratio_value;
         }
         
         $flip_effect = ( isset($args['flip_effect']) ) ? $args['flip_effect'] : 'horizontal-flip';
@@ -163,16 +109,37 @@ class Flip_Box extends Component {
 
         $cards = array();
         $keys = array('front','back');
-        foreach ($keys as $key) {
+
+
+
+
+
+
+        $contents = array( 'front' => array(), 'back' => array() );
+        if( isset($args['components']) && is_array($args['components']) ){
+            $contents['front'] = $args['components'][0]['components'] ?? array();
+            $contents['back'] = $args['components'][1]['components'] ?? array();
+        }
+
+
+
+        
+
+        foreach ($keys as $index => $key) {
             $card = array();
             $card['key'] = $key;
-            $card['content'] = $args[$key.'_content']['blocks_layout'];
+            // $card['content'] = $args[$key.'_content']['blocks_layout'];
+
+            $card['components'] = $contents[$key];
+            
             $card['args'] = array(
-                'settings' => $args[$key.'_settings'],
-                'additional_classes' => array('flip-box-'.$key)
+                // 'settings' => $args[$key.'_settings'],
+                'additional_attributes' => array('id="'.$args['components'][$index]['__gjsAttributes']['id'].'"'),
+                'additional_classes' => array('flip-box-'.$key),
+                'additional_styles' => array('flex-direction'=>'column') // it shouldnt be here
             );
-            if( $args[$key.'_align_items'] != 'start' ) $card['args']['additional_styles'][] = 'align-items:'.$args[$key.'_align_items'];
-            if( $args[$key.'_justify_content'] != 'start' ) $card['args']['additional_styles'][] = 'justify-content:'.$args[$key.'_justify_content'];    
+            // if( $args[$key.'_align_items'] != 'start' ) $card['args']['additional_styles']['align-items'] = $args[$key.'_align_items'];
+            // if( $args[$key.'_justify_content'] != 'start' ) $card['args']['additional_styles']['justify-content'] = $args[$key.'_justify_content'];
             $cards[] = $card;
         }
 
@@ -181,7 +148,14 @@ class Flip_Box extends Component {
         echo '<div class="flip-box-inner">';
         foreach ($cards as $card) {
             echo Template_Engine::component_wrapper('start', $card['args']);
-            echo Blocks_Layout::the_content($card['content']); 
+            // echo Blocks_Layout::the_content($card['content']); 
+
+            if( isset($card['components']) && is_array($card['components']) ){
+                foreach ($card['components'] as $component) {
+                    echo Template_Engine::getInstance()->handle( $component['__type'], $component );
+                }
+            }
+
             echo Template_Engine::component_wrapper('end', $card['args']);
         }
         echo '</div>';

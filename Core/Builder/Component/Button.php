@@ -18,16 +18,6 @@ class Button extends Component {
         return 'dashicons-button';
     }
 
-    public static function get_title_template() {
-		$template = '<%= text %>';
-		
-		return $template;
-	}
-
-    public static function get_layout(){
-        return 'table';
-    }
-
 	public static function get_fields() {
 
         $button_styles = apply_filters( 'filter_core_button_styles', array(
@@ -40,48 +30,43 @@ class Button extends Component {
 
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme') ), 
-            Field::create( 'text', 'text', 'Texto del botón')->set_width(25),
-            Field::create( 'select', 'style', 'Estilo')->add_options( $button_styles )->set_width(25),
+            Field::create( 'text', 'text', 'Texto del botón'),
+            Field::create( 'select', 'style', 'Estilo')->add_options( $button_styles )->set_width(50),
     
             Field::create( 'radio', 'type','Tipo')->set_orientation( 'horizontal' )->add_options( array(
                 'link' => 'Link',
                 'download' => 'Descarga',
-            ))->set_width(25),
+            ))->set_width(50),
     
-            Field::create( 'file', 'file', 'File' )->add_dependency('type','download','=')->set_width(25),
+            Field::create( 'file', 'file', 'File' )->add_dependency('type','download','='),
     
             Field::create( 'radio', 'url_type','Destino:')->set_orientation( 'horizontal' )->add_options( array(
                 'interna' => 'Página Interna',
                 'externa' => 'Otro',
-            ))->add_dependency('type','link','=')->set_width(25),
-            Field::create( 'wp_object', 'post', '' )->set_button_text( 'Selecciona la página' )->add_dependency('type','link','=')->add_dependency('url_type','interna','=')->set_width(25),
-            Field::create( 'text', 'url', '' )->add_dependency('type','link','=')->add_dependency('url_type','externa','=')->set_width(25),
+            ))->add_dependency('type','link','='),
+            Field::create( 'wp_object', 'post', '' )->set_button_text( 'Selecciona la página' )->add_dependency('type','link','=')->add_dependency('url_type','interna','='),
+            Field::create( 'text', 'url', '' )->add_dependency('type','link','=')->add_dependency('url_type','externa','='),
     
-            Field::create( 'checkbox', 'new_tab', 'Abrir en una nueva ventana' )->set_text( 'Activar' )->set_width(25),
-    
-            Field::create( 'tab', 'Icono' ),
-            Field::create( 'icon', 'icon', 'Icono' )
+            Field::create( 'checkbox', 'new_tab', 'Abrir en una nueva ventana' )->set_text( 'Activar' ),
+
+            Field::create( 'tab', __('Icon', 'mv23theme') ),
+            Field::create( 'icon', 'icon', __('Icon', 'mv23theme') )
                 ->add_set( 'bootstrap-icons' )
                 ->add_set( 'font-awesome' )
-                ->set_width( 25 ),
-            Field::create( 'radio', 'icon_position', 'Posición')->add_options( array(
-                'left' => 'Izquierda',
-                'right' => 'Derecha'
-            ))->set_orientation( 'horizontal' )->set_width(25),
+                ->set_width( 50 ),
+            Field::create( 'radio', 'icon_position', __('Position', 'mv23theme'))->add_options( array(
+                'left' => __('Left', 'mv23theme'),
+                'right' => __('Right', 'mv23theme')
+            ))->set_orientation( 'horizontal' )->set_width(50),
     
             Field::create( 'tab', __('Others','mv23theme') ),
-            Field::create( 'radio', 'alignment', 'Alineación')->add_options( array(
-                'left' => 'Izquierda',
-                'center' => 'Centro',
-                'right' => 'Derecha'
-            ))->set_orientation( 'horizontal' )->set_width(25),
-            Field::create( 'radio', 'size', 'Tamaño')->add_options( array(
-                'small' => 'Normal',
-                'medium' => 'Mediano',
-                'big' => 'Grande'
-            ))->set_orientation( 'horizontal' )->set_width(25),
-            Field::create( 'checkbox', 'fullwidth','Botón de ancho completo' )->set_text( 'Activar' )->set_width(25),
-            Field::create( 'repeater', 'attributes', 'Attributos' )->set_add_text('Agregar')
+            Field::create( 'radio', 'size', __('Size', 'mv23theme'))->add_options( array(
+                'small' => __('Normal', 'mv23theme'),
+                'medium' => __('Mediano', 'mv23theme'),
+                'big' => __('Grande', 'mv23theme')
+            ))->set_orientation( 'horizontal' ),
+            Field::create( 'checkbox', 'fullwidth', __('Botón de ancho completo', 'mv23theme') )->set_text( __('Activar', 'mv23theme') ),
+            Field::create( 'repeater', 'attributes', __('Attributos', 'mv23theme') )->set_add_text(__('Agregar', 'mv23theme'))
                 ->set_layout( 'table' )
                 ->add_group('item', array(
                     'title_template' => '<%= attribute %> : <%= value %>',
@@ -89,20 +74,7 @@ class Button extends Component {
                         Field::create( 'text', 'attribute' )->set_width( 50 ),
                         Field::create( 'text', 'value' )->set_width( 50 ),
                     )
-            )),
-            Field::create( 'checkbox', 'add_responsive' )->set_text( 'Cambiar alineación en móviles' )->hide_label()->set_attr( 'style', 'background: #eeeeee; width: 100%' ),
-            Field::create( 'select', 'tablet_text_align','Alineación en Tablets')->add_options( array(
-                '' => 'Seleccionar',
-                'left' => 'Izquierda',
-                'center' => 'Centro',
-                'right' => 'Derecha',
-            ))->set_width(50)->add_dependency('add_responsive'),
-            Field::create( 'select', 'mobile_text_align','Alineación en Móviles')->add_options( array(
-                '' => 'Seleccionar',
-                'left' => 'Izquierda',
-                'center' => 'Centro',
-                'right' => 'Derecha',
-            ))->set_width(50)->add_dependency('add_responsive')            
+            ))           
         );
 
 		return $fields;
@@ -170,12 +142,6 @@ class Button extends Component {
                 }
             }
         }
-
-        $alignment = $args['alignment'];
-        if ( $alignment != 'left' ) $args['additional_classes'][] = $alignment.'-align';
-
-        if ( $args['tablet_text_align'] != '' ) $args['additional_classes'][] = $args['tablet_text_align'].'-on-tablet';
-        if ( $args['mobile_text_align'] != '') $args['additional_classes'][] = $args['mobile_text_align'].'-on-mobile';
 		
 		ob_start();
         echo Template_Engine::component_wrapper('start', $args);
@@ -183,6 +149,27 @@ class Button extends Component {
         echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
+
+    public static function get_view_template() {
+        ob_start(); 
+        printf(
+            '<a href="#" class="%s%s%s%s">',
+            '<%= style %>',
+            '<% if (icon && icon_position) { %> btn--icon-<%= icon_position %><% } %>',
+            '<% if (size) { %> btn--<%= size %><% } %>',
+            '<% if (fullwidth) { %> btn-block<% } %>'
+        );
+        ?>
+            <% if (icon && icon_position === 'left') { %>
+                <i class="<% if (icon.startsWith('fa')) { %>fa <% } else { %>bi <% } %><%= icon %>"></i>
+            <% } %>
+            <% if (text) { %><%= text %><% } else { %>Button<% } %>
+            <% if (icon && icon_position === 'right') { %>
+                <i class="<% if (icon.startsWith('fa')) { %>fa <% } else { %>bi <% } %><%= icon %>"></i>
+            <% } %>
+        </a>
+        <?php return ob_get_clean();
+    }
 }
 
 new Button();

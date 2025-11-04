@@ -19,16 +19,6 @@ class Video extends Component {
         return 'dashicons-format-video';
     }
 
-	public static function get_title_template() {
-		$template = '<% if( video_source == "external" ){ %>
-            External video | <%= video_type %>: <%= external_url %>
-        <% } else { %>
-            Selfhosted video | <%= video_type %> | Aspect ratio: <%= aspect_ratio %> 
-        <% } %>';
-		
-		return $template;
-	}
-
 	public static function get_fields() {
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme') ),
@@ -37,10 +27,10 @@ class Video extends Component {
                 ->add_options( array(
                     'selfhosted' => __('Media','mv23theme'),
                     'external' => __('External','mv23theme')
-                ))->set_width(50),
+                )),
 
-            Field::create( 'embed', 'external_url', 'URL')->add_dependency('video_source','external','=')->set_width(50),
-            Field::create( 'video', 'video' )->add_dependency('video_source','selfhosted','=')->set_width(50),
+            Field::create( 'embed', 'external_url', 'URL')->add_dependency('video_source','external','='),
+            Field::create( 'video', 'video' )->add_dependency('video_source','selfhosted','='),
             
             Field::create( 'complex', 'video_settings' )->add_fields(array(
                     Field::create( 'checkbox', 'controls', __('Controls','mv23theme') )->fancy()->set_width(10),
@@ -63,8 +53,8 @@ class Video extends Component {
                 ->add_dependency('video_source','external','=')
                 ->add_dependency('external_url','','!='),
     
-            Field::create( 'tab', __('Size','mv23theme') ),
-            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->add_options(array(
+            Field::create( 'tab', __('Aspect Ratio','mv23theme') ),
+            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
                 'default' => array(
                     'label' => 'default',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default.png'
@@ -116,11 +106,7 @@ class Video extends Component {
             )),
             Field::create( 'text', 'custom_aspect_ratio' )
                 ->set_validation_rule('^(\d+(\.\d+)?)(\s*\/\s*(\d+(\.\d+)?))?$')
-                ->add_dependency( 'aspect_ratio', 'custom' ),
-            Field::create( 'select', 'object_fit', __('Object Fit','mv23theme'))->add_options( array(
-                'contain' => __('Contain','mv23theme'),
-                'cover' => __('Cover','mv23theme'),
-            ))->add_dependency('aspect_ratio','default','!=')
+                ->add_dependency( 'aspect_ratio', 'custom' )
         );
 
 		return $fields;
@@ -153,15 +139,6 @@ class Video extends Component {
             );
         }
 
-        $aspect_ratio = ( isset($args['aspect_ratio']) && $args['aspect_ratio'] != 'mv23theme' ) ? $args['aspect_ratio'] : false;
-        if( $aspect_ratio ){
-            $aspect_ratio_value = ( $args['aspect_ratio'] != 'custom' ) ? $args['aspect_ratio'] : $args['custom_aspect_ratio'];
-            $args['additional_styles'][] = '--aspect-ratio:'.$aspect_ratio_value;
-        } 
-
-        $object_fit = ( isset($args['object_fit']) && $args['object_fit'] != 'contain' ) ? $args['object_fit'] : false;
-        if( $object_fit ) $args['additional_styles'][] = '--object-fit:'.$object_fit;
-    
         $args['additional_classes'][] = $video_source;
 
         $attachment = ($video_source === 'selfhosted') ? get_post( $args['video']['videos'][0] ): null;
@@ -172,7 +149,7 @@ class Video extends Component {
         echo '<div '.$attributes.'>';
         do_action( 'after_component_wrapper_start', $args );
         echo Template_Engine::check_layout('start', $args);
-        echo '<div class="video-wrapper">'.$video_data['code'].'</div>';
+        echo $video_data['code'];
         if( $caption ) echo '<p class="media-caption">'.esc_html($caption).'</p>';
         echo Template_Engine::check_actions( $args );
         echo Template_Engine::check_layout('end', $args);

@@ -9,12 +9,20 @@ Class Color{
         $styles = array();
         $settings = ( isset($args['settings']) ) ? $args['settings'] : array();
 
-	    if ( isset( $settings['font_color'] ) && !empty( $settings['font_color']['color'] ) ) {
+	    if (
+            isset( $settings['font_color'] ) &&              
+            // $settings['font_color']['color_scheme'] == 'custom' &&
+            !empty($settings['font_color']['color']) ) {
 
-            $color = $settings['font_color']['color'];
-
-	        $styles[] = 'color:'.$color;
+	        $styles['color'] = $settings['font_color']['color'];
 	    }
+
+        if (
+            isset( $settings['font_color'] ) &&              
+            $settings['font_color']['color_scheme'] == 'dark_scheme' ) {
+
+	        $styles['color'] = "#ffffff";
+	    }    
 
         return $styles;
     }

@@ -19,20 +19,6 @@ class Image extends Component {
         return 'dashicons-format-image';
     }
 
-	public static function get_title_template() {
-		$template = '<% if(image){ %>
-            <%= image_prepared[0].filename %> 
-            <% if(aspect_ratio != "default"){ %>
-                | aspect ratio: <%= aspect_ratio %> 
-            <% } %>
-            <% if(alignment && alignment != "left"){ %>
-                | Alignment: <%= alignment %>
-            <% } %>
-        <% } %>';
-		
-		return $template;
-	}
-
 	public static function get_fields() {
 
 		$fields = array(
@@ -43,23 +29,15 @@ class Image extends Component {
                     'selfhosted' => __('Media','mv23theme'),
                     'external' => __('External','mv23theme')
                 )),
-
             Field::create( 'image', 'image', __('Image','mv23theme') )->add_dependency('image_source','selfhosted','='),
             Field::create( 'text', 'external_image', 'URL')->add_dependency('image_source','external','='),
-            Field::create( 'text', 'external_image_credits', __('Credits','mv23theme'))->add_dependency('image_source','external','='),
+            Field::create( 'text', 'credits', __('Credits','mv23theme'))->add_dependency('image_source','external','='),
 
             Field::create( 'checkbox', 'expand_on_click', __('Expand on click','mv23theme') )->fancy()
                 ->set_text( __( 'Show the image in a popup.', 'mv23theme' ) ),
-            Field::create( 'checkbox', 'full_width', __( 'Full Width', 'mv23theme' )  )->fancy()
-                ->set_text( __( 'Let the image fill the full width of the available space.', 'mv23theme' ) ),
-            Field::create( 'select', 'alignment', __('Alignment','mv23theme'))->add_options( array(
-                'left' => __('Left','mv23theme'),
-                'center' => __('Center','mv23theme'),
-                'right' => __('Right','mv23theme'),
-            ))->add_dependency('full_width',0),
     
-            Field::create( 'tab', __('Size','mv23theme') ),
-            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->add_options(array(
+            Field::create( 'tab', __('Aspect Ratio','mv23theme') ),
+            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
                 'default' => array(
                     'label' => 'default',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default.png'
@@ -111,11 +89,7 @@ class Image extends Component {
             )),
             Field::create( 'text', 'custom_aspect_ratio' )
                 ->set_validation_rule('^(\d+(\.\d+)?)(\s*\/\s*(\d+(\.\d+)?))?$')
-                ->add_dependency( 'aspect_ratio', 'custom' ),
-            Field::create( 'select', 'object_fit', __('Object Fit','mv23theme'))->add_options( array(
-                'cover' => __('Cover','mv23theme'),
-                'contain' => __('Contain','mv23theme'),
-            ))->add_dependency('aspect_ratio','default','!=')
+                ->add_dependency( 'aspect_ratio', 'custom' )
         );
 
 		return $fields;
@@ -124,7 +98,6 @@ class Image extends Component {
     public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
         
-		$args['additional_classes'][] = 'component';
 		$args['additional_classes'][] = 'media';
 
         $attachment = false;
@@ -139,7 +112,7 @@ class Image extends Component {
             $attachment->ID = 0;
             $attachment->guid = $args['external_image'];
             $attachment->post_title = '';
-            $attachment->post_excerpt = $args['external_image_credits'] ?? '';
+            $attachment->post_excerpt = $args['credits'] ?? '';
         }
 
         if( !$attachment ){
@@ -150,48 +123,27 @@ class Image extends Component {
             $attachment->post_excerpt = '';
         }
 
-        $image_attributes = array();
         $alt = get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true);
         $title = $attachment->post_title;
         $src = $attachment->guid;
         // $href = get_permalink( $attachment->ID );
-
-        if( !empty($src) ) $image_attributes[] = 'src="'.esc_url($src).'"';
-        if( !empty($alt) ) $image_attributes[] = 'alt="'.esc_attr($alt).'"';
-        if( !empty($title) ) $image_attributes[] = 'title="'.esc_attr($title).'"';
-
-        if( isset($args['expand_on_click']) && $args['expand_on_click'] ) $image_attributes[] = 'class="zoom"';
-
-        if( isset($args['full_width']) && $args['full_width'] ) $image_attributes[] = 'style="width:100%"';
-
         $caption = $attachment->post_excerpt;
-        // $description = $attachment->post_content;
-
-        $args['additional_styles'] = array();
-
-        $aspect_ratio = ( isset($args['aspect_ratio']) && $args['aspect_ratio'] != 'mv23theme' ) ? $args['aspect_ratio'] : false;
-        if( $aspect_ratio ){
-            $aspect_ratio_value = ( $args['aspect_ratio'] != 'custom' ) ? $args['aspect_ratio'] : $args['custom_aspect_ratio'];
-            $args['additional_styles'][] = '--aspect-ratio:'.$aspect_ratio_value;
-        } 
         
-        $alignment = ( isset($args['alignment']) && $args['alignment'] != 'left' ) ? $args['alignment'] : false;
-        if( $alignment ) $args['additional_styles'][] = 'text-align:'.$alignment;
+        if( !empty($src) ) $args['additional_attributes'][] = 'src="'.esc_url($src).'"';
+        if( !empty($alt) ) $args['additional_attributes'][] = 'alt="'.esc_attr($alt).'"';
+        if( !empty($title) ) $args['additional_attributes'][] = 'title="'.esc_attr($title).'"';
 
-        $object_fit = ( isset($args['object_fit']) && $args['object_fit'] != 'cover' ) ? $args['object_fit'] : false;
-        if( $object_fit ) $args['additional_styles'][] = '--object-fit:'.$object_fit;
+        if( isset($args['expand_on_click']) && $args['expand_on_click'] ) $args['additional_classes'][] = 'zoom';
         
-        $attributes = Template_Engine::generate_attributes( $args );
+        $image_attributes = Template_Engine::generate_attributes( $args );
         ob_start();
-        echo '<div '.$attributes.'>';
         do_action( 'after_component_wrapper_start', $args );
         echo Template_Engine::check_layout('start', $args);
-		echo '<img '.implode(' ',$image_attributes).'>';
+		echo '<img '.$image_attributes.'>';
         if( $caption ) echo '<p class="media-caption">'.esc_html($caption).'</p>';
         echo Template_Engine::check_actions( $args );
         echo Template_Engine::check_layout('end', $args);
         do_action( 'before_component_wrapper_end', $args );
-        echo '</div>';
         return ob_get_clean();
 	}
 }

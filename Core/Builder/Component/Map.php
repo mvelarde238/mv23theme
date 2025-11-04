@@ -18,28 +18,20 @@ class Map extends Component {
         return 'dashicons-location';
     }
 
-    public static function get_title_template() {
-		$template = '<% if ( location ){ %>
-            <%= location.address %> | Zoom: <%= location.zoom %>
-        <% } else { %>
-            There isnt any location selected
-        <%  } %>';
-		
-		return $template;
-	}
-
 	public static function get_fields() {
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme')),
             Field::create( 'map', 'location' )->set_output_width( '100%' )->set_output_height( 280 ),
-            Field::create( 'image', 'icono' )->set_width( 50 ),
-            Field::create( 'complex', 'height')->add_fields(array(
-                Field::create( 'number', 'height', 'Altura' )->set_width( 50 )->set_default_value( 280 ),
-                Field::create( 'text', 'unit', 'Medida (px,%,vh..)' )->set_width( 50 )->set_default_value( 'px' ),
-            ))->set_width( 50 ),
+            
+            Field::create( 'tab', __('Marker','mv23theme')),
+            Field::create( 'complex', 'icon_data')->hide_label()->add_fields(array(
+                Field::create( 'image', 'icon' )->set_attr( 'style', 'width:33%; min-width:initial;' ),
+                Field::create( 'number', 'width' )->set_default_value( 38 )->set_attr( 'style', 'width:33%; min-width:initial;' ),
+                Field::create( 'number', 'height' )->set_default_value( 38 )->set_attr( 'style', 'width:33%; min-width:initial;' )
+            )),
     
             Field::create( 'tab', 'Info Window'),
-            Field::create( 'wysiwyg', 'info' )->hide_label()->set_rows( 20 ),
+            Field::create( 'wysiwyg', 'info_window_content' )->hide_label()->set_rows( 20 ),
         );
 
 		return $fields;
@@ -57,28 +49,36 @@ class Map extends Component {
         if($provider == 'leaflet' && !LEAFLET_IS_ACTIVE) return; 
         
 		$args['additional_classes'] = array('component');
-        
-        $info = (isset($args['info'])) ? $args['info'] : '';
+
+        $info_window_content = (isset($args['info_window_content'])) ? $args['info_window_content'] : '';
         $lat = $location['latLng']['lat'];
         $lng = $location['latLng']['lng'];
         $zoom = $location['zoom'];
-        $icono = $args['icono'];
-        $icono = wp_get_attachment_url($icono);
-        $height = (isset($args['height']) && $args['height'] && is_array($args['height'])) ? $args['height'] : array( 'height'=>280, 'unit'=>'px' );
-        $height_style = 'style="height:'.$height['height'].$height['unit'].'"';
+
+        $icon_url = '';
+        $icon_size = [38, 38];
+        $icon_data = $args['icon_data'];
+        if( is_array($icon_data) && isset($icon_data['icon']) && !empty($icon_data['icon']) ) {
+            $icon_url = wp_get_attachment_url( $icon_data['icon'] );
+            $width = isset($icon_data['width']) ? intval($icon_data['width']) : 38;
+            $height = isset($icon_data['height']) ? intval($icon_data['height']) : 38;
+            $icon_size = [$width, $height];
+        }
 
 		ob_start();
         echo Template_Engine::component_wrapper('start', $args);
         if($lat && $lng) : 
             $map_id = uniqid('map_');
             ?>
-            <div id="<?=$map_id?>" class="map__gmap" <?=$height_style?> 
+            <div id="<?=$map_id?>" class="map__gmap" 
                 data-lat="<?=$lat?>" 
                 data-lng="<?=$lng?>" 
-                data-icon="<?=$icono?>" 
+                data-icon="<?=$icon_url?>" 
+                data-icon-width="<?=$icon_size[0]?>" 
+                data-icon-height="<?=$icon_size[1]?>"
                 data-zoom="<?=$zoom?>" 
                 data-provider="<?=$provider?>">
-                <?php if($info) echo '<template class="infowindow">'.do_shortcode(wpautop(oembed($info))).'</template>'; ?>
+                <?php if($info_window_content) echo '<template class="infowindow">'.do_shortcode(wpautop(oembed($info_window_content))).'</template>'; ?>
             </div>
         <?php endif;
         echo Template_Engine::component_wrapper('end', $args);

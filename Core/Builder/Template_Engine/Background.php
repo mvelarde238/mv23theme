@@ -19,7 +19,7 @@ Class Background{
             $alpha = $settings['background_color']['alpha'] ?? 100;
             $bgc = ( $alpha != 100 ) ? 'rgba('.Helpers::hexToRgb( $color, $alpha ).')' : $color;
 
-	        $styles[] = 'background-color:'.$bgc;
+	        $styles['background-color'] = $bgc;
 	    }
 
         if (
@@ -28,7 +28,7 @@ Class Background{
 
             $bgi_url = wp_get_attachment_url( $settings['background_image']['image'] );
             if( $bgi_url ){
-                $styles[] = 'background-image:url('.$bgi_url.')';
+                $styles['background-image'] = 'url('.$bgi_url.')';
 
                 $default_bgi_settings = array(
                     'size' => 'auto',
@@ -39,11 +39,11 @@ Class Background{
                 );
                 $bgi_settings = wp_parse_args( $settings['background_image']['settings'], $default_bgi_settings );
 
-                if ($bgi_settings['size'] != 'auto') $styles[] = 'background-size: '.$bgi_settings['size'];
-                if ($bgi_settings['repeat'] != 'repeat') $styles[] = 'background-repeat: '.$bgi_settings['repeat'];
-                if ($bgi_settings['position_x'] != 'left') $styles[] = 'background-position-x: '.$bgi_settings['position_x'];
-                if ($bgi_settings['position_y'] != 'top') $styles[] = 'background-position-y: '.$bgi_settings['position_y'];
-                if (isset($bgi_settings['parallax']) && $bgi_settings['parallax']) $styles[] = 'background-attachment: fixed';
+                if ($bgi_settings['size'] != 'auto') $styles['background-size'] = $bgi_settings['size'];
+                if ($bgi_settings['repeat'] != 'repeat') $styles['background-repeat'] = $bgi_settings['repeat'];
+                if ($bgi_settings['position_x'] != 'left') $styles['background-position-x'] = $bgi_settings['position_x'];
+                if ($bgi_settings['position_y'] != 'top') $styles['background-position-y'] = $bgi_settings['position_y'];
+                if (isset($bgi_settings['parallax']) && $bgi_settings['parallax']) $styles['background-attachment'] = 'fixed';
             }
         }        
 

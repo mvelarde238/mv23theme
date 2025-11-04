@@ -25,11 +25,29 @@ class Section extends Component {
 	}
 
 	public static function display( $args ){
-		if( Template_Engine::is_private( $args ) ) return;
+        if( Template_Engine::is_private( $args ) ) return;
+
+		$args['additional_classes'] = array('page-module');
         
+	    $components = $args['components'];
+        $attributes = Template_Engine::generate_attributes( $args );
+
 		ob_start();
-		echo Template_Engine::component_wrapper('start', $args);
-		echo Template_Engine::component_wrapper('end', $args);
+        echo Template_Engine::check_full_width('start', $args);
+        echo '<section '.$attributes.'>';
+        do_action( 'after_component_wrapper_start', $args );
+        echo Template_Engine::check_video_background( $args );
+        echo Template_Engine::check_slider_background( $args );
+        echo Template_Engine::check_layout('start', $args);
+
+		foreach ($components as $component) {
+			echo Template_Engine::getInstance()->handle( $component['__type'], $component );
+		}
+		
+        echo Template_Engine::check_layout('end', $args);
+        do_action( 'before_component_wrapper_end', $args );
+        echo '</section>';
+        echo Template_Engine::check_full_width('end', $args);
 		return ob_get_clean();
 	}
 }

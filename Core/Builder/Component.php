@@ -27,6 +27,9 @@ abstract class Component {
 		$title_template = static::get_title_template();
 		if( $title_template ) $component->set_title_template( $title_template );
 
+		$view_template = static::get_view_template();
+		if( $view_template ) $component->set_view_template( $view_template );
+
 		$layout = static::get_layout();
 		if( !empty($layout) ) $component->set_layout( $layout );
 
@@ -55,6 +58,15 @@ abstract class Component {
 	 * @return mixed bool if not implemented || backbone template
 	 */
 	/* abstract */ public static function get_title_template() {
+		return false;
+	}
+
+	/**
+	 * Returns the view template for the group
+	 *
+	 * @return mixed bool if not implemented || backbone template
+	 */
+	/* abstract */ public static function get_view_template() {
 		return false;
 	}
 

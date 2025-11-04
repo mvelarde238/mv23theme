@@ -23,13 +23,13 @@ Class Padding{
             $simplified = Helpers::simplify_values('padding', $top, $right, $bottom, $left);
 
             if ($simplified) {
-                $styles[] = 'padding:' . $simplified;
+                $styles['padding'] = $simplified;
             } else {
                 // Fall back to individual properties
-                if ($top !== null) $styles[] = 'padding-top:' . $top;
-                if ($right !== null) $styles[] = 'padding-right:' . $right;
-                if ($bottom !== null) $styles[] = 'padding-bottom:' . $bottom;
-                if ($left !== null) $styles[] = 'padding-left:' . $left;
+                if ($top !== null) $styles['padding-top'] = $top;
+                if ($right !== null) $styles['padding-right'] = $right;
+                if ($bottom !== null) $styles['padding-bottom'] = $bottom;
+                if ($left !== null) $styles['padding-left'] = $left;
             }
         }
     
