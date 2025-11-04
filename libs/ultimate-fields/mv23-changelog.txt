@@ -8,6 +8,11 @@ mv23 changelog-------------------------
     (core/classes/Core.php)
     (core/js/field/select.js)
 
+- Support for css columns on image select
+    (core/assets/css/ultimate-fields.css)
+    (core/assets/css/ultimate-fields.css.map)
+    (core/assets/sass/field/_image-select.scss)
+
 - 3.2.4 04-11-2025
 - Implements view_template on repeater groups for uf builder components
     (core/classes/Container/Repeater_Group.php)

@@ -22,5 +22,16 @@
 	img {
 		display: block;
 		max-width: 300px;
+		width: 100%;
 	}
+
+}
+
+.image-select-2-cols .uf-image-select{
+	display: grid; 
+	grid-template-columns: 1fr 1fr;
+}
+.image-select-3-cols .uf-image-select{
+	display: grid; 
+	grid-template-columns: 1fr 1fr;
 }
