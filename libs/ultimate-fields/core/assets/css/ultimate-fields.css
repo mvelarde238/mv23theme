@@ -82,6 +82,19 @@
   animation-duration: 0.8s;
 }
 
+.uf-tab-wrapper {
+  border-bottom: 1px solid #ccc;
+  font-size: 0;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.uf-fields-inline-tabs > .uf-tab-wrapper {
+  display: none;
+}
 .uf-tab {
   display: inline-block;
   background: #f0f0f0;
@@ -96,19 +109,6 @@
   margin-right: 6px;
   margin-top: 3px;
   color: #444;
-}
-.uf-tab-wrapper {
-  border-bottom: 1px solid #ccc;
-  font-size: 0;
-  width: 100%;
-  position: relative;
-  z-index: 2;
-  margin-bottom: 10px;
-  padding-left: 10px;
-  box-sizing: border-box;
-}
-.uf-fields-inline-tabs > .uf-tab-wrapper {
-  display: none;
 }
 .uf-boxed-fields .uf-tab {
   border-color: #ddd;
@@ -151,13 +151,13 @@
   margin-right: 5px;
 }
 
-.uf-boxed-fields .uf-tab {
-  border-color: #ddd;
-}
 .uf-boxed-fields .uf-tab-wrapper {
   background: #eee;
   border-bottom-color: #ddd;
   margin-bottom: 0;
+}
+.uf-boxed-fields .uf-tab {
+  border-color: #ddd;
 }
 .uf-boxed-fields .uf-tab-active {
   background: #fff;
@@ -809,6 +809,12 @@
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   border-left: 0;
+}
+
+.uf-field-prefix:has(+ .uf-radio) {
+  margin-right: 9px;
+  border-right: 1px solid #ccc;
+  border-radius: 3px;
 }
 
 .gutenberg .uf-field-type-wysiwyg .uf-field-input * {

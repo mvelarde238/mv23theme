@@ -190,6 +190,12 @@
 				current = this.model.getValue(),
 				name;
 
+			if( prefix = this.model.get( 'prefix' ) ) {
+				$( '<span class="uf-field-prefix" />' )
+					.html( prefix )
+					.appendTo( this.$el );
+			}
+
 			// Generate a name for the inputs
 			name = 'uf-radio-' + ( selectField.lastListName++ );
 

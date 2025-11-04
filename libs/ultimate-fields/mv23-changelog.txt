@@ -1,22 +1,30 @@
 mv23 changelog-------------------------
 
+- 3.2.5 04-11-2025
+- Fix support for prefix on radio fields
+    (core/assets/css/ultimate-fields.css)
+    (core/assets/css/ultimate-fields.css.map)
+    (core/assets/sass/field/_text.scss)
+    (core/classes/Core.php)
+    (core/js/field/select.js)
+
 - 3.2.4 04-11-2025
 - Implements view_template on repeater groups for uf builder components
-../libs/ultimate-fields/core/classes/Container/Repeater_Group.php
-../libs/ultimate-fields/core/classes/Field/Layout.php
-../libs/ultimate-fields/core/classes/Field/Repeater.php
+    (core/classes/Container/Repeater_Group.php)
+    (core/classes/Field/Layout.php)
+    (core/classes/Field/Repeater.php)
 
 - Implements a "stateRestored" when a group restore its datastore
-../libs/ultimate-fields/core/js/container/group.js
+    (core/js/container/group.js)
 
 - Implements image-field-like *_prepared property on file field
-../libs/ultimate-fields/core/js/field/file.js
+    (core/js/field/file.js)
 
 - Assign a manual keyup handler for textarea field
-../libs/ultimate-fields/core/js/field/textarea.js
+    (core/js/field/textarea.js)
 
 - Add keyup change handler for TinyMCE
-../libs/ultimate-fields/core/js/field/wysiwyg.js
+    (core/js/field/wysiwyg.js)
 
 - 3.2.3 01-09-2025
 - Fix: map.js: Save map state on zoom level change and avoid marker deletion

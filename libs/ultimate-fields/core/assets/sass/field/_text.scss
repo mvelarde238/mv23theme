@@ -43,3 +43,9 @@
 	border-bottom-right-radius: 3px;
 	border-left: 0;
 }
+
+.uf-field-prefix:has( + .uf-radio ) {
+    margin-right: 9px;
+	border-right: 1px solid #ccc;
+	border-radius: 3px;
+}
