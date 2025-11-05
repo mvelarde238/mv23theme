@@ -4,15 +4,35 @@ namespace Core\Migrator\Base;
 abstract class Migrate_Components_Settings{
 
     private $batch_size;
-    private $do_the_update;
+    protected $do_the_update;
     private $title;
     private $slug;
+    private $is_top_level;
+    protected $meta_keys;
 
-    public function __construct( $batch_size = 3, $do_the_update = false, $title = '', $slug = '' ) {
+    public function __construct( $batch_size = 3, $do_the_update = false, $title = '', $slug = '', $is_top_level = false, $meta_keys = null ) {
         $this->batch_size = $batch_size;
         $this->do_the_update = $do_the_update;
         $this->title = $title;
         $this->slug = $slug;
+        $this->is_top_level = $is_top_level;
+        $this->meta_keys = $meta_keys ?: $this->get_default_meta_keys();
+    }
+
+    /**
+     * Get default meta keys to process
+     * This method can be overridden in child classes to customize the meta keys
+     * 
+     * @return array
+     */
+    protected function get_default_meta_keys() {
+        return array(
+            'page_modules',
+            'components',
+            'offcanvas_element_content',
+            'blocks_layout',
+            'page_header_settings'
+        );
     }
 
     /* abstract */ public function migrate(){
@@ -26,7 +46,8 @@ abstract class Migrate_Components_Settings{
         <div class="wrap">
             <div class="theme-migrator">
                 <h3><?php echo esc_html( $this->title ); ?></h3>
-                ――――― <button class="theme-migrator__init-process button-primary" data-action="<?php echo esc_attr( $this->slug ); ?>" data-status="initial">
+                <?php if( !$this->is_top_level ) echo '――――― '; ?>
+                <button class="theme-migrator__init-process button-primary" data-action="<?php echo esc_attr( $this->slug ); ?>" data-status="initial">
                     <span><i class="dashicons dashicons-migrate uf-button-icon"></i> INIT MIGRATION</span>
                     <span><i class="dashicons dashicons-admin-generic uf-button-icon"></i> PROCESSING</span>
                     <span><i class="dashicons dashicons-saved uf-button-icon"></i> MIGRATION COMPLETE</span>
@@ -58,17 +79,17 @@ abstract class Migrate_Components_Settings{
         global $wpdb;
     
         // Obtener un lote de páginas a procesar
-        $pages = $wpdb->get_results($wpdb->prepare(
-            "SELECT pm.meta_id, pm.post_id, pm.meta_key, pm.meta_value, p.post_type
+        $meta_keys_placeholders = implode(',', array_fill(0, count($this->meta_keys), '%s'));
+        $query = "SELECT pm.meta_id, pm.post_id, pm.meta_key, pm.meta_value, p.post_type
             FROM {$wpdb->postmeta} pm
             JOIN {$wpdb->posts} p ON pm.post_id = p.ID
-            WHERE pm.meta_key IN ('page_modules','components','offcanvas_element_content', 'blocks_layout','page_header_settings')
+            WHERE pm.meta_key IN ($meta_keys_placeholders)
             -- AND p.ID = 734 _refactorizing-custom-fields
             AND p.post_type != 'revision'
-            LIMIT %d OFFSET %d",
-            $batch_size,
-            $offset
-        ));
+            LIMIT %d OFFSET %d";
+        
+        $prepare_values = array_merge($this->meta_keys, array($batch_size, $offset));
+        $pages = $wpdb->get_results($wpdb->prepare($query, $prepare_values));
 
         $general_control = array();
         $do_the_update = $this->do_the_update;
@@ -294,5 +315,15 @@ abstract class Migrate_Components_Settings{
         wp_send_json_success(array(
             'complete' => true
         ));
+    }
+
+    protected function generate_id( $comp = null ){
+        // Check if comp has existing ID in settings
+        if( !is_null($comp) && isset($comp['settings']['main_attributes']['id']) ){
+            return $comp['settings']['main_attributes']['id'];
+        }
+        
+        // Generate new ID for null comp or comp without existing ID
+        return 'id' . substr( md5( uniqid() ), 0, 5 );
     }
 }
