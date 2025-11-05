@@ -17,7 +17,7 @@ window.gjsListing = function (editor) {
                     class: compClass,
                 },
                 styles: `
-                    .listing * {
+                    .listing a {
                         pointer-events: none;
                     }
                 `,
