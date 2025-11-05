@@ -24,7 +24,7 @@ function create_text_align_actions(component){
     return textAlignAction;
 }
 
-const contextMenuOpts = {
+window['contextMenuOpts'] = {
     actions: {
         // wrapper: function(component){
         //     return [
@@ -58,5 +58,3 @@ const contextMenuOpts = {
         }
     }
 };
-
-window.contextMenuOpts = contextMenuOpts;

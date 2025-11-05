@@ -20,40 +20,7 @@
     $.extend(builder.Core.prototype, {
         initialize: function () {
             const that = this;
-            const contextMenu = window["gjs-context-menu"];
-            const contextMenuPlugin = contextMenu?.default || contextMenu;
-
-            const rowsAndCols = window["gjs-row-and-cols"];
-            const rowsAndColsPlugin = rowsAndCols?.default || rowsAndCols;
-
-            const togglebox = window["gjs-togglebox"];
-            const toggleboxPlugin = togglebox?.default || togglebox;
-
-            const gjsFlipbox = window["gjs-flip-box"];
-            const gjsFlipboxPlugin = gjsFlipbox?.default || gjsFlipbox;
-
-            const gjsCarousel = window["gjs-carousel"];
-            const gjsCarouselPlugin = gjsCarousel?.default || gjsCarousel;
-
-            const gjsImages = window["gjs-images"];
-            const gjsImagesPlugin = gjsImages?.default || gjsImages;
-
-            const gjsVideo = window["gjs-video"];
-            const gjsVideoPlugin = gjsVideo?.default || gjsVideo;
-
-            const gjsContainer = window["gjsContainer"];
-            const gjsSection = window["gjsSection"];
-            const gjsCompWrapper = window["gjsCompWrapper"];
-            const gjsExtendComponents = window["gjsExtendComponents"];
-            const gjsBuilderCommands = window["gjsBuilderCommands"];
-            const gjsMap = window["gjsMap"];
-            const gjsListing = window["gjsListing"];
-            const gjsGallery = window["gjsGallery"];
-            const gjsMenu = window["gjsMenu"];
-            const gjsReusableSection = window["gjsReusableSection"];
-            const gjsSpacer = window["gjsSpacer"];
-            const gjsHoverLayer = window["gjsHoverLayer"];
-
+            const plugins = this.get_plugins();
             const typesControl = this.get_types_control();
 
             // INIT THE BUILDER
@@ -89,29 +56,9 @@
                 // Temporarily store datastores and models for each component
                 temporalCompStore: {},
                 builderInstance: that,
-                plugins: [
-                    rowsAndColsPlugin,
-                    contextMenuPlugin,
-                    toggleboxPlugin,
-                    gjsCompWrapper,
-                    gjsSection,
-                    gjsExtendComponents,
-                    gjsFlipboxPlugin,
-                    gjsCarouselPlugin,
-                    gjsContainer,
-                    gjsBuilderCommands,
-                    gjsImagesPlugin,
-                    gjsVideoPlugin,
-                    gjsMap,
-                    gjsListing,
-                    gjsGallery,
-                    gjsMenu,
-                    gjsReusableSection,
-                    gjsSpacer,
-                    gjsHoverLayer
-                ],
+                plugins: plugins,
                 pluginsOpts: {
-                    [contextMenuPlugin]: window.contextMenuOpts
+                    [window['gjs-context-menu'].default]: window['contextMenuOpts']
                 },
                 customTopbarButtonsAfter: [
                     { 
@@ -203,6 +150,26 @@
 
             // UPDATE
             // editor.on('update', () => {});
+        },
+        get_plugins: function() {
+            const plugins = [];
+
+            const customPlugins = this.args.gjs_plugins || [];
+            customPlugins.forEach( plugin => {
+                if (plugin.isExternal) {
+                    const externalPlugin = window[plugin.handle];
+                    if (externalPlugin) {
+                        plugins.push(externalPlugin?.default || externalPlugin);
+                    }
+                } else {
+                    const pluginObj = window[plugin.name];
+                    if (pluginObj) {
+                        plugins.push(pluginObj);
+                    }
+                }
+            });
+
+            return plugins;
         },
         get_types_control: function() {
             const groups = this.args.groups,

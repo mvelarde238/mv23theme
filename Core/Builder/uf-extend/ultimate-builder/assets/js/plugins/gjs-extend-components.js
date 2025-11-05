@@ -1,4 +1,4 @@
-function gjsExtendComponents(editor) {
+window.gjsExtendComponents = function (editor) {
     const domc = editor.DomComponents;
     
     // Extend gjs component connecting it with Ultimate Fields group model / datastores
@@ -135,5 +135,3 @@ function gjsExtendComponents(editor) {
         }
     });
 }
-
-window.gjsExtendComponents = gjsExtendComponents;

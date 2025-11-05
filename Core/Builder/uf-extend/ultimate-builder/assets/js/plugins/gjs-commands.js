@@ -1,4 +1,4 @@
-function gjsBuilderCommands(editor, options) {
+window.gjsCommands = function (editor, options) {
 
     const commands = editor.Commands;
 
@@ -75,5 +75,3 @@ function gjsBuilderCommands(editor, options) {
         editor.Selectors.select(rule);
     });
 }
-
-window.gjsBuilderCommands = gjsBuilderCommands;

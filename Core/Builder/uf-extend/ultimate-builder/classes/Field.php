@@ -31,25 +31,7 @@ class Field extends Repeater {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'gjs-context-menu-options' );
-		wp_enqueue_script( 'gjs-extend-components' );
-		wp_enqueue_script( 'gjs-context-menu' );
-        wp_enqueue_script( 'gjs-row-and-cols' );
-		wp_enqueue_script( 'gjs-comp-wrapper' );
-		wp_enqueue_script( 'gjs-container' );
-        wp_enqueue_script( 'gjs-togglebox' );
-		wp_enqueue_script( 'gjs-carousel' );
-		wp_enqueue_script( 'gjs-section' );
-		wp_enqueue_script( 'gjs-flipbox' );
-		wp_enqueue_script( 'gjs-images' );
-		wp_enqueue_script( 'gjs-video' );
-		wp_enqueue_script( 'gjs-map' );
-		wp_enqueue_script( 'gjs-listing' );
-		wp_enqueue_script( 'gjs-reusable-section' );
-		wp_enqueue_script( 'gjs-menu' );
-		wp_enqueue_script( 'gjs-spacer' );
-		wp_enqueue_script( 'gjs-gallery' );
-		wp_enqueue_script( 'gjs-commands' );
-		wp_enqueue_script( 'gjs-hover-layer' );
+		$this->enqueue_gjs_plugins();
         wp_enqueue_script( 'builder' );
 		wp_enqueue_script( 'uf-field-ultimate-builder' );
 		
@@ -57,15 +39,21 @@ class Field extends Repeater {
 		wp_enqueue_style( 'uf-field-ultimate-builder' );
 		wp_enqueue_style( 'gjs-context-menu-style' );
 
-		// theme styles for preview
-		// foreach ( $this->theme_styles as $style ) {
-		// 	if ( isset( $_GET['action'] ) && $_GET['action'] === 'ultimate-builder' ) {
-		// 		wp_enqueue_style( $style );
-		// 	}
-		// }
-
 		# Add the necessary templates
 		Template::add( 'ultimate-builder', 'ultimate-builder' );
+	}
+
+	/**
+	 * Enqueue GJS plugins dynamically.
+	 *
+	 * @since 1.0
+	 */
+	private function enqueue_gjs_plugins() {
+		$gjs_plugins_info = $this->get_gjs_plugins();
+		
+		foreach ( $gjs_plugins_info as $plugin_info ) {
+			wp_enqueue_script( $plugin_info['handle'] );
+		}
 	}
 
 	/**
@@ -122,6 +110,7 @@ class Field extends Repeater {
 			$this->name.'_builder_link' => $builder_link,
 			$this->name.'_theme_styles' => $this->get_styles(),
 			$this->name.'_theme_scripts' => $this->get_scripts(),
+			$this->name.'_gjs_plugins' => $this->get_gjs_plugins(),
 		);
 	}
 
@@ -311,5 +300,32 @@ class Field extends Repeater {
 		}
 
 		return $scripts;
+	}
+
+	/**
+	 * Get the GJS plugins information
+	 *
+	 * @since 1.0
+	 *
+	 * @return array
+	 */
+	private function get_gjs_plugins() {
+		$plugins = array();
+		$builder_instance = Ultimate_Builder::instance();
+		
+		if ( $builder_instance ) {
+			$gjs_plugins = $builder_instance->get_gjs_plugins();
+		
+			foreach ( $gjs_plugins as $plugin ) {
+				$plugins[] = array(
+					'name' => $plugin['name'],
+					'handle' => $plugin['handler'],
+					'isComponent' => $plugin['isComponent'] ?? false,
+					'isExternal' => $plugin['isExternal'] ?? false,
+				);
+			}
+		}
+
+		return $plugins;
 	}
 }
