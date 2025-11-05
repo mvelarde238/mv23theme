@@ -23,6 +23,11 @@ class Admin extends Theme_Header_Data {
     
     public function enqueue_scripts( $page ) {
         // if( $page == 'post.php' ) 
+
+        // register theme styles and scripts for ultimate builder
+        wp_register_style( $this->text_domain.'-styles', $this->theme_uri . '/assets/css/style.css', array(), $this->version, 'all' );
+        wp_register_script( $this->text_domain.'-scripts', $this->theme_uri . '/assets/js/scripts.js', array('jquery'), $this->version, true );
+
         wp_enqueue_style( $this->text_domain.'-font-awesome', FONT_AWESOME, array(), $this->version );
         wp_enqueue_style( $this->text_domain.'-bootstrap-icons', BOOTSTRAP_ICONS, array(), $this->version );
 
