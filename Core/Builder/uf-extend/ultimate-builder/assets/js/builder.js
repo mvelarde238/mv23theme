@@ -35,11 +35,23 @@
             const gjsCarousel = window["gjs-carousel"];
             const gjsCarouselPlugin = gjsCarousel?.default || gjsCarousel;
 
+            const gjsImages = window["gjs-images"];
+            const gjsImagesPlugin = gjsImages?.default || gjsImages;
+
+            const gjsVideo = window["gjs-video"];
+            const gjsVideoPlugin = gjsVideo?.default || gjsVideo;
+
             const gjsContainer = window["gjsContainer"];
             const gjsSection = window["gjsSection"];
             const gjsCompWrapper = window["gjsCompWrapper"];
             const gjsExtendComponents = window["gjsExtendComponents"];
             const gjsBuilderCommands = window["gjsBuilderCommands"];
+            const gjsMap = window["gjsMap"];
+            const gjsListing = window["gjsListing"];
+            const gjsGallery = window["gjsGallery"];
+            const gjsMenu = window["gjsMenu"];
+            const gjsReusableSection = window["gjsReusableSection"];
+            const gjsSpacer = window["gjsSpacer"];
 
             const typesControl = this.get_types_control();
 
@@ -59,8 +71,19 @@
                     'flip_box': { render: false },
                     'row': { render: false },
                     'accordion': { render: false },
+                    'accordion_button': { render: false },
                     'components_wrapper': { type: 'comp-wrapper' },
-                    'carousel': { render: false }
+                    'listing': { type: 'listing' },
+                    'gallery': { type: 'gallery' },
+                    'menu': { type: 'menu' },
+                    'reusable_section': { type: 'reusable-section' },
+                    'carousel': { render: false },
+                    'column': { render: false },
+                    'figure': { render: false },
+                    'image': { type: 'image2' },
+                    'video': { type: 'video2' },
+                    'map': { type: 'map2' },
+                    'spacer': { type: 'spacer' }
                 },
                 // Temporarily store datastores and models for each component
                 temporalCompStore: {},
@@ -75,10 +98,26 @@
                     gjsFlipboxPlugin,
                     gjsCarouselPlugin,
                     gjsContainer,
-                    gjsBuilderCommands
+                    gjsBuilderCommands,
+                    gjsImagesPlugin,
+                    gjsVideoPlugin,
+                    gjsMap,
+                    gjsListing,
+                    gjsGallery,
+                    gjsMenu,
+                    gjsReusableSection,
+                    gjsSpacer
                 ],
+                pluginsOpts: {
+                    [contextMenuPlugin]: window.contextMenuOpts
+                },
                 customTopbarButtonsAfter: [
                     { 
+                        id: 'builder:log-data', 
+                        iconClass: 'dashicons dashicons-admin-generic',
+                        options: { builder: that }
+                    },
+                    {
                         id: 'builder:save-editor', 
                         iconClass: 'dashicons dashicons-update',
                         options: { builder: that }
@@ -112,6 +151,11 @@
                         padding: 5px;
                         min-height: 50px;
                     }
+                    img{
+                        max-width: 100%;
+                        height: auto;
+                        object-fit: cover;
+                    }
                 `,
                 onEditor: function(editor) {
                     editor.runCommand('core:component-outline');
@@ -124,6 +168,10 @@
 
             this.add_custom_components_and_blocks(editor);
             this.add_existing_content(editor);
+
+            setTimeout( function() {
+                that.add_theme_styles_and_scripts(editor);
+            }, 500 );
 
             // DELETE
             // editor.on(`component:remove`, (model) => {
@@ -165,10 +213,20 @@
 
             componentTypes['flipbox'] = { group: 'flip_box' };
             componentTypes['row2'] = { group: 'row' };
+            componentTypes['column'] = { group: 'column' };
             componentTypes['togglebox-wrapper'] = { group: 'accordion' };
+            componentTypes['togglebox-button'] = { group: 'accordion_button' };
             componentTypes['carousel-wrapper'] = { group: 'carousel' };
             componentTypes['comp-wrapper'] = { group: 'components_wrapper' };
+            componentTypes['listing'] = { group: 'listing' };
             componentTypes['section'] = { group: 'section' };
+            componentTypes['image2'] = { group: 'image' };
+            componentTypes['video2'] = { group: 'video' };
+            componentTypes['map2'] = { group: 'map' };
+            componentTypes['gallery'] = { group: 'gallery' };
+            componentTypes['menu'] = { group: 'menu' };
+            componentTypes['reusable-section'] = { group: 'reusable_section' };
+            componentTypes['spacer'] = { group: 'spacer' };
 
             return componentTypes;
         },
@@ -204,6 +262,7 @@
                 blocksControl = editor.getConfig().blocksControl || {};
 
             _.each(groups, function (group) {
+                // Add a component definition
                 editor.DomComponents.addType( 'comp_' + group.id, {
                     model: {
                         defaults: {
@@ -214,12 +273,35 @@
                         }
                     },
                     view: {
-                        onRender({ el }) {
-                            const name = this.model.get('name');
-                            const btn = document.createElement('button');
-                            btn.classList.add('edit-btn');
-                            btn.innerText = name;
-                            el.appendChild(btn);
+                        onRender({ el, model }) {
+                            const editorConfig = editor.getConfig(),
+                                temporalCompStore = editorConfig.temporalCompStore || {},
+                                componentId = this.model.attributes.__tempID;
+
+                            // On render show uf view template or a button to open datastore
+                            if ( temporalCompStore[componentId] ) {                                
+                                let builder_comp_model = temporalCompStore[componentId];
+
+                                const view_template = builder_comp_model.get('view_template');
+
+                                if ( view_template) {
+                                    const _view_template = _.template( view_template );
+                                    const datastore = temporalCompStore[componentId].datastore;
+
+                                    el.innerHTML = _view_template( datastore.toJSON() );
+                                } else {
+                                    const name = model.get('name');
+                                    const btn = document.createElement('button');
+                                    btn.classList.add('edit-btn');
+                                    btn.innerText = name;
+                                    el.appendChild(btn);
+                                }
+                            }
+
+                            // set min height for better testing
+                            if ( !el.style.minHeight ) {
+                                el.style.minHeight = '50px';
+                            }
                         },
                         events: {
                             'click .edit-btn': 'onEditClick',
@@ -275,15 +357,16 @@
                     let builderComponent = builderComponents[i];
 
                     // Generate a unique ID to connect builder component with datastore
-                    const compId = component.attributes?.id ?? component.__id ?? this.generateId();
+                    const compId = component.__id ?? this.generateId();
                     builderComponent.__id = compId; // this is the connection between builder data and datastore
 
-                    // datastore will store: component type, unique id, datastore
+                    // datastore will store: component type, unique id, datastore and custom "selector attributes"
                     const typesControl = this.get_types_control();
                     const __type = (typesControl[component.type]) ? typesControl[component.type].group : component.type;
                     const componentDataStore = {
                         __type: __type,
-                        __id: compId
+                        __id: compId,
+                        __gjsAttributes: component.attributes
                     };
 
                     // Add datastore if it exists
@@ -298,7 +381,14 @@
                             
                     // Clean the builder component by removing unwanted keys
                     delete builderComponent.__tempID;
-                    delete builderComponent.__lelid;
+
+                    // if component has a property starting with "__gjs_", copy it to datastore
+                    // e.g. __gjs_data_breakpoints in togglebox-wrapper
+                    for (const key in component) {
+                        if (key.startsWith('__gjs_')) {
+                            componentDataStore[key] = component[key];
+                        }
+                    }
 
                     // Add components array if it has nested components
                     if (component.components && Array.isArray(component.components) && component.components.length > 0) {
@@ -378,6 +468,28 @@
         },
         generateId: function() {
             return 'cmp_' + Math.random().toString(36).substr(2, 9);
+        },
+        add_theme_styles_and_scripts: function (editor) {
+            const themeStyles = this.args.theme_styles || [];
+            const themeScripts = this.args.theme_scripts || [];
+            const canvas = editor.Canvas;
+
+            // console.log('Adding theme styles and scripts:', themeStyles, themeScripts);
+
+            if (canvas) {
+                themeStyles.forEach( styleSrc => {
+                    canvas.getDocument().head.insertAdjacentHTML(
+                        'beforeend',
+                        `<link rel="stylesheet" type="text/css" href="${styleSrc}">`
+                    );
+                });
+                themeScripts.forEach( scriptSrc => {
+                    canvas.getDocument().head.insertAdjacentHTML(
+                        'beforeend',
+                        `<script type="text/javascript" src="${scriptSrc}"></script>`
+                    );
+                });
+            }
         }
     });
 

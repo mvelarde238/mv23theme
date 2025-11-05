@@ -12,27 +12,56 @@ use Ultimate_Fields\Template;
  */
 class Field extends Repeater {
 
+	private $theme_styles = array(
+		'mv23theme-styles',
+		'mv23theme-font-awesome',
+		'mv23theme-bootstrap-icons',
+		'uf-leaflet-css'
+	);
+	private $theme_scripts = array(
+		'mv23theme-scripts',
+		'uf-leaflet',
+		'uf-gmaps',
+	);
+
 	/**
 	 * Enqueues the scripts for the field.
 	 *
 	 * @since 1.0
 	 */
 	public function enqueue_scripts() {
+		wp_enqueue_script( 'gjs-context-menu-options' );
 		wp_enqueue_script( 'gjs-extend-components' );
 		wp_enqueue_script( 'gjs-context-menu' );
         wp_enqueue_script( 'gjs-row-and-cols' );
 		wp_enqueue_script( 'gjs-comp-wrapper' );
 		wp_enqueue_script( 'gjs-container' );
         wp_enqueue_script( 'gjs-togglebox' );
+		wp_enqueue_script( 'gjs-carousel' );
 		wp_enqueue_script( 'gjs-section' );
 		wp_enqueue_script( 'gjs-flipbox' );
-		wp_enqueue_script( 'gjs-carousel' );
-		wp_enqueue_script( 'gjs-builder-commands' );
+		wp_enqueue_script( 'gjs-images' );
+		wp_enqueue_script( 'gjs-video' );
+		wp_enqueue_script( 'gjs-map' );
+		wp_enqueue_script( 'gjs-listing' );
+		wp_enqueue_script( 'gjs-reusable-section' );
+		wp_enqueue_script( 'gjs-menu' );
+		wp_enqueue_script( 'gjs-spacer' );
+		wp_enqueue_script( 'gjs-gallery' );
+		wp_enqueue_script( 'gjs-commands' );
         wp_enqueue_script( 'builder' );
 		wp_enqueue_script( 'uf-field-ultimate-builder' );
-
+		
+		wp_enqueue_style( 'uf-field-ultimate-builder' );
 		wp_enqueue_style( 'uf-field-ultimate-builder' );
 		wp_enqueue_style( 'gjs-context-menu-style' );
+
+		// theme styles for preview
+		// foreach ( $this->theme_styles as $style ) {
+		// 	if ( isset( $_GET['action'] ) && $_GET['action'] === 'ultimate-builder' ) {
+		// 		wp_enqueue_style( $style );
+		// 	}
+		// }
 
 		# Add the necessary templates
 		Template::add( 'ultimate-builder', 'ultimate-builder' );
@@ -89,7 +118,9 @@ class Field extends Repeater {
 			$this->name => $builder_data,
 			$this->name.'_components' => $components_data,
 			$this->name.'_styles' => $styles,
-			$this->name.'_builder_link' => $builder_link
+			$this->name.'_builder_link' => $builder_link,
+			$this->name.'_theme_styles' => $this->get_styles(),
+			$this->name.'_theme_scripts' => $this->get_scripts(),
 		);
 	}
 
@@ -105,6 +136,7 @@ class Field extends Repeater {
 			$group->set_datastore( $datastore );
 			$group_processed_values = $group->export_data();
 			$group_processed_values['__id'] = $component['__id'];
+			// $group_processed_values['__gjsAttributes'] = $component['__gjsAttributes'] ?? array();
 		} else {
 			// component type not registered is a grapesjs built-in component
 			$group_processed_values = $component;
@@ -187,6 +219,15 @@ class Field extends Repeater {
 			$group->save( $component );
 			$group_processed_values = $group->get_datastore()->get_values();
 			$group_processed_values['__id'] = $component['__id'];
+
+			// if is set an attribute starting with "__gjs", save it too
+			// e.g. __gjsAttributes, __gjs_data_breakpoints, etc.
+			foreach( $component as $key => $value ){
+				if( strpos( $key, '__gjs') === 0 ){
+					$group_processed_values[ $key ] = $value;
+				}
+			}
+
 		} else {
 			// component type not registered is a grapesjs built-in component
 			$group_processed_values = $component;
@@ -237,5 +278,37 @@ class Field extends Repeater {
 		);
 
 		return $builder_link;
+	}
+
+	private function get_styles() {
+		$styles = array();
+
+		global $wp_styles;
+		foreach ( $this->theme_styles as $handle ) {
+			if ( isset( $wp_styles->registered[$handle] ) ) {
+				$style_info = $wp_styles->registered[$handle];
+				if ( isset( $style_info->src ) ) {
+					$styles[] = $style_info->src;
+				}
+			}
+		}
+
+		return $styles;
+	}
+
+	private function get_scripts() {
+		$scripts = array();
+
+		global $wp_scripts;
+		foreach ( $this->theme_scripts as $handle ) {
+			if ( isset( $wp_scripts->registered[$handle] ) ) {
+				$script_info = $wp_scripts->registered[$handle];
+				if ( isset( $script_info->src ) ) {
+					$scripts[] = $script_info->src;
+				}
+			}
+		}
+
+		return $scripts;
 	}
 }

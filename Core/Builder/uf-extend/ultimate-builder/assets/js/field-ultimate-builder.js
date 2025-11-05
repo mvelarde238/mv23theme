@@ -70,12 +70,13 @@
                     groups: this.model.get('groups'),
                     uf_field_model: uf_field_model,
                     initial_components_data: components_data,
-                    builder_data: builder_data
+                    builder_data: builder_data,
+                    theme_styles: this.model.datastore.get( field_name + '_theme_styles' ),
+                    theme_scripts: this.model.datastore.get( field_name + '_theme_scripts' )
                 });
             }
 
             return this;
         }
-    });
-
+    });    
 })(jQuery);

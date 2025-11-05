@@ -1,7 +1,7 @@
 function gjsExtendComponents(editor) {
     const domc = editor.DomComponents;
     
-    // Extend existing component types adding groupData and datastore
+    // Extend gjs component connecting it with Ultimate Fields group model / datastores
     editor.on('component:create', (component) => {
         const editorConfig = editor.getConfig(), 
             type = component.get('type'),
@@ -20,7 +20,7 @@ function gjsExtendComponents(editor) {
 
                 let component_data, __type, datastore;
 
-                // generate a temporal id and assign it to component and
+                // generate a temporal id and assign it to gjs component and
                 // temporalCompStore to connect them during the save process
                 const generateId = builderInstance.generateId();
                 component.attributes.__tempID = generateId;
@@ -42,9 +42,6 @@ function gjsExtendComponents(editor) {
                 }
                 datastore.set('__type', __type);
 
-                // save the datastore
-                editorConfig.temporalCompStore[generateId].datastore = datastore;
-
                 // Allow arguments to be modified before creating the model, view and etc.
                 args = {
                     model: UltimateFields.Container.Group.Model,
@@ -61,11 +58,21 @@ function gjsExtendComponents(editor) {
                 builder_comp_model.setDatastore(datastore);
                 
                 // save the model
-                editorConfig.temporalCompStore[generateId].builder_comp_model = builder_comp_model;
+                editorConfig.temporalCompStore[generateId] = builder_comp_model;
 
                 // trigger update on editor when the model is saved
                 builder_comp_model.on('stateSaved', function () {
-                    editor.trigger('update');
+                    editor.trigger('update'); // ???
+
+                    // refresh the component view to reflect changes
+                    component.view.render();
+                });
+
+                // re-render the component when the state is restored
+                // after changes in pop up are cancelled
+                builder_comp_model.on('stateRestored', function () {
+                    editor.trigger('datastoreRestored', builder_comp_model, component);
+                    component.view.render();
                 });
             }
         }
@@ -77,7 +84,7 @@ function gjsExtendComponents(editor) {
 
         const dataStoreButton = {
             id: 'data-store',
-            className: 'bi bi-database',
+            label: '<i class="bi bi-database"></i>',
             command: 'open-datastore',
             attributes: { title: 'Open Data Store' }
         };
@@ -100,19 +107,29 @@ function gjsExtendComponents(editor) {
                 componentId = selectedComponent.attributes.__tempID;
 
             if ( temporalCompStore[componentId] ) {
-                let builder_comp_model = temporalCompStore[componentId].builder_comp_model;
+                let builder_comp_model = temporalCompStore[componentId];
+
+                editor.trigger('openDatastore', builder_comp_model, selectedComponent);
 
                 // Save the state of the datastore
+                // this will create a new datastore to work with in the pop up
                 builder_comp_model.backupState();
 
-                let view = new UltimateFields.Container.Group.fullScreenView({
-                    model: builder_comp_model
+                // Update the view when the newest popup-datastore changes
+                builder_comp_model.datastore.on('change', function () {
+                    editor.trigger('popupDatastoreChanged', builder_comp_model, selectedComponent);
+                    selectedComponent.view.render();
+                });
+
+                let overlayView = new UltimateFields.Container.Group.fullScreenView({
+                    model: builder_comp_model,
+                    className: 'uf-sidenav uf-popup-group'
                 });
 
                 UltimateFields.Overlay.show({
-                    view: view,
+                    view: overlayView,
                     title: builder_comp_model.datastore.get('title') || builder_comp_model.get('title'),
-                    buttons: view.getbuttons()
+                    buttons: overlayView.getbuttons()
                 });
             }
         }
