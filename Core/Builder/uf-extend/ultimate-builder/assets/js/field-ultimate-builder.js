@@ -62,8 +62,8 @@
                 // add the builder container
                 this.$el.append('<div id="app"></div>');
                 
-                console.log( builder_data );
-                console.log( components_data );
+                // console.log( builder_data );
+                // console.log( components_data );
 
                 // Start the external builder script
                 this.$el.builder({

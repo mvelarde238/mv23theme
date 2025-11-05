@@ -123,7 +123,7 @@ class Ultimate_Builder {
 
 		// FIELD SCRIPT
 		wp_register_script( 'uf-field-ultimate-builder', $assets . 'js/field-ultimate-builder.js', array(), $v );
-		wp_register_style( 'uf-field-ultimate-builder', $assets . 'css/field-ultimate-builder.css', array( 'ultimate-fields-css' ), $v );
+		// wp_register_style( 'uf-field-ultimate-builder', $assets . 'css/field.css', array( 'ultimate-fields-css' ), $v );
 	}
 
 	public function prepare_admin_for_builder() {
@@ -138,7 +138,8 @@ class Ultimate_Builder {
 			$v      = $this->version;
 
 			wp_register_style( 'gjs-context-menu-style', $assets . 'css/gjs-context-menu/style.css', array(), $v );
-			wp_register_style( 'builder-admin-styles', $assets . 'css/admin.css', array(), $v );
+			wp_register_style( 'builder-admin-styles', $assets . 'css/builder-admin.css', array(), $v );
+			wp_register_style( 'canvas-css', $assets . 'css/canvas.css', array(), $v );
 			wp_register_style( 'builder-app-styles', 'http://builder.lo/react/my-react-app/dist/app.css', array(), $v ); 
 
 			wp_register_script( 'builder-app', 'http://builder.lo/react/my-react-app/dist/app.js', array(), $v );

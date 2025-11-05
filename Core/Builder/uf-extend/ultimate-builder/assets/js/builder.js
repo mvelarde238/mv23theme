@@ -68,44 +68,10 @@
                     },
                     {
                         id: 'builder:save-editor', 
-                        iconClass: 'dashicons dashicons-update',
+                        iconClass: 'bi bi-floppy2',
                         options: { builder: that }
                     }
                 ],
-                canvasCss: `
-                    .container{
-                        margin:0 auto;
-                        width:98%;
-                        min-height:100vh;
-                        max-width:1220px;
-                    }
-                    .page-module{
-                        min-height: 100px;
-                    }
-                    .page-module--layout2,
-                    .page-module--layout3{
-                        width: 100vw !important;
-                        position: relative;
-                        left: 50%;
-                        right: 50%;
-                        margin-left: -50vw !important;
-                        margin-right: -50vw !important;
-                    }
-                    .page-module--layout3 > div{
-                        width: 98%;
-                        max-width: 1220px;
-                        margin: 0 auto;
-                    }
-                    .comp-wrapper{
-                        padding: 5px;
-                        min-height: 50px;
-                    }
-                    img{
-                        max-width: 100%;
-                        height: auto;
-                        object-fit: cover;
-                    }
-                `,
                 onEditor: function(editor) {
                     editor.runCommand('core:component-outline');
                     that.on_editor_load(editor);

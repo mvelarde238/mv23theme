@@ -16,7 +16,8 @@ class Field extends Repeater {
 		'mv23theme-styles',
 		'mv23theme-font-awesome',
 		'mv23theme-bootstrap-icons',
-		'uf-leaflet-css'
+		'uf-leaflet-css',
+		'canvas-css'
 	);
 	private $theme_scripts = array(
 		'mv23theme-scripts',
@@ -35,8 +36,7 @@ class Field extends Repeater {
         wp_enqueue_script( 'builder' );
 		wp_enqueue_script( 'uf-field-ultimate-builder' );
 		
-		wp_enqueue_style( 'uf-field-ultimate-builder' );
-		wp_enqueue_style( 'uf-field-ultimate-builder' );
+		// wp_enqueue_style( 'uf-field-ultimate-builder' );
 		wp_enqueue_style( 'gjs-context-menu-style' );
 
 		# Add the necessary templates
