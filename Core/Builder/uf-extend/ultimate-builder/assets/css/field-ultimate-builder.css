@@ -16,3 +16,20 @@
 .gjs-toolbar-item__data-store{
     vertical-align: top;
 }
+/* Hover layer button styles */
+.spot:has(.hover-layer-btn){
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.hover-layer-btn{
+    pointer-events: auto;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: var(--gjs-color-blue);
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    z-index: 10;
+}

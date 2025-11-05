@@ -52,6 +52,7 @@
             const gjsMenu = window["gjsMenu"];
             const gjsReusableSection = window["gjsReusableSection"];
             const gjsSpacer = window["gjsSpacer"];
+            const gjsHoverLayer = window["gjsHoverLayer"];
 
             const typesControl = this.get_types_control();
 
@@ -106,7 +107,8 @@
                     gjsGallery,
                     gjsMenu,
                     gjsReusableSection,
-                    gjsSpacer
+                    gjsSpacer,
+                    gjsHoverLayer
                 ],
                 pluginsOpts: {
                     [contextMenuPlugin]: window.contextMenuOpts

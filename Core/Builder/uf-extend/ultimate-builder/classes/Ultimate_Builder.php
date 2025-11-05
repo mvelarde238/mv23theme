@@ -130,6 +130,7 @@ class Ultimate_Builder {
 			wp_register_script( 'gjs-map', $assets . 'js/components/gjs-map.js', array(), $v );
 			wp_register_script( 'gjs-context-menu-options', $assets . 'js/context-menu-options.js', array(), $v );
 			wp_register_script( 'gjs-commands', $assets . 'js/gjs-commands.js', array(), $v );
+			wp_register_script( 'gjs-hover-layer', $assets . 'js/gjs-hover-layer.js', array(), $v );
 			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );
 
 			$this->filter_admin_body_class();

@@ -49,6 +49,7 @@ class Field extends Repeater {
 		wp_enqueue_script( 'gjs-spacer' );
 		wp_enqueue_script( 'gjs-gallery' );
 		wp_enqueue_script( 'gjs-commands' );
+		wp_enqueue_script( 'gjs-hover-layer' );
         wp_enqueue_script( 'builder' );
 		wp_enqueue_script( 'uf-field-ultimate-builder' );
 		
