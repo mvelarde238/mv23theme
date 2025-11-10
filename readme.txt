@@ -19,6 +19,10 @@ CHANGELOG
 - !IMPORTANT: V.3.0.0: Ultimate Builder Implementation
 -----------------------------------------------------------------------------------------------------
 
+2.10.12 25-11-10
+- Archive_Page::terms_and_posts_children_content() improved:
+  Replaced get_term_children() with get_terms() to shows only immediate children
+
 2.10.11 25-10-20
 - Include social share on single document and update translation
 
