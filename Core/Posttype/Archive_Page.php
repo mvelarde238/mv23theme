@@ -448,14 +448,18 @@ class Archive_Page {
 	}
 
 	public static function terms_and_posts_children_content($current_term) {
+		$term_children = get_terms(
+		    $current_term->taxonomy,
+		    array(
+		        'parent' => $current_term->term_id
+		    )
+		);
 		ob_start();
-        $child_terms = get_term_children($current_term->term_id, $current_term->taxonomy);
-        if ($child_terms) {
-            foreach ($child_terms as $child_term_id) {
-                $child_term = get_term($child_term_id, $current_term->taxonomy);
-				get_template_part( 'partials/card/folder', $current_term->taxonomy, array('term' => $child_term));
-            }
-        }
+		if ( ! is_wp_error( $term_children ) ) {
+		    foreach ( $term_children as $child ) {
+				get_template_part( 'partials/card/folder', $current_term->taxonomy, array('term' => $child));
+		    }
+		}
 		return ob_get_clean();
 	}
 
