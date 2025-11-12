@@ -6,11 +6,17 @@ body .gjs-selected{
 .gjs-no-pointer{
     opacity: .23
 }
-                    
+/* remove top padding from body */
+body{
+    padding-top: 0 !important;
+}  
+/* make container visible */
+.container{
+    min-height:100vh;
+}
 /* .container{
     margin:0 auto;
     width:98%;
-    min-height:100vh;
     max-width:1220px;
 }
 .page-module{
