@@ -4,6 +4,7 @@ CHANGELOG
 
 2.10.13 25-11-12
 - Add background color to search results page
+- Fix template sidebar left/right on mobile
 
 2.10.12 25-11-10
 - Archive_Page::terms_and_posts_children_content() improved:

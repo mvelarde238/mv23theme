@@ -19,11 +19,13 @@
 
 @media #{$medium-and-down}
 	.main-content
-		flex-wrap: wrap
-	
+		&--sidebar-left,
+		&--sidebar-right
+			flex-direction: column
+
 		.sidebar
-			width: 100%
-				
+			width: 100%	
+
 		&--sidebar-left
 			.main
 				order: 0
