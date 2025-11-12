@@ -19,6 +19,9 @@ CHANGELOG
 - !IMPORTANT: V.3.0.0: Ultimate Builder Implementation
 -----------------------------------------------------------------------------------------------------
 
+2.10.13 25-11-12
+- Add background color to search results page
+
 2.10.12 25-11-10
 - Archive_Page::terms_and_posts_children_content() improved:
   Replaced get_term_children() with get_terms() to shows only immediate children
