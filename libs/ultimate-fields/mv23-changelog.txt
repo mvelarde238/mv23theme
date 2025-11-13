@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+- 3.2.6 12-11-2025
+- Removed useDefaultValueIfNeeded() from CheckBox uf field model as it prevents to have a initial value
+    (core/js/field/checkbox.js)
+
 - 3.2.5 04-11-2025
 - Fix support for prefix on radio fields
     (core/assets/css/ultimate-fields.css)

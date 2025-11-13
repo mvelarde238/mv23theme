@@ -4,20 +4,7 @@
 		field         = uf.Field,
 		checkboxField = field.Checkbox = {};
 
-	checkboxField.Model = field.Model.extend({
-		/**
-		 * If there is no value for the field, but a default one is available,
-		 * this method will set the default value as the fields' value.
-		 */
-		useDefaultValueIfNeeded: function( force ) {
-			if( force ) {
-				this.setValue( this.get( 'default_value' ) );
-			} else {
-				// Nothing to do here, checkboxes only work with boolean values,
-				// so nothing can be determined at this point.
-			}
-		}
-	});
+	checkboxField.Model = field.Model.extend({});
 
 	/**
 	 * Displays the input of the checkbox.
