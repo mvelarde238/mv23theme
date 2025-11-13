@@ -118,6 +118,11 @@ window.gjsExtendComponents = function (editor) {
                 // Update the view when the newest popup-datastore changes
                 builder_comp_model.datastore.on('change', function () {
                     editor.trigger('popupDatastoreChanged', builder_comp_model, selectedComponent);
+                    // dont re-render if only __tab changed
+                    if ( Object.keys(builder_comp_model.datastore.changed).length === 1 &&
+                         builder_comp_model.datastore.changed.hasOwnProperty('__tab') ) {
+                        return;
+                    }
                     selectedComponent.view.render();
                 });
 
