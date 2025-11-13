@@ -78,6 +78,36 @@ window.gjsExtendComponents = function (editor) {
         }
     });
 
+    /*
+    * Remove __id on clone to avoid duplications
+    * We use __tempID to identify components during the session
+    * and connect them with their datastores
+    * __id is generated when saving to database
+    */
+    editor.on('component:clone', (clonedComponent) => {
+        // delete from cloned component
+        delete clonedComponent.attributes.__id;
+
+        // copy database from original component to the cloned one
+        const editorConfig = editor.getConfig(),
+            temporalCompStore = editorConfig.temporalCompStore || {},
+            clonedComponentId = clonedComponent.attributes.__tempID,
+            originalComponent = editor.getSelected(),
+            originalComponentId = originalComponent.attributes.__tempID;
+
+        if ( temporalCompStore[originalComponentId] ) {
+            if( originalComponent.getType() === clonedComponent.getType() ) {
+                const ogAttributes = temporalCompStore[originalComponentId].datastore.attributes;
+                editorConfig.temporalCompStore[clonedComponentId].datastore.attributes = { ...ogAttributes };
+            }
+        }
+
+        // remove __id from datastore attributes
+        if ( temporalCompStore[clonedComponentId] ) {
+            delete temporalCompStore[clonedComponentId].datastore.attributes.__id;
+        }
+    });
+
     // Add toolbar button to open data store
     editor.on('component:selected', (component) => {
         const toolbar = component.get('toolbar') || [];
