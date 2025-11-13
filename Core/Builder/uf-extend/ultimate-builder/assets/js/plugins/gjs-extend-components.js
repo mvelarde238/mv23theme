@@ -134,7 +134,23 @@ window.gjsExtendComponents = function (editor) {
                 UltimateFields.Overlay.show({
                     view: overlayView,
                     title: builder_comp_model.datastore.get('title') || builder_comp_model.get('title'),
-                    buttons: overlayView.getbuttons()
+                    // buttons: overlayView.getbuttons(),
+                    buttons: [
+                        {
+            				type: 'primary',
+            				cssClass: 'uf-button-save-popup',
+            				text: UltimateFields.L10N.localize( 'repeater-save' ).replace( '%s', builder_comp_model.get( 'title' ) ),
+            				icon: 'dashicons-category',
+            				callback: _.bind( overlayView.save, overlayView )
+            			},
+                        {
+				        	type: 'secondary',
+				        	cssClass: 'uf-button-delete-popup',
+				        	text: 'Discard Changes',
+				        	icon: 'dashicons-no-alt',
+				        	callback: function() { overlayView.close; return true; }
+				        }
+                    ]
                 });
             }
         }
