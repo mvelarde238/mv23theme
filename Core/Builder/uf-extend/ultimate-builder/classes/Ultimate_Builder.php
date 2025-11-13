@@ -54,6 +54,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsCommands', 'handler' => 'gjs-commands', 'isComponent' => false ],
 		[ 'name' => 'gjsExtendComponents', 'handler' => 'gjs-extend-components', 'isComponent' => false ],
 		// components
+		[ 'name' => 'gjsBase',  'handler' => 'gjs-base',  'isComponent' => true ],
 		[ 'name' => 'gjsCompWrapper', 'handler' => 'gjs-comp-wrapper', 'isComponent' => true ],
 		[ 'name' => 'gjsListing', 'handler' => 'gjs-listing', 'isComponent' => true ],
 		[ 'name' => 'gjsGallery', 'handler' => 'gjs-gallery', 'isComponent' => true ],

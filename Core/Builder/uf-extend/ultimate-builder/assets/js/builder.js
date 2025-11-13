@@ -81,7 +81,7 @@
         on_editor_load: function(editor) {
             const that = this;
 
-            this.add_custom_components_and_blocks(editor);
+            this.add_components_definition_and_blocks(editor);
             this.add_existing_content(editor);
 
             setTimeout( function() {
@@ -191,7 +191,7 @@
                 editor.loadProjectData(this.args.builder_data);
             }
         },
-        add_custom_components_and_blocks: function (editor) {
+        add_components_definition_and_blocks: function (editor) {
             const that = this,
                 groups = this.args.groups,
                 blocksControl = editor.getConfig().blocksControl || {};
@@ -199,60 +199,11 @@
             _.each(groups, function (group) {
                 // Add a component definition
                 editor.DomComponents.addType( 'comp_' + group.id, {
+                    extend: 'comp-base',
                     model: {
                         defaults: {
-                            tagName: 'div',
-                            draggable: true,
-                            droppable: false,
                             name: group.title
                         }
-                    },
-                    view: {
-                        onRender({ el, model }) {
-                            const editorConfig = editor.getConfig(),
-                                temporalCompStore = editorConfig.temporalCompStore || {},
-                                componentId = this.model.attributes.__tempID;
-
-                            // On render show uf view template or a button to open datastore
-                            if ( temporalCompStore[componentId] ) {                                
-                                let builder_comp_model = temporalCompStore[componentId];
-
-                                const view_template = builder_comp_model.get('view_template');
-
-                                if ( view_template) {
-                                    const _view_template = _.template( view_template );
-                                    const datastore = temporalCompStore[componentId].datastore;
-
-                                    el.innerHTML = _view_template( datastore.toJSON() );
-                                } else {
-                                    const name = model.get('name');
-                                    const btn = document.createElement('button');
-                                    btn.classList.add('edit-btn');
-                                    btn.innerText = name;
-                                    el.appendChild(btn);
-                                }
-                            }
-
-                            // set min height for better testing
-                            if ( !el.style.minHeight ) {
-                                el.style.minHeight = '50px';
-                            }
-                        },
-                        events: {
-                            'click .edit-btn': 'onEditClick',
-                            // 'uf-sorted' : 'saveSort'
-                        },
-                        onEditClick: function (ev) {
-                            ev.stopPropagation();
-                            editor.select(this.model);
-                            editor.runCommand('open-datastore');
-                        },
-                        // saveSort: function () {
-                        //     var builder_comp_model = this.model.get('builder_comp_model');
-                        //     builder_comp_model.datastore.set('__index', $(this.el).index(), {
-				        //         silent: true
-			            //     });
-                        // }
                     }
                 });
 
