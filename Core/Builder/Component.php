@@ -112,17 +112,23 @@ abstract class Component {
 	 * @return Ultimate_Fields\Container\Repeater_Group instance
 	 */
 	protected static function add_common_settings( $component ) {
+		$common_settings_control = Field::create( 'common_settings_control', 'settings' )
+			->set_container( 'common_settings_container' )
+			->set_add_text( __('Settings', 'mv23theme') )
+			// ->set_icon( 'dashicons-admin-appearance' )
+			->hide_label();
+
+		$components_that_use_layout = array('components_wrapper', 'section');
+		if( !in_array($component->get_id(), $components_that_use_layout) ){
+			$common_settings_control->set_hidden_fields( array('layout') );
+		}
 
 		$component->add_fields(array(
 			Field::create( 'complex', 'common_settings_wrapper' )
 				->merge()->hide_label()
 				->set_attr( 'class', 'components-settings-complex-styles' )
 				->add_fields(array(
-					Field::create( 'common_settings_control', 'settings' )
-						->set_container( 'common_settings_container' )
-						->set_add_text( __('Settings', 'mv23theme') )
-						// ->set_icon( 'dashicons-admin-appearance' )
-						->hide_label(),
+					$common_settings_control,
 					Field::create( 'common_settings_control', 'scroll_animations_settings' )
 						->set_container( 'scroll_animations_container' )
 						->set_add_text( __('Scroll Animations', 'mv23theme') )

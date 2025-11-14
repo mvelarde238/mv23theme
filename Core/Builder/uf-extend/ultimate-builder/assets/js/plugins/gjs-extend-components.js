@@ -53,15 +53,15 @@ window.gjsExtendComponents = function (editor) {
                 UltimateFields.applyFilters('repeater_group_classes', args);
 
                 // Prepare the model for the pop up
-                builder_comp_model = new args.model(_.extend({}, args.settings));
-                builder_comp_model.set('__type', __type);
-                builder_comp_model.setDatastore(datastore);
+                let popup_model = new args.model(_.extend({}, args.settings));
+                popup_model.set('__type', __type);
+                popup_model.setDatastore(datastore);
                 
                 // save the model
-                editorConfig.temporalCompStore[generateId] = builder_comp_model;
+                editorConfig.temporalCompStore[generateId] = popup_model;
 
                 // trigger update on editor when the model is saved
-                builder_comp_model.on('stateSaved', function () {
+                popup_model.on('stateSaved', function () {
                     editor.trigger('update'); // ???
 
                     // refresh the component view to reflect changes
@@ -70,8 +70,8 @@ window.gjsExtendComponents = function (editor) {
 
                 // re-render the component when the state is restored
                 // after changes in pop up are cancelled
-                builder_comp_model.on('stateRestored', function () {
-                    editor.trigger('datastoreRestored', builder_comp_model, component);
+                popup_model.on('stateRestored', () => {
+                    editor.trigger('datastoreRestored', popup_model, component);
                     component.view.render();
                 });
             }
