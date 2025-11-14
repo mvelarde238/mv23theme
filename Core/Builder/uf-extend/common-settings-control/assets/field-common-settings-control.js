@@ -90,8 +90,19 @@
 
 			// Listen for saving
 			view.on( 'save', function(e, filtered_data) {
-				that.model.datastore.set( this.model.get( 'name' ), filtered_data );
+				that.model.datastore.set( that.model.get( 'name' ), filtered_data );
 				overlayLayer.removeScreen();
+			});
+
+			// Listen for discarding to restore stored values
+			view.on( 'discard', function(e) {
+				that.model.datastore.set( that.model.get( 'name' ), storedValues );
+				overlayLayer.removeScreen();
+			});
+
+			// Listen for close button click to restore stored values
+			overlayLayer.on('closeButtonClicked', function() {
+			    that.model.datastore.set( that.model.get( 'name' ), storedValues );
 			});
 		}
 	});
@@ -118,7 +129,7 @@
                     type: 'primary',
 					callback: (e) => {
 						var processed_data, 
-							raw_data = this.model.get('raw_data');
+							raw_data = this.model.datastore.get( this.model.get( 'name' ) ) || {};
 
 						let _wp_color_picker = this.$el.find('.wp-color-picker');
 						if(_wp_color_picker.length) _wp_color_picker.wpColorPicker('close');
@@ -161,7 +172,14 @@
 							});
 						}
 					}
-                }
+                },
+                {
+					type: 'secondary',
+					cssClass: 'uf-button-delete-popup',
+					text: 'Discard Changes',
+					icon: 'dashicons-no-alt',
+					callback: (e) => { that.trigger( 'discard', e ); }
+				}
 			];
 		},
 
@@ -174,9 +192,6 @@
             containerName = this.model.get( 'container' );
 			storedValues = this.model.get( 'storedValues' );
 			hiddenFields = this.model.get( 'hidden_fields' );
-
-            // set a initial raw_data state
-            that.model.set( 'raw_data', storedValues );
 
 			fields = POPUP_CONTAINERS[containerName] ?? [];
 
@@ -197,8 +212,8 @@
 			// save a reference to the uf container to validate it
 			this.model.set( '_popup_container', _popup_container);
 			
-			this.$el.on( 'values-changed', function( e, values ) {				
-                that.model.set( 'raw_data', values );
+			this.$el.on( 'values-changed', function( e, values ) {
+				that.model.datastore.set( that.model.get( 'name' ), values );
 			});
 		},
 

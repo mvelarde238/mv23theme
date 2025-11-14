@@ -1,11 +1,15 @@
 UF Common Settings Control Changelog-------------------------
 
+1.0.7 25-11-14
+- Remove raw_data temporal key and work with the datastore
+- Restore stored values on discard and overlay close
+    (field-common-settings-control.js)
+
+1.0.6 ???
+
 1.0.5 25-07-21
 - Implements _triggerButton to handle .has-values class
     (field-common-settings-control.js)
 - Check if entry is an object on filtering data 
     (to avoid removing columns settings data implemented in uf columns layout)
     (field-common-settings-control.js:filterData())
-
-TO DO:
-- Check why "use" checkbox isn't in raw_data until used
