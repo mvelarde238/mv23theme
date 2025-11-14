@@ -287,6 +287,9 @@
 			e.preventDefault();
 			e.currentTarget.blur();
 			this.removeScreen();
+
+			// Trigger custom event after closing
+    		this.trigger('closeButtonClicked');
 		},
 
 		/**
