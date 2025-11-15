@@ -55,7 +55,8 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsExtendComponents', 'handler' => 'gjs-extend-components', 'isComponent' => false ],
 		[ 'name' => 'handleCommonSettings', 'handler' => 'handle-common-settings', 'isComponent' => false ],
 		// components
-		[ 'name' => 'gjsBase',  'handler' => 'gjs-base',  'isComponent' => true ],
+		[ 'name' => 'gjsBase', 'handler' => 'gjs-base', 'isComponent' => true ],
+		[ 'name' => 'gjsWrapper', 'handler' => 'gjs-wrapper', 'isComponent' => true ],
 		[ 'name' => 'gjsCompWrapper', 'handler' => 'gjs-comp-wrapper', 'isComponent' => true ],
 		[ 'name' => 'gjsListing', 'handler' => 'gjs-listing', 'isComponent' => true ],
 		[ 'name' => 'gjsGallery', 'handler' => 'gjs-gallery', 'isComponent' => true ],
@@ -64,7 +65,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsReusableSection', 'handler' => 'gjs-reusable-section', 'isComponent' => true ],
 		[ 'name' => 'gjsContainer', 'handler' => 'gjs-container', 'isComponent' => true ],
 		[ 'name' => 'gjsSection', 'handler' => 'gjs-section', 'isComponent' => true ],
-		[ 'name' => 'gjsMap',  'handler' => 'gjs-map',  'isComponent' => true ],
+		[ 'name' => 'gjsMap', 'handler' => 'gjs-map', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],

@@ -27,7 +27,6 @@ window.gjsSection = function(editor) {
                 name: 'Section',
                 tagName: 'div',
                 draggable: function (target, destination) {
-                    console.log('target', destination);
                     return (destination.attributes.type) == 'container';
                 },
                 // layout: 'layout1',
