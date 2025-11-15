@@ -288,7 +288,10 @@
 		font-weight: bold;
 		min-width: 0;
 	}
-	
+}
+
+.components-settings-complex-styles,
+.common-setting-small{
 	.button-primary{
 		font-size: 12px;
 		background: transparent;
@@ -304,4 +307,9 @@
 			font-size: 15px;
 		}
 	}
+}
+
+.common-setting-small{
+	padding: 0;
+	flex-grow: 0;
 }

@@ -3,6 +3,8 @@ mv23 changelog-------------------------
 - 3.2.7 14-11-2025
 - Add 'closeButtonClicked' event to Overlay class
     (core/js/overlay.js)
+- .common-setting-small css class for small inputs in common settings container
+    (core/assets/sass/_field.scss)
 
 - 3.2.6 12-11-2025
 - Removed useDefaultValueIfNeeded() from CheckBox uf field model as it prevents to have a initial value

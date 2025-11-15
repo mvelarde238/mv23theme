@@ -680,7 +680,9 @@
   font-weight: bold;
   min-width: 0;
 }
-.components-settings-complex-styles .button-primary {
+
+.components-settings-complex-styles .button-primary,
+.common-setting-small .button-primary {
   font-size: 12px;
   background: transparent;
   border: 0;
@@ -691,9 +693,15 @@
   line-height: initial;
   color: #0073aa;
 }
-.components-settings-complex-styles .button-primary .uf-button-icon {
+.components-settings-complex-styles .button-primary .uf-button-icon,
+.common-setting-small .button-primary .uf-button-icon {
   margin: 2px 5px 0 0;
   font-size: 15px;
+}
+
+.common-setting-small {
+  padding: 0;
+  flex-grow: 0;
 }
 
 .uf-existing-message .uf-field-input-wrap {
