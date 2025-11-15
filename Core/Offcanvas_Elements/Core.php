@@ -120,11 +120,11 @@ class Core{
                 $settings = get_post_meta( $post_id, $this->slug.'_settings', true );
                 if( !is_array($settings) ) $settings = array();
 
-                if( isset($settings['main_attributes']) && isset($settings['main_attributes']['id']) ) {
-                    $element_id = $settings['main_attributes']['id'];
+                if( isset($settings['id']) && $settings['id'] != '' ) {
+                    $element_id = $settings['id'];
                 } else {
                     $element_id = $kebab_cased_slug.'-'.$post_id;
-                    $settings['main_attributes']['id'] = $element_id;
+                    $settings['id'] = $element_id;
                 }
 
                 $element_classes = [ $kebab_cased_slug, str_replace('_','-',$type) ];

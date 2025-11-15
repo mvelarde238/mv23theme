@@ -20,9 +20,6 @@ window.gjsReusableSection = function (editor) {
         },
         view: {
             onRender({el, model}) {
-                // set a min height to make it visible in the editor
-                el.style.minHeight = '50px';
-
                 const editorConfig = editor.getConfig(),
                 	temporalCompStore = editorConfig.temporalCompStore || {},
 					__tempID = model.get('__tempID');

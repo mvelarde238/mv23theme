@@ -35,11 +35,6 @@ window.gjsBase = function (editor) {
                         el.appendChild(btn);
                     }
                 }
-
-                // set min height for better testing
-                if (!el.style.minHeight) {
-                    el.style.minHeight = '50px';
-                }
             },
             events: {
                 'click .edit-btn': 'onEditClick',

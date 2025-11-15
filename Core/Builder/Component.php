@@ -114,6 +114,8 @@ abstract class Component {
 	protected static function add_common_settings( $component ) {
 		$common_settings_control = Field::create( 'common_settings_control', 'settings' )
 			->set_container( 'common_settings_container' )
+			->set_attr( 'class', 'common-setting-small' )
+			->set_attr( 'style', 'min-width: initial !important;' )
 			->set_add_text( __('Settings', 'mv23theme') )
 			// ->set_icon( 'dashicons-admin-appearance' )
 			->hide_label();
@@ -124,20 +126,19 @@ abstract class Component {
 		}
 
 		$component->add_fields(array(
-			Field::create( 'complex', 'common_settings_wrapper' )
-				->merge()->hide_label()
-				->set_attr( 'class', 'components-settings-complex-styles' )
-				->add_fields(array(
-					$common_settings_control,
-					Field::create( 'common_settings_control', 'scroll_animations_settings' )
-						->set_container( 'scroll_animations_container' )
-						->set_add_text( __('Scroll Animations', 'mv23theme') )
-						->hide_label(),
-					Field::create( 'common_settings_control', 'actions_settings' )
-					->set_container( 'actions_container' )
-						->set_add_text( __('Actions', 'mv23theme') )
-						->hide_label(),
-				))
+			$common_settings_control,
+			Field::create( 'common_settings_control', 'scroll_animations_settings' )
+				->set_container( 'scroll_animations_container' )
+				->set_attr( 'class', 'common-setting-small' )
+				->set_attr( 'style', 'min-width: initial !important;' )
+				->set_add_text( __('Scroll Animations', 'mv23theme') )
+				->hide_label(),
+			Field::create( 'common_settings_control', 'actions_settings' )
+				->set_container( 'actions_container' )
+				->set_attr( 'class', 'common-setting-small' )
+				->set_attr( 'style', 'min-width: initial !important;' )
+				->set_add_text( __('Actions', 'mv23theme') )
+				->hide_label()
 		));
 		 
 		return $component;

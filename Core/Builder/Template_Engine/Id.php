@@ -6,8 +6,8 @@ Class Id{
      * Return id string
      */
     public static function get_id( $args ){
-        $id = ( isset($args['settings']['main_attributes']) && isset($args['settings']['main_attributes']['id']) ) 
-            ? $args['settings']['main_attributes']['id']
+        $id = ( isset($args['settings']['id']) && $args['settings']['id'] != '' ) 
+            ? $args['settings']['id']
             : null;
 
         if( isset($args['__gjsAttributes']) && isset($args['__gjsAttributes']['id']) ){

@@ -20,8 +20,8 @@ Class Classes{
             $classes = array_merge( $args['additional_classes'], $classes );
         }
 
-        if( isset($args['settings']['main_attributes']) && isset($args['settings']['main_attributes']['class']) ){
-            $classes = array_merge( $classes, explode(' ', $args['settings']['main_attributes']['class']) );
+        if( isset($args['settings']['classes']) && !empty($args['settings']['classes']) ){
+            $classes = array_merge( $classes, explode(' ', $args['settings']['classes']) );
         } 
 
         if (isset($args['theme_clases']) && !empty($args['theme_clases']) && $args['theme_clases'][0] != '' ){
@@ -32,11 +32,11 @@ Class Classes{
             $classes = array_merge($classes, $args['settings']['helpers']['list']);
         }
 
-        if (isset($args['settings']['responsive'])){
-            $responsive = $args['settings']['responsive'];
-            if( isset($responsive['hide_on_desktop']) && $responsive['hide_on_desktop'] ) $classes[] = 'hide-on-large-only';
-            if( isset($responsive['hide_on_tablet']) && $responsive['hide_on_tablet'] ) $classes[] = 'hide-on-med-only';
-            if( isset($responsive['hide_on_mobile']) && $responsive['hide_on_mobile'] ) $classes[] = 'hide-on-small-only';
+        if (isset($args['settings']['hide_on'])){
+            $responsive = $args['settings']['hide_on'];
+            if( isset($responsive['desktop']) && $responsive['desktop'] ) $classes[] = 'hide-on-large-only';
+            if( isset($responsive['tablet']) && $responsive['tablet'] ) $classes[] = 'hide-on-med-only';
+            if( isset($responsive['mobile']) && $responsive['mobile'] ) $classes[] = 'hide-on-small-only';
         } 
         
         $color_scheme = self::get_color_scheme( $args );

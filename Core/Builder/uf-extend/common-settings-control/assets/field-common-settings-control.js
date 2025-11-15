@@ -223,32 +223,33 @@
         filterData( container_name, raw_data ) {
 			if( container_name == 'common_settings_container' ){
             	Object.entries(raw_data).forEach(entry => {
-            	   if( entry[0] == 'main_attributes'  ){
-            	        if( entry[1].id == '' && entry[1].class == '' ){
-            	            delete raw_data.main_attributes;
-            	        } else {
-            	            if( entry[1].id == '' ) delete raw_data.main_attributes.id;
-            	            if( entry[1].class == '' ) delete raw_data.main_attributes.class;
-            	        }
-            	    } else if (entry[0] == 'responsive' ){
+					if( entry[0] == 'id'  ){
+						if( entry[1] == '' ){
+				            delete raw_data.id;
+				        }
+				   	} else if( entry[0] == 'classes'  ){
+						if( entry[1] == '' ){
+				            delete raw_data.classes;
+				        }
+            	    } else if (entry[0] == 'hide_on' ){
 						if( 
-							( !entry[1].hide_on_desktop && !entry[1].hide_on_tablet && !entry[1].hide_on_mobile ) 
+							( !entry[1].desktop && !entry[1].tablet && !entry[1].mobile ) 
 							|| !entry[1]
 						){
-            	            delete raw_data.responsive;
+            	            delete raw_data.hide_on;
             	        } else {
-							if( !entry[1].hide_on_desktop ) delete raw_data.responsive.hide_on_desktop;
-            	            if( !entry[1].hide_on_tablet ) delete raw_data.responsive.hide_on_tablet;
-            	            if( !entry[1].hide_on_mobile ) delete raw_data.responsive.hide_on_mobile;
+							if( !entry[1].desktop ) delete raw_data.hide_on.desktop;
+            	            if( !entry[1].tablet ) delete raw_data.hide_on.tablet;
+            	            if( !entry[1].mobile ) delete raw_data.hide_on.mobile;
 						}
-            	    } else if (entry[0] == 'other_settings' ){ // ???
-            	       if( entry[1].visibility == 'all' && entry[1].layout == 'layout1' ){
-            	           delete raw_data.other_settings;
-            	       } else {
-            	            if( entry[1].visibility == 'all' ) delete raw_data.other_settings.visibility;
-            	            if( entry[1].layout == 'layout1' ) delete raw_data.other_settings.layout;
-            	       }
-            	   } else {
+            	    // } else if (entry[0] == 'other_settings' ){ // ???
+            	    //    if( entry[1].visibility == 'all' && entry[1].layout == 'layout1' ){
+            	    //        delete raw_data.other_settings;
+            	    //    } else {
+            	    //         if( entry[1].visibility == 'all' ) delete raw_data.other_settings.visibility;
+            	    //         if( entry[1].layout == 'layout1' ) delete raw_data.other_settings.layout;
+            	    //    }
+					} else {
             	        if( _.isObject(entry[1]) && (!entry[1].hasOwnProperty('use' ) || entry[1].use == false) ){
 							delete raw_data[ entry[0] ];
 						} 

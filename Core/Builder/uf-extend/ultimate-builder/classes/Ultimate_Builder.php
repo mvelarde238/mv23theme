@@ -53,6 +53,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsHoverLayer', 'handler' => 'gjs-hover-layer', 'isComponent' => false ],
 		[ 'name' => 'gjsCommands', 'handler' => 'gjs-commands', 'isComponent' => false ],
 		[ 'name' => 'gjsExtendComponents', 'handler' => 'gjs-extend-components', 'isComponent' => false ],
+		[ 'name' => 'handleCommonSettings', 'handler' => 'handle-common-settings', 'isComponent' => false ],
 		// components
 		[ 'name' => 'gjsBase',  'handler' => 'gjs-base',  'isComponent' => true ],
 		[ 'name' => 'gjsCompWrapper', 'handler' => 'gjs-comp-wrapper', 'isComponent' => true ],
