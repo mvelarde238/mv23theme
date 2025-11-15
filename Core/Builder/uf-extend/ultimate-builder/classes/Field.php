@@ -41,6 +41,8 @@ class Field extends Repeater {
 
 		# Add the necessary templates
 		Template::add( 'ultimate-builder', 'ultimate-builder' );
+		// fix for repeater dropdown inside Animation Timeline > Tween Group:  
+		Template::add( 'repeater-dropdown',  'field/repeater/dropdown' ); 
 	}
 
 	/**
