@@ -5,6 +5,8 @@ mv23 changelog-------------------------
     (core/js/overlay.js)
 - .common-setting-small css class for small inputs in common settings container
     (core/assets/sass/_field.scss)
+- add validation to check if the result is valid JSON before parsing file preview response
+    (core/js/field/file.js)
 
 - 3.2.6 12-11-2025
 - Removed useDefaultValueIfNeeded() from CheckBox uf field model as it prevents to have a initial value

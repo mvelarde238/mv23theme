@@ -552,19 +552,24 @@
 					var data;
 
 					if( result ) {
-						data = $.parseJSON( result );
-
-						_.each( prepared, function( value, index ) {
-							var model;
-
-							if( false === value ) {
-								model = data.shift();
-								prepared[ index ] = model;
-								fileField.Cache.add( model );
-							}
-						});
-
-						callback( prepared );
+						try {
+						    data = $.parseJSON( result );
+						
+						    _.each( prepared, function( value, index ) {
+						        var model;
+							
+						        if( false === value ) {
+						            model = data.shift();
+						            prepared[ index ] = model;
+						            fileField.Cache.add( model );
+						        }
+						    });
+						
+						    callback( prepared );
+						} catch( e ) {
+						    // Invalid JSON, do nothing
+						    return;
+						}
 					}
 				}
 			});
