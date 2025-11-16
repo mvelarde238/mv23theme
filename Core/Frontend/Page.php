@@ -70,11 +70,11 @@ class Page{
 		return false;
 	}
 
-	public function add_page_modules_to_rest_api($data, $post, $context){
+	public function add_page_content_to_rest_api($data, $post, $context){
 		$page = new Page();
-		$page_modules = $page->the_content( $post->ID );
-	    if (!empty($page_modules)) {
-	        $data->data['content']['rendered'] .= $page_modules;
+		$page_content = $page->the_content( $post->ID );
+	    if (!empty($page_content)) {
+	        $data->data['content']['rendered'] .= $page_content;
 	    }
 	    return $data;
 	}
@@ -90,26 +90,22 @@ class Page{
 	public function the_content( $id = null ){
 		$page_ID = ($id) ? $id : self::get_id();
 
-		// return '<p>ID: '.$page_ID.'</p>';
+		$page_content = ($page_ID != null) ? get_post_meta($page_ID, 'page_content_components', true) : null;
+		$page_content_styles = ($page_ID != null) ? get_post_meta($page_ID, 'page_content_styles', true) : null;
 
-		$content_meta = ( get_post_type($page_ID) === 'reusable_section' ) ? 'components' : 'page_modules';
-		$page_modules = ($page_ID != null) ? $page_modules = get_post_meta($page_ID, $content_meta, true) : null;
-		$blocks_layout = ($page_ID != null) ? get_post_meta($page_ID, 'blocks_layout', true) : null;
-
-		if (is_array($page_modules) || is_array($blocks_layout)) :
+		if (is_array($page_content)) :
 			ob_start();
+			echo '<style>'.$page_content_styles.'</style>';
 
-			if (is_array($page_modules) && !empty($page_modules) ) :
-				foreach ($page_modules as $modulo) :
-					echo Template_Engine::getInstance()->handle( $modulo['__type'], $modulo );
+			// wrapper > components > container > components:
+			$container_components = $page_content[0]['components'][0]['components'] ?? [];
+				
+			if (is_array($container_components) && !empty($container_components)) :
+				foreach ($container_components as $component) :
+					echo Template_Engine::getInstance()->handle( $component['__type'], $component );
 				endforeach;
 			endif;
-
-			if (is_array($blocks_layout) && !empty($blocks_layout)) :
-				$args = array();
-				echo Blocks_Layout::the_content($blocks_layout, $args );
-			endif;
-
+			
 			return ob_get_clean();
 		else: 
 			return '';

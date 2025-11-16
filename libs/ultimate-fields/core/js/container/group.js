@@ -492,22 +492,7 @@
 
 			try {
 				var data = this.model.datastore.toJSON();
-				// data.fields = this.model.get( 'fields' );
-
-				// if(data.hasOwnProperty('file')){
-					// title = data.file_prepared[0].filename;
-				// } else 
-				if( 
-					data.__type == 'page_module' && 
-					data.hasOwnProperty('common_settings_wrapper') && 
-					data.common_settings_wrapper.hasOwnProperty('settings') && 
-					data.common_settings_wrapper.settings.hasOwnProperty('main_attributes') &&
-					data.common_settings_wrapper.settings.main_attributes.hasOwnProperty('id') 
-				) {
-					title = data.common_settings_wrapper.settings.main_attributes.id;
-				} else {
-					title = tmpl( data );
-				}
+				title = tmpl( data );
 			} catch( e ){
 				title = '';
 			}

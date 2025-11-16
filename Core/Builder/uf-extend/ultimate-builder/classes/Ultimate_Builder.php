@@ -125,7 +125,7 @@ class Ultimate_Builder {
 		$v      = $this->version;
 
 		// FIELD SCRIPT
-		wp_register_script( 'uf-field-ultimate-builder', $assets . 'js/field-ultimate-builder.js', array(), $v );
+		wp_register_script( 'uf-field-ultimate-builder', $assets . 'js/field-ultimate-builder.js', array('uf-field-repeater'), $v );
 		// wp_register_style( 'uf-field-ultimate-builder', $assets . 'css/field.css', array( 'ultimate-fields-css' ), $v );
 	}
 
@@ -223,7 +223,7 @@ class Ultimate_Builder {
 				'item_fields' => array( 
 					$post_meta_name
 				),
-				'containers' => array( 'test_builder' )
+				'containers' => array( 'page_content_container' )
 			)); 
 	
 			wp_enqueue_script( 'builder-app' );

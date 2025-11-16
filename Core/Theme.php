@@ -86,7 +86,7 @@ class Theme extends Theme_Header_Data {
         $page = new Page();
 
         $this->loader->add_filter( 'the_content', $page, 'filter_the_content', 100 );
-        $this->loader->add_filter( 'rest_prepare_page', $page, 'add_page_modules_to_rest_api', 10, 3 );
+        $this->loader->add_filter( 'rest_prepare_page', $page, 'add_page_content_to_rest_api', 10, 3 );
 
         if( WOOCOMMERCE_IS_ACTIVE ){
             $woocommerce_support = new WooCommerce_Support();

@@ -249,12 +249,6 @@ class Field extends Repeater {
 	private function get_builder_link() {
 		global $post;
 		$builder_link = '';
-
-		$allowed_post_types = ['post','page'];
-
-		if ( !in_array($post->post_type, $allowed_post_types) ) {
-			return $builder_link;
-		}
 		
 		if ( ! current_user_can( 'edit_post', $post->ID ) ) {
 			return $builder_link;
@@ -329,5 +323,14 @@ class Field extends Repeater {
 		}
 
 		return $plugins;
+	}
+
+	public function add_groups( $groups, $args = array() ) {
+		foreach ( $groups as $group ) {
+			$__group_id = $group['__group_id'];
+			unset( $group['__group_id'] );
+			$this->add_group( $__group_id, $group );
+		}
+		return $this;
 	}
 }

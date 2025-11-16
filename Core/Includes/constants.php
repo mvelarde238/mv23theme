@@ -67,7 +67,7 @@ if( !defined('COLUMNS_QUANTITY') ) define ('COLUMNS_QUANTITY', 4);
 if( !defined('USE_REUSABLE_SECTIONS_AS_PAGE_MODULE') ) define ('USE_REUSABLE_SECTIONS_AS_PAGE_MODULE', false);
 
 if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','megamenu','archive_page','footer'));
-if( !defined('PAGE_SETTINGS_POSTTYPES') ) define ('PAGE_SETTINGS_POSTTYPES', array('page','archive_page'));
+if( !defined('PAGE_SETTINGS_POSTTYPES') ) define ('PAGE_SETTINGS_POSTTYPES', array('page','archive_page','footer'));
 if( !defined('CONTENT_BUILDER_POSTTYPES') ) define ('CONTENT_BUILDER_POSTTYPES', array());
 if( !defined('CONTENT_BUILDER_SETTINGS') ) define ('CONTENT_BUILDER_SETTINGS', array());
 

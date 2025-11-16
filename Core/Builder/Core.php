@@ -169,6 +169,29 @@ class Core{
         return $_components;
     }
 
+    public function get_groups_for_builder(){
+        $groups = array();
+        $components = $this->get_components();
+
+        if(is_array($components) && count($components) > 0){
+            foreach ($components as $component) {
+                $groups[] = array(
+                    '__group_id' => $component->get_id(),
+                    'min_width' => 1,
+                    'title' => $component->get_title(),
+                    'icon' => $component->get_icon(),
+                    'title_template' => $component->get_title_template(),
+                    'view_template' => $component->get_view_template(),
+                    'fields' => $component->get_fields(),
+                    'edit_mode' => $component->get_edit_mode(),
+                    'layout' => $component->get_layout()
+                );
+            }
+        }
+
+        return $groups;
+    }
+
     /** AJAX Handlers
      * used for the builder to get the component view
      * for ajaxified components rendering
