@@ -39,6 +39,11 @@ class Field extends Repeater {
 		// wp_enqueue_style( 'uf-field-ultimate-builder' );
 		wp_enqueue_style( 'gjs-context-menu-style' );
 
+		# Enqueue the scripts for all groups
+		foreach( $this->groups as $group ) {
+			$group->enqueue_scripts();
+		}
+
 		# Add the necessary templates
 		Template::add( 'ultimate-builder', 'ultimate-builder' );
 		// fix for repeater dropdown inside Animation Timeline > Tween Group:  
