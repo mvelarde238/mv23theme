@@ -7,6 +7,7 @@ use Ultimate_Fields\Field;
 use Core\Builder\Template_Engine;
 use Core\Utils\CPT;
 use Core\Builder\Content_Selector;
+use Core\Frontend\Page;
 
 class Reusable_Section_CPT {
 
@@ -16,7 +17,6 @@ class Reusable_Section_CPT {
         if (self::$instance == null) {
             self::$instance = new Reusable_Section_CPT();
 
-			add_action( 'uf.init', array( self::$instance, 'add_metabox' ) );
             add_action( 'theme_init_components', function(){
                 new Reusable_Section();
             });
@@ -56,32 +56,6 @@ class Reusable_Section_CPT {
 
         return $reusable_sections;
     }
-
-    public function add_metabox(){
-        Container::create( 'content' )
-            ->add_location( 'post_type', 'reusable_section')
-            ->set_layout( 'grid' )
-            ->set_style( 'seamless' )
-            ->add_fields(array(
-                Content_Selector::the_field()
-            ));
-    
-        /**
-         * Add reusable section in page modules repeater
-         */
-        if( USE_REUSABLE_SECTIONS_AS_PAGE_MODULE ){
-            foreach( Container::get_registered() as $container ) {
-                if( $container->get_id() == 'page_content' ) {
-                    $container_fields = $container->get_fields();
-                    foreach ($container_fields as $field) {
-                        if ($field->get_name() === 'page_modules'){
-                            $field->add_group( Reusable_Section::the_group() );
-                        }
-                    }
-                }
-            };
-        }
-    }
 }
 
 class Reusable_Section extends Component{
@@ -120,15 +94,11 @@ class Reusable_Section extends Component{
 
     public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
-        
-        $components = get_post_meta( $args['reusable_section'],'components', true);
 
-        if (is_array($components) && count($components) > 0) :
-            ob_start();
-            foreach ($components as $component) {
-                echo Template_Engine::getInstance()->handle( $component['__type'], $component );
-        	}
-            return ob_get_clean();
-        endif;
+        $page = new Page();
+		$page_content = $page->the_content( $args['reusable_section'] );
+        ob_start();
+        echo $page_content;
+        return ob_get_clean();
     }
 }

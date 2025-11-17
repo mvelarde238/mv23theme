@@ -64,9 +64,8 @@ if( !defined('ULTIMATE_FIELDS_DISABLE_UI') ) define ('ULTIMATE_FIELDS_DISABLE_UI
 if( !defined('DEFAULT_COLOR_SCHEME') ) define( 'DEFAULT_COLOR_SCHEME', '');
 if( !defined('DEFAULT_TEXT_COLOR') ) define( 'DEFAULT_TEXT_COLOR', 'text-color-default');
 if( !defined('COLUMNS_QUANTITY') ) define ('COLUMNS_QUANTITY', 4);
-if( !defined('USE_REUSABLE_SECTIONS_AS_PAGE_MODULE') ) define ('USE_REUSABLE_SECTIONS_AS_PAGE_MODULE', false);
 
-if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','megamenu','archive_page','footer'));
+if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','megamenu','archive_page','footer','reusable_section'));
 if( !defined('PAGE_SETTINGS_POSTTYPES') ) define ('PAGE_SETTINGS_POSTTYPES', array('page','archive_page'));
 if( !defined('CONTENT_BUILDER_POSTTYPES') ) define ('CONTENT_BUILDER_POSTTYPES', array());
 if( !defined('CONTENT_BUILDER_SETTINGS') ) define ('CONTENT_BUILDER_SETTINGS', array());
