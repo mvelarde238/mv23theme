@@ -2,9 +2,9 @@
 namespace Core\Offcanvas_Elements;
 
 use Core\Offcanvas_Elements\Settings;
-use Core\Builder\Blocks_Layout;
 use Core\Utils\CPT;
 use Core\Builder\Template_Engine;
+use Core\Frontend\Page;
 
 define ('OFFCANVAS_ELEMENTS_DIR', __DIR__);
 define ('OFFCANVAS_ELEMENTS_PATH', get_template_directory_uri() . '/Core/Offcanvas_Elements');
@@ -114,7 +114,7 @@ class Core{
             if(!$is_restricted){
                 $type = get_post_meta( $post_id, $this->slug.'_type', true );
                 $content_type = get_post_meta( $post_id, $this->slug.'_content_type', true );
-                $content = ( $content_type == 'async' ) ? null : get_post_meta( $post_id, $this->slug.'_content', true );
+                $content = ( $content_type == 'async' ) ? null : $post_id;
     
                 $kebab_cased_slug = str_replace('_','-',$this->slug);
                 $settings = get_post_meta( $post_id, $this->slug.'_settings', true );
@@ -168,7 +168,11 @@ class Core{
 
             echo '<div '.$attributes.'>';
             echo '<div class="modal-content" '.$content_attributes.'>';
-            if($element_args['content']) echo Blocks_Layout::the_content($element_args['content']);
+            if($element_args['content']){
+                $page = new Page();
+		        $page_content = $page->the_content( $element_args['content'] );
+                echo $page_content;
+            } 
             echo '</div>';
             if( $element_args['type'] === 'sidenav' ){
                 echo '<a href="#!" class="sidenav-close"></a>';

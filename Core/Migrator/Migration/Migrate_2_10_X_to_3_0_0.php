@@ -76,7 +76,11 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $title = 'Migrate 2.10.X to 3.0.0 ( Gjs Builder Implementation )';
         $slug = 'migrate_2_10_x_to_3_0_0';
         $is_top_level = true;
-        $meta_keys = array('page_modules');
+        $meta_keys = array(
+            // 'page_modules',
+            // 'components',
+            'offcanvas_element_content'
+        );
         
         parent::__construct( $batch_size, $do_the_update, $title, $slug, $is_top_level, $meta_keys );
     }
@@ -90,10 +94,16 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             FROM {$wpdb->postmeta} pm
             JOIN {$wpdb->posts} p ON pm.post_id = p.ID
             WHERE pm.meta_key IN ($meta_keys_placeholders)
+            -- AND p.ID = 826  /* Page with content layout data  */
             -- AND p.ID = 734  /* _refactorizing-custom-fields */
+            -- AND p.ID = 1997  /* Test Dark Theme Implementation */
+            -- AND p.ID = 333  /* Test ScrollSpy */
+            -- AND p.ID = 1227  /* Test Scroll Animations */
+            -- AND p.ID = 1634  /* Web Demo */
+            -- AND p.ID = 56 /* test */
             -- AND p.ID = 156  /* Test Gallery */
             -- AND p.ID = 345  /* Test Listing */
-            AND p.ID = 1043 /* Test Icon and Text */
+            -- AND p.ID = 1043 /* Test Icon and Text */
             -- AND p.ID = 1175  /* test maps */
             -- AND p.ID = 1971  /* test headings */
             -- AND p.ID = 279  /* test video */
@@ -120,32 +130,42 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 'old_data' => $old_data
             );
 
+            error_log( 'Migrating page: ' . get_the_title( $page->post_id ) . ' (ID: ' . $page->post_id . ') - Meta Key: ' . $page->meta_key );
+
+            // page_modules
             if( $page->meta_key == 'page_modules' ){
                 $new_data = $this->migrate_page_modules_data($old_data);
-                if($do_the_update){
-                    update_post_meta( $page->post_id, 'page_content', $new_data['gjs_data'] );
-                    update_post_meta( $page->post_id, 'page_content_components', $new_data['components'] );
-                    update_post_meta( $page->post_id, 'page_content_styles', $new_data['styles'] );
-                } 
-                // $page_control['new_data'] = $new_data['gjs_data']['pages'][0]['frames'][0]['component']['components'][0]['components']; // just gjs sections array
-                $page_control['new_data'] = $new_data; // all
+                if($do_the_update) $this->save_in_page_content($page->post_id, $new_data);
+                $page_control['new_data'] = $new_data;
             }
-            // // reusable_section
-            // if( $page->meta_key == 'components' ){
-            //     $new_reusable_section_data = $this->migrate_seccion_reusable_components_data($old_data);
-            //     if($do_the_update) update_post_meta( $page->post_id, 'components', $new_reusable_section_data );
-            //     $page_control['new_data'] = $new_reusable_section_data;
-            // }
-            // // OCE
-            // if( $page->meta_key == 'offcanvas_element_content' ){
-            //     $new_blocks_layout_data = $this->migrate_content_layout_data($old_data);
-            //     if($do_the_update) update_post_meta($page->post_id, 'offcanvas_element_content', $new_blocks_layout_data);
-            //     $page_control['new_data'] = $new_blocks_layout_data;
-            // }
-            // // PAGES WITH BLOCKS LAYOUT (HAVE columns COMP)
+            // reusable_section
+            if( $page->meta_key == 'components' ){
+                $new_reusable_section_data = $this->migrate_seccion_reusable_components_data($old_data);
+                if($do_the_update) $this->save_in_page_content($page->post_id, $new_reusable_section_data);
+                $page_control['new_data'] = $new_reusable_section_data;
+            }
+            // OCE
+            if( $page->meta_key == 'offcanvas_element_content' ){
+                $new_blocks_layout_data = $this->migrate_content_layout_data($old_data, $page->meta_key);
+                if($do_the_update) $this->save_in_page_content($page->post_id, $new_blocks_layout_data);
+                $page_control['new_data'] = $new_blocks_layout_data;
+            }
+
+            // PAGES WITH BLOCKS LAYOUT (HAVE columns COMP)
             // if( $page->meta_key == 'blocks_layout' ){
             //     $new_blocks_layout_data = $this->migrate_content_layout_data($old_data);
-            //     if($do_the_update) update_post_meta($page->post_id, 'blocks_layout', $new_blocks_layout_data);
+
+            //     $page_content = get_post_meta( $page->post_id, 'page_content', true );
+            //     if( empty($page_content) ){
+            //         if($do_the_update){
+            //             $this->save_in_page_content($page->post_id, $new_blocks_layout_data);
+            //         } 
+            //     } else{
+            //         if($do_the_update){
+            //             $this->append_to_page_content($page->post_id, $new_blocks_layout_data);
+            //         }    
+            //     }
+
             //     $page_control['new_data'] = $new_blocks_layout_data;
             // }
 
@@ -162,6 +182,100 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             'quantity' => count($pages), // Retorna el número de páginas procesadas
             'control' => $general_control
         );
+    }
+
+    public function save_in_page_content( $post_id, $new_data ){
+        $container_id = $this->generate_id();
+
+        $page_content = array(
+            'gjs_data' => array(
+                'dataSources' => array(),
+                'assets' => array(),
+                'styles' => $new_data['gjs_styles'],
+                'pages' => array(
+                    array(
+                        'frames' => array(
+                            array(
+                                'id' => substr( md5( uniqid() ), 0, 16 ),
+                                'component' => array(
+                                    'type' => 'wrapper',
+                                    'stylable' => [
+                                        "background",
+                                        "background-color",
+                                        "background-image",
+                                        "background-repeat",
+                                        "background-attachment",
+                                        "background-position",
+                                        "background-size"
+                                    ],
+                                    'attributes' => array(
+                                        'id' => 'iwuh'
+                                    ),
+                                    'components' => array(
+                                        array(
+                                            'type' => 'container',
+                                            'classes' => array('container'),
+                                            'attributes' => array(),
+                                            'components' => $new_data['gjs_components'],
+                                            '__id' => $container_id
+                                        )
+                                    ),
+                                    'head' => array( 'type' => 'head' ),
+                                    'docEl' => array( 'tagName' => 'html' ),
+                                    '__id' => 'iwuh'
+                                )        
+                            )
+                        ),
+                        'type' => 'main',
+                        // random id like this: 4s0oTzohtBBDCTnt
+                        'id' => substr( md5( uniqid() ), 0, 16 )
+                    )
+                ),
+                'symbols' => array()
+            ),
+            'components' => array(
+                array(
+                    '__type' => 'wrapper',
+                    '__id' => 'iwuh',
+                    'components' => array(
+                        array(
+                            '__type' => 'container',
+                            '__id' => $container_id,
+                            'components' => $new_data['uf_components']
+                        )
+                    )
+                )
+            ),
+            'styles' => $new_data['styles']
+        );
+
+        update_post_meta( $post_id, 'page_content', $page_content['gjs_data'] );
+        update_post_meta( $post_id, 'page_content_components', $page_content['components'] );
+        update_post_meta( $post_id, 'page_content_styles', $page_content['styles'] );
+    }
+
+    public function append_to_page_content( $post_id, $new_data ){
+        $existing_gjs_data = get_post_meta( $post_id, 'page_content', true );
+        $existing_components = get_post_meta( $post_id, 'page_content_components', true );
+        $existing_styles = get_post_meta( $post_id, 'page_content_styles', true );
+
+        // Append new data
+        $existing_gjs_data['pages'][0]['frames'][0]['component']['components'] = array_merge(
+            $existing_gjs_data['pages'][0]['frames'][0]['component']['components'],
+            $new_data['gjs_components']
+        );
+
+        $existing_components[0]['components'] = array_merge(
+            $existing_components[0]['components'],
+            $new_data['uf_components']
+        );
+
+        $existing_styles .= $new_data['styles'];
+
+        // Update post meta
+        update_post_meta( $post_id, 'page_content', $existing_gjs_data );
+        update_post_meta( $post_id, 'page_content_components', $existing_components );
+        update_post_meta( $post_id, 'page_content_styles', $existing_styles );
     }
 
     public function migrate_page_modules_data($page_modules_data) {
@@ -204,85 +318,75 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                     $uf_section['components'] = $uf_components_array;
                     $gjs_section['components'] = $gjs_components_array;
                 }
+
+                $uf_section['__type'] = 'section';
                     
                 array_push( $uf_components, $uf_section );
                 array_push( $gjs_components, $gjs_section );
             }
         }
 
-        $container_id = $this->generate_id();
-
         return array(
-            'gjs_data' => array(
-                'dataSources' => array(),
-                'assets' => array(),
-                'styles' => $gjs_styles,
-                'pages' => array(
-                    array(
-                        'frames' => array(
-                            array(
-                                'id' => substr( md5( uniqid() ), 0, 16 ),
-                                'component' => array(
-                                    'type' => 'wrapper',
-                                    'stylable' => [
-                                        "background",
-                                        "background-color",
-                                        "background-image",
-                                        "background-repeat",
-                                        "background-attachment",
-                                        "background-position",
-                                        "background-size"
-                                    ],
-                                    'attributes' => array(
-                                        'id' => 'iwuh'
-                                    ),
-                                    'components' => array(
-                                        array(
-                                            'type' => 'container',
-                                            'classes' => array('container'),
-                                            'attributes' => array(),
-                                            'components' => $gjs_components,
-                                            '__id' => $container_id
-                                        )
-                                    ),
-                                    'head' => array( 'type' => 'head' ),
-                                    'docEl' => array( 'tagName' => 'html' ),
-                                    '__id' => 'iwuh'
-                                )        
-                            )
-                        ),
-                        'type' => 'main',
-                        // random id like this: 4s0oTzohtBBDCTnt
-                        'id' => substr( md5( uniqid() ), 0, 16 )
-                    )
-                ),
-                'symbols' => array()
-            ),
-            'components' => array(
-                array(
-                    '__type' => 'wrapper',
-                    '__id' => 'iwuh',
-                    'components' => array(
-                        array(
-                            '__type' => 'container',
-                            '__id' => $container_id,
-                            'components' => $uf_components
-                        )
-                    )
-                )
-            ),
+            'gjs_components' => $gjs_components,
+            'uf_components' => $uf_components,
+            'gjs_styles' => $gjs_styles,
             'styles' => $css_styles
         );
     }
 
-    /**
-     * Process a single component and create both UF and GJS structures
-     *
-     * @param array $component The component data
-     * @param string &$css_styles Reference to styles store string
-     * @param array &$gjs_styles Reference to GJS styles array
-     * @return array Array containing 'component' and 'gjs_component'
-     */
+    public function migrate_content_layout_data($content_layout_data, $meta_key = '') {
+        // create the arrays to store the final data: builder data, uf datastores and css styles
+        $gjs_components = array();
+        $gjs_styles = array();
+        $uf_components = array();
+        $css_styles = '';
+
+        // create a fake uf_component to hold the content layout data
+        $fake_component['__type'] = 'components_wrapper';
+        $fake_component['blocks_layout'] = $content_layout_data;
+
+        // process the fake component
+        $processed_component = $this->process_component($fake_component, $css_styles, $gjs_styles);
+
+        // set the correct type for the processed component
+        $type = ( $meta_key == 'offcanvas_element_content' ) ? 'components_wrapper' : 'section';
+        $processed_component['uf_component']['__type'] = $type;
+        $processed_component['gjs_component']['type'] = $type;
+
+        $uf_components[] = $processed_component['uf_component'];
+        $gjs_components[] = $processed_component['gjs_component'];
+
+        return array(
+            'gjs_components' => $gjs_components,
+            'uf_components' => $uf_components,
+            'gjs_styles' => $gjs_styles,
+            'styles' => $css_styles
+        );
+    }
+
+    public function migrate_seccion_reusable_components_data($components_data) {
+        // create the arrays to store the final data: builder data, uf datastores and css styles
+        $gjs_components = array();
+        $gjs_styles = array();
+        $uf_components = array();
+        $css_styles = '';
+
+        // process each component
+        foreach ($components_data as $component) {
+            $processed_component = $this->process_component($component, $css_styles, $gjs_styles);
+
+            $uf_components[] = $processed_component['uf_component'];
+            $gjs_components[] = $processed_component['gjs_component'];
+        }
+
+        return array(
+            'gjs_components' => $gjs_components,
+            'uf_components' => $uf_components,
+            'gjs_styles' => $gjs_styles,
+            'styles' => $css_styles
+        );
+    }
+
     private function process_component($component, &$css_styles, &$gjs_styles) {
         $id = $this->generate_id($component); // for id attribute in html and gjs
         $__id = 'cmp_' . substr(md5(uniqid()), 0, 8); // to connect gjs with uf component
@@ -417,6 +521,9 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             $this->process_flipbox_components( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles );
         }
 
+        // Handle component['settings'] 
+        $this->handle_settings( $uf_component, $gjs_component, $css_styles, $gjs_styles, $id );
+
         return array(
             'uf_component' => $uf_component,
             'gjs_component' => $gjs_component
@@ -479,17 +586,6 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         return $_return;
     }
 
-    /**
-     * Process a style setting by applying styles and generating CSS
-     *
-     * @param array $comp The component data
-     * @param string $setting_key The setting key to process
-     * @param string $style_class The style class to use
-     * @param string $id The component ID
-     * @param array &$styles_to_apply Reference to styles array
-     * @param array &$new_settings Reference to new settings array
-     * @param array &$settings Reference to settings array
-     */
     private function process_style_setting($comp, $setting_key, $style_class, $id, &$styles_to_apply, &$new_settings, &$settings) {
 
         if($comp['__type'] == 'column'){
@@ -558,7 +654,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
     private function process_image_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
         $uf_component['__type'] = 'figure';
-
+        
         // migrate alignment
         if( $component['alignment'] != 'left' ){
             $fig_id = $this->generate_id();
@@ -595,16 +691,21 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $gjs_component['components'][0]['attributes']['id'] = $img_id;
         $gjs_component['components'][0]['resizable'] = array( 'ratioDefault'=>1 );
 
-        // migrate object fit and full width
+        // migrate object fit, aspect ratio and full width
         $img_styles = array();
-        if( $component['object_fit'] != 'cover' ){
-            $object_fit = $component['alignment'];
-            $css_styles .= "#{$fig_id} { object-fit: {$object_fit}; }";
+
+        // if( $component['object_fit'] != 'cover' ){
+            $object_fit = $component['object_fit'];
+            $css_styles .= "#{$img_id} { object-fit: {$object_fit}; }";
             $img_styles['object-fit'] = $object_fit;
-        }
+        // }
+
+        $aspect_ratio = $component['aspect_ratio'];
+        $css_styles .= "#{$img_id} { aspect-ratio: {$aspect_ratio}; }";
+        $img_styles['aspect-ratio'] = $aspect_ratio;
 
         if( $component['full_width'] ){
-            $css_styles .= "#{$fig_id} { width: 100%; }";
+            $css_styles .= "#{$img_id} { width: 100%; }";
             $img_styles['width'] = '100%';
         }
 
@@ -756,6 +857,13 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 '__id' => $col__id
             );
 
+            // Handle column['settings'] 
+            $this->handle_settings(
+                $uf_component['components'][$column_count], 
+                $gjs_component['components'][$column_count], 
+                $css_styles, $gjs_styles, $col_id 
+            );
+
             $column_count++;
         }
 
@@ -803,7 +911,6 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $column_count = 0;
         foreach ($component['row']['content'] as $column) {
             $_count = 0;
-            
             foreach ($devices_keys as $dk){
                 $current_device_id = $devices_ids[$_count];
                 if( $dk == 'l' ){
@@ -826,7 +933,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 // Handle case where device_fr_width is an array (e.g., layout-row field)
                 $device_fr_width = is_array($device_fr_width) ? implode(' ', $device_fr_width) : $device_fr_width;
 
-                if( !$device_fr_width || $device_fr_width == '' ) {
+                if( !$device_fr_width || $device_fr_width == '' || $device_fr_width == 'repeat(1, 1fr)' ){
                     // default value for row with 1 column without width setting
                     $device_fr_width = "1fr";
                 }
@@ -903,15 +1010,10 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         // check the old orders settings and apply if exist
         $totest = array();
         $column_count = 0;
-        foreach ($component['row']['columns_settings'] as $column_setting) {
-
-            // skip if no order settings
-            if( count($column_setting) == 0 ){
-                $column_count++;
-                continue;
-            }
-
+        for( $i = 0; $i < $columns_quantity; $i++ ){
+            $column_setting = $component['row']['columns_settings'][$i] ?? array();
             $_count = 0;
+
             $column_cid = $columns_cids[$column_count];
             foreach ($devices_keys as $dk){
                 $current_device_id = $devices_ids[$_count];
@@ -928,6 +1030,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 }
                 $_count++;
             }
+            
             $column_count++;
         }
 
@@ -966,7 +1069,8 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
         // check the content alignment for each column
         $column_count = 0;
-        foreach ($component['row']['columns_settings'] as $column_setting) {
+        for( $i = 0; $i < $columns_quantity; $i++ ){
+            $column_setting = $component['row']['columns_settings'][$i] ?? array();
             $_count = 0;
             $id = $uf_component['components'][$column_count]['__gjsAttributes']['id'];
             foreach ($devices_keys as $dk){
@@ -993,6 +1097,31 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 $_count++;
             }
             $column_count++;
+        }
+
+        // migrate l_content_alignment=>pinned to components_wrapper.sticky
+        $column_count = 0;
+        for( $i = 0; $i < $columns_quantity; $i++ ){
+            $column_setting = $component['row']['columns_settings'][$i] ?? array();
+            $l_content_alignment = $column_setting['l_content_alignment'] ?? '';
+            if( $l_content_alignment == 'pinned' ){
+                $__id = 'cmp_' . substr(md5(uniqid()), 0, 8); // to connect gjs with uf component
+
+                $gjs_comp_wrapper = array(
+                    'type' => 'comp-wrapper',
+                    'components' => $gjs_component['components'][$column_count]['components'],
+                    '__id' => $__id
+                );
+                $gjs_component['components'][$column_count]['components'] = [$gjs_comp_wrapper];
+
+                $uf_comp_wrapper = array(
+                    '__type' => 'components_wrapper',
+                    'components' => $uf_component['components'][$column_count]['components'],
+                    '__id' => $__id
+                );
+                $uf_comp_wrapper['settings']['classes'] = 'sticky';
+                $uf_component['components'][$column_count]['components'] = [$uf_comp_wrapper];
+            }
         }
 
         unset( $uf_component['row'] );
@@ -1179,7 +1308,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                     'image' => $acc_item['image'],
                     'image_size' => $acc_item['image_size']
                 ),
-                'itemid' => $acc_item['itemid']
+                'itemid' => $acc_item['itemid'] ?? ''
             );
             $this->quick_component( $button, $uf_accordion['components'][0], $gjs_accordion['components'][0], $css_styles, $gjs_styles );
 
@@ -1369,9 +1498,10 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
         // check if already exist a style for this id
         $last_selector_added = end( $gjs_styles );
+        $last_selector_index = key( $gjs_styles );
         if( $last_selector_added && in_array( '#' . $id, $last_selector_added['selectors'] ) ){
             // update existing style
-            $last_selector_added['style']['height'] = $height_value;
+            $gjs_styles[$last_selector_index]['style']['height'] = $height_value;
         } else {
             // add new style
             $gjs_styles[] = array(
@@ -1410,6 +1540,99 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         
         unset( $uf_component['_icon_styles_wrapper'] );
         unset( $uf_component['hide-icon-on-mobile'] );
+    }
+
+    private function handle_settings( &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
+        if( !isset( $uf_component['settings'] ) || !is_array( $uf_component['settings'] ) ){
+            return;
+        }
+
+        // Migrate layout2 or layout3 to a wrapper ///////////////////////////////////////////////////////////////
+        // check if the component have settings.layout
+        if( 
+            isset( $uf_component['settings']['layout'] ) 
+            && $uf_component['settings']['layout']['use']
+            ){
+            $layout = $uf_component['settings']['layout']['key'];
+
+            $special_layouts = array( 'layout2', 'layout3' );
+            $dont_doit_for = array( 'page_module', 'components_wrapper', 'column' );
+            $component_type = $uf_component['__type'];
+            if( in_array( $layout, $special_layouts )  ){
+                if( !in_array( $component_type, $dont_doit_for ) ){
+                    $__id = 'cmp_' . substr(md5(uniqid()), 0, 8); // to connect gjs with uf component
+
+                    unset( $gjs_component['attributes'] );
+                    $gj_comp_wrapper = array(
+                        'type' => 'comp-wrapper',
+                        'components' => array( $gjs_component ),
+                        '__id' => $__id,
+                        'attributes' => array(  'id' => $id )
+                    );
+                    $gjs_component = $gj_comp_wrapper;
+                    
+                    unset( $uf_component['__gjsAttributes'] );
+                    unset( $uf_component['settings']['layout'] );
+                    $uf_comp_wrapper = array(
+                        '__type' => 'components_wrapper',
+                        'components' => array( $uf_component ),
+                        '__id' => $__id,
+                        '__gjsAttributes' => array( 'id' => $id )
+                    );
+                    $uf_comp_wrapper['settings']['layout'] = array( 'use' => 1, 'key' => $layout );
+                    $uf_component = $uf_comp_wrapper;
+                }
+            }
+        }
+
+        // Extract id and class from main_attributes wrapper ///////////////////////////////////////////////
+        if( 
+            isset( $uf_component['settings']['main_attributes'] ) 
+            && is_array( $uf_component['settings']['main_attributes'] )
+            ){
+            $main_attr = $uf_component['settings']['main_attributes'];
+
+            // id
+            if( isset( $main_attr['id'] ) && $main_attr['id'] != '' ){
+                $uf_component['settings']['id'] = $main_attr['id'];
+            }
+
+            // class
+            if( isset( $main_attr['class'] ) && $main_attr['class'] != '' ){
+                $uf_component['settings']['classes'] = $main_attr['class'];
+            }
+
+            unset( $uf_component['settings']['main_attributes'] );
+        }
+
+        // rename reponsive to hide_on
+        if( 
+            isset( $uf_component['settings']['responsive'] ) 
+            && is_array( $uf_component['settings']['responsive'] )
+            ){
+            $responsive = $uf_component['settings']['responsive'];
+            $uf_component['settings']['hide_on'] = array(
+                'desktop' => isset( $responsive['hide_on_desktop'] ) ? (bool)$responsive['hide_on_desktop'] : false,
+                'tablet' => isset( $responsive['hide_on_tablet'] ) ? (bool)$responsive['hide_on_tablet'] : false,
+                'mobile' => isset( $responsive['hide_on_mobile'] ) ? (bool)$responsive['hide_on_mobile'] : false,
+            );
+
+            unset( $uf_component['settings']['responsive'] );
+        }
+
+        // rename settings.video_background.video_settings.background_color to settings.video_background.video_settings.bgc
+        if( 
+            isset( $uf_component['settings']['video_background'] ) 
+            && is_array( $uf_component['settings']['video_background'] )
+            && isset( $uf_component['settings']['video_background']['video_settings'] )
+            && is_array( $uf_component['settings']['video_background']['video_settings'] )
+            && isset( $uf_component['settings']['video_background']['video_settings']['background_color'] )
+            ){
+            $bgc = $uf_component['settings']['video_background']['video_settings']['background_color'];
+            $uf_component['settings']['video_background']['video_settings']['bgc'] = $bgc;
+
+            unset( $uf_component['settings']['video_background']['video_settings']['background_color'] );
+        }
     }
 
     private function quick_component($data, &$uf_parent, &$gjs_parent, &$css_styles, &$gjs_styles ){

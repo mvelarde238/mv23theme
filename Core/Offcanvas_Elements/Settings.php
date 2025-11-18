@@ -4,7 +4,7 @@ namespace Core\Offcanvas_Elements;
 use Core\Offcanvas_Elements\Core;
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
-use Core\Builder\Blocks_Layout;
+use Core\Builder\Core as Builder_Core;
 
 /**
  * Handles settings on the post type edit screen.
@@ -159,7 +159,9 @@ class Settings {
 				'layout' => __('Layout','mv23theme'), 
 				'async' => __('Asynchronous Content','mv23theme') 
 			)),
-			Blocks_Layout::the_field(array( 'slug' => $slug.'_content', 'hide_label' => false ))->add_dependency($slug.'_content_type','layout','='),
+			Field::create( 'ultimate_builder', 'page_content' )
+				->add_groups( Builder_Core::getInstance()->get_groups_for_builder() )
+				->add_dependency($slug.'_content_type','layout','='),
 			Field::create( 'complex', $slug.'_async_settings', __('Asynchronous Content Settings') )->add_dependency($slug.'_content_type','async','=')->set_layout('rows')->hide_label()->add_fields(array(
 				Field::create( 'message', '_hint-1','' )->set_description( __('When this setting is active the content will be generated using an asynchronous function','mv23theme') ),
 				Field::create( 'complex', '_fields_group_1', '' )->merge()->add_fields(array(

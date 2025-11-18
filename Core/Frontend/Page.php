@@ -2,7 +2,6 @@
 namespace Core\Frontend;
 
 use Core\Builder\Template_Engine;
-use Core\Builder\Blocks_Layout;
 use Core\Posttype\Archive_Page;
 
 class Page{

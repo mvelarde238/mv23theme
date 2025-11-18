@@ -4,7 +4,6 @@ namespace Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
-use Core\Builder\Blocks_Layout;
 
 class Flip_Box extends Component {
 
@@ -148,7 +147,6 @@ class Flip_Box extends Component {
         echo '<div class="flip-box-inner">';
         foreach ($cards as $card) {
             echo Template_Engine::component_wrapper('start', $card['args']);
-            // echo Blocks_Layout::the_content($card['content']); 
 
             if( isset($card['components']) && is_array($card['components']) ){
                 foreach ($card['components'] as $component) {

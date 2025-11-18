@@ -4,9 +4,7 @@ namespace Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
-use Core\Builder\Blocks_Layout;
 use Ultimate_Fields\Container\Repeater_Group;
-use Core\Builder\Blocks_Layout_Settings;
 
 class Carousel extends Component {
 
