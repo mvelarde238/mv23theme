@@ -72,6 +72,8 @@ class Heading extends Component {
                 ->add_fields( array(
                     Field::create( 'textarea', 'content', __( 'Content', 'mv23theme' ) )
                         ->set_rows( 5 )
+                        ->set_default_value( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' )
+                        ->required()
                         ->hide_label(),
                     Field::create( 'select', 'html_tag', __( 'HTML Tag', 'mv23theme' ) )
                         ->add_options( array(
@@ -95,7 +97,8 @@ class Heading extends Component {
                     'left' => __( 'Left', 'mv23theme' ),
                     'center' => __( 'Center', 'mv23theme' ),
                     'right' => __( 'Right', 'mv23theme' )
-                ) ),
+                ) )
+                ->set_default_value( 'center' ),
 
             Field::create( 'tab', 'Tagline'),
             Field::create( 'checkbox', 'add_tagline' )
@@ -134,7 +137,7 @@ class Heading extends Component {
             Field::create( 'image_select', 'preset', __('Preset Style', 'mv23theme') )
                 ->add_options($preset_styles)
                 ->hide_label()
-                ->set_default_value('default')
+                ->set_default_value('style1')
                 ->set_attr( 'class', 'image-select-2-cols' ),
             Field::create( 'complex', 'accent_color', __( 'Accent Color', 'mv23theme' ) )
                 ->add_fields( array(

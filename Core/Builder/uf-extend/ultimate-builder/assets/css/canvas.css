@@ -33,6 +33,8 @@ body{
 /* let placeholder image use the aspect ratio */
 img.gjs-plh-image{
     height: auto;
+    aspect-ratio: 16 / 9;
+    width: 100%;
 }
 /* offcanvas element styles */
 .oce-overlay{

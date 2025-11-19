@@ -26,10 +26,11 @@ class Icon_and_Text extends Component {
             Field::create( 'radio', 'ielement','Seleccione que mostrar:')->set_orientation( 'horizontal' )->add_options( array(
                 'icono' => 'Icono',
                 'imagen' => 'Imagen',
-            ))->set_width(20),
+            ))->set_default_value('icono')->set_width(20),
             Field::create( 'icon', 'iname', 'Icono' )
                 ->add_set( 'bootstrap-icons' )
                 ->add_set( 'font-awesome' )
+                ->set_default_value( 'bi-alarm' )
                 ->add_dependency('ielement','icono','=')->set_width(20),
             Field::create( 'image', 'iimage', 'Imágen' )->add_dependency('ielement','imagen','=')->set_width(20),
 
@@ -60,6 +61,7 @@ class Icon_and_Text extends Component {
             Field::create( 'select', 'ialign', __('Icon Alignment', 'mv23theme'))
                 ->set_input_type( 'radio' )
                 ->set_orientation( 'horizontal' )
+                ->set_default_value('flex-start')
                 ->add_options(array(
                     'center'  => 'Al Centro',
                     'flex-start'  => 'Arriba',
@@ -111,7 +113,9 @@ class Icon_and_Text extends Component {
     
             // CONTENT
             Field::create( 'tab', 'Texto'),
-            Field::create( 'wysiwyg', 'content' )->hide_label()->set_rows( 10 )->set_width(100),
+            Field::create( 'wysiwyg', 'content' )
+                ->required()->set_default_value( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' )
+                ->hide_label()->set_rows( 10 )->set_width(100),
 
             // GLOBAL
             Field::create( 'tab', 'Global'),
@@ -232,7 +236,7 @@ class Icon_and_Text extends Component {
                         %>
                         <i class="<%= icon_prefix %> <%= iname %>"></i>
                     <% } else { 
-                        img_prepared_exists = Array.isArray(iimage_prepared) && iimage_prepared.length > 0;
+                        img_prepared_exists = (typeof iimage_prepared !== "undefined" && Array.isArray(iimage_prepared) && iimage_prepared.length > 0);
                         image_url = img_prepared_exists ? iimage_prepared[0].url : "";
                         %>
                         <img src="<%= image_url %>" />

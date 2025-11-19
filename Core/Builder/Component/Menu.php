@@ -47,18 +47,21 @@ class Menu extends Component {
 
 	public static function get_fields() {
         $menu_styles_image_select = self::get_menu_styles_image_select();
+        $registered_nav_menus = get_registered_nav_menus();
+        $first_location = !empty($registered_nav_menus) ? array_key_first($registered_nav_menus) : '';
 
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme')),
             Field::create( 'radio', 'type', __('Select','mv23theme') )->add_options(array(
                 'menu'     => __( 'Show a particular menu', 'mv23theme' ),
                 'location' => __( 'Select a location. If a menu is assigned to that location, it will be displayed', 'mv23theme' ),
-            )),
+            ))->set_default_value('location'),
             Field::create( 'select', 'menu' )
                 ->add_terms( 'nav_menu' )
                 ->add_dependency('type','menu','='),
             Field::create( 'select', 'location' )
-                ->add_options( get_registered_nav_menus() )
+                ->add_options( $registered_nav_menus )
+                ->set_default_value( $first_location )
                 ->add_dependency('type','location','='),
             Field::create( 'image_select', 'style', __('Style','mv23theme') )
                 ->set_attr( 'class', 'image-select-3-cols' )

@@ -182,11 +182,17 @@ window.gjsOceComponents = ( editor ) => {
             classes: ['demo-section'],
             components: [
                 { type: 'menu' },
-                { type: 'image2' },
+                { 
+                    type: 'image2',
+                    style: {
+                        'aspect-ratio': '4 / 1',
+                    }
+                },
                 { type: 'comp_heading' },
                 { 
                     type: 'row2',
                     components: [
+                        { type: 'column', components: [ { type: 'comp_text_editor' }, ] },
                         { type: 'column', components: [ { type: 'comp_text_editor' }, ] },
                         { type: 'column', components: [ { type: 'comp_text_editor' }, ] }
                     ]

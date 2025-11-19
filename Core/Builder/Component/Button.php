@@ -30,24 +30,29 @@ class Button extends Component {
 
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme') ), 
-            Field::create( 'text', 'text', 'Texto del botón'),
-            Field::create( 'select', 'style', 'Estilo')->add_options( $button_styles )->set_width(50),
+            Field::create( 'text', 'text', __('Button Text', 'mv23theme') )
+                ->required()
+                ->set_default_value( 'I am a button' ),
+            Field::create( 'select', 'style', __('Style', 'mv23theme'))
+                ->add_options( $button_styles )
+                ->set_default_value( 'btn btn--main-color' )
+                ->set_width(50),
     
-            Field::create( 'radio', 'type','Tipo')->set_orientation( 'horizontal' )->add_options( array(
+            Field::create( 'radio', 'type',__('Type', 'mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
                 'link' => 'Link',
                 'download' => 'Descarga',
             ))->set_width(50),
     
-            Field::create( 'file', 'file', 'File' )->add_dependency('type','download','='),
+            Field::create( 'file', 'file', __('File', 'mv23theme') )->add_dependency('type','download','='),
     
-            Field::create( 'radio', 'url_type','Destino:')->set_orientation( 'horizontal' )->add_options( array(
-                'interna' => 'Página Interna',
-                'externa' => 'Otro',
+            Field::create( 'radio', 'url_type',__('Destination', 'mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
+                'interna' => __('Internal Page', 'mv23theme'),
+                'externa' => __('Other', 'mv23theme'),
             ))->add_dependency('type','link','='),
-            Field::create( 'wp_object', 'post', '' )->set_button_text( 'Selecciona la página' )->add_dependency('type','link','=')->add_dependency('url_type','interna','='),
+            Field::create( 'wp_object', 'post', '' )->set_button_text( __('Select Page', 'mv23theme') )->add_dependency('type','link','=')->add_dependency('url_type','interna','='),
             Field::create( 'text', 'url', '' )->add_dependency('type','link','=')->add_dependency('url_type','externa','='),
     
-            Field::create( 'checkbox', 'new_tab', 'Abrir en una nueva ventana' )->set_text( 'Activar' ),
+            Field::create( 'checkbox', 'new_tab', __('Open in a new window', 'mv23theme') )->set_text( __('Enable', 'mv23theme') ),
 
             Field::create( 'tab', __('Icon', 'mv23theme') ),
             Field::create( 'icon', 'icon', __('Icon', 'mv23theme') )
