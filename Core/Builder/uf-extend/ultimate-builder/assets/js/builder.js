@@ -51,7 +51,10 @@
                     'image': { type: 'image2' },
                     'video': { type: 'video2' },
                     'map': { type: 'map2' },
-                    'spacer': { type: 'spacer' }
+                    'spacer': { type: 'spacer' },
+                    'offcanvas_element': { render: false },
+                    'oce_modal_content': { render: false },
+                    'oce_dynamic_content': { render: false }
                 },
                 // Temporarily store datastores and models for each component
                 temporalCompStore: {},
@@ -83,7 +86,9 @@
 
             this.add_components_definition_and_blocks(editor);
             this.add_existing_content(editor);
+            editor.trigger('builder:loaded');
 
+            // Add theme styles and scripts after a short delay to ensure canvas is ready
             setTimeout( function() {
                 that.add_theme_styles_and_scripts(editor);
             }, 500 );
@@ -162,6 +167,9 @@
             componentTypes['menu'] = { group: 'menu' };
             componentTypes['reusable-section'] = { group: 'reusable_section' };
             componentTypes['spacer'] = { group: 'spacer' };
+            componentTypes['oce-element'] = { group: 'offcanvas_element' };
+            componentTypes['oce-dynamic-content'] = { group: 'oce_dynamic_content' };
+            componentTypes['oce-modal-content'] = { group: 'oce_modal_content' };
 
             return componentTypes;
         },

@@ -66,6 +66,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsContainer', 'handler' => 'gjs-container', 'isComponent' => true ],
 		[ 'name' => 'gjsSection', 'handler' => 'gjs-section', 'isComponent' => true ],
 		[ 'name' => 'gjsMap', 'handler' => 'gjs-map', 'isComponent' => true ],
+		[ 'name' => 'gjsOceComponents', 'handler' => 'gjs-oce-components', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],
@@ -149,6 +150,10 @@ class Ultimate_Builder {
 			wp_register_script( 'gjs-context-menu-options', $assets . 'js/context-menu-options.js', array(), $v );
 			$this->register_gjs_plugins();
 			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );
+
+			wp_localize_script( 'builder-app', 'BUILDER_GLOBALS', array(
+				'posttype' => get_post_type()
+			));
 
 			$this->filter_admin_body_class();
 			$this->clean_admin_assets();

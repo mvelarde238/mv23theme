@@ -3,6 +3,8 @@ window.gjsCommands = function (editor, options) {
     const commands = editor.Commands;
 
     commands.add('builder:save-editor', (editor, sender, options) => {
+        editor.trigger('builder:before-save-editor');
+
         const raw_project_data = editor.getProjectData(),
             temporalCompStore = editor.getConfig().temporalCompStore || {},
             uf_field_model = editor.getConfig().uf_field_model,

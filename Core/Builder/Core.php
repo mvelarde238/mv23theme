@@ -58,6 +58,9 @@ class Core{
             'Components_Wrapper',
             'Inner_Row',
             'Row',
+            'OCE_Modal_Content',
+            'OCE_Dynamic_Content',
+            'Offcanvas_Element',
             'Section'
         )
     );

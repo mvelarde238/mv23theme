@@ -238,7 +238,6 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'uf.init', $offcanvas_elements, 'register_settings' );
         $this->loader->add_action( 'wp_enqueue_scripts', $offcanvas_elements, 'enqueue_scripts', 1000);
         $this->loader->add_action( 'footer_code', $offcanvas_elements, 'print_elements' );
-        $this->loader->add_action( 'save_post', $offcanvas_elements, 'handle_save_post_hook', 99, 3 );
 
         // Archive Pages
         $archive_pages = Archive_Page::getInstance();

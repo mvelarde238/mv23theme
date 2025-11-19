@@ -77,7 +77,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $slug = 'migrate_2_10_x_to_3_0_0';
         $is_top_level = true;
         $meta_keys = array(
-            // 'page_modules',
+            'page_modules',
             // 'components',
             'offcanvas_element_content'
         );
@@ -94,6 +94,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             FROM {$wpdb->postmeta} pm
             JOIN {$wpdb->posts} p ON pm.post_id = p.ID
             WHERE pm.meta_key IN ($meta_keys_placeholders)
+            -- AND p.ID = 312  /* SideNav1  */
             -- AND p.ID = 826  /* Page with content layout data  */
             -- AND p.ID = 734  /* _refactorizing-custom-fields */
             -- AND p.ID = 1997  /* Test Dark Theme Implementation */
@@ -146,7 +147,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             }
             // OCE
             if( $page->meta_key == 'offcanvas_element_content' ){
-                $new_blocks_layout_data = $this->migrate_content_layout_data($old_data, $page->meta_key);
+                $new_blocks_layout_data = $this->migrate_content_layout_data($old_data, $page->meta_key, $page->post_id);
                 if($do_the_update) $this->save_in_page_content($page->post_id, $new_blocks_layout_data);
                 $page_control['new_data'] = $new_blocks_layout_data;
             }
@@ -334,7 +335,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         );
     }
 
-    public function migrate_content_layout_data($content_layout_data, $meta_key = '') {
+    public function migrate_content_layout_data($content_layout_data, $meta_key = '', $post_id = 0) {
         // create the arrays to store the final data: builder data, uf datastores and css styles
         $gjs_components = array();
         $gjs_styles = array();
@@ -344,14 +345,44 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         // create a fake uf_component to hold the content layout data
         $fake_component['__type'] = 'components_wrapper';
         $fake_component['blocks_layout'] = $content_layout_data;
+        if ( $meta_key == 'offcanvas_element_content' ) {
+            $fake_component['settings'] = get_post_meta( $post_id, 'offcanvas_element_settings', true );
+        }
 
         // process the fake component
         $processed_component = $this->process_component($fake_component, $css_styles, $gjs_styles);
 
         // set the correct type for the processed component
-        $type = ( $meta_key == 'offcanvas_element_content' ) ? 'components_wrapper' : 'section';
-        $processed_component['uf_component']['__type'] = $type;
-        $processed_component['gjs_component']['type'] = $type;
+        if ( $meta_key == 'offcanvas_element_content' ) {
+            $processed_component['uf_component']['__type'] = 'offcanvas_element';
+            $processed_component['gjs_component']['type'] = 'oce-element';
+
+            $this->migrate_oce_post_meta_to_component( 
+                $processed_component['uf_component'],
+                $processed_component['gjs_component'],
+                $post_id 
+            );
+
+            // move the components inside a modal content
+            // modal content must be inside the oce-element gjs component
+            $processed_component['gjs_component']['components'] = array(
+                array(
+                    'type' => 'oce-modal-content',
+                    'attributes' => array(),
+                    'components' => $processed_component['gjs_component']['components']
+                )
+            );
+            
+            // add an overlay as sibling of the oce element
+            $gjs_components[] = array(
+                'type' => 'oce-overlay',
+                'attributes' => array(),
+                'components' => array()
+            );
+        } else {
+            $processed_component['uf_component']['__type'] = 'section';
+            $processed_component['gjs_component']['type'] = 'comp_section';
+        }
 
         $uf_components[] = $processed_component['uf_component'];
         $gjs_components[] = $processed_component['gjs_component'];
@@ -385,6 +416,43 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             'gjs_styles' => $gjs_styles,
             'styles' => $css_styles
         );
+    }
+
+    public function migrate_oce_post_meta_to_component( &$uf_component, &$gjs_component, $post_id = 0 ) {
+        $slug = 'offcanvas_element';
+        $type = get_post_meta( $post_id, $slug.'_type', true );
+        $uf_component['oce_type'] = $type;
+
+        // migrate oce settings
+        $oce_settings_key = $slug.'_'.$type.'_settings';
+        $old_oce_settings = get_post_meta( $post_id, $oce_settings_key, true );
+        if( isset($old_oce_settings['position']) ) $uf_component['position'] = $old_oce_settings['position'];
+        if( isset($old_oce_settings['dismissible']) ) $uf_component['dismissible'] = $old_oce_settings['dismissible'];
+        if( isset($old_oce_settings['close_on_click']) ) $uf_component['close_on_click'] = $old_oce_settings['close_on_click'];
+        if( isset($old_oce_settings['overlay_color']) ) $uf_component['overlay_color'] = $old_oce_settings['overlay_color'];
+        if( isset($old_oce_settings['max_width']) ) $uf_component['max_width'] = $old_oce_settings['max_width'];
+        if( isset($old_oce_settings['max_height']) ) $uf_component['max_height'] = $old_oce_settings['max_height'];
+
+        // create dynamic content component if needed
+        $content_type = get_post_meta( $post_id, $slug.'_content_type', true );
+        if( $content_type == 'async' ){
+            $__id = $this->generate_id();
+            $gjs_component['components'] = array(
+                array(
+                    'type' => 'oce-dynamic-content',
+                    'attributes' => array(),
+                    'components' => array(),
+                    '__id' => $__id
+                )
+            );
+            $uf_component['components'] = array(
+                array(
+                    '__type' => 'oce_dynamic_content',
+                    '__id' => $__id,
+                    'async_settings' => get_post_meta( $post_id, $slug.'_async_settings', true )
+                )
+            );
+        }
     }
 
     private function process_component($component, &$css_styles, &$gjs_styles) {

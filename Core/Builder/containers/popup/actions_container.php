@@ -50,7 +50,7 @@ Container::create( 'actions_container' )
                 ))->add_dependency('action','toggle-box','='),
     
                 Field::create( 'complex', 'offcanvas_elements_settings' )->hide_label()->rows_layout()->add_fields(array(
-                    Field::create( 'wp_object', 'id' )->add( 'posts','post_type=offcanvas_element' )->set_button_text( __('Select', 'deafult') )->hide_label()
+                    Field::create( 'select', 'id' )->add_posts( 'offcanvas_element' )->hide_label()
                 ))->add_dependency('action','offcanvas-element','='),
             ))
         )

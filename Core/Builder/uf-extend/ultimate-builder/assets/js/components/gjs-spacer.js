@@ -8,7 +8,7 @@ window.gjsSpacer = function (editor) {
             defaults: {
                 name: 'Spacer',
                 tagName: 'div',
-                dropable: false,
+                droppable: false,
                 resizable: {
                     ratioDefault: true,
                     currentUnit: 1,

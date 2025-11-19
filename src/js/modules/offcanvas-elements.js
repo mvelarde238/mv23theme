@@ -3,11 +3,10 @@ window['OffCanvas_Elements'] = (function(){
 
     function Offcanvas_Element( element_data ){
         this.offcanvas_element_id = element_data.id;
+        this.oce_post_id = element_data.post_id;
         this.offcanvas_element = document.querySelector( '#'+this.offcanvas_element_id );
         this.type = element_data.type;
-        this.content_type = element_data.content_type;
         this.trigger_events = element_data.trigger_events || [];
-        this.async_settings = element_data.async_settings;
         this.oce_settings = element_data.oce_settings;
 
         // Bind all private methods
@@ -18,9 +17,9 @@ window['OffCanvas_Elements'] = (function(){
 		}
 
         this.M_instance = null;
-        this.M_instance_options = [];
-        this._handle_async_settings();
-        this._handle_callback_settings();
+        this.M_instance_options = []
+        this._handle_on_open_start_property();
+        // this._handle_callback_settings();
         this._create_the_M_instance();
         if( typeof this.M_instance === "object" ){
             this._handle_styles();
@@ -30,15 +29,25 @@ window['OffCanvas_Elements'] = (function(){
     }
     
     Offcanvas_Element.prototype = {
-        _handle_async_settings(){
-            if( this.content_type == 'async' && typeof this.async_settings == "object" ){
+        _handle_on_open_start_property(){
+            this.M_instance_options.onOpenStart = ()=>{
+                // when the offcanvas is opened i need to check for dynamic content components to load their content
+                let dynamic_content_components = this.offcanvas_element.querySelectorAll('.oce-dynamic-content');
+                dynamic_content_components.length && dynamic_content_components.forEach( component => {
+                    this._handle_async_settings( component, this.M_instance._openingTrigger );
+                });
+            };
+        },
+        _handle_async_settings(component, trigger){
+            let async_settings = component.dataset.settings ? JSON.parse(component.dataset.settings) : {};
+            if( typeof async_settings == "object" && Object.keys(async_settings).length > 0 ){
                 let fetchUrl = []; // in case of page source i need to try in two paths pages/posts
                 let errorMsg = [];
-                let content_source = this.async_settings.content_source;
+                let content_source = async_settings.content_source;
 
                 switch (content_source) {
                     case 'page':
-                        let _page_source = this.async_settings.page_source;
+                        let _page_source = async_settings.page_source;
                         if(_page_source){
                             let contentId = _page_source.replace('post_','');
                             const pageUrl = `${MV23_GLOBALS.homeUrl}/wp-json/wp/v2/pages/${contentId}`;
@@ -52,7 +61,7 @@ window['OffCanvas_Elements'] = (function(){
                         break;
                         
                     case 'url':
-                        let url_source = this.async_settings.url_source;
+                        let url_source = async_settings.url_source;
                         if( url_source != '' ){
                             fetchUrl = [ url_source ];
                             errorMsg = [ 'No se encontró la url' ];
@@ -65,42 +74,36 @@ window['OffCanvas_Elements'] = (function(){
                         break;
                 }
 
-                this.M_instance_options.onOpenStart = ()=>{
-                    const el = this.M_instance.el;
-                    const modal_content = el.querySelector('.modal-content');
-                    if( this.async_settings.clear_on_close ) modal_content.innerHTML = "";
+                if( async_settings.clear_on_close ) component.innerHTML = "";
 
-                    this._check_async_attributes('beforeSend', el);
+                this._check_async_attributes('beforeSend', component, async_settings);
 
-                    if( content_source === 'link' ){
-                        let trigger = this.M_instance._openingTrigger;
-                        let trigger_href = ( typeof trigger == 'object' && trigger.tagName == 'A' ) ? trigger.getAttribute('href') : '';
-                        if( trigger_href != '' ){
-                            fetchUrl = [ trigger_href ];
-                            errorMsg = [ 'No se encontró la url del link' ];
-                        }
+                if( content_source === 'link' ){
+                    let trigger_href = ( typeof trigger == 'object' && trigger.tagName == 'A' ) ? trigger.getAttribute('href') : '';
+                    if( trigger_href != '' ){
+                        fetchUrl = [ trigger_href ];
+                        errorMsg = [ 'No se encontró la url del link' ];
                     }
+                }
 
-                    if( fetchUrl.length > 0 ){
-                        fetch(fetchUrl[0])
-                            .then(response => this._handle_async_response(response))
-                            .then(data => this._handle_async_data(data, el))
-                            .catch(error => {
-                                this._handle_async_error(error, errorMsg[0], el, true)
-                                return fetch(fetchUrl[1])
-                                    .then(response => this._handle_async_response(response))
-                                    .then(data => this._handle_async_data(data, el))
-                                    .catch(error => this._handle_async_error(error, errorMsg[1], el, true));
-                            });
-                    } else {
-                        this._check_async_attributes('error', el);
-                        el.querySelector('.modal-content').innerHTML = `<p class="center-align">Some setting in ${this.offcanvas_element_id} is wrong.<p>`;
-                    }
-                };
+                if( fetchUrl.length > 0 ){
+                    fetch(fetchUrl[0])
+                        .then(response => this._handle_async_response(response, async_settings))
+                        .then(data => this._handle_async_data(data, component, async_settings))
+                        .catch(error => {
+                            this._handle_async_error(error, errorMsg[0], component, true, async_settings);
+                            return fetch(fetchUrl[1])
+                                .then(response => this._handle_async_response(response, async_settings))
+                                .then(data => this._handle_async_data(data, component, async_settings))
+                                .catch(error => this._handle_async_error(error, errorMsg[1], component, true, async_settings));
+                        });
+                } else {
+                    this._check_async_attributes('error', component, async_settings);
+                    component.innerHTML = `<p class="center-align">Some setting in ${this.offcanvas_element_id} is wrong.<p>`;
+                }
             }
         },
-        _check_async_attributes( status, el ){
-            let { async_settings } = this;
+        _check_async_attributes( status, el, async_settings ){
             if( async_settings.attributes.length ){
                 async_settings.attributes.forEach(item => {
                     if(item.status == status) this._assign_attribute(el,item.attribute,item.value);
@@ -126,9 +129,7 @@ window['OffCanvas_Elements'] = (function(){
                 throw new Error('Selector must be id, class or "data-xxx" ');
             }
         },
-        _handle_async_response(response) {
-            let { async_settings } = this;
-
+        _handle_async_response(response, async_settings) {            
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -136,11 +137,10 @@ window['OffCanvas_Elements'] = (function(){
     
             return (content_source == 'page') ? response.json() : response.text();
         },
-        _handle_async_data(data, el) {
-            let { async_settings } = this;
+        _handle_async_data(data, el, async_settings) {
             let content = '';
 
-            this._check_async_attributes('success', el);
+            this._check_async_attributes('success', el, async_settings);
     
             let content_source = async_settings.content_source;
             let load_on_iframe = async_settings.load_on_iframe;
@@ -171,27 +171,24 @@ window['OffCanvas_Elements'] = (function(){
                 }
             }
     
-            el.querySelector('.modal-content').innerHTML = content;
-            
+            el.innerHTML = content;
+            this._maybe_reflow_map_size(this.offcanvas_element);
             this._maybe_init_toggleboxes(el);
         },
-        _handle_async_error(error, msg, el, debug) {
-            this._check_async_attributes('error', el);
+        _handle_async_error(error, msg, el, debug, async_settings) {
+            this._check_async_attributes('error', el, async_settings);
             if(debug) console.log(msg, error);
         },
-        _handle_callback_settings(){
-            let { M_instance_options, offcanvas_element } = this;
+        // _handle_callback_settings(){
+            // let { M_instance_options, offcanvas_element } = this;
 
-            M_instance_options.onOpenStart = ()=>{
-                this._maybe_reflow_map_size(offcanvas_element);
-            };
             // if (typeof this.oce_settings.on_open === 'string' && this.oce_settings.on_open.trim() !== '') {
             //     let callbackFunction = new Function('return ' + this.oce_settings.on_open)();
             //     if (typeof callbackFunction === 'function') {
             //         if( this.oce_settings.on_open ) M_instance_options.onOpenStart = callbackFunction;
             //     }
             // }
-        },
+        // },
         _create_the_M_instance(){
             let { oce_settings, type, M_instance_options, offcanvas_element } = this;
 
@@ -208,18 +205,23 @@ window['OffCanvas_Elements'] = (function(){
         _handle_styles(){
             let { oce_settings, offcanvas_element, M_instance, type } = this;
 
-            if( oce_settings.max_width ) offcanvas_element.style.maxWidth = oce_settings.max_width+'px';
-            if( oce_settings.max_height ) offcanvas_element.style.maxHeight = oce_settings.max_height+'px';
+            if( type === 'modal' || type === 'sidenav' ){
+                if( oce_settings.max_width ) offcanvas_element.style.maxWidth = oce_settings.max_width+'px';
+            }
+
+            if( type === 'bottom_sheet' ){
+                if( oce_settings.max_height ) offcanvas_element.style.maxHeight = oce_settings.max_height+'px';
+            }
                 
             let overlay = ( type === 'sidenav' ) ? M_instance._overlay : M_instance.$overlay[0];
             if( oce_settings.overlay_color.use ) overlay.style.backgroundColor = this._format_color(oce_settings.overlay_color.color, oce_settings.overlay_color.alpha);
-        },
-        _stringIsNumeric(str) {
-            return /^[0-9]+$/.test(str);
-        },
-        _format_padding_value( value ){
-            const formatted_value = ( this._stringIsNumeric(value) ) ? value+'px' : value;
-            return formatted_value;
+
+            if( oce_settings.remove_modal_content_padding ){
+                const modalContent = offcanvas_element.querySelector('.modal-content');
+                if (modalContent) {
+                    modalContent.style.padding = '0';
+                }
+            }
         },
         _format_color( color, alpha ){
             let formated_color = color;
@@ -403,10 +405,10 @@ window['OffCanvas_Elements'] = (function(){
         return instances;
     }
 
-    Offcanvas_Element.getElementById = function( id ){
+    Offcanvas_Element.getElementById = function( postId ){
         let _instance = null;
-        id && Offcanvas_Element.getInstances().forEach( _ins => {
-            if( _ins.offcanvas_element_id == 'offcanvas-element-'+id ){
+        postId && Offcanvas_Element.getInstances().forEach( _ins => {
+            if( _ins.oce_post_id == postId ){
                 _instance = _ins;
             }
         });

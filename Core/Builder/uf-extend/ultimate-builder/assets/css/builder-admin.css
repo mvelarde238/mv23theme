@@ -154,6 +154,7 @@ body.ultimate-builder-editor .notification-dialog{
 /* Increase width for media uploader and others */
 .uf-overlay-box:has([id^="__wp-uploader"]),
 .uf-overlay-box:has(.uf-icon-popup),
+.uf-overlay-box:has(.uf-field-name-async_settings), /* oce dynamic content settings */
 .uf-overlay-box:has(.uf-field-name-animation_name){
     width: 1000px;
 }

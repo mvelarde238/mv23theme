@@ -10,11 +10,23 @@ use Ultimate_Fields\Field;
  * Handles component definitions.
  */
 abstract class Component {
+	/**
+     * Component arguments
+     * @var array
+     */
+    protected static $args = array();
+
     public function __construct( $slug, $name, $args = array() ) {
 		$defaults = array(
-			'add_common_settings' => true
+			'add_common_settings' => true,
+			'common_settings' => array(
+				'settings', 
+				'scroll_animations_settings',
+				'actions_settings'
+			),
 		);
 		$args = wp_parse_args( $args, $defaults );
+		self::$args = $args;
 
 		$component = new Repeater_Group( $slug );
 		$component->set_title( $name );
@@ -106,41 +118,57 @@ abstract class Component {
 		return '<div class="component">'.$args['__type'].'</div>';
 	}
 
+	private static function get_args() {
+		return self::$args;
+	}
+
 	/**
 	 * Adds common setting fields to component
 	 *
 	 * @return Ultimate_Fields\Container\Repeater_Group instance
 	 */
 	protected static function add_common_settings( $component ) {
-		$common_settings_control = Field::create( 'common_settings_control', 'settings' )
-			->set_container( 'common_settings_container' )
-			->set_attr( 'class', 'common-setting-small' )
-			->set_attr( 'style', 'min-width: initial !important;' )
-			->set_add_text( __('Settings', 'mv23theme') )
-			// ->set_icon( 'dashicons-admin-appearance' )
-			->hide_label();
-
-		$components_that_use_layout = array('components_wrapper', 'section');
-		if( !in_array($component->get_id(), $components_that_use_layout) ){
-			$common_settings_control->set_hidden_fields( array('layout') );
-		}
-
-		$component->add_fields(array(
-			$common_settings_control,
-			Field::create( 'common_settings_control', 'scroll_animations_settings' )
+		$commmon_settings = array(
+			'settings' => Field::create( 'common_settings_control', 'settings' )
+				->set_container( 'common_settings_container' )
+				->set_attr( 'class', 'common-setting-small' )
+				->set_attr( 'style', 'min-width: initial !important;' )
+				->set_add_text( __('Settings', 'mv23theme') )
+				->hide_label(),
+			'scroll_animations_settings' => Field::create( 'common_settings_control', 'scroll_animations_settings' )
 				->set_container( 'scroll_animations_container' )
 				->set_attr( 'class', 'common-setting-small' )
 				->set_attr( 'style', 'min-width: initial !important;' )
 				->set_add_text( __('Scroll Animations', 'mv23theme') )
 				->hide_label(),
-			Field::create( 'common_settings_control', 'actions_settings' )
+			'actions_settings' => Field::create( 'common_settings_control', 'actions_settings' )
 				->set_container( 'actions_container' )
 				->set_attr( 'class', 'common-setting-small' )
 				->set_attr( 'style', 'min-width: initial !important;' )
 				->set_add_text( __('Actions', 'mv23theme') )
 				->hide_label()
-		));
-		 
+		);
+
+		$commmon_settings_fields = array();
+		$component_args = static::get_args();
+		$components_that_use_layout = array('components_wrapper', 'section');
+		foreach( $component_args['common_settings'] as $setting_key ) {
+			if( isset( $commmon_settings[ $setting_key ] ) ) {
+				$common_settings_control = $commmon_settings[ $setting_key ];
+
+				// set hidden fields for some components
+				if( !in_array($component->get_id(), $components_that_use_layout) ){
+					$common_settings_control->set_hidden_fields( array('layout') );
+				}		
+				if( $component->get_id() === 'offcanvas_element' ) {
+					$common_settings_control->set_hidden_fields( array('helpers','visibility','hide_on','layout') );
+				}
+
+				$commmon_settings_fields[] = $common_settings_control;
+			}
+		}
+
+		$component->add_fields( $commmon_settings_fields );
 		return $component;
 	}
 }

@@ -1,25 +1,39 @@
 TODO:
 /////////////////////////////////////////////////////////////////////////////////////// PRIMERA ETAPA, READY!!!
-/////////////////////////////////////////////////////////////////////////////////////// SEGUNDA ETAPA
-* implement migrator (if something cant be migrated, just let it be)
-    - settings -> styles
-    - flip box
-        front/back_content['blocks_layout'] -> components
-        front/back_settings -> styles
-        front/back_justify_content -> styles: justify-front
-        front/back_align_items -> styles: align-items
+/////////////////////////////////////////////////////////////////////////////////////// SEGUNDA ETAPA, READY!!!
+/////////////////////////////////////////////////////////////////////////////////////// TERCERA ETAPA, READY!!!
+/////////////////////////////////////////////////////////////////////////////////////// CUARTA ETAPA, READY!!!
+/////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA
 
-* remove unnecesary fields:
-    - general: styles
-    - row: columns_layout, row_settings (?)
-    - accordion: layout in items
-    - flip box: layouts, alignment
+* on add components show something: text editor: lorem.., heading: Ima heading, etc
 
-/////////////////////////////////////////////////////////////////////////////////////// TERCERA ETAPA
-* render components on builder with backbone templates (?)
-* builder with react -> personalizar: spots, etc
-* create php component for: container/body (?)
-* how to handle the default Text->textnode component ?
-* migrate actions to a link component?
-* Implement Post Lock Dialog -> check mambo builder plugin
-* Make toast for this message: Your data is now saved.
+* MIGRATE ALL!!!
+    * implement builder on: 
+        * page header -> migrate to a component?
+        * page/post-with-content-layout-data -> migrate in another process
+
+* CHECK BUGS
+    * gjs-row-and-cols plugin: column > display: flex breaks the layout
+    * scroll animation are working "buggy"
+    * uf field map: check why model dosnt change after a search
+    * extend-bg-to-left/right not working because style not applied inline
+    * leaflet map not working on editor
+
+* CUSTOMIZE EDITOR
+    * add a loader when loading the builder
+    * hide the ui that allow adding classes to components
+    * wp actions: go back to admin, view on frontend, close builder interface
+    * bug: on change style manager tab, the styles fields disappear
+    * open datastore on context menu
+    * current process: create new page -> go to builder: desired process: go direct to builder
+    * Implement Post Lock Dialog -> check mambo builder plugin
+
+/////////////////////////////////////////////////////////////////////////////////////// SEXTA ETAPA
+
+* CUSTOMIZE EDITOR
+    * add tooltip to topbar(?) buttons: save, undo, console, etc, style manager, components, etc
+    * copy paste components between pages
+    * create a gjs-canvas-spots plugin that handle padding, margin, border-radius
+    * builder with react -> personalizar fields of style manager
+    * how to handle the default Text->textnode component ?
+    * ajaxified components are "dirty": gallery, menu, reusable_section(?)

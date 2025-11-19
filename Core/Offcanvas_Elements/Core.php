@@ -112,15 +112,38 @@ class Core{
         foreach ( $posts as $post_id ) {
             $is_restricted = $this->check_the_restrictions($post_id);
             if(!$is_restricted){
-                $type = get_post_meta( $post_id, $this->slug.'_type', true );
-                $content_type = get_post_meta( $post_id, $this->slug.'_content_type', true );
-                $content = ( $content_type == 'async' ) ? null : $post_id;
-    
-                $kebab_cased_slug = str_replace('_','-',$this->slug);
-                $settings = get_post_meta( $post_id, $this->slug.'_settings', true );
-                if( !is_array($settings) ) $settings = array();
+                $uf_component = null;
+                $page_content = get_post_meta( $post_id, 'page_content_components', true );
+                if (is_array($page_content)) :
+		        	// wrapper > components > container > components:
+		        	$container_components = $page_content[0]['components'][0]['components'] ?? [];
+		        	if (is_array($container_components) && !empty($container_components)) :
+		        		foreach ($container_components as $component) :
+                            if ( $component['__type'] === 'offcanvas_element' ) {
+                                $uf_component = $component;
+                                break; // Exit the loop once we find the oce-element
+                            }
+		        		endforeach;
+		        	endif;
+		        else: 
+		        	return '';
+		        endif;
 
-                if( isset($settings['id']) && $settings['id'] != '' ) {
+                if ( !$uf_component ) {
+                    continue; // Skip to the next post if no oce-element component is found
+                }
+
+                $type = $uf_component['oce_type'];
+                $content = $uf_component['components'] ?? [];
+                $styles = get_post_meta( $post_id, 'page_content_styles', true );
+                $settings = $uf_component['settings'] ?? array();
+                if( !is_array( $settings ) ) $settings = array();
+                
+                $kebab_cased_slug = str_replace('_','-',$this->slug);
+                if( isset($uf_component['__gjsAttributes']) && isset($uf_component['__gjsAttributes']['id']) ) {
+                    $element_id = $uf_component['__gjsAttributes']['id'];
+                }
+                elseif( isset($settings['id']) && $settings['id'] != '' ) {
                     $element_id = $settings['id'];
                 } else {
                     $element_id = $kebab_cased_slug.'-'.$post_id;
@@ -131,21 +154,29 @@ class Core{
                 if( $type === 'bottom_sheet' ) $element_classes[] = 'modal';
     
                 $trigger_events = get_post_meta( $post_id, $this->slug.'_trigger_events', true );
-                $async_settings = get_post_meta( $post_id, $this->slug.'_async_settings', true );
-                $oce_settings = get_post_meta( $post_id, $this->slug.'_'.$type.'_settings', true );
+                $oce_settings = array(
+                    'position' => $uf_component['position'] ?? '',
+                    'dismissible' => $uf_component['dismissible'] ?? true,
+                    'close_on_click' => $uf_component['close_on_click'] ?? true,
+                    'max_width' => $uf_component['max_width'] ?? '',
+                    'max_height' => $uf_component['max_height'] ?? '',
+                    'overlay_color' => $uf_component['overlay_color'] ?? [],
+                    'remove_modal_content_padding' => $uf_component['remove_modal_content_padding'] ?? false,
+                );
 
                 $this->elements[] = array(
                     'id' => $element_id,
+                    'post_id' => $post_id,
                     'is_restricted' => $is_restricted,
                     'title' => get_the_title($post_id),
                     'additional_classes' => $element_classes,
                     'type' => $type,
                     'content' => $content,
-                    'content_type' => $content_type,
+                    'styles' => $styles,
                     'oce_settings' => $oce_settings,
-                    'async_settings' => $async_settings,
                     'trigger_events' => $trigger_events,
-                    'settings' => $settings
+                    'settings' => $settings,
+                    '__gjsAttributes' => array( 'id' => $element_id )
                 );
             }
         }
@@ -157,44 +188,27 @@ class Core{
 
     function print_elements(){
         foreach ( $this->get_elements() as $element_args ) { 
-
-            $modal_content_args = array();
-            if (array_key_exists('padding', $element_args['settings'])) {
-                $modal_content_args['settings']['padding'] = $element_args['settings']['padding'];
-            }
-            unset($element_args['settings']['padding']);
             $attributes = Template_Engine::generate_attributes( $element_args );
-            $content_attributes = Template_Engine::generate_attributes( $modal_content_args );
+
+            if( !empty( $element_args['styles'] ) ) {
+                echo '<style>'.$element_args['styles'].'</style>';
+            }
 
             echo '<div '.$attributes.'>';
-            echo '<div class="modal-content" '.$content_attributes.'>';
+            echo '<div class="modal-content">';
             if($element_args['content']){
-                $page = new Page();
-		        $page_content = $page->the_content( $element_args['content'] );
-                echo $page_content;
+                foreach ( $element_args['content'] as $component ) :
+                    echo Template_Engine::getInstance()->handle( $component['__type'], $component );
+                endforeach;
             } 
             echo '</div>';
+
             if( $element_args['type'] === 'sidenav' ){
                 echo '<a href="#!" class="sidenav-close"></a>';
             } else {
                 if( $element_args['oce_settings']['dismissible'] ) echo '<a href="#!" class="modal-close"></a>';
             }
             echo '</div>';
-        }
-    }
-
-    /**
-     * Delete the post meta that is not related to the element type selected
-     */
-    public function handle_save_post_hook( $post_id, $post, $update ){
-        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
-
-        if ( get_post_type( $post_id ) !== $this->slug ) return;
-
-        $type = get_post_meta( $post_id, $this->slug.'_type', true );
-        $types = array( 'modal','sidenav','bottom_sheet' );
-        foreach ($types as $t) {
-            if( $t != $type ) delete_post_meta( $post_id, $this->slug.'_'.$t.'_settings' );
         }
     }
 }
