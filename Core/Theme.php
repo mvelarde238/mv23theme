@@ -70,6 +70,7 @@ class Theme extends Theme_Header_Data {
         // Filter body class and style
         $this->loader->add_filter( 'body_class', $frontend, 'body_class');
         $this->loader->add_action( 'body_style', $frontend, 'body_style');
+        $this->loader->add_action( 'body_id', $frontend, 'body_id');
 
         // Responsive video
         $this->loader->add_filter( 'embed_oembed_html', $frontend, 'responsive_video', 10, 4 ); 

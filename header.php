@@ -11,7 +11,7 @@
 		<?php $head_scripts = get_option( 'head_scripts' ); ?>
   		<?php if ($head_scripts) echo $head_scripts; ?>
 	</head>
-	<body <?php body_class(); ?> <?php do_action('body_style'); ?>>
+	<body <?php do_action('body_id'); ?> <?php body_class(); ?> <?php do_action('body_style'); ?>>
 		<?php if ( function_exists( 'wp_body_open' ) ) { wp_body_open(); } ?>
 		<div class="global-wrapper">
 			<?php get_template_part('partials/header'); ?>

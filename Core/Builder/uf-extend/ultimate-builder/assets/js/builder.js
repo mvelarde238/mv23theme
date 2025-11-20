@@ -55,7 +55,8 @@
                     'offcanvas_element': { render: false },
                     'oce_modal_content': { render: false },
                     'oce_dynamic_content': { render: false },
-                    'hero_section': { type: 'hero-section', category: 'Structure'}
+                    'hero_section': { type: 'hero-section', category: 'Structure'},
+                    'page': { render: false }
                 },
                 // Temporarily store datastores and models for each component
                 temporalCompStore: {},
@@ -172,6 +173,7 @@
             componentTypes['oce-dynamic-content'] = { group: 'oce_dynamic_content' };
             componentTypes['oce-modal-content'] = { group: 'oce_modal_content' };
             componentTypes['hero-section'] = { group: 'hero_section' };
+            componentTypes['wrapper'] = { group: 'page' };
 
             return componentTypes;
         },

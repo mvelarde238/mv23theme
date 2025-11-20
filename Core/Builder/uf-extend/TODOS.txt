@@ -5,10 +5,8 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// CUARTA ETAPA, READY!!!
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA
 
-* MIGRATE ALL!!!
-    * create a component that stores changes on body, maybe migrate some page_settigs here
-
 * CHECK BUGS
+    * [gjs][attr][id]issaperar if save
     * gjs-row-and-cols plugin: column > display: flex breaks the layout
     * scroll animation are working "buggy"
     * uf field map: check why model dosnt change after a search
@@ -19,6 +17,7 @@ TODO:
 * CUSTOMIZE EDITOR
     * add a loader when loading the builder
     * hide the ui that allow adding classes to components
+    * show header on builder mode with ajax
     * wp actions: go back to admin, view on frontend, close builder interface
     * bug: on change style manager tab, the styles fields disappear
     * open datastore on context menu

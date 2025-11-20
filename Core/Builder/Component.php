@@ -160,8 +160,11 @@ abstract class Component {
 				if( !in_array($component->get_id(), $components_that_use_layout) ){
 					$common_settings_control->set_hidden_fields( array('layout') );
 				}		
-				if( $component->get_id() === 'offcanvas_element' ) {
+				if( $component->get_id() === 'offcanvas_element' ){
 					$common_settings_control->set_hidden_fields( array('helpers','visibility','hide_on','layout') );
+				}
+				if( $component->get_id() === 'page' ){
+					$common_settings_control->set_hidden_fields( array('helpers','visibility','hide_on','layout','video_background', 'slider_background') );
 				}
 
 				$commmon_settings_fields[] = $common_settings_control;

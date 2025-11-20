@@ -48,7 +48,8 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         'gallery' => 'gallery',
         'menu' => 'menu',
         'reusable_section' => 'reusable-section',
-        'spacer' => 'spacer'
+        'spacer' => 'spacer',
+        'page' => 'wrapper'
     );
 
     private $private_classes = array(
@@ -174,44 +175,60 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
     public function save_in_page_content( $post_id, $new_data ){
         $container_id = $this->generate_id();
+        $gjs_styles = $new_data['gjs_styles'];
+        $css_styles = $new_data['styles'];
+
+        $fake_page_component = array(
+            '__type' => 'page',
+            'stylable' => [
+                "background",
+                "background-color",
+                "background-image",
+                "background-repeat",
+                "background-attachment",
+                "background-position",
+                "background-size"
+            ],
+            'head' => array( 'type' => 'head' ),
+            'docEl' => array( 'tagName' => 'html' )
+        );
+
+        $this->migrate_page_settings_to_page_component( $post_id, $fake_page_component );
+
+        $processed_page = $this->process_component($fake_page_component, $css_styles, $gjs_styles);
+
+        $uf_wrapper = $processed_page['uf_component'];
+        $gjs_wrapper = $processed_page['gjs_component'];
+        
+        $gjs_wrapper['components'] = array(
+            array(
+                'type' => 'container',
+                'classes' => array('container'),
+                'attributes' => array(),
+                'components' => $new_data['gjs_components'],
+                '__id' => $container_id
+            )
+        );
+
+        $uf_wrapper['components'] = array(
+            array(
+                '__type' => 'container',
+                '__id' => $container_id,
+                'components' => $new_data['uf_components']
+            )
+        );
 
         $page_content = array(
             'gjs_data' => array(
                 'dataSources' => array(),
                 'assets' => array(),
-                'styles' => $new_data['gjs_styles'],
+                'styles' => $gjs_styles,
                 'pages' => array(
                     array(
                         'frames' => array(
                             array(
                                 'id' => substr( md5( uniqid() ), 0, 16 ),
-                                'component' => array(
-                                    'type' => 'wrapper',
-                                    'stylable' => [
-                                        "background",
-                                        "background-color",
-                                        "background-image",
-                                        "background-repeat",
-                                        "background-attachment",
-                                        "background-position",
-                                        "background-size"
-                                    ],
-                                    'attributes' => array(
-                                        'id' => 'iwuh'
-                                    ),
-                                    'components' => array(
-                                        array(
-                                            'type' => 'container',
-                                            'classes' => array('container'),
-                                            'attributes' => array(),
-                                            'components' => $new_data['gjs_components'],
-                                            '__id' => $container_id
-                                        )
-                                    ),
-                                    'head' => array( 'type' => 'head' ),
-                                    'docEl' => array( 'tagName' => 'html' ),
-                                    '__id' => 'iwuh'
-                                )        
+                                'component' => $gjs_wrapper
                             )
                         ),
                         'type' => 'main',
@@ -222,19 +239,9 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 'symbols' => array()
             ),
             'components' => array(
-                array(
-                    '__type' => 'wrapper',
-                    '__id' => 'iwuh',
-                    'components' => array(
-                        array(
-                            '__type' => 'container',
-                            '__id' => $container_id,
-                            'components' => $new_data['uf_components']
-                        )
-                    )
-                )
+                $uf_wrapper
             ),
-            'styles' => $new_data['styles']
+            'styles' => $css_styles
         );
 
         update_post_meta( $post_id, 'page_content', $page_content['gjs_data'] );
@@ -463,6 +470,42 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         }
 
         array_unshift( $page_modules_data, $header_module );
+    }
+
+    public function migrate_page_settings_to_page_component( $post_id, &$page_component ) {
+        $page_bgc = get_post_meta( $post_id, 'page_bgc', true );
+        if( !is_array( $page_bgc ) ) return $page_component;
+        
+        $settings = array();
+        if( $page_bgc['add_bgc'] ){
+            $settings['background_color'] = array(
+                'use' => $page_bgc['add_bgc'],
+                'color' => $page_bgc['bgc'],
+                'alpha' => 100
+            );
+        } 
+        $page_color_scheme = get_post_meta( $post_id, 'page_color_scheme', true );
+        if( !empty( $page_color_scheme ) && $page_color_scheme == 'dark-scheme' ){
+            $settings['font_color'] = array(
+                'use' => 1, 'color' => '',
+                'color_scheme' => 'dark_scheme'
+            );
+        }
+        if( !empty( $settings ) ){
+            $page_component['settings'] = $settings;
+        }
+
+        $page_component['remove_padding_top'] = get_post_meta( $post_id, 'remove_body_padding_top', true );
+
+        $other_meta = ['hide_static_header','hide_static_header_logo','custom_static_header','custom_static_header_logo','static_header_bgc','static_header_color_scheme','hide_sticky_header_logo','custom_sticky_header','custom_sticky_header_logo','sticky_header_bgc','sticky_header_color_scheme'];
+        foreach( $other_meta as $om ){
+            $value = get_post_meta( $post_id, $om, true );
+            if( !empty( $value ) ){
+                $page_component[$om] = $value;
+            }
+        }
+
+        return $page_component;
     }
 
     private function process_component($component, &$css_styles, &$gjs_styles) {

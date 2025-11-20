@@ -11,6 +11,7 @@ use Core\Frontend\Page;
 use Core\Frontend\Header;
 use Core\Theme_Options\Theme_Options;
 use Core\Builder\Template_Engine\Scroll_Animations;
+use Core\Builder\Template_Engine\Id;
 
 class Frontend extends Theme_Header_Data {
 
@@ -152,15 +153,16 @@ class Frontend extends Theme_Header_Data {
 
     public function body_class( $classes ) {
         $page = new Page();
-    
-        $page_color_scheme = get_metadata($page->get_type(), $page->get_id(),'page_color_scheme', true);
-        if ( $page_color_scheme && $page_color_scheme == 'dark-scheme' ) $classes[] = 'text-color-2';
-    
-        $hide_static_header = get_metadata($page->get_type(), $page->get_id(),'hide_static_header', true);
-        if ( $hide_static_header ) $classes[] = 'hide-static-header';
-    
-        $hide_sticky_header = get_metadata($page->get_type(), $page->get_id(),'hide_sticky_header', true);
-        if ( $hide_sticky_header ) $classes[] = 'hide-sticky-header';
+        $page_content_components = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content_components', true) : null;
+        if( is_array($page_content_components) ) {
+            $page_component = $page_content_components[0];
+
+            $hide_static_header = $page_component['hide_static_header'] ?? false;
+            if ( $hide_static_header ) $classes[] = 'hide-static-header';
+
+            $hide_sticky_header = $page_component['hide_sticky_header'] ?? false;
+            if ( $hide_sticky_header ) $classes[] = 'hide-sticky-header';
+        }
     
         $disable_comments_styles = get_option( 'disable_comments_styles' );
         if ( $disable_comments_styles ) $classes[] = 'disable-comments-styles';
@@ -168,33 +170,40 @@ class Frontend extends Theme_Header_Data {
         return $classes;
     }
 
-    public function body_style(){
+    public function body_id(){
         $page = new Page();
-        $style = '';
-        
-        $page_bgc = get_metadata($page->get_type(), $page->get_id(),'page_bgc', true);
-        
-        if ( is_array($page_bgc) && array_key_exists('add_bgc', $page_bgc) ) {
-            $style .= ($page_bgc['add_bgc']) ? 'background-color: '.$page_bgc['bgc'].';' : '';
+        $id = null;
+
+        $page_content_components = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content_components', true) : null;
+        if( is_array($page_content_components) ) {
+            $page_component = $page_content_components[0];
+            $id = Id::get_id( $page_component );
         }
 
-        $remove_body_padding_top = get_metadata($page->get_type(), $page->get_id(), 'remove_body_padding_top', true);
-        if( $remove_body_padding_top ){
-            $style .= 'padding-top:0px;';
-        }
-    
-        if (!empty($style)) {
-            $style = 'style="'.$style.'"';		
+        echo ($id) ? 'id="'.$id.'"' : '';
+    }
+
+    public function body_style(){
+        $page = new Page();
+        $styles = [];
+
+        $page_content_components = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content_components', true) : null;
+        if( is_array($page_content_components) ) {
+            $page_component = $page_content_components[0];
+            $remove_padding_top = $page_component['remove_padding_top'] ?? false;
+            if( $remove_padding_top ){
+                $styles[] = 'padding-top:0px;';
+            }
         }
 
         if( SCROLL_ANIMATIONS ){
             $global_animations = get_option('global_animations');
             if( !empty($global_animations) ){
-                $style .= ' '.Scroll_Animations::get_attribute( $global_animations );
+                $styles[] = Scroll_Animations::get_attribute( $global_animations );
             } 
         }
 
-        echo $style;
+        echo (!empty($styles)) ? 'style="'.implode(' ', $styles).'"' : '';
     }
 
     public function archive_title_meta_tag($title){
