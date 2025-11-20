@@ -21,6 +21,39 @@ class Admin extends Theme_Header_Data {
         parent::__construct();
     }
     
+    /**
+     * Sanitize post object before revision change detection
+     * This runs immediately before the foreach loop that calls normalize_whitespace
+     * By sanitizing the $post and $latest_revision objects here, we prevent array values from reaching normalize_whitespace
+     * 
+     * @param bool $check_for_changes Whether to check for changes
+     * @param WP_Post $latest_revision The latest revision post object
+     * @param WP_Post $post The current post object (passed by reference)
+     * @return bool Original value
+     */
+    public function sanitize_post_before_revision_check( $check_for_changes, $latest_revision, $post ) {
+        // Get all revisioned fields
+        $fields = array_keys( _wp_post_revision_fields( $post ) );
+        
+        // Sanitize each field in the current post
+        foreach ( $fields as $field ) {
+            if ( isset( $post->$field ) && is_array( $post->$field ) ) {
+                $post->$field = '';
+            }
+        }
+        
+        // Sanitize each field in the latest revision
+        if ( $latest_revision ) {
+            foreach ( $fields as $field ) {
+                if ( isset( $latest_revision->$field ) && is_array( $latest_revision->$field ) ) {
+                    $latest_revision->$field = '';
+                }
+            }
+        }
+        
+        return $check_for_changes;
+    }
+    
     public function enqueue_scripts( $page ) {
         // if( $page == 'post.php' ) 
 

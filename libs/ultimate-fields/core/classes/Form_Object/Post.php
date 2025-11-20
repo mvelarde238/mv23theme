@@ -115,7 +115,16 @@ class Post extends Form_Object {
 			if( ! isset( $fields[ $source ] ) )
 				continue;
 
-			$data[ $target ] = $store[ $source ];
+			$value = $store[ $source ];
+			
+			// CRITICAL FIX: Skip post_content entirely if it's an array
+			// Builder pages store content in meta fields, not in post_content column
+			// Trying to save array to post_content causes revision errors
+			if( $target === 'post_content' && is_array( $value ) ) {
+				continue; // Skip this field entirely
+			}
+			
+			$data[ $target ] = $value;
 		}
 
 		# If there is an existing item, use its id

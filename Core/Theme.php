@@ -117,6 +117,10 @@ class Theme extends Theme_Header_Data {
     private function define_admin_hooks() {	
         $admin = new Admin();
 
+        // CRITICAL FIX: Sanitize post fields before revision processing
+        // This prevents arrays from being passed to normalize_whitespace()
+        $this->loader->add_filter( 'wp_save_post_revision_check_for_changes', $admin, 'sanitize_post_before_revision_check', 1, 3 );
+
         // Enqueue styles and scripts.
         $this->loader->add_action( 'admin_head', $admin, 'enqueue_scripts' );
 
