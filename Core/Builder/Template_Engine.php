@@ -7,6 +7,7 @@ use Core\Builder\Template_Engine\Actions;
 use Core\Builder\Template_Engine\Classes;
 use Core\Builder\Template_Engine\Video;
 use Core\Builder\Template_Engine\Scroll_Animations;
+use Core\Frontend\Page;
 
 class Template_Engine{
 	private static $instance = null;
@@ -148,5 +149,22 @@ class Template_Engine{
 	    if ($visibility == 'user_is_not_logged_in' && is_user_logged_in()) $is_private = true;
     
         return $is_private;
+    }
+
+    public static function handle_placeholders( $content ){
+        $page = new Page();
+        $page_id = $page->get_id();
+
+        $placeholders = array(
+            '{{page_title}}' => get_the_title($page_id),
+            '{{site_title}}' => get_bloginfo( 'name' ),
+            '{{site_tagline}}' => get_bloginfo( 'description' ),
+            '{{site_url}}' => home_url( '/' ),
+            '{{current_year}}' => date('Y'),
+        );
+
+        $content = str_replace( array_keys($placeholders), array_values($placeholders), $content );
+
+        return $content;
     }
 }

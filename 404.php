@@ -1,7 +1,6 @@
 <?php get_header(); ?>
 
 <div id="content">
-	<?php get_template_part('partials/page-header'); ?>
 	<div id="main-content" class="container">
 		<main class="main">
 			<article <?php post_class( 'main-content' ); ?>>

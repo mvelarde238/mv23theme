@@ -29,49 +29,23 @@
 @import "modulos/global";
 @import "modulos/grid";
 @import "modulos/header";
-@import "modulos/megamenu/megamenu";
-@import "modulos/megamenu/dynamic-megamenu";
 @import "modulos/main";
 @import "modulos/page-header";
 @import "modulos/pagination";
 @import "modulos/viewer";
-@import "modulos/postcards/postcard";
-@import "modulos/postcards/postcard-2";
-@import "modulos/postcards/postcard-3";
-@import "modulos/postcards/postcard-4";
 @import "modulos/posts-filter";
 @import "modulos/searchform";
 @import "modulos/subir-btn";
-@import "modulos/template";
-@import "modulos/search-result";
-@import "modulos/tns-slider/navigation";
-@import "modulos/tns-slider/controls";
-@import "modulos/tns-slider/theme";
 @import "modulos/scroll";
-@import "modulos/special-title-1";
-@import "modulos/special-title-2";
-@import "modulos/special-title-3";
-@import "modulos/special-title-4";
 @import "modulos/special-list-1";
 @import "modulos/theme-list";
 @import "modulos/sidebar";
-@import "modulos/togglebox/global";
-@import "modulos/togglebox/tab-style-1";
-@import "modulos/togglebox/tab-style-2";
-@import "modulos/togglebox/accordion-style-1";
 @import "modulos/table";
 @import "modulos/rrss-module";
 @import "modulos/modal";
 @import "modulos/minicart";
 @import "modulos/widget-shopping-cart";
 @import "modulos/modal-close";
-@import "modulos/menus/global";
-@import "modulos/menus/horizontal1";
-@import "modulos/menus/horizontal2";
-@import "modulos/menus/horizontal3";
-@import "modulos/menus/horizontal4";
-@import "modulos/menus/vertical1";
-@import "modulos/menus/adaptive-navbar";
 @import "modulos/social-share";
 @import "modulos/lang-switcher";
 @import "modulos/slider-background";
@@ -81,10 +55,42 @@
 @import "modulos/pages/global";
 @import "modulos/pages/single-post";
 @import "modulos/pages/single-document";
+@import "modulos/pages/template";
+
+@import "modulos/menus/global";
+@import "modulos/menus/horizontal1";
+@import "modulos/menus/horizontal2";
+@import "modulos/menus/horizontal3";
+@import "modulos/menus/horizontal4";
+@import "modulos/menus/vertical1";
+@import "modulos/menus/adaptive-navbar";
+
+@import "modulos/togglebox/global";
+@import "modulos/togglebox/tab-style-1";
+@import "modulos/togglebox/tab-style-2";
+@import "modulos/togglebox/accordion-style-1";
 
 @import "plugins/contact-form-7";
 @import "plugins/theme-my-login";
 @import "plugins/woocommerce";
+
+@import "modulos/postcards/postcard";
+@import "modulos/postcards/postcard-2";
+@import "modulos/postcards/postcard-3";
+@import "modulos/postcards/postcard-4";
+@import "modulos/postcards/search-result";
+
+@import "modulos/tns-slider/navigation";
+@import "modulos/tns-slider/controls";
+@import "modulos/tns-slider/theme";
+
+@import "modulos/special-titles/special-title-1";
+@import "modulos/special-titles/special-title-2";
+@import "modulos/special-titles/special-title-3";
+@import "modulos/special-titles/special-title-4";
+
+@import "modulos/megamenu/megamenu";
+@import "modulos/megamenu/dynamic-megamenu";
 
 @import "ultimate-fields/global";
 @import "ultimate-fields/components/columns";

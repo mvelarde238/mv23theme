@@ -61,6 +61,7 @@ class Core{
             'OCE_Modal_Content',
             'OCE_Dynamic_Content',
             'Offcanvas_Element',
+            // 'Hero_Section',
             'Section'
         )
     );
@@ -87,7 +88,6 @@ class Core{
     }
 
     public function add_meta_boxes(){
-        require_once( BUILDER_DIR.'/containers/page-header.php' );
         require_once( BUILDER_DIR.'/containers/page-content.php' );
         require_once( BUILDER_DIR.'/containers/content-blocks.php' );
         require_once( BUILDER_DIR.'/containers/page-settings.php' );

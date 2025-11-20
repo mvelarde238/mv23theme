@@ -15,12 +15,7 @@ window.gjsMenu = function (editor) {
                 tagName: 'div',
                 attributes: {
                     class: compClass,
-                },
-                styles: `
-                    .menu * {
-                        pointer-events: none;
-                    }
-                `,
+                }
             },
         },
         view: {

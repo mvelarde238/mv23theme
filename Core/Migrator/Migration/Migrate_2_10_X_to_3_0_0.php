@@ -78,7 +78,8 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $is_top_level = true;
         $meta_keys = array(
             'page_modules',
-            // 'components',
+            'components',
+            'blocks_layout',
             'offcanvas_element_content'
         );
         
@@ -135,6 +136,9 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
             // page_modules
             if( $page->meta_key == 'page_modules' ){
+
+                $this->transform_page_header_to_page_module( $old_data, $page->post_id );
+
                 $new_data = $this->migrate_page_modules_data($old_data);
                 if($do_the_update) $this->save_in_page_content($page->post_id, $new_data);
                 $page_control['new_data'] = $new_data;
@@ -152,29 +156,12 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 $page_control['new_data'] = $new_blocks_layout_data;
             }
 
-            // PAGES WITH BLOCKS LAYOUT (HAVE columns COMP)
-            // if( $page->meta_key == 'blocks_layout' ){
-            //     $new_blocks_layout_data = $this->migrate_content_layout_data($old_data);
-
-            //     $page_content = get_post_meta( $page->post_id, 'page_content', true );
-            //     if( empty($page_content) ){
-            //         if($do_the_update){
-            //             $this->save_in_page_content($page->post_id, $new_blocks_layout_data);
-            //         } 
-            //     } else{
-            //         if($do_the_update){
-            //             $this->append_to_page_content($page->post_id, $new_blocks_layout_data);
-            //         }    
-            //     }
-
-            //     $page_control['new_data'] = $new_blocks_layout_data;
-            // }
-
-            // if( $page->meta_key == 'page_header_settings' ){
-            //     $new_page_header_settings_data = $this->custom_migrate_settings_data($old_data);
-            //     if($do_the_update) update_post_meta($page->post_id, 'page_header_settings', $new_page_header_settings_data);
-            //     $page_control['new_data'] = $new_page_header_settings_data;
-            // }
+            // PAGES WITH BLOCKS LAYOUT (posttypes)
+            if( $page->meta_key == 'blocks_layout' ){
+                $new_blocks_layout_data = $this->migrate_content_layout_data($old_data);
+                if($do_the_update) $this->save_in_page_content($page->post_id, $new_blocks_layout_data);
+                $page_control['new_data'] = $new_blocks_layout_data;
+            }
 
             $general_control[] = $page_control;
         }
@@ -253,30 +240,6 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         update_post_meta( $post_id, 'page_content', $page_content['gjs_data'] );
         update_post_meta( $post_id, 'page_content_components', $page_content['components'] );
         update_post_meta( $post_id, 'page_content_styles', $page_content['styles'] );
-    }
-
-    public function append_to_page_content( $post_id, $new_data ){
-        $existing_gjs_data = get_post_meta( $post_id, 'page_content', true );
-        $existing_components = get_post_meta( $post_id, 'page_content_components', true );
-        $existing_styles = get_post_meta( $post_id, 'page_content_styles', true );
-
-        // Append new data
-        $existing_gjs_data['pages'][0]['frames'][0]['component']['components'] = array_merge(
-            $existing_gjs_data['pages'][0]['frames'][0]['component']['components'],
-            $new_data['gjs_components']
-        );
-
-        $existing_components[0]['components'] = array_merge(
-            $existing_components[0]['components'],
-            $new_data['uf_components']
-        );
-
-        $existing_styles .= $new_data['styles'];
-
-        // Update post meta
-        update_post_meta( $post_id, 'page_content', $existing_gjs_data );
-        update_post_meta( $post_id, 'page_content_components', $existing_components );
-        update_post_meta( $post_id, 'page_content_styles', $existing_styles );
     }
 
     public function migrate_page_modules_data($page_modules_data) {
@@ -453,6 +416,53 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 )
             );
         }
+    }
+
+    public function transform_page_header_to_page_module( &$page_modules_data, $post_id ) {
+        $page_header_content_type = get_post_meta( $post_id, 'page_header_content_type', true );
+        if( empty($page_header_content_type) ) return;
+        if( $page_header_content_type == 'none' ) return;
+
+        $page_header_settings = get_post_meta( $post_id, 'page_header_settings', true );
+        
+        $header_module = array(
+            '__type' => 'page_module',
+            'settings' => $page_header_settings,
+            'components' => array()
+        );
+
+        // create the content component according to the content type
+        if( $page_header_content_type == 'default' ){
+            $header_module['components'][] = array(
+                '__type' => 'heading',
+                'heading' => array(
+                    'content' => '{{page_title}}',
+                    'html_tag' => 'h1',
+                    'settings' => array()
+                ),
+                'text_align' => 'center',
+                'add_tagline' => false,
+                'preset' => 'style1',
+                'highlighted_element' => 'heading',
+                'settings' => array()
+            );
+        } elseif( $page_header_content_type == 'slider' ){
+            $page_header_slider = get_post_meta( $post_id, 'page_header_slider', true );
+
+            $header_module['components'][] = array(
+                '__type' => 'shortcode',
+                'desktop' => $page_header_slider['desktop'],
+                'mobile' => $page_header_slider['mobile'],
+                'settings' => array()
+            );
+        } elseif( $page_header_content_type == 'content' ){
+            $header_module['components'][] = array(
+                '__type' => 'components_wrapper',
+                'blocks_layout' => get_post_meta( $post_id, 'page_header_content', true )
+            );
+        }
+
+        array_unshift( $page_modules_data, $header_module );
     }
 
     private function process_component($component, &$css_styles, &$gjs_styles) {

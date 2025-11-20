@@ -47,6 +47,9 @@ window.gjsHoverLayer = function (editor) {
                 },
                 // Add a new canvas spot for the last hovered component
                 componentHovered: (component) => {
+                    // If component isn't connected to a datastore, ignore it
+                    if (!component.get('__tempID')) return;
+
                     // Remove all spots related to our custom type
                     editor.Canvas.removeSpots({ type: spotTypeName });
                     // Don't add spot if component is already selected

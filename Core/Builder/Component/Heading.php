@@ -259,7 +259,7 @@ class Heading extends Component {
                     '<%1$s %2$s>%3$s</%1$s>',
                     esc_attr($contents[$key]['html_tag']),
                     Template_Engine::generate_attributes( $contents[$key] ),
-                    nl2br($contents[$key]['content'])
+                    Template_Engine::handle_placeholders(nl2br($contents[$key]['content']))
                 );
             }
         }
@@ -291,7 +291,7 @@ class Heading extends Component {
             '<%s class="heading__text %s">%s</%s>',
             '<%= heading.html_tag %>',
             '<% if( highlighted_element == "heading" ) { %>highlighted <% } %>',
-            '<span><%= heading.content %></span>',
+            '<span><%= __handlePlhs(heading.content) %></span>',
             '<%= heading.html_tag %>'
         );
 

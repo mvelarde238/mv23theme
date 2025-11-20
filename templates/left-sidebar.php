@@ -6,7 +6,6 @@
 get_header(); ?>
 
 <div id="content">
-    <?php get_template_part('partials/page-header'); ?>
     <div id="main-content" class="main-content  container main-content--sidebar-left">
         <main class="main">
             <?php if (have_posts()) : while (have_posts()) : the_post(); ?>

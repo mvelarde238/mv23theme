@@ -11,11 +11,6 @@ if( !$single_page['hide_sidebar'] ) array_push($main_content_classes, $single_pa
 ?>
 
 <div id="content">
-	<?php
-	$queried_object = get_queried_object();
-	$posttype = $queried_object->post_type;
-	if( in_array($posttype, PAGE_HEADER_IN) ) get_template_part('partials/page-header');
-	?>
 	<div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
 		<main class="main">
 			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>

@@ -54,6 +54,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsCommands', 'handler' => 'gjs-commands', 'isComponent' => false ],
 		[ 'name' => 'gjsExtendComponents', 'handler' => 'gjs-extend-components', 'isComponent' => false ],
 		[ 'name' => 'handleCommonSettings', 'handler' => 'handle-common-settings', 'isComponent' => false ],
+		[ 'name' => 'gjsDynamicData', 'handler' => 'gjs-dynamic-data', 'isComponent' => false ],
 		// components
 		[ 'name' => 'gjsBase', 'handler' => 'gjs-base', 'isComponent' => true ],
 		[ 'name' => 'gjsWrapper', 'handler' => 'gjs-wrapper', 'isComponent' => true ],
@@ -67,6 +68,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsSection', 'handler' => 'gjs-section', 'isComponent' => true ],
 		[ 'name' => 'gjsMap', 'handler' => 'gjs-map', 'isComponent' => true ],
 		[ 'name' => 'gjsOceComponents', 'handler' => 'gjs-oce-components', 'isComponent' => true ],
+		[ 'name' => 'gjsHeroSection', 'handler' => 'gjs-hero-section', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],
@@ -152,7 +154,8 @@ class Ultimate_Builder {
 			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );
 
 			wp_localize_script( 'builder-app', 'BUILDER_GLOBALS', array(
-				'posttype' => get_post_type()
+				'posttype' => get_post_type(),
+				'page_title' => get_the_title(),
 			));
 
 			$this->filter_admin_body_class();

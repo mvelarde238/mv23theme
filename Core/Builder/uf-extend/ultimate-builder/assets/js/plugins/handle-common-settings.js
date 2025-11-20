@@ -96,6 +96,18 @@ window.handleCommonSettings = function (editor, options) {
                 }
             }
         }
+
+        // replace placeholders
+        // const placeholders = {
+        //     '{{page_title}}': 'Title of the page'
+        // }
+        // let innerHTML = obj.el.innerHTML;
+        // Object.keys(placeholders).forEach( placeholder => {
+        //     const value = placeholders[placeholder];
+        //     innerHTML = innerHTML.replaceAll( placeholder, value );
+        // });
+        // console.log('Replaced placeholders in innerHTML', innerHTML);
+        // obj.el.innerHTML = innerHTML;
     });
 
     // editor.on('openDatastore', (builder_comp_model, component) => {

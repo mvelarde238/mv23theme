@@ -6,9 +6,7 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA
 
 * MIGRATE ALL!!!
-    * implement builder on: 
-        * page header -> migrate to a component?
-        * page/post-with-content-layout-data -> migrate in another process
+    * create a component that stores changes on body, maybe migrate some page_settigs here
 
 * CHECK BUGS
     * gjs-row-and-cols plugin: column > display: flex breaks the layout
@@ -16,6 +14,7 @@ TODO:
     * uf field map: check why model dosnt change after a search
     * extend-bg-to-left/right not working because style not applied inline
     * leaflet map not working on editor
+    * check primary color lighter on dark mode/text color 2
 
 * CUSTOMIZE EDITOR
     * add a loader when loading the builder
@@ -28,7 +27,12 @@ TODO:
 
 /////////////////////////////////////////////////////////////////////////////////////// SEXTA ETAPA
 
+* Transform Hero Section to Template
+    * create a template system that allow users to save sections as templates
+    * create a template library that allow users to choose from pre-defined templates
+
 * CUSTOMIZE EDITOR
+    * on select component, render the uf-group on sidenav and apply changes on the realDatastore
     * add tooltip to topbar(?) buttons: save, undo, console, etc, style manager, components, etc
     * copy paste components between pages
     * create a gjs-canvas-spots plugin that handle padding, margin, border-radius

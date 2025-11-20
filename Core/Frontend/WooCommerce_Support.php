@@ -23,7 +23,6 @@ class WooCommerce_Support{
         if(is_archive() && is_active_sidebar('shop_sidebar')) array_push($main_content_classes,'main-content--sidebar-left');
         ?>
         <div id="content">
-            <?php if( in_array('product', PAGE_HEADER_IN) ) get_template_part('partials/page-header'); ?>
             <div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
                 <main class="main">
                     <div class="page-module">
