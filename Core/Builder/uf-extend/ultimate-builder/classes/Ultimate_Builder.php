@@ -155,7 +155,7 @@ class Ultimate_Builder {
 
 			wp_localize_script( 'builder-app', 'BUILDER_GLOBALS', array(
 				'posttype' => get_post_type(),
-				'page_title' => get_the_title(),
+				'page_title' => get_the_title() ?: '',
 			));
 
 			$this->filter_admin_body_class();
@@ -237,6 +237,11 @@ class Ultimate_Builder {
 			wp_enqueue_script( 'builder-app' );
 			wp_enqueue_style( 'builder-app-styles' );
 			wp_enqueue_style( 'builder-admin-styles' );
+			
+			// Ensure global variables are set for admin-header.php
+			global $title, $parent_file, $submenu_file;
+			$title = $post->post_title ?: __('Edit Page');
+			
 			require_once ABSPATH . 'wp-admin/admin-header.php';
 	
 			uf_form();
