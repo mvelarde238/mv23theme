@@ -29,30 +29,7 @@ window.gjsSpacer = function (editor) {
                 },
                 style:{ 
                     width: '100%'
-                },
-                styles: `
-                    .spacer{
-                        height: 30px;
-                        position: relative;
-                    }
-                    .spacer::after{
-                        content: '';
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                        top: 0;
-                        left: 0;
-                        background: repeating-linear-gradient(
-                            45deg,
-                            transparent,
-                            rgba(150, 150, 150, 0.1) 3px,
-                            transparent 3px,
-                            transparent 8px,
-                            rgba(150, 150, 150, 0.1) 11px,
-                            transparent 11px
-                        );
-                    }
-                `,
+                }
             },
         },
     });
