@@ -676,6 +676,18 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         // process the old settings and migrate them to the new format using $id
         $styles_to_apply = array();
 
+        // if font_color.use and font_color.color_scheme is dark_scheme, set helpers.use and add 'dark-mode' to helpers.list
+        if (isset($settings['font_color']) && $settings['font_color']['use'] && isset($settings['font_color']['color_scheme']) && $settings['font_color']['color_scheme'] === 'dark_scheme') {
+            if (!isset($settings['helpers'])) {
+                $settings['helpers'] = array('use' => true, 'list' => array('dark-mode'));
+            } else {
+                $settings['helpers']['use'] = true;
+                if (!in_array('dark-mode', $settings['helpers']['list'])) {
+                    $settings['helpers']['list'][] = 'dark-mode';
+                }
+            }
+        }
+
         // Process style settings using helper method
         $style_mappings = [
             'background_color' => Background::class,

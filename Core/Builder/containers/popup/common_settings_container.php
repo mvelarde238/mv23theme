@@ -37,7 +37,8 @@ Container::create( 'common_settings_container' )
                     'hide-br-mobile' => __('Hide line breaks on mobile devices only','mv23theme'),
                     'extend-bg-to-left' => __('Extend background to left','mv23theme'),
                     'extend-bg-to-right' => __('Extend background to right','mv23theme'),
-                    'full-height' => __('Full Height','mv23theme')
+                    'full-height' => __('Full Height','mv23theme'),
+                    'dark-mode' => __('Dark Mode','mv23theme')
                 ))->add_dependency('use')->set_width( 80 )
         )),
         Field::create( 'complex', 'video_background' )->hide_label()->add_fields(array(
