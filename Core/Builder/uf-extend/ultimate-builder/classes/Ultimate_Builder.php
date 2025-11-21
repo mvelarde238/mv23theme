@@ -222,6 +222,7 @@ class Ultimate_Builder {
 
 	private function print_editor(){
         global $post;
+		if( ! $post ) return;
 
 		$post_meta_name = isset( $_GET['meta'] ) ? $_GET['meta'] : '';
 
