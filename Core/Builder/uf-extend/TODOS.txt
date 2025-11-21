@@ -6,9 +6,7 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA
 
 * CHECK BUGS
-    * uf field map: check why model dosnt change after a search
-    * scroll animation are working "buggy"
-    * extend-bg-to-left/right not working because style not applied inline
+    * check mobile template on migrated columns
 
 * CUSTOMIZE EDITOR
     * bug: on change style manager tab, the styles fields disappear
