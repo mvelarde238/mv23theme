@@ -102,33 +102,32 @@ window.gjsMap = function (editor) {
             
                 // Initialize the map
                 if (provider === 'leaflet') {
-                    console.log('Leaflet map is currently disabled. L is not defined?.');
-                    // const map = L.map(mapContainer).setView(center, zoom);
+                    const map = L.map(mapContainer).setView(center, zoom);
 
-                    // // Add a tile layer to the map
-                    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    //     maxZoom: 19,
-                    // }).addTo(map);
+                    // Add a tile layer to the map
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                    }).addTo(map);
 
-                    // // Add a marker to the map
-                    // const marker = L.marker(center).addTo(map);
+                    // Add a marker to the map
+                    const marker = L.marker(center).addTo(map);
 
-                    // if (icon_url) {
-                    //     marker.setIcon(L.icon({
-                    //         iconUrl: icon_url,
-                    //         iconSize: icon_size
-                    //     }));
-                    // } 
+                    if (icon_url) {
+                        marker.setIcon(L.icon({
+                            iconUrl: icon_url,
+                            iconSize: icon_size
+                        }));
+                    } 
 
-                    // if(info_window_content){
-					// 	marker.bindPopup(info_window_content).openPopup();
-					// }
+                    if(info_window_content){
+						marker.bindPopup(info_window_content).openPopup();
+					}
 
-                    // // Invalidate size to ensure proper rendering
-                    // setTimeout(function() {
-				    // 	mapContainer.classList.remove('loading');
-				    // 	map.invalidateSize();
-				    // }, 1000);
+                    // Invalidate size to ensure proper rendering
+                    setTimeout(function() {
+				    	mapContainer.classList.remove('loading');
+				    	map.invalidateSize();
+				    }, 1000);
                 }
 
                 if (provider === 'google') {

@@ -10,7 +10,6 @@ TODO:
     * scroll animation are working "buggy"
     * uf field map: check why model dosnt change after a search
     * extend-bg-to-left/right not working because style not applied inline
-    * leaflet map not working on editor
     * check primary color lighter on dark mode/text color 2
 
 * CUSTOMIZE EDITOR
