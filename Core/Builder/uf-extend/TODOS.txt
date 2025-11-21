@@ -6,7 +6,6 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA
 
 * CHECK BUGS
-    * [gjs][attr][id]issaperar if save
     * gjs-row-and-cols plugin: column > display: flex breaks the layout
     * scroll animation are working "buggy"
     * uf field map: check why model dosnt change after a search

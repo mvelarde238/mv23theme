@@ -88,16 +88,17 @@ class Field extends Repeater {
 	public function export_data() {    
         $builder_data = $this->get_value( $this->name );
         $components_data_raw = $this->get_value( $this->name.'_components' );
-		$components_data = array();
         $styles = $this->get_value( $this->name.'_styles' );
-
+		
 		# Use the default value if needed
 		if( null === $builder_data && is_array( $this->default_value ) ) {
 			$builder_data = $this->default_value;
 		}
-
-		# If there are components, go through each of them.
+		
+		// If there are components, go through each of them.
 		// to ensure complex fields are sent correctly
+		// and "prepare" files previews
+		$components_data = array();
 		if( is_array($components_data_raw) ){
 			foreach( $components_data_raw as $component){
 				$processed_component = $this->export_component_recursively( $component );
@@ -133,7 +134,15 @@ class Field extends Repeater {
 			$group->set_datastore( $datastore );
 			$group_processed_values = $group->export_data();
 			$group_processed_values['__id'] = $component['__id'];
-			// $group_processed_values['__gjsAttributes'] = $component['__gjsAttributes'] ?? array();
+			
+			// if is set an attribute starting with "__gjs", save it too
+			// e.g. __gjsAttributes, __gjs_data_breakpoints, etc
+			foreach( $component as $key => $value ){
+				if( strpos( $key, '__gjs') === 0 ){
+					$group_processed_values[ $key ] = $value;
+				}
+			}
+
 		} else {
 			// component type not registered is a grapesjs built-in component
 			$group_processed_values = $component;
