@@ -36,7 +36,7 @@ window.gjsMap = function (editor) {
                 style:{ width: '100%' },
                 styles: `
                     .map2 {
-                        min-height: 200px;
+                        height: 200px;
                     }
                     .map-wrapper {
                         width: 100%;
@@ -53,7 +53,7 @@ window.gjsMap = function (editor) {
         },
         view: {
             onRender({el, model}) {
-                let default_position = { lat: 40.416775, lng: -3.703790, zoom: 8 },
+                let default_position = { lat: -12.554563528593656, lng: -57.65625000000001, zoom: 2 },
                     center = [default_position.lat, default_position.lng],
                     zoom = default_position.zoom,
                     icon_url = null,
@@ -72,7 +72,7 @@ window.gjsMap = function (editor) {
 						const location = datastore.get('location');
 						if (location) {
                             if (location.latLng) center = [location.latLng.lat, location.latLng.lng];
-                            zoom = location.zoom;
+                            zoom = location.zoom || 0;
 
                             provider = location.provider || 'leaflet';
                         }
@@ -102,6 +102,11 @@ window.gjsMap = function (editor) {
             
                 // Initialize the map
                 if (provider === 'leaflet') {
+                    if (typeof L === 'undefined') {
+                        console.log('Leaflet library is not loaded.');
+                        return;
+                    }
+
                     const map = L.map(mapContainer).setView(center, zoom);
 
                     // Add a tile layer to the map
@@ -131,6 +136,11 @@ window.gjsMap = function (editor) {
                 }
 
                 if (provider === 'google') {
+                    if (typeof google === 'undefined' || !google.maps) {
+                        console.log('Google Maps library is not loaded.');
+                        return;
+                    }
+
                     const map = new google.maps.Map(mapContainer, {
                         center: { lat: center[0], lng: center[1] },
                         zoom: zoom,

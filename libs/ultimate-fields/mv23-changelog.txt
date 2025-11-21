@@ -1,5 +1,13 @@
 mv23 changelog-------------------------
 
+- 3.2.9 21-11-2025
+- Simplified map field UX with fixed center point indicator
+  Removed draggable markers and popups in favor of a transparent red dot at center
+  Map auto-saves center position (lat/lng/zoom) on pan/zoom interactions
+  Search functionality preserved for quick navigation
+    (core/js/field/map.js)
+    (core/assets/sass/field/_map.scss)
+
 - 3.2.8 20-11-2025
 - Fix: Ensure post_content is always a string before saving to prevent revision errors
     (core/classes/Form_Object/Post.php)
