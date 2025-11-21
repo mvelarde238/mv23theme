@@ -6,17 +6,13 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA
 
 * CHECK BUGS
-    * gjs-row-and-cols plugin: column > display: flex breaks the layout
-    * scroll animation are working "buggy"
     * uf field map: check why model dosnt change after a search
+    * scroll animation are working "buggy"
     * extend-bg-to-left/right not working because style not applied inline
 
 * CUSTOMIZE EDITOR
-    * add a loader when loading the builder
-    * hide the ui that allow adding classes to components
-    * show header on builder mode with ajax
-    * wp actions: go back to admin, view on frontend, close builder interface
     * bug: on change style manager tab, the styles fields disappear
+    * hide the ui that allow adding classes to components
     * open datastore on context menu
     * current process: create new page -> go to builder: desired process: go direct to builder
     * Implement Post Lock Dialog -> check mambo builder plugin
@@ -28,10 +24,12 @@ TODO:
     * create a template library that allow users to choose from pre-defined templates
 
 * CUSTOMIZE EDITOR
+    * show header on builder mode with ajax
     * on select component, render the uf-group on sidenav and apply changes on the realDatastore
+    * add a loader when loading the builder
     * add tooltip to topbar(?) buttons: save, undo, console, etc, style manager, components, etc
     * copy paste components between pages
     * create a gjs-canvas-spots plugin that handle padding, margin, border-radius
     * builder with react -> personalizar fields of style manager
     * how to handle the default Text->textnode component ?
-    * ajaxified components are "dirty": gallery, menu, reusable_section(?)
+    * ajaxified components are "dirty": gallery, menu, reusable_section(?)|

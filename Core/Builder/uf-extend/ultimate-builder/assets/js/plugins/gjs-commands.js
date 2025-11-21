@@ -76,4 +76,14 @@ window.gjsCommands = function (editor, options) {
         // Select the rule in the CSS editor
         editor.Selectors.select(rule);
     });
+
+    commands.add('exit-to-wp-admin', (editor, sender, options = {}) => {
+        // check the referer first
+        if( BUILDER_GLOBALS.referer ){
+            window.location.href = BUILDER_GLOBALS.referer;
+            return;
+        }
+        // else, go to the post type admin list
+        window.location.href = BUILDER_GLOBALS.admin_url;
+    });
 }

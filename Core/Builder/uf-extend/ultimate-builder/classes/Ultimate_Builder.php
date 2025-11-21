@@ -156,6 +156,8 @@ class Ultimate_Builder {
 			wp_localize_script( 'builder-app', 'BUILDER_GLOBALS', array(
 				'posttype' => get_post_type(),
 				'page_title' => get_the_title() ?: '',
+				'referer' => wp_get_referer(),
+				'admin_url' => admin_url( 'edit.php?post_type=' . get_post_type() )
 			));
 
 			$this->filter_admin_body_class();

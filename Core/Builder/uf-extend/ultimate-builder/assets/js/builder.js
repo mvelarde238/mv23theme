@@ -77,6 +77,14 @@
                         options: { builder: that }
                     }
                 ],
+                customViewControlButtonsAfter: [
+                    { 
+                        id: 'exit-to-wp-admin', 
+                        label: 'Exit to WP Admin',
+                        iconClass: 'dashicons dashicons-wordpress',
+                        options: { builder: that }
+                    }
+                ],
                 onEditor: function(editor) {
                     editor.runCommand('core:component-outline');
                     that.on_editor_load(editor);
