@@ -33,11 +33,11 @@ window.gjsMap = function (editor) {
                 attributes: {
                     class: compClass,
                 },
-                style:{ width: '100%' },
+                style:{ 
+                    width: '100%',
+                    height: '200px'
+                },
                 styles: `
-                    .map2 {
-                        height: 200px;
-                    }
                     .map-wrapper {
                         width: 100%;
                         height: 100%;

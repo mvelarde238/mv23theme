@@ -6,9 +6,10 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA
 
 * CHECK BUGS
-    * check mobile template on migrated columns
+    * rows are not storing mobile breakpoint if editor is no resized to mobile before saving
 
 * CUSTOMIZE EDITOR
+    * review wp buttons: save, preview, exit builder, publish(?)
     * bug: on change style manager tab, the styles fields disappear
     * hide the ui that allow adding classes to components
     * open datastore on context menu
@@ -30,4 +31,4 @@ TODO:
     * create a gjs-canvas-spots plugin that handle padding, margin, border-radius
     * builder with react -> personalizar fields of style manager
     * how to handle the default Text->textnode component ?
-    * ajaxified components are "dirty": gallery, menu, reusable_section(?)|
+    * ajaxified components are "dirty": gallery, menu, reusable_section(?)
