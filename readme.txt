@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.10.14 25-11-28
+- Fix sidebar padding
+
 2.10.13 25-11-12
 - Add background color to search results page
 - Fix template sidebar left/right on mobile
