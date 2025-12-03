@@ -88,6 +88,22 @@
                     theme_scripts: this.model.datastore.get( field_name + '_theme_scripts' ),
                     gjs_plugins: this.model.datastore.get( field_name + '_gjs_plugins' )
                 });
+
+                // Configure WordPress Heartbeat for post lock monitoring
+                jQuery(document).ready(function($) {
+                    if (typeof wp !== 'undefined' && wp.heartbeat && $('#post-lock-dialog').length) {
+                        // Force start the heartbeat
+                        wp.heartbeat.connectNow();
+                        // Set the heartbeat interval to 15 seconds for post lock dialogs
+                        wp.heartbeat.interval(15);
+                    } else {
+                        console.error('Heartbeat not available:', {
+                            wp: typeof wp !== 'undefined',
+                            heartbeat: typeof wp !== 'undefined' && wp.heartbeat,
+                            dialog: $('#post-lock-dialog').length
+                        });
+                    }
+                });
             }
 
             return this;

@@ -6,8 +6,6 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA
 
 * CUSTOMIZE EDITOR
-    * Implement Post Lock Dialog -> check mambo builder plugin
-
     * bug: on change style manager tab, the styles fields disappear
     * open datastore on context menu
     * hide the ui that allow adding classes to components

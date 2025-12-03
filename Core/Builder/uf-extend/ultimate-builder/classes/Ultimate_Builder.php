@@ -95,14 +95,12 @@ class Ultimate_Builder {
 
 		Template::instance()->add_path( dirname( $plugin_file ) . '/templates/' );
 
-		add_filter( 'uf.field.class', array( $this, 'generate_field_class' ), 10, 2 );
-		add_action( 'uf.register_scripts', array( $this, 'register_scripts' ) );
-		add_action( 'post_action_ultimate-builder', array( $this, 'prepare_admin_for_builder' ) );
-		add_action( 'wp_ajax_ultimate_builder_preview_save', array( Preview_Handler::class, 'ajax_preview_save' ) );
-		add_action( 'init', array( Preview_Handler::class, 'maybe_apply_preview' ), 1 );
-	}
-
-	/**
+	add_filter( 'uf.field.class', array( $this, 'generate_field_class' ), 10, 2 );
+	add_action( 'uf.register_scripts', array( $this, 'register_scripts' ) );
+	add_action( 'post_action_ultimate-builder', array( $this, 'prepare_admin_for_builder' ) );
+	add_action( 'wp_ajax_ultimate_builder_preview_save', array( Preview_Handler::class, 'ajax_preview_save' ) );
+	add_action( 'init', array( Preview_Handler::class, 'maybe_apply_preview' ), 1 );
+}	/**
 	 * Allows the class that should be used for a field to be generated.
 	 *
 	 * @since 1.0
@@ -241,6 +239,9 @@ class Ultimate_Builder {
 				),
 				'containers' => array( 'page_content_container' )
 			)); 
+
+			// Enqueue post lock scripts
+			Post_Lock_Handler::enqueue_scripts();
 	
 			wp_enqueue_script( 'builder-app' );
 			wp_enqueue_style( 'builder-app-styles' );
@@ -251,6 +252,9 @@ class Ultimate_Builder {
 			$title = $post->post_title ?: __('Edit Page');
 			
 			require_once ABSPATH . 'wp-admin/admin-header.php';
+			
+			// Print post-lock dialog and required fields
+			Post_Lock_Handler::print_post_lock_dialog();
 	
 			uf_form();
 	
