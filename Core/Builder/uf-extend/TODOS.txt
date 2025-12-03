@@ -6,7 +6,6 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA
 
 * CUSTOMIZE EDITOR
-    * current process: create new page -> go to builder: desired process: go direct to builder
     * Implement Post Lock Dialog -> check mambo builder plugin
 
     * bug: on change style manager tab, the styles fields disappear

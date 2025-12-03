@@ -52,18 +52,31 @@
 
             // get action from URL
             var urlParams = new URLSearchParams(window.location.search);
-            var $action = urlParams.get('action'); // edit or add
-            $action = $action ? $action : 'edit';
+            var $action = urlParams.get('action') ?? 'edit';
 
             if( $action === 'edit' ){
-                // add the builder link
-                this.$el.append('<p><a href="' + builder_link + '" class="button button-secondary">Open Builder Interface</a></p>');
-            } else {
+                // add the builder button
+                var $wrapper = jQuery('<p></p>');
+                var $button = jQuery('<button type="button" class="button button-secondary uf-open-builder">Open Builder Interface</button>');
+                $wrapper.append($button);
+                this.$el.append($wrapper);
+
+                $button.on('click', function (e) {
+                    e.preventDefault();
+                    // check the post param on url
+                    var post_id = urlParams.get('post');
+                    if ( ! post_id ) {
+                        alert('Publish the post before opening the builder.');
+                        return;
+                    } else{
+                        window.location.href = builder_link;
+                    }
+                });
+            }
+
+            if( $action === 'ultimate-builder' ){
                 // add the builder container
                 this.$el.append('<div id="app"></div>');
-                
-                // console.log( builder_data );
-                // console.log( components_data );
 
                 // Start the external builder script
                 this.$el.builder({
