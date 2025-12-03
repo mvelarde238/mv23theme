@@ -114,6 +114,14 @@
                 that.add_theme_styles_and_scripts(editor);
             }, 500 );
 
+            // display warning before leaving the page with unsaved changes
+		    window.addEventListener('beforeunload',function(e){
+                if ( editor.getProjectData() !== that.args.builder_data ) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                }
+            });
+
             // DELETE
             // editor.on(`component:remove`, (model) => {
             //     if (model.getType() === 'group-component') {
