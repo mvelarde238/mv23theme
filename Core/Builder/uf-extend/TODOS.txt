@@ -5,16 +5,18 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// CUARTA ETAPA, READY!!!
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA
 
-* CHECK BUGS
-    * rows are not storing mobile breakpoint if editor is no resized to mobile before saving
-
 * CUSTOMIZE EDITOR
-    * review wp buttons: save, preview, exit builder, publish(?)
-    * bug: on change style manager tab, the styles fields disappear
-    * hide the ui that allow adding classes to components
-    * open datastore on context menu
     * current process: create new page -> go to builder: desired process: go direct to builder
     * Implement Post Lock Dialog -> check mambo builder plugin
+
+    * bug: on change style manager tab, the styles fields disappear
+    * open datastore on context menu
+    * hide the ui that allow adding classes to components
+    * customize wp.notice on builder screen 
+
+* COMPONENTS BUGS
+    * revisar el migrator/display de las columnas (bug on preview/save)
+    * heading tagline is not updating after changes on tagline position
 
 /////////////////////////////////////////////////////////////////////////////////////// SEXTA ETAPA
 

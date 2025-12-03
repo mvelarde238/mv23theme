@@ -154,7 +154,7 @@ class Frontend extends Theme_Header_Data {
     public function body_class( $classes ) {
         $page = new Page();
         $page_content_components = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content_components', true) : null;
-        if( is_array($page_content_components) ) {
+        if( is_array($page_content_components) && !empty($page_content_components) && isset($page_content_components[0]) ) {
             $page_component = $page_content_components[0];
 
             $hide_static_header = $page_component['hide_static_header'] ?? false;
@@ -175,7 +175,7 @@ class Frontend extends Theme_Header_Data {
         $id = null;
 
         $page_content_components = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content_components', true) : null;
-        if( is_array($page_content_components) ) {
+        if( is_array($page_content_components) && !empty($page_content_components) && isset($page_content_components[0]) ) {
             $page_component = $page_content_components[0];
             $id = Id::get_id( $page_component );
         }
@@ -188,7 +188,7 @@ class Frontend extends Theme_Header_Data {
         $styles = [];
 
         $page_content_components = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content_components', true) : null;
-        if( is_array($page_content_components) ) {
+        if( is_array($page_content_components) && !empty($page_content_components) && isset($page_content_components[0]) ) {
             $page_component = $page_content_components[0];
             $remove_padding_top = $page_component['remove_padding_top'] ?? false;
             if( $remove_padding_top ){

@@ -31,7 +31,7 @@ class Header{
 		$page = new Page();
 		$value = null;
         $page_content_components = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content_components', true) : null;
-        if( is_array($page_content_components) ) {
+        if( is_array($page_content_components) && !empty($page_content_components) && isset($page_content_components[0]) ) {
             $page_component = $page_content_components[0];
 			if( isset( $page_component[ $meta ] ) ){
 				$value = $page_component[ $meta ];

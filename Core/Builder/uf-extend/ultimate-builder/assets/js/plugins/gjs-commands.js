@@ -5,6 +5,13 @@ window.gjsCommands = function (editor, options) {
     commands.add('builder:save-editor', (editor, sender, options) => {
         editor.trigger('builder:before-save-editor');
 
+        // get the button and set it to loading state
+        const builderSaveButton = document.querySelector('.builder-save-button');
+        if (builderSaveButton) {
+            builderSaveButton.setAttribute('data-status', 'loading');
+            builderSaveButton.disabled = true;
+        }
+
         const raw_project_data = editor.getProjectData(),
             temporalCompStore = editor.getConfig().temporalCompStore || {},
             uf_field_model = editor.getConfig().uf_field_model,
@@ -27,6 +34,58 @@ window.gjsCommands = function (editor, options) {
 
         // trigger click on .uf-form-footer button
         document.querySelector('.uf-form-footer [type="submit"]').click();
+    });
+
+    commands.add('builder:preview', (editor, sender, options = {}) => {
+        const builder = options.builder;
+        
+        var payload = null;
+        const raw_project_data = editor.getProjectData(),
+            temporalCompStore = editor.getConfig().temporalCompStore || {},
+            uf_field_model = editor.getConfig().uf_field_model,
+            values = builder.prepare_project_data(raw_project_data, temporalCompStore);
+
+        payload = {
+            builder_data: values.builder_data,
+            components_data: values.components_data,
+            css: editor.getCss()
+        };
+
+        if (!payload) {
+            alert('La app del builder debe exponer una función que devuelva el estado para preview.');
+            return;
+        }
+
+        // get the button and set it to loading state
+        const builderPreviewButton = document.querySelector('.builder-preview-button');
+        if (builderPreviewButton) {
+            builderPreviewButton.setAttribute('data-status', 'loading');
+            builderPreviewButton.disabled = true;
+        }
+
+        jQuery.post(BUILDER_GLOBALS.ajax_url, {
+            action: 'ultimate_builder_preview_save',
+            nonce: BUILDER_GLOBALS.nonce,
+            post_id: BUILDER_GLOBALS.post_id,
+            meta: uf_field_model.get('name'),
+            data: JSON.stringify(payload)
+        }, function(resp){
+            if (resp && resp.success && resp.data && resp.data.preview_url) {
+                window.open(resp.data.preview_url, 'builder_preview');
+
+                // reset the button state
+                if (builderPreviewButton) {
+                    builderPreviewButton.removeAttribute('data-status');
+                    builderPreviewButton.disabled = false;
+                }
+            } else {
+                console.error('Preview error response:', resp);
+                alert('Error al generar la vista previa: ' + (resp?.data || 'Unknown error'));
+            }
+        }, 'json').fail(function(xhr, status, error){
+            console.error('Preview AJAX error:', xhr.responseText, status, error);
+            alert('Error de comunicación con el servidor: ' + error);
+        });
     });
 
     commands.add('builder:log-data', (editor, sender, options) => {

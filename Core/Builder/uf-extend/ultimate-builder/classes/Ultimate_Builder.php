@@ -98,6 +98,8 @@ class Ultimate_Builder {
 		add_filter( 'uf.field.class', array( $this, 'generate_field_class' ), 10, 2 );
 		add_action( 'uf.register_scripts', array( $this, 'register_scripts' ) );
 		add_action( 'post_action_ultimate-builder', array( $this, 'prepare_admin_for_builder' ) );
+		add_action( 'wp_ajax_ultimate_builder_preview_save', array( Preview_Handler::class, 'ajax_preview_save' ) );
+		add_action( 'init', array( Preview_Handler::class, 'maybe_apply_preview' ), 1 );
 	}
 
 	/**
@@ -157,7 +159,10 @@ class Ultimate_Builder {
 				'posttype' => get_post_type(),
 				'page_title' => get_the_title() ?: '',
 				'referer' => wp_get_referer(),
-				'admin_url' => admin_url( 'edit.php?post_type=' . get_post_type() )
+				'admin_url' => admin_url( 'edit.php?post_type=' . get_post_type() ),
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'nonce' => wp_create_nonce( 'ultimate_builder_preview' ),
+				'post_id' => get_the_ID(),
 			));
 
 			$this->filter_admin_body_class();

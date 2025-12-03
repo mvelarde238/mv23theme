@@ -66,15 +66,19 @@
                     [window['gjs-context-menu'].default]: window['contextMenuOpts']
                 },
                 customTopbarButtonsAfter: [
-                    { 
-                        id: 'builder:log-data', 
-                        iconClass: 'dashicons dashicons-admin-generic',
-                        options: { builder: that }
+                    {
+                        id: 'builder:preview', 
+                        iconClass: 'bi bi-eye',
+                        options: { builder: that },
+                        label: 'Preview',
+                        className: 'secondary-button builder-preview-button'
                     },
                     {
                         id: 'builder:save-editor', 
                         iconClass: 'bi bi-floppy2',
-                        options: { builder: that }
+                        options: { builder: that },
+                        label: 'Save',
+                        className: 'primary-button builder-save-button'
                     }
                 ],
                 customViewControlButtonsAfter: [
@@ -82,8 +86,15 @@
                         id: 'exit-to-wp-admin', 
                         label: 'Exit to WP Admin',
                         iconClass: 'dashicons dashicons-wordpress',
+                        href: BUILDER_GLOBALS.admin_url,
+                        target: '_self'
+                    },
+                    { 
+                        id: 'builder:log-data', 
+                        label: 'Log Project Data',
+                        iconClass: 'dashicons dashicons-admin-generic',
                         options: { builder: that }
-                    }
+                    },
                 ],
                 onEditor: function(editor) {
                     editor.runCommand('core:component-outline');
