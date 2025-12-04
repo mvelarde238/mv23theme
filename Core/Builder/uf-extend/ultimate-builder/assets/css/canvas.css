@@ -11,9 +11,9 @@ body{
     padding-top: 0 !important;
 }  
 /* make components visible */
-[data-gjs-type]:not(.full-height) {
+/* [data-gjs-type]:not(.full-height) {
     min-height:50px;
-}
+} */
 [data-gjs-type="wrapper"],
 [data-gjs-type="container"]{
     min-height:100vh !important;
@@ -130,4 +130,9 @@ img.gjs-plh-image{
         rgba(150, 150, 150, 0.1) 11px,
         transparent 11px
     );
+}
+
+/* remove row after element */
+.row::after{
+    display: none;
 }

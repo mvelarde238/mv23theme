@@ -220,3 +220,8 @@ body.ultimate-builder-editor .notification-dialog{
 .gjs-top-sidebar button[data-status="loading"] i:before{
     content: "\F116"; /* Dashicons spinner icon */
 }
+
+/* Hide selector manager body */
+.sm-body{
+    display: none;
+}

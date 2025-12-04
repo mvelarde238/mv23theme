@@ -115,12 +115,12 @@
             }, 500 );
 
             // display warning before leaving the page with unsaved changes
-		    window.addEventListener('beforeunload',function(e){
-                if ( editor.getProjectData() !== that.args.builder_data ) {
-                    e.preventDefault();
-                    e.returnValue = '';
-                }
-            });
+		    // window.addEventListener('beforeunload',function(e){
+            //     if ( editor.getProjectData() !== that.args.builder_data ) {
+            //         e.preventDefault();
+            //         e.returnValue = '';
+            //     }
+            // });
 
             // DELETE
             // editor.on(`component:remove`, (model) => {

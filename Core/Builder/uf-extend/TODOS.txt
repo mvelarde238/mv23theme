@@ -5,12 +5,6 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// CUARTA ETAPA, READY!!!
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA
 
-* CUSTOMIZE EDITOR
-    * bug: on change style manager tab, the styles fields disappear
-    * open datastore on context menu
-    * hide the ui that allow adding classes to components
-    * customize wp.notice on builder screen 
-
 * COMPONENTS BUGS
     * revisar el migrator/display de las columnas (bug on preview/save)
     * heading tagline is not updating after changes on tagline position
@@ -29,5 +23,6 @@ TODO:
     * copy paste components between pages
     * create a gjs-canvas-spots plugin that handle padding, margin, border-radius
     * builder with react -> personalizar fields of style manager
+    * customize wp.notice on builder screen 
     * how to handle the default Text->textnode component ?
     * ajaxified components are "dirty": gallery, menu, reusable_section(?)
