@@ -1001,18 +1001,18 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         }
 
         // ////////////////////////////////////////////////////////////////////////////////////////77
-        // gjs row need a 'control' property...
-        $gjs_component['control'] = array(
+        // a 'control' to store widths and orders per device
+        $__gjs_cmp['control'] = array(
             'desktop' => array( 'locked' => 1, 'gap' => 1, 'orders' => [], 'widths' => [] ),
             'tablet' => array( 'locked' => 1, 'widths' => [] ),
             'mobileLandscape' => array( 'locked' => 1, 'widths' => [] ),
             'mobilePortrait' => array( 'locked' => 1, 'widths' => [] )
         );
 
-        // create the column cids
+        // create the column cids mapping
         $columns_cids = array();
-        foreach ($component['row']['content'] as $index => $column) {
-            $cid = 'c' . substr(md5(uniqid()), 0, 3);
+        foreach ($gjs_component['components'] as $index => $column) {
+            $cid = $column['__id'];
             $columns_cids[$index] = $cid;
         }
 
@@ -1047,7 +1047,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             foreach ($devices_keys as $dk){
                 $current_device_id = $devices_ids[$_count];
                 if( $dk == 'l' ){
-                    $gjs_component['control'][$current_device_id]['orders'][] = $columns_cids[$column_count];
+                    $__gjs_cmp['control'][$current_device_id]['orders'][] = $columns_cids[$column_count];
                 }
 
                 // Handle case where l_grid_*, t_grid_*, m_grid_* settings are missing
@@ -1132,8 +1132,8 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                         $percentage = ($total_fr > 0) ? ( (float) rtrim($fr, 'fr') / $total_fr * $available_space ) : 0;
                     }
                     $cid = $columns_cids[$column_index];
-                    $gjs_component['control'][$current_device_id]['widths'][$cid] = $percentage;
-                    $gjs_component['control'][$current_device_id]['locked'] = $locked;
+                    $__gjs_cmp['control'][$current_device_id]['widths'][$cid] = $percentage;
+                    $__gjs_cmp['control'][$current_device_id]['locked'] = $locked;
                 }
                 $_count++;
             }
@@ -1158,8 +1158,8 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 // get ordered cids
                 $ordered_cids = array_keys( $totest[$current_device_id] );
                 // check the control if adding the order is necessary
-                if( $gjs_component['control']['desktop']['orders'] !== $ordered_cids ){
-                    $gjs_component['control'][$current_device_id]['orders'] = $ordered_cids;
+                if( $__gjs_cmp['control']['desktop']['orders'] !== $ordered_cids ){
+                    $__gjs_cmp['control'][$current_device_id]['orders'] = $ordered_cids;
                 }
                 $_count++;
             }
@@ -1170,27 +1170,47 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         // add the css for row and columns
         $breakpoints = $this->breakpoints;
 
-        foreach( $gjs_component['control'] as $device => $control ){
-            if( isset( $gjs_component['control'][$device] ) ){
+        foreach( $__gjs_cmp['control'] as $device => $control ){
+            if( isset( $__gjs_cmp['control'][$device] ) ){
                 $column_count = 0;
-                foreach( $gjs_component['control'][$device]['widths'] as $cid => $width ){
+                foreach( $__gjs_cmp['control'][$device]['widths'] as $cid => $width ){
                     // Add the styles for the column layout
                     $id = $uf_component['components'][$column_count]['__gjsAttributes']['id'];
                     if( $breakpoints[$device] ){
                         $css_styles .= "@media {$breakpoints[$device]} { #{$id} { width: {$width}%; } }";
+                        $gjs_styles[] = array(
+                            'selectors' => array( '#' . $id ),
+                            'style' => array( 'width' => $width . '%' ),
+                            'mediaText' => $breakpoints[$device],
+                            'atRuleType' =>  "media"
+                        );
                     } else {
                         $css_styles .= "#{$id} { width: {$width}%; }";
+                        $gjs_styles[] = array(
+                            'selectors' => array( '#' . $id ),
+                            'style' => array( 'width' => $width . '%' )
+                        );
                     }
                     // add order if exist
                     if ( $device != 'desktop' ){
-                        if( isset( $gjs_component['control'][$device]['orders'] ) ){
-                            $order_index = array_search( $cid, $gjs_component['control'][$device]['orders'] );
+                        if( isset( $__gjs_cmp['control'][$device]['orders'] ) ){
+                            $order_index = array_search( $cid, $__gjs_cmp['control'][$device]['orders'] );
                             if( $order_index !== false ){
                                 $order = $order_index;
                                 if( $breakpoints[$device] ){
                                     $css_styles .= "@media {$breakpoints[$device]} { #{$id} { order: {$order}; } }";
+                                    $gjs_styles[] = array(
+                                        'selectors' => array( '#' . $id ),
+                                        'style' => array( 'order' => $order ),
+                                        'mediaText' => $breakpoints[$device],
+                                        'atRuleType' =>  "media"
+                                    );
                                 } else {
                                     $css_styles .= "#{$id} { order: {$order}; }";
+                                    $gjs_styles[] = array(
+                                        'selectors' => array( '#' . $id ),
+                                        'style' => array( 'order' => $order )
+                                    );
                                 }
                             }
                         }
