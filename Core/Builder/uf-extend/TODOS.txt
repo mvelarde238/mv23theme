@@ -7,7 +7,6 @@ TODO:
 
 * COMPONENTS BUGS
     * revisar el migrator/display de las columnas (bug on preview/save)
-    * heading tagline is not updating after changes on tagline position
 
 /////////////////////////////////////////////////////////////////////////////////////// SEXTA ETAPA
 

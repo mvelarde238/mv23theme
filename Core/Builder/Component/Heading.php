@@ -268,46 +268,48 @@ class Heading extends Component {
 	}
 
     public static function get_view_template() {
-        ob_start(); 
+        return '<%
+        h_tag = heading.html_tag;
+        h_text = __handlePlhs(heading.content);
+        h_cls = ["heading__text"];
+        if( highlighted_element == "heading" ){
+            h_cls.push("highlighted");
+        }
+        h_html = "<" + h_tag + " class=\\"" + h_cls.join(" ") + "\\"><span>" + h_text + "</span></" + h_tag + ">";
 
-        printf(
-            '<div class="heading %s %s" style="%s;">',
-            '<%= text_align %>-align',
-            'heading--<%= preset %>',
-            '<% if( accent_color.use_color ){ %>'.
-                '--accent-color: <%= accent_color.color %>'.
-            '<% } else { %>'.
-                '<% if( accent_color.color_variable ) { %>'.
-                    '<% if( accent_color.color_variable.startsWith("--") ) { %>'.
-                        '--accent-color: var(<%= accent_color.color_variable %>)'.
-                    '<% } else { %>'.
-                        '--accent-color: <%= accent_color.color_variable %>'.
-                    '<% } %>'.
-                '<% } %>'.
-            '<% } %>'
-        );
+        t_tag = tagline.html_tag;
+        t_text = __handlePlhs(tagline.content);
+        t_cls = ["heading__tagline"];
+        if( highlighted_element == "tagline" ){
+            t_cls.push("highlighted");
+        }
+        t_html = "<" + t_tag + " class=\\"" + t_cls.join(" ") + "\\"><span>" + t_text + "</span></" + t_tag + ">";
+        if( !add_tagline ){
+            t_html = "";
+        }
 
-        printf(
-            '<%s class="heading__text %s">%s</%s>',
-            '<%= heading.html_tag %>',
-            '<% if( highlighted_element == "heading" ) { %>highlighted <% } %>',
-            '<span><%= __handlePlhs(heading.content) %></span>',
-            '<%= heading.html_tag %>'
-        );
+        cmp_cls = ["heading", "heading--" + preset, text_align + "-align"];
+        cmp_style = "";
+        if( accent_color.use_color ){
+            cmp_style += "--accent-color: " + accent_color.color + ";";
+        } else {
+            if( accent_color.color_variable ) {
+                if( accent_color.color_variable.startsWith("--") ) {
+                    cmp_style += "--accent-color: var(" + accent_color.color_variable + ");";
+                } else {
+                    cmp_style += "--accent-color: " + accent_color.color_variable + ";";
+                }
+            }
+        }
 
-        echo '<% if(add_tagline){ %>';
-        printf(
-            '<%s class="heading__tagline %s" data-gjs-editable="true">%s</%s>',
-            '<%= tagline.html_tag %>',
-            '<% if( highlighted_element == "tagline" ) { %>highlighted<% } %>',
-            '<span><%= tagline.content %></span>',
-            '<%= tagline.html_tag %>'
-        );
-        echo '<% } %>';
-
-        echo '</div>';
-        
-        return ob_get_clean();
+        cmp_content = [h_html, t_html];
+        if( tagline_position == "before" ){
+            cmp_content = [t_html, h_html];
+        }
+        %>
+        <div class="<%= cmp_cls.join(" ") %>" style="<%= cmp_style %>">
+            <%= cmp_content.join("") %>
+        </div>';
     }
 }
 
