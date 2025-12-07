@@ -1170,6 +1170,15 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         // add the css for row and columns
         $breakpoints = $this->breakpoints;
 
+        // get or set the row ID
+        if( isset($uf_component['__gjsAttributes']) && isset($uf_component['__gjsAttributes']['id']) ){
+            $row_id = $uf_component['__gjsAttributes']['id'];
+        } else {
+            $row_id = $this->generate_id($component);
+            $gjs_component['attributes']['id'] = $row_id;
+            $uf_component['__gjsAttributes'] = array( 'id' => $row_id );
+        }
+
         foreach( $__gjs_cmp['control'] as $device => $control ){
             if( isset( $__gjs_cmp['control'][$device] ) ){
                 $column_count = 0;
@@ -1216,6 +1225,30 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                         }
                     }
                     $column_count++;
+                }
+
+                // migrate row gap and locked (flex-wrap)
+                $flex_wrap = ($__gjs_cmp['control'][$device]['locked'] == 1) ? 'nowrap' : 'wrap';
+                if( $breakpoints[$device] ){
+                    $css_styles .= "@media {$breakpoints[$device]} { #{$row_id} { gap: 1%; flex-wrap: {$flex_wrap}; } }";
+                    $gjs_styles[] = array(
+                        'selectors' => array( '#' . $row_id ),
+                        'style' => array( 
+                            'gap' => '1%',
+                            'flex-wrap' => $flex_wrap
+                        ),
+                        'mediaText' => $breakpoints[$device],
+                        'atRuleType' =>  "media"
+                    );
+                } else {
+                    $css_styles .= "#{$row_id} { gap: 1%; flex-wrap: {$flex_wrap}; }";
+                    $gjs_styles[] = array(
+                        'selectors' => array( '#' . $row_id ),
+                        'style' => array( 
+                            'gap' => '1%',
+                            'flex-wrap' => $flex_wrap
+                        )
+                    );
                 }
             }
         }
@@ -1720,7 +1753,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                         'type' => 'comp-wrapper',
                         'components' => array( $gjs_component ),
                         '__id' => $__id,
-                        'attributes' => array(  'id' => $id )
+                        'attributes' => array( 'id' => $id )
                     );
                     $gjs_component = $gj_comp_wrapper;
                     

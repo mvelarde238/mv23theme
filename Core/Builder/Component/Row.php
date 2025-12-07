@@ -28,7 +28,7 @@ class Row extends Component {
 		
 		$args['__type'] = array('row2');
 		$args['additional_classes'] = array('row2', 'component');
-		$args['additional_styles'] = array('display'=>'flex', 'gap'=>'1%','flex-wrap'=>'wrap');
+		$args['additional_styles'] = array('display'=>'flex');
 
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);

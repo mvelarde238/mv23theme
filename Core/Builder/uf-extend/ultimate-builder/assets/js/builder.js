@@ -292,7 +292,7 @@
                     // datastore will store: component type, unique id, datastore and custom "selector attributes"
                     const typesControl = this.get_types_control();
                     const __type = (typesControl[component.type]) ? typesControl[component.type].group : component.type;
-                    const componentDataStore = {
+                    let componentDataStore = {
                         __type: __type,
                         __id: compId,
                         __gjsAttributes: component.attributes
@@ -304,7 +304,9 @@
                         const datastore = temporalCompStore[__tempID].datastore;
                         if (datastore) {
                             delete temporalCompStore[__tempID].datastore.__type;
-                            Object.assign(componentDataStore, datastore.toJSON());
+                            let datastoreJSON = datastore.toJSON();
+                            // Merge datastore JSON into componentDataStore
+                            componentDataStore = {...datastoreJSON, ...componentDataStore}
                         }
                     }
                             
