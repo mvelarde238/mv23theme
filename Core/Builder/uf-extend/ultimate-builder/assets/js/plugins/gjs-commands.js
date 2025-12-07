@@ -145,4 +145,21 @@ window.gjsCommands = function (editor, options) {
         // else, go to the post type admin list
         window.location.href = BUILDER_GLOBALS.admin_url;
     });
+
+    commands.add('set-section-layout', (editor, sender, options = {}) => {
+        let component = options.component,
+            layout = options.layout,
+            datastore = editor.getComponentDatastore( component );
+            
+        if ( datastore ) {
+            let current_settings = datastore.get('settings') || {};
+            
+            datastore.set('settings', {
+                ...current_settings,
+                layout: { use: true, key: layout }
+            });
+
+            component.view.render();
+        }
+    });
 }

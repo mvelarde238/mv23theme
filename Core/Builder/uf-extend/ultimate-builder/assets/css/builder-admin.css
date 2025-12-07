@@ -9,7 +9,7 @@
     --ui-color-1: var(--color-bg-primary);
     --ui-color-2: var(--color-bg-secondary);
     --ui-color-3: var(--color-bg-tertiary);
-    --ui-color-4: var(--color-bg-surface);
+    --ui-color-4: var(--color-border-default);
     --font-color: var(--color-text-primary);
 }
 /* Override GrapesJS default colors */
@@ -127,18 +127,16 @@ body.ultimate-builder-editor .notification-dialog{
 }
 
 /* fix input styles in context menu */
-.gcm-item{
+.gcm-item-input{
     padding: 8px 10px !important;
     /* line-height: 2 !important; */
     min-height: 40px !important;
     box-shadow: initial !important;
     border-radius: 0 !important;
-    border-top: 0 !important;
+    border-top: 1px solid var(--ui-color-4) !important;
     border-bottom: 0 !important;
     border-left: 0 !important;
     background-color: var(--ui-color-2) !important;
-}
-.gcm-item-input{
     color: var(--font-color) !important;
 }
 
