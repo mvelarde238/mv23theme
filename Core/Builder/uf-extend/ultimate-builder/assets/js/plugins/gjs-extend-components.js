@@ -139,16 +139,20 @@ window.gjsExtendComponents = function (editor) {
                     $fieldsContainer.empty();
                 }
 
-                // Determine wrap based on layout
-                // const wrap = UltimateFields.Field[ (view.model && view.model.get('layout') === 'grid') ? 'GridWrap' : 'Wrap' ];
+                editor.trigger('openDatastore', builder_comp_model, component);
 
-                // Use the canonical addFields method to build field views
-                try { 
-                    view.addFields($fieldsContainer, { tabs: false, wrap: 'GridWrap' }); 
-                } catch (e) {
+                // Use the canonical addFields method to build field views fails on initial render: dosn't show title and styles
+                // try { 
+                    // const wrap = UltimateFields.Field[ (view.model && view.model.get('layout') === 'grid') ? 'GridWrap' : 'Wrap' ];
+                    // view.addFields($fieldsContainer, { tabs: true, wrap: wrap });                    
+                // } catch (e) {
                     // Fallback: render full view if addFields fails
-                    try { view.render(); $wrapper.append(view.$el); } catch (er) { console.error(er); }
-                }
+                    try { 
+                        view.render(); $wrapper.append(view.$el); 
+                        // fake resize event to fix grid fields width:
+                        window.dispatchEvent(new Event('resize'));
+                    } catch (er) { console.error(er); }
+                // }
             } 
 
             // Debounced change handler: 
