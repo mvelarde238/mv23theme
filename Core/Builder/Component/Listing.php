@@ -94,6 +94,7 @@ class Listing extends Component {
 
         if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
             $tax_params = Field::create( 'complex', 'tax_params', __('Categories','mv23theme') )
+                ->hide_label()
                 ->add_dependency('source','auto','=');
 
             foreach($listing_taxonomies as $tax){
@@ -106,15 +107,17 @@ class Listing extends Component {
             array_push($listing_fields_1, $tax_params);
         }
 
-        $width_style = 'width: 25%; min-width: initial;';
+        $width_25 = 'width: 25%; min-width: initial;';
+        $width_50 = 'width: 50%; min-width: initial;';
 
         $listing_fields_2 = array( 
+            Field::create( 'tab', __('Query Settings','mv23theme')),
             Field::create( 'complex', 'query_params', '' )->merge()->add_fields(array(
-                Field::create( 'number', 'posts_per_page', __('Number of posts','mv23theme') )->set_default_value(3)->set_width(25),
+                Field::create( 'number', 'posts_per_page', __('Number of posts','mv23theme') )->set_default_value(3)->set_attr('style', $width_50),
                 Field::create( 'select', 'order', __('Order','mv23theme') )->add_options(array(
                     'DESC' => __('Descending','mv23theme'),
                     'ASC' => __('Ascending','mv23theme')
-                ))->set_width(25),
+                ))->set_attr('style', $width_50),
                 Field::create( 'select', 'orderby', __('Order by','mv23theme') )->add_options(array(
                     'date' => __('Date','mv23theme'),
                     'title' => __('Title','mv23theme'),
@@ -122,8 +125,8 @@ class Listing extends Component {
                     'rand' => __('Random','mv23theme'),
                     'menu_order' => __('Custom','mv23theme'),
                     // 'comment_count' => __('Comentarios','mv23theme')
-                ))->set_width(25),
-                Field::create( 'number', 'offset', 'Offset' )->set_width(25),
+                ))->set_attr('style', $width_50),
+                Field::create( 'number', 'offset', 'Offset' )->set_attr('style', $width_50),
             ))->add_dependency('source','auto','='),
 
             Field::create( 'complex', 'status_params', '' )->merge()->add_fields(array(
@@ -151,17 +154,17 @@ class Listing extends Component {
             ))->add_dependency('listing_template','carousel','='),
             
             Field::create( 'complex', 'columns_qty_wrapper', __('Number of Columns','mv23theme') )->merge()->add_fields(array(
-                Field::create( 'number', 'items_in_desktop', __('Desktop','mv23theme') )->set_default_value(3)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_style),
-                Field::create( 'number', 'items_in_laptop', __('Laptop','mv23theme') )->set_default_value(3)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_style),
-                Field::create( 'number', 'items_in_tablet', __('Tablet','mv23theme') )->set_default_value(2)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_style),
-                Field::create( 'number', 'items_in_mobile', __('Mobile','mv23theme') )->set_default_value(1)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_style)
+                Field::create( 'number', 'items_in_desktop', __('Desktop','mv23theme') )->set_default_value(3)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
+                Field::create( 'number', 'items_in_laptop', __('Laptop','mv23theme') )->set_default_value(3)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
+                Field::create( 'number', 'items_in_tablet', __('Tablet','mv23theme') )->set_default_value(2)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
+                Field::create( 'number', 'items_in_mobile', __('Mobile','mv23theme') )->set_default_value(1)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25)
             )),
             
             Field::create( 'complex', 'gap_wrapper', __('Space between columns','mv23theme') )->merge()->add_fields(array(
-                Field::create( 'number', 'd_gap', __('Desktop','mv23theme') )->set_default_value(50)->set_attr('style', $width_style),
-                Field::create( 'number', 'l_gap', __('Laptop','mv23theme') )->set_default_value(40)->set_attr('style', $width_style),
-                Field::create( 'number', 't_gap', __('Tablet','mv23theme') )->set_default_value(30)->set_attr('style', $width_style),
-                Field::create( 'number', 'm_gap', __('Mobile','mv23theme') )->set_default_value(20)->set_attr('style', $width_style)
+                Field::create( 'number', 'd_gap', __('Desktop','mv23theme') )->set_default_value(50)->set_attr('style', $width_25),
+                Field::create( 'number', 'l_gap', __('Laptop','mv23theme') )->set_default_value(40)->set_attr('style', $width_25),
+                Field::create( 'number', 't_gap', __('Tablet','mv23theme') )->set_default_value(30)->set_attr('style', $width_25),
+                Field::create( 'number', 'm_gap', __('Mobile','mv23theme') )->set_default_value(20)->set_attr('style', $width_25)
             )),
             
             Field::create( 'tab', __('Post Card','mv23theme')),

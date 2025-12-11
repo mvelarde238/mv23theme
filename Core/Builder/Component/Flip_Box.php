@@ -20,7 +20,8 @@ class Flip_Box extends Component {
     
 	public static function get_fields() {
 		$fields = array( 
-            Field::create( 'image_select', 'flip_effect' )->show_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
+            Field::create( 'tab', __('Flip Effect','mv23theme') ),
+            Field::create( 'image_select', '' )->show_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
                 'horizontal-flip'  => array(
                     'label' => 'Horizontal flip',
                     'image' => BUILDER_PATH.'/assets/images/horizontal-flip.png'
@@ -38,7 +39,8 @@ class Flip_Box extends Component {
                     'image' => BUILDER_PATH.'/assets/images/slide-in-flip.png'
                 ),
             )),
-            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
+            Field::create( 'tab', __('Aspect Ratio','mv23theme') ),
+            Field::create( 'image_select', 'aspect_ratio', '' )->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
                 '4/3'  => array(
                     'label' => '4:3',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-4-3.png'

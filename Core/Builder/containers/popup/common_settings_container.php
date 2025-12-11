@@ -23,8 +23,8 @@ Container::create( 'common_settings_container' )
                 'layout3' => __('Fully extended','mv23theme')
             ))->add_dependency('use')->set_attr( 'style', 'flex-grow: 1;' )
         )),
-        Field::create( 'complex', 'helpers' )->hide_label()->add_fields(array(
-            Field::create( 'checkbox', 'use', __('Helpers','mv23theme') )->fancy()->set_width(10),
+        Field::create( 'complex', 'helpers', __('Helpers','mv23theme') )->add_fields(array(
+            Field::create( 'checkbox', 'use', __('Activate','mv23theme') )->fancy()->set_width(10),
             Field::create( 'multiselect', 'list')
                 ->hide_label()
                 ->set_input_type( 'checkbox' )
@@ -41,8 +41,8 @@ Container::create( 'common_settings_container' )
                     'dark-mode' => __('Dark Mode','mv23theme')
                 ))->add_dependency('use')->set_width( 80 )
         )),
-        Field::create( 'complex', 'video_background' )->hide_label()->add_fields(array(
-            Field::create( 'checkbox', 'use', __('Video background', 'mv23theme') )->fancy()->set_width( 20 ),
+        Field::create( 'complex', 'video_background', __('Video background', 'mv23theme') )->add_fields(array(
+            Field::create( 'checkbox', 'use', __('Activate','mv23theme') )->fancy()->set_width( 20 ),
 
             Field::create( 'radio', 'video_source', __('Source','mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
                 'selfhosted' => __('Media','mv23theme'),
@@ -59,14 +59,14 @@ Container::create( 'common_settings_container' )
                 Field::create( 'checkbox', 'muted', __('Muted','mv23theme') )->set_text( __('Activate','mv23theme') )->set_default_value(1)->set_width(10),
                 Field::create( 'checkbox', 'loop', __('Loop','mv23theme') )->set_text( __('Activate','mv23theme') )->set_default_value(1)->set_width(10),
                 Field::create( 'number', 'opacity', __('Opacity','mv23theme') )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width(10)
-            ))->hide_label()->add_dependency('use')
+            ))->add_dependency('use')
         )),
-        Field::create( 'complex', 'slider_background' )->hide_label()->add_fields(array(
-            Field::create( 'checkbox', 'use', __('Slider background', 'mv23theme') )->fancy()->set_width( 20 ),
+        Field::create( 'complex', 'slider_background', __('Slider background', 'mv23theme') )->add_fields(array(
+            Field::create( 'checkbox', 'use', __('Activate','mv23theme') )->fancy()->set_width( 20 ),
             Field::create( 'text', 'shortcode')->add_dependency('use')->set_width( 50 )
         )),
-        Field::create( 'complex', 'visibility' )->hide_label()->add_fields(array(
-            Field::create( 'checkbox', 'use',  __('Visibility','mv23theme') )
+        Field::create( 'complex', 'visibility', __('Visibility','mv23theme') )->add_fields(array(
+            Field::create( 'checkbox', 'use', __('Activate','mv23theme') )
                 ->fancy()
                 ->set_attr( 'style', 'flex-grow: initial;min-width: auto;' ),
             Field::create('select', 'key', __('Visibility','mv23theme') )->add_options(array(

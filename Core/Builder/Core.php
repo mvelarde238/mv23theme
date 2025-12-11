@@ -90,7 +90,6 @@ class Core{
 
     public function add_ultimate_builder_link( $actions, $post ) {
 		$post_type = get_post_type( $post );
-        error_log( 'Adding Ultimate Builder link to post type: ' . $post_type );
 
 		if ( in_array( $post_type, UF_POSTTYPES ) || $post_type === 'offcanvas_element' ) {
 			$builder_url = add_query_arg( array(

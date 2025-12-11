@@ -30,14 +30,14 @@ class Image extends Component {
                     'external' => __('External','mv23theme')
                 )),
             Field::create( 'image', 'image', __('Image','mv23theme') )->add_dependency('image_source','selfhosted','='),
-            Field::create( 'text', 'external_image', 'URL')->add_dependency('image_source','external','='),
-            Field::create( 'text', 'credits', __('Credits','mv23theme'))->add_dependency('image_source','external','='),
+            Field::create( 'text', 'external_image', 'URL')->hide_label()->set_prefix('URL')->add_dependency('image_source','external','='),
+            Field::create( 'text', 'credits', __('Credits','mv23theme'))->hide_label()->set_prefix('Credits')->add_dependency('image_source','external','='),
 
             Field::create( 'checkbox', 'expand_on_click', __('Expand on click','mv23theme') )->fancy()
                 ->set_text( __( 'Show the image in a popup.', 'mv23theme' ) ),
     
             Field::create( 'tab', __('Aspect Ratio','mv23theme') ),
-            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
+            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->hide_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
                 'default' => array(
                     'label' => 'default',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default.png'

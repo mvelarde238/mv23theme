@@ -11,7 +11,7 @@ body{
     padding-top: 0 !important;
 }  
 /* make components visible */
-[data-gjs-type]:not(.full-height):not([data-gjs-type="spacer"]):empty {
+div[data-gjs-type]:not(.full-height):not([data-gjs-type="spacer"]):empty {
     padding-top: 25px;
     padding-bottom: 25px;
 }

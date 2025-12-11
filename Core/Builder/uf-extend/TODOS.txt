@@ -17,7 +17,6 @@ TODO:
         * global text color is overriden?
         * blockqute decorator dont change color unless i put .textcolor2 class
     * cant set dark mode on body
-    * popup container se desordena luego de abrirse mas grande (al escoger una imagen video icono)
     * gradient background
     * create a blockquote component, i couldnt add a button aligned to text
     * aumentar default section padd top and bottom

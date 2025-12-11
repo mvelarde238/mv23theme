@@ -67,7 +67,7 @@ class Heading extends Component {
         );
 
 		$fields = array(
-            Field::create( 'tab', __( 'Heading', 'mv23theme' ) ),
+            Field::create( 'tab', __( 'Content', 'mv23theme' ) ),
 			Field::create( 'complex', 'heading' )->hide_label()
                 ->add_fields( array(
                     Field::create( 'textarea', 'content', __( 'Content', 'mv23theme' ) )
@@ -89,7 +89,7 @@ class Heading extends Component {
                         ->hide_label()
                 ) ),
 
-            Field::create( 'radio', 'text_align' )
+            Field::create( 'select', 'text_align' )
                 ->hide_label()
                 ->set_prefix( __( 'Alignment', 'mv23theme' ) )
                 ->set_orientation( 'horizontal' )
@@ -109,7 +109,8 @@ class Heading extends Component {
             Field::create( 'complex', 'tagline' )
                 ->hide_label()
                 ->add_fields( array(
-                    Field::create( 'text', 'content', __( 'Content', 'mv23theme' ) )
+                    Field::create( 'textarea', 'content', __( 'Content', 'mv23theme' ) )
+                        ->set_rows( 2 )
                         ->hide_label(),
                     Field::create( 'select', 'html_tag', __( 'HTML Tag', 'mv23theme' ) )
                         ->add_options( array(
@@ -122,7 +123,7 @@ class Heading extends Component {
                         ->hide_label()
                 ) )->add_dependency( 'add_tagline' ),
 
-            Field::create( 'radio', 'tagline_position' )
+            Field::create( 'select', 'tagline_position' )
                 ->hide_label()
                 ->set_prefix( __( 'Tagline Position', 'mv23theme' ) )
                 ->set_orientation( 'horizontal' )
@@ -133,30 +134,14 @@ class Heading extends Component {
                 ->set_default_value( 'after' )
                 ->add_dependency( 'add_tagline' ),
 
-            Field::create( 'tab', 'style', __( 'Style', 'mv23theme' ) ),
+            Field::create( 'tab', 'preset_styles', __( 'Preset styles', 'mv23theme' ) ),
             Field::create( 'image_select', 'preset', __('Preset Style', 'mv23theme') )
                 ->add_options($preset_styles)
                 ->hide_label()
-                ->set_default_value('style1')
-                ->set_attr( 'class', 'image-select-2-cols' ),
-            Field::create( 'complex', 'accent_color', __( 'Accent Color', 'mv23theme' ) )
-                ->add_fields( array(
-                    Field::create( 'text', 'color_variable' )
-                        ->set_placeholder( 'currentColor' )
-                        ->add_suggestions( array('currentColor', '--primary-color', '--secondary-color'))
-                        ->add_dependency( 'use_color', 0 )
-                        ->hide_label()
-                        ->set_width( 50 ),
-                    Field::create( 'checkbox', 'use_color', __( 'Use Color', 'mv23theme' ) )
-                        ->fancy()
-                        ->set_text( __( 'Use custom color', 'mv23theme' ) )
-                        ->hide_label()
-                        ->set_width( 50 ),
-                    Field::create( 'color', 'color', __( 'Color', 'mv23theme' ) )
-                        ->add_dependency( 'use_color' )
-                        ->hide_label()
-                        ->set_width( 50 )
-                ) )->add_dependency( 'preset', 'default', '!=' ),
+                ->set_default_value('style1'),
+                // ->set_attr( 'class', 'image-select-2-cols' ),
+
+            Field::create( 'tab', 'preset_settings', __( 'Preset settings', 'mv23theme' ) ),
             Field::create( 'radio', 'highlighted_element', __( 'Highlighted Element', 'mv23theme' ) )
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
@@ -165,7 +150,17 @@ class Heading extends Component {
                 ) )
                 ->set_default_value( 'heading' )
                 ->add_dependency( 'add_tagline' )
-                ->add_dependency( 'preset', 'default', '!=' )
+                ->add_dependency( 'preset', 'default', '!=' ),
+            Field::create( 'complex', 'accent_color', __( 'Accent Color', 'mv23theme' ) )
+                ->add_fields( array(
+                    Field::create( 'text', 'color_variable' )
+                        ->set_placeholder( 'currentColor' )
+                        ->add_suggestions( array('currentColor', '--primary-color', '--secondary-color', 'Use ColorPicker') )
+                        ->hide_label(),
+                    Field::create( 'color', 'color', __( 'Color', 'mv23theme' ) )
+                        ->add_dependency( 'color_variable', 'Use ColorPicker' )
+                        ->hide_label()
+                ) )->add_dependency( 'preset', 'default', '!=' )
 		);
 
 		return $fields;
@@ -190,8 +185,8 @@ class Heading extends Component {
         $args['additional_classes'][] = 'heading--' . $preset;
 
         // add accent color to additional styles
-        $accent_color = $args['accent_color'] ?? array('use_color' => false, 'color' => '', 'color_variable' => '');
-        if( $accent_color['use_color'] && !empty($accent_color['color']) ) {
+        $accent_color = $args['accent_color'] ?? array('color' => '', 'color_variable' => '');
+        if( $accent_color['color_variable'] == 'Use ColorPicker' ) {
             $args['additional_styles']['--accent-color'] = $accent_color['color'];
         } else {
             if( !empty($accent_color['color_variable']) ) {
@@ -290,7 +285,7 @@ class Heading extends Component {
 
         cmp_cls = ["heading", "heading--" + preset, text_align + "-align"];
         cmp_style = "";
-        if( accent_color.use_color ){
+        if( accent_color.color_variable == "Use ColorPicker" ){
             cmp_style += "--accent-color: " + accent_color.color + ";";
         } else {
             if( accent_color.color_variable ) {

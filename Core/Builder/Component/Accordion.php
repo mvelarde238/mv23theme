@@ -55,10 +55,10 @@ class Accordion extends Component {
                 'tab' => 'Tab',
             ))->set_default_value('tab'),
             Field::create( 'image_select', 'tab_style', __('Style','mv23theme') )
-                ->set_attr( 'class', 'image-select-3-cols' )
+                ->set_attr( 'class', 'image-select-2-cols' )
                 ->add_options( $tab_styles )->show_label()->add_dependency('template','tab','='),
             Field::create( 'image_select', 'accordion_style', __('Style','mv23theme') )
-                ->set_attr( 'class', 'image-select-3-cols' )
+                ->set_attr( 'class', 'image-select-2-cols' )
                 ->add_options( $accordion_styles )->show_label()->add_dependency('template','accordion','=')
         );
 

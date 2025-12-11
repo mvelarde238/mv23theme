@@ -64,7 +64,7 @@ class Menu extends Component {
                 ->set_default_value( $first_location )
                 ->add_dependency('type','location','='),
             Field::create( 'image_select', 'style', __('Style','mv23theme') )
-                ->set_attr( 'class', 'image-select-3-cols' )
+                ->set_attr( 'class', 'image-select-2-cols' )
                 ->add_options( $menu_styles_image_select )
                 ->add_dependency( 'type', 'menu' )
                 ->add_dependency( 'menu', '0', '!=' )

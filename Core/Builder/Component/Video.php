@@ -20,6 +20,8 @@ class Video extends Component {
     }
 
 	public static function get_fields() {
+        $control_css = 'width:50%;min-width:auto;flex-grow:initial;';
+
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'radio', 'video_source', __('Source','mv23theme'))
@@ -31,22 +33,24 @@ class Video extends Component {
 
             Field::create( 'embed', 'external_url', 'URL')->add_dependency('video_source','external','='),
             Field::create( 'video', 'video' )->add_dependency('video_source','selfhosted','='),
-            
-            Field::create( 'complex', 'video_settings' )->add_fields(array(
-                    Field::create( 'checkbox', 'controls', __('Controls','mv23theme') )->fancy()->set_width(10),
-                    Field::create( 'checkbox', 'autoplay', __('AutoPlay','mv23theme') )->fancy()->set_width(10),
-                    Field::create( 'checkbox', 'muted', __('Muted','mv23theme') )->fancy()->set_width(10),
-                    Field::create( 'checkbox', 'loop', __('Loop','mv23theme') )->fancy()->set_width(10),
-                    Field::create( 'color', 'bgc', __('Background color','mv23theme') )->set_default_value('#000000')->set_width(10),
-                    Field::create( 'number', 'opacity', __('Opacity','mv23theme') )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )->set_width(10)
-                ))
+
+            Field::create('checkbox', 'expand_on_click', __('Expand on click','mv23theme'))->fancy()
                 ->add_dependency('video_source','selfhosted','=')
                 // ->add_dependency('video','','NOT_NULL')
                 ->add_dependency_group()
                 ->add_dependency('video_source','external','=')
-                ->add_dependency('external_url','','!='),
-
-            Field::create('checkbox', 'expand_on_click', __('Expand on click','mv23theme'))->fancy()
+                ->add_dependency('external_url','','!=')
+                ->set_text( __( 'Show the video in a popup.', 'mv23theme' ) ),
+            
+            Field::create( 'tab', __('Video Settings','mv23theme') ),
+            Field::create( 'complex', 'video_settings' )->hide_label()->add_fields(array(
+                    Field::create( 'checkbox', 'controls', __('Controls','mv23theme') )->fancy()->set_attr( 'style', $control_css ),
+                    Field::create( 'checkbox', 'autoplay', __('AutoPlay','mv23theme') )->fancy()->set_attr( 'style', $control_css ),
+                    Field::create( 'checkbox', 'muted', __('Muted','mv23theme') )->fancy()->set_attr( 'style', $control_css ),
+                    Field::create( 'checkbox', 'loop', __('Loop','mv23theme') )->fancy()->set_attr( 'style', $control_css ),
+                    Field::create( 'color', 'bgc', __('Background color','mv23theme') )->set_default_value('#000000'),
+                    Field::create( 'number', 'opacity', __('Opacity','mv23theme') )->enable_slider( 0, 100 )->set_default_value(100)->set_step( 5 )
+                ))
                 ->add_dependency('video_source','selfhosted','=')
                 // ->add_dependency('video','','NOT_NULL')
                 ->add_dependency_group()
@@ -54,7 +58,7 @@ class Video extends Component {
                 ->add_dependency('external_url','','!='),
     
             Field::create( 'tab', __('Aspect Ratio','mv23theme') ),
-            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
+            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->hide_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
                 'default' => array(
                     'label' => 'default',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default.png'

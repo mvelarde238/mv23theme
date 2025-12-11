@@ -31,7 +31,7 @@ class Map extends Component {
             )),
     
             Field::create( 'tab', 'Info Window'),
-            Field::create( 'wysiwyg', 'info_window_content' )->hide_label()->set_rows( 20 ),
+            Field::create( 'wysiwyg', 'info_window_content' )->hide_label()->set_rows( 15 ),
         );
 
 		return $fields;

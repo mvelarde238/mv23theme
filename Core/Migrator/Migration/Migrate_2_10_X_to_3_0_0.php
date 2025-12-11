@@ -941,6 +941,13 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 }
             }
         }
+
+        $accent_color_settings = $component['accent_color'] ?? array();
+        if( isset($accent_color_settings['use_color']) && $accent_color_settings['use_color'] ){
+            $accent_color_settings['color_variable'] = 'Use ColorPicker';
+            unset( $accent_color_settings['use_color'] );
+            $uf_component['accent_color'] = $accent_color_settings;
+        }
     }
 
     private function process_columns_inner_components( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles ){

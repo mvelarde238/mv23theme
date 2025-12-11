@@ -88,7 +88,7 @@ abstract class Component {
 	 * @return string
 	 */
 	/* abstract */ public static function get_layout() {
-		return 'table';
+		return 'grid';
 	}
 
 	/**
@@ -106,7 +106,7 @@ abstract class Component {
 	 * @return string
 	 */
 	/* abstract */ public static function get_edit_mode() {
-		return 'popup';
+		return 'inline';
 	}
 
 	/**
@@ -139,7 +139,7 @@ abstract class Component {
 				->set_container( 'scroll_animations_container' )
 				->set_attr( 'class', 'common-setting-small' )
 				->set_attr( 'style', 'min-width: initial !important;' )
-				->set_add_text( __('Scroll Animations', 'mv23theme') )
+				->set_add_text( __('Animations', 'mv23theme') )
 				->hide_label(),
 			'actions_settings' => Field::create( 'common_settings_control', 'actions_settings' )
 				->set_container( 'actions_container' )
