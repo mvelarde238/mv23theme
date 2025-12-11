@@ -52,28 +52,13 @@ window.gjsExtendComponents = function (editor) {
 
                 UltimateFields.applyFilters('repeater_group_classes', args);
 
-                // Prepare the model for the pop up
-                let popup_model = new args.model(_.extend({}, args.settings));
-                popup_model.set('__type', __type);
-                popup_model.setDatastore(datastore);
+                // Prepare the group model
+                let group_model = new args.model(_.extend({}, args.settings));
+                group_model.set('__type', __type);
+                group_model.setDatastore(datastore);
                 
                 // save the model
-                editorConfig.temporalCompStore[generateId] = popup_model;
-
-                // trigger update on editor when the model is saved
-                popup_model.on('stateSaved', function () {
-                    editor.trigger('update'); // ???
-
-                    // refresh the component view to reflect changes
-                    component.view.render();
-                });
-
-                // re-render the component when the state is restored
-                // after changes in pop up are cancelled
-                popup_model.on('stateRestored', () => {
-                    editor.trigger('datastoreRestored', popup_model, component);
-                    component.view.render();
-                });
+                editorConfig.temporalCompStore[generateId] = group_model;
             }
         }
     });
@@ -108,81 +93,156 @@ window.gjsExtendComponents = function (editor) {
         }
     });
 
-    // Add toolbar button to open data store
+    // When a component is selected, check if it has a temporal UF model
+    // and render its Group view inside #component-settings (sidenav)
     editor.on('component:selected', (component) => {
-        const toolbar = component.get('toolbar') || [];
+        try {
+            const editorConfig = editor.getConfig();
+            const compId = component.attributes && component.attributes.__tempID;
+            const store = editorConfig.temporalCompStore || {};
 
-        const dataStoreButton = {
-            id: 'data-store',
-            label: '<i class="bi bi-database"></i>',
-            command: 'open-datastore',
-            attributes: { title: 'Open Data Store' }
-        };
+            if (!compId || !store[compId]) return;
 
-        if (
-            component.get('__tempID') &&
-            !toolbar.find(item => item.id === 'data-store')
-        ) {
-            component.set('toolbar', [...toolbar, dataStoreButton]);
-        }
-    });
+            // Cleanup previous active instance if different
+            if (editorConfig.activeDatastore && editorConfig.activeDatastore.componentId !== compId) {
+                const prev = editorConfig.activeDatastore;
+                try {
+                    if (prev.model && prev.handler) prev.model.datastore.off('change', prev.handler);
+                } catch (e) {}
+                try { if (prev.view && typeof prev.view.remove === 'function') prev.view.remove(); } catch (e) {}
+                // clear wrapper
+                try { window.jQuery && window.jQuery('#component-settings').empty(); } catch (e) {}
+                editorConfig.activeDatastore = null;
+            }
 
-    // Command to open the data store
-    const commands = editor.Commands;
-    commands.add('open-datastore', (editor) => {
-        const selectedComponent = editor.getSelected();
-        if (selectedComponent) {
-            const editorConfig = editor.getConfig(),
-                temporalCompStore = editorConfig.temporalCompStore || {},
-                componentId = selectedComponent.attributes.__tempID;
+            // If already rendered for this component, do nothing
+            if (editorConfig.activeDatastore && editorConfig.activeDatastore.componentId === compId) return;
 
-            if ( temporalCompStore[componentId] ) {
-                let builder_comp_model = temporalCompStore[componentId];
+            // Build view
+            const builder_comp_model = store[compId];
+            if (!builder_comp_model) return;
 
-                editor.trigger('openDatastore', builder_comp_model, selectedComponent);
+            // Use inline Group view but render only the canonical fields inside the sidenav
+            // We call `addFields` to reuse the UF field creation / wrappers / layout logic.
+            const GroupView = UltimateFields.Container.Group.View || UltimateFields.Container.Group.fullScreenView;
+            const view = new GroupView({ model: builder_comp_model });
 
-                // Save the state of the datastore
-                // this will create a new datastore to work with in the pop up
-                builder_comp_model.backupState();
+            // Attach fields to the wrapper using addFields(). Prefer jQuery wrapper.
+            const $wrapper = window.jQuery ? window.jQuery('#component-settings') : null;
+            if ($wrapper && $wrapper.length) {
+                // Clear wrapper and ensure a uf-fields container for addFields
+                $wrapper.empty();
+                let $fieldsContainer = $wrapper.find('.uf-fields');
+                if (!$fieldsContainer.length) {
+                    $fieldsContainer = window.jQuery('<div class="uf-fields" />').appendTo($wrapper);
+                } else {
+                    $fieldsContainer.empty();
+                }
 
-                // Update the view when the newest popup-datastore changes
-                builder_comp_model.datastore.on('change', function () {
-                    editor.trigger('popupDatastoreChanged', builder_comp_model, selectedComponent);
-                    // dont re-render if only __tab changed
-                    if ( Object.keys(builder_comp_model.datastore.changed).length === 1 &&
-                         builder_comp_model.datastore.changed.hasOwnProperty('__tab') ) {
+                // Determine wrap based on layout
+                // const wrap = UltimateFields.Field[ (view.model && view.model.get('layout') === 'grid') ? 'GridWrap' : 'Wrap' ];
+
+                // Use the canonical addFields method to build field views
+                try { 
+                    view.addFields($fieldsContainer, { tabs: false, wrap: 'GridWrap' }); 
+                } catch (e) {
+                    // Fallback: render full view if addFields fails
+                    try { view.render(); $wrapper.append(view.$el); } catch (er) { console.error(er); }
+                }
+            } 
+
+            // Debounced change handler: 
+            // ignore __tab-only changes because they don't affect data
+            const changeHandler = _.debounce(function () {
+                try {
+                    const changed = builder_comp_model.datastore.changed || {};
+                    const keys = Object.keys(changed);
+                    if (keys.length === 1 && keys[0] === '__tab') return;
+
+                    // Validate using field.validate() before propagating changes
+                    const validation = validateDatastore(builder_comp_model);
+                    if (!validation.valid) {
+                        editor.trigger('datastoreInvalid', builder_comp_model, component, validation.errors);
                         return;
                     }
-                    selectedComponent.view.render();
-                });
 
-                let overlayView = new UltimateFields.Container.Group.fullScreenView({
-                    model: builder_comp_model,
-                    className: 'uf-sidenav uf-popup-group'
-                });
+                    // Notify editor that datastore changed; allow other code to persist
+                    editor.trigger('datastoreChanged', builder_comp_model, component);
 
-                UltimateFields.Overlay.show({
-                    view: overlayView,
-                    title: builder_comp_model.datastore.get('title') || builder_comp_model.get('title'),
-                    // buttons: overlayView.getbuttons(),
-                    buttons: [
-                        {
-            				type: 'primary',
-            				cssClass: 'uf-button-save-popup',
-            				text: UltimateFields.L10N.localize( 'repeater-save' ).replace( '%s', builder_comp_model.get( 'title' ) ),
-            				icon: 'dashicons-category',
-            				callback: _.bind( overlayView.save, overlayView )
-            			},
-                        {
-				        	type: 'secondary',
-				        	cssClass: 'uf-button-delete-popup',
-				        	text: 'Discard Changes',
-				        	icon: 'dashicons-no-alt',
-				        	callback: function() { overlayView.close; return true; }
-				        }
-                    ]
-                });
-            }
+                    // Re-render component view to reflect data changes
+                    try { component.view && component.view.render && component.view.render(); } catch (e) {}
+                } catch (e) {}
+            }, 200);
+
+            builder_comp_model.datastore.on('change', changeHandler);
+
+            // Save active instance reference for concurrency/cleanup
+            editorConfig.activeDatastore = {
+                componentId: compId,
+                view: view,
+                handler: changeHandler,
+                model: builder_comp_model,
+                component: component
+            };
+        } catch (e) {
+            console.error('Error rendering inline datastore:', e);
         }
     });
+
+    // Cleanup when a component is deselected: remove inline view and listeners
+    editor.on('component:deselected', (component) => {
+        try {
+            const editorConfig = editor.getConfig();
+            const active = editorConfig.activeDatastore;
+            if (!active) return;
+            // If the deselected component matches the active one, cleanup
+            if (component && active.componentId === component.attributes.__tempID) {
+                try { if (active.model && active.handler) active.model.datastore.off('change', active.handler); } catch (e) {}
+                try { if (active.view && typeof active.view.remove === 'function') active.view.remove(); } catch (e) {}
+                try { window.jQuery && window.jQuery('#component-settings').empty(); } catch (e) {}
+                editorConfig.activeDatastore = null;
+            }
+        } catch (e) {}
+    });
+
+    
+    // Validation helper for inline Ultimate Fields datastores using field.validate()
+    // Mirrors the approach used in customizer.Model.isValid(): iterate fields,
+    // skip fields in hidden tabs and call field.validate(true) for silent validation.
+    function validateDatastore(groupModel) {
+        try {
+            if (!groupModel) return { valid: true };
+
+            const tabs = (groupModel.get && groupModel.get('tabs')) || {};
+            const fields = (groupModel.get && groupModel.get('fields')) || null;
+            const errors = {};
+
+            if (fields && typeof fields.each === 'function') {
+                fields.each(function (field) {
+                    try {
+                        // If the field's tab is set and that tab is hidden, skip
+                        if (field.get('tab') && tabs && !tabs[field.get('tab')]) return;
+
+                        // Silent validation (true -> silent) to get state without UI side-effects
+                        var state = typeof field.validate === 'function' ? field.validate(true) : undefined;
+
+                        if (typeof state !== 'undefined') {
+                            var name = (field.get && field.get('name')) || field.cid || 'unknown';
+                            errors[name] = state;
+                            try { field.set('invalid', true); } catch (e) {}
+                        } else {
+                            try { field.set('invalid', false); } catch (e) {}
+                        }
+                    } catch (err) {
+                        try { errors[field.get('name') || field.cid || 'unknown'] = err; } catch (e) { errors['unknown'] = err; }
+                    }
+                });
+            }
+
+            if (Object.keys(errors).length) return { valid: false, errors: errors };
+            return { valid: true };
+        } catch (err) {
+            return { valid: false, errors: err };
+        }
+    }
 }

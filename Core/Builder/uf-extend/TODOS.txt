@@ -38,7 +38,6 @@ TODO:
 
 * CUSTOMIZE EDITOR
     * show header on builder mode with ajax
-    * on select component, render the uf-group on sidenav and apply changes on the realDatastore
     * add a loader when loading the builder
     * add tooltip to topbar(?) buttons: save, undo, console, etc, style manager, components, etc
     * copy paste components between pages
