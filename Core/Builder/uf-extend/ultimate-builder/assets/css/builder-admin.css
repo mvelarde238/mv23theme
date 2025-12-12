@@ -1,235 +1,417 @@
-/* 
- * Ultimate Builder Admin Styles
- */
-
+/* * Ultimate Builder Admin Styles
+ * */
 /* Define brand and UI colors based on react app theme variables */
-:root{
-    --brand-color-1: var(--color-text-accent);
-    --brand-color-2: var(--color-text-warning);
-    --ui-color-1: var(--color-bg-primary);
-    --ui-color-2: var(--color-bg-secondary);
-    --ui-color-3: var(--color-bg-tertiary);
-    --ui-color-4: var(--color-border-default);
-    --font-color: var(--color-text-primary);
-}
-/* Override GrapesJS default colors */
-body.ultimate-builder-editor {
-    --gjs-primary-color: transparent;
-    --gjs-secondary-color: var(--font-color);
-    --gjs-tertiary-color: var(--ui-color-4);
-    --gjs-quaternary-color: var(--brand-color-1);
-    --gjs-font-color: var(--font-color);
-    --gjs-placeholder-background-color: var(--brand-color-1);
-    --gjs-color-blue: var(--brand-color-1);
+:root {
+  --brand-color-1: var(--color-text-accent);
+  --brand-color-2: var(--color-text-warning);
+  --ui-color-1: var(--color-bg-primary);
+  --ui-color-2: var(--color-bg-secondary);
+  --ui-color-3: var(--color-bg-tertiary);
+  --ui-color-4: var(--color-border-default);
+  --font-color: var(--color-text-primary);
 }
 
-/* 
-* Clean editor interface
-*/
 /* body.ultimate-builder-editor #wpbody-content>div:not(.block-editor):not(#screen-meta),  */
-body.ultimate-builder-editor {
-    #wpfooter {
-        display: none;
-    }
-    #wpcontent {
-        padding-left: 0;
-    }
-    #wpbody-content{
-        padding-bottom: 0;
-    }
-    /* .uf-form-success,  */
-    /* .uf-form-error, */
-    .uf-form-special,
-    .uf-form-footer{
-        display: none;
-    }
-    .uf-field-type-ultimate_builder{
-        padding: 0 !important;
-    }
+body.ultimate-builder-editor #wpfooter {
+  display: none;
 }
-@media (min-width: 782px){
-    body.js.is-fullscreen-mode #adminmenumain, 
-    body.js.is-fullscreen-mode #wpadminbar {
-        display: none;
-    }
-    body.js.is-fullscreen-mode #wpcontent, 
-    body.js.is-fullscreen-mode #wpfooter {
-        margin-left: 0;
-    }
-    body.js.is-fullscreen-mode {
-        height: calc(100% + 32px);
-        margin-top: -32px;
-    }
+body.ultimate-builder-editor #wpcontent {
+  padding-left: 0;
+}
+body.ultimate-builder-editor #wpbody-content {
+  padding-bottom: 0;
+}
+body.ultimate-builder-editor {
+  /* .uf-form-success,  */
+  /* .uf-form-error, */
+}
+body.ultimate-builder-editor .uf-form-special,
+body.ultimate-builder-editor .uf-form-footer {
+  display: none;
+}
+body.ultimate-builder-editor .uf-field-type-ultimate_builder {
+  padding: 0 !important;
 }
 
+@media (min-width: 782px) {
+  body.js.is-fullscreen-mode #adminmenumain,
+  body.js.is-fullscreen-mode #wpadminbar {
+    display: none;
+  }
+  body.js.is-fullscreen-mode #wpcontent,
+  body.js.is-fullscreen-mode #wpfooter {
+    margin-left: 0;
+  }
+  body.js.is-fullscreen-mode {
+    height: calc(100% + 32px);
+    margin-top: -32px;
+  }
+}
 /* TRANSFORM UF MESSAGES INTO A TOAST THAT DISAPPEARS 2 SECONDS AFTER SHOWING */
 .uf-form-success,
-.uf-form-error{
-    position: fixed;
-    background-color: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    border-left: 2px solid var(--brand-color-1);
-    padding: 0px 15px;
-    top: 20px;
-    right: 0;
-    left: 0;
-    margin: 0 auto;
-    width: fit-content;
-    z-index: 9999;
-    opacity: 1;
-    animation: fadeOut 1s ease-in-out 2s forwards;
+.uf-form-error {
+  position: fixed;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-left: 2px solid var(--brand-color-1);
+  padding: 0px 15px;
+  top: 20px;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  width: fit-content;
+  z-index: 9999;
+  opacity: 1;
+  animation: fadeOut 1s ease-in-out 2s forwards;
 }
-.uf-form-success{
-    border-left-color: #6ada8a;
+
+.uf-form-success {
+  border-left-color: #6ada8a;
 }
-.uf-form-error{
-    border-left-color: #da6a6a;
+
+.uf-form-error {
+  border-left-color: #da6a6a;
 }
+
 @keyframes fadeOut {
-    from {
-        opacity: 1;
-        top: 20px;
-    }
-    to {
-        top: -100px;
-        opacity: 0;
-    }
+  from {
+    opacity: 1;
+    top: 20px;
+  }
+  to {
+    top: -100px;
+    opacity: 0;
+  }
 }
-
 /* POST LOCK DIALOG */
-body.ultimate-builder-editor .notification-dialog{
-    background-color: var(--ui-color-2);
-    color: var(--font-color);
+body.ultimate-builder-editor .notification-dialog {
+  background-color: var(--ui-color-2);
+  color: var(--font-color);
 }
 
-.style-manager{
-    /* FIX INPUT CHECKBOX TICK */
-    & input[type=checkbox], & input[type=radio] {
-        display: block;
-        line-height: initial;
-        height: initial;
-        margin: 0;
-        padding: 0!important;
-        width: 100%;
-        min-width: auto;
-        &::before{
-            display: none !important;
-        }
-    }
-    /* FIX SELECT BACKGROUND */
-    & select{
-        background: initial !important;
-    }
-    /* FIX BACKGROUND RADIO INPUTS DISSAPEAR */
-    .input-radio-wrapper input{
-        display: none !important;
-    }
+.style-manager {
+  /* FIX INPUT CHECKBOX TICK */
 }
-
-/* fix input styles in context menu */
-.gcm-item-input{
-    padding: 8px 10px !important;
-    /* line-height: 2 !important; */
-    min-height: 40px !important;
-    box-shadow: initial !important;
-    border-radius: 0 !important;
-    border-top: 1px solid var(--ui-color-4) !important;
-    border-bottom: 0 !important;
-    border-left: 0 !important;
-    background-color: var(--ui-color-2) !important;
-    color: var(--font-color) !important;
+.style-manager input[type=checkbox], .style-manager input[type=radio] {
+  display: block;
+  line-height: initial;
+  height: initial;
+  margin: 0;
+  padding: 0 !important;
+  width: 100%;
+  min-width: auto;
+}
+.style-manager input[type=checkbox]::before, .style-manager input[type=radio]::before {
+  display: none !important;
+}
+.style-manager {
+  /* FIX SELECT BACKGROUND */
+}
+.style-manager select {
+  background: initial !important;
+}
+.style-manager {
+  /* FIX BACKGROUND RADIO INPUTS DISSAPEAR */
+}
+.style-manager .input-radio-wrapper input {
+  display: none !important;
 }
 
 /* Adjust overlay group positioning */
-.uf-overlay-box:has(.uf-sidenav){
-    left: auto;
-    right: 0;
-    width: 400px;
-    transform: initial;
-    top: 0;
-    bottom: 0;
+.uf-overlay-box:has(.uf-sidenav) {
+  left: auto;
+  right: 0;
+  width: 400px;
+  transform: initial;
+  top: 0;
+  bottom: 0;
 }
+
 /* Increase width for media uploader and others */
 /* .uf-overlay-box:has([id^="__wp-uploader"]), */
 /* .uf-overlay-box:has(.uf-icon-popup), */
-/* .uf-overlay-box:has(.uf-field-name-async_settings){ /* oce dynamic content settings */
-/* .uf-overlay-box:has(.uf-field-name-animation_name){ */
-    /* width: 1000px; */
-/* } */
+/* .uf-overlay-box:has(.uf-field-name-async_settings) /* oce dynamic content settings */
+/* .uf-overlay-box:has(.uf-field-name-animation_name) */
+/* */
 /* Align data store icon to top */
-.gjs-toolbar-item__data-store{
-    vertical-align: top;
+.gjs-toolbar-item__data-store {
+  vertical-align: top;
 }
+
 /* Hover layer button styles */
-.spot:has(.hover-layer-btn){
-    background-color: rgba(0, 0, 0, 0.1);
-}
-.hover-layer-btn{
-    pointer-events: auto;
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: var(--gjs-color-blue);
-    color: #fff;
-    border: none;
-    padding: 4px 8px;
-    font-size: 12px;
-    cursor: pointer;
-    z-index: 10;
+.spot:has(.hover-layer-btn) {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
-/* Button styles for custom top bar buttons */
-
-.gjs-top-sidebar button{
-    font-size: .85em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.primary-button {
-    background-color: var(--brand-color-1);
-    color: #fff;
-    border: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    font-size: 14px;
-    border-radius: 4px;
-}
-
-.secondary-button {
-    background-color: var(--ui-color-3);
-    padding: 6px 12px;
-    cursor: pointer;
-    font-size: 14px;
-    border-radius: 4px;
+.hover-layer-btn {
+  pointer-events: auto;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: var(--gjs-color-blue);
+  color: #fff;
+  border: none;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 10;
 }
 
 /* Loading state for save button */
-.gjs-top-sidebar button[data-status="loading"]{
-    pointer-events: none;
+.gjs-top-sidebar button[data-status=loading] {
+  pointer-events: none;
 }
-.gjs-top-sidebar button[data-status="loading"] i{
-    animation: spin 1s linear infinite;
+
+.gjs-top-sidebar button[data-status=loading] i {
+  animation: spin 1s linear infinite;
 }
+
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-.gjs-top-sidebar button[data-status="loading"] i:before{
-    content: "\F116"; /* Dashicons spinner icon */
+.gjs-top-sidebar button[data-status=loading] i:before {
+  content: "\f116";
 }
 
 /* Hide selector manager body */
-.sm-body{
-    display: none;
+.sm-body {
+  display: none;
 }
 
-/* customize component settings */
-#component-settings{
-    .uf-group-control-open-menu{
-        display: none;
-    }
-    .common-settings-control .dashicons{
-        display: none;
-    }
+#component-settings {
+  color: var(--font-color);
+}
+#component-settings .uf-group-control-open-menu {
+  display: none;
+}
+#component-settings .common-settings-control .dashicons {
+  display: none;
+}
+#component-settings h1, #component-settings h2, #component-settings h3, #component-settings h4, #component-settings h5, #component-settings h6 {
+  color: var(--font-color);
+}
+#component-settings .wp-ui-highlight {
+  background-color: var(--brand-color-1);
+}
+#component-settings .uf-group {
+  background-color: var(--ui-color-1);
+  border-color: var(--ui-color-4);
+}
+#component-settings .uf-group-header {
+  border-color: var(--ui-color-4);
+}
+#component-settings .uf-group-number,
+#component-settings .uf-group-control {
+  background-color: var(--ui-color-2);
+  border-color: var(--ui-color-4);
+  color: var(--font-color);
+}
+#component-settings .uf-group-title {
+  color: var(--font-color);
+}
+#component-settings .uf-inline-tab {
+  background-color: var(--ui-color-2);
+  border-color: var(--ui-color-4);
+}
+#component-settings .uf-inline-tab h3 {
+  color: var(--font-color);
+}
+#component-settings .uf-boxed-fields .uf-field-layout-grid {
+  background-color: var(--ui-color-1);
+  border-color: var(--ui-color-4);
+}
+#component-settings .uf-inline-tab-toggle {
+  background-color: var(--ui-color-2) !important;
+  border-color: var(--ui-color-4) !important;
+  color: var(--font-color);
+}
+#component-settings .uf-inline-tab-toggle[disabled] {
+  opacity: 0.2;
+}
+#component-settings .uf-field-suffix, #component-settings .uf-field-prefix {
+  background-color: var(--ui-color-3);
+  border-color: var(--ui-color-4);
+}
+#component-settings .uf-field-layout-grid.uf-field-type-complex > .uf-field-label {
+  border-color: var(--ui-color-4);
+}
+#component-settings textarea, #component-settings input, #component-settings select, #component-settings .uf-image-select label {
+  background-color: var(--ui-color-2);
+  border-color: var(--ui-color-4);
+  color: var(--font-color);
+}
+#component-settings .uf-image-select label.uf-selected {
+  border-color: var(--brand-color-1);
+}
+#component-settings .uf-fancy-checkbox-wrap {
+  background-color: var(--brand-color-1);
+  border-color: var(--ui-color-4);
+}
+#component-settings .uf-fancy-checkbox-button {
+  background-color: var(--ui-color-2);
+  border-color: var(--ui-color-4);
+}
+#component-settings input:not(:checked) + .uf-fancy-checkbox-wrap {
+  background-color: var(--ui-color-2);
+}
+#component-settings radio, #component-settings checkbox, #component-settings input[type=radio], #component-settings input[type=checkbox] {
+  accent-color: var(--brand-color-1);
+}
+#component-settings input[type=radio]:checked::before {
+  background-color: var(--brand-color-1);
+}
+#component-settings .wp-color-result-text {
+  background-color: var(--ui-color-2);
+  border-color: var(--ui-color-4);
+  color: var(--font-color);
+}
+#component-settings .wp-picker-container .iris-picker {
+  background-color: var(--ui-color-2);
+  border-color: var(--ui-color-4);
+}
+#component-settings .dropdown-wrapper {
+  color: var(--font-color);
+}
+#component-settings .dropdown-wrapper .dropdown {
+  background-color: var(--ui-color-2);
+  border-color: var(--ui-color-4);
+}
+#component-settings .dropdown-wrapper .dropdown .dropdown-menu {
+  background-color: var(--ui-color-2);
+  border-color: var(--ui-color-4);
+}
+#component-settings .dropdown-wrapper .dropdown div {
+  color: var(--font-color);
+}
+#component-settings .dropdown-wrapper .dropdown div:hover, #component-settings .dropdown-wrapper .dropdown div.active {
+  background-color: var(--ui-color-4);
+}
+#component-settings .dropdown-wrapper button.dropdown-button {
+  border-color: var(--ui-color-4);
+}
+#component-settings .uf-file, #component-settings .uf-file-preview, #component-settings .uf-video, #component-settings .uf-video-preview-wrapper, #component-settings .uf-video-footer, #component-settings .uf-gallery, #component-settings .uf-gallery-preview-wrapper, #component-settings .uf-gallery-footer {
+  border-color: var(--ui-color-4);
+}
+#component-settings .uf-file-buttons, #component-settings .uf-video-footer, #component-settings .uf-gallery-footer, #component-settings .uf-gallery, #component-settings .uf-gallery-images {
+  background: var(--ui-color-2);
+}
+#component-settings .uf-icon-preview-icon {
+  color: var(--font-color);
+}
+#component-settings .uf-section {
+  background-color: var(--ui-color-4);
+  border-color: var(--ui-color-4);
+  color: var(--font-color);
+}
+#component-settings .uf-field .select2-container--default .select2-selection--multiple, #component-settings .uf-field .select2-container--default.select2-container--focus .select2-selection--multiple,
+#component-settings .uf-field .select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: var(--ui-color-2);
+  border-color: var(--ui-color-4);
+  color: var(--font-color);
+}
+#component-settings .common-setting-small .button-primary {
+  color: var(--font-color);
+}
+#component-settings .common-setting-small .button-primary:hover {
+  color: var(--brand-color-1);
+  background-color: var(--ui-color-2);
+}
+#component-settings .wp-editor-container {
+  border-color: var(--ui-color-3);
+}
+#component-settings div.mce-toolbar-grp {
+  background-color: var(--ui-color-2);
+  border-color: var(--ui-color-4);
+  color: var(--font-color);
+}
+#component-settings .mce-toolbar .mce-ico {
+  color: var(--font-color);
+}
+#component-settings .mce-toolbar .mce-btn-group .mce-btn.mce-listbox {
+  background-color: var(--ui-color-2);
+  border-color: var(--ui-color-4);
+}
+#component-settings .mce-btn .mce-txt,
+#component-settings .mce-menubtn button {
+  color: var(--font-color);
+}
+#component-settings .mce-toolbar .mce-btn-group .mce-btn.mce-active, #component-settings .mce-toolbar .mce-btn-group .mce-btn:active, #component-settings .qt-dfw.active,
+#component-settings .mce-toolbar .mce-btn-group .mce-btn:focus, #component-settings .mce-toolbar .mce-btn-group .mce-btn:hover, #component-settings .qt-dfw:focus, #component-settings .qt-dfw:hover {
+  background-color: var(--ui-color-1);
+  border-color: var(--ui-color-4);
+}
+#component-settings div.mce-panel {
+  background-color: var(--ui-color-2);
+}
+#component-settings .wp-switch-editor,
+#component-settings .quicktags-toolbar {
+  background-color: var(--ui-color-1);
+  border-color: var(--ui-color-2);
+  color: var(--font-color);
+}
+#component-settings .html-active .switch-html, #component-settings .tmce-active .switch-tmce {
+  background-color: var(--ui-color-2);
+  border-color: var(--ui-color-4);
+}
+
+/* Button styles for custom top bar buttons */
+.gjs-top-sidebar button {
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.gjs-top-sidebar .primary-button {
+  background-color: var(--brand-color-1);
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.gjs-top-sidebar .secondary-button {
+  background-color: rgba(250, 250, 250, 0.1);
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Override GrapesJS default colors */
+body.ultimate-builder-editor {
+  --gjs-primary-color: transparent;
+  --gjs-secondary-color: var(--font-color);
+  --gjs-tertiary-color: var(--ui-color-4);
+  --gjs-quaternary-color: var(--brand-color-1);
+  --gjs-font-color: var(--font-color);
+  --gjs-placeholder-background-color: var(--brand-color-1);
+  --gjs-color-blue: var(--brand-color-1);
+}
+
+#gjs-context-menu {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+#gjs-context-menu path, #gjs-context-menu svg {
+  fill: var(--font-color);
+}
+#gjs-context-menu line {
+  stroke: var(--font-color);
+}
+
+.gcm__header .breadcrumbs-wrapper {
+  background-color: var(--ui-color-1);
+}
+
+/* fix input styles in context menu */
+.gcm-item-input {
+  background-color: var(--ui-color-2) !important;
+  border-color: var(--ui-color-4) !important;
+  border-radius: 0 !important;
+  border-left: 0 !important;
+  min-height: 40px !important;
+  border-bottom: 0 !important;
+  color: var(--font-color) !important;
 }

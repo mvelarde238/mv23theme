@@ -1,6 +1,6 @@
 /* selected component outline (body selector add specificity) */
 body .gjs-selected{ 
-    outline: 2px solid #c66900 !important
+    outline: 1px dashed silver !important
 }
 /* component is locked */
 .gjs-no-pointer{

@@ -73,7 +73,8 @@ class Icon_and_Text extends Component {
                 ->fancy(),
 
             // STYLE
-            Field::create( 'section', 'icon_style_section' ),
+            // Field::create( 'section', 'icon_style_section' ),
+            Field::create( 'tab', 'icon_style_tab', __('Icon Style','mv23theme') ),
             Field::create( 'image_select', 'istyle', __('Style','mv23theme'))->set_attr( 'class', 'image-select-5-cols' )->add_options(array(
                 'default' => array(
                     'label' => 'Normal',

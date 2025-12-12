@@ -12,7 +12,7 @@ use Core\Theme_Options\Theme_Options;
 class TinyMCE{
 
     public function filter_buttons_in_first_row($mce_buttons) {
-        array_push($mce_buttons, 'icon_mce_button' );
+        // array_push($mce_buttons, 'icon_mce_button' );
         // array_push($mce_buttons, 'fontSizeSelector' );
 		// array_push($mce_buttons, 'fontweightselect');
         return $mce_buttons;
@@ -32,6 +32,7 @@ class TinyMCE{
         $new_mce_buttons[] = 'underline';
         $new_mce_buttons[] = 'alignjustify';
         $new_mce_buttons[] = 'table';
+		$new_mce_buttons[] = 'icon_mce_button';
         return $new_mce_buttons;
     }
 

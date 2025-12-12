@@ -97,7 +97,7 @@
                     },
                 ],
                 onEditor: function(editor) {
-                    editor.runCommand('core:component-outline');
+                    // editor.runCommand('core:component-outline');
                     that.on_editor_load(editor);
 
                     // extend editor with a mehtod to get component datastore
