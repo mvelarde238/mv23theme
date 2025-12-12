@@ -35,13 +35,12 @@ class Button extends Component {
                 ->set_default_value( 'I am a button' ),
             Field::create( 'select', 'style', __('Style', 'mv23theme'))
                 ->add_options( $button_styles )
-                ->set_default_value( 'btn btn--main-color' )
-                ->set_width(50),
+                ->set_default_value( 'btn btn--main-color' ),
     
             Field::create( 'radio', 'type',__('Type', 'mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
                 'link' => 'Link',
                 'download' => 'Descarga',
-            ))->set_width(50),
+            )),
     
             Field::create( 'file', 'file', __('File', 'mv23theme') )->add_dependency('type','download','='),
     
@@ -64,7 +63,7 @@ class Button extends Component {
                 'right' => __('Right', 'mv23theme')
             ))->set_orientation( 'horizontal' )->set_width(50),
     
-            Field::create( 'tab', __('Others','mv23theme') ),
+            Field::create( 'tab', '_other_settings', __('Other settings','mv23theme') ),
             Field::create( 'radio', 'size', __('Size', 'mv23theme'))->add_options( array(
                 'small' => __('Normal', 'mv23theme'),
                 'medium' => __('Mediano', 'mv23theme'),
@@ -72,12 +71,12 @@ class Button extends Component {
             ))->set_orientation( 'horizontal' ),
             Field::create( 'checkbox', 'fullwidth', __('Botón de ancho completo', 'mv23theme') )->set_text( __('Activar', 'mv23theme') ),
             Field::create( 'repeater', 'attributes', __('Attributos', 'mv23theme') )->set_add_text(__('Agregar', 'mv23theme'))
-                ->set_layout( 'table' )
+                ->set_layout( 'grid' )
                 ->add_group('item', array(
                     'title_template' => '<%= attribute %> : <%= value %>',
                     'fields' => array(
-                        Field::create( 'text', 'attribute' )->set_width( 50 ),
-                        Field::create( 'text', 'value' )->set_width( 50 ),
+                        Field::create( 'text', 'attribute' )->set_attr('style', 'width: 50%;min-width: unset;'),
+                        Field::create( 'text', 'value' )->set_attr('style', 'width: 50%;min-width: unset;'),
                     )
             ))           
         );

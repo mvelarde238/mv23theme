@@ -8,7 +8,7 @@ TODO:
 * Search for bugs on components: create, save, edit, preview, etc, Check context menu
 
 * CUSTOMIZE BUILDER EXPERIENCE
-    * check table on icon -> others settings
+
     * On init builder on new page add {{page_title}}
     * check components separation
     * show page typography on builder
