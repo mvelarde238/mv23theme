@@ -1,0 +1,20 @@
+.style-manager
+    /* FIX INPUT CHECKBOX TICK */
+    & input[type=checkbox], & input[type=radio]
+        display: block
+        line-height: initial
+        height: initial
+        margin: 0
+        padding: 0!important
+        width: 100%
+        min-width: auto
+        &::before
+            display: none !important
+
+    /* FIX SELECT BACKGROUND */
+    & select
+        background: initial !important
+
+    /* FIX BACKGROUND RADIO INPUTS DISSAPEAR */
+    .input-radio-wrapper input
+        display: none !important

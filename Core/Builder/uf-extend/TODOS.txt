@@ -8,7 +8,7 @@ TODO:
 * Search for bugs on components: create, save, edit, preview, etc, Check context menu
 
 * CUSTOMIZE BUILDER EXPERIENCE
-    * show some outlines
+    * image comp is showing gjs image selector
 
 * CONTEXT MENU
     * add svgmin to bash scripts and minify alignment icons

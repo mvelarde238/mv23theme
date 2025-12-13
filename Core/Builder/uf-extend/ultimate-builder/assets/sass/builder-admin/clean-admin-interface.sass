@@ -1,0 +1,33 @@
+// Clean editor interface
+/* body.ultimate-builder-editor #wpbody-content>div:not(.block-editor):not(#screen-meta),  */
+body.ultimate-builder-editor
+    #wpfooter
+        display: none
+
+    #wpcontent
+        padding-left: 0
+
+    #wpbody-content
+        padding-bottom: 0
+
+    /* .uf-form-success,  */
+    /* .uf-form-error, */
+    .uf-form-special,
+    .uf-form-footer
+        display: none
+
+    .uf-field-type-ultimate_builder
+        padding: 0 !important
+
+@media (min-width: 782px)
+    body.js.is-fullscreen-mode #adminmenumain,
+    body.js.is-fullscreen-mode #wpadminbar
+        display: none
+
+    body.js.is-fullscreen-mode #wpcontent,
+    body.js.is-fullscreen-mode #wpfooter
+        margin-left: 0
+
+    body.js.is-fullscreen-mode
+        height: calc(100% + 32px)
+        margin-top: -32px

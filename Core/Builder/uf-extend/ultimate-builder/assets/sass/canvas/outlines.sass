@@ -1,0 +1,18 @@
+$outlines: 1px dashed #999
+
+/* selected component outline (body selector add specificity) */
+body .gjs-selected 
+    outline: $outlines !important
+    
+[data-gjs-type="wrapper"],
+[data-gjs-type="container"]
+    outline: $outlines
+
+[data-gjs-type="wrapper"]
+    outline-offset: -1px
+
+[data-gjs-type="row-component"]:hover 
+    outline: $outlines
+    [data-gjs-type="column"] 
+        outline: $outlines
+    

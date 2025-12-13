@@ -1,0 +1,41 @@
+/* component is locked */
+.gjs-no-pointer
+    opacity: .23
+
+/* remove top padding from body */
+body
+    padding-top: 0 !important
+  
+/* make components visible */
+div[data-gjs-type]:not(.full-height):not([data-gjs-type="spacer"]):empty 
+    padding-top: 25px
+    padding-bottom: 25px
+
+[data-gjs-type="wrapper"],
+[data-gjs-type="container"]
+    min-height:100vh !important
+
+/* components separation */
+[data-gjs-type="wrapper"] [data-gjs-type]:not(:last-child):not([data-gjs-type="column"]) 
+    margin-bottom: var(--text-block-spacing)
+
+/* layout 2 styles */
+.layout2 > div:not(.full-width),
+.layout2 > figure
+    width: 98%
+    max-width: var(--container-width)
+    margin-left: auto
+    margin-right: auto
+
+/* let placeholder image use the aspect ratio */
+img.gjs-plh-image
+    height: auto
+    aspect-ratio: 16 / 9
+    width: 100%
+
+/* disable menu pointer events */
+[data-gjs-type="menu"] 
+    overflow: hidden 
+[data-gjs-type="menu"] .menu
+    pointer-events: none
+

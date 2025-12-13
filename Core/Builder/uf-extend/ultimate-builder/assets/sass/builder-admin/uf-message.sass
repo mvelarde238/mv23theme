@@ -1,0 +1,30 @@
+/* TRANSFORM UF MESSAGES INTO A TOAST THAT DISAPPEARS 2 SECONDS AFTER SHOWING */
+.uf-form-success,
+.uf-form-error
+    position: fixed
+    background-color: #fff
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2)
+    border-left: 2px solid var(--brand-color-1)
+    padding: 0px 15px
+    top: 20px
+    right: 0
+    left: 0
+    margin: 0 auto
+    width: fit-content
+    z-index: 9999
+    opacity: 1
+    animation: fadeOut 1s ease-in-out 2s forwards
+
+.uf-form-success
+    border-left-color: #6ada8a
+    
+.uf-form-error
+    border-left-color: #da6a6a
+
+@keyframes fadeOut
+    from
+        opacity: 1
+        top: 20px
+    to
+        top: -100px
+        opacity: 0

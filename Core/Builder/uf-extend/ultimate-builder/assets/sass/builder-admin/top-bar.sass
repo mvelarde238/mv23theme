@@ -1,6 +1,6 @@
 /* Button styles for custom top bar buttons */
 .gjs-top-sidebar 
-    button
+    button, a
         font-size: .85em
         text-transform: uppercase
         letter-spacing: 1px
@@ -18,3 +18,7 @@
         padding: 6px 12px
         cursor: pointer
         border-radius: 4px
+
+    // Dashicons spinner icon for loading state
+    button[data-status="loading"] i:before
+        content: "\F116" 
