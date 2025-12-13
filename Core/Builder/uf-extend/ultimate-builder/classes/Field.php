@@ -4,6 +4,7 @@ namespace Ultimate_Fields\Ultimate_Builder;
 use Ultimate_Fields\Field\Repeater;
 use Ultimate_Fields\Datastore\Group as Group_Datastore;
 use Ultimate_Fields\Template;
+use Core\Theme_Options\Theme_Options;
 
 /**
  * Handles the display of the field, including its layout and structure.
@@ -283,12 +284,33 @@ class Field extends Repeater {
 	private function get_styles() {
 		$styles = array();
 
+		// get theme fonts urls
+		$theme_fonts = Theme_Options::getInstance()->get_theme_fonts();
+		foreach ($theme_fonts['urls'] as $url) {
+			$styles[] = $url;
+		}
+
 		global $wp_styles;
 		foreach ( $this->theme_styles as $handle ) {
 			if ( isset( $wp_styles->registered[$handle] ) ) {
 				$style_info = $wp_styles->registered[$handle];
 				if ( isset( $style_info->src ) ) {
+					// check for extra styles to add before this one
+					if ( isset( $style_info->extra['before'] ) && is_array( $style_info->extra['before'] ) ) {
+						foreach ( $style_info->extra['before'] as $extra_style ) {
+							$styles[] = $extra_style;
+						}
+					}
+
+					// add the style url
 					$styles[] = $style_info->src;
+
+					// check for extra styles to add after this one
+					if ( isset( $style_info->extra['after'] ) && is_array( $style_info->extra['after'] ) ) {
+						foreach ( $style_info->extra['after'] as $extra_style ) {
+							$styles[] = $extra_style;
+						}
+					}
 				}
 			}
 		}

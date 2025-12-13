@@ -19,6 +19,10 @@ div[data-gjs-type]:not(.full-height):not([data-gjs-type="spacer"]):empty {
 [data-gjs-type="container"]{
     min-height:100vh !important;
 }
+/* components separation */
+[data-gjs-type]:not(:last-child) {
+    margin-bottom: var(--text-block-spacing);
+}
 /* layout 2 styles */
 .layout2 > div:not(.full-width),
 .layout2 > figure{

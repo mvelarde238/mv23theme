@@ -417,10 +417,18 @@
 
             if (canvas) {
                 themeStyles.forEach( styleSrc => {
-                    canvas.getDocument().head.insertAdjacentHTML(
-                        'beforeend',
-                        `<link rel="stylesheet" type="text/css" href="${styleSrc}">`
-                    );
+                    // if styleSrc starts with http or https, use as is, else treat as inline style
+                    if ( /^https?:\/\//i.test(styleSrc) ) {
+                        canvas.getDocument().head.insertAdjacentHTML(
+                            'beforeend',
+                            `<link rel="stylesheet" type="text/css" href="${styleSrc}">`
+                        );
+                    } else {
+                        canvas.getDocument().head.insertAdjacentHTML(
+                            'beforeend',
+                            `<style>${styleSrc}</style>`
+                        );
+                    }
                 });
                 themeScripts.forEach( scriptSrc => {
                     canvas.getDocument().head.insertAdjacentHTML(

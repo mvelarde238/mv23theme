@@ -8,10 +8,6 @@ TODO:
 * Search for bugs on components: create, save, edit, preview, etc, Check context menu
 
 * CUSTOMIZE BUILDER EXPERIENCE
-
-    * On init builder on new page add {{page_title}}
-    * check components separation
-    * show page typography on builder
     * number inputs dosnt work with keyboard arrows
     * borders cant be added individually: left, right
     * on set dark mode on text with blockquote:
@@ -22,7 +18,7 @@ TODO:
     * create a blockquote component, i couldnt add a button aligned to text
     * aumentar default section padd top and bottom
 
-    * row2 / column2 -> así se van a llamar?
+    * row2 / column2 -> así se van a llamar? .row in canvas is using materialize styles
     * .column2 flex-grow: 1 ??? la columnas no ocupan todo el espacio si su contenido es pequeño
     * remove default gap/flex wrap 1% from row2
 
@@ -31,6 +27,9 @@ TODO:
     * remove all mui icons??? 
 
 /////////////////////////////////////////////////////////////////////////////////////// SEXTA ETAPA
+
+* CUSTOMIZE BUILDER EXPERIENCE
+    * On init builder on new page add {{page_title}}
 
 * Transform Hero Section to Template
     * create a template system that allow users to save sections as templates
