@@ -190,7 +190,7 @@ window.gjsOceComponents = ( editor ) => {
                 },
                 { type: 'comp_heading' },
                 { 
-                    type: 'row2',
+                    type: 'row-component',
                     components: [
                         { type: 'column', components: [ { type: 'comp_text_editor' }, ] },
                         { type: 'column', components: [ { type: 'comp_text_editor' }, ] },

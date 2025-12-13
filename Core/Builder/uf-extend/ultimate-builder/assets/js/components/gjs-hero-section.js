@@ -5,7 +5,7 @@ window.gjsHeroSection = function (editor) {
         'hero1': {
             components: [
                 { 
-                    type:'row2',
+                    type:'row-component',
                     components: [
                         {
                             type: 'column', components: [

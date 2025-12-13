@@ -8,13 +8,7 @@ TODO:
 * Search for bugs on components: create, save, edit, preview, etc, Check context menu
 
 * CUSTOMIZE BUILDER EXPERIENCE
-    * fix separation on head tag
-    * aumentar default section padd top and bottom
-    * .media.image should be a component for correct separction
-
-    * row2 / column2 -> así se van a llamar? .row in canvas is using materialize styles
-    * .column2 flex-grow: 1 ??? la columnas no ocupan todo el espacio si su contenido es pequeño
-    * remove default gap/flex wrap 1% from row2
+    * show some outlines
 
 * CONTEXT MENU
     * add svgmin to bash scripts and minify alignment icons

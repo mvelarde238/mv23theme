@@ -99,6 +99,7 @@ class Image extends Component {
         if( Template_Engine::is_private( $args ) ) return;
         
 		$args['additional_classes'][] = 'media';
+		$args['additional_classes'][] = 'component';
 
         $attachment = false;
         $image_source = $args['image_source'] ?? 'selfhosted';

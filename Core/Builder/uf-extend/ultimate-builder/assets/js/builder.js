@@ -84,14 +84,14 @@
                 customViewControlButtonsAfter: [
                     { 
                         id: 'exit-to-wp-admin', 
-                        label: 'Exit to WP Admin',
+                        label: 'EXIT TO WP ADMIN',
                         iconClass: 'dashicons dashicons-wordpress',
                         href: BUILDER_GLOBALS.admin_url,
                         target: '_self'
                     },
                     { 
                         id: 'builder:log-data', 
-                        label: 'Log Project Data',
+                        label: 'LOG PROJECT DATA',
                         iconClass: 'dashicons dashicons-admin-generic',
                         options: { builder: that }
                     },
@@ -189,7 +189,7 @@
             });
 
             componentTypes['flipbox'] = { group: 'flip_box' };
-            componentTypes['row2'] = { group: 'row' };
+            componentTypes['row-component'] = { group: 'row' };
             componentTypes['column'] = { group: 'column' };
             componentTypes['togglebox-wrapper'] = { group: 'accordion' };
             componentTypes['togglebox-button'] = { group: 'accordion_button' };

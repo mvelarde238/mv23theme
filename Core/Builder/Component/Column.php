@@ -26,9 +26,8 @@ class Column extends Component {
 	public static function display( $args ){
 		if( Template_Engine::is_private( $args ) ) return;
 		
-		$args['__type'] = array('column2');
-		$args['additional_classes'] = array('column2');
-		$args['additional_styles'] = array('display'=>'flex', 'flex-direction'=>'column');
+		$args['__type'] = array('column');
+		$args['additional_classes'] = array('column');
 
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);

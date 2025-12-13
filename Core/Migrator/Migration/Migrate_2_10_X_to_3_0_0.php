@@ -17,7 +17,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
     private $components_mapping = array(
         'page_module' => 'section',
-        'row' => 'row2',
+        'row' => 'row-component',
         'components_wrapper' => 'comp-wrapper',
         // ... this apply for all cmp that are not registered in mapping: comp_{__type}:
         'text_editor' => 'comp_text_editor',
@@ -54,7 +54,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
     private $private_classes = array(
         'page_module' => array( array( 'name' => 'page-module', 'private' => 1 ) ),
-        'row' => array( array( 'name' => 'row', 'private' => 1 ) )
+        'row' => array( array( 'name' => 'row-component', 'private' => 1 ) )
     );
 
     private $breakpoints = array(

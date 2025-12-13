@@ -26,9 +26,8 @@ class Row extends Component {
 	public static function display( $args ){
 		if( Template_Engine::is_private( $args ) ) return;
 		
-		$args['__type'] = array('row2');
-		$args['additional_classes'] = array('row2', 'component');
-		$args['additional_styles'] = array('display'=>'flex');
+		$args['__type'] = array('row-component');
+		$args['additional_classes'] = array('row-component', 'component');
 
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
