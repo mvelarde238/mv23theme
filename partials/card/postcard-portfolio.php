@@ -30,13 +30,13 @@ $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
         <a href="<?=$_args['permalink']?>" class="postcard__image <?=$_args['permalink_class']?>" style="background-image:url(<?=$_args['thumbnail']?>);">
             <?php if($_args['featured_video']) echo $_args['featured_video']; ?>
         </a>
-        <div class="postcard__content text-color-2">
+        <div class="postcard__content dark-mode">
             <h2 class="postcard__title"><?php echo $_args['title']; ?></h2>
             <span>→</span>
             <a class="cover-all <?=$_args['permalink_class']?>" href="<?=$_args['permalink']?>"></a>
         </div>
         <?php if( is_array($_args['tags']) && count($_args['tags']) > 0 ){
-			echo '<div class="postcard__tags text-color-2">';
+			echo '<div class="postcard__tags dark-mode">';
 			echo Post_Card::display_terms($_args['tags']);
 			echo '</div>';
 		} ?>

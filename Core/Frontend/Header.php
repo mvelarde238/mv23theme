@@ -89,7 +89,10 @@ class Header{
 
 		$header_color_scheme = $key.'_header_color_scheme';
  		$color_scheme = ($this->overrided) ? $this->get_meta( $header_color_scheme ) : get_option( $header_color_scheme );
- 		if( $color_scheme ) $classes[] = $color_scheme;
+ 		if( $color_scheme ){
+			$color_scheme = ( $color_scheme == 'text-color-2' ) ? 'dark-mode' : 'light-mode';
+			$classes[] = $color_scheme;
+		} 
 
  		if( $this->get_meta('hide_'.$key.'_header_logo') ) $classes[] = 'hide-'.$key.'-header-logo';
 

@@ -53,11 +53,11 @@ Class Classes{
     
         switch ($color_scheme) {
             case 'dark_scheme':
-                $text_color = 'text-color-2';
+                $text_color = 'dark-mode';
                 break;
             
             case 'default_scheme':
-                $text_color = 'text-color-1';
+                $text_color = 'light-mode';
                 break;
     
             default:

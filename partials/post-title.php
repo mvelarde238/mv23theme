@@ -29,7 +29,7 @@
     $tags = get_the_terms( $id, $tag_name );
     if (is_array($tags) && count($tags) > 0) { ?>
         <div class="component">
-            <div class="single-post__tags text-color-2">
+            <div class="single-post__tags dark-mode">
                 <?php foreach ($tags as $tag) {
                     $background_color = get_term_meta($tag->term_id, 'background_color', true);
                     $style = ($background_color) ? ' style="background-color:' . $background_color . ';"' : ' ';

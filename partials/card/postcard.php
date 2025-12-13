@@ -57,7 +57,7 @@ $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
 		</div>
 
 		<?php if( is_array($_args['tags']) && count($_args['tags']) > 0 ){
-			echo '<div class="postcard__tags text-color-2">';
+			echo '<div class="postcard__tags dark-mode">';
 			echo Post_Card::display_terms($_args['tags']);
 			echo '</div>';
 		} ?>

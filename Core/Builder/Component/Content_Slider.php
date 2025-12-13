@@ -136,11 +136,11 @@ class Content_Slider extends Component {
                     $color_scheme = (array_key_exists('color_scheme', $item) && $item['color_scheme']) ? $item['color_scheme'] : '';
                     switch ($color_scheme) {
                         case 'dark-scheme':
-                            $text_color = 'text-color-2';
+                            $text_color = 'dark-mode';
                             break;
                         
                         case 'default-scheme':
-                            $text_color = 'text-color-1';
+                            $text_color = 'light-mode';
                             break;
                     }
                     $clases = ($color_scheme != 'default-scheme') ? 'class="'.$text_color.'"' : '';

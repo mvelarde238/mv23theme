@@ -8,15 +8,9 @@ TODO:
 * Search for bugs on components: create, save, edit, preview, etc, Check context menu
 
 * CUSTOMIZE BUILDER EXPERIENCE
-    * number inputs dosnt work with keyboard arrows
-    * borders cant be added individually: left, right
-    * on set dark mode on text with blockquote:
-        * global text color is overriden?
-        * blockqute decorator dont change color unless i put .textcolor2 class
-    * cant set dark mode on body
-    * gradient background
-    * create a blockquote component, i couldnt add a button aligned to text
+    * fix separation on head tag
     * aumentar default section padd top and bottom
+    * .media.image should be a component for correct separction
 
     * row2 / column2 -> así se van a llamar? .row in canvas is using materialize styles
     * .column2 flex-grow: 1 ??? la columnas no ocupan todo el espacio si su contenido es pequeño
@@ -26,22 +20,29 @@ TODO:
     * add svgmin to bash scripts and minify alignment icons
     * remove all mui icons??? 
 
+* STYLE MANAGER
+    * builder with react -> personalizar fields of style manager
+    * number inputs dosnt work with keyboard arrows
+    * borders cant be added individually: left, right
+    * gradient background
+    * create a gjs-canvas-spots plugin that handle padding, margin, border-radius
+
 /////////////////////////////////////////////////////////////////////////////////////// SEXTA ETAPA
 
 * CUSTOMIZE BUILDER EXPERIENCE
     * On init builder on new page add {{page_title}}
 
-* Transform Hero Section to Template
-    * create a template system that allow users to save sections as templates
-    * create a template library that allow users to choose from pre-defined templates
+* NEW COMPONENTS
+    * Transform Hero Section to Template
+        * create a template system that allow users to save sections as templates
+        * create a template library that allow users to choose from pre-defined templates
+    * create a blockquote component, i couldnt add a button aligned to text
 
 * CUSTOMIZE EDITOR
     * show header on builder mode with ajax
     * add a loader when loading the builder
     * add tooltip to topbar(?) buttons: save, undo, console, etc, style manager, components, etc
     * copy paste components between pages
-    * create a gjs-canvas-spots plugin that handle padding, margin, border-radius
-    * builder with react -> personalizar fields of style manager
-    * customize wp.notice on builder screen 
+    * customize wp.notice(s) on builder screen ?
     * how to handle the default Text->textnode component ?
     * ajaxified components are "dirty": gallery, menu, reusable_section(?)
