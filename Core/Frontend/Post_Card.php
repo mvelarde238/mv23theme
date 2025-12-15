@@ -22,6 +22,8 @@ class Post_Card {
     public static function get_excerpt($post, $length = null) {
         $excerpt = ( !empty($post->post_excerpt) ) ? $post->post_excerpt : $post->post_content;
         $excerpt = strip_tags($excerpt);
+        $excerpt = apply_filters('filter_post_card_excerpt', $excerpt, $post);
+
         if ($length && strlen($excerpt) > $length) {
             // truncate the excerpt
             $excerptCut = substr($excerpt, 0, $length);
@@ -29,6 +31,7 @@ class Post_Card {
             $excerpt = $endPoint ? substr($excerptCut, 0, $endPoint) : substr($excerptCut, 0);
             $excerpt .= '...';
         }
+
         return do_shortcode(wpautop($excerpt));
     }
 
