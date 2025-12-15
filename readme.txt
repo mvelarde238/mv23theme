@@ -19,6 +19,9 @@ CHANGELOG
 - !IMPORTANT: V.3.0.0: Ultimate Builder Implementation
 -----------------------------------------------------------------------------------------------------
 
+2.10.15 25-12-15
+- filter_post_card_excerpt implementation
+
 2.10.14 25-11-28
 - Fix sidebar padding
 
