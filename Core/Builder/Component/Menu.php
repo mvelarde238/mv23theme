@@ -98,6 +98,10 @@ class Menu extends Component {
 
         $args['additional_classes'][] = $orientation_nav_class;
         if( $style ) $args['additional_classes'][] = $style;
+
+        $context = array(
+            'menu_style' => $style,
+        );
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
@@ -107,11 +111,11 @@ class Menu extends Component {
                 'menu' => $menu,
                 'container' => false,                           
                 'container_class' => '',
-                'walker' => new Nav_Walker(),
+                'walker' => new Nav_Walker( $context ),
             ));
         }
         if( $type === 'location' ){
-            wp_nav_menu( array('theme_location' => $location, 'walker' => new Nav_Walker()) );
+            wp_nav_menu( array('theme_location' => $location, 'walker' => new Nav_Walker( $context )) );
         }
 
 		echo Template_Engine::component_wrapper('end', $args);
