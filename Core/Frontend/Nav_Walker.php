@@ -5,8 +5,10 @@ use Walker_Nav_Menu;
 use Core\Frontend\Page;
 
 class Nav_Walker extends Walker_Nav_Menu{
+    private $context = array();
 
-    public function __construct(){
+    public function __construct( $context = array() ){
+        $this->context = $context;
         // add_filter( 'wp_nav_menu_objects', array($this, 'remove_sub_items'), 10, 2 );
     }
 
