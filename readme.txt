@@ -6,6 +6,7 @@ CHANGELOG
 - filter_post_card_excerpt implementation
 - Menu Component Improvement: send context to Nav_Walker Class
 - after_adding_%_components hook implementation
+- Implements Inner_Wrapper as component instead of extending Components_Wrapper to have access to all componnets on Components_Wrapper
 
 2.10.14 25-11-28
 - Fix sidebar padding
