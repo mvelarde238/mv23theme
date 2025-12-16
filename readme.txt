@@ -5,6 +5,7 @@ CHANGELOG
 2.10.15 25-12-15
 - filter_post_card_excerpt implementation
 - Menu Component Improvement: send context to Nav_Walker Class
+- after_adding_%_components hook implementation
 
 2.10.14 25-11-28
 - Fix sidebar padding
