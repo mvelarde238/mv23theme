@@ -81,8 +81,9 @@ class Menu extends Component {
 		$args['additional_classes'] = array('component');
 		$args['__type'] = 'menu-comp';
 
-        $type = $args['type'];
-        $menu = $args['menu'];
+        $type = $args['type'] ?? 'menu';
+        $menu = $args['menu'] ?? '';
+
         $location = $args['location'] ?? '';
         $style = ( $args['style'] != 'unordered-list' ) ? $args['style'] : '';
         $orientation_nav_class = ( str_contains($style,'horizontal') ) ? 'horizontal-nav' : 'vertical-nav';
