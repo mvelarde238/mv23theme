@@ -190,7 +190,9 @@ class Archive_Page {
 			if( is_post_type_archive() ){
 				$post_type = get_query_var( 'post_type' );
 			} else {
-				$post_type = get_taxonomy(get_queried_object()->taxonomy)->object_type[0];
+				if( get_queried_object()->taxonomy ){
+					$post_type = get_taxonomy(get_queried_object()->taxonomy)->object_type[0];
+				}
 			}
 		}
 	
