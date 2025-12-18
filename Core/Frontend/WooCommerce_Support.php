@@ -36,7 +36,9 @@ class WooCommerce_Support{
                 </main>
                 <?php if( is_archive() && is_active_sidebar('shop_sidebar') ): ?>
                     <div class="sidebar">
-                        <?php dynamic_sidebar( 'shop_sidebar' ); ?>
+                        <div class="pinned-block">
+                            <?php dynamic_sidebar( 'shop_sidebar' ); ?>
+                        </div>
                     </div>
                 <?php endif; ?>
             </div>
