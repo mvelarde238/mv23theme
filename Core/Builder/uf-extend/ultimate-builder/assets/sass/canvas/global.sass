@@ -5,15 +5,15 @@
 /* remove top padding from body */
 body
     padding-top: 0 !important
-  
+
 /* make components visible */
-div[data-gjs-type]:not(.full-height):not([data-gjs-type="spacer"]):empty 
+div[data-gjs-type]:not(.full-height):not([data-gjs-type="spacer"]):empty
     padding-top: 25px
     padding-bottom: 25px
 
 [data-gjs-type="wrapper"],
 [data-gjs-type="container"]
-    min-height:100vh !important
+    min-height: 100vh !important
 
 /* components separation */
 [data-gjs-type="wrapper"] [data-gjs-type]:not(:last-child):not([data-gjs-type="column"]) 
@@ -35,7 +35,13 @@ img.gjs-plh-image
 
 /* disable menu pointer events */
 [data-gjs-type="menu"] 
-    overflow: hidden 
+    overflow: hidden
 [data-gjs-type="menu"] .menu
     pointer-events: none
 
+/* empty wrappers styles */
+.page-module:empty,
+.comp-wrapper:empty,
+.column:empty
+    border: 3px dashed rgba(0,0,0,0.1)
+    background-color: rgba(0,0,0,0.02)

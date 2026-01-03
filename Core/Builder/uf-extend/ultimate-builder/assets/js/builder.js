@@ -27,6 +27,7 @@
             React_Builder.init( this.$el.find('#app')[0], {
                 clearStyles: true,
                 componentFirst: true,
+                showToolbar: false,
                 uf_field_model: this.args.uf_field_model,
                 initial_components_data: this.args.initial_components_data,
                 groups: this.args.groups,
