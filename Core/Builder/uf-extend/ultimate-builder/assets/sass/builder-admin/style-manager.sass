@@ -1,20 +1,19 @@
-.style-manager
-    /* FIX INPUT CHECKBOX TICK */
-    & input[type=checkbox], & input[type=radio]
-        display: block
-        line-height: initial
-        height: initial
-        margin: 0
-        padding: 0!important
-        width: 100%
-        min-width: auto
-        &::before
-            display: none !important
+.gjs-custom-style-manager
+    input[type=text]
+        min-height: auto !important
+        border-radius: 0 !important
+        border: 0
+        outline: 0 !important
+        box-shadow: none !important
+        line-height: initial !important
+        background-color: transparent !important
+        font-size: 0.775rem !important
+        padding: 0 !important
 
-    /* FIX SELECT BACKGROUND */
-    & select
-        background: initial !important
-
-    /* FIX BACKGROUND RADIO INPUTS DISSAPEAR */
-    .input-radio-wrapper input
-        display: none !important
+    select
+        min-height: auto
+        line-height: 1 !important
+        padding: 0
+        background: none
+        border: 0
+        background-color: transparent !important

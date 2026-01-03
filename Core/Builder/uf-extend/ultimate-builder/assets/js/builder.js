@@ -61,7 +61,7 @@
                 // Temporarily store datastores and models for each component
                 temporalCompStore: {},
                 builderInstance: that,
-                plugins: plugins,
+                plugins: [...plugins, ...React_Builder_Plugins],
                 pluginsOpts: {
                     [window['gjs-context-menu'].default]: window['contextMenuOpts']
                 },

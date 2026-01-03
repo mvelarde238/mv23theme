@@ -3,6 +3,13 @@ function create_text_align_actions(component){
         type: 'options', title: 'TEXT ALIGN',
         options: [],
     };
+
+    const icon_names = {
+        left: 'bi-justify-left',
+        center: 'bi-text-center',
+        right: 'bi-justify-right'
+    };
+
     ['left','center','right'].forEach( item => {
         let innerAction = (item === 'toggle') 
             ? { type: 'toggle' }
@@ -15,7 +22,7 @@ function create_text_align_actions(component){
                     return actionClass;
                 },
                 command: 'update-text-align',
-                label: '<i class="material-symbols-outlined">format_align_'+item+'</i>', 
+                label: '<i class="bi ' + icon_names[item] + '"></i>', 
                 args: { align: item } 
             };
         textAlignAction.options.push( innerAction );

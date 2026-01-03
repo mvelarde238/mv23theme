@@ -5,21 +5,11 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// CUARTA ETAPA, READY!!!
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA
 
-* Search for bugs on components: create, save, edit, preview, etc, Check context menu
+* modificar isExternal plugins, builder.lo just works on localhost during development
+    * additionallly: context menu load css
 
 * CUSTOMIZE BUILDER EXPERIENCE
-    * image comp is showing gjs image selector
-
-* CONTEXT MENU
-    * add svgmin to bash scripts and minify alignment icons
-    * remove all mui icons??? 
-
-* STYLE MANAGER
-    * builder with react -> personalizar fields of style manager
-    * number inputs dosnt work with keyboard arrows
-    * borders cant be added individually: left, right
-    * gradient background
-    * create a gjs-canvas-spots plugin that handle padding, margin, border-radius
+    * Search for bugs on components: create, save, edit, preview, check context menu, etc
 
 /////////////////////////////////////////////////////////////////////////////////////// SEXTA ETAPA
 

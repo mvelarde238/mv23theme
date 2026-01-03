@@ -548,8 +548,7 @@
 .uf-field-invalid > .uf-field-label {
   color: #DC4141;
 }
-.uf-field textarea,
-.uf-field input[type=text] {
+.uf-field-input > textarea, .uf-field-input > input[type=text] {
   display: block;
   width: 100%;
 }

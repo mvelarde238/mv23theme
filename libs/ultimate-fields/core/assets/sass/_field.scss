@@ -110,8 +110,8 @@
 		color: $required;
 	}
 
-	textarea,
-	input[type='text'] {
+	&-input>textarea,
+	&-input>input[type='text'] {
 		display: block;
 		width: 100%;
 	}
