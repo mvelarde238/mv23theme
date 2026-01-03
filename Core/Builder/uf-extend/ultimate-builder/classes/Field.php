@@ -36,9 +36,7 @@ class Field extends Repeater {
 		$this->enqueue_gjs_plugins();
         wp_enqueue_script( 'builder' );
 		wp_enqueue_script( 'uf-field-ultimate-builder' );
-		
 		// wp_enqueue_style( 'uf-field-ultimate-builder' );
-		wp_enqueue_style( 'gjs-context-menu-style' );
 
 		# Enqueue the scripts for all groups
 		foreach( $this->groups as $group ) {
@@ -62,6 +60,9 @@ class Field extends Repeater {
 		foreach ( $gjs_plugins_info as $plugin_info ) {
 			wp_enqueue_script( $plugin_info['handle'] );
 		}
+
+		// TODO: register dinamically if the plugin "hasCss" is true:
+		wp_enqueue_style( 'gjs-context-menu-style' );
 	}
 
 	/**

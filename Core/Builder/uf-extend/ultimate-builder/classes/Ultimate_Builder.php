@@ -70,7 +70,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsOceComponents', 'handler' => 'gjs-oce-components', 'isComponent' => true ],
 		[ 'name' => 'gjsHeroSection', 'handler' => 'gjs-hero-section', 'isComponent' => true ],
 		// external components
-		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true ],
+		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true, 'hasCss' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],
 		[ 'name' => 'gjsTogglebox', 'handler' => 'gjs-togglebox', 'isExternal' => true ],
 		[ 'name' => 'gjsFlipbox', 'handler' => 'gjs-flip-box', 'isExternal' => true ],
@@ -142,13 +142,13 @@ class Ultimate_Builder {
 		{
 			$assets = BUILDER_PATH . '/uf-extend/ultimate-builder/assets/';
 			$v      = $this->version;
+			$app_js_path = BUILDER_DEV_MODE ? 'http://builder.lo/react/my-react-app/dist/' : $assets. 'js/';
+			$app_css_path = BUILDER_DEV_MODE ? 'http://builder.lo/react/my-react-app/dist/' : $assets. 'css/';
 
-			wp_register_style( 'gjs-context-menu-style', $assets . 'css/gjs-context-menu/style.css', array(), $v );
 			wp_register_style( 'builder-admin-styles', $assets . 'css/builder-admin.css', array(), $v );
 			wp_register_style( 'canvas-css', $assets . 'css/canvas.css', array(), $v );
-			wp_register_style( 'builder-app-styles', 'http://builder.lo/react/my-react-app/dist/app.css', array(), $v ); 
-
-			wp_register_script( 'builder-app', 'http://builder.lo/react/my-react-app/dist/app.js', array(), $v );
+			wp_register_style( 'builder-app-styles', $app_css_path . 'app.css', array(), $v ); 
+			wp_register_script( 'builder-app', $app_js_path . 'app.js', array(), $v );
 			wp_register_script( 'gjs-context-menu-options', $assets . 'js/context-menu-options.js', array(), $v );
 			$this->register_gjs_plugins();
 			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );
@@ -175,7 +175,11 @@ class Ultimate_Builder {
 
 		foreach( $this->gjs_plugins as $plugin) {
 			if( isset( $plugin['isExternal'] ) && $plugin['isExternal'] === true ) {
-				$script_url = 'http://builder.lo/' . $plugin['handler'] . '/dist/index.js';
+				if( BUILDER_DEV_MODE ){
+					$script_url = 'http://builder.lo/' . $plugin['handler'] . '/dist/index.js';
+				} else {
+					$script_url = $assets . 'js/external-plugins/' . $plugin['handler'] . '.js';
+				}
 			} else {
 				$folder = $plugin['isComponent'] ? 'components' : 'plugins';
 				$script_url = $assets . 'js/' . $folder . '/' . $plugin['handler'] . '.js';
@@ -183,6 +187,10 @@ class Ultimate_Builder {
 
 			wp_register_script( $plugin['handler'], $script_url, array(), $v );
 		}
+
+		// TODO: register dinamically if the plugin "hasCss" is true:
+		$gjs_cm_css = BUILDER_DEV_MODE ? 'http://builder.lo/gjs-context-menu/dist/style.css' : $assets. 'js/external-plugins/gjs-context-menu.css';
+		wp_register_style( 'gjs-context-menu-style', $gjs_cm_css, array(), $v );
 	}
 
 	/**

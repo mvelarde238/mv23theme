@@ -68,6 +68,7 @@ if( !defined('COLUMNS_QUANTITY') ) define ('COLUMNS_QUANTITY', 4);
 if( !defined('UF_POSTTYPES') ) define ('UF_POSTTYPES', array('page','megamenu','archive_page','footer','reusable_section'));
 if( !defined('CONTENT_BUILDER_POSTTYPES') ) define ('CONTENT_BUILDER_POSTTYPES', array());
 if( !defined('CONTENT_BUILDER_SETTINGS') ) define ('CONTENT_BUILDER_SETTINGS', array());
+if( !defined('BUILDER_DEV_MODE') ) define ('BUILDER_DEV_MODE', true);
 
 if( !defined('CARD') ) define ('CARD', false);
 if( !defined('SIMPLE_COLUMNS') ) define ('SIMPLE_COLUMNS', false);

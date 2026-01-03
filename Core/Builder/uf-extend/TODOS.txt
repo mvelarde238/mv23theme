@@ -5,9 +5,6 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// CUARTA ETAPA, READY!!!
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA
 
-* modificar isExternal plugins, builder.lo just works on localhost during development
-    * additionallly: context menu load css
-
 * CUSTOMIZE BUILDER EXPERIENCE
     * Search for bugs on components: create, save, edit, preview, check context menu, etc
 
