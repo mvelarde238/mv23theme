@@ -19,6 +19,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         'page_module' => 'section',
         'row' => 'row-component',
         'components_wrapper' => 'comp-wrapper',
+        'inner_wrapper' => 'comp-wrapper',
         // ... this apply for all cmp that are not registered in mapping: comp_{__type}:
         'text_editor' => 'comp_text_editor',
         'html' => 'comp_code',
@@ -515,6 +516,9 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         
         // Create UF component structure
         $uf_component = $component;
+        if( $component['__type'] == 'inner_wrapper' ){
+            $uf_component['__type'] = 'components_wrapper';
+        }
         $uf_component['__id'] = $__id;
         
         // Create GJS component structure
@@ -837,7 +841,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $css_styles .= "#{$img_id} { aspect-ratio: {$aspect_ratio}; }";
         $img_styles['aspect-ratio'] = $aspect_ratio;
 
-        if( $component['full_width'] ){
+        if( isset($component['full_width']) && $component['full_width'] ){
             $css_styles .= "#{$img_id} { width: 100%; }";
             $img_styles['width'] = '100%';
         }
@@ -1749,7 +1753,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             $layout = $uf_component['settings']['layout']['key'];
 
             $special_layouts = array( 'layout2', 'layout3' );
-            $dont_doit_for = array( 'page_module', 'components_wrapper', 'column' );
+            $dont_doit_for = array( 'page_module', 'components_wrapper', 'column', 'inner_wrapper' );
             $component_type = $uf_component['__type'];
             if( in_array( $layout, $special_layouts )  ){
                 if( !in_array( $component_type, $dont_doit_for ) ){
