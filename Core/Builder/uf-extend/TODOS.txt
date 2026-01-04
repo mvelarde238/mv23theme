@@ -6,9 +6,8 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA, READY!!!
 /////////////////////////////////////////////////////////////////////////////////////// SEXTA ETAPA
 
-* Stylize toolbar and label
-
 * PRUEBA DE FUEGO:
+    * make a deeep backup feeeerst
     * subir rama uf-builder al servidor
     * clonar came project and change mv23theme to uf-builder branch
     * migrate and test: custom components, woocommerce content builder, editing experience, etc
