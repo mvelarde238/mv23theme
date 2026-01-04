@@ -5,6 +5,7 @@ CHANGELOG
 3.0.1 26-01-04
 - Refactor Core\Frontend\Frontend to have control over registerd styles and scripts
 - Fix issue related to inner_wrapper on migrator file
+- ultimate_builder.gjs_plugins filter implementation
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------

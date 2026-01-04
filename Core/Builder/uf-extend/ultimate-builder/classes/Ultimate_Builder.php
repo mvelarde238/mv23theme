@@ -173,7 +173,7 @@ class Ultimate_Builder {
 		$assets = BUILDER_PATH . '/uf-extend/ultimate-builder/assets/';
 		$v = $this->version;
 
-		foreach( $this->gjs_plugins as $plugin) {
+		foreach( $this->get_gjs_plugins() as $plugin) {
 			if( isset( $plugin['isExternal'] ) && $plugin['isExternal'] === true ) {
 				if( BUILDER_DEV_MODE ){
 					$script_url = 'http://builder.lo/' . $plugin['handler'] . '/dist/index.js';
@@ -181,8 +181,12 @@ class Ultimate_Builder {
 					$script_url = $assets . 'js/external-plugins/' . $plugin['handler'] . '.js';
 				}
 			} else {
-				$folder = $plugin['isComponent'] ? 'components' : 'plugins';
-				$script_url = $assets . 'js/' . $folder . '/' . $plugin['handler'] . '.js';
+				if(isset( $plugin['url'] ) ){
+					$script_url = $plugin['url'];
+				} else {
+					$folder = $plugin['isComponent'] ? 'components' : 'plugins';
+					$script_url = $assets . 'js/' . $folder . '/' . $plugin['handler'] . '.js';
+				}
 			}
 
 			wp_register_script( $plugin['handler'], $script_url, array(), $v );
@@ -197,10 +201,12 @@ class Ultimate_Builder {
 	 * Get the registered GJS plugins.
 	 *
 	 * @since 1.0
-	 * @return array Array of plugin name => handle pairs
+	 * @return array The registered GJS plugins.
 	 */
 	public function get_gjs_plugins() {
-		return $this->gjs_plugins;
+		$plugins = apply_filters( 'ultimate_builder.gjs_plugins', $this->gjs_plugins );
+
+		return $plugins;
 	}
 
 	/**
