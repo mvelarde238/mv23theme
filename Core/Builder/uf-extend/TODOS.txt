@@ -6,12 +6,14 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA, READY!!!
 /////////////////////////////////////////////////////////////////////////////////////// SEXTA ETAPA
 
+* Stylize toolbar and label
+
 * PRUEBA DE FUEGO:
-    * clonar came project and update mv23theme to new version: 3.0.0
-    * testear custom components, woocommerce content builder, etc
+    * subir rama uf-builder al servidor
+    * clonar came project and change mv23theme to uf-builder branch
+    * migrate and test: custom components, woocommerce content builder, editing experience, etc
 
 * CUSTOMIZE BUILDER EXPERIENCE
-    * Stylize toolbar: add component name, and remove drag icon, add title tooltip
     * On init builder on new page add {{page_title}}
 
 * NEW COMPONENTS
