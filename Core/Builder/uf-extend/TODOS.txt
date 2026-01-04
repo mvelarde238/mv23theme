@@ -6,13 +6,22 @@ TODO:
 /////////////////////////////////////////////////////////////////////////////////////// QUINTA ETAPA, READY!!!
 /////////////////////////////////////////////////////////////////////////////////////// SEXTA ETAPA
 
-* PRUEBA DE FUEGO:
-    * make a deeep backup feeeerst
-    * subir rama uf-builder al servidor
-    * clonar came project and change mv23theme to uf-builder branch
-    * migrate and test: custom components, woocommerce content builder, editing experience, etc
+* TEST ON A REAL PROJECT:
+    * childtheme styles not loading on canvas
+    * add prevent default to componet toolbar
+    * test: custom components, woocommerce content builder, editing experience, etc
+    * Comp_inner_wrapper show on editor but not on frontend
+    * Custom comp_came_banner not displaying settings
+    * fix scroll inside canvas -> chech carrousel on quienes somos
+    * Improve shortcode view
+    * content blocks cant be appering on cpts: team, product
+
+*  DETECT BUGS (OR IMPROVEMENTS) ON COMPONENTS
+    * Check tabs/accordion empty items height (add item title default??)
+    * section -> ajustes -> layout field is broken
 
 * CUSTOMIZE BUILDER EXPERIENCE
+    * use light theme by default
     * On init builder on new page add {{page_title}}
 
 * NEW COMPONENTS

@@ -2,6 +2,14 @@
 CHANGELOG
 **************************************************************************************************
 
+3.0.1 26-01-04
+- Refactor Core\Frontend\Frontend to have control over registerd styles and scripts
+
+3.0.0 26-01-03
+-----------------------------------------------------------------------------------------------------
+- !IMPORTANT: V.3.0.0: Ultimate Builder Implementation
+-----------------------------------------------------------------------------------------------------
+
 2.10.8 25-09-01
 - Fix: uf map.js: Save map state on zoom level change and avoid marker deletion
 

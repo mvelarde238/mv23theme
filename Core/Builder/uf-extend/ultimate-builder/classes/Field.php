@@ -4,7 +4,7 @@ namespace Ultimate_Fields\Ultimate_Builder;
 use Ultimate_Fields\Field\Repeater;
 use Ultimate_Fields\Datastore\Group as Group_Datastore;
 use Ultimate_Fields\Template;
-use Core\Theme_Options\Theme_Options;
+use Core\Frontend\Frontend;
 
 /**
  * Handles the display of the field, including its layout and structure.
@@ -12,20 +12,6 @@ use Core\Theme_Options\Theme_Options;
  * @since 1.0
  */
 class Field extends Repeater {
-
-	private $theme_styles = array(
-		'mv23theme-styles',
-		'mv23theme-font-awesome',
-		'mv23theme-bootstrap-icons',
-		'uf-leaflet-css',
-		'canvas-css'
-	);
-	private $theme_scripts = array(
-		'mv23theme-scripts',
-		'uf-leaflet',
-		'uf-gmaps',
-	);
-
 	/**
 	 * Enqueues the scripts for the field.
 	 *
@@ -285,15 +271,15 @@ class Field extends Repeater {
 	private function get_styles() {
 		$styles = array();
 
-		// get theme fonts urls
-		$theme_fonts = Theme_Options::getInstance()->get_theme_fonts();
-		foreach ($theme_fonts['urls'] as $url) {
-			$styles[] = $url;
-		}
+		$frontend_styles_control = array_merge( 
+			Frontend::get_styles_control_handles(), 
+			array('canvas-css') 
+		);
 
 		global $wp_styles;
-		foreach ( $this->theme_styles as $handle ) {
+		foreach ( $frontend_styles_control as $handle ) {
 			if ( isset( $wp_styles->registered[$handle] ) ) {
+				// error_log( 'Found style handle: ' . $handle );
 				$style_info = $wp_styles->registered[$handle];
 				if ( isset( $style_info->src ) ) {
 					// check for extra styles to add before this one
@@ -322,8 +308,10 @@ class Field extends Repeater {
 	private function get_scripts() {
 		$scripts = array();
 
+		$frontend_scripts_control = Frontend::get_scripts_control_handles();
+
 		global $wp_scripts;
-		foreach ( $this->theme_scripts as $handle ) {
+		foreach ( $frontend_scripts_control as $handle ) {
 			if ( isset( $wp_scripts->registered[$handle] ) ) {
 				$script_info = $wp_scripts->registered[$handle];
 				if ( isset( $script_info->src ) ) {

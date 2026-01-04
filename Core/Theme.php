@@ -99,13 +99,6 @@ class Theme extends Theme_Header_Data {
             $this->loader->add_action( 'wp_ajax_nopriv_get_cart_quantity', $woocommerce_support, 'get_cart_unique_items_count');
         }
 
-        // Theme Options
-        $theme_options = Theme_Options::getInstance();
-
-        // load theme options frontend stuff
-        $this->loader->add_action( 'wp_enqueue_scripts', $theme_options, 'add_theme_fonts' );
-        $this->loader->add_action( 'wp_enqueue_scripts', $theme_options, 'add_css_properties' );
-
         if( POSTS_SUBSCRIPTION['enabled'] ){
             $posts_subscription = Posts_Subscription::getInstance();
             $this->loader->add_filter( 'filter_post_card_permalink', $posts_subscription, 'filter_post_card_permalink', 10, 2 );
@@ -124,6 +117,11 @@ class Theme extends Theme_Header_Data {
 
         // Enqueue styles and scripts.
         $this->loader->add_action( 'admin_head', $admin, 'enqueue_scripts' );
+
+        // Register frontend styles and scripts for use in the builder.
+        $frontend = new Frontend();
+        $this->loader->add_action( 'admin_head', $frontend, 'register_styles' );
+        $this->loader->add_action( 'admin_head', $frontend, 'register_scripts' );
 
         // Register navigational menus.
         $this->loader->add_action( 'init', $admin, 'register_nav_menus' );

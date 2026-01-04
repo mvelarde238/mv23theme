@@ -203,12 +203,6 @@ class Theme_Options extends Theme_Header_Data{
 
     public function add_theme_fonts(){
         $fonts = self::$instance->get_theme_fonts();
-        $count = 0;
-        
-        foreach ($fonts['urls'] as $url) {
-            wp_enqueue_style( $fonts['names'][$count], $url );
-            $count++;
-        }
             
         wp_add_inline_style( 'mv23theme-styles', $fonts['css'] );
     }

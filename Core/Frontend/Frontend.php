@@ -11,98 +11,182 @@ use Core\Frontend\Page;
 use Core\Frontend\Header;
 use Core\Theme_Options\Theme_Options;
 use Core\Builder\Template_Engine\Scroll_Animations;
-use Core\Builder\Template_Engine\Id;
+use Core\Builder\Template_Engine\Id;;
 
 class Frontend extends Theme_Header_Data {
+
+    public static $styles_control = array();
+
+    public static $scripts_control = array();
 
     public function __construct() { 
         parent::__construct();
     }
 
-    public function enqueue_styles() {
-        if (!is_admin()) {
-            wp_enqueue_style( $this->text_domain.'-styles', $this->theme_uri . '/assets/css/style.css', array(), $this->version, 'all' );
-            wp_enqueue_style( $this->text_domain.'-font-awesome', FONT_AWESOME, array(), $this->version, 'all' );
-            wp_enqueue_style( $this->text_domain.'-bootstrap-icons', BOOTSTRAP_ICONS, array(), $this->version, 'all' );
+    /*
+    * Attach a style/script to this class to be registered later
+    * Child themes can use this method to add their own styles/scripts
+    * Attached styles/scripts will be registered for frontend and builder use
+    */
+    public static function add_style( $handle, $src = '', $deps = array(), $ver = false, $media = 'all' ) {
+        self::$styles_control[] = array(
+            'handle' => $handle,
+            'src' => $src,
+            'deps' => $deps,
+            'ver' => $ver,
+            'media' => $media
+        );
+    }
+
+    public static function add_script( $handle, $src = '', $deps = array(), $ver = false, $in_footer = true ) {
+        self::$scripts_control[] = array(
+            'handle' => $handle,
+            'src' => $src,
+            'deps' => $deps,
+            'ver' => $ver,
+            'in_footer' => $in_footer
+        );
+    }
+
+    /*
+    * Get attached style/scripts handles
+    */
+    public static function get_styles_control_handles() {
+        return array_column( self::$styles_control, 'handle' );
+    }
+
+    public static function get_scripts_control_handles() {
+        return array_column( self::$scripts_control, 'handle' );
+    }
+
+    /*
+    * Register frontend styles 
+    */
+    public function register_styles(){
+        self::add_style( $this->text_domain.'-styles', $this->theme_uri . '/assets/css/style.css', array(), $this->version, 'all' );
+        self::add_style( $this->text_domain.'-font-awesome', FONT_AWESOME, array(), $this->version, 'all' );
+        self::add_style( $this->text_domain.'-bootstrap-icons', BOOTSTRAP_ICONS, array(), $this->version, 'all' );
+        if( LEAFLET_IS_ACTIVE ) {
+            self::add_style( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css', array(), '1.0', 'all' );
+        }
+
+        $theme_options = Theme_Options::getInstance();
+
+        // add theme fonts styles
+        $fonts = $theme_options->get_theme_fonts();
+        $count = 0;
+        foreach ($fonts['urls'] as $url) {
+            self::add_style( $fonts['names'][$count], $url );
+            $count++;
+        }
+
+        do_action( $this->text_domain.'_add_additional_styles' );
+
+        // register attached styles
+        foreach( self::$styles_control as $style ){
+            wp_register_style( $style['handle'], $style['src'], $style['deps'], $style['ver'], $style['media'] );
+        }
+
+        // register inline styles from theme options
+        $theme_options->add_theme_fonts();
+        $theme_options->add_css_properties();
+    }
+
+    /*
+    * Register frontend scripts
+    */
+    public function register_scripts() {
+        if ( GM_IS_ACTIVE) {
+            $google_api_key = get_option( 'uf_google_maps_api_key' );
+            $gm_url = 'https://maps.googleapis.com/maps/api/js?key='.$google_api_key;
+            $gm_services = get_option('gm_services') ? get_option('gm_services') : array();
+            if( count($gm_services) ) $gm_url .= '&libraries='. implode(",", $gm_services);
+            self::add_script( 'googleapis', $gm_url, array(), '1.0', true);
+        }
+
+        if( LEAFLET_IS_ACTIVE ){
+            self::add_script( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js', array(), '1.0', true);
+        }
+
+        // Ensure GSAP is loaded before main scripts if scroll animations are enabled
+        $dependencies = array();
+        if( SCROLL_ANIMATIONS ) $dependencies[] = 'gsap';
+        self::add_script( $this->text_domain . '-scripts', $this->theme_uri . '/assets/js/scripts.js', $dependencies, $this->version, true );
+
+        // register attached scripts
+        foreach( self::$scripts_control as $script ){
+            wp_register_script( $script['handle'], $script['src'], $script['deps'], $script['ver'], $script['in_footer'] );
         }
     }
 
-    public function enqueue_scripts() {
-        if (!is_admin()) {
+    /**
+    * Enqueue frontend styles/scripts
+    */
+    public function enqueue_styles() {
+        $this->register_styles();
 
-            // comment reply script for threaded comments
-            if ( is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) {
-                wp_enqueue_script( 'comment-reply' );
-            }
-            
-            // adding scripts files in the footer
-            
-            if ( GM_IS_ACTIVE) {
-                $google_api_key = get_option( 'uf_google_maps_api_key' );
-                $gm_url = 'https://maps.googleapis.com/maps/api/js?key='.$google_api_key;
-                $gm_services = get_option('gm_services') ? get_option('gm_services') : array();
-                if( count($gm_services) ) $gm_url .= '&libraries='. implode(",", $gm_services);
-                wp_enqueue_script( 'googleapis', $gm_url, array(), '1.0', true);
-            }
+        foreach( self::$styles_control as $style ){
+            wp_enqueue_style( $style['handle'] );
+        }
+    }
 
-            if( LEAFLET_IS_ACTIVE ){
-                wp_enqueue_script( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js', array(), '1.0', true);
-                wp_enqueue_style( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css', array(), '1.0', 'all' );
-            }
-    
-            if( SCROLL_ANIMATIONS ){
-                wp_enqueue_script( 'scroll-animations', $this->theme_uri . '/assets/js/gsap.js', array(), '1.0', true);
-            }
-    
-            wp_deregister_script( 'jquery' );
-            wp_register_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', array(), '', true );
-            wp_enqueue_script( 'jquery' );
-    
-            if (MASONRY_IS_ACTIVE) wp_enqueue_script( 'jquery-masonry' );
+    public function enqueue_scripts(){
+        $this->register_scripts();
 
-            // Ensure GSAP is loaded before main scripts
-            $dependencies = array();
-            if( SCROLL_ANIMATIONS ) $dependencies[] = 'scroll-animations';
+        // comment reply script for threaded comments
+        if ( is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) {
+            wp_enqueue_script( 'comment-reply' );
+        }
+
+        // use Google hosted jQuery
+        wp_deregister_script( 'jquery' );
+        wp_register_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', array(), '', true );
+        wp_enqueue_script( 'jquery' );
     
-            wp_register_script( $this->text_domain . '-scripts', $this->theme_uri . '/assets/js/scripts.js', $dependencies, $this->version, true );
-    
-            $static_header = new Header();
-            $sticky_header = new Header('sticky');
-            wp_localize_script( $this->text_domain . '-scripts', 'STATIC_HEADER', $static_header->get_options() ); 
-            wp_localize_script( $this->text_domain . '-scripts', 'STICKY_HEADER', $sticky_header->get_options() ); 
-    
-            wp_localize_script( $this->text_domain . '-scripts', 'MV23_GLOBALS', array(
-                'pageID' => get_the_ID(),
-                'isSingle' => is_single(),
-                'isMobile' => wp_is_mobile(), 
-                'ajaxUrl' => admin_url( 'admin-ajax.php' ), 
-                'homeUrl' => home_url(), 
-                'nonce' =>  wp_create_nonce( 'global-nonce' ),
-                'userIsLoggedIn' => is_user_logged_in(),
-                'lang' => (function_exists('pll_current_language')) ? pll_current_language() : 'es',
-                'headerHeight' => HEADER_HEIGHT,
-                'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
-                'listing_loading_text' => LISTING_LOADING_TEXT,
-                'modal' => array(
-                    'outDuration' => MODAL_OUT_DURATION
-                ),
-                'expanderHeight' => LISTING_EXPANDER_HEIGHT,
-                'expanderResponseHeight' => LISTING_EXPANDER_RESPONSE_HEIGHT,
-                'expanderScrollDuration' => LISTING_EXPANDER_SCROLL_DURATION,
-                'carousels' => array(),
-                'scrollAnimations' => SCROLL_ANIMATIONS,
-                'adjustScrollPosition' => ADJUST_SCROLL_POSITION,
-                'open_minicart_on_add_to_cart' => OPEN_MINICART_ON_ADD_TO_CART,
-                'minicart_sidenav_position' => MINICART_SIDENAV_POSITION,
-                'woocommerce_is_active' => WOOCOMMERCE_IS_ACTIVE,
-                'items_in_cart' => (WOOCOMMERCE_IS_ACTIVE) ? WC()->cart->get_cart_contents_count() : null,
-                'menu_breakpoint' => 896,
-                'masonry_is_active' => MASONRY_IS_ACTIVE,
-                'debug' => DEBUG_SCRIPTS,
-                'maybeFixScrollPositionStyles' => MAYBE_FIX_SCROLL_POSITION_STYLES
-            )); 
-    
-            wp_enqueue_script( $this->text_domain . '-scripts' );
+        // masonry script
+        if (MASONRY_IS_ACTIVE) wp_enqueue_script( 'jquery-masonry' );
+
+        // gsap for scroll animations
+        if( SCROLL_ANIMATIONS ) wp_enqueue_script( 'gsap', $this->theme_uri . '/assets/js/gsap.js', array(), '1.0', true);
+
+        // localize global variables
+        $static_header = new Header();
+        $sticky_header = new Header('sticky');
+        wp_localize_script( $this->text_domain . '-scripts', 'STATIC_HEADER', $static_header->get_options() ); 
+        wp_localize_script( $this->text_domain . '-scripts', 'STICKY_HEADER', $sticky_header->get_options() ); 
+        wp_localize_script( $this->text_domain . '-scripts', 'MV23_GLOBALS', array(
+            'pageID' => get_the_ID(),
+            'isSingle' => is_single(),
+            'isMobile' => wp_is_mobile(), 
+            'ajaxUrl' => admin_url( 'admin-ajax.php' ), 
+            'homeUrl' => home_url(), 
+            'nonce' =>  wp_create_nonce( 'global-nonce' ),
+            'userIsLoggedIn' => is_user_logged_in(),
+            'lang' => (function_exists('pll_current_language')) ? pll_current_language() : 'es',
+            'headerHeight' => HEADER_HEIGHT,
+            'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
+            'listing_loading_text' => LISTING_LOADING_TEXT,
+            'modal' => array(
+                'outDuration' => MODAL_OUT_DURATION
+            ),
+            'expanderHeight' => LISTING_EXPANDER_HEIGHT,
+            'expanderResponseHeight' => LISTING_EXPANDER_RESPONSE_HEIGHT,
+            'expanderScrollDuration' => LISTING_EXPANDER_SCROLL_DURATION,
+            'carousels' => array(),
+            'scrollAnimations' => SCROLL_ANIMATIONS,
+            'adjustScrollPosition' => ADJUST_SCROLL_POSITION,
+            'open_minicart_on_add_to_cart' => OPEN_MINICART_ON_ADD_TO_CART,
+            'minicart_sidenav_position' => MINICART_SIDENAV_POSITION,
+            'woocommerce_is_active' => WOOCOMMERCE_IS_ACTIVE,
+            'items_in_cart' => (WOOCOMMERCE_IS_ACTIVE) ? WC()->cart->get_cart_contents_count() : null,
+            'menu_breakpoint' => 896,
+            'masonry_is_active' => MASONRY_IS_ACTIVE,
+            'debug' => DEBUG_SCRIPTS,
+            'maybeFixScrollPositionStyles' => MAYBE_FIX_SCROLL_POSITION_STYLES
+        )); 
+
+        foreach( self::$scripts_control as $script ){
+            wp_enqueue_script( $script['handle'] );
         }
     }
 
