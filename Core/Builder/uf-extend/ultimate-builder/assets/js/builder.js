@@ -245,15 +245,23 @@
                 blocksControl = editor.getConfig().blocksControl || {};
 
             _.each(groups, function (group) {
-                // Add a component definition
-                editor.DomComponents.addType( 'comp_' + group.id, {
-                    extend: 'comp-base',
-                    model: {
-                        defaults: {
-                            name: group.title
-                        }
+                // Add gjs component type definition if not already defined
+                let typeExists = false;
+                editor.DomComponents.getTypes().forEach((compType) => {
+                    if (compType.id === 'comp_' + group.id) {
+                        typeExists = true;
                     }
                 });
+                if (!typeExists) {   
+                    editor.DomComponents.addType( 'comp_' + group.id, {
+                        extend: 'comp-base',
+                        model: {
+                            defaults: {
+                                name: group.title
+                            }
+                        }
+                    });
+                }
 
                 // Add block for this component type if not disabled
                 if ( blocksControl[group.id] && blocksControl[group.id].render === false ) {
