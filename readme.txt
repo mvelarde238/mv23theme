@@ -8,6 +8,7 @@ CHANGELOG
 - ultimate_builder.gjs_plugins filter implementation
 - Add gjs component type definition for components if not already defined 
 - gjsExtendEditor plugin implementation
+- mv23_migrator_after_process_component filter implementation
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------

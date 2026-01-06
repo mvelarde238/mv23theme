@@ -646,6 +646,19 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             $this->process_flipbox_components( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles );
         }
 
+        // Allow custom processing after main component processing
+        $filtered = apply_filters( 'mv23_migrator_after_process_component', array(
+            'uf_component' => $uf_component,
+            'gjs_component' => $gjs_component,
+            'css_styles' => $css_styles,
+            'gjs_styles' => $gjs_styles
+        ), $component, $id );
+        
+        $uf_component = $filtered['uf_component'];
+        $gjs_component = $filtered['gjs_component'];
+        $css_styles = $filtered['css_styles'];
+        $gjs_styles = $filtered['gjs_styles'];
+
         // Handle component['settings'] 
         $this->handle_settings( $uf_component, $gjs_component, $css_styles, $gjs_styles, $id );
 
