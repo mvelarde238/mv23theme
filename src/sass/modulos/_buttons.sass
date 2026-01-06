@@ -7,39 +7,39 @@
 	font-size: .9em
 	--icon-separation: 0.2em
 
+	i
+		margin-right: var(--icon-separation)
+
 	&:hover
-		background: var(--primary-color)
+		background-color: var(--primary-color)
 		color: #fff
 
-	&--medium
+	&.btn--medium
 		font-size: 1em
 
-	&--big
+	&.btn--big
 		font-size: 1.1em
 
-	&--main-color
-		background: var(--primary-color)
+	&.btn--main-color
+		background-color: var(--primary-color)
 		color: #fff
 		&:hover
-			background: var(--primary-color-dark)
+			background-color: var(--primary-color-dark)
 			color: #fff
-	&--secondary-color
-		background: var(--secondary-color)
+	&.btn--secondary-color
+		background-color: var(--secondary-color)
 		color: #fff 
 		&:hover
-			background: var(--secondary-color-dark)
+			background-color: var(--secondary-color-dark)
 			color: #fff
-	&--white
-		background: #fff
+	&.btn--white
+		background-color: #fff
 		box-shadow: 0 0 8px rgba($font-color,.2)
 		color: var(--font-color) !important
 		&:hover
-			background: var(--primary-color)
+			background-color: var(--primary-color)
 			color: #fff !important
-
-	i
-		margin-right: var(--icon-separation)
 	
-	&--icon-right i
+	&.btn--icon-right i
 		margin-left: var(--icon-separation)
 		margin-right: 0

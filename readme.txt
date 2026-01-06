@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.10.16 26-01-06
+- Fix button class specificity using chain classes
+
 2.10.15 25-12-15
 - filter_post_card_excerpt implementation
 - Menu Component Improvement: send context to Nav_Walker Class
