@@ -22,6 +22,7 @@ do_action('before_loop');
 			$_postcard_template = apply_filters('filter_listing_postcard_template', $postcard_template, $count);
 
 			get_template_part( 'partials/card/postcard', $_postcard_template, array( 
+				'post_template' => $_postcard_template,
                 'on_click_post' => $postcard_settings['on_click_post'],
                 'on_click_scroll_to' => $postcard_settings['on_click_scroll_to']
             ));

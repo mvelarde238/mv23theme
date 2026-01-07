@@ -161,6 +161,7 @@ class Ajax_Load_Posts{
 
                     if($listing_template == 'carrusel') echo '<div>';
                     get_template_part( 'partials/card/postcard', $postcard_template, array( 
+                        'post_template' => $postcard_template,
                         'on_click_post' => $on_click_post,
                         'on_click_scroll_to' => $on_click_scroll_to
                     ));
