@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+- 3.2.4 08-01-2026
+- Fix undefined COLOR_PICKER
+    (core/js/field/color.js)
+
 - 3.2.3 01-09-2025
 - Fix: map.js: Save map state on zoom level change and avoid marker deletion
     (core/js/field/map.js)
