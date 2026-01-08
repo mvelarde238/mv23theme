@@ -24,7 +24,6 @@
 
 			args = {
 				defaultColor: this.model.get( 'default_value' ) || '',
-				palettes: COLOR_PICKER.palettes,
 				change: function( e, ui ) {
 					that.model.setValue( ui.color.toString() );
 				},
@@ -32,6 +31,8 @@
 					that.model.setValue( '' );
 				}
 			}
+
+			if (typeof COLOR_PICKER !== 'undefined') args.palettes = COLOR_PICKER.palettes;
 
 			$input = $( '<input type="text" />' )
 				.val( color )
