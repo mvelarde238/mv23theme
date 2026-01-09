@@ -39,7 +39,7 @@ window.gjsOceComponents = ( editor ) => {
             defaults: {
                 tagName: 'div',
                 name: 'Dynamic Content',
-                classes: ['oce-dynamic-content'],
+                classes: ['oce-dynamic-content','component'],
                 droppable: false,
                 stylable: false
             }

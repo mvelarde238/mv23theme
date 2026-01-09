@@ -39,9 +39,7 @@ window.gjsHeroSection = function (editor) {
         model: {
             defaults: {
                 tagName: 'div',
-                attributes: {
-                    class: 'hero-section',
-                },
+                classes: ['hero-section'],
                 styles:`
                     .hero-section{
                         padding: 40px 0px 40px 0px;

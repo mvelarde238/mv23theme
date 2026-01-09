@@ -24,9 +24,7 @@ window.gjsSpacer = function (editor) {
                     maxDim: null,
                     minDim: 1
                 },
-                attributes: {
-                    class: compClass,
-                },
+                classes: [compClass],
                 style:{ 
                     width: '100%'
                 }

@@ -17,6 +17,10 @@ class Components_Wrapper extends Component {
         return 'dashicons-text';
     }
 
+	public static function get_block_category() {
+        return 'Structure';
+    }
+
 	public static function get_fields() {
 		$fields = array();
 		return $fields;

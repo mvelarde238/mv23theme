@@ -12,6 +12,7 @@ CHANGELOG
 - block_category implementation on uf groups
 - Implement bootstrap and font awesome icons for components blocks
 - Fix canvas empty wrappers styles in dark mode
+- Add .component theme class to GrapesJS components definition to have a separation between them
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------

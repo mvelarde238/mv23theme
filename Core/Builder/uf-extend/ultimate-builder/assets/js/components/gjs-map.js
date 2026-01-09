@@ -30,9 +30,7 @@ window.gjsMap = function (editor) {
                         }
                     }
                 },
-                attributes: {
-                    class: compClass,
-                },
+                classes: [compClass,'component'],
                 style:{ 
                     width: '100%',
                     height: '200px'

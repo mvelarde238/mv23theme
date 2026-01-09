@@ -15,9 +15,7 @@ window.gjsContainer = function (editor) {
                 selectable: false,
                 hoverable: false,
                 highlightable: true,
-                attributes: {
-                    class: compClass,
-                },
+                classes: [compClass],
                 // style: { 
                 //     margin: '0 auto',
                 //     width: '98%',

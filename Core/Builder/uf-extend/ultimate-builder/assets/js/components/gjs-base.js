@@ -6,8 +6,9 @@ window.gjsBase = function (editor) {
         model: {
             defaults: {
                 tagName: 'div',
+                classes: ['component'],
                 draggable: true,
-                droppable: false
+                droppable: false,
             }
         },
         view: {

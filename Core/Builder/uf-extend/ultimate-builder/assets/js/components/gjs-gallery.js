@@ -13,9 +13,7 @@ window.gjsGallery = function (editor) {
             defaults: {
                 name: 'Gallery',
                 tagName: 'div',
-                attributes: {
-                    class: compClass,
-                },
+                classes: [compClass,'component'],
                 styles: `
                     .gallery * {
                         pointer-events: none;

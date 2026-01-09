@@ -13,9 +13,7 @@ window.gjsMenu = function (editor) {
             defaults: {
                 name: 'Menu',
                 tagName: 'div',
-                attributes: {
-                    class: compClass,
-                }
+                classes: [compClass,'component'],
             },
         },
         view: {

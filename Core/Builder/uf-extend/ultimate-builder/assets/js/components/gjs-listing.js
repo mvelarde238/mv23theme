@@ -13,9 +13,7 @@ window.gjsListing = function (editor) {
             defaults: {
                 name: 'Listing',
                 tagName: 'div',
-                attributes: {
-                    class: compClass,
-                },
+                classes: [compClass,'component'],
                 styles: `
                     .listing a {
                         pointer-events: none;

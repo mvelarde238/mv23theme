@@ -30,9 +30,7 @@ window.gjsSection = function(editor) {
                     return (destination.attributes.type) == 'container';
                 },
                 // layout: 'layout1',
-                attributes: {
-                    class: 'page-module',
-                },
+                classes: ['page-module'],
                 // styles:`
                 //     .page-module{
                 //         padding: 40px 0px 40px 0px;

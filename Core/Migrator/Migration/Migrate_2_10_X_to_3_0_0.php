@@ -55,7 +55,8 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
     private $private_classes = array(
         'page_module' => array( array( 'name' => 'page-module', 'private' => 1 ) ),
-        'row' => array( array( 'name' => 'row-component', 'private' => 1 ) )
+        // if needed in future, add and test .component class on migrated gjs component:
+        // 'row' => array( array( 'name' => 'row-component', 'private' => 1 ) )
     );
 
     private $breakpoints = array(

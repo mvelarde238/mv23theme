@@ -13,9 +13,7 @@ window.gjsReusableSection = function (editor) {
             defaults: {
                 name: 'ReusableSection',
                 tagName: 'div',
-                attributes: {
-                    class: compClass,
-                }
+                classes: [compClass,'component'],
             },
         },
         view: {
