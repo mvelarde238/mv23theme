@@ -72,6 +72,14 @@ class Repeater_Group extends Group {
 	protected $view_template;
 
 	/**
+	 * Holds the category of the block for uf builder.
+	 *
+	 * @since 3.0
+	 * @var string
+	 */
+	protected $block_category;
+
+	/**
 	 * Holds the ID of a container, whose fields will be loaded in the group, if any.
 	 *
 	 * @since 3.0
@@ -96,6 +104,10 @@ class Repeater_Group extends Group {
 
 		if( isset( $args[ 'view_template' ] ) ) {
 			$this->view_template = $args[ 'view_template' ];
+		}
+
+		if( isset( $args[ 'block_category' ] ) ) {
+			$this->block_category = $args[ 'block_category' ];
 		}
 
 		# Parse normal arguments
@@ -129,6 +141,9 @@ class Repeater_Group extends Group {
 
 		$view_template = $this->view_template;
 		$settings[ 'view_template' ] = $view_template;
+
+		$block_category = $this->block_category;
+		$settings[ 'block_category' ] = $block_category;
 
 		# Add basic settings
 		if( is_admin() && isset( $GLOBALS[ 'wp_customize' ] ) ) {
@@ -332,6 +347,18 @@ class Repeater_Group extends Group {
 		return $this->view_template;
 	}
 
+	public function set_block_category( $category ) {
+		if( ! is_null( $category ) ) {
+			$this->block_category = $category;
+		}
+
+		return $this;
+	}
+
+	public function get_block_category() {
+		return $this->block_category;
+	}
+
 	/**
 	 * Goes through the fields of the group and forces widths to reach 100.
 	 */
@@ -451,6 +478,7 @@ class Repeater_Group extends Group {
 			'icon'             => array( 'icon', '' ),
 			'title_template'   => array( 'title_template', null ),
 			'view_template'    => array( 'view_template', null ),
+			'block_category'   => array( 'block_category', null ),
 		));
 
 		return $settings;

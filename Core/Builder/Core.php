@@ -198,6 +198,7 @@ class Core{
                     'min_width' => 1,
                     'title' => $component->get_title(),
                     'icon' => $component->get_icon(),
+                    'block_category' => $component->get_block_category(),
                     'title_template' => $component->get_title_template(),
                     'view_template' => $component->get_view_template(),
                     'fields' => $component->get_fields(),

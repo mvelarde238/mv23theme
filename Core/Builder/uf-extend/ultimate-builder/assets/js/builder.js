@@ -56,7 +56,7 @@
                     'offcanvas_element': { render: false },
                     'oce_modal_content': { render: false },
                     'oce_dynamic_content': { render: false },
-                    'hero_section': { type: 'hero-section', category: 'Structure'},
+                    'hero_section': { type: 'hero-section'},
                     'page': { render: false }
                 },
                 // Temporarily store datastores and models for each component
@@ -263,13 +263,9 @@
                     blocksControl[group.id].type :
                     'comp_' + group.id;
 
-                const category = (blocksControl[group.id] && blocksControl[group.id].category) ?
-                    blocksControl[group.id].category :
-                    'Basic';
-
                 editor.BlockManager.add(group.id, {
                     label: group.title,
-                    category: category,
+                    category: group.block_category || 'Basic',
                     media: group.icon ? `<i class="dashicons ${group.icon}"></i>` : '',
                     content: {
                         type: gjs_component_type

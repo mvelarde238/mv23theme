@@ -48,6 +48,9 @@ abstract class Component {
 		$icon = static::get_icon();
 		if( !empty($icon) ) $component->set_icon( $icon );
 
+		$block_category = static::get_block_category();
+		if( !empty($block_category) ) $component->set_block_category( $block_category );
+
 		$edit_mode = static::get_edit_mode();
 		if( !empty($edit_mode) ) $component->set_edit_mode( $edit_mode );
 
@@ -98,6 +101,13 @@ abstract class Component {
 	 */
 	/* abstract */ public static function get_icon() {
 		return '';
+	}
+
+	/**
+	 * Returns the block category of the component.
+	 */
+	/* abstract */ public static function get_block_category() {
+		return 'Basic';
 	}
 
 	/**
