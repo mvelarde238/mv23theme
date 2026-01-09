@@ -292,6 +292,7 @@
 			toggleButton = this.toggleButton = new UltimateFields.Button({
 				text:    '',
 				icon:    'dashicons-arrow-down',
+				cssClass: 'uf-object-toggle-button',
 				callback: function() {
 					if( that.chooser ) {
 						that.chooser.remove();

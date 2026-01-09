@@ -161,7 +161,7 @@ class Icon_and_Text extends Component {
         	$element = '<i class="'.$icon_prefix.' '.$args['iname'].'"></i>';
         } else {
         	$imagen_url = wp_get_attachment_url($args['iimage']);
-        	$element = '<img style="height:'.$args['ifontsize'].'px;" src="'.$imagen_url .'" />';
+        	$element = '<img style="height:'.$args['icon_style']['fontsize'].'px;" src="'.$imagen_url .'" />';
         }
 
         $icon_style = '';

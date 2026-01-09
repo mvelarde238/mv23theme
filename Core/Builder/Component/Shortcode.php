@@ -48,14 +48,23 @@ class Shortcode extends Component {
 
 	public static function get_view_template() {
 		$template = '<div class="shortcode-component">
-			<% if ( options.desktop || options.mobile ){ %>
-				<div class="shortcode-desktop">
-					<strong>Desktop shortcode:</strong>
-					<div><%= options.desktop ? options.desktop : "No shortcode defined" %></div>
+			<% if ( options.desktop && options.mobile ){ %>
+				<% if ( options.desktop === options.mobile ){ %>
+					<div class="shortcode">
+						<div><%= options.desktop %></div>
+					</div>
+				<% } else { %>
+					<div class="shortcode">
+						<div><i class="bi bi-laptop"></i> <%= options.desktop %> | <i class="bi bi-phone"></i> <%= options.mobile %></div>
+					</div>
+				<% } %>
+			<% } else if ( options.desktop ){ %>
+				<div class="shortcode">
+					<div><i class="bi bi-laptop"></i> <%= options.desktop %></div>
 				</div>
-				<div class="shortcode-mobile">
-					<strong>Mobile shortcode:</strong>
-					<div><%= options.mobile ? options.mobile : "No shortcode defined" %></div>
+			<% } else if ( options.mobile ){ %>
+				<div class="shortcode">
+					<div><i class="bi bi-phone"></i> <%= options.mobile %></div>
 				</div>
 			<% } else { %>
 				<div class="no-shortcode">There isnt any shortcode defined</div>

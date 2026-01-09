@@ -13,7 +13,7 @@ Container::create( 'common_settings_container' )
         Field::create( 'text', 'classes', __('Classes','mv23theme') )
             ->set_description( __('Section class attribute, use only lowercase letters and hyphens (-)', 'mv23theme' ) )
             ->set_width( 50 ),
-        Field::create( 'complex', 'layout' )->hide_label()->set_attr( 'style', 'flex-wrap: nowrap;' )->add_fields(array(
+        Field::create( 'complex', 'layout' )->set_attr( 'style', 'flex-wrap: nowrap;' )->add_fields(array(
             Field::create( 'checkbox', 'use', __('Layout','mv23theme') )
                 ->fancy()
                 ->set_attr( 'style', 'flex-grow: initial;min-width: auto;' ),

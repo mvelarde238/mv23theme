@@ -42,7 +42,7 @@
     .uf-field-layout-grid.uf-field-type-complex > .uf-field-label
         border-color: var(--ui-color-4)
     textarea, input, select, .uf-image-select label
-        background-color: var(--ui-color-2)
+        background-color: var(--ui-color-1)
         border-color: var(--ui-color-4)
         color: var(--font-color)
     .uf-image-select label.uf-selected
@@ -100,6 +100,43 @@
         &:hover
             color: var(--brand-color-1)
             background-color: var(--ui-color-2)
+
+    // object preview
+    .uf-object-preview
+        background-color: var(--ui-color-1)
+        p strong
+            background-color: var(--ui-color-3)
+        a
+            color: var(--brand-color-1)
+    .uf-object
+        background-color: var(--ui-color-2)
+        border-color: var(--ui-color-4)
+    .uf-object-buttons
+        border-color: var(--ui-color-4)
+    .uf-chooser
+        background-color: var(--ui-color-2)
+        border-color: var(--ui-color-4)
+        &:before
+            border-bottom-color: var(--ui-color-4)
+    .uf-chooser-list
+        background-color: var(--ui-color-1)
+        border-color: var(--ui-color-4)
+    .uf-chooser-item
+        border-color: var(--ui-color-4)
+    .uf-chooser-item-selected 
+        .uf-object-preview
+            background-color: var(--ui-color-3)
+        p strong
+            background-color: var(--brand-color-1)
+    .uf-chooser-no-data
+        color: inherit
+    .uf-object-toggle-button
+        height: initial
+        line-height: 1
+        min-height: auto
+        border-color: var(--ui-color-4)
+        background-color: var(--ui-color-2)
+        color: var(--font-color)
     
     // tynimce overrides
     .wp-editor-container

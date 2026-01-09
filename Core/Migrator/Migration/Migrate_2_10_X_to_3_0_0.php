@@ -432,6 +432,10 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         if( $page_header_content_type == 'none' ) return;
 
         $page_header_settings = get_post_meta( $post_id, 'page_header_settings', true );
+
+        // force no padding section
+        $page_header_settings = (is_array( $page_header_settings)) ? $page_header_settings : array();
+        $page_header_settings['padding'] = array( 'use' => 1,'top' => '0px','right' => '0px','bottom' => '0px','left' => '0px');
         
         $header_module = array(
             '__type' => 'page_module',
