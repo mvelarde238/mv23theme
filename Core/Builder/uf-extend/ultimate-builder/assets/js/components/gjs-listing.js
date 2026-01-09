@@ -20,6 +20,9 @@ window.gjsListing = function (editor) {
                     .listing a {
                         pointer-events: none;
                     }
+                    .listing .postcard{
+                        flex-shrink: 0;
+                    }
                 `,
             },
         },
