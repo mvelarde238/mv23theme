@@ -9,6 +9,8 @@ CHANGELOG
 - Add gjs component type definition for components if not already defined 
 - gjsExtendEditor plugin implementation
 - mv23_migrator_after_process_component filter implementation
+- block_category implementation on uf groups
+- Implement bootstrap and font awesome icons for components blocks
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------

@@ -263,10 +263,17 @@
                     blocksControl[group.id].type :
                     'comp_' + group.id;
 
+                let icon_source = ''; 
+                if ( group.icon ) {
+                    if ( group.icon.startsWith('dashicons') ) icon_source = 'dashicons';
+                    if ( group.icon.startsWith('bi') ) icon_source = 'bi';
+                    if ( group.icon.startsWith('fa') ) icon_source = 'fa';
+                }
+
                 editor.BlockManager.add(group.id, {
                     label: group.title,
                     category: group.block_category || 'Basic',
-                    media: group.icon ? `<i class="dashicons ${group.icon}"></i>` : '',
+                    media: group.icon ? `<i class="${icon_source} ${group.icon}"></i>` : '',
                     content: {
                         type: gjs_component_type
                     }
