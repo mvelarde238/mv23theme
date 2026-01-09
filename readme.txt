@@ -13,6 +13,7 @@ CHANGELOG
 - Implement bootstrap and font awesome icons for components blocks
 - Fix canvas empty wrappers styles in dark mode
 - Add .component theme class to GrapesJS components definition to have a separation between them
+- Restore [data-gjs-type="menu"] overflow
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------
