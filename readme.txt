@@ -11,6 +11,7 @@ CHANGELOG
 - mv23_migrator_after_process_component filter implementation
 - block_category implementation on uf groups
 - Implement bootstrap and font awesome icons for components blocks
+- Fix canvas empty wrappers styles in dark mode
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------
