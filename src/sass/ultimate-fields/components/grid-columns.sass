@@ -1,0 +1,79 @@
+.grid-columns
+    display: grid
+    
+/* hack to prevent "2big" components
+    (slider, adaptive menu, etc)
+    from expanding grid items  */
+.grid-column
+    min-width: 0
+    // alignment
+    &[style*="-alignment"]
+        display: flex
+        flex-direction: column
+
+// DESKTOP
+@media #{$large-and-up}
+    .grid-columns
+        grid-template-columns: var(--l-grid)
+        gap: var(--l-gap, var(--l-columns-gap))
+    .grid-column
+        order: var(--l-order)
+        justify-content: var(--l-alignment)
+
+// TABLET
+@media #{$medium-only}
+    .grid-columns
+        grid-template-columns: var(--t-grid)
+        gap: var(--t-gap, var(--t-columns-gap))
+    .grid-column
+        order: var(--t-order)
+        justify-content: var(--t-alignment)
+
+    .tablet-1-1de2-1de2,
+    .tablet-1de2-1de2-1,
+    .tablet-1de2-1-1de2
+        grid-template-columns: 1fr 1fr
+        grid-template-rows: auto auto
+    .tablet-1-1de2-1de2
+        &>.grid-column:nth-child(1)
+            grid-area: 1 / 1 / 2 / 3
+        &>.grid-column:nth-child(2)
+            grid-area: 2 / 1 / 3 / 2
+        &>.grid-column:nth-child(3)
+            grid-area: 2 / 2 / 3 / 3
+    .tablet-1de2-1de2-1
+        &>.grid-column:nth-child(1)
+            grid-area: 1 / 1 / 2 / 2
+        &>.grid-column:nth-child(2)
+            grid-area: 1 / 2 / 2 / 3
+        &>.grid-column:nth-child(3)
+            grid-area: 2 / 1 / 3 / 3
+
+// MOBILE
+@media #{$small-and-down}
+    .grid-columns
+        grid-template-columns: var(--m-grid)
+        gap: var(--m-gap, var(--m-columns-gap))
+    .grid-column
+        order: var(--m-order)
+        justify-content: var(--m-alignment)
+
+    .mobile-1-1de2-1de2,
+    .mobile-1de2-1de2-1
+        grid-template-columns: 1fr 1fr
+
+    .mobile-1-1de2-1de2
+        &>.grid-column:nth-child(1)
+            grid-area: 1 / 1 / 2 / 3
+        &>.grid-column:nth-child(2)
+            grid-area: 2 / 1 / 3 / 2
+        &>.grid-column:nth-child(3)
+            grid-area: 2 / 2 / 3 / 3
+
+    .mobile-1de2-1de2-1
+        &>.grid-column:nth-child(1)
+            grid-area: 1 / 1 / 2 / 2
+        &>.grid-column:nth-child(2)
+            grid-area: 1 / 2 / 2 / 3
+        &>.grid-column:nth-child(3)
+            grid-area: 2 / 1 / 3 / 3
