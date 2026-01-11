@@ -13,6 +13,7 @@ use Core\Theme_Options\UF_Container\Custom_Scripts;
 use Core\Theme_Options\UF_Container\Global_Animations;
 use Core\Theme_Options\UF_Container\Posts_Subscription;
 use Core\Theme_Options\UF_Container\Track_Posts_Data;
+use Core\Theme_Options\UF_Container\Builder_Options;
 
 class Theme_Options extends Theme_Header_Data{
 	private static $instance = null;
@@ -49,6 +50,7 @@ class Theme_Options extends Theme_Header_Data{
             Social_Media::init();
             Maps_Options::init();
             Global_Options::init();
+            Builder_Options::init();
             Posts_Subscription::init();
             Track_Posts_Data::getInstance()->init();
             Global_Animations::init();

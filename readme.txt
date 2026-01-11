@@ -14,6 +14,7 @@ CHANGELOG
 - Fix canvas empty wrappers styles in dark mode
 - Add .component theme class to GrapesJS components definition to have a separation between them
 - Restore [data-gjs-type="menu"] overflow
+- Removed constants: UF_POSTTYPES, PAGE_HEADER_COMPONENTS, CONTENT_BUILDER_*
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------

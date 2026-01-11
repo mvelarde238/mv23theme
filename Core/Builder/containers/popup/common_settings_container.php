@@ -3,7 +3,6 @@ use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 
 Container::create( 'common_settings_container' ) 
-    // ->add_location( 'post_type', UF_POSTTYPES )
     ->set_layout( 'rows' )
     ->add_fields(array(
         Field::create( 'text', 'id', __('ID','mv23theme') )

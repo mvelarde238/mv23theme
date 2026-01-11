@@ -3,7 +3,6 @@ use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 
 Container::create( 'actions_container' ) 
-    // ->add_location( 'post_type', UF_POSTTYPES )
     ->set_layout( 'rows' )
     ->add_fields(array(
         Field::create( 'repeater', 'actions' )->set_add_text( __('Add Action','mv23theme') )->add_group( 'Action', array(

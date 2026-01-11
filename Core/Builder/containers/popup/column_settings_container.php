@@ -3,7 +3,6 @@ use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 
 Container::create( 'column_settings_container' ) 
-    // ->add_location( 'post_type', UF_POSTTYPES )
     ->set_layout( 'rows' )
     ->add_fields(array(
         // DESKTOP -----------------------------------------------------------------------------------------------------------------------------------------------

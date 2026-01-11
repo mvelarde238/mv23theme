@@ -7,6 +7,7 @@ use Core\Utils\Posts_Data\Posts_Views;
 use Core\Utils\Posts_Data\Posts_Likes;
 use Core\Utils\Posts_Data\Previsualization_Count;
 use Core\Utils\Posts_Data\Downloads_Count;
+use Core\Builder\Core;
 
 class Track_Posts_Data{
 
@@ -35,16 +36,6 @@ class Track_Posts_Data{
     }
 
     public static function init(){
-        # post types
-        $post_types = array();
-        $excluded = array();
-		foreach( get_post_types( array('public'=>true, 'exclude_from_search'=>false), 'objects' ) as $id => $post_type ) {
-			if( in_array( $id, $excluded ) ) {
-				continue;
-			}
-			$post_types[ $id ] = __( $post_type->labels->name );
-		}
-
         Container::create( 'track_posts_data_container' ) 
             ->set_title( __('Track Posts Data','mv23theme') )
             ->add_location( 'options', 'theme-options', array(
@@ -60,7 +51,7 @@ class Track_Posts_Data{
                         ->hide_label(),
                     Field::create( 'multiselect', 'post_types', __( 'Post Types', 'mv23theme' ) )
                         ->required()
-                        ->add_options( $post_types )
+                        ->set_options_callback( array( Core::class, 'get_post_types' ) )
                         ->set_orientation( 'horizontal' )
                         ->set_input_type( 'checkbox' )
                         ->add_dependency( 'activate' )

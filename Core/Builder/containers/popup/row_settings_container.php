@@ -23,7 +23,6 @@ function get_gap_placeholder($prefix) {
 }
 
 Container::create( 'row_settings_container' ) 
-    // ->add_location( 'post_type', UF_POSTTYPES )
     ->set_layout( 'rows' )
     ->add_fields(array(
         // DESKTOP -----------------------------------------------------------------------------------------------------------------------------------------------

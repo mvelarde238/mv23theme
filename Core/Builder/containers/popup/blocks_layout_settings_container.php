@@ -11,7 +11,6 @@ $alignment = array(
 );
 
 Container::create( 'blocks_layout_settings_container' ) 
-    // ->add_location( 'post_type', UF_POSTTYPES )
     ->set_layout( 'rows' )
     ->add_fields(array(
         Field::create('select','layout')->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options(array(

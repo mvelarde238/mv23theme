@@ -7,6 +7,7 @@ use Core\Utils\Subscription\Subscribe_To_Continue;
 use Core\Utils\Subscription\Subscribe_To_Preview;
 use Core\Utils\Subscription\Subscribe_To_Download;
 use Core\Utils\Subscription\Subscribe_To_Redirect;
+use Core\Builder\Core;
 
 class Posts_Subscription{
 
@@ -34,16 +35,6 @@ class Posts_Subscription{
     }
 
     public static function init(){
-        # post types
-        $post_types = array();
-        $excluded = array();
-		foreach( get_post_types( array('public'=>true, 'exclude_from_search'=>false), 'objects' ) as $id => $post_type ) {
-			if( in_array( $id, $excluded ) ) {
-				continue;
-			}
-			$post_types[ $id ] = __( $post_type->labels->name );
-		}
-
         Container::create( 'posts_subscription_container' ) 
             ->set_title( __('Posts Subscription','mv23theme') )
             ->add_location( 'options', 'theme-options', array(
@@ -56,7 +47,7 @@ class Posts_Subscription{
                         ->hide_label(),
                     Field::create( 'multiselect', 'post_types', __( 'Post Types', 'mv23theme' ) )
                         ->required()
-                        ->add_options( $post_types )
+                        ->set_options_callback( array( Core::class, 'get_post_types' ) )
                         ->set_orientation( 'horizontal' )
                         ->set_input_type( 'checkbox' )
                         ->add_dependency( 'activate' ),

@@ -16,10 +16,6 @@ class Global_Options{
                     Field::create( 'checkbox', 'activate_masonry', __('Activate Masonry','mv23theme') )->set_text(__('Activate','mv23theme')),
                 )),
         
-                Field::create( 'multiselect', 'show_editor_in', __('The theme hides the text editor on pages and products, show it in the following places:','mv23theme'))->set_input_type( 'checkbox' )->set_orientation( 'horizontal' )->add_options( array(
-                    'page' => __('Pages','mv23theme'),
-                    'product' => __('Products','mv23theme')
-                )),
                 Field::create( 'checkbox', 'disable_comments_styles', __('Deactive theme styles in comments','mv23theme') )->set_text(__('Deactivate','mv23theme')),
             ));
     }

@@ -78,20 +78,20 @@ class Core{
     private function __construct(){}
 
     public function hide_editor(){
-        $posttypes = array('page','product');
-        $show_editor_in = get_option('show_editor_in') ? get_option('show_editor_in') : array();
+        $hide_wp_editor_on = get_option('hide_wp_editor_on') ? get_option('hide_wp_editor_on') : array();
     
-        foreach ($posttypes as $slug){
-            if ( !in_array($slug, $show_editor_in) ) {
-                remove_post_type_support( $slug, 'editor' );
+        foreach ($hide_wp_editor_on as $post_type){
+            if ( in_array($post_type, $hide_wp_editor_on) ) {
+                remove_post_type_support( $post_type, 'editor' );
             }
         }
     }
 
     public function add_ultimate_builder_link( $actions, $post ) {
 		$post_type = get_post_type( $post );
+        $builder_posttypes = get_option('builder_posttypes');
 
-		if ( in_array( $post_type, UF_POSTTYPES ) || $post_type === 'offcanvas_element' ) {
+		if ( in_array( $post_type, $builder_posttypes ) || $post_type === 'offcanvas_element' ) {
 			$builder_url = add_query_arg( array(
 				'action' => 'ultimate-builder',
 				'meta'   => 'page_content',
@@ -105,7 +105,6 @@ class Core{
 
     public function add_meta_boxes(){
         require_once( BUILDER_DIR.'/containers/page-content.php' );
-        require_once( BUILDER_DIR.'/containers/content-blocks.php' );
 
         // load containers that wil be generated in a pop up:
         foreach (self::$popup_containers as $container) {
@@ -222,5 +221,29 @@ class Core{
         $component_view = Template_Engine::getInstance()->handle( $_REQUEST['__type'], $_REQUEST );
         $result = $component_view ? $component_view : 'Component view could not be generated.';
         wp_send_json_success($result);
+    }
+
+    /**
+    * Get post types excluding specific ones
+    * 
+    * @return array
+    */
+    public static function get_post_types( $args = array() ) {
+        $default_args = array(
+            'exclude_post_types' => array( 'offcanvas_element','attachment','mv23_library','reusable_section','megamenu','archive_page','footer' ),
+            'get_post_type_args' => array( 'public'=>true )
+        );
+        $args = wp_parse_args( $args, $default_args );
+
+        $post_types = array();
+        $excluded = $args['exclude_post_types'];
+        foreach( get_post_types( $args['get_post_type_args'], 'objects' ) as $id => $post_type ) {
+            if( in_array( $id, $excluded ) ) {
+                continue;
+            }
+            $post_types[ $id ] = __( $post_type->labels->name );
+        }
+        
+        return $post_types;
     }
 }
