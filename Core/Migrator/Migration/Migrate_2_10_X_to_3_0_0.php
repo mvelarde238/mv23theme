@@ -353,7 +353,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             );
         } else {
             $processed_component['uf_component']['__type'] = 'section';
-            $processed_component['gjs_component']['type'] = 'comp_section';
+            $processed_component['gjs_component']['type'] = 'section';
         }
 
         $uf_components[] = $processed_component['uf_component'];
