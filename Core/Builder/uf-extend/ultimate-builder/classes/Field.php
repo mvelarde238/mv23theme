@@ -117,6 +117,8 @@ class Field extends Repeater {
 
 		if( isset( $this->groups[ $component['__type'] ] ) ){
 			$datastore = new Group_Datastore( $component );
+			$datastore = apply_filters( 'uf.ultimate_builder.group_datastore', $datastore, $component, $this );
+
 			# Get the datastore and export data
 			$group = $this->groups[ $component[ '__type' ] ];
 			$group->set_datastore( $datastore );
@@ -213,6 +215,8 @@ class Field extends Repeater {
 			$group->save( $component );
 			$group_processed_values = $group->get_datastore()->get_values();
 			$group_processed_values['__id'] = $component['__id'];
+
+			do_action( 'uf.ultimate_builder.save_component', $group_processed_values, $component, $group, $this );
 
 			// if is set an attribute starting with "__gjs", save it too
 			// e.g. __gjsAttributes, __gjs_data_breakpoints, etc.

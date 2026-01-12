@@ -15,6 +15,7 @@ CHANGELOG
 - Add .component theme class to GrapesJS components definition to have a separation between them
 - Restore [data-gjs-type="menu"] overflow
 - Removed constants: UF_POSTTYPES, PAGE_HEADER_COMPONENTS, CONTENT_BUILDER_*
+- uf.ultimate_builder.group_datastore filter and uf.ultimate_builder.save_component hook implementation
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------
