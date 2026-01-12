@@ -162,4 +162,23 @@ window.gjsCommands = function (editor, options) {
             component.view.render();
         }
     });
+
+    commands.add('add-section', (editor, sender, options = {}) => {
+        const component = options.component,
+            position = options.position,
+            parent = component.parent();
+        
+        if (position === 'above') {
+            parent.append(
+                { type: 'section' },
+                { at: component.index() }
+            );
+        }
+        if (position === 'below') {
+            parent.append(
+                { type: 'section' },
+                { at: component.index() + 1 }
+            );
+        }
+    });
 }

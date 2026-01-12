@@ -90,12 +90,29 @@ window['contextMenuOpts'] = {
         },
         section: function(component, editor){
             return [
-                layout_options(component, editor)
+                layout_options(component, editor),
+                {
+                    type: 'options', title: 'ADD SECTION',
+                    options: [
+                        {
+                            type: 'button',
+                            label: 'ABOVE',
+                            command: 'add-section',
+                            args: { position: 'above' }
+                        },
+                        {
+                            type: 'button',
+                            label: 'BELOW',
+                            command: 'add-section',
+                            args: { position: 'below' }
+                        }
+                    ]
+                }
             ]
         },
         ['comp-wrapper']: function(component, editor){
             return [
-                layout_options(component, editor)
+                layout_options(component, editor),
             ]
         }
     }
