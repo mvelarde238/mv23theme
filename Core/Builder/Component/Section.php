@@ -29,7 +29,7 @@ class Section extends Component {
 
 		$args['additional_classes'] = array('page-module');
         
-	    $components = $args['components'];
+	    $components = $args['components'] ?? array();
         $attributes = Template_Engine::generate_attributes( $args );
 
 		ob_start();
