@@ -91,6 +91,7 @@ function print_theme_gallery( $atts ) {
                 data-desktop="<?=$a['d_columns']?>"
                 data-speed="450"
                 data-touch="1"
+                data-slider-uid="<?=$gallery_id?>"
                 data-mobile-gutter="<?=$a['m_gap']?>"
                 data-tablet-gutter="<?=$a['t_gap']?>"
                 data-laptop-gutter="<?=$a['l_gap']?>"

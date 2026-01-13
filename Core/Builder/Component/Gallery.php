@@ -254,7 +254,7 @@ class Gallery extends Component {
         $m_gap = $args['gutter']['mobile'] ?? 4;
 
         $shortcode_name = ($source === 'manual') ? 'theme_gallery' : 'theme_gallery';
-        $gallery_id = $args['use_id']['gallery_id'] ?? '';
+        $gallery_id = $args['use_id']['id'] ?? '';
 
         $shortcode = '['.$shortcode_name.' link="'.$link.'" d_columns="'.$d_columns.'" l_columns="'.$l_columns.'" t_columns="'.$t_columns.'" m_columns="'.$m_columns.'" d_gap="'.$d_gap.'" l_gap="'.$l_gap.'" t_gap="'.$t_gap.'" m_gap="'.$m_gap.'" size="'.$image_quality.'" targetsize="'.$targetsize.'" display="'.$display.'" gallery_id="'.$gallery_id.'"';
 
