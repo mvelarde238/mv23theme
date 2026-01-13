@@ -59,7 +59,6 @@ class Listing extends Component {
 
         if(USE_PORTFOLIO_CPT){
             $listing_cpts['portfolio'] = 'Portfolio';
-            $listing_post_template['portfolio'] = 'Portfolio';
         }
 
         if(USE_DOCUMENT_CPT){
@@ -145,7 +144,7 @@ class Listing extends Component {
             ))->add_dependency('source','auto','='),
 
             Field::create( 'tab', __('List Template','mv23theme')),
-            Field::create( 'radio', 'listing_template', 'Template' )->set_orientation( 'horizontal' )->add_options($listing_templates),
+            Field::create( 'select', 'listing_template', 'Template' )->add_options($listing_templates),
             
             Field::create( 'complex', 'carousel_settings_wrapper' )->hide_label()->merge()->add_fields(array(
                 Field::create( 'checkbox', 'show_controls' )->set_width( 33 )->hide_label()->set_text(__('Show controls','mv23theme')),
@@ -168,7 +167,7 @@ class Listing extends Component {
             )),
             
             Field::create( 'tab', __('Post Card','mv23theme')),
-            Field::create( 'radio', 'post_template', 'Template' )->set_orientation( 'vertical' )->add_options($listing_post_template),
+            Field::create( 'select', 'post_template', 'Template' )->add_options($listing_post_template),
             Field::create( 'select', 'on_click_post', __('On click the post card:','mv23theme') )->add_options(array(
                 'redirect' => __('Redirect to the post page','mv23theme'),
                 'show-expander' => __('Show the post in the same page','mv23theme'),
@@ -512,7 +511,11 @@ class Listing extends Component {
                 case 'load_more':
                     $load_more_text = LISTING_LOAD_MORE_TEXT;
                     $current_lang = (function_exists('pll_current_language')) ? pll_current_language() : 'es';
-                    echo '<p class="aligncenter"><button class="btn load_more_posts" data-paged="2"><i class="bi bi-arrow-repeat"></i>'.$load_more_text[$current_lang].'</button></p>'; 
+                    get_template_part('partials/pagination/load-more', null, array(
+                        'max_pages' => $query->max_num_pages,
+                        'listing_args' => $listing_args,
+                        'load_more_text' => $load_more_text[$current_lang]
+                    ));
                     break;
     
                 default:
@@ -528,7 +531,7 @@ class Listing extends Component {
 
     public static function get_view_template(){
         return '<% 
-        listing_cls = ["posts-listing", "has-columns", "listing-view--"+listing_template]
+        listing_cls = ["posts-listing", "has-columns", "posts-listing--"+listing_template]
         listing_style = []
         post_style = ["background-color:silver; aspect-ratio:16 / 9; border-radius: 4px; display:grid; place-items:center"]
 

@@ -2,9 +2,11 @@ window.gjsListing = function (editor) {
     const domc = editor.DomComponents;
     const compClass = 'listing';
 
-    // Make classes private
-    const privateCls = [`.${compClass}`];
-    editor.on('selector:add', selector => privateCls.indexOf(selector.getFullName()) >= 0 && selector.set('private', 1));
+    // add custom css to canvasCss
+    let config = editor.getConfig();
+    config.canvasCss = config.canvasCss || '';
+    config.canvasCss += `.listing a { pointer-events: none; }.listing .postcard { flex-shrink: 0; }`;
+    editor.canvasCss = config.canvasCss;
 
     // Define the component
     domc.addType(compClass, {
@@ -13,15 +15,7 @@ window.gjsListing = function (editor) {
             defaults: {
                 name: 'Listing',
                 tagName: 'div',
-                classes: [compClass,'component'],
-                styles: `
-                    .listing a {
-                        pointer-events: none;
-                    }
-                    .listing .postcard{
-                        flex-shrink: 0;
-                    }
-                `,
+                classes: [compClass,'component']
             },
         },
         view: {
@@ -38,7 +32,8 @@ window.gjsListing = function (editor) {
                             const _view_template = _.template( view_template );
                             el.innerHTML = _view_template( datastore.toJSON() );
                             
-                            const dont_load_posts_on_change = ['__tab','listing_template','columns_qty_wrapper','gap_wrapper','pagination_type','scrolltop','filter','category-filter','month-filter','year-filter','carousel_settings_wrapper','on_click_post','on_click_scroll_to'];
+                            const dont_load_posts_on_change = ['__tab','listing_template','columns_qty_wrapper','gap_wrapper','pagination_type','scrolltop','filter','category-filter','month-filter','carousel_settings_wrapper','on_click_post','on_click_scroll_to'];
+                            // TODO: 'year-filter' is excluded for now because change on inital render. Need to investigate why.
                             const changed = datastore.changed;
                             // console.log('datastore changed:', changed); // e.g: {"__tab": "List Template"}
                             
