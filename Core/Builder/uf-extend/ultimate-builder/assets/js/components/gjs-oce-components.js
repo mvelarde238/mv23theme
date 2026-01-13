@@ -1,10 +1,6 @@
 window.gjsOceComponents = ( editor ) => {
     const domc = editor.DomComponents;
 
-    // Make classes private
-    const privateCls = ['.oce-overlay', '.oce-element', '.oce-dynamic-content'];
-    editor.on('selector:add', selector => privateCls.indexOf(selector.getFullName()) >= 0 && selector.set('private', 1));
-
     // Command to add dynamic content component
     editor.Commands.add('oce-add-dynamic-content', (editor, sender, options = {}) => {
         let component = options.component;

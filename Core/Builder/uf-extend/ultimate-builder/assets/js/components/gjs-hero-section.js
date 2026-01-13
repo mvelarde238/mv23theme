@@ -40,11 +40,11 @@ window.gjsHeroSection = function (editor) {
             defaults: {
                 tagName: 'div',
                 classes: ['hero-section'],
-                styles:`
-                    .hero-section{
-                        padding: 40px 0px 40px 0px;
-                    }
-                `,
+                // styles:`
+                //     .hero-section{
+                //         padding: 40px 0px 40px 0px;
+                //     }
+                // `,
             }
         },
         view: {

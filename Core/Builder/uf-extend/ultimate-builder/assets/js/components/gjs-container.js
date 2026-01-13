@@ -15,13 +15,7 @@ window.gjsContainer = function (editor) {
                 selectable: false,
                 hoverable: false,
                 highlightable: true,
-                classes: [compClass],
-                // style: { 
-                //     margin: '0 auto',
-                //     width: '98%',
-                //     ['min-height']: '100vh',
-                //     ['max-width']: '1220px' 
-                // },
+                classes: [compClass]
             },
         },
     });

@@ -2,10 +2,6 @@ window.gjsMenu = function (editor) {
     const domc = editor.DomComponents;
     const compClass = 'menu';
 
-    // Make classes private
-    const privateCls = [`.${compClass}`];
-    editor.on('selector:add', selector => privateCls.indexOf(selector.getFullName()) >= 0 && selector.set('private', 1));
-
     // Define the component
     domc.addType(compClass, {
         isComponent: el => el.classList && el.classList.contains(compClass),

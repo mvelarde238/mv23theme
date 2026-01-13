@@ -2,9 +2,11 @@ window.gjsGallery = function (editor) {
     const domc = editor.DomComponents;
     const compClass = 'gallery';
 
-    // Make classes private
-    const privateCls = [`.${compClass}`];
-    editor.on('selector:add', selector => privateCls.indexOf(selector.getFullName()) >= 0 && selector.set('private', 1));
+    // add custom css to canvasCss
+    let config = editor.getConfig();
+    config.canvasCss = config.canvasCss || '';
+    config.canvasCss += `.gallery * {pointer-events: none;}`;
+    editor.canvasCss = config.canvasCss;
 
     // Define the component
     domc.addType(compClass, {
@@ -13,12 +15,7 @@ window.gjsGallery = function (editor) {
             defaults: {
                 name: 'Gallery',
                 tagName: 'div',
-                classes: [compClass,'component'],
-                styles: `
-                    .gallery * {
-                        pointer-events: none;
-                    }
-                `,
+                classes: [compClass,'component']
             },
         },
         view: {

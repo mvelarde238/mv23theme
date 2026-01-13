@@ -2,6 +2,23 @@ window.gjsMap = function (editor) {
     const domc = editor.DomComponents;
     const compClass = 'map2';
 
+    // add custom css to canvasCss
+    let config = editor.getConfig();
+    config.canvasCss = config.canvasCss || '';
+    config.canvasCss += `
+        .map-wrapper {
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .map-wrapper.loading {
+            background: #f0f0f0 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='margin: auto; background: none; display: block;' width='100px' height='100px' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid'%3E%3Ccircle cx='50' cy='50' r='32' stroke-width='8' stroke='%23cccccc' stroke-dasharray='50.26548245743669 50.26548245743669' fill='none' stroke-linecap='round'%3E%3CanimateTransform attributeName='transform' type='rotate' repeatCount='indefinite' dur='1s' keyTimes='0;1' values='0 50 50;360 50 50'%3E%3C/animateTransform%3E%3C/circle%3E%3C/svg%3E") center center no-repeat;
+            background-size: 40px 40px;
+        }
+        .map-wrapper.loading>div{ opacity: 0; transition: opacity 0.5s; }
+    `;
+    editor.canvasCss = config.canvasCss;
+
     domc.addType(compClass, {
         isComponent: el => el.classList && el.classList.contains(compClass),
         model: {
@@ -34,19 +51,7 @@ window.gjsMap = function (editor) {
                 style:{ 
                     width: '100%',
                     height: '200px'
-                },
-                styles: `
-                    .map-wrapper {
-                        width: 100%;
-                        height: 100%;
-                        pointer-events: none;
-                    }
-                    .map-wrapper.loading {
-                        background: #f0f0f0 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='margin: auto; background: none; display: block;' width='100px' height='100px' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid'%3E%3Ccircle cx='50' cy='50' r='32' stroke-width='8' stroke='%23cccccc' stroke-dasharray='50.26548245743669 50.26548245743669' fill='none' stroke-linecap='round'%3E%3CanimateTransform attributeName='transform' type='rotate' repeatCount='indefinite' dur='1s' keyTimes='0;1' values='0 50 50;360 50 50'%3E%3C/animateTransform%3E%3C/circle%3E%3C/svg%3E") center center no-repeat;
-                        background-size: 40px 40px;
-                    }
-                    .map-wrapper.loading>div{ opacity: 0; transition: opacity 0.5s; }
-                `,
+                }
             },
         },
         view: {

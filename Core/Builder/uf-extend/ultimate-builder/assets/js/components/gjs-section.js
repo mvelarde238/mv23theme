@@ -1,10 +1,6 @@
 window.gjsSection = function(editor) {
     const domc = editor.DomComponents;
 
-    // Make classes private
-    const privateCls = ['.page-module', '.page-module--layout1', '.page-module--layout2', '.page-module--layout3'];
-    editor.on('selector:add', selector => privateCls.indexOf(selector.getFullName()) >= 0 && selector.set('private', 1));
-
     // Add the section type to the DomComponents
     domc.addType('section', {
         isComponent: el => el.classList && el.classList.contains('page-module'),
