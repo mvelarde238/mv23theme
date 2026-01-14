@@ -20,6 +20,7 @@ CHANGELOG
 - builder_component_cleanup js filter hook implementation
 - Listing Improvements: LISTING_GAP constant, carousel_id
 - Carousel.js implements: .go-to-prev-slide and .go-to-next-slide
+- get_prepared_file_object() global function, get object from UltimateFields.Field.File.Cache
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------

@@ -8,3 +8,13 @@ window.gjsExtendEditor = function (editor) {
         return temporalCompStore[componentId].datastore || null;
     }
 }
+
+// global function to get "prepared" file object from Ultimate Fields File field cache
+get_prepared_file_object = function( file_id ) {
+    if ( typeof UltimateFields === 'undefined' || !UltimateFields.Field || !UltimateFields.Field.File ) {
+        console.warn('UltimateFields or UltimateFields.Field.File is not available.');
+        return null;
+    }
+
+    return UltimateFields.Field.File.Cache.get(file_id);
+}
