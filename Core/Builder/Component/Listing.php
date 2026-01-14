@@ -48,7 +48,6 @@ class Listing extends Component {
 
 	public static function get_fields() {
         $listing_cpts = LISTING_CPTS;
-        $listing_templates = LISTING_TEMPLATES;
         $listing_taxonomies = Listing::get_listing_taxonomies();
         $listing_post_template = LISTING_POST_TEMPLATE;
 
@@ -144,13 +143,13 @@ class Listing extends Component {
             ))->add_dependency('source','auto','='),
 
             Field::create( 'tab', __('List Template','mv23theme')),
-            Field::create( 'select', 'listing_template', 'Template' )->add_options($listing_templates),
+            Field::create( 'select', 'listing_template', 'Template' )->add_options(LISTING_TEMPLATES),
             
             Field::create( 'complex', 'columns_qty_wrapper', __('Number of Columns','mv23theme') )->merge()->add_fields(array(
-                Field::create( 'number', 'items_in_desktop', __('Desktop','mv23theme') )->set_default_value(3)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
-                Field::create( 'number', 'items_in_laptop', __('Laptop','mv23theme') )->set_default_value(3)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
-                Field::create( 'number', 'items_in_tablet', __('Tablet','mv23theme') )->set_default_value(2)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
-                Field::create( 'number', 'items_in_mobile', __('Mobile','mv23theme') )->set_default_value(1)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25)
+                Field::create( 'number', 'items_in_desktop', __('Desktop','mv23theme') )->set_default_value(LISTING_COLUMNS['desktop'])->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
+                Field::create( 'number', 'items_in_laptop', __('Laptop','mv23theme') )->set_default_value(LISTING_COLUMNS['laptop'])->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
+                Field::create( 'number', 'items_in_tablet', __('Tablet','mv23theme') )->set_default_value(LISTING_COLUMNS['tablet'])->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
+                Field::create( 'number', 'items_in_mobile', __('Mobile','mv23theme') )->set_default_value(LISTING_COLUMNS['mobile'])->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25)
             )),
             
             Field::create( 'complex', 'gap_wrapper', __('Space between columns','mv23theme') )->merge()->add_fields(array(

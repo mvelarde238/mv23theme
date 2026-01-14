@@ -2,6 +2,7 @@
 use Core\Posttype\Archive_Page;
 $archive_page = Archive_Page::getInstance();
 
+$listing_template = $archive_page->get_listing_template();
 $columns = $archive_page->get_loop_columns();
 $gap = $archive_page->get_columns_gap();
 $postcard_settings = $archive_page->get_postcard_settings();
@@ -12,7 +13,7 @@ $postcard_template = ( !empty($postcard_settings['template']) ) ? $postcard_sett
 do_action('before_loop');
 ?>
 <div class="component">
-	<div class="posts-listing has-columns" style="--d-gap:<?=$gap['desktop']?>px; --l-gap:<?=$gap['laptop']?>px; --t-gap:<?=$gap['tablet']?>px; --m-gap:<?=$gap['mobile']?>px; --d-columns:<?=$columns['desktop']?>; --l-columns:<?=$columns['laptop']?>; --t-columns:<?=$columns['tablet']?>; --m-columns:<?=$columns['mobile']?>;">
+	<div class="posts-listing posts-listing--<?=$listing_template?> has-columns" style="--d-gap:<?=$gap['desktop']?>px; --l-gap:<?=$gap['laptop']?>px; --t-gap:<?=$gap['tablet']?>px; --m-gap:<?=$gap['mobile']?>px; --d-columns:<?=$columns['desktop']?>; --l-columns:<?=$columns['laptop']?>; --t-columns:<?=$columns['tablet']?>; --m-columns:<?=$columns['mobile']?>;">
 		<?php
 		do_action('on_archive_listing_start');
 

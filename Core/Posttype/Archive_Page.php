@@ -8,16 +8,6 @@ use Ultimate_Fields\Field;
 use Ultimate_Fields\Location\Post_Type;
 use Core\Frontend\Nav_Walker;
 
-define ('LISTING_DESKTOP_COLUMNS', 2);
-define ('LISTING_LAPTOP_COLUMNS', 2);
-define ('LISTING_TABLET_COLUMNS', 2);
-define ('LISTING_MOBILE_COLUMNS', 1);
-
-define ('LISTING_DESKTOP_GAP', 50);
-define ('LISTING_LAPTOP_GAP', 40);
-define ('LISTING_TABLET_GAP', 30);
-define ('LISTING_MOBILE_GAP', 20);
-
 class Archive_Page {
 	
 	private static $instance = null;
@@ -112,20 +102,21 @@ class Archive_Page {
 				->set_description( __('Place these shortcodes in the page content: [posts] [pagination]'), 'mv23theme' )
 				->set_attr( 'style', 'background-color:#eeeeee;color:#000' ),
 
-			Field::create( 'tab', 'loop_columns_tabs', __('Columns quantity','mv23theme') ),
+			Field::create( 'tab', 'loop_columns_tabs', __('List Template','mv23theme') ),
+			Field::create( 'select', 'listing_template', 'Template' )->add_options(LISTING_TEMPLATES),
 			Field::create( 'complex', 'loop_columns' )->hide_label()->add_fields(array(
-				Field::create( 'number', 'desktop' )->set_default_value(LISTING_DESKTOP_COLUMNS)->set_suffix('columns in desktop')->hide_label(),
-				Field::create( 'number', 'laptop' )->set_default_value(LISTING_LAPTOP_COLUMNS)->set_suffix('columns in laptop')->hide_label(),
-				Field::create( 'number', 'tablet' )->set_default_value(LISTING_TABLET_COLUMNS)->set_suffix('columns in tablet')->hide_label(),
-				Field::create( 'number', 'mobile' )->set_default_value(LISTING_MOBILE_COLUMNS)->set_suffix('columns in mobile')->hide_label(),
+				Field::create( 'number', 'desktop' )->set_default_value(LISTING_COLUMNS['desktop'])->set_suffix('columns in desktop')->hide_label(),
+				Field::create( 'number', 'laptop' )->set_default_value(LISTING_COLUMNS['laptop'])->set_suffix('columns in laptop')->hide_label(),
+				Field::create( 'number', 'tablet' )->set_default_value(LISTING_COLUMNS['tablet'])->set_suffix('columns in tablet')->hide_label(),
+				Field::create( 'number', 'mobile' )->set_default_value(LISTING_COLUMNS['mobile'])->set_suffix('columns in mobile')->hide_label(),
 			)),
 
 			Field::create( 'tab', 'space_between_columns_tab', __('Space between columns','mv23theme') ),
 			Field::create( 'complex', 'loop_columns_gap' )->hide_label()->add_fields(array(
-				Field::create( 'number', 'desktop')->set_default_value(LISTING_DESKTOP_GAP)->set_suffix('px in desktop')->hide_label(),
-				Field::create( 'number', 'laptop' )->set_default_value(LISTING_LAPTOP_GAP)->set_suffix('px in laptop')->hide_label(),
-				Field::create( 'number', 'tablet' )->set_default_value(LISTING_TABLET_GAP)->set_suffix('px in tablet')->hide_label(),
-				Field::create( 'number', 'mobile' )->set_default_value(LISTING_MOBILE_GAP)->set_suffix('px in mobile')->hide_label(),
+				Field::create( 'number', 'desktop')->set_default_value(LISTING_GAP['desktop'])->set_suffix('px in desktop')->hide_label(),
+				Field::create( 'number', 'laptop' )->set_default_value(LISTING_GAP['laptop'])->set_suffix('px in laptop')->hide_label(),
+				Field::create( 'number', 'tablet' )->set_default_value(LISTING_GAP['tablet'])->set_suffix('px in tablet')->hide_label(),
+				Field::create( 'number', 'mobile' )->set_default_value(LISTING_GAP['mobile'])->set_suffix('px in mobile')->hide_label(),
 			)),
 
 			Field::create( 'tab', 'postcard_settings_tab', __('Post card settings','mv23theme') ),
@@ -273,13 +264,17 @@ class Archive_Page {
 		return $meta_data;
 	}
 
+	public function get_listing_template(){
+		$listing_template = '';
+
+		$meta_data = self::$instance->check_if_meta_exists('listing_template');
+		if ( $meta_data ) $listing_template = $meta_data;
+
+		return $listing_template;
+	}
+
 	public function get_loop_columns(){
-		$loop_columns = array(
-			'desktop' => LISTING_DESKTOP_COLUMNS,
-			'laptop' => LISTING_LAPTOP_COLUMNS,
-			'tablet' => LISTING_TABLET_COLUMNS,
-			'mobile' => LISTING_MOBILE_COLUMNS
-		);
+		$loop_columns = LISTING_COLUMNS;
 	
 		$meta_data = self::$instance->check_if_meta_exists('loop_columns');
 		if ( $meta_data ) $loop_columns = $meta_data;
@@ -288,12 +283,7 @@ class Archive_Page {
 	}
 
 	public function get_columns_gap(){
-		$loop_columns_gap = array(
-			'desktop' => LISTING_DESKTOP_GAP,
-			'laptop' => LISTING_LAPTOP_GAP,
-			'tablet' => LISTING_TABLET_GAP,
-			'mobile' => LISTING_MOBILE_GAP
-		);
+		$loop_columns_gap = LISTING_GAP;
 	
 		$meta_data = self::$instance->check_if_meta_exists('loop_columns_gap');
 		if ( $meta_data ) $loop_columns_gap = $meta_data;
