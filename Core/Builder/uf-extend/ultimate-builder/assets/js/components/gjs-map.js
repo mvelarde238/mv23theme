@@ -65,35 +65,28 @@ window.gjsMap = function (editor) {
                     provider = 'leaflet';
 
                 // check datastore for position
-                const editorConfig = editor.getConfig(),
-                	temporalCompStore = editorConfig.temporalCompStore || {},
-					__tempID = model.get('__tempID');
-
-				if (__tempID && temporalCompStore[__tempID]) {
-					const datastore = temporalCompStore[__tempID].datastore;
-					if (datastore) {
-						const location = datastore.get('location');
-						if (location) {
-                            if (location.latLng) center = [location.latLng.lat, location.latLng.lng];
-                            zoom = location.zoom || 0;
-
-                            provider = location.provider || 'leaflet';
+                const datastore = editor.getComponentDatastore(model);
+                
+				if (datastore) {
+					const location = datastore.get('location');
+					if (location) {
+                        if (location.latLng) center = [location.latLng.lat, location.latLng.lng];
+                        zoom = location.zoom || 0;
+                        provider = location.provider || 'leaflet';
+                    }
+                    const icon_data = datastore.get('icon_data') || null;
+                    if (icon_data && icon_data.icon) {
+                        icon_prepared = icon_data.icon_prepared || null;
+                        if (Array.isArray(icon_prepared) && icon_prepared.length > 0) {
+                            icon_url = icon_prepared[0].url || '';
+                            icon_size = [
+                                parseInt(icon_data.width) || 38,
+                                parseInt(icon_data.height) || 38
+                            ];
                         }
+                    }
 
-                        const icon_data = datastore.get('icon_data') || null;
-                        if (icon_data && icon_data.icon) {
-                            icon_prepared = icon_data.icon_prepared || null;
-                            if (Array.isArray(icon_prepared) && icon_prepared.length > 0) {
-                                icon_url = icon_prepared[0].url || '';
-                                icon_size = [
-                                    parseInt(icon_data.width) || 38,
-                                    parseInt(icon_data.height) || 38
-                                ];
-                            }
-                        }
-
-                        info_window_content = datastore.get('info_window_content') || null;
-					}
+                    info_window_content = datastore.get('info_window_content') || null;
 				}
 
                 // create a map wrapper inside this element

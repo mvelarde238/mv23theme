@@ -231,13 +231,23 @@ class Gallery extends Component {
     public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
         
+        $source = $args['source'] ?? 'manual';
+        if( $source == 'manual' ){
+            $gallery = $args['gallery'] ?? array();
+            if( empty($gallery) ) return '';
+        } elseif( $source == 'wp-media' ){
+            $wp_media_folder = $args['wp_media_folder'] ?? 0;
+            if( empty($wp_media_folder) ) return '';
+        } else {
+            return '';
+        }
+
 		$args['additional_classes'] = array('component');
         $args['__type'] = 'theme-gallery-comp';
 
         $hide_gallery = $args['use_id']['hide_gallery'] ?? false;
         if($hide_gallery === true) $args['additional_classes'][] = 'hide';
 
-        $source = $args['source'] ?? 'manual';
         $link = $args['action']['link'] ?? 'file';
         $image_quality = $args['image_quality'] ?? 'large';
         $targetsize = $args['action']['targetsize'] ?? 'full';

@@ -42,23 +42,18 @@ window.gjsOceComponents = ( editor ) => {
         },
         view: {
             onRender({ el, model }) {
-                const editorConfig = editor.getConfig(),
-                	temporalCompStore = editorConfig.temporalCompStore || {},
-					__tempID = model.get('__tempID');
+                const datastore = editor.getComponentDatastore(model);
 
-				if (__tempID && temporalCompStore[__tempID]) {
-					const datastore = temporalCompStore[__tempID].datastore;
-					if (datastore) {
-                        const aspect_ratio = datastore?.get('aspect_ratio') || '1/1';
-                        model.addStyle({ height: '' }); // Reset height
-                        
-                        if (aspect_ratio != 'custom') {
-							model.addStyle({'aspect-ratio': aspect_ratio });
-                        } else {
-                            const custom_aspect_ratio = datastore?.get('custom_aspect_ratio');
-                            if (custom_aspect_ratio) {
-								model.addStyle({'aspect-ratio': custom_aspect_ratio });
-                            }
+				if (datastore) {
+                    const aspect_ratio = datastore?.get('aspect_ratio') || '1/1';
+                    model.addStyle({ height: '' }); // Reset height
+                    
+                    if (aspect_ratio != 'custom') {
+						model.addStyle({'aspect-ratio': aspect_ratio });
+                    } else {
+                        const custom_aspect_ratio = datastore?.get('custom_aspect_ratio');
+                        if (custom_aspect_ratio) {
+							model.addStyle({'aspect-ratio': custom_aspect_ratio });
                         }
                     }
                 }
@@ -109,51 +104,45 @@ window.gjsOceComponents = ( editor ) => {
         },
         view: {
             onRender({ el, model }) {
-                const editorConfig = editor.getConfig(),
-                	temporalCompStore = editorConfig.temporalCompStore || {},
-					__tempID = model.get('__tempID');
+                const datastore = editor.getComponentDatastore(model);
 
-				if (__tempID && temporalCompStore[__tempID]) {
-					const datastore = temporalCompStore[__tempID].datastore;
-					if (datastore) {
-                        const type = datastore.get('oce_type');
-                        el.classList.add(`oce-element--${type}`);
-
-                        if (type === 'sidenav') {
-                            const position = datastore.get('position') || 'left';
-                            el.classList.add(`oce-element--sidenav-${position}`);
+				if (datastore) {
+                    const type = datastore.get('oce_type');
+                    el.classList.add(`oce-element--${type}`);
+                    
+                    if (type === 'sidenav') {
+                        const position = datastore.get('position') || 'left';
+                        el.classList.add(`oce-element--sidenav-${position}`);
+                    }
+                    if (type !== 'bottom_sheet') {
+                        const maxWidth = datastore.get('max_width');
+                        if (maxWidth) {
+                            el.style.maxWidth = isNaN(maxWidth) ? maxWidth : `${maxWidth}px`;
                         }
-
-                        if (type !== 'bottom_sheet') {
-                            const maxWidth = datastore.get('max_width');
-                            if (maxWidth) {
-                                el.style.maxWidth = isNaN(maxWidth) ? maxWidth : `${maxWidth}px`;
-                            }
-                        } else {
-                            const maxHeight = datastore.get('max_height');
-                            if (maxHeight) {
-                                el.style.maxHeight = isNaN(maxHeight) ? maxHeight : `${maxHeight}px`;
-                            }
+                    } else {
+                        const maxHeight = datastore.get('max_height');
+                        if (maxHeight) {
+                            el.style.maxHeight = isNaN(maxHeight) ? maxHeight : `${maxHeight}px`;
                         }
+                    }
 
-                        const overlay_color = datastore.get('overlay_color');
-                        if (overlay_color.use){
-                            const color = overlay_color.color || '#000000'; // color is always hex
-                            const alpha = overlay_color.alpha || 50; // alpha is always a number 0-100
-                            const finalColor = `rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, ${alpha / 100})`;
-                            const overlay = editor.getWrapper().findType('oce-overlay')[0]?.view.el;
-                            console.log('Overlay element found:', overlay);
-                            if (overlay) {
-                                overlay.style.backgroundColor = finalColor;
-                            }
+                    const overlay_color = datastore.get('overlay_color');
+                    if (overlay_color.use){
+                        const color = overlay_color.color || '#000000'; // color is always hex
+                        const alpha = overlay_color.alpha || 50; // alpha is always a number 0-100
+                        const finalColor = `rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, ${alpha / 100})`;
+                        const overlay = editor.getWrapper().findType('oce-overlay')[0]?.view.el;
+                        console.log('Overlay element found:', overlay);
+                        if (overlay) {
+                            overlay.style.backgroundColor = finalColor;
                         }
-
-                        const removeModalContentPadding = datastore.get('remove_modal_content_padding');
-                        if (removeModalContentPadding) {
-                            const modalContent = el.querySelector('.oce-modal-content');
-                            if (modalContent) {
-                                modalContent.style.padding = '0';
-                            }
+                    }
+                    
+                    const removeModalContentPadding = datastore.get('remove_modal_content_padding');
+                    if (removeModalContentPadding) {
+                        const modalContent = el.querySelector('.oce-modal-content');
+                        if (modalContent) {
+                            modalContent.style.padding = '0';
                         }
                     }
                 }

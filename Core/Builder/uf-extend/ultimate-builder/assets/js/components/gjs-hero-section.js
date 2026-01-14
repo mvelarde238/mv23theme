@@ -49,21 +49,15 @@ window.gjsHeroSection = function (editor) {
         },
         view: {
             onRender({ el, model }) {
-                const editorConfig = editor.getConfig(),
-                	temporalCompStore = editorConfig.temporalCompStore || {},
-					__tempID = model.get('__tempID');
+                const datastore = editor.getComponentDatastore(model);
+				if (datastore) {
+                    const template = datastore.get('template') || 'hero1';
+                    const heroTemplate = heroTemplates[template] || [];
 
-				if (__tempID && temporalCompStore[__tempID]) {
-					const datastore = temporalCompStore[__tempID].datastore;
-					if (datastore) {
-                        const template = datastore.get('template') || 'hero1';
-                        const heroTemplate = heroTemplates[template] || [];
-
-                        // Clear existing components
-                        model.components( heroTemplate.components || []);
-                        if (heroTemplate.heroStyle) {
-                            model.setStyle( heroTemplate.heroStyle );
-                        }
+                    // Clear existing components
+                    model.components( heroTemplate.components || []);
+                    if (heroTemplate.heroStyle) {
+                        model.setStyle( heroTemplate.heroStyle );
                     }
                 }
             },

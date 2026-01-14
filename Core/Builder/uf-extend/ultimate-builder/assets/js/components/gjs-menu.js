@@ -14,31 +14,23 @@ window.gjsMenu = function (editor) {
         },
         view: {
             onRender({el, model}) {
-                // set a min height to make it visible in the editor
-                el.style.minHeight = '50px';
-
-                const editorConfig = editor.getConfig(),
-                	temporalCompStore = editorConfig.temporalCompStore || {},
-					__tempID = model.get('__tempID');
-
-				if (__tempID && temporalCompStore[__tempID]) {
-					const datastore = temporalCompStore[__tempID].datastore;
-					if (datastore) {
-                        const data = datastore.toJSON();
-                        data['action'] = 'get_component_view';
-                        jQuery.ajax({
-                            type: "POST",
-                            dataType: "json",
-                            url: MV23_GLOBALS.ajaxUrl,
-                            data: data,
-                            success: function(response) {
-                                el.innerHTML = response.data;
-                            },
-                            error: function(xhr, status, error) {
-                                console.error(`Error loading ${compClass} component view:`, error);
-                            }
-                        });
-                    }
+                const datastore = editor.getComponentDatastore(model);
+                
+				if (datastore) {
+                    const data = datastore.toJSON();
+                    data['action'] = 'get_component_view';
+                    jQuery.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: MV23_GLOBALS.ajaxUrl,
+                        data: data,
+                        success: function(response) {
+                            el.innerHTML = response.data;
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(`Error loading ${compClass} component view:`, error);
+                        }
+                    });
                 }
             },
         },

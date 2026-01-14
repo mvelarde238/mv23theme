@@ -1,0 +1,20 @@
+/* make components visible ? */
+// div[data-gjs-type]:not(.full-height):not([data-gjs-type="spacer"]):empty
+//     padding-top: 25px
+//     padding-bottom: 25px
+
+[data-gjs-type="wrapper"],
+[data-gjs-type="container"]
+    min-height: 100vh !important
+    
+/* empty component wrappers styles */
+[data-gjs-type="section"]:empty,
+[data-gjs-type="comp-wrapper"]:empty,
+[data-gjs-type="column"]:empty,
+[data-gjs-type="gallery"]:empty,
+[data-gjs-type="carousel-item"]:empty,
+[data-gjs-type="menu"]:empty,
+[data-gjs-type="comp_shortcode"]
+    border: 3px dashed color-mix(in srgb,currentColor 10%,transparent)
+    background-color: color-mix(in srgb,currentColor 10%,transparent)
+    min-height: 50px

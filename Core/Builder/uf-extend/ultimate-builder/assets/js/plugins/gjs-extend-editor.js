@@ -7,6 +7,13 @@ window.gjsExtendEditor = function (editor) {
             temporalCompStore = editorConfig.temporalCompStore || {};
         return temporalCompStore[componentId].datastore || null;
     }
+
+    editor.getBuilderCompModel = function(component) {
+        const componentId = component.attributes.__tempID,
+            editorConfig = editor.getConfig(),
+            temporalCompStore = editorConfig.temporalCompStore || {};
+        return temporalCompStore[componentId] || null;
+    }
 }
 
 // global function to get "prepared" file object from Ultimate Fields File field cache

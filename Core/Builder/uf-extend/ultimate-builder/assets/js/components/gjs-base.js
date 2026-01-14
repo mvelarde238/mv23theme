@@ -13,21 +13,18 @@ window.gjsBase = function (editor) {
         },
         view: {
             onRender({ el, model }) {
-                const editorConfig = editor.getConfig(),
-                    temporalCompStore = editorConfig.temporalCompStore || {},
-                    componentId = this.model.attributes.__tempID;
+                const builder_comp_model = editor.getBuilderCompModel(model);
 
                 // On render show uf view template or a button to open datastore
-                if (temporalCompStore[componentId]) {
-                    let builder_comp_model = temporalCompStore[componentId];
-
+                if (builder_comp_model) {
                     const view_template = builder_comp_model.get('view_template');
 
                     if (view_template) {
                         const _view_template = _.template(view_template);
-                        const datastore = temporalCompStore[componentId].datastore;
+                        const datastore = builder_comp_model.datastore;
+                        
+                        if(datastore) el.innerHTML = _view_template(datastore.toJSON());
 
-                        el.innerHTML = _view_template(datastore.toJSON());
                     } else {
                         const name = model.get('name');
                         const btn = document.createElement('button');

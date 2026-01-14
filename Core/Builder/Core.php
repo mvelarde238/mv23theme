@@ -219,7 +219,7 @@ class Core{
      */
     public function ajax_get_component_view(){
         $component_view = Template_Engine::getInstance()->handle( $_REQUEST['__type'], $_REQUEST );
-        $result = $component_view ? $component_view : 'Component view could not be generated.';
+        $result = $component_view ? $component_view : '';
         wp_send_json_success($result);
     }
 

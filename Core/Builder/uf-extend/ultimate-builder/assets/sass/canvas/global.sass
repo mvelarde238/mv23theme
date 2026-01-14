@@ -6,15 +6,6 @@
 body
     padding-top: 0 !important
 
-/* make components visible */
-div[data-gjs-type]:not(.full-height):not([data-gjs-type="spacer"]):empty
-    padding-top: 25px
-    padding-bottom: 25px
-
-[data-gjs-type="wrapper"],
-[data-gjs-type="container"]
-    min-height: 100vh !important
-
 /* components separation */
 // [data-gjs-type="wrapper"] [data-gjs-type]:not(:last-child):not([data-gjs-type="column"]) 
 //     margin-bottom: var(--text-block-spacing)
@@ -38,15 +29,6 @@ img.gjs-plh-image
     pointer-events: none
 // [data-gjs-type="menu"] 
     // overflow: hidden
-
-/* empty wrappers styles */
-.page-module:empty,
-.comp-wrapper:empty,
-.column:empty,
-.carousel-item:empty,
-.shortcode-component
-    border: 3px dashed color-mix(in srgb,currentColor 10%,transparent)
-    background-color: color-mix(in srgb,currentColor 10%,transparent)
 
 /* shortcode component */
 .shortcode-component

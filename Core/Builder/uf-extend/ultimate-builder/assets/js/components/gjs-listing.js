@@ -20,44 +20,41 @@ window.gjsListing = function (editor) {
         },
         view: {
             onRender({el, model}) {
-                const editorConfig = editor.getConfig(),
-                	temporalCompStore = editorConfig.temporalCompStore || {},
-					__tempID = model.get('__tempID');
-
-				if (__tempID && temporalCompStore[__tempID]) {
-					const datastore = temporalCompStore[__tempID].datastore;
-					if (datastore) {
-                        const view_template = temporalCompStore[__tempID].get('view_template');
-                        if (view_template) {
-                            const _view_template = _.template( view_template );
-                            el.innerHTML = _view_template( datastore.toJSON() );
+                const builder_comp_model = editor.getBuilderCompModel(model);
+                
+				if (builder_comp_model) {
+                    const view_template = builder_comp_model.get('view_template');
+                    
+                    if (view_template) {
+                        const datastore = builder_comp_model.datastore || {};
+                        const _view_template = _.template( view_template );
+                        el.innerHTML = _view_template( datastore.toJSON() );
                             
-                            const dont_load_posts_on_change = ['__tab','listing_template','columns_qty_wrapper','gap_wrapper','pagination_type','scrolltop','filter','category-filter','month-filter','carousel_settings_wrapper','on_click_post','on_click_scroll_to'];
-                            // TODO: 'year-filter' is excluded for now because change on inital render. Need to investigate why.
-                            const changed = datastore.changed;
-                            // console.log('datastore changed:', changed); // e.g: {"__tab": "List Template"}
+                        const dont_load_posts_on_change = ['__tab','listing_template','columns_qty_wrapper','gap_wrapper','pagination_type','scrolltop','filter','category-filter','month-filter','carousel_settings_wrapper','on_click_post','on_click_scroll_to'];
+                        // TODO: 'year-filter' is excluded for now because change on inital render. Need to investigate why.
+                        const changed = datastore.changed;
+                        // console.log('datastore changed:', changed); // e.g: {"__tab": "List Template"}
                             
-                            let should_load_posts = true;
+                        let should_load_posts = true;
 
-                            if( changed ){
-                                for( const key in changed ){
-                                    if( dont_load_posts_on_change.includes(key) ){
-                                        should_load_posts = false;
-                                        break;
-                                    }
+                        if( changed ){
+                            for( const key in changed ){
+                                if( dont_load_posts_on_change.includes(key) ){
+                                    should_load_posts = false;
+                                    break;
                                 }
                             }
+                        }
 
-                            if(should_load_posts){
-                                this.load_posts(datastore.toJSON(), el, model);
-                            } else {
-                                // use cached posts if available
-                                const posts_cached = model.get('__temp_posts_cached') || null;
-                                if (posts_cached) {
-                                    const postsListing = el.querySelector('.posts-listing');
-                                    if (postsListing) {
-                                        postsListing.innerHTML = posts_cached;
-                                    }
+                        if(should_load_posts){
+                            this.load_posts(datastore.toJSON(), el, model);
+                        } else {
+                            // use cached posts if available
+                            const posts_cached = model.get('__temp_posts_cached') || null;
+                            if (posts_cached) {
+                                const postsListing = el.querySelector('.posts-listing');
+                                if (postsListing) {
+                                    postsListing.innerHTML = posts_cached;
                                 }
                             }
                         }
