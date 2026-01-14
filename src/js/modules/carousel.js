@@ -43,5 +43,30 @@
             }
         });
 
+        // go to next slide implementation
+        $('.go-to-next-slide').on('click', function(e) {
+            e.preventDefault();
+            var sliderUid = $(this).data('slider-uid');
+
+            if (MV23_GLOBALS.carousels[sliderUid]) {
+                if (DEBUG) console.log('Going to next slide in carousel with UID ' + sliderUid);
+                MV23_GLOBALS.carousels[sliderUid].goTo('next');
+            } else {
+                if (DEBUG) console.warn('Carousel with UID ' + sliderUid + ' not found.');
+            }
+        });
+
+        // go to prev slide implementation
+        $('.go-to-prev-slide').on('click', function(e) {
+            e.preventDefault();
+            var sliderUid = $(this).data('slider-uid');
+            if (MV23_GLOBALS.carousels[sliderUid]) {
+                if (DEBUG) console.log('Going to previous slide in carousel with UID ' + sliderUid);
+                MV23_GLOBALS.carousels[sliderUid].goTo('prev');
+            } else {
+                if (DEBUG) console.warn('Carousel with UID ' + sliderUid + ' not found.');
+            }
+        });
+
     });
 })(jQuery,console.log); 

@@ -17,6 +17,9 @@ CHANGELOG
 - Removed constants: UF_POSTTYPES, PAGE_HEADER_COMPONENTS, CONTENT_BUILDER_*
 - uf.ultimate_builder.group_datastore filter and uf.ultimate_builder.save_component hook implementation
 - remove private classes and move component-related classes to canvasCss
+- builder_component_cleanup js filter hook implementation
+- Listing Improvements: LISTING_GAP constant, carousel_id
+- Carousel.js implements: .go-to-prev-slide and .go-to-next-slide
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------

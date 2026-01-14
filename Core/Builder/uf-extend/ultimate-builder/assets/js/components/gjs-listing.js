@@ -52,7 +52,7 @@ window.gjsListing = function (editor) {
                                 this.load_posts(datastore.toJSON(), el, model);
                             } else {
                                 // use cached posts if available
-                                const posts_cached = model.get('posts_cached') || null;
+                                const posts_cached = model.get('__temp_posts_cached') || null;
                                 if (posts_cached) {
                                     const postsListing = el.querySelector('.posts-listing');
                                     if (postsListing) {
@@ -126,7 +126,7 @@ window.gjsListing = function (editor) {
                             const postsListing = el.querySelector('.posts-listing');
                             if (postsListing) {
                                 postsListing.innerHTML = response.posts;
-                                model.set('posts_cached', response.posts);
+                                model.set('__temp_posts_cached', response.posts);
                             }
                         }
                     }

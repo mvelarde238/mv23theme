@@ -146,12 +146,6 @@ class Listing extends Component {
             Field::create( 'tab', __('List Template','mv23theme')),
             Field::create( 'select', 'listing_template', 'Template' )->add_options($listing_templates),
             
-            Field::create( 'complex', 'carousel_settings_wrapper' )->hide_label()->merge()->add_fields(array(
-                Field::create( 'checkbox', 'show_controls' )->set_width( 33 )->hide_label()->set_text(__('Show controls','mv23theme')),
-                Field::create( 'checkbox', 'show_nav' )->set_width( 33 )->hide_label()->set_text(__('Show carousel nav','mv23theme')),
-                Field::create( 'checkbox', 'autoplay' )->set_width( 33 )->hide_label()->set_text(__('Start automatically','mv23theme'))
-            ))->add_dependency('listing_template','carousel','='),
-            
             Field::create( 'complex', 'columns_qty_wrapper', __('Number of Columns','mv23theme') )->merge()->add_fields(array(
                 Field::create( 'number', 'items_in_desktop', __('Desktop','mv23theme') )->set_default_value(3)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
                 Field::create( 'number', 'items_in_laptop', __('Laptop','mv23theme') )->set_default_value(3)->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
@@ -160,11 +154,19 @@ class Listing extends Component {
             )),
             
             Field::create( 'complex', 'gap_wrapper', __('Space between columns','mv23theme') )->merge()->add_fields(array(
-                Field::create( 'number', 'd_gap', __('Desktop','mv23theme') )->set_default_value(50)->set_attr('style', $width_25),
-                Field::create( 'number', 'l_gap', __('Laptop','mv23theme') )->set_default_value(40)->set_attr('style', $width_25),
-                Field::create( 'number', 't_gap', __('Tablet','mv23theme') )->set_default_value(30)->set_attr('style', $width_25),
-                Field::create( 'number', 'm_gap', __('Mobile','mv23theme') )->set_default_value(20)->set_attr('style', $width_25)
+                Field::create( 'number', 'd_gap', __('Desktop','mv23theme') )->set_default_value(LISTING_GAP['desktop'])->set_attr('style', $width_25),
+                Field::create( 'number', 'l_gap', __('Laptop','mv23theme') )->set_default_value(LISTING_GAP['laptop'])->set_attr('style', $width_25),
+                Field::create( 'number', 't_gap', __('Tablet','mv23theme') )->set_default_value(LISTING_GAP['tablet'])->set_attr('style', $width_25),
+                Field::create( 'number', 'm_gap', __('Mobile','mv23theme') )->set_default_value(LISTING_GAP['mobile'])->set_attr('style', $width_25)
             )),
+
+            Field::create( 'tab', __('Carousel Settings','mv23theme'))->add_dependency('listing_template','carousel','='),
+            Field::create( 'complex', 'carousel_settings_wrapper' )->hide_label()->merge()->add_fields(array(
+                Field::create( 'checkbox', 'show_controls' )->hide_label()->set_text(__('Show controls','mv23theme')),
+                Field::create( 'checkbox', 'show_nav' )->hide_label()->set_text(__('Show carousel nav','mv23theme')),
+                Field::create( 'checkbox', 'autoplay' )->hide_label()->set_text(__('Start automatically','mv23theme')),
+                Field::create( 'text', 'carousel_id' )->set_prefix(__('Carousel ID','mv23theme'))->hide_label(),
+            ))->add_dependency('listing_template','carousel','='),
             
             Field::create( 'tab', __('Post Card','mv23theme')),
             Field::create( 'select', 'post_template', 'Template' )->add_options($listing_post_template),
@@ -436,11 +438,13 @@ class Listing extends Component {
                     $show_nav = (!empty($args['show_nav'])) ? $args['show_nav'] : 0;
                     $show_nav = (!empty($args['show_nav'])) ? $args['show_nav'] : 0;
                     $autoplay = (!empty($args['autoplay'])) ? $args['autoplay'] : 0;
+                    $carousel_id = (!empty($args['carousel_id'])) ? $args['carousel_id'] : '';
     
                     $carousel_classes_array = array('carousel','carousel-inside-component');
                     if( !$show_nav ) array_push($carousel_classes_array,'without-navigation');
                     ?>
                     <div class="<?php echo implode(' ', $carousel_classes_array); ?>" data-controls-position="center"><div class="carousel__slider" 
+                        data-slider-uid="<?=$carousel_id?>"
                         data-show-controls="<?=$show_controls?>" 
                         data-show-nav="<?=$show_nav?>" 
                         data-touch="1" 

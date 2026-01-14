@@ -44,6 +44,7 @@ if( !defined('LISTING_LOAD_MORE_TEXT') ) define( 'LISTING_LOAD_MORE_TEXT', array
 if( !defined('LISTING_EXPANDER_HEIGHT') ) define( 'LISTING_EXPANDER_HEIGHT', '500px');
 if( !defined('LISTING_EXPANDER_RESPONSE_HEIGHT') ) define( 'LISTING_EXPANDER_RESPONSE_HEIGHT', '500px');
 if( !defined('LISTING_EXPANDER_SCROLL_DURATION') ) define( 'LISTING_EXPANDER_SCROLL_DURATION', '500');
+if( !defined('LISTING_GAP') ) define( 'LISTING_GAP', array('desktop' => 50,'laptop' => 40,'tablet' => 30,'mobile' => 20 ));
 
 if( !defined('MODAL_OUT_DURATION') ) define( 'MODAL_OUT_DURATION', 1);
 
