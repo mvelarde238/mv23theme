@@ -322,15 +322,40 @@
                     }
                             
                     // Clean the builder component by removing unwanted keys
-                    delete builderComponent.__tempID;
-
-                    // if component has a property starting with "__gjs_", copy it to datastore
+                    // if component has a property starting with "__temp", delete it
+                    // e.g. __tempID, __temp_posts_cached
+                    for (const key in builderComponent) {
+                        if (key.startsWith('__temp')) {
+                            delete builderComponent[key];
+                        }
+                    }
+                    
+                    // if uf component has a property starting with "__gjs_", copy it to datastore
                     // e.g. __gjs_data_breakpoints in togglebox-wrapper
                     for (const key in component) {
                         if (key.startsWith('__gjs_')) {
                             componentDataStore[key] = component[key];
                         }
                     }
+
+                    /**
+                     * Filter: builder_component_cleanup
+                     * Allows external code to modify component data before saving.
+                     * 
+                     * @param {Object} data - Mutable object containing:
+                     *   - componentDataStore: Data that will be saved to database
+                     *   - builderComponent: GrapesJS component data
+                     *   - component: Raw component from editor
+                     *   - __type: Component type identifier
+                     *   - isTopLevel: Boolean indicating if component is at root level
+                     */
+                    UltimateFields.applyFilters('builder_component_cleanup', {
+                        componentDataStore: componentDataStore,
+                        builderComponent: builderComponent,
+                        component: component,
+                        __type: __type,
+                        isTopLevel: isTopLevel
+                    });
 
                     // Add components array if it has nested components
                     if (component.components && Array.isArray(component.components) && component.components.length > 0) {
