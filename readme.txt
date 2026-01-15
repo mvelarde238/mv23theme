@@ -20,10 +20,12 @@ CHANGELOG
 - builder_component_cleanup js filter hook implementation
 - Listing Improvements: LISTING_GAP constant, carousel_id, LISTING_COLUMNS
 - Carousel.js implements: .go-to-prev-slide and .go-to-next-slide
-- get_prepared_file_object() global function, get object from UltimateFields.Field.File.Cache
+- editor.getPreparedFileObject() method, get object from UltimateFields.Field.File.Cache
 - Trigger Ultimate Fields updatewhen component-settings tab is selected
 - Implements listing_template on Archive_Page
 - body_style action change to body_attributes action hook
+- Implement 'update-views' event on Image Select to update view externally on builder
+- Review Compound Figure>Image component
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------

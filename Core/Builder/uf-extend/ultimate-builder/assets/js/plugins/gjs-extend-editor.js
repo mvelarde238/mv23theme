@@ -14,14 +14,22 @@ window.gjsExtendEditor = function (editor) {
             temporalCompStore = editorConfig.temporalCompStore || {};
         return temporalCompStore[componentId] || null;
     }
-}
 
-// global function to get "prepared" file object from Ultimate Fields File field cache
-get_prepared_file_object = function( file_id ) {
-    if ( typeof UltimateFields === 'undefined' || !UltimateFields.Field || !UltimateFields.Field.File ) {
-        console.warn('UltimateFields or UltimateFields.Field.File is not available.');
-        return null;
+    editor.updateBuilderCompModelField = function(builder_comp_model, fieldName) {
+        const fields = builder_comp_model.get('fields') || {};
+	    const fields_models = fields.models || [];
+	    const field_model = fields_models.find(fm => fm.get('name') == fieldName);
+	    if (field_model) {
+	        field_model.trigger('update-views');
+        }
     }
 
-    return UltimateFields.Field.File.Cache.get(file_id);
+    editor.getPreparedFileObject = function( file_id ) {
+        if ( typeof UltimateFields === 'undefined' || !UltimateFields.Field || !UltimateFields.Field.File ) {
+            console.warn('UltimateFields or UltimateFields.Field.File is not available.');
+            return null;
+        }
+
+        return UltimateFields.Field.File.Cache.get(file_id);
+    }
 }

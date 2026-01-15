@@ -30,14 +30,27 @@ class Image extends Component {
                     'external' => __('External','mv23theme')
                 )),
             Field::create( 'image', 'image', __('Image','mv23theme') )->add_dependency('image_source','selfhosted','='),
-            Field::create( 'text', 'external_image', 'URL')->hide_label()->set_prefix('URL')->add_dependency('image_source','external','='),
-            Field::create( 'text', 'credits', __('Credits','mv23theme'))->hide_label()->set_prefix('Credits')->add_dependency('image_source','external','='),
-
+            Field::create( 'text', 'external_image', 'URL')
+                ->hide_label()->set_prefix('URL')->add_dependency('image_source','external','='),
             Field::create( 'checkbox', 'expand_on_click', __('Expand on click','mv23theme') )->fancy()
                 ->set_text( __( 'Show the image in a popup.', 'mv23theme' ) ),
     
+            Field::create( 'tab', __('Caption','mv23theme') ),
+            Field::create( 'radio', 'caption_source', __('Source','mv23theme'))
+                ->set_orientation( 'horizontal' )
+                ->add_options( array(
+                    'global' => __('Global','mv23theme'),
+                    'custom' => __('Custom','mv23theme')
+                )),
+            Field::create( 'message', 'caption_global_info', __('The legend set in the Media Library will be used.','mv23theme') )
+                ->add_dependency( 'caption_source', 'global', '=' ),
+            Field::create( 'text', 'custom_caption' )
+                ->hide_label()->add_dependency( 'caption_source', 'custom', '=' ),
+            
             Field::create( 'tab', __('Aspect Ratio','mv23theme') ),
-            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )->hide_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
+            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )
+                ->set_description( __('Select a predefined aspect ratio (width / height) or set a custom one.', 'mv23theme') )
+                ->hide_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
                 'default' => array(
                     'label' => 'default',
                     'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default.png'
@@ -88,6 +101,9 @@ class Image extends Component {
                 ),
             )),
             Field::create( 'text', 'custom_aspect_ratio' )
+                ->hide_label()
+                ->set_prefix( 'Custom Width / Height' )
+                ->add_suggestions(array( '1/1', '4/3', '16/9', '2/1', '2.5/1', '4/1', '3/4', '9/16', '1/2', '1/2.5' ))
                 ->set_validation_rule('^(\d+(\.\d+)?)(\s*\/\s*(\d+(\.\d+)?))?$')
                 ->add_dependency( 'aspect_ratio', 'custom' )
         );
@@ -99,13 +115,14 @@ class Image extends Component {
         if( Template_Engine::is_private( $args ) ) return;
         
 		$args['additional_classes'][] = 'media';
-		$args['additional_classes'][] = 'component';
 
         $attachment = false;
         $image_source = $args['image_source'] ?? 'selfhosted';
         
         if( $image_source == 'selfhosted' ){
-            if( $args['image'] ) $attachment = get_post( $args['image'] );
+            if( $args['image'] ) {
+                $attachment = get_post( $args['image'] );
+            }
         }
 
         if( $image_source == 'external' && $args['external_image'] ){
@@ -113,7 +130,6 @@ class Image extends Component {
             $attachment->ID = 0;
             $attachment->guid = $args['external_image'];
             $attachment->post_title = '';
-            $attachment->post_excerpt = $args['credits'] ?? '';
         }
 
         if( !$attachment ){
@@ -121,13 +137,20 @@ class Image extends Component {
             $attachment->ID = 0;
             $attachment->guid = get_stylesheet_directory_uri().'/assets/images/nothumb.jpg';
             $attachment->post_title = '';
-            $attachment->post_excerpt = '';
+            $args['additional_classes'][] = 'no-image';
         }
 
         $alt = get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true);
         $title = $attachment->post_title;
         $src = $attachment->guid;
         // $href = get_permalink( $attachment->ID );
+
+        // set caption
+        $caption_source = $args['caption_source'] ?? 'global';
+        $custom_caption = $args['custom_caption'] ?? '';
+        if( $caption_source == 'custom' ){
+            $attachment->post_excerpt = $custom_caption;
+        }
         $caption = $attachment->post_excerpt;
         
         if( !empty($src) ) $args['additional_attributes'][] = 'src="'.esc_url($src).'"';

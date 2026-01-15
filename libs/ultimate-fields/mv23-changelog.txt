@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+- 3.2.11 15-01-2026
+- Implement 'update-views' event on Image Select to update view externally on builder
+    (core/js/field/image-select.js)
+
 - 3.2.10 09-01-2026
 - Fix undefined COLOR_PICKER
     (core/js/field/color.js)

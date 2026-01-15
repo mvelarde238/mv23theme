@@ -839,7 +839,10 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $uf_component['components'][0]['__type'] = 'image'; // set this manually
         $img_id = $this->generate_id($component);
         $uf_component['components'][0]['__gjsAttributes'] = array( 'id' => $img_id );
-        $uf_component['components'][0]['credits'] = ($component['image_source'] == 'external') ? $component['external_image_credits'] : '';
+        if( ($component['image_source'] == 'external') ){
+            $uf_component['components'][0]['caption_source'] = 'custom';
+            $uf_component['components'][0]['custom_caption'] = $component['external_image_credits'] ?? '';
+        }
 
         // edit some attributes on gj cmp
         $gjs_component['components'][0]['attributes']['src'] = '__src';

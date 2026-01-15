@@ -49,7 +49,7 @@
                     'carousel': { render: false },
                     'column': { render: false },
                     'figure': { render: false },
-                    'image': { type: 'image2' },
+                    'image': { type: 'figure' },
                     'video': { type: 'video2' },
                     'map': { type: 'map2' },
                     'spacer': { type: 'spacer' },
@@ -98,6 +98,7 @@
                     },
                 ],
                 onEditor: function(editor) {
+                    window['UF_Editor'] = editor;
                     that.on_editor_load(editor);
                 }
             });
