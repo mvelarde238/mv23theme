@@ -23,6 +23,7 @@ CHANGELOG
 - get_prepared_file_object() global function, get object from UltimateFields.Field.File.Cache
 - Trigger Ultimate Fields updatewhen component-settings tab is selected
 - Implements listing_template on Archive_Page
+- body_style action change to body_attributes action hook
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------

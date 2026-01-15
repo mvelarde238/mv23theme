@@ -267,9 +267,10 @@ class Frontend extends Theme_Header_Data {
         echo ($id) ? 'id="'.$id.'"' : '';
     }
 
-    public function body_style(){
+    public function body_attributes(){
         $page = new Page();
         $styles = [];
+        $attributes = [];
 
         $page_content_components = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content_components', true) : null;
         if( is_array($page_content_components) && !empty($page_content_components) && isset($page_content_components[0]) ) {
@@ -280,14 +281,16 @@ class Frontend extends Theme_Header_Data {
             }
         }
 
+        if(!empty($styles)) $attributes[] = 'style="'.implode(' ', $styles).'"';
+
         if( SCROLL_ANIMATIONS ){
             $global_animations = get_option('global_animations');
             if( !empty($global_animations) ){
-                $styles[] = Scroll_Animations::get_attribute( $global_animations );
+                $attributes[] = Scroll_Animations::get_attribute( $global_animations );
             } 
         }
 
-        echo (!empty($styles)) ? 'style="'.implode(' ', $styles).'"' : '';
+        echo implode(' ', $attributes);
     }
 
     public function archive_title_meta_tag($title){
