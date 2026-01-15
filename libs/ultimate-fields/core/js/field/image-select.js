@@ -34,6 +34,10 @@
 			'change input': 'changed'
 		},
 
+		initialize: function() {
+			this.model.on( 'update-views', _.bind( this.updateView, this ) );
+		},
+
 		/**
 		 * Renders the input of the field.
 		 */
@@ -53,10 +57,17 @@
 				.html( tmpl( args ) );
 
 			// Activate the right element
+			this.updateView();
+		},
+
+		updateView: function() {
 			current = this.model.getValue();
 			this.$el.find( 'input' ).each(function() {
 				if( this.value == current ) {
 					$( this ).prop( 'checked', 'checked' ).closest( 'label' ).addClass( 'uf-selected' );
+				} else {
+					// needed when 'update-views' is triggered
+					$( this ).prop( 'checked', false ).closest( 'label' ).removeClass( 'uf-selected' );
 				}
 			});
 		},
