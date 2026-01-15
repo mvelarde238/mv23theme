@@ -4,3 +4,8 @@
 .column
     display: flex
     flex-direction: column
+
+// hack to add margin-bottom to columns on small screens
+@media #{$small-and-down}
+    .column
+        margin-bottom: var(--text-block-spacing)
