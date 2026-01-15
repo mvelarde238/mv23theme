@@ -12,6 +12,11 @@ window.gjsSection = function(editor) {
                     return (destination.attributes.type) == 'container';
                 },
                 classes: ['page-module'],
+                styles: `
+                    .page-module {
+                        padding: 40px 0 40px 0;
+                    }
+                `,
             },
         },
         // view: {

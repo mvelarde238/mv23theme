@@ -35,6 +35,7 @@ window.gjsBase = function (editor) {
                 }
             },
             events: {
+                dblclick: 'onActive',
                 'click .edit-btn': 'onEditClick',
                 // 'uf-sorted' : 'saveSort'
             },
@@ -43,6 +44,9 @@ window.gjsBase = function (editor) {
                 editor.select(this.model);
                 editor.runCommand('open-datastore');
             },
+            onActive() {
+                editor.runCommand('open-datastore');
+            }
             // saveSort: function () {
             //     var builder_comp_model = this.model.get('builder_comp_model');
             //     builder_comp_model.datastore.set('__index', $(this.el).index(), {

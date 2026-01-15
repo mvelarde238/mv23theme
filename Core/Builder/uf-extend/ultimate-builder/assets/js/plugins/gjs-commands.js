@@ -181,4 +181,8 @@ window.gjsCommands = function (editor, options) {
             );
         }
     });
+
+    commands.add('open-datastore', (editor) => {
+        editor.Commands.run('select-component-settings-tab');
+    });
 }
