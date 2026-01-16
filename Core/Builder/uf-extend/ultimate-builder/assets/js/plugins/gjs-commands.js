@@ -17,7 +17,7 @@ window.gjsCommands = function (editor, options) {
             uf_field_model = editor.getConfig().uf_field_model,
             builder = options.builder;
 
-        const values = builder.prepare_project_data(raw_project_data, temporalCompStore);
+        const values = builder.prepare_project_data(raw_project_data, temporalCompStore, editor);
 
         uf_field_model.datastore.set(
             uf_field_model.get('name'),
@@ -43,7 +43,7 @@ window.gjsCommands = function (editor, options) {
         const raw_project_data = editor.getProjectData(),
             temporalCompStore = editor.getConfig().temporalCompStore || {},
             uf_field_model = editor.getConfig().uf_field_model,
-            values = builder.prepare_project_data(raw_project_data, temporalCompStore);
+            values = builder.prepare_project_data(raw_project_data, temporalCompStore, editor);
 
         payload = {
             builder_data: values.builder_data,
@@ -92,7 +92,7 @@ window.gjsCommands = function (editor, options) {
         const raw_project_data = editor.getProjectData(),
             temporalCompStore = editor.getConfig().temporalCompStore || {},
             builder = options.builder;
-        const values = builder.prepare_project_data(raw_project_data, temporalCompStore);
+        const values = builder.prepare_project_data(raw_project_data, temporalCompStore, editor);
         console.log('raw_project_data', raw_project_data);
         console.log('temporalCompStore', temporalCompStore);
         console.log('editor update', values);
@@ -184,5 +184,19 @@ window.gjsCommands = function (editor, options) {
 
     commands.add('open-datastore', (editor) => {
         editor.Commands.run('select-component-settings-tab');
+    });
+
+    commands.add('select-single-page-settings', (editor) => {
+        const domc = editor.DomComponents;
+        const singlePageSettingsComp = domc.getComponents().find( comp => comp.is('single_page_settings') );
+        if (singlePageSettingsComp) {
+            editor.select(singlePageSettingsComp);
+            editor.Commands.run('open-datastore');
+        } else {
+            // append one if not found
+            const newComp = domc.addComponent({ type: 'single_page_settings' });
+            editor.select(newComp);
+            editor.Commands.run('open-datastore');
+        }
     });
 }

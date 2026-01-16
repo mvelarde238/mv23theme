@@ -114,6 +114,15 @@ window['contextMenuOpts'] = {
             return [
                 layout_options(component, editor),
             ]
+        },
+        wrapper: function(component, editor){
+            return [
+                {
+                    type: 'button',
+                    label: 'SINGLE PAGE SETTINGS',
+                    command: 'select-single-page-settings'
+                }
+            ]
         }
     }
 };

@@ -83,6 +83,12 @@ class Reusable_Section extends Component{
         return 'dashicons dashicons-welcome-widgets-menus';
     }
 
+    public static function get_builder_data() {
+        return array(
+			'connected_gjs_type' => 'reusable-section'
+		);
+    }
+
     public static function get_fields() {
         $fields = array( 
             Field::create( 'select', 'reusable_section', __('Select', 'mv23theme') )

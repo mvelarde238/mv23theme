@@ -18,6 +18,12 @@ class Gallery extends Component {
         return 'dashicons-images-alt2';
     }
 
+    public static function get_builder_data() {
+        return array(
+            'block_render_type' => 'gallery'
+		);
+    }
+
     public static function get_title_template() {
 		$template = '<% if ( source == "manual" && gallery != "" || source == "wp-media" && wp_media_folder != 0 ){ %>
             <%= source %>

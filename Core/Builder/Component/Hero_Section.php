@@ -18,6 +18,12 @@ class Hero_Section extends Component {
         return 'dashicons-welcome-widgets-menus';
     }
 
+	public static function get_builder_data() {
+        return array(
+			'connected_gjs_type' => 'hero-section'
+		);
+    }
+
 	public static function get_fields() {
 		$fields = array(            
             Field::create( 'radio', 'template', __( 'Template', 'mv23theme' ) )

@@ -17,8 +17,11 @@ class Components_Wrapper extends Component {
         return 'dashicons-text';
     }
 
-	public static function get_block_category() {
-        return 'Structure';
+	public static function get_builder_data() {
+        return array(
+			'block_category' => 'Structure',
+			'connected_gjs_type' => 'comp-wrapper'
+		);
     }
 
 	public static function get_fields() {

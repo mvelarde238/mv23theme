@@ -18,6 +18,12 @@ class Map extends Component {
         return 'dashicons-location';
     }
 
+    public static function get_builder_data() {
+        return array(
+			'connected_gjs_type' => 'map2'
+		);
+    }
+
 	public static function get_fields() {
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme')),

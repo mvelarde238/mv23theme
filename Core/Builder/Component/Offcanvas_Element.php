@@ -23,6 +23,13 @@ class Offcanvas_Element extends Component {
         return 'dashicons-feedback';
     }
 
+	public static function get_builder_data() {
+        return array(
+			'connected_gjs_type' => 'oce-element',
+			'display_gjs_block' => false
+		);
+    }
+
 	public static function get_fields() {
 		$fields = array(
             Field::create('image_select', 'oce_type', __('Type','mv23theme') )->set_attr( 'class', 'image-select-3-cols' )->show_label()->add_options(array(

@@ -19,6 +19,12 @@ class Listing extends Component {
         return 'dashicons-screenoptions';
     }
 
+    public static function get_builder_data() {
+        return array(
+            'block_render_type' => 'listing'
+		);
+    }
+
     public static function get_listing_taxonomies() {
         $listing_taxonomies = LISTING_TAXONOMIES;
 

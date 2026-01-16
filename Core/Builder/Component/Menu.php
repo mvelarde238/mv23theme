@@ -19,6 +19,12 @@ class Menu extends Component {
         return 'dashicons-menu-alt2';
     }
 
+    public static function get_builder_data() {
+        return array(
+            'block_render_type' => 'menu'
+		);
+    }
+
     public static function get_menu_styles() {
         $menu_styles = apply_filters( 
             'theme_nav_styles', 

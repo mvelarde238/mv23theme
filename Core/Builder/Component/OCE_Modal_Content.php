@@ -19,6 +19,13 @@ class OCE_Modal_Content extends Component {
         return 'dashicons-text-page';
     }
 
+	public static function get_builder_data() {
+        return array(
+			'connected_gjs_type' => 'oce-modal-content',
+			'display_gjs_block' => false
+		);
+    }
+
 	public static function get_fields() {
 		$fields = array();
 

@@ -19,6 +19,13 @@ class Image extends Component {
         return 'dashicons-format-image';
     }
 
+    public static function get_builder_data() {
+        return array(
+			'connected_gjs_type' => 'image2',
+            'block_render_type' => 'figure'
+		);
+    }
+
 	public static function get_fields() {
 
 		$fields = array(

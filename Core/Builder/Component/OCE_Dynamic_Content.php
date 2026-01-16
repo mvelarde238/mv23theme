@@ -19,6 +19,13 @@ class OCE_Dynamic_Content extends Component {
         return 'dashicons-update';
     }
 
+	public static function get_builder_data() {
+        return array(
+			'connected_gjs_type' => 'oce-dynamic-content',
+			'display_gjs_block' => false
+		);
+    }
+
 	public static function get_fields() {
 		$fields = array(
 			Field::create( 'tab', 'general_tab', __('General') ),

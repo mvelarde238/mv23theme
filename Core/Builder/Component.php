@@ -48,8 +48,8 @@ abstract class Component {
 		$icon = static::get_icon();
 		if( !empty($icon) ) $component->set_icon( $icon );
 
-		$block_category = static::get_block_category();
-		if( !empty($block_category) ) $component->set_block_category( $block_category );
+		$builder_data = static::get_builder_data();
+		if( !empty($builder_data) ) $component->set_builder_data( $builder_data );
 
 		$edit_mode = static::get_edit_mode();
 		if( !empty($edit_mode) ) $component->set_edit_mode( $edit_mode );
@@ -104,10 +104,12 @@ abstract class Component {
 	}
 
 	/**
-	 * Returns the block category of the component.
+	 * Returns the builder data of the component.
+	 * 
+	 * @return array
 	 */
-	/* abstract */ public static function get_block_category() {
-		return 'Basic';
+	/* abstract */ public static function get_builder_data() {
+		return array();
 	}
 
 	/**

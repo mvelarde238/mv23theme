@@ -13,6 +13,12 @@ class Figure extends Component {
 		);
 	}
 
+	public static function get_builder_data() {
+        return array(
+            'display_gjs_block' => false
+		);
+    }
+
 	public static function get_fields() {
 		$fields = array();
 		return $fields;

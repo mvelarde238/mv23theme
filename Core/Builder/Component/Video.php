@@ -19,6 +19,12 @@ class Video extends Component {
         return 'dashicons-format-video';
     }
 
+    public static function get_builder_data() {
+        return array(
+			'connected_gjs_type' => 'video2'
+		);
+    }
+
 	public static function get_fields() {
         $control_css = 'width:50%;min-width:auto;flex-grow:initial;';
 

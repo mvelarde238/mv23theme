@@ -72,12 +72,14 @@ class Repeater_Group extends Group {
 	protected $view_template;
 
 	/**
-	 * Holds the category of the block for uf builder.
-	 *
+	 * Holds builder data 
+	 * 
+	 * block category, connected gjs type, block control, etc.
+ 	 *
 	 * @since 3.0
-	 * @var string
+	 * @var array
 	 */
-	protected $block_category;
+	protected $builder_data = array();
 
 	/**
 	 * Holds the ID of a container, whose fields will be loaded in the group, if any.
@@ -106,8 +108,8 @@ class Repeater_Group extends Group {
 			$this->view_template = $args[ 'view_template' ];
 		}
 
-		if( isset( $args[ 'block_category' ] ) ) {
-			$this->block_category = $args[ 'block_category' ];
+		if( isset( $args[ 'builder_data' ] ) ) {
+			$this->builder_data = $args[ 'builder_data' ];
 		}
 
 		# Parse normal arguments
@@ -142,8 +144,8 @@ class Repeater_Group extends Group {
 		$view_template = $this->view_template;
 		$settings[ 'view_template' ] = $view_template;
 
-		$block_category = $this->block_category;
-		$settings[ 'block_category' ] = $block_category;
+		$builder_data = $this->builder_data;
+		$settings[ 'builder_data' ] = $builder_data;
 
 		# Add basic settings
 		if( is_admin() && isset( $GLOBALS[ 'wp_customize' ] ) ) {
@@ -347,16 +349,16 @@ class Repeater_Group extends Group {
 		return $this->view_template;
 	}
 
-	public function set_block_category( $category ) {
-		if( ! is_null( $category ) ) {
-			$this->block_category = $category;
+	public function set_builder_data( $data ) {
+		if( is_array( $data ) ) {
+			$this->builder_data = $data;
 		}
 
 		return $this;
 	}
 
-	public function get_block_category() {
-		return $this->block_category;
+	public function get_builder_data() {
+		return $this->builder_data;
 	}
 
 	/**
@@ -478,7 +480,7 @@ class Repeater_Group extends Group {
 			'icon'             => array( 'icon', '' ),
 			'title_template'   => array( 'title_template', null ),
 			'view_template'    => array( 'view_template', null ),
-			'block_category'   => array( 'block_category', null ),
+			'builder_data'   => array( 'builder_data', null ),
 		));
 
 		return $settings;

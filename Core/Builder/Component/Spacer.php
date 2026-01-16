@@ -18,6 +18,12 @@ class Spacer extends Component {
         return 'dashicons-image-flip-vertical';
     }
 
+	public static function get_builder_data() {
+        return array(
+            'block_render_type' => 'spacer'
+		);
+    }
+
 	public static function get_fields() {
 		$fields = array();
 		return $fields;

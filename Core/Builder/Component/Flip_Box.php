@@ -17,6 +17,13 @@ class Flip_Box extends Component {
 	public static function get_icon() {
         return 'dashicons-image-flip-horizontal';
     }
+
+    public static function get_builder_data() {
+        return array(
+			'connected_gjs_type' => 'flipbox',
+            'display_gjs_block' => false
+		);
+    }
     
 	public static function get_fields() {
 		$fields = array( 

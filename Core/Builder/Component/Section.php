@@ -18,6 +18,12 @@ class Section extends Component {
         return 'dashicons-align-wide';
     }
 
+	public static function get_builder_data() {
+        return array(
+            'block_render_type' => 'section'
+		);
+    }
+
 	public static function get_fields() {
 		$fields = array();
 

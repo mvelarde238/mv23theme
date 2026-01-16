@@ -20,6 +20,13 @@ class Accordion extends Component {
         return 'dashicons-list-view';
     }
 
+    public static function get_builder_data() {
+        return array(
+			'connected_gjs_type' => 'togglebox-wrapper',
+            'display_gjs_block' => false
+		);
+    }
+
 	public static function get_fields() {
         $tab_styles_array = array();
         $tab_styles_quantity = 7;

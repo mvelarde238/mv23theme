@@ -9,7 +9,7 @@ CHANGELOG
 - Add gjs component type definition for components if not already defined 
 - gjsExtendEditor plugin implementation
 - mv23_migrator_after_process_component filter implementation
-- block_category implementation on uf groups
+- builder_data implementation on uf groups
 - Implement bootstrap and font awesome icons for components blocks
 - Fix canvas empty wrappers styles in dark mode
 - Add .component theme class to GrapesJS components definition to have a separation between them

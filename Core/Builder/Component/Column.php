@@ -17,6 +17,12 @@ class Column extends Component {
         return 'dashicons-columns';
     }
 
+	public static function get_builder_data() {
+        return array(
+            'display_gjs_block' => false
+		);
+    }
+
 	public static function get_fields() {
 		$fields = array();
 

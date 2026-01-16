@@ -16,6 +16,13 @@ class Accordion_Button extends Component {
 		);
 	}
 
+    public static function get_builder_data() {
+        return array(
+			'connected_gjs_type' => 'togglebox-button',
+            'display_gjs_block' => false
+		);
+    }
+
 	public static function get_fields() {
         $fields = array(
             Field::create( 'text', 'title' )

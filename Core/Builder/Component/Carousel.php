@@ -19,6 +19,13 @@ class Carousel extends Component {
         return 'dashicons-slides';
     }
 
+    public static function get_builder_data() {
+        return array(
+			'connected_gjs_type' => 'carousel-wrapper',
+            'display_gjs_block' => false
+		);
+    }
+
 	public static function get_fields() {
         $width_style = 'width: 25%; min-width: initial;';
 

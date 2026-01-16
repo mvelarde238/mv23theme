@@ -21,7 +21,6 @@
         initialize: function () {
             const that = this;
             const plugins = this.get_plugins();
-            const typesControl = this.get_types_control();
 
             // INIT THE BUILDER
             React_Builder.init( this.$el.find('#app')[0], {
@@ -32,34 +31,10 @@
                 initial_components_data: this.args.initial_components_data,
                 groups: this.args.groups,
                 // Map component types to groups datastore
-                typesControl: typesControl,
+                typesControl: {},
                 // Control the blocks that will be rendered
-                // pass render: false to disable
-                // pass type to use a different component type
-                blocksControl: {
-                    'flip_box': { render: false },
-                    'row': { render: false },
-                    'accordion': { render: false },
-                    'accordion_button': { render: false },
-                    'components_wrapper': { type: 'comp-wrapper' },
-                    'listing': { type: 'listing' },
-                    'gallery': { type: 'gallery' },
-                    'menu': { type: 'menu' },
-                    'reusable_section': { type: 'reusable-section' },
-                    'carousel': { render: false },
-                    'column': { render: false },
-                    'figure': { render: false },
-                    'image': { type: 'figure' },
-                    'video': { type: 'video2' },
-                    'map': { type: 'map2' },
-                    'spacer': { type: 'spacer' },
-                    'offcanvas_element': { render: false },
-                    'oce_modal_content': { render: false },
-                    'oce_dynamic_content': { render: false },
-                    'hero_section': { type: 'hero-section'},
-                    'page': { render: false }
-                },
-                // Temporarily store datastores and models for each component
+                blocksControl: {},
+                // Temporarily store datastores for each component
                 temporalCompStore: {},
                 builderInstance: that,
                 plugins: [...plugins, ...React_Builder_Plugins],
@@ -105,6 +80,13 @@
         },
         on_editor_load: function(editor) {
             const that = this;
+
+            // Set types control
+            const editorConfig = editor.getConfig();
+            editorConfig.typesControl = this.get_types_control(editor);
+
+            // Set blocks control
+            editorConfig.blocksControl = this.generate_blocks_control(editor);
 
             this.add_components_definition_and_blocks(editor);
             this.add_existing_content(editor);
@@ -172,38 +154,57 @@
 
             return plugins;
         },
-        get_types_control: function() {
-            const groups = this.args.groups,
-                componentTypes = {};
+        get_types_control: function(editor) {
+            const groups = this.args.groups;
+            let componentTypes = {};
 
             // Map each custom component with a group key 
             _.each(groups, function (group) {
-                componentTypes['comp_' + group.id] = { group: group.id };
+                let connected_type = 'comp_' + group.id;
+
+                const group_builder_data = group.builder_data || {};
+                if ( group_builder_data.connected_gjs_type ) {
+                    connected_type = group.builder_data.connected_gjs_type;
+                } else {
+                    editor.DomComponents.getTypes().forEach((compType) => {
+                        if (compType.id === group.id) {
+                            connected_type = group.id;
+                        }
+                    });
+                }
+                componentTypes[connected_type] = { group: group.id };
             });
 
-            componentTypes['flipbox'] = { group: 'flip_box' };
-            componentTypes['row-component'] = { group: 'row' };
-            componentTypes['column'] = { group: 'column' };
-            componentTypes['togglebox-wrapper'] = { group: 'accordion' };
-            componentTypes['togglebox-button'] = { group: 'accordion_button' };
-            componentTypes['carousel-wrapper'] = { group: 'carousel' };
-            componentTypes['comp-wrapper'] = { group: 'components_wrapper' };
-            componentTypes['listing'] = { group: 'listing' };
-            componentTypes['section'] = { group: 'section' };
-            componentTypes['image2'] = { group: 'image' };
-            componentTypes['video2'] = { group: 'video' };
-            componentTypes['map2'] = { group: 'map' };
-            componentTypes['gallery'] = { group: 'gallery' };
-            componentTypes['menu'] = { group: 'menu' };
-            componentTypes['reusable-section'] = { group: 'reusable_section' };
-            componentTypes['spacer'] = { group: 'spacer' };
-            componentTypes['oce-element'] = { group: 'offcanvas_element' };
-            componentTypes['oce-dynamic-content'] = { group: 'oce_dynamic_content' };
-            componentTypes['oce-modal-content'] = { group: 'oce_modal_content' };
-            componentTypes['hero-section'] = { group: 'hero_section' };
-            componentTypes['wrapper'] = { group: 'page' };
-
             return componentTypes;
+        },
+        generate_blocks_control: function(editor) {
+            const groups = this.args.groups;
+            const editorConfig = editor.getConfig();
+            const typesControl = editorConfig.typesControl || {};
+            console.log('typesControl', typesControl);
+            let blocksControl = {};
+
+            _.each(groups, function (group) {
+                const group_builder_data = group.builder_data || {};
+                
+                // Determine which component type will be rendered for this block
+                let connected_type = group_builder_data.block_render_type ?? 
+                    group_builder_data.connected_gjs_type ?? 
+                    'comp_' + group.id;
+
+                // Determine if block should be rendered
+                let renderBlock = true;
+                if ( group_builder_data.display_gjs_block === false ) {
+                    renderBlock = false;
+                }
+
+                blocksControl[group.id] = {
+                    type: connected_type,
+                    render: renderBlock
+                };
+            });
+
+            return blocksControl;
         },
         // Helper method to search component recursively
         findComponentById: function (data, id) {
@@ -264,6 +265,8 @@
                     blocksControl[group.id].type :
                     'comp_' + group.id;
 
+                console.log('Adding block for component:', group.id, gjs_component_type);
+
                 let icon_source = ''; 
                 if ( group.icon ) {
                     if ( group.icon.startsWith('dashicons') ) icon_source = 'dashicons';
@@ -271,9 +274,16 @@
                     if ( group.icon.startsWith('fa') ) icon_source = 'fa';
                 }
 
+                // Determine block category
+                let block_category = 'Basic';
+                const group_builder_data = group.builder_data || {};
+                if ( group_builder_data.block_category ) {
+                    block_category = group_builder_data.block_category;
+                }
+
                 editor.BlockManager.add(group.id, {
                     label: group.title,
-                    category: group.block_category || 'Basic',
+                    category: block_category,
                     media: group.icon ? `<i class="${icon_source} ${group.icon}"></i>` : '',
                     content: {
                         type: gjs_component_type
@@ -281,7 +291,7 @@
                 });
             });
         },
-        prepare_project_data: function (raw_project_data, temporalCompStore) {
+        prepare_project_data: function (raw_project_data, temporalCompStore, editor) {
             const components_data = [];
             const builder_data = JSON.parse(JSON.stringify(raw_project_data)); // Deep clone
 
@@ -302,7 +312,7 @@
                     builderComponent.__id = compId; // this is the connection between builder data and datastore
 
                     // datastore will store: component type, unique id, datastore and custom "selector attributes"
-                    const typesControl = this.get_types_control();
+                    const typesControl = this.get_types_control(editor);
                     const __type = (typesControl[component.type]) ? typesControl[component.type].group : component.type;
                     let componentDataStore = {
                         __type: __type,

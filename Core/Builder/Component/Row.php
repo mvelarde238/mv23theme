@@ -17,6 +17,13 @@ class Row extends Component {
         return 'dashicons-columns';
     }
 
+	public static function get_builder_data() {
+        return array(
+			'connected_gjs_type' => 'row-component',
+			'display_gjs_block' => false
+		);
+    }
+
 	public static function get_fields() {
 		$fields = array();
 
