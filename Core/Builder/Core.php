@@ -64,7 +64,10 @@ class Core{
             // 'Hero_Section',
             'Section',
             'Page',
-            'Single_Page_Settings'
+            'Single_Page_Structure',
+            // 'Single_Main',
+            'Single_Page_Header',
+            'Single_Sidebar'
         )
     );
 

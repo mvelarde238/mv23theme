@@ -29,6 +29,7 @@
                 showToolbar: false,
                 uf_field_model: this.args.uf_field_model,
                 initial_components_data: this.args.initial_components_data,
+                page_context: this.args.page_context,
                 groups: this.args.groups,
                 // Map component types to groups datastore
                 typesControl: {},
@@ -180,8 +181,6 @@
         generate_blocks_control: function(editor) {
             const groups = this.args.groups;
             const editorConfig = editor.getConfig();
-            const typesControl = editorConfig.typesControl || {};
-            console.log('typesControl', typesControl);
             let blocksControl = {};
 
             _.each(groups, function (group) {
@@ -228,6 +227,13 @@
         add_existing_content: function (editor) {
             if (!this.args.builder_data || !this.args.builder_data.pages) {
                 editor.setComponents({type: 'container'});
+
+                const editorConfig = editor.getConfig();
+                const page_context = editorConfig.page_context || {};
+                if( page_context.is_singular ){
+                    editor.Commands.run('select-single-page-structure');
+                }
+
             } else {
                 editor.loadProjectData(this.args.builder_data);
             }
@@ -264,8 +270,6 @@
                 const gjs_component_type = (blocksControl[group.id] && blocksControl[group.id].type) ?
                     blocksControl[group.id].type :
                     'comp_' + group.id;
-
-                console.log('Adding block for component:', group.id, gjs_component_type);
 
                 let icon_source = ''; 
                 if ( group.icon ) {

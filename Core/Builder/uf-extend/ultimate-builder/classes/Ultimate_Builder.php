@@ -70,7 +70,10 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsMap', 'handler' => 'gjs-map', 'isComponent' => true ],
 		[ 'name' => 'gjsOceComponents', 'handler' => 'gjs-oce-components', 'isComponent' => true ],
 		[ 'name' => 'gjsHeroSection', 'handler' => 'gjs-hero-section', 'isComponent' => true ],
-		[ 'name' => 'gjsSinglePageSettings', 'handler' => 'gjs-single-page-settings', 'isComponent' => true ],
+		[ 'name' => 'gjsSinglePageStructure', 'handler' => 'gjs-single-page-structure', 'isComponent' => true ],
+		[ 'name' => 'gjsSingleMain', 'handler' => 'gjs-single-main', 'isComponent' => true ],
+		[ 'name' => 'gjsSinglePageHeader', 'handler' => 'gjs-single-page-header', 'isComponent' => true ],
+		[ 'name' => 'gjsSingleSidebar', 'handler' => 'gjs-single-sidebar', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true, 'hasCss' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],

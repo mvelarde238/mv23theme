@@ -49,7 +49,24 @@ class Builder_Options{
                     ->set_options_callback( array( Core::class, 'get_post_types' ) )
                     ->set_orientation( 'horizontal' )
                     ->set_input_type( 'checkbox' )
-                    ->hide_label()
+                    ->hide_label(),
+
+                Field::create( 'tab', 'insert_single_structure_tab' )->set_label( __('Insert Single Structure','mv23theme') ),
+                Field::create( 'message', 'insert_single_structure_description' )
+                    ->set_description( __('Select the post types where you want to insert the single structure when creating a new post.','mv23theme') )
+                    ->hide_label(),
+                Field::create( 'multiselect', 'insert_single_structure_on', __( 'Insert Single Structure On', 'mv23theme' ) )
+                    ->set_options_callback( function() {
+                        $options = array();
+                        $builder_posttypes = get_option( 'builder_posttypes', array());
+                        foreach ( $builder_posttypes as $post_type ) {
+                            $options[ $post_type ] = get_post_type_object( $post_type )->labels->singular_name;
+                        }
+                        return $options;
+                    } )
+                    ->set_orientation( 'horizontal' )
+                    ->set_input_type( 'checkbox' )
+                    ->hide_label(),
             ));
     }
 }

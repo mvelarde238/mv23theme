@@ -107,6 +107,7 @@ class Field extends Repeater {
 			$this->name.'_theme_styles' => $this->get_styles(),
 			$this->name.'_theme_scripts' => $this->get_scripts(),
 			$this->name.'_gjs_plugins' => $this->get_gjs_plugins(),
+			$this->name.'_page_context' => $this->get_page_context(),
 		);
 	}
 
@@ -361,5 +362,30 @@ class Field extends Repeater {
 			$this->add_group( $__group_id, $group );
 		}
 		return $this;
+	}
+
+	/**
+	 * Get the context of the current page/post being edited on admin screen
+	 *
+	 * @since 1.0
+	 *
+	 * @return array
+	 */
+	private function get_page_context() {
+		$page_context = array();
+		global $post;
+		
+		$insert_single_structure = get_option( 'insert_single_structure_on', array() );
+		$is_singular = in_array( get_post_type( $post ), $insert_single_structure );
+
+		if ( $post ) {
+			$page_context['post_id'] = $post->ID;
+			$page_context['post_type'] = $post->post_type;
+			$page_context['post_status'] = $post->post_status;
+			$page_context['meta'] = $this->name;
+			$page_context['is_singular'] = $is_singular;
+		}
+
+		return $page_context;
 	}
 }

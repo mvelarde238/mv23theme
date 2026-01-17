@@ -5,12 +5,12 @@ use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Ultimate_Fields\Field;
 
-class Single_Page_Settings extends Component {
+class Single_Page_Structure extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'single_page_settings',
-			__( 'Single_Page_Settings', 'mv23theme' )
+			'single_page_structure',
+			__( 'Single_Page_Structure', 'mv23theme' )
 		);
 	}
 
@@ -28,4 +28,4 @@ class Single_Page_Settings extends Component {
 	}
 }
 
-new Single_Page_Settings();
+new Single_Page_Structure();

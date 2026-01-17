@@ -1,9 +1,14 @@
 <div class="page-module">
     <div class="component single-post__title-wrapper">
         <?php
-        $queried_object = get_queried_object();
-        $posttype = $queried_object->post_type;
-        $id = get_the_ID();
+        global $post;
+        $posttype = get_post_type($post);
+        $id = $post->ID;
+
+        // $queried_object = get_queried_object();
+        // $posttype = $queried_object->post_type;
+        // $id = get_the_ID();
+
         $category_name = ($posttype == 'post') ? 'category' : 'portfolio-cat';
         $categories = get_the_terms( $id, $category_name );
         
