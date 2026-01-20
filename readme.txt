@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+2.10.17 26-01-19
+- Add .menu-comp to nav menu widget
+
 2.10.16 26-01-06
 - Fix button class specificity using chain classes
 - Loops send 'post_template' argument

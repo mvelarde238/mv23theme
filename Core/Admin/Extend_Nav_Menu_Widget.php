@@ -37,7 +37,7 @@ class Extend_Nav_Menu_Widget extends WP_Nav_Menu_Widget {
         $nav_style = ( get_value( 'style', 'widget' ) != 'unordered-list' ) ? get_value( 'style', 'widget' ) : '';
         $orientation_nav_class = ( str_contains($nav_style,'horizontal') ) ? 'horizontal-nav' : 'vertical-nav';
 
-        echo '<div class="' . esc_attr($nav_style) . ' ' . esc_attr($orientation_nav_class) . '">';
+        echo '<div class="menu-comp ' . esc_attr($nav_style) . ' ' . esc_attr($orientation_nav_class) . '">';
 
         wp_nav_menu(array(
             'fallback_cb' => '',
