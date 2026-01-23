@@ -7,7 +7,6 @@ use Core\Theme_Options\Fields\Colors;
 use Core\Theme_Options\Fields\Typography;
 use Core\Theme_Options\Fields\Header;
 use Core\Theme_Options\Fields\Page_Container;
-use Core\Theme_Options\Fields\Single_Pages;
 
 class Main{
     public static function init(){
@@ -23,7 +22,6 @@ class Main{
             ->add_fields( Typography::get_fields() )
             ->add_fields( Header::get_fields('static') )
             ->add_fields( Header::get_fields('sticky') )
-            ->add_fields( Page_Container::get_fields() )
-            ->add_fields( Single_Pages::get_fields() );
+            ->add_fields( Page_Container::get_fields() );
     }
 }

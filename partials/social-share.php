@@ -1,4 +1,6 @@
 <?php
-echo '<div class="page-module social-share-wrapper">';
-echo do_shortcode('[social_share]');
+use Core\Builder\Component\Social_Share;
+
+echo '<div class="page-module">';
+echo Social_Share::display( array() );
 echo '</div>';

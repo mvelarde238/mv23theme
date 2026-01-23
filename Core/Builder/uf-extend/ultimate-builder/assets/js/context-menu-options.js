@@ -118,16 +118,6 @@ window['contextMenuOpts'] = {
         wrapper: function(component, editor){
             let actions = []
 
-            const editorConfig = editor.getConfig();
-            const page_context = editorConfig.page_context || {};
-            if( page_context.is_singular ){
-                actions.push({
-                    type: 'button',
-                    label: 'SINGLE PAGE SETTINGS',
-                    command: 'select-single-page-structure',
-                });
-            }
-
             return actions;
         }
     }

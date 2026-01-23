@@ -76,6 +76,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
     private function __construct(){
         $batch_size = 3;
         $do_the_update = true;
+        $delete_old_data = false;
         $title = 'Migrate 2.10.X to 3.0.0 ( Gjs Builder Implementation )';
         $slug = 'migrate_2_10_x_to_3_0_0';
         $is_top_level = true;
@@ -86,7 +87,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             'offcanvas_element_content'
         );
         
-        parent::__construct( $batch_size, $do_the_update, $title, $slug, $is_top_level, $meta_keys );
+        parent::__construct( $batch_size, $do_the_update, $title, $slug, $is_top_level, $meta_keys, $delete_old_data );
     }
 
     public function process_page_data_batch($batch_size, $offset) {
@@ -1857,5 +1858,34 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $created_comp = $this->process_component($data, $css_styles, $gjs_styles);
         $gjs_parent['components'][] = $created_comp['gjs_component'];
         $uf_parent['components'][] = $created_comp['uf_component'];
+    }
+
+    public function ajax_after_data_migration() {
+        
+        // Migrate single_pages_settings
+        $single_pages_settings = get_option( 'single_pages_settings', array() );
+        if( is_array( $single_pages_settings ) && count( $single_pages_settings ) > 0 ){
+            foreach ( $single_pages_settings as $old_settings ) {
+                $post_types = $old_settings['post_types'] ?? array();
+                foreach ( $post_types as $post_type ) {
+                    $new_settings = array(
+                        'page_template' => $old_settings['hide_sidebar'] ? 'main-content--sidebarless' : $old_settings['page_template'],
+                        'hide_post_title' => $old_settings['hide_post_title'] ?? 0,
+                        'hide_social_share' => $old_settings['hide_social_share'] ?? 0,
+                        'hide_related_posts' => $old_settings['hide_related_posts'] ?? 0
+                    );
+
+                    update_option( 'single_' . $post_type . '_settings', $new_settings );
+                }
+            }
+        }
+
+        if( $this->delete_old_data ){
+            delete_option( 'single_pages_settings' );
+        }
+
+        wp_send_json_success(array(
+            'complete' => true
+        ));
     }
 }

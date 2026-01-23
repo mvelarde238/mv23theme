@@ -65,9 +65,10 @@ class Core{
             'Section',
             'Page',
             'Single_Page_Structure',
-            // 'Single_Main',
-            'Single_Page_Header',
-            'Single_Sidebar'
+            'Post_Title',
+            'Sidebar',
+            'Social_Share',
+            'Related_Posts'
         )
     );
 
@@ -93,7 +94,7 @@ class Core{
 
     public function add_ultimate_builder_link( $actions, $post ) {
 		$post_type = get_post_type( $post );
-        $builder_posttypes = get_option('builder_posttypes');
+        $builder_posttypes = ( is_array(get_option('builder_posttypes')) ) ? get_option('builder_posttypes') : array();
 
 		if ( in_array( $post_type, $builder_posttypes ) || $post_type === 'offcanvas_element' ) {
 			$builder_url = add_query_arg( array(

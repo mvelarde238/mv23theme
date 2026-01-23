@@ -95,6 +95,24 @@ class Document {
         $document->populate_column($post_type_slug . '-data', array($this, 'populate_document_data_column'));
         $document->populate_column('file', array($this, 'populate_document_file_column'));
 
+        // filter to modify the related posts arguments
+        add_filter('filter_related_'.$post_type_slug.'_args', function($related_posts_args, $post_id){
+            global $post;
+            $related_posts_meta = get_post_meta($post->ID, 'related_posts', true);
+            if($related_posts_meta && is_array($related_posts_meta) && count($related_posts_meta) > 0) {
+                // Convert array of strings like "post_123" to array of integers like 123
+                $related_posts_ids = array_map(function($item) {
+                    return str_replace('post_', '', $item);
+                }, $related_posts_meta);
+            
+                $related_posts_args['show'] = 'manual';
+                $related_posts_args['posts'] = $related_posts_ids;
+                unset($related_posts_args['post__not_in']);
+            }
+
+            return $related_posts_args;
+        }, 10, 2);
+
         // Populate registered_posttypes to have a control
         self::$registered_posttypes[] = $post_type_slug;
 	}

@@ -1,5 +1,4 @@
 <?php
-use Core\Builder\Component\Listing;
 use Core\Posttype\Document;
 use Core\Frontend\Post_Card;
 use Core\Theme_Options\UF_Container\Posts_Subscription;
@@ -32,6 +31,7 @@ $download_file_url = Posts_Subscription::maybe_obfuscate_link( $subscribe_to_con
 
 $theme_options = Theme_Options::getInstance();
 $single_page = $theme_options->get_page_template_settings('single');
+$main_content_classes[] = $single_page['page_template'];
 ?>
 
 <div id="content">
@@ -127,49 +127,10 @@ $single_page = $theme_options->get_page_template_settings('single');
 
             <?php if(!$single_page['hide_social_share']) get_template_part('partials/social-share'); ?>
 
-            <?php if(!$single_page['hide_related_posts']) : ?>
-                <div class="single-document__related-posts">
-                    <?php
-                    $title = __('Related Documents', 'mv23theme');
-
-                    printf('<h4 class="single-document__related-posts-title">%s</h4>', $title);
-
-                    // filter the related documents arguments
-                    $related_docs_args = apply_filters('filter_related_'.$post->post_type.'_args', array(
-                        'show' => 'auto',
-                        'post__not_in' => array($post->ID),
-                        'qty' => 5,
-                        'items_in_desktop' => 3,
-                        'items_in_laptop' => 3,
-                        'items_in_tablet' => 3,
-                        'items_in_mobile' => 1,
-                        'd_gap' => 30,
-                        'l_gap' => 30,
-                        't_gap' => 30,
-                        'm_gap' => 15,
-                        'post_template' => 'document',
-                        'list_template' => 'carrusel',
-                        'show_controls' => 1,
-                        'posttype' => $post->post_type,
-                    ), $post->ID);
-
-                    $related_posts = get_post_meta($post->ID, 'related_posts', true);
-                    if($related_posts && is_array($related_posts) && count($related_posts) > 0) {
-                        // Convert array of strings like "post_123" to array of integers like 123
-                        $related_posts_ids = array_map(function($item) {
-                            return str_replace('post_', '', $item);
-                        }, $related_posts);
-
-                        $related_docs_args['show'] = 'manual';
-                        $related_docs_args['posts'] = $related_posts_ids;
-                        unset($related_docs_args['post__not_in']);
-                    }
-
-                    echo Listing::display($related_docs_args);
-                    ?>
-                </div>
-            <?php endif; ?>
+            <?php if(!$single_page['hide_related_posts']) get_template_part('partials/related-posts'); ?>
 		</main>
+
+        <?php if( $single_page['page_template'] !== 'main-content--sidebarless' ) get_sidebar(); ?>
 	</div>
 </div>
 

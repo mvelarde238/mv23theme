@@ -1,6 +1,9 @@
 .main-content
+	.main,
 	.sidebar
 		padding: $page-module-padding
+
+	.sidebar
 		width: var(--sidebar-width)
 
 	&--sidebar-left,
@@ -23,6 +26,8 @@
 		.sidebar
 			order: 0
 
+.page .main
+	padding: 0
 
 @media #{$medium-and-down}
 	.main-content

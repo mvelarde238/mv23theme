@@ -1,19 +1,21 @@
-window.gjsSinglePageHeader = function (editor, options) {
+window.gjsRelatedPosts = function (editor, options) {
     const domc = editor.DomComponents;
 
-    domc.addType('single_page_header', {
+    domc.addType('related_posts', {
         model: {
             defaults: {
-                name: 'Single Page Header',
+                name: 'Related Posts',
                 tagName: 'div',
-                classes: ['single-page-header', 'page-header'],
+                classes: ['component'],
                 droppable: false,
                 stylable: false,
                 removable: false,
                 copyable: false,
                 draggable: false,
                 badgable: false,
-                highlightable: false
+                highlightable: false,
+                selectable: false,
+                hoverable: false
             },
         },
         view: {
@@ -24,10 +26,11 @@ window.gjsSinglePageHeader = function (editor, options) {
                     const data = datastore.toJSON();
                     data['action'] = 'get_component_view';
 
-                    const editorConfig = editor.getConfig();
-                    const page_context = editorConfig.page_context || {};
-                    if( page_context.post_id ) {
-                        data['post_id'] = page_context.post_id;
+                    if( BUILDER_GLOBALS.post_id ) {
+                        data['post_id'] = BUILDER_GLOBALS.post_id;
+                    }
+                    if( BUILDER_GLOBALS.is_singular ) {
+                        el.classList.add('page-module');
                     }
 
                     jQuery.ajax({
@@ -39,7 +42,7 @@ window.gjsSinglePageHeader = function (editor, options) {
                             el.innerHTML = response.data;
                         },
                         error: function(xhr, status, error) {
-                            console.error(`Error loading single_page_header component view:`, error);
+                            console.error(`Error loading related_posts component view:`, error);
                         }
                     });
                 }

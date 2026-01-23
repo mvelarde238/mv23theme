@@ -29,7 +29,6 @@
                 showToolbar: false,
                 uf_field_model: this.args.uf_field_model,
                 initial_components_data: this.args.initial_components_data,
-                page_context: this.args.page_context,
                 groups: this.args.groups,
                 // Map component types to groups datastore
                 typesControl: {},
@@ -226,14 +225,7 @@
         // READ
         add_existing_content: function (editor) {
             if (!this.args.builder_data || !this.args.builder_data.pages) {
-                editor.setComponents({type: 'container'});
-
-                const editorConfig = editor.getConfig();
-                const page_context = editorConfig.page_context || {};
-                if( page_context.is_singular ){
-                    editor.Commands.run('select-single-page-structure');
-                }
-
+                editor.setComponents({type: 'container'});                
             } else {
                 editor.loadProjectData(this.args.builder_data);
             }

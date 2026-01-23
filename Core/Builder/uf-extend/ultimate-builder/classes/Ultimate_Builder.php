@@ -71,9 +71,10 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsOceComponents', 'handler' => 'gjs-oce-components', 'isComponent' => true ],
 		[ 'name' => 'gjsHeroSection', 'handler' => 'gjs-hero-section', 'isComponent' => true ],
 		[ 'name' => 'gjsSinglePageStructure', 'handler' => 'gjs-single-page-structure', 'isComponent' => true ],
-		[ 'name' => 'gjsSingleMain', 'handler' => 'gjs-single-main', 'isComponent' => true ],
-		[ 'name' => 'gjsSinglePageHeader', 'handler' => 'gjs-single-page-header', 'isComponent' => true ],
-		[ 'name' => 'gjsSingleSidebar', 'handler' => 'gjs-single-sidebar', 'isComponent' => true ],
+		[ 'name' => 'gjsPostTitle', 'handler' => 'gjs-post-title', 'isComponent' => true ],
+		[ 'name' => 'gjsSidebar', 'handler' => 'gjs-sidebar', 'isComponent' => true ],
+		[ 'name' => 'gjsSocialShare', 'handler' => 'gjs-social-share', 'isComponent' => true ],
+		[ 'name' => 'gjsRelatedPosts', 'handler' => 'gjs-related-posts', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true, 'hasCss' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],
@@ -163,14 +164,19 @@ class Ultimate_Builder {
 			$this->register_gjs_plugins();
 			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );
 
+			$posttype = get_post_type();
+			$insert_single_structure = get_option( 'insert_single_structure_on', array() );
+			$is_singular = in_array( $posttype, $insert_single_structure );
+
 			wp_localize_script( 'builder-app', 'BUILDER_GLOBALS', array(
-				'posttype' => get_post_type(),
+				'posttype' => $posttype,
 				'page_title' => get_the_title() ?: '',
 				'referer' => wp_get_referer(),
-				'admin_url' => admin_url( 'edit.php?post_type=' . get_post_type() ),
+				'admin_url' => admin_url( 'edit.php?post_type=' . $posttype ),
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce' => wp_create_nonce( 'ultimate_builder_preview' ),
 				'post_id' => get_the_ID(),
+				'is_singular' => $is_singular,
 			));
 
 			$this->filter_admin_body_class();

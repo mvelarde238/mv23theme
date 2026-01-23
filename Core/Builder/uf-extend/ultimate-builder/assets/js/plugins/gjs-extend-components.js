@@ -159,6 +159,21 @@ window.gjsExtendComponents = function (editor) {
             // ignore __tab-only changes because they don't affect data
             const changeHandler = _.debounce(function () {
                 try {
+                    const group_builder_data = builder_comp_model.get('builder_data') ?? {};
+
+                    // if custom_datastore_change_callback is set, skip default handling
+                    if( group_builder_data.custom_datastore_change_callback ){
+                        if( typeof component.view.custom_datastore_change_callback === 'function' ){
+                            component.view.custom_datastore_change_callback();
+                        }
+                        return;
+                    }
+
+                    // Avoid re-rendering if specified in builder_data
+                    if( group_builder_data.avoid_rerender ){
+                        return;
+                    }
+
                     const changed = builder_comp_model.datastore.changed || {};
                     const keys = Object.keys(changed);
                     if (keys.length === 1 && keys[0] === '__tab') return;

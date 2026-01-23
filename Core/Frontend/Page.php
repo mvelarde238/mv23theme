@@ -98,6 +98,12 @@ class Page{
 
 			// wrapper > components > container > components:
 			$container_components = $page_content[0]['components'][0]['components'] ?? [];
+
+			if( is_singular() && $container_components[0]['__type'] === 'single_page_structure' ){
+				// wrapper > components > container > components...
+				// ... > single_page_structure > single_main > [post_title, single_main_content, ...] > components:
+				$container_components = $container_components[0]['components'][0]['components'][1]['components'];
+			}
 				
 			if (is_array($container_components) && !empty($container_components)) :
 				foreach ($container_components as $component) :

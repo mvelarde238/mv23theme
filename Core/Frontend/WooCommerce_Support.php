@@ -2,6 +2,7 @@
 /**
  * WooCommerce Support
  */
+use Core\Builder\Component\Sidebar;
 
 namespace Core\Frontend;
 
@@ -25,22 +26,12 @@ class WooCommerce_Support{
         <div id="content">
             <div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
                 <main class="main">
-                    <div class="page-module">
-                        <div class="component">
     <?php
     }
 
     public function after_main_content(){ ?>
-                        </div>
-                    </div>
                 </main>
-                <?php if( is_archive() && is_active_sidebar('shop_sidebar') ): ?>
-                    <div class="sidebar">
-                        <div class="pinned-block">
-                            <?php dynamic_sidebar( 'shop_sidebar' ); ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
+                <?php echo Sidebar::display( array( 'sidebar_id' => 'shop_sidebar' ) ); ?>
             </div>
         </div>
         <?php

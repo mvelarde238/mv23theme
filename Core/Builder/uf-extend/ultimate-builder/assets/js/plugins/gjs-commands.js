@@ -185,19 +185,4 @@ window.gjsCommands = function (editor, options) {
     commands.add('open-datastore', (editor) => {
         editor.Commands.run('select-component-settings-tab');
     });
-
-    commands.add('select-single-page-structure', (editor) => {
-        const domc = editor.DomComponents;
-        const containerComp = domc.getComponents().find( comp => comp.is('container') );
-        const singlePageSettingsComp = containerComp.components().find( comp => comp.is('single_page_structure') );
-        if (singlePageSettingsComp) {
-            editor.select(singlePageSettingsComp);
-            editor.Commands.run('open-datastore');
-        } else {
-            // append one if not found
-            const newComp = containerComp.append({ type: 'single_page_structure' });
-            editor.select(newComp);
-            editor.Commands.run('open-datastore');
-        }
-    });
 }

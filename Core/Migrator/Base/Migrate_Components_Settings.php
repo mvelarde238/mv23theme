@@ -5,18 +5,20 @@ abstract class Migrate_Components_Settings{
 
     private $batch_size;
     protected $do_the_update;
+    protected $delete_old_data;
     private $title;
     private $slug;
     private $is_top_level;
     protected $meta_keys;
 
-    public function __construct( $batch_size = 3, $do_the_update = false, $title = '', $slug = '', $is_top_level = false, $meta_keys = null ) {
+    public function __construct( $batch_size = 3, $do_the_update = false, $title = '', $slug = '', $is_top_level = false, $meta_keys = null, $delete_old_data = false ) {
         $this->batch_size = $batch_size;
         $this->do_the_update = $do_the_update;
         $this->title = $title;
         $this->slug = $slug;
         $this->is_top_level = $is_top_level;
         $this->meta_keys = $meta_keys ?: $this->get_default_meta_keys();
+        $this->delete_old_data = $delete_old_data;
     }
 
     /**

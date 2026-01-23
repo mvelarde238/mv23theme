@@ -336,20 +336,17 @@ class Theme_Options extends Theme_Header_Data{
             )
         );
 
-        $page_template_settings = get_option('single_pages_settings');
-        foreach ($page_template_settings as $setting) {
-            if($setting['__type'] == $type){
-                if( $type == 'single' ){
-                    $queried_object = get_queried_object();
-                    $posttype = $queried_object->post_type;
-                    if( in_array($posttype, $setting['post_types']) ){
-                        $page_settings['single']['hide_sidebar'] = $setting['hide_sidebar'] ?? false;
-                        $page_settings['single']['hide_post_title'] = $setting['hide_post_title'] ?? false;
-                        $page_settings['single']['hide_social_share'] = $setting['hide_social_share'] ?? false;
-                        $page_settings['single']['page_template'] = $setting['page_template'];
-                        $page_settings['single']['hide_related_posts'] = $setting['hide_related_posts'] ?? false;
-                    }
-                }
+        if( $type == 'single' ){
+            $queried_object = get_queried_object();
+            $posttype = $queried_object->post_type;
+            $single_posttype_settings = get_option('single_'.$posttype.'_settings');
+
+            if( is_array($single_posttype_settings) ){
+                $page_settings['single']['hide_sidebar'] = $single_posttype_settings['hide_sidebar'] ?? 0;
+                $page_settings['single']['hide_post_title'] = $single_posttype_settings['hide_post_title'] ?? 0;
+                $page_settings['single']['hide_social_share'] = $single_posttype_settings['hide_social_share'] ?? 0;
+                $page_settings['single']['page_template'] = $single_posttype_settings['page_template'] ?? 'main-content--sidebar-right';
+                $page_settings['single']['hide_related_posts'] = $single_posttype_settings['hide_related_posts'] ?? 0;
             }
         }
 

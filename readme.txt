@@ -26,6 +26,7 @@ CHANGELOG
 - body_style action change to body_attributes action hook
 - Implement 'update-views' event on Image Select to update view externally on builder
 - Review Compound Figure>Image component
+- single_*_settings implementation
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------
