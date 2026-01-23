@@ -60,31 +60,28 @@ class Gallery extends Component {
 
         // Field::create( 'checkbox', 'autoinsert' )->set_text( '¿Autoinsertar las imágenes agregadas a la galerîa?' ); // the shortcode needs the attachments id's
 
+        $gallery_types = apply_filters('filter_gallery_types', array(
+            'default' => array(
+                'label' => 'default',
+                'image' => BUILDER_PATH.'/assets/images/galleries/default.png'
+            ),
+            'slider' => array(
+                'label' => 'slider',
+                'image' => BUILDER_PATH.'/assets/images/galleries/slider.png'
+            ),
+            'marquee' => array(
+                'label' => 'marquee',
+                'image' => BUILDER_PATH.'/assets/images/galleries/marquee.png'
+            ),
+            'masonry' => array(
+                'label' => 'masonry',
+                'image' => BUILDER_PATH.'/assets/images/galleries/masonry.png'
+            )
+        ));
+
         $fields[] = Field::create( 'image_select', 'display', __('Gallery type','mv23theme') )
-            ->show_label()
-            ->set_attr( 'class', 'image-select-2-cols' )
-            ->add_options(array(
-                'default' => array(
-                    'label' => 'default',
-                    'image' => BUILDER_PATH.'/assets/images/galleries/default.png'
-                ),
-                'slider' => array(
-                    'label' => 'slider',
-                    'image' => BUILDER_PATH.'/assets/images/galleries/slider.png'
-                ),
-                'marquee' => array(
-                    'label' => 'marquee',
-                    'image' => BUILDER_PATH.'/assets/images/galleries/marquee.png'
-                ),
-                'masonry' => array(
-                    'label' => 'masonry',
-                    'image' => BUILDER_PATH.'/assets/images/galleries/masonry.png'
-                )
-                // 'porfolio' => array(
-                //     'label' => 'portfolio',
-                //     'image' => BUILDER_PATH.'/assets/images/galleries/portfolio.png'
-                // ),
-            ));
+            ->show_label()->set_attr( 'class', 'image-select-2-cols' )->add_options(  $gallery_types );
+
         if( !MASONRY_IS_ACTIVE ){
             $fields[] = Field::create( 'message', 'masonry_message', __('Activate Masonry','mv23theme') )->set_description('You need to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')->add_dependency('display', 'masonry', '=')->set_attr( 'style', 'background:#ffe8e8;width:100%;' );
         }

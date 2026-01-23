@@ -79,7 +79,7 @@ function print_theme_gallery( $atts ) {
         }
 
         if( $a['display'] == 'slider' ){ ?>
-            <div class="theme-gallery carousel carousel-inside-component" data-controls-position="center" style="<?=implode(';',$carousel_styles)?>">
+            <div class="theme-gallery carousel carousel-inside-component theme-gallery--slider" data-controls-position="center" style="<?=implode(';',$carousel_styles)?>">
             <div class="carousel__slider" 
                 data-show-controls="1" 
                 data-show-nav="1" 
@@ -104,9 +104,12 @@ function print_theme_gallery( $atts ) {
         } else if ( $a['display'] == 'marquee' ) {
             echo '<div class="theme-gallery theme-gallery__marquee marquee" data-speed="'.$a['marquee_speed'].'" style="'.implode(';', $carousel_styles).'">';
             echo '<div class="marquee-track">';
+            
+        } else if ( $a['display'] == 'default' ) {
+            echo '<div class="theme-gallery has-columns theme-gallery--'.$a['display'].'" style="'.implode(';', $carousel_styles).'">';
 
         } else {
-            echo '<div class="theme-gallery has-columns" style="'.implode(';', $carousel_styles).'">';
+            echo '<div class="theme-gallery theme-gallery--'.$a['display'].'" style="'.implode(';', $carousel_styles).'">';
         }
 
         foreach ($attachments as $attachment_id) :
