@@ -101,13 +101,11 @@ class Icon_and_Text extends Component {
                 Field::create( 'number', 'fontsize', 'Tamaño')->set_default_value(40)->set_suffix('px')->set_width(25),
                 Field::create( 'color', 'color', 'Color del ícono')->set_width(25),
                 Field::create( 'checkbox', 'has_bgc','Activar fondo' )->fancy()
-                    ->add_dependency('../istyle',['circle-outline','square-outline'],'IN')
+                    ->add_dependency('../istyle',['circle','circle-outline','square-outline','square'],'IN')
                     ->set_width(25),
                 Field::create( 'color', 'bgcolor', 'Color de Fondo')
                     ->set_default_value( Theme_Options::getInstance()->get_property('primary_color') )
-                    ->add_dependency('../istyle','circle','=')
-                    ->add_dependency_group()
-                    ->add_dependency('../istyle',['circle-outline','square-outline'],'IN')
+                    ->add_dependency('../istyle',['circle','circle-outline','square-outline','square'],'IN')
                     ->add_dependency('has_bgc')
                     ->set_width(25),
             )),
