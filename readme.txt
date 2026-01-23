@@ -28,6 +28,7 @@ CHANGELOG
 - Review Compound Figure>Image component
 - single_*_settings implementation
 - before/after_posts_filter action hook
+- Fix wp link input width inside wysiwyg editor 
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------
