@@ -27,6 +27,7 @@ CHANGELOG
 - Implement 'update-views' event on Image Select to update view externally on builder
 - Review Compound Figure>Image component
 - single_*_settings implementation
+- before/after_posts_filter action hook
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------

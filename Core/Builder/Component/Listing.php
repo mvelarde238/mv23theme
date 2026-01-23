@@ -424,7 +424,9 @@ class Listing extends Component {
                 $default_year = $args['year-filter']['default'];
             }
             
+            do_action( 'before_posts_filter', $args );
             echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_year="'.$show_year.'" show_month="'.$show_month.'" default_year="'.$default_year.'" filter_taxonomies="'.implode(',',$filter_taxonomies).'" filter_default_terms="'.implode(',',$filter_default_terms).'"]');
+            do_action( 'after_posts_filter', $args );
         };
         
         if(WOOCOMMERCE_IS_ACTIVE && $posttype == 'product') echo do_shortcode('[shop_messages]');
