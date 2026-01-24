@@ -14,7 +14,8 @@ class Page extends Component {
 			__( 'Page', 'mv23theme' ),
             array(
 				'common_settings' => array(
-					'settings'
+					'settings',
+                    'scroll_animations_settings'
 				),
 			)
 		);

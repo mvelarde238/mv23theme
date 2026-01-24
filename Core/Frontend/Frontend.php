@@ -284,9 +284,25 @@ class Frontend extends Theme_Header_Data {
         if(!empty($styles)) $attributes[] = 'style="'.implode(' ', $styles).'"';
 
         if( SCROLL_ANIMATIONS ){
+            $animation_groups = array( 'groups' => array() );
+
+            // Get global scroll animations settings and merge with page specific if found
             $global_animations = get_option('global_animations');
-            if( !empty($global_animations) ){
-                $attributes[] = Scroll_Animations::get_attribute( $global_animations );
+            if( is_array($global_animations) && !empty($global_animations) ){
+                array_push($animation_groups['groups'], ...$global_animations['groups']);
+            }
+
+            // Look for scroll animations settings in the page component and merge with global if found
+            if( is_array($page_content_components) && !empty($page_content_components) && isset($page_content_components[0]) ) {
+                $page_component = $page_content_components[0];
+                $page_animations = $page_component['scroll_animations_settings'] ?? null;
+                if( is_array($page_animations) && !empty($page_animations) ){
+                    array_push($animation_groups['groups'], ...$page_animations['groups']);
+                }
+            }
+
+            if( !empty($animation_groups) ){
+                $attributes[] = Scroll_Animations::get_attribute( $animation_groups );
             } 
         }
 

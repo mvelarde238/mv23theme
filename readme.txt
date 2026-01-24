@@ -29,6 +29,7 @@ CHANGELOG
 - single_*_settings implementation
 - before/after_posts_filter action hook
 - Fix wp link input width inside wysiwyg editor 
+- Add scroll animations settings to Page Component
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------
