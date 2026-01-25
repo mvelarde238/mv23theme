@@ -56,6 +56,8 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsExtendComponents', 'handler' => 'gjs-extend-components', 'isComponent' => false ],
 		[ 'name' => 'handleCommonSettings', 'handler' => 'handle-common-settings', 'isComponent' => false ],
 		[ 'name' => 'gjsDynamicData', 'handler' => 'gjs-dynamic-data', 'isComponent' => false ],
+		// Shared resources (must load before components that use it)
+		[ 'name' => 'gjsSharedTemplates', 'handler' => 'gjs-shared-templates', 'isComponent' => false ],
 		// components
 		[ 'name' => 'gjsBase', 'handler' => 'gjs-base', 'isComponent' => true ],
 		[ 'name' => 'gjsWrapper', 'handler' => 'gjs-wrapper', 'isComponent' => true ],
