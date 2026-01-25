@@ -60,7 +60,7 @@ class Items_Grid extends Component {
 	public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
         
-        $args['additional_classes'] = array('items-grid');
+        $args['additional_classes'][] = 'items-grid';
 
         $items = $args['items'];
         $nth_items = count($items);
@@ -79,7 +79,7 @@ class Items_Grid extends Component {
         echo '<div class="items-grid__list l'.$items_in_desktop.' m'.$items_in_tablet.' s'.$items_in_mobile.'">';
 		foreach ($items as $item_args): 
 			$item_args['__type'] = 'grid__item'; 
-            $item_args['additional_classes'] = array('items-grid__list-item');
+            $item_args['additional_classes'][] = 'items-grid__list-item';
             
             echo Template_Engine::component_wrapper('start', $item_args);
             foreach ($item_args['components'] as $component_inside) {

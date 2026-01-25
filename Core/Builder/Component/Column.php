@@ -33,7 +33,7 @@ class Column extends Component {
 		if( Template_Engine::is_private( $args ) ) return;
 		
 		$args['__type'] = array('column');
-		$args['additional_classes'] = array('column');
+		$args['additional_classes'][] = 'column';
 
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);

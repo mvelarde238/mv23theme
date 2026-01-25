@@ -31,6 +31,7 @@ CHANGELOG
 - Fix wp link input width inside wysiwyg editor 
 - Add scroll animations settings to Page Component
 - Normalize Icon_and_Text Component
+- Allow additional_classes argument to be extended outside all Compnents
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------

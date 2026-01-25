@@ -75,7 +75,7 @@ class Accordion extends Component {
 	public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
         
-		$args['additional_classes'] = array('component');
+		$args['additional_classes'][] = 'component';
 
         // classes for the togglebox
         $togglebox_classes = array('v23-togglebox');

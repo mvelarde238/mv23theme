@@ -54,7 +54,7 @@ class Map extends Component {
         if($provider == 'google' && !GM_IS_ACTIVE) return; 
         if($provider == 'leaflet' && !LEAFLET_IS_ACTIVE) return; 
         
-		$args['additional_classes'] = array('component');
+		$args['additional_classes'][] = 'component';
 
         $info_window_content = (isset($args['info_window_content'])) ? $args['info_window_content'] : '';
         $lat = $location['latLng']['lat'];

@@ -245,7 +245,7 @@ class Gallery extends Component {
             return '';
         }
 
-		$args['additional_classes'] = array('component');
+		$args['additional_classes'][] = 'component';
         $args['__type'] = 'theme-gallery-comp';
 
         $hide_gallery = $args['use_id']['hide_gallery'] ?? false;

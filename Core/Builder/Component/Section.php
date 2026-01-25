@@ -33,7 +33,7 @@ class Section extends Component {
 	public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
 
-		$args['additional_classes'] = array('page-module');
+		$args['additional_classes'][] = 'page-module';
         
 	    $components = $args['components'] ?? array();
         $attributes = Template_Engine::generate_attributes( $args );

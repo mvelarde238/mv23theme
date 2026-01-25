@@ -32,7 +32,7 @@ class Code extends Component {
 	public static function display( $args ){
 		if( Template_Engine::is_private( $args ) ) return;
 		
-		$args['additional_classes'] = array('component');
+		$args['additional_classes'][] = 'component';
 		$content = $args['content'];
         
 		ob_start();

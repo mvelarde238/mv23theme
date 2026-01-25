@@ -34,7 +34,8 @@ class Row extends Component {
 		if( Template_Engine::is_private( $args ) ) return;
 		
 		$args['__type'] = array('row-component');
-		$args['additional_classes'] = array('row-component', 'component');
+		$args['additional_classes'][] = 'row-component';
+		$args['additional_classes'][] = 'component';
 
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
