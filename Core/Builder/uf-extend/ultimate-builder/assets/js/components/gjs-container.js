@@ -117,7 +117,15 @@ window.gjsContainer = function (editor) {
                 
                 if (template && template.components) {
                     // Append new components at the end
-                    this.model.append(template.components);
+                    const addedComponents = this.model.append(template.components);
+                    
+                    // Execute the original template callback if defined
+                    // We need to get the original template to access its callback
+                    const originalTemplate = window.gjsSharedResources.templates[templateKey];
+                    if (originalTemplate && originalTemplate.onInsert && addedComponents && addedComponents.length > 0) {
+                        const sectionComponent = addedComponents[0];
+                        originalTemplate.onInsert(this.em, sectionComponent);
+                    }
                     
                     // Quick-add will be automatically repositioned by ensureQuickAddAtEnd listener
                 }

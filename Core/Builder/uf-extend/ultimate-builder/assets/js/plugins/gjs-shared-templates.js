@@ -50,22 +50,30 @@ window.gjsSharedResources = {
             visual: '<div class="template-visual-container"><div class="template-visual-col"></div><div class="template-visual-col template-visual-col-2"></div></div>',
             components: [{
                 type: 'row-component',
+                style : { gap: '1%', ['flex-wrap']: 'nowrap' },
                 components: [
                     { type: 'column', style: { width: '33%' } },
                     { type: 'column', style: { width: '66%' } }
                 ]
-            }]
+            }],
+            onInsert: function(editor, sectionComponent) {
+                window.gjsSharedResources.applyResponsiveToRow(editor, sectionComponent);
+            }
         },
         '2-3_1-3': {
             label: '2/3 - 1/3',
             visual: '<div class="template-visual-container"><div class="template-visual-col template-visual-col-2"></div><div class="template-visual-col"></div></div>',
             components: [{
                 type: 'row-component',
+                style : { gap: '1%', ['flex-wrap']: 'nowrap' },
                 components: [
                     { type: 'column', style: { width: '66%' } },
                     { type: 'column', style: { width: '33%' } }
                 ]
-            }]
+            }],
+            onInsert: function(editor, sectionComponent) {
+                window.gjsSharedResources.applyResponsiveToRow(editor, sectionComponent);
+            }
         },
         'empty': {
             label: 'Empty Section',
@@ -97,5 +105,37 @@ window.gjsSharedResources = {
             </div>
             <span class="quick-add-btn-label">${template.label}</span>
         `;
+    },
+
+    /**
+     * Apply responsive styles to row and columns for mobile
+     * Helper function to avoid code duplication in template callbacks
+     * @param {Object} editor - GrapesJS editor instance
+     * @param {Object} sectionComponent - Section component model
+     * @param {string} widthMedia - Media query breakpoint (default: '768px')
+     */
+    applyResponsiveToRow: function(editor, sectionComponent, widthMedia) {
+        widthMedia = widthMedia || '768px';
+        const rowComponent = sectionComponent.components().at(0);
+        
+        if (rowComponent) {
+            const css = editor.Css;
+            const rowId = rowComponent.getId();
+            
+            // Apply flex-wrap: wrap to row in mobile
+            css.setRule(`#${rowId}`, { 'flex-wrap': 'wrap' }, {
+                atRuleType: 'media',
+                atRuleParams: `(max-width: ${widthMedia})`
+            });
+            
+            // Apply width: 100% to all columns in mobile
+            rowComponent.components().forEach(column => {
+                const columnId = column.getId();
+                css.setRule(`#${columnId}`, { width: '100%' }, {
+                    atRuleType: 'media',
+                    atRuleParams: `(max-width: ${widthMedia})`
+                });
+            });
+        }
     }
 };

@@ -125,6 +125,11 @@ window.gjsSection = function(editor) {
                     // Add the template components to the section (if any)
                     if (template.components && template.components.length > 0) {
                         this.model.components(template.components);
+                        
+                        // Execute template callback if defined
+                        if (template.onInsert) {
+                            template.onInsert(this.em, this.model);
+                        }
                     }
                     
                     // Remove the template selector UI immediately
