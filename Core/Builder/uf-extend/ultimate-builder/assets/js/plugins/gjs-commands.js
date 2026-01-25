@@ -185,4 +185,41 @@ window.gjsCommands = function (editor, options) {
     commands.add('open-datastore', (editor) => {
         editor.Commands.run('select-component-settings-tab');
     });
+
+    // Icon and Text specific commands
+    commands.add('update-icon-property', (editor, sender, options = {}) => {
+        let component = options.component,
+            value = options.value,
+            property = options.property;
+
+        if(component.getType() === 'icon-and-text'){
+            const iconCmp = component.findType('comp_icon')[0];
+
+            // Update the specific property
+            const plainProperties = ['--icon-size','background-color','padding','border-radius','border-color','color'];
+            if(plainProperties.includes(property)){
+                const addUnitProperties = ['--icon-size','padding','border-radius'];
+                if(addUnitProperties.includes(property)){
+                    value = value + 'px';
+                }
+
+                iconCmp.addStyle({
+                    [property]: value
+                });
+            }
+
+            if(property === 'border-width'){
+                iconCmp.addStyle({
+                    'border-style': 'solid',
+                    'border-width': value + 'px'
+                });
+            }
+
+            if(property === 'gap'){
+                component.addStyle({
+                    'gap': value + 'px'
+                });
+            }
+        }
+    });
 }

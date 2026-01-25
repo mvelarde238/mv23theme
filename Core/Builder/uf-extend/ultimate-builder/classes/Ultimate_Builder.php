@@ -75,6 +75,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsSidebar', 'handler' => 'gjs-sidebar', 'isComponent' => true ],
 		[ 'name' => 'gjsSocialShare', 'handler' => 'gjs-social-share', 'isComponent' => true ],
 		[ 'name' => 'gjsRelatedPosts', 'handler' => 'gjs-related-posts', 'isComponent' => true ],
+		[ 'name' => 'gjsIconAndText', 'handler' => 'gjs-icon-and-text', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true, 'hasCss' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],

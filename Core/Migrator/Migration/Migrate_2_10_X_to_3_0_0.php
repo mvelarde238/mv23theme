@@ -50,7 +50,8 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         'menu' => 'menu',
         'reusable_section' => 'reusable-section',
         'spacer' => 'spacer',
-        'page' => 'wrapper'
+        'page' => 'wrapper',
+        'icon_and_text' => 'icon-and-text',
     );
 
     private $private_classes = array(
@@ -1748,17 +1749,128 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
     }
 
     private function process_icon_and_text_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
-        $uf_component['icon_style'] = array(
-            'fontsize' => $component['ifontsize'],
-            'color' => $component['icolor'],
-            'has_bgc' => $component['ihas_bgc'],
-            'bgcolor' => $component['ibgc']
+        // RENAME AND MAP OLD PROPERTIES
+        $uf_component['__type'] = 'icon-and-text';
+        $alignment = ( $uf_component['iposition'] == 'top' ) ? $uf_component['itopalign'] : $uf_component['ialign'];
+        $alignment_dictionary = array(
+            'left' => 'flex-start',
+            'center' => 'center',
+            'right' => 'flex-end',
+            'flex-start' => 'flex-start',
+            'flex-end' => 'flex-end',
+            'center' => 'center'
+        );
+        $uf_component['ialignment'] = $alignment_dictionary[$alignment];
+        $uf_component['isource'] = ( $uf_component['ielement'] == 'imagen' ) ? 'image' : 'icon';
+        if( isset($uf_component['horizontal_alignment']) && $uf_component['horizontal_alignment'] ){
+            $uf_component['content_alignment'] = 'center';
+        }
+
+        // ULTIMATE FIELDS COMPONENT STRUCTURE
+        $content__id = 'cmp_' . substr(md5(uniqid()), 0, 8);
+        $id = $this->generate_id($component);
+
+        $uf_component['components'] = array(
+            array(
+                '__type' => 'icon-wrapper',
+                '__id' => 'cmp_' . substr(md5(uniqid()), 0, 8),
+                'components' => array(
+                    array(
+                        '__type' => 'icon',
+                        '__id' => 'cmp_' . substr(md5(uniqid()), 0, 8),
+                        '__gjsAttributes' => array( 'id' => $id ),
+                    )
+                )
+            ),
+            array(
+                '__type' => 'components_wrapper',
+                '__id' => 'cmp_' . substr(md5(uniqid()), 0, 8),
+                'components' => array(
+                    array(
+                        '__type' => 'text_editor',
+                        'content' => $uf_component['content'],
+                        '__id' => $content__id,
+                    )
+                )
+            )
         );
 
-        $uf_component['hide_icon_on_mobile'] = $component['hide-icon-on-mobile'] ?? 0;
-        
+        // GRAPEJS COMPONENT STRUCTURE
+        $gjs_component['components'] = array(
+            array(
+                'type' => 'icon-wrapper',
+                'components' => array(
+                    array(
+                        'type' => 'comp_icon',
+                        'attributes' => array( 'id' => $id )
+                    )
+                )
+            ),
+            array(
+                'type' => 'comp-wrapper',
+                'components' => array(
+                    array(
+                        'type' => 'comp_text_editor',
+                        '__id' => $content__id,
+                    )
+                )
+            )
+        );
+
+        // ADD ICON STYLES
+        $css_styles .= "#{$id} { ";
+        $gjs_style = array(
+            'selectors' => array( '#' . $id ),
+            'style' => array()
+        );
+
+        if( isset( $component['ifontsize'] ) && $component['ifontsize'] != '' && $component['ifontsize'] != 40 ){
+            $css_styles .= "--icon-size: {$component['ifontsize']}px; ";
+            $gjs_style['style']['--icon-size'] = $component['ifontsize'] . 'px';
+        }
+        if( isset( $component['icolor'] ) ){
+            $color = ( $component['icolor'] != '' ) ? $component['icolor'] : '';
+            $css_styles .= "color: {$color}; ";
+            $gjs_style['style']['color'] = $color;
+        }
+
+        if( $uf_component['istyle'] != 'default' ){
+            // if( isset( $component['ihas_bgc'] ) && $component['ihas_bgc'] ){
+                $bgc = ( isset( $component['ibgc'] ) && $component['ibgc'] != '' ) ? $component['ibgc'] : 'var(--primary-color)';
+                $css_styles .= "background-color: {$bgc}; ";
+                $gjs_style['style']['background-color'] = $bgc;
+            // }
+
+            $css_styles .= "padding: 20px; border-radius: 50%; ";
+            $gjs_style['style']['padding'] = '20px';
+
+            $borderRadius = ( $uf_component['istyle'] == 'square-outline' ) ? '8px' : '50%';
+            $gjs_style['style']['border-radius'] = $borderRadius;
+        }
+
+        $use_border = ['circle-outline', 'square-outline'];
+        if( in_array( $uf_component['istyle'], $use_border ) ){
+            $css_styles .= "border-width: 2px; border-style: solid; ";
+            $gjs_style['style']['border-width'] = '2px';;
+            $gjs_style['style']['border-style'] = 'solid';
+        }
+
+        $css_styles .= "}";
+        $gjs_styles[] = $gjs_style;
+
+        // UNSET OLD PROPERTIES
         unset( $uf_component['_icon_styles_wrapper'] );
         unset( $uf_component['hide-icon-on-mobile'] );
+        unset( $uf_component['itopalign'] );
+        unset( $uf_component['ialign'] );
+        unset( $uf_component['ielement'] );
+        unset( $uf_component['content'] );
+        
+        unset( $uf_component['istyle'] );
+        unset( $uf_component['ifontsize'] );
+        unset( $uf_component['icolor'] );
+        unset( $uf_component['ihas_bgc'] );
+        unset( $uf_component['ibgc'] );
     }
 
     private function handle_settings( &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){

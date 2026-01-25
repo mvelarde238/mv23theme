@@ -5,7 +5,7 @@ window.gjsExtendEditor = function (editor) {
         const componentId = component.attributes.__tempID,
             editorConfig = editor.getConfig(),
             temporalCompStore = editorConfig.temporalCompStore || {};
-        return temporalCompStore[componentId].datastore || null;
+        return temporalCompStore[componentId]?.datastore || null;
     }
 
     editor.getBuilderCompModel = function(component) {

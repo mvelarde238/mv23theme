@@ -119,6 +119,103 @@ window['contextMenuOpts'] = {
             let actions = []
 
             return actions;
+        },
+        ['icon-and-text']: function(component, editor){
+            const iconComponent = component.findType('comp_icon')[0];
+
+            const getIconSize = ()=>{
+                let value = parseInt(iconComponent.getStyle('--icon-size')) || 40;
+                return value;
+            };
+
+            return [
+                { 
+                    type: 'options',
+                    gap: 30,
+                    options: [
+                        {
+                            type: 'options',
+                            class: 'column',
+                            options: [
+                                { 
+                                    type: 'range', title: 'ICON SIZE', command: 'update-icon-property', 
+                                    value:getIconSize, min:15, max:200, args: { property:'--icon-size' }
+                                },
+                                {
+                                    type: 'options', title: 'BACKGROUND & COLOR',
+                                    options: [
+                                        {
+                                            type:'color', command:'update-icon-property', args: { property:'background-color' },
+                                            value: ()=>{ 
+                                                const backgroundColor = iconComponent.getStyle('background-color') || '';
+                                                return backgroundColor; 
+                                            }, 
+                                        },
+                                        { 
+                                            type:'color', command:'update-icon-property', args: { property:'color' },
+                                            value: ()=>{
+                                                const color = iconComponent.getStyle('color') || '#000000';
+                                                return color; 
+                                            }, 
+                                        },
+                                    ],
+                                },
+                                { 
+                                    type: 'range', title: 'SPACE AROUND ICON', command: 'update-icon-property', 
+                                    min:0, max:100, args: { property:'padding' },
+                                    value: ()=>{
+                                        const padding = parseInt(iconComponent.getStyle('padding')) || 0;
+                                        return padding;
+                                    }, 
+                                },
+                            ]
+                        },
+                        {
+                            type: 'options',
+                            class: 'column',
+                            options: [
+                                { 
+                                    type: 'range', title: 'ROUNDED CORNERS', command: 'update-icon-property', 
+                                    min:0, max:100, args: { property:'border-radius' },
+                                    value: ()=>{
+                                        const radius = parseInt(iconComponent.getStyle('border-radius')) || 0;
+                                        return radius;
+                                    }, 
+                                },
+                                {
+                                    type: 'options', title: 'BORDER SIZE & COLOR',
+                                    options: [
+                                        { 
+                                            type: 'range', command: 'update-icon-property', 
+                                            min:0, max:50, args: { property:'border-width' },
+                                            value: ()=>{
+                                                const borderWidth = parseInt(iconComponent.getStyle('border-width')) || 0;
+                                                return borderWidth;
+                                            }, 
+                                        },
+                                        { 
+                                            type:'color', command:'update-icon-property', args: { property:'border-color' },
+                                            value: ()=>{
+                                                const color = iconComponent.getStyle('border-color') || '#000000';
+                                                return color; 
+                                            }, 
+                                        },
+                                    ]
+                                },
+                                {
+                                    type: 'range', title: 'GAP', command: 'update-icon-property', 
+                                    min:0, max:100, args: { property:'gap' }, titleTooltip: 'Space between Icon and Text',
+                                    value: ()=>{
+                                        const gap = parseInt(component.getStyle('gap')) || 20;
+                                        return gap;
+                                    },
+                                },
+                                // { type: 'button', label: 'SELECT ICON', command: 'query-selector', args: { selector: '.icon-cmp' } }
+                            ]
+                        }
+                    ] 
+                },
+            ];   
         }
     }
 };

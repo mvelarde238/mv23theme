@@ -1,28 +1,25 @@
 .icon-and-text
+	display: flex
+	gap: 20px
 	.icon-wrapper
+		display: inline-flex
+		height: 100%
+	.icon-cmp
+		--icon-size: 40px
 		line-height: 0
-		span
-			display: inline-flex
-		img
+		i
+			font-size: var(--icon-size)
+		img, svg
 			max-width: fit-content
+			height: var(--icon-size)
 	.content-wrapper
 		width: 100%
 
 .icon-and-text.icon--top
-	display: flex
 	flex-direction: column
-	.icon-wrapper
-		padding-bottom: 10px
-
-.icon-and-text.icon--left
-	display: flex
-	.icon-wrapper
-		padding-right: 20px
 
 .icon-and-text.icon--right
-	display: flex
 	.icon-wrapper
-		padding-left: 20px
 		order: 2
 	.content-wrapper
 		order: 1
