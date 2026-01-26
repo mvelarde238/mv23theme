@@ -49,6 +49,7 @@ class Core{
         ),
         'theme' => array(),
         'wrappers' => array(
+            'Row',
             'Inner_Wrapper',
             'Flip_Box',
             'Carousel',
@@ -57,7 +58,6 @@ class Core{
             'Accordion',
             'Components_Wrapper',
             'Inner_Row',
-            'Row',
             'OCE_Modal_Content',
             'OCE_Dynamic_Content',
             'Offcanvas_Element',

@@ -9,18 +9,18 @@ class Row extends Component {
     public function __construct() {
 		parent::__construct(
 			'row',
-			__( 'Row', 'mv23theme' )
+			__( 'Columns', 'mv23theme' )
 		);
 	}
 
 	public static function get_icon() {
-        return 'dashicons-columns';
+        return 'bi-layout-three-columns';
     }
 
 	public static function get_builder_data() {
         return array(
 			'connected_gjs_type' => 'row-component',
-			'display_gjs_block' => false
+			'block_category' => 'Structure'
 		);
     }
 
