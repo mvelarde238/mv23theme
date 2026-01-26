@@ -3534,7 +3534,7 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 1000;
+  z-index: 9999;
   background: white;
   border: 1px solid #ccc;
   display: none;
