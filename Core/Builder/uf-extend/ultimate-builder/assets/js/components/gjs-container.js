@@ -36,17 +36,17 @@ window.gjsContainer = function (editor) {
         view: {
             init() {
                 // Listen to component changes to maintain quick-add at the end
-                this.listenTo(this.model.components(), 'add remove reset', this.ensureQuickAddAtEnd);
+                // this.listenTo(this.model.components(), 'add remove reset', this.ensureQuickAddAtEnd);
                 
                 // Listen to undo/redo to maintain quick-add position
-                this.listenTo(this.em, 'undo redo', () => {
-                    setTimeout(() => this.ensureQuickAddAtEnd(), 0);
-                });
+                // this.listenTo(this.em, 'undo redo', () => {
+                //     setTimeout(() => this.ensureQuickAddAtEnd(), 0);
+                // });
             },
 
             onRender({ el, model }) {
                 // Ensure quick-add is always at the end on render
-                this.ensureQuickAddAtEnd();
+                // this.ensureQuickAddAtEnd();
             },
 
             ensureQuickAddAtEnd() {
