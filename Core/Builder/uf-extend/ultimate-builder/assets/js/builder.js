@@ -91,10 +91,12 @@
             this.add_components_definition_and_blocks(editor);
             this.add_existing_content(editor);
             editor.trigger('builder:loaded');
-
+            
             // Add theme styles and scripts after a short delay to ensure canvas is ready
             setTimeout( function() {
+                editor.runCommand('show-preloader', { text: 'Editor loaded' });
                 that.add_theme_styles_and_scripts(editor);
+                editor.runCommand('hide-preloader');    
             }, 500 );
 
             // display warning before leaving the page with unsaved changes

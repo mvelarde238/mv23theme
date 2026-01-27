@@ -33,6 +33,7 @@ CHANGELOG
 - Normalize Icon_and_Text Component
 - Allow additional_classes argument to be extended outside all Compnents
 - Template Selector implementation on gjs-section and gjs-container
+- Preloader Implementation
 
 3.0.0 26-01-03
 -----------------------------------------------------------------------------------------------------

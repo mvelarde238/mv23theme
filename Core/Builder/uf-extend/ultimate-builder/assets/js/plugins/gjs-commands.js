@@ -3,6 +3,7 @@ window.gjsCommands = function (editor, options) {
     const commands = editor.Commands;
 
     commands.add('builder:save-editor', (editor, sender, options) => {
+        editor.runCommand('show-preloader', { text: 'Saving changes...' });
         editor.trigger('builder:before-save-editor');
 
         // get the button and set it to loading state
