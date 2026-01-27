@@ -56,9 +56,9 @@
 
             if( $action === 'edit' ){
                 // add the builder button
-                var $wrapper = jQuery('<p></p>');
-                var $button = jQuery('<button type="button" class="button button-secondary uf-open-builder">Open Builder Interface</button>');
-                $wrapper.append($button);
+                var $wrapper = jQuery('<div class="uf-open-builder-wrapper"><p></p></div>');
+                var $button = jQuery('<button type="button" class="button button-primary uf-open-builder"><i class="dashicons dashicons-table-col-before"></i> Edit with Ultimate Builder</button>');
+                $wrapper.find('p').append($button);
                 this.$el.append($wrapper);
 
                 $button.on('click', function (e) {

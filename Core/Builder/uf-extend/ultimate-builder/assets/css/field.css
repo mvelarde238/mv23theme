@@ -1,0 +1,31 @@
+.uf-open-builder-wrapper{
+    padding: 50px 0;
+    text-align: center;
+    position: relative;
+    p{
+        position: relative;
+        z-index: 15;
+    }
+}
+.uf-open-builder-wrapper::before{
+    content: '';
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right, rgb(231, 229, 228) 1px, transparent 1px), linear-gradient(rgb(231, 229, 228) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: 0px 0px, 0px 0px;
+    mask-image: repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px), repeating-linear-gradient(black 0px, black 3px, transparent 3px, transparent 8px), radial-gradient(70% 60% at 50% 0%, rgb(0, 0, 0) 80%, transparent 100%);
+    mask-composite: intersect;
+    -webkit-mask-composite: "source-in";
+}
+.uf-open-builder{
+    line-height: 40px !important;
+    i{
+        vertical-align: text-top;
+        margin-right: 10px;
+    }
+}

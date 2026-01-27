@@ -143,7 +143,7 @@ class Ultimate_Builder {
 
 		// FIELD SCRIPT
 		wp_register_script( 'uf-field-ultimate-builder', $assets . 'js/field-ultimate-builder.js', array('uf-field-repeater'), $v );
-		// wp_register_style( 'uf-field-ultimate-builder', $assets . 'css/field.css', array( 'ultimate-fields-css' ), $v );
+		wp_register_style( 'uf-field-ultimate-builder', $assets . 'css/field.css', array(), $v );
 	}
 
 	public function prepare_admin_for_builder() {

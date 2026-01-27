@@ -22,7 +22,7 @@ class Field extends Repeater {
 		$this->enqueue_gjs_plugins();
         wp_enqueue_script( 'builder' );
 		wp_enqueue_script( 'uf-field-ultimate-builder' );
-		// wp_enqueue_style( 'uf-field-ultimate-builder' );
+		wp_enqueue_style( 'uf-field-ultimate-builder' );
 
 		# Enqueue the scripts for all groups
 		foreach( $this->groups as $group ) {
