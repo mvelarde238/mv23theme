@@ -41,6 +41,7 @@ window.gjsSinglePageStructure = function (editor, options) {
         model: {
             defaults: Object.assign({}, notSelectableComponent, {
                 name: 'Single Main Content',
+                droppable: true
             }),
         }
     });
@@ -57,7 +58,15 @@ window.gjsSinglePageStructure = function (editor, options) {
             }),
         },
         view: {
+            onRender({el, model}) {
+                // Initial handling of datastore data
+                this.handle_datastore_data();
+            },
             custom_datastore_change_callback() {
+                // Handle datastore data changes
+                this.handle_datastore_data();
+            },
+            handle_datastore_data() {
                 const model = this.model;
 
                 const datastore = editor.getComponentDatastore(model);
@@ -160,21 +169,4 @@ window.gjsSinglePageStructure = function (editor, options) {
             });
         }
     });
-
-    // Before saving move components back to container and remove single_page_structure
-    // editor.on('builder:before-save-editor', () => {
-    //     if( BUILDER_GLOBALS.is_singular ){
-    //         const wrapper = editor.getWrapper();
-    //         const container = wrapper.findType('container')[0];
-    //         const single_page_structure = container.findType('single_page_structure')[0];
-    //         if ( single_page_structure ) {
-    //             const single_main_content = single_page_structure.findType('single_main_content')[0];
-    //             const componentsToMove = single_main_content.components();
-    //             componentsToMove.models.forEach(element => {
-    //                 element.move(container,{silent: true});
-    //             });
-    //             single_page_structure.remove({silent: true});
-    //         }
-    //     }
-    // });
 }

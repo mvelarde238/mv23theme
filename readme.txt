@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.0.2 26-01-28
+- Single_Page_Structure fixes: make single_main_content droppabe, handle datastore on render and on changes
+  make gjs-section draggable to be dropped into single_main_content, set default values on uf fields
+
 3.0.1 26-01-04
 - Refactor Core\Frontend\Frontend to have control over registerd styles and scripts
 - Fix issue related to inner_wrapper on migrator file

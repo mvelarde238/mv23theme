@@ -11,9 +11,7 @@ window.gjsSection = function(editor) {
             defaults: {
                 name: 'Section',
                 tagName: 'div',
-                draggable: function (target, destination) {
-                    return (destination.attributes.type) == 'container';
-                },
+                draggable: true,
                 classes: ['page-module'],
                 styles: `
                     .page-module {
