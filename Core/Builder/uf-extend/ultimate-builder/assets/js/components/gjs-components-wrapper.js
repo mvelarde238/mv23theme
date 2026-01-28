@@ -1,6 +1,6 @@
 window.gjsCompWrapper = function(editor) {
     const domc = editor.DomComponents;
-    const compClass = 'comp-wrapper';
+    const compClass = 'components-wrapper';
 
     // Make classes private
     const privateCls = [`.${compClass}`];

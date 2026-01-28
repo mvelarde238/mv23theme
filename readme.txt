@@ -2,9 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
-3.0.2 26-01-28
-- Single_Page_Structure fixes: make single_main_content droppabe, handle datastore on render and on changes
-  make gjs-section draggable to be dropped into single_main_content, set default values on uf fields
+3.1.0 26-01-28
+- Review Components Name Convention
+
+3.0.2 26-01-26
+- Single_Page_Structure fixes: make single-main-content droppabe, handle datastore on render and on changes
+  make gjs-section draggable to be dropped into single-main-content, set default values on uf fields
 
 3.0.1 26-01-04
 - Refactor Core\Frontend\Frontend to have control over registerd styles and scripts

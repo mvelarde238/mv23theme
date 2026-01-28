@@ -11,7 +11,7 @@ class Accordion extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'accordion',
+			'togglebox-wrapper',
 			__( 'Accordion', 'mv23theme' )
 		);
 	}
@@ -22,7 +22,6 @@ class Accordion extends Component {
 
     public static function get_builder_data() {
         return array(
-			'connected_gjs_type' => 'togglebox-wrapper',
             'display_gjs_block' => false
 		);
     }

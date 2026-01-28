@@ -9,7 +9,7 @@ class Flip_Box extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'flip_box',
+			'flipbox',
 			__( 'Flip Box', 'mv23theme' )
 		);
 	}
@@ -20,7 +20,6 @@ class Flip_Box extends Component {
 
     public static function get_builder_data() {
         return array(
-			'connected_gjs_type' => 'flipbox',
             'display_gjs_block' => false
 		);
     }

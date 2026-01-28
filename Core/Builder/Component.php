@@ -163,7 +163,7 @@ abstract class Component {
 
 		$commmon_settings_fields = array();
 		$component_args = static::get_args();
-		$components_that_use_layout = array('components_wrapper', 'section');
+		$components_that_use_layout = array('components-wrapper', 'section');
 		foreach( $component_args['common_settings'] as $setting_key ) {
 			if( isset( $commmon_settings[ $setting_key ] ) ) {
 				$common_settings_control = $commmon_settings[ $setting_key ];

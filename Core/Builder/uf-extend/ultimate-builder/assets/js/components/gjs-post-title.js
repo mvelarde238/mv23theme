@@ -1,7 +1,7 @@
 window.gjsPostTitle = function (editor, options) {
     const domc = editor.DomComponents;
 
-    domc.addType('post_title', {
+    domc.addType('post-title', {
         model: {
             defaults: {
                 name: 'Post Title',

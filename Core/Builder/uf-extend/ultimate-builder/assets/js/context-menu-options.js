@@ -63,7 +63,7 @@ function layout_options(component, editor){
 
 window['contextMenuOpts'] = {
     actions: {
-        comp_text_editor: function(component){
+        ['text-editor']: function(component){
             let textAlignAction = create_text_align_actions(component);
 
             const getFontSize = ()=>{
@@ -75,14 +75,14 @@ window['contextMenuOpts'] = {
                 textAlignAction
             ]
         },
-        comp_button: function(component){
+        button: function(component){
             let textAlignAction = create_text_align_actions(component);
 
             return [
                 textAlignAction
             ]
         },
-        comp_heading: function(component){
+        heading: function(component){
             return [
                 { type: 'button', label: 'SELECT HEADING', command: 'query-selector', args: { selector: '.heading__text' } },
                 { type: 'button', label: 'SELECT TAGLINE', command: 'query-selector', args: { selector: '.heading__tagline' } }
@@ -110,7 +110,7 @@ window['contextMenuOpts'] = {
                 }
             ]
         },
-        ['comp-wrapper']: function(component, editor){
+        ['components-wrapper']: function(component, editor){
             return [
                 layout_options(component, editor),
             ]
@@ -121,7 +121,7 @@ window['contextMenuOpts'] = {
             return actions;
         },
         ['icon-and-text']: function(component, editor){
-            const iconComponent = component.findType('comp_icon')[0];
+            const iconComponent = component.findType('icon')[0];
 
             const getIconSize = ()=>{
                 let value = parseInt(iconComponent.getStyle('--icon-size')) || 40;

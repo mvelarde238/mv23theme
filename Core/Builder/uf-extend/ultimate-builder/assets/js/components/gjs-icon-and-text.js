@@ -6,18 +6,18 @@ window.gjsIconAndText = function(editor) {
             type: 'icon-wrapper',
             classes: ['icon-wrapper'],
             components: [
-                { type: 'comp_icon' }
+                { type: 'icon' }
             ]
         },
         {
-            type: 'comp-wrapper', 
-            classes: ['comp-wrapper','content-wrapper'],
+            type: 'components-wrapper', 
+            classes: ['components-wrapper','content-wrapper'],
             selectable: false,
             removable: false,
             draggable: false,
             copyable: false,
             components: [
-                { type: 'comp_text_editor' },
+                { type: 'text-editor' },
             ]
         }
     ];
@@ -39,7 +39,7 @@ window.gjsIconAndText = function(editor) {
     });
 
     // Define the icon component
-    domc.addType('comp_icon', {
+    domc.addType('icon', {
         model: {
             defaults: {
                 tagName: 'div',
@@ -69,7 +69,7 @@ window.gjsIconAndText = function(editor) {
                 const datastore = editor.getComponentDatastore(model);
                 if (datastore) {
                     const { isource, iposition, ialignment, horizontal_alignment, content_alignment } = datastore.toJSON();
-                    const iconCmp = model.findType('comp_icon')[0];
+                    const iconCmp = model.findType('icon')[0];
 
                     if (isource === 'icon') {
                         iconCmp.getEl().innerHTML = `<i class="${datastore.get('iname')}"></i>`;

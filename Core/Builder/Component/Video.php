@@ -10,19 +10,13 @@ class Video extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'video',
+			'video-component',
 			__( 'Video', 'mv23theme' )
 		);
 	}
 
     public static function get_icon() {
         return 'dashicons-format-video';
-    }
-
-    public static function get_builder_data() {
-        return array(
-			'connected_gjs_type' => 'video2'
-		);
     }
 
 	public static function get_fields() {

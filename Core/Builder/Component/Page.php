@@ -10,7 +10,7 @@ class Page extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'page',
+			'wrapper',
 			__( 'Page', 'mv23theme' ),
             array(
 				'common_settings' => array(
@@ -23,7 +23,6 @@ class Page extends Component {
 
     public static function get_builder_data() {
         return array(
-			'connected_gjs_type' => 'wrapper',
             'display_gjs_block' => false
 		);
     }

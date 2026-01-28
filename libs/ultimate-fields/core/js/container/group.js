@@ -313,7 +313,7 @@
 					// fix group position
 					copied_settings.__index = this.model.datastore.attributes.__index;
 
-				} else if ( component_type === 'components_wrapper' || component_type === 'inner_wrapper' ) {
+				} else if ( component_type === 'components-wrapper' || component_type === 'inner_wrapper' ) {
 					do_the_update = true;
 
 					// fix component __type

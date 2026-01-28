@@ -194,7 +194,7 @@ window.gjsCommands = function (editor, options) {
             property = options.property;
 
         if(component.getType() === 'icon-and-text'){
-            const iconCmp = component.findType('comp_icon')[0];
+            const iconCmp = component.findType('icon')[0];
 
             // Update the specific property
             const plainProperties = ['--icon-size','background-color','padding','border-radius','border-color','color'];

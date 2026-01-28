@@ -9,7 +9,7 @@ class Post_Title extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'post_title',
+			'post-title',
 			__( 'Post Title', 'mv23theme' )
 		);
 	}

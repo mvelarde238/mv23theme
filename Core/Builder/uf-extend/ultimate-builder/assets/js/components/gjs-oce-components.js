@@ -173,13 +173,13 @@ window.gjsOceComponents = ( editor ) => {
                         'aspect-ratio': '4 / 1',
                     }
                 },
-                { type: 'comp_heading' },
+                { type: 'heading' },
                 { 
                     type: 'row-component',
                     components: [
-                        { type: 'column', components: [ { type: 'comp_text_editor' }, ] },
-                        { type: 'column', components: [ { type: 'comp_text_editor' }, ] },
-                        { type: 'column', components: [ { type: 'comp_text_editor' }, ] }
+                        { type: 'column', components: [ { type: 'text-editor' }, ] },
+                        { type: 'column', components: [ { type: 'text-editor' }, ] },
+                        { type: 'column', components: [ { type: 'text-editor' }, ] }
                     ]
                 },
             ]

@@ -9,7 +9,7 @@ class OCE_Dynamic_Content extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'oce_dynamic_content',
+			'oce-dynamic-content',
 			__( 'OCE Dynamic Content', 'mv23theme' ),
             array( 'add_common_settings' => false )
 		);
@@ -21,7 +21,6 @@ class OCE_Dynamic_Content extends Component {
 
 	public static function get_builder_data() {
         return array(
-			'connected_gjs_type' => 'oce-dynamic-content',
 			'display_gjs_block' => false
 		);
     }

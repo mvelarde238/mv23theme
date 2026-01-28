@@ -10,5 +10,5 @@ add_action( 'uf.extend', function(){
 	new Autoloader( 'Ultimate_Fields\\Ultimate_Builder', __DIR__ . '/classes' );
 
 	// Let the base class add all necessary hooks
-	new Ultimate_Builder( __FILE__, '1.0.1' );
+	new Ultimate_Builder( __FILE__, '1.1.0' );
 });

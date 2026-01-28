@@ -8,7 +8,7 @@ class Components_Wrapper extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'components_wrapper',
+			'components-wrapper',
 			__( 'Wrapper', 'mv23theme' )
 		);
 	}
@@ -19,8 +19,7 @@ class Components_Wrapper extends Component {
 
 	public static function get_builder_data() {
         return array(
-			'block_category' => 'Structure',
-			'connected_gjs_type' => 'comp-wrapper'
+			'block_category' => 'Structure'
 		);
     }
 

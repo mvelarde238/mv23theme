@@ -9,19 +9,13 @@ class Map extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'map',
+			'map-component',
 			__( 'Map', 'mv23theme' )
 		);
 	}
 
     public static function get_icon() {
         return 'dashicons-location';
-    }
-
-    public static function get_builder_data() {
-        return array(
-			'connected_gjs_type' => 'map2'
-		);
     }
 
 	public static function get_fields() {
@@ -54,6 +48,7 @@ class Map extends Component {
         if($provider == 'google' && !GM_IS_ACTIVE) return; 
         if($provider == 'leaflet' && !LEAFLET_IS_ACTIVE) return; 
         
+		$args['additional_classes'][] = 'map';
 		$args['additional_classes'][] = 'component';
 
         $info_window_content = (isset($args['info_window_content'])) ? $args['info_window_content'] : '';

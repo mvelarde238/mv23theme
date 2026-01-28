@@ -10,7 +10,7 @@ class Image extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'image',
+			'image-component',
 			__( 'Image', 'mv23theme' )
 		);
 	}
@@ -21,7 +21,6 @@ class Image extends Component {
 
     public static function get_builder_data() {
         return array(
-			'connected_gjs_type' => 'image2',
             'block_render_type' => 'figure'
 		);
     }

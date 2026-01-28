@@ -30,8 +30,6 @@
                 uf_field_model: this.args.uf_field_model,
                 initial_components_data: this.args.initial_components_data,
                 groups: this.args.groups,
-                // Map component types to groups datastore
-                typesControl: {},
                 // Control the blocks that will be rendered
                 blocksControl: {},
                 // Temporarily store datastores for each component
@@ -83,7 +81,6 @@
 
             // Set types control
             const editorConfig = editor.getConfig();
-            editorConfig.typesControl = this.get_types_control(editor);
 
             // Set blocks control
             editorConfig.blocksControl = this.generate_blocks_control(editor);
@@ -156,29 +153,6 @@
 
             return plugins;
         },
-        get_types_control: function(editor) {
-            const groups = this.args.groups;
-            let componentTypes = {};
-
-            // Map each custom component with a group key 
-            _.each(groups, function (group) {
-                let connected_type = 'comp_' + group.id;
-
-                const group_builder_data = group.builder_data || {};
-                if ( group_builder_data.connected_gjs_type ) {
-                    connected_type = group.builder_data.connected_gjs_type;
-                } else {
-                    editor.DomComponents.getTypes().forEach((compType) => {
-                        if (compType.id === group.id) {
-                            connected_type = group.id;
-                        }
-                    });
-                }
-                componentTypes[connected_type] = { group: group.id };
-            });
-
-            return componentTypes;
-        },
         generate_blocks_control: function(editor) {
             const groups = this.args.groups;
             const editorConfig = editor.getConfig();
@@ -188,9 +162,7 @@
                 const group_builder_data = group.builder_data || {};
                 
                 // Determine which component type will be rendered for this block
-                let connected_type = group_builder_data.block_render_type ?? 
-                    group_builder_data.connected_gjs_type ?? 
-                    'comp_' + group.id;
+                let connected_type = group_builder_data.block_render_type ?? group.id;
 
                 // Determine if block should be rendered
                 let renderBlock = true;
@@ -241,12 +213,12 @@
                 // Add gjs component type definition if not already defined
                 let typeExists = false;
                 editor.DomComponents.getTypes().forEach((compType) => {
-                    if (compType.id === 'comp_' + group.id) {
+                    if (compType.id === group.id) {
                         typeExists = true;
                     }
                 });
                 if (!typeExists) {   
-                    editor.DomComponents.addType( 'comp_' + group.id, {
+                    editor.DomComponents.addType( group.id, {
                         extend: 'comp-base',
                         model: {
                             defaults: {
@@ -263,7 +235,7 @@
 
                 const gjs_component_type = (blocksControl[group.id] && blocksControl[group.id].type) ?
                     blocksControl[group.id].type :
-                    'comp_' + group.id;
+                    group.id;
 
                 let icon_source = ''; 
                 if ( group.icon ) {
@@ -310,10 +282,8 @@
                     builderComponent.__id = compId; // this is the connection between builder data and datastore
 
                     // datastore will store: component type, unique id, datastore and custom "selector attributes"
-                    const typesControl = this.get_types_control(editor);
-                    const __type = (typesControl[component.type]) ? typesControl[component.type].group : component.type;
                     let componentDataStore = {
-                        __type: __type,
+                        __type: component.type,
                         __id: compId,
                         __gjsAttributes: component.attributes
                     };

@@ -10,7 +10,7 @@ class Carousel extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'carousel',
+			'carousel-wrapper',
 			__( 'Carousel', 'mv23theme' )
 		);
 	}
@@ -21,7 +21,6 @@ class Carousel extends Component {
 
     public static function get_builder_data() {
         return array(
-			'connected_gjs_type' => 'carousel-wrapper',
             'display_gjs_block' => false
 		);
     }

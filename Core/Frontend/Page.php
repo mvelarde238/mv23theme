@@ -99,9 +99,9 @@ class Page{
 			// wrapper > components > container > components:
 			$container_components = $page_content[0]['components'][0]['components'] ?? [];
 
-			if( is_singular() && $container_components[0]['__type'] === 'single_page_structure' ){
+			if( is_singular() && $container_components[0]['__type'] === 'single-page-structure' ){
 				// wrapper > components > container > components...
-				// ... > single_page_structure > single_main > [post_title, single_main_content, ...] > components:
+				// ... > single-page-structure > single-main > [post-title, single-main-content, ...] > components:
 				$container_components = $container_components[0]['components'][0]['components'][1]['components'];
 			}
 				

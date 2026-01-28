@@ -18,11 +18,9 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
     private $components_mapping = array(
         'page_module' => 'section',
         'row' => 'row-component',
-        'components_wrapper' => 'comp-wrapper',
-        'inner_wrapper' => 'comp-wrapper',
-        // ... this apply for all cmp that are not registered in mapping: comp_{__type}:
-        'text_editor' => 'comp_text_editor',
-        'html' => 'comp_code',
+        'components_wrapper' => 'components-wrapper',
+        'inner_wrapper' => 'components-wrapper',
+        'html' => 'code',
 
         'carousel' => 'carousel-wrapper',
         'fake-carousel' => 'carousel',
@@ -40,11 +38,11 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         'flipbox-back' => 'flipbox-back',
 
         'image' => 'figure',
-        '__image' => 'image2',
+        '__image' => 'image-component',
         '__figcaption' => 'figcaption',
             
-        'video' => 'video2',
-        'map' => 'map2',
+        'video' => 'video-component',
+        'map' => 'map-component',
         'listing' => 'listing',
         'gallery' => 'gallery',
         'menu' => 'menu',
@@ -52,6 +50,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         'spacer' => 'spacer',
         'page' => 'wrapper',
         'icon_and_text' => 'icon-and-text',
+        'text_editor' => 'text-editor',
     );
 
     private $private_classes = array(
@@ -530,7 +529,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         
         // Create GJS component structure
         $gjs_component = array(
-            'type' => $components_mapping[$component['__type']] ?? 'comp_' . $component['__type'],
+            'type' => $components_mapping[$component['__type']] ?? $component['__type'],
             'attributes' => array(),
             'components' => array(),
             '__id' => $__id
@@ -1328,14 +1327,14 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 $__id = 'cmp_' . substr(md5(uniqid()), 0, 8); // to connect gjs with uf component
 
                 $gjs_comp_wrapper = array(
-                    'type' => 'comp-wrapper',
+                    'type' => 'components-wrapper',
                     'components' => $gjs_component['components'][$column_count]['components'],
                     '__id' => $__id
                 );
                 $gjs_component['components'][$column_count]['components'] = [$gjs_comp_wrapper];
 
                 $uf_comp_wrapper = array(
-                    '__type' => 'components_wrapper',
+                    '__type' => 'components-wrapper',
                     'components' => $uf_component['components'][$column_count]['components'],
                     '__id' => $__id
                 );
@@ -1540,11 +1539,11 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 $item_content = $acc_item;
                 $item_content['__type'] = 'components_wrapper';
             } elseif($acc_item['content_element'] === 'text'){
-                $item_content = array( '__type' => 'text_editor', 'content' => $acc_item['content'] );
+                $item_content = array( '__type' => 'text-editor', 'content' => $acc_item['content'] );
             } elseif($acc_item['content_element'] === 'reusable_section'){
                 $item_content = array( '__type' => 'reusable_section', 'reusable_section' => $acc_item['reusable_section'] );
             } else {
-                $item_content = array( '__type' => 'text_editor', 'content' => 'how to handle a page????');
+                $item_content = array( '__type' => 'text-editor', 'content' => 'how to handle a page????');
             }
             $this->quick_component( $item_content, $uf_accordion['components'][1]['components'][$i], $gjs_accordion['components'][1]['components'][$i], $css_styles, $gjs_styles );
         }
@@ -1787,7 +1786,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 '__id' => 'cmp_' . substr(md5(uniqid()), 0, 8),
                 'components' => array(
                     array(
-                        '__type' => 'text_editor',
+                        '__type' => 'text-editor',
                         'content' => $uf_component['content'],
                         '__id' => $content__id,
                     )
@@ -1801,7 +1800,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 'type' => 'icon-wrapper',
                 'components' => array(
                     array(
-                        'type' => 'comp_icon',
+                        'type' => 'icon',
                         'attributes' => array( 'id' => $id )
                     )
                 )
@@ -1810,7 +1809,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 'type' => 'comp-wrapper',
                 'components' => array(
                     array(
-                        'type' => 'comp_text_editor',
+                        'type' => 'text-editor',
                         '__id' => $content__id,
                     )
                 )

@@ -11,14 +11,13 @@ class Accordion_Button extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'accordion_button',
+			'togglebox-button',
 			__( 'Accordion Button', 'mv23theme' )
 		);
 	}
 
     public static function get_builder_data() {
         return array(
-			'connected_gjs_type' => 'togglebox-button',
             'display_gjs_block' => false
 		);
     }

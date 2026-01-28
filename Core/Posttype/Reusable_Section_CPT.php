@@ -67,7 +67,7 @@ class Reusable_Section extends Component{
 
     public function __construct() {
 		self::$the_group = parent::__construct(
-			'reusable_section',
+			'reusable-section',
 			__( 'Reusable Section', 'mv23theme' ),
             array(
                 'add_common_settings' => false
@@ -81,12 +81,6 @@ class Reusable_Section extends Component{
 
     public static function get_icon() {
         return 'dashicons dashicons-welcome-widgets-menus';
-    }
-
-    public static function get_builder_data() {
-        return array(
-			'connected_gjs_type' => 'reusable-section'
-		);
     }
 
     public static function get_fields() {

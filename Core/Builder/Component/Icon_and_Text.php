@@ -15,12 +15,6 @@ class Icon_and_Text extends Component {
 		);
 	}
 
-    public static function get_builder_data() {
-        return array(
-            'block_render_type' => 'icon-and-text',
-		);
-    }
-
     public static function get_icon() {
         return 'dashicons-align-pull-left';
     }

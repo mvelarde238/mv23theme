@@ -10,7 +10,7 @@ class Related_Posts extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'related_posts',
+			'related-posts',
 			__( 'Related Posts', 'mv23theme' )
 		);
 	}

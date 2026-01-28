@@ -9,7 +9,7 @@ class Social_Share extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'social_share',
+			'social-share',
 			__( 'Social Share', 'mv23theme' )
 		);
 	}

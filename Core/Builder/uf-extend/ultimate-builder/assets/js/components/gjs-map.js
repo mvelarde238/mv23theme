@@ -1,6 +1,6 @@
 window.gjsMap = function (editor) {
     const domc = editor.DomComponents;
-    const compClass = 'map2';
+    const compClass = 'map-component';
 
     // add custom css to canvasCss
     let config = editor.getConfig();

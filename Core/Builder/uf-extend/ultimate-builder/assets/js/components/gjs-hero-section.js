@@ -9,9 +9,9 @@ window.gjsHeroSection = function (editor) {
                     components: [
                         {
                             type: 'column', components: [
-                                { type: 'comp_heading' },
-                                { type: 'comp_text_editor' },
-                                { type: 'comp_button' }
+                                { type: 'heading' },
+                                { type: 'text-editor' },
+                                { type: 'button' }
                             ]
                         },
                         { 
@@ -26,9 +26,9 @@ window.gjsHeroSection = function (editor) {
         },
         'hero2': {
             components: [
-                { type: 'comp_heading' },
-                { type: 'comp_text_editor' },
-                { type: 'comp_button' },
+                { type: 'heading' },
+                { type: 'text-editor' },
+                { type: 'button' },
             ],
             heroStyle: { padding: '15% 8%' }
         },

@@ -16,18 +16,18 @@ window.gjsSinglePageStructure = function (editor, options) {
 
     const singlePageStructureComponents = [
         { 
-            type: 'single_main',
+            type: 'single-main',
             components: [
-                { type: 'post_title' },
-                { type: 'single_main_content' },
-                { type: 'social_share' },
-                { type: 'related_posts' }
+                { type: 'post-title' },
+                { type: 'single-main-content' },
+                { type: 'social-share' },
+                { type: 'related-posts' }
             ]
         },
         { type: 'sidebar' }
     ];
 
-    domc.addType('single_main', {
+    domc.addType('single-main', {
         model: {
             defaults: Object.assign({}, notSelectableComponent, {
                 name: 'Single Main',
@@ -37,7 +37,7 @@ window.gjsSinglePageStructure = function (editor, options) {
         }
     });
 
-    domc.addType('single_main_content', {
+    domc.addType('single-main-content', {
         model: {
             defaults: Object.assign({}, notSelectableComponent, {
                 name: 'Single Main Content',
@@ -46,7 +46,7 @@ window.gjsSinglePageStructure = function (editor, options) {
         }
     });
 
-    domc.addType('single_page_structure', {
+    domc.addType('single-page-structure', {
         model: {
             defaults: Object.assign({}, notSelectableComponent, {
                 name: 'Single Page Structure',
@@ -78,9 +78,9 @@ window.gjsSinglePageStructure = function (editor, options) {
                         const settings = data[setting_name];
 
                         const sidebar = model.findType('sidebar')[0];
-                        const post_title = model.findType('post_title')[0];
-                        const social_share = model.findType('social_share')[0];
-                        const related_posts = model.findType('related_posts')[0];
+                        const post_title = model.findType('post-title')[0];
+                        const social_share = model.findType('social-share')[0];
+                        const related_posts = model.findType('related-posts')[0];
 
                         // Handle post title visibility
                         const post_title_display = settings['hide_post_title'] ? 'none' : 'block';
@@ -138,28 +138,28 @@ window.gjsSinglePageStructure = function (editor, options) {
             const existingComponents = container.components();
             if (existingComponents.length > 0) {
 
-                const single_page_structure_exists = container.findType('single_page_structure')[0];
+                const single_page_structure_exists = container.findType('single-page-structure')[0];
                 if ( single_page_structure_exists ) {
-                    // Ensuring correct structure: main, sidebar, post_title, single_main_content, social_share, related_posts, etc.
+                    // Ensuring correct structure: main, sidebar, post-title, single-main-content, social-share, related-posts, etc.
                     ensureComponentStructure(single_page_structure_exists, singlePageStructureComponents);
                     return;
                 }
 
-                // if container has components, insert single_page_structure and move existing components into single_main_content
-                container.append({ type: 'single_page_structure' });
-                const single_page_structure = container.findType('single_page_structure')[0];
-                const single_main_content = single_page_structure.findType('single_main_content')[0];
+                // if container has components, insert single-page-structure and move existing components into single-main-content
+                container.append({ type: 'single-page-structure' });
+                const single_page_structure = container.findType('single-page-structure')[0];
+                const single_main_content = single_page_structure.findType('single-main-content')[0];
 
                 existingComponents.models.forEach(element => {
-                    if ( element.is('single_page_structure')) return;
+                    if ( element.is('single-page-structure')) return;
                     element.move(single_main_content);
                 });
 
             } else {
-                // if container is empty, just insert single_page_structure with a default section inside single_main_content
-                container.append({ type: 'single_page_structure' });
-                const single_page_structure = container.findType('single_page_structure')[0];
-                const single_main_content = single_page_structure.findType('single_main_content')[0];
+                // if container is empty, just insert single-page-structure with a default section inside single-main-content
+                container.append({ type: 'single-page-structure' });
+                const single_page_structure = container.findType('single-page-structure')[0];
+                const single_main_content = single_page_structure.findType('single-main-content')[0];
                 single_main_content.append({ type: 'section' });
             }
 

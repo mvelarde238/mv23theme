@@ -9,7 +9,7 @@ class Offcanvas_Element extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'offcanvas_element',
+			'oce-element',
 			__( 'Offcanvas Element', 'mv23theme' ),
 			array(
 				'common_settings' => array(
@@ -25,7 +25,6 @@ class Offcanvas_Element extends Component {
 
 	public static function get_builder_data() {
         return array(
-			'connected_gjs_type' => 'oce-element',
 			'display_gjs_block' => false
 		);
     }

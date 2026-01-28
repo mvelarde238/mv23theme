@@ -8,7 +8,7 @@ class Row extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'row',
+			'row-component',
 			__( 'Columns', 'mv23theme' )
 		);
 	}
@@ -19,7 +19,6 @@ class Row extends Component {
 
 	public static function get_builder_data() {
         return array(
-			'connected_gjs_type' => 'row-component',
 			'block_category' => 'Structure'
 		);
     }

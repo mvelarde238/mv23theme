@@ -9,7 +9,7 @@ class Single_Page_Structure extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'single_page_structure',
+			'single-page-structure',
 			__( 'Single Structure', 'mv23theme' ),
 			array(
 				'common_settings' => array(),
@@ -22,7 +22,7 @@ class Single_Page_Structure extends Component {
 	public function change_datastore() {
 		// on read component, create a new datastore to read the fields
 		add_filter( 'uf.ultimate_builder.group_datastore', function( $datastore, $component, $repeater ) {
-		    if ( $component['__type'] == 'single_page_structure' && isset( $_GET['post'] ) ) {
+		    if ( $component['__type'] == 'single-page-structure' && isset( $_GET['post'] ) ) {
 		        $datastore = new \Ultimate_Fields\Datastore\Options;
 		    }
 		    return $datastore;
@@ -30,7 +30,7 @@ class Single_Page_Structure extends Component {
 
 		// on save component, create a new datastore and save the fields
 		add_action( 'uf.ultimate_builder.save_component', function( $processed_values, $component, $group, $ultimate_builder ) {
-		    if ( $component['__type'] == 'single_page_structure' && isset( $_GET['post'] ) ) {
+		    if ( $component['__type'] == 'single-page-structure' && isset( $_GET['post'] ) ) {
 		        // create a new datastore for post meta
 		        $datastore = new \Ultimate_Fields\Datastore\Options;
 
