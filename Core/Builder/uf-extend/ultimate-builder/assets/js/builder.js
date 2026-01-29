@@ -282,8 +282,9 @@
                     builderComponent.__id = compId; // this is the connection between builder data and datastore
 
                     // datastore will store: component type, unique id, datastore and custom "selector attributes"
+                    const __type = component.type;
                     let componentDataStore = {
-                        __type: component.type,
+                        __type: __type,
                         __id: compId,
                         __gjsAttributes: component.attributes
                     };

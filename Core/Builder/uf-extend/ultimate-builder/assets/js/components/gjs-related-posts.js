@@ -1,7 +1,7 @@
 window.gjsRelatedPosts = function (editor, options) {
     const domc = editor.DomComponents;
 
-    domc.addType('related_posts', {
+    domc.addType('related-posts', {
         model: {
             defaults: {
                 name: 'Related Posts',

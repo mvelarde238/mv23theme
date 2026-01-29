@@ -4,62 +4,58 @@ window.gjsExtendComponents = function (editor) {
     // Extend gjs component connecting it with Ultimate Fields group model / datastores
     editor.on('component:create', (component) => {
         const editorConfig = editor.getConfig(), 
-            type = component.get('type'),
-            typesControl = editorConfig.typesControl || {};
+            type = component.get('type');
 
-        // if the component type is registered in typesControl
-        if (type && typesControl[type]) {
-            // find the group associated with this type
-            const groups = editorConfig.groups || [],
-                groupData = groups.find(g => g.id === typesControl[type].group);
+        // find the group associated with this type
+        const groups = editorConfig.groups || [],
+            groupData = groups.find(g => g.id === type);
 
-            if (groupData) {
-                const initial_components_data = editorConfig.initial_components_data,
-                    uf_field_model = editorConfig.uf_field_model,
-                    builderInstance = editorConfig.builderInstance;
+        if (groupData) {
+            const initial_components_data = editorConfig.initial_components_data,
+                uf_field_model = editorConfig.uf_field_model,
+                builderInstance = editorConfig.builderInstance;
 
-                let component_data, __type, datastore;
+            let component_data, __type, datastore;
 
-                // generate a temporal id and assign it to gjs component and
-                // temporalCompStore to connect them during the save process
-                const generateId = builderInstance.generateId();
-                component.attributes.__tempID = generateId;
-                editorConfig.temporalCompStore[generateId] = {};
+            // generate a temporal id and assign it to gjs component and
+            // temporalCompStore to connect them during the save process
+            const generateId = builderInstance.generateId();
+            component.attributes.__tempID = generateId;
+            editorConfig.temporalCompStore[generateId] = {};
 
-                // find the corresponding component dataStore using the builder instance method
-                component_data = builderInstance.findComponentById(initial_components_data, component.get('__id'));
+            // find the corresponding component dataStore using the builder instance method
+            component_data = builderInstance.findComponentById(initial_components_data, component.get('__id'));
 
-                // configure the data store
-                if (component_data) {
-                    // this component is loading from database
-                    __type = component_data.__type;
-                    datastore = new UltimateFields.Datastore(component_data);
-                } else {
-                    // is a new component
-                    __type = groupData?.id;
-                    datastore = new UltimateFields.Datastore({});
-                    datastore.parent = uf_field_model.datastore;
-                }
-                datastore.set('__type', __type);
-
-                // Allow arguments to be modified before creating the model, view and etc.
-                args = {
-                    model: UltimateFields.Container.Group.Model,
-                    datastore: datastore,
-                    settings: groupData,
-                    silent: false
-                };
-
-                UltimateFields.applyFilters('repeater_group_classes', args);
-
-                // Prepare the group model
-                let group_model = new args.model(_.extend({}, args.settings));
-                group_model.set('__type', __type);
-                group_model.setDatastore(datastore);
-                
-                // save the model
-                editorConfig.temporalCompStore[generateId] = group_model;
+            // configure the data store
+            if (component_data) {
+                // this component is loading from database
+                __type = component_data.__type;
+                datastore = new UltimateFields.Datastore(component_data);
+            } else {
+                // is a new component
+                __type = groupData?.id;
+                datastore = new UltimateFields.Datastore({});
+                datastore.parent = uf_field_model.datastore;
             }
+            datastore.set('__type', __type);
+
+            // Allow arguments to be modified before creating the model, view and etc.
+            args = {
+                model: UltimateFields.Container.Group.Model,
+                datastore: datastore,
+                settings: groupData,
+                silent: false
+            };
+
+            UltimateFields.applyFilters('repeater_group_classes', args);
+
+            // Prepare the group model
+            let group_model = new args.model(_.extend({}, args.settings));
+            group_model.set('__type', __type);
+            group_model.setDatastore(datastore);
+                
+            // save the model
+            editorConfig.temporalCompStore[generateId] = group_model;
         }
     });
 

@@ -327,7 +327,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
         // set the correct type for the processed component
         if ( $meta_key == 'offcanvas_element_content' ) {
-            $processed_component['uf_component']['__type'] = 'offcanvas_element';
+            $processed_component['uf_component']['__type'] = 'oce-element';
             $processed_component['gjs_component']['type'] = 'oce-element';
 
             $this->migrate_oce_post_meta_to_component( 
@@ -420,7 +420,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             );
             $uf_component['components'] = array(
                 array(
-                    '__type' => 'oce_dynamic_content',
+                    '__type' => 'oce-dynamic-content',
                     '__id' => $__id,
                     'async_settings' => get_post_meta( $post_id, $slug.'_async_settings', true )
                 )
@@ -434,10 +434,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         if( $page_header_content_type == 'none' ) return;
 
         $page_header_settings = get_post_meta( $post_id, 'page_header_settings', true );
-
-        // force no padding section
         $page_header_settings = (is_array( $page_header_settings)) ? $page_header_settings : array();
-        $page_header_settings['padding'] = array( 'use' => 1,'top' => '0px','right' => '0px','bottom' => '0px','left' => '0px');
         
         $header_module = array(
             '__type' => 'page_module',
@@ -522,6 +519,8 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         
         // Create UF component structure
         $uf_component = $component;
+        $uf_component['__type'] = $components_mapping[$component['__type']] ?? $component['__type'];
+
         if( $component['__type'] == 'inner_wrapper' ){
             $uf_component['__type'] = 'components_wrapper';
         }
@@ -837,7 +836,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $this->quick_component( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles );
         
         // edit some attributes on uf cmp
-        $uf_component['components'][0]['__type'] = 'image'; // set this manually
+        $uf_component['components'][0]['__type'] = 'image-component'; // set this manually
         $img_id = $this->generate_id($component);
         $uf_component['components'][0]['__gjsAttributes'] = array( 'id' => $img_id );
         if( ($component['image_source'] == 'external') ){
@@ -904,7 +903,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             $uf_component['__gjsAttributes'] = array( 'id' => $id );
         }
 
-        $gjs_component['classes'] = ['video2'];
+        $gjs_component['classes'] = ['video-component'];
 
         // unset object_fit
         unset( $uf_component['object_fit'] );
@@ -935,7 +934,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         // migrate "info" to info_window_content
         $uf_component['info_window_content'] = $component['info'] ?? '';
         
-        $gjs_component['classes'] = ['map2'];
+        $gjs_component['classes'] = ['map-component','component'];
         
         unset( $uf_component['icono'] );
         unset( $uf_component['height'] );   
@@ -1623,7 +1622,6 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         unset( $uf_component['back_settings'] );
         unset( $uf_component['front_content'] );
         unset( $uf_component['back_content'] );
-        
     }
 
     private function process_listing_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
@@ -1749,7 +1747,6 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
     private function process_icon_and_text_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
         // RENAME AND MAP OLD PROPERTIES
-        $uf_component['__type'] = 'icon-and-text';
         $alignment = ( $uf_component['iposition'] == 'top' ) ? $uf_component['itopalign'] : $uf_component['ialign'];
         $alignment_dictionary = array(
             'left' => 'flex-start',
@@ -1782,7 +1779,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 )
             ),
             array(
-                '__type' => 'components_wrapper',
+                '__type' => 'components-wrapper',
                 '__id' => 'cmp_' . substr(md5(uniqid()), 0, 8),
                 'components' => array(
                     array(
@@ -1806,7 +1803,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 )
             ),
             array(
-                'type' => 'comp-wrapper',
+                'type' => 'components-wrapper',
                 'components' => array(
                     array(
                         'type' => 'text-editor',
@@ -1886,7 +1883,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             $layout = $uf_component['settings']['layout']['key'];
 
             $special_layouts = array( 'layout2', 'layout3' );
-            $dont_doit_for = array( 'page_module', 'components_wrapper', 'column', 'inner_wrapper' );
+            $dont_doit_for = array( 'page_module', 'components-wrapper', 'column', 'inner_wrapper' );
             $component_type = $uf_component['__type'];
             if( in_array( $layout, $special_layouts )  ){
                 if( !in_array( $component_type, $dont_doit_for ) ){
@@ -1894,7 +1891,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
                     unset( $gjs_component['attributes'] );
                     $gj_comp_wrapper = array(
-                        'type' => 'comp-wrapper',
+                        'type' => 'components-wrapper',
                         'components' => array( $gjs_component ),
                         '__id' => $__id,
                         'attributes' => array( 'id' => $id )
@@ -1904,7 +1901,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                     unset( $uf_component['__gjsAttributes'] );
                     unset( $uf_component['settings']['layout'] );
                     $uf_comp_wrapper = array(
-                        '__type' => 'components_wrapper',
+                        '__type' => 'components-wrapper',
                         'components' => array( $uf_component ),
                         '__id' => $__id,
                         '__gjsAttributes' => array( 'id' => $id )

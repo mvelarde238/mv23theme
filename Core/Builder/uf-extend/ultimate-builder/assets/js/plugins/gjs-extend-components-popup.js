@@ -4,14 +4,12 @@ window.gjsExtendComponents = function (editor) {
     // Extend gjs component connecting it with Ultimate Fields group model / datastores
     editor.on('component:create', (component) => {
         const editorConfig = editor.getConfig(), 
-            type = component.get('type'),
-            typesControl = editorConfig.typesControl || {};
+            type = component.get('type');
 
-        // if the component type is registered in typesControl
-        if (type && typesControl[type]) {
+        if (type) {
             // find the group associated with this type
             const groups = editorConfig.groups || [],
-                groupData = groups.find(g => g.id === typesControl[type].group);
+                groupData = groups.find(g => g.id === type);
 
             if (groupData) {
                 const initial_components_data = editorConfig.initial_components_data,

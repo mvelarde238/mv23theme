@@ -16,7 +16,7 @@ window.gjsHeroSection = function (editor) {
                         },
                         { 
                             type: 'column', components: [
-                                { type: 'image2' }
+                                { type: 'image-component' }
                             ]
                         }
                     ] 

@@ -1,7 +1,7 @@
 window.gjsSocialShare = function (editor, options) {
     const domc = editor.DomComponents;
 
-    domc.addType('social_share', {
+    domc.addType('social-share', {
         model: {
             defaults: {
                 name: 'Social Share',

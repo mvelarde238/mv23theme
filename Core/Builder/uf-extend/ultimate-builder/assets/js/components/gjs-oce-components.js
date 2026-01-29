@@ -168,7 +168,7 @@ window.gjsOceComponents = ( editor ) => {
             components: [
                 { type: 'menu' },
                 { 
-                    type: 'image2',
+                    type: 'image-component',
                     style: {
                         'aspect-ratio': '4 / 1',
                     }

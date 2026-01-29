@@ -119,7 +119,7 @@ class Core{
 		        	$container_components = $page_content[0]['components'][0]['components'] ?? [];
 		        	if (is_array($container_components) && !empty($container_components)) :
 		        		foreach ($container_components as $component) :
-                            if ( $component['__type'] === 'offcanvas_element' ) {
+                            if ( $component['__type'] === 'oce-element' ) {
                                 $uf_component = $component;
                                 break; // Exit the loop once we find the oce-element
                             }

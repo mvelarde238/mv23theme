@@ -154,6 +154,7 @@ class Carousel extends Component {
         if( Template_Engine::is_private( $args ) ) return;
         
 		$args['additional_classes'][] = 'component';
+		$args['additional_classes'][] = 'carousel';
         $args['additional_attributes'] = array();
 
         $carousel_type = $args['carousel_type'] ?? 'slider';
