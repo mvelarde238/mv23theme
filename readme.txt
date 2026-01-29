@@ -4,6 +4,7 @@ CHANGELOG
 
 3.1.0 26-01-28
 - Review Components Name Convention
+- Fix some renamed componentes bugs
 
 3.0.2 26-01-26
 - Single_Page_Structure fixes: make single-main-content droppabe, handle datastore on render and on changes
