@@ -93,24 +93,23 @@ class Page{
 		$page_content_styles = ($page_ID != null) ? get_post_meta($page_ID, 'page_content_styles', true) : null;
 
 		if (is_array($page_content)) :
-			ob_start();
-			echo '<style>'.$page_content_styles.'</style>';
-
 			// wrapper > components > container > components:
 			$container_components = $page_content[0]['components'][0]['components'] ?? [];
-
-			if( is_singular() && $container_components[0]['__type'] === 'single-page-structure' ){
-				// wrapper > components > container > components...
-				// ... > single-page-structure > single-main > [post-title, single-main-content, ...] > components:
-				$container_components = $container_components[0]['components'][0]['components'][1]['components'];
-			}
-				
-			if (is_array($container_components) && !empty($container_components)) :
-				foreach ($container_components as $component) :
-					echo Template_Engine::getInstance()->handle( $component['__type'], $component );
-				endforeach;
-			endif;
 			
+			ob_start();
+			if( is_array($container_components) && !empty($container_components) ){
+				echo '<style>'.$page_content_styles.'</style>';
+	
+				if( is_singular() && $container_components[0]['__type'] === 'single-page-structure' ){
+					// wrapper > components > container > components...
+					// ... > single-page-structure > single-main > [post-title, single-main-content, ...] > components:
+					$container_components = $container_components[0]['components'][0]['components'][1]['components'];
+				}	
+				
+				foreach ($container_components as $component) {
+					echo Template_Engine::getInstance()->handle( $component['__type'], $component );
+				}
+			}
 			return ob_get_clean();
 		else: 
 			return '';

@@ -16,7 +16,7 @@ class Single_Page_Structure extends Component {
 			)
 		);
 
-		add_action( 'init', array( $this, 'change_datastore' ) );
+		add_action( 'admin_init', array( $this, 'change_datastore' ) );
 	}
 
 	public function change_datastore() {

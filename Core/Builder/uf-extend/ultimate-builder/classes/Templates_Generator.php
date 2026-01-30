@@ -30,16 +30,21 @@ class Templates_Generator{
             }
         }
 
+        $__id = 'cmp_' . substr(md5(uniqid()), 0, 8);
+
         // GJS Component
         $processed['gjs_component'] = [
-            'type' => $component['__type'],
+            'type' => $component['type'],
+            '__id' => $__id
         ];
         if (!empty($gjs_sub_components)) {
             $processed['gjs_component']['components'] = $gjs_sub_components;
         }
 
         // UF Component
-        $processed['uf_component'] = $component;
+        // $processed['uf_component'] = $component;
+        $processed['uf_component']['__type'] = $component['type'];
+        $processed['uf_component']['__id'] = $__id;
         unset($processed['uf_component']['styles']);
         if (!empty($uf_sub_components)) {
             $processed['uf_component']['components'] = $uf_sub_components;
@@ -100,19 +105,32 @@ class Templates_Generator{
             }
         }
 
-        $gjs_wrapper['components'] = array(
-            array(
-                'type' => 'container',
-                'classes' => array('container'),
-                'attributes' => array(),
-                'components' => $gjs_components
+        $__wrapper_id = 'cmp_' . substr(md5(uniqid()), 0, 8);
+        $__container_id = 'cmp_' . substr(md5(uniqid()), 0, 8);
+
+        $gjs_wrapper = array(
+            'type' => 'wrapper',
+            '__id' => $__wrapper_id,
+            'components' => array(
+                array(
+                    'type' => 'container',
+                    '__id' => $__container_id,
+                    'classes' => array('container'),
+                    'attributes' => array(),
+                    'components' => $gjs_components
+                )
             )
         );
 
-        $uf_wrapper['components'] = array(
-            array(
-                '__type' => 'container',
-                'components' => $uf_components
+        $uf_wrapper = array(
+            '__type' => 'wrapper',
+            '__id' => $__wrapper_id,
+            'components' => array(
+                array(
+                    '__type' => 'container',
+                    '__id' => $__container_id,
+                    'components' => $uf_components
+                )
             )
         );
 
@@ -133,9 +151,7 @@ class Templates_Generator{
                 ),
                 'symbols' => array()
             ),
-            'uf_template' => array(
-                $uf_wrapper
-            ),
+            'uf_template' => array( $uf_wrapper ),
             'styles' => $styles
         );
     }
