@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.1.1 26-01-30
+- Update gjs-row-and-cols plugin
+
 3.1.0 26-01-28
 - Review Components Name Convention
 - Fix some renamed componentes bugs
