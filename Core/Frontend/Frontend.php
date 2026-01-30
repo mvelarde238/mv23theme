@@ -11,7 +11,8 @@ use Core\Frontend\Page;
 use Core\Frontend\Header;
 use Core\Theme_Options\Theme_Options;
 use Core\Builder\Template_Engine\Scroll_Animations;
-use Core\Builder\Template_Engine\Id;;
+use Core\Builder\Template_Engine\Id;
+use Core\Builder\Template_Engine\Classes;
 
 class Frontend extends Theme_Header_Data {
 
@@ -240,6 +241,11 @@ class Frontend extends Theme_Header_Data {
         $page_content_components = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content_components', true) : null;
         if( is_array($page_content_components) && !empty($page_content_components) && isset($page_content_components[0]) ) {
             $page_component = $page_content_components[0];
+
+            $classes_from_component = Classes::get_classes( $page_component );
+            if( is_array( $classes_from_component ) && !empty( $classes_from_component ) ){
+                $classes = array_merge( $classes, $classes_from_component );
+            }
 
             $hide_static_header = $page_component['hide_static_header'] ?? false;
             if ( $hide_static_header ) $classes[] = 'hide-static-header';

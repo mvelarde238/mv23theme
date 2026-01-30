@@ -6,6 +6,7 @@ CHANGELOG
 - Update gjs-row-and-cols plugin
 - Implements aspect-ratio and transform-origin on style manager
 - Implements --link-color css property
+- Implement page component classes on body
 
 3.1.0 26-01-28
 - Review Components Name Convention
