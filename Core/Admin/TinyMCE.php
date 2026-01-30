@@ -435,7 +435,7 @@ class TinyMCE{
 		$theme_colors = array();
 		$added_colors = array();
 		
-        $options = array('primary_color','secondary_color','font_color','headings_color','colorpicker_palette');
+        $options = array('primary_color','secondary_color','font_color','headings_color','link_color','colorpicker_palette');
 		foreach ($options as $option_name) {
             if( $option_name != 'colorpicker_palette' ){
                 $the_color = $theme_options->get_property($option_name);

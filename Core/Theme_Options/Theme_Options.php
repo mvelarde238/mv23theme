@@ -217,7 +217,7 @@ class Theme_Options extends Theme_Header_Data{
         $properties = array();
 
         // main colors
-        $colors = array('primary_color','secondary_color','font_color','headings_color');
+        $colors = array('primary_color','secondary_color','font_color','headings_color','link_color');
         foreach ($colors as $color) {
             $the_color = get_option( $color );
             if( $the_color ) {
@@ -358,7 +358,7 @@ class Theme_Options extends Theme_Header_Data{
 		$theme_colors = array('#000000','#ffffff');
         $added_colors = array();
 		
-        $options = array('primary_color','secondary_color','font_color','headings_color','colorpicker_palette');
+        $options = array('primary_color','secondary_color','font_color','headings_color','link_color','colorpicker_palette');
         foreach ($options as $option_name) {
             if( $option_name != 'colorpicker_palette' ){
                 $the_color = $theme_options->get_property($option_name);

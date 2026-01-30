@@ -51,6 +51,7 @@
         set_CSS_prop('--secondary-color', values.secondary_color);
         set_CSS_prop('--font-color', values.font_color);
         set_CSS_prop('--headings-color', values.headings_color);
+        set_CSS_prop('--link-color', values.link_color);
     });
     
     UF_Customize.bind( 'primary_color_variations', ( values, context ) => {

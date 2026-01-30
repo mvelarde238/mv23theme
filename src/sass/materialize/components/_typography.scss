@@ -63,8 +63,15 @@ em { font-style: italic; }
 .light { font-weight: 300; }
 
 a {
-    color: var(--primary-color);
+    color: var(--link-color);
     text-decoration: none;
+    
+    // Gets rid of tap active state
+    -webkit-tap-highlight-color: transparent;
+    
+    &:hover{
+      text-decoration: underline;
+    }
 }
 a, [style*="underline"]{
     text-underline-offset: 4px;

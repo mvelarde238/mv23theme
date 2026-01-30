@@ -5,7 +5,7 @@ use Ultimate_Fields\Field;
 
 class Colors {
     public static function get_fields(){
-        $colors_width = ( is_customize_preview() ) ? 100 : 25;
+        $colors_width = ( is_customize_preview() ) ? 100 : 20;
 
         $fields = array(
             Field::create( 'tab', 'Colors', __('Colors','mv23theme') ),
@@ -14,7 +14,8 @@ class Colors {
                 Field::create( 'color', 'primary_color', __('Primary color','mv23theme') )->set_default_value('#ff7a00')->set_width($colors_width),
                 Field::create( 'color', 'secondary_color', __('Secondary color','mv23theme') )->set_default_value('#071a36')->set_width($colors_width),
                 Field::create( 'color', 'font_color', __('Font color','mv23theme') )->set_width($colors_width),
-                Field::create( 'color', 'headings_color', __('Headings color','mv23theme') )->set_width($colors_width)
+                Field::create( 'color', 'headings_color', __('Headings color','mv23theme') )->set_width($colors_width),
+                Field::create( 'color', 'link_color', __('Link color','mv23theme') )->set_width($colors_width)
             ))->merge(),
 
             Field::create( 'repeater', 'colorpicker_palette', __('Colorpicker palette','mv23theme') )
