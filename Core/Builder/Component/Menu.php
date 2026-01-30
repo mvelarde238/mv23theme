@@ -34,14 +34,15 @@ class Menu extends Component {
                 array( 'slug' => 'horizontal-nav-3', 'name' => __('Horizontal Nav 3','mv23theme'), 'image' => '' ),
                 array( 'slug' => 'horizontal-nav-4', 'name' => __('Horizontal Nav 4','mv23theme'), 'image' => '' ),
                 array( 'slug' => 'vertical-nav-1', 'name' => __('Vertical Nav 1','mv23theme'), 'image' => '' ),
-                array( 'slug' => 'unordered-list', 'name' => __('None','mv23theme'), 'image' => '' )
+                array( 'slug' => 'unordered-list-nav', 'name' => __('Unordered List','mv23theme'), 'image' => '' ),
+                array( 'slug' => 'links-nav', 'name' => __('Links','mv23theme'), 'image' => '' ),
             ) 
         );
         return $menu_styles;
     }
 
     public static function get_menu_styles_image_select() {
-        $images_path = BUILDER_PATH.'/assets/images/';
+        $images_path = BUILDER_PATH.'/assets/images/navs/';
         $menu_styles = self::get_menu_styles();
         $menu_styles_image_select = array();
         foreach ($menu_styles as $style) {
@@ -91,7 +92,7 @@ class Menu extends Component {
         $menu = $args['menu'] ?? '';
 
         $location = $args['location'] ?? '';
-        $style = ( $args['style'] != 'unordered-list' ) ? $args['style'] : '';
+        $style = $args['style'] ?? '';
         $orientation_nav_class = ( str_contains($style,'horizontal') ) ? 'horizontal-nav' : 'vertical-nav';
 
         $args['additional_classes'][] = $orientation_nav_class;

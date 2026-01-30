@@ -1,5 +1,7 @@
 .vertical-nav-1
+    @extend %vertical-sub-menu-styles
     @extend %basic-global-menu-styles
+    @extend %toggle-submenu-styles-for-vertical-menus 
 
     .menu
         width: 100%
@@ -14,12 +16,7 @@
         a
             padding: 16px 15px
 
-    @extend %vertical-sub-menu-styles
-
-    .toggle-submenu
-        position: absolute
-        top: 10px
-        right: 5px
-    .menu, .sub-menu
-        li.menu-item-has-children>a
-            padding-right: 50px
+    .sub-menu
+        background-color: rgba(0,0,0,.04)
+    .dark-mode & .sub-menu
+        background-color: rgba(0,0,0,.2)

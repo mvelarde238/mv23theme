@@ -88,6 +88,12 @@ window['contextMenuOpts'] = {
                 { type: 'button', label: 'SELECT TAGLINE', command: 'query-selector', args: { selector: '.heading__tagline' } }
             ]
         },
+        menu: function(component){
+            return [
+                { type: 'button', label: 'SELECT LINKS', command: 'query-selector', args: { selector: 'a' } },
+                { type: 'button', label: 'SELECT HOVERED LINKS', command: 'query-selector', args: { selector: 'a:hover' } },
+            ]
+        },
         section: function(component, editor){
             return [
                 layout_options(component, editor),

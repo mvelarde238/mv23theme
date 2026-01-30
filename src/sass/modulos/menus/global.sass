@@ -2,7 +2,6 @@
     --accent-color-1: var(--primary-color)
     --accent-color-2: var(--primary-color-light)
     --accent-color-3: var(--primary-color-lighter)
-    font-size: .85em
     
 %clear-unordered-list
     ul
@@ -102,11 +101,8 @@
 %vertical-sub-menu-styles
     .sub-menu
         display: none
-        background-color: rgba(0,0,0,.04)
         animation-name: vertical-sub-menu-animation
         animation-duration: 300ms
-    .dark-mode & .sub-menu
-        background-color: rgba(0,0,0,.2)
 
 %item-has-children-arrow-down
     content: '\f107'
@@ -124,23 +120,36 @@
     font: normal normal normal 19px/1 FontAwesome
 
 %toggle-submenu-styles
+    a:has(>.toggle-submenu)
+        position: relative
     .toggle-submenu
+        display: inline-block
         width: 35px
         height: 30px
-        border: 1px solid var(--accent-color-2)
+        line-height: 30px
+        border: 1px solid
+        font-size: 14px
         background-color: transparent
         border-radius: 3px
         outline: 0
         transition: 250ms all
+        cursor: pointer
         &:before
-            content: '\f107'
-            font: normal normal normal 19px/1 FontAwesome
-            color: var(--accent-color-1)
+            content: '\F22C'
+            font-family: bootstrap-icons !important
             transform-origin: center
         &[aria-expanded="true"]
-            transform: scaleY(-1)
-        .dark-mode &:before
-            color: currentColor
+            transform: scaleY(-1) 
+
+%toggle-submenu-styles-for-vertical-menus 
+    a:has(>.toggle-submenu)
+        padding-right: 65px
+    .toggle-submenu
+        position: absolute
+        top: 0
+        bottom: 0
+        right: 15px
+        margin: auto
 
 %item-has-children-arrow-visibility
     .menu

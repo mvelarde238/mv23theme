@@ -130,10 +130,10 @@ class Nav_Walker extends Walker_Nav_Menu{
         $item_output .= '<a'. $attributes .'>';
         $item_output .= $icon_html;
         $item_output .= $args->link_before .'<span class="menu-item__label">'. apply_filters( 'the_title', $item->title, $item->ID ) .'</span>'. $args->link_after;
-        $item_output .= '</a>';
         if (in_array('menu-item-has-children', $classes)) {
             $item_output .= '<button class="toggle-submenu" aria-expanded="false"></button>';
         }
+        $item_output .= '</a>';
         $item_output .= $args->after;
 
         $megamenu_data = get_post_meta($item->ID,'megamenu_post',true);

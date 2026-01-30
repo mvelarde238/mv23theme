@@ -25,9 +25,11 @@ window['Theme_Navbars'] = (function(){
             let has_children = this.el.querySelectorAll('li.menu-item-has-children');
             for (let i = 0; i < has_children.length; i++) {
                 const item_has_children = has_children[i];
-                let toggle_submenu_button = item_has_children.querySelector(':scope > .toggle-submenu');
+                let toggle_submenu_button = item_has_children.querySelector('a > .toggle-submenu');
     
                 toggle_submenu_button.addEventListener('click', (event)=>{
+                    event.stopPropagation();
+                    event.preventDefault();
                     const expanded = toggle_submenu_button.getAttribute('aria-expanded') === 'true' || false;
                     if( expanded ){
                         toggle_submenu_button.setAttribute('aria-expanded', false);
