@@ -1262,22 +1262,22 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 // migrate row gap and locked (flex-wrap)
                 $flex_wrap = ($__gjs_cmp['control'][$device]['locked'] == 1) ? 'nowrap' : 'wrap';
                 if( $breakpoints[$device] ){
-                    $css_styles .= "@media {$breakpoints[$device]} { #{$row_id} { gap: 1%; flex-wrap: {$flex_wrap}; } }";
+                    $css_styles .= "@media {$breakpoints[$device]} { #{$row_id} { gap: 2%; flex-wrap: {$flex_wrap}; } }";
                     $gjs_styles[] = array(
                         'selectors' => array( '#' . $row_id ),
                         'style' => array( 
-                            'gap' => '1%',
+                            'gap' => '2%',
                             'flex-wrap' => $flex_wrap
                         ),
                         'mediaText' => $breakpoints[$device],
                         'atRuleType' =>  "media"
                     );
                 } else {
-                    $css_styles .= "#{$row_id} { gap: 1%; flex-wrap: {$flex_wrap}; }";
+                    $css_styles .= "#{$row_id} { gap: 2%; flex-wrap: {$flex_wrap}; }";
                     $gjs_styles[] = array(
                         'selectors' => array( '#' . $row_id ),
                         'style' => array( 
-                            'gap' => '1%',
+                            'gap' => '2%',
                             'flex-wrap' => $flex_wrap
                         )
                     );
