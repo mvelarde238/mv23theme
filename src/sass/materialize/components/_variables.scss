@@ -74,6 +74,10 @@ $container-width: 1240px !default; // used in some @media queries
 	--font-color-2: #{$font-color-2};
 	--headings-color: inherit;
 	--link-color: inherit;
+	--link-decoration: none;
+	--link-decoration-thickness: 6%;
+	--link-decoration-offset: 6px;
+	--link-hover-decoration: underline;
 	--static-header-color: initial;
 	--static-header-logo-height: 60px;
 	--sticky-header-logo-height: 60px;

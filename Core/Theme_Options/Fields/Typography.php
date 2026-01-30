@@ -96,6 +96,14 @@ class Typography {
             'var(--bold-font-weight)' => 'var(--bold-font-weight)'
         ];
 
+        $link_decoration_options = [
+            'none' => 'none',
+            'underline' => 'underline',
+            'overline' => 'overline',
+            'line-through' => 'line-through',
+            'underline overline' => 'underline overline'
+        ];
+
         return [
             ['type' => 'tab', 'label' => 'General' ],
             ['key' => 'base_font_size', 'label' => 'Base Font Size', 'type' => 'text', 'placeholder' => '16px'],
@@ -134,7 +142,12 @@ class Typography {
             ['key' => 'heading-h6', 'label' => 'Heading H6', 'type' => 'complex', 'fields' => [
                 ['key' => '--heading-h6', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '0.94em'],
                 ['key' => '--heading-h6-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
-            ]]
+            ]],
+            ['type' => 'tab', 'label' => 'Links' ],
+            ['key' => '--link-decoration', 'label' => 'Link Decoration', 'type' => 'select', 'placeholder' => 'none', 'options' => $link_decoration_options ],
+            ['key' => '--link-hover-decoration', 'label' => 'Link Hover Decoration', 'type' => 'select', 'placeholder' => 'underline', 'options' => $link_decoration_options ],
+            ['key' => '--link-decoration-thickness', 'label' => 'Link Decoration Thickness', 'type' => 'text', 'placeholder' => '6%' ],
+            ['key' => '--link-decoration-offset', 'label' => 'Link Decoration Offset', 'type' => 'text', 'placeholder' => '6px' ],
         ];
     }
 

@@ -64,15 +64,18 @@ em { font-style: italic; }
 
 a {
     color: var(--link-color);
-    text-decoration: none;
+    text-decoration: var(--link-decoration);
+    text-decoration-thickness: var(--link-decoration-thickness);
+    text-underline-offset: var(--link-decoration-offset);
     
     // Gets rid of tap active state
     -webkit-tap-highlight-color: transparent;
     
     &:hover{
-      text-decoration: underline;
+      text-decoration: var(--link-hover-decoration);
+      text-decoration-thickness: var(--link-decoration-thickness);
     }
 }
-a, [style*="underline"]{
-    text-underline-offset: 4px;
+[style*="underline"]{
+    text-underline-offset: var(--link-decoration-offset);
 }

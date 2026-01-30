@@ -7,6 +7,7 @@ CHANGELOG
 - Implements aspect-ratio and transform-origin on style manager
 - Implements --link-color css property
 - Implement page component classes on body
+- Link css properties implementation on font settings
 
 3.1.0 26-01-28
 - Review Components Name Convention
