@@ -31,7 +31,18 @@ window.gjsGallery = function (editor) {
                         url: MV23_GLOBALS.ajaxUrl,
                         data: data,
                         success: function(response) {
-                            el.innerHTML = response.data;
+                            // Create temporary container to parse response HTML
+                            const temp = document.createElement('div');
+                            temp.innerHTML = response.data;
+                            const firstChild = temp.firstElementChild;
+                            
+                            // Remove id attribute from component to avoid duplicates and style conflicts
+                            if (firstChild) {
+                                firstChild.removeAttribute('id');
+                                el.innerHTML = temp.innerHTML;
+                            } else {
+                                el.innerHTML = response.data;
+                            }
                         },
                         error: function(xhr, status, error) {
                             console.error(`Error loading ${compClass} component view:`, error);

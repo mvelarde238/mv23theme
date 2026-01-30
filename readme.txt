@@ -8,6 +8,7 @@ CHANGELOG
 - Implements --link-color css property
 - Implement page component classes on body
 - Link css properties implementation on font settings
+- Remove id attribute from ajaxified components to avoid duplicates and style conflicts
 
 3.1.0 26-01-28
 - Review Components Name Convention
