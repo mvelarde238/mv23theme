@@ -1883,7 +1883,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             $layout = $uf_component['settings']['layout']['key'];
 
             $special_layouts = array( 'layout2', 'layout3' );
-            $dont_doit_for = array( 'page_module', 'components-wrapper', 'column', 'inner_wrapper' );
+            $dont_doit_for = array( 'section', 'components-wrapper', 'column', 'inner_wrapper' ); // inner_wrapper?
             $component_type = $uf_component['__type'];
             if( in_array( $layout, $special_layouts )  ){
                 if( !in_array( $component_type, $dont_doit_for ) ){
