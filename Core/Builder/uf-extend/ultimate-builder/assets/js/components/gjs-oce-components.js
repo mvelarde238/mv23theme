@@ -146,6 +146,12 @@ window.gjsOceComponents = ( editor ) => {
                         }
                     }
                 }
+            },
+            events: {
+                dblclick: 'onActive',
+            },
+            onActive() {
+                editor.runCommand('open-datastore');
             }
         }
     });
@@ -170,7 +176,7 @@ window.gjsOceComponents = ( editor ) => {
                 { 
                     type: 'image-component',
                     style: {
-                        'aspect-ratio': '4 / 1',
+                        'aspect-ratio': '16/9',
                     }
                 },
                 { type: 'heading' },

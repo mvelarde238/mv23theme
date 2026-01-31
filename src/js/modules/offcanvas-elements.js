@@ -36,6 +36,9 @@ window['OffCanvas_Elements'] = (function(){
                 dynamic_content_components.length && dynamic_content_components.forEach( component => {
                     this._handle_async_settings( component, this.M_instance._openingTrigger );
                 });
+
+                // reflow map size if there is any map inside the offcanvas element
+                this._maybe_reflow_map_size(this.offcanvas_element);
             };
         },
         _handle_async_settings(component, trigger){
@@ -172,7 +175,6 @@ window['OffCanvas_Elements'] = (function(){
             }
     
             el.innerHTML = content;
-            this._maybe_reflow_map_size(this.offcanvas_element);
             this._maybe_init_toggleboxes(el);
         },
         _handle_async_error(error, msg, el, debug, async_settings) {
@@ -378,6 +380,8 @@ window['OffCanvas_Elements'] = (function(){
             for (var i = 0; i < maps.length; i++) {
                 let map = maps[i].mapObject,
                     provider = maps[i].dataset.provider;
+
+                if( provider == 'google' ) google.maps.event.trigger(map, 'resize');
 
                 if( provider == 'leaflet' ) map.invalidateSize(false);
             }

@@ -31,6 +31,7 @@ class Offcanvas_Element extends Component {
 
 	public static function get_fields() {
 		$fields = array(
+			Field::create('tab','_settings-tab', __('Settings','mv23theme')),
             Field::create('image_select', 'oce_type', __('Type','mv23theme') )->set_attr( 'class', 'image-select-3-cols' )->show_label()->add_options(array(
 				'modal' => array(
 					'label' => __('Modal','mv23theme'),
@@ -74,7 +75,9 @@ class Offcanvas_Element extends Component {
 				->set_text( __('Remove space around modal components.','mv23theme') ),
             Field::create( 'number', 'max_height', __('Max Height','mv23theme') )->set_default_value(140)->set_suffix('px')
                 ->add_dependency('oce_type','bottom_sheet','='),
-            Field::create( 'complex', 'overlay_color', __('Overlay Color','mv23theme') )->add_fields(array(
+
+			Field::create('tab','_overlay-tab', __('Overlay','mv23theme')),
+            Field::create( 'complex', 'overlay_color', __('Overlay Color','mv23theme') )->hide_label()->add_fields(array(
 				Field::create( 'checkbox', 'use', __('Customize','mv23theme') )
 					->set_attr( 'style', 'min-width:initial;' )
 					->fancy(),
