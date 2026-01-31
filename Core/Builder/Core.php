@@ -68,7 +68,8 @@ class Core{
             'Post_Title',
             'Sidebar',
             'Social_Share',
-            'Related_Posts'
+            'Related_Posts',
+            // 'Header'
         )
     );
 

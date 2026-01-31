@@ -90,6 +90,8 @@ window.gjsCommands = function (editor, options) {
     });
 
     commands.add('builder:log-data', (editor, sender, options) => {
+        editor.trigger('builder:before-save-editor'); // for testing purposes
+
         const raw_project_data = editor.getProjectData(),
             temporalCompStore = editor.getConfig().temporalCompStore || {},
             builder = options.builder;

@@ -13,6 +13,7 @@ CHANGELOG
 - Fix _maybe_reflow_map_size() method position on oce script
 - Prevent spacing spots from rendering on certain component types
 - Icon and Text Fix: add icon prefix on builder context
+- Includes Header component files (no used)
 
 3.1.0 26-01-28
 - Review Components Name Convention

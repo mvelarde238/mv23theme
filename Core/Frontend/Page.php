@@ -4,7 +4,7 @@ namespace Core\Frontend;
 use Core\Builder\Template_Engine;
 use Core\Posttype\Archive_Page;
 
-class Page{
+class Page{ 
 	private $id;
 	private $type;
 
@@ -93,23 +93,36 @@ class Page{
 		$page_content_styles = ($page_ID != null) ? get_post_meta($page_ID, 'page_content_styles', true) : null;
 
 		if (is_array($page_content)) :
-			// wrapper > components > container > components:
-			$container_components = $page_content[0]['components'][0]['components'] ?? [];
-			
 			ob_start();
-			if( is_array($container_components) && !empty($container_components) ){
-				echo '<style>'.$page_content_styles.'</style>';
-	
-				if( is_singular() && $container_components[0]['__type'] === 'single-page-structure' ){
-					// wrapper > components > container > components...
-					// ... > single-page-structure > single-main > [post-title, single-main-content, ...] > components:
-					$container_components = $container_components[0]['components'][0]['components'][1]['components'];
-				}	
-				
-				foreach ($container_components as $component) {
-					echo Template_Engine::getInstance()->handle( $component['__type'], $component );
+			echo '<style>'.$page_content_styles.'</style>';
+
+			$container = null;
+			foreach ( $page_content[0]['components'] as $component ) {
+				if ( $component['__type'] === 'container' ) {
+					$container = $component;
+					break;
 				}
 			}
+			if ( $container ) {
+				$container_components = $container['components'] ?? [];
+	
+				// if single page, get components inside single-page-structure:
+				if( is_singular() && $container_components[0]['__type'] === 'single-page-structure' ){
+					// single-page-structure > single-main > [post_title, single-main-content, ...]
+					$single_page_structure = $container_components[0];
+					$single_main = $single_page_structure['components'][0];
+					// $single_page_title = $single_main['components'][0];
+					$single_main_content = $single_main['components'][1];
+					$container_components = $single_main_content['components'];
+				}
+					
+				if (is_array($container_components) && !empty($container_components)) :
+					foreach ($container_components as $component) :
+						echo Template_Engine::getInstance()->handle( $component['__type'], $component );
+					endforeach;
+				endif;
+			}
+
 			return ob_get_clean();
 		else: 
 			return '';
