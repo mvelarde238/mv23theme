@@ -72,7 +72,9 @@ window.gjsIconAndText = function(editor) {
                     const iconCmp = model.findType('icon')[0];
 
                     if (isource === 'icon') {
-                        iconCmp.getEl().innerHTML = `<i class="${datastore.get('iname')}"></i>`;
+                        const iconName = datastore.get('iname');
+                        const iconPrefix = (iconName && iconName.startsWith('bi-')) ? 'bi' : 'fa';
+                        iconCmp.getEl().innerHTML = `<i class="${iconPrefix} ${iconName}"></i>`;
                     }
                     else if (isource === 'image') {
                         const _image_id = datastore.get('iimage');
