@@ -175,8 +175,8 @@ abstract class Component {
 				if( $component->get_id() === 'offcanvas_element' ){
 					$common_settings_control->set_hidden_fields( array('helpers','visibility','hide_on','layout') );
 				}
-				if( $component->get_id() === 'page' ){
-					$common_settings_control->set_hidden_fields( array('helpers','visibility','hide_on','layout','video_background', 'slider_background') );
+				if( $component->get_id() === 'wrapper' ){
+					$common_settings_control->set_hidden_fields( array('visibility','hide_on','layout','video_background', 'slider_background') );
 				}
 
 				$commmon_settings_fields[] = $common_settings_control;
