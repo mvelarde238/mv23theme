@@ -4056,4 +4056,12 @@ h2.uf-add-term-title {
 .uf-number-indicator {
   width: 60px;
 }
+
+/* checkbox separator */
+.uf-separator-top {
+  background: #eee;
+}
+.uf-separator-top label {
+  font-weight: bold;
+}
 /*# sourceMappingURL=ultimate-fields.css.map */

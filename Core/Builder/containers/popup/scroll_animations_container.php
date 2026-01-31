@@ -4,7 +4,7 @@ use Ultimate_Fields\Field;
 use Core\Builder\Animations\Animated_Properties_Repeater;
 
 $scroll_animation_fields = array();
-$read_only_styles = 'pointer-events:none;opacity:.6;background-color:#eee;';
+$read_only_styles = 'pointer-events:none;opacity:.45;user-select:none;cursor:not-allowed;';
 
 if( !SCROLL_ANIMATIONS ){
     array_push($scroll_animation_fields, 
@@ -45,7 +45,7 @@ $scroll_animation_settings_fields = array(
     // advanced settings
     Field::create( 'checkbox', 'set_advanced_settings' )
         ->hide_label()
-        ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
+        ->set_attr( 'class', 'uf-separator-top' )
         ->set_text( __('Advanced Settings','mv23theme') ),
     Field::create( 'text', 'toggle_actions', 'toggleActions' )
         ->set_placeholder( 'play none none reverse' )
@@ -63,7 +63,7 @@ $scroll_animation_settings_fields = array(
     // pin settings
     Field::create( 'checkbox', 'set_pin' )
         ->hide_label()
-        ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
+        ->set_attr( 'class', 'uf-separator-top' )
         ->set_text( __('Pin element while scrolling','mv23theme') ),
     Field::create( 'complex', 'pin_settings' )->add_fields(array(
         Field::create( 'select', 'pinned_el', __('Pinned element','mv23theme') )->add_options( array(
@@ -77,25 +77,25 @@ $scroll_animation_settings_fields = array(
         
     Field::create( 'checkbox', 'trigger_carrusel' )
         ->hide_label()
-        ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
+        ->set_attr( 'class', 'uf-separator-top' )
         ->set_text( __('Trigger Carrusel','mv23theme') ),
     Field::create( 'checkbox', 'disable_on_mobile', __('Disable on mobile', 'mv23theme') )
         ->hide_label()
-        ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
+        ->set_attr( 'class', 'uf-separator-top' )
         ->set_text( __('Disable on mobile', 'mv23theme') ),
     Field::create( 'checkbox', 'disable_everywhere', __('Disable everywhere', 'mv23theme') )
         ->hide_label()
-        ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
+        ->set_attr( 'class', 'uf-separator-top' )
         ->set_text( __('Disable everywhere', 'mv23theme') ),
     Field::create( 'checkbox', 'add_indicators' )
         ->hide_label()
-        ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
+        ->set_attr( 'class', 'uf-separator-top' )
         ->set_text( __('Show indicators','mv23theme') ),
 
     // initial rules settings
     Field::create( 'checkbox', 'set_initial_rules' )
         ->hide_label()
-        ->set_attr( 'style', 'background:#f3f3f3;border-bottom:1px solid #dedede' )
+        ->set_attr( 'class', 'uf-separator-top' )
         ->set_text( __('Set initial rules','mv23theme') ),
     Field::create( 'repeater', 'initial_rules' )
         ->set_add_text( __('Add rule','mv23theme') )

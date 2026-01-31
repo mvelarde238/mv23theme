@@ -1,4 +1,5 @@
-#component-settings
+#component-settings,
+.uf-overlay-box
     color: var(--font-color)
 
     .uf-group-control-open-menu
@@ -8,6 +9,14 @@
 
     h1, h2, h3, h4, h5, h6
         color: var(--font-color)
+    [type="checkbox"]
+        accent-color: var(--brand-color-1)
+    // placeholder color
+    ::-webkit-input-placeholder
+        color: var(--font-color) !important
+        opacity: 0.6
+    select:hover
+        color: inherit !important
     .wp-ui-highlight
         background-color: var(--brand-color-1)
     .uf-group
@@ -20,6 +29,8 @@
         background-color: var(--ui-color-2)
         border-color: var(--ui-color-4)
         color: var(--font-color)
+        &:hover
+            background: var(--ui-color-4)
     .uf-group-title
         color: var(--font-color)
     .uf-inline-tab
@@ -168,3 +179,40 @@
     .html-active .switch-html, .tmce-active .switch-tmce
         background-color: var(--ui-color-2)
         border-color: var(--ui-color-4)
+
+    // fields on table
+    .uf-boxed-fields .uf-field-layout-grid
+        border-left: 1px solid var(--ui-color-4)
+    .uf-table-cell:before
+        display: none
+    .uf-table-row 
+        border-top: 0
+
+.uf-overlay-box
+    background: var(--ui-color-1) !important
+    border-color: var(--ui-color-4) !important
+    a
+        color: var(--brand-color-1) !important
+    .uf-overlay-header,
+    .uf-overlay-footer
+        background: var(--ui-color-2)
+    .uf-overlay-screen
+        background: var(--ui-color-1) !important
+    .uf-overlay-header,
+    .uf-boxed-fields .uf-field-layout-row
+        border-bottom: 1px solid var(--ui-color-4)
+    .uf-boxed-fields .uf-field-layout-row:before
+        background: var(--ui-color-2)
+        border-right: 1px solid var(--ui-color-4)
+    .uf-boxed-fields .uf-field-layout-row > .uf-field-input-wrap
+        border-left: 1px solid var(--ui-color-4)
+    .uf-separator-top
+        background: var(--ui-color-2)
+    .button-primary
+        background: var(--brand-color-1) !important 
+        border-color: var(--brand-color-1) !important
+        color: #fff !important
+    .button-secondary
+        background: var(--ui-color-2) !important 
+        border-color: var(--ui-color-4) !important
+        color: var(--font-color) !important
