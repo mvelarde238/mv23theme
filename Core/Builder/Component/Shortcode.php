@@ -21,10 +21,17 @@ class Shortcode extends Component {
 	public static function get_fields() {
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme')),
-			Field::create( 'complex', 'options' )->hide_label()->add_fields(array(
-				Field::create( 'textarea', 'desktop' )->set_rows( 1 )->set_width( 50 ),
-				Field::create( 'textarea', 'mobile' )->set_rows( 1 )->set_width( 50 )
-			))
+			Field::create( 'textarea', 'desktop' )					
+				->hide_label()
+				->set_rows( 3 ),
+			Field::create( 'checkbox', 'set_mobile_shortcode' )
+				->hide_label()
+        		->set_attr( 'class', 'uf-separator-top' )
+        		->set_text( __('Use another shortcode on mobile', 'mv23theme') ),
+			Field::create( 'textarea', 'mobile' )
+				->hide_label()
+				->set_rows( 3 )
+				->add_dependency( 'set_mobile_shortcode' )
         );
 
 		return $fields;
@@ -35,36 +42,36 @@ class Shortcode extends Component {
 		
 		$args['additional_classes'][] = 'component';
 
-		$desktop = $args['options']['desktop'];
-		$mobile = $args['options']['mobile'];
+		$desktop = $args['desktop'];
+		$mobile = (isset($args['set_mobile_shortcode']) && $args['set_mobile_shortcode']) ? $args['mobile'] : null;
 		if (empty($desktop) && empty($mobile)) return;
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
-		echo ( IS_MOBILE ) ? do_shortcode($mobile) : do_shortcode($desktop);
+		echo ( IS_MOBILE && $mobile ) ? do_shortcode($mobile) : do_shortcode($desktop);
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
 
 	public static function get_view_template() {
 		$template = '<div class="shortcode-component">
-			<% if ( options.desktop && options.mobile ){ %>
-				<% if ( options.desktop === options.mobile ){ %>
+			<% if ( desktop && set_mobile_shortcode && mobile ){ %>
+				<% if ( desktop === mobile ){ %>
 					<div class="shortcode">
-						<div><%= options.desktop %></div>
+						<div><%= desktop %></div>
 					</div>
 				<% } else { %>
 					<div class="shortcode">
-						<div><i class="bi bi-laptop"></i> <%= options.desktop %> | <i class="bi bi-phone"></i> <%= options.mobile %></div>
+						<div><i class="bi bi-laptop"></i> <%= desktop %> | <i class="bi bi-phone"></i> <%= mobile %></div>
 					</div>
 				<% } %>
-			<% } else if ( options.desktop ){ %>
+			<% } else if ( desktop ){ %>
 				<div class="shortcode">
-					<div><i class="bi bi-laptop"></i> <%= options.desktop %></div>
+					<div><%= desktop %></div>
 				</div>
-			<% } else if ( options.mobile ){ %>
+			<% } else if ( set_mobile_shortcode && mobile ){ %>
 				<div class="shortcode">
-					<div><i class="bi bi-phone"></i> <%= options.mobile %></div>
+					<div><i class="bi bi-phone"></i> <%= mobile %></div>
 				</div>
 			<% } else { %>
 				<div class="no-shortcode">There isnt any shortcode defined</div>

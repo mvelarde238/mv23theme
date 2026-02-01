@@ -463,6 +463,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             $header_module['components'][] = array(
                 '__type' => 'shortcode',
                 'desktop' => $page_header_slider['desktop'],
+                'set_mobile_shortcode' => (!empty($page_header_slider['mobile'])) ? true : false,
                 'mobile' => $page_header_slider['mobile'],
                 'settings' => array()
             );
@@ -1737,8 +1738,9 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
     }
 
     private function process_shortcode_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
-        $uf_component['options'] = array(
+        $uf_component = array(
             'desktop' => $component['desktop'],
+            'set_mobile_shortcode' => ( isset($component['mobile']) ) ? true : false,
             'mobile' => $component['mobile']
         );
 
