@@ -1,5 +1,5 @@
 #component-settings,
-.uf-overlay-box
+.uf-overlay-box:has(.uf-field)
     color: var(--font-color)
 
     .uf-group-control-open-menu
@@ -190,7 +190,7 @@
     .uf-table-row 
         border-top: 0
 
-.uf-overlay-box
+.uf-overlay-box:has(.uf-field)
     background: var(--ui-color-1) !important
     border-color: var(--ui-color-4) !important
     a
@@ -216,3 +216,35 @@
         background: var(--ui-color-2) !important 
         border-color: var(--ui-color-4) !important
         color: var(--font-color) !important
+
+    // tabs
+    .uf-tab-wrapper
+        border-bottom: 1px solid var(--ui-color-4)
+    .uf-overlay-header .uf-tab-wrapper .uf-tab
+        background: var(--ui-color-2)
+        border-color: var(--ui-color-4)
+        color: var(--font-color)
+    .uf-overlay-header .uf-tab-wrapper .uf-tab-active
+        background: var(--brand-color-1)
+        border-color: var(--brand-color-1)
+        color: #fff !important
+
+    // icon selector
+    .uf-icon-group-selector label
+        background: var(--ui-color-2)
+        border-color: var(--ui-color-4)
+        color: var(--font-color)
+        text-shadow: none
+        box-shadow: none
+    .uf-icon-group-selector input:checked + label
+        background: var(--brand-color-1)
+        border-color: var(--brand-color-1)
+        color: #fff
+        box-shadow: none
+        text-shadow: none
+    .uf-icon-sidebar
+        background: var(--ui-color-2)
+    .uf-icon-search-input[type=text]
+        background: var(--ui-color-1)
+        border-color: var(--ui-color-4)
+        color: var(--font-color)

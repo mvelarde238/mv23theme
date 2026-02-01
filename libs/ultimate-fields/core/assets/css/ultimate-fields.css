@@ -1040,6 +1040,10 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
+.uf-overlay-box:has(.media-modal) {
+  width: 98%;
+}
+
 .uf-file {
   display: inline-block;
   background: #f8f7f7;
@@ -3124,7 +3128,6 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   font-size: 100px;
   width: auto;
   line-height: 150px;
-  height: 150px;
   padding: 30px 0 10px;
 }
 .uf-icon-current-name {

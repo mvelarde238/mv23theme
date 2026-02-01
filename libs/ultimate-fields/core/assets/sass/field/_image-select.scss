@@ -43,3 +43,7 @@
 	display: grid; 
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
+
+.uf-overlay-box:has(.media-modal) {
+	width: 98%;
+}
