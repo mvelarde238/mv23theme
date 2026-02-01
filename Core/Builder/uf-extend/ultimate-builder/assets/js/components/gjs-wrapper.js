@@ -5,7 +5,9 @@ window.gjsWrapper = function (editor, options) {
     domc.addType('wrapper', {
         model: {
             defaults: {
+                name: 'Page',
                 droppable: false,
+                highlightable: false,
                 stylable: true,
                 unstylable: []
             },
