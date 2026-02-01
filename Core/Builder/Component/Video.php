@@ -130,8 +130,7 @@ class Video extends Component {
         $expand_on_click = ( isset($args['expand_on_click']) && $args['expand_on_click'] ) ? true : false;
         if( $expand_on_click ){
             $video_key = ( $video_source === 'selfhosted' ) ? 'internal' : 'external';
-            $args['actions_settings'] = array();
-            $args['actions_settings']['actions'] = array(
+            $args['actions_settings'] = array(
                 array(
                     'trigger' => 'click',
                     'action' => 'open-video-popup',

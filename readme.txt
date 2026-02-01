@@ -16,6 +16,7 @@ CHANGELOG
 - Includes Header component files (no used)
 - Fix colors on popup containers
 - Shortcode Component Review
+- Migrate Actions Repeater to single Action
 
 3.1.0 26-01-28
 - Review Components Name Convention

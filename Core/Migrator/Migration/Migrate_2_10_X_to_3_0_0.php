@@ -668,6 +668,9 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         // Handle component['settings'] 
         $this->handle_settings( $uf_component, $gjs_component, $css_styles, $gjs_styles, $id );
 
+        // Handle component['actions']
+        $this->handle_actions( $uf_component, $gjs_component, $css_styles, $gjs_styles, $id );
+
         return array(
             'uf_component' => $uf_component,
             'gjs_component' => $gjs_component
@@ -1961,6 +1964,33 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             $uf_component['settings']['video_background']['video_settings']['bgc'] = $bgc;
 
             unset( $uf_component['settings']['video_background']['video_settings']['background_color'] );
+        }
+    }
+
+    private function handle_actions( &$uf_component ){
+        // migrate old repeater actions to single action
+        if( 
+            isset( $uf_component['actions_settings'] ) 
+            && is_array( $uf_component['actions_settings'] )
+            && isset( $uf_component['actions_settings']['actions'] )
+            && is_array( $uf_component['actions_settings']['actions'] )
+            && count( $uf_component['actions_settings']['actions'] ) > 0
+            ){
+            $first_action = $uf_component['actions_settings']['actions'][0];
+
+            if( isset( $first_action['enlace'] ) ){
+                $first_action['link'] = $first_action['enlace'];
+                $url_type_dictionary = array(
+                    'interna' => 'internal',
+                    'externa' => 'external',
+                );
+                $first_action['url_type'] = $url_type_dictionary[$first_action['enlace']['url_type']] ?? 'internal';
+                unset( $first_action['enlace'] );
+            }
+
+            $uf_component['actions_settings'] = $first_action;
+
+            unset( $uf_component['actions_settings']['actions'] );
         }
     }
 
