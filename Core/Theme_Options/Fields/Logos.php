@@ -12,7 +12,8 @@ class Logos {
 
         foreach ( Theme_Options::getInstance()->get_logos_field_names() as $key => $value) {
             if( $key != 'custom' ) {
-                $fields[] = Field::create( 'image', $key, $value )->set_width(25);
+                $default_value = get_option( $key, '' );
+                $fields[] = Field::create( 'image', $key, $value )->set_width(25)->set_default_value($default_value);
             }
         }
 

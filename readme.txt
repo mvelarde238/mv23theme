@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.1.2 26-02-02
+- Theme Options Component implementation
+
 3.1.1 26-01-30
 - Update gjs-row-and-cols plugin
 - Implements aspect-ratio and transform-origin on style manager

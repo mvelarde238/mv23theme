@@ -156,11 +156,12 @@ window.gjsExtendComponents = function (editor) {
             const changeHandler = _.debounce(function () {
                 try {
                     const group_builder_data = builder_comp_model.get('builder_data') ?? {};
+                    const changed = builder_comp_model.datastore.changed || {};
 
                     // if custom_datastore_change_callback is set, skip default handling
                     if( group_builder_data.custom_datastore_change_callback ){
                         if( typeof component.view.custom_datastore_change_callback === 'function' ){
-                            component.view.custom_datastore_change_callback();
+                            component.view.custom_datastore_change_callback(changed);
                         }
                         return;
                     }
@@ -169,8 +170,8 @@ window.gjsExtendComponents = function (editor) {
                     if( group_builder_data.avoid_rerender ){
                         return;
                     }
-
-                    const changed = builder_comp_model.datastore.changed || {};
+                    
+                    // Ignore changes that only affect __tab (tab switching)
                     const keys = Object.keys(changed);
                     if (keys.length === 1 && keys[0] === '__tab') return;
 

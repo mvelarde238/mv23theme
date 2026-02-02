@@ -7,23 +7,45 @@ use Core\Theme_Options\Theme_Options;
 class Header {
 
     public static function get_fields($key){
+        $header_logo_default = get_option( $key.'_header_logo', '' );
+        $custom_header_logo_default = get_option( 'custom_'.$key.'_header_logo', '' );
+        $header_logo_height_default = get_option( $key.'_header_logo_height', 60 );
+        $adjust_scroll_position_default = get_option( 'adjust_scroll_position', false );
+        $header_bgc_default = get_option( $key.'_header_bgc', array(
+            'add_bgc' => false,
+            'bgc' => '',
+            'alpha' => 100
+        ));
+        $header_color_scheme_default = get_option( $key.'_header_color_scheme', '' );
+
         $first_group = array(
             Field::create('tab', $key.'_header'),
             Field::create('complex', $key.'_header_logo_wrapper', __('Logo','mv23theme'))->merge()->add_fields(array(
-                Field::create('select', $key.'_header_logo', __('Select','mv23theme'))->add_options( Theme_Options::getInstance()->get_logos_field_names() )->set_width(50),
-                Field::create('image', 'custom_'.$key.'_header_logo', __('Select image','mv23theme'))->add_dependency($key.'_header_logo', 'custom', '=')->set_width(50),
+                Field::create('select', $key.'_header_logo', __('Select','mv23theme'))
+                    ->set_default_value( $header_logo_default )
+                    ->add_options( Theme_Options::getInstance()
+                    ->get_logos_field_names() )
+                    ->set_width(50),
+                Field::create('image', 'custom_'.$key.'_header_logo', __('Select image','mv23theme'))
+                    ->set_default_value( $custom_header_logo_default )
+                    ->add_dependency($key.'_header_logo', 'custom', '=')
+                    ->set_width(50),
             )),
-            Field::create('number', $key.'_header_logo_height', __('Logo Max Height','mv23theme'))->set_placeholder(60)->set_suffix('px')
+            Field::create('number', $key.'_header_logo_height', __('Logo Max Height','mv23theme'))
+                ->set_default_value( $header_logo_height_default )
+                ->set_placeholder(60)
+                ->set_suffix('px')
         );
 
         if( $key === 'sticky' ){
             $first_group[] = Field::create('checkbox', 'adjust_scroll_position', __('Adjust scroll position','mv23theme'))
+                ->set_default_value( $adjust_scroll_position_default )
                 ->set_text(__('If sticky header logo is smaller than static header logo this setting needs to be enabled.','mv23theme'))
                 ->fancy();
         }
 
         $second_group = array(
-            Field::create('complex', $key.'_header_bgc', __('Background Color','mv23theme'))->add_fields(array(
+            Field::create('complex', $key.'_header_bgc', __('Background Color','mv23theme'))->set_default_value( $header_bgc_default )->add_fields(array(
                 Field::create('checkbox', 'add_bgc', __('Use','mv23theme'))->fancy()->set_width(25),
                 Field::create('color', 'bgc', 'Color')->add_dependency('add_bgc')->set_width(50),
                 Field::create( 'number', 'alpha', __('Opacity','mv23theme') )
@@ -37,7 +59,7 @@ class Header {
                 '' => __('Select','mv23theme'),
                 'text-color-1' => 'Default Scheme',
                 'text-color-2' => 'Dark Scheme'
-            ))->set_default_value(DEFAULT_TEXT_COLOR)
+            ))->set_default_value( $header_color_scheme_default )
         );
 
         $fields = array_merge($first_group, $second_group);

@@ -61,7 +61,8 @@ class Ultimate_Builder {
 		// components
 		[ 'name' => 'gjsBase', 'handler' => 'gjs-base', 'isComponent' => true ],
 		[ 'name' => 'gjsWrapper', 'handler' => 'gjs-wrapper', 'isComponent' => true ],
-		// [ 'name' => 'gjsHeader', 'handler' => 'gjs-header', 'isComponent' => true ],
+		[ 'name' => 'gjsHeader', 'handler' => 'gjs-header', 'isComponent' => true ],
+		[ 'name' => 'gjsThemeOptions', 'handler' => 'gjs-theme-options', 'isComponent' => true ],
 		[ 'name' => 'gjsCompWrapper', 'handler' => 'gjs-components-wrapper', 'isComponent' => true ],
 		[ 'name' => 'gjsListing', 'handler' => 'gjs-listing', 'isComponent' => true ],
 		[ 'name' => 'gjsGallery', 'handler' => 'gjs-gallery', 'isComponent' => true ],

@@ -162,6 +162,8 @@ class Theme_Options extends Theme_Header_Data{
                     }
                 }   
                 if( $item['__type'] == 'custom_font' ){
+                    if( !isset($item['files']) || !is_array($item['files']) || empty($item['files']) ) continue;
+
                     $files = $item['files'];
                     $name = $item['name'];
                     $variant = $item['variant'];

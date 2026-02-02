@@ -6,10 +6,13 @@ use Ultimate_Fields\Field;
 class Page_Container {
 
     public static function get_fields(){
+        $containers_width_default = get_option( 'containers_width', array() );
+
         $fields = array(
             Field::create( 'tab', __('Container','mv23theme') ),
 
             Field::create( 'repeater', 'containers_width' )
+                ->set_default_value( $containers_width_default )
                 ->set_add_text(__('Add rule','mv23theme'))
                 ->hide_label()
                 ->add_group( 'item', array(

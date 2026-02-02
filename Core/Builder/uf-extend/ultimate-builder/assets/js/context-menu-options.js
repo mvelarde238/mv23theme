@@ -122,7 +122,13 @@ window['contextMenuOpts'] = {
             ]
         },
         wrapper: function(component, editor){
-            let actions = []
+            let actions = [
+                {
+                    type: 'button',
+                    label: 'EDIT THEME OPTIONS',
+                    command: 'select-theme-options'
+                }
+            ];
 
             return actions;
         },

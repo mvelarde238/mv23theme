@@ -3,8 +3,8 @@ window.gjsHeader = function (editor, options) {
     const compClass = 'header';
 
     // TODO
-    // Component should react to changes in Page_Settings datastore
-    // and re-render itself accordingly.
+    // - show static or sticky header based on scrolling position
+    // - Component should react to changes in Page_Settings datastore and re-render itself accordingly.
 
     let notSelectableComponent = {
         tagName: 'div',
@@ -35,6 +35,8 @@ window.gjsHeader = function (editor, options) {
                     '__type': 'header',
                     'action': 'get_component_view',
                     'post_id': BUILDER_GLOBALS.post_id,
+                    'apply_filters': model.get('apply_filters') || false,
+                    'filters_to_apply': model.get('filters_to_apply') || [],
                 };
                 jQuery.ajax({
                     type: "POST",

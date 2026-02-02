@@ -69,7 +69,8 @@ class Core{
             'Sidebar',
             'Social_Share',
             'Related_Posts',
-            // 'Header'
+            'Theme_Options',
+            'Header'
         )
     );
 
@@ -222,8 +223,22 @@ class Core{
     /** AJAX Handlers
      * used for the builder to get the component view
      * for ajaxified components rendering
+     * 
+     * apply_filters & filters_to_apply: flags to apply filters before getting the component view
+     * used on theme options data changes to imitate the Customizer behavior
+     * 
      */
     public function ajax_get_component_view(){
+        if ( isset( $_REQUEST['apply_filters'] ) && isset($_REQUEST['filters_to_apply'] ) ) {
+            if ( is_array( $_REQUEST['filters_to_apply'] ) ) {
+                foreach ( $_REQUEST['filters_to_apply'] as $filter ) {
+                    add_filter( $filter['name'], function() use ( $filter ) {
+                        return $filter['value'];
+                    } );
+                }
+            }
+        }
+
         $component_view = Template_Engine::getInstance()->handle( $_REQUEST['__type'], $_REQUEST );
         $result = $component_view ? $component_view : '';
         wp_send_json_success($result);

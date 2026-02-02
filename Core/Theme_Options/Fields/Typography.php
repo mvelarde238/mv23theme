@@ -113,11 +113,6 @@ class Typography {
             ['key' => '--bold-font-weight', 'label' => 'Bold Font Weight', 'type' => 'select', 'placeholder' => '700', 'options' => $font_weight_options ],
             ['key' => '--headings-font-weight', 'label' => 'Headings Font Weight', 'type' => 'select', 'placeholder' => 'var(--bold-font-weight)', 'options' => $font_weight_options ],
             ['key' => '--headings-line-height', 'label' => 'Headings Line Height', 'type' => 'text', 'placeholder' => '1.3' ],
-            ['key' => 'columns-gap', 'label' => 'Columns Gap', 'type' => 'complex', 'fields' => [
-                ['key' => '--l-columns-gap', 'label' => 'Desktop', 'type' => 'text', 'placeholder' => '20px'],
-                ['key' => '--t-columns-gap', 'label' => 'Tablet', 'type' => 'text', 'placeholder' => '20px'],
-                ['key' => '--m-columns-gap', 'label' => 'Mobile', 'type' => 'text', 'placeholder' => '20px']
-            ]],
             ['type' => 'tab', 'label' => 'Headings' ],
             ['key' => 'heading-h1', 'label' => 'Heading H1', 'type' => 'complex', 'fields' => [
                 ['key' => '--heading-h1', 'label' => 'Font Size', 'type' => 'text', 'placeholder' => '2.33em'],
@@ -202,7 +197,10 @@ class Typography {
     }
 
     public static function get_css_properties_complex(){
+        $typography_css_vars_default = get_option( 'typography_css_vars', array() );
+
         $complex = Field::create( 'complex', 'typography_css_vars', __('Typography CSS Vars','mv23theme') )
+            ->set_default_value( $typography_css_vars_default )
             ->add_fields( self::get_css_properties_fields() )
             ->rows_layout();
 
@@ -210,14 +208,19 @@ class Typography {
     }
 
     public static function get_fields(){
+        $fonts_default = get_option( 'fonts', array() );
+
         $fields = array(
-            Field::create( 'tab', 'typography', __('Typography','mv23theme') ),
+            Field::create( 'tab', 'fonts_tab', __('Fonts','mv23theme') ),
 
             Field::create( 'repeater', 'fonts', __('Fonts','mv23theme') )
+                ->set_default_value( $fonts_default )
                 ->set_add_text(__('Add font','mv23theme'))
                 ->set_chooser_type( 'tags' )
                 ->add_group( 'google_font', self::get_google_font_group() )
                 ->add_group( 'custom_font', self::get_custom_font_group() ),
+
+            Field::create( 'tab', 'typography_tab', __('Typography','mv23theme') ),
 
             self::get_css_properties_complex()
         );

@@ -189,6 +189,15 @@ window.gjsCommands = function (editor, options) {
         editor.Commands.run('select-component-settings-tab');
     });
 
+    commands.add('select-theme-options', (editor) => {
+        const wrapper = editor.getWrapper();
+        const themeOptions = wrapper.findType('theme-options')[0];  
+        if ( themeOptions ) {
+            editor.select(themeOptions);
+            editor.Commands.run('open-datastore');
+        }
+    });
+
     // Icon and Text specific commands
     commands.add('update-icon-property', (editor, sender, options = {}) => {
         let component = options.component,

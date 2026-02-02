@@ -62,7 +62,7 @@ window.gjsSinglePageStructure = function (editor, options) {
                 // Initial handling of datastore data
                 this.handle_datastore_data();
             },
-            custom_datastore_change_callback() {
+            custom_datastore_change_callback(changed) {
                 // Handle datastore data changes
                 this.handle_datastore_data();
             },
