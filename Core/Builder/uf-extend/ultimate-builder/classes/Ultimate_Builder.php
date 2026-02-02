@@ -181,6 +181,7 @@ class Ultimate_Builder {
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce' => wp_create_nonce( 'ultimate_builder_preview' ),
 				'post_id' => get_the_ID(),
+				// 'post_content' => get_post_field( 'post_content', get_the_ID() ),
 				'is_singular' => $is_singular,
 			));
 

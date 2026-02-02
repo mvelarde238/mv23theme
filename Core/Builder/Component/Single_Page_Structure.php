@@ -59,7 +59,12 @@ class Single_Page_Structure extends Component {
 		$post_id = isset( $_REQUEST['post'] ) ? absint( $_REQUEST['post'] ) : 0;
 		$post_type = get_post_type( $post_id );
 		$setting_name = ($post_type) ? 'single_' . $post_type . '_settings' : 'single_settings';
-		$default_values = get_option( $setting_name, array() );
+		$default_values = get_option( $setting_name, array(
+			'page_template' => 'main-content--sidebar-right',
+			'hide_post_title' => false,
+			'hide_social_share' => false,
+			'hide_related_posts' => false,
+		));
 
 		$fields = array(
 			Field::create( 'message', 'hidden_info', __( 'This structure is global and will be used for all single pages of the same post type.', 'mv23theme' ) )
