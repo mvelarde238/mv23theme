@@ -31,7 +31,6 @@ window.gjsThemeOptions = function (editor, options) {
                 if (keys.length && keys[0] === '__tab') return;
 
                 // Handle datastore data changes
-                console.log('Theme Options datastore data changed:', changed);
                 if( 
                     changed.main_logo_prepared || 
                     changed.secondary_logo_prepared ||
@@ -44,12 +43,12 @@ window.gjsThemeOptions = function (editor, options) {
                 }
                 if ( changed.static_header_logo_height || changed.ssticky_header_logo_height ) {
                     let key = changed.static_header_logo_height ? 'static_header_logo_height' : 'sticky_header_logo_height';
-                    this.set_CSS_prop('--' + key, changed[key] + 'px');
+                    this.set_CSS_prop('--' + key.replace(/_/g, '-'), changed[key] + 'px');
                 }
                 if ( changed.static_header_bgc || changed.sticky_header_bgc ) {
                     let color = '';
-                    let css_property = changed.static_header_bgc ? '--static_header_bgc' : '--sticky_header_bgc';;
-                    let values = changed.static_header_bgc;
+                    let css_property = changed.static_header_bgc ? '--static-header-color' : '--sticky-header-color';
+                    let values = changed.static_header_bgc ? changed.static_header_bgc : changed.sticky_header_bgc;
                     if( values.add_bgc ) color = ( values.alpha != '100' ) ? this.hexToRgba(values.bgc, values.alpha) : values.bgc;
                     this.set_CSS_prop(css_property, color);
                 }
@@ -87,7 +86,6 @@ window.gjsThemeOptions = function (editor, options) {
                     const datastore = editor.getComponentDatastore(model);
                     if (datastore) {
                         const data = datastore.toJSON();
-                        // console.log(datastore);
 
                         // TODO: apply these filters on preview page as well
                         headerComp.set('apply_filters', true);
