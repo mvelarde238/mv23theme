@@ -9,3 +9,10 @@
 		background-color: #50c435;
 	}
 }
+
+.common-settings-control__add .uf-button{
+	border-radius: 0;
+	border: 0;
+	font-size: 12px;
+	min-height: auto;
+}

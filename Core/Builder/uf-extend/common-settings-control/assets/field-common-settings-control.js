@@ -48,7 +48,7 @@
             // add a button to open a pop up
 			var addButton = new UltimateFields.Button({
                 text: this.model.get( 'add_text' ),
-				type: 'primary',
+				type: 'secondary',
                 icon: this.model.get( 'icon' ),
 				callback: _.bind( this.openPopUp, this ),
 				cssClass: has_value_class

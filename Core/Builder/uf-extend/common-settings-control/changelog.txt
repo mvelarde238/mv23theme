@@ -1,5 +1,8 @@
 UF Common Settings Control Changelog-------------------------
 
+1.0.8 26-02-02
+- Fix button styles
+
 1.0.7 25-11-14
 - Remove raw_data temporal key and work with the datastore
 - Restore stored values on discard and overlay close

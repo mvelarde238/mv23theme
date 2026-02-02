@@ -36,6 +36,7 @@ class Colors {
                 ->set_default_value( $colorpicker_palette_default )
                 ->set_add_text(__('Add color','mv23theme'))
                 ->set_layout( 'table' )
+                ->set_attr('class','hide-table-heading')
                 ->add_group( 'item', array(
                     'fields' => array(
                         Field::create( 'color', 'color' )

@@ -84,3 +84,9 @@
     font-weight: bold
   }
 }
+
+/* map field geocoder position fix */
+.uf-map-ui .leaflet-control-geocoder{
+  display: flex;
+  margin-right: 0;
+}

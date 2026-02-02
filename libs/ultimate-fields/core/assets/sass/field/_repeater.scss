@@ -395,6 +395,10 @@ $prototype-width: 140px;
 	}
 }
 
+.hide-table-heading .uf-table-headings {
+	display: none;
+}
+
 .uf-repeater-tags {
 	display: flex;
 	cursor: default;

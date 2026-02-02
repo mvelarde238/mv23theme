@@ -1856,6 +1856,10 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   padding: 15px;
 }
 
+.hide-table-heading .uf-table-headings {
+  display: none;
+}
+
 .uf-repeater-tags {
   display: flex;
   cursor: default;
