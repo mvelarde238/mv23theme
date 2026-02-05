@@ -7,6 +7,7 @@ CHANGELOG
 - Single Page Structure Revision
 - Fix actions settings on Video component
 - Fix Shortcode component migration
+- Fix Menu styles
 
 3.1.2 26-02-02
 - Theme Options Component implementation

@@ -25,12 +25,6 @@
     @extend %toggle-submenu-styles
 
 %menu-item-styles
-    & > li > a
-        white-space: nowrap
-    .menu-item__label
-        overflow: hidden
-        text-overflow: ellipsis
-
     .menu-item__icon
         margin-right: 8px
         img
@@ -59,7 +53,9 @@
 
 %shared-horizontal-navs-styles
     display: flex
-    justify-content: center
+    justify-content: safe center
+    & > li > a
+        white-space: nowrap
     .-secondary
         background-color: #fff
         box-shadow: 0 2px 5px var(--accent-color-3)
@@ -143,7 +139,7 @@
 
 %toggle-submenu-styles-for-vertical-menus 
     a:has(>.toggle-submenu)
-        padding-right: 65px
+        padding-right: 65px !important
     .toggle-submenu
         position: absolute
         top: 0
