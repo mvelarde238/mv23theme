@@ -5,6 +5,7 @@ CHANGELOG
 3.1.3 26-02-05
 - Archive Page Structure Implementation
 - Single Page Structure Revision
+- Fix actions settings on Video component
 
 3.1.2 26-02-02
 - Theme Options Component implementation

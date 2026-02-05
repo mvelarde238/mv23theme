@@ -131,13 +131,11 @@ class Video extends Component {
         if( $expand_on_click ){
             $video_key = ( $video_source === 'selfhosted' ) ? 'internal' : 'external';
             $args['actions_settings'] = array(
-                array(
-                    'trigger' => 'click',
-                    'action' => 'open-video-popup',
-                    'video_popup' => array(
-                        'video_source' => $video_source,
-                        $video_key.'_video' => $video_data['url']
-                    )
+                'trigger' => 'click',
+                'action' => 'open-video-popup',
+                'video_popup' => array(
+                    'video_source' => $video_source,
+                    $video_key.'_video' => $video_data['url']
                 )
             );
         }
