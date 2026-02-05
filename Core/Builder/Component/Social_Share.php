@@ -25,9 +25,9 @@ class Social_Share extends Component {
 		return $fields;
 	}
 
-    public static function display($args){
+    public static function display($args = array()) {
         ob_start();
-        echo '<div class="social-share-wrapper">';
+        echo '<div class="social-share-wrapper component">';
         echo do_shortcode('[social_share]');
         echo '</div>';
         return ob_get_clean();

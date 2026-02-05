@@ -16,7 +16,7 @@ window.gjsCommands = function (editor, options) {
         const raw_project_data = editor.getProjectData(),
             temporalCompStore = editor.getConfig().temporalCompStore || {},
             uf_field_model = editor.getConfig().uf_field_model,
-            builder = options.builder;
+            builder = editor.getConfig().builderInstance;
 
         const values = builder.prepare_project_data(raw_project_data, temporalCompStore, editor);
 
@@ -38,7 +38,7 @@ window.gjsCommands = function (editor, options) {
     });
 
     commands.add('builder:preview', (editor, sender, options = {}) => {
-        const builder = options.builder;
+        const builder = editor.getConfig().builderInstance;
         
         var payload = null;
         const raw_project_data = editor.getProjectData(),
@@ -94,7 +94,7 @@ window.gjsCommands = function (editor, options) {
 
         const raw_project_data = editor.getProjectData(),
             temporalCompStore = editor.getConfig().temporalCompStore || {},
-            builder = options.builder;
+            builder = editor.getConfig().builderInstance;
         const values = builder.prepare_project_data(raw_project_data, temporalCompStore, editor);
         console.log('raw_project_data', raw_project_data);
         console.log('temporalCompStore', temporalCompStore);

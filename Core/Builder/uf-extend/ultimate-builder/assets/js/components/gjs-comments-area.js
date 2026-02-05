@@ -1,11 +1,11 @@
-window.gjsPostTitle = function (editor, options) {
+window.gjsCommentsArea = function (editor, options) {
     const domc = editor.DomComponents;
 
-    domc.addType('post-title', {
+    domc.addType('comments-area', {
         extend: 'async-component-abstract',
         model: {
             defaults: {
-                name: 'Post Title',
+                name: 'Comments Area',
                 tagName: 'div',
                 classes: ['component'],
                 droppable: false,

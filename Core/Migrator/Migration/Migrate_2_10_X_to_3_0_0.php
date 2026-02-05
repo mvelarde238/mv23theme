@@ -2123,7 +2123,8 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                         'page_template' => $old_settings['hide_sidebar'] ? 'main-content--sidebarless' : $old_settings['page_template'],
                         'hide_post_title' => $old_settings['hide_post_title'] ?? 0,
                         'hide_social_share' => $old_settings['hide_social_share'] ?? 0,
-                        'hide_related_posts' => $old_settings['hide_related_posts'] ?? 0
+                        'hide_related_posts' => $old_settings['hide_related_posts'] ?? 0,
+                        'hide_comments_area' => 0,
                     );
 
                     if( $this->do_the_update ) update_option( 'single_' . $post_type . '_settings', $new_settings );

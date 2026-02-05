@@ -43,14 +43,12 @@
                     {
                         id: 'builder:preview', 
                         iconClass: 'bi bi-eye',
-                        options: { builder: that },
                         label: 'Preview',
                         className: 'secondary-button builder-preview-button'
                     },
                     {
                         id: 'builder:save-editor', 
                         iconClass: 'bi bi-floppy2',
-                        options: { builder: that },
                         label: 'Save',
                         className: 'primary-button builder-save-button'
                     }
@@ -66,8 +64,7 @@
                     { 
                         id: 'builder:log-data', 
                         label: 'LOG PROJECT DATA',
-                        iconClass: 'dashicons dashicons-admin-generic',
-                        options: { builder: that }
+                        iconClass: 'dashicons dashicons-admin-generic'
                     },
                 ],
                 onEditor: function(editor) {

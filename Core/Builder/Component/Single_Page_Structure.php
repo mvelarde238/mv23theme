@@ -64,6 +64,7 @@ class Single_Page_Structure extends Component {
 			'hide_post_title' => false,
 			'hide_social_share' => false,
 			'hide_related_posts' => false,
+			'hide_comments_area' => false,
 		));
 
 		$fields = array(
@@ -78,6 +79,7 @@ class Single_Page_Structure extends Component {
 				Field::create( 'checkbox', 'hide_post_title')->fancy()->hide_label()->set_text( __( 'Hide the post title', 'mv23theme' ) ),
 				Field::create( 'checkbox', 'hide_social_share')->fancy()->hide_label()->set_text( __( 'Hide social share', 'mv23theme' ) ),
 				Field::create( 'checkbox', 'hide_related_posts')->fancy()->hide_label()->set_text( __( 'Hide related posts', 'mv23theme' ) ),
+				Field::create( 'checkbox', 'hide_comments_area')->fancy()->hide_label()->set_text( __( 'Hide comments area', 'mv23theme' ) ),
 			))->set_default_value( $default_values ),
         );
 		return $fields;

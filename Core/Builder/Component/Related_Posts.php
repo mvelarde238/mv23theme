@@ -26,7 +26,7 @@ class Related_Posts extends Component {
 		return $fields;
 	}
 
-    public static function display($args){
+    public static function display($args = array()) {
         global $post;
         if( isset($args['post_id']) ) {
             $post = get_post( $args['post_id'] );
@@ -55,7 +55,7 @@ class Related_Posts extends Component {
         ), $post->ID);
 
         ob_start();
-        echo '<div class="related-posts">';
+        echo '<div class="related-posts component">';
         printf('<h4 class="related-posts__title">%s</h4>', $title);
         echo Listing::display($related_posts_args);
         echo '</div>';

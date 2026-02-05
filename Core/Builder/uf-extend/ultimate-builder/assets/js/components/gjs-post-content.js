@@ -1,11 +1,11 @@
-window.gjsPostTitle = function (editor, options) {
+window.gjsPostContent = function (editor, options) {
     const domc = editor.DomComponents;
 
-    domc.addType('post-title', {
+    domc.addType('post-content', {
         extend: 'async-component-abstract',
         model: {
             defaults: {
-                name: 'Post Title',
+                name: 'Post Content',
                 tagName: 'div',
                 classes: ['component'],
                 droppable: false,

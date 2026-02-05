@@ -46,7 +46,6 @@ class Page{
 			$page = new Page();
 			$page_is_private = self::page_is_private(); 
             ob_start();
-            if ($content) echo '<div class="page-module"><div class="component">' . $content . '</div></div>';
 			if( !$page_is_private ) echo $page->the_content();
             $filtered_content = ob_get_clean();
             return $filtered_content;
@@ -108,12 +107,10 @@ class Page{
 	
 				// if single page, get components inside single-page-structure:
 				if( is_singular() && $container_components[0]['__type'] === 'single-page-structure' ){
-					// single-page-structure > single-main > [post_title, single-main-content, ...]
+					// single-page-structure > single-main > [post_title, ..., social-share, ...]
 					$single_page_structure = $container_components[0];
 					$single_main = $single_page_structure['components'][0];
-					// $single_page_title = $single_main['components'][0];
-					$single_main_content = $single_main['components'][1];
-					$container_components = $single_main_content['components'];
+					$container_components = $single_main['components'];
 				}
 
 				// if archive page, get components inside archive-page-structure:

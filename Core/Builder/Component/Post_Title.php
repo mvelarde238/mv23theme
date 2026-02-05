@@ -25,8 +25,9 @@ class Post_Title extends Component {
 		return $fields;
 	}
 
-    public static function display($args){
-        $post_id = isset($args['post_id']) ? $args['post_id'] : null;
+    public static function display($args = array()){
+        global $post;
+        $post_id = isset($args['post_id']) ? $args['post_id'] : $post->ID;
 
         $post_title_posttypes = apply_filters('filter_post_title_posttypes', array(
             'post' => array( 'main_taxonomy' => 'category', 'tag_taxonomy' => 'post_tag' ),

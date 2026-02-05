@@ -78,8 +78,10 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsSinglePageStructure', 'handler' => 'gjs-single-page-structure', 'isComponent' => true ],
 		[ 'name' => 'gjsPostTitle', 'handler' => 'gjs-post-title', 'isComponent' => true ],
 		[ 'name' => 'gjsSidebar', 'handler' => 'gjs-sidebar', 'isComponent' => true ],
+		[ 'name' => 'gjsPostContent', 'handler' => 'gjs-post-content', 'isComponent' => true ],
 		[ 'name' => 'gjsSocialShare', 'handler' => 'gjs-social-share', 'isComponent' => true ],
 		[ 'name' => 'gjsRelatedPosts', 'handler' => 'gjs-related-posts', 'isComponent' => true ],
+		[ 'name' => 'gjsCommentsArea', 'handler' => 'gjs-comments-area', 'isComponent' => true ],
 		[ 'name' => 'gjsArchivePageStructure', 'handler' => 'gjs-archive-page-structure', 'isComponent' => true ],
 		[ 'name' => 'gjsIconAndText', 'handler' => 'gjs-icon-and-text', 'isComponent' => true ],
 		// external components
@@ -112,6 +114,7 @@ class Ultimate_Builder {
 		add_action( 'uf.register_scripts', array( $this, 'register_scripts' ) );
 		add_action( 'post_action_ultimate-builder', array( $this, 'prepare_admin_for_builder' ) );
 		add_action( 'wp_ajax_ultimate_builder_preview_save', array( Preview_Handler::class, 'ajax_preview_save' ) );
+		add_action( 'wp_ajax_migrate_post_content_to_builder', array( $this, 'ajax_migrate_post_content' ) );
 		add_action( 'init', array( Preview_Handler::class, 'maybe_apply_preview' ), 1 );
 	
 		// Initialize screen helper for builder detection
@@ -184,7 +187,7 @@ class Ultimate_Builder {
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce' => wp_create_nonce( 'ultimate_builder_preview' ),
 				'post_id' => get_the_ID(),
-				// 'post_content' => get_post_field( 'post_content', get_the_ID() ),
+				'post_content' => get_post_field( 'post_content', get_the_ID() ),
 				'is_singular' => $is_singular,
 				'is_archive' => $is_archive,
 			));
@@ -301,5 +304,42 @@ class Ultimate_Builder {
 			require_once ABSPATH . 'wp-admin/admin-footer.php';
 			exit;
 		}
+	}
+
+	/**
+	 * AJAX handler to migrate post content to builder.
+	 *
+	 * @since 1.0
+	 */
+	public function ajax_migrate_post_content() {
+		// Verify nonce
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'ultimate_builder_preview' ) ) {
+			wp_send_json_error( 'Invalid nonce' );
+		}
+
+		// Check if user has permission
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error( 'Insufficient permissions' );
+		}
+
+		// Get post ID
+		$post_id = isset( $_POST['post_id'] ) ? intval( $_POST['post_id'] ) : 0;
+		if ( ! $post_id ) {
+			wp_send_json_error( 'Invalid post ID' );
+		}
+
+		// Clear the post content
+		$result = wp_update_post( array(
+			'ID'           => $post_id,
+			'post_content' => ''
+		) );
+
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( $result->get_error_message() );
+		}
+
+		wp_send_json_success( array(
+			'message' => __('Post content migrated successfully', 'mv23theme')
+		) );
 	}
 }

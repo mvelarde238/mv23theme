@@ -5,6 +5,8 @@ use Core\Theme_Options\UF_Container\Posts_Subscription;
 use Core\Theme_Options\UF_Container\Track_Posts_Data;
 use Core\Frontend\Taxonomy_Breadcrumbs;
 use Core\Theme_Options\Theme_Options;
+use Core\Builder\Component\Social_Share;
+use Core\Builder\Component\Related_Posts;
 
 get_header();
 $main_content_classes = array('main-content','container');
@@ -125,9 +127,8 @@ $main_content_classes[] = $single_page['page_template'];
                 </div>
             </div>
 
-            <?php if(!$single_page['hide_social_share']) get_template_part('partials/social-share'); ?>
-
-            <?php if(!$single_page['hide_related_posts']) get_template_part('partials/related-posts'); ?>
+            <?php if(!$single_page['hide_social_share']) echo Social_Share::display(); ?>
+            <?php if(!$single_page['hide_related_posts']) echo Related_Posts::display(); ?>
 		</main>
 
         <?php if( $single_page['page_template'] !== 'main-content--sidebarless' ) get_sidebar(); ?>

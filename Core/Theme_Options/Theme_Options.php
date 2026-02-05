@@ -334,7 +334,8 @@ class Theme_Options extends Theme_Header_Data{
                 'hide_sidebar' => 0, 
                 'hide_post_title' => 0, 
                 'hide_social_share' => 0,
-                'hide_related_posts' => 0
+                'hide_related_posts' => 0,
+                'hide_comments_area' => 0,
             )
         );
 
@@ -349,6 +350,7 @@ class Theme_Options extends Theme_Header_Data{
                 $page_settings['single']['hide_social_share'] = $single_posttype_settings['hide_social_share'] ?? 0;
                 $page_settings['single']['page_template'] = $single_posttype_settings['page_template'] ?? 'main-content--sidebar-right';
                 $page_settings['single']['hide_related_posts'] = $single_posttype_settings['hide_related_posts'] ?? 0;
+                $page_settings['single']['hide_comments_area'] = $single_posttype_settings['hide_comments_area'] ?? 0;
             }
         }
 
