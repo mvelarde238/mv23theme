@@ -75,7 +75,7 @@ class Archive_Posts extends Component {
                 'tax_params' => $archive_page->get_archive_tax_params(),
                 'listing_template' => $archive_page->get_listing_template(),
                 'columns' => $archive_page->get_loop_columns(),
-                'column_gap' => $archive_page->get_columns_gap(),
+                'columns_gap' => $archive_page->get_columns_gap(),
                 'carousel_settings' => $archive_page->get_carousel_settings(),
                 'postcard_settings' => $archive_page->get_postcard_settings(),
                 'pagination_type' => $archive_page->get_pagination_type(),
