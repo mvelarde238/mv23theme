@@ -1818,11 +1818,9 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
     }
 
     private function process_shortcode_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
-        $uf_component = array(
-            'desktop' => $component['desktop'],
-            'set_mobile_shortcode' => ( isset($component['mobile']) ) ? true : false,
-            'mobile' => $component['mobile']
-        );
+        $uf_component['desktop'] = $component['desktop'];
+        $uf_component['set_mobile_shortcode'] = ( isset($component['mobile']) ) ? true : false;
+        $uf_component['mobile'] = $component['mobile'];
 
         unset( $uf_component['_shortcodes_wrapper'] );
     }

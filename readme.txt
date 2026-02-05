@@ -6,6 +6,7 @@ CHANGELOG
 - Archive Page Structure Implementation
 - Single Page Structure Revision
 - Fix actions settings on Video component
+- Fix Shortcode component migration
 
 3.1.2 26-02-02
 - Theme Options Component implementation
