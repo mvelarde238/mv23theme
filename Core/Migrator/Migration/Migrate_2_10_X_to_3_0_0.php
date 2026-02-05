@@ -167,6 +167,11 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 $page_control['new_data'] = $new_blocks_layout_data;
             }
 
+            // Migrate Archive Pages Post Meta
+            if( $page->post_type == 'archive_page' ){
+                $this->migrate_archive_page_post_meta( $page->post_id );
+            }
+
             $general_control[] = $page_control;
         }
     
@@ -1630,8 +1635,25 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
     private function process_listing_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
         $uf_component['source'] = $component['show'];
-        $uf_component['posts_per_page'] = $component['qty'] ?? -1;
         $uf_component['listing_template'] = $component['list_template'];
+        $uf_component['columns'] = array(
+            'desktop' => $component['items_in_desktop'],
+            'laptop' => $component['items_in_laptop'],
+            'tablet' => $component['items_in_tablet'],
+            'mobile' => $component['items_in_mobile']
+        );
+        $uf_component['columns_gap'] = array(
+            'desktop' => $component['d_gap'] ?? 20,
+            'laptop' => $component['l_gap'] ?? 20,
+            'tablet' => $component['t_gap'] ?? 20,
+            'mobile' => $component['m_gap'] ?? 20
+        );
+
+        // migrate carousel settings to a better format
+        $uf_component['carousel_settings'] = array();
+        if( isset($component['carousel_settings_wrapper']) && is_array($component['carousel_settings_wrapper']) ){
+            $uf_component['carousel_settings'] = $component['carousel_settings_wrapper'];
+        }
 
         // migrate taxonomies to a better format
         $uf_component['tax_params'] = array();
@@ -1646,14 +1668,69 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             }
         }
 
+        // migrate query params
+        $uf_component['query_params'] = array(
+            'posts_per_page' => $component['qty'] ?? -1,
+            'order' => $component['order'] ?? 'DESC',
+            'orderby' => $component['orderby'] ?? 'date',
+            'offset' => $component['offset'] ?? 0,
+        );
+
+        // migrate post status params
+        $uf_component['status_params'] = array(
+            'set_post_status' => isset($component['post_status']) ? true : false,
+            'post_status' => $component['post_status'] ?? ['publish'],
+        );
+
+        // migrate postcard settings
+        $uf_component['postcard_settings'] = array(
+            'template' => $component['post_template'] ?? '_default',
+            'on_click_post' => $component['on_click_post'] ?? 'redirect',
+            'on_click_scroll_to' => $component['on_click_scroll_to'] ?? '',
+        );
+
+        // adjust listing template name
         if( $component['list_template'] == 'carrusel' ){
             $uf_component['listing_template'] = 'carousel';
         }
 
-        unset( $uf_component['show'] );
-        unset( $uf_component['qty'] );
-        unset( $uf_component['list_template'] );
-        unset( $uf_component['taxonomies_field'] );
+        // migrate pagination and scrolltop settings to a better format
+        $pagination_type = $component['pagination_type'] ?? 'none';
+        if($pagination_type == 'classic') $pagination_type = 'numeric';
+        if($pagination_type == 'load_more') $pagination_type = 'load-more';
+        $uf_component['pagination_type'] = $pagination_type;
+        $uf_component['pagination_scrolltop'] = isset($component['scrolltop']) ? true : false;
+
+        // migrate filter settings to a better format
+        $uf_component['show_filter'] = isset($component['filter']) ? $component['filter'] : false;
+        $uf_component['filters'] = array(
+            'category' => array(
+                'show' => isset($component['category-filter']['show']) ? $component['category-filter']['show'] : false,
+                'initial_value' => $component['category-filter']['default_value'] ?? ''
+            ),
+            'portfolio-cat' => array(
+                'show' => isset($component['portfolio-cat-filter']['show']) ? $component['portfolio-cat-filter']['show'] : false,
+                'initial_value' => $component['portfolio-cat-filter']['default_value'] ?? ''
+            ),
+            'document-cat' => array(
+                'show' => isset($component['document-cat-filter']['show']) ? $component['document-cat-filter']['show'] : false,
+                'initial_value' => $component['document-cat-filter']['default_value'] ?? ''
+            ),
+            'month' => array(
+                'show' => isset($component['month-filter']['show']) ? $component['month-filter']['show'] : false
+            ),
+            'year' => array(
+                'show' => isset($component['year-filter']['show']) ? $component['year-filter']['show'] : false,
+                'first_year' => $component['year-filter']['first_year'] ?? '',
+                'initial_value' => $component['year-filter']['default'] ?? ''
+            )
+        );
+
+        // unset old properties
+        $to_unset = [ 'show','qty','items_in_desktop','items_in_laptop','items_in_tablet','items_in_mobile','list_template','taxonomies_field','d_gap', 'l_gap', 't_gap', 'm_gap', 'carousel_settings_wrapper', 'post_template', 'on_click_post', 'on_click_scroll_to', 'order', 'orderby', 'offset', 'post_status', 'posts_per_page', 'filter', 'category-filter', 'portfolio-cat-filter', 'document-cat-filter', 'month-filter', 'year-filter', 'scrolltop' ];
+        foreach ( $to_unset as $key ) {
+            unset( $uf_component[$key] );
+        }
     }
 
     private function process_gallery_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
@@ -2000,6 +2077,40 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $uf_parent['components'][] = $created_comp['uf_component'];
     }
 
+    public function migrate_archive_page_post_meta( $post_id ){
+        // Migrate loop_columns to columns
+        $loop_columns = get_post_meta( $post_id, 'loop_columns', true );
+        if( $loop_columns && is_array( $loop_columns ) ){
+            $new_columns = array(
+                'desktop' => $loop_columns['desktop'] ?? 3,
+                'laptop' => $loop_columns['laptop'] ?? 3,
+                'tablet' => $loop_columns['tablet'] ?? 2,
+                'mobile' => $loop_columns['mobile'] ?? 1
+            );
+            if( $this->do_the_update ) update_post_meta( $post_id, 'columns', $new_columns );
+            if( $this->delete_old_data ) delete_post_meta( $post_id, 'loop_columns' );
+        }
+
+        // Migrate loop_columns_gap to columns_gap
+        $loop_columns_gap = get_post_meta( $post_id, 'loop_columns_gap', true );
+        if( $loop_columns_gap && is_array( $loop_columns_gap ) ){
+            $new_columns_gap = array(
+                'desktop' => $loop_columns_gap['desktop'] ?? 20,
+                'laptop' => $loop_columns_gap['laptop'] ?? 20,
+                'tablet' => $loop_columns_gap['tablet'] ?? 15,
+                'mobile' => $loop_columns_gap['mobile'] ?? 10
+            );
+            if( $this->do_the_update ) update_post_meta( $post_id, 'columns_gap', $new_columns_gap );
+            if( $this->delete_old_data ) delete_post_meta( $post_id, 'loop_columns_gap' );
+        }
+
+        // if page_template is "hide-sidebar", change it to "main-content--sidebarless"
+        $page_template = get_post_meta( $post_id, 'page_template', true );
+        if( $page_template && $page_template === 'hide-sidebar' ){
+            if( $this->do_the_update ) update_post_meta( $post_id, 'page_template', 'main-content--sidebarless' );
+        }
+    }
+
     public function ajax_after_data_migration() {
         
         // Migrate single_pages_settings
@@ -2015,7 +2126,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                         'hide_related_posts' => $old_settings['hide_related_posts'] ?? 0
                     );
 
-                    update_option( 'single_' . $post_type . '_settings', $new_settings );
+                    if( $this->do_the_update ) update_option( 'single_' . $post_type . '_settings', $new_settings );
                 }
             }
         }

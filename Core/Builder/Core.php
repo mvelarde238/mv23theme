@@ -69,6 +69,9 @@ class Core{
             'Sidebar',
             'Social_Share',
             'Related_Posts',
+            'Archive_Page_Structure',
+            'Archive_Title',
+            'Archive_Posts',
             'Theme_Options',
             'Header'
         )
@@ -83,6 +86,15 @@ class Core{
     
     // Constructor privado para evitar la creación directa de la instancia
     private function __construct(){}
+
+    public function set_initial_values(){
+        $builder_posttypes = get_option('builder_posttypes');
+        if ( $builder_posttypes === false ) {
+            add_option('builder_posttypes', array('post','page','megamenu','archive_page','footer','reusable_section','portfolio'));
+            add_option('hide_wp_editor_on', array('page'));
+            add_option('insert_single_structure_on', array('post','portfolio'));
+        }
+    }
 
     public function hide_editor(){
         $hide_wp_editor_on = get_option('hide_wp_editor_on') ? get_option('hide_wp_editor_on') : array();

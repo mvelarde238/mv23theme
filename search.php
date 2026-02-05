@@ -1,10 +1,14 @@
-<?php get_header(); ?>
+<?php 
+use Core\Builder\Component\Archive_Title;
+
+get_header(); 
+?>
 
 <div id="content">
-	<?php get_template_part('partials/page-header'); ?>
-
 	<div id="main-content" class="main-content  container main-content--sidebar-left">
 		<main class="main" itemtype="http://schema.org/Blog">
+			<?php echo Archive_Title::display( array() ); ?>
+
 			<?php if (have_posts()) : ?>
 				<div class="page-module">
 					<div class="component">

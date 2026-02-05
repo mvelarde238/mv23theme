@@ -10,8 +10,6 @@ $page_template_settings = $archive_page->get_page_template_settings();
 if( $page_template_settings['has_sidebar'] ) array_push($main_content_classes, $page_template_settings['class']);
 ?>
 <div id="content">
-	<?php get_template_part('partials/page-header'); ?>
-	
 	<div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
 		<main class="main">
 			<?php echo $archive_page::the_content(); ?>

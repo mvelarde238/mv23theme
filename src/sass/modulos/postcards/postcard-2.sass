@@ -21,14 +21,15 @@
         margin-bottom: 5px
 
     &--style2 &__postdata
-        display: flex
-        flex-wrap: wrap
-        align-items: center
-        gap: 10px
-        font-size: .8em
         margin-bottom: 10px
-        p
-            margin-bottom: 0
+        p:first-child
+            font-size: .8em
+            overflow: hidden
+            text-overflow: ellipsis
+            display: -webkit-box
+            -webkit-line-clamp: 1
+            -webkit-box-orient: vertical
+            margin-bottom: 5px
     
     &--style2 &__tags
         display: flex

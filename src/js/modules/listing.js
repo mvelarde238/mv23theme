@@ -90,7 +90,16 @@
     function getPagedParameter(url) {
         const parsedUrl = new URL(url, window.location.origin);
         const params = new URLSearchParams(parsedUrl.search);
-        const paged = params.get('paged'); 
+        let paged = params.get('paged'); 
+
+        // If not in query string, try to extract from path: ../page/3/
+        if (!paged) {
+            const match = parsedUrl.pathname.match(/\/page\/(\d+)\/?/);
+            if (match) {
+                paged = match[1];
+            }
+        }
+
         return (paged) ? paged : 1;
     }
 
@@ -102,6 +111,10 @@
                 $pagination = $component.find('.pagination');
     
             $component.on('click','a.page-numbers', function(event){
+
+                // check .disable-numeric-ajax-pagination class to allow numeric pagination to work without ajax (full page reload)
+                if ( $component.hasClass('disable-numeric-ajax-pagination') ) return;
+
                 event.preventDefault();
                 var href = event.target.getAttribute('href'),
                     paged = getPagedParameter(href),

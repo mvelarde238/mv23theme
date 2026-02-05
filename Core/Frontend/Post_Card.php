@@ -48,12 +48,13 @@ class Post_Card {
         $attributes = array();
 
         $attributes[] = 'data-id="' . esc_attr($post->ID) . '"';
-
-        if (!empty($args['on_click_post'])) {
-            $attributes[] = 'data-action="' . esc_attr($args['on_click_post']) . '"';
+        
+        $postcard_settings = $args['postcard_settings'] ?? array();
+        if (!empty($postcard_settings['on_click_post'])) {
+            $attributes[] = 'data-action="' . esc_attr($postcard_settings['on_click_post']) . '"';
         }
-        if (!empty($args['on_click_scroll_to'])) {
-            $attributes[] = 'data-scroll-to="' . esc_attr($args['on_click_scroll_to']) . '"';
+        if (!empty($postcard_settings['on_click_scroll_to'])) {
+            $attributes[] = 'data-scroll-to="' . esc_attr($postcard_settings['on_click_scroll_to']) . '"';
         }
         return implode(' ', $attributes);
     }

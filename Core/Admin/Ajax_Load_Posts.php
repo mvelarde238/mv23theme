@@ -171,10 +171,11 @@ class Ajax_Load_Posts{
 
                 if ( $query->max_num_pages > 1 ){
                     ob_start(); 
-                    if($pagination_type == 'classic') {
-                        Pagination::display($query,$paged);
+                    if($pagination_type == 'numeric') {
+                        $base_url = $this->generate_base_url($listing_args, $filter_values);
+                        Pagination::display($query, $paged, $base_url);
                     }
-                    if($pagination_type == 'load_more'){
+                    if($pagination_type == 'load-more'){
                         $load_more_text = LISTING_LOAD_MORE_TEXT;
                         echo '<p class="aligncenter"><button class="btn load_more_posts" data-paged="2">'.$load_more_text[$lang].'</button></p>'; 
                     }
@@ -202,5 +203,96 @@ class Ajax_Load_Posts{
             header("Location: ".$_SERVER["HTTP_REFERER"]);
         }
         wp_die();
+    }
+
+    /**
+     * Generate base URL for pagination links based on listing parameters and context
+     *
+     * @param array $listing_args Listing configuration (posttype, taxonomies, terms, etc.)
+     * @param array $filter_values Current filter values from request
+     * @return string Base URL for pagination
+     */
+    private function generate_base_url($listing_args, $filter_values) {
+        $posttype = $listing_args['posttype'] ?? '';
+        $taxonomies = $listing_args['taxonomies'] ?? array();
+        $terms = $listing_args['terms'] ?? array();
+        $source = $listing_args['source'] ?? 'auto';
+        $wookey = $listing_args['wookey'] ?? '';
+        
+        $base_url = home_url('/');
+        $query_params = array();
+        
+        // Manual selection: no meaningful archive URL
+        if ($source === 'manual') {
+            return home_url('/');
+        }
+        
+        // Single taxonomy term with no filters: use term archive URL
+        if (count($taxonomies) === 1 && count($terms) === 1 && empty($filter_values['search']) && !$wookey) {
+            $term_link = get_term_link((int)$terms[0], $taxonomies[0]);
+            if (!is_wp_error($term_link)) {
+                return $term_link;
+            }
+        }
+        
+        // Post type archive
+        if ($posttype && $posttype !== 'post') {
+            $archive_link = get_post_type_archive_link($posttype);
+            if ($archive_link) {
+                $base_url = $archive_link;
+            }
+        } else if ($posttype === 'post') {
+            // Blog page
+            $page_for_posts = get_option('page_for_posts');
+            if ($page_for_posts) {
+                $blog_page_url = get_permalink($page_for_posts);
+                if ($blog_page_url && !is_wp_error($blog_page_url)) {
+                    $base_url = $blog_page_url;
+                }
+            }
+        }
+        
+        // Add filters as query parameters
+        if (isset($filter_values['search']) && !empty($filter_values['search'])) {
+            $query_params['s'] = sanitize_text_field($filter_values['search']);
+        }
+        
+        if (isset($filter_values['year']) && !empty($filter_values['year'])) {
+            $query_params['year'] = intval($filter_values['year']);
+        }
+        
+        if (isset($filter_values['month']) && !empty($filter_values['month'])) {
+            $query_params['month'] = intval($filter_values['month']);
+        }
+        
+        // WooCommerce special filters
+        if ($wookey) {
+            $query_params['wookey'] = sanitize_key($wookey);
+        }
+        
+        // Taxonomy filters (when multiple terms or different from base)
+        if (is_array($taxonomies)) {
+            foreach ($taxonomies as $tax) {
+                if (isset($filter_values[$tax]) && !empty($filter_values[$tax])) {
+                    $query_params[$tax] = intval($filter_values[$tax]);
+                }
+            }
+        }
+        
+        // Multiple terms: add all as query parameters (Opción B)
+        if (is_array($terms) && count($terms) > 1) {
+            foreach ($taxonomies as $index => $tax) {
+                if (isset($terms[$index]) && !isset($query_params[$tax])) {
+                    $query_params[$tax] = intval($terms[$index]);
+                }
+            }
+        }
+        
+        // Append query parameters if any
+        if (!empty($query_params)) {
+            $base_url = add_query_arg($query_params, $base_url);
+        }
+        
+        return $base_url;
     }
 }

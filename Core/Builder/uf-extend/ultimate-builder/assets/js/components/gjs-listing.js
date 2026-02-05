@@ -10,6 +10,7 @@ window.gjsListing = function (editor) {
 
     // Define the component
     domc.addType(compClass, {
+        extend: 'async-component-abstract',
         isComponent: el => el.classList && el.classList.contains(compClass),
         model: {
             defaults: {
@@ -19,116 +20,45 @@ window.gjsListing = function (editor) {
             },
         },
         view: {
-            onRender({el, model}) {
-                const builder_comp_model = editor.getBuilderCompModel(model);
+            custom_datastore_change_callback(changed) {
+                const model = this.model;
                 
-				if (builder_comp_model) {
-                    const view_template = builder_comp_model.get('view_template');
-                    
-                    if (view_template) {
-                        const datastore = builder_comp_model.datastore || {};
-                        const _view_template = _.template( view_template );
-                        el.innerHTML = _view_template( datastore.toJSON() );
-                            
-                        const dont_load_posts_on_change = ['__tab','listing_template','columns_qty_wrapper','gap_wrapper','pagination_type','scrolltop','filter','category-filter','month-filter','carousel_settings_wrapper','on_click_post','on_click_scroll_to'];
-                        // TODO: 'year-filter' is excluded for now because change on inital render. Need to investigate why.
-                        const changed = datastore.changed;
-                        // console.log('datastore changed:', changed); // e.g: {"__tab": "List Template"}
-                            
-                        let should_load_posts = true;
+                // Ignore changes that only affect __tab (tab switching)
+                const changed_keys = Object.keys(changed);
+                if (changed_keys.length && changed_keys[0] === '__tab') return;
 
-                        if( changed ){
-                            for( const key in changed ){
-                                if( dont_load_posts_on_change.includes(key) ){
-                                    should_load_posts = false;
-                                    break;
-                                }
-                            }
-                        }
+                $rerender_listing_on_change = [
+                    'source',
+                    'posttype',
+                    'tax_params',
+                    'query_params',
+                    'status_params',
+                    'listing_template', 
+                    'postcard_settings',
+                    'pagination_type',
+                    'show_filter',
+                    'filters',
+                ];
+                if ( $rerender_listing_on_change.includes( changed_keys[0] ) ) {
+                    this.render();
+                }
 
-                        if(should_load_posts){
-                            this.load_posts(datastore.toJSON(), el, model);
-                        } else {
-                            // use cached posts if available
-                            const posts_cached = model.get('__temp_posts_cached') || null;
-                            if (posts_cached) {
-                                const postsListing = el.querySelector('.posts-listing');
-                                if (postsListing) {
-                                    postsListing.innerHTML = posts_cached;
-                                }
-                            }
-                        }
+                if (changed_keys[0] === 'columns' || changed_keys[0] === 'columns_gap') {
+                    // Update CSS properties for columns and gap
+                    const datastore = editor.getComponentDatastore(model);
+                    const data = datastore.toJSON();
+                    const listingEl = model.getEl().querySelector('.posts-listing');
+                    const devices = ['desktop', 'laptop', 'tablet', 'mobile'];
+                    const columns = data.columns || {};
+                    const gaps = data.columns_gap || {};
+                    if (listingEl) {
+                        devices.forEach(device => {
+                            listingEl.style.setProperty(`--${device[0]}-columns`, columns[device]);
+                            listingEl.style.setProperty(`--${device[0]}-gap`, gaps[device]+'px');
+                        });
                     }
                 }
             },
-            load_posts( datastore, el, model ) {
-                let formData = new FormData();
-
-                let listing_args = {
-                    source: datastore.source || 'auto',
-                    posttype: datastore.posttype || 'post',
-                    per_page: datastore.query_params.posts_per_page || -1,
-                    post_template: datastore.post_template || '',
-                    order: datastore.query_params.order || 'DESC',
-                    orderby: datastore.query_params.orderby || 'date',
-                    offset: datastore.query_params.offset || 0,
-                    taxonomies: [],
-                    terms: [],
-                    wookey: '',
-                    listing_template: datastore.listing_template || '',
-                    on_click_post: '',
-                    on_click_scroll_to: '',
-                    pagination_type: ''
-                };
-
-                // prepare taxonomies
-                const tax_params = datastore.tax_params || {};
-                const posttype = listing_args.posttype;
-                for( const tax_key in tax_params ){
-                    const terms = tax_params[tax_key] || [];
-                    if( tax_key.startsWith( posttype + '--' ) && Array.isArray(terms) && terms.length > 0 ){
-                        const tax_name = tax_key.substring( (posttype + '--').length );
-                        listing_args.taxonomies.push(tax_name);
-                        if( Array.isArray(terms) && terms.length > 0 && terms[0] !== '' ){
-                            listing_args.terms = terms;
-                        }
-                    }
-                }
-
-                // send posts if source is manual
-                if( listing_args.source === 'manual' ){
-                    listing_args.posts = datastore.posts || [];
-                }
-
-                formData.append('action', "load_posts");
-                // formData.append('nonce', MV23_GLOBALS.nonce);
-                // formData.append('lang', MV23_GLOBALS.lang);
-                formData.append('lang', 'en');
-                formData.append('listing_args', JSON.stringify(listing_args));
-                formData.append('paged', 1);
-
-
-                jQuery.ajax({
-                    type: 'POST',
-                    dataType: "json",
-                    url: MV23_GLOBALS.ajaxUrl,
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    beforeSend: function(){
-                        // console.log(listing_args);
-                    },
-                    success: function(response) {
-                        if(response.status === 'success'){
-                            const postsListing = el.querySelector('.posts-listing');
-                            if (postsListing) {
-                                postsListing.innerHTML = response.posts;
-                                model.set('__temp_posts_cached', response.posts);
-                            }
-                        }
-                    }
-                });
-            }
         },
     });
 }

@@ -1,23 +1,18 @@
 .has-columns
-    display: flex
-    flex-wrap: wrap
+    display: grid
 
     @media #{$extra-large-and-up}
         gap: var(--d-gap)
-        & > div
-            width: calc((100% / var(--d-columns) - var(--d-gap) + var(--d-gap) / var(--d-columns)))
+        grid-template-columns: repeat(var(--d-columns), 1fr)
     
     @media #{$large-only}
         gap: var(--l-gap)
-        & > div
-            width: calc((100% / var(--l-columns) - var(--l-gap) + var(--l-gap) / var(--l-columns)))
+        grid-template-columns: repeat(var(--l-columns), 1fr)
     
     @media #{$medium-only}
         gap: var(--t-gap)
-        & > div
-            width: calc((100% / var(--t-columns) - var(--t-gap) + var(--t-gap) / var(--t-columns)))
+        grid-template-columns: repeat(var(--t-columns), 1fr)
     
     @media #{$small-and-down}
         gap: var(--m-gap)
-        & > div
-            width: calc((100% / var(--m-columns) - var(--m-gap) + var(--m-gap) / var(--m-columns)))
+        grid-template-columns: repeat(var(--m-columns), 1fr)

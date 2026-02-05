@@ -7,6 +7,7 @@ use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 use Ultimate_Fields\Location\Post_Type;
 use Core\Frontend\Nav_Walker;
+use Core\Builder\Component\Listing;
 
 class Archive_Page {
 	
@@ -39,10 +40,9 @@ class Archive_Page {
         );
 	}
 
-	public function add_meta_boxes(){
-		$archive_location = new Post_Type();
-		$archive_location->add_post_type( 'archive_page' );
-		$archive_location->context = 'side';
+	public static function get_fields(){
+		$archive_page_fields = array();
+		$archive_page_fields[] = Field::create( 'tab', 'content_tab', __('Content Type','mv23theme') );
 
 		# Add post types
 		$post_types = array();
@@ -53,10 +53,11 @@ class Archive_Page {
 			}
 			$post_types[ $id ] = __( $post_type->labels->name );
 		}
-
-		$archive_page_fields = array(
-			Field::create( 'radio', 'connected_posttype' )->set_orientation( 'horizontal' )->add_options($post_types)
-		);
+		$default_connected_posttype = get_post_meta( $_GET['post'] ?? null, 'connected_posttype', true );
+		$archive_page_fields[] = Field::create( 'radio', 'connected_posttype' )
+			->set_orientation( 'horizontal' )
+			->set_default_value( $default_connected_posttype ? $default_connected_posttype : 'post' )
+			->add_options($post_types);
 		
 		# Add taxonomies
 		foreach ($post_types as $post_type_id => $post_type_name) {
@@ -64,89 +65,75 @@ class Archive_Page {
 			foreach( get_taxonomies( array( 'object_type' => array($post_type_id), 'show_ui' => true ), 'objects' ) as $slug => $taxonomy ) {
 				$taxonomies[$slug] = $taxonomy->labels->name;
 			}
+			$default_connected_taxonomy = get_post_meta( $_GET['post'] ?? null, 'connected_'.$post_type_id.'_taxonomy', true );
 			$archive_page_fields[] = Field::create( 'radio', 'connected_'.$post_type_id.'_taxonomy' )
 				->set_orientation( 'horizontal' )
+				->set_default_value( $default_connected_taxonomy ? $default_connected_taxonomy : '' )
 				->add_dependency( 'connected_posttype', $post_type_id, '=' )
 				->add_options($taxonomies);
 
 			# Add terms
 			foreach ($taxonomies as $tax_slug => $tax_name) {
 				if( !empty($tax_slug) ){
+					$default_connected_terms = get_post_meta( $_GET['post'] ?? null, 'connected_'.$tax_slug.'_terms', true );
 					$archive_page_fields[] = Field::create( 'multiselect', 'connected_'.$tax_slug.'_terms', 'Connected '.$tax_name.' terms' )
 						->add_terms( $tax_slug )
+						->set_default_value( $default_connected_terms )
 						->add_dependency( 'connected_posttype', $post_type_id, '=' )
 						->add_dependency( 'connected_'.$post_type_id.'_taxonomy', $tax_slug, '=' );
 				}
 			}
 		}
 
-		Container::create( 'archive_page_settings' )
-		    ->set_title('Settings')
-		    ->add_location( $archive_location )
-		    ->add_fields( $archive_page_fields );
+		# Add listing fields
+		$listing_fields = Listing::get_fields();
+		$exclude = ['content_tab','source','posttype','woocommerce_key','tax_params','query_settings_tab','query_params','status_params','pagination_scrolltop'];
+		foreach ( $listing_fields as $field ) {
+			if( in_array( $field->get_name(), $exclude ) ) continue;
 
-		// --------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// --------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// --------------------------------------------------------------------------------------------------------------------------------------------------------------
+			if( $field->get_name() === 'pagination_type' ){
+				$pagination_options = LISTING_PAGINATION_TYPES;
+				$field->remove_option('none');
+			}
 
-		// In archives page '' -> load posttype card template
-		$post_template = array_merge( array( '__post' => 'Post' ), LISTING_POST_TEMPLATE );
-        if(USE_DOCUMENT_CPT) $post_template['document'] = 'Document';
-        if(USE_PORTFOLIO_CPT) $post_template['portfolio'] = 'Portfolio';
-		if(WOOCOMMERCE_IS_ACTIVE) $post_template['woocommerce1'] = 'WooCommerce Product Basic';
+			// set default value for listing fields based on archive page meta
+			$default_value = get_post_meta( $_GET['post'] ?? null, $field->get_name(), true );
+			$field->set_default_value( $default_value );
 
-		$archive_loop_fields = array(
-			Field::create( 'tab', 'loop_settings_tabs', __('Loop Settings','mv23theme') ),
-			Field::create( 'message', 'lelmsg')
-				->hide_label()
-				->set_description( __('Place these shortcodes in the page content: [posts] [pagination]'), 'mv23theme' )
-				->set_attr( 'style', 'background-color:#eeeeee;color:#000' ),
+			$archive_page_fields[] = $field;
+		}
 
-			Field::create( 'tab', 'loop_columns_tabs', __('List Template','mv23theme') ),
-			Field::create( 'select', 'listing_template', 'Template' )->add_options(LISTING_TEMPLATES),
-			Field::create( 'complex', 'loop_columns' )->hide_label()->add_fields(array(
-				Field::create( 'number', 'desktop' )->set_default_value(LISTING_COLUMNS['desktop'])->set_suffix('columns in desktop')->hide_label(),
-				Field::create( 'number', 'laptop' )->set_default_value(LISTING_COLUMNS['laptop'])->set_suffix('columns in laptop')->hide_label(),
-				Field::create( 'number', 'tablet' )->set_default_value(LISTING_COLUMNS['tablet'])->set_suffix('columns in tablet')->hide_label(),
-				Field::create( 'number', 'mobile' )->set_default_value(LISTING_COLUMNS['mobile'])->set_suffix('columns in mobile')->hide_label(),
-			)),
+		# Add page template fields
+		$archive_page_fields[] = Field::create( 'tab', 'page_template_tab', __('Page template','mv23theme') );
+		$default_page_template = get_post_meta( $_GET['post'] ?? null, 'page_template', true );
+		$archive_page_fields[] = Field::create( 'select', 'page_template')
+			->hide_label()
+			->set_default_value( $default_page_template ? $default_page_template : 'main-content--sidebar-right' )
+			->add_options(array(
+				'main-content--sidebar-left' => __('Left Sidebar','mv23theme'),
+				'main-content--sidebar-right' => __('Right Sidebar','mv23theme'),
+				'main-content--sidebarless' => __('No Sidebar','mv23theme')
+			));
+		$default_hide_archive_title = get_post_meta( $_GET['post'] ?? null, 'hide_archive_title', true );
+		$archive_page_fields[] = Field::create( 'checkbox', 'hide_archive_title')
+			->fancy()
+			->set_default_value( $default_hide_archive_title )
+			->hide_label()
+			->set_text( __( 'Hide the archive title', 'mv23theme' ) );
 
-			Field::create( 'tab', 'space_between_columns_tab', __('Space between columns','mv23theme') ),
-			Field::create( 'complex', 'loop_columns_gap' )->hide_label()->add_fields(array(
-				Field::create( 'number', 'desktop')->set_default_value(LISTING_GAP['desktop'])->set_suffix('px in desktop')->hide_label(),
-				Field::create( 'number', 'laptop' )->set_default_value(LISTING_GAP['laptop'])->set_suffix('px in laptop')->hide_label(),
-				Field::create( 'number', 'tablet' )->set_default_value(LISTING_GAP['tablet'])->set_suffix('px in tablet')->hide_label(),
-				Field::create( 'number', 'mobile' )->set_default_value(LISTING_GAP['mobile'])->set_suffix('px in mobile')->hide_label(),
-			)),
+		return $archive_page_fields;
+	}
 
-			Field::create( 'tab', 'postcard_settings_tab', __('Post card settings','mv23theme') ),
-			Field::create( 'complex', 'postcard_settings' )->hide_label()->add_fields(array(
-				Field::create( 'radio', 'template' )->set_orientation( 'vertical' )->add_options($post_template), 
-            	Field::create( 'select', 'on_click_post', 'Al hacer click en el post:' )->add_options(array(
-            	    'redirect' => 'Redirigir a la página del post',
-            	    'show-expander' => 'Mostrar el post en la misma página',
-            	    'show-popup' => 'Mostrar el post en un popup',
-            	    'none' => 'Ninguna'
-            	)),
-            	Field::create( 'select', 'on_click_scroll_to', 'Al hacer click mover el scroll a:' )->add_options(array(
-            	    '' => 'No mover el scroll',
-            	    'postcard' => 'Al post card',
-            	    'expander' => 'Al expander'
-            	))->add_dependency( 'on_click_post', 'show-expander', '=' ),
-			)),
-
-			Field::create( 'tab', 'page_template_tab', __('Page template','mv23theme') ),
-			Field::create( 'select', 'page_template')->hide_label()->add_options(array(
-				'main-content--sidebar-left' => __('Left Sidebar','deafult'),
-				'main-content--sidebar-right' => __('Right Sidebar','deafult'),
-				'hide-sidebar' => __('Hide Sidebar','mv23theme')
-			))
-		);
+	public function add_meta_boxes(){
+		$archive_location = new Post_Type();
+		$archive_location->add_post_type( 'archive_page' );
+		$archive_location->context = 'side';
+		$archive_page_fields = self::get_fields();
 
 		Container::create( 'archive_loop_settings_1' )
 		    ->set_title('Loop Settings')
 		    ->add_location( $archive_location )
-		    ->add_fields($archive_loop_fields);
+		    ->add_fields($archive_page_fields);
 
 		$page_for_posts = ( get_option('page_for_posts') ) ? get_option('page_for_posts') : 0;
 
@@ -156,7 +143,7 @@ class Archive_Page {
 				'ids' => array($page_for_posts),
 				'context' => 'side'
 			))
-		    ->add_fields($archive_loop_fields);
+		    ->add_fields($archive_page_fields);
 	}
 
 	public function get_taxonomy() {
@@ -276,7 +263,7 @@ class Archive_Page {
 	public function get_loop_columns(){
 		$loop_columns = LISTING_COLUMNS;
 	
-		$meta_data = self::$instance->check_if_meta_exists('loop_columns');
+		$meta_data = self::$instance->check_if_meta_exists('columns');
 		if ( $meta_data ) $loop_columns = $meta_data;
 
 		return $loop_columns;
@@ -285,7 +272,7 @@ class Archive_Page {
 	public function get_columns_gap(){
 		$loop_columns_gap = LISTING_GAP;
 	
-		$meta_data = self::$instance->check_if_meta_exists('loop_columns_gap');
+		$meta_data = self::$instance->check_if_meta_exists('columns_gap');
 		if ( $meta_data ) $loop_columns_gap = $meta_data;
 
 		return $loop_columns_gap;
@@ -314,17 +301,89 @@ class Archive_Page {
 
 		if ( !empty($archive_page_id) ){
 			$page_template = get_post_meta( $archive_page_id, 'page_template', true );
-			if( !empty($page_template) && $page_template != 'hide-sidebar' ){
+			if( !empty($page_template) && $page_template != 'main-content--sidebarless' ){
 				$page_template_settings['class'] = $page_template;
 				$page_template_settings['has_sidebar'] = true;
 			}
-			if( $page_template === 'hide-sidebar' ){
+			if( $page_template === 'main-content--sidebarless' ){
 				$page_template_settings['class'] = '';
 				$page_template_settings['has_sidebar'] = false;
 			}
 		}
 
 		return $page_template_settings;
+	}
+
+	public function hide_archive_title(){
+		$hide_archive_title = false;
+	
+		$meta_data = self::$instance->check_if_meta_exists('hide_archive_title');
+		if ( $meta_data ) $hide_archive_title = true;
+
+		return $hide_archive_title;
+	}
+
+	public function get_carousel_settings(){
+		$carousel_settings = array();
+
+		$meta_data = self::$instance->check_if_meta_exists('carousel_settings');
+		if ( $meta_data ) $carousel_settings = $meta_data;
+
+		return $carousel_settings;
+	}
+
+	public function get_pagination_type(){
+		$pagination_type = 'numeric';
+
+		$meta_data = self::$instance->check_if_meta_exists('pagination_type');
+		if ( $meta_data ) $pagination_type = $meta_data;
+		// force numeric pagination in archive pages if 'none' is selected
+		if ( $meta_data === 'none' ) $pagination_type = 'numeric';
+
+		return $pagination_type;
+	}
+
+	public function show_filter(){
+		$show_filter = false;
+
+		$meta_data = self::$instance->check_if_meta_exists('show_filter');
+		if ( $meta_data ) $show_filter = true;
+
+		return $show_filter;
+	}
+
+	public function get_filters(){
+		$filters = array();
+
+		$meta_data = self::$instance->check_if_meta_exists('filters');
+		if ( $meta_data ) $filters = $meta_data;
+
+		return $filters;
+	}
+
+	public function get_archive_tax_params(){
+		$tax_params = array();
+
+		// get tax from context: category, tag, or custom taxonomy
+		$posttype = self::$instance->get_archive_post_type();
+		$taxonomy = self::$instance->get_taxonomy();
+		$term = get_queried_object_id();
+		if( !empty($taxonomy) && !empty($term) ){
+			$tax_params = array(
+				$posttype.'--'.$taxonomy => array( (int) $term )
+			);
+		}
+
+		return $tax_params;
+	}
+
+	public function get_pagination_scrolltop(){
+		$scrolltop = false;
+
+		$meta_data = self::$instance->check_if_meta_exists('pagination_scrolltop');
+		if ( $meta_data ) $scrolltop = true;
+
+		return $scrolltop;
 	}
 
 	/**

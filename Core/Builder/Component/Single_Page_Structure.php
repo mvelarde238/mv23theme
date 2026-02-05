@@ -73,7 +73,7 @@ class Single_Page_Structure extends Component {
 				Field::create( 'select', 'page_template', __( 'Page Template', 'mv23theme' ) )->add_options(array(
 					'main-content--sidebar-right' => __('Sidebar Right','mv23theme'),
 					'main-content--sidebar-left' => __('Sidebar Left','mv23theme'),
-					'main-content--sidebarless' => __('Full Width','mv23theme')
+					'main-content--sidebarless' => __('No Sidebar','mv23theme')
 				)),
 				Field::create( 'checkbox', 'hide_post_title')->fancy()->hide_label()->set_text( __( 'Hide the post title', 'mv23theme' ) ),
 				Field::create( 'checkbox', 'hide_social_share')->fancy()->hide_label()->set_text( __( 'Hide social share', 'mv23theme' ) ),

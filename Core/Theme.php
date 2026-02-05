@@ -231,7 +231,8 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'uf.init', $builder, 'init_components');
         $this->loader->add_action( 'uf.init', $builder, 'add_meta_boxes');
         $this->loader->add_action( 'uf.register_scripts', $builder, 'register_popup_containers', 20);
-        $this->loader->add_action( 'init', $builder, 'hide_editor');
+        $this->loader->add_action( 'admin_init', $builder, 'set_initial_values');
+        $this->loader->add_action( 'admin_init', $builder, 'hide_editor');
         $this->loader->add_action( 'wp_ajax_get_component_view', $builder, 'ajax_get_component_view');
         $this->loader->add_filter( 'page_row_actions', $builder, 'add_ultimate_builder_link', 10, 2 );
         $this->loader->add_filter( 'post_row_actions', $builder, 'add_ultimate_builder_link', 10, 2 );

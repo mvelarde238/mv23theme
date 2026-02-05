@@ -33,7 +33,7 @@ $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
 				<a class="<?=$_args['permalink_class']?>" href="<?=$_args['permalink']?>"><?php echo $_args['title']; ?></a>
 			</h2>
 			<div class="postcard__postdata">
-				<p class="truncate">
+				<p>
 					<?php echo $_args['date']; ?>
 
 					<?php if (is_array($_args['main_terms']) && count($_args['main_terms']) > 0) {

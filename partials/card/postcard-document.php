@@ -29,7 +29,7 @@ $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
 	    <div class="postcard__content">
 	    	<div class="postcard__postdata">
 	    		<div class="postcard__terms">
-	    			<p class="truncate">
+	    			<p>
 	    				<?php if (is_array($_args['main_terms']) && count($_args['main_terms']) > 0) {
                 	    	echo Post_Card::display_terms($_args['main_terms'],',');
             		    } else {

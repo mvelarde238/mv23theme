@@ -40,18 +40,17 @@ class Related_Posts extends Component {
         $related_posts_args = apply_filters('filter_related_'.$post->post_type.'_args', array(
             'show' => 'auto',
             'post__not_in' => array($post->ID),
-            'qty' => 5,
-            'items_in_desktop' => 3,
-            'items_in_laptop' => 3,
-            'items_in_tablet' => 3,
-            'items_in_mobile' => 1,
-            'd_gap' => 30,
-            'l_gap' => 30,
-            't_gap' => 30,
-            'm_gap' => 15,
+            'query_params' => array(
+                'posts_per_page' => 5,
+                'orderby' => 'rand',
+            ),
+            'columns' => LISTING_COLUMNS,
+            'columns_gap' => LISTING_GAP,
             'post_template' => $post_type,
-            'list_template' => 'carousel',
-            'show_controls' => 1,
+            'listing_template' => 'carousel',
+            'carousel_settings' => array(
+                'show_controls' => true
+            ),
             'posttype' => $post->post_type,
         ), $post->ID);
 

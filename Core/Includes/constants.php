@@ -57,8 +57,20 @@ if( !defined('LOGOS_QUANTITY') ) define ('LOGOS_QUANTITY', 2);
 if( !defined('LISTING_CPTS') ) define( 'LISTING_CPTS', array('post' => 'Entradas'));
 if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array( array( 'cpt_slug' => 'post', 'slug' => 'category' ) ));
 if( !defined('LISTING_TEMPLATES') ) define( 'LISTING_TEMPLATES', array('' => 'Default Listing Template', 'carousel' => 'Carousel'));
-if( !defined('LISTING_PAGINATION_TYPES') ) define( 'LISTING_PAGINATION_TYPES', array('none' => 'None', 'classic' => 'Numeric pagination', 'load_more' => 'Load more pagination'));
-if( !defined('LISTING_POST_TEMPLATE') ) define( 'LISTING_POST_TEMPLATE', array('' => 'Default Post Card Template','post-horizontal' => 'Horizontal Post'));
+if( !defined('LISTING_PAGINATION_TYPES') ) {
+    define( 'LISTING_PAGINATION_TYPES', array(
+        'none' => 'None', 
+        'numeric' => 'Numeric pagination', 
+        'load-more' => 'Load more pagination'
+    ));
+}
+if( !defined('LISTING_POST_TEMPLATE') ){
+    define( 'LISTING_POST_TEMPLATE', array(
+        '_default' => 'Default', // special value/placeholder to use the posttype as template
+        'post' => 'Post',
+        'post-horizontal' => 'Horizontal Post'
+    ));
+} 
 
 // BUILDER CONSTANTS
 

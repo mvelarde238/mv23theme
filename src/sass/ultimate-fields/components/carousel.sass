@@ -2,9 +2,28 @@
     position: relative
     @extend .tns-slider-theme
 
+    // styles for non tiny-slider carousels
     &__slider:not(.tns-slider)
-        display: flex
         overflow-x: scroll
+        display: flex
+        & > div
+            flex-shrink: 0
+        @media #{$extra-large-and-up}
+            gap: var(--d-gap)
+            & > div
+                width: calc((100% / var(--d-columns) - var(--d-gap) + var(--d-gap) / var(--d-columns)))
+        @media #{$large-only}
+            gap: var(--l-gap)
+            & > div
+                width: calc((100% / var(--l-columns) - var(--l-gap) + var(--l-gap) / var(--l-columns)))
+        @media #{$medium-only}
+            gap: var(--t-gap)
+            & > div
+                width: calc((100% / var(--t-columns) - var(--t-gap) + var(--t-gap) / var(--t-columns)))
+        @media #{$small-and-down}
+            gap: var(--m-gap)
+            & > div
+                width: calc((100% / var(--m-columns) - var(--m-gap) + var(--m-gap) / var(--m-columns)))
 
     &__item
         &--image

@@ -115,6 +115,14 @@ class Page{
 					$single_main_content = $single_main['components'][1];
 					$container_components = $single_main_content['components'];
 				}
+
+				// if archive page, get components inside archive-page-structure:
+				if( (is_archive() || is_home()) && $container_components[0]['__type'] === 'archive-page-structure' ){
+					// archive-page-structure > archive-main > [archive-header, archive-posts, ...]
+					$archive_page_structure = $container_components[0];
+					$archive_main = $archive_page_structure['components'][0];
+					$container_components = $archive_main['components'];
+				}
 					
 				if (is_array($container_components) && !empty($container_components)) :
 					foreach ($container_components as $component) :

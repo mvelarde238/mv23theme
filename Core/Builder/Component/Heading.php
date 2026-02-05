@@ -178,7 +178,7 @@ class Heading extends Component {
         $tagline_html_tag = $args['tagline']['html_tag'] ?? 'p';
 
         // additional classes
-        $text_align = $args['text_align'] ?? 'left';
+        $text_align = $args['text_align'] ?? 'center';
         $args['additional_classes'][] = $text_align . '-align';
 
         $preset = $args['preset'] ?? 'default'; 

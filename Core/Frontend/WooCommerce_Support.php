@@ -2,9 +2,9 @@
 /**
  * WooCommerce Support
  */
-use Core\Builder\Component\Sidebar;
-
 namespace Core\Frontend;
+
+use Core\Builder\Component\Sidebar;
 
 class WooCommerce_Support{
 

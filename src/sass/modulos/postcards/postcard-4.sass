@@ -30,6 +30,13 @@
         text-transform: uppercase
         overflow: hidden
         font-weight: var(--bold-font-weight)
+        p
+            overflow: hidden
+            text-overflow: ellipsis
+            display: -webkit-box
+            -webkit-line-clamp: 1
+            -webkit-box-orient: vertical
+            margin-bottom: 5px
 
     &--style4 &__tags
         flex-shrink: 0

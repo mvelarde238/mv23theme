@@ -60,6 +60,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsSharedTemplates', 'handler' => 'gjs-shared-templates', 'isComponent' => false ],
 		// components
 		[ 'name' => 'gjsBase', 'handler' => 'gjs-base', 'isComponent' => true ],
+		[ 'name' => 'gjsAsyncComponent', 'handler' => 'gjs-async-component', 'isComponent' => true ],
 		[ 'name' => 'gjsWrapper', 'handler' => 'gjs-wrapper', 'isComponent' => true ],
 		[ 'name' => 'gjsHeader', 'handler' => 'gjs-header', 'isComponent' => true ],
 		[ 'name' => 'gjsThemeOptions', 'handler' => 'gjs-theme-options', 'isComponent' => true ],
@@ -79,6 +80,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsSidebar', 'handler' => 'gjs-sidebar', 'isComponent' => true ],
 		[ 'name' => 'gjsSocialShare', 'handler' => 'gjs-social-share', 'isComponent' => true ],
 		[ 'name' => 'gjsRelatedPosts', 'handler' => 'gjs-related-posts', 'isComponent' => true ],
+		[ 'name' => 'gjsArchivePageStructure', 'handler' => 'gjs-archive-page-structure', 'isComponent' => true ],
 		[ 'name' => 'gjsIconAndText', 'handler' => 'gjs-icon-and-text', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true, 'hasCss' => true ],
@@ -172,6 +174,7 @@ class Ultimate_Builder {
 			$posttype = get_post_type();
 			$insert_single_structure = get_option( 'insert_single_structure_on', array() );
 			$is_singular = in_array( $posttype, $insert_single_structure );
+			$is_archive = ( $posttype === 'archive_page') || ( get_option('page_for_posts') == get_the_ID() );
 
 			wp_localize_script( 'builder-app', 'BUILDER_GLOBALS', array(
 				'posttype' => $posttype,
@@ -183,6 +186,7 @@ class Ultimate_Builder {
 				'post_id' => get_the_ID(),
 				// 'post_content' => get_post_field( 'post_content', get_the_ID() ),
 				'is_singular' => $is_singular,
+				'is_archive' => $is_archive,
 			));
 
 			$this->filter_admin_body_class();
