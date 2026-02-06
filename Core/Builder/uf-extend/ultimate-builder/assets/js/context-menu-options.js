@@ -61,6 +61,35 @@ function layout_options(component, editor){
     };
 }
 
+function color_scheme_options(component, editor){
+    const layoutActions = [
+        { id: 'dark-mode', name: 'DARK MODE' },
+        { id: 'light-mode', name: 'LIGHT MODE' },
+    ];
+    let colorSchemeOptions = layoutActions.map( scheme => {
+        if( scheme.type && scheme.type === 'break' ){
+            return { type: 'break' };
+        }
+        return {
+            type: 'button',
+            label: scheme.name,
+            class: ()=>{
+                let datastore = editor.getComponentDatastore( component );
+                console.log('datastore', datastore);
+                let current_scheme = datastore ? (datastore.get('settings') || {}).color_scheme?.key : 'light-mode';
+                return (scheme.id === current_scheme) ? 'active' : '';
+            },
+            rerender: true,
+            command: 'set-color-scheme',
+            args: { scheme: scheme.id }
+        }
+    });
+    return {
+        type: 'options', title: 'COLOR SCHEME',
+        options: colorSchemeOptions
+    };
+}
+
 window['contextMenuOpts'] = {
     actions: {
         ['text-editor']: function(component){
@@ -113,7 +142,8 @@ window['contextMenuOpts'] = {
                             args: { position: 'below' }
                         }
                     ]
-                }
+                },
+                color_scheme_options(component, editor),
             ]
         },
         ['components-wrapper']: function(component, editor){
@@ -127,7 +157,8 @@ window['contextMenuOpts'] = {
                     type: 'button',
                     label: 'EDIT THEME OPTIONS',
                     command: 'select-theme-options'
-                }
+                },
+                color_scheme_options(component, editor),
             ];
 
             return actions;

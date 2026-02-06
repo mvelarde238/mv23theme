@@ -9,6 +9,8 @@ CHANGELOG
 - Fix Shortcode component migration
 - Fix Menu styles
 - Fix a typo in columns_gap on Archive Posts component
+- theme_colors option implementation
+- color_scheme implementation on common settings
 
 3.1.2 26-02-02
 - Theme Options Component implementation

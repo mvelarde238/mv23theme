@@ -166,6 +166,19 @@ window.gjsCommands = function (editor, options) {
         }
     });
 
+    commands.add('set-color-scheme', (editor, sender, options = {}) => {
+        let component = options.component,
+            scheme = options.scheme,
+            datastore = editor.getComponentDatastore( component );
+        if ( datastore ) {
+            let current_settings = datastore.get('settings') || {};
+            datastore.set('settings', {
+                ...current_settings,
+                color_scheme: { use: true, key: scheme }
+            });
+        }
+    });
+
     commands.add('add-section', (editor, sender, options = {}) => {
         const component = options.component,
             position = options.position,

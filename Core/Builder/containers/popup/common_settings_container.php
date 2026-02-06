@@ -75,6 +75,15 @@ Container::create( 'common_settings_container' )
                 'is_private' => __('Visible for admin users','mv23theme')
             ))->add_dependency('use')->set_width(50)
         )),
+        Field::create( 'complex', 'color_scheme' )->set_attr( 'style', 'flex-wrap: nowrap;' )->add_fields(array(
+            Field::create( 'checkbox', 'use', __('Activate','mv23theme') )
+                ->fancy()
+                ->set_attr( 'style', 'flex-grow: initial;min-width: auto;' ),
+            Field::create( 'select', 'key', __('Color Scheme','mv23theme'))->add_options( array(
+                'light-mode' => __('Light','mv23theme'),
+                'dark-mode' => __('Dark','mv23theme'),
+            ))->add_dependency('use')->set_attr( 'style', 'flex-grow: 1;' )
+        )),
         Field::create( 'complex', 'hide_on', __('Hide on:','mv23theme') )->add_fields(array(
             Field::create( 'checkbox', 'mobile', __('Mobile','mv23theme') )->fancy()->set_attr( 'style', 'flex-grow: initial;min-width: auto;' ),
             Field::create( 'checkbox', 'tablet', __('Tablet','mv23theme') )->fancy()->set_attr( 'style', 'flex-grow: initial;min-width: auto;' ),

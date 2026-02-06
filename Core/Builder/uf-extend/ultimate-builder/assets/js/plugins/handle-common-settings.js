@@ -44,6 +44,11 @@ window.handleCommonSettings = function (editor, options) {
                     }
                 }
 
+                if( settings.color_scheme && settings.color_scheme.use ) {
+                    const scheme = settings.color_scheme.key;
+                    obj.el.classList.add(scheme);
+                }
+
                 if( settings.video_background && settings.video_background.use ) {
                     // TO DO: we dont have the video_prepared on init? (bug occurs just after migration)
                     let video_el = null;
