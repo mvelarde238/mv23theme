@@ -30,7 +30,14 @@ function create_tns_slider(slider){
         mobile_gutter = slider.dataset['mobileGutter'] ?? 0,
         tablet_gutter = slider.dataset['tabletGutter'] ?? 0,
         laptop_gutter = slider.dataset['laptopGutter'] ?? 0,
-        desktop_gutter = slider.dataset['desktopGutter'] ?? 0;
+        desktop_gutter = slider.dataset['desktopGutter'] ?? 0,
+        prev_icon_name = slider.dataset['prevIcon'] ?? 'fa-angle-left',
+        next_icon_name = slider.dataset['nextIcon'] ?? 'fa-angle-right';
+
+    const prev_icon_prefix = prev_icon_name.split('-')[0]; // Assuming the prefix is the first part of the class
+    const next_icon_prefix = next_icon_name.split('-')[0]; // Assuming the prefix is the first part of the class
+    const prev_icon = `<i class="${prev_icon_prefix} ${prev_icon_name}"></i>`;
+    const next_icon = `<i class="${next_icon_prefix} ${next_icon_name}"></i>`;
 
     var slider_options = {  
         mode: mode, 
@@ -45,7 +52,7 @@ function create_tns_slider(slider){
         loop: true, 
         speed: parseInt(speed),
         axis:axis, 
-        controlsText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'], 
+        controlsText: [prev_icon, next_icon], 
         rewind: true,
         autoHeight: autoHeight,
         mouseDrag: true, 

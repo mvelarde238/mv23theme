@@ -1,6 +1,8 @@
 .carousel
     position: relative
-    @extend .tns-slider-theme
+
+    &--theme1
+        @extend .tns-slider-theme
 
     // styles for non tiny-slider carousels
     &__slider:not(.tns-slider)
@@ -24,19 +26,3 @@
             gap: var(--m-gap)
             & > div
                 width: calc((100% / var(--m-columns) - var(--m-gap) + var(--m-gap) / var(--m-columns)))
-
-    &__item
-        &--image
-            text-align: center
-            position: relative
-            display: inline-flex !important
-            align-items: center
-            justify-content: center
-            img
-                margin-bottom: 0 !important
-        &__link
-            position: absolute
-            width: 100%
-            height: 100%
-            top: 0
-            left: 0
