@@ -6,6 +6,9 @@ use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Ultimate_Fields\Container\Repeater_Group;
 
+if ( ! defined( 'PREV_CAROUSEL_ICON' ) ) define( 'PREV_CAROUSEL_ICON', 'fa-angle-left' );
+if ( ! defined( 'NEXT_CAROUSEL_ICON' ) ) define( 'NEXT_CAROUSEL_ICON', 'fa-angle-right' );
+
 class Carousel extends Component {
 
     public function __construct() {
@@ -29,7 +32,9 @@ class Carousel extends Component {
         $width_style = 'width: 25%; min-width: initial;';
 
         $settings_fields_1 =  array(
+            Field::create( 'tab', 'general_settings_tab', __('General Settings','mv23theme') ),
             Field::create( 'image_select', 'carousel_type', __('Carousel type','mv23theme') )
+                ->hide_label()
                 ->set_attr( 'class', 'image-select-2-cols' )
                 ->show_label()
                 ->add_options(array(
@@ -41,77 +46,86 @@ class Carousel extends Component {
                         'label' => 'marquee',
                         'image' => BUILDER_PATH.'/assets/images/galleries/marquee.png'
                     )
-            ))
+            )),
+            Field::create( 'select', 'carousel_theme' )
+                ->add_options( array(
+                    'theme1' => __('Theme 1','mv23theme'),
+                    // 'theme2' => __('Theme 2','mv23theme'),
+                    'none' => __('None','mv23theme'),
+                ))
+                ->set_default_value('theme1')
+                ->hide_label()
+                ->set_prefix( __('Carousel Theme:', 'mv23theme') )
+                ->add_dependency('carousel_type', 'slider', '=')
         );
 
         if( !SCROLL_ANIMATIONS ){
-            $settings_fields_1[] = Field::create( 'message', 'marquee_message', __('Activate GSAP Animations','mv23theme') )->set_description('You need to activate GSAP animations to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate GSAP Animations</a>')->add_dependency('carousel_type', 'marquee', '=')->set_attr( 'style', 'background:#ffe8e8;width:100%;' );
+            $settings_fields_1[] = Field::create( 'message', 'marquee_message', __('Activate GSAP Animations','mv23theme') )->set_description('You need to active GSAP animations to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate GSAP Animations</a>')->add_dependency('carousel_type', 'marquee', '=')->set_attr( 'style', 'background:#ffe8e8;width:100%;' );
         }
         
 		$settings_fields_2  = array(
-            Field::create( 'complex', 'marquee_settings', __('Marquee Settings', 'mv23theme') )->hide_label()->merge()->add_fields(array(
-                Field::create( 'number', 'marquee_speed', __('Marquee Animation Speed', 'mv23theme') )
+            Field::create( 'tab', 'marquee_settings_tab', __('Marquee Settings','mv23theme') )
+                ->add_dependency('carousel_type', 'marquee', '='),
+            Field::create( 'complex', 'marquee_settings', __('Marquee Settings', 'mv23theme') )->hide_label()->add_fields(array(
+                Field::create( 'number', 'speed', __('Animation Speed', 'mv23theme') )
                     ->set_default_value(18)
                     ->set_suffix(__('Seconds', 'mv23theme'))
                     ->set_attr( 'style', 'width: 50%; min-width: initial;' ),
-                Field::create( 'color', 'fade_color', __('Fade Color', 'mv23theme') )
+                Field::create( 'text', 'fade_width', __('Fade Width', 'mv23theme') )
+                    ->set_placeholder('100px')
+                    ->set_default_value('100px')
                     ->set_attr( 'style', 'width: 50%; min-width: initial;' )
             ))->add_dependency('carousel_type', 'marquee', '='),
 
-            Field::create( 'complex', '_controls_wrapper' )->hide_label()->merge()->add_fields(array(
-                Field::create( 'checkbox', 'show_controls' )->hide_label()->set_text(__('Show controls','mv23theme'))->set_width( 50 ),
-                Field::create( 'select', 'controls_position' )->add_options( array(
-                    'center' => __('Center','mv23theme'),
-                    'bottom' => __('Bottom','mv23theme'),
-                    'top' => __('Top','mv23theme'),
-                ))->add_dependency('show_controls')
-                ->hide_label()
-                ->set_prefix( 'Position:' )
-                ->set_width( 50 )
-            ))->add_dependency('carousel_type', 'marquee', '!='),
-            Field::create( 'complex', '_nav_wrapper' )->hide_label()->merge()->add_fields(array(
-                Field::create( 'checkbox', 'show_nav' )->hide_label()->set_text(__('Show nav','mv23theme'))->set_width( 50 ),
-                Field::create( 'select', 'nav_position' )->add_options( array(
-                    'bottom' => __('Bottom','mv23theme'),
-                    'top' => __('Top','mv23theme'),
-                ))->add_dependency('show_nav')
-                ->hide_label()
-                ->set_prefix( 'Position:' )
-                ->set_width( 50 )
-            ))->add_dependency('carousel_type', 'marquee', '!='),
-            Field::create( 'complex', '_autoplay_wrapper' )->hide_label()->merge()->add_fields(array(
-                Field::create( 'checkbox', 'autoplay' )->set_text(__('Start Automatically','mv23theme'))->hide_label()->set_width( 50 ),
-                Field::create( 'number', 'autoplay_timeout' )
-                    ->set_prefix('Timeout:')
-                    ->set_placeholder('5000')
-                    ->set_suffix( 'ms' )
-                    ->hide_label()
-                    ->add_dependency( 'autoplay' )
-                    ->set_width( 50 ),
-                // Field::create( 'checkbox', 'autoplay_hover_pause' )->set_text(__('Pause on Hover','mv23theme'))
-                //     ->hide_label()
-                //     ->add_dependency( 'autoplay' )
-                //     ->set_width( 20 ),
-                // Field::create( 'checkbox', 'prevent_action' )->set_text(__('Prevent action when running','mv23theme'))
-                //     ->hide_label()
-                //     ->add_dependency( 'autoplay' )
-                //     ->set_width( 20 )
-            ))->add_dependency('carousel_type', 'marquee', '!='),
+            Field::create( 'tab', 'slider_settings_tab', __('Slider Settings','mv23theme') )
+                ->add_dependency('carousel_type', 'marquee', '!='),
+        
+            Field::create( 'complex', 'controls_settings' )->hide_label()->add_fields(array(
+                Field::create( 'checkbox', 'show' )->hide_label()->set_text(__('Show controls','mv23theme'))->set_width( 50 ),
+                Field::create( 'select', 'position' )
+                    ->hide_label()->add_dependency('show')->set_prefix( __('Position:', 'mv23theme') )->set_width( 50 )
+                    ->set_default_value('center')
+                    ->add_options( array(
+                        'top' => __('Top','mv23theme'),
+                        'center' => __('Center','mv23theme'),
+                        'bottom' => __('Bottom','mv23theme'),
+                    )),
+            ))->add_dependency('carousel_type', 'slider', '='),
 
-            Field::create( 'complex', '_mode_wrapper' )->hide_label()->merge()->add_fields(array(
-                Field::create( 'select', 'mode' )->add_options( array(
-                    'carousel' => 'Carrusel Mode',
-                    'gallery' => 'Fade Mode',
-                ))->hide_label()->set_width( 20 ),
-                Field::create( 'select', 'axis' )->add_options( array(
-                    'horizontal' => 'Horizontal',
-                    'vertical' => 'Vertical',
-                ))->add_dependency('mode','carousel','=')
+            Field::create( 'complex', 'nav_settings' )->hide_label()->add_fields(array(
+                Field::create( 'checkbox', 'show' )->hide_label()->set_text(__('Show nav','mv23theme'))->set_width( 50 ),
+                Field::create( 'select', 'position' )
+                    ->hide_label()->add_dependency('show')->set_prefix( __('Position:', 'mv23theme') )->set_width( 50 )
+                    ->set_default_value('bottom')
+                    ->add_options( array(
+                        'top' => __('Top','mv23theme'),
+                        'bottom' => __('Bottom','mv23theme'),
+                    ))
+            ))->add_dependency('carousel_type', 'slider', '='),
+
+            Field::create( 'complex', 'carousel_mode' )->hide_label()->add_fields(array(
+                field::create( 'checkbox', 'active' )->hide_label()->set_text(__('Customize slider mode','mv23theme')),
+                Field::create( 'select', 'mode' )
+                    ->add_options( array(
+                        'carousel' => 'Carrusel Mode',
+                        'gallery' => 'Fade Mode',
+                    ))
+                    ->hide_label()
+                    ->add_dependency('active')
+                    ->set_width( 20 ),
+                Field::create( 'select', 'axis' )
+                    ->add_options( array(
+                        'horizontal' => 'Horizontal',
+                        'vertical' => 'Vertical',
+                    ))
+                    ->add_dependency('mode','carousel','=')
+                    ->add_dependency('active')
                     ->set_prefix('Axis:')
                     ->hide_label()
                     ->set_width( 20 ),
                 Field::create( 'number', 'speed' )
                     ->set_prefix('Animation Speed:')
+                    ->add_dependency('active')
                     ->set_default_value(450)
                     ->set_placeholder('450')
                     ->set_suffix( 'ms' )
@@ -120,28 +134,62 @@ class Carousel extends Component {
                 //     ->hide_label()
                 //     ->add_dependency('mode','carousel','=')
                 //     ->set_width( 20 )
-            ))->add_dependency('carousel_type', 'marquee', '!='),
+            ))->add_dependency('carousel_type', 'slider', '='),
 
-            Field::create( 'checkbox', 'auto_height' )->hide_label()->set_text(__('Activate Auto Height','mv23theme'))->add_dependency('carousel_type', 'marquee', '!='),
-            Field::create( 'checkbox', 'touch' )->hide_label()->set_text(__('Activate Touch','mv23theme'))->add_dependency('carousel_type', 'marquee', '!='),
+            Field::create( 'complex', 'autoplay_settings' )->hide_label()->add_fields(array(
+                Field::create( 'checkbox', 'active' )->set_text(__('Start Automatically','mv23theme'))->hide_label(),
+                Field::create( 'number', 'timeout' )
+                    ->set_prefix('Timeout:')
+                    ->set_placeholder('5000')
+                    ->set_suffix( 'ms' )
+                    ->hide_label()
+                    ->add_dependency( 'active' ),
+                // Field::create( 'checkbox', 'hover_pause' )->set_text(__('Pause on Hover','mv23theme'))
+                //     ->hide_label()
+                //     ->add_dependency( 'active' )
+                //     ->set_width( 20 ),
+                // Field::create( 'checkbox', 'prevent_action' )->set_text(__('Prevent action when running','mv23theme'))
+                //     ->hide_label()
+                //     ->add_dependency( 'active' )
+                //     ->set_width( 20 )
+            ))->add_dependency('carousel_type', 'slider', '='),
 
+            Field::create( 'tab', 'columns_settings_tab', __('Columns Settings','mv23theme') ),
             Field::create( 'complex', 'items', __('Columns', 'mv23theme') )->add_fields(array(
                 Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value( '4' )->set_attr('style', $width_style),
                 Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_default_value( '3' )->set_attr('style', $width_style),
                 Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_default_value( '2' )->set_attr('style', $width_style),
                 Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_default_value( '2' )->set_attr('style', $width_style)
-            ))->add_dependency('carousel_type', 'marquee', '!='),
+            ))->add_dependency('carousel_type', 'slider', '=')->hide_label(),
 
             Field::create( 'complex', 'gutter', __('Space between items', 'mv23theme') )->add_fields(array(
-                Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_attr('style', $width_style),
-                Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_attr('style', $width_style),
-                Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_attr('style', $width_style),
-                Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_attr('style', $width_style)
+                Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value( '20' )->set_attr('style', $width_style),
+                Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_default_value( '20' )->set_attr('style', $width_style),
+                Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_default_value( '20' )->set_attr('style', $width_style),
+                Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_default_value( '20' )->set_attr('style', $width_style)
             )),
 
+            Field::create( 'tab', 'advanced_settings_tab', __('Advanced Settings','mv23theme') ),
             Field::create('text', 'slider_uid', __('Slider UID', 'mv23theme'))
                 ->set_description(__('This is used to identify the slider in the JS code. If you leave it empty, a random UID will be generated.', 'mv23theme'))
-                ->set_attr( 'style', 'flex-grow: initial;' )
+                ->set_attr( 'style', 'flex-grow: initial;' ),
+            Field::create( 'checkbox', 'auto_height' )->hide_label()->set_text(__('Activate Auto Height','mv23theme'))->add_dependency('carousel_type', 'slider', '='),
+            Field::create( 'checkbox', 'touch' )->hide_label()->set_text(__('Activate Touch','mv23theme'))->add_dependency('carousel_type', 'slider', '='),
+            Field::create( 'complex', 'customize_icons')->hide_label()->add_fields(array(
+                field::create( 'checkbox', 'active' )->hide_label()->set_text(__('Customize navigation icons','mv23theme')),
+                Field::create( 'icon', 'prev_icon' )
+                    ->add_set( 'bootstrap-icons' )
+                    ->add_set( 'font-awesome' )
+                    ->set_default_value( PREV_CAROUSEL_ICON )
+                    ->add_dependency('active')
+                    ->set_width(50),
+                Field::create( 'icon', 'next_icon' )
+                    ->add_set( 'bootstrap-icons' )
+                    ->add_set( 'font-awesome' )
+                    ->set_default_value( NEXT_CAROUSEL_ICON )
+                    ->add_dependency('active')
+                    ->set_width(50),
+            ))->add_dependency('carousel_type', 'slider', '=')
         );
 
 		return array_merge(
@@ -158,20 +206,39 @@ class Carousel extends Component {
         $args['additional_attributes'] = array();
 
         $carousel_type = $args['carousel_type'] ?? 'slider';
-        $show_controls = $args['show_controls'] ?? 0;
-        $show_nav = $args['show_nav'] ?? 0;
-        $nav_position = $args['nav_position'] ?? 'bottom';
-        $autoplay = $args['autoplay'] ?? 0;
-        $autoplay_timeout = $args['autoplay_timeout'] ?? 5000;
+        $carousel_theme = $args['carousel_theme'] ?? 'theme1';
+        if($carousel_theme !== 'none'){
+            $args['additional_classes'][] = 'carousel--'.$carousel_theme;
+        }
+
+        $controls_settings = $args['controls_settings'] ?? array();
+        $show_controls = $controls_settings['show'] ?? 0;
+        $controls_position = $controls_settings['position'] ?? 'center';
+
+        $nav_settings = $args['nav_settings'] ?? array();
+        $show_nav = $nav_settings['show'] ?? 0;
+        $nav_position = $nav_settings['position'] ?? 'bottom';
+
+        $autoplay_settings = $args['autoplay_settings'] ?? array();
+        $autoplay = $autoplay_settings['autoplay'] ?? 0;
+        $autoplay_timeout = $autoplay_settings['autoplay_timeout'] ?? 5000;
         // $autoplay_hover_pause = $args['autoplay_hover_pause'] ?? 0;
         // $prevent_action = $args['prevent_action'] ?? 0;
         // $rewind = $args['rewind'] ?? 0;
         // style="transition-timing-function: linear;" 
-        $speed = $args['speed'] ?? 450;
+
+        $carousel_mode = $args['carousel_mode'] ?? array(
+            'active' => false,
+            'mode' => 'carousel',
+            'axis' => 'horizontal',
+            'speed' => 450
+        );
+        $speed = $carousel_mode['active'] ? ($carousel_mode['speed'] ?? 450) : 450;
+        $mode = $carousel_mode['active'] ? ($carousel_mode['mode'] ?? 'carousel') : 'carousel';
+        $axis = $carousel_mode['active'] ? ($carousel_mode['axis'] ?? 'horizontal') : 'horizontal';
+
         $auto_height = $args['auto_height'] ?? 0;
         $touch = $args['touch'] ?? 0;
-        $axis = $args['axis'] ?? 'horizontal';
-        $mode = $args['mode'] ?? 'carousel';
         $slider_uid = $args['slider_uid'] ?? '';
 
         $items_in_mobile = $args['items']['mobile'];
@@ -184,15 +251,21 @@ class Carousel extends Component {
         $gutter_in_laptop = $args['gutter']['laptop'];
         $gutter_in_desktop = $args['gutter']['desktop'];
 
+        $customize_icons = $args['customize_icons'] ?? array(  
+            'active' => false,
+            'prev_icon' => PREV_CAROUSEL_ICON,
+            'next_icon' => NEXT_CAROUSEL_ICON
+        );
+        $prev_icon = $customize_icons['active'] ? ($customize_icons['prev_icon'] ?? PREV_CAROUSEL_ICON) : PREV_CAROUSEL_ICON;
+        $next_icon = $customize_icons['active'] ? ($customize_icons['next_icon'] ?? NEXT_CAROUSEL_ICON) : NEXT_CAROUSEL_ICON;
+
         if( $show_nav ){
-            $nav_position = $args['nav_position'] ?? 'bottom';
             $args['additional_attributes'][] = 'data-nav-position="'.$nav_position.'"';
         } else {
             $args['additional_classes'][] = 'without-navigation';
         }
 
         if( $show_controls ){
-            $controls_position = $args['controls_position'] ?? 'center';
             $args['additional_attributes'][] = 'data-controls-position="'.$controls_position.'"';
         }
         
@@ -219,12 +292,15 @@ class Carousel extends Component {
                 data-touch="<?=$touch?>"
                 data-axis="<?=$axis?>"
                 data-mode="<?=$mode?>"
+                data-prev-icon="<?=$prev_icon?>"
+                data-next-icon="<?=$next_icon?>"
                 data-slider-uid="<?=$slider_uid?>">
         <?php else: 
-            $marquee_speed = ( isset($args['marquee_speed']) && is_numeric($args['marquee_speed']) ) ? $args['marquee_speed'] : 18;
-            $fade_color = $args['fade_color'] ?? '';
+            $marquee_settings = $args['marquee_settings'] ?? array();
+            $marquee_speed = ( isset($marquee_settings['marquee_speed']) && is_numeric($marquee_settings['marquee_speed']) ) ? $marquee_settings['marquee_speed'] : 18;
+            $fade_width = $marquee_settings['fade_width'] ?? '100px';
             ?>
-            <div class="marquee" data-speed="<?=$marquee_speed?>" style="--fade-color:<?=$fade_color?>;--d-gap:<?=$gutter_in_desktop?>px; --t-gap:<?=$gutter_in_tablet?>px; --m-gap:<?=$gutter_in_mobile?>px;">
+            <div class="marquee" data-speed="<?=$marquee_speed?>" style="--fade-width:<?=$fade_width?>;--d-gap:<?=$gutter_in_desktop?>px;--l-gap:<?=$gutter_in_laptop?>px; --t-gap:<?=$gutter_in_tablet?>px; --m-gap:<?=$gutter_in_mobile?>px;">
             <div class="marquee-track">
         <?php endif; ?>
 

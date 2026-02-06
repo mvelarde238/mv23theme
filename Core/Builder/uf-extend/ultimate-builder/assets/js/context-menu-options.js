@@ -75,7 +75,6 @@ function color_scheme_options(component, editor){
             label: scheme.name,
             class: ()=>{
                 let datastore = editor.getComponentDatastore( component );
-                console.log('datastore', datastore);
                 let current_scheme = datastore ? (datastore.get('settings') || {}).color_scheme?.key : 'light-mode';
                 return (scheme.id === current_scheme) ? 'active' : '';
             },

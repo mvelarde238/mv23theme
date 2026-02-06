@@ -12,6 +12,7 @@ CHANGELOG
 - theme_colors option implementation
 - color_scheme implementation on common settings
 - Social_Share component review
+- Carousel Component Review
 
 3.1.2 26-02-02
 - Theme Options Component implementation

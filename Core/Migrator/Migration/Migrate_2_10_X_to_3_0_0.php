@@ -1447,6 +1447,34 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
     }
 
     private function process_carousel_components( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles ){
+        $uf_component['controls_settings'] = array(
+            'show' => $component['show_controls'] ?? true,
+            'position' => $component['controls_position'] ?? 'center',
+        );
+        $uf_component['nav_settings'] = array(
+            'show' => $component['show_nav'] ?? false,
+            'position' => $component['nav_position'] ?? 'bottom',
+        );
+        $uf_component['autoplay_settings'] = array(
+            'active' => $component['autoplay'] ?? false,
+            'timeout' => $component['autoplay_timeout'] ?? 3000,
+        );
+        $uf_component['carousel_mode'] = array(
+            'active' => false,
+            'mode' => $component['mode'] ?? 'carousel',
+            'axis' => $component['axis'] ?? 'horizontal',
+            'speed' => $component['speed'] ?? 450
+        );
+        $uf_component['marquee_settings'] = array(
+            'speed' => $component['marquee_speed'] ?? 18,
+            'fade_width' => '100px'
+        );
+        $uf_component['customize_icons'] = array(
+            'active' => false,
+            'prev_icon' => $component['prev_icon'] ?? '',
+            'next_icon' => $component['next_icon'] ?? ''
+        );
+
         $uf_component['items'] = array(
             'desktop' => $component['items_in_desktop'],
             'laptop' => $component['items_in_laptop'],
@@ -1479,14 +1507,10 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $gjs_component['components'] = array( $gjs_carousel );
         $uf_component['components'] = array( $uf_carousel );
 
-        unset( $uf_component['items_in_desktop'] );
-        unset( $uf_component['items_in_laptop'] );
-        unset( $uf_component['items_in_tablet'] );
-        unset( $uf_component['items_in_mobile'] );
-        unset( $uf_component['gutter_in_desktop'] );
-        unset( $uf_component['gutter_in_laptop'] );
-        unset( $uf_component['gutter_in_tablet'] );
-        unset( $uf_component['gutter_in_mobile'] );
+        $to_unset = ['items_in_desktop','items_in_laptop','items_in_tablet','items_in_mobile','gutter_in_desktop','gutter_in_laptop','gutter_in_tablet','gutter_in_mobile','show_controls','controls_position','show_nav','nav_position','autoplay','autoplay_timeout','mode','axis','speed'];
+        foreach ($to_unset as $key) {
+            unset( $uf_component[$key] );
+        }
     }
 
     private function process_accordion_components( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles ){

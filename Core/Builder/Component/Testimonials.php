@@ -57,6 +57,7 @@ class Testimonials extends Component {
         if( Template_Engine::is_private( $args ) ) return;
         
 		$args['additional_classes'][] = 'carousel';
+		$args['additional_classes'][] = 'carousel--theme1';
 		$args['additional_attributes'] = array('data-controls-position="center"');
         
         $testimonials = $args['testimonials'];
@@ -147,9 +148,8 @@ class Testimonials extends Component {
 
     public static function get_view_template(){
         return '<% 
-        listing_cls = ["testimonials-list", "has-columns"]
+        listing_cls = ["testimonials-list", "has-columns", "carousel__slider"]
         listing_style = ["min-height: 100px", "flex-wrap:nowrap", "overflow-x:scroll"]
-        post_style = ["flex-shrink:0"]
 
         devices = ["d","l","t","m"]
         d = ["desktop","laptop","tablet","mobile"]
@@ -159,11 +159,16 @@ class Testimonials extends Component {
             listing_style.push("--"+key+"-columns:"+columns+"; --"+key+"-gap:"+gap)
         })
         %>
+        <div class="carousel carousel--theme1" data-controls-position="center">
+        <div class="tns-controls">
+            <button data-controls="prev"><i class="fa fa-angle-left"></i></button>
+            <button data-controls="next"><i class="fa fa-angle-right"></i></button>
+        </div>
         <div class="<%= listing_cls.join(" ") %>" style="<%= listing_style.join(";") %>">
             <% for( var i = 0; i < testimonials.length; i++){ 
                 testimonial = testimonials[i];
                 %>
-                <div class="testimonial" style="<%= post_style.join(";") %>">
+                <div class="testimonial">
                     <% if( testimonial.type == "text" ){ %>
                         <div class="testimonial__header">
                             <% if( Array.isArray(testimonial.author_img_prepared) && testimonial.author_img_prepared.length > 0 ){ %>
@@ -191,6 +196,12 @@ class Testimonials extends Component {
                     <% } %>
                 </div>
             <% } %>
+        </div>
+        <div class="tns-nav">
+            <button class="tns-nav-active"></button>
+            <button></button>
+            <button></button>
+        </div>
         </div>';
     }
 }
