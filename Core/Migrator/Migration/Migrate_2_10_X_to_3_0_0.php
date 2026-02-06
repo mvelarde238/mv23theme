@@ -2075,6 +2075,108 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $uf_parent['components'][] = $created_comp['uf_component'];
     }
 
+    private function migrate_colors_settings() {
+        $new_colors = array();
+
+        // Mapping of old option names to CSS variables
+        $color_mapping = array(
+            'primary_color' => '--primary-color',
+            'secondary_color' => '--secondary-color',
+            'font_color' => '--font-color',
+            'headings_color' => '--headings-color',
+            'link_color' => '--link-color'
+        );
+
+        // Migrate main colors
+        foreach ($color_mapping as $option_name => $css_var) {
+            $color_value = get_option($option_name, '');
+            
+            // Only add if value exists and is not empty
+            if (!empty($color_value)) {
+                $new_colors[] = array(
+                    '__type' => 'color',
+                    'color' => $color_value,
+                    'css_property' => $css_var
+                );
+            }
+        }
+
+        // Migrate primary color variations
+        $primary_color = get_option('primary_color', '');
+        $light_primary = get_option('light_primary_color_percentage', 70);
+        $lighter_primary = get_option('lighter_primary_color_percentage', 94);
+        $dark_primary = get_option('dark_primary_color_percentage', 15);
+
+        // Only add variations if primary color exists
+        if (!empty($primary_color)) {
+            $new_colors[] = array(
+                '__type' => 'variations',
+                'css_property' => '--primary-color',
+                'light' => !empty($light_primary) ? $light_primary : 70,
+                'lighter' => !empty($lighter_primary) ? $lighter_primary : 94,
+                'dark' => !empty($dark_primary) ? $dark_primary : 15
+            );
+        }
+
+        // Migrate secondary color variations
+        $secondary_color = get_option('secondary_color', '');
+        $light_secondary = get_option('light_secondary_color_percentage', 70);
+        $lighter_secondary = get_option('lighter_secondary_color_percentage', 94);
+        $dark_secondary = get_option('dark_secondary_color_percentage', 15);
+
+        // Only add variations if secondary color exists
+        if (!empty($secondary_color)) {
+            $new_colors[] = array(
+                '__type' => 'variations',
+                'css_property' => '--secondary-color',
+                'light' => !empty($light_secondary) ? $light_secondary : 70,
+                'lighter' => !empty($lighter_secondary) ? $lighter_secondary : 90,
+                'dark' => !empty($dark_secondary) ? $dark_secondary : 15
+            );
+        }
+
+        // Migrate colorpicker palette
+        $colorpicker_palette = get_option('colorpicker_palette', array());
+        if (is_array($colorpicker_palette) && !empty($colorpicker_palette)) {
+            foreach ($colorpicker_palette as $palette_item) {
+                if (isset($palette_item['color']) && !empty($palette_item['color'])) {
+                    $new_colors[] = array(
+                        '__type' => 'color',
+                        'color' => $palette_item['color'],
+                        'css_property' => '' // No CSS variable assigned
+                    );
+                }
+            }
+        }
+
+        // Save new structure
+        if ($this->do_the_update && !empty($new_colors)) {
+            update_option('theme_colors', $new_colors);
+        }
+
+        // Delete old options
+        if ($this->delete_old_data) {
+            $old_options = array(
+                'primary_color',
+                'secondary_color',
+                'font_color',
+                'headings_color',
+                'link_color',
+                'light_primary_color_percentage',
+                'lighter_primary_color_percentage',
+                'dark_primary_color_percentage',
+                'light_secondary_color_percentage',
+                'lighter_secondary_color_percentage',
+                'dark_secondary_color_percentage',
+                'colorpicker_palette'
+            );
+
+            foreach ($old_options as $option) {
+                delete_option($option);
+            }
+        }
+    }
+
     public function migrate_archive_page_post_meta( $post_id ){
         // Migrate loop_columns to columns
         $loop_columns = get_post_meta( $post_id, 'loop_columns', true );
@@ -2129,6 +2231,9 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 }
             }
         }
+
+        // Migrate colors settings
+        $this->migrate_colors_settings();
 
         if( $this->delete_old_data ){
             delete_option( 'single_pages_settings' );

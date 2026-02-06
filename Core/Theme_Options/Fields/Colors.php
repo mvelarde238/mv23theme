@@ -6,78 +6,57 @@ use Ultimate_Fields\Field;
 class Colors {
     public static function get_fields(){
         $is_uf_builder_editor = ( isset( $_GET['action'] ) && $_GET['action'] == 'ultimate-builder' );
-        $colors_width = ( is_customize_preview() || $is_uf_builder_editor ) ? 100 : 20;
+        $color_fields_width = ( is_customize_preview() || $is_uf_builder_editor ) ? 100 : 50;
 
-        $primary_color_default = get_option( 'primary_color', '#ff7a00' );
-        $secondary_color_default = get_option( 'secondary_color', '#071a36' );
-        $font_color_default = get_option( 'font_color', '' );
-        $headings_color_default = get_option( 'headings_color', '' );
-        $link_color_default = get_option( 'link_color', '' );
-        $colorpicker_palette_default = get_option( 'colorpicker_palette', array() );
-        $light_primary_color_percentage_default = get_option( 'light_primary_color_percentage', 50 );
-        $lighter_primary_color_percentage_default = get_option( 'lighter_primary_color_percentage', 85 );
-        $dark_primary_color_percentage_default = get_option( 'dark_primary_color_percentage', 15 );
-        $light_secondary_color_percentage_default = get_option( 'light_secondary_color_percentage', 50 );
-        $lighter_secondary_color_percentage_default = get_option( 'lighter_secondary_color_percentage', 85 );
-        $dark_secondary_color_percentage_default = get_option( 'dark_secondary_color_percentage', 15 );
+        $colors_default = get_option( 'theme_colors', array());
+
+        $css_vars = array(
+            '--primary-color', 
+            '--secondary-color', 
+            '--font-color', 
+            '--headings-color', 
+            '--links-color', 
+            '--blog-color'
+        );
 
         $fields = array(
-            Field::create( 'tab', 'Colors', __('Colors','mv23theme') ),
-            
-            Field::create( 'complex', 'colors_wrapper', __('Main colors','mv23theme') )->add_fields(array(
-                Field::create( 'color', 'primary_color', __('Primary color','mv23theme') )->set_default_value($primary_color_default)->set_width($colors_width),
-                Field::create( 'color', 'secondary_color', __('Secondary color','mv23theme') )->set_default_value($secondary_color_default)->set_width($colors_width),
-                Field::create( 'color', 'font_color', __('Font color','mv23theme') )->set_default_value($font_color_default)->set_width($colors_width),
-                Field::create( 'color', 'headings_color', __('Headings color','mv23theme') )->set_default_value($headings_color_default)->set_width($colors_width),
-                Field::create( 'color', 'link_color', __('Link color','mv23theme') )->set_default_value($link_color_default)->set_width($colors_width)
-            ))->merge(),
+            Field::create( 'tab', 'colors_tab', __('Colors','mv23theme') ),
 
-            Field::create( 'repeater', 'colorpicker_palette', __('Colorpicker palette','mv23theme') )
-                ->set_default_value( $colorpicker_palette_default )
-                ->set_add_text(__('Add color','mv23theme'))
-                ->set_layout( 'table' )
-                ->set_attr('class','hide-table-heading')
-                ->add_group( 'item', array(
+            Field::create( 'repeater', 'theme_colors' )
+                ->set_default_value( $colors_default )
+                ->set_chooser_type( 'tags' )
+                ->set_add_text(__('Add item','mv23theme'))
+                ->add_group( 'color', array(
+                    'icon'   => 'dashicons dashicons-art',
+                    'title_template' => '<% if ( color ) { %><span style="color:<%= color %>">&#9632;</span> <%= css_property %><% } %>',
                     'fields' => array(
                         Field::create( 'color', 'color' )
+                            ->required()
+                            ->set_width( $color_fields_width ),
+                        Field::create( 'text', 'css_property', __('CSS Variable','mv23theme') )
+                            ->add_suggestions( $css_vars )
+                            ->set_width( $color_fields_width ),
+                    )))
+                ->add_group( 'variations', array(
+                    'icon'   => 'dashicons dashicons-admin-settings',
+                    'fields' => array(
+                        Field::create( 'text', 'css_property', __('CSS Variable','mv23theme') )
+                            ->required()
+                            ->add_suggestions( $css_vars ),
+                        Field::create( 'number', 'light', __('Light', 'mv23theme') )
+                            ->set_placeholder('70')
+                            ->set_suffix('%')
+                            ->set_attr('style','width:30%; min-width:50px;'),
+                        Field::create( 'number', 'lighter', __('Lighter', 'mv23theme') )
+                            ->set_placeholder('94')
+                            ->set_suffix('%')
+                            ->set_attr('style','width:30%; min-width:50px;'),
+                        Field::create( 'number', 'dark', __('Dark', 'mv23theme') )
+                            ->set_placeholder('15')
+                            ->set_suffix('%')
+                            ->set_attr('style','width:30%; min-width:50px;'),
                     )
-            )),
-                
-            Field::create( 'complex', 'primary_color_variations', __('Primary color variations','mv23theme') )->add_fields(array(
-                Field::create( 'number', 'light_primary_color_percentage', __('Light', 'mv23theme') )
-                    ->set_placeholder('0')
-                    ->set_default_value($light_primary_color_percentage_default)
-                    ->set_suffix('%')
-                    ->set_attr('style','width:30%; min-width:50px;'),
-                Field::create( 'number', 'lighter_primary_color_percentage', __('Lighter', 'mv23theme') )
-                    ->set_placeholder('0')
-                    ->set_default_value($lighter_primary_color_percentage_default)
-                    ->set_suffix('%')
-                    ->set_attr('style','width:30%; min-width:50px;'),
-                Field::create( 'number', 'dark_primary_color_percentage', __('Dark', 'mv23theme') )
-                    ->set_placeholder('0')
-                    ->set_default_value($dark_primary_color_percentage_default)
-                    ->set_suffix('%')
-                    ->set_attr('style','width:30%; min-width:50px;'),
-            ))->merge(),
-
-            Field::create( 'complex', 'secondary_color_variations', __('Secondary color variations','mv23theme') )->add_fields(array(
-                Field::create( 'number', 'light_secondary_color_percentage', __('Light', 'mv23theme') )
-                    ->set_placeholder('0')
-                    ->set_default_value($light_secondary_color_percentage_default)
-                    ->set_suffix('%')
-                    ->set_attr('style','width:30%; min-width:50px;'),
-                Field::create( 'number', 'lighter_secondary_color_percentage', __('Lighter', 'mv23theme') )
-                    ->set_placeholder('0')
-                    ->set_default_value($lighter_secondary_color_percentage_default)
-                    ->set_suffix('%')
-                    ->set_attr('style','width:30%; min-width:50px;'),
-                Field::create( 'number', 'dark_secondary_color_percentage', __('Dark', 'mv23theme') )
-                    ->set_placeholder('0')
-                    ->set_default_value($dark_secondary_color_percentage_default)
-                    ->set_suffix('%')
-                    ->set_attr('style','width:30%; min-width:50px;'),
-            ))->merge()
+                )),
         );
         return $fields;
     }

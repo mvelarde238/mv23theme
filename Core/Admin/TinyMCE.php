@@ -435,36 +435,32 @@ class TinyMCE{
 		$theme_colors = array();
 		$added_colors = array();
 		
-        $options = array('primary_color','secondary_color','font_color','headings_color','link_color','colorpicker_palette');
-		foreach ($options as $option_name) {
-            if( $option_name != 'colorpicker_palette' ){
-                $the_color = $theme_options->get_property($option_name);
-                if( $the_color ) {
-					// Check if the color is already added to avoid duplicates
-					if( !in_array($the_color, $added_colors) ){
-						$theme_colors[] = '"'.str_replace('#', '', $the_color).'"';
-						$theme_colors[] = '"'.$option_name.'"';
-						$added_colors[] = $the_color;
+		// Get colors from theme_colors option
+		$colors_data = get_option('theme_colors', array());
+		
+		if (is_array($colors_data) && !empty($colors_data)) {
+			foreach ($colors_data as $color_item) {
+				// Only process color type items
+				if (isset($color_item['__type']) && $color_item['__type'] === 'color') {
+					if (!empty($color_item['color'])) {
+						// Check if the color is already added to avoid duplicates
+						if (!in_array($color_item['color'], $added_colors)) {
+							$theme_colors[] = '"' . str_replace('#', '', $color_item['color']) . '"';
+							
+							// Use css_property as label if available, otherwise use generic label
+							$label = !empty($color_item['css_property']) 
+								? str_replace(array('--', '-'), array('', ' '), $color_item['css_property'])
+								: 'Custom color';
+							$theme_colors[] = '"' . ucwords($label) . '"';
+							
+							$added_colors[] = $color_item['color'];
+						}
 					}
 				}
-            } else {
-                $colorpicker_palette = $theme_options->get_property('colorpicker_palette');
-                if( is_array($colorpicker_palette) && !empty($colorpicker_palette) ){
-                    foreach ($colorpicker_palette as $item) {
-                        if( $item['color'] ){
-							// Check if the color is already added to avoid duplicates
-							if( !in_array($item['color'], $added_colors) ){
-								$theme_colors[] = '"'.str_replace('#', '', $item['color']).'"';
-								$theme_colors[] = '"'.$option_name.'"';
-								$added_colors[] = $item['color'];
-							}
-						}
-                    }
-                }
-            }
-        }
+			}
+		}
 
-		return implode(',',$theme_colors);
+		return implode(',', $theme_colors);
 	}
 
     public function add_theme_colors($initArray) {  

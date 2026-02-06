@@ -312,6 +312,11 @@ window.gjsSinglePageStructure = function (editor, options) {
                 );
             }
 
+            // Add class to wrapper for single page styling
+            wrapper.addClass(['single', 'single-'+BUILDER_GLOBALS.posttype]);
+
+            // Make container non-droppable and non-selectable
+            // in order to work only within single-page-structure
             container.set({
                 droppable: false,
                 selectable: false,

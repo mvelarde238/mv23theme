@@ -41,7 +41,7 @@ window.gjsThemeOptions = function (editor, options) {
                 ) {
                     this.applyChangesOnHeader(changed);
                 }
-                if ( changed.static_header_logo_height || changed.ssticky_header_logo_height ) {
+                if ( changed.static_header_logo_height || changed.sticky_header_logo_height ) {
                     let key = changed.static_header_logo_height ? 'static_header_logo_height' : 'sticky_header_logo_height';
                     this.set_CSS_prop('--' + key.replace(/_/g, '-'), changed[key] + 'px');
                 }
@@ -52,20 +52,8 @@ window.gjsThemeOptions = function (editor, options) {
                     if( values.add_bgc ) color = ( values.alpha != '100' ) ? this.hexToRgba(values.bgc, values.alpha) : values.bgc;
                     this.set_CSS_prop(css_property, color);
                 }
-                if ( changed.colors_wrapper ) {
-                    this.applyColorsWrapper( changed.colors_wrapper );
-                }
-                if ( changed.primary_color_variations) {
-                    let values = changed.primary_color_variations;
-                    this.set_CSS_prop('--primary-color-light', 'color-mix( in srgb, var(--primary-color), white '+values.light_primary_color_percentage+'%');
-                    this.set_CSS_prop('--primary-color-lighter', 'color-mix( in srgb, var(--primary-color), white '+values.lighter_primary_color_percentage+'%');
-                    this.set_CSS_prop('--primary-color-dark', 'color-mix( in srgb, var(--primary-color), black '+values.dark_primary_color_percentage+'%');
-                }
-                if ( changed.secondary_color_variations) {
-                    let values = changed.secondary_color_variations;
-                    this.set_CSS_prop('--secondary-color-light', 'color-mix( in srgb, var(--secondary-color), white '+values.light_secondary_color_percentage+'%');
-                    this.set_CSS_prop('--secondary-color-lighter', 'color-mix( in srgb, var(--secondary-color), white '+values.lighter_secondary_color_percentage+'%');
-                    this.set_CSS_prop('--secondary-color-dark', 'color-mix( in srgb, var(--secondary-color), black '+values.dark_secondary_color_percentage+'%');
+                if ( changed.theme_colors ) {
+                    this.applyThemeColors( changed.theme_colors );
                 }
                 if ( changed.fonts) {
                     this.handleFontsChange( changed.fonts );
@@ -133,12 +121,48 @@ window.gjsThemeOptions = function (editor, options) {
                     root = _document.querySelector(':root');
                 root.style.setProperty(prop, value);
             },
-            applyColorsWrapper(colors_wrapper){
-                for (const key in colors_wrapper) {
-                    const value = colors_wrapper[key];
-                    const final_value = value || 'initial';
-                    this.set_CSS_prop('--'+key.replace(/_/g, '-'), final_value);
-                }
+            applyThemeColors(theme_colors){
+                if (!Array.isArray(theme_colors)) return;
+
+                theme_colors.forEach(color_item => {
+                    // Process color type items
+                    if (color_item.__type === 'color') {
+                        if (color_item.color && color_item.css_property) {
+                            this.set_CSS_prop(color_item.css_property, color_item.color);
+                        }
+                    }
+                    
+                    // Process variations type items
+                    if (color_item.__type === 'variations') {
+                        if (color_item.css_property) {
+                            const base_var = color_item.css_property;
+                            
+                            // Generate light variation
+                            if (color_item.light) {
+                                this.set_CSS_prop(
+                                    base_var + '-light',
+                                    `color-mix(in srgb, var(${base_var}), white ${color_item.light}%)`
+                                );
+                            }
+                            
+                            // Generate lighter variation
+                            if (color_item.lighter) {
+                                this.set_CSS_prop(
+                                    base_var + '-lighter',
+                                    `color-mix(in srgb, var(${base_var}), white ${color_item.lighter}%)`
+                                );
+                            }
+                            
+                            // Generate dark variation
+                            if (color_item.dark) {
+                                this.set_CSS_prop(
+                                    base_var + '-dark',
+                                    `color-mix(in srgb, var(${base_var}), white ${color_item.dark}%)`
+                                );
+                            }
+                        }
+                    }
+                });
             },
             handleFontsChange(fonts){
                 let cssRules = '';

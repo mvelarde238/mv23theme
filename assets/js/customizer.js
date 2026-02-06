@@ -46,24 +46,48 @@
     }
 
     //  COLORS
-    UF_Customize.bind( 'colors_wrapper', ( values, context ) => {
-        set_CSS_prop('--primary-color', values.primary_color);
-        set_CSS_prop('--secondary-color', values.secondary_color);
-        set_CSS_prop('--font-color', values.font_color);
-        set_CSS_prop('--headings-color', values.headings_color);
-        set_CSS_prop('--link-color', values.link_color);
-    });
-    
-    UF_Customize.bind( 'primary_color_variations', ( values, context ) => {
-        set_CSS_prop('--primary-color-light', 'color-mix( in srgb, var(--primary-color), white '+values.light_primary_color_percentage+'%');
-        set_CSS_prop('--primary-color-lighter', 'color-mix( in srgb, var(--primary-color), white '+values.lighter_primary_color_percentage+'%');
-        set_CSS_prop('--primary-color-dark', 'color-mix( in srgb, var(--primary-color), black '+values.dark_primary_color_percentage+'%');
-    });
+    UF_Customize.bind( 'theme_colors', ( theme_colors, context ) => {
+        if (!Array.isArray(theme_colors)) return;
 
-    UF_Customize.bind( 'secondary_color_variations', ( values, context ) => {
-        set_CSS_prop('--secondary-color-light', 'color-mix( in srgb, var(--secondary-color), white '+values.light_secondary_color_percentage+'%');
-        set_CSS_prop('--secondary-color-lighter', 'color-mix( in srgb, var(--secondary-color), white '+values.lighter_secondary_color_percentage+'%');
-        set_CSS_prop('--secondary-color-dark', 'color-mix( in srgb, var(--secondary-color), black '+values.dark_secondary_color_percentage+'%');
+        theme_colors.forEach(color_item => {
+            // Process color type items
+            if (color_item.__type === 'color') {
+                if (color_item.color && color_item.css_property) {
+                    set_CSS_prop(color_item.css_property, color_item.color);
+                }
+            }
+            
+            // Process variations type items
+            if (color_item.__type === 'variations') {
+                if (color_item.css_property) {
+                    const base_var = color_item.css_property;
+                    
+                    // Generate light variation
+                    if (color_item.light) {
+                        set_CSS_prop(
+                            base_var + '-light',
+                            `color-mix(in srgb, var(${base_var}), white ${color_item.light}%)`
+                        );
+                    }
+                    
+                    // Generate lighter variation
+                    if (color_item.lighter) {
+                        set_CSS_prop(
+                            base_var + '-lighter',
+                            `color-mix(in srgb, var(${base_var}), white ${color_item.lighter}%)`
+                        );
+                    }
+                    
+                    // Generate dark variation
+                    if (color_item.dark) {
+                        set_CSS_prop(
+                            base_var + '-dark',
+                            `color-mix(in srgb, var(${base_var}), white ${color_item.dark}%)`
+                        );
+                    }
+                }
+            }
+        });
     });
 
     UF_Customize.bind( 'typography_css_vars', ( properties, context ) => {

@@ -216,6 +216,11 @@ window.gjsArchivePageStructure = function (editor, options) {
                 container.append({ type: 'archive-page-structure' });
             }
 
+            // Add class to wrapper for archive page styling
+            wrapper.addClass(['archive']);
+
+            // Make container non-droppable and non-selectable
+            // in order to work only within archive-page-structure
             container.set({
                 droppable: false,
                 selectable: false,

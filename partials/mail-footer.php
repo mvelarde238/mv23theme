@@ -1,7 +1,21 @@
 <?php 
 $home_url = esc_url( home_url() ); 
-$primary_color = get_option( 'primary_color' );
-$accent_color = ($primary_color) ? $primary_color : CF7_EMAIL_MAIN_COLOR;
+
+// Get primary color from new theme_colors structure
+$primary_color = '';
+$theme_colors = get_option( 'theme_colors', array() );
+if ( is_array( $theme_colors ) && ! empty( $theme_colors ) ) {
+    foreach ( $theme_colors as $color_item ) {
+        if ( isset( $color_item['__type'] ) && $color_item['__type'] === 'color' 
+            && isset( $color_item['css_property'] ) && $color_item['css_property'] === '--primary-color' 
+            && ! empty( $color_item['color'] ) ) {
+            $primary_color = $color_item['color'];
+            break;
+        }
+    }
+}
+
+$accent_color = ( $primary_color ) ? $primary_color : CF7_EMAIL_MAIN_COLOR;
 ?>
             </td>
 		</tr>

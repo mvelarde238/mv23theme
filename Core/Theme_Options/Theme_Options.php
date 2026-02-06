@@ -36,6 +36,7 @@ class Theme_Options extends Theme_Header_Data{
     private function __construct(){
         parent::__construct();
         $this->set_logos_field_names();
+        $this->hide_repeater_groups();
     }
 
     public function init_options_page(){
@@ -135,6 +136,17 @@ class Theme_Options extends Theme_Header_Data{
         return self::$logos_field_names;
     }
 
+    public static function hide_repeater_groups(){
+        add_filter( 'uf.repeater.group_hidden', function($hidden, $group, $this_obj){
+            $groups = ['color','variations','social-network'];
+
+            if( in_array($group->get_id(), $groups) ){
+                return true;
+            }
+            return $hidden;
+        }, 10, 3 );
+    }
+
     public function get_theme_fonts(){
         $urls = array();
         $names = array();
@@ -218,23 +230,40 @@ class Theme_Options extends Theme_Header_Data{
     public function get_css_properties(){
         $properties = array();
 
-        // main colors
-        $colors = array('primary_color','secondary_color','font_color','headings_color','link_color');
-        foreach ($colors as $color) {
-            $the_color = get_option( $color );
-            if( $the_color ) {
-                $properties[] = '--'.str_replace('_','-',$color).':'.$the_color;
+        // theme colors
+        $theme_colors = get_option('theme_colors', array());
+        
+        if (is_array($theme_colors) && !empty($theme_colors)) {
+            foreach ($theme_colors as $color_item) {
+                // Process color type items
+                if (isset($color_item['__type']) && $color_item['__type'] === 'color') {
+                    if (!empty($color_item['color']) && !empty($color_item['css_property'])) {
+                        $properties[] = $color_item['css_property'] . ':' . $color_item['color'];
+                    }
+                }
+                
+                // Process variations type items
+                if (isset($color_item['__type']) && $color_item['__type'] === 'variations') {
+                    if (!empty($color_item['css_property'])) {
+                        $base_var = $color_item['css_property'];
+                        
+                        // Generate light variation
+                        if (isset($color_item['light']) && !empty($color_item['light'])) {
+                            $properties[] = $base_var . '-light:color-mix( in srgb, var(' . $base_var . '), white ' . $color_item['light'] . '% )';
+                        }
+                        
+                        // Generate lighter variation
+                        if (isset($color_item['lighter']) && !empty($color_item['lighter'])) {
+                            $properties[] = $base_var . '-lighter:color-mix( in srgb, var(' . $base_var . '), white ' . $color_item['lighter'] . '% )';
+                        }
+                        
+                        // Generate dark variation
+                        if (isset($color_item['dark']) && !empty($color_item['dark'])) {
+                            $properties[] = $base_var . '-dark:color-mix( in srgb, var(' . $base_var . '), white ' . $color_item['dark'] . '% )';
+                        }
+                    }
+                }
             }
-        }
-
-        // variations
-        $variations = array('light','lighter','dark');
-        foreach ($variations as $variation) {
-            $percentage = get_option( $variation.'_primary_color_percentage' );
-            if( $percentage ) $properties[] = '--primary-color-'.$variation.':color-mix( in srgb, var(--primary-color), white '.$percentage.'% )';
-
-            $percentage = get_option( $variation.'_secondary_color_percentage' );
-            if( $percentage ) $properties[] = '--secondary-color-'.$variation.':color-mix( in srgb, var(--secondary-color), white '.$percentage.'% )';
         }
 
         // header
@@ -362,22 +391,16 @@ class Theme_Options extends Theme_Header_Data{
 		$theme_colors = array('#000000','#ffffff');
         $added_colors = array();
 		
-        $options = array('primary_color','secondary_color','font_color','headings_color','link_color','colorpicker_palette');
-        foreach ($options as $option_name) {
-            if( $option_name != 'colorpicker_palette' ){
-                $the_color = $theme_options->get_property($option_name);
-                if( $the_color && !in_array($the_color, $added_colors) ){
-                    $theme_colors[] = $the_color;
-                    $added_colors[] = $the_color;
-                } 
-            } else {
-                $colorpicker_palette = $theme_options->get_property('colorpicker_palette');
-                if( is_array($colorpicker_palette) && !empty($colorpicker_palette) ){
-                    foreach ($colorpicker_palette as $item) {
-                        if($item['color'] && !in_array($item['color'], $added_colors)){
-                            $theme_colors[] = $item['color'];
-                            $added_colors[] = $item['color'];
-                        }
+        // Get colors from theme_colors
+        $colors_data = get_option('theme_colors', array());
+        
+        if (is_array($colors_data) && !empty($colors_data)) {
+            foreach ($colors_data as $color_item) {
+                // Only process color type items
+                if (isset($color_item['__type']) && $color_item['__type'] === 'color') {
+                    if (!empty($color_item['color']) && !in_array($color_item['color'], $added_colors)) {
+                        $theme_colors[] = $color_item['color'];
+                        $added_colors[] = $color_item['color'];
                     }
                 }
             }
