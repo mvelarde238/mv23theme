@@ -1,39 +1,26 @@
 .social-share 
-    padding: 10px 0
-    --fade-color: var(--primary-color-lighter)
     h6
         margin-bottom: 10px
         text-transform: uppercase
 
 .social-share-buttons
-    display: flex
     overflow: auto
-    padding-bottom: 10px
-
-    &-wrapper
-        position: relative
-        max-width: 90vw
-        // fade element
-        &::after
-            content: ''
-            position: absolute
-            top: 0
-            height: 100%
-            width: 100px
-            pointer-events: none
-            z-index: 2
-            right: 0
-            background: linear-gradient(to left, var(--fade-color), transparent)
+    white-space: nowrap
+    max-width: 100%
+    // fade effect using mask
+    mask-image: linear-gradient(to right, black calc(100% - 100px), transparent)
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 100px), transparent)
 
     button
         border: 0
         background: transparent
         cursor: pointer
-        display: flex
+        display: inline-flex
         flex-direction: column
         align-items: center
         gap: 10px
         padding: 15px
+        vertical-align: top
         min-width: 100px
 
         &:not(:last-child)
@@ -113,4 +100,3 @@
 #more-social-share-modal
     border-radius: 20px 20px 0 0
     min-height: 180px
-    --fade-color: #fff

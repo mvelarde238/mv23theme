@@ -30,10 +30,11 @@ class Post_Content extends Component {
         $post_id = isset($args['post_id']) ? $args['post_id'] : $post->ID;
 
         $content = get_post_field('post_content', $post_id);
-        ob_start();
-        echo '<div class="component">' . do_shortcode(wpautop(oembed( $content ))) . '</div>';
-        $output = ob_get_clean();
-        return $output;
+        if (!empty($content)) {
+            ob_start();
+            echo '<div class="component">' . do_shortcode(wpautop(oembed( $content ))) . '</div>';
+            return ob_get_clean();
+        }
     }
 }
 
