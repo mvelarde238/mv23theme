@@ -64,22 +64,22 @@ function print_theme_gallery( $atts ) {
 
         $carousel_styles = array();
         if( $a['aspectratio'] ) $carousel_styles[] = '--aspect-ratio:'.$a['aspectratio'];
-        if( $a['display'] != 'slider' ) {
-            $carousel_styles[] = '--d-gap:'.$a['d_gap'].'px';
-            $carousel_styles[] = '--l-gap:'.$a['l_gap'].'px';
-            $carousel_styles[] = '--t-gap:'.$a['t_gap'].'px';
-            $carousel_styles[] = '--m-gap:'.$a['m_gap'].'px';
-            $carousel_styles[] = '--d-columns:'.$a['d_columns'];
-            $carousel_styles[] = '--l-columns:'.$a['l_columns'];
-            $carousel_styles[] = '--t-columns:'.$a['t_columns'];
-            $carousel_styles[] = '--m-columns:'.$a['m_columns'];
-        }
+
+        $carousel_styles[] = '--d-gap:'.$a['d_gap'].'px';
+        $carousel_styles[] = '--l-gap:'.$a['l_gap'].'px';
+        $carousel_styles[] = '--t-gap:'.$a['t_gap'].'px';
+        $carousel_styles[] = '--m-gap:'.$a['m_gap'].'px';
+        $carousel_styles[] = '--d-columns:'.$a['d_columns'];
+        $carousel_styles[] = '--l-columns:'.$a['l_columns'];
+        $carousel_styles[] = '--t-columns:'.$a['t_columns'];
+        $carousel_styles[] = '--m-columns:'.$a['m_columns'];
+        
         if( $a['display'] === 'marquee' ) {
             $carousel_styles[] = '--fade-color:'.$a['fade_color'];
         }
 
         if( $a['display'] == 'slider' ){ ?>
-            <div class="theme-gallery carousel carousel-inside-component theme-gallery--slider" data-controls-position="center" style="<?=implode(';',$carousel_styles)?>">
+            <div class="theme-gallery carousel carousel--theme1 carousel-inside-component theme-gallery--slider" data-controls-position="center" style="<?=implode(';',$carousel_styles)?>">
             <div class="carousel__slider" 
                 data-show-controls="1" 
                 data-show-nav="1" 

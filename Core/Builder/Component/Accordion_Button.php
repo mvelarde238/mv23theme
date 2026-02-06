@@ -24,8 +24,7 @@ class Accordion_Button extends Component {
 
 	public static function get_fields() {
         $fields = array(
-            Field::create( 'text', 'title' )
-                ->set_attr( 'style', 'background-color: #f0f0f0;' ),
+            Field::create( 'text', 'title' ),
             Field::create( 'text', 'subtitle' ),
             Field::create( 'complex', 'icon_settings', __('Element before the title','mv23theme'))->add_fields(array(
                 Field::create( 'radio', 'type' )->set_orientation( 'horizontal' )->hide_label()->add_options( array(
