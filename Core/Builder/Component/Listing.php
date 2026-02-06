@@ -480,7 +480,7 @@ class Listing extends Component {
                     $autoplay = (!empty($carousel_settings['autoplay'])) ? $carousel_settings['autoplay'] : 0;
                     $carousel_id = (!empty($carousel_settings['carousel_id'])) ? $carousel_settings['carousel_id'] : '';
     
-                    $carousel_classes_array = array('carousel','carousel-inside-component');
+                    $carousel_classes_array = array('carousel','carousel-inside-component', 'carousel--theme1');
                     if( !$show_nav ) array_push($carousel_classes_array,'without-navigation');
                     ?>
                     <div class="<?php echo implode(' ', $carousel_classes_array); ?>" data-controls-position="center"><div class="carousel__slider" 

@@ -136,6 +136,7 @@ class Image extends Component {
             $attachment->ID = 0;
             $attachment->guid = $args['external_image'];
             $attachment->post_title = '';
+            $attachment->post_excerpt = '';
         }
 
         if( !$attachment ){
@@ -143,6 +144,7 @@ class Image extends Component {
             $attachment->ID = 0;
             $attachment->guid = get_stylesheet_directory_uri().'/assets/images/nothumb.jpg';
             $attachment->post_title = '';
+            $attachment->post_excerpt = '';
             $args['additional_classes'][] = 'no-image';
         }
 
@@ -157,7 +159,7 @@ class Image extends Component {
         if( $caption_source == 'custom' ){
             $attachment->post_excerpt = $custom_caption;
         }
-        $caption = $attachment->post_excerpt;
+        $caption = $attachment->post_excerpt ?? '';
         
         if( !empty($src) ) $args['additional_attributes'][] = 'src="'.esc_url($src).'"';
         if( !empty($alt) ) $args['additional_attributes'][] = 'alt="'.esc_attr($alt).'"';
