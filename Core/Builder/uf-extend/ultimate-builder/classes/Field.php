@@ -5,6 +5,7 @@ use Ultimate_Fields\Field\Repeater;
 use Ultimate_Fields\Datastore\Group as Group_Datastore;
 use Ultimate_Fields\Template;
 use Core\Frontend\Frontend;
+use Core\Theme_Options\Theme_Options;
 
 /**
  * Handles the display of the field, including its layout and structure.
@@ -106,7 +107,9 @@ class Field extends Repeater {
 			$this->name.'_builder_link' => $builder_link,
 			$this->name.'_theme_styles' => $this->get_styles(),
 			$this->name.'_theme_scripts' => $this->get_scripts(),
-			$this->name.'_gjs_plugins' => $this->get_gjs_plugins()
+			$this->name.'_gjs_plugins' => $this->get_gjs_plugins(),
+			$this->name.'_theme_fonts' => $this->get_theme_fonts(),
+			$this->name.'_theme_colors' => $this->get_theme_colors(),
 		);
 	}
 
@@ -361,5 +364,15 @@ class Field extends Repeater {
 			$this->add_group( $__group_id, $group );
 		}
 		return $this;
+	}
+
+	public function get_theme_fonts(){
+		$theme_options = Theme_Options::getInstance();
+		$theme_fonts = $theme_options->get_theme_fonts();
+		return $theme_fonts['names'] ?? array();
+	}
+	public function get_theme_colors(){
+		$theme_colors = array();
+		return $theme_colors;
 	}
 }

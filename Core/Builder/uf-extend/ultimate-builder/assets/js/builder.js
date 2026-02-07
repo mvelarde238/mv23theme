@@ -11,7 +11,9 @@
             groups: [],
             uf_field_model: null,
             builder_data: [],
-            initial_components_data: []
+            initial_components_data: [],
+            theme_fonts: [],
+            theme_colors: []
         }, args);
 
         this.initialize();
@@ -29,6 +31,8 @@
                 showToolbar: false,
                 uf_field_model: this.args.uf_field_model,
                 initial_components_data: this.args.initial_components_data,
+                theme_fonts: this.args.theme_fonts,
+                theme_colors: this.args.theme_colors,
                 groups: this.args.groups,
                 // Control the blocks that will be rendered
                 blocksControl: {},
@@ -82,6 +86,8 @@
             // Set blocks control
             editorConfig.blocksControl = this.generate_blocks_control(editor);
 
+            this.add_theme_fonts(editor);
+            // this.add_theme_colors(editor);
             this.add_components_definition_and_blocks(editor);
             this.add_existing_content(editor);
             editor.trigger('builder:loaded');
@@ -129,6 +135,69 @@
 
             // UPDATE
             // editor.on('update', () => {});
+        },
+        add_theme_fonts: function(editor) {
+            if ( !this.args.theme_fonts || this.args.theme_fonts.length === 0 ) {
+                return;
+            }
+
+            const styleManager = editor.StyleManager;
+            const fontFamilyProp = styleManager.getProperty('typography', 'font-family');
+        
+            if (fontFamilyProp) {
+                const currentDatalist = fontFamilyProp.get('datalist') || [];
+                const customFonts = this.args.theme_fonts;
+          
+                // Formate options for datalist (default groups quantity is 3, so we will group fonts in groups of 3 for better display)
+                let groupSize = 3;
+                if (customFonts.length <= groupSize) groupSize = 2;
+
+                const options = [];
+                for (let i = 0; i < customFonts.length; i += groupSize) {
+                    options.push(customFonts.slice(i, i + groupSize));
+                }
+          
+                // Add a new group of fonts to the datalist
+                fontFamilyProp.set('datalist', [
+                    {
+                        title: 'THEME FONTS',
+                        options: options
+                    },
+                    ...currentDatalist
+                ]);
+            }
+        },
+        add_theme_colors: function(editor) {
+            // if ( !this.args.theme_colors || this.args.theme_colors.length === 0 ) {
+            //     return;
+            // }
+
+            // const customColors = this.args.theme_colors;
+          
+            // // Formate options for datalist (default groups quantity is 3, so we will group fonts in groups of 3 for better display)
+            // let groupSize = 3;
+            // if (customColors.length <= groupSize) groupSize = 2;
+
+            // const options = [];
+            // for (let i = 0; i < customColors.length; i += groupSize) {
+            //     options.push(customColors.slice(i, i + groupSize));
+            // }
+
+            // const styleManager = editor.StyleManager;
+
+            // // Filter out existing BRAND and CSS VARIABLES groups to avoid duplication, we will add them back after our custom group
+            // const existingColors = styleManager._config.globalDatalist['color'].filter(group => {
+            //     return group.title !== 'BRAND' && group.title !== 'CSS VARIABLES';
+            // });
+
+            // // Add THEME COLORS at the beginning of the color datalist, before existing groups
+            // styleManager._config.globalDatalist['color'] = [
+            //     {
+            //         title: 'THEME COLORS',
+            //         options: options
+            //     },
+            //     ...existingColors
+            // ];
         },
         get_plugins: function() {
             const plugins = [];
