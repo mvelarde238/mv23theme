@@ -58,6 +58,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsDynamicData', 'handler' => 'gjs-dynamic-data', 'isComponent' => false ],
 		// Shared resources (must load before components that use it)
 		[ 'name' => 'gjsSharedTemplates', 'handler' => 'gjs-shared-templates', 'isComponent' => false ],
+		[ 'name' => 'handleThemeColors', 'handler' => 'handle-theme-colors', 'isComponent' => false ],
 		// components
 		[ 'name' => 'gjsBase', 'handler' => 'gjs-base', 'isComponent' => true ],
 		[ 'name' => 'gjsAsyncComponent', 'handler' => 'gjs-async-component', 'isComponent' => true ],
@@ -190,6 +191,7 @@ class Ultimate_Builder {
 				'post_content' => get_post_field( 'post_content', get_the_ID() ),
 				'is_singular' => $is_singular,
 				'is_archive' => $is_archive,
+				'theme_colors' => get_option( 'theme_colors', array() ),
 			));
 
 			$this->filter_admin_body_class();

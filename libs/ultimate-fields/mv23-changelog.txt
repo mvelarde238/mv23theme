@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+- 3.2.12 07-02-2026
+- FIX: Reset rows and groups to prevent duplication on re-render
+    (core/js/field/repeater.js)
+
 - 3.2.11 15-01-2026
 - Implement 'update-views' event on Image Select to update view externally on builder
     (core/js/field/image-select.js)

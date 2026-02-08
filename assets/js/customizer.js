@@ -54,35 +54,30 @@
             if (color_item.__type === 'color') {
                 if (color_item.color && color_item.css_property) {
                     set_CSS_prop(color_item.css_property, color_item.color);
-                }
-            }
-            
-            // Process variations type items
-            if (color_item.__type === 'variations') {
-                if (color_item.css_property) {
-                    const base_var = color_item.css_property;
-                    
-                    // Generate light variation
-                    if (color_item.light) {
+
+                    // Generate variations if enabled
+                    if (color_item.customize_variations) {
+                        const base_var = color_item.css_property;
+                        
+                        // Generate light variation
+                        const light_value = color_item.light || 70;
                         set_CSS_prop(
                             base_var + '-light',
-                            `color-mix(in srgb, var(${base_var}), white ${color_item.light}%)`
+                            `color-mix(in srgb, var(${base_var}), white ${light_value}%)`
                         );
-                    }
-                    
-                    // Generate lighter variation
-                    if (color_item.lighter) {
+                        
+                        // Generate lighter variation
+                        const lighter_value = color_item.lighter || 94;
                         set_CSS_prop(
                             base_var + '-lighter',
-                            `color-mix(in srgb, var(${base_var}), white ${color_item.lighter}%)`
+                            `color-mix(in srgb, var(${base_var}), white ${lighter_value}%)`
                         );
-                    }
-                    
-                    // Generate dark variation
-                    if (color_item.dark) {
+                        
+                        // Generate dark variation
+                        const dark_value = color_item.dark || 15;
                         set_CSS_prop(
                             base_var + '-dark',
-                            `color-mix(in srgb, var(${base_var}), white ${color_item.dark}%)`
+                            `color-mix(in srgb, var(${base_var}), black ${dark_value}%)`
                         );
                     }
                 }

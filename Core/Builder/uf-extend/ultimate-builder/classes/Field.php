@@ -109,7 +109,6 @@ class Field extends Repeater {
 			$this->name.'_theme_scripts' => $this->get_scripts(),
 			$this->name.'_gjs_plugins' => $this->get_gjs_plugins(),
 			$this->name.'_theme_fonts' => $this->get_theme_fonts(),
-			$this->name.'_theme_colors' => $this->get_theme_colors(),
 		);
 	}
 
@@ -370,9 +369,5 @@ class Field extends Repeater {
 		$theme_options = Theme_Options::getInstance();
 		$theme_fonts = $theme_options->get_theme_fonts();
 		return $theme_fonts['names'] ?? array();
-	}
-	public function get_theme_colors(){
-		$theme_colors = array();
-		return $theme_colors;
 	}
 }

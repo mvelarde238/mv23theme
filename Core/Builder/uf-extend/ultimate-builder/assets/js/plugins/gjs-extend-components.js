@@ -2,9 +2,9 @@ window.gjsExtendComponents = function (editor) {
     const domc = editor.DomComponents;
     
     // Extend gjs component connecting it with Ultimate Fields group model / datastores
-    editor.on('component:create', (component) => {
+    editor.on('component:create', (gjs_component) => {
         const editorConfig = editor.getConfig(), 
-            type = component.get('type');
+            type = gjs_component.get('type');
 
         // find the group associated with this type
         const groups = editorConfig.groups || [],
@@ -19,12 +19,15 @@ window.gjsExtendComponents = function (editor) {
 
             // generate a temporal id and assign it to gjs component and
             // temporalCompStore to connect them during the save process
-            const generateId = builderInstance.generateId();
-            component.attributes.__tempID = generateId;
-            editorConfig.temporalCompStore[generateId] = {};
+            const generatedId = builderInstance.generateId();
+            gjs_component.attributes.__tempID = generatedId;
+            editorConfig.temporalCompStore[generatedId] = {};
 
             // find the corresponding component dataStore using the builder instance method
-            component_data = builderInstance.findComponentById(initial_components_data, component.get('__id'));
+            component_data = builderInstance.findComponentById(initial_components_data, gjs_component.get('__id'));
+            if(type === 'theme-options') {
+                console.log('Creating theme-options component...');
+            }
 
             // configure the data store
             if (component_data) {
@@ -55,7 +58,7 @@ window.gjsExtendComponents = function (editor) {
             group_model.setDatastore(datastore);
                 
             // save the model
-            editorConfig.temporalCompStore[generateId] = group_model;
+            editorConfig.temporalCompStore[generatedId] = group_model;
         }
     });
 
@@ -92,6 +95,9 @@ window.gjsExtendComponents = function (editor) {
     // When a component is selected, check if it has a temporal UF model
     // and render its Group view inside #component-settings (sidenav)
     editor.on('component:selected', (component) => {
+        if(component.get('type') === 'theme-options') {
+            console.log('component:selected FIRED', new Date().getTime());
+        }
         try {
             const editorConfig = editor.getConfig();
             const compId = component.attributes && component.attributes.__tempID;
@@ -117,6 +123,19 @@ window.gjsExtendComponents = function (editor) {
             // Build view
             const builder_comp_model = store[compId];
             if (!builder_comp_model) return;
+
+            // === FIX: Reset repeater fields to avoid duplication on re-select ===
+            if (builder_comp_model.get('fields') && typeof builder_comp_model.get('fields').each === 'function') {
+                builder_comp_model.get('fields').each(function(field) {
+                    if (field.rows && typeof field.rows.reset === 'function') {
+                        console.log('[gjs-extend] Pre-reset field "' + field.get('name') + '": rows=' + field.rows.length + ', groups=' + (field.groups ? field.groups.length : 'N/A'));
+                        field.rows.reset([], { silent: true });
+                    }
+                    if (field.groups && Array.isArray(field.groups)) {
+                        field.groups = [];
+                    }
+                });
+            }
 
             // Use inline Group view but render only the canonical fields inside the sidenav
             // We call `addFields` to reuse the UF field creation / wrappers / layout logic.
@@ -144,9 +163,18 @@ window.gjsExtendComponents = function (editor) {
                 // } catch (e) {
                     // Fallback: render full view if addFields fails
                     try { 
+                        // LIMPIAR la vista ANTES de renderizar para evitar duplicación
+                        if (view.$el && view.$el.length) {
+                            view.$el.remove();
+                        }
+
                         view.render(); $wrapper.append(view.$el); 
                         // fake resize event to fix grid fields width:
                         window.dispatchEvent(new Event('resize'));
+                        if(component.get('type') === 'theme-options') {
+                            console.log('rendering theme options');
+                            console.log( 'theme_colors length', builder_comp_model.datastore.attributes.theme_colors.length );
+                        }
                     } catch (er) { console.error(er); }
                 // }
             } 
@@ -157,6 +185,17 @@ window.gjsExtendComponents = function (editor) {
                 try {
                     const group_builder_data = builder_comp_model.get('builder_data') ?? {};
                     const changed = builder_comp_model.datastore.changed || {};
+
+                    // Ignore changes that only affect __tab (tab switching)
+                    const keys = Object.keys(changed);
+                    if (keys.length && keys[0] === '__tab') return;
+
+                    if(component.get('type') === 'theme-options') {
+                        console.log('=== CHANGE EVENT ===');
+                        console.log('Changed keys:', Object.keys(changed));
+                        console.log('Changed values:', changed);
+                        console.log( 'theme_colors length', builder_comp_model.datastore.attributes.theme_colors.length );
+                    }
 
                     // if custom_datastore_change_callback is set, skip default handling
                     if( group_builder_data.custom_datastore_change_callback ){
@@ -170,10 +209,6 @@ window.gjsExtendComponents = function (editor) {
                     if( group_builder_data.avoid_rerender ){
                         return;
                     }
-                    
-                    // Ignore changes that only affect __tab (tab switching)
-                    const keys = Object.keys(changed);
-                    if (keys.length === 1 && keys[0] === '__tab') return;
 
                     // Validate using field.validate() before propagating changes
                     const validation = validateDatastore(builder_comp_model);
@@ -186,9 +221,9 @@ window.gjsExtendComponents = function (editor) {
                     editor.trigger('datastoreChanged', builder_comp_model, component);
 
                     // Re-render component view to reflect data changes
-                    try { component.view && component.view.render && component.view.render(); } catch (e) {}
+                    // try { component.view && component.view.render && component.view.render(); } catch (e) {}
                 } catch (e) {}
-            }, 200);
+            }, 100);
 
             builder_comp_model.datastore.on('change', changeHandler);
 
@@ -217,6 +252,9 @@ window.gjsExtendComponents = function (editor) {
                 try { if (active.view && typeof active.view.remove === 'function') active.view.remove(); } catch (e) {}
                 try { window.jQuery && window.jQuery('#component-settings').empty(); } catch (e) {}
                 editorConfig.activeDatastore = null;
+                if(component.get('type') === 'theme-options') {
+                    console.log('theme options deselected');
+                }
             }
         } catch (e) {}
     });

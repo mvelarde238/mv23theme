@@ -88,7 +88,6 @@
                     theme_scripts: this.model.datastore.get( field_name + '_theme_scripts' ),
                     gjs_plugins: this.model.datastore.get( field_name + '_gjs_plugins' ),
                     theme_fonts: this.model.datastore.get( field_name + '_theme_fonts' ),
-                    theme_colors: this.model.datastore.get( field_name + '_theme_colors' ),
                 });
 
                 // Configure WordPress Heartbeat for post lock monitoring

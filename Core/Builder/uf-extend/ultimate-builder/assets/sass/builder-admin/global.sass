@@ -10,12 +10,14 @@
     --ui-color-2: var(--color-bg-secondary)
     --ui-color-3: var(--color-bg-tertiary)
     --ui-color-4: var(--color-border-default)
-    --font-color: var(--color-text-primary)
+    --ui-font-color: var(--color-text-primary)
 
 /* POST LOCK DIALOG */
-body.ultimate-builder-editor .notification-dialog
-    background-color: var(--ui-color-2)
-    color: var(--font-color)
+body.ultimate-builder-editor 
+    background-color: var(--ui-color-1, #061831)
+    .notification-dialog
+        background-color: var(--ui-color-2)
+        color: var(--ui-font-color)
         
 /* Hide selector manager body */
 .sm-body

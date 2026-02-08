@@ -138,7 +138,7 @@ class Theme_Options extends Theme_Header_Data{
 
     public static function hide_repeater_groups(){
         add_filter( 'uf.repeater.group_hidden', function($hidden, $group, $this_obj){
-            $groups = ['color','variations','social-network'];
+            $groups = ['color','social-network'];
 
             if( in_array($group->get_id(), $groups) ){
                 return true;
@@ -239,27 +239,22 @@ class Theme_Options extends Theme_Header_Data{
                 if (isset($color_item['__type']) && $color_item['__type'] === 'color') {
                     if (!empty($color_item['color']) && !empty($color_item['css_property'])) {
                         $properties[] = $color_item['css_property'] . ':' . $color_item['color'];
-                    }
-                }
-                
-                // Process variations type items
-                if (isset($color_item['__type']) && $color_item['__type'] === 'variations') {
-                    if (!empty($color_item['css_property'])) {
-                        $base_var = $color_item['css_property'];
-                        
-                        // Generate light variation
-                        if (isset($color_item['light']) && !empty($color_item['light'])) {
-                            $properties[] = $base_var . '-light:color-mix( in srgb, var(' . $base_var . '), white ' . $color_item['light'] . '% )';
-                        }
-                        
-                        // Generate lighter variation
-                        if (isset($color_item['lighter']) && !empty($color_item['lighter'])) {
-                            $properties[] = $base_var . '-lighter:color-mix( in srgb, var(' . $base_var . '), white ' . $color_item['lighter'] . '% )';
-                        }
-                        
-                        // Generate dark variation
-                        if (isset($color_item['dark']) && !empty($color_item['dark'])) {
-                            $properties[] = $base_var . '-dark:color-mix( in srgb, var(' . $base_var . '), white ' . $color_item['dark'] . '% )';
+
+                        // Generate variations if enabled
+                        if (!empty($color_item['customize_variations'])) {
+                            $base_var = $color_item['css_property'];
+                            
+                            // Generate light variation
+                            $light_value = !empty($color_item['light']) ? $color_item['light'] : 70;
+                            $properties[] = $base_var . '-light:color-mix( in srgb, var(' . $base_var . '), white ' . $light_value . '% )';
+                            
+                            // Generate lighter variation
+                            $lighter_value = !empty($color_item['lighter']) ? $color_item['lighter'] : 94;
+                            $properties[] = $base_var . '-lighter:color-mix( in srgb, var(' . $base_var . '), white ' . $lighter_value . '% )';
+                            
+                            // Generate dark variation
+                            $dark_value = !empty($color_item['dark']) ? $color_item['dark'] : 15;
+                            $properties[] = $base_var . '-dark:color-mix( in srgb, var(' . $base_var . '), black ' . $dark_value . '% )';
                         }
                     }
                 }

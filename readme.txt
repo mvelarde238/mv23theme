@@ -13,6 +13,7 @@ CHANGELOG
 - color_scheme implementation on common settings
 - Social_Share component review
 - Carousel Component Review
+- Theme colors sync on style manager
 
 3.1.2 26-02-02
 - Theme Options Component implementation

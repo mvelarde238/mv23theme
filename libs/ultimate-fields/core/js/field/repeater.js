@@ -258,6 +258,14 @@
 				table   = 'table' == m.get( 'layout' ) && 1 == groups.length,
 				tmpl    = UltimateFields.template( 'field-repeater' + ( table ? '-table' : '' ) );
 
+			// === FIX: Reset rows and groups to prevent duplication on re-render ===
+			if( m.rows && typeof m.rows.reset === 'function' ) {
+				m.rows.reset([], { silent: true });
+			}
+			if( m.groups ) {
+				m.groups = [];
+			}
+
 			// If there ar eno groups, show a message about it
 			if( 0 == groups.length ) {
 				this.showNoGroupsMessage();

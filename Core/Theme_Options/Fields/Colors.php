@@ -25,7 +25,7 @@ class Colors {
             Field::create( 'repeater', 'theme_colors' )
                 ->set_default_value( $colors_default )
                 ->set_chooser_type( 'tags' )
-                ->set_add_text(__('Add item','mv23theme'))
+                ->set_add_text(__('Add Color','mv23theme'))
                 ->add_group( 'color', array(
                     'icon'   => 'dashicons dashicons-art',
                     'title_template' => '<% if ( color ) { %><span style="color:<%= color %>">&#9632;</span> <%= css_property %><% } %>',
@@ -36,27 +36,26 @@ class Colors {
                         Field::create( 'text', 'css_property', __('CSS Variable','mv23theme') )
                             ->add_suggestions( $css_vars )
                             ->set_width( $color_fields_width ),
-                    )))
-                ->add_group( 'variations', array(
-                    'icon'   => 'dashicons dashicons-admin-settings',
-                    'fields' => array(
-                        Field::create( 'text', 'css_property', __('CSS Variable','mv23theme') )
-                            ->required()
-                            ->add_suggestions( $css_vars ),
+                        Field::create( 'checkbox', 'customize_variations' )
+                            ->hide_label()
+                            ->add_dependency( 'css_property', '', '!=' )
+                            ->set_text(__('Customize lighter variations of this color','mv23theme')),
                         Field::create( 'number', 'light', __('Light', 'mv23theme') )
                             ->set_placeholder('70')
                             ->set_suffix('%')
+                            ->add_dependency( 'customize_variations', true )
                             ->set_attr('style','width:30%; min-width:50px;'),
                         Field::create( 'number', 'lighter', __('Lighter', 'mv23theme') )
                             ->set_placeholder('94')
                             ->set_suffix('%')
+                            ->add_dependency( 'customize_variations', true )
                             ->set_attr('style','width:30%; min-width:50px;'),
                         Field::create( 'number', 'dark', __('Dark', 'mv23theme') )
                             ->set_placeholder('15')
                             ->set_suffix('%')
+                            ->add_dependency( 'customize_variations', true )
                             ->set_attr('style','width:30%; min-width:50px;'),
-                    )
-                )),
+                    )))
         );
         return $fields;
     }

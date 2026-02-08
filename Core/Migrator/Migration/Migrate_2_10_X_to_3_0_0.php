@@ -2117,46 +2117,32 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             
             // Only add if value exists and is not empty
             if (!empty($color_value)) {
+
+                $customize_variations = false;
+                $variations = array();
+                $variations_keys = ['dark', 'light', 'lighter'];
+                $variations_defaults = [15, 70, 94]; // default values for dark, light, lighter
+                $add_variations_for = ['primary_color', 'secondary_color']; // only for primary and secondary colors
+                if(  in_array($option_name, $add_variations_for) ){
+                    $customize_variations = true;
+                    $index = 0;
+                    foreach ($variations_keys as $key) {
+                        $variation = get_option($key.'_'.$option_name.'_percentage', $variations_defaults[$index]);
+                        $variations[$key] = $variation;
+                        $index++;
+                    }
+                }
+
                 $new_colors[] = array(
                     '__type' => 'color',
                     'color' => $color_value,
-                    'css_property' => $css_var
+                    'css_property' => $css_var,
+                    'customize_variations' => $customize_variations,
+                    'light' => $variations['light'] ?? null,
+                    'lighter' => $variations['lighter'] ?? null,
+                    'dark' => $variations['dark'] ?? null
                 );
             }
-        }
-
-        // Migrate primary color variations
-        $primary_color = get_option('primary_color', '');
-        $light_primary = get_option('light_primary_color_percentage', 70);
-        $lighter_primary = get_option('lighter_primary_color_percentage', 94);
-        $dark_primary = get_option('dark_primary_color_percentage', 15);
-
-        // Only add variations if primary color exists
-        if (!empty($primary_color)) {
-            $new_colors[] = array(
-                '__type' => 'variations',
-                'css_property' => '--primary-color',
-                'light' => !empty($light_primary) ? $light_primary : 70,
-                'lighter' => !empty($lighter_primary) ? $lighter_primary : 94,
-                'dark' => !empty($dark_primary) ? $dark_primary : 15
-            );
-        }
-
-        // Migrate secondary color variations
-        $secondary_color = get_option('secondary_color', '');
-        $light_secondary = get_option('light_secondary_color_percentage', 70);
-        $lighter_secondary = get_option('lighter_secondary_color_percentage', 94);
-        $dark_secondary = get_option('dark_secondary_color_percentage', 15);
-
-        // Only add variations if secondary color exists
-        if (!empty($secondary_color)) {
-            $new_colors[] = array(
-                '__type' => 'variations',
-                'css_property' => '--secondary-color',
-                'light' => !empty($light_secondary) ? $light_secondary : 70,
-                'lighter' => !empty($lighter_secondary) ? $lighter_secondary : 90,
-                'dark' => !empty($dark_secondary) ? $dark_secondary : 15
-            );
         }
 
         // Migrate colorpicker palette
@@ -2167,7 +2153,11 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                     $new_colors[] = array(
                         '__type' => 'color',
                         'color' => $palette_item['color'],
-                        'css_property' => '' // No CSS variable assigned
+                        'css_property' => '', // No CSS variable assigned
+                        'customize_variations' => false,
+                        'light' => '',
+                        'lighter' => '',
+                        'dark' => ''
                     );
                 }
             }
