@@ -32,8 +32,8 @@ Class Classes{
             $classes = array_merge($classes, $args['settings']['helpers']['list']);
         }
 
-        if (isset($args['settings']['color_scheme']) && !empty($args['settings']['color_scheme']) ){
-            $classes[] = $args['settings']['color_scheme'];
+        if (isset($args['settings']['color_scheme']) && !empty($args['settings']['color_scheme']['key']) ){
+            $classes[] = $args['settings']['color_scheme']['key'];
         }
 
         if (isset($args['settings']['hide_on'])){
