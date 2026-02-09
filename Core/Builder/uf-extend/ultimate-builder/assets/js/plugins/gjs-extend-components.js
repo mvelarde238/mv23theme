@@ -1,5 +1,25 @@
 window.gjsExtendComponents = function (editor) {
     const domc = editor.DomComponents;
+
+    // =====================================================================
+    // VIEW CACHE: Stores rendered GroupViews per compId so they are created
+    // only once and re-attached on subsequent selects instead of recreated.
+    // Each entry: { view, handler, model, component }
+    // =====================================================================
+    const viewCache = {};
+
+    /**
+     * Invalidate (destroy) a cached view for a given compId.
+     * Cleans up the change handler, removes the DOM, and deletes the entry.
+     */
+    function invalidateCache(compId) {
+        const cached = viewCache[compId];
+        if (!cached) return;
+        try { if (cached.model && cached.handler) cached.model.datastore.off('change', cached.handler); } catch (e) {}
+        try { if (cached.view && cached.view.$el) cached.view.$el.remove(); } catch (e) {}
+        delete viewCache[compId];
+        // console.log('[viewCache] Invalidated cache for', compId);
+    }
     
     // Extend gjs component connecting it with Ultimate Fields group model / datastores
     editor.on('component:create', (gjs_component) => {
@@ -25,9 +45,6 @@ window.gjsExtendComponents = function (editor) {
 
             // find the corresponding component dataStore using the builder instance method
             component_data = builderInstance.findComponentById(initial_components_data, gjs_component.get('__id'));
-            if(type === 'theme-options') {
-                console.log('Creating theme-options component...');
-            }
 
             // configure the data store
             if (component_data) {
@@ -92,12 +109,15 @@ window.gjsExtendComponents = function (editor) {
         }
     });
 
+    // Invalidate cache when a component is removed from the canvas
+    editor.on('component:remove', (component) => {
+        const compId = component.attributes && component.attributes.__tempID;
+        if (compId) invalidateCache(compId);
+    });
+
     // When a component is selected, check if it has a temporal UF model
     // and render its Group view inside #component-settings (sidenav)
     editor.on('component:selected', (component) => {
-        if(component.get('type') === 'theme-options') {
-            console.log('component:selected FIRED', new Date().getTime());
-        }
         try {
             const editorConfig = editor.getConfig();
             const compId = component.attributes && component.attributes.__tempID;
@@ -105,82 +125,79 @@ window.gjsExtendComponents = function (editor) {
 
             if (!compId || !store[compId]) return;
 
-            // Cleanup previous active instance if different
+            // If already active for this component, do nothing
+            if (editorConfig.activeDatastore && editorConfig.activeDatastore.componentId === compId) return;
+
+            // Detach previous active view (don't destroy — it stays in cache)
             if (editorConfig.activeDatastore && editorConfig.activeDatastore.componentId !== compId) {
                 const prev = editorConfig.activeDatastore;
                 try {
+                    // Pause the change handler (don't remove — reuse from cache)
                     if (prev.model && prev.handler) prev.model.datastore.off('change', prev.handler);
                 } catch (e) {}
-                try { if (prev.view && typeof prev.view.remove === 'function') prev.view.remove(); } catch (e) {}
-                // clear wrapper
+                // Detach DOM without destroying the view
+                try { if (prev.view && prev.view.$el) prev.view.$el.detach(); } catch (e) {}
                 try { window.jQuery && window.jQuery('#component-settings').empty(); } catch (e) {}
                 editorConfig.activeDatastore = null;
             }
 
-            // If already rendered for this component, do nothing
-            if (editorConfig.activeDatastore && editorConfig.activeDatastore.componentId === compId) return;
-
-            // Build view
             const builder_comp_model = store[compId];
             if (!builder_comp_model) return;
 
-            // === FIX: Reset repeater fields to avoid duplication on re-select ===
-            if (builder_comp_model.get('fields') && typeof builder_comp_model.get('fields').each === 'function') {
-                builder_comp_model.get('fields').each(function(field) {
-                    if (field.rows && typeof field.rows.reset === 'function') {
-                        console.log('[gjs-extend] Pre-reset field "' + field.get('name') + '": rows=' + field.rows.length + ', groups=' + (field.groups ? field.groups.length : 'N/A'));
-                        field.rows.reset([], { silent: true });
-                    }
-                    if (field.groups && Array.isArray(field.groups)) {
-                        field.groups = [];
-                    }
-                });
+            const $wrapper = window.jQuery ? window.jQuery('#component-settings') : null;
+            if (!$wrapper || !$wrapper.length) return;
+
+            // Check if we have a cached view for this component
+            if (viewCache[compId]) {
+                const cached = viewCache[compId];
+                // console.log('[viewCache] Re-attaching cached view for', compId);
+
+                // Re-attach the cached DOM
+                $wrapper.empty();
+                $wrapper.append(cached.view.$el);
+
+                // Re-activate the change handler
+                builder_comp_model.datastore.on('change', cached.handler);
+
+                // Trigger resize to fix grid field widths
+                window.dispatchEvent(new Event('resize'));
+
+                // Notify other plugins
+                editor.trigger('openDatastore', builder_comp_model, component);
+
+                // Refresh jQuery sortable on any repeater groups inside the view
+                try { cached.view.$el.find('.uf-repeater-groups').sortable('refresh'); } catch (e) {}
+
+                // Save as active
+                editorConfig.activeDatastore = {
+                    componentId: compId,
+                    view: cached.view,
+                    handler: cached.handler,
+                    model: cached.model,
+                    component: component
+                };
+                return;
             }
 
-            // Use inline Group view but render only the canonical fields inside the sidenav
-            // We call `addFields` to reuse the UF field creation / wrappers / layout logic.
+            // === No cache: First-time render ===
+            // console.log('[viewCache] Creating new view for', compId);
+
             const GroupView = UltimateFields.Container.Group.View || UltimateFields.Container.Group.fullScreenView;
             const view = new GroupView({ model: builder_comp_model });
 
-            // Attach fields to the wrapper using addFields(). Prefer jQuery wrapper.
-            const $wrapper = window.jQuery ? window.jQuery('#component-settings') : null;
-            if ($wrapper && $wrapper.length) {
-                // Clear wrapper and ensure a uf-fields container for addFields
-                $wrapper.empty();
-                let $fieldsContainer = $wrapper.find('.uf-fields');
-                if (!$fieldsContainer.length) {
-                    $fieldsContainer = window.jQuery('<div class="uf-fields" />').appendTo($wrapper);
-                } else {
-                    $fieldsContainer.empty();
-                }
+            // Clear wrapper
+            $wrapper.empty();
 
-                editor.trigger('openDatastore', builder_comp_model, component);
+            editor.trigger('openDatastore', builder_comp_model, component);
 
-                // Use the canonical addFields method to build field views fails on initial render: dosn't show title and styles
-                // try { 
-                    // const wrap = UltimateFields.Field[ (view.model && view.model.get('layout') === 'grid') ? 'GridWrap' : 'Wrap' ];
-                    // view.addFields($fieldsContainer, { tabs: true, wrap: wrap });                    
-                // } catch (e) {
-                    // Fallback: render full view if addFields fails
-                    try { 
-                        // LIMPIAR la vista ANTES de renderizar para evitar duplicación
-                        if (view.$el && view.$el.length) {
-                            view.$el.remove();
-                        }
+            try { 
+                view.render();
+                $wrapper.append(view.$el); 
+                // Trigger resize to fix grid field widths
+                window.dispatchEvent(new Event('resize'));
+            } catch (er) { console.error(er); }
 
-                        view.render(); $wrapper.append(view.$el); 
-                        // fake resize event to fix grid fields width:
-                        window.dispatchEvent(new Event('resize'));
-                        if(component.get('type') === 'theme-options') {
-                            console.log('rendering theme options');
-                            console.log( 'theme_colors length', builder_comp_model.datastore.attributes.theme_colors.length );
-                        }
-                    } catch (er) { console.error(er); }
-                // }
-            } 
-
-            // Debounced change handler: 
-            // ignore __tab-only changes because they don't affect data
+            // Debounced change handler
             const changeHandler = _.debounce(function () {
                 try {
                     const group_builder_data = builder_comp_model.get('builder_data') ?? {};
@@ -189,13 +206,6 @@ window.gjsExtendComponents = function (editor) {
                     // Ignore changes that only affect __tab (tab switching)
                     const keys = Object.keys(changed);
                     if (keys.length && keys[0] === '__tab') return;
-
-                    if(component.get('type') === 'theme-options') {
-                        console.log('=== CHANGE EVENT ===');
-                        console.log('Changed keys:', Object.keys(changed));
-                        console.log('Changed values:', changed);
-                        console.log( 'theme_colors length', builder_comp_model.datastore.attributes.theme_colors.length );
-                    }
 
                     // if custom_datastore_change_callback is set, skip default handling
                     if( group_builder_data.custom_datastore_change_callback ){
@@ -221,13 +231,21 @@ window.gjsExtendComponents = function (editor) {
                     editor.trigger('datastoreChanged', builder_comp_model, component);
 
                     // Re-render component view to reflect data changes
-                    // try { component.view && component.view.render && component.view.render(); } catch (e) {}
+                    try { component.view && component.view.render && component.view.render(); } catch (e) {}
                 } catch (e) {}
             }, 100);
 
             builder_comp_model.datastore.on('change', changeHandler);
 
-            // Save active instance reference for concurrency/cleanup
+            // Store in cache
+            viewCache[compId] = {
+                view: view,
+                handler: changeHandler,
+                model: builder_comp_model,
+                component: component
+            };
+
+            // Save active instance reference
             editorConfig.activeDatastore = {
                 componentId: compId,
                 view: view,
@@ -240,29 +258,26 @@ window.gjsExtendComponents = function (editor) {
         }
     });
 
-    // Cleanup when a component is deselected: remove inline view and listeners
+    // When a component is deselected: detach view (preserve in cache), pause handler
     editor.on('component:deselected', (component) => {
         try {
             const editorConfig = editor.getConfig();
             const active = editorConfig.activeDatastore;
             if (!active) return;
-            // If the deselected component matches the active one, cleanup
+
             if (component && active.componentId === component.attributes.__tempID) {
+                // Pause change handler
                 try { if (active.model && active.handler) active.model.datastore.off('change', active.handler); } catch (e) {}
-                try { if (active.view && typeof active.view.remove === 'function') active.view.remove(); } catch (e) {}
+                // Detach view DOM (keep in cache for re-attach)
+                try { if (active.view && active.view.$el) active.view.$el.detach(); } catch (e) {}
                 try { window.jQuery && window.jQuery('#component-settings').empty(); } catch (e) {}
                 editorConfig.activeDatastore = null;
-                if(component.get('type') === 'theme-options') {
-                    console.log('theme options deselected');
-                }
             }
         } catch (e) {}
     });
 
     
     // Validation helper for inline Ultimate Fields datastores using field.validate()
-    // Mirrors the approach used in customizer.Model.isValid(): iterate fields,
-    // skip fields in hidden tabs and call field.validate(true) for silent validation.
     function validateDatastore(groupModel) {
         try {
             if (!groupModel) return { valid: true };
