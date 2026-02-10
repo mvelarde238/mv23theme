@@ -23,9 +23,9 @@
 				Duplicar
 				<!-- <span class="dashicons dashicons-admin-page"></span> -->
 			</a>
-			<a href="#" class="uf-group-control uf-group-control-save" title="<?php esc_attr_e( 'Save', 'ultimate-fields' ); ?>">
+			<!-- <a href="#" class="uf-group-control uf-group-control-save" title="<?php esc_attr_e( 'Save', 'ultimate-fields' ); ?>">
 				Guardar
-			</a>
+			</a> -->
 			<a href="#" class="uf-group-control uf-group-control-remove" title="<?php esc_attr_e( 'Remove', 'ultimate-fields' ); ?>">
 				Eliminar
 				<!-- <span class="dashicons dashicons-trash"></span> -->

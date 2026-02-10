@@ -38,10 +38,20 @@ body
 	a
 		color: inherit
 
-// .text-color-1
-	// color: var(--font-color)
-	// h1,h2,h3,h4,h5,h6
-	// 	color: var(--font-color)
+.light-mode
+	--primary-color-light: color-mix( in srgb, var(--primary-color), white 70% )
+	--primary-color-lighter: color-mix( in srgb, var(--primary-color), white 94% )
+	--secondary-color-light: color-mix( in srgb, var(--secondary-color), white 70% )
+	--secondary-color-lighter: color-mix( in srgb, var(--secondary-color), white 94% )
+	--form-ui-color-2: var(--primary-color-light)
+	--form-ui-color-3: var(--primary-color-lighter)
+	--table-ui-color-2: var(--primary-color-light)
+	--table-ui-color-3: var(--primary-color-lighter)
+	color: var(--font-color)
+	h1,h2,h3,h4,h5,h6
+		color: inherit
+	a
+		color: inherit
 
 .mt0
 	margin-top: 0 !important

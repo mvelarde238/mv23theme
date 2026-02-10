@@ -1,0 +1,43 @@
+.v23-togglebox
+    $style: 'tab-style3'
+
+    &[data-style="#{$style}"] > &__nav
+        background-color: var(--ui-color-3)
+        border-radius: 40px
+        padding: 4px
+
+    &[data-style="#{$style}"] > &__nav > &__btn
+        margin-right: 4px
+        padding: 16px 30px
+        border-radius: 40px
+        transition: 500ms background-color
+        display: inline-block
+        color: var(--ui-color-1)
+        line-height: 100%
+        display: inline-flex
+        gap: .8em
+        align-items: center
+        img, i
+            margin-right: 0
+        &.active, &:hover
+            background-color: #fff
+        &.active
+            box-shadow: 0 0 23px var(--ui-color-2)
+    
+    &[data-style="#{$style}"] > &__items
+        padding: 2em 1em
+
+    &[data-style="#{$style}"] > &__nav > &__btn > &__subtitle
+        margin-top: 0
+
+.dark-mode
+    #{$togglebox}[data-style="tab-style3"] > #{$togglebox}__nav > #{$togglebox}__btn
+        color: inherit
+        &.active, &:hover
+            background-color: var(--ui-color-2)
+
+.light-mode
+    #{$togglebox}[data-style="tab-style3"] > #{$togglebox}__nav > #{$togglebox}__btn
+        color: var(--ui-color-1)
+        &.active, &:hover
+            background-color: #fff

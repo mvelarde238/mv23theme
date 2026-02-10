@@ -147,6 +147,9 @@ window.gjsExtendComponents = function (editor) {
             const $wrapper = window.jQuery ? window.jQuery('#component-settings') : null;
             if (!$wrapper || !$wrapper.length) return;
 
+            // Notify other plugins
+            editor.trigger('beforeOpenDatastore', builder_comp_model, component);
+
             // Check if we have a cached view for this component
             if (viewCache[compId]) {
                 const cached = viewCache[compId];

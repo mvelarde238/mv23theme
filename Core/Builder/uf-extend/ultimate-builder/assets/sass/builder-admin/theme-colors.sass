@@ -2,8 +2,10 @@
 .uf-overlay-box
     color: var(--ui-font-color)
 
-    .uf-group-control-open-menu
-        display: none
+    &>.uf-group>.uf-group-header
+        .uf-group-control-remove,
+        .uf-group-control-open-menu
+            display: none
     .common-settings-control .dashicons
         display: none
 
@@ -288,6 +290,10 @@
         background: var(--ui-color-1)
         border-color: var(--ui-color-4)
         color: var(--ui-font-color)
+
+    .context-menu
+        background-color: var(--ui-color-3)
+        border: 1px solid var(--ui-color-3)
 
 .media-modal
     color: initial !important

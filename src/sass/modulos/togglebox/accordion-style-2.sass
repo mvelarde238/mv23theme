@@ -1,0 +1,48 @@
+.v23-togglebox
+    $style: 'accordion-style2'
+
+    &[data-style="#{$style}"]
+        --icon-size: 1.5em
+
+    &[data-style="#{$style}"] > &__items > &__btn
+        display: block
+        border: 1px solid var(--ui-color-2)
+        border-radius: 6px
+        margin-bottom: 4px
+        padding: 20px 40px
+        &::before
+            content: ""
+            position: absolute
+            top: 0
+            bottom: 0
+            right: 10px
+            margin: auto
+            width: 0
+            height: 0
+            border-style: solid
+            border-width: 7px 5px 0 5px
+            border-color: currentcolor transparent transparent transparent
+        &.active
+            margin-bottom: 0
+            border-radius: 6px 6px 0 0
+            border-bottom: 0
+            &:before
+                transform: rotate(180deg)
+        &:hover, &.active
+            background-color: var(--ui-color-3)
+            color: var(--ui-color-1)
+
+    &[data-style="#{$style}"] > &__items > &__item
+        padding: 0 40px 30px 40px
+        &.active
+            border: 1px solid var(--ui-color-2)
+            margin-bottom: 5px
+            border-top: 0
+            border-radius: 0 0 6px 6px
+            background-color: var(--ui-color-3)
+
+    &[data-style="#{$style}"] > &__items > &__btn > &__subtitle
+        display: inline-block
+        margin-left: 5px
+        &::before
+            content: '- '

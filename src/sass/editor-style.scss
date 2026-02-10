@@ -3,7 +3,7 @@
 
 body#tinymce.wp-editor {
 	background-color: var(--primary-color-lighter);
-	margin: 30px;
+	margin: 15px;
 	@include css-properties;
 	@include typography-properties;
 	@import "materialize/components/typography";

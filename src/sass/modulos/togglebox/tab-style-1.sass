@@ -1,14 +1,16 @@
 .v23-togglebox
-    &[data-style="tab-style1"]
+    $style: 'tab-style1'
+
+    &[data-style="#{$style}"]
         --icon-size: 1.7em
         border: 1px solid var(--ui-color-2)
 
-    &[data-style="tab-style1"] > &__nav
+    &[data-style="#{$style}"] > &__nav
         display: flex
         overflow-x: auto
         overflow-y: hidden
         
-    &[data-style="tab-style1"] > &__nav > &__btn
+    &[data-style="#{$style}"] > &__nav > &__btn
         width: 100%
         margin: 0
         padding: 30px 15px
@@ -23,14 +25,13 @@
         align-items: center
         justify-content: center
         img
-            height: var(--icon-size)
             display: block
             margin: 0 auto 5px auto
         i
             display: block
             margin-bottom: 5px
-            pointer-events: none
-            font-size: var(--icon-size)
+        img,i
+            margin-right: 0
         &:last-child
             border-right: 0
         &.active, &:hover
@@ -38,17 +39,13 @@
         &.active
             border-bottom: 3px solid var(--ui-color-1)
 
-    &[data-style="tab-style1"] > &__nav > &__btn > &__title
+    &[data-style="#{$style}"] > &__nav > &__btn > &__title
         display: block
         font-weight: var(--bold-font-weight)
         white-space: nowrap
 
-    &[data-style="tab-style1"] > &__nav > &__btn > &__subtitle
-        display: block
-        font-size: .9em
-        color: color-mix(in srgb, currentColor 60%, transparent)
-        margin-top: 5px
-        white-space: nowrap
+    &[data-style="#{$style}"] > &__nav > &__btn > &__subtitle
+        margin-top: .5em
 
-    &[data-style="tab-style1"] > &__items
+    &[data-style="#{$style}"] > &__items
         padding: 20px

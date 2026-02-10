@@ -15,6 +15,7 @@ CHANGELOG
 - Carousel Component Review
 - Theme colors sync on style manager
 - COMP VIEW CACHE: Stores rendered GroupViews per compId so they are created only once and re-attached on subsequent selects instead of recreated
+- Accordion Component Review
 
 3.1.2 26-02-02
 - Theme Options Component implementation

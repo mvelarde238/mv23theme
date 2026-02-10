@@ -32,7 +32,7 @@ class Accordion extends Component {
         for ($i=1; $i <= $tab_styles_quantity ; $i++) { 
             $tab_styles_array['tab-style'.$i] = array(
                 'label' => 'Tab style '.$i,
-                'image' => BUILDER_PATH . '/assets/images/tab-style-'.$i.'.png'
+                'image' => BUILDER_PATH . '/assets/images/toggleboxes/tab-style-'.$i.'.png'
             );
         }
 
@@ -46,11 +46,11 @@ class Accordion extends Component {
             array(
                 'accordion-style1'  => array(
                     'label' => 'Accordion style 1',
-                    'image' => BUILDER_PATH . '/assets/images/accordion-style-1.png'
+                    'image' => BUILDER_PATH . '/assets/images/toggleboxes/accordion-style-1.png'
                 ),
                 'accordion-style2'  => array(
                     'label' => 'Accordion style 2',
-                    'image' => BUILDER_PATH . '/assets/images/accordion-style-2.png'
+                    'image' => BUILDER_PATH . '/assets/images/toggleboxes/accordion-style-2.png'
                 )
             )
         );
@@ -62,10 +62,10 @@ class Accordion extends Component {
             ))->set_default_value('tab'),
             Field::create( 'image_select', 'tab_style', __('Style','mv23theme') )
                 ->set_attr( 'class', 'image-select-2-cols' )
-                ->add_options( $tab_styles )->show_label()->add_dependency('template','tab','='),
+                ->add_options( $tab_styles )->add_dependency('template','tab','='),
             Field::create( 'image_select', 'accordion_style', __('Style','mv23theme') )
                 ->set_attr( 'class', 'image-select-2-cols' )
-                ->add_options( $accordion_styles )->show_label()->add_dependency('template','accordion','=')
+                ->add_options( $accordion_styles )->add_dependency('template','accordion','=')
         );
 
 		return $fields;

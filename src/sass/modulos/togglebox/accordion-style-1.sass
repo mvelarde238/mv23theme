@@ -1,10 +1,12 @@
 .v23-togglebox
-    &[data-style="accordion-style1"]
+    $style: 'accordion-style1'
+
+    &[data-style="#{$style}"]
         --icon-size: 1.5em
         border: 1px solid var(--ui-color-2)
         border-radius: 5px
 
-    &[data-style="accordion-style1"] > &__items > &__btn
+    &[data-style="#{$style}"] > &__items > &__btn
         margin: 0
         padding: 15px
         cursor: pointer
@@ -15,15 +17,6 @@
         border-bottom: 1px solid var(--ui-color-2)
         transition: 200ms all
         line-height: 100%
-        img
-            height: var(--icon-size)
-        img, i
-            margin-bottom: 0
-            margin-right: 15px
-            vertical-align: middle
-        i
-            font-size: var(--icon-size)
-
         &.active,
         &:hover
             background-color: var(--ui-color-3)
@@ -40,15 +33,14 @@
             color: var(--ui-color-1)
             display: inline-table
         
-    &[data-style="accordion-style1"] > &__items > &__btn > &__title
+    &[data-style="#{$style}"] > &__items > &__btn > &__title
         font-weight: var(--bold-font-weight)
 
-    &[data-style="accordion-style1"] > &__items > &__btn > &__subtitle
-        font-size: .9em
-        color: color-mix(in srgb, currentColor 60%, transparent)
+    &[data-style="#{$style}"] > &__items > &__btn > &__subtitle
+        display: inline-block
         margin-left: 5px
         &::before
             content: '- '
     
-    &[data-style="accordion-style1"] > &__items > &__item
+    &[data-style="#{$style}"] > &__items > &__item
         padding: 20px

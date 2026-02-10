@@ -1,22 +1,24 @@
 .v23-togglebox
-    &[data-style="tab-style2"]
+    $style: 'tab-style2'
+
+    &[data-style="#{$style}"]
         --icon-size: 1.5em
         display: flex
         justify-content: space-between
 
-    &[data-style="tab-style2"] > &__nav
+    &[data-style="#{$style}"] > &__nav
         width: 30%
 
-    &[data-style="tab-style2"] > &__items
+    &[data-style="#{$style}"] > &__items
         width: 70%
         border-top: 1px solid var(--ui-color-2)
         border-right: 1px solid var(--ui-color-2)
         border-radius: 0 15px 0 0
 
-    &[data-style="tab-style2"] > &__items > &__item.active
+    &[data-style="#{$style}"] > &__items > &__item.active
         padding: 40px 20px
 
-    &[data-style="tab-style2"] > &__nav > &__btn
+    &[data-style="#{$style}"] > &__nav > &__btn
         padding: 15px
         cursor: pointer
         margin: 0
@@ -28,14 +30,6 @@
         line-height: 100%
         display: inline-block
         width: 100%
-        img
-            height: var(--icon-size)
-        img, i
-            margin-bottom: 0
-            margin-right: 15px
-            vertical-align: middle
-        i
-            font-size: var(--icon-size)
         &.active, &:hover
             background-color: var(--ui-color-3)
         &.active:after
@@ -48,11 +42,5 @@
             color: var(--ui-color-1)
             transform: translateX(100%)
         
-    &[data-style="tab-style2"] > &__nav > &__btn > &__title
+    &[data-style="#{$style}"] > &__nav > &__btn > &__title
         font-weight: var(--bold-font-weight)
-
-    &[data-style="tab-style2"] > &__nav > &__btn > &__subtitle
-        display: block
-        font-size: .9em
-        color: color-mix(in srgb, currentColor 60%, transparent)
-        margin-top: 5px
