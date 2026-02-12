@@ -8,7 +8,7 @@
             const words = [...track.children];
             const trackWidth = () => track.scrollWidth;
             const viewportWidth = () => window.innerWidth;
-            const speed = marquee.dataset.speed || 18;
+            const speed = parseInt(marquee.dataset.speed) || 40;
 
             fillTrack( marquee, track, words, trackWidth, viewportWidth );
 
