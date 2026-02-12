@@ -5,6 +5,7 @@ use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Ultimate_Fields\Field;
 use Core\Builder\Component\Listing;
+use Core\Theme_Options\Theme_Options;
 
 class Related_Posts extends Component {
 
@@ -27,7 +28,16 @@ class Related_Posts extends Component {
 	}
 
     public static function display($args = array()) {
+        if(!is_admin() ) {
+            $theme_options = Theme_Options::getInstance();
+            $single_page = $theme_options->get_page_template_settings('single');
+            if( $single_page['hide_related_posts'] ){
+                return '';
+            }
+        }
+        
         global $post;
+
         if( isset($args['post_id']) ) {
             $post = get_post( $args['post_id'] );
         }

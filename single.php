@@ -22,7 +22,7 @@ $main_content_classes[] = $single_page['page_template'];
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<?php
 					global $post;
-					$page_content = get_post_meta($post->ID, 'page_content_components', true); 
+					$page_content = get_post_meta($post->ID, 'page_content', true); 
 					if( is_array($page_content) && !empty($page_content) ){
 						the_content();
 					} else {

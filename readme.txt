@@ -7,6 +7,7 @@ CHANGELOG
 - Review Button template
 - Reorder constants
 - Fix Listing Component: add dependency group for connected_posttype
+- Fix single page and read single page settings on Post Title, Related Posts and Social Share
 
 3.1.3 26-02-05
 - Archive Page Structure Implementation
