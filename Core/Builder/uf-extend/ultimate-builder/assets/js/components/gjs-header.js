@@ -20,37 +20,18 @@ window.gjsHeader = function (editor, options) {
     };
 
     domc.addType(compClass, {
+        extend: 'async-component-abstract',
         model: {
             defaults: Object.assign({}, notSelectableComponent, {
                 name: 'Header',
-                tagName: 'section'
-            }),
-        },
-        view: {
-            onRender({el, model}) {
-                // const datastore = editor.getComponentDatastore(model);
-                // const data = datastore.toJSON();
-                
-                const data = {
+                tagName: 'section',
+                __additionalDataCallback: (model, editor) => ({
                     '__type': 'header',
-                    'action': 'get_component_view',
                     'post_id': BUILDER_GLOBALS.post_id,
                     'apply_filters': model.get('apply_filters') || false,
                     'filters_to_apply': model.get('filters_to_apply') || [],
-                };
-                jQuery.ajax({
-                    type: "POST",
-                    dataType: "json",
-                    url: MV23_GLOBALS.ajaxUrl,
-                    data: data,
-                    success: function(response) {
-                        el.innerHTML = response.data;
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(`Error loading ${compClass} component view:`, error);
-                    }
-                });
-            },
+                }),
+            }),
         },
     });
 

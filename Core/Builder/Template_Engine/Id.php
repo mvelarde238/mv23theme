@@ -10,8 +10,8 @@ Class Id{
             ? $args['settings']['id']
             : null;
 
-        if( isset($args['__gjsAttributes']) && isset($args['__gjsAttributes']['id']) ){
-            $id = $args['__gjsAttributes']['id'];
+        if( isset($args['attributes']) && isset($args['attributes']['id']) ){
+            $id = $args['attributes']['id'];
         } 
 
         return ( !empty($id) ) ? $id : '';

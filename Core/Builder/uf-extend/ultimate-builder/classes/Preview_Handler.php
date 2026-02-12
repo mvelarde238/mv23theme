@@ -36,8 +36,7 @@ class Preview_Handler {
 			wp_send_json_error( 'field_not_found' );
 		}
 
-		// Proccess the data to save and send components correctly for preview
-		$components_data = array();
+		// Process the data to save and send components correctly for preview
 		$components_data_raw = isset( $data['components_data'] ) ? $data['components_data'] : array();
 		$field_instance->save( array(
 			$meta => array(
@@ -46,7 +45,6 @@ class Preview_Handler {
 				'css' => isset( $data['css'] ) ? $data['css'] : '',
 			)
 		) );
-		$components_data = $field_instance->get_value( $meta . '_components' );
 
 		// Save the data in a transient for previewing
 		$token = function_exists( 'wp_generate_uuid4' ) ? wp_generate_uuid4() : uniqid( 'ubp_', true );
@@ -56,8 +54,9 @@ class Preview_Handler {
 			'post_id' => $post_id,
 			'meta_base' => $meta,
 			'data' => array(
-						$meta . '_components' => $components_data,
-						$meta . '_styles'     => isset( $data['css'] ) ? $data['css'] : '',
+				$meta                  => $field_instance->get_value( $meta ),
+				$meta . '_datastore'   => $field_instance->get_value( $meta . '_datastore' ),
+				$meta . '_styles'      => $field_instance->get_value( $meta . '_styles' ),
 			)
 		), 10 * MINUTE_IN_SECONDS );
 

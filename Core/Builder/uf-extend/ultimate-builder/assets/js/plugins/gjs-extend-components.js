@@ -21,7 +21,7 @@ window.gjsExtendComponents = function (editor) {
         // console.log('[viewCache] Invalidated cache for', compId);
     }
     
-    // Extend gjs component connecting it with Ultimate Fields group model / datastores
+    // Extend gjs component connecting it with Ultimate Fields datastore
     editor.on('component:create', (gjs_component) => {
         const editorConfig = editor.getConfig(), 
             type = gjs_component.get('type');
@@ -48,7 +48,7 @@ window.gjsExtendComponents = function (editor) {
 
             // configure the data store
             if (component_data) {
-                // this component is loading from database
+                // Data exists, this component is loading from database
                 __type = component_data.__type;
                 datastore = new UltimateFields.Datastore(component_data);
             } else {

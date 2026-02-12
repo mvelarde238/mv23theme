@@ -85,19 +85,100 @@ class Page{
 		return $this->type;
 	}
 
+	/**
+	 * Consolidates page_content by merging each component with its corresponding datastore entry
+	 * 
+	 * @param array $page_content Full page content structure
+	 * @param array $datastore Associative array [component_id => component_data]
+	 * @return array page_content with all components consolidated
+	 */
+	public static function consolidate_content( $page_content, $datastore ){
+		if ( !is_array($page_content) || !is_array($datastore) ) {
+			return $page_content;
+		}
+
+		// Navigate structure: pages > frames > component (wrapper)
+		if ( isset($page_content['pages']) && is_array($page_content['pages']) ) {
+			foreach ( $page_content['pages'] as $page_index => $page ) {
+				if ( isset($page['frames']) && is_array($page['frames']) ) {
+					foreach ( $page['frames'] as $frame_index => $frame ) {
+						if ( isset($frame['component']) ) {
+							$page_content['pages'][$page_index]['frames'][$frame_index]['component'] = 
+								self::merge_component_datastore( $frame['component'], $datastore );
+						}
+					}
+				}
+			}
+		}
+
+		return $page_content;
+	}
+
+	/**
+	 * Recursively merges a component with its datastore entry
+	 * 
+	 * @param array $component Component to process
+	 * @param array $datastore Full datastore array
+	 * @return array Component with datastore data merged
+	 */
+	private static function merge_component_datastore( $component, $datastore ){
+		if ( !is_array($component) ) {
+			return $component;
+		}
+
+		// Reserved keys that should not be overwritten from datastore
+		$reserved_keys = [
+			'components',
+			'type',
+			'attributes',
+			'classes',
+			'__id',
+			'__post_id'
+		];
+
+		// Save child components before merge
+		$child_components = isset($component['components']) ? $component['components'] : null;
+
+		// Lookup datastore by __id
+		$__id = $component['__id'] ?? null;
+		if ( $__id && isset($datastore[$__id]) && is_array($datastore[$__id]) ) {
+			// Filter reserved keys from datastore before merging
+			$filtered_datastore = array_diff_key( 
+				$datastore[$__id], 
+				array_flip( $reserved_keys ) 
+			);
+			$component = array_merge( $component, $filtered_datastore );
+		}
+
+		// Restore and process child components recursively
+		if ( $child_components !== null ) {
+			$component['components'] = [];
+			foreach ( $child_components as $child ) {
+				$component['components'][] = self::merge_component_datastore( $child, $datastore );
+			}
+		}
+
+		return $component;
+	}
+
 	public function the_content( $id = null ){
 		$page_ID = ($id) ? $id : self::get_id();
 
-		$page_content = ($page_ID != null) ? get_post_meta($page_ID, 'page_content_components', true) : null;
 		$page_content_styles = ($page_ID != null) ? get_post_meta($page_ID, 'page_content_styles', true) : null;
+		$page_content_datastore = ($page_ID != null) ? get_post_meta($page_ID, 'page_content_datastore', true) : null;
+		$page_content = ($page_ID != null) ? get_post_meta($page_ID, 'page_content', true) : null;
+		// Consolidate content with datastore
+		$page_content = self::consolidate_content( $page_content, $page_content_datastore );
 
 		if (is_array($page_content)) :
 			ob_start();
-			echo '<style>'.$page_content_styles.'</style>';
+
+			$wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
+			if ( !$wrapper['type'] === 'wrapper' ) return '';
 
 			$container = null;
-			foreach ( $page_content[0]['components'] as $component ) {
-				if ( $component['__type'] === 'container' ) {
+			foreach ( $wrapper['components'] as $component ) {
+				if ( $component['type'] === 'container' ) {
 					$container = $component;
 					break;
 				}
@@ -105,27 +186,31 @@ class Page{
 			if ( $container ) {
 				$container_components = $container['components'] ?? [];
 	
-				// if single page, get components inside single-page-structure:
-				if( is_singular() && $container_components[0]['__type'] === 'single-page-structure' ){
-					// single-page-structure > single-main > [post_title, ..., social-share, ...]
+				// If single page, get components inside single-page-structure:
+				if( is_singular() && !empty($container_components) && $container_components[0]['type'] === 'single-page-structure' ){
 					$single_page_structure = $container_components[0];
 					$single_main = $single_page_structure['components'][0];
 					$container_components = $single_main['components'];
 				}
 
-				// if archive page, get components inside archive-page-structure:
-				if( (is_archive() || is_home()) && $container_components[0]['__type'] === 'archive-page-structure' ){
-					// archive-page-structure > archive-main > [archive-header, archive-posts, ...]
+				// If archive page, get components inside archive-page-structure:
+				if( (is_archive() || is_home()) && !empty($container_components) && $container_components[0]['type'] === 'archive-page-structure' ){
 					$archive_page_structure = $container_components[0];
 					$archive_main = $archive_page_structure['components'][0];
 					$container_components = $archive_main['components'];
 				}
 					
 				if (is_array($container_components) && !empty($container_components)) :
+					echo '<style>'.$page_content_styles.'</style>';
+
 					foreach ($container_components as $component) :
-						echo Template_Engine::getInstance()->handle( $component['__type'], $component );
+						$component['__post_id'] = $page_ID;
+						echo Template_Engine::getInstance()->handle( $component );
+
 					endforeach;
 				endif;
+			} else {
+				error_log('No container found in wrapper component.');
 			}
 
 			return ob_get_clean();

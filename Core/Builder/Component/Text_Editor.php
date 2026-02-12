@@ -38,10 +38,11 @@ class Text_Editor extends Component {
 		if( Template_Engine::is_private( $args ) ) return;
 
 		$args['additional_classes'][] = 'component';
+		$content = $args['content'] ?? '';
 	
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
-		if($args['content']) echo '<div>'.do_shortcode(wpautop(oembed( $args['content'] ))).'</div>';
+		if($content) echo '<div>'.do_shortcode(wpautop(oembed( $content ))).'</div>';
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}

@@ -50,7 +50,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         'spacer' => 'spacer',
         'page' => 'wrapper',
         'icon_and_text' => 'icon-and-text',
-        'text_editor' => 'text-editor',
+        'text_editor' => 'text-editor'
     );
 
     private $private_classes = array(
@@ -76,7 +76,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
     private function __construct(){
         $batch_size = 3;
         $do_the_update = true;
-        $delete_old_data = false;
+        $delete_old_data = false; // Cleanup is handled by Cleanup_2_10_X_to_3_0_0
         $title = 'Migrate 2.10.X to 3.0.0 ( Gjs Builder Implementation )';
         $slug = 'migrate_2_10_x_to_3_0_0';
         $is_top_level = true;
@@ -95,27 +95,30 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
     
         // Obtener un lote de páginas a procesar
         $meta_keys_placeholders = implode(',', array_fill(0, count($this->meta_keys), '%s'));
+        $pages = array(
+            // '312',  /* SideNav1  */
+            // '826',  /* Page with content layout data  */
+            '734',  /* _refactorizing-custom-fields */
+            // '1997',  /* Test Dark Theme Implementation */
+            // '333',  /* Test ScrollSpy */
+            // '1227',  /* Test Scroll Animations */
+            // '1634',  /* Web Demo */
+            // '56', /* test */
+            // '156',  /* Test Gallery */
+            // '345',  /* Test Listing */
+            // '1043', /* Test Icon and Text */
+            // '1175',  /* test maps */
+            // '1971',  /* test headings */
+            // '279',  /* test video */
+            // '2034', /* Test Accordion */
+            // '1145', /* Test Carousel */
+            // '126' /* Flip Box */
+        );
         $query = "SELECT pm.meta_id, pm.post_id, pm.meta_key, pm.meta_value, p.post_type
             FROM {$wpdb->postmeta} pm
             JOIN {$wpdb->posts} p ON pm.post_id = p.ID
             WHERE pm.meta_key IN ($meta_keys_placeholders)
-            -- AND p.ID = 312  /* SideNav1  */
-            -- AND p.ID = 826  /* Page with content layout data  */
-            -- AND p.ID = 734  /* _refactorizing-custom-fields */
-            -- AND p.ID = 1997  /* Test Dark Theme Implementation */
-            -- AND p.ID = 333  /* Test ScrollSpy */
-            -- AND p.ID = 1227  /* Test Scroll Animations */
-            -- AND p.ID = 1634  /* Web Demo */
-            -- AND p.ID = 56 /* test */
-            -- AND p.ID = 156  /* Test Gallery */
-            -- AND p.ID = 345  /* Test Listing */
-            -- AND p.ID = 1043 /* Test Icon and Text */
-            -- AND p.ID = 1175  /* test maps */
-            -- AND p.ID = 1971  /* test headings */
-            -- AND p.ID = 279  /* test video */
-            -- AND p.ID = 2034 /* Test Accordion */
-            -- AND p.ID = 1145 /* Test Carousel */
-            -- AND p.ID = 126 /* Flip Box */
+            -- AND p.ID IN (" . implode(',', $pages) . ")
             AND p.post_type != 'revision'
             LIMIT %d OFFSET %d";
         
@@ -183,8 +186,10 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
     public function save_in_page_content( $post_id, $new_data ){
         $container_id = $this->generate_id();
+        $wrapper_id = $this->generate_id();
         $gjs_styles = $new_data['gjs_styles'];
         $css_styles = $new_data['styles'];
+        $datastore = $new_data['datastore'];
 
         $fake_page_component = array(
             '__type' => 'page',
@@ -203,11 +208,12 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
         $this->migrate_page_settings_to_page_component( $post_id, $fake_page_component );
 
-        $processed_page = $this->process_component($fake_page_component, $css_styles, $gjs_styles);
+        $processed_page = $this->process_component($fake_page_component, $css_styles, $gjs_styles, $datastore);
 
         $uf_wrapper = $processed_page['uf_component'];
-        $gjs_wrapper = $processed_page['gjs_component'];
+        $datastore[$wrapper_id] = $uf_wrapper;
         
+        $gjs_wrapper = $processed_page['gjs_component'];
         $gjs_wrapper['components'] = array(
             array(
                 'type' => 'container',
@@ -216,15 +222,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 'components' => $new_data['gjs_components'],
                 '__id' => $container_id
             )
-        );
-
-        $uf_wrapper['components'] = array(
-            array(
-                '__type' => 'container',
-                '__id' => $container_id,
-                'components' => $new_data['uf_components']
-            )
-        );
+        );        
 
         $page_content = array(
             'gjs_data' => array(
@@ -246,14 +244,12 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 ),
                 'symbols' => array()
             ),
-            'components' => array(
-                $uf_wrapper
-            ),
+            'datastore' => $datastore,
             'styles' => $css_styles
         );
 
         update_post_meta( $post_id, 'page_content', $page_content['gjs_data'] );
-        update_post_meta( $post_id, 'page_content_components', $page_content['components'] );
+        update_post_meta( $post_id, 'page_content_datastore', $page_content['datastore'] );
         update_post_meta( $post_id, 'page_content_styles', $page_content['styles'] );
     }
 
@@ -261,9 +257,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         // create the arrays to store the final data: builder data, uf datastores and css styles
         $gjs_components = array();
         $gjs_styles = array();
-
-        $uf_components = array();
-
+        $datastore = array();
         $css_styles = '';
 
         // private classes for gjs components (is it necessary?)
@@ -276,38 +270,29 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         foreach ($page_modules_data as $module) {
             if( $module['__type'] == 'page_module' ){
 
-                $processed_section = $this->process_component($module, $css_styles, $gjs_styles);
-
-                $uf_section = $processed_section['uf_component'];
+                $processed_section = $this->process_component($module, $css_styles, $gjs_styles, $datastore);
                 $gjs_section = $processed_section['gjs_component'];
                 
                 // Migrate the components of the page module
                 if( isset($module['components']) && is_array($module['components']) && !empty($module['components']) ){
 
-                    $uf_components_array = array();
                     $gjs_components_array = array();
                 
                     foreach ($module['components'] as $c) {
-                        $processed_component = $this->process_component($c, $css_styles, $gjs_styles);
-
-                        $uf_components_array[] = $processed_component['uf_component'];
+                        $processed_component = $this->process_component($c, $css_styles, $gjs_styles, $datastore);
                         $gjs_components_array[] = $processed_component['gjs_component'];
                     }
                     
-                    $uf_section['components'] = $uf_components_array;
                     $gjs_section['components'] = $gjs_components_array;
                 }
-
-                $uf_section['__type'] = 'section';
                     
-                array_push( $uf_components, $uf_section );
                 array_push( $gjs_components, $gjs_section );
             }
         }
 
         return array(
             'gjs_components' => $gjs_components,
-            'uf_components' => $uf_components,
+            'datastore' => $datastore,
             'gjs_styles' => $gjs_styles,
             'styles' => $css_styles
         );
@@ -317,7 +302,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         // create the arrays to store the final data: builder data, uf datastores and css styles
         $gjs_components = array();
         $gjs_styles = array();
-        $uf_components = array();
+        $datastore = array();
         $css_styles = '';
 
         // create a fake uf_component to hold the content layout data
@@ -328,15 +313,14 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         }
 
         // process the fake component
-        $processed_component = $this->process_component($fake_component, $css_styles, $gjs_styles);
+        $processed_component = $this->process_component($fake_component, $css_styles, $gjs_styles, $datastore);
 
         // set the correct type for the processed component
         if ( $meta_key == 'offcanvas_element_content' ) {
-            $processed_component['uf_component']['__type'] = 'oce-element';
             $processed_component['gjs_component']['type'] = 'oce-element';
 
             $this->migrate_oce_post_meta_to_component( 
-                $processed_component['uf_component'],
+                $datastore,
                 $processed_component['gjs_component'],
                 $post_id 
             );
@@ -358,16 +342,21 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 'components' => array()
             );
         } else {
-            $processed_component['uf_component']['__type'] = 'section';
             $processed_component['gjs_component']['type'] = 'section';
         }
 
-        $uf_components[] = $processed_component['uf_component'];
+        // Update the datastore entry with the corrected __type
+        // (process_component already saved it, but with the original type)
+        $cmp__id = $processed_component['gjs_component']['__id'];
+        if( isset($datastore[$cmp__id]) ){
+            $datastore[$cmp__id]['__type'] = $processed_component['gjs_component']['type'];
+        }
+
         $gjs_components[] = $processed_component['gjs_component'];
 
         return array(
             'gjs_components' => $gjs_components,
-            'uf_components' => $uf_components,
+            'datastore' => $datastore,
             'gjs_styles' => $gjs_styles,
             'styles' => $css_styles
         );
@@ -377,58 +366,61 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         // create the arrays to store the final data: builder data, uf datastores and css styles
         $gjs_components = array();
         $gjs_styles = array();
-        $uf_components = array();
+        $datastore = array();
         $css_styles = '';
 
-        // process each component
+        // process each component — UF data saved to $datastore by reference
         foreach ($components_data as $component) {
-            $processed_component = $this->process_component($component, $css_styles, $gjs_styles);
-
-            $uf_components[] = $processed_component['uf_component'];
+            $processed_component = $this->process_component($component, $css_styles, $gjs_styles, $datastore);
             $gjs_components[] = $processed_component['gjs_component'];
         }
 
         return array(
             'gjs_components' => $gjs_components,
-            'uf_components' => $uf_components,
+            'datastore' => $datastore,
             'gjs_styles' => $gjs_styles,
             'styles' => $css_styles
         );
     }
 
-    public function migrate_oce_post_meta_to_component( &$uf_component, &$gjs_component, $post_id = 0 ) {
+    public function migrate_oce_post_meta_to_component( &$datastore, &$gjs_component, $post_id = 0 ) {
         $slug = 'offcanvas_element';
         $type = get_post_meta( $post_id, $slug.'_type', true );
-        $uf_component['oce_type'] = $type;
 
-        // migrate oce settings
+        // Get the datastore key for this component
+        $cmp__id = $gjs_component['__id'];
+
+        // migrate oce settings directly into datastore entry
+        $datastore[$cmp__id]['oce_type'] = $type;
+
         $oce_settings_key = $slug.'_'.$type.'_settings';
         $old_oce_settings = get_post_meta( $post_id, $oce_settings_key, true );
-        if( isset($old_oce_settings['position']) ) $uf_component['position'] = $old_oce_settings['position'];
-        if( isset($old_oce_settings['dismissible']) ) $uf_component['dismissible'] = $old_oce_settings['dismissible'];
-        if( isset($old_oce_settings['close_on_click']) ) $uf_component['close_on_click'] = $old_oce_settings['close_on_click'];
-        if( isset($old_oce_settings['overlay_color']) ) $uf_component['overlay_color'] = $old_oce_settings['overlay_color'];
-        if( isset($old_oce_settings['max_width']) ) $uf_component['max_width'] = $old_oce_settings['max_width'];
-        if( isset($old_oce_settings['max_height']) ) $uf_component['max_height'] = $old_oce_settings['max_height'];
+        if( isset($old_oce_settings['position']) ) $datastore[$cmp__id]['position'] = $old_oce_settings['position'];
+        if( isset($old_oce_settings['dismissible']) ) $datastore[$cmp__id]['dismissible'] = $old_oce_settings['dismissible'];
+        if( isset($old_oce_settings['close_on_click']) ) $datastore[$cmp__id]['close_on_click'] = $old_oce_settings['close_on_click'];
+        if( isset($old_oce_settings['overlay_color']) ) $datastore[$cmp__id]['overlay_color'] = $old_oce_settings['overlay_color'];
+        if( isset($old_oce_settings['max_width']) ) $datastore[$cmp__id]['max_width'] = $old_oce_settings['max_width'];
+        if( isset($old_oce_settings['max_height']) ) $datastore[$cmp__id]['max_height'] = $old_oce_settings['max_height'];
 
         // create dynamic content component if needed
         $content_type = get_post_meta( $post_id, $slug.'_content_type', true );
         if( $content_type == 'async' ){
-            $__id = $this->generate_id();
+            $dc__id = 'cmp_' . substr(md5(uniqid()), 0, 8);
+
+            // GJS: replace children with the dynamic content component
             $gjs_component['components'] = array(
                 array(
                     'type' => 'oce-dynamic-content',
                     'attributes' => array(),
                     'components' => array(),
-                    '__id' => $__id
+                    '__id' => $dc__id
                 )
             );
-            $uf_component['components'] = array(
-                array(
-                    '__type' => 'oce-dynamic-content',
-                    '__id' => $__id,
-                    'async_settings' => get_post_meta( $post_id, $slug.'_async_settings', true )
-                )
+
+            // Save dynamic content child to datastore (flat)
+            $datastore[$dc__id] = array(
+                '__type' => 'oce-dynamic-content',
+                'async_settings' => get_post_meta( $post_id, $slug.'_async_settings', true )
             );
         }
     }
@@ -507,7 +499,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
         $page_component['remove_padding_top'] = get_post_meta( $post_id, 'remove_body_padding_top', true );
 
-        $other_meta = ['hide_static_header','hide_static_header_logo','custom_static_header','custom_static_header_logo','static_header_bgc','static_header_color_scheme','hide_sticky_header_logo','custom_sticky_header','custom_sticky_header_logo','sticky_header_bgc','sticky_header_color_scheme'];
+        $other_meta = ['hide_static_header','hide_static_header_logo','custom_static_header','custom_static_header_logo','static_header_bgc', 'static_header_logo', 'sticky_header_logo', 'hide_sticky_header', 'static_header_color_scheme','hide_sticky_header_logo','custom_sticky_header','custom_sticky_header_logo','sticky_header_bgc','sticky_header_color_scheme'];
         foreach( $other_meta as $om ){
             $value = get_post_meta( $post_id, $om, true );
             if( !empty( $value ) ){
@@ -518,7 +510,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         return $page_component;
     }
 
-    private function process_component($component, &$css_styles, &$gjs_styles) {
+    private function process_component($component, &$css_styles, &$gjs_styles, &$datastore) {
         $id = $this->generate_id($component); // for id attribute in html and gjs
         $__id = 'cmp_' . substr(md5(uniqid()), 0, 8); // to connect gjs with uf component
         $components_mapping = $this->components_mapping;
@@ -530,7 +522,6 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         if( $component['__type'] == 'inner_wrapper' ){
             $uf_component['__type'] = 'components_wrapper';
         }
-        $uf_component['__id'] = $__id;
         
         // Create GJS component structure
         $gjs_component = array(
@@ -543,7 +534,13 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
         // Handle spaces cases _____________________________________________________________________
         if( $component['__type'] == 'image' ){
-            $this->process_image_component($component, $uf_component, $gjs_component, $css_styles, $gjs_styles, $id);
+            $this->process_image_component($component, $uf_component, $gjs_component, $css_styles, $gjs_styles, $id, $datastore);
+
+            // uf component dont save structure
+            unset($uf_component['components']);
+
+            // save in datastore
+            $datastore[$__id] = $uf_component; 
             
             //stop here and dont process settings, it wil be done later:
             return array(
@@ -554,6 +551,10 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         if( $component['__type'] == 'html' ){
             // change type to code
             $uf_component['__type'] = 'code';
+        }
+        if( $component['__type'] == 'menu' ){
+            $menu_type = $component['type'] ?? 'menu';
+            $uf_component['menu_type'] = $menu_type;
         }
         
 
@@ -581,7 +582,6 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         // add ID attribute if needed
         if ( $migrated_settings['styles'] || count($migrated_settings['gjs_styles']) > 0) {
             $gjs_component['attributes']['id'] = $id;
-            $uf_component['__gjsAttributes'] = array( 'id' => $id );
         }
 
         // Special handling for custom components ///////////////////////////////////////////////////////////////////////
@@ -603,7 +603,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         }
 
         if( $component['__type'] == 'icon_and_text' ){
-            $this->process_icon_and_text_component($component, $uf_component, $gjs_component, $css_styles, $gjs_styles, $id);
+            $this->process_icon_and_text_component($component, $uf_component, $gjs_component, $css_styles, $gjs_styles, $id, $datastore);
         }
 
         if( $component['__type'] == 'listing' ){
@@ -630,7 +630,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $has_inner_components = $this->has_inner_components( $component['__type'] );
         if( $has_inner_components['where'] == 'in-row-content' ){
             // migrate inner components inside columns of row
-            $this->process_columns_inner_components( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles );
+            $this->process_columns_inner_components( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles, $datastore );
         }
         if( 
             $has_inner_components['where'] == 'in-components-wrapper-content' 
@@ -638,23 +638,17 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             || $component['__type'] == 'togglebox-item'
             || $component['__type'] == 'flipbox-front'
             || $component['__type'] == 'flipbox-back'
-            // || ( isset($component['__flag']) && $component['__flag'] == 'front-content' )
-            // || ( isset($component['__flag']) && $component['__flag'] == 'back-content' )
         ){
-            // migrate inner components inside components_wrapper
-            $this->process_layout_inner_components( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles );
+            $this->process_layout_inner_components( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles, $datastore );
         }
         if( $has_inner_components['where'] == 'in-carousel-content' ){
-            // migrate inner components inside carousel
-            $this->process_carousel_components( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles );
+            $this->process_carousel_components( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles, $datastore );
         }
         if( $has_inner_components['where'] == 'in-accordion-content' ){
-            // migrate inner components inside accordion
-            $this->process_accordion_components( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles );
+            $this->process_accordion_components( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles, $datastore );
         }
         if( $has_inner_components['where'] == 'in-flip-box-content' ){
-            // migrate inner components inside flipbox
-            $this->process_flipbox_components( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles );
+            $this->process_flipbox_components( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles, $datastore );
         }
 
         // Allow custom processing after main component processing
@@ -662,19 +656,27 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             'uf_component' => $uf_component,
             'gjs_component' => $gjs_component,
             'css_styles' => $css_styles,
-            'gjs_styles' => $gjs_styles
+            'gjs_styles' => $gjs_styles,
+            'datastore' => $datastore
         ), $component, $id );
         
         $uf_component = $filtered['uf_component'];
         $gjs_component = $filtered['gjs_component'];
         $css_styles = $filtered['css_styles'];
         $gjs_styles = $filtered['gjs_styles'];
+        $datastore = $filtered['datastore'];
 
         // Handle component['settings'] 
-        $this->handle_settings( $uf_component, $gjs_component, $css_styles, $gjs_styles, $id );
+        $this->handle_settings( $uf_component, $gjs_component, $css_styles, $gjs_styles, $id, $datastore );
 
         // Handle component['actions']
         $this->handle_actions( $uf_component, $gjs_component, $css_styles, $gjs_styles, $id );
+
+        // uf component dont save structure
+        unset($uf_component['components']);
+
+        // save in datastore
+        $datastore[$__id] = $uf_component; 
 
         return array(
             'uf_component' => $uf_component,
@@ -794,84 +796,114 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             }
 
             $gjs_component['attributes']['id'] = $id;
-            $uf_component['__gjsAttributes'] = array( 'id' => $id );
         }
 
-        $alignment = $component['alignment'] ?? 'left'; // for button cmp
-        if( $alignment != 'left' ){
-            // add the css style
-            $css_styles .= "#{$id} { text-align: {$alignment}; }";
-            $gjs_styles[] = array(
-                'selectors' => array( '#' . $id ),
-                'style' => array( 'text-align' => $alignment )
-            );
+        if( $component['__type'] == 'button' ){
+            $alignment = $component['alignment'] ?? 'left';
+            if( $alignment != 'left' ){
+                // add the css style
+                $css_styles .= "#{$id} { text-align: {$alignment}; }";
+                $gjs_styles[] = array(
+                    'selectors' => array( '#' . $id ),
+                    'style' => array( 'text-align' => $alignment )
+                );
+    
+                $gjs_component['attributes']['id'] = $id;
+            }
 
-            $gjs_component['attributes']['id'] = $id;
-            $uf_component['__gjsAttributes'] = array( 'id' => $id );
+            $button_type = $component['type'] ?? 'link';
+            $uf_component['button_type'] = $button_type;
+
+            $button_style = $component['style'] ?? 'btn btn--main-color';
+            $uf_component['button_style'] = $button_style;
+
+            $button_attributes = $component['attributes'] ?? array();
+            $uf_component['button_attributes'] = $button_attributes;
         }
-
+            
+        unset( $uf_component['style'] );
+        unset( $uf_component['attributes'] );
+        unset( $uf_component['type'] );
         unset( $uf_component['alignment'] );
         unset( $uf_component['add_responsive'] );
         unset( $uf_component['mobile_text_align'] );
         unset( $uf_component['tablet_text_align'] );
     }
 
-    private function process_image_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
+    private function process_image_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id, &$datastore ){
         $uf_component['__type'] = 'figure';
         
         // migrate alignment
-        if( $component['alignment'] != 'left' ){
+        $alignment = $component['alignment'] ?? 'left';
+        if( $alignment != 'left' ){
             $fig_id = $this->generate_id();
             $gjs_component['attributes']['id'] = $fig_id;
-            $uf_component['__gjsAttributes'] = array( 'id' => $fig_id );
 
-            $text_align = $component['alignment'];
-            // add the css style
-            $css_styles .= "#{$fig_id} { text-align: {$text_align}; }";
+            $css_styles .= "#{$fig_id} { text-align: {$alignment}; }";
             $gjs_styles[] = array(
                 'selectors' => array( '#' . $fig_id ),
-                'style' => array( 'text-align' => $text_align )
+                'style' => array( 'text-align' => $alignment )
             );
         }
 
-        // Unset figure settings
+        // Save image-specific values needed for CSS before cleaning
+        $object_fit = $component['object_fit'] ?? 'cover';
+        $aspect_ratio = $component['aspect_ratio'] ?? 'auto';
+        $custom_aspect_ratio = $component['custom_aspect_ratio'] ?? '';
+        $full_width = isset($component['full_width']) && $component['full_width'];
+
+        // Unset figure-level attributes from UF component (figure's datastore entry)
         $__unwanted_fig_atts = ['actions_settings','alignment','aspect_ratio','custom_aspect_ratio','expand_on_click','external_image','external_image_credits','full_width','image','image_source','object_fit','settings','scroll_animations_settings'];
         foreach ($__unwanted_fig_atts as $att) {
             unset( $uf_component[$att] );
         }
 
-        // create image, editing __type to avoid infinite looping
-        $component['__type'] = '__image';
-        $this->quick_component( $component, $uf_component, $gjs_component, $css_styles, $gjs_styles );
-        
-        // edit some attributes on uf cmp
-        $uf_component['components'][0]['__type'] = 'image-component'; // set this manually
-        $img_id = $this->generate_id($component);
-        $uf_component['components'][0]['__gjsAttributes'] = array( 'id' => $img_id );
-        if( ($component['image_source'] == 'external') ){
-            $uf_component['components'][0]['caption_source'] = 'custom';
-            $uf_component['components'][0]['custom_caption'] = $component['external_image_credits'] ?? '';
+        // Clean consumed/figure-level attributes from $component before creating image child,
+        // so the child's datastore entry won't have them (already saved to local vars above)
+        $__consumed_from_child = ['alignment','aspect_ratio','custom_aspect_ratio','full_width','object_fit','scroll_animations_settings'];
+        foreach ($__consumed_from_child as $att) {
+            unset( $component[$att] );
         }
 
-        // edit some attributes on gj cmp
-        $gjs_component['components'][0]['attributes']['src'] = '__src';
+        // Pre-generate image id and inject into component so process_component uses it consistently
+        // for both settings CSS and GJS attributes (avoids id mismatch)
+        $img_id = $this->generate_id();
+        if( !isset($component['settings']) || !is_array($component['settings']) ){
+            $component['settings'] = array();
+        }
+        if( !isset($component['settings']['main_attributes']) || !is_array($component['settings']['main_attributes']) ){
+            $component['settings']['main_attributes'] = array();
+        }
+        if( empty($component['settings']['main_attributes']['id']) ){
+            $component['settings']['main_attributes']['id'] = $img_id;
+        } else {
+            $img_id = $component['settings']['main_attributes']['id'];
+        }
+
+        // create image child — UF data saved to $datastore inside process_component
+        $component['__type'] = '__image';
+        // inject image-specific values needed for CSS
+        $component['aspect_ratio'] = $aspect_ratio;
+        $component['custom_aspect_ratio'] = $custom_aspect_ratio;
+        $processed_image = $this->process_component( $component, $css_styles, $gjs_styles, $datastore );
+        $gjs_component['components'][] = $processed_image['gjs_component'];
+
+        // Ensure GJS child has correct attributes (id may not be set if no settings generated styles)
+        $child__id = $gjs_component['components'][0]['__id'];
         $gjs_component['components'][0]['attributes']['id'] = $img_id;
+        $gjs_component['components'][0]['attributes']['src'] = '__src';
         $gjs_component['components'][0]['resizable'] = array( 'ratioDefault'=>1 );
 
-        // migrate object fit, aspect ratio and full width
+        // Generate CSS for image-specific styles (using the same $img_id)
         $img_styles = array();
 
-        // if( $component['object_fit'] != 'cover' ){
-            $object_fit = $component['object_fit'];
-            $css_styles .= "#{$img_id} { object-fit: {$object_fit}; }";
-            $img_styles['object-fit'] = $object_fit;
-        // }
+        $css_styles .= "#{$img_id} { object-fit: {$object_fit}; }";
+        $img_styles['object-fit'] = $object_fit;
 
-        $aspect_ratio = $component['aspect_ratio'];
         $css_styles .= "#{$img_id} { aspect-ratio: {$aspect_ratio}; }";
         $img_styles['aspect-ratio'] = $aspect_ratio;
 
-        if( isset($component['full_width']) && $component['full_width'] ){
+        if( $full_width ){
             $css_styles .= "#{$img_id} { width: 100%; }";
             $img_styles['width'] = '100%';
         }
@@ -883,17 +915,10 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             );
         }
 
-        // unset image props:
-        $__unwanted_img_atts = ['alignment','external_image_credits','object_fit','full_width'];
-        foreach ($__unwanted_img_atts as $att) {
-            unset( $uf_component['components'][0][$att] );
-        }
-
-        // create a caption 
-        $figcaption = array(
-            '__type' => '__figcaption'
-        );
-        $this->quick_component( $figcaption, $uf_component, $gjs_component, $css_styles, $gjs_styles );
+        // create figcaption child
+        $figcaption = array( '__type' => '__figcaption' );
+        $processed_figcaption = $this->process_component( $figcaption, $css_styles, $gjs_styles, $datastore );
+        $gjs_component['components'][] = $processed_figcaption['gjs_component'];
     }
 
     private function process_video_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
@@ -909,7 +934,6 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             );
 
             $gjs_component['attributes']['id'] = $id;
-            $uf_component['__gjsAttributes'] = array( 'id' => $id );
         }
 
         $gjs_component['classes'] = ['video-component'];
@@ -930,7 +954,6 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             );
 
             $gjs_component['attributes']['id'] = $id;
-            $uf_component['__gjsAttributes'] = array( 'id' => $id );
         }
 
         // migrate "icono" to icon_data
@@ -984,29 +1007,29 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         }
     }
 
-    private function process_columns_inner_components( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles ){
+    private function process_columns_inner_components( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, &$datastore ){
+        $uf_component['components'] = array(); // Reset — will hold column UF data temporarily
         $column_count = 0;
         foreach ($component['row']['content'] as $column) {
-                
-            $uf_components_array = array();
             $gjs_components_array = array();
 
+            // Process inner components — each saves its UF data to $datastore via process_component
             foreach ($column as $inner_component ) {
-                $migrated = $this->process_component( $inner_component, $css_styles, $gjs_styles );
-                $uf_components_array[] = $migrated['uf_component'];
+                $migrated = $this->process_component( $inner_component, $css_styles, $gjs_styles, $datastore );
                 $gjs_components_array[] = $migrated['gjs_component'];
             }
 
-            // create the column wrapper for inner components
+            // Create column wrapper IDs
             $col_id = $this->generate_id();
             $col__id = 'cmp_' . substr(md5(uniqid()), 0, 8);
-            // uf column
+
+            // Create UF column data (saved to $datastore at end of method)
             $uf_component['components'][$column_count] = array(
                 '__type' => 'column',
-                '__id' => $col__id,
-                'components' => $uf_components_array,
-                '__gjsAttributes' => array( 'id' => $col_id )
+                '__id' => $col__id
             );
+
+            // Migrate column settings
             $migrated_settings = $this->custom_migrate_settings_data(
                 $uf_component['components'][$column_count], 
                 $component['row']['columns_settings'][$column_count] ?? array(), 
@@ -1022,7 +1045,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 }
             }
 
-            // gjs column
+            // GJS column — stores full tree with children
             $gjs_component['components'][$column_count] = array(
                 'type' => 'column',
                 'classes' => array(array( 'name' => 'column', 'private' => 1 )),
@@ -1035,7 +1058,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             $this->handle_settings(
                 $uf_component['components'][$column_count], 
                 $gjs_component['components'][$column_count], 
-                $css_styles, $gjs_styles, $col_id 
+                $css_styles, $gjs_styles, $col_id, $datastore
             );
 
             $column_count++;
@@ -1212,12 +1235,11 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $breakpoints = $this->breakpoints;
 
         // get or set the row ID
-        if( isset($uf_component['__gjsAttributes']) && isset($uf_component['__gjsAttributes']['id']) ){
-            $row_id = $uf_component['__gjsAttributes']['id'];
+        if( !empty($gjs_component['attributes']['id']) ){
+            $row_id = $gjs_component['attributes']['id'];
         } else {
             $row_id = $this->generate_id($component);
             $gjs_component['attributes']['id'] = $row_id;
-            $uf_component['__gjsAttributes'] = array( 'id' => $row_id );
         }
 
         foreach( $__gjs_cmp['control'] as $device => $control ){
@@ -1225,7 +1247,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 $column_count = 0;
                 foreach( $__gjs_cmp['control'][$device]['widths'] as $cid => $width ){
                     // Add the styles for the column layout
-                    $id = $uf_component['components'][$column_count]['__gjsAttributes']['id'];
+                    $id = $gjs_component['components'][$column_count]['attributes']['id'];
                     if( $breakpoints[$device] ){
                         $css_styles .= "@media {$breakpoints[$device]} { #{$id} { width: {$width}%; } }";
                         $gjs_styles[] = array(
@@ -1299,7 +1321,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         for( $i = 0; $i < $columns_quantity; $i++ ){
             $column_setting = $component['row']['columns_settings'][$i] ?? array();
             $_count = 0;
-            $id = $uf_component['components'][$column_count]['__gjsAttributes']['id'];
+            $id = $gjs_component['components'][$column_count]['attributes']['id'];
             foreach ($devices_keys as $dk){
                 $content_alignment = $column_setting[$dk.'_content_alignment'] ?? '';
                 if( $content_alignment != 'flex-start' && $content_alignment != '' ){
@@ -1327,39 +1349,49 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         }
 
         // migrate l_content_alignment=>pinned to components_wrapper.sticky
-        $column_count = 0;
         for( $i = 0; $i < $columns_quantity; $i++ ){
             $column_setting = $component['row']['columns_settings'][$i] ?? array();
             $l_content_alignment = $column_setting['l_content_alignment'] ?? '';
             if( $l_content_alignment == 'pinned' ){
-                $__id = 'cmp_' . substr(md5(uniqid()), 0, 8); // to connect gjs with uf component
+                $wrapper__id = 'cmp_' . substr(md5(uniqid()), 0, 8);
 
+                // GJS: wrap column children in a components-wrapper
                 $gjs_comp_wrapper = array(
                     'type' => 'components-wrapper',
-                    'components' => $gjs_component['components'][$column_count]['components'],
-                    '__id' => $__id
+                    'components' => $gjs_component['components'][$i]['components'],
+                    '__id' => $wrapper__id
                 );
-                $gjs_component['components'][$column_count]['components'] = [$gjs_comp_wrapper];
+                $gjs_component['components'][$i]['components'] = [$gjs_comp_wrapper];
 
-                $uf_comp_wrapper = array(
+                // UF: save sticky wrapper to datastore (flat, no structure)
+                $datastore[$wrapper__id] = array(
                     '__type' => 'components-wrapper',
-                    'components' => $uf_component['components'][$column_count]['components'],
-                    '__id' => $__id
+                    'settings' => array( 'classes' => 'sticky' )
                 );
-                $uf_comp_wrapper['settings']['classes'] = 'sticky';
-                $uf_component['components'][$column_count]['components'] = [$uf_comp_wrapper];
+            }
+        }
+
+        // Save each column's UF data to $datastore (flat, without 'components' hierarchy)
+        if( isset($uf_component['components']) && is_array($uf_component['components']) ){
+            foreach ($uf_component['components'] as $col_uf) {
+                if( isset($col_uf['__id']) ){
+                    $col_datastore_entry = $col_uf;
+                    unset($col_datastore_entry['components']); // datastore doesn't store structure
+                    unset($col_datastore_entry['__id']); // __id is the key, not needed inside
+                    $datastore[$col_uf['__id']] = $col_datastore_entry;
+                }
             }
         }
 
         unset( $uf_component['row'] );
     }
 
-    private function process_layout_inner_components( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles ){
-        $uf_components_array = array();
+    private function process_layout_inner_components( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, &$datastore ){
         $gjs_components_array = array();
 
-        if( !isset($component['blocks_layout']) ){
-            error_log(print_r( $component, true ));
+        if( !isset($component['blocks_layout']) || !is_array($component['blocks_layout']) ){
+            error_log('process_layout_inner_components: blocks_layout missing for component type: ' . ($component['__type'] ?? 'unknown'));
+            return;
         }
 
         foreach ($component['blocks_layout'] as $row) {
@@ -1371,18 +1403,15 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
                 // this was a layout field in flex-mode
                 foreach ($row as $_row_comp) {
-                    $processed_component = $this->process_component($_row_comp, $css_styles, $gjs_styles);
-    
-                    $uf_components_array[] = $processed_component['uf_component'];
+                    $processed_component = $this->process_component($_row_comp, $css_styles, $gjs_styles, $datastore);
                     $gjs_components_array[] = $processed_component['gjs_component'];
                 }
 
-                if( isset($uf_component['__gjsAttributes']) && isset($uf_component['__gjsAttributes']['id']) ){
-                    $id = $uf_component['__gjsAttributes']['id'];
+                if( !empty($gjs_component['attributes']['id']) ){
+                    $id = $gjs_component['attributes']['id'];
                 } else {
                     $id = $this->generate_id($component);
                     $gjs_component['attributes']['id'] = $id;
-                    $uf_component['__gjsAttributes'] = array( 'id' => $id );
                 }
                 $justify_content = $component['blocks_layout_settings']['justify_content'];
                 $align_items = $component['blocks_layout_settings']['align_items'];
@@ -1400,13 +1429,11 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             } else {
                 // layout field had 1 single component in a row
                 if( count($row) === 1 ){
-                    $processed_component = $this->process_component($row[0], $css_styles, $gjs_styles);
-    
-                    $uf_components_array[] = $processed_component['uf_component'];
+                    $processed_component = $this->process_component($row[0], $css_styles, $gjs_styles, $datastore);
                     $gjs_components_array[] = $processed_component['gjs_component'];
                 } else {
                     // layout field had many components in a row
-                    // create fake uf row to process him later
+                    // create fake uf row to process it (will recurse into process_columns_inner_components)
                     $cols_count = count($row);
                     $fake_uf_row = array(
                         '__type' => 'row',
@@ -1426,27 +1453,28 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                     );
                     foreach ($row as $_row_comp) {
                         $fake_uf_row['row']['content'][] = array( $_row_comp );
-                        $fake_uf_row['row']['row_settings']['l_grid_'.$cols_count][] = $_row_comp['__width'] . 'fr';
-                        $fake_uf_row['row']['row_settings']['t_grid_'.$cols_count][] = $_row_comp['__width'] . 'fr';
+                        $fake_uf_row['row']['row_settings']['l_grid_'.$cols_count][] = ($_row_comp['__width'] ?? 1) . 'fr';
+                        $fake_uf_row['row']['row_settings']['t_grid_'.$cols_count][] = ($_row_comp['__width'] ?? 1) . 'fr';
                         $fake_uf_row['row']['columns_settings'][] = array();
                     }
     
-                    // create uf/gjs row
-                    $processed_component = $this->process_component($fake_uf_row, $css_styles, $gjs_styles);
-    
-                    $uf_components_array[] = $processed_component['uf_component'];
+                    // process_component will save the row + columns + children in $datastore
+                    $processed_component = $this->process_component($fake_uf_row, $css_styles, $gjs_styles, $datastore);
                     $gjs_components_array[] = $processed_component['gjs_component'];
                 }
             }
         }
 
-        $uf_component['components'] = $uf_components_array;
+        // GJS stores the full tree structure
         $gjs_component['components'] = $gjs_components_array;
 
+        // Clean up old data from UF component (datastore is flat, no structure needed)
         unset( $uf_component['blocks_layout'] );
+        unset( $uf_component['blocks_layout_settings'] );
     }
 
-    private function process_carousel_components( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles ){
+    private function process_carousel_components( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, &$datastore ){
+        // Migrate carousel settings to structured format
         $uf_component['controls_settings'] = array(
             'show' => $component['show_controls'] ?? true,
             'position' => $component['controls_position'] ?? 'center',
@@ -1482,124 +1510,139 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             'mobile' => $component['items_in_mobile']
         );
         $uf_component['gutter'] = array(
-            'desktop' => $component['gutter_in_desktop'] ? $component['gutter_in_desktop'] : 15,
-            'laptop' => $component['gutter_in_laptop'] ? $component['gutter_in_laptop'] : 15,
-            'tablet' => $component['gutter_in_tablet'] ? $component['gutter_in_tablet'] : 15,
-            'mobile' => $component['gutter_in_mobile'] ? $component['gutter_in_mobile'] : 15
+            'desktop' => ($component['gutter_in_desktop'] ?? false) ? $component['gutter_in_desktop'] : 15,
+            'laptop' => ($component['gutter_in_laptop'] ?? false) ? $component['gutter_in_laptop'] : 15,
+            'tablet' => ($component['gutter_in_tablet'] ?? false) ? $component['gutter_in_tablet'] : 15,
+            'mobile' => ($component['gutter_in_mobile'] ?? false) ? $component['gutter_in_mobile'] : 15
         );
 
-        // create inner components
+        // Create fake-carousel wrapper — its UF data is saved to $datastore by process_component
         $fake_carousel = array('__type'=>'fake-carousel');
-        $processed_carousel = $this->process_component($fake_carousel, $css_styles, $gjs_styles);
+        $processed_carousel = $this->process_component($fake_carousel, $css_styles, $gjs_styles, $datastore);
         $gjs_carousel = $processed_carousel['gjs_component'];
-        $uf_carousel = $processed_carousel['uf_component'];
 
-        foreach ($component['items'] as $item) {
-            $item['__type'] = ($item['__type']==='content') ? 'carousel-item' : $item['__type']; 
-            // $item['__type'] = 'image' ??????????????????????????????????????????????????????????????????????
+        // Process each carousel item — each saves its own UF data to $datastore via process_component
+        $carousel_items = $component['items'] ?? array();
+        foreach ($carousel_items as $item) {
+            $item['__type'] = ($item['__type'] === 'content') ? 'carousel-item' : $item['__type'];
 
-            $processed_item = $this->process_component($item, $css_styles, $gjs_styles);
-
+            $processed_item = $this->process_component($item, $css_styles, $gjs_styles, $datastore);
             $gjs_carousel['components'][] = $processed_item['gjs_component'];
-            $uf_carousel['components'][] = $processed_item['uf_component'];
         }
 
+        // GJS stores the full tree: carousel-wrapper > carousel > [carousel-items...]
         $gjs_component['components'] = array( $gjs_carousel );
-        $uf_component['components'] = array( $uf_carousel );
 
-        $to_unset = ['items_in_desktop','items_in_laptop','items_in_tablet','items_in_mobile','gutter_in_desktop','gutter_in_laptop','gutter_in_tablet','gutter_in_mobile','show_controls','controls_position','show_nav','nav_position','autoplay','autoplay_timeout','mode','axis','speed'];
+        // Clean up old properties from UF component (carousel-wrapper's datastore entry)
+        $to_unset = ['items_in_desktop','items_in_laptop','items_in_tablet','items_in_mobile','gutter_in_desktop','gutter_in_laptop','gutter_in_tablet','gutter_in_mobile','show_controls','controls_position','show_nav','nav_position','autoplay','autoplay_timeout','mode','axis','speed','marquee_speed','prev_icon','next_icon'];
         foreach ($to_unset as $key) {
             unset( $uf_component[$key] );
         }
     }
 
-    private function process_accordion_components( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles ){
-        // set devices control
+    private function process_accordion_components( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, &$datastore ){
+        // set devices control (GJS-only attribute for responsive template switching)
+        $desktop_template = $component['desktop_template'] ?? 'accordion';
+        $mobile_template = $component['mobile_template'] ?? 'accordion';
+        $desktop_style = $component['desktop_'.$desktop_template.'_style'] ?? 'accordion-style1';
+        $mobile_style = $component['mobile_'.$mobile_template.'_style'] ?? 'accordion-style1';
+
         $gjs_component['devicesControl'] = array(
-            'desktop' => array( 
-                'template' => $component['desktop_template'],
-                'style' => $component['desktop_'.$component['desktop_template'].'_style']
-            ),
-            'mobilePortrait' => array( 
-                'template' => $component['mobile_template'],
-                'style' => $component['mobile_'.$component['mobile_template'].'_style']
-            )
+            'desktop' => array( 'template' => $desktop_template, 'style' => $desktop_style ),
+            'mobilePortrait' => array( 'template' => $mobile_template, 'style' => $mobile_style )
         );
         $gjs_component['tgbtemplate'] = '';
         $gjs_component['tgbstyle'] = '';
 
         // set uf component template and style
-        $uf_component['template'] = $component['desktop_template'];
-        $uf_component[$component['desktop_template'].'_style'] = $component['desktop_'.$component['desktop_template'].'_style'];
+        $uf_component['template'] = $desktop_template;
+        $uf_component[$desktop_template.'_style'] = $desktop_style;
 
-        // create data breakpoints string for ufcomponent, e. g. "desktop|tab|tab-style1,mobileLandscape|tab|tab-style1"
-        $uf_component['__gjs_data_breakpoints'] = "desktop|".$component['desktop_template']."|".$component['desktop_'.$component['desktop_template'].'_style'].",mobileLandscape|".$component['mobile_template']."|".$component['mobile_'.$component['mobile_template'].'_style'];
-
-        // create inner components
+        // Create togglebox wrapper — UF saved to $datastore by process_component
         $fake_accordion = array('__type'=>'togglebox');
-        $processed_accordion = $this->process_component($fake_accordion, $css_styles, $gjs_styles);
+        $processed_accordion = $this->process_component($fake_accordion, $css_styles, $gjs_styles, $datastore);
         $gjs_accordion = $processed_accordion['gjs_component'];
-        $uf_accordion = $processed_accordion['uf_component'];
 
-        $nav = array('__type'=>'togglebox-nav');
-        $this->quick_component( $nav, $uf_accordion, $gjs_accordion, $css_styles, $gjs_styles );
+        // Create togglebox-nav and togglebox-items containers
+        $nav_data = array('__type'=>'togglebox-nav');
+        $processed_nav = $this->process_component($nav_data, $css_styles, $gjs_styles, $datastore);
+        $gjs_nav = $processed_nav['gjs_component'];
 
-        $items = array('__type'=>'togglebox-items');
-        $this->quick_component( $items, $uf_accordion, $gjs_accordion, $css_styles, $gjs_styles );
+        $items_data = array('__type'=>'togglebox-items');
+        $processed_items = $this->process_component($items_data, $css_styles, $gjs_styles, $datastore);
+        $gjs_items = $processed_items['gjs_component'];
 
-        foreach ($component['accordion'] as $i => $acc_item) {
-            // button-------------------------------
+        // Process each accordion item
+        $accordion_items = $component['accordion'] ?? array();
+        foreach ($accordion_items as $i => $acc_item) {
+            // button — saved to $datastore by process_component
             $button = array(
                 '__type' => 'accordion_button',
-                'title' => $acc_item['title'],
+                'title' => $acc_item['title'] ?? '',
                 'subtitle' => $acc_item['subtitle'] ?? '',
                 'icon_settings' => array(
-                    'type' => $acc_item['identifier'],
-                    'icon' => $acc_item['icon'],
-                    'image' => $acc_item['image'],
-                    'image_size' => $acc_item['image_size']
+                    'type' => $acc_item['identifier'] ?? '',
+                    'icon' => $acc_item['icon'] ?? '',
+                    'image' => $acc_item['image'] ?? '',
+                    'image_size' => $acc_item['image_size'] ?? ''
                 ),
                 'itemid' => $acc_item['itemid'] ?? ''
             );
-            $this->quick_component( $button, $uf_accordion['components'][0], $gjs_accordion['components'][0], $css_styles, $gjs_styles );
+            $processed_button = $this->process_component($button, $css_styles, $gjs_styles, $datastore);
+            $gjs_nav['components'][] = $processed_button['gjs_component'];
 
-            // item----------------------------------
-            $item = array('__type'=>'togglebox-item', 'blocks_layout' => [] );
-            $this->quick_component( $item, $uf_accordion['components'][1], $gjs_accordion['components'][1], $css_styles, $gjs_styles );
+            // togglebox-item wrapper — saved to $datastore by process_component
+            // (has blocks_layout so process_layout_inner_components won't trigger without content)
+            $item = array('__type'=>'togglebox-item', 'blocks_layout' => array() );
 
-            if($acc_item['content_element'] === 'layout'){
-                $item_content = $acc_item;
-                $item_content['__type'] = 'components_wrapper';
-            } elseif($acc_item['content_element'] === 'text'){
-                $item_content = array( '__type' => 'text-editor', 'content' => $acc_item['content'] );
-            } elseif($acc_item['content_element'] === 'reusable_section'){
-                $item_content = array( '__type' => 'reusable_section', 'reusable_section' => $acc_item['reusable_section'] );
-            } else {
-                $item_content = array( '__type' => 'text-editor', 'content' => 'how to handle a page????');
+            // Build item content based on content_element type
+            $content_element = $acc_item['content_element'] ?? 'text';
+            if( $content_element === 'layout' ){
+                $item['blocks_layout'] = $acc_item['blocks_layout'] ?? array();
             }
-            $this->quick_component( $item_content, $uf_accordion['components'][1]['components'][$i], $gjs_accordion['components'][1]['components'][$i], $css_styles, $gjs_styles );
+
+            $processed_item = $this->process_component($item, $css_styles, $gjs_styles, $datastore);
+            $gjs_item = $processed_item['gjs_component'];
+
+            // For non-layout content, create a child component inside the togglebox-item
+            if( $content_element === 'text' ){
+                $item_content = array( '__type' => 'text_editor', 'content' => $acc_item['content'] ?? '' );
+                $processed_content = $this->process_component($item_content, $css_styles, $gjs_styles, $datastore);
+                $gjs_item['components'][] = $processed_content['gjs_component'];
+            } elseif( $content_element === 'reusable_section' ){
+                $item_content = array( '__type' => 'reusable_section', 'reusable_section' => $acc_item['reusable_section'] ?? '' );
+                $processed_content = $this->process_component($item_content, $css_styles, $gjs_styles, $datastore);
+                $gjs_item['components'][] = $processed_content['gjs_component'];
+            }
+
+            $gjs_items['components'][] = $gjs_item;
         }
 
-        // add attributes for funcionality
-        foreach( $gjs_accordion['components'][1]['components'] as $index => $item){
-            $id = $this->generate_id($item);
+        // Add id attributes for togglebox functionality (linking nav buttons to items)
+        foreach( $gjs_items['components'] as $index => &$gjs_item_ref ){
+            $item_id = $this->generate_id();
 
-            // nav ----------------------|
-            $gjs_accordion['components'][0]['components'][$index]['box'] = '#'.$id;
+            // nav button: set 'box' to reference the item
+            if( isset($gjs_nav['components'][$index]) ){
+                $gjs_nav['components'][$index]['box'] = '#'.$item_id;
+            }
 
-            // items --------------------|
-            $gjs_accordion['components'][1]['components'][$index]['attributes']['id'] = $id;
-            $gjs_accordion['components'][1]['components'][$index]['classes'] = array(
-                [ 'name' => 'v23-togglebox__item', 'private' => 1 ]
+            // item: set id and classes
+            $gjs_item_ref['attributes']['id'] = $item_id;
+            $gjs_item_ref['classes'] = array(
+                array( 'name' => 'v23-togglebox__item', 'private' => 1 )
             );
-            if($index === 0) {
-                $gjs_accordion['components'][1]['components'][$index]['classes'][] = [ 'name' => 'active', 'private' => 1 ];
+            if( $index === 0 ){
+                $gjs_item_ref['classes'][] = array( 'name' => 'active', 'private' => 1 );
             }
         }
+        unset($gjs_item_ref); // break reference
 
-        $gjs_component['components'] = [ $gjs_accordion ];
-        $uf_component['components'] = [ $uf_accordion ];
+        // Assemble GJS tree: togglebox-wrapper > togglebox > [nav, items]
+        $gjs_accordion['components'] = array( $gjs_nav, $gjs_items );
+        $gjs_component['components'] = array( $gjs_accordion );
 
+        // Clean up old properties from UF component (togglebox-wrapper's datastore entry)
         unset( $uf_component['accordion'] );
         unset( $uf_component['desktop_template'] );
         unset( $uf_component['desktop_accordion_template'] );
@@ -1612,45 +1655,64 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         unset( $uf_component['tab_settings'] );
     }
 
-    private function process_flipbox_components( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles ){
+    private function process_flipbox_components( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, &$datastore ){
+        // Create front face — UF data saved to $datastore by process_component
         $front = array(
             '__type' => 'flipbox-front', 
-            'settings' => $component['front_settings'],
-            'blocks_layout' => $component['front_content']['blocks_layout']
+            'settings' => $component['front_settings'] ?? array(),
+            'blocks_layout' => $component['front_content']['blocks_layout'] ?? array()
         );
-        $this->quick_component( $front, $uf_component, $gjs_component, $css_styles, $gjs_styles );
+        $processed_front = $this->process_component($front, $css_styles, $gjs_styles, $datastore);
+        $gjs_front = $processed_front['gjs_component'];
 
+        // Create back face — UF data saved to $datastore by process_component
         $back = array(
             '__type' => 'flipbox-back', 
-            'settings' => $component['back_settings'],
-            'blocks_layout' => $component['back_content']['blocks_layout']
+            'settings' => $component['back_settings'] ?? array(),
+            'blocks_layout' => $component['back_content']['blocks_layout'] ?? array()
         );
-        $this->quick_component( $back, $uf_component, $gjs_component, $css_styles, $gjs_styles );
+        $processed_back = $this->process_component($back, $css_styles, $gjs_styles, $datastore);
+        $gjs_back = $processed_back['gjs_component'];
 
-        // add some classes
-        $gjs_component['components'][0]['classes'][] = array( 'name' => 'flipbox-front', 'private' => 1 );
-        $gjs_component['components'][1]['classes'][] = array( 'name' => 'flipbox-back', 'private' => 1 );
+        // Add private classes
+        $gjs_front['classes'][] = array( 'name' => 'flipbox-front', 'private' => 1 );
+        $gjs_back['classes'][] = array( 'name' => 'flipbox-back', 'private' => 1 );
 
-        // check the content alignment for box
-        foreach ( ['front','back'] as $index => $key) {
-            $id = $uf_component['components'][$index]['__gjsAttributes']['id'];
+        // Migrate content alignment for each face
+        $faces = array( 'front' => $gjs_front, 'back' => $gjs_back );
+        foreach ( $faces as $key => &$gjs_face ) {
+            $justify_content = $component[$key.'_justify_content'] ?? 'flex-start';
+            $align_items = $component[$key.'_align_items'] ?? 'stretch';
 
-            $justify_content = $component[$key.'_justify_content'];
-            $align_items = $component[$key.'_align_items'];
+            if( $justify_content !== 'flex-start' || $align_items !== 'stretch' ){
+                // Ensure the face has an id for CSS targeting
+                $face__id = $gjs_face['__id'];
+                if( !isset($gjs_face['attributes']['id']) || empty($gjs_face['attributes']['id']) ){
+                    $face_id = $this->generate_id();
+                    $gjs_face['attributes']['id'] = $face_id;
+                } else {
+                    $face_id = $gjs_face['attributes']['id'];
+                }
 
-            $css_styles .= "#{$id} { justify-content: {$justify_content}; align-items: {$align_items}; }";
-            $gjs_styles[] = array(
-                'selectors' => array( '#' . $id ),
-                'style' => array( 
-                    'justify-content' => $justify_content,
-                    'align-items' => $align_items
-                )
-            );
+                $css_styles .= "#{$face_id} { justify-content: {$justify_content}; align-items: {$align_items}; }";
+                $gjs_styles[] = array(
+                    'selectors' => array( '#' . $face_id ),
+                    'style' => array( 
+                        'justify-content' => $justify_content,
+                        'align-items' => $align_items
+                    )
+                );
+            }
 
             unset( $uf_component[$key.'_justify_content'] );
             unset( $uf_component[$key.'_align_items'] );
         }
+        unset($gjs_face); // break reference
 
+        // GJS stores the full tree: flipbox > [front, back]
+        $gjs_component['components'] = array( $faces['front'], $faces['back'] );
+
+        // Clean up old properties
         unset( $uf_component['front_settings'] );
         unset( $uf_component['back_settings'] );
         unset( $uf_component['front_content'] );
@@ -1832,7 +1894,6 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             );
 
             $gjs_component['attributes']['id'] = $id;
-            $uf_component['__gjsAttributes'] = array( 'id' => $id );
         }
 
         // add spacer class
@@ -1849,109 +1910,90 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         unset( $uf_component['_shortcodes_wrapper'] );
     }
 
-    private function process_icon_and_text_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
+    private function process_icon_and_text_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id, &$datastore ){
         // RENAME AND MAP OLD PROPERTIES
-        $alignment = ( $uf_component['iposition'] == 'top' ) ? $uf_component['itopalign'] : $uf_component['ialign'];
+        $iposition = $component['iposition'] ?? 'left';
+        $alignment = ( $iposition == 'top' ) ? ($component['itopalign'] ?? 'center') : ($component['ialign'] ?? 'left');
         $alignment_dictionary = array(
             'left' => 'flex-start',
             'center' => 'center',
             'right' => 'flex-end',
             'flex-start' => 'flex-start',
             'flex-end' => 'flex-end',
-            'center' => 'center'
         );
-        $uf_component['ialignment'] = $alignment_dictionary[$alignment];
-        $uf_component['isource'] = ( $uf_component['ielement'] == 'imagen' ) ? 'image' : 'icon';
-        if( isset($uf_component['horizontal_alignment']) && $uf_component['horizontal_alignment'] ){
+        $uf_component['ialignment'] = $alignment_dictionary[$alignment] ?? 'flex-start';
+        $uf_component['isource'] = ( ($component['ielement'] ?? 'icon') == 'imagen' ) ? 'image' : 'icon';
+        if( isset($component['horizontal_alignment']) && $component['horizontal_alignment'] ){
             $uf_component['content_alignment'] = 'center';
         }
 
-        // ULTIMATE FIELDS COMPONENT STRUCTURE
-        $content__id = 'cmp_' . substr(md5(uniqid()), 0, 8);
-        $id = $this->generate_id($component);
+        // Save icon style values before cleanup
+        $istyle = $component['istyle'] ?? 'default';
 
-        $uf_component['components'] = array(
-            array(
-                '__type' => 'icon-wrapper',
-                '__id' => 'cmp_' . substr(md5(uniqid()), 0, 8),
-                'components' => array(
-                    array(
-                        '__type' => 'icon',
-                        '__id' => 'cmp_' . substr(md5(uniqid()), 0, 8),
-                        '__gjsAttributes' => array( 'id' => $id ),
-                    )
-                )
-            ),
-            array(
-                '__type' => 'components-wrapper',
-                '__id' => 'cmp_' . substr(md5(uniqid()), 0, 8),
-                'components' => array(
-                    array(
-                        '__type' => 'text-editor',
-                        'content' => $uf_component['content'],
-                        '__id' => $content__id,
-                    )
-                )
-            )
-        );
+        // Generate icon HTML id (separate from parent's $id to avoid CSS collision)
+        $icon_id = $this->generate_id();
 
-        // GRAPEJS COMPONENT STRUCTURE
-        $gjs_component['components'] = array(
-            array(
-                'type' => 'icon-wrapper',
-                'components' => array(
-                    array(
-                        'type' => 'icon',
-                        'attributes' => array( 'id' => $id )
-                    )
-                )
-            ),
-            array(
-                'type' => 'components-wrapper',
-                'components' => array(
-                    array(
-                        'type' => 'text-editor',
-                        '__id' => $content__id,
-                    )
-                )
-            )
-        );
+        // Create icon child — saved to $datastore by process_component
+        $icon_data = array( '__type' => 'icon' );
+        $processed_icon = $this->process_component( $icon_data, $css_styles, $gjs_styles, $datastore );
+        $gjs_icon = $processed_icon['gjs_component'];
+        $gjs_icon['attributes']['id'] = $icon_id;
+
+        // Create icon-wrapper — saved to $datastore by process_component
+        $icon_wrapper_data = array( '__type' => 'icon-wrapper' );
+        $processed_icon_wrapper = $this->process_component( $icon_wrapper_data, $css_styles, $gjs_styles, $datastore );
+        $gjs_icon_wrapper = $processed_icon_wrapper['gjs_component'];
+        $gjs_icon_wrapper['components'] = array( $gjs_icon );
+
+        // Create text-editor child — saved to $datastore by process_component
+        $text_data = array( '__type' => 'text_editor', 'content' => $component['content'] ?? '' );
+        $processed_text = $this->process_component( $text_data, $css_styles, $gjs_styles, $datastore );
+        $gjs_text = $processed_text['gjs_component'];
+
+        // Create components-wrapper — saved to $datastore by process_component
+        $wrapper_data = array( '__type' => 'components-wrapper' );
+        $processed_wrapper = $this->process_component( $wrapper_data, $css_styles, $gjs_styles, $datastore );
+        $gjs_wrapper = $processed_wrapper['gjs_component'];
+        $gjs_wrapper['components'] = array( $gjs_text );
+
+        // GJS stores the full tree: icon-and-text > [icon-wrapper > [icon], components-wrapper > [text-editor]]
+        $gjs_component['components'] = array( $gjs_icon_wrapper, $gjs_wrapper );
 
         // ADD ICON STYLES
-        $css_styles .= "#{$id} { ";
+        $css_styles .= "#{$icon_id} { ";
         $gjs_style = array(
-            'selectors' => array( '#' . $id ),
+            'selectors' => array( '#' . $icon_id ),
             'style' => array()
         );
 
-        if( isset( $component['ifontsize'] ) && $component['ifontsize'] != '' && $component['ifontsize'] != 40 ){
-            $css_styles .= "--icon-size: {$component['ifontsize']}px; ";
-            $gjs_style['style']['--icon-size'] = $component['ifontsize'] . 'px';
+        $ifontsize = $component['ifontsize'] ?? '';
+        if( $ifontsize != '' && $ifontsize != 40 ){
+            $css_styles .= "--icon-size: {$ifontsize}px; ";
+            $gjs_style['style']['--icon-size'] = $ifontsize . 'px';
         }
-        if( isset( $component['icolor'] ) ){
-            $color = ( $component['icolor'] != '' ) ? $component['icolor'] : '';
-            $css_styles .= "color: {$color}; ";
-            $gjs_style['style']['color'] = $color;
+        $icolor = $component['icolor'] ?? '';
+        if( $icolor != '' ){
+            $css_styles .= "color: {$icolor}; ";
+            $gjs_style['style']['color'] = $icolor;
         }
 
-        if( $uf_component['istyle'] != 'default' ){
-            // if( isset( $component['ihas_bgc'] ) && $component['ihas_bgc'] ){
-                $bgc = ( isset( $component['ibgc'] ) && $component['ibgc'] != '' ) ? $component['ibgc'] : 'var(--primary-color)';
-                $css_styles .= "background-color: {$bgc}; ";
-                $gjs_style['style']['background-color'] = $bgc;
-            // }
+        if( $istyle != 'default' ){
+            $bgc = ( isset( $component['ibgc'] ) && $component['ibgc'] != '' ) ? $component['ibgc'] : 'var(--primary-color)';
+            $css_styles .= "background-color: {$bgc}; ";
+            $gjs_style['style']['background-color'] = $bgc;
 
-            $css_styles .= "padding: 20px; border-radius: 50%; ";
+            $css_styles .= "padding: 20px; ";
             $gjs_style['style']['padding'] = '20px';
 
-            $borderRadius = ( $uf_component['istyle'] == 'square-outline' ) ? '8px' : '50%';
+            $borderRadius = ( $istyle == 'square-outline' ) ? '8px' : '50%';
+            $css_styles .= "border-radius: {$borderRadius}; ";
             $gjs_style['style']['border-radius'] = $borderRadius;
         }
 
         $use_border = ['circle-outline', 'square-outline'];
-        if( in_array( $uf_component['istyle'], $use_border ) ){
+        if( in_array( $istyle, $use_border ) ){
             $css_styles .= "border-width: 2px; border-style: solid; ";
-            $gjs_style['style']['border-width'] = '2px';;
+            $gjs_style['style']['border-width'] = '2px';
             $gjs_style['style']['border-style'] = 'solid';
         }
 
@@ -1965,6 +2007,8 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         unset( $uf_component['ialign'] );
         unset( $uf_component['ielement'] );
         unset( $uf_component['content'] );
+        // unset( $uf_component['iposition'] );
+        // unset( $uf_component['horizontal_alignment'] );
         
         unset( $uf_component['istyle'] );
         unset( $uf_component['ifontsize'] );
@@ -1973,7 +2017,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         unset( $uf_component['ibgc'] );
     }
 
-    private function handle_settings( &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
+    private function handle_settings( &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id, &$datastore ){
         if( !isset( $uf_component['settings'] ) || !is_array( $uf_component['settings'] ) ){
             return;
         }
@@ -1987,31 +2031,42 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             $layout = $uf_component['settings']['layout']['key'];
 
             $special_layouts = array( 'layout2', 'layout3' );
-            $dont_doit_for = array( 'section', 'components-wrapper', 'column', 'inner_wrapper' ); // inner_wrapper?
-            $component_type = $uf_component['__type'];
             if( in_array( $layout, $special_layouts )  ){
+                $dont_doit_for = array( 'section', 'components-wrapper', 'column', 'inner_wrapper' ); // inner_wrapper?
+                $component_type = $uf_component['__type'];
                 if( !in_array( $component_type, $dont_doit_for ) ){
-                    $__id = 'cmp_' . substr(md5(uniqid()), 0, 8); // to connect gjs with uf component
-
-                    unset( $gjs_component['attributes'] );
-                    $gj_comp_wrapper = array(
-                        'type' => 'components-wrapper',
-                        'components' => array( $gjs_component ),
-                        '__id' => $__id,
-                        'attributes' => array( 'id' => $id )
-                    );
-                    $gjs_component = $gj_comp_wrapper;
-                    
-                    unset( $uf_component['__gjsAttributes'] );
+                    // just remove layout setting for these components, no need to wrap
                     unset( $uf_component['settings']['layout'] );
-                    $uf_comp_wrapper = array(
-                        '__type' => 'components-wrapper',
-                        'components' => array( $uf_component ),
-                        '__id' => $__id,
-                        '__gjsAttributes' => array( 'id' => $id )
-                    );
-                    $uf_comp_wrapper['settings']['layout'] = array( 'use' => 1, 'key' => $layout );
-                    $uf_component = $uf_comp_wrapper;
+
+        //             // Get the child's __id before modifying
+        //             $child__id = $gjs_component['__id'];
+                    
+        //             // Save the child component to datastore BEFORE wrapping
+        //             $child_uf = $uf_component;
+                    // unset( $child_uf['settings']['layout'] ); // remove layout from child
+        //             unset( $child_uf['components'] ); // datastore doesn't store structure
+        //             $datastore[$child__id] = $child_uf;
+
+        //             // Generate new __id for the wrapper
+        //             $wrapper__id = 'cmp_' . substr(md5(uniqid()), 0, 8);
+
+        //             // Create GJS wrapper
+        //             unset( $gjs_component['attributes'] );
+        //             $gjs_comp_wrapper = array(
+        //                 'type' => 'components-wrapper',
+        //                 'components' => array( $gjs_component ),
+        //                 '__id' => $wrapper__id,
+        //                 'attributes' => array( 'id' => $id )
+        //             );
+        //             $gjs_component = $gjs_comp_wrapper;
+                    
+        //             // Create UF wrapper (will be saved to datastore by process_component)
+        //             $uf_comp_wrapper = array(
+        //                 '__type' => 'components-wrapper',
+        //                 '__id' => $wrapper__id
+        //             );
+        //             $uf_comp_wrapper['settings']['layout'] = array( 'use' => 1, 'key' => $layout );
+        //             $uf_component = $uf_comp_wrapper;
                 }
             }
         }
@@ -2053,16 +2108,16 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
         // rename settings.video_background.video_settings.background_color to settings.video_background.video_settings.bgc
         if( 
-            isset( $uf_component['settings']['video_background'] ) 
+            isset( $uf_component['settings']['video_background'] )
             && is_array( $uf_component['settings']['video_background'] )
             && isset( $uf_component['settings']['video_background']['video_settings'] )
             && is_array( $uf_component['settings']['video_background']['video_settings'] )
             && isset( $uf_component['settings']['video_background']['video_settings']['background_color'] )
             ){
-            $bgc = $uf_component['settings']['video_background']['video_settings']['background_color'];
-            $uf_component['settings']['video_background']['video_settings']['bgc'] = $bgc;
-
-            unset( $uf_component['settings']['video_background']['video_settings']['background_color'] );
+                $bgc = $uf_component['settings']['video_background']['video_settings']['background_color'];
+                $uf_component['settings']['video_background']['video_settings']['bgc'] = $bgc;
+                $uf_component['settings']['video_background']['use'] = true; // ensure 'use' is true if video background settings exist
+                unset( $uf_component['settings']['video_background']['video_settings']['background_color'] );
         }
     }
 
@@ -2091,12 +2146,6 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
             unset( $uf_component['actions_settings']['actions'] );
         }
-    }
-
-    private function quick_component($data, &$uf_parent, &$gjs_parent, &$css_styles, &$gjs_styles ){
-        $created_comp = $this->process_component($data, $css_styles, $gjs_styles);
-        $gjs_parent['components'][] = $created_comp['gjs_component'];
-        $uf_parent['components'][] = $created_comp['uf_component'];
     }
 
     private function migrate_colors_settings() {

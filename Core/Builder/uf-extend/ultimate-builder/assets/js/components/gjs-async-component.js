@@ -10,34 +10,44 @@ window.gjsAsyncComponent = function (editor, options) {
                 __action: 'get_component_view',
                 __additionalData: {},
                 __additionalDataCallback: null,
+                __onSuccessCallback: null,
             },
         },
         view: {
             onRender({el, model}) {
-                const datastore = editor.getComponentDatastore(model);
+                const asyncData = {},
+                    datastore = editor.getComponentDatastore(model);
                 
 				if (datastore) {
-                    const data = datastore.toJSON();
-                    data['action'] = model.get('__action');
-                    Object.assign(data, model.get('__additionalData'));
-                    if (typeof model.get('__additionalDataCallback') === 'function') {
-                        const callbackData = model.get('__additionalDataCallback')(model, editor);
-                        Object.assign(data, callbackData);
-                    }
-
-                    jQuery.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        url: MV23_GLOBALS.ajaxUrl,
-                        data: data,
-                        success: function(response) {
-                            el.innerHTML = response.data;
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(`Error loading ${model.get('name')} component view:`, error);
-                        }
-                    });
+                    Object.assign(asyncData, datastore.toJSON());
                 }
+
+                asyncData['type'] = model.get('type');
+                asyncData['action'] = model.get('__action');
+                Object.assign(asyncData, model.get('__additionalData'));
+                
+                // additional data via callback, must return an object
+                if (typeof model.get('__additionalDataCallback') === 'function') {
+                    const callbackData = model.get('__additionalDataCallback')(model, editor);
+                    Object.assign(asyncData, callbackData);
+                }
+
+                jQuery.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: BUILDER_GLOBALS.ajax_url,
+                    data: asyncData,
+                    success: function(response) {
+                        if (typeof model.get('__onSuccessCallback') === 'function') {
+                            model.get('__onSuccessCallback')(response, model, editor);
+                        } else {
+                            el.innerHTML = response.data;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(`Error loading ${model.get('name')} component view:`, error);
+                    }
+                });
             },
         },
     });

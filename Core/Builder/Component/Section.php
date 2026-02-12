@@ -4,6 +4,7 @@ namespace Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
+use Core\Builder\Core as Builder_Core;
 
 class Section extends Component {
 
@@ -35,7 +36,6 @@ class Section extends Component {
 
 		$args['additional_classes'][] = 'page-module';
         
-	    $components = $args['components'] ?? array();
         $attributes = Template_Engine::generate_attributes( $args );
 
 		ob_start();
@@ -45,11 +45,7 @@ class Section extends Component {
         echo Template_Engine::check_video_background( $args );
         echo Template_Engine::check_slider_background( $args );
         echo Template_Engine::check_layout('start', $args);
-
-		foreach ($components as $component) {
-			echo Template_Engine::getInstance()->handle( $component['__type'], $component );
-		}
-		
+		echo Template_Engine::check_components( $args );
         echo Template_Engine::check_layout('end', $args);
         do_action( 'before_component_wrapper_end', $args );
         echo '</section>';

@@ -11,10 +11,6 @@ Class Classes{
         if( isset($args['__type']) && $args['__type'] != '' && gettype($args['__type']) == 'string' ){
             $classes[] = str_replace('_','-',$args['__type']);
         }
-
-        if (isset($args['classes']) && is_array($args['classes']) && !empty($args['classes'])){
-            $classes = array_merge( $args['classes'], $classes );
-        }
         
         if (isset($args['additional_classes']) && is_array($args['additional_classes']) && !empty($args['additional_classes'])){
             $classes = array_merge( $args['additional_classes'], $classes );
@@ -23,10 +19,6 @@ Class Classes{
         if( isset($args['settings']['classes']) && !empty($args['settings']['classes']) ){
             $classes = array_merge( $classes, explode(' ', $args['settings']['classes']) );
         } 
-
-        if (isset($args['theme_clases']) && !empty($args['theme_clases']) && $args['theme_clases'][0] != '' ){
-            $classes = array_merge($classes, $args['theme_clases']);
-        }
 
         if (isset($args['settings']['helpers']) && !empty($args['settings']['helpers']['list']) ){
             $classes = array_merge($classes, $args['settings']['helpers']['list']);

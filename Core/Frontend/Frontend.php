@@ -13,6 +13,7 @@ use Core\Theme_Options\Theme_Options;
 use Core\Builder\Template_Engine\Scroll_Animations;
 use Core\Builder\Template_Engine\Id;
 use Core\Builder\Template_Engine\Classes;
+use Core\Builder\Core as Builder_Core;
 
 class Frontend extends Theme_Header_Data {
 
@@ -238,9 +239,9 @@ class Frontend extends Theme_Header_Data {
 
     public function body_class( $classes ) {
         $page = new Page();
-        $page_content_components = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content_components', true) : null;
-        if( is_array($page_content_components) && !empty($page_content_components) && isset($page_content_components[0]) ) {
-            $page_component = $page_content_components[0];
+        $page_content = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content', true) : null;
+        if( is_array($page_content) && !empty($page_content) && isset($page_content[0]) ) {
+            $page_component = $page_content[0];
 
             $classes_from_component = Classes::get_classes( $page_component );
             if( is_array( $classes_from_component ) && !empty( $classes_from_component ) ){
@@ -260,28 +261,43 @@ class Frontend extends Theme_Header_Data {
         return $classes;
     }
 
-    public function body_id(){
+    /**
+     * Returns the wrapper component with its datastore merged
+     * 
+     * @param int|null $id Optional post ID
+     * @return array|null Wrapper component with datastore or null
+     */
+    public function get_wrapper( $id = null ){
         $page = new Page();
-        $id = null;
+        $page_ID = ($id) ? $id : $page->get_id();
+        if ( $page_ID === null ) return null;
 
-        $page_content_components = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content_components', true) : null;
-        if( is_array($page_content_components) && !empty($page_content_components) && isset($page_content_components[0]) ) {
-            $page_component = $page_content_components[0];
-            $id = Id::get_id( $page_component );
-        }
+        $page_content = get_post_meta( $page_ID, 'page_content', true );
+        if ( !is_array($page_content) || empty($page_content) ) return null;
+
+        $wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
+        if ( !$wrapper ) return null;
+
+        $wrapper['__post_id'] = $page_ID;
+        $wrapper_datastore = Builder_Core::getInstance()->get_component_datastore( $wrapper );
+        
+        return array_merge( $wrapper, $wrapper_datastore );
+    }
+
+    public function body_id(){
+        $wrapper = $this->get_wrapper();
+        $id = ($wrapper) ? Id::get_id( $wrapper ) : null;
 
         echo ($id) ? 'id="'.$id.'"' : '';
     }
 
     public function body_attributes(){
-        $page = new Page();
+        $wrapper = $this->get_wrapper();
         $styles = [];
         $attributes = [];
 
-        $page_content_components = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content_components', true) : null;
-        if( is_array($page_content_components) && !empty($page_content_components) && isset($page_content_components[0]) ) {
-            $page_component = $page_content_components[0];
-            $remove_padding_top = $page_component['remove_padding_top'] ?? false;
+        if( $wrapper ) {
+            $remove_padding_top = $wrapper['remove_padding_top'] ?? false;
             if( $remove_padding_top ){
                 $styles[] = 'padding-top:0px;';
             }
@@ -298,10 +314,9 @@ class Frontend extends Theme_Header_Data {
                 array_push($animation_groups['groups'], ...$global_animations['groups']);
             }
 
-            // Look for scroll animations settings in the page component and merge with global if found
-            if( is_array($page_content_components) && !empty($page_content_components) && isset($page_content_components[0]) ) {
-                $page_component = $page_content_components[0];
-                $page_animations = $page_component['scroll_animations_settings'] ?? null;
+            // Look for scroll animations settings in the wrapper and merge with global if found
+            if( $wrapper ) {
+                $page_animations = $wrapper['scroll_animations_settings'] ?? null;
                 if( is_array($page_animations) && !empty($page_animations) ){
                     array_push($animation_groups['groups'], ...$page_animations['groups']);
                 }

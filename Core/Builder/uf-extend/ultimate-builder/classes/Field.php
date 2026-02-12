@@ -76,7 +76,7 @@ class Field extends Repeater {
 	 */
 	public function export_data() {    
         $builder_data = $this->get_value( $this->name );
-        $components_data_raw = $this->get_value( $this->name.'_components' );
+        $components_data_raw = $this->get_value( $this->name.'_datastore' );
         $styles = $this->get_value( $this->name.'_styles' );
 		
 		# Use the default value if needed
@@ -89,10 +89,16 @@ class Field extends Repeater {
 		// and "prepare" files previews
 		$components_data = array();
 		if( is_array($components_data_raw) ){
-			foreach( $components_data_raw as $component){
-				$processed_component = $this->export_component_recursively( $component );
-				if( $processed_component !== null ){
-					$components_data[] = $processed_component;
+			foreach( $components_data_raw as $__id => $component_data){
+				if ( isset($this->groups[ $component_data[ '__type' ] ]) ){
+					$datastore = new Group_Datastore( $component_data );
+					$datastore = apply_filters( 'uf.ultimate_builder.group_datastore', $datastore, $component_data, $this );
+
+					# Get the datastore and export data
+					$group = $this->groups[ $component_data[ '__type' ] ];
+					$group->set_datastore( $datastore );
+					$group_processed_values = $group->export_data();
+					$components_data[$__id] = $group_processed_values;
 				}
 			}
 		}
@@ -102,7 +108,7 @@ class Field extends Repeater {
 
 		return array(
 			$this->name => $builder_data,
-			$this->name.'_components' => $components_data,
+			$this->name.'_datastore' => $components_data,
 			$this->name.'_styles' => $styles,
 			$this->name.'_builder_link' => $builder_link,
 			$this->name.'_theme_styles' => $this->get_styles(),
@@ -110,48 +116,6 @@ class Field extends Repeater {
 			$this->name.'_gjs_plugins' => $this->get_gjs_plugins(),
 			$this->name.'_theme_fonts' => $this->get_theme_fonts(),
 		);
-	}
-
-	private function export_component_recursively( $component ) {
-		if( !isset( $component['__type'] ) || empty( $component['__type'] ) ){
-			return null;
-		}
-
-		if( isset( $this->groups[ $component['__type'] ] ) ){
-			$datastore = new Group_Datastore( $component );
-			$datastore = apply_filters( 'uf.ultimate_builder.group_datastore', $datastore, $component, $this );
-
-			# Get the datastore and export data
-			$group = $this->groups[ $component[ '__type' ] ];
-			$group->set_datastore( $datastore );
-			$group_processed_values = $group->export_data();
-			$group_processed_values['__id'] = $component['__id'];
-			
-			// if is set an attribute starting with "__gjs", save it too
-			// e.g. __gjsAttributes, __gjs_data_breakpoints, etc
-			foreach( $component as $key => $value ){
-				if( strpos( $key, '__gjs') === 0 ){
-					$group_processed_values[ $key ] = $value;
-				}
-			}
-
-		} else {
-			// component type not registered is a grapesjs built-in component
-			$group_processed_values = $component;
-		}
-
-		// if component has sub-components, process them recursively
-		if( isset( $component['components'] ) && is_array( $component['components'] ) ){
-			$group_processed_values['components'] = array();
-			foreach( $component['components'] as $sub_component ){
-				$processed_sub_component = $this->export_component_recursively( $sub_component );
-				if( $processed_sub_component !== null ){
-					$group_processed_values['components'][] = $processed_sub_component;
-				}
-			}
-		}
-
-		return $group_processed_values;
 	}
 
     /**
@@ -170,7 +134,7 @@ class Field extends Repeater {
         $components_data = array();
 		$builder_styles = '';
 
-        // error_log( print_r( $source, true ) );
+        // error_log( print_r( $source[ $this->name ]['components_data'], true ) );
 
         if( isset( $source[ $this->name ] ) ){
             if( isset( $source[ $this->name ]['builder_data'] ) ){
@@ -180,11 +144,20 @@ class Field extends Repeater {
             if( isset( $source[ $this->name ]['components_data'] ) ){
                 $components_data_raw = $source[ $this->name ]['components_data'];
 
-				// process components recursively to save their data with correct "merged fields" values
-				foreach( $components_data_raw as $component){
-					$processed_component = $this->save_component_recursively( $component );
-					if( $processed_component !== null ){
-						$components_data[] = $processed_component;
+				// process components to save their data with correct "merged fields" values
+				foreach( $components_data_raw as $__id => $component_data){
+					if( 
+						isset( $component_data['__type'] ) &&
+						$component_data['__type'] != '' &&
+						isset( $this->groups[ $component_data['__type'] ] )
+						){	
+						$group = $this->groups[ $component_data[ '__type' ] ];
+						$group->save( $component_data );
+						$group_processed_values = $group->get_datastore()->get_values();
+
+						do_action( 'uf.ultimate_builder.save_component', $group_processed_values, $component_data, $group, $this );
+
+						$components_data[$__id] = $group_processed_values;
 					}
 				}
             }
@@ -195,56 +168,8 @@ class Field extends Repeater {
 		}
 
 		$this->datastore->set( $this->name, $builder_data );
-		$this->datastore->set( $this->name.'_components', $components_data );
+		$this->datastore->set( $this->name.'_datastore', $components_data );
 		$this->datastore->set( $this->name.'_styles', $builder_styles );
-	}
-
-	/**
-	 * Process a component recursively, handling nested components
-	 *
-	 * @since 1.0
-	 *
-	 * @param array $component The component data to process
-	 * @return array|null The processed component data or null if invalid
-	 */
-	private function save_component_recursively( $component ) {
-		if( !isset( $component['__type'] ) || empty( $component['__type'] ) ){
-			return null;
-		}
-
-		if( isset( $this->groups[ $component['__type'] ] ) ){	
-			$group = $this->groups[ $component[ '__type' ] ];
-			$group->save( $component );
-			$group_processed_values = $group->get_datastore()->get_values();
-			$group_processed_values['__id'] = $component['__id'];
-
-			do_action( 'uf.ultimate_builder.save_component', $group_processed_values, $component, $group, $this );
-
-			// if is set an attribute starting with "__gjs", save it too
-			// e.g. __gjsAttributes, __gjs_data_breakpoints, etc.
-			foreach( $component as $key => $value ){
-				if( strpos( $key, '__gjs') === 0 ){
-					$group_processed_values[ $key ] = $value;
-				}
-			}
-
-		} else {
-			// component type not registered is a grapesjs built-in component
-			$group_processed_values = $component;
-		}
-
-		// if component has sub-components, process them recursively
-		if( isset( $component['components'] ) && is_array( $component['components'] ) ){
-			$group_processed_values['components'] = array();
-			foreach( $component['components'] as $sub_component ){
-				$processed_sub_component = $this->save_component_recursively( $sub_component );
-				if( $processed_sub_component !== null ){
-					$group_processed_values['components'][] = $processed_sub_component;
-				}
-			}
-		}
-
-		return $group_processed_values;
 	}
 
 	/**

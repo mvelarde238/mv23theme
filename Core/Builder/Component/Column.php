@@ -3,6 +3,7 @@ namespace Core\Builder\Component;
 
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
+use Core\Builder\Core as Builder_Core;
 
 class Column extends Component {
 
@@ -37,13 +38,7 @@ class Column extends Component {
 
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
-
-		if( isset($args['components']) ){
-			foreach ($args['components'] as $component) {
-				echo Template_Engine::getInstance()->handle( $component['__type'], $component );
-			}
-		}
-
+		echo Template_Engine::check_components( $args );
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}

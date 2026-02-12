@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.2.0 26-02-12
+- page_content_datastore meta implementation
+
 3.1.3 26-02-05
 - Archive Page Structure Implementation
 - Single Page Structure Revision

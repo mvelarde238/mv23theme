@@ -210,23 +210,9 @@
 
             return blocksControl;
         },
-        // Helper method to search component recursively
+        // Helper method to find component in flat data structure (__id => data)
         findComponentById: function (data, id) {
-            if (!Array.isArray(data)) return null;
-            
-            for (const item of data) {
-                if (item.__id === id) {
-                    return item;
-                }
-                
-                // Search in nested components if they exist
-                if (item.components && Array.isArray(item.components)) {
-                    const found = this.findComponentById(item.components, id);
-                    if (found) return found;
-                }
-            }
-            
-            return null;
+            return data?.[id] ?? null;
         },
         // READ
         add_existing_content: function (editor) {
@@ -294,16 +280,14 @@
             });
         },
         prepare_project_data: function (raw_project_data, temporalCompStore, editor) {
-            const components_data = [];
+            const components_data = {}; // Flat object: __id => data
             const builder_data = JSON.parse(JSON.stringify(raw_project_data)); // Deep clone
 
             // Recursive function to process components
-            const processComponents = (components, builderComponents, isTopLevel = true) => {
+            const processComponents = (components, builderComponents) => {
                 if (!Array.isArray(components) || !Array.isArray(builderComponents)) {
-                    return [];
+                    return;
                 }
-
-                const processedComponents = [];
 
                 for (let i = 0; i < components.length; i++) {
                     const component = components[i];
@@ -313,13 +297,9 @@
                     const compId = component.__id ?? this.generateId();
                     builderComponent.__id = compId; // this is the connection between builder data and datastore
 
-                    // datastore will store: component type, unique id, datastore and custom "selector attributes"
+                    // datastore will store: component type, unique id, datastore
                     const __type = component.type;
-                    let componentDataStore = {
-                        __type: __type,
-                        __id: compId,
-                        __gjsAttributes: component.attributes
-                    };
+                    let componentDataStore = {};
 
                     // Add datastore if it exists
                     const __tempID = component.__tempID;
@@ -341,14 +321,6 @@
                             delete builderComponent[key];
                         }
                     }
-                    
-                    // if uf component has a property starting with "__gjs_", copy it to datastore
-                    // e.g. __gjs_data_breakpoints in togglebox-wrapper
-                    for (const key in component) {
-                        if (key.startsWith('__gjs_')) {
-                            componentDataStore[key] = component[key];
-                        }
-                    }
 
                     /**
                      * Filter: builder_component_cleanup
@@ -359,38 +331,28 @@
                      *   - builderComponent: GrapesJS component data
                      *   - component: Raw component from editor
                      *   - __type: Component type identifier
-                     *   - isTopLevel: Boolean indicating if component is at root level
                      */
                     UltimateFields.applyFilters('builder_component_cleanup', {
                         componentDataStore: componentDataStore,
                         builderComponent: builderComponent,
                         component: component,
-                        __type: __type,
-                        isTopLevel: isTopLevel
+                        __type: __type
                     });
 
-                    // Add components array if it has nested components
+                    // Add to components_data with __id as key if it
+                    if(componentDataStore.__type) components_data[compId] = componentDataStore;
+
+                    // Process nested components recursively
                     if (component.components && Array.isArray(component.components) && component.components.length > 0) {
                         if (!builderComponent.components) {
                             builderComponent.components = [];
                         }
-                        
-                        // Process nested components recursively (not top level)
-                        componentDataStore.components = processComponents(component.components, builderComponent.components, false);
-                    }
-
-                    // Add to the appropriate array
-                    if (isTopLevel) {
-                        components_data.push(componentDataStore);
-                    } else {
-                        processedComponents.push(componentDataStore);
+                        processComponents(component.components, builderComponent.components);
                     }
                 }
-
-                return processedComponents;
             };
 
-            // Process all pages and their frames
+            // Process all gjs pages and their frames
             if (builder_data.pages && Array.isArray(builder_data.pages)) {
                 for (let pageIndex = 0; pageIndex < raw_project_data.pages.length; pageIndex++) {
                     const page = raw_project_data.pages[pageIndex];
@@ -401,39 +363,11 @@
                             const frame = page.frames[frameIndex];
                             const builderFrame = builderPage.frames[frameIndex];
 
-                            if (frame.component) {
+                            if (frame.component?.type) {
                                 if (!builderFrame.component) {
                                     builderFrame.component = {};
                                 }
-                                
-                                // Process the wrapper/body component itself first
-                                if (frame.component.type) {
-                                    const wrapperComponent = {
-                                        type: frame.component.type,
-                                        attributes: frame.component.attributes || {},
-                                        __id: frame.component.__id,
-                                        __tempID: frame.component.__tempID,
-                                        components: frame.component.components || []
-                                    };
-                                    
-                                    let builderWrapperComponent = {
-                                        type: frame.component.type,
-                                        attributes: frame.component.attributes || {},
-                                        components: builderFrame.component.components || []
-                                    };
-                                    
-                                    // Process the wrapper as a top-level component
-                                    processComponents([wrapperComponent], [builderWrapperComponent], true);
-                                    
-                                    // Update the builder frame component with processed data
-                                    Object.assign(builderFrame.component, builderWrapperComponent);
-                                // } else if (frame.component.components) {
-                                    // Fallback: process only nested components if wrapper has no type
-                                    // if (!builderFrame.component.components) {
-                                        // builderFrame.component.components = [];
-                                    // }
-                                    // processComponents(frame.component.components, builderFrame.component.components, true);
-                                }
+                                processComponents([frame.component], [builderFrame.component]);
                             }
                         }
                     }

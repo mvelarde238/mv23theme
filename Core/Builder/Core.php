@@ -152,7 +152,7 @@ class Core{
     }
 
     public function init_components(){
-        $this->add_core_components_on_demand();
+        // $this->add_core_components_on_demand();
 
         do_action('theme_init_components');
 
@@ -236,7 +236,7 @@ class Core{
 
     /** AJAX Handlers
      * used for the builder to get the component view
-     * for ajaxified components rendering
+     * for async components rendering
      * 
      * apply_filters & filters_to_apply: flags to apply filters before getting the component view
      * used on theme options data changes to imitate the Customizer behavior
@@ -253,9 +253,13 @@ class Core{
             }
         }
 
-        $component_view = Template_Engine::getInstance()->handle( $_REQUEST['__type'], $_REQUEST );
-        $result = $component_view ? $component_view : '';
-        wp_send_json_success($result);
+        if( isset( $_REQUEST['type'] ) ) {
+            $component_view = Template_Engine::getInstance()->handle( $_REQUEST );
+            $result = $component_view ? $component_view : '';
+            wp_send_json_success($result);
+        } else {
+            wp_send_json_success('--ajax response--');
+        }
     }
 
     /**
@@ -280,5 +284,15 @@ class Core{
         }
         
         return $post_types;
+    }
+
+    public function get_component_datastore( $component ){
+        $post_id = (isset($component['__post_id']) && $component['__post_id']) ? $component['__post_id'] : get_the_ID();
+        $content_datastore = get_post_meta( $post_id, 'page_content_datastore', true );
+        $__id = $component['__id'] ?? null;
+        $datastore = (is_array($content_datastore) && isset($content_datastore[$__id])) ? 
+            $content_datastore[$__id] :
+            array();
+        return $datastore;
     }
 }

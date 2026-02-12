@@ -76,7 +76,7 @@ if( !defined('LISTING_POST_TEMPLATE') ){
 
 if( !defined('ULTIMATE_FIELDS_DISABLE_UI') ) define ('ULTIMATE_FIELDS_DISABLE_UI', true);
 if( !defined('DEFAULT_TEXT_COLOR') ) define( 'DEFAULT_TEXT_COLOR', 'text-color-default');
-if( !defined('BUILDER_DEV_MODE') ) define ('BUILDER_DEV_MODE', false);
+if( !defined('BUILDER_DEV_MODE') ) define ('BUILDER_DEV_MODE', true);
 
 if( !defined('CARD') ) define ('CARD', false);
 if( !defined('SIMPLE_COLUMNS') ) define ('SIMPLE_COLUMNS', false);

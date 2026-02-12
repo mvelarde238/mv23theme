@@ -33,11 +33,11 @@ class Button extends Component {
             Field::create( 'text', 'text', __('Button Text', 'mv23theme') )
                 ->required()
                 ->set_default_value( 'I am a button' ),
-            Field::create( 'select', 'style', __('Style', 'mv23theme'))
+            Field::create( 'select', 'button_style', __('Style', 'mv23theme'))
                 ->add_options( $button_styles )
                 ->set_default_value( 'btn btn--main-color' ),
     
-            Field::create( 'radio', 'type',__('Type', 'mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
+            Field::create( 'radio', 'button_type',__('Type', 'mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
                 'link' => 'Link',
                 'download' => 'Descarga',
             )),
@@ -70,7 +70,7 @@ class Button extends Component {
                 'big' => __('Grande', 'mv23theme')
             ))->set_orientation( 'horizontal' ),
             Field::create( 'checkbox', 'fullwidth', __('Botón de ancho completo', 'mv23theme') )->set_text( __('Activar', 'mv23theme') ),
-            Field::create( 'repeater', 'attributes', __('Attributos', 'mv23theme') )->set_add_text(__('Agregar', 'mv23theme'))
+            Field::create( 'repeater', 'button_attributes', __('Attributos', 'mv23theme') )->set_add_text(__('Agregar', 'mv23theme'))
                 ->set_layout( 'grid' )
                 ->add_group('item', array(
                     'title_template' => '<%= attribute %> : <%= value %>',
@@ -90,11 +90,11 @@ class Button extends Component {
 		$args['additional_classes'][] = 'component';
         $args['__type'] = 'button-cmp';
 
-        $class = $args['style'];
+        $class = $args['button_style'] ?? 'btn btn--main-color';
         $fullwidth = (isset($args['fullwidth'])) ? $args['fullwidth'] : false;
         if($fullwidth) $class .= ' btn-block';
             
-        $text = $args['text'] ?: 'Botón';
+        $text = (isset($args['text']) && !empty($args['text'])) ? $args['text'] : 'Button';
         $icon = (isset( $args['icon'])) ? $args['icon'] : null;
         if( $icon ) {
             $icon_position = $args['icon_position'] ?: 'left';
@@ -133,7 +133,7 @@ class Button extends Component {
             }
         }
 
-        $attributes = ( isset($args['attributes']) ) ? $args['attributes'] : array();
+        $attributes = ( isset($args['button_attributes']) ) ? $args['button_attributes'] : array();
         $additional_attrs = '';
         if( is_array($attributes) && count($attributes) > 0 ){
             foreach ($attributes as $item) {
@@ -158,7 +158,7 @@ class Button extends Component {
         ob_start(); 
         printf(
             '<a href="#" class="%s%s%s%s">',
-            '<%= style %>',
+            '<%= button_style %>',
             '<% if (icon && icon_position) { %> btn--icon-<%= icon_position %><% } %>',
             '<% if (size) { %> btn--<%= size %><% } %>',
             '<% if (fullwidth) { %> btn-block<% } %>'

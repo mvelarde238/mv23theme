@@ -112,15 +112,29 @@ class Core{
         foreach ( $posts as $post_id ) {
             $is_restricted = $this->check_the_restrictions($post_id);
             if(!$is_restricted){
-                $uf_component = null;
-                $page_content = get_post_meta( $post_id, 'page_content_components', true );
+                $oce_element_comp = null;
+                $page_content = get_post_meta( $post_id, 'page_content', true );
+                $page_content_datastore = get_post_meta( $post_id, 'page_content_datastore', true );
+                $page_content = Page::consolidate_content( $page_content, $page_content_datastore );
+
                 if (is_array($page_content)) :
-		        	// wrapper > components > container > components:
-		        	$container_components = $page_content[0]['components'][0]['components'] ?? [];
+
+                    $wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
+                    if ( !$wrapper['type'] === 'wrapper' ) return '';
+
+                    $container = null;
+			        foreach ( $wrapper['components'] as $component ) {
+			        	if ( $component['type'] === 'container' ) {
+			        		$container = $component;
+			        		break;
+			        	}
+			        }
+			        $container_components = ($container) ? $container['components'] : [];
+
 		        	if (is_array($container_components) && !empty($container_components)) :
 		        		foreach ($container_components as $component) :
-                            if ( $component['__type'] === 'oce-element' ) {
-                                $uf_component = $component;
+                            if ( $component['type'] === 'oce-element' ) {
+                                $oce_element_comp = $component;
                                 break; // Exit the loop once we find the oce-element
                             }
 		        		endforeach;
@@ -129,21 +143,21 @@ class Core{
 		        	return '';
 		        endif;
 
-                if ( !$uf_component ) {
+                if ( !$oce_element_comp ) {
                     continue; // Skip to the next post if no oce-element component is found
                 }
 
-                $type = $uf_component['oce_type'];
-                $content = $uf_component['components'] ?? [];
+                $type = $oce_element_comp['oce_type'] ?? '';
+                $content = $oce_element_comp;
                 $styles = get_post_meta( $post_id, 'page_content_styles', true );
-                $settings = $uf_component['settings'] ?? array();
+                $settings = $oce_element_comp['settings'] ?? array();
                 if( !is_array( $settings ) ) $settings = array();
                 
                 $kebab_cased_slug = str_replace('_','-',$this->slug);
-                if( isset($uf_component['__gjsAttributes']) && isset($uf_component['__gjsAttributes']['id']) ) {
-                    $element_id = $uf_component['__gjsAttributes']['id'];
-                }
-                elseif( isset($settings['id']) && $settings['id'] != '' ) {
+                // if( isset($oce_element_comp['attributes']) && isset($oce_element_comp['attributes']['id']) ) {
+                    // $element_id = $oce_element_comp['attributes']['id'];
+                // }elseif( isset($settings['id']) && $settings['id'] != '' ) {
+                if( isset($settings['id']) && $settings['id'] != '' ) {
                     $element_id = $settings['id'];
                 } else {
                     $element_id = $kebab_cased_slug.'-'.$post_id;
@@ -155,13 +169,13 @@ class Core{
     
                 $trigger_events = get_post_meta( $post_id, $this->slug.'_trigger_events', true );
                 $oce_settings = array(
-                    'position' => $uf_component['position'] ?? '',
-                    'dismissible' => $uf_component['dismissible'] ?? true,
-                    'close_on_click' => $uf_component['close_on_click'] ?? true,
-                    'max_width' => $uf_component['max_width'] ?? '',
-                    'max_height' => $uf_component['max_height'] ?? '',
-                    'overlay_color' => $uf_component['overlay_color'] ?? [],
-                    'remove_modal_content_padding' => $uf_component['remove_modal_content_padding'] ?? false,
+                    'position' => $oce_element_comp['position'] ?? '',
+                    'dismissible' => $oce_element_comp['dismissible'] ?? true,
+                    'close_on_click' => $oce_element_comp['close_on_click'] ?? true,
+                    'max_width' => $oce_element_comp['max_width'] ?? '',
+                    'max_height' => $oce_element_comp['max_height'] ?? '',
+                    'overlay_color' => $oce_element_comp['overlay_color'] ?? [],
+                    'remove_modal_content_padding' => $oce_element_comp['remove_modal_content_padding'] ?? false,
                 );
 
                 $this->elements[] = array(
@@ -175,8 +189,7 @@ class Core{
                     'styles' => $styles,
                     'oce_settings' => $oce_settings,
                     'trigger_events' => $trigger_events,
-                    'settings' => $settings,
-                    '__gjsAttributes' => array( 'id' => $element_id )
+                    'settings' => $settings
                 );
             }
         }
@@ -197,9 +210,7 @@ class Core{
             echo '<div '.$attributes.'>';
             echo '<div class="modal-content">';
             if($element_args['content']){
-                foreach ( $element_args['content'] as $component ) :
-                    echo Template_Engine::getInstance()->handle( $component['__type'], $component );
-                endforeach;
+                echo Template_Engine::check_components( $element_args['content'] );
             } 
             echo '</div>';
 

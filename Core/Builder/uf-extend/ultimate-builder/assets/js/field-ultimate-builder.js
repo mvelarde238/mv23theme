@@ -34,7 +34,7 @@
                 uf_field_model = this.model,
                 builder_data = this.model.getValue(),
                 field_name = this.model.get('name'),
-                components_data = this.model.datastore.get( field_name + '_components' ),
+                components_data = this.model.datastore.get( field_name + '_datastore' ),
                 styles = this.model.datastore.get( field_name + '_styles' ),
                 builder_link = this.model.datastore.get( field_name + '_builder_link' );
 

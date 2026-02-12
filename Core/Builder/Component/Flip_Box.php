@@ -141,7 +141,7 @@ class Flip_Box extends Component {
             
             $card['args'] = array(
                 // 'settings' => $args[$key.'_settings'],
-                'additional_attributes' => array('id="'.$args['components'][$index]['__gjsAttributes']['id'].'"'),
+                'additional_attributes' => array('id="'.$args['components'][$index]['attributes']['id'].'"'),
                 'additional_classes' => array('flipbox-'.$key),
                 'additional_styles' => array('flex-direction'=>'column') // it shouldnt be here
             );
@@ -155,13 +155,7 @@ class Flip_Box extends Component {
         echo '<div class="flipbox-inner">';
         foreach ($cards as $card) {
             echo Template_Engine::component_wrapper('start', $card['args']);
-
-            if( isset($card['components']) && is_array($card['components']) ){
-                foreach ($card['components'] as $component) {
-                    echo Template_Engine::getInstance()->handle( $component['__type'], $component );
-                }
-            }
-
+            echo Template_Engine::check_components( $card );
             echo Template_Engine::component_wrapper('end', $card['args']);
         }
         echo '</div>';

@@ -6,6 +6,7 @@ use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Core\Frontend\Page;
 use Core\Posttype\Reusable_Section_CPT;
+use Core\Builder\Core as Builder_Core;
 
 class Accordion extends Component {
 
@@ -80,8 +81,17 @@ class Accordion extends Component {
         $togglebox_classes = array('v23-togglebox');
         
         // data breakpoints
-        $breakpoints = $args['__gjs_data_breakpoints'] ?? '';
-        
+        $breakpoints = '';
+        if( isset($args['devicesControl']) && is_array($args['devicesControl']) ){
+            $breakpoints_arr = array();
+            foreach ($args['devicesControl'] as $device => $values) {
+                $template = $values['template'] ?? '';
+                $style = $values['style'] ?? '';
+                $breakpoints_arr[] = "{$device}|{$template}|{$style}";
+            }
+            $breakpoints = implode(',', $breakpoints_arr);
+        }
+
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
 
@@ -126,7 +136,7 @@ class Accordion extends Component {
                     $itemid = (!empty($button['itemid'])) ? $button['itemid'] : $slug;
                     $button['itemid'] = $itemid;
                     $slugs[] = $itemid;
-                    $nav .= Template_Engine::getInstance()->handle( $button['__type'], $button );
+                    $nav .= Template_Engine::getInstance()->handle( $button );
                     $count++;
                 }
 
@@ -134,11 +144,7 @@ class Accordion extends Component {
                 foreach ($the_accordion_items as $item){
                     $slug = $slugs[$count];
                     $itemsbox .= '<div id="'.$slug.'" class="v23-togglebox__item">';
-                    if( isset($item['components']) && is_array($item['components']) ){
-                        foreach ($item['components'] as $component) {
-                            $itemsbox .= Template_Engine::getInstance()->handle( $component['__type'], $component );
-                        }
-                    }
+                    $itemsbox .= Template_Engine::check_components( $item );
                     $itemsbox .= '</div>';
                     $count++;
                 }

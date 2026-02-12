@@ -5,6 +5,7 @@ use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Core\Theme_Options\Theme_Options;
+use Core\Builder\Core as Builder_Core;
 
 class Icon_and_Text extends Component {
 
@@ -122,7 +123,7 @@ class Icon_and_Text extends Component {
         // get icon component ID
         $icon_wrapper = $args['components'][0];
         $comp_icon = $icon_wrapper['components'][0];
-        $comp_icon_id = $comp_icon['__gjsAttributes']['id'] ?? '';
+        $comp_icon_id = $comp_icon['attributes']['id'] ?? '';
 		
 		ob_start();
         echo Template_Engine::component_wrapper('start', $args);
@@ -131,13 +132,9 @@ class Icon_and_Text extends Component {
 	    echo '<div id="'.$comp_icon_id.'" class="icon-cmp">'.$element.'</div>';
 	    echo '</div>';
 
-        if( isset($args['components']) && is_array($args['components']) ){
-            // content_wrapper -> $args['components'][1];
-            $args['components'][1]['additional_classes'][] = 'content-wrapper';
-            foreach ( $args['components'] as $component ) {
-                echo Template_Engine::getInstance()->handle( $component['__type'], $component );
-            }
-		}
+        $content_wrapper = $args['components'][1] ?? null;
+        $content_wrapper['additional_classes'][] = 'content-wrapper';
+		echo Template_Engine::getInstance()->handle( $content_wrapper );
 
         echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();

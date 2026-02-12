@@ -308,14 +308,10 @@ class Carousel extends Component {
             if( isset($args['components']) && is_array($args['components']) ){
                 $the_carousel = $args['components'][0];// carousel is inside a carousel wrapper
 			    foreach ($the_carousel['components'] as $item) {
-                    $id = (isset($item['__gjsAttributes']) && isset($item['__gjsAttributes']['id'])) ? $item['__gjsAttributes']['id'] : '';
+                    $id = (isset($item['attributes']) && isset($item['attributes']['id'])) ? $item['attributes']['id'] : '';
                     echo '<div class="carousel__item carousel__item--content">';
                     echo '<div id="'.$id.'">';
-                    if( isset($item['components']) && is_array($item['components']) ){
-                        foreach ($item['components'] as $component) {
-			    	        echo Template_Engine::getInstance()->handle( $component['__type'], $component );
-			            }
-                    }
+                    echo Template_Engine::check_components( $item );
                     echo '</div>';
                     echo '</div>';
 			    }

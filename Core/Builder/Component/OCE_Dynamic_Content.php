@@ -118,7 +118,9 @@ class OCE_Dynamic_Content extends Component {
 		if( Template_Engine::is_private( $args ) ) return;
 
 		$args['additional_classes'][] = 'component';
-		$args['additional_attributes'] = array( "data-settings='".json_encode($args['async_settings'])."'" );
+		if( isset($args['async_settings']) ){
+			$args['additional_attributes'] = array( "data-settings='".json_encode($args['async_settings'])."'" );
+		}
 		$args['additional_styles']['aspect-ratio'] = isset( $args['aspect_ratio'] ) ? $args['aspect_ratio'] : '1/1';
 	
 		ob_start();

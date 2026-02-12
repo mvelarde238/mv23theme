@@ -59,24 +59,24 @@ class Menu extends Component {
 
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme')),
-            Field::create( 'radio', 'type', __('Select','mv23theme') )->add_options(array(
+            Field::create( 'radio', 'menu_type', __('Select','mv23theme') )->add_options(array(
                 'menu'     => __( 'Show a particular menu', 'mv23theme' ),
                 'location' => __( 'Select a location. If a menu is assigned to that location, it will be displayed', 'mv23theme' ),
             ))->set_default_value('location'),
             Field::create( 'select', 'menu' )
                 ->add_terms( 'nav_menu' )
-                ->add_dependency('type','menu','='),
+                ->add_dependency('menu_type','menu','='),
             Field::create( 'select', 'location' )
                 ->add_options( $registered_nav_menus )
                 ->set_default_value( $first_location )
-                ->add_dependency('type','location','='),
+                ->add_dependency('menu_type','location','='),
             Field::create( 'image_select', 'style', __('Style','mv23theme') )
                 ->set_attr( 'class', 'image-select-2-cols' )
                 ->add_options( $menu_styles_image_select )
-                ->add_dependency( 'type', 'menu' )
+                ->add_dependency( 'menu_type', 'menu' )
                 ->add_dependency( 'menu', '0', '!=' )
                 ->add_dependency_group()
-                ->add_dependency( 'type', 'location' ),
+                ->add_dependency( 'menu_type', 'location' ),
         );
 
 		return $fields;
@@ -88,7 +88,7 @@ class Menu extends Component {
 		$args['additional_classes'][] = 'component';
 		$args['__type'] = 'menu-comp';
 
-        $type = $args['type'] ?? 'menu';
+        $type = $args['menu_type'] ?? 'menu';
         $menu = $args['menu'] ?? '';
 
         $location = $args['location'] ?? '';

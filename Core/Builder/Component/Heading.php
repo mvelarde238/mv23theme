@@ -214,13 +214,13 @@ class Heading extends Component {
             'heading' => array(
                 'content' => $heading_content,
                 'html_tag' => $heading_html_tag,
-                'classes' => $heading_classes,
+                'additional_classes' => $heading_classes,
                 'settings' => $args['heading']['settings'] ?? array()
             ),
             'tagline' => array(
                 'content' => $tagline_content,
                 'html_tag' => $tagline_html_tag,
-                'classes' => $tagline_classes,
+                'additional_classes' => $tagline_classes,
                 'settings' => $args['tagline']['settings'] ?? array()
             )
         );

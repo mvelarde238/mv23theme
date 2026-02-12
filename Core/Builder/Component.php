@@ -127,7 +127,7 @@ abstract class Component {
 	 * @return string html
 	 */
 	/* abstract */ public static function display( $args ) {
-		return '<div class="component">'.$args['__type'].'</div>';
+		return '<div class="component">'.$args['type'].'</div>';
 	}
 
 	private static function get_args() {

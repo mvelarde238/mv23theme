@@ -8,6 +8,7 @@ use Core\Builder\Template_Engine\Classes;
 use Core\Builder\Template_Engine\Video;
 use Core\Builder\Template_Engine\Scroll_Animations;
 use Core\Frontend\Page;
+use Core\Builder\Core as Builder_Core;
 
 class Template_Engine{
 	private static $instance = null;
@@ -29,11 +30,13 @@ class Template_Engine{
     // Constructor privado para evitar la creación directa de la instancia
     private function __construct(){}
 
-    public function handle( $type, $args ){
+    public function handle( $component_data ){
         $template = '';
 
         foreach (self::$components as $key => $class_name) {
-            if( $key === $type ) $template = $class_name::display( $args );
+            if( $key === $component_data['type'] ){
+                $template = $class_name::display( $component_data );
+            }     
         }
 
         return $template;
@@ -111,6 +114,16 @@ class Template_Engine{
             echo self::check_full_width('end', $args);
         } 
         return ob_get_clean();
+    }
+
+    public static function check_components( $args ){
+        if( isset($args['components']) ){
+            ob_start();
+			foreach ($args['components'] as $component) {
+                echo Template_Engine::getInstance()->handle( $component );
+            }
+            return ob_get_clean();
+		}
     }
 
     public static function check_actions( $args ){
