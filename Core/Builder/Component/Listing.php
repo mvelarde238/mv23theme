@@ -207,6 +207,9 @@ class Listing extends Component {
                         ->hide_label()
                         ->add_dependency('../show_filter')
                         ->add_dependency('../posttype', $tax['cpt_slug'], '=')
+                        ->add_dependency_group()
+                        ->add_dependency('../show_filter')
+                        ->add_dependency('../connected_posttype', $tax['cpt_slug'], '=')
                         ->add_fields(array(
                             Field::create( 'checkbox', 'show', ucwords($tax['slug']).' filter' )
                                 ->fancy()
