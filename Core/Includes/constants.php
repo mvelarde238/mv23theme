@@ -36,9 +36,16 @@ if( !defined('MOBILE_NAV_STYLE') ) define ('MOBILE_NAV_STYLE', array('horizontal
 // if( !defined('MENU_ITEM_DATA_LOCATIONS') ) define ('MENU_ITEM_DATA_LOCATIONS', array('main-nav'));
 
 if( !defined('SEARCH_PLACEHOLDER') ) define ('SEARCH_PLACEHOLDER', array('es' => 'Buscar...', 'en' => 'Search...' ));
+if( !defined('MODAL_OUT_DURATION') ) define( 'MODAL_OUT_DURATION', 1);
+if( !defined('OPEN_MINICART_ON_ADD_TO_CART') ) define ('OPEN_MINICART_ON_ADD_TO_CART', true);
+if( !defined('MINICART_SIDENAV_POSITION') ) define ('MINICART_SIDENAV_POSITION', 'right');
+if( !defined('DEFAULT_TEXT_COLOR') ) define( 'DEFAULT_TEXT_COLOR', 'text-color-default');
+if( !defined('MAYBE_FIX_SCROLL_POSITION_STYLES') ) define ('MAYBE_FIX_SCROLL_POSITION_STYLES', array('tab-style1', 'accordion-style1'));
+if( !defined('LOGOS_QUANTITY') ) define ('LOGOS_QUANTITY', 2);
 
 if( !defined('USE_PORTFOLIO_CPT') ) define( 'USE_PORTFOLIO_CPT', false);
 if( !defined('USE_DOCUMENT_CPT') ) define( 'USE_DOCUMENT_CPT', false);
+
 if( !defined('LISTING_LOADING_TEXT') ) define( 'LISTING_LOADING_TEXT', array('es' => 'Cargando...', 'en' => 'Loading...' ));
 if( !defined('LISTING_LOAD_MORE_TEXT') ) define( 'LISTING_LOAD_MORE_TEXT', array('es' => 'Cargar más...', 'en' => 'Load more...' ));
 if( !defined('LISTING_EXPANDER_HEIGHT') ) define( 'LISTING_EXPANDER_HEIGHT', '500px');
@@ -46,14 +53,6 @@ if( !defined('LISTING_EXPANDER_RESPONSE_HEIGHT') ) define( 'LISTING_EXPANDER_RES
 if( !defined('LISTING_EXPANDER_SCROLL_DURATION') ) define( 'LISTING_EXPANDER_SCROLL_DURATION', '500');
 if( !defined('LISTING_GAP') ) define( 'LISTING_GAP', array('desktop' => 50,'laptop' => 40,'tablet' => 30,'mobile' => 20 ));
 if( !defined('LISTING_COLUMNS') ) define( 'LISTING_COLUMNS', array('desktop' => 3,'laptop' => 3,'tablet' => 2,'mobile' => 1));
-
-if( !defined('MODAL_OUT_DURATION') ) define( 'MODAL_OUT_DURATION', 1);
-
-if( !defined('OPEN_MINICART_ON_ADD_TO_CART') ) define ('OPEN_MINICART_ON_ADD_TO_CART', true);
-if( !defined('MINICART_SIDENAV_POSITION') ) define ('MINICART_SIDENAV_POSITION', 'right');
-
-if( !defined('LOGOS_QUANTITY') ) define ('LOGOS_QUANTITY', 2);
-
 if( !defined('LISTING_CPTS') ) define( 'LISTING_CPTS', array('post' => 'Entradas'));
 if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array( array( 'cpt_slug' => 'post', 'slug' => 'category' ) ));
 if( !defined('LISTING_TEMPLATES') ) define( 'LISTING_TEMPLATES', array('' => 'Default Listing Template', 'carousel' => 'Carousel'));
@@ -73,14 +72,5 @@ if( !defined('LISTING_POST_TEMPLATE') ){
 } 
 
 // BUILDER CONSTANTS
-
-if( !defined('ULTIMATE_FIELDS_DISABLE_UI') ) define ('ULTIMATE_FIELDS_DISABLE_UI', true);
-if( !defined('DEFAULT_TEXT_COLOR') ) define( 'DEFAULT_TEXT_COLOR', 'text-color-default');
 if( !defined('BUILDER_DEV_MODE') ) define ('BUILDER_DEV_MODE', true);
-
-if( !defined('CARD') ) define ('CARD', false);
-if( !defined('SIMPLE_COLUMNS') ) define ('SIMPLE_COLUMNS', false);
-if( !defined('ITEMS_GRID') ) define ('ITEMS_GRID', false);
-if( !defined('CONTENT_SLIDER') ) define ('CONTENT_SLIDER', false);
-
-if( !defined('MAYBE_FIX_SCROLL_POSITION_STYLES') ) define ('MAYBE_FIX_SCROLL_POSITION_STYLES', array('tab-style1', 'accordion-style1'));
+if( !defined('ULTIMATE_FIELDS_DISABLE_UI') ) define ('ULTIMATE_FIELDS_DISABLE_UI', true);

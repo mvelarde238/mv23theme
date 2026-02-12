@@ -169,16 +169,16 @@ class Core{
         }
     }
 
-    public function add_core_components_on_demand(){
-        add_action( 'before_adding_Inner_Row_components', function(){
-            if(SIMPLE_COLUMNS) new \Core\Builder\Component\Simple_Columns;
-        });
-        add_action( 'before_adding_Row_components', function(){
-            if(CARD) new \Core\Builder\Component\Card();
-            if(ITEMS_GRID) new \Core\Builder\Component\Items_Grid;
-            if(CONTENT_SLIDER) new \Core\Builder\Component\Content_Slider;
-        });
-    }
+    // public function add_core_components_on_demand(){
+    //     add_action( 'before_adding_Inner_Row_components', function(){
+    //         new \Core\Builder\Component\Simple_Columns();
+    //     });
+    //     add_action( 'before_adding_Row_components', function(){
+    //         new \Core\Builder\Component\Card();
+    //         new \Core\Builder\Component\Items_Grid;
+    //         new \Core\Builder\Component\Content_Slider;
+    //     });
+    // }
 
     public static function register_component( $component, $class_name ){
         $namespace = 'Core\Builder\Component\\';
