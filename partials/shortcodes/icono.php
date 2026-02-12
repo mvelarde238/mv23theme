@@ -75,8 +75,11 @@ function print_icono_inline( $atts ) {
 		'bgc' => '',
 	), $atts );
 
+	$icon_name = $a['name'];
+	$icon_prefix = ( strpos($icon_name, 'bi-') === 0 ) ? 'bi' : 'fa';
+
 	ob_start(); ?>
 	<?php if ($a['style']!='default' && $a['style'] != '') echo '<span class="inline-icon inline-icon--circle" style="background-color:'.$a['bgc'].';color:'.$a['color'].';">'; ?>
-	<i class="fa <?php echo $a['name']; ?>"></i><?php if ($a['style']!='default' && $a['style'] != '') echo '</span>'; ?><?php return ob_get_clean();
+	<i class="<?php echo $icon_prefix.' '.$icon_name; ?>"></i><?php if ($a['style']!='default' && $a['style'] != '') echo '</span>'; ?><?php return ob_get_clean();
 }
 add_shortcode( 'i', 'print_icono_inline' );

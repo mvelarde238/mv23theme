@@ -25,14 +25,12 @@ class Button extends Component {
             'btn btn--secondary-color' => 'Botón Corporativo 2',
             'btn btn--white' => 'Botón Blanco',
             'btn' => 'Botón Simple',
-            '' => 'Link'
+            'link' => 'Link'
         ));
 
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme') ), 
-            Field::create( 'text', 'text', __('Button Text', 'mv23theme') )
-                ->required()
-                ->set_default_value( 'I am a button' ),
+            Field::create( 'text', 'text', __('Button Text', 'mv23theme') ),
             Field::create( 'select', 'button_style', __('Style', 'mv23theme'))
                 ->add_options( $button_styles )
                 ->set_default_value( 'btn btn--main-color' ),
@@ -42,14 +40,14 @@ class Button extends Component {
                 'download' => 'Descarga',
             )),
     
-            Field::create( 'file', 'file', __('File', 'mv23theme') )->add_dependency('type','download','='),
+            Field::create( 'file', 'file', __('File', 'mv23theme') )->add_dependency('button_type','download','='),
     
             Field::create( 'radio', 'url_type',__('Destination', 'mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
                 'interna' => __('Internal Page', 'mv23theme'),
                 'externa' => __('Other', 'mv23theme'),
-            ))->add_dependency('type','link','='),
-            Field::create( 'wp_object', 'post', '' )->set_button_text( __('Select Page', 'mv23theme') )->add_dependency('type','link','=')->add_dependency('url_type','interna','='),
-            Field::create( 'text', 'url', '' )->add_dependency('type','link','=')->add_dependency('url_type','externa','='),
+            ))->add_dependency('button_type','link','='),
+            Field::create( 'wp_object', 'post', '' )->set_button_text( __('Select Page', 'mv23theme') )->add_dependency('button_type','link','=')->add_dependency('url_type','interna','='),
+            Field::create( 'text', 'url', '' )->add_dependency('button_type','link','=')->add_dependency('url_type','externa','='),
     
             Field::create( 'checkbox', 'new_tab', __('Open in a new window', 'mv23theme') )->set_text( __('Enable', 'mv23theme') ),
 
@@ -64,11 +62,6 @@ class Button extends Component {
             ))->set_orientation( 'horizontal' )->set_width(50),
     
             Field::create( 'tab', '_other_settings', __('Other settings','mv23theme') ),
-            Field::create( 'radio', 'size', __('Size', 'mv23theme'))->add_options( array(
-                'small' => __('Normal', 'mv23theme'),
-                'medium' => __('Mediano', 'mv23theme'),
-                'big' => __('Grande', 'mv23theme')
-            ))->set_orientation( 'horizontal' ),
             Field::create( 'checkbox', 'fullwidth', __('Botón de ancho completo', 'mv23theme') )->set_text( __('Activar', 'mv23theme') ),
             Field::create( 'repeater', 'button_attributes', __('Attributos', 'mv23theme') )->set_add_text(__('Agregar', 'mv23theme'))
                 ->set_layout( 'grid' )
@@ -94,7 +87,7 @@ class Button extends Component {
         $fullwidth = (isset($args['fullwidth'])) ? $args['fullwidth'] : false;
         if($fullwidth) $class .= ' btn-block';
             
-        $text = (isset($args['text']) && !empty($args['text'])) ? $args['text'] : 'Button';
+        $text = (isset($args['text']) && !empty($args['text'])) ? $args['text'] : '';
         $icon = (isset( $args['icon'])) ? $args['icon'] : null;
         if( $icon ) {
             $icon_position = $args['icon_position'] ?: 'left';
@@ -104,9 +97,6 @@ class Button extends Component {
         
             $text = ( $icon_position === 'left' ) ? $icon_html.' '.$text : $text.' '.$icon_html;
         } 
-        
-        $size = (isset($args['size'])) ? $args['size'] : false;
-        if($size) $class .= ' btn--'.$args['size'];
 
         $type = $args['type'];
         $href = '#';
@@ -155,24 +145,25 @@ class Button extends Component {
 	}
 
     public static function get_view_template() {
-        ob_start(); 
-        printf(
-            '<a href="#" class="%s%s%s%s">',
-            '<%= button_style %>',
-            '<% if (icon && icon_position) { %> btn--icon-<%= icon_position %><% } %>',
-            '<% if (size) { %> btn--<%= size %><% } %>',
-            '<% if (fullwidth) { %> btn-block<% } %>'
-        );
-        ?>
-            <% if (icon && icon_position === 'left') { %>
-                <i class="<% if (icon.startsWith('fa')) { %>fa <% } else { %>bi <% } %><%= icon %>"></i>
+        return '<% 
+        button_classes = [];
+        button_classes.push(button_style);
+        if (icon && icon_position) button_classes.push("btn--icon-" + icon_position);
+        if (fullwidth) button_classes.push("btn-block");
+        if( text || icon ) {
+        %>
+        <a href="#" class="<%= button_classes.join(" ") %>">
+            <% if (icon && icon_position === "left") { %>
+                <i class="<% if (icon.startsWith("fa")) { %>fa <% } else { %>bi <% } %><%= icon %>"></i>
             <% } %>
-            <% if (text) { %><%= text %><% } else { %>Button<% } %>
-            <% if (icon && icon_position === 'right') { %>
-                <i class="<% if (icon.startsWith('fa')) { %>fa <% } else { %>bi <% } %><%= icon %>"></i>
+            <% if (text) { %><%= text %><% } %>
+            <% if (icon && icon_position === "right") { %>
+                <i class="<% if (icon.startsWith("fa")) { %>fa <% } else { %>bi <% } %><%= icon %>"></i>
             <% } %>
         </a>
-        <?php return ob_get_clean();
+        <% } else { %>
+            <a href="#" class="<%= button_classes.join(" ") %>" style="opacity: 0.5;">Button</a>
+        <% } %>';
     }
 }
 
