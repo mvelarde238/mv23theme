@@ -1,5 +1,8 @@
 mv23 changelog-------------------------
 
+- 3.2.13 12-02-2026
+- (core/classes/Field/Select.php) Add "--Select an option--" as first option to give an empty option
+
 - 3.2.12 07-02-2026
 - FIX: Reset rows and groups to prevent duplication on re-render
     (core/js/field/repeater.js)

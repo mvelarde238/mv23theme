@@ -197,6 +197,7 @@ class Select extends Field {
 			}
 
 			$options = array();
+			if( $this->get_input_type() == 'select' ) $options = array('--Select an option--');
 			foreach( get_posts( $args ) as $post ) {
 				$options[ $post->ID ] = esc_html( $post->post_title );
 			}
@@ -205,18 +206,18 @@ class Select extends Field {
 
 		} elseif( 'taxonomies' == $this->options_type ) {
 			$options = array();
-			if( $this->get_input_type() == 'select' ) $options = array('--Selecciona--');
+			if( $this->get_input_type() == 'select' ) $options = array('--Select an option--');
 
 			if ($this->taxonomy == 'category') {
 				$terms_helper = new Hierarchical_Terms( 'category' );
-				$this->options = $terms_helper->get_terms_array();
+				$this->options = $options + $terms_helper->get_terms_array();
 			} else {
 				$terms_helper = new Hierarchical_Terms( $this->taxonomy );
-				$this->options = $terms_helper->get_terms_array( $this->taxonomy );
+				$this->options = $options + $terms_helper->get_terms_array( $this->taxonomy );
 			}
 
 		} elseif( 'users' == $this->options_type ) {
-			$options = array('--Selecciona--');
+			$options = array('--Select an option--');
 			$args = array(
 				'role' => 'partner',
 				'number' => -1
