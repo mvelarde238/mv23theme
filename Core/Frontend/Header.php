@@ -3,6 +3,7 @@ namespace Core\Frontend;
 
 use Core\Frontend\Page;
 use Core\Utils\Helpers;
+use Core\Builder\Core as Builder_Core;
 
 class Header{
 	private $logo;
@@ -29,14 +30,18 @@ class Header{
 
 	private function get_meta( $meta ){
 		$page = new Page();
+		$page_ID = $page->get_id();
 		$value = null;
-        $page_content_components = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content_components', true) : null;
-        if( is_array($page_content_components) && !empty($page_content_components) && isset($page_content_components[0]) ) {
-            $page_component = $page_content_components[0];
-			if( isset( $page_component[ $meta ] ) ){
-				$value = $page_component[ $meta ];
-			}
-		}
+		
+        $page_content = ($page_ID != null) ? get_post_meta($page_ID, 'page_content', true) : null;
+		if (is_array($page_content)) :
+			$wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
+			if ( !$wrapper['type'] === 'wrapper' ) return '';
+			
+			$wrapper['__post_id'] = $page_ID;
+        	$wrapper_datastore = Builder_Core::getInstance()->get_component_datastore( $wrapper );
+			$value = $wrapper_datastore[ $meta ];
+		endif;
 
 		return $value;
 	}
