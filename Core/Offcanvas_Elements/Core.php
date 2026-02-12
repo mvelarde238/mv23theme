@@ -154,10 +154,10 @@ class Core{
                 if( !is_array( $settings ) ) $settings = array();
                 
                 $kebab_cased_slug = str_replace('_','-',$this->slug);
-                // if( isset($oce_element_comp['attributes']) && isset($oce_element_comp['attributes']['id']) ) {
-                    // $element_id = $oce_element_comp['attributes']['id'];
-                // }elseif( isset($settings['id']) && $settings['id'] != '' ) {
-                if( isset($settings['id']) && $settings['id'] != '' ) {
+                
+                if( isset($oce_element_comp['attributes']) && isset($oce_element_comp['attributes']['id']) ) {
+                    $element_id = $oce_element_comp['attributes']['id'];
+                }elseif( isset($settings['id']) && $settings['id'] != '' ) {
                     $element_id = $settings['id'];
                 } else {
                     $element_id = $kebab_cased_slug.'-'.$post_id;
@@ -189,7 +189,10 @@ class Core{
                     'styles' => $styles,
                     'oce_settings' => $oce_settings,
                     'trigger_events' => $trigger_events,
-                    'settings' => $settings
+                    'settings' => $settings,
+                    'attributes' => array(
+                        'id' => $element_id
+                    )
                 );
             }
         }

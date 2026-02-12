@@ -172,11 +172,16 @@ window.gjsOceComponents = ( editor ) => {
             propagate: [ 'selectable', 'hoverable', 'droppable' ],
             classes: ['demo-section'],
             components: [
-                { type: 'menu' },
                 { 
                     type: 'image-component',
                     style: {
-                        'aspect-ratio': '16/9',
+                        'aspect-ratio': '9/3',
+                    }
+                },
+                {
+                    type: 'spacer',
+                    style: {
+                        height: '20px',
                     }
                 },
                 { type: 'heading' },
