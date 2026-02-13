@@ -62,8 +62,8 @@ class Button extends Component {
             ))->set_orientation( 'horizontal' )->set_width(50),
     
             Field::create( 'tab', '_other_settings', __('Other settings','mv23theme') ),
-            Field::create( 'checkbox', 'fullwidth', __('Botón de ancho completo', 'mv23theme') )->set_text( __('Activar', 'mv23theme') ),
-            Field::create( 'repeater', 'button_attributes', __('Attributos', 'mv23theme') )->set_add_text(__('Agregar', 'mv23theme'))
+            Field::create( 'checkbox', 'fullwidth', __('Full width button', 'mv23theme') )->set_text( __('Activate', 'mv23theme') ),
+            Field::create( 'repeater', 'button_attributes', __('Attributes', 'mv23theme') )->set_add_text(__('Add', 'mv23theme'))
                 ->set_layout( 'grid' )
                 ->add_group('item', array(
                     'title_template' => '<%= attribute %> : <%= value %>',

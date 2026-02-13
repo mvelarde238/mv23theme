@@ -80,8 +80,8 @@ Container::create( 'common_settings_container' )
                 ->fancy()
                 ->set_attr( 'style', 'flex-grow: initial;min-width: auto;' ),
             Field::create( 'select', 'key', __('Color Scheme','mv23theme'))->add_options( array(
-                'light-mode' => __('Light','mv23theme'),
-                'dark-mode' => __('Dark','mv23theme'),
+                'light-mode' => __('Light Mode','mv23theme'),
+                'dark-mode' => __('Dark Mode','mv23theme'),
             ))->add_dependency('use')->set_attr( 'style', 'flex-grow: 1;' )
         )),
         Field::create( 'complex', 'hide_on', __('Hide on:','mv23theme') )->add_fields(array(
