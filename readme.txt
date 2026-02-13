@@ -13,6 +13,7 @@ CHANGELOG
 - Fix Oce Element id
 - Fix for marquee speed
 - Language files update
+- Fix plugins css conflict on editor styles
 
 3.1.3 26-02-05
 - Archive Page Structure Implementation
