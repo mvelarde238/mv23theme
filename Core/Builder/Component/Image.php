@@ -21,7 +21,8 @@ class Image extends Component {
 
     public static function get_builder_data() {
         return array(
-            'block_render_type' => 'figure'
+            'block_render_type' => 'figure',
+            'custom_datastore_change_callback' => true
 		);
     }
 
@@ -37,7 +38,10 @@ class Image extends Component {
                 )),
             Field::create( 'image', 'image', __('Image','mv23theme') )->add_dependency('image_source','selfhosted','='),
             Field::create( 'text', 'external_image', 'URL')
-                ->hide_label()->set_prefix('URL')->add_dependency('image_source','external','='),
+                ->hide_label()->set_prefix('URL')->add_dependency('image_source','external','=')
+                ->add_suggestions( array(
+                    'https://picsum.photos/600/500?random=238'
+                )),
             Field::create( 'checkbox', 'expand_on_click', __('Expand on click','mv23theme') )->fancy()
                 ->set_text( __( 'Show the image in a popup.', 'mv23theme' ) ),
     
