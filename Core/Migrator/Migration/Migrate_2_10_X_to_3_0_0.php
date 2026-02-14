@@ -502,9 +502,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         $other_meta = ['hide_static_header','hide_static_header_logo','custom_static_header','custom_static_header_logo','static_header_bgc', 'static_header_logo', 'sticky_header_logo', 'hide_sticky_header', 'static_header_color_scheme','hide_sticky_header_logo','custom_sticky_header','custom_sticky_header_logo','sticky_header_bgc','sticky_header_color_scheme'];
         foreach( $other_meta as $om ){
             $value = get_post_meta( $post_id, $om, true );
-            if( !empty( $value ) ){
-                $page_component[$om] = $value;
-            }
+            $page_component[$om] = $value;
         }
 
         return $page_component;
@@ -819,6 +817,10 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
             $button_attributes = $component['attributes'] ?? array();
             $uf_component['button_attributes'] = $button_attributes;
+
+            if( empty($uf_component['text']) ){
+                $uf_component['text'] = 'Button';
+            }
         }
             
         unset( $uf_component['style'] );
@@ -1709,8 +1711,11 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         }
         unset($gjs_face); // break reference
 
-        // GJS stores the full tree: flipbox > [front, back]
-        $gjs_component['components'] = array( $faces['front'], $faces['back'] );
+        // GJS stores the full tree: flipbox > flipbox-inner > [front, back]
+        $gjs_component['components'] = array( array(
+            'type' => 'flipbox-inner',
+            'components' => array( $faces['front'], $faces['back'] )
+        ));
 
         // Clean up old properties
         unset( $uf_component['front_settings'] );

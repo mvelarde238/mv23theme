@@ -72,5 +72,5 @@ if( !defined('LISTING_POST_TEMPLATE') ){
 } 
 
 // BUILDER CONSTANTS
-if( !defined('BUILDER_DEV_MODE') ) define ('BUILDER_DEV_MODE', true);
+if( !defined('BUILDER_DEV_MODE') ) define ('BUILDER_DEV_MODE', false);
 if( !defined('ULTIMATE_FIELDS_DISABLE_UI') ) define ('ULTIMATE_FIELDS_DISABLE_UI', true);

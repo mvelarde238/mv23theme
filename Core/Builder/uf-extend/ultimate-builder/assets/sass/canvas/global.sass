@@ -38,7 +38,7 @@ img.gjs-plh-image
 /* shortcode component */
 .shortcode-component
     padding: 20px
-    text-align: center 
+    text-align: center
 
 .edit-btn
     color: #000 !important
@@ -47,3 +47,19 @@ img.gjs-plh-image
 [data-gjs-type="togglebox-item"]
     &:not(.active)
         display: none
+
+/* component action buttons */
+.cmp-action
+    padding: 5px 10px
+    font-size: 11px
+    cursor: pointer
+    background: var(--primary-color-lighter)
+    border: 1px solid var(--primary-color-light)
+    border-radius: 3px
+    transition: 200ms all
+    &:hover
+        border-color: var(--primary-color)
+    &.active
+        background: var(--primary-color)
+        border-color: var(--primary-color)
+        color: #fff

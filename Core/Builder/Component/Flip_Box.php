@@ -17,79 +17,73 @@ class Flip_Box extends Component {
 	public static function get_icon() {
         return 'dashicons-image-flip-horizontal';
     }
-
-    public static function get_builder_data() {
-        return array(
-            'display_gjs_block' => false
-		);
-    }
     
 	public static function get_fields() {
 		$fields = array( 
             Field::create( 'tab', __('Flip Effect','mv23theme') ),
-            Field::create( 'image_select', '' )->show_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
+            Field::create( 'image_select', 'flip_effect' )->hide_label()->show_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
                 'horizontal-flip'  => array(
                     'label' => 'Horizontal flip',
-                    'image' => BUILDER_PATH.'/assets/images/horizontal-flip.png'
+                    'image' => BUILDER_PATH.'/assets/images/flipbox/horizontal-flip.png'
                 ),
                 'vertical-flip'  => array(
                     'label' => 'Vertical flip',
-                    'image' => BUILDER_PATH.'/assets/images/vertical-flip.png'
+                    'image' => BUILDER_PATH.'/assets/images/flipbox/vertical-flip.png'
                 ),
                 'zoom-in'  => array(
                     'label' => 'Zoom in',
-                    'image' => BUILDER_PATH.'/assets/images/zoom-in-flip.png'
+                    'image' => BUILDER_PATH.'/assets/images/flipbox/zoom-in-flip.png'
                 ),
                 'slide-in'  => array(
                     'label' => 'Slide in',
-                    'image' => BUILDER_PATH.'/assets/images/slide-in-flip.png'
+                    'image' => BUILDER_PATH.'/assets/images/flipbox/slide-in-flip.png'
                 ),
             )),
             Field::create( 'tab', __('Aspect Ratio','mv23theme') ),
             Field::create( 'image_select', 'aspect_ratio', '' )->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
                 '4/3'  => array(
                     'label' => '4:3',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-4-3.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-4-3.png'
                 ),
                 '1/1'  => array(
                     'label' => '1:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-1-1.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-1-1.png'
                 ),
                 '16/9'  => array(
                     'label' => '16:9',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-16-9.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-16-9.png'
                 ),
                 '2/1'  => array(
                     'label' => '2:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-2-1.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-2-1.png'
                 ),
                 '2.5/1'  => array(
                     'label' => '2.5:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-2_5-1.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-2_5-1.png'
                 ),
                 '4/1'  => array(
                     'label' => '4:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-4-1.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-4-1.png'
                 ),
                 '3/4'  => array(
                     'label' => '3:4',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-3-4.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-3-4.png'
                 ),
                 '9/16'  => array(
                     'label' => '9:16',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-9-16.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-9-16.png'
                 ),
                 '1/2'  => array(
                     'label' => '1:2',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-1-2.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-1-2.png'
                 ),
                 '1/2.5'  => array(
                     'label' => '1:2.5',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-1-2_5.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-1-2_5.png'
                 ),
                 'custom'  => array(
                     'label' => 'custom',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-custom.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-custom.png'
                 ),
             )),
             Field::create( 'text', 'custom_aspect_ratio' )
@@ -115,38 +109,12 @@ class Flip_Box extends Component {
         $args['additional_classes'][] = $flip_effect;
 
         $cards = array();
-        $keys = array('front','back');
-
-
-
-
-
-
-        $contents = array( 'front' => array(), 'back' => array() );
-        if( isset($args['components']) && is_array($args['components']) ){
-            $contents['front'] = $args['components'][0]['components'] ?? array();
-            $contents['back'] = $args['components'][1]['components'] ?? array();
-        }
-
-
-
+        $flipbox_inner = $args['components'][0];
         
-
+        $keys = array('front','back');
         foreach ($keys as $index => $key) {
-            $card = array();
-            $card['key'] = $key;
-            // $card['content'] = $args[$key.'_content']['blocks_layout'];
-
-            $card['components'] = $contents[$key];
-            
-            $card['args'] = array(
-                // 'settings' => $args[$key.'_settings'],
-                'additional_attributes' => array('id="'.$args['components'][$index]['attributes']['id'].'"'),
-                'additional_classes' => array('flipbox-'.$key),
-                'additional_styles' => array('flex-direction'=>'column') // it shouldnt be here
-            );
-            // if( $args[$key.'_align_items'] != 'start' ) $card['args']['additional_styles']['align-items'] = $args[$key.'_align_items'];
-            // if( $args[$key.'_justify_content'] != 'start' ) $card['args']['additional_styles']['justify-content'] = $args[$key.'_justify_content'];
+            $card = $flipbox_inner['components'][$index];
+            $card['additional_classes'][] = 'flipbox-'.$key;
             $cards[] = $card;
         }
 
@@ -154,9 +122,9 @@ class Flip_Box extends Component {
 		echo Template_Engine::component_wrapper('start', $args);
         echo '<div class="flipbox-inner">';
         foreach ($cards as $card) {
-            echo Template_Engine::component_wrapper('start', $card['args']);
+            echo Template_Engine::component_wrapper('start', $card);
             echo Template_Engine::check_components( $card );
-            echo Template_Engine::component_wrapper('end', $card['args']);
+            echo Template_Engine::component_wrapper('end', $card);
         }
         echo '</div>';
 		echo Template_Engine::component_wrapper('end', $args);

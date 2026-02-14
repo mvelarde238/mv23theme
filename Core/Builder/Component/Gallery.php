@@ -135,47 +135,47 @@ class Gallery extends Component {
             ->add_options(array(
                 '1/1'  => array(
                     'label' => '1:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-1-1.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-1-1.png'
                 ),
                 '4/3'  => array(
                     'label' => '4:3',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-4-3.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-4-3.png'
                 ),
                 '16/9'  => array(
                     'label' => '16:9',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-16-9.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-16-9.png'
                 ),
                 '2/1'  => array(
                     'label' => '2:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-2-1.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-2-1.png'
                 ),
                 '2.5/1'  => array(
                     'label' => '2.5:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-2_5-1.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-2_5-1.png'
                 ),
                 '4/1'  => array(
                     'label' => '4:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-4-1.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-4-1.png'
                 ),
                 '3/4'  => array(
                     'label' => '3:4',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-3-4.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-3-4.png'
                 ),
                 '9/16'  => array(
                     'label' => '9:16',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-9-16.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-9-16.png'
                 ),
                 '1/2'  => array(
                     'label' => '1:2',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-1-2.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-1-2.png'
                 ),
                 '1/2.5'  => array(
                     'label' => '1:2.5',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-1-2_5.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-1-2_5.png'
                 ),
                 'default' => array(
                     'label' => 'default',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio-default.png'
+                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-default.png'
                 ),
             ));
 

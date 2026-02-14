@@ -56,6 +56,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsExtendComponents', 'handler' => 'gjs-extend-components', 'isComponent' => false ],
 		[ 'name' => 'handleCommonSettings', 'handler' => 'handle-common-settings', 'isComponent' => false ],
 		[ 'name' => 'gjsDynamicData', 'handler' => 'gjs-dynamic-data', 'isComponent' => false ],
+		[ 'name' => 'gjsExtendSmProperties', 'handler' => 'gjs-extend-sm-properties', 'isComponent' => false ],
 		// Shared resources (must load before components that use it)
 		[ 'name' => 'gjsSharedTemplates', 'handler' => 'gjs-shared-templates', 'isComponent' => false ],
 		[ 'name' => 'handleThemeColors', 'handler' => 'handle-theme-colors', 'isComponent' => false ],
@@ -85,11 +86,11 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsCommentsArea', 'handler' => 'gjs-comments-area', 'isComponent' => true ],
 		[ 'name' => 'gjsArchivePageStructure', 'handler' => 'gjs-archive-page-structure', 'isComponent' => true ],
 		[ 'name' => 'gjsIconAndText', 'handler' => 'gjs-icon-and-text', 'isComponent' => true ],
+		[ 'name' => 'gjsFlipbox', 'handler' => 'gjs-flip-box', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true, 'hasCss' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],
 		[ 'name' => 'gjsTogglebox', 'handler' => 'gjs-togglebox', 'isExternal' => true ],
-		[ 'name' => 'gjsFlipbox', 'handler' => 'gjs-flip-box', 'isExternal' => true ],
 		[ 'name' => 'gjsCarousel', 'handler' => 'gjs-carousel', 'isExternal' => true ],
 		[ 'name' => 'gjsImages', 'handler' => 'gjs-images', 'isExternal' => true ],
 		[ 'name' => 'gjsVideo', 'handler' => 'gjs-video', 'isExternal' => true ],

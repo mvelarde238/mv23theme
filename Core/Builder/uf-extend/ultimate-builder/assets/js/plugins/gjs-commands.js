@@ -211,6 +211,16 @@ window.gjsCommands = function (editor, options) {
         }
     });
 
+    commands.add('locked-components-toggle', (editor, sender, options = {}) => {
+        let component = options.component;
+
+        let lockedComponents = component.get('lockedComponents');
+        component.components().forEach(element => {
+            element.set('locked',!lockedComponents);
+        });
+        component.set('lockedComponents', !lockedComponents);
+    });
+
     // Icon and Text specific commands
     commands.add('update-icon-property', (editor, sender, options = {}) => {
         let component = options.component,
