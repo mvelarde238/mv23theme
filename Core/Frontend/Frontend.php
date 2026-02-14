@@ -237,30 +237,6 @@ class Frontend extends Theme_Header_Data {
         return $title;
     }
 
-    public function body_class( $classes ) {
-        $page = new Page();
-        $page_content = ($page->get_id() != null) ? get_post_meta($page->get_id(), 'page_content', true) : null;
-        if( is_array($page_content) && !empty($page_content) && isset($page_content[0]) ) {
-            $page_component = $page_content[0];
-
-            $classes_from_component = Classes::get_classes( $page_component );
-            if( is_array( $classes_from_component ) && !empty( $classes_from_component ) ){
-                $classes = array_merge( $classes, $classes_from_component );
-            }
-
-            $hide_static_header = $page_component['hide_static_header'] ?? false;
-            if ( $hide_static_header ) $classes[] = 'hide-static-header';
-
-            $hide_sticky_header = $page_component['hide_sticky_header'] ?? false;
-            if ( $hide_sticky_header ) $classes[] = 'hide-sticky-header';
-        }
-    
-        $disable_comments_styles = get_option( 'disable_comments_styles' );
-        if ( $disable_comments_styles ) $classes[] = 'disable-comments-styles';
-            
-        return $classes;
-    }
-
     /**
      * Returns the wrapper component with its datastore merged
      * 
@@ -289,6 +265,27 @@ class Frontend extends Theme_Header_Data {
         $id = ($wrapper) ? Id::get_id( $wrapper ) : null;
 
         echo ($id) ? 'id="'.$id.'"' : '';
+    }
+
+    public function body_class( $classes ) {
+        $wrapper = $this->get_wrapper();
+        if( $wrapper ) {
+            $classes_from_wrapper = Classes::get_classes( $wrapper );
+            if( is_array( $classes_from_wrapper ) && !empty( $classes_from_wrapper ) ){
+                $classes = array_merge( $classes, $classes_from_wrapper ); 
+            }
+
+            $hide_static_header = $wrapper['hide_static_header'] ?? false;
+            if ( $hide_static_header ) $classes[] = 'hide-static-header';
+
+            $hide_sticky_header = $wrapper['hide_sticky_header'] ?? false;
+            if ( $hide_sticky_header ) $classes[] = 'hide-sticky-header';
+        }
+    
+        $disable_comments_styles = get_option( 'disable_comments_styles' );
+        if ( $disable_comments_styles ) $classes[] = 'disable-comments-styles';
+            
+        return $classes;
     }
 
     public function body_attributes(){

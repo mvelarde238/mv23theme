@@ -17,6 +17,7 @@ CHANGELOG
 - Flip Box Review
 - Image Component Review: 
   add custom link option, fix credits position and styles, add suggestions for image url and use custom_datastore_change_callback
+- Fix: get body classes from wrapper component
 
 3.1.3 26-02-05
 - Archive Page Structure Implementation
