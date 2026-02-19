@@ -5,6 +5,7 @@ CHANGELOG
 3.2.1 26-02-18
 - Header CPT implementation
 - Review --components-spacing
+- Fix Header Preview __additionalDataCallback
 
 3.2.0 26-02-12
 - page_content_datastore meta implementation
