@@ -105,9 +105,10 @@ class Template_Engine{
             echo self::check_video_background( $args );
             echo self::check_slider_background( $args );
             echo self::check_layout('start', $args);
+            echo self::check_actions('start', $args );
         }
         if ($key == 'end'){  
-            echo self::check_actions( $args );
+            echo self::check_actions('end', $args );
             echo self::check_layout('end', $args);
             do_action( 'before_component_wrapper_end', $args );
             echo '</div>';
@@ -126,8 +127,11 @@ class Template_Engine{
 		}
     }
 
-    public static function check_actions( $args ){
-        return Actions::get_code( $args );
+    public static function check_actions( $key, $args ){
+        $action = Actions::get_code( $args );
+
+        if( $action && $key == 'start' ) echo $action['start'];
+        if( $action && $key == 'end' ) echo $action['end'];
     }
 
     public static function check_video_background( $args ){

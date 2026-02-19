@@ -175,9 +175,10 @@ class Image extends Component {
         ob_start();
         do_action( 'after_component_wrapper_start', $args );
         echo Template_Engine::check_layout('start', $args);
+        echo Template_Engine::check_actions( 'start', $args );
 		echo '<img '.$image_attributes.'>';
+        echo Template_Engine::check_actions( 'end', $args );
         if( $caption ) echo '<p class="media-caption">'.esc_html($caption).'</p>';
-        echo Template_Engine::check_actions( $args );
         echo Template_Engine::check_layout('end', $args);
         do_action( 'before_component_wrapper_end', $args );
         return ob_get_clean();

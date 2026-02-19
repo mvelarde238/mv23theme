@@ -6,7 +6,7 @@ Class Actions{
      * Return html output
      */
 	public static function get_code( $args ){
-		$code = '';
+		$code = array('start' => '', 'end' => '');
 
     	if ( isset($args['actions_settings']) && is_array($args['actions_settings']) && !empty($args['actions_settings']) ) {
 			$action = $args['actions_settings'];
@@ -25,7 +25,8 @@ Class Actions{
             	}
             	if ($link != NULL):
                 	$target = (isset($link['new_tab']) && $link['new_tab'] == 1) ? '_blank' : ''; 
-                	$code = '<a class="cover-all" href="'.$link.'" target="'.$target.'"></a>';
+                	$code['start'] = '<a href="'.$link.'" target="'.$target.'">';
+					$code['end'] = '</a>';
             	endif;
     		}
     		if ($action['trigger'] == 'click' && $action['action'] == 'open-image-popup') { 
@@ -33,7 +34,10 @@ Class Actions{
     			if( $image_popup ){	
     				$image = $image_popup['internal_image'];
     				$link = wp_get_attachment_url($image);
-    				if ($link) $code = '<a class="cover-all zoom" href="'.$link.'"></a>';
+    				if ($link) {
+    					$code['start'] = '<a class="zoom" href="'.$link.'">';
+    					$code['end'] = '</a>';
+    				}
     			}
     		}
     		if ($action['trigger'] == 'click' && $action['action'] == 'open-video-popup') {
@@ -48,12 +52,16 @@ Class Actions{
     						if ($video_id) $video_url = wp_get_attachment_url($video_id);
     					}
     					if( is_string($videos) ) $video_url = $videos;
-    					if($video_url) $code = '<a data-fancybox class="cover-all" href="'.$video_url.'"></a>';
+    					if($video_url) {
+    						$code['start'] = '<a data-fancybox href="'.$video_url.'">';
+    						$code['end'] = '</a>';
+    					}
     				}
     				if( $video_source == 'external' ){
     					$video_url = $video_popup['external_video'];
     					if($video_url){
-    						$code = '<a data-fancybox class="cover-all" href="'.$video_url.'"></a>';
+    						$code['start'] = '<a data-fancybox href="'.$video_url.'">';
+    						$code['end'] = '</a>';
     					}
     				}
 				}
@@ -63,14 +71,16 @@ Class Actions{
     			$selector = $toggle_box_settings['selector'];
     			if($selector){
     				$scroll_to_box = (isset($toggle_box_settings['scroll_to_box'])) ? $toggle_box_settings['scroll_to_box'] : 0;
-    				$code = '<a class="cover-all toggle-box" data-selector="'.$selector.'" data-scroll-to-box="'.$scroll_to_box.'" href="#"></a>';
+    				$code['start'] = '<a class="toggle-box" data-selector="'.$selector.'" data-scroll-to-box="'.$scroll_to_box.'" href="#"></a>';
+    				$code['end'] = '</a>';
     			}
     		}
     		if ($action['trigger'] == 'click' && $action['action'] == 'offcanvas-element') { 
     			$offcanvas_elements_settings = (isset($action['offcanvas_elements_settings'])) ? $action['offcanvas_elements_settings'] : array( 'id' => null );
     			$id = $offcanvas_elements_settings['id'];
     			if($id){
-    				$code = '<a class="cover-all" data-offcanvas-element="'.str_replace('post_','',$id).'" href="#"></a>';
+    				$code['start'] = '<a data-offcanvas-element="'.str_replace('post_','',$id).'" href="#"></a>';
+    				$code['end'] = '</a>';
     			}
     		}
 		};
