@@ -78,7 +78,8 @@ class Core{
             'Header',
             'Header_Logo',
             'Header_Preview',
-            'Container'
+            'Container',
+            'Counter',
         )
     );
 

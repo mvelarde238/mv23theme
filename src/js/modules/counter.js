@@ -9,6 +9,7 @@
             var start = parseInt(counter.getAttribute('data-start'), 10);
             var end = parseInt(counter.getAttribute('data-number'), 10);
             var duration = parseInt(counter.getAttribute('data-duration'), 10) / 1000; // GSAP usa segundos
+            var counterElement = counter.querySelector('.counter-number');
 
             var timeline = gsap.timeline({
                 scrollTrigger: {
@@ -18,7 +19,7 @@
                 }
             });
 
-            timeline.fromTo(counter,
+            timeline.fromTo(counterElement,
                 { innerText: start },
                 {
                     innerText: end,

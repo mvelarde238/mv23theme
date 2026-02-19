@@ -6,6 +6,7 @@ CHANGELOG
 - Header CPT implementation
 - Review --components-spacing
 - Fix Header Preview __additionalDataCallback
+- Counter Component Implementation
 
 3.2.0 26-02-12
 - page_content_datastore meta implementation

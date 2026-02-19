@@ -88,6 +88,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsArchivePageStructure', 'handler' => 'gjs-archive-page-structure', 'isComponent' => true ],
 		[ 'name' => 'gjsIconAndText', 'handler' => 'gjs-icon-and-text', 'isComponent' => true ],
 		[ 'name' => 'gjsFlipbox', 'handler' => 'gjs-flip-box', 'isComponent' => true ],
+		[ 'name' => 'gjsCounter', 'handler' => 'gjs-counter', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true, 'hasCss' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],
