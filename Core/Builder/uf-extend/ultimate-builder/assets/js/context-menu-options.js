@@ -96,6 +96,7 @@ window['contextMenuOpts'] = {
 
             const getFontSize = ()=>{
                 let value = parseInt(component.getStyle('font-size')) || 17;
+                console.log('getFontSize', value);
                 return value;
             };
             return [
@@ -146,6 +147,10 @@ window['contextMenuOpts'] = {
             ]
         },
         ['components-wrapper']: function(component, editor){
+            let actions = [],
+                actions_group_1 = [],
+                actions_group_2 = [];
+                    
 
             const topSvg = '<i class="bi bi-align-top"></i>';
             const middleSvg = '<i class="bi bi-align-middle"></i>';
@@ -175,17 +180,42 @@ window['contextMenuOpts'] = {
                 ]
             };
 
-            return [
-                layout_options(component, editor),
-                {
-                    type: 'options', title: 'FLEX DIRECTION',
-                    options: [
-                        { type: 'button', label: 'HORIZONTAL', command: 'update-flex-direction', args: { direction:'row' } },
-                        { type: 'button', label: 'VERTICAL', command: 'update-flex-direction', args: { direction:'column' } },
-                    ]
-                },
-                contentAlignmentOptions
-            ]
+            const getGap = ()=>{
+                let value = parseInt(component.getStyle('gap'));
+                if(isNaN(value)) value = 24;
+                return value;
+            };
+
+            actions_group_1.push(layout_options(component, editor));
+            actions_group_1.push({
+                type: 'options', title: 'FLEX DIRECTION',
+                options: [
+                    { type: 'button', label: 'HORIZONTAL', command: 'update-flex-direction', args: { direction:'row' } },
+                    { type: 'button', label: 'VERTICAL', command: 'update-flex-direction', args: { direction:'column' } },
+                ]
+            });
+
+            actions_group_2.push(contentAlignmentOptions);
+            actions_group_2.push({ type: 'range', title:'SPACE BETWEEN COMPONENTS', command: 'update-gap-property', min:0, value:getGap });
+
+            actions.push({
+                type: 'options',
+                gap: 30,
+                options: [
+                    {
+                        type: 'options',
+                        class: 'column',
+                        options: actions_group_1
+                    },
+                    {
+                        type: 'options',
+                        class: 'column',
+                        options: actions_group_2
+                    },
+                ]
+            });
+
+            return actions;
         },
         wrapper: function(component, editor){
             let actions = [

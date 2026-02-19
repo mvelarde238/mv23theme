@@ -2250,7 +2250,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
     private function migrate_header_settings() {
         $post_data = array(
-            'post_title'    => 'Page Header - Migration Test',
+            'post_title'    => 'Page Header',
             'post_status'   => 'publish',
             'post_type'     => 'header',
         );
