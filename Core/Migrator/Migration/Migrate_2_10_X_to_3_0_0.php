@@ -11,6 +11,7 @@ use Core\Builder\Template_Engine\Background;
 use Core\Builder\Template_Engine\Color;
 use Core\Builder\Template_Engine\Width;
 use Core\Builder\Component\Listing;
+use Ultimate_Fields\Ultimate_Builder\Templates_Generator;
 
 class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
     private static $instance = null;
@@ -497,9 +498,9 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             $page_component['settings'] = $settings;
         }
 
-        $page_component['remove_padding_top'] = get_post_meta( $post_id, 'remove_body_padding_top', true );
+        $page_component['place_content_under_header'] = get_post_meta( $post_id, 'remove_body_padding_top', true );
 
-        $other_meta = ['hide_static_header','hide_static_header_logo','custom_static_header','custom_static_header_logo','static_header_bgc', 'static_header_logo', 'sticky_header_logo', 'hide_sticky_header', 'static_header_color_scheme','hide_sticky_header_logo','custom_sticky_header','custom_sticky_header_logo','sticky_header_bgc','sticky_header_color_scheme'];
+        $other_meta = ['hide_static_header','hide_static_header_logo','hide_sticky_header', 'hide_sticky_header_logo'];
         foreach( $other_meta as $om ){
             $value = get_post_meta( $post_id, $om, true );
             $page_component[$om] = $value;
@@ -2245,6 +2246,215 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         }
     }
 
+    private function migrate_header_settings() {
+        $post_data = array(
+            'post_title'    => 'Page Header - Migration Test',
+            'post_status'   => 'publish',
+            'post_type'     => 'header',
+        );
+        $post_id = wp_insert_post($post_data);
+        
+        if (!is_wp_error($post_id)) {
+
+            $old_header_settings = array();
+            $keys = array('static', 'sticky');
+            foreach ($keys as $key) {
+                // header logo
+                $header_logo_id = null;
+                $header_logo_key = get_option($key.'_header_logo');
+                if( $header_logo_key == 'custom' ){
+                    $header_logo_id = get_option('custom_'.$key.'_header_logo');
+                }else{
+                    $header_logo_id = get_option($header_logo_key);
+                }
+                $old_header_settings[$key.'_header_logo'] = $header_logo_id;
+
+                // header max height
+                $header_max_height = get_option($key.'_header_max_height', 60);
+                $old_header_settings[$key.'_header_max_height'] = $header_max_height;
+
+                // header background color
+                $header_bgc_default = get_option( $key.'_header_bgc', array(
+                    'add_bgc' => false,
+                    'bgc' => '',
+                    'alpha' => 100
+                ));
+                $header_bgc = get_option($key.'_header_bgc', $header_bgc_default);
+                if( is_array($header_bgc) && $header_bgc['add_bgc'] ){
+                    $color = $header_bgc['bgc'];
+                    $alpha = $header_bgc['alpha'];
+                    $old_header_settings[$key.'_header_bgc'] = 'rgba('.Helpers::hexToRgb( $color, $alpha ).')';
+                } else {
+                    $old_header_settings[$key.'_header_bgc'] = '';
+                }
+
+                // color scheme
+                $header_color_scheme = get_option($key.'_header_color_scheme', '');
+                $old_header_settings[$key.'_header_color_scheme'] = ( $header_color_scheme === 'text-color-2' ) ? '#ffffff' : 'inherit';
+            }
+
+            $adjust_scroll_position = get_option('adjust_scroll_position', false);
+
+            // Generate content structure with migrated settings
+            $content_structure = [
+                "type" => "wrapper",
+                "components" => [
+                    [
+                        "type" => "header",
+                        "adjust_scroll_position" => $adjust_scroll_position,
+                        "styles" => [
+                            [
+                                "style" => [
+                                    "background-color" => $old_header_settings['static_header_bgc'],
+                                    "color" => $old_header_settings['static_header_color_scheme'],
+                                ],
+                            ],
+                            [
+                                "style" => [
+                                    "background-color" => $old_header_settings['sticky_header_bgc'],
+                                    "color" => $old_header_settings['sticky_header_color_scheme'],
+                                    "box-shadow" => "0px 0px 5px 0px #939191"
+                                ],
+                                "selectorsAdd" => "#%comp_id%.header--sticky"
+                            ]
+                        ],
+                        "components" => [
+                            [ 
+                                "type" => "header-content",
+                                "components" => [
+                                    [ 
+                                        "type" => "components-wrapper",
+                                        "styles" => [
+                                            [
+                                                "style" => [
+                                                    "display" => "flex",
+                                                    "justify-content" => "space-between",
+                                                    "align-items" => "center",
+                                                    "padding" => "15px 0 15px 0",
+                                                    "gap" => "15px",
+                                                ],
+                                            ],
+                                        ],
+                                        "components" => [
+                                            [ 
+                                                "type" => "header-logo",
+                                                "static_header_logo" => $old_header_settings['static_header_logo'],
+                                                "sticky_header_logo" => $old_header_settings['sticky_header_logo'],
+                                                "styles" => [
+                                                    [
+                                                        "style" => [
+                                                            "height" => $old_header_settings['static_header_max_height'].'px',
+                                                        ],
+                                                        [
+                                                            "style" => [
+                                                                "height" => $old_header_settings['sticky_header_max_height'].'px',
+                                                            ],
+                                                            "selectorsAdd" => ".header-logo--sticky #%comp_id%"
+                                                        ]
+                                                    ],
+                                                ]
+                                            ],
+                                            [
+                                                "type" => "components-wrapper",
+                                                "styles" => [
+                                                    [
+                                                        "style" => [
+                                                            "display" => "flex",
+                                                            "justify-content" => "space-between",
+                                                            "align-items" => "center",
+                                                            "gap" => "15px",
+                                                        ],
+                                                    ],
+                                                ],
+                                                "components" => [
+                                                    [ 
+                                                        "type" => "menu",
+                                                        "menu_type" => "location",
+                                                        "menu" => null,
+                                                        "location" => "main-nav",
+                                                        "style" => "horizontal-nav-1",
+                                                        "styles" => [
+                                                            [
+                                                                "style" => [
+                                                                    "display" => "none",
+                                                                ],
+                                                                "mediaText" => "(max-width: 992px)",
+                                                                "atRuleType" => "media",
+                                                            ]
+                                                        ]
+                                                    ],
+                                                    [ 
+                                                        "type" => "menu",
+                                                        "menu_type" => "location",
+                                                        "menu" => null,
+                                                        "location" => "mobile-header-buttons",
+                                                        "style" => "horizontal-nav-1",
+                                                        "styles" => [
+                                                            [
+                                                                "style" => [
+                                                                    "display" => "none",
+                                                                ],
+                                                            ],
+                                                            [
+                                                                "style" => [
+                                                                    "display" => "block",
+                                                                ],
+                                                                "mediaText" => "(max-width: 992px)",
+                                                                "atRuleType" => "media",
+                                                            ]
+                                                        ]
+                                                    ],
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ],
+                        ]
+                    ],
+                    [ "type" => "container" ]
+                ],
+            ];
+
+            $templates = Templates_Generator::generate_templates( $content_structure );
+
+            // Prepare meta values
+            $meta_values = [
+                'page_content_styles' => $templates['styles'],
+                'page_content' => $templates['gjs_template'],
+                'page_content_datastore' => $templates['datastore'],
+            ];
+
+            // Update post meta with new values
+            foreach ($meta_values as $meta_key => $meta_value) {
+                if( $this->do_the_update ) update_post_meta($post_id, $meta_key, $meta_value);
+            }
+                
+            if( $this->do_the_update ) update_option('theme_header_post', 'post_'.$post_id);
+
+            // Delete old options
+            if ($this->delete_old_data) {
+                $old_options = array(
+                    'static_header_logo',
+                    'custom_static_header_logo',
+                    'static_header_max_height',
+                    'static_header_bgc',
+                    'static_header_color_scheme',
+                    'sticky_header_logo',
+                    'custom_sticky_header_logo',
+                    'sticky_header_max_height',
+                    'sticky_header_bgc',
+                    'sticky_header_color_scheme',
+                    'adjust_scroll_position'
+                );
+
+                foreach ($old_options as $option) {
+                    delete_option($option);
+                }
+            }
+        }
+    }
+
     public function migrate_archive_page_post_meta( $post_id ){
         // Migrate loop_columns to columns
         $loop_columns = get_post_meta( $post_id, 'loop_columns', true );
@@ -2299,13 +2509,15 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 }
             }
         }
+        if( $this->delete_old_data ){
+            delete_option( 'single_pages_settings' );
+        }
 
         // Migrate colors settings
         $this->migrate_colors_settings();
 
-        if( $this->delete_old_data ){
-            delete_option( 'single_pages_settings' );
-        }
+        // Migrate Header settings
+        $this->migrate_header_settings();
 
         wp_send_json_success(array(
             'complete' => true

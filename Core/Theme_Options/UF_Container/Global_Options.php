@@ -10,13 +10,20 @@ class Global_Options{
             ->set_title( __('Global Options','mv23theme') )
             ->add_location( 'options', 'theme-options' )
             ->add_fields(array(
-                Field::create( 'wp_object', 'theme_footer_post', __('Footer','mv23theme') )->add( 'posts', 'post_type=footer' ),
+                Field::create( 'complex', 'header_and_footer_wrapper', __('Header and Footer','mv23theme') )->merge()->add_fields(array(
+                    Field::create( 'wp_object', 'theme_header_post', __('Header','mv23theme') )->add( 'posts', 'post_type=header' )->set_width(50),
+                    Field::create( 'wp_object', 'theme_footer_post', __('Footer','mv23theme') )->add( 'posts', 'post_type=footer' )->set_width(50),
+                )),
 
                 Field::create( 'complex', 'masonry_wrapper', __('Masonry Gallery','mv23theme') )->merge()->add_fields(array(
-                    Field::create( 'checkbox', 'activate_masonry', __('Activate Masonry','mv23theme') )->set_text(__('Activate','mv23theme')),
+                    Field::create( 'checkbox', 'activate_masonry', __('Activate Masonry','mv23theme') )
+                        ->set_text(__('Activate','mv23theme'))
+                        ->fancy(),
                 )),
         
-                Field::create( 'checkbox', 'disable_comments_styles', __('Deactive theme styles in comments','mv23theme') )->set_text(__('Deactivate','mv23theme')),
+                Field::create( 'checkbox', 'disable_comments_styles', __('Deactive theme styles in comments','mv23theme') )
+                    ->set_text(__('Deactivate','mv23theme'))
+                    ->fancy(),
             ));
     }
 }

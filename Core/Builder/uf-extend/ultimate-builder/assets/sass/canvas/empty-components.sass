@@ -1,11 +1,7 @@
-/* make components visible ? */
-// div[data-gjs-type]:not(.full-height):not([data-gjs-type="spacer"]):empty
-//     padding-top: 25px
-//     padding-bottom: 25px
-
+/* make components visible */
 [data-gjs-type="wrapper"],
 [data-gjs-type="container"]
-    min-height: 100vh !important
+    min-height: 100vh
     
 /* empty component wrappers styles */
 [data-gjs-type="section"]:empty,
@@ -20,7 +16,17 @@
 [data-gjs-type="single-main-content"]:empty,
 [data-gjs-type="oce-modal-content"]:empty,
 [data-gjs-type="togglebox-item"]:empty,
+[data-gjs-type="header-content"]:empty,
+[data-gjs-type="header-logo"]:empty,
+[data-gjs-type="header-logo"]:not(:has(img)),
 [data-gjs-type="shortcode"]
     border: 3px dashed color-mix(in srgb,currentColor 10%,transparent)
     background-color: color-mix(in srgb,currentColor 10%,transparent)
     min-height: 50px
+    min-width: 200px
+
+[data-gjs-type="header-logo"]:not(:has(img))
+    display: flex
+    align-items: center
+    justify-content: center
+    max-width: 200px

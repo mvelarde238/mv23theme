@@ -65,6 +65,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsAsyncComponent', 'handler' => 'gjs-async-component', 'isComponent' => true ],
 		[ 'name' => 'gjsWrapper', 'handler' => 'gjs-wrapper', 'isComponent' => true ],
 		[ 'name' => 'gjsHeader', 'handler' => 'gjs-header', 'isComponent' => true ],
+		[ 'name' => 'gjsHeaderPreview', 'handler' => 'gjs-header-preview', 'isComponent' => true ],
 		[ 'name' => 'gjsThemeOptions', 'handler' => 'gjs-theme-options', 'isComponent' => true ],
 		[ 'name' => 'gjsCompWrapper', 'handler' => 'gjs-components-wrapper', 'isComponent' => true ],
 		[ 'name' => 'gjsListing', 'handler' => 'gjs-listing', 'isComponent' => true ],
@@ -193,6 +194,7 @@ class Ultimate_Builder {
 				'is_singular' => $is_singular,
 				'is_archive' => $is_archive,
 				'theme_colors' => get_option( 'theme_colors', array() ),
+				'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
 			));
 
 			$this->filter_admin_body_class();

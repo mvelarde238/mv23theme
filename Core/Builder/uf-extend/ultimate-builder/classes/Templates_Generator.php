@@ -57,7 +57,10 @@ class Templates_Generator{
             $css_string = '';
             
             foreach( $component['styles'] as $style ){
-                $style['selectors'] = [ '#'.$comp_id ];
+                // Add selector to style and store in gjs_styles
+                // "selectorsAdd" is a flag to indicate a custom selector, e.g: #id.header--sticky
+                $style['selectors'] = (!isset($style['selectorsAdd'])) ? [ '#'.$comp_id ] : [];
+                $style['selectorsAdd'] = (isset($style['selectorsAdd'])) ? str_replace('%comp_id%', $comp_id, $style['selectorsAdd']) : null;
                 $processed['gjs_styles'][] = $style;
                 
                 // Generate CSS string
@@ -67,7 +70,11 @@ class Templates_Generator{
                         $css_rules .= $property . ':' . $value . ';';
                     }
                     
-                    $selector_string = '#' . $comp_id . '{' . $css_rules . '}';
+                    if( isset($style['selectorsAdd']) && !empty($style['selectorsAdd']) ){
+                        $selector_string = $style['selectorsAdd'] . '{' . $css_rules . '}';
+                    } else {
+                        $selector_string = '#' . $comp_id . '{' . $css_rules . '}';
+                    }
                     
                     // Wrap in media query if needed
                     if( isset($style['mediaText']) ){
@@ -88,14 +95,15 @@ class Templates_Generator{
         return $processed;
     }
 
-    public static function generate_templates( $inner_components = array() ) {
+    public static function generate_templates( $content_structure = array() ) {
+        $content_structure = [ $content_structure ]; // Ensure it's an array of components
         $gjs_components = array();
         $datastore = array();
         $gjs_styles = [];
         $styles = '* { box-sizing: border-box; } body {margin: 0;}';
 
-        if( is_array( $inner_components ) && ! empty( $inner_components ) ) {
-            foreach( $inner_components as $component ) {
+        if( is_array( $content_structure ) && ! empty( $content_structure ) ) {
+            foreach( $content_structure as $component ) {
                 $processed = self::process_component( $component, $datastore );
                 $gjs_components[] = $processed['gjs_component'];
                 if (!empty($processed['gjs_styles'])) {
@@ -107,26 +115,11 @@ class Templates_Generator{
             }
         }
 
-        $__wrapper_id = 'cmp_' . substr(md5(uniqid()), 0, 8);
-        $__container_id = 'cmp_' . substr(md5(uniqid()), 0, 8);
-
-        // Add wrapper and container to datastore
-        $datastore[$__wrapper_id] = [ '__type' => 'wrapper' ];
-        $datastore[$__container_id] = [ '__type' => 'container' ];
-
-        $gjs_wrapper = array(
+        // Wrap all components in a main wrapper if not already wrapped
+        $gjs_wrapper = $gjs_components[0] ?? [
             'type' => 'wrapper',
-            '__id' => $__wrapper_id,
-            'components' => array(
-                array(
-                    'type' => 'container',
-                    '__id' => $__container_id,
-                    'classes' => array('container'),
-                    'attributes' => array(),
-                    'components' => $gjs_components
-                )
-            )
-        );
+            '__id' => 'cmp_wrapper'
+        ];
 
         return array(
             'gjs_template' => array(

@@ -8,7 +8,6 @@ namespace Core\Frontend;
 use Core\Includes\Theme_Header_Data;
 use Core\Frontend\Shortcodes as Shortcodes;
 use Core\Frontend\Page;
-use Core\Frontend\Header;
 use Core\Theme_Options\Theme_Options;
 use Core\Builder\Template_Engine\Scroll_Animations;
 use Core\Builder\Template_Engine\Id;
@@ -152,14 +151,11 @@ class Frontend extends Theme_Header_Data {
         if( SCROLL_ANIMATIONS ) wp_enqueue_script( 'gsap', $this->theme_uri . '/assets/js/gsap.js', array(), '1.0', true);
 
         // localize global variables
-        $static_header = new Header();
-        $sticky_header = new Header('sticky');
-        wp_localize_script( $this->text_domain . '-scripts', 'STATIC_HEADER', $static_header->get_options() ); 
-        wp_localize_script( $this->text_domain . '-scripts', 'STICKY_HEADER', $sticky_header->get_options() ); 
         wp_localize_script( $this->text_domain . '-scripts', 'MV23_GLOBALS', array(
             'pageID' => get_the_ID(),
             'isSingle' => is_single(),
             'isMobile' => wp_is_mobile(), 
+            'isAdmin' => is_admin(),
             'ajaxUrl' => admin_url( 'admin-ajax.php' ), 
             'homeUrl' => home_url(), 
             'nonce' =>  wp_create_nonce( 'global-nonce' ),
@@ -176,7 +172,6 @@ class Frontend extends Theme_Header_Data {
             'expanderScrollDuration' => LISTING_EXPANDER_SCROLL_DURATION,
             'carousels' => array(),
             'scrollAnimations' => SCROLL_ANIMATIONS,
-            'adjustScrollPosition' => ADJUST_SCROLL_POSITION,
             'open_minicart_on_add_to_cart' => OPEN_MINICART_ON_ADD_TO_CART,
             'minicart_sidenav_position' => MINICART_SIDENAV_POSITION,
             'woocommerce_is_active' => WOOCOMMERCE_IS_ACTIVE,
@@ -275,11 +270,14 @@ class Frontend extends Theme_Header_Data {
                 $classes = array_merge( $classes, $classes_from_wrapper ); 
             }
 
-            $hide_static_header = $wrapper['hide_static_header'] ?? false;
-            if ( $hide_static_header ) $classes[] = 'hide-static-header';
+            $header_keys = array('static', 'sticky');
+            foreach ($header_keys as $key) {
+                $hide_header = $wrapper['hide_'.$key.'_header'] ?? false;
+                if ( $hide_header ) $classes[] = 'hide-'.$key.'-header';
 
-            $hide_sticky_header = $wrapper['hide_sticky_header'] ?? false;
-            if ( $hide_sticky_header ) $classes[] = 'hide-sticky-header';
+                $hide_header_logo = $wrapper['hide_'.$key.'_header_logo'] ?? false;
+                if ( $hide_header_logo ) $classes[] = 'hide-'.$key.'-header-logo';
+            }
         }
     
         $disable_comments_styles = get_option( 'disable_comments_styles' );
@@ -294,8 +292,8 @@ class Frontend extends Theme_Header_Data {
         $attributes = [];
 
         if( $wrapper ) {
-            $remove_padding_top = $wrapper['remove_padding_top'] ?? false;
-            if( $remove_padding_top ){
+            $place_content_under_header = $wrapper['place_content_under_header'] ?? false;
+            if( $place_content_under_header ){
                 $styles[] = 'padding-top:0px;';
             }
         }
@@ -359,5 +357,17 @@ class Frontend extends Theme_Header_Data {
     public function include_shortcodes(){
         $shortcodes = new Shortcodes();
         $shortcodes->init();
+    }
+
+    public function filter_theme_header_post_option( $value ) {
+        $wrapper = $this->get_wrapper();
+        if( $wrapper ) {
+            $custom_header_post = $wrapper['custom_header_post'] ?? null;
+            if ( $custom_header_post ) {
+                $value = $custom_header_post;
+            }
+        }
+
+        return $value;
     }
 }

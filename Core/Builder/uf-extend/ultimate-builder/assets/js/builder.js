@@ -404,12 +404,16 @@
                         );
                     }
                 });
-                themeScripts.forEach( scriptSrc => {
-                    canvas.getDocument().head.insertAdjacentHTML(
-                        'beforeend',
-                        `<script type="text/javascript" src="${scriptSrc}"></script>`
-                    );
-                });
+
+                // these scripts are not working when added to the canvas, 
+                // probably because they are added after the canvas is loaded. 
+                // We need to find a way to add them before the canvas is loaded or to re-initialize the canvas after adding them.
+                // themeScripts.forEach( scriptSrc => {
+                //     canvas.getDocument().body.insertAdjacentHTML(
+                //         'beforeend',
+                //         `<script type="text/javascript" src="${scriptSrc}"></script>`
+                //     );
+                // });
             }
         }
     });

@@ -67,6 +67,7 @@ class Theme_Options extends Theme_Header_Data{
     
         $order_list = array( 
             'theme-options',
+            'edit.php?post_type=header', 
             'edit.php?post_type=footer', 
             'edit.php?post_type=offcanvas_element',
             'custom-scripts-options', 

@@ -4,62 +4,16 @@
 	left: 0
 	z-index: 896
 	width: 100%
-	background-color: var(--static-header-color) 
 
-	&__content
-		padding: 12px 0
-		display: flex
-		align-items: center
-		justify-content: flex-end
-		gap: 10px
+	&-logo img
+		height: 100%
 
-	&__widgets
-		font-size: .9em
-		line-height: 150%
-		display: flex
-		align-items: center
-		.widget
-			display: inline-block
-			margin-left: 10px
-			margin-bottom: 0
-		p
-			margin-bottom: 0
-
-	&__logo 
-		margin-right: auto
-		img
-			max-height: var(--static-header-logo-height)
-			transition: 500ms all
-			&[src*='.svg']
-				height: var(--static-header-logo-height)
-
-	&--sticky
-		background-color: var(--sticky-header-color)
-		box-shadow: 0 10px 20px rgba(0,0,0,.1)
-	&--sticky &__logo img 
-		max-height: var(--sticky-header-logo-height)
-
-	&:not(&--sticky).hide-static-header-logo &__logo,
-	&--sticky.hide-sticky-header-logo &__logo
-		opacity: 0
-
-// fix adaptive navbar
-.main-nav
-	max-width: 80%
-
-.mobile-header-buttons
-	display: none
-
-@media only screen and (max-width: #{$menu-breakpoint})
-	.header
-		&__widgets
-			display: none
-	.main-nav
-		display: none
-	.mobile-header-buttons
+	.static-header-logo
 		display: block
+	.sticky-header-logo
+		display: none
 
-@media #{$small-and-down}
-	.header
-		&__logo img
-			max-height: var(--sticky-header-logo-height)
+	&--sticky .static-header-logo
+		display: none
+	&--sticky .sticky-header-logo
+		display: block

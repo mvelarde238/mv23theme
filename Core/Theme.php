@@ -24,6 +24,7 @@ use Core\Posttype\Post;
 use Core\Posttype\Menu_Item;
 use Core\Posttype\Megamenu;
 use Core\Posttype\Footer;
+use Core\Posttype\Header;
 use Core\Builder\Core as Builder;
 use Core\Offcanvas_Elements\Core as Offcanvas_Elements;
 use Core\Migrator\Core as Migrator;
@@ -83,6 +84,9 @@ class Theme extends Theme_Header_Data {
 
         // Load theme's translated strings.
         $this->loader->add_action( 'init', $frontend, 'load_theme_textdomain', 1 );
+
+        // Filter the theme header post option to allow page specific headers
+        $this->loader->add_filter( 'pre_option_theme_header_post', $frontend, 'filter_theme_header_post_option', 1 );
 
         $page = new Page();
 
@@ -290,6 +294,10 @@ class Theme extends Theme_Header_Data {
         // Footer
         $footer = Footer::getInstance();
         $this->loader->add_action( 'uf.init', $footer, 'add_meta_boxes' );
+
+        // Header
+        $header = Header::getInstance();
+        $this->loader->add_action( 'uf.init', $header, 'add_meta_boxes' );
     }
 
     private function define_cleanup_hooks() {

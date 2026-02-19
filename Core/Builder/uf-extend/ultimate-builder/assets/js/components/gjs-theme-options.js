@@ -30,28 +30,6 @@ window.gjsThemeOptions = function (editor, options) {
                 const keys = Object.keys(changed);
                 if (keys.length && keys[0] === '__tab') return;
 
-                // Handle datastore data changes
-                if( 
-                    changed.main_logo_prepared || 
-                    changed.secondary_logo_prepared ||
-                    changed.static_header_logo_wrapper ||
-                    changed.sticky_header_logo_wrapper ||
-                    changed.static_header_color_scheme ||
-                    changed.sticky_header_color_scheme
-                ) {
-                    this.applyChangesOnHeader(changed);
-                }
-                if ( changed.static_header_logo_height || changed.sticky_header_logo_height ) {
-                    let key = changed.static_header_logo_height ? 'static_header_logo_height' : 'sticky_header_logo_height';
-                    this.set_CSS_prop('--' + key.replace(/_/g, '-'), changed[key] + 'px');
-                }
-                if ( changed.static_header_bgc || changed.sticky_header_bgc ) {
-                    let color = '';
-                    let css_property = changed.static_header_bgc ? '--static-header-color' : '--sticky-header-color';
-                    let values = changed.static_header_bgc ? changed.static_header_bgc : changed.sticky_header_bgc;
-                    if( values.add_bgc ) color = ( values.alpha != '100' ) ? this.hexToRgba(values.bgc, values.alpha) : values.bgc;
-                    this.set_CSS_prop(css_property, color);
-                }
                 if ( changed.theme_colors ) {
                     this.applyThemeColors( changed.theme_colors );
                 }
@@ -63,56 +41,6 @@ window.gjsThemeOptions = function (editor, options) {
                 }
                 if ( changed.containers_width ) {
                     this.handleContainersWidthChange( changed.containers_width );
-                }
-            },
-            applyChangesOnHeader(changed){
-                // look for header component and rerender header component
-                const headerComp = editor.getWrapper().findType('header')[0];
-                if ( headerComp ) {
-                    const model = this.model;
-
-                    const datastore = editor.getComponentDatastore(model);
-                    if (datastore) {
-                        const data = datastore.toJSON();
-
-                        // TODO: apply these filters on preview page as well
-                        headerComp.set('apply_filters', true);
-                        headerComp.set('filters_to_apply', [
-                            {
-                                'name': 'pre_option_main_logo',
-                                'value': data.main_logo
-                            }, 
-                            {
-                                'name': 'pre_option_secondary_logo',
-                                'value': data.secondary_logo
-                            },
-                            {
-                                'name': 'pre_option_static_header_logo',
-                                'value': data.static_header_logo_wrapper.static_header_logo
-                            },
-                            {
-                                'name': 'pre_option_custom_static_header_logo',
-                                'value': data.static_header_logo_wrapper.custom_static_header_logo
-                            },
-                            {
-                                'name': 'pre_option_static_header_color_scheme',
-                                'value': data.static_header_color_scheme
-                            },
-                            {
-                                'name': 'pre_option_sticky_header_logo',
-                                'value': data.sticky_header_logo_wrapper.sticky_header_logo
-                            },
-                            {
-                                'name': 'pre_option_custom_sticky_header_logo',
-                                'value': data.sticky_header_logo_wrapper.custom_sticky_header_logo
-                            },
-                            {
-                                'name': 'pre_option_sticky_header_color_scheme',
-                                'value': data.sticky_header_color_scheme
-                            }
-                        ]);
-                        headerComp.view.render();
-                    }
                 }
             },
             set_CSS_prop(prop, value){
@@ -296,8 +224,6 @@ window.gjsThemeOptions = function (editor, options) {
         const themeOptions_exists = wrapper.findType('theme-options')[0];
         if ( !themeOptions_exists ) {
             wrapper.append({type: 'theme-options'}, {at: 0});
-        // }else {
-            // console.warn('Theme Options component already exists in the wrapper. Skipping append.');
         }
     });
 }

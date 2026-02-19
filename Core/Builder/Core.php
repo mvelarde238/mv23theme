@@ -75,7 +75,10 @@ class Core{
             'Archive_Title',
             'Archive_Posts',
             'Theme_Options',
-            'Header'
+            'Header',
+            'Header_Logo',
+            'Header_Preview',
+            'Container'
         )
     );
 

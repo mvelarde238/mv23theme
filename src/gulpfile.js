@@ -198,26 +198,27 @@ gulp.task('svg', function () {
 // ADMIN-SCRIPTS.JS
 // **************************************************************************
 // **************************************************************************
-// var adminJSFiles = [
+var adminJSFiles = [
+	'js/modules/stickyHeader.js',
 	// 'js/functions/helpers.js',
 	// 'js/modulos/admin-custom-uploader.js',
 	// 'js/modulos/repeater-fields.js',
 	// 'js/modulos/datepicker_input.js',
 	// 'js/admin-scripts.js'
-// ];
+];
 
 var adminSASSFiles = [
 	'sass/admin-styles.scss'
 ];
 
-// gulp.task('adminjs', function () {
-// 	return gulp.src(adminJSFiles)
-// 		.pipe(concat('admin-scripts.js'))
-// 		// .pipe(babel({ presets: ['env'] }))
-// 		// .pipe(uglifyJs())
-// 		.pipe(gulp.dest('../assets/js/'))
-// 		.pipe(browserSync.stream());
-// });
+gulp.task('adminjs', function () {
+	return gulp.src(adminJSFiles)
+		.pipe(concat('admin-scripts.js'))
+		.pipe(babel({ presets: ['@babel/preset-env'] }))
+		.pipe(uglifyJs())
+		.pipe(gulp.dest('../assets/js/'))
+		.pipe(browserSync.stream());
+});
 
 gulp.task('adminsass', function () {
 	return gulp.src(adminSASSFiles)

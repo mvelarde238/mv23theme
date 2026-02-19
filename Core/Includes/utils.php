@@ -27,15 +27,6 @@ if(!function_exists('scroll_animation_is_active')){
     }
 }
 
-if(!function_exists('adjust_scroll_position_is_active')){
-    function adjust_scroll_position_is_active(){
-        $is_active = false;
-        $adjust_scroll_position = get_option('adjust_scroll_position');
-        if($adjust_scroll_position) $is_active = $adjust_scroll_position;
-        return $is_active;
-    }
-}
-
 if(!function_exists('posts_subscription_is_active')){
     function posts_subscription_is_active(){
         $settings = array(
