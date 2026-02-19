@@ -54,7 +54,11 @@ class Menu extends Component {
 
 	public static function get_fields() {
         $menu_styles_image_select = self::get_menu_styles_image_select();
-        $registered_nav_menus = get_registered_nav_menus();
+        // $registered_nav_menus = get_registered_nav_menus();
+        $registered_nav_menus = array(
+            'main-nav' => __('Main Navigation','mv23theme'),
+            'mobile-header-buttons' => __('Mobile Header Buttons','mv23theme'),
+        );
         $first_location = !empty($registered_nav_menus) ? array_key_first($registered_nav_menus) : '';
 
 		$fields = array(
