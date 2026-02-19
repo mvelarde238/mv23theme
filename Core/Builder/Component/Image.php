@@ -21,7 +21,7 @@ class Image extends Component {
 
     public static function get_builder_data() {
         return array(
-            'block_render_type' => 'figure',
+            // 'block_render_type' => 'figure',
             'custom_datastore_change_callback' => true
 		);
     }
