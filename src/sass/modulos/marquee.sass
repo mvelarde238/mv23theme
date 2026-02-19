@@ -6,6 +6,10 @@
     // fade effect using mask
     mask-image: linear-gradient(to right, transparent, black var(--fade-width), black calc(100% - var(--fade-width)), transparent)
     -webkit-mask-image: linear-gradient(to right, transparent, black var(--fade-width), black calc(100% - var(--fade-width)), transparent)
+
+    &[data-direction="right"]
+        justify-content: flex-end
+
     &-track
         display: flex
         align-items: center

@@ -74,7 +74,14 @@ class Carousel extends Component {
                 Field::create( 'text', 'fade_width', __('Fade Width', 'mv23theme') )
                     ->set_placeholder('100px')
                     ->set_default_value('100px')
-                    ->set_attr( 'style', 'width: 50%; min-width: initial;' )
+                    ->set_attr( 'style', 'width: 50%; min-width: initial;' ),
+                Field::create( 'select', 'direction', __('Direction', 'mv23theme') )
+                    ->add_options( array(
+                        'left' => __('Left','mv23theme'),
+                        'right' => __('Right','mv23theme'),
+                    ))
+                    ->set_default_value('left')
+                    ->set_width( 50 ),
             ))->add_dependency('carousel_type', 'marquee', '='),
 
             Field::create( 'tab', 'slider_settings_tab', __('Slider Settings','mv23theme') )
@@ -299,8 +306,9 @@ class Carousel extends Component {
             $marquee_settings = $args['marquee_settings'] ?? array();
             $marquee_speed = ( isset($marquee_settings['speed']) && is_numeric($marquee_settings['speed']) ) ? $marquee_settings['speed'] : 40;
             $fade_width = $marquee_settings['fade_width'] ?? '100px';
+            $direction = $marquee_settings['direction'] ?? 'left';
             ?>
-            <div class="marquee" data-speed="<?=$marquee_speed?>" style="--fade-width:<?=$fade_width?>;--d-gap:<?=$gutter_in_desktop?>px;--l-gap:<?=$gutter_in_laptop?>px; --t-gap:<?=$gutter_in_tablet?>px; --m-gap:<?=$gutter_in_mobile?>px;">
+            <div class="marquee" data-speed="<?=$marquee_speed?>" data-direction="<?=$direction?>" style="--fade-width:<?=$fade_width?>;--d-gap:<?=$gutter_in_desktop?>px;--l-gap:<?=$gutter_in_laptop?>px; --t-gap:<?=$gutter_in_tablet?>px; --m-gap:<?=$gutter_in_mobile?>px;">
             <div class="marquee-track">
         <?php endif; ?>
 
