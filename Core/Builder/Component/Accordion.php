@@ -144,7 +144,9 @@ class Accordion extends Component {
                 foreach ($the_accordion_items as $item){
                     $slug = $slugs[$count];
                     $itemsbox .= '<div id="'.$slug.'" class="v23-togglebox__item">';
+                    $itemsbox .= '<div class="components-wrapper">';
                     $itemsbox .= Template_Engine::check_components( $item );
+                    $itemsbox .= '</div>';
                     $itemsbox .= '</div>';
                     $count++;
                 }

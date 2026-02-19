@@ -310,7 +310,7 @@ class Carousel extends Component {
 			    foreach ($the_carousel['components'] as $item) {
                     $id = (isset($item['attributes']) && isset($item['attributes']['id'])) ? $item['attributes']['id'] : '';
                     echo '<div class="carousel__item carousel__item--content">';
-                    echo '<div id="'.$id.'">';
+                    echo '<div id="'.$id.'" class="components-wrapper">';
                     echo Template_Engine::check_components( $item );
                     echo '</div>';
                     echo '</div>';

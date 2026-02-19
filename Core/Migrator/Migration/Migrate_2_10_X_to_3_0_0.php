@@ -1418,11 +1418,13 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 }
                 $justify_content = $component['blocks_layout_settings']['justify_content'];
                 $align_items = $component['blocks_layout_settings']['align_items'];
-                $css_styles .= "#{$id} { display:flex; gap:20px; justify-content: {$justify_content}; align-items: {$align_items} }";
+                $css_styles .= "#{$id} { display:flex; flex-direction: row; flex-wrap: wrap; gap:20px; justify-content: {$justify_content}; align-items: {$align_items} }";
                 $gjs_styles[] = array(
                     'selectors' => array( '#' . $id ),
                     'style' => array( 
                         'display' => 'flex',
+                        'flex-direction' => 'row',
+                        'flex-wrap' => 'wrap',
                         'gap' => '20px',
                         'justify-content' => $justify_content,
                         'align-items' => $align_items
@@ -2328,6 +2330,8 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                                             [
                                                 "style" => [
                                                     "display" => "flex",
+                                                    "flex-direction" => "row",
+                                                    "flex-wrap" => "wrap",
                                                     "justify-content" => "space-between",
                                                     "align-items" => "center",
                                                     "padding" => "15px 0 15px 0",
@@ -2360,6 +2364,8 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                                                     [
                                                         "style" => [
                                                             "display" => "flex",
+                                                            "flex-direction" => "row",
+                                                            "flex-wrap" => "wrap",
                                                             "justify-content" => "space-between",
                                                             "align-items" => "center",
                                                             "gap" => "15px",

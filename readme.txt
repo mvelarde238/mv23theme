@@ -4,6 +4,7 @@ CHANGELOG
 
 3.2.1 26-02-18
 - Header CPT implementation
+- Review --components-spacing
 
 3.2.0 26-02-12
 - page_content_datastore meta implementation
@@ -256,7 +257,7 @@ CHANGELOG
 2.7.0 25-07-17
 - v23ToggleBox 9.0.0: Merge with changes made in github repo: (!use migrator)
   handle style for diferent devices with breakpoints
-- set --text-blocks-spacing to 24px
+- set --components-spacing to 24px
 
 2.6.11 25-07-16
 - Load animations on DOMContentLoaded

@@ -55,7 +55,7 @@ class Migrate_2_2_X_to_2_3_0{
         $typography_css_vars = [
             'base_font_size' => '',
             '--global-line-height' => '',
-            '--text-blocks-spacing' => '',
+            '--components-spacing' => '',
             '--normal-font-weight' => '',
             '--bold-font-weight' => '',
             '--headings-font-weight' => '',

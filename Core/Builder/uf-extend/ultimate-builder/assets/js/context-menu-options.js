@@ -146,8 +146,45 @@ window['contextMenuOpts'] = {
             ]
         },
         ['components-wrapper']: function(component, editor){
+
+            const topSvg = '<i class="bi bi-align-top"></i>';
+            const middleSvg = '<i class="bi bi-align-middle"></i>';
+            const bottomSvg = '<i class="bi bi-align-bottom"></i>';
+            // const betweenSvg = '<i class="bi bi-align-center"></i>';
+            const betweenSvg = '<svg version="1.1" id="Capa_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve"><line fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" x1="5" y1="2.5" x2="44" y2="2.5"/><line fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" x1="5" y1="47.5" x2="44" y2="47.5"/><path fill="#FFFFFF" d="M28.7,45h-7.4c-0.72,0-1.3-0.58-1.3-1.3v-7.4c0-0.72,0.58-1.3,1.3-1.3h7.4c0.72,0,1.3,0.58,1.3,1.3v7.4C30,44.42,29.42,45,28.7,45z"/><path fill="#FFFFFF" d="M28.7,15h-7.4c-0.72,0-1.3-0.58-1.3-1.3V6.3C20,5.58,20.58,5,21.3,5h7.4C29.42,5,30,5.58,30,6.3v7.4C30,14.42,29.42,15,28.7,15z"/></svg>';
+            const startSvg = '<i class="bi bi-align-start"></i>';
+            const centerSvg = '<i class="bi bi-align-center"></i>';
+            const endSvg = '<i class="bi bi-align-end"></i>';
+
+            const ccaCmd = 'update-content-alignment';
+            const contentAlignmentOptions = {
+                type: 'options',
+                title: 'CONTENT ALIGNMENT',
+                options: [
+                    { type:'button', label:topSvg, titleTooltip: 'Top', command:ccaCmd, args:{ property: 'justify-content', alignment:'flex-start' } },
+                    { type:'button', label:middleSvg, titleTooltip: 'Middle', command:ccaCmd, args:{ property: 'justify-content', alignment:'center' } },
+                    { type:'button', label:bottomSvg, titleTooltip: 'Bottom', command:ccaCmd, args:{ property: 'justify-content', alignment:'flex-end' } },
+                    { type:'button', label:betweenSvg, titleTooltip: 'Between', command:ccaCmd, args:{ property: 'justify-content', alignment:'space-between' } },
+                    { type:'break' },
+                    { type:'button', label:startSvg, titleTooltip: 'Start', command:ccaCmd, args:{ property: 'align-items', alignment:'flex-start' } },
+                    { type:'button', label:centerSvg, titleTooltip: 'Center', command:ccaCmd, args:{ property: 'align-items', alignment:'center' } },
+                    { type:'button', label:endSvg, titleTooltip: 'End', command:ccaCmd, args:{ property: 'align-items', alignment:'flex-end' } },
+                    { type:'toggle' },
+                    { type:'button', label:'Around', command:ccaCmd, args:{ property: 'justify-content', alignment:'space-around' } },
+                    { type:'button', label:'Evenly', command:ccaCmd, args:{ property: 'justify-content', alignment:'space-evenly' } }
+                ]
+            };
+
             return [
                 layout_options(component, editor),
+                {
+                    type: 'options', title: 'FLEX DIRECTION',
+                    options: [
+                        { type: 'button', label: 'HORIZONTAL', command: 'update-flex-direction', args: { direction:'row' } },
+                        { type: 'button', label: 'VERTICAL', command: 'update-flex-direction', args: { direction:'column' } },
+                    ]
+                },
+                contentAlignmentOptions
             ]
         },
         wrapper: function(component, editor){
