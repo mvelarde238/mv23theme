@@ -97,6 +97,15 @@
                 editor.runCommand('hide-preloader');    
             }, 500 );
 
+            // Edit device settings to set canvas mobile width to 375px. Default values are:
+            // Device           | Width for media query | Canvas width
+            // Tablet           | 992px                 | 770px
+            // Mobile landscape | 768px                 | 568px
+            // Mobile portrait  | 480px                 | 320px*
+            const deviceManager = editor.Devices;
+            const device = deviceManager.get('Mobile portrait');
+            device.set('width', '375px');
+
             // display warning before leaving the page with unsaved changes
 		    // window.addEventListener('beforeunload',function(e){
             //     if ( editor.getProjectData() !== that.args.builder_data ) {
