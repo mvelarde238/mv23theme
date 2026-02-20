@@ -124,19 +124,31 @@ class Icon_and_Text extends Component {
         $icon_wrapper = $args['components'][0];
         $comp_icon = $icon_wrapper['components'][0];
         $comp_icon_id = $comp_icon['attributes']['id'] ?? '';
-		
-		ob_start();
-        echo Template_Engine::component_wrapper('start', $args);
 
+        // set content alignment
+        if (isset($args['content_alignment']) && $args['content_alignment'] != 'flex-start') {
+            $args['additional_styles']['align-items'] = $args['content_alignment'];
+        }
+		
+        $attributes = Template_Engine::generate_attributes( $args );
+		ob_start();
+        do_action( 'after_component_wrapper_start', $args );
+        echo '<div '.$attributes.'>';
+        
         echo '<div class="icon-wrapper" '.$icon_wrapper_style.'>';
-	    echo '<div id="'.$comp_icon_id.'" class="icon-cmp">'.$element.'</div>';
+	    echo '<div id="'.$comp_icon_id.'" class="icon-cmp">';
+        echo Template_Engine::check_actions( 'start', $args );
+        echo $element;
+        echo Template_Engine::check_actions( 'end', $args );
+        echo '</div>';
 	    echo '</div>';
 
         $content_wrapper = $args['components'][1] ?? null;
         $content_wrapper['additional_classes'][] = 'content-wrapper';
 		echo Template_Engine::getInstance()->handle( $content_wrapper );
 
-        echo Template_Engine::component_wrapper('end', $args);
+        echo '</div>';
+        do_action( 'before_component_wrapper_end', $args );
 		return ob_get_clean();
 	}
 }

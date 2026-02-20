@@ -12,6 +12,7 @@ CHANGELOG
   * Remove cover-all class from action
 - Implements marquee direction setting
 - Fix: add .components-wrapper class to single and archive main
+- Improve Icon and Text Component to allow actions to be added to the icon element and not on the whole component
 
 3.2.0 26-02-12
 - page_content_datastore meta implementation
