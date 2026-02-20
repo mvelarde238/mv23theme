@@ -11,6 +11,7 @@ CHANGELOG
   * Change from returning a string to returning an array with start and end keys to allow more complex structures
   * Remove cover-all class from action
 - Implements marquee direction setting
+- Fix: add .components-wrapper class to single and archive main
 
 3.2.0 26-02-12
 - page_content_datastore meta implementation

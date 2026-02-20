@@ -33,7 +33,7 @@ window.gjsSinglePageStructure = function (editor, options) {
             defaults: Object.assign({}, notSelectableComponent, {
                 name: 'Single Main',
                 tagName: 'main',
-                classes: ['single-main', 'main'],
+                classes: ['single-main', 'main', 'components-wrapper'],
                 droppable: true
             }),
         }
