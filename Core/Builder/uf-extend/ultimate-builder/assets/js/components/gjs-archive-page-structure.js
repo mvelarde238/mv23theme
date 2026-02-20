@@ -30,7 +30,7 @@ window.gjsArchivePageStructure = function (editor, options) {
             defaults: Object.assign({}, notSelectableComponent, {
                 name: 'Archive Main',
                 tagName: 'main',
-                classes: ['archive-main', 'main'],
+                classes: ['archive-main', 'main', 'components-wrapper'],
                 droppable: true
             }),
         }

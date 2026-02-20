@@ -11,7 +11,7 @@ if( $page_template_settings['has_sidebar'] ) array_push($main_content_classes, $
 ?>
 <div id="content">
 	<div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
-		<main class="main">
+		<main class="main components-wrapper">
 			<?php echo $archive_page::the_content(); ?>
 		</main>
 
