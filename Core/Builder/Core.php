@@ -80,6 +80,8 @@ class Core{
             'Header_Preview',
             'Container',
             'Counter',
+            'Footer',
+            'Footer_Preview'
         )
     );
 
