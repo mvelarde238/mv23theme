@@ -17,6 +17,7 @@ CHANGELOG
 - Update language files
 - Fix colors on WP media modal buttons
 - Footer Preview Implementation
+- Fix content alignment settings in components wrapper
 
 3.2.0 26-02-12
 - page_content_datastore meta implementation

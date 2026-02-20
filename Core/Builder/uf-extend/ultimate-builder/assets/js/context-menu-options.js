@@ -89,6 +89,74 @@ function color_scheme_options(component, editor){
     };
 }
 
+function content_alignment_options(component, editor){
+    const alignment_options = [];
+    const ccaCmd = 'update-content-alignment';
+    const flex_direction = component.getStyle('flex-direction') || 'column';
+
+    const contentAlignmentOptions = [
+        { property:'justify-content', value:'flex-start', tooltip:'Top', icon:'' },
+        { property:'justify-content', value:'center', tooltip:'Middle', icon:'' },
+        { property:'justify-content', value:'flex-end', tooltip:'Bottom', icon:'' },
+        { type:'break' },
+        { property:'align-items', value:'flex-start', tooltip:'Start', icon:'' },
+        { property:'align-items', value:'center', tooltip:'Center', icon:'' },
+        { property:'align-items', value:'flex-end', tooltip:'End', icon:'' },
+        { type:'break' },
+        { property:'justify-content', value:'space-around', tooltip:'Around', icon:'' },
+        { property:'justify-content', value:'space-between', tooltip:'Between', icon:'' },
+        { property:'justify-content', value:'space-evenly', tooltip:'Evenly', icon:'' },
+    ];
+
+    contentAlignmentOptions.forEach(option => {
+        if( option.type && option.type === 'break' ){
+            alignment_options.push({ type: 'break' });
+            return;
+        }
+        if( option.type && option.type === 'toggle' ){
+            alignment_options.push({ type: 'toggle' });
+            return;
+        }
+
+        // Determine icon based on flex direction and alignment value
+        let icon = '';
+        if( option.property === 'justify-content' ){
+            if( option.value === 'flex-start' ) icon = (flex_direction === 'column') ? 'bi-align-top' : 'bi-align-start';
+            else if( option.value === 'center' ) icon = (flex_direction === 'column') ? 'bi-align-middle' : 'bi-align-center';
+            else if( option.value === 'flex-end' ) icon = (flex_direction === 'column') ? 'bi-align-bottom' : 'bi-align-end';
+            else if( option.value === 'space-between' ) icon = (flex_direction === 'column') ? 'bi-distribute-vertical' : 'bi-distribute-horizontal';
+        }
+        else if( option.property === 'align-items' ){
+            if( option.value === 'flex-start' ) icon = (flex_direction === 'column') ? 'bi-align-start' : 'bi-align-top';
+            else if( option.value === 'center' ) icon = (flex_direction === 'column') ? 'bi-align-center' : 'bi-align-middle';
+            else if( option.value === 'flex-end' ) icon = (flex_direction === 'column') ? 'bi-align-end' : 'bi-align-bottom';
+        }
+
+        // Determine if the current option is active based on the component's styles
+        let className = '';
+        let currentValue = component.getStyle(option.property) || '';
+        if( currentValue === option.value ){
+            className = 'active';
+        }
+
+        alignment_options.push({ 
+            type: 'button', 
+            label: icon ? '<i class="bi ' + icon + '"></i>' : option.tooltip,
+            titleTooltip: option.tooltip,
+            class: className,
+            rerender: {full: true},
+            command: ccaCmd, 
+            args:{ property: option.property, alignment: option.value }
+        });
+    });
+                    
+    return {
+        type: 'options',
+        title: 'CONTENT ALIGNMENT',
+        options: alignment_options
+    };
+}
+
 window['contextMenuOpts'] = {
     actions: {
         ['text-editor']: function(component){
@@ -96,7 +164,6 @@ window['contextMenuOpts'] = {
 
             const getFontSize = ()=>{
                 let value = parseInt(component.getStyle('font-size')) || 17;
-                console.log('getFontSize', value);
                 return value;
             };
             return [
@@ -150,35 +217,10 @@ window['contextMenuOpts'] = {
             let actions = [],
                 actions_group_1 = [],
                 actions_group_2 = [];
-                    
 
-            const topSvg = '<i class="bi bi-align-top"></i>';
-            const middleSvg = '<i class="bi bi-align-middle"></i>';
-            const bottomSvg = '<i class="bi bi-align-bottom"></i>';
-            // const betweenSvg = '<i class="bi bi-align-center"></i>';
-            const betweenSvg = '<svg version="1.1" id="Capa_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve"><line fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" x1="5" y1="2.5" x2="44" y2="2.5"/><line fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" x1="5" y1="47.5" x2="44" y2="47.5"/><path fill="#FFFFFF" d="M28.7,45h-7.4c-0.72,0-1.3-0.58-1.3-1.3v-7.4c0-0.72,0.58-1.3,1.3-1.3h7.4c0.72,0,1.3,0.58,1.3,1.3v7.4C30,44.42,29.42,45,28.7,45z"/><path fill="#FFFFFF" d="M28.7,15h-7.4c-0.72,0-1.3-0.58-1.3-1.3V6.3C20,5.58,20.58,5,21.3,5h7.4C29.42,5,30,5.58,30,6.3v7.4C30,14.42,29.42,15,28.7,15z"/></svg>';
-            const startSvg = '<i class="bi bi-align-start"></i>';
-            const centerSvg = '<i class="bi bi-align-center"></i>';
-            const endSvg = '<i class="bi bi-align-end"></i>';
+            const flex_direction = component.getStyle('flex-direction') || 'column';
 
-            const ccaCmd = 'update-content-alignment';
-            const contentAlignmentOptions = {
-                type: 'options',
-                title: 'CONTENT ALIGNMENT',
-                options: [
-                    { type:'button', label:topSvg, titleTooltip: 'Top', command:ccaCmd, args:{ property: 'justify-content', alignment:'flex-start' } },
-                    { type:'button', label:middleSvg, titleTooltip: 'Middle', command:ccaCmd, args:{ property: 'justify-content', alignment:'center' } },
-                    { type:'button', label:bottomSvg, titleTooltip: 'Bottom', command:ccaCmd, args:{ property: 'justify-content', alignment:'flex-end' } },
-                    { type:'button', label:betweenSvg, titleTooltip: 'Between', command:ccaCmd, args:{ property: 'justify-content', alignment:'space-between' } },
-                    { type:'break' },
-                    { type:'button', label:startSvg, titleTooltip: 'Start', command:ccaCmd, args:{ property: 'align-items', alignment:'flex-start' } },
-                    { type:'button', label:centerSvg, titleTooltip: 'Center', command:ccaCmd, args:{ property: 'align-items', alignment:'center' } },
-                    { type:'button', label:endSvg, titleTooltip: 'End', command:ccaCmd, args:{ property: 'align-items', alignment:'flex-end' } },
-                    { type:'toggle' },
-                    { type:'button', label:'Around', command:ccaCmd, args:{ property: 'justify-content', alignment:'space-around' } },
-                    { type:'button', label:'Evenly', command:ccaCmd, args:{ property: 'justify-content', alignment:'space-evenly' } }
-                ]
-            };
+            const contentAlignmentOptions = content_alignment_options(component, editor);
 
             const getGap = ()=>{
                 let value = parseInt(component.getStyle('gap'));
@@ -187,16 +229,24 @@ window['contextMenuOpts'] = {
             };
 
             actions_group_1.push(layout_options(component, editor));
-            actions_group_1.push({
+            actions_group_1.push({ type: 'range', title:'SPACE BETWEEN COMPONENTS', command: 'update-gap-property', min:0, value:getGap });
+
+            actions_group_2.push({
                 type: 'options', title: 'FLEX DIRECTION',
                 options: [
-                    { type: 'button', label: 'HORIZONTAL', command: 'update-flex-direction', args: { direction:'row' } },
-                    { type: 'button', label: 'VERTICAL', command: 'update-flex-direction', args: { direction:'column' } },
+                    { 
+                        type: 'button', label: 'HORIZONTAL',
+                        class: (flex_direction === 'row') ? 'active' : '',
+                        command: 'update-flex-direction', rerender: {full:true}, args: { direction:'row' } 
+                    },
+                    { 
+                        type: 'button', label: 'VERTICAL', 
+                        class: (flex_direction === 'column') ? 'active' : '', 
+                        command: 'update-flex-direction', rerender: {full:true}, args: { direction:'column' } 
+                    },
                 ]
             });
-
             actions_group_2.push(contentAlignmentOptions);
-            actions_group_2.push({ type: 'range', title:'SPACE BETWEEN COMPONENTS', command: 'update-gap-property', min:0, value:getGap });
 
             actions.push({
                 type: 'options',

@@ -1,26 +1,27 @@
 window.gjsSection = function(editor) {
     const domc = editor.DomComponents;
+    const compClass = 'page-module';
 
     // Use shared templates from global resource
     const sectionTemplates = window.gjsSharedResources.templates;
 
     // Add the section type to the DomComponents
     domc.addType('section', {
-        isComponent: el => el.classList && el.classList.contains('page-module'),
+        isComponent: el => el.classList && el.classList.contains(compClass),
         model: {
             defaults: {
                 name: 'Section',
                 tagName: 'div',
                 draggable: true,
-                classes: ['page-module'],
+                classes: [compClass],
                 styles: `
-                    .page-module {
-                        padding: 40px 0 40px 0;
+                    .${compClass} {
+                        padding: 40px 0px 40px 0px;
                     }
                 `,
-                // Attribute to track if a template has been selected
+                // Temporal attribute to track if a template has been selected
                 // This allows the UndoManager to register the action even for "Empty Section"
-                'template-selected': false,
+                '__temp-template-selected': false,
             },
         },
         view: {
@@ -50,7 +51,7 @@ window.gjsSection = function(editor) {
             updateTemplateSelector() {
                 const components = this.model.components();
                 const existingSelector = this.el.querySelector('.section-template-selector');
-                const hasSelectedTemplate = this.model.get('template-selected');
+                const hasSelectedTemplate = this.model.get('__temp-template-selected');
                 
                 // Remove selector if components exist OR if user already selected a template
                 if ((components.length > 0 || hasSelectedTemplate) && existingSelector) {
@@ -118,7 +119,7 @@ window.gjsSection = function(editor) {
                 if (template) {
                     // Mark that a template has been selected
                     // This is registered in the UndoManager, allowing undo even for "Empty Section"
-                    this.model.set('template-selected', true);
+                    this.model.set('__temp-template-selected', true);
                     
                     // Add the template components to the section (if any)
                     if (template.components && template.components.length > 0) {
@@ -146,5 +147,11 @@ window.gjsSection = function(editor) {
         media: '<i class="dashicons dashicons-align-wide"></i>',
         category: 'Structure',
         content: { type: 'section' }
+    });
+
+    // Remove the component styles before saving as they are only needed to be presented in the style manager
+    editor.on('builder:before-save-editor', () => {
+        const css = editor.Css;
+        css.remove(`.${compClass}`);
     });
 }

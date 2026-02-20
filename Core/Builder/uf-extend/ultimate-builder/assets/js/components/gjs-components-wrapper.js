@@ -2,10 +2,6 @@ window.gjsCompWrapper = function(editor) {
     const domc = editor.DomComponents;
     const compClass = 'components-wrapper';
 
-    // Make classes private
-    const privateCls = [`.${compClass}`];
-    editor.on('selector:add', selector => privateCls.indexOf(selector.getFullName()) >= 0 && selector.set('private', 1));
-
     // Define the component
     domc.addType(compClass, {
         isComponent: el => el.classList && el.classList.contains(compClass),
@@ -13,8 +9,21 @@ window.gjsCompWrapper = function(editor) {
             defaults: {
                 name: 'Wrapper',
                 tagName: 'div',
-                classes: [compClass,'component']
+                classes: [compClass,'component'],
+                styles: `
+                    .${compClass} {
+                        display: flex;
+                        flex-direction: column;
+                        flex-wrap: wrap;
+                    }
+                `,
             },
         },
+    });
+
+    // Remove the component styles before saving as they are only needed to be presented in the style manager
+    editor.on('builder:before-save-editor', () => {
+        const css = editor.Css;
+        css.remove(`.${compClass}`);
     });
 }
