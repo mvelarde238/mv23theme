@@ -69,7 +69,7 @@ class Icon_and_Text extends Component {
                 )),
 
             // GLOBAL
-            Field::create( 'tab', __('Others','mv23theme') ),
+            Field::create( 'tab', __('Other settings','mv23theme') ),
             Field::create( 'select', 'content_alignment', __('Content Alignment', 'mv23theme'))
                 ->set_input_type( 'radio' )
                 ->set_orientation( 'horizontal' )
@@ -79,13 +79,13 @@ class Icon_and_Text extends Component {
                     'center'  => __('Center', 'mv23theme'),
                     'flex-end'  => __('End', 'mv23theme'),
                 )),
-            Field::create( 'select', 'horizontal_alignment', 'Alineación Horizontal')
-                ->set_description( "This setting allows you to align the entire component." )
+            Field::create( 'select', 'horizontal_alignment', __('Horizontal Alignment', 'mv23theme'))
+                ->set_description( __("This setting allows you to align the entire component.", 'mv23theme') )
                 ->add_options(array(
                     ''  => __('Default','mv23theme'),
-                    'left'  => 'Izquierda',
-                    'center'  => 'Al Centro',
-                    'right'  => 'Derecha'
+                    'left'  => __('Left', 'mv23theme'),
+                    'center'  => __('Center', 'mv23theme'),
+                    'right'  => __('Right', 'mv23theme')
                 )),
         );
 

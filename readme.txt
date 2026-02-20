@@ -14,6 +14,7 @@ CHANGELOG
 - Fix: add .components-wrapper class to single and archive main
 - Improve Icon and Text Component to allow actions to be added to the icon element and not on the whole component
 - Edit device settings to set canvas mobile width to 375px
+- Update language files
 
 3.2.0 26-02-12
 - page_content_datastore meta implementation

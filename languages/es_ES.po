@@ -99,19 +99,19 @@ msgstr "Más comentarios &rarr;"
 msgid "Comments are not allowed on this post."
 msgstr "Se han bloqueado los comentarios para esta publicación."
 
-#: Core/Admin/Admin.php:80
+#: Core/Admin/Admin.php:78
 msgid "Main nav"
 msgstr "Menú Principal"
 
-#: Core/Admin/Admin.php:81
+#: Core/Admin/Admin.php:79
 msgid "Mobile header buttons"
 msgstr "Botones en el header para móviles"
 
-#: Core/Admin/Admin.php:90
+#: Core/Admin/Admin.php:88
 msgid "Widgets to be used in the header"
 msgstr "Widgets que se muestran en el header"
 
-#: Core/Admin/Admin.php:100
+#: Core/Admin/Admin.php:98
 msgid "Widgets to be used in the sidebar"
 msgstr "Widgets que se muestran en el sidebar"
 
@@ -119,7 +119,7 @@ msgstr "Widgets que se muestran en el sidebar"
 #: Core/Builder/Component/Accordion.php:64
 #: Core/Builder/Component/Accordion.php:67
 #: Core/Builder/Component/Button.php:34
-#: Core/Builder/Component/Menu.php:73
+#: Core/Builder/Component/Menu.php:77
 #: Core/Posttype/Menu_Item.php:41
 msgid "Style"
 msgstr "Estilo"
@@ -137,8 +137,8 @@ msgid "Image Alignment"
 msgstr "Alineación del icono"
 
 #: Core/Admin/TinyMCE.php:268
-#: Core/Builder/Component/Carousel.php:89
-#: Core/Builder/Component/Carousel.php:101
+#: Core/Builder/Component/Carousel.php:96
+#: Core/Builder/Component/Carousel.php:108
 #: Core/Builder/Component/Icon_and_Text.php:53
 #: Core/Builder/containers/popup/column_settings_container.php:14
 #: Core/Builder/containers/popup/column_settings_container.php:27
@@ -151,8 +151,8 @@ msgid "Middle"
 msgstr "Centro"
 
 #: Core/Admin/TinyMCE.php:282
-#: Core/Builder/Component/Carousel.php:91
-#: Core/Builder/Component/Carousel.php:102
+#: Core/Builder/Component/Carousel.php:98
+#: Core/Builder/Component/Carousel.php:109
 #: Core/Builder/containers/popup/column_settings_container.php:16
 #: Core/Builder/containers/popup/column_settings_container.php:29
 #: Core/Builder/containers/popup/column_settings_container.php:41
@@ -166,7 +166,6 @@ msgstr "Imágenes"
 
 #: Core/Admin/TinyMCE.php:314
 #: Core/Builder/Component/OCE_Dynamic_Content.php:30
-#: Core/Builder/Component/Page.php:32
 msgid "General"
 msgstr "General"
 
@@ -248,12 +247,12 @@ msgstr "Acordeón"
 #: Core/Builder/Component/Heading.php:70
 #: Core/Builder/Component/Heading.php:73
 #: Core/Builder/Component/Heading.php:112
-#: Core/Builder/Component/Image.php:31
+#: Core/Builder/Component/Image.php:32
 #: Core/Builder/Component/Items_Grid.php:36
 #: Core/Builder/Component/Items_Grid.php:43
 #: Core/Builder/Component/Listing.php:71
 #: Core/Builder/Component/Map.php:23
-#: Core/Builder/Component/Menu.php:61
+#: Core/Builder/Component/Menu.php:65
 #: Core/Builder/Component/Shortcode.php:23
 #: Core/Builder/Component/Simple_Columns.php:32
 #: Core/Builder/Component/Testimonials.php:26
@@ -290,7 +289,7 @@ msgstr "Icono"
 #: Core/Builder/Component/Icon_and_Text.php:30
 #: Core/Builder/Component/Icon_and_Text.php:40
 #: Core/Builder/Component/Image.php:14
-#: Core/Builder/Component/Image.php:38
+#: Core/Builder/Component/Image.php:39
 msgid "Image"
 msgstr "Imágen"
 
@@ -338,12 +337,12 @@ msgid "Button"
 msgstr "Botón"
 
 #: Core/Builder/Component/Icon_and_Text.php:72
-msgid "Others"
-msgstr "Otro"
+msgid "Other settings"
+msgstr "Otros ajustes"
 
 #: Core/Builder/Component/Card.php:14
 msgid "Card"
-msgstr ""
+msgstr "Card"
 
 #: Core/Builder/Component/Carousel.php:17
 msgid "Carousel"
@@ -398,7 +397,7 @@ msgstr "Segundos"
 msgid "Fade Color"
 msgstr "Color del difuminado"
 
-#: Core/Builder/Component/Carousel.php:90
+#: Core/Builder/Component/Carousel.php:97
 #: Core/Builder/Component/Heading.php:98
 #: Core/Builder/Component/Icon_and_Text.php:67
 #: Core/Builder/Component/Icon_and_Text.php:79
@@ -409,19 +408,19 @@ msgstr "Color del difuminado"
 msgid "Center"
 msgstr "Centro"
 
-#: Core/Builder/Component/Carousel.php:140
+#: Core/Builder/Component/Carousel.php:147
 msgid "Start Automatically"
 msgstr "Empezar automáticamente"
 
-#: Core/Builder/Component/Carousel.php:176
+#: Core/Builder/Component/Carousel.php:183
 msgid "Activate Auto Height"
 msgstr "Activar Altura adaptable"
 
-#: Core/Builder/Component/Carousel.php:177
+#: Core/Builder/Component/Carousel.php:184
 msgid "Activate Touch"
 msgstr "Activar Touch"
 
-#: Core/Builder/Component/Carousel.php:158
+#: Core/Builder/Component/Carousel.php:165
 #: Core/Builder/Component/Gallery.php:116
 #: Core/Builder/Component/Row.php:13
 #: Core/Builder/Component/Testimonials.php:44
@@ -429,12 +428,12 @@ msgstr "Activar Touch"
 msgid "Columns"
 msgstr "Columnas"
 
-#: Core/Builder/Component/Carousel.php:165
+#: Core/Builder/Component/Carousel.php:172
 #: Core/Builder/Component/Gallery.php:123
 msgid "Space between items"
 msgstr "Espacio entre items"
 
-#: Core/Builder/Component/Image.php:49
+#: Core/Builder/Component/Image.php:53
 #: Core/Builder/Component/Listing.php:132
 #: Core/Builder/containers/popup/scroll_animations_container.php:31
 #: Core/Builder/containers/popup/scroll_animations_container.php:165
@@ -442,11 +441,11 @@ msgstr "Espacio entre items"
 msgid "Custom"
 msgstr "Personalizado"
 
-#: Core/Builder/Component/Carousel.php:173
+#: Core/Builder/Component/Carousel.php:180
 msgid "Slider UID"
 msgstr "Slider UID"
 
-#: Core/Builder/Component/Carousel.php:174
+#: Core/Builder/Component/Carousel.php:181
 msgid "This is used to identify the slider in the JS code. If you leave it empty, a random UID will be generated."
 msgstr "Usado para identificar el slider in el código JS. Si lo dejas vacío,  se generará un UID aleatorio."
 
@@ -483,9 +482,9 @@ msgstr "Al principio"
 msgid "End"
 msgstr "Al final"
 
-#: Core/Builder/Component/Flip_Box.php:48
-#: Core/Builder/Component/Image.php:56
-#: Core/Builder/Component/Image.php:57
+#: Core/Builder/Component/Flip_Box.php:42
+#: Core/Builder/Component/Image.php:60
+#: Core/Builder/Component/Image.php:61
 #: Core/Builder/Component/Video.php:60
 #: Core/Builder/Component/Video.php:61
 msgid "Aspect Ratio"
@@ -505,8 +504,8 @@ msgid "Select Folder"
 msgstr "Seleccionar folder"
 
 #: Core/Builder/Component/Gallery.php:49
-#: Core/Builder/Component/Image.php:32
-#: Core/Builder/Component/Image.php:45
+#: Core/Builder/Component/Image.php:33
+#: Core/Builder/Component/Image.php:49
 #: Core/Builder/Component/Listing.php:72
 #: Core/Builder/Component/Video.php:27
 #: Core/Builder/containers/popup/actions_container.php:21
@@ -528,7 +527,7 @@ msgid "Gallery type"
 msgstr "Tipo de galería"
 
 #: Core/Builder/Component/Gallery.php:86
-#: Core/Theme_Options/UF_Container/Global_Options.php:16
+#: Core/Theme_Options/UF_Container/Global_Options.php:19
 msgid "Activate Masonry"
 msgstr "Activar Masonry"
 
@@ -612,7 +611,7 @@ msgstr "Grande"
 msgid "Full"
 msgstr "Full"
 
-#: Core/Builder/Component/Carousel.php:172
+#: Core/Builder/Component/Carousel.php:179
 #: Core/Builder/Component/Gallery.php:216
 #: Core/Builder/containers/popup/scroll_animations_container.php:49
 msgid "Advanced Settings"
@@ -622,6 +621,7 @@ msgstr "Ajustes avanzados"
 msgid "Gallery ID"
 msgstr "ID de la Galería"
 
+#: Core/Builder/Component/Button.php:65
 #: Core/Builder/Component/Gallery.php:219
 #: Core/Builder/containers/popup/common_settings_container.php:26
 #: Core/Builder/containers/popup/common_settings_container.php:44
@@ -635,8 +635,9 @@ msgstr "ID de la Galería"
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:90
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:101
 #: Core/Posttype/Footer.php:43
+#: Core/Posttype/Header.php:43
 #: Core/Posttype/Post.php:47
-#: Core/Theme_Options/UF_Container/Global_Options.php:16
+#: Core/Theme_Options/UF_Container/Global_Options.php:20
 #: Core/Theme_Options/UF_Container/Maps_Options.php:14
 #: Core/Theme_Options/UF_Container/Maps_Options.php:17
 msgid "Activate"
@@ -705,6 +706,7 @@ msgid "Alignment"
 msgstr "Alineación"
 
 #: Core/Builder/Component/Button.php:60
+#: Core/Builder/Component/Carousel.php:80
 #: Core/Builder/Component/Heading.php:97
 #: Core/Builder/Component/Icon_and_Text.php:49
 #: Core/Builder/Component/Offcanvas_Element.php:57
@@ -712,6 +714,7 @@ msgid "Left"
 msgstr "Izquierda"
 
 #: Core/Builder/Component/Button.php:61
+#: Core/Builder/Component/Carousel.php:81
 #: Core/Builder/Component/Heading.php:99
 #: Core/Builder/Component/Icon_and_Text.php:57
 #: Core/Builder/Component/Offcanvas_Element.php:58
@@ -764,26 +767,26 @@ msgstr "Alineación del icono"
 msgid "Default"
 msgstr "Por defecto"
 
-#: Core/Builder/Component/Image.php:35
+#: Core/Builder/Component/Image.php:36
 #: Core/Builder/Component/Video.php:30
 #: Core/Builder/containers/popup/actions_container.php:45
 #: Core/Builder/containers/popup/common_settings_container.php:47
 msgid "Media"
 msgstr "Medios"
 
-#: Core/Builder/Component/Image.php:36
+#: Core/Builder/Component/Image.php:37
 #: Core/Builder/Component/Video.php:31
 #: Core/Builder/containers/popup/actions_container.php:46
 #: Core/Builder/containers/popup/common_settings_container.php:48
 msgid "External"
 msgstr "Externo"
 
-#: Core/Builder/Component/Image.php:41
+#: Core/Builder/Component/Image.php:45
 #: Core/Builder/Component/Video.php:37
 msgid "Expand on click"
 msgstr "Expandir al hacer clic"
 
-#: Core/Builder/Component/Image.php:42
+#: Core/Builder/Component/Image.php:46
 msgid "Show the image in a popup."
 msgstr "Mostrar la imágen en un pop up"
 
@@ -861,12 +864,14 @@ msgstr "Ordenar por"
 #: Core/Builder/Component/Listing.php:128
 #: Core/Posttype/Document.php:92
 #: Core/Posttype/Footer.php:44
+#: Core/Posttype/Header.php:44
 msgid "Date"
 msgstr "Fecha"
 
 #: Core/Builder/Component/Listing.php:129
 #: Core/Posttype/Document.php:88
 #: Core/Posttype/Footer.php:42
+#: Core/Posttype/Header.php:42
 msgid "Title"
 msgstr "Título"
 
@@ -913,7 +918,7 @@ msgstr ""
 msgid "Trash"
 msgstr "Papelera"
 
-#: Core/Builder/Component/Carousel.php:84
+#: Core/Builder/Component/Carousel.php:91
 #: Core/Builder/Component/Listing.php:172
 msgid "Show controls"
 msgstr "Mostrar controles"
@@ -926,8 +931,8 @@ msgstr "Mostrar navegación"
 msgid "Start automatically"
 msgstr "Empezar automáticamente"
 
-#: Core/Builder/Component/Carousel.php:159
 #: Core/Builder/Component/Carousel.php:166
+#: Core/Builder/Component/Carousel.php:173
 #: Core/Builder/Component/Gallery.php:117
 #: Core/Builder/Component/Gallery.php:124
 #: Core/Builder/Component/Listing.php:157
@@ -938,8 +943,8 @@ msgstr "Empezar automáticamente"
 msgid "Desktop"
 msgstr ""
 
-#: Core/Builder/Component/Carousel.php:160
 #: Core/Builder/Component/Carousel.php:167
+#: Core/Builder/Component/Carousel.php:174
 #: Core/Builder/Component/Gallery.php:118
 #: Core/Builder/Component/Gallery.php:125
 #: Core/Builder/Component/Listing.php:158
@@ -948,8 +953,8 @@ msgstr ""
 msgid "Laptop"
 msgstr ""
 
-#: Core/Builder/Component/Carousel.php:161
 #: Core/Builder/Component/Carousel.php:168
+#: Core/Builder/Component/Carousel.php:175
 #: Core/Builder/Component/Gallery.php:119
 #: Core/Builder/Component/Gallery.php:126
 #: Core/Builder/Component/Listing.php:159
@@ -959,8 +964,8 @@ msgstr ""
 msgid "Tablet"
 msgstr ""
 
-#: Core/Builder/Component/Carousel.php:162
 #: Core/Builder/Component/Carousel.php:169
+#: Core/Builder/Component/Carousel.php:176
 #: Core/Builder/Component/Gallery.php:120
 #: Core/Builder/Component/Gallery.php:127
 #: Core/Builder/Component/Listing.php:160
@@ -1051,21 +1056,19 @@ msgstr "Menú horizontal 4"
 msgid "Vertical Nav 1"
 msgstr "Menú Vertical 1"
 
-#: Core/Builder/Component/Menu.php:62
+#: Core/Builder/Component/Menu.php:66
 #: Core/Offcanvas_Elements/Restriction/Plugin.php:62
 #: Core/Posttype/Menu_Item.php:76
 #: Core/Posttype/Reusable_Section_CPT.php:88
-#: Core/Theme_Options/Fields/Header.php:24
-#: Core/Theme_Options/Fields/Header.php:59
 #: Core/Theme_Options/UF_Container/Social_Media.php:21
 msgid "Select"
 msgstr "Seleccionar"
 
-#: Core/Builder/Component/Menu.php:63
+#: Core/Builder/Component/Menu.php:67
 msgid "Show a particular menu"
 msgstr "Mostrar un menú en particular"
 
-#: Core/Builder/Component/Menu.php:64
+#: Core/Builder/Component/Menu.php:68
 msgid "Select a location. If a menu is assigned to that location, it will be displayed"
 msgstr "Selecciona una ubicación. Si un menú está asignado a esa ubicación se mostrará"
 
@@ -1121,67 +1124,32 @@ msgid "Background color"
 msgstr "Color de fondo"
 
 #: Core/Builder/Component/Offcanvas_Element.php:88
-#: Core/Builder/Component/Page.php:53
-#: Core/Builder/Component/Page.php:88
 #: Core/Builder/Component/Video.php:52
 #: Core/Builder/containers/popup/common_settings_container.php:60
-#: Core/Theme_Options/Fields/Header.php:51
 msgid "Opacity"
 msgstr "Transparencia"
 
-#: Core/Builder/Component/Page.php:45
-#: Core/Builder/Component/Page.php:80
-#: Core/Theme_Options/Fields/Header.php:48
-msgid "Background Color"
-msgstr "Color de fondo"
-
-#: Core/Theme_Options/Fields/Header.php:58
-msgid "Text Color"
-msgstr "Color del texto"
-
-#: Core/Builder/containers/popup/common_settings_container.php:84
 #: Core/Theme_Options/Fields/Colors.php:53
 msgid "Dark"
 msgstr "Oscuro"
 
-#: Core/Builder/containers/popup/common_settings_container.php:83
 #: Core/Theme_Options/Fields/Colors.php:43
 msgid "Light"
 msgstr "Claro"
 
-#: Core/Builder/Component/Page.php:35
-msgid "Static Header"
-msgstr "Header Estático"
-
-#: Core/Builder/Component/Page.php:38
+#: Core/Builder/Component/Page.php:39
 msgid "Hide static header"
 msgstr "Ocultar el header estático"
 
-#: Core/Builder/Component/Page.php:41
-#: Core/Builder/Component/Page.php:76
+#: Core/Builder/Component/Page.php:42
+#: Core/Builder/Component/Page.php:50
 msgid "Hide the header logo"
 msgstr "Ocultar el logo del header"
 
 #: Core/Builder/Component/Offcanvas_Element.php:81
-#: Core/Builder/Component/Page.php:46
-#: Core/Builder/Component/Page.php:81
 #: Core/Builder/containers/popup/scroll_animations_container.php:41
 msgid "Customize"
 msgstr "Personalizar"
-
-#: Core/Builder/Component/Page.php:44
-msgid "Customize static header"
-msgstr "Personalizar el header estático"
-
-#: Core/Builder/Component/Page.php:58
-#: Core/Builder/Component/Page.php:93
-msgid "Logo Version"
-msgstr "Versión del logo"
-
-#: Core/Builder/Component/Page.php:61
-#: Core/Builder/Component/Page.php:96
-msgid "Select the logo"
-msgstr "Selecciona el logo"
 
 #: Core/Builder/containers/popup/blocks_layout_settings_container.php:8
 msgid "Space Between"
@@ -1272,8 +1240,6 @@ msgstr "Extender el fondo a la derecha"
 msgid "Full Height"
 msgstr "Altura completa"
 
-#: Core/Builder/Component/Page.php:64
-#: Core/Builder/Component/Page.php:99
 #: Core/Builder/containers/popup/common_settings_container.php:82
 msgid "Color Scheme"
 msgstr "Esquema de color"
@@ -1295,6 +1261,7 @@ msgstr "Slider de fondo"
 msgid "Border"
 msgstr "Bordes"
 
+#: Core/Builder/Component/Button.php:66
 #: Core/Builder/Content_Selector.php:25
 #: Core/Theme_Options/UF_Container/Social_Media.php:14
 msgid "Add"
@@ -1569,7 +1536,7 @@ msgid "Add Settings"
 msgstr "Agregar Ajustes"
 
 #. translators: %s: page number
-#: Core/Frontend/Frontend.php:234
+#: Core/Frontend/Frontend.php:229
 #, php-format
 msgid "Page %s"
 msgstr "Página %s"
@@ -2093,7 +2060,7 @@ msgstr "No"
 
 #: Core/Posttype/Footer.php:29
 #: Core/Posttype/Footer.php:60
-#: Core/Theme_Options/UF_Container/Global_Options.php:13
+#: Core/Theme_Options/UF_Container/Global_Options.php:15
 msgid "Footer"
 msgstr "Pie de Página"
 
@@ -2130,7 +2097,7 @@ msgid "Link"
 msgstr ""
 
 #: Core/Posttype/Reusable_Section_CPT.php:34
-#: Core/Theme_Options/Theme_Options.php:101
+#: Core/Theme_Options/Theme_Options.php:102
 msgid "Reusable Sections"
 msgstr "Secciones reusables"
 
@@ -2146,29 +2113,13 @@ msgstr "Colores"
 msgid "Lighter"
 msgstr "Más claro"
 
-#: Core/Theme_Options/Fields/Header.php:23
-msgid "Logo"
-msgstr ""
-
-#: Core/Theme_Options/Fields/Header.php:29
-msgid "Select image"
-msgstr "Selecciona una imágen"
-
-#: Core/Theme_Options/Fields/Header.php:34
-msgid "Logo Max Height"
-msgstr "Tamaño Máximo del logo"
-
-#: Core/Theme_Options/Fields/Header.php:41
+#: Core/Builder/Component/Header.php:31
 msgid "Adjust scroll position"
 msgstr "Ajustar la posición del scroll"
 
-#: Core/Theme_Options/Fields/Header.php:43
+#: Core/Builder/Component/Header.php:32
 msgid "If sticky header logo is smaller than static header logo this setting needs to be enabled."
 msgstr "Si el logo del sticky header es más pequeño que el logo del header estático esta configuración debe estar activada."
-
-#: Core/Theme_Options/Fields/Header.php:49
-msgid "Use"
-msgstr "Usar"
 
 #: Core/Theme_Options/Fields/Page_Container.php:12
 msgid "Container"
@@ -2269,10 +2220,10 @@ msgstr "Exportar/Importar"
 msgid "Export/Import Options"
 msgstr "Opciones de Exportar/Importar"
 
-#: Core/Builder/Component/Theme_Options.php:18
+#: Core/Builder/Component/Theme_Options.php:17
 #: Core/Theme_Options/Theme_Options.php:44
 #: Core/Theme_Options/Theme_Options.php:45
-#: Core/Theme_Options/UF_Container/Main.php:14
+#: Core/Theme_Options/UF_Container/Main.php:13
 msgid "Theme Options"
 msgstr "Ajustes del Tema"
 
@@ -2289,15 +2240,15 @@ msgstr "Activar Animaciones Avanzadas"
 msgid "Global Options"
 msgstr "Opciones Globales"
 
-#: Core/Theme_Options/UF_Container/Global_Options.php:15
+#: Core/Theme_Options/UF_Container/Global_Options.php:18
 msgid "Masonry Gallery"
 msgstr "Galería Masonry"
 
-#: Core/Theme_Options/UF_Container/Global_Options.php:19
+#: Core/Theme_Options/UF_Container/Global_Options.php:24
 msgid "Deactive theme styles in comments"
 msgstr "Desactivar estilos del tema en comentarios"
 
-#: Core/Theme_Options/UF_Container/Global_Options.php:19
+#: Core/Theme_Options/UF_Container/Global_Options.php:25
 msgid "Deactivate"
 msgstr "Desactivar"
 
@@ -2701,17 +2652,9 @@ msgstr "Otros ajustes"
 msgid "Full width button"
 msgstr "Botón de ancho completo"
 
-#: Core/Builder/Component/Button.php:65
-msgid "Activate"
-msgstr "Activar"
-
 #: Core/Builder/Component/Button.php:66
 msgid "Attributes"
 msgstr "Atributos"
-
-#: Core/Builder/Component/Button.php:66
-msgid "Add"
-msgstr "Agregar"
 
 #: Core/Builder/Component/Carousel.php:35
 msgid "General Settings"
@@ -2733,28 +2676,28 @@ msgstr "Velocidad de Animación"
 msgid "Fade Width"
 msgstr "Ancho de Desvanecimiento"
 
-#: Core/Builder/Component/Carousel.php:80
+#: Core/Builder/Component/Carousel.php:87
 msgid "Slider Settings"
 msgstr ""
 
-#: Core/Builder/Component/Carousel.php:86
-#: Core/Builder/Component/Carousel.php:98
+#: Core/Builder/Component/Carousel.php:93
+#: Core/Builder/Component/Carousel.php:105
 msgid "Position:"
 msgstr "Posición:"
 
-#: Core/Builder/Component/Carousel.php:96
+#: Core/Builder/Component/Carousel.php:103
 msgid "Show nav"
 msgstr "Mostrar navegación"
 
-#: Core/Builder/Component/Carousel.php:107
+#: Core/Builder/Component/Carousel.php:114
 msgid "Customize slider mode"
 msgstr "Personalizar slider"
 
-#: Core/Builder/Component/Carousel.php:157
+#: Core/Builder/Component/Carousel.php:164
 msgid "Columns Settings"
 msgstr "Configuración de Columnas"
 
-#: Core/Builder/Component/Carousel.php:179
+#: Core/Builder/Component/Carousel.php:186
 msgid "Customize navigation icons"
 msgstr "Personalizar iconos de navegación"
 
@@ -2770,7 +2713,7 @@ msgstr "Este es un placeholder para el componente de área de comentarios. Mostr
 msgid "Figure"
 msgstr ""
 
-#: Core/Builder/Component/Flip_Box.php:29
+#: Core/Builder/Component/Flip_Box.php:23
 msgid "Flip Effect"
 msgstr ""
 
@@ -2782,7 +2725,10 @@ msgstr "Personalizar Ancho de Imagen"
 msgid "Customise Image Height"
 msgstr "Personalizar Altura de Imagen"
 
-#: Core/Builder/Component/Header.php:12
+#: Core/Builder/Component/Header.php:13
+#: Core/Posttype/Header.php:29
+#: Core/Posttype/Header.php:60
+#: Core/Theme_Options/UF_Container/Global_Options.php:14
 msgid "Header"
 msgstr ""
 
@@ -2818,19 +2764,19 @@ msgstr "Fuente del icono:"
 msgid "Icon Position"
 msgstr "Posición del icono"
 
-#: Core/Builder/Component/Image.php:44
+#: Core/Builder/Component/Image.php:48
 msgid "Caption"
 msgstr "Leyenda"
 
-#: Core/Builder/Component/Image.php:48
+#: Core/Builder/Component/Image.php:52
 msgid "Global"
 msgstr "Global"
 
-#: Core/Builder/Component/Image.php:51
+#: Core/Builder/Component/Image.php:55
 msgid "The legend set in the Media Library will be used."
 msgstr "Se utilizará la leyenda establecida en la Biblioteca de Medios."
 
-#: Core/Builder/Component/Image.php:58
+#: Core/Builder/Component/Image.php:62
 msgid "Select a predefined aspect ratio (width / height) or set a custom one."
 msgstr "Seleccione una relación de aspecto predefinida (ancho / alto) o establezca una personalizada."
 
@@ -2921,30 +2867,20 @@ msgstr "Eliminar espacio alrededor de los componentes modales."
 
 #: Core/Builder/Component/Offcanvas_Element.php:79
 msgid "Overlay"
-msgstr "Superposición"
+msgstr "Overlay"
 
-#: Core/Builder/Component/Page.php:33
-msgid "Remove padding top"
-msgstr "Eliminar relleno superior"
-
-#: Core/Builder/Component/Page.php:66
-#: Core/Builder/Component/Page.php:101
+#: Core/Builder/containers/popup/common_settings_container.php:83
 msgid "Light Mode"
 msgstr "Modo Claro"
 
-#: Core/Builder/Component/Page.php:67
-#: Core/Builder/Component/Page.php:102
 #: Core/Builder/containers/popup/common_settings_container.php:40
+#: Core/Builder/containers/popup/common_settings_container.php:84
 msgid "Dark Mode"
 msgstr "Modo Oscuro"
 
-#: Core/Builder/Component/Page.php:73
+#: Core/Builder/Component/Page.php:47
 msgid "Hide sticky header"
 msgstr "Ocultar encabezado fijo"
-
-#: Core/Builder/Component/Page.php:79
-msgid "Customize sticky header"
-msgstr "Personalizar encabezado fijo"
 
 #: Core/Builder/Component/Post_Content.php:13
 msgid "Post Content"
@@ -3080,7 +3016,7 @@ msgstr "Extender fondo / Centrar contenido"
 msgid "Hide on:"
 msgstr "Ocultar en:"
 
-#: Core/Builder/Core.php:121
+#: Core/Builder/Core.php:125
 msgid "Edit with Ultimate Builder"
 msgstr "Editar con Ultimate Builder"
 
@@ -3096,11 +3032,11 @@ msgstr "Guardando revisión&hellip;"
 msgid "Your latest changes were saved as a revision."
 msgstr "Tus últimos cambios se guardaron como una revisión."
 
-#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:297
+#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:301
 msgid "Edit Page"
 msgstr "Editar Página"
 
-#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:344
+#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:348
 msgid "Post content migrated successfully"
 msgstr "Contenido de la publicación migrado con éxito"
 
@@ -3315,3 +3251,87 @@ msgstr ""
 #: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
 msgid "MuiSlider"
 msgstr ""
+
+#: Core/Builder/Component/Carousel.php:78
+msgid "Direction"
+msgstr "Dirección"
+
+#: Core/Builder/Component/Counter.php:13
+msgid "Counter"
+msgstr "Contador"
+
+#: Core/Builder/Component/Counter.php:23
+msgid "Counter Number"
+msgstr "Número del Contador"
+
+#: Core/Builder/Component/Counter.php:25
+msgid "Counter Start"
+msgstr "Inicio del Contador"
+
+#: Core/Builder/Component/Counter.php:27
+msgid "Counter Duration"
+msgstr "Duración del Contador"
+
+#: Core/Builder/Component/Counter.php:31
+msgid "Counter Prefix"
+msgstr "Prefijo"
+
+#: Core/Builder/Component/Counter.php:32
+msgid "Counter Suffix"
+msgstr "Sufijo"
+
+#: Core/Builder/Component/Header_Logo.php:13
+msgid "Header Logo"
+msgstr "Logo del Header"
+
+#: Core/Builder/Component/Header_Logo.php:28
+msgid "Static Header Logo"
+msgstr "Logo del Header Estático"
+
+#: Core/Builder/Component/Header_Logo.php:29
+msgid "Sticky Header Logo"
+msgstr "Logo del Header Sticky"
+
+#: Core/Builder/Component/Header_Preview.php:13
+msgid "Header Preview"
+msgstr "Vista Previa del Header"
+
+#: Core/Builder/Component/Menu.php:59
+msgid "Main Navigation"
+msgstr "Navegación Principal"
+
+#: Core/Builder/Component/Menu.php:60
+msgid "Mobile Header Buttons"
+msgstr "Botones del Header Móvil"
+
+#: Core/Builder/Component/Page.php:33
+msgid "Customize Static Header"
+msgstr "Personalizar Header Estático"
+
+#: Core/Builder/Component/Page.php:36
+msgid "Place content under header"
+msgstr "Colocar contenido debajo del Header"
+
+#: Core/Builder/Component/Page.php:44
+msgid "Customize Sticky Header"
+msgstr "Personalizar Header Sticky"
+
+#: Core/Builder/Component/Page.php:53
+msgid "Hide the sticky header on builder"
+msgstr "Ocultar el Header Sticky en el constructor"
+
+#: Core/Builder/Component/Page.php:55
+msgid "Select Custom Header"
+msgstr "Seleccionar Header Personalizado"
+
+#: Core/Posttype/Header.php:30
+msgid "Headers"
+msgstr "Headers"
+
+#: Core/Posttype/Header.php:132
+msgid "Activate Theme Header"
+msgstr "Activar Header del Tema"
+
+#: Core/Theme_Options/UF_Container/Global_Options.php:13
+msgid "Header and Footer"
+msgstr "Header y Footer"
