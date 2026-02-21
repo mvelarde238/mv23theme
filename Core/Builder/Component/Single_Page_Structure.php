@@ -29,20 +29,15 @@ class Single_Page_Structure extends Component {
 		}, 10, 3 );
 
 		// on save component, create a new datastore and save the fields
-		add_action( 'uf.ultimate_builder.save_component', function( $processed_values, $component, $group, $ultimate_builder ) {
-		    if ( $component['__type'] == 'single-page-structure' && isset( $_GET['post'] ) ) {
-		        // create a new datastore for post meta
+		add_action( 'uf.ultimate_builder.save_component', function( $processed_values, &$component_data, $group, $ultimate_builder ) {
+		    if ( $component_data['__type'] == 'single-page-structure' && isset( $_GET['post'] ) ) {
 		        $datastore = new \Ultimate_Fields\Datastore\Options;
-
-		        // Asociar el datastore al grupo para que los valores se guarden correctamente
 		        $group->set_datastore( $datastore );
+		        $errors = $group->save( $component_data );
 
-		        // save() procesa y valida todos los campos
-		        $errors = $group->save( $component );
-
-		        // Guardar en la base de datos si no hay errores
 		        if ( empty( $errors ) ) {
 		            $datastore->commit();
+					$component_data['has_custom_datastore'] = true;
 		        }
 		    }
 		}, 10, 4 );

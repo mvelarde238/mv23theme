@@ -33,20 +33,22 @@ class Theme_Options extends Component {
 		}, 10, 3 );
 
 		// on save component, create a new datastore and save the fields
-		add_action( 'uf.ultimate_builder.save_component', function( $processed_values, $component, $group, $ultimate_builder ) {
-		    if ( $component['__type'] == 'theme-options' && isset( $_GET['post'] ) ) {
-		        // create a new datastore for post meta
+		add_action( 'uf.ultimate_builder.save_component', function( $processed_values, &$component_data, $group, $ultimate_builder ) {
+		    if ( $component_data['__type'] == 'theme-options' && isset( $_GET['post'] ) ) {
+		        // create a new datastore for theme options
 		        $datastore = new \Ultimate_Fields\Datastore\Options;
 
-		        // Asociar el datastore al grupo para que los valores se guarden correctamente
+				// Associate the datastore with the group so that the values are saved correctly
 		        $group->set_datastore( $datastore );
 
-		        // save() procesa y valida todos los campos
-		        $errors = $group->save( $component );
+				// save() returns an array of errors if there are validation issues, so we can check that before committing to the database
+		        $errors = $group->save( $component_data );
 
-		        // Guardar en la base de datos si no hay errores
+		        // If there are no errors, commit the datastore. If there are errors, they will be displayed in the builder interface and the datastore will not be committed, preventing invalid data from being saved.
 		        if ( empty( $errors ) ) {
 		            $datastore->commit();
+					// Mark that this group has a custom datastore to prevent it from being saved in page_content_datastore as well
+					$component_data['has_custom_datastore'] = true;
 		        }
 		    }
 		}, 10, 4 );

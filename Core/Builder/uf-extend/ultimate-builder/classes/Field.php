@@ -155,9 +155,13 @@ class Field extends Repeater {
 						$group->save( $component_data );
 						$group_processed_values = $group->get_datastore()->get_values();
 
-						do_action( 'uf.ultimate_builder.save_component', $group_processed_values, $component_data, $group, $this );
+						do_action_ref_array( 'uf.ultimate_builder.save_component', array( $group_processed_values, &$component_data, $group, $this ) );
 
-						$components_data[$__id] = $group_processed_values;
+						// Only save the component data in the builder datastore if it doesn't have a custom datastore 
+						// (like theme-options component) to avoid saving it twice
+						if( !isset( $component_data['has_custom_datastore'] ) || !$component_data['has_custom_datastore'] ){
+							$components_data[$__id] = $group_processed_values;
+						}
 					}
 				}
             }

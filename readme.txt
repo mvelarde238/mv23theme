@@ -2,6 +2,11 @@
 CHANGELOG
 **************************************************************************************************
 
+3.2.2 26-02-21
+- Implements do_action_ref_array() on uf.ultimate_builder.save_component to allow passing arguments by reference,
+  used by Theme Options to set a flag on component data when the custom datastore is created and used, 
+  so the options are not saved twice on the custom datastore and on the group one
+
 3.2.1 26-02-18
 - Header CPT implementation
 - Review --components-spacing
