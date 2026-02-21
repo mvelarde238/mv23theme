@@ -18,6 +18,7 @@ CHANGELOG
 - Fix colors on WP media modal buttons
 - Footer Preview Implementation
 - Fix content alignment settings in components wrapper
+- Fix body padding top when place_content_under_header is active on gjs-wrapper.js
 
 3.2.0 26-02-12
 - page_content_datastore meta implementation

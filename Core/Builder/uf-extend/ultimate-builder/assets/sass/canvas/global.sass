@@ -1,3 +1,12 @@
+// Move the padding from the body to the wrapper
+// as wrapper is the first element in the canvas
+body
+    padding-top: 0 !important
+// This is handled in the gjs-wrapper.js file by adding padding to the wrapper element 
+// instead of the body when the place_content_under_header setting is toggled on or off
+// [data-gjs-type="wrapper"]
+    // padding-top: var(--static-header-height) !important
+    
 /* component is locked */
 .gjs-no-pointer
     opacity: .23

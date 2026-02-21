@@ -59,10 +59,12 @@ window.gjsWrapper = function (editor, options) {
                     const { place_content_under_header } = data;
                     const canvas = editor.Canvas;
                     const canvasBody = canvas.getBody();
+                    const wrapper = editor.getWrapper();
+                    
                     if (place_content_under_header) {
-                        canvasBody.style.paddingTop = '0px';
+                        wrapper.getEl().style.paddingTop = '0px';
                     } else {
-                        canvasBody.style.paddingTop = '';
+                        wrapper.getEl().style.paddingTop = 'var(--static-header-height)';
                     }
 
                     // Handle hiding/showing static and sticky header and their logos by adding/removing classes to canvas body
