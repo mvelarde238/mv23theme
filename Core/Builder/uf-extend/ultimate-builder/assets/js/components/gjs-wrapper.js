@@ -46,7 +46,11 @@ window.gjsWrapper = function (editor, options) {
                     }
                 }
 
-                this.handle_datastore_data();
+                if( changed_keys.includes('settings') ){
+                    editor.handleCommonSettings(model);
+                } else {
+                    this.handle_datastore_data();
+                }
             },
             handle_datastore_data() {
                 const model = this.model;

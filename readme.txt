@@ -19,6 +19,7 @@ CHANGELOG
 - Footer Preview Implementation
 - Fix content alignment settings in components wrapper
 - Fix body padding top when place_content_under_header is active on gjs-wrapper.js
+- handleCommonSettings implementation on listing component and fix some settings application on listing and gjs-wrapper components
 
 3.2.0 26-02-12
 - page_content_datastore meta implementation

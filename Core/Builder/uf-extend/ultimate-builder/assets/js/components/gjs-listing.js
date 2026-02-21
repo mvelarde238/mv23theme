@@ -16,7 +16,20 @@ window.gjsListing = function (editor) {
             defaults: {
                 name: 'Listing',
                 tagName: 'div',
-                classes: [compClass,'component']
+                classes: [compClass,'component'],
+                __onSuccessCallback: (response, model, editor) => {
+                    const el = model.getEl();
+                    // Create temporary container to parse response HTML
+                    const temp = document.createElement('div');
+                    temp.innerHTML = response.data;
+                    const firstChild = temp.firstElementChild;
+                    
+                    // Remove class attribute from component to fix: settings dosnt apply on change datastore
+                    if (firstChild) {
+                        firstChild.removeAttribute('class');
+                        el.innerHTML = temp.innerHTML;
+                    }
+                },
             },
         },
         view: {
@@ -57,6 +70,11 @@ window.gjsListing = function (editor) {
                             listingEl.style.setProperty(`--${device[0]}-gap`, gaps[device]+'px');
                         });
                     }
+                }
+
+                if( changed_keys.includes('settings') ){
+                    console.log('Settings changed, applying common settings...');
+                    editor.handleCommonSettings(model);
                 }
             },
         },

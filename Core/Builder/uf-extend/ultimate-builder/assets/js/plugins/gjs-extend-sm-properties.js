@@ -1,13 +1,13 @@
 // Extend the built-in style manager properties
 window.gjsExtendSmProperties = function (editor) {
-    editor.on('load', () => {
-        const styleManager = editor.StyleManager;
+    // editor.on('load', () => {
+        // const styleManager = editor.StyleManager;
         // console.log(styleManager);
     
         // Extend 'display' property with 'grid' option, works on editor load
         // const displayProperty = styleManager.getProperty('display', 'display');
         // displayProperty.addOption({ id: 'grid', label: 'grid' });
-    });
+    // });
 
     // Extend 'gap' property with specific requirements, works
     // editor.Styles.addBuiltIn('gap', { 
