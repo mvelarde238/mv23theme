@@ -154,18 +154,18 @@ class Listing extends Component {
             Field::create( 'select', 'listing_template', 'Template' )->add_options(LISTING_TEMPLATES),
             
             Field::create( 'complex', 'columns', __('Columns Quantity','mv23theme') )->add_fields(array(
-                Field::create( 'number', 'desktop', __('Desktop','mv23theme') )->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
-                Field::create( 'number', 'laptop', __('Laptop','mv23theme') )->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
-                Field::create( 'number', 'tablet', __('Tablet','mv23theme') )->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25),
-                Field::create( 'number', 'mobile', __('Mobile','mv23theme') )->set_minimum(1)->set_maximum(12)->set_attr('style', $width_25)
-            ))->set_default_value(LISTING_COLUMNS),
+                Field::create( 'number', 'desktop', __('Desktop','mv23theme') )->set_minimum(1)->set_maximum(12)->set_default_value(LISTING_COLUMNS['desktop'])->set_attr('style', $width_25),
+                Field::create( 'number', 'laptop', __('Laptop','mv23theme') )->set_minimum(1)->set_maximum(12)->set_default_value(LISTING_COLUMNS['laptop'])->set_attr('style', $width_25),
+                Field::create( 'number', 'tablet', __('Tablet','mv23theme') )->set_minimum(1)->set_maximum(12)->set_default_value(LISTING_COLUMNS['tablet'])->set_attr('style', $width_25),
+                Field::create( 'number', 'mobile', __('Mobile','mv23theme') )->set_minimum(1)->set_maximum(12)->set_default_value(LISTING_COLUMNS['mobile'])->set_attr('style', $width_25)
+            )),
             
             Field::create( 'complex', 'columns_gap', __('Space between columns','mv23theme') )->add_fields(array(
-                Field::create( 'number', 'desktop', __('Desktop','mv23theme') )->set_attr('style', $width_25),
-                Field::create( 'number', 'laptop', __('Laptop','mv23theme') )->set_attr('style', $width_25),
-                Field::create( 'number', 'tablet', __('Tablet','mv23theme') )->set_attr('style', $width_25),
-                Field::create( 'number', 'mobile', __('Mobile','mv23theme') )->set_attr('style', $width_25)
-            ))->set_default_value(LISTING_GAP),
+                Field::create( 'number', 'desktop', __('Desktop','mv23theme') )->set_default_value(LISTING_GAP['desktop'])->set_attr('style', $width_25),
+                Field::create( 'number', 'laptop', __('Laptop','mv23theme') )->set_default_value(LISTING_GAP['laptop'])->set_attr('style', $width_25),
+                Field::create( 'number', 'tablet', __('Tablet','mv23theme') )->set_default_value(LISTING_GAP['tablet'])->set_attr('style', $width_25),
+                Field::create( 'number', 'mobile', __('Mobile','mv23theme') )->set_default_value(LISTING_GAP['mobile'])->set_attr('style', $width_25)
+            )),
 
             Field::create( 'tab', 'carousel_settings_tab', __('Carousel Settings','mv23theme'))->add_dependency('listing_template','carousel','='),
             Field::create( 'complex', 'carousel_settings' )->hide_label()->add_fields(array(
