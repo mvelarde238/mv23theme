@@ -1,0 +1,83 @@
+window.gjsI18n = function (editor, options) {
+
+    editor.I18n && editor.I18n.addMessages({
+        es: {
+            'react-builder': {
+                // top bar
+                undo: 'DESHACER',
+                redo: 'REHACER',
+                save: 'GUARDAR',
+                preview: 'PREVISUALIZAR',
+                view_controls: "Ver controles",
+                show_outlines: 'MOSTRAR CONTORNOS',
+                fullscreen: 'PANTALLA COMPLETA',
+                show_code: 'MOSTRAR CÓDIGOS',
+                exit_to_wp_admin: 'SALIR AL ESCRITORIO',
+                // left sidebar
+                global_settings: 'Ajustes Globales',
+                layers: 'Capas',
+                on_component_select_label: 'Al seleccionar un componente',
+                on_component_select_desc: 'Escoge que mostrar cuando se selecciona un componente',
+                open_component_settings: 'Abrir ajustes del componente',
+                open_components_tab: 'Abrir pestaña de componentes',
+                open_style_manager: 'Abrir el gestor de estilos',
+                do_nothing: 'No hacer nada',
+                // right sidebar
+                components: 'Componentes',
+                styles: 'Estilos',
+                traits: 'Rasgos',
+                settings: 'Ajustes',
+                component_settings_panel: 'Panel de ajustes del componente',
+                select_component_to_edit_settings: 'Selecciona un componente para editar sus ajustes',
+                select_component_to_edit_styles: 'Selecciona un componente para editar sus estilos',
+                style_manager: 'Gestor de estilos',
+                // spacing sector
+                spacing: 'ESPACIADO',
+                outter: 'EXTERIOR',
+                inner: 'INTERIOR',
+                lock_margin: 'Bloquear margen',
+                unlock_margin: 'Desbloquear margen',
+                clear_margin: 'Limpiar márgenes',
+                lock_padding: 'Bloquear relleno',
+                unlock_padding: 'Desbloquear relleno',
+                clear_padding: 'Limpiar relleno',
+                content_area: 'Contenido',
+            },
+            'gjs-context-menu': {
+                // global
+                boxed: 'ESTÁNDAR',
+                full_width: 'ANCHO COMPLETO',
+                full_width_stretched: 'EXTENDER FONDO <BR> CENTRAR CONTENIDO',
+                // wrapper
+                edit_theme_options: 'EDITAR OPCIONES DE TEMA',
+                color_scheme: 'ESQUEMA DE COLOR',
+                dark_mode: 'MODO OSCURO',
+                light_mode: 'MODO CLARO',
+                // icon and text
+                icon_size: 'TAMAÑO DE ICONO',
+                background_and_color: 'COLOR DE FONDO Y TEXTO',
+                space_around_icon: 'ESPACIO ALREDEDOR DEL ICONO',
+                rounded_corners: 'ESQUINAS REDONDEADAS',
+                border_size_and_color: 'TAMAÑO Y COLOR DE BORDE',
+                gap: 'ESPACIO ENTRE ELEMENTOS',
+                // components-wrapper
+                space_between_components: 'ESPACIO ENTRE COMPONENTES',
+                content_alignment: 'ALINEACIÓN DE CONTENIDO',
+                // section
+                add_section: 'AÑADIR SECCIÓN',
+                above: 'ARRIBA',
+                below: 'ABAJO',
+                // menu
+                select_links: 'SELECCIONAR ENLACES',
+                select_hovered_links: 'SELECCIONAR ENLACES HOVER',
+                // heading
+                select_heading: 'SELECCIONAR ENCABEZADO',
+                select_tagline: 'SELECCIONAR SUBTÍTULO',
+                // button
+                text_align: 'ALINEACIÓN DE TEXTO',
+                // text-editor
+                font_size: 'TAMAÑO DEL TEXTO',
+            }
+        }
+    });
+};

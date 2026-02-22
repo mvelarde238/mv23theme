@@ -63,8 +63,8 @@ function layout_options(component, editor){
 
 function color_scheme_options(component, editor){
     const layoutActions = [
-        { id: 'dark-mode', name: 'DARK MODE' },
         { id: 'light-mode', name: 'LIGHT MODE' },
+        { id: 'dark-mode', name: 'DARK MODE' },
     ];
     let colorSchemeOptions = layoutActions.map( scheme => {
         if( scheme.type && scheme.type === 'break' ){
@@ -301,7 +301,7 @@ window['contextMenuOpts'] = {
                                     value:getIconSize, min:15, max:200, args: { property:'--icon-size' }
                                 },
                                 {
-                                    type: 'options', title: 'BACKGROUND & COLOR',
+                                    type: 'options', title: 'BACKGROUND & COLOR', titleKey: 'background_and_color',
                                     options: [
                                         {
                                             type:'color', command:'update-icon-property', args: { property:'background-color' },
@@ -342,7 +342,7 @@ window['contextMenuOpts'] = {
                                     }, 
                                 },
                                 {
-                                    type: 'options', title: 'BORDER SIZE & COLOR',
+                                    type: 'options', title: 'BORDER SIZE & COLOR', titleKey: 'border_size_and_color',
                                     options: [
                                         { 
                                             type: 'range', command: 'update-icon-property', 

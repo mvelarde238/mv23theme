@@ -46,13 +46,13 @@
                     {
                         id: 'builder:preview', 
                         iconClass: 'bi bi-eye',
-                        label: 'Preview',
+                        label: 'PREVIEW',
                         className: 'secondary-button builder-preview-button'
                     },
                     {
                         id: 'builder:save-editor', 
                         iconClass: 'bi bi-floppy2',
-                        label: 'Save',
+                        label: 'SAVE',
                         className: 'primary-button builder-save-button'
                     }
                 ],

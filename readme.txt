@@ -7,6 +7,7 @@ CHANGELOG
   used by Theme Options to set a flag on component data when the custom datastore is created and used, 
   so the options are not saved twice on the custom datastore and on the group one
 - Fix listing columns and gap default values not being set on the component settings
+- I18n: Added spanish translations
 
 3.2.1 26-02-18
 - Header CPT implementation

@@ -51,6 +51,7 @@ class Ultimate_Builder {
 	 */
 	private $gjs_plugins = array(
 		// [ 'name' => 'gjsHoverLayer', 'handler' => 'gjs-hover-layer', 'isComponent' => false ],
+		[ 'name' => 'gjsI18n', 'handler' => 'gjs-i18n', 'isComponent' => false ],
 		[ 'name' => 'gjsExtendEditor', 'handler' => 'gjs-extend-editor', 'isComponent' => false ],
 		[ 'name' => 'gjsCommands', 'handler' => 'gjs-commands', 'isComponent' => false ],
 		[ 'name' => 'gjsExtendComponents', 'handler' => 'gjs-extend-components', 'isComponent' => false ],
@@ -183,8 +184,10 @@ class Ultimate_Builder {
 			$insert_single_structure = get_option( 'insert_single_structure_on', array() );
 			$is_singular = in_array( $posttype, $insert_single_structure );
 			$is_archive = ( $posttype === 'archive_page') || ( get_option('page_for_posts') == get_the_ID() );
+			$user_id = get_current_user_id();
 
 			wp_localize_script( 'builder-app', 'BUILDER_GLOBALS', array(
+				'locale' => substr( get_user_locale($user_id), 0, 2 ),
 				'posttype' => $posttype,
 				'page_title' => get_the_title() ?: '',
 				'referer' => wp_get_referer(),
