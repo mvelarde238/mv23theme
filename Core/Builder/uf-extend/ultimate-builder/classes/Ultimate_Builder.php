@@ -122,6 +122,7 @@ class Ultimate_Builder {
 		add_action( 'wp_ajax_ultimate_builder_preview_save', array( Preview_Handler::class, 'ajax_preview_save' ) );
 		add_action( 'wp_ajax_migrate_post_content_to_builder', array( $this, 'ajax_migrate_post_content' ) );
 		add_action( 'init', array( Preview_Handler::class, 'maybe_apply_preview' ), 1 );
+		add_action( 'init', array( $this, 'remove_plugins_support') );
 	
 		// Initialize screen helper for builder detection
 		Screen_Helper::init();
@@ -351,5 +352,26 @@ class Ultimate_Builder {
 		wp_send_json_success( array(
 			'message' => __('Post content migrated successfully', 'mv23theme')
 		) );
+	}
+
+	public function remove_plugins_support() {
+		if ( 
+			isset( $_GET['action'] )
+			&& isset( $_GET['meta'] )
+			&& $_GET['action'] === 'ultimate-builder' ) 
+		{
+			// Disable SEO analysis and remove meta boxes
+			add_filter( 'wpseo_use_page_analysis', '__return_false' );
+			add_action( 'add_meta_boxes', function() {
+				$post_types = ['post', 'page'];
+				foreach ($post_types as $type) {
+                	remove_meta_box('wpseo_meta', $type, 'normal');
+            	}
+			}, 100000 );
+
+			// Deregister Yoast SEO scripts to prevent conflicts
+			wp_deregister_script( 'yoast-seo-post-edit-classic' );
+			wp_register_script( 'yoast-seo-post-edit-classic', false, array(), $this->version );
+		}
 	}
 }
