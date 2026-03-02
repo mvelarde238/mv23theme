@@ -5,6 +5,13 @@ const stickyHeader = {
     windowContext: null,
     init: function (element, windowContext, breakpoint) {
         this.element = element;
+        if( 
+            !this.element || typeof element !== 'object' || 
+            !windowContext || typeof windowContext !== 'object' || 
+            !breakpoint || typeof breakpoint !== 'number') {
+            return;
+        }
+
         this.breakpoint = breakpoint;
         this.windowContext = windowContext;
 
