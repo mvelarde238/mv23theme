@@ -5,6 +5,8 @@ CHANGELOG
 3.2.3 26-03-02
 - Fix: Remove Yoast SEO scripts deregistration to prevent breaking the plugin's functionality in the builder context
 - Validate parameters in stickyHeader.js init function to prevent errors when called with invalid arguments
+- Implements TinyMCE lifecycle helpers on gjs-extend-components.js 
+  to allow initializing and destroying TinyMCE instances properly when components are selected and deselected on the editor
 
 3.2.2 26-02-21
 - Implements do_action_ref_array() on uf.ultimate_builder.save_component to allow passing arguments by reference,

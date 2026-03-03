@@ -15,10 +15,54 @@ window.gjsExtendComponents = function (editor) {
     function invalidateCache(compId) {
         const cached = viewCache[compId];
         if (!cached) return;
-        try { if (cached.model && cached.handler) cached.model.datastore.off('change', cached.handler); } catch (e) {}
+        try {
+            if (cached.handler && cached.handler.cancel) cached.handler.cancel();
+            if (cached.model && cached.handler) cached.model.datastore.off('change', cached.handler);
+        } catch (e) {}
+        try { destroyMCEInView(cached.view && cached.view.$el); } catch (e) {}
         try { if (cached.view && cached.view.$el) cached.view.$el.remove(); } catch (e) {}
         delete viewCache[compId];
         // console.log('[viewCache] Invalidated cache for', compId);
+    }
+
+    // =====================================================================
+    // TinyMCE lifecycle helpers
+    // TinyMCE does not survive DOM detach/re-attach: its internal iframe
+    // reference breaks causing broken editors, lost change events, and
+    // cross-editor data contamination.  We destroy instances on detach
+    // and reinitialize them on re-attach.
+    // =====================================================================
+
+    /**
+     * Destroy all TinyMCE editor instances inside a jQuery element.
+     * Must be called BEFORE the element is detached from the DOM.
+     */
+    function destroyMCEInView($el) {
+        if (typeof tinymce === 'undefined' || !$el || !$el.length) return;
+        $el.find('.wp-editor-wrap').each(function () {
+            var mceId = window.jQuery(this).attr('data-mce-id');
+            if (mceId) {
+                var editorId = mceId + '_id';
+                var mceEditor = tinymce.get(editorId);
+                if (mceEditor) {
+                    try { tinymce.remove(mceEditor); } catch (e) {}
+                }
+            }
+        });
+    }
+
+    /**
+     * Reinitialize TinyMCE editors inside a cached view after re-attaching.
+     * Triggers the UF 'uf-sorted' event on each WYSIWYG field wrapper,
+     * which causes the WYSIWYG field view to fully re-render (new ID,
+     * new textarea, fresh TinyMCE init with correct closure references).
+     * Uses triggerHandler to prevent event bubbling to the GroupView.
+     */
+    function reinitMCEInView($el) {
+        if (!$el || !$el.length) return;
+        $el.find('.wp-editor-wrap').each(function () {
+            window.jQuery(this).closest('.uf-field').triggerHandler('uf-sorted');
+        });
     }
     
     // Extend gjs component connecting it with Ultimate Fields datastore
@@ -132,9 +176,13 @@ window.gjsExtendComponents = function (editor) {
             if (editorConfig.activeDatastore && editorConfig.activeDatastore.componentId !== compId) {
                 const prev = editorConfig.activeDatastore;
                 try {
+                    // Cancel any pending debounced invocation to prevent stale writes
+                    if (prev.handler && prev.handler.cancel) prev.handler.cancel();
                     // Pause the change handler (don't remove — reuse from cache)
                     if (prev.model && prev.handler) prev.model.datastore.off('change', prev.handler);
                 } catch (e) {}
+                // Destroy TinyMCE instances before detaching (they don't survive DOM detach)
+                try { destroyMCEInView(prev.view && prev.view.$el); } catch (e) {}
                 // Detach DOM without destroying the view
                 try { if (prev.view && prev.view.$el) prev.view.$el.detach(); } catch (e) {}
                 try { window.jQuery && window.jQuery('#component-settings').empty(); } catch (e) {}
@@ -158,6 +206,9 @@ window.gjsExtendComponents = function (editor) {
                 // Re-attach the cached DOM
                 $wrapper.empty();
                 $wrapper.append(cached.view.$el);
+
+                // Reinitialize TinyMCE editors that were destroyed on detach
+                reinitMCEInView(cached.view.$el);
 
                 // Re-activate the change handler
                 builder_comp_model.datastore.on('change', cached.handler);
@@ -269,8 +320,12 @@ window.gjsExtendComponents = function (editor) {
             if (!active) return;
 
             if (component && active.componentId === component.attributes.__tempID) {
+                // Cancel any pending debounced invocation to prevent stale writes
+                try { if (active.handler && active.handler.cancel) active.handler.cancel(); } catch (e) {}
                 // Pause change handler
                 try { if (active.model && active.handler) active.model.datastore.off('change', active.handler); } catch (e) {}
+                // Destroy TinyMCE instances before detaching (they don't survive DOM detach)
+                try { destroyMCEInView(active.view && active.view.$el); } catch (e) {}
                 // Detach view DOM (keep in cache for re-attach)
                 try { if (active.view && active.view.$el) active.view.$el.detach(); } catch (e) {}
                 try { window.jQuery && window.jQuery('#component-settings').empty(); } catch (e) {}
