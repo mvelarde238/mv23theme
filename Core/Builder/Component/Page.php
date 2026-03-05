@@ -54,6 +54,11 @@ class Page extends Component {
 
             Field::create( 'tab', '_custom_header_tab', __('Select Custom Header','mv23theme') ),
             Field::create( 'wp_object', 'custom_header_post')->add( 'posts', 'post_type=header' )->hide_label(),
+
+            Field::create( 'tab', '_customize_footer_tab', __('Customize Footer','mv23theme') ),
+            Field::create( 'checkbox', 'hide_footer')
+                ->hide_label()->fancy()
+                ->set_text(__('Hide footer','mv23theme')),
         );
 		return $fields;
 	}

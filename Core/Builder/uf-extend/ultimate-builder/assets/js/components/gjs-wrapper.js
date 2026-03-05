@@ -60,7 +60,7 @@ window.gjsWrapper = function (editor, options) {
                     const data = datastore.toJSON();
                     
                     // Handle placing content under header by removing padding top from canvas body
-                    const { place_content_under_header } = data;
+                    const { place_content_under_header, hide_footer } = data;
                     const canvas = editor.Canvas;
                     const canvasBody = canvas.getBody();
                     const wrapper = editor.getWrapper();
@@ -97,6 +97,13 @@ window.gjsWrapper = function (editor, options) {
                         } else {
                             canvasBody.classList.remove('hide-sticky-header');
                         }
+                    }
+
+                    // Handle hiding footer by adding/removing class to canvas body
+                    if ( hide_footer ) {
+                        canvasBody.classList.add('hide-footer');
+                    } else {
+                        canvasBody.classList.remove('hide-footer');
                     }
                 }
             }

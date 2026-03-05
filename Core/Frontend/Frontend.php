@@ -278,6 +278,9 @@ class Frontend extends Theme_Header_Data {
                 $hide_header_logo = $wrapper['hide_'.$key.'_header_logo'] ?? false;
                 if ( $hide_header_logo ) $classes[] = 'hide-'.$key.'-header-logo';
             }
+
+            $hide_footer = $wrapper['hide_footer'] ?? false;
+            if ( $hide_footer ) $classes[] = 'hide-footer';
         }
     
         $disable_comments_styles = get_option( 'disable_comments_styles' );

@@ -33,6 +33,7 @@ class Footer extends Component {
 
     public static function display( $args ){
         $args['additional_classes'][] = 'footer';
+        $args['additional_classes'][] = 'site-footer';
 		$footer_content = $args;
 
 		ob_start();
