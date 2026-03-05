@@ -7,6 +7,7 @@ window.gjsAsyncComponent = function (editor, options) {
                 name: 'Async Component Abstract',
                 tagName: 'div',
                 classes: ['async-component-abstract'],
+                droppable: false,
                 __action: 'get_component_view',
                 __additionalData: {},
                 __additionalDataCallback: null,

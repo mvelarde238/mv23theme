@@ -5,6 +5,7 @@ CHANGELOG
 3.2.4 26-03-05
 - Hide footer implementation
 - Fix stickyHeader script to prevent errors when the breakpoint parameter is a string
+- Make async-component-abstract no-droppable
 
 3.2.3 26-03-02
 - Fix: Remove Yoast SEO scripts deregistration to prevent breaking the plugin's functionality in the builder context
