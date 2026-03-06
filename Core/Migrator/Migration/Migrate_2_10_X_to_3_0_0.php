@@ -1829,8 +1829,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
 
     private function process_gallery_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
         $uf_component['marquee_settings'] = array(
-            'speed' => $component['marquee_speed'],
-            'fade_color' => $component['fade_color'],
+            'speed' => $component['marquee_speed']
         );
         $uf_component['items'] = array(
             'desktop' => $component['items_in_desktop'],

@@ -4,6 +4,7 @@
         aspect-ratio: var(--aspect-ratio)
         max-width: 100%
         height: auto
+        vertical-align: middle
 
     iframe
         width: 100%
@@ -28,8 +29,8 @@
     .theme-gallery__item-sizer
         width: calc( 100% / var(--d-columns) )
     .theme-gallery__item
-        border: 2px solid white
-        background-color: #000
+        outline: 2px solid white
+        outline-offset: -2px
 
     @media #{$medium-only}
         .theme-gallery__item,

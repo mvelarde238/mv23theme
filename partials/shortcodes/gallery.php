@@ -21,8 +21,11 @@ function print_theme_gallery( $atts ) {
         'wpmf_folder_id' => null,
         'gallery_id' => null,
         'marquee_speed' => 18,
-        'fade_color' => '#ffffff',
-        'size_styles' => ''
+        'marquee_fade_width' => '100px',
+        'marquee_direction' => 'left',
+        'size_styles' => '',
+        'use_placeholder_images' => false,
+        'placeholders_quantity' => 8,
     ), $atts );
 
     $attachments = array();
@@ -53,6 +56,12 @@ function print_theme_gallery( $atts ) {
             wp_reset_query();
         endif;
 
+    } else if ( $a['use_placeholder_images'] ) {
+        for ($i = 0; $i < $a['placeholders_quantity']; $i++) {
+            array_push( $attachments, 'https://picsum.photos/600/500?random=' . $i );
+        }
+
+        $a['link'] = 'placeholder'; // override link type since these are not real attachments
     } else {
         $attachments = explode(',',$a['ids']);
     }
@@ -73,10 +82,6 @@ function print_theme_gallery( $atts ) {
         $carousel_styles[] = '--l-columns:'.$a['l_columns'];
         $carousel_styles[] = '--t-columns:'.$a['t_columns'];
         $carousel_styles[] = '--m-columns:'.$a['m_columns'];
-        
-        if( $a['display'] === 'marquee' ) {
-            $carousel_styles[] = '--fade-color:'.$a['fade_color'];
-        }
 
         if( $a['display'] == 'slider' ){ ?>
             <div class="theme-gallery carousel carousel--theme1 carousel-inside-component theme-gallery--slider" data-controls-position="center" style="<?=implode(';',$carousel_styles)?>">
@@ -102,7 +107,8 @@ function print_theme_gallery( $atts ) {
             echo '<div class="theme-gallery theme-gallery__item-sizer"></div>';
 
         } else if ( $a['display'] == 'marquee' ) {
-            echo '<div class="theme-gallery theme-gallery__marquee marquee" data-speed="'.$a['marquee_speed'].'" style="'.implode(';', $carousel_styles).'">';
+            $carousel_styles[] = '--fade-width: '.$a['marquee_fade_width'];
+            echo '<div class="theme-gallery theme-gallery__marquee marquee" data-speed="'.$a['marquee_speed'].'" data-direction="'.$a['marquee_direction'].'" style="'.implode(';', $carousel_styles).'">';
             echo '<div class="marquee-track">';
             
         } else if ( $a['display'] == 'default' ) {
@@ -113,7 +119,7 @@ function print_theme_gallery( $atts ) {
         }
 
         foreach ($attachments as $attachment_id) :
-            $type = get_post_mime_type($attachment_id);
+            $type = $a['use_placeholder_images'] ? 'placeholder' : get_post_mime_type($attachment_id);
             $attachment_type = '';
             $is_remote_video = false;
 
@@ -197,6 +203,18 @@ function print_theme_gallery( $atts ) {
                         'src="'.get_template_directory_uri().'/assets/images/pdf_poster.jpg"'
                     );
 
+                    if( !empty($a['size_styles'])){
+                        $image_attrs['additional_attributes'][] = 'style="'.$a['size_styles'].'"';
+                    }
+                    echo '<img '.Template_Engine::generate_attributes($image_attrs).'>';
+                    break;
+
+                case 'placeholder':
+                    $attachment_type = 'image';
+                    $url = $attachment_id; // In this case, $attachment_id is actually the URL of the placeholder image
+                    $image_attrs = array();
+                    $image_attrs['additional_attributes'] = array('src="'.$url.'"');
+    
                     if( !empty($a['size_styles'])){
                         $image_attrs['additional_attributes'][] = 'style="'.$a['size_styles'].'"';
                     }
