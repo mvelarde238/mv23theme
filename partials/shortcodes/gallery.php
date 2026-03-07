@@ -1,6 +1,7 @@
 <?php
 use Core\Builder\Template_Engine;
 use Core\Builder\Template_Engine\Video as Video_Template_Engine;
+use Core\Builder\Component\Gallery;
 
 function print_theme_gallery( $atts ) {
 	$a = shortcode_atts( array(
@@ -26,6 +27,8 @@ function print_theme_gallery( $atts ) {
         'size_styles' => '',
         'use_placeholder_images' => false,
         'placeholders_quantity' => 8,
+        'placeholders_source' => 'picsum',
+        'grid_data_key' => '' // registry key for in-memory grid data (used when shortcode is generated and executed in the same request)
     ), $atts );
 
     $attachments = array();
@@ -57,8 +60,26 @@ function print_theme_gallery( $atts ) {
         endif;
 
     } else if ( $a['use_placeholder_images'] ) {
-        for ($i = 0; $i < $a['placeholders_quantity']; $i++) {
-            array_push( $attachments, 'https://picsum.photos/600/500?random=' . $i );
+        $placeholders_source = $a['placeholders_source'] ?? 'picsum';
+        switch ($placeholders_source) {
+            case 'picsum':
+                for ($i = 0; $i < $a['placeholders_quantity']; $i++) {
+                    array_push( $attachments, 'https://picsum.photos/600/500?random=' . $i );
+                }
+                break;
+            
+            case 'unsplash':
+            default:
+                for ($i = 0; $i < $a['placeholders_quantity']; $i++) {
+                    array_push( $attachments, 'https://unsplash.it/600/500?sig=' . $i );
+                }
+                break;
+
+            case 'placehold':   
+                for ($i = 0; $i < $a['placeholders_quantity']; $i++) {
+                    array_push( $attachments, 'https://placehold.co/600x500' );
+                }
+                break;
         }
 
         $a['link'] = 'placeholder'; // override link type since these are not real attachments
@@ -82,6 +103,10 @@ function print_theme_gallery( $atts ) {
         $carousel_styles[] = '--l-columns:'.$a['l_columns'];
         $carousel_styles[] = '--t-columns:'.$a['t_columns'];
         $carousel_styles[] = '--m-columns:'.$a['m_columns'];
+
+        $item_attrs = array(
+            'additional_classes' => ['theme-gallery__item']
+        );
 
         if( $a['display'] == 'slider' ){ ?>
             <div class="theme-gallery carousel carousel--theme1 carousel-inside-component theme-gallery--slider" data-controls-position="center" style="<?=implode(';',$carousel_styles)?>">
@@ -111,6 +136,29 @@ function print_theme_gallery( $atts ) {
             echo '<div class="theme-gallery theme-gallery__marquee marquee" data-speed="'.$a['marquee_speed'].'" data-direction="'.$a['marquee_direction'].'" style="'.implode(';', $carousel_styles).'">';
             echo '<div class="marquee-track">';
             
+        } else if ( $a['display'] == 'grid' ) {
+            echo '<div class="theme-gallery grid-stack theme-gallery--grid" style="'.implode(';', $carousel_styles).'">';
+            $item_attrs['additional_classes'][] = 'grid-stack-item';
+
+            // recover grid data from shortcode attribute and convert it into an array
+            $grid_data = array();
+            if( !empty($a['grid_data_key']) ){
+                $grid_data = Gallery::get_temp_data( $a['grid_data_key'] );
+                $grid_data = is_array($grid_data) ? $grid_data : array();
+                $a['grid_data'] = $grid_data;
+            } else {
+                $a['grid_data'] = array(
+                    ['x'=>0,'y'=>0,'w'=>3,'h'=>3],
+                    ['x'=>3,'y'=>0,'w'=>4,'h'=>2],
+                    ['x'=>7,'y'=>0,'w'=>3,'h'=>3],
+                    ['x'=>10,'y'=>0,'w'=>2,'h'=>2],
+                    ['x'=>3,'y'=>2,'w'=>4,'h'=>3],
+                    ['x'=>10,'y'=>2,'w'=>2,'h'=>3],
+                    ['x'=>0,'y'=>3,'w'=>3,'h'=>2],
+                    ['x'=>7,'y'=>3,'w'=>3,'h'=>2]
+                );
+            }
+             
         } else if ( $a['display'] == 'default' ) {
             echo '<div class="theme-gallery has-columns theme-gallery--'.$a['display'].'" style="'.implode(';', $carousel_styles).'">';
 
@@ -118,12 +166,25 @@ function print_theme_gallery( $atts ) {
             echo '<div class="theme-gallery theme-gallery--'.$a['display'].'" style="'.implode(';', $carousel_styles).'">';
         }
 
+        $item_counter = 0;
         foreach ($attachments as $attachment_id) :
             $type = $a['use_placeholder_images'] ? 'placeholder' : get_post_mime_type($attachment_id);
             $attachment_type = '';
             $is_remote_video = false;
 
-            echo '<div class="theme-gallery__item">';
+            // handle grid data for grid display
+            if( $a['display'] == 'grid' ){
+                $item_attrs['additional_attributes'] = []; // reset per-item to avoid accumulating previous attrs
+                if( isset($a['grid_data'][$item_counter]) ){
+                    $item_grid_data = $a['grid_data'][$item_counter];
+                    if(isset($item_grid_data['x'])) $item_attrs['additional_attributes'][] = 'gs-x="'.$item_grid_data['x'].'"';
+                    if(isset($item_grid_data['y'])) $item_attrs['additional_attributes'][] = 'gs-y="'.$item_grid_data['y'].'"';
+                    if(isset($item_grid_data['w'])) $item_attrs['additional_attributes'][] = 'gs-w="'.$item_grid_data['w'].'"';
+                    if(isset($item_grid_data['h'])) $item_attrs['additional_attributes'][] = 'gs-h="'.$item_grid_data['h'].'"';
+                }
+            }
+
+            echo '<div '.Template_Engine::generate_attributes($item_attrs).'>';
     
             switch ($type) {
                 case 'image/jpeg':
@@ -273,6 +334,7 @@ function print_theme_gallery( $atts ) {
             // END Atachment Link
 
             echo '</div>';
+            $item_counter++;
         endforeach;
         
         echo '</div>';

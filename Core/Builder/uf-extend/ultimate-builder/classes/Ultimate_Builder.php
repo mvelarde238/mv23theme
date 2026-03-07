@@ -201,6 +201,7 @@ class Ultimate_Builder {
 				'is_archive' => $is_archive,
 				'theme_colors' => get_option( 'theme_colors', array() ),
 				'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
+				'masonry_is_active' => MASONRY_IS_ACTIVE,
 			));
 
 			$this->filter_admin_body_class();

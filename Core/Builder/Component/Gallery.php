@@ -7,6 +7,18 @@ use Core\Builder\Template_Engine;
 
 class Gallery extends Component {
 
+    // temporary in-memory storage for data that needs to be generated and accessed in the same request 
+    // (like the grid data generated in the builder and used in the shortcode render)
+    private static array $temp_data = [];
+
+    public static function set_temp_data( string $key, mixed $value ): void {
+        self::$temp_data[$key] = $value;
+    }
+
+    public static function get_temp_data( string $key ): mixed {
+        return self::$temp_data[$key] ?? null;
+    }
+
     public function __construct() {
 		parent::__construct(
 			'gallery',
@@ -44,20 +56,30 @@ class Gallery extends Component {
                 'label' => 'marquee',
                 'image' => BUILDER_PATH.'/assets/images/galleries/marquee.png'
             ),
+            'grid' => array(
+                'label' => 'grid',
+                'image' => BUILDER_PATH.'/assets/images/galleries/masonry.png'
+            ),
             'masonry' => array(
                 'label' => 'masonry',
                 'image' => BUILDER_PATH.'/assets/images/galleries/masonry.png'
             )
         ));
 
-        $fields[] = Field::create( 'image_select', 'display', __('Gallery type','mv23theme') )
+        $fields[] = Field::create( 'image_select', 'display', __('Gallery type','mv23theme') )->set_default_value('grid')
             ->hide_label()->show_label()->set_attr( 'class', 'image-select-2-cols' )->add_options(  $gallery_types );
 
         if( !MASONRY_IS_ACTIVE ){
-            $fields[] = Field::create( 'message', 'masonry_message', __('Activate Masonry','mv23theme') )->set_description('You need to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')->add_dependency('display', 'masonry', '=')->set_attr( 'style', 'background:#ffe8e8;width:100%;' );
+            $fields[] = Field::create( 'message', 'masonry_message', __('Activate Masonry','mv23theme') )
+                ->set_description('You need to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')
+                ->add_dependency('display', 'masonry', '=')
+                ->set_attr( 'style', 'background:#ffe8e8;width:100%;' );
         }
         if( !SCROLL_ANIMATIONS ){
-            $fields[] = Field::create( 'message', 'marquee_message', __('Activate GSAP Animations','mv23theme') )->set_description('You need to activate GSAP animations to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate GSAP Animations</a>')->add_dependency('display', 'marquee', '=')->set_attr( 'style', 'background:#ffe8e8;width:100%;' );
+            $fields[] = Field::create( 'message', 'marquee_message', __('Activate GSAP Animations','mv23theme') )
+                ->set_description('You need to activate GSAP animations to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate GSAP Animations</a>')
+                ->add_dependency('display', 'marquee', '=')
+                ->set_attr( 'style', 'background:#ffe8e8;width:100%;' );
         }
 
         // marquee settings
@@ -93,9 +115,19 @@ class Gallery extends Component {
             ->set_default_value('placeholders')
             ->set_orientation('horizontal')
             ->add_options( $sources );
-        $fields[] = Field::create( 'number', 'placeholders_quantity', __('Number of placeholders', 'mv23theme') )
+        $fields[] = Field::create( 'number', 'placeholders_quantity', __('Number of images', 'mv23theme') )
             ->set_default_value(8)
-            ->add_dependency('source', 'placeholders', '=');
+            ->add_dependency('source', 'placeholders', '=')
+            ->set_width(50);
+        $fields[] = Field::create( 'select', 'placeholders_source', __('Source', 'mv23theme') )
+            ->add_options( array(
+                'picsum' => 'Picsum',
+                'unsplash' => 'Unsplash',
+                'placehold' => 'Placehold',
+            ))
+            ->set_default_value('picsum')
+            ->add_dependency('source', 'placeholders', '=')
+            ->set_width(50);
         $fields[] = Field::create( 'gallery', 'gallery' )
             ->hide_label()
             ->add_dependency('source', 'manual', '=');
@@ -105,40 +137,38 @@ class Gallery extends Component {
             $fields[] = Field::create( 'select', 'wp_media_folder' )->add_terms( 'wpmf-category' )->fancy()->set_width(25)->add_dependency('source', 'wp-media', '=');
             $fields[] = Field::create( 'message', 'wp_media_folder_message', __('WP Media Folder', 'mv23theme') )->set_description('<a href="'.admin_url().'upload.php" target="_blank">'.__('Create a new WP Media Folder', 'mv23theme').'</a>')->add_dependency('source', 'wp-media', '=')->set_width(70);
             // Field::create( 'checkbox', 'autoinsert' )->set_text( '¿Autoinsertar las imágenes agregadas a la galerîa?' ); // dosnt work, the shortcode needs the attachments id's
+            // Field::create( 'select', 'orderby', 'Ordenar por')->add_options( array(
+            //     'custom' => 'Personalizado',
+            //     'rand' => 'Random',
+            //     'title' => 'Tìtulo',
+            //     'date' => 'Fecha'
+            // ))->add_dependency('../wp_media_folder','0','!=');
+            // Field::create( 'select', 'order', 'Orden')->add_options( array(
+            //     'DESC' => 'Descendente',
+            //     'ASC' => 'Ascendente',
+            // ));
         }
         
-        // gallery settings
-        // Field::create( 'select', 'orderby', 'Ordenar por')->add_options( array(
-        //     'custom' => 'Personalizado',
-        //     'rand' => 'Random',
-        //     'title' => 'Tìtulo',
-        //     'date' => 'Fecha'
-        // ))->add_dependency('../wp_media_folder','0','!=');
-        // Field::create( 'select', 'order', 'Orden')->add_options( array(
-        //     'DESC' => 'Descendente',
-        //     'ASC' => 'Ascendente',
-        // ));
-
         // columns and gutter settings
-        $fields[] = Field::create( 'tab', '_gallery-colums-tab', __('Columns', 'mv23theme') );
+        $fields[] = Field::create( 'tab', '_gallery-colums-tab', __('Columns', 'mv23theme') )
+            ->add_dependency('display', array('grid'), 'NOT_IN');
         $width_style = 'width: 25%; min-width: initial;';
-        $columns_suggestions = array( '4', '3', '2', '1', 'auto' );
         $fields[] = Field::create( 'complex', 'items', __('Columns', 'mv23theme') )->hide_label()->add_fields(array(
-            Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value(4)->set_attr( 'style', $width_style ),
-            Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_default_value(3)->set_attr( 'style', $width_style ),
-            Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_default_value(2)->set_attr( 'style', $width_style ),
+            Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value(5)->set_attr( 'style', $width_style ),
+            Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_default_value(4)->set_attr( 'style', $width_style ),
+            Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_default_value(3)->set_attr( 'style', $width_style ),
             Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_default_value(2)->set_attr( 'style', $width_style )
-        ))->add_dependency('display', 'marquee', '!=');
+        ))->add_dependency('display', array('marquee','grid'), 'NOT_IN');
 
         $fields[] = Field::create( 'complex', 'gutter', __('Space between items', 'mv23theme') )->add_fields(array(
             Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value(4)->set_attr( 'style', $width_style ),
             Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_default_value(4)->set_attr( 'style', $width_style ),
             Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_default_value(4)->set_attr( 'style', $width_style ),
             Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_default_value(4)->set_attr( 'style', $width_style )
-        ))->add_dependency('display', 'masonry', '!=');;
+        ))->add_dependency('display', array('masonry','grid'), 'NOT_IN');
         
         // images settings
-        $fields[] = Field::create( 'tab', __('Images Size', 'mv23theme') );
+        $fields[] = Field::create( 'tab', __('Images Size', 'mv23theme') )->add_dependency('display', array('grid'), 'NOT_IN');
         $fields[] = Field::create( 'image_select', 'aspect_ratio', __('Aspect ratio','mv23theme') )
             ->set_description(__('Appearance of the images in the gallery. If you select "default" the images will keep their original aspect ratio.', 'mv23theme'))
             ->set_attr( 'class', 'image-select-3-cols' )
@@ -307,7 +337,7 @@ class Gallery extends Component {
         $link = $args['action']['link'] ?? 'file';
         $image_quality = $args['image_quality'] ?? 'large';
         $targetsize = $args['action']['targetsize'] ?? 'full';
-        $display = $args['display'] ?? 'default';
+        $display = $args['display'] ?? 'grid';
 
         $d_columns = $args['items']['desktop'] ?? 4;
         $l_columns = $args['items']['laptop'] ?? 3;
@@ -335,6 +365,9 @@ class Gallery extends Component {
         } else if( $source == 'placeholders' ){
             $placeholders_quantity = $args['placeholders_quantity'] ?? 8;
             $shortcode .= ' use_placeholder_images="1" placeholders_quantity="'.$placeholders_quantity.'"';
+
+            $placeholders_source = $args['placeholders_source'] ?? 'picsum';
+            $shortcode .= ' placeholders_source="'.$placeholders_source.'"';
         } else {
         	$gallery = $args['gallery'] ?? array();
         	$ids = (is_array($gallery)) ? implode(',',$gallery) : '';
@@ -371,6 +404,16 @@ class Gallery extends Component {
         }
         if($size_styles) $shortcode .= ' size_styles="'.$size_styles.'"';
 
+        // grid data
+        if( $display == 'grid' ){
+            $grid_data = $args['grid_data'] ?? array();
+            if( is_array($grid_data) && !empty($grid_data) ) {
+                $grid_data_key = 'grid_data_' . uniqid();
+                self::set_temp_data( $grid_data_key, $grid_data );
+                $shortcode .= ' grid_data_key="'.$grid_data_key.'"';
+            }
+        }
+        
         // end of shortcode
         $shortcode .= ']';
         

@@ -70,6 +70,9 @@ class Admin extends Theme_Header_Data {
 
         wp_register_script( $this->text_domain.'-admin-scripts', $this->theme_uri . '/assets/js/admin-scripts.js', array('jquery'), $this->version, false );
         wp_enqueue_script( $this->text_domain.'-admin-scripts' );
+
+        // masonry script
+        if (MASONRY_IS_ACTIVE) wp_enqueue_script( 'jquery-masonry' );
     }
 
     public function register_nav_menus() {

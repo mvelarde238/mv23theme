@@ -200,6 +200,7 @@ gulp.task('svg', function () {
 // **************************************************************************
 var adminJSFiles = [
 	'js/modules/stickyHeader.js',
+	'js/libs/gridstack.all.js',
 	// 'js/functions/helpers.js',
 	// 'js/modulos/admin-custom-uploader.js',
 	// 'js/modulos/repeater-fields.js',

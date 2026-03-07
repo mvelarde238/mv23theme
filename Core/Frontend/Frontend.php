@@ -68,7 +68,7 @@ class Frontend extends Theme_Header_Data {
         self::add_style( $this->text_domain.'-font-awesome', FONT_AWESOME, array(), $this->version, 'all' );
         self::add_style( $this->text_domain.'-bootstrap-icons', BOOTSTRAP_ICONS, array(), $this->version, 'all' );
         if( LEAFLET_IS_ACTIVE ) {
-            self::add_style( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css', array(), '1.0', 'all' );
+            self::add_style( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css', array(), $this->version, 'all' );
         }
 
         $theme_options = Theme_Options::getInstance();
@@ -106,7 +106,7 @@ class Frontend extends Theme_Header_Data {
         }
 
         if( LEAFLET_IS_ACTIVE ){
-            self::add_script( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js', array(), '1.0', true);
+            self::add_script( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js', array(), $this->version, true);
         }
 
         // Ensure GSAP is loaded before main scripts if scroll animations are enabled

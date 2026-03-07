@@ -14,13 +14,34 @@
         position: relative
         text-align: center
 
+/* Column layout styles */
 .theme-gallery.has-columns
     justify-content: center
 
+/* Carousel layout styles */
 .theme-gallery.carousel
     .carousel__slider
         margin: auto
 
+/* GridStack layout styles */
+.theme-gallery--grid
+    .grid-stack-item
+        background-color: silver
+        outline: 4px solid #fff
+        outline-offset: -4px
+        overflow: hidden
+        img, video, iframe, .media__element
+            object-fit: cover
+            width: 100%
+            height: 100% !important
+            max-height: 100% !important
+            vertical-align: middle
+    .ui-resizable-se,
+    .ui-resizable-sw
+        background-color: #fff
+        border-radius: 50%
+
+/* Masonry layout styles */
 .theme-gallery--masonry
     display: flex
     flex-wrap: wrap
@@ -29,8 +50,11 @@
     .theme-gallery__item-sizer
         width: calc( 100% / var(--d-columns) )
     .theme-gallery__item
-        outline: 2px solid white
-        outline-offset: -2px
+        outline: 4px solid white
+        outline-offset: -4px
+
+    &:not(.masonry) .theme-gallery__item-sizer 
+        display: none
 
     @media #{$medium-only}
         .theme-gallery__item,

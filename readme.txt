@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.2.5 26-03-06
+- GrdidStack.js implementation for Gallery Component
+
 3.2.4 26-03-05
 - Hide footer implementation
 - Fix stickyHeader script to prevent errors when the breakpoint parameter is a string

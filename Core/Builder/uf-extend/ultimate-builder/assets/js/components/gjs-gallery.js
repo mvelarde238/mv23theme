@@ -5,8 +5,8 @@ window.gjsGallery = function (editor) {
     // add custom css to canvasCss
     let config = editor.getConfig();
     config.canvasCss = config.canvasCss || '';
-    config.canvasCss += `.gallery .theme-gallery-comp {width: 100%;}`;
-    config.canvasCss += `.gallery .theme-gallery__item-sizer {display: none;}`;
+    config.canvasCss += `.theme-gallery-comp {width: 100%;}`;
+    config.canvasCss += `.theme-gallery .grid-stack-item a {pointer-events: none;}`;
     editor.canvasCss = config.canvasCss;
 
     domc.addType(compClass, {
@@ -17,6 +17,10 @@ window.gjsGallery = function (editor) {
                 name: 'Gallery',
                 tagName: 'div',
                 classes: [compClass, 'component'],
+                __additionalDataCallback: (model, editor) => {
+                    const grid_data = model.get('grid_data') || [];
+                    return { grid_data };
+                },
                 __onSuccessCallback: (response, model, editor) => {
                     const el = model.getEl();
                     const temp = document.createElement('div');
@@ -26,11 +30,66 @@ window.gjsGallery = function (editor) {
                     if (firstChild) {
                         firstChild.removeAttribute('id');
                         el.innerHTML = temp.innerHTML;
+                        
+                        // send rand number to model to force re-render of the view and trigger gallery initialization in case the gallery is being generated and rendered for the first time in the same request (like when adding a gallery component from the blocks)
+                        model.set('__temp-handle-gallery', Math.random());
                     }
                 },
             },
         },
         view: {
+            init({model}){
+                this.listenTo(model, 'change:__temp-handle-gallery', this.handle_gallery_display_change);
+                editor.on('change:device', this.handle_editor_resize.bind(this));
+            },
+            handle_gallery_display_change() {
+                const model = this.model;
+                const galleryEl = model.getEl().querySelector('.theme-gallery');
+                if(!galleryEl) return;
+                
+                const builder_comp_model = editor.getBuilderCompModel(model);
+                const datastore = editor.getComponentDatastore(model);
+                const {display, gallery} = datastore.toJSON();
+
+                if(display === 'grid'){
+                    var grid = GridStack.init({
+                        resizable: {
+                            handles: 'e,se,s,sw,w'
+                        },
+                    }, galleryEl);
+
+                    // store the attachment ID in the gridstackNode for later retrieval:
+                    const items = grid.getGridItems();
+                    items.forEach((item, index) => {
+                        const attachment_id = gallery[index];
+                        item.gridstackNode.attachment_id = attachment_id; 
+                    });
+
+                    grid.on('change', (event, changed_items) => {
+                        const gridData = grid.save();
+                        model.set('grid_data', gridData);
+
+                        // Get the current order of attachment IDs from gridData
+                        const attachmentOrder = gridData.map(item => item.attachment_id);
+                        // If the order has changed compared to the original gallery array, update the datastore and trigger the model update
+                        if(attachmentOrder.length !== gallery.length || !attachmentOrder.every((id, index) => id === gallery[index])){
+                            datastore.set({'gallery': attachmentOrder}, {silent: true});
+                            // Trigger update-views on gallery field
+                            editor.updateBuilderCompModelField(builder_comp_model, 'gallery');
+                        }
+                    });
+                }
+
+                if(display === 'masonry' && BUILDER_GLOBALS.masonry_is_active){
+                    setTimeout(function () {
+                        jQuery(galleryEl).masonry({
+                            itemSelector: '.theme-gallery__item',
+                            columnWidth: '.theme-gallery__item-sizer',
+                            percentPosition: true
+                        });
+                    }, 50);
+                }
+            },
             custom_datastore_change_callback(changed) {
                 const model = this.model;
                 
@@ -39,7 +98,7 @@ window.gjsGallery = function (editor) {
                 if ( changed_keys[0] === '__tab') return;
 
                 $rerender_gallery_on_change = [
-                    'display', 'source', 'placeholders_quantity', 'gallery', 'wp_media_folder'
+                    'display', 'source', 'placeholders_quantity', 'gallery', 'wp_media_folder', 'placeholders_source'
                 ];
                 if ( 
                     $rerender_gallery_on_change.includes( changed_keys[0] ) ||
@@ -74,7 +133,6 @@ window.gjsGallery = function (editor) {
                     }
                 }
                 if (changed_keys[0] === 'marquee_settings') {
-                    // marquee_settings: {speed: 40, fade_width: '200px', direction: 'left'}
                     // Update CSS property for fade width and data attribute for marquee direction and speed
                     const marqueeSettings = data.marquee_settings || {};
                     if (galleryEl) {
@@ -110,11 +168,30 @@ window.gjsGallery = function (editor) {
                     { key: 'max_width', style: 'maxWidth' },
                     { key: 'min_width', style: 'minWidth' }
                 ]);
-
+                
                 if( changed_keys.includes('settings') ){
                     editor.handleCommonSettings(model);
                 }
+                
+                this.maybe_relayout_masonry();
             },
-        },
+            handle_editor_resize(obj) {
+                // trigger global resize event to make sure all components that need to adjust on editor resize can do it
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                }, 250);
+            },
+            maybe_relayout_masonry() {
+                const model = this.model;
+                const galleryEl = model.getEl().querySelector('.theme-gallery');
+                if(!galleryEl) return;
+    
+                // Get the Masonry instance via its element to re-layout after changes
+                if(BUILDER_GLOBALS.masonry_is_active){
+                    var msnry = Masonry.data(galleryEl);
+                    if (msnry) msnry.layout();
+                }
+            }
+        }
     });
 }
