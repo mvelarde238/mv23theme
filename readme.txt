@@ -4,6 +4,7 @@ CHANGELOG
 
 3.2.6 26-03-07
 - Consolidate all global settings into a single Global_Settings class and field group to simplify management and usage
+- Update translation files
 
 3.2.5 26-03-06
 - GrdidStack.js implementation for Gallery Component

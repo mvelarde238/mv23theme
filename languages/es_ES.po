@@ -99,19 +99,19 @@ msgstr "Más comentarios &rarr;"
 msgid "Comments are not allowed on this post."
 msgstr "Se han bloqueado los comentarios para esta publicación."
 
-#: Core/Admin/Admin.php:78
+#: Core/Admin/Admin.php:81
 msgid "Main nav"
 msgstr "Menú Principal"
 
-#: Core/Admin/Admin.php:79
+#: Core/Admin/Admin.php:82
 msgid "Mobile header buttons"
 msgstr "Botones en el header para móviles"
 
-#: Core/Admin/Admin.php:88
+#: Core/Admin/Admin.php:91
 msgid "Widgets to be used in the header"
 msgstr "Widgets que se muestran en el header"
 
-#: Core/Admin/Admin.php:98
+#: Core/Admin/Admin.php:101
 msgid "Widgets to be used in the sidebar"
 msgstr "Widgets que se muestran en el sidebar"
 
@@ -160,7 +160,6 @@ msgid "Bottom"
 msgstr "Abajo"
 
 #: Core/Admin/TinyMCE.php:292
-#: Core/Builder/Component/Gallery.php:131
 msgid "Images"
 msgstr "Imágenes"
 
@@ -243,7 +242,7 @@ msgstr "Acordeón"
 #: Core/Builder/Component/Code.php:23
 #: Core/Builder/Component/Content_Slider.php:24
 #: Core/Builder/Component/Content_Slider.php:31
-#: Core/Builder/Component/Gallery.php:48
+#: Core/Builder/Component/Gallery.php:113
 #: Core/Builder/Component/Heading.php:70
 #: Core/Builder/Component/Heading.php:73
 #: Core/Builder/Component/Heading.php:112
@@ -269,7 +268,7 @@ msgstr "Elemento antes del título"
 
 #: Core/Builder/Component/Accordion_Button.php:31
 #: Core/Builder/Component/Carousel.php:54
-#: Core/Builder/Component/Gallery.php:202
+#: Core/Builder/Component/Gallery.php:282
 #: Core/Builder/Component/Listing.php:92
 msgid "None"
 msgstr "Ninguno"
@@ -336,6 +335,7 @@ msgstr "Apariencia"
 msgid "Button"
 msgstr "Botón"
 
+#: Core/Builder/Component/Button.php:64
 #: Core/Builder/Component/Icon_and_Text.php:72
 msgid "Other settings"
 msgstr "Otros ajustes"
@@ -374,33 +374,26 @@ msgid "Carousel type"
 msgstr "Tipo de carrusel"
 
 #: Core/Builder/Component/Carousel.php:63
-#: Core/Builder/Component/Gallery.php:89
+#: Core/Builder/Component/Gallery.php:79
 msgid "Activate GSAP Animations"
 msgstr "Activar Animaciones GSAP"
 
 #: Core/Builder/Component/Carousel.php:67
 #: Core/Builder/Component/Carousel.php:69
-#: Core/Builder/Component/Gallery.php:92
+#: Core/Builder/Component/Gallery.php:86
 msgid "Marquee Settings"
 msgstr "Ajustes del Marquee"
 
-#: Core/Builder/Component/Gallery.php:93
-msgid "Marquee Animation Speed"
-msgstr "Velocidad de la animación"
-
 #: Core/Builder/Component/Carousel.php:72
-#: Core/Builder/Component/Gallery.php:95
+#: Core/Builder/Component/Gallery.php:91
 msgid "Seconds"
 msgstr "Segundos"
-
-#: Core/Builder/Component/Gallery.php:97
-msgid "Fade Color"
-msgstr "Color del difuminado"
 
 #: Core/Builder/Component/Carousel.php:97
 #: Core/Builder/Component/Heading.php:98
 #: Core/Builder/Component/Icon_and_Text.php:67
 #: Core/Builder/Component/Icon_and_Text.php:79
+#: Core/Builder/Component/Icon_and_Text.php:87
 #: Core/Builder/containers/popup/blocks_layout_settings_container.php:7
 #: Core/Builder/containers/popup/column_settings_container.php:15
 #: Core/Builder/containers/popup/column_settings_container.php:28
@@ -421,7 +414,8 @@ msgid "Activate Touch"
 msgstr "Activar Touch"
 
 #: Core/Builder/Component/Carousel.php:165
-#: Core/Builder/Component/Gallery.php:116
+#: Core/Builder/Component/Gallery.php:153
+#: Core/Builder/Component/Gallery.php:156
 #: Core/Builder/Component/Row.php:13
 #: Core/Builder/Component/Testimonials.php:44
 #: Core/Builder/Component/Testimonials.php:45
@@ -429,7 +423,7 @@ msgid "Columns"
 msgstr "Columnas"
 
 #: Core/Builder/Component/Carousel.php:172
-#: Core/Builder/Component/Gallery.php:123
+#: Core/Builder/Component/Gallery.php:163
 msgid "Space between items"
 msgstr "Espacio entre items"
 
@@ -490,20 +484,20 @@ msgstr "Al final"
 msgid "Aspect Ratio"
 msgstr ""
 
-#: Core/Builder/Component/Gallery.php:13
-#: Core/Builder/Component/Gallery.php:59
+#: Core/Builder/Component/Gallery.php:25
 msgid "Gallery"
 msgstr "Galería"
 
-#: Core/Builder/Component/Gallery.php:43
+#: Core/Builder/Component/Gallery.php:109
 msgid "Select Images"
 msgstr "Seleccionar imágenes"
 
-#: Core/Builder/Component/Gallery.php:45
+#: Core/Builder/Component/Gallery.php:111
 msgid "Select Folder"
 msgstr "Seleccionar folder"
 
-#: Core/Builder/Component/Gallery.php:49
+#: Core/Builder/Component/Gallery.php:114
+#: Core/Builder/Component/Gallery.php:122
 #: Core/Builder/Component/Image.php:33
 #: Core/Builder/Component/Image.php:49
 #: Core/Builder/Component/Listing.php:72
@@ -514,115 +508,103 @@ msgstr "Seleccionar folder"
 msgid "Source"
 msgstr "Fuente"
 
-#: Core/Builder/Component/Gallery.php:55
+#: Core/Builder/Component/Gallery.php:138
 msgid "WP Media Folder"
 msgstr ""
 
-#: Core/Builder/Component/Gallery.php:55
+#: Core/Builder/Component/Gallery.php:138
 msgid "Create a new WP Media Folder"
 msgstr "Crear un nuevo folder"
 
-#: Core/Builder/Component/Gallery.php:82
+#: Core/Builder/Component/Gallery.php:69
 msgid "Gallery type"
 msgstr "Tipo de galería"
 
-#: Core/Builder/Component/Gallery.php:86
-#: Core/Theme_Options/UF_Container/Global_Options.php:19
+#: Core/Builder/Component/Gallery.php:73
+#: Core/Theme_Options/Fields/Global_Settings.php:96
 msgid "Activate Masonry"
 msgstr "Activar Masonry"
 
-#: Core/Builder/Component/Gallery.php:132
+#: Core/Builder/Component/Gallery.php:172
 msgid "Aspect ratio"
 msgstr ""
 
-#: Core/Builder/Component/Gallery.php:133
+#: Core/Builder/Component/Gallery.php:173
 msgid "Appearance of the images in the gallery. If you select \"default\" the images will keep their original aspect ratio."
 msgstr "Apariencia de las imágenes en la galeria. Seleccione -default-  para que mantengan su aspecto original."
 
-#: Core/Builder/Component/Gallery.php:187
 #: Core/Builder/Component/Offcanvas_Element.php:62
 msgid "Max Width"
 msgstr "Anchura máxima"
 
-#: Core/Builder/Component/Gallery.php:188
 #: Core/Theme_Options/Fields/Page_Container.php:44
 msgid "Width"
 msgstr "Ancho"
 
-#: Core/Builder/Component/Gallery.php:189
 #: Core/Posttype/Menu_Item.php:55
 msgid "Min Width"
 msgstr "Anchura mìnima"
 
-#: Core/Builder/Component/Gallery.php:194
 #: Core/Builder/Component/Offcanvas_Element.php:76
 msgid "Max Height"
 msgstr "Altura Máxima"
 
-#: Core/Builder/Component/Gallery.php:195
-msgid "Height"
-msgstr "Altura"
-
-#: Core/Builder/Component/Gallery.php:196
-msgid "Min Height"
-msgstr "Altura minima"
-
-#: Core/Builder/Component/Gallery.php:200
+#: Core/Builder/Component/Gallery.php:279
 msgid "Action Settings"
 msgstr "Acción"
 
-#: Core/Builder/Component/Gallery.php:201
+#: Core/Builder/Component/Gallery.php:281
 msgid "On Click"
 msgstr "Al hacer clic"
 
-#: Core/Builder/Component/Gallery.php:203
+#: Core/Builder/Component/Gallery.php:283
 msgid "Show in LightBox"
 msgstr "Mostrar en LightBox"
 
-#: Core/Builder/Component/Gallery.php:204
+#: Core/Builder/Component/Gallery.php:284
 msgid "Go to Image Page"
 msgstr "Ir a la página de la imagen"
 
-#: Core/Builder/Component/Gallery.php:205
+#: Core/Builder/Component/Gallery.php:285
 msgid "Go to custom link"
 msgstr "Ir a un link personalizado"
 
-#: Core/Builder/Component/Gallery.php:207
+#: Core/Builder/Component/Gallery.php:287
 msgid "LightBox quality size"
 msgstr "Calidad de la imagen en el LightBox"
 
-#: Core/Builder/Component/Gallery.php:208
-#: Core/Builder/Component/Gallery.php:225
+#: Core/Builder/Component/Gallery.php:288
+#: Core/Builder/Component/Gallery.php:305
 msgid "Thumbnail"
 msgstr "Thumbnail"
 
-#: Core/Builder/Component/Gallery.php:209
-#: Core/Builder/Component/Gallery.php:226
+#: Core/Builder/Component/Gallery.php:289
+#: Core/Builder/Component/Gallery.php:306
 msgid "Medium"
 msgstr "Mediana"
 
-#: Core/Builder/Component/Gallery.php:210
-#: Core/Builder/Component/Gallery.php:227
+#: Core/Builder/Component/Gallery.php:290
+#: Core/Builder/Component/Gallery.php:307
 msgid "Large"
 msgstr "Grande"
 
-#: Core/Builder/Component/Gallery.php:211
-#: Core/Builder/Component/Gallery.php:228
+#: Core/Builder/Component/Gallery.php:291
+#: Core/Builder/Component/Gallery.php:308
 msgid "Full"
 msgstr "Full"
 
 #: Core/Builder/Component/Carousel.php:179
-#: Core/Builder/Component/Gallery.php:216
+#: Core/Builder/Component/Gallery.php:296
 #: Core/Builder/containers/popup/scroll_animations_container.php:49
 msgid "Advanced Settings"
 msgstr "Ajustes avanzados"
 
-#: Core/Builder/Component/Gallery.php:217
+#: Core/Builder/Component/Gallery.php:297
 msgid "Gallery ID"
 msgstr "ID de la Galería"
 
 #: Core/Builder/Component/Button.php:65
-#: Core/Builder/Component/Gallery.php:219
+#: Core/Builder/Component/Gallery.php:299
 #: Core/Builder/containers/popup/common_settings_container.php:26
 #: Core/Builder/containers/popup/common_settings_container.php:44
 #: Core/Builder/containers/popup/common_settings_container.php:56
@@ -637,17 +619,18 @@ msgstr "ID de la Galería"
 #: Core/Posttype/Footer.php:43
 #: Core/Posttype/Header.php:43
 #: Core/Posttype/Post.php:47
-#: Core/Theme_Options/UF_Container/Global_Options.php:20
-#: Core/Theme_Options/UF_Container/Maps_Options.php:14
-#: Core/Theme_Options/UF_Container/Maps_Options.php:17
+#: Core/Theme_Options/Fields/Global_Settings.php:80
+#: Core/Theme_Options/Fields/Global_Settings.php:98
+#: Core/Theme_Options/Fields/Global_Settings.php:108
+#: Core/Theme_Options/Fields/Global_Settings.php:120
 msgid "Activate"
 msgstr "Activar"
 
-#: Core/Builder/Component/Gallery.php:221
+#: Core/Builder/Component/Gallery.php:301
 msgid "Use <strong>show-gallery--GALLERY-ID</strong> css class on a button to open the gallery in the frontend"
 msgstr "Usar la clase css <strong>show-gallery--GALLERY-ID</strong> en un botón para abrir la galeria en un LightBox"
 
-#: Core/Builder/Component/Gallery.php:224
+#: Core/Builder/Component/Gallery.php:304
 msgid "Image Quality"
 msgstr "Calidad de la imagen"
 
@@ -707,16 +690,20 @@ msgstr "Alineación"
 
 #: Core/Builder/Component/Button.php:60
 #: Core/Builder/Component/Carousel.php:80
+#: Core/Builder/Component/Gallery.php:99
 #: Core/Builder/Component/Heading.php:97
 #: Core/Builder/Component/Icon_and_Text.php:49
+#: Core/Builder/Component/Icon_and_Text.php:86
 #: Core/Builder/Component/Offcanvas_Element.php:57
 msgid "Left"
 msgstr "Izquierda"
 
 #: Core/Builder/Component/Button.php:61
 #: Core/Builder/Component/Carousel.php:81
+#: Core/Builder/Component/Gallery.php:100
 #: Core/Builder/Component/Heading.php:99
 #: Core/Builder/Component/Icon_and_Text.php:57
+#: Core/Builder/Component/Icon_and_Text.php:88
 #: Core/Builder/Component/Offcanvas_Element.php:58
 msgid "Right"
 msgstr "Derecha"
@@ -933,8 +920,8 @@ msgstr "Empezar automáticamente"
 
 #: Core/Builder/Component/Carousel.php:166
 #: Core/Builder/Component/Carousel.php:173
-#: Core/Builder/Component/Gallery.php:117
-#: Core/Builder/Component/Gallery.php:124
+#: Core/Builder/Component/Gallery.php:157
+#: Core/Builder/Component/Gallery.php:164
 #: Core/Builder/Component/Listing.php:157
 #: Core/Builder/Component/Listing.php:164
 #: Core/Builder/Component/Testimonials.php:46
@@ -945,8 +932,8 @@ msgstr ""
 
 #: Core/Builder/Component/Carousel.php:167
 #: Core/Builder/Component/Carousel.php:174
-#: Core/Builder/Component/Gallery.php:118
-#: Core/Builder/Component/Gallery.php:125
+#: Core/Builder/Component/Gallery.php:158
+#: Core/Builder/Component/Gallery.php:165
 #: Core/Builder/Component/Listing.php:158
 #: Core/Builder/Component/Listing.php:165
 #: Core/Builder/Component/Testimonials.php:47
@@ -955,8 +942,8 @@ msgstr ""
 
 #: Core/Builder/Component/Carousel.php:168
 #: Core/Builder/Component/Carousel.php:175
-#: Core/Builder/Component/Gallery.php:119
-#: Core/Builder/Component/Gallery.php:126
+#: Core/Builder/Component/Gallery.php:159
+#: Core/Builder/Component/Gallery.php:166
 #: Core/Builder/Component/Listing.php:159
 #: Core/Builder/Component/Listing.php:166
 #: Core/Builder/Component/Testimonials.php:48
@@ -966,8 +953,8 @@ msgstr ""
 
 #: Core/Builder/Component/Carousel.php:169
 #: Core/Builder/Component/Carousel.php:176
-#: Core/Builder/Component/Gallery.php:120
-#: Core/Builder/Component/Gallery.php:127
+#: Core/Builder/Component/Gallery.php:160
+#: Core/Builder/Component/Gallery.php:167
 #: Core/Builder/Component/Listing.php:160
 #: Core/Builder/Component/Listing.php:167
 #: Core/Builder/Component/Testimonials.php:49
@@ -1060,7 +1047,7 @@ msgstr "Menú Vertical 1"
 #: Core/Offcanvas_Elements/Restriction/Plugin.php:62
 #: Core/Posttype/Menu_Item.php:76
 #: Core/Posttype/Reusable_Section_CPT.php:88
-#: Core/Theme_Options/UF_Container/Social_Media.php:21
+#: Core/Theme_Options/Fields/Global_Settings.php:50
 msgid "Select"
 msgstr "Seleccionar"
 
@@ -1263,7 +1250,6 @@ msgstr "Bordes"
 
 #: Core/Builder/Component/Button.php:66
 #: Core/Builder/Content_Selector.php:25
-#: Core/Theme_Options/UF_Container/Social_Media.php:14
 msgid "Add"
 msgstr "Agregar"
 
@@ -2058,9 +2044,10 @@ msgstr "Sí"
 msgid "No"
 msgstr "No"
 
+#: Core/Builder/Component/Footer.php:13
 #: Core/Posttype/Footer.php:29
 #: Core/Posttype/Footer.php:60
-#: Core/Theme_Options/UF_Container/Global_Options.php:15
+#: Core/Theme_Options/Fields/Global_Settings.php:33
 msgid "Footer"
 msgstr "Pie de Página"
 
@@ -2097,7 +2084,7 @@ msgid "Link"
 msgstr ""
 
 #: Core/Posttype/Reusable_Section_CPT.php:34
-#: Core/Theme_Options/Theme_Options.php:102
+#: Core/Theme_Options/Theme_Options.php:94
 msgid "Reusable Sections"
 msgstr "Secciones reusables"
 
@@ -2131,15 +2118,15 @@ msgstr "Contenedor"
 msgid "Scope"
 msgstr "Alcance"
 
-#: Core/Builder/Component/Single_Page_Structure.php:74
+#: Core/Builder/Component/Single_Page_Structure.php:69
 msgid "Page Template"
 msgstr "Template de la página"
 
-#: Core/Builder/Component/Single_Page_Structure.php:75
+#: Core/Builder/Component/Single_Page_Structure.php:70
 msgid "Sidebar Right"
 msgstr "Sidebar a la derecha"
 
-#: Core/Builder/Component/Single_Page_Structure.php:76
+#: Core/Builder/Component/Single_Page_Structure.php:71
 msgid "Sidebar Left"
 msgstr "Sidebar a la Izquierda"
 
@@ -2195,22 +2182,22 @@ msgstr "Agregar una url"
 msgid "Headings (h1, h2, h3, h4, h5, h6)"
 msgstr "Títulos (h1, h2, h3, h4, h5, h6)"
 
-#: Core/Theme_Options/Fields/Typography.php:202
+#: Core/Theme_Options/Fields/Typography.php:211
 msgid "Typography CSS Vars"
 msgstr "Tipografía - CSS Vars"
 
-#: Core/Theme_Options/Fields/Typography.php:223
+#: Core/Theme_Options/Fields/Typography.php:236
 msgid "Typography"
 msgstr "Tipografía"
 
-#: Core/Theme_Options/Fields/Typography.php:214
-#: Core/Theme_Options/Fields/Typography.php:216
+#: Core/Theme_Options/Fields/Typography.php:227
+#: Core/Theme_Options/Fields/Typography.php:229
 msgid "Fonts"
-msgstr "Tipografías"
+msgstr "Tipos de letra"
 
-#: Core/Theme_Options/Fields/Typography.php:218
+#: Core/Theme_Options/Fields/Typography.php:231
 msgid "Add font"
-msgstr "Agregar tipografía"
+msgstr "Agregar tipo de letra"
 
 #: Core/Theme_Options/Manager.php:21
 msgid "Export/Import"
@@ -2221,62 +2208,45 @@ msgid "Export/Import Options"
 msgstr "Opciones de Exportar/Importar"
 
 #: Core/Builder/Component/Theme_Options.php:17
-#: Core/Theme_Options/Theme_Options.php:44
-#: Core/Theme_Options/Theme_Options.php:45
+#: Core/Theme_Options/Theme_Options.php:40
+#: Core/Theme_Options/Theme_Options.php:41
 #: Core/Theme_Options/UF_Container/Main.php:13
 msgid "Theme Options"
 msgstr "Ajustes del Tema"
 
-#: Core/Theme_Options/UF_Container/Global_Animations.php:10
-#: Core/Theme_Options/UF_Container/Global_Animations.php:22
+#: Core/Theme_Options/Fields/Global_Settings.php:87
 msgid "Global Animations"
 msgstr "Animaciones Globales"
 
-#: Core/Theme_Options/UF_Container/Global_Animations.php:17
-msgid "Activate Scroll Animations"
-msgstr "Activar Animaciones Avanzadas"
-
-#: Core/Theme_Options/UF_Container/Global_Options.php:10
-msgid "Global Options"
-msgstr "Opciones Globales"
-
-#: Core/Theme_Options/UF_Container/Global_Options.php:18
+#: Core/Theme_Options/Fields/Global_Settings.php:95
 msgid "Masonry Gallery"
 msgstr "Galería Masonry"
 
-#: Core/Theme_Options/UF_Container/Global_Options.php:24
-msgid "Deactive theme styles in comments"
-msgstr "Desactivar estilos del tema en comentarios"
-
-#: Core/Theme_Options/UF_Container/Global_Options.php:25
+#: Core/Theme_Options/Fields/Global_Settings.php:144
 msgid "Deactivate"
 msgstr "Desactivar"
 
-#: Core/Theme_Options/UF_Container/Maps_Options.php:10
-msgid "Maps Options"
-msgstr "Opciones para los mapas"
-
-#: Core/Theme_Options/UF_Container/Maps_Options.php:13
+#: Core/Theme_Options/Fields/Global_Settings.php:105
 msgid "Leaflet Maps"
 msgstr "Mapas de Leaflet"
 
-#: Core/Theme_Options/UF_Container/Maps_Options.php:14
+#: Core/Theme_Options/Fields/Global_Settings.php:106
 msgid "Activate LeaftLet"
 msgstr "Activar LeaftLet"
 
-#: Core/Theme_Options/UF_Container/Maps_Options.php:16
+#: Core/Theme_Options/Fields/Global_Settings.php:117
 msgid "Google Maps"
 msgstr "Mapas de Google"
 
-#: Core/Theme_Options/UF_Container/Maps_Options.php:17
+#: Core/Theme_Options/Fields/Global_Settings.php:118
 msgid "Activate Google Maps"
 msgstr "Activar Google Maps"
 
-#: Core/Theme_Options/UF_Container/Maps_Options.php:18
+#: Core/Theme_Options/Fields/Global_Settings.php:133
 msgid "Google Maps API Key"
 msgstr "Servicios de Google Maps"
 
-#: Core/Theme_Options/UF_Container/Maps_Options.php:19
+#: Core/Theme_Options/Fields/Global_Settings.php:124
 msgid "Google Map Services"
 msgstr "Servicios de Google Maps"
 
@@ -2300,25 +2270,24 @@ msgstr "Contact Form 7"
 msgid "Form Shortcode"
 msgstr "Shortcode del formulario"
 
-#: Core/Theme_Options/UF_Container/Social_Media.php:12
-#: Core/Theme_Options/UF_Container/Social_Media.php:14
+#: Core/Theme_Options/Fields/Global_Settings.php:41
 msgid "Social Networks"
 msgstr "Redes Sociales"
 
-#: Core/Theme_Options/UF_Container/Social_Media.php:17
-#: Core/Theme_Options/UF_Container/Social_Media.php:20
+#: Core/Theme_Options/Fields/Global_Settings.php:46
+#: Core/Theme_Options/Fields/Global_Settings.php:49
 msgid "Social Network"
 msgstr "Red Social"
 
-#: Core/Theme_Options/UF_Container/Social_Media.php:40
+#: Core/Theme_Options/Fields/Global_Settings.php:69
 msgid "Phone number"
 msgstr "Número de teléfono"
 
-#: Core/Theme_Options/UF_Container/Social_Media.php:41
+#: Core/Theme_Options/Fields/Global_Settings.php:70
 msgid "Message"
 msgstr "Mensaje"
 
-#: Core/Theme_Options/UF_Container/Social_Media.php:41
+#: Core/Theme_Options/Fields/Global_Settings.php:70
 msgid "Hello, I need more information about..."
 msgstr "Hola, necesito más información acerca de..."
 
@@ -2644,10 +2613,6 @@ msgstr "Abrir en una nueva ventana"
 msgid "Enable"
 msgstr "Activar"
 
-#: Core/Builder/Component/Button.php:64
-msgid "Other settings"
-msgstr "Otros ajustes"
-
 #: Core/Builder/Component/Button.php:65
 msgid "Full width button"
 msgstr "Botón de ancho completo"
@@ -2669,10 +2634,12 @@ msgid "Carousel Theme:"
 msgstr ""
 
 #: Core/Builder/Component/Carousel.php:70
+#: Core/Builder/Component/Gallery.php:89
 msgid "Animation Speed"
 msgstr "Velocidad de Animación"
 
 #: Core/Builder/Component/Carousel.php:74
+#: Core/Builder/Component/Gallery.php:93
 msgid "Fade Width"
 msgstr "Ancho de Desvanecimiento"
 
@@ -2717,18 +2684,18 @@ msgstr ""
 msgid "Flip Effect"
 msgstr ""
 
-#: Core/Builder/Component/Gallery.php:186
+#: Core/Builder/Component/Gallery.php:230
 msgid "Customise Image Width"
 msgstr "Personalizar Ancho de Imagen"
 
-#: Core/Builder/Component/Gallery.php:193
+#: Core/Builder/Component/Gallery.php:256
 msgid "Customise Image Height"
 msgstr "Personalizar Altura de Imagen"
 
 #: Core/Builder/Component/Header.php:13
 #: Core/Posttype/Header.php:29
 #: Core/Posttype/Header.php:60
-#: Core/Theme_Options/UF_Container/Global_Options.php:14
+#: Core/Theme_Options/Fields/Global_Settings.php:29
 msgid "Header"
 msgstr ""
 
@@ -2915,28 +2882,28 @@ msgstr "Barra Lateral"
 msgid "Single Structure"
 msgstr ""
 
-#: Core/Builder/Component/Single_Page_Structure.php:71
+#: Core/Builder/Component/Single_Page_Structure.php:66
 msgid "This structure is global and will be used for all single pages of the same post type."
 msgstr "Esta estructura es global y se usará para todas las páginas individuales del mismo tipo de publicación."
 
-#: Core/Builder/Component/Single_Page_Structure.php:77
+#: Core/Builder/Component/Single_Page_Structure.php:72
 #: Core/Posttype/Archive_Page.php:115
 msgid "No Sidebar"
 msgstr "Sin Barra Lateral"
 
-#: Core/Builder/Component/Single_Page_Structure.php:79
+#: Core/Builder/Component/Single_Page_Structure.php:74
 msgid "Hide the post title"
 msgstr "Ocultar el título del post"
 
-#: Core/Builder/Component/Single_Page_Structure.php:80
+#: Core/Builder/Component/Single_Page_Structure.php:75
 msgid "Hide social share"
 msgstr "Ocultar compartir en redes sociales"
 
-#: Core/Builder/Component/Single_Page_Structure.php:81
+#: Core/Builder/Component/Single_Page_Structure.php:76
 msgid "Hide related posts"
 msgstr "Ocultar publicaciones relacionadas"
 
-#: Core/Builder/Component/Single_Page_Structure.php:82
+#: Core/Builder/Component/Single_Page_Structure.php:77
 msgid "Hide comments area"
 msgstr "Ocultar área de comentarios"
 
@@ -3016,7 +2983,7 @@ msgstr "Extender fondo / Centrar contenido"
 msgid "Hide on:"
 msgstr "Ocultar en:"
 
-#: Core/Builder/Core.php:125
+#: Core/Builder/Core.php:127
 msgid "Edit with Ultimate Builder"
 msgstr "Editar con Ultimate Builder"
 
@@ -3032,11 +2999,11 @@ msgstr "Guardando revisión&hellip;"
 msgid "Your latest changes were saved as a revision."
 msgstr "Tus últimos cambios se guardaron como una revisión."
 
-#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:301
+#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:307
 msgid "Edit Page"
 msgstr "Editar Página"
 
-#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:348
+#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:354
 msgid "Post content migrated successfully"
 msgstr "Contenido de la publicación migrado con éxito"
 
@@ -3253,6 +3220,7 @@ msgid "MuiSlider"
 msgstr ""
 
 #: Core/Builder/Component/Carousel.php:78
+#: Core/Builder/Component/Gallery.php:97
 msgid "Direction"
 msgstr "Dirección"
 
@@ -3332,6 +3300,86 @@ msgstr "Headers"
 msgid "Activate Theme Header"
 msgstr "Activar Header del Tema"
 
-#: Core/Theme_Options/UF_Container/Global_Options.php:13
+#: Core/Theme_Options/Fields/Global_Settings.php:28
 msgid "Header and Footer"
 msgstr "Header y Footer"
+
+#: Core/Builder/Component/Footer_Preview.php:13
+msgid "Footer Preview"
+msgstr ""
+
+#: Core/Builder/Component/Gallery.php:44
+msgid "Gallery Type"
+msgstr "Tipo de Galería"
+
+#: Core/Builder/Component/Gallery.php:108
+msgid "Placeholders"
+msgstr ""
+
+#: Core/Builder/Component/Gallery.php:118
+msgid "Number of images"
+msgstr "Número de imágenes"
+
+#: Core/Builder/Component/Gallery.php:171
+msgid "Images Size"
+msgstr "Tamaño de las imágenes"
+
+#: Core/Builder/Component/Gallery.php:234
+msgid "Width: "
+msgstr "Ancho: "
+
+#: Core/Builder/Component/Gallery.php:240
+msgid "Max Width: "
+msgstr "Ancho Máximo: "
+
+#: Core/Builder/Component/Gallery.php:246
+msgid "Min Width: "
+msgstr "Ancho Mínimo: "
+
+#: Core/Builder/Component/Gallery.php:260
+msgid "Height: "
+msgstr "Altura: "
+
+#: Core/Builder/Component/Gallery.php:267
+msgid "Max Height: "
+msgstr "Altura Máxima: "
+
+#: Core/Builder/Component/Gallery.php:273
+msgid "Min Height: "
+msgstr "Altura Mínima: "
+
+#: Core/Builder/Component/Icon_and_Text.php:82
+msgid "Horizontal Alignment"
+msgstr "Alineación Horizontal"
+
+#: Core/Builder/Component/Icon_and_Text.php:83
+msgid "This setting allows you to align the entire component."
+msgstr "Esta configuración te permite alinear todo el componente."
+
+#: Core/Builder/Component/Page.php:58
+msgid "Customize Footer"
+msgstr "Personalizar Pie de Página"
+
+#: Core/Builder/Component/Page.php:61
+msgid "Hide footer"
+msgstr "Ocultar Pie de Página"
+
+#: Core/Theme_Options/Fields/Global_Settings.php:21
+msgid "Logos"
+msgstr "Logos"
+
+#: Core/Theme_Options/Fields/Global_Settings.php:42
+msgid "Add Social Network"
+msgstr "Agregar Red Social"
+
+#: Core/Theme_Options/Fields/Global_Settings.php:43
+msgid "Add the URLs of your social networks. For WhatsApp, add the phone number with country code and without symbols.<br><br>To show them on your website, you can use these shortcodes: [social_networks] [redes_sociales]."
+msgstr "Agrega las URL de tus redes sociales. Para WhatsApp, agrega el número de teléfono con el código de país y sin símbolos.<br><br>Para mostrarlas en tu sitio web, puedes usar estos shortcodes: [social_networks] [redes_sociales]."
+
+#: Core/Theme_Options/Fields/Global_Settings.php:77
+msgid "Scroll Animations"
+msgstr "Animaciones"
+
+#: Core/Theme_Options/Fields/Global_Settings.php:142
+msgid "Deactivate theme styles in comments"
+msgstr "Desactivar estilos del tema en los comentarios"
