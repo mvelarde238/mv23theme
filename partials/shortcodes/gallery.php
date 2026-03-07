@@ -185,10 +185,8 @@ function print_theme_gallery( $atts ) {
                 }
             }
 
-            echo '<div '.Template_Engine::generate_attributes($item_attrs).'>';
-            if ( $a['display'] == 'grid' ) echo '<div class="grid-stack-item-content">';
-            if ( $a['display'] == 'masonry' ) echo '<div class="masonry-item-content">';
-    
+            // get the attachment output based on its type
+            $the_attachment = '';
             switch ($type) {
                 case 'image/jpeg':
                 case 'image/png':
@@ -213,7 +211,7 @@ function print_theme_gallery( $atts ) {
                         }
 
                         $video_data = Video_Template_Engine::get_video_data( $video_args );
-                        if( !empty($video_data['code']) ) echo $video_data['code'];
+                        if( !empty($video_data['code']) ) $the_attachment = $video_data['code'];
 
                     } else { // is a normal attachment image
                         $url = $attach_url;
@@ -223,7 +221,7 @@ function print_theme_gallery( $atts ) {
                         if( !empty($a['size_styles'])){
                             $image_attrs['additional_attributes'][] = 'style="'.$a['size_styles'].'"';
                         }
-                        echo '<img '.Template_Engine::generate_attributes($image_attrs).'>';
+                        $the_attachment = '<img '.Template_Engine::generate_attributes($image_attrs).'>';
                     }
 
                     break;
@@ -254,7 +252,7 @@ function print_theme_gallery( $atts ) {
                     }
 
                     $video_data = Video_Template_Engine::get_video_data( $video_args );
-                    if( !empty($video_data['code']) ) echo $video_data['code'];
+                    if( !empty($video_data['code']) ) $the_attachment = $video_data['code'];
                     
                     break;
 
@@ -270,7 +268,7 @@ function print_theme_gallery( $atts ) {
                     if( !empty($a['size_styles'])){
                         $image_attrs['additional_attributes'][] = 'style="'.$a['size_styles'].'"';
                     }
-                    echo '<img '.Template_Engine::generate_attributes($image_attrs).'>';
+                    $the_attachment = '<img '.Template_Engine::generate_attributes($image_attrs).'>';
                     break;
 
                 case 'placeholder':
@@ -282,60 +280,63 @@ function print_theme_gallery( $atts ) {
                     if( !empty($a['size_styles'])){
                         $image_attrs['additional_attributes'][] = 'style="'.$a['size_styles'].'"';
                     }
-                    echo '<img '.Template_Engine::generate_attributes($image_attrs).'>';
+                    $the_attachment = '<img '.Template_Engine::generate_attributes($image_attrs).'>';
                     break;
                 
                 default:
                     $url = wp_get_attachment_url($attachment_id);
-                    // echo '<p>'.$type.'</p>';
+                    $the_attachment = '<p>'.$type.'</p>';
             }
 
             // Atachment Link
+            $attachment_link_start = '<a ';
             if($a['link'] != 'none') {
-                $link_class = 'cover-all';
+                // $link_class = 'cover-all';
                 switch ($a['link']) {
                     case 'file':
                         $attachment_link = ($attachment_type === 'image') ? wp_get_attachment_image_url($attachment_id, $a['targetsize']) : $url;
                         break;
-
                     case 'post':
                         $attachment_link = get_attachment_link($attachment_id);
                         break;
-
                     case 'custom':
                         $wpmf_link = get_post_meta($attachment_id, '_wpmf_gallery_custom_image_link', true);
                         $attachment_link = $wpmf_link ? $wpmf_link : '#';
                         break;
-                    
                     default:
                         $attachment_link = $url;
                         break;
                 }
                 $caption = ( wp_get_attachment_caption($attachment_id) ) ? wp_get_attachment_caption($attachment_id) : '';
-                $attachment_link_html = '<a ';
                 $dont_use_fancybox = array('custom', 'post', 'none');
-                if(!in_array($a['link'], $dont_use_fancybox)) $attachment_link_html .= 'data-fancybox="'.$gallery_id.'" ';
+                if(!in_array($a['link'], $dont_use_fancybox)) $attachment_link_start .= 'data-fancybox="'.$gallery_id.'" ';
                 if( $a['link'] == 'custom' || $a['link'] == 'post' ){
                     // get attachment target
                     $attachment_target = get_post_meta($attachment_id, '_gallery_link_target', true);
                     if( $attachment_target && $attachment_target == '_blank' ){
-                        $attachment_link_html .= 'target="_blank" rel="noopener noreferrer" ';
+                        $attachment_link_start .= 'target="_blank" rel="noopener noreferrer" ';
                     } 
                 }
-                $attachment_link_html .= 'href="'.$attachment_link.'" class="'.$link_class.'" data-caption="'.$caption.'"';
+                $attachment_link_start .= 'href="'.$attachment_link.'" class="'.$link_class.'" data-caption="'.$caption.'"';
                 if( 
                     ( $attachment_type === 'video' && !$is_remote_video ) ||
                     $attachment_type === 'pdf'
                 ){
                     $imagen = get_the_post_thumbnail_url( $attachment_id, 'full' );
                     $thumb_url = ($imagen) ? $imagen : get_template_directory_uri().'/assets/images/'.$attachment_type.'_poster.jpg';
-                    $attachment_link_html .= ' data-thumb="'.$thumb_url.'"';
+                    $attachment_link_start .= ' data-thumb="'.$thumb_url.'"';
                 }
-                $attachment_link_html .= '></a>';
-                echo $attachment_link_html;
+                $attachment_link_start .= '>';
             }
+            $attachment_link_end = '</a>';
             // END Atachment Link
 
+            echo '<div '.Template_Engine::generate_attributes($item_attrs).'>';
+            if ( $a['display'] == 'grid' ) echo '<div class="grid-stack-item-content">';
+            if ( $a['display'] == 'masonry' ) echo '<div class="masonry-item-content">';
+            if ( $a['link'] != 'none') echo $attachment_link_start;
+            echo $the_attachment;
+            if ( $a['link'] != 'none') echo $attachment_link_end;
             if ( $a['display'] == 'masonry' ) echo '</div>'; // close masonry-item-content
             if ( $a['display'] == 'grid' ) echo '</div>'; // close grid-stack-item-content
             echo '</div>';
