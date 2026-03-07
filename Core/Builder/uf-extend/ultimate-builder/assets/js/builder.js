@@ -210,6 +210,12 @@
                 if ( group_builder_data.display_gjs_block === false ) {
                     renderBlock = false;
                 }
+                if ( group_builder_data.posttypes && Array.isArray(group_builder_data.posttypes) ) {
+                    const currentPostType = BUILDER_GLOBALS.posttype;
+                    if ( !group_builder_data.posttypes.includes(currentPostType) ) {
+                        renderBlock = false;
+                    }
+                }
 
                 blocksControl[group.id] = {
                     type: connected_type,
