@@ -24,13 +24,19 @@ class Theme_Options extends Component {
 	}
 
 	public function change_datastore() {
+		// ************************************************************************************************************************************
+		// This is not working for theme options because is loading dinamically. To handle this, all fields have a default value
+		// that is used when the field is rendered, so even if the datastore is not working, the fields will have a value to display and save.
+		// ************************************************************************************************************************************
 		// on read component, create a new datastore to read the fields
-		add_filter( 'uf.ultimate_builder.group_datastore', function( $datastore, $component, $repeater ) {
-		    if ( $component['__type'] == 'theme-options' && isset( $_GET['post'] ) ) {
-		        $datastore = new \Ultimate_Fields\Datastore\Options;
-		    }
-		    return $datastore;
-		}, 10, 3 );
+		// add_filter( 'uf.ultimate_builder.group_datastore', function( $datastore, $component, $repeater ) {
+		// 	error_log( print_r( $component['__type'], true ) );
+		//     if ( $component['__type'] == 'theme-options' && isset( $_GET['post'] ) ) {
+		//         $datastore = new \Ultimate_Fields\Datastore\Options;
+		// 		error_log( 'Theme Options: '.print_r( $component, true ) );
+		//     }
+		//     return $datastore;
+		// }, 10, 3 );
 
 		// on save component, create a new datastore and save the fields
 		add_action( 'uf.ultimate_builder.save_component', function( $processed_values, &$component_data, $group, $ultimate_builder ) {

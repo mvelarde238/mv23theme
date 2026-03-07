@@ -5,6 +5,7 @@ CHANGELOG
 3.2.5 26-03-06
 - GrdidStack.js implementation for Gallery Component
 - Implements posttypes setting on group builder data to allow restricting the builder block to certain post types
+- Fix default values on typography fields
 
 3.2.4 26-03-05
 - Hide footer implementation
