@@ -1,15 +1,15 @@
 <?php
-function print_redes_sociales( $atts ) {
-	$redes_sociales = get_option( 'rrss' );
+function print_social_networks( $atts ) {
+	$social_networks = get_option( 'social_networks', array() );
 
 	$a = shortcode_atts( array(
 		'class' => 'style1',
 	), $atts );
 
 	ob_start(); ?>
-	<span class="rrss-module <?php echo $a['class']; ?>">
-		<?php if (!empty($redes_sociales)):
-			foreach ($redes_sociales as $red):
+	<span class="sns-module <?php echo $a['class']; ?>">
+		<?php if (!empty($social_networks)):
+			foreach ($social_networks as $red):
 				$icon = $red['icon'];
 				$link = '';
 				if($icon != 'whatsapp'){
@@ -24,4 +24,5 @@ function print_redes_sociales( $atts ) {
 	<?php
 	return ob_get_clean();
 }
-add_shortcode( 'redes_sociales', 'print_redes_sociales' );
+add_shortcode( 'social_networks', 'print_social_networks' );
+add_shortcode( 'redes_sociales', 'print_social_networks' );

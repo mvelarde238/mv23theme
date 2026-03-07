@@ -2518,6 +2518,21 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             delete_option( 'single_pages_settings' );
         }
 
+        // migrate rrss to social_networks
+        $rrss = get_option( 'rrss', array() );
+        if( !empty( $rrss ) ){
+            update_option( 'social_networks', $rrss );
+            if( $this->delete_old_data ) delete_option( 'rrss' );
+        }
+
+        // Migrate scroll animations setting
+        $scroll_animations_option = get_option('scroll_animations');
+        if( is_array($scroll_animations_option) && isset($scroll_animations_option['activate']) ){
+            $activate_scroll_animations = (bool)$scroll_animations_option['activate'];
+            if( $this->do_the_update ) update_option('activate_scroll_animations', $activate_scroll_animations);
+            if( $this->delete_old_data ) delete_option('scroll_animations');
+        }
+
         // Migrate colors settings
         $this->migrate_colors_settings();
 

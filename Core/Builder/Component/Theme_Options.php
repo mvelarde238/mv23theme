@@ -4,7 +4,7 @@ namespace Core\Builder\Component;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Ultimate_Fields\Field;
-use Core\Theme_Options\Fields\Logos;
+use Core\Theme_Options\Fields\Global_Settings;
 use Core\Theme_Options\Fields\Colors;
 use Core\Theme_Options\Fields\Typography;
 use Core\Theme_Options\Fields\Page_Container;
@@ -69,10 +69,10 @@ class Theme_Options extends Component {
 
 	public static function get_fields() {
 		$fields = array();
-        $fields = array_merge( $fields, Logos::get_fields() );
         $fields = array_merge( $fields, Colors::get_fields() );
         $fields = array_merge( $fields, Typography::get_fields() );
         $fields = array_merge( $fields, Page_Container::get_fields() );
+        $fields = array_merge( $fields, Global_Settings::get_fields() );
 
 		return $fields;
 	}

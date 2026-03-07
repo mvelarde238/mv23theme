@@ -6,11 +6,7 @@ use Ultimate_Fields\Options_Page;
 use Ultimate_Fields\Field\Font;
 use Core\Utils\Helpers;
 use Core\Theme_Options\UF_Container\Main;
-use Core\Theme_Options\UF_Container\Social_Media;
-use Core\Theme_Options\UF_Container\Maps_Options;
-use Core\Theme_Options\UF_Container\Global_Options;
 use Core\Theme_Options\UF_Container\Custom_Scripts;
-use Core\Theme_Options\UF_Container\Global_Animations;
 use Core\Theme_Options\UF_Container\Posts_Subscription;
 use Core\Theme_Options\UF_Container\Track_Posts_Data;
 use Core\Theme_Options\UF_Container\Builder_Options;
@@ -48,13 +44,9 @@ class Theme_Options extends Theme_Header_Data{
             // load uf-containers
             Main::init();
             Custom_Scripts::init();
-            Social_Media::init();
-            Maps_Options::init();
-            Global_Options::init();
             Builder_Options::init();
             Posts_Subscription::init();
             Track_Posts_Data::getInstance()->init();
-            Global_Animations::init();
         }
     }
 

@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.2.6 26-03-07
+- Consolidate all global settings into a single Global_Settings class and field group to simplify management and usage
+
 3.2.5 26-03-06
 - GrdidStack.js implementation for Gallery Component
 - Implements posttypes setting on group builder data to allow restricting the builder block to certain post types

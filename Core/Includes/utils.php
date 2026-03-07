@@ -20,9 +20,7 @@ if (!function_exists('get_taxonomy_by_term_id')) {
 
 if(!function_exists('scroll_animation_is_active')){
     function scroll_animation_is_active(){
-        $is_active = false;
-        $the_option = get_option('scroll_animations');
-        if($the_option) $is_active = $the_option['activate'];
+        $is_active = get_option('activate_scroll_animations', false);
         return $is_active;
     }
 }
