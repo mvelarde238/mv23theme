@@ -137,7 +137,6 @@ function print_theme_gallery( $atts ) {
             echo '<div class="marquee-track">';
             
         } else if ( $a['display'] == 'grid' ) {
-            echo '<div class="theme-gallery grid-stack theme-gallery--grid" style="'.implode(';', $carousel_styles).'">';
             $item_attrs['additional_classes'][] = 'grid-stack-item';
 
             // recover grid data from shortcode attribute and convert it into an array
@@ -158,6 +157,8 @@ function print_theme_gallery( $atts ) {
                     ['x'=>7,'y'=>3,'w'=>3,'h'=>2]
                 );
             }
+
+            echo '<div class="theme-gallery grid-stack theme-gallery--grid" style="'.implode(';', $carousel_styles).'">';
              
         } else if ( $a['display'] == 'default' ) {
             echo '<div class="theme-gallery has-columns theme-gallery--'.$a['display'].'" style="'.implode(';', $carousel_styles).'">';
@@ -185,6 +186,8 @@ function print_theme_gallery( $atts ) {
             }
 
             echo '<div '.Template_Engine::generate_attributes($item_attrs).'>';
+            if ( $a['display'] == 'grid' ) echo '<div class="grid-stack-item-content">';
+            if ( $a['display'] == 'masonry' ) echo '<div class="masonry-item-content">';
     
             switch ($type) {
                 case 'image/jpeg':
@@ -333,6 +336,8 @@ function print_theme_gallery( $atts ) {
             }
             // END Atachment Link
 
+            if ( $a['display'] == 'masonry' ) echo '</div>'; // close masonry-item-content
+            if ( $a['display'] == 'grid' ) echo '</div>'; // close grid-stack-item-content
             echo '</div>';
             $item_counter++;
         endforeach;

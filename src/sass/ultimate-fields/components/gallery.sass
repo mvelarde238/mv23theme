@@ -26,10 +26,6 @@
 /* GridStack layout styles */
 .theme-gallery--grid
     .grid-stack-item
-        background-color: silver
-        outline: 4px solid #fff
-        outline-offset: -4px
-        overflow: hidden
         img, video, iframe, .media__element
             object-fit: cover
             width: 100%
@@ -46,15 +42,13 @@
     display: flex
     flex-wrap: wrap
     align-items: flex-start
+    &:not(.masonry) .theme-gallery__item-sizer 
+        display: none
     .theme-gallery__item,
     .theme-gallery__item-sizer
         width: calc( 100% / var(--d-columns) )
-    .theme-gallery__item
-        outline: 4px solid white
-        outline-offset: -4px
-
-    &:not(.masonry) .theme-gallery__item-sizer 
-        display: none
+    .masonry-item-content
+        padding: 5px
 
     @media #{$medium-only}
         .theme-gallery__item,

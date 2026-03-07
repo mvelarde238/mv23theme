@@ -56,6 +56,7 @@ window.gjsGallery = function (editor) {
                         resizable: {
                             handles: 'e,se,s,sw,w'
                         },
+                        margin: 5,
                     }, galleryEl);
 
                     // store the attachment ID in the gridstackNode for later retrieval:

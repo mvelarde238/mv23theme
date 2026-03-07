@@ -9,7 +9,7 @@
                 $('.theme-gallery--masonry').masonry({
                     itemSelector: '.theme-gallery__item',
                     columnWidth: '.theme-gallery__item-sizer',
-                    percentPosition: true
+                    percentPosition: true,
                 });
             }, 1);
         }
@@ -21,7 +21,8 @@
         const galleryEls = document.querySelectorAll('.theme-gallery--grid');
         galleryEls.forEach(galleryEl => {
             GridStack.init({
-                staticGrid: true
+                staticGrid: true,
+                margin: 5,
             }, galleryEl);
         });
 
