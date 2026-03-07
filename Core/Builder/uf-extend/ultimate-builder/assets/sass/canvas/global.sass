@@ -29,10 +29,17 @@ img.gjs-plh-image
     object-fit: contain
 
 /* disable menu pointer events */
-[data-gjs-type="menu"] .menu
-    pointer-events: none
-[data-gjs-type="menu"] > .component
-    overflow: hidden
+[data-gjs-type="menu"] 
+    width: 100%
+    & > .component
+        overflow: hidden
+    .menu
+        pointer-events: none
+
+/* fix components overflow */
+[data-gjs-type="testimonials"],
+[data-gjs-type="listing"]
+    width: 100%
 
 /* shortcode component */
 .shortcode-component
