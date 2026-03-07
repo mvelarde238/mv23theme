@@ -291,7 +291,6 @@ function print_theme_gallery( $atts ) {
             // Atachment Link
             $attachment_link_start = '<a ';
             if($a['link'] != 'none') {
-                // $link_class = 'cover-all';
                 switch ($a['link']) {
                     case 'file':
                         $attachment_link = ($attachment_type === 'image') ? wp_get_attachment_image_url($attachment_id, $a['targetsize']) : $url;
@@ -317,7 +316,7 @@ function print_theme_gallery( $atts ) {
                         $attachment_link_start .= 'target="_blank" rel="noopener noreferrer" ';
                     } 
                 }
-                $attachment_link_start .= 'href="'.$attachment_link.'" class="'.$link_class.'" data-caption="'.$caption.'"';
+                $attachment_link_start .= 'href="'.$attachment_link.'" data-caption="'.$caption.'"';
                 if( 
                     ( $attachment_type === 'video' && !$is_remote_video ) ||
                     $attachment_type === 'pdf'
