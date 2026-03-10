@@ -4,9 +4,9 @@
     color: white
 
 %button-secondary-styles
-    background-color: var(--ui-color-4)
+    background-color: transparent
     border-color: var(--ui-color-4)
-    color: white
+    color: var(--ui-font-color)
 
 .templates-system-response-msg
     text-align: center
@@ -67,6 +67,7 @@
 
     &__thumb
         padding-bottom: 65%
+        background-color: var(--ui-color-2)
         border: 1px solid var(--ui-color-4)
 
     &__item-wrapper.has-post-thumbnail &__thumb
@@ -100,8 +101,8 @@
     &__control+div+&__actions
         display: none
         button[data-action="delete"]
-            background-color: red !important
-            border-color: red !important
+            background-color: #b21a1a !important
+            border-color: #b21a1a !important
             color: white !important
 
     &__control:checked+div+&__actions
@@ -111,10 +112,11 @@
         left: 0
         bottom: 0
         z-index: 10
+        border-top: 1px solid var(--ui-color-4)
         background-color: var(--ui-color-2)
+        box-shadow: 0 0 8px 5px rgba(0,0,0,.1)
         width: 100%
         padding: 15px
-        box-shadow: 0 0 8px 5px rgba(0,0,0,.2)
         text-align: right
         box-sizing: border-box
     

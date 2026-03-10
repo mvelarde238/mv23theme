@@ -7,6 +7,7 @@ CHANGELOG
 - Translation files update
 - Insert the template structure into the editor in three phases
 - fix broken columns due to menu width
+- fix templates system modal colors
 
 3.2.6 26-03-07
 - Consolidate all global settings into a single Global_Settings class and field group to simplify management and usage
