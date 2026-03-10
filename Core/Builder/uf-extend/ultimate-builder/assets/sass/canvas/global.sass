@@ -28,9 +28,9 @@ img.gjs-plh-image
     aspect-ratio: 16 / 9
     object-fit: contain
 
-/* disable menu pointer events */
-[data-gjs-type="menu"] 
-    width: 100%
+/* fix broken columns due to menu width */
+[data-gjs-type="menu"]
+    max-width: -webkit-fill-available
     & > .component
         overflow: hidden
     .menu
