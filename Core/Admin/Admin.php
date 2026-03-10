@@ -11,7 +11,7 @@ use Core\Posttype\Header;
 use Core\Posttype\Megamenu;
 use Core\Posttype\Portfolio;
 use Core\Posttype\Document;
-use Core\Posttype\MV23_Library;
+use Core\Posttype\Templates_Library;
 use Core\Posttype\Reusable_Section_CPT;
 use Core\Posttype\Archive_Page;
 use Core\Theme_Options\Theme_Options;
@@ -73,6 +73,9 @@ class Admin extends Theme_Header_Data {
 
         // masonry script
         if (MASONRY_IS_ACTIVE) wp_enqueue_script( 'jquery-masonry' );
+
+        // html to image script for template saving
+        wp_enqueue_script( $this->text_domain.'-html-to-image', 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.min.js', array(), '1.11.13', true );
     }
 
     public function register_nav_menus() {
@@ -218,7 +221,7 @@ class Admin extends Theme_Header_Data {
 
         if( USE_PORTFOLIO_CPT ) Portfolio::getInstance()->register_posttype();
         if( USE_DOCUMENT_CPT ) Document::getInstance()->register_posttype();
-        if( is_admin() ) MV23_Library::getInstance()->register_posttype();
+        if( is_admin() ) Templates_Library::getInstance()->register_posttype();
     }
 
     public function add_theme_my_login_multi_language_support($page_id){

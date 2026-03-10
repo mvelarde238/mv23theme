@@ -58,6 +58,7 @@ class Ultimate_Builder {
 		[ 'name' => 'handleCommonSettings', 'handler' => 'handle-common-settings', 'isComponent' => false ],
 		[ 'name' => 'gjsDynamicData', 'handler' => 'gjs-dynamic-data', 'isComponent' => false ],
 		[ 'name' => 'gjsExtendSmProperties', 'handler' => 'gjs-extend-sm-properties', 'isComponent' => false ],
+		[ 'name' => 'saveTemplateSystem', 'handler' => 'save-template-system', 'isComponent' => false ],
 		// Shared resources (must load before components that use it)
 		[ 'name' => 'gjsSharedTemplates', 'handler' => 'gjs-shared-templates', 'isComponent' => false ],
 		[ 'name' => 'handleThemeColors', 'handler' => 'handle-theme-colors', 'isComponent' => false ],
@@ -79,7 +80,6 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsSection', 'handler' => 'gjs-section', 'isComponent' => true ],
 		[ 'name' => 'gjsMap', 'handler' => 'gjs-map', 'isComponent' => true ],
 		[ 'name' => 'gjsOceComponents', 'handler' => 'gjs-oce-components', 'isComponent' => true ],
-		[ 'name' => 'gjsHeroSection', 'handler' => 'gjs-hero-section', 'isComponent' => true ],
 		[ 'name' => 'gjsSinglePageStructure', 'handler' => 'gjs-single-page-structure', 'isComponent' => true ],
 		[ 'name' => 'gjsPostTitle', 'handler' => 'gjs-post-title', 'isComponent' => true ],
 		[ 'name' => 'gjsSidebar', 'handler' => 'gjs-sidebar', 'isComponent' => true ],
@@ -91,6 +91,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsIconAndText', 'handler' => 'gjs-icon-and-text', 'isComponent' => true ],
 		[ 'name' => 'gjsFlipbox', 'handler' => 'gjs-flip-box', 'isComponent' => true ],
 		[ 'name' => 'gjsCounter', 'handler' => 'gjs-counter', 'isComponent' => true ],
+		[ 'name' => 'gjsTemplatePlaceholder', 'handler' => 'gjs-template-placeholder', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true, 'hasCss' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],

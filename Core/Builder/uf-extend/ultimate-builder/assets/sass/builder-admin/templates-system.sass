@@ -1,0 +1,125 @@
+%button-primary-styles
+    background-color: var(--brand-color-1)
+    border-color: var(--brand-color-1)
+    color: white
+
+%button-secondary-styles
+    background-color: var(--ui-color-4)
+    border-color: var(--ui-color-4)
+    color: white
+
+.templates-system-response-msg
+    text-align: center
+    padding: 20px
+    p
+        font-size: 18px
+        font-weight: bold
+
+.templates_system_loading
+    min-height: 100px
+    background: url("../images/loading2.gif") center no-repeat
+    background-size: 40px
+    *
+        transition: 500ms all
+        opacity: 0
+        pointer-events: none
+    
+/*------------------------------------------------------------*/
+/* TEMPLATES SYSTEM - SAVE FORM */ 
+/*------------------------------------------------------------*/
+.templates-system-save-form
+    text-align: center
+    padding: 0px 0 50px 0
+    h2
+        font-size: 32px
+        color: var(--ui-font-color)
+        margin-bottom: 0
+    .button-primary
+        @extend %button-primary-styles
+    .button-secondary
+        @extend %button-secondary-styles
+    
+/*------------------------------------------------------------*/
+/* TEMPLATES LIBRARY */ 
+/*------------------------------------------------------------*/
+.templates-library
+    &__gallery
+        display: flex
+        flex-wrap: wrap
+        gap: 15px
+        margin-bottom: 60px
+
+    &__item-wrapper
+        width: 200px
+
+    &__item
+        position: relative
+        padding: 8px
+
+    &__label
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        border: 2px solid transparent
+        box-sizing: border-box
+
+    &__thumb
+        padding-bottom: 65%
+        border: 1px solid var(--ui-color-4)
+
+    &__item-wrapper.has-post-thumbnail &__thumb
+        background-size: contain
+        background-repeat: no-repeat
+        background-position: center
+
+    &__item-wrapper.has-post-thumbnail
+        button[data-action='add-thumbnail']
+            display: none
+
+    &__item-wrapper:not(.has-post-thumbnail)
+        button[data-action='remove-thumbnail']
+            display: none
+
+    &__footer
+        display: flex
+        justify-content: space-between
+        align-items: center
+        gap: 10px
+        &>span
+            display: inline-block
+
+    &__control
+        display: none !important
+
+    &__control:checked+div label
+        border-radius: 6px
+        border-color: var(--brand-color-1)
+
+    &__control+div+&__actions
+        display: none
+        button[data-action="delete"]
+            background-color: red !important
+            border-color: red !important
+            color: white !important
+
+    &__control:checked+div+&__actions
+        display: flex
+        justify-content: space-between
+        position: absolute
+        left: 0
+        bottom: 0
+        z-index: 10
+        background-color: var(--ui-color-2)
+        width: 100%
+        padding: 15px
+        box-shadow: 0 0 8px 5px rgba(0,0,0,.2)
+        text-align: right
+        box-sizing: border-box
+    
+        .button-primary
+            @extend %button-primary-styles
+
+        .button-secondary
+            @extend %button-secondary-styles

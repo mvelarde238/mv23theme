@@ -61,7 +61,7 @@ class Core{
             'OCE_Modal_Content',
             'OCE_Dynamic_Content',
             'Offcanvas_Element',
-            // 'Hero_Section',
+            'Template_Placeholder',
             'Section',
             'Page',
             'Single_Page_Structure',
@@ -275,7 +275,7 @@ class Core{
     */
     public static function get_post_types( $args = array() ) {
         $default_args = array(
-            'exclude_post_types' => array( 'offcanvas_element','attachment','mv23_library','reusable_section','megamenu','archive_page','footer' ),
+            'exclude_post_types' => array( 'offcanvas_element','attachment','templates_library','reusable_section','megamenu','archive_page','footer' ),
             'get_post_type_args' => array( 'public'=>true )
         );
         $args = wp_parse_args( $args, $default_args );

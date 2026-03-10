@@ -32,7 +32,7 @@ class Builder_Options{
                 Field::create( 'multiselect', 'builder_posttypes', __( 'Post Types', 'mv23theme' ) )
                     ->set_options_callback( function() {
                         return Core::get_post_types(array(
-                            'exclude_post_types' => array('offcanvas_element','attachment','mv23_library')
+                            'exclude_post_types' => array('offcanvas_element','attachment','templates_library')
                         ));
                     } )
                     ->set_orientation( 'horizontal' )

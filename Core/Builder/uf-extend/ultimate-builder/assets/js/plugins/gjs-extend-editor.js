@@ -32,4 +32,30 @@ window.gjsExtendEditor = function (editor) {
 
         return UltimateFields.Field.File.Cache.get(file_id);
     }
+
+    // Helpers for I18n
+    const toKey = (value) => String(value)
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '');
+
+    editor.createTranslator = function(editor, domain = 'ultimate_builder') {
+        const i18n = editor && editor.I18n;
+        const t = (key, fallback) => {
+            if (!i18n) return fallback;
+            const fullKey = `${domain}.${key}`;
+            const res = i18n.t(fullKey);
+            if (res === undefined || res === null || res === '' || res === fullKey || res === key) {
+                return fallback;
+            }
+            return res;
+        };
+
+        return (text, key) => {
+            if (text === null || text === undefined || text === '') return text;
+            const resolvedKey = key || toKey(text);
+            return t(resolvedKey, text);
+        };
+    };
 }

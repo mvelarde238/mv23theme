@@ -2,6 +2,19 @@ window.gjsI18n = function (editor, options) {
 
     editor.I18n && editor.I18n.addMessages({
         es: {
+            'ultimate_builder': {
+                save_as_template: 'Guardar como plantilla',
+                save_as_template_tagline: 'Ingrese el nombre del item:',
+                save_as_template_title_placeholder: 'Nombre del item...',
+                save_as_template_save_label: 'Guardar',
+                templates_library: 'Biblioteca de plantillas',
+                loading_templates: 'Cargando plantillas...',
+                delete_template_confirmation: '¿Estás seguro de que deseas eliminar esta plantilla?',
+                select_image_title: 'Selecciona una imagen para la plantilla',
+                select_image_button: 'Seleccionar',
+                templates_system_invalid_image_file_msg: 'Por favor selecciona un archivo de imagen válido (jpg, png, gif, svg).',
+                template_saved_successfully: '¡Plantilla guardada exitosamente!',
+            },
             'react-builder': {
                 // top bar
                 undo: 'DESHACER',
@@ -48,6 +61,7 @@ window.gjsI18n = function (editor, options) {
                 boxed: 'ESTÁNDAR',
                 full_width: 'ANCHO COMPLETO',
                 full_width_stretched: 'EXTENDER FONDO <BR> CENTRAR CONTENIDO',
+                save_as_template: 'Guardar como plantilla',
                 // wrapper
                 edit_theme_options: 'EDITAR OPCIONES DE TEMA',
                 color_scheme: 'ESQUEMA DE COLOR',

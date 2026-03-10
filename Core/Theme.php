@@ -18,7 +18,7 @@ use Core\Frontend\Page;
 use Core\Theme_Options\Theme_Options;
 use Core\Theme_Options\Manager;
 use Core\Posttype\Archive_Page;
-use Core\Posttype\MV23_Library;
+use Core\Posttype\Templates_Library;
 use Core\Posttype\Document;
 use Core\Posttype\Post;
 use Core\Posttype\Menu_Item;
@@ -262,9 +262,9 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'wp_head', $archive_pages, 'wp_head_archive' );
         $this->loader->add_action( 'pre_get_posts', $archive_pages, 'pre_get_posts' );
 
-        // MV23 Library
-        $mv23_library = MV23_Library::getInstance();
-        $this->loader->add_action( 'uf.init', $mv23_library, 'add_meta_boxes' );
+        // Templates Library
+        $templates_library = Templates_Library::getInstance();
+        $this->loader->add_action( 'uf.init', $templates_library, 'add_meta_boxes' );
 
         // Document
         if( USE_DOCUMENT_CPT ){
@@ -274,10 +274,10 @@ class Theme extends Theme_Header_Data {
             $this->loader->add_filter( 'filter_postcard', $document, 'filter_postcard', 10, 3 );
         }
 
-        // ajax functions for MV23 library CPT
-        $this->loader->add_action( 'wp_ajax_mv23_library_save_item', $mv23_library, 'save_item' );
-		$this->loader->add_action( 'wp_ajax_load_mv23_library_gallery', $mv23_library, 'load_gallery' );
-		$this->loader->add_action( 'wp_ajax_mv23_library_action', $mv23_library, 'library_action' );
+        // ajax functions for Templates Library CPT
+        $this->loader->add_action( 'wp_ajax_templates_library_save_item', $templates_library, 'save_item' );
+		$this->loader->add_action( 'wp_ajax_load_templates_library_gallery', $templates_library, 'load_gallery' );
+		$this->loader->add_action( 'wp_ajax_templates_library_item_action', $templates_library, 'library_item_action' );
 
         // Post
         $post = Post::getInstance();
