@@ -152,7 +152,8 @@ window.gjsTemplatePlaceholder = function (editor) {
 		    	return false;
 		    },
             /**
-             * Insert the template structure into the editor, right after the currently selected component
+             * Insert the template structure into the editor, right after the currently selected component.
+             * Process order: 1. Register datastores, 2. Apply styles, 3. Insert full template as a single block
              */
             insertTemplate: function(template_data) {
                 const selectedComponent = this.model;
@@ -160,50 +161,92 @@ window.gjsTemplatePlaceholder = function (editor) {
                 const wrapper = selectedComponent.parent();
 
                 if(Array.isArray(template_data.structure) && template_data.structure.length > 0) {
+                    // Phase 1: Register all datastores throughout the tree
                     template_data.structure.forEach(componentData => {
-                        this.insertComponent(componentData, wrapper, selectedIndex + 1, initial_components_data);
+                        this.registerDatastores(componentData);
+                    });
+
+                    // Phase 2: Apply all styles throughout the tree
+                    template_data.structure.forEach(componentData => {
+                        this.registerStyles(componentData);
+                    });
+
+                    // Phase 3: Build the full component tree and insert as a single block
+                    template_data.structure.forEach((componentData, i) => {
+                        const fullTree = this.buildComponentTree(componentData);
+                        wrapper.append(fullTree, { at: selectedIndex + 1 + i });
                     });
                 }
 
 		    	modal.close();		    			
             },
             /**
-             * Recursively insert a component and its nested components into the editor, while also handling datastore references and styles
+             * Recursively walk the template tree and register all datastores,
+             * pre-assigning a unique ID to each component that has a datastore
              */
-            insertComponent: function(componentData, parentWrapper, atIndex) {
-                const safeComponentData = { 
-                    type: componentData.type
-                };
-
-                // handle the datastore reference
+            registerDatastores: function(componentData) {
                 if(componentData.datastore) {
-                    const datastoreId = builderInstance.generateId();
-                    // Store the datastore data in the editor's config so it can be accessed when the component is rendered
-                    initial_components_data[datastoreId] = componentData.datastore;
-                    // pass the datastore reference to the component
-                    safeComponentData.__id = datastoreId; 
+                    if(!componentData._generatedId) {
+                        componentData._generatedId = builderInstance.generateId();
+                    }
+                    initial_components_data[componentData._generatedId] = componentData.datastore;
                 }
 
-                const insertedComponent = parentWrapper.append(safeComponentData, { at: atIndex });
-
-                // handle styles
+                if(Array.isArray(componentData.components) && componentData.components.length > 0) {
+                    componentData.components.forEach(nested => {
+                        this.registerDatastores(nested);
+                    });
+                }
+            },
+            /**
+             * Recursively walk the template tree and apply all CSS styles,
+             * generating IDs for components that have styles but don't have one yet
+             */
+            registerStyles: function(componentData) {
                 if(Array.isArray(componentData.styles) && componentData.styles.length > 0) {
+                    if(!componentData._generatedId) {
+                        componentData._generatedId = builderInstance.generateId();
+                    }
+
                     componentData.styles.forEach(style => {
                         let ruleOpts = {};
                         if(style.atRuleType) {
                             ruleOpts.atRuleType = style.atRuleType;
                             ruleOpts.atRuleParams = style.mediaText;
                         }
-                        css.setRule(`#${insertedComponent[0].getId()}`, style.style, ruleOpts);
+                        css.setRule(`#${componentData._generatedId}`, style.style, ruleOpts);
                     });
                 }
 
-                // handle nested components recursively
                 if(Array.isArray(componentData.components) && componentData.components.length > 0) {
-                    componentData.components.forEach((nestedComponentData, index) => {
-                        this.insertComponent(nestedComponentData, insertedComponent[0], index);
+                    componentData.components.forEach(nested => {
+                        this.registerStyles(nested);
                     });
                 }
+            },
+            /**
+             * Recursively build the full component tree preserving the complete type + components structure,
+             * so the editor receives the entire hierarchy as a single block
+             */
+            buildComponentTree: function(componentData) {
+                const treeNode = {
+                    type: componentData.type,
+                };
+
+                if(componentData._generatedId) {
+                    treeNode.__id = componentData._generatedId;
+                    treeNode.attributes = { id: componentData._generatedId };
+                }
+
+                if(Array.isArray(componentData.components) && componentData.components.length > 0) {
+                    treeNode.components = componentData.components.map(nested => {
+                        return this.buildComponentTree(nested);
+                    });
+                } else if(typeof componentData.components === 'string') {
+                    treeNode.components = componentData.components;
+                }
+
+                return treeNode;
             },
             /**
              * Remove the template item from the DOM after deletion
