@@ -11,7 +11,7 @@ window.saveTemplateSystem = function (editor, options) {
     const __ = editor.createTranslator(editor);
     const saveTitle = __('Save as Template', 'save_as_template');
     const saveTagline = __('Enter the name of the item:', 'save_as_template_tagline');
-    const titlePlaceholder = __('Library item name...', 'save_as_template_title_placeholder');
+    const titlePlaceholder = __('Template title', 'save_as_template_title_placeholder');
     const saveLabel = __('Save', 'save_as_template_save_label');
     const successMessage = __('Template saved successfully!', 'template_saved_successfully');
 

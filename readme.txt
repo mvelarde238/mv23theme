@@ -4,6 +4,7 @@ CHANGELOG
 
 3.2.7 26-03-09
 - Template System Implementation
+- Translation files update
 
 3.2.6 26-03-07
 - Consolidate all global settings into a single Global_Settings class and field group to simplify management and usage

@@ -99,19 +99,19 @@ msgstr "Más comentarios &rarr;"
 msgid "Comments are not allowed on this post."
 msgstr "Se han bloqueado los comentarios para esta publicación."
 
-#: Core/Admin/Admin.php:81
+#: Core/Admin/Admin.php:84
 msgid "Main nav"
 msgstr "Menú Principal"
 
-#: Core/Admin/Admin.php:82
+#: Core/Admin/Admin.php:85
 msgid "Mobile header buttons"
 msgstr "Botones en el header para móviles"
 
-#: Core/Admin/Admin.php:91
+#: Core/Admin/Admin.php:94
 msgid "Widgets to be used in the header"
 msgstr "Widgets que se muestran en el header"
 
-#: Core/Admin/Admin.php:101
+#: Core/Admin/Admin.php:104
 msgid "Widgets to be used in the sidebar"
 msgstr "Widgets que se muestran en el sidebar"
 
@@ -1048,6 +1048,7 @@ msgstr "Menú Vertical 1"
 #: Core/Posttype/Menu_Item.php:76
 #: Core/Posttype/Reusable_Section_CPT.php:88
 #: Core/Theme_Options/Fields/Global_Settings.php:50
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-template-placeholder.js:17
 msgid "Select"
 msgstr "Seleccionar"
 
@@ -1493,23 +1494,23 @@ msgstr "Pegar"
 msgid "Duplicate"
 msgstr "Duplicar"
 
-#: Core/Builder/uf-extend/columns-layout/templates/group.php:26
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/plugins/save-template-system.js:15
 msgid "Save"
 msgstr "Guardar"
 
-#: Core/Builder/uf-extend/columns-layout/templates/group.php:29
+#: Core/Builder/uf-extend/columns-layout/templates/group.php:26
 msgid "Remove"
 msgstr "Eliminar"
 
-#: Core/Builder/uf-extend/columns-layout/templates/group.php:35
+#: Core/Builder/uf-extend/columns-layout/templates/group.php:32
 msgid "Open overlay"
 msgstr "Abrir lightbox"
 
-#: Core/Builder/uf-extend/columns-layout/templates/group.php:40
+#: Core/Builder/uf-extend/columns-layout/templates/group.php:37
 msgid "Collapse"
 msgstr "Colapsar"
 
-#: Core/Builder/uf-extend/columns-layout/templates/group.php:43
+#: Core/Builder/uf-extend/columns-layout/templates/group.php:40
 msgid "Expand"
 msgstr "Expandir"
 
@@ -1603,6 +1604,7 @@ msgstr "Tipos de contenido"
 msgid "The element will be displayed on all of the checked post types above."
 msgstr "El elemento se mostrará en todas los post types seleccionados debajo."
 
+#: Core/Builder/Component/Template_Placeholder.php:13
 #: Core/Offcanvas_Elements/Restriction/Page.php:115
 msgid "Templates"
 msgstr ""
@@ -2563,7 +2565,6 @@ msgid "Animations"
 msgstr "Animaciones"
 
 #: Core/Builder/Component/Accordion.php:60
-#: Core/Builder/Component/Hero_Section.php:23
 msgid "Template"
 msgstr ""
 
@@ -2705,22 +2706,6 @@ msgstr ""
 
 #: Core/Builder/Component/Heading.php:144
 msgid "Preset settings"
-msgstr ""
-
-#: Core/Builder/Component/Hero_Section.php:13
-msgid "Hero Section"
-msgstr ""
-
-#: Core/Builder/Component/Hero_Section.php:26
-msgid "Hero 1"
-msgstr ""
-
-#: Core/Builder/Component/Hero_Section.php:27
-msgid "Hero 2"
-msgstr ""
-
-#: Core/Builder/Component/Hero_Section.php:28
-msgid "Hero 3"
 msgstr ""
 
 #: Core/Builder/Component/Icon_and_Text.php:26
@@ -2999,11 +2984,11 @@ msgstr "Guardando revisión&hellip;"
 msgid "Your latest changes were saved as a revision."
 msgstr "Tus últimos cambios se guardaron como una revisión."
 
-#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:307
+#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:308
 msgid "Edit Page"
 msgstr "Editar Página"
 
-#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:354
+#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:355
 msgid "Post content migrated successfully"
 msgstr "Contenido de la publicación migrado con éxito"
 
@@ -3383,3 +3368,98 @@ msgstr "Animaciones"
 #: Core/Theme_Options/Fields/Global_Settings.php:142
 msgid "Deactivate theme styles in comments"
 msgstr "Desactivar estilos del tema en los comentarios"
+
+#: Core/Posttype/Templates_Library.php:42
+msgid "Template Category"
+msgstr ""
+
+#: Core/Posttype/Templates_Library.php:43
+msgid "Template Categories"
+msgstr ""
+
+#: Core/Posttype/Templates_Library.php:81
+#, php-format
+msgid "The item \"%s\" has been saved in the library"
+msgstr "El item \"%s\" ha sido guardado en la biblioteca"
+
+#: Core/Posttype/Templates_Library.php:117
+msgid "The item could not be saved in the library"
+msgstr "El item no pudo ser guardado en la biblioteca"
+
+#: Core/Posttype/Templates_Library.php:122
+#: Core/Posttype/Templates_Library.php:237
+#: Core/Posttype/Templates_Library.php:242
+msgid "Incorrect parameters were sent"
+msgstr "Se enviaron parámetros incorrectos"
+
+#: Core/Posttype/Templates_Library.php:172
+msgid "There are no components saved in the library yet."
+msgstr "Aún no hay componentes guardados en la biblioteca"
+
+#: Core/Posttype/Templates_Library.php:202
+msgid "The requested data could not be found."
+msgstr "No se pudieron encontrar los datos solicitados."
+
+#: Core/Posttype/Templates_Library.php:214
+msgid "The selected item could not be deleted."
+msgstr "El item seleccionado no pudo ser eliminado."
+
+#: Core/Posttype/Templates_Library.php:224
+msgid "The selected image could not be assigned."
+msgstr "La imagen seleccionada no pudo ser asignada."
+
+#: Core/Posttype/Templates_Library.php:232
+msgid "The selected image could not be removed."
+msgstr "La imagen seleccionada no pudo ser eliminada."
+
+#: partials/card/postcard-template-item.php:27
+msgid "Delete"
+msgstr "Eliminar"
+
+#: partials/card/postcard-template-item.php:29
+msgid "Remove Featured Image"
+msgstr "Eliminar Imagen Destacada"
+
+#: partials/card/postcard-template-item.php:31
+msgid "Add Featured Image"
+msgstr "Agregar Imagen Destacada"
+
+#: partials/card/postcard-template-item.php:35
+msgid "Insert Template"
+msgstr "Insertar Plantilla"
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-template-placeholder.js:13
+msgid "Templates Library"
+msgstr "Biblioteca de Plantillas"
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-template-placeholder.js:14
+msgid "Loading templates..."
+msgstr "Cargando plantillas..."
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-template-placeholder.js:15
+msgid "Are you sure you want to delete this template?"
+msgstr "¿Estás seguro de que deseas eliminar esta plantilla?"
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-template-placeholder.js:16
+msgid "Select Template Thumbnail"
+msgstr "Seleccionar miniatura de la plantilla"
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-template-placeholder.js:18
+msgid "Please select a valid image file (jpg, png, gif, svg)."
+msgstr "Por favor, selecciona un archivo de imagen válido (jpg, png, gif, svg)."
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/plugins/save-template-system.js:12
+msgid "Save as Template"
+msgstr "Guardar como Plantilla"
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/plugins/save-template-system.js:13
+msgid "Enter the name of the item:"
+msgstr "Ingrese el nombre del elemento:"
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/plugins/save-template-system.js:14
+msgid "Template title"
+msgstr "Título del template"
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/plugins/save-template-system.js:16
+msgid "Template saved successfully!"
+msgstr "¡Plantilla guardada con éxito!"
