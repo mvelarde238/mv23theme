@@ -43,7 +43,7 @@ class Global_Settings {
             ->set_description(__('Add the URLs of your social networks. For WhatsApp, add the phone number with country code and without symbols.<br><br>To show them on your website, you can use these shortcodes: [social_networks] [redes_sociales].','mv23theme'))
             ->set_default_value($social_networks_default_value)
             ->set_chooser_type('dropdown')
-            ->add_group(__('Social Network','mv23theme'), array(
+            ->add_group('social-network', array(
                 'title_template' => '<%= icon %> : <%= url %>',
                 'fields' => array(
                     Field::create( 'select', 'icon', __('Social Network','mv23theme'))->add_options( array(
