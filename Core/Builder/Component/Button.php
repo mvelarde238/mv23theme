@@ -80,12 +80,13 @@ class Button extends Component {
     public static function display( $args ){
         if( Template_Engine::is_private( $args ) ) return;
         
+        $args['html_tag'] = 'a';
 		$args['additional_classes'][] = 'component';
         $args['__type'] = 'button-cmp';
 
-        $class = $args['button_style'] ?? 'btn btn--main-color';
+        $args['additional_classes'][] = $args['button_style'] ?? 'btn btn--main-color';
         $fullwidth = (isset($args['fullwidth'])) ? $args['fullwidth'] : false;
-        if($fullwidth) $class .= ' btn-block';
+        if($fullwidth) $args['additional_classes'][] = 'btn-block';
             
         $text = (isset($args['text']) && !empty($args['text'])) ? $args['text'] : '';
         $icon = (isset( $args['icon'])) ? $args['icon'] : null;
@@ -93,14 +94,13 @@ class Button extends Component {
             $icon_position = $args['icon_position'] ?: 'left';
             $icon_prefix = (str_starts_with($icon,'fa')) ? 'fa' : 'bi';
             $icon_html = '<i class="'.$icon_prefix.' '.$icon.'"></i>';
-            $class .= ' btn--icon-'.$args['icon_position'];
+            $args['additional_classes'][] = 'btn--icon-'.$args['icon_position'];
         
-            $text = ( $icon_position === 'left' ) ? $icon_html.' '.$text : $text.' '.$icon_html;
+            $text = ( $icon_position === 'left' ) ? $icon_html.$text : $text.$icon_html;
         } 
 
-        $type = $args['type'];
+        $type = $args['button_type'];
         $href = '#';
-        $attrs = '';
         if($type == 'link'){
             $url_type = $args['url_type'];
             switch ($url_type) {
@@ -114,24 +114,33 @@ class Button extends Component {
                     }
                     break;
             }
-            $attrs = ( isset($args['new_tab']) && $args['new_tab'] == 1) ? 'target="_blank"' : ''; 
+            if( isset($args['new_tab']) && $args['new_tab'] == 1) {
+                $args['additional_attributes'][] = 'target="_blank"';
+            }
+                
         }
         if($type == 'download'){
             if($args['file']){
                 $href = wp_get_attachment_url( $args['file'] );
-                $attrs = ( isset($args['new_tab']) && $args['new_tab'] == 1) ? 'target="_blank"' : 'download'; 
+                if( isset($args['new_tab']) && $args['new_tab'] == 1) {
+                    $args['additional_attributes'][] = 'target="_blank"';
+                } else {
+                    $args['additional_attributes'][] = 'download';
+                }
             }
         }
+        $args['additional_attributes'][] = 'href="'.$href.'"';
 
+        // Process custom attributes
         $attributes = ( isset($args['button_attributes']) ) ? $args['button_attributes'] : array();
         $additional_attrs = '';
         if( is_array($attributes) && count($attributes) > 0 ){
             foreach ($attributes as $item) {
                 if( $item['attribute'] && $item['value'] ){
                     if( $item['attribute'] == 'class' ){
-                        $class .= ' '.$item['value'];
+                        $args['additional_classes'][] = $item['value'];
                     } else {
-                        $additional_attrs .= ' '.$item['attribute'].'="'.$item['value'].'"';
+                        $args['additional_attributes'][] = $item['attribute'].'="'.$item['value'].'"';
                     }
                 }
             }
@@ -139,32 +148,10 @@ class Button extends Component {
 		
 		ob_start();
         echo Template_Engine::component_wrapper('start', $args);
-        if($text) echo '<a href="'.$href.'" '.$attrs.' class="'.$class.'"'.$additional_attrs.'>'.$text.'</a>';
+        if($text) echo $text;
         echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
-
-    public static function get_view_template() {
-        return '<% 
-        button_classes = [];
-        button_classes.push(button_style);
-        if (icon && icon_position) button_classes.push("btn--icon-" + icon_position);
-        if (fullwidth) button_classes.push("btn-block");
-        if( text || icon ) {
-        %>
-        <a href="#" class="<%= button_classes.join(" ") %>">
-            <% if (icon && icon_position === "left") { %>
-                <i class="<% if (icon.startsWith("fa")) { %>fa <% } else { %>bi <% } %><%= icon %>"></i>
-            <% } %>
-            <% if (text) { %><%= text %><% } %>
-            <% if (icon && icon_position === "right") { %>
-                <i class="<% if (icon.startsWith("fa")) { %>fa <% } else { %>bi <% } %><%= icon %>"></i>
-            <% } %>
-        </a>
-        <% } else { %>
-            <a href="#" class="<%= button_classes.join(" ") %>" style="opacity: 0.5;">Button</a>
-        <% } %>';
-    }
 }
 
 new Button();

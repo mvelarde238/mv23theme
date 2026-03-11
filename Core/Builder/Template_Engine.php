@@ -97,10 +97,12 @@ class Template_Engine{
     public static function component_wrapper( $key, $args ){
         $attributes = self::generate_attributes( $args );
 
+        $html_tag = ( isset($args['html_tag']) && !empty($args['html_tag']) ) ? $args['html_tag'] : 'div';
+
         ob_start();
         if ($key == 'start'){
             echo self::check_full_width('start', $args);
-            echo '<div '.$attributes.'>';
+            echo '<'.$html_tag.' '.$attributes.'>';
             do_action( 'after_component_wrapper_start', $args );
             echo self::check_video_background( $args );
             echo self::check_slider_background( $args );
@@ -111,7 +113,7 @@ class Template_Engine{
             echo self::check_actions('end', $args );
             echo self::check_layout('end', $args);
             do_action( 'before_component_wrapper_end', $args );
-            echo '</div>';
+            echo '</'.$html_tag.'>';
             echo self::check_full_width('end', $args);
         } 
         return ob_get_clean();

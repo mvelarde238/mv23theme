@@ -171,13 +171,6 @@ window['contextMenuOpts'] = {
                 textAlignAction
             ]
         },
-        button: function(component){
-            let textAlignAction = create_text_align_actions(component);
-
-            return [
-                textAlignAction
-            ]
-        },
         heading: function(component){
             return [
                 { type: 'button', label: 'SELECT HEADING', command: 'query-selector', args: { selector: '.heading__text' } },

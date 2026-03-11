@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.2.8 26-03-11
+- Fix button styles
+
 3.2.7 26-03-09
 - Template System Implementation
 - Translation files update
