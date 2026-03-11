@@ -66,6 +66,17 @@ window.gjsIconAndText = function(editor) {
         },
         view: {
             onRender({ el, model }) {
+                // get components-wrapper and ensure it has the proper classes and properties
+                const componentsWrapper = model.findType('components-wrapper')[0];
+                if (componentsWrapper) {
+                    componentsWrapper.getEl().classList.add('content-wrapper');
+                    componentsWrapper.set('selectable', false);
+                    componentsWrapper.set('removable', false);
+                    componentsWrapper.set('draggable', false);
+                    componentsWrapper.set('copyable', false);
+                }
+                
+                // get datastore values and update the icon and styles accordingly
                 const datastore = editor.getComponentDatastore(model);
                 if (datastore) {
                     const { isource, iposition, ialignment, horizontal_alignment, content_alignment } = datastore.toJSON();

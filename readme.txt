@@ -9,6 +9,7 @@ CHANGELOG
 - fix broken columns due to menu width
 - fix templates system modal colors
 - fix social-network group id on global settings
+- fix icon and text component: get content-wrapper and ensure it has the proper classes and properties
 
 3.2.6 26-03-07
 - Consolidate all global settings into a single Global_Settings class and field group to simplify management and usage
