@@ -140,12 +140,20 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                 'old_data' => $old_data
             );
 
+            $skip_migration = apply_filters( 'migrator_2_10_x_to_3_0_0/skip_migration', false, $page->post_id, $page->meta_key, $old_data );
+            if( $skip_migration ){
+                error_log( 'Skipping page_modules migration for page ID: ' . $page->post_id );
+                continue;
+            }
+
             error_log( 'Migrating page: ' . get_the_title( $page->post_id ) . ' (ID: ' . $page->post_id . ') - Meta Key: ' . $page->meta_key );
 
             // page_modules
             if( $page->meta_key == 'page_modules' ){
 
-                $this->transform_page_header_to_page_module( $old_data, $page->post_id );
+                if( $page->post_type == 'page' || $page->post_type == 'archive_page' ){
+                    $this->transform_page_header_to_page_module( $old_data, $page->post_id );
+                }
 
                 $new_data = $this->migrate_page_modules_data($old_data);
                 if($do_the_update) $this->save_in_page_content($page->post_id, $new_data);

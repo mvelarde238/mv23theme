@@ -7,6 +7,8 @@ CHANGELOG
 - force a space to drag components into the container
 - {{post.title}} placeholder implementation
 - Fix actions migration to new structure
+- migrator_2_10_x_to_3_0_0/skip_migration filter implementation to allow skipping the migration of page_modules and other meta
+  for certain pages based on custom logic, preventing potential issues and giving more control over the migration process
 
 3.2.7 26-03-09
 - Template System Implementation
