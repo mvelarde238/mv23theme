@@ -70,3 +70,9 @@ img.gjs-plh-image
         background: var(--primary-color)
         border-color: var(--primary-color)
         color: #fff
+
+/* force a space to drag components into the container */
+[data-gjs-type="container"].gjs-selected-parent,
+[data-gjs-type="container"]:has(>.page-module.gjs-selected-parent)
+    transition: 200ms all
+    padding-top: 8px
