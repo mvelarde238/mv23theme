@@ -5,6 +5,7 @@ CHANGELOG
 3.2.8 26-03-11
 - Fix button styles
 - force a space to drag components into the container
+- {{post.title}} placeholder implementation
 
 3.2.7 26-03-09
 - Template System Implementation

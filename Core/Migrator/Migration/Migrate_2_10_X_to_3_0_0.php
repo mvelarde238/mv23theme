@@ -445,7 +445,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             $header_module['components'][] = array(
                 '__type' => 'heading',
                 'heading' => array(
-                    'content' => '{{page_title}}',
+                    'content' => '{{post.title}}',
                     'html_tag' => 'h1',
                     'settings' => array()
                 ),

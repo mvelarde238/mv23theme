@@ -175,10 +175,10 @@ class Template_Engine{
         $page_id = $page->get_id();
 
         $placeholders = array(
-            '{{page_title}}' => get_the_title($page_id),
-            '{{site_title}}' => get_bloginfo( 'name' ),
-            '{{site_tagline}}' => get_bloginfo( 'description' ),
-            '{{site_url}}' => home_url( '/' ),
+            '{{post.title}}' => get_the_title($page_id),
+            '{{site.title}}' => get_bloginfo( 'name' ),
+            '{{site.tagline}}' => get_bloginfo( 'description' ),
+            '{{site.url}}' => home_url( '/' ),
             '{{current_year}}' => date('Y'),
         );
 

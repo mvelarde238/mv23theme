@@ -21,7 +21,7 @@ Array
             [__type] => heading
             [heading] => Array
                 (
-                    [content] => {{page_title}}
+                    [content] => {{post.title}}
                     [html_tag] => h1
                     [settings] => Array
                         (
