@@ -60,6 +60,9 @@ class Builder_Options{
                         $options = array();
                         $builder_posttypes = get_option( 'builder_posttypes', array());
                         foreach ( $builder_posttypes as $post_type ) {
+                            if( ! post_type_exists( $post_type ) ) {
+                                continue;
+                            }
                             $options[ $post_type ] = get_post_type_object( $post_type )->labels->singular_name;
                         }
                         return $options;
