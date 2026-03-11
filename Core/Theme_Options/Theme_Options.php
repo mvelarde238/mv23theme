@@ -358,7 +358,7 @@ class Theme_Options extends Theme_Header_Data{
 
         if( $type == 'single' ){
             $queried_object = get_queried_object();
-            $posttype = $queried_object->post_type;
+            $posttype = ($queried_object) ? $queried_object->post_type : '';
             $single_posttype_settings = get_option('single_'.$posttype.'_settings');
 
             if( is_array($single_posttype_settings) ){
