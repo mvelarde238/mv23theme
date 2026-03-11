@@ -278,10 +278,11 @@
                 }
 
                 // Determine block category
-                let block_category = 'Basic';
+                const __ = editor.createTranslator(editor);
+                let block_category = __('Content');
                 const group_builder_data = group.builder_data || {};
                 if ( group_builder_data.block_category ) {
-                    block_category = group_builder_data.block_category;
+                    block_category = __(group_builder_data.block_category);
                 }
 
                 editor.BlockManager.add(group.id, {

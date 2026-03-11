@@ -141,14 +141,6 @@ window.gjsSection = function(editor) {
         }
     });
 
-    // Add a block in structure category
-    editor.Blocks.add('section', {
-        label: 'Section',
-        media: '<i class="dashicons dashicons-align-wide"></i>',
-        category: 'Structure',
-        content: { type: 'section' }
-    });
-
     // Remove the component styles before saving as they are only needed to be presented in the style manager
     editor.on('builder:before-save-editor', () => {
         const css = editor.Css;

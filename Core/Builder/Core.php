@@ -29,7 +29,17 @@ class Core{
      * Holds the list of components class names that will be registered in the Builder
      */
     private static $core_components = array(
-        'core' => array(
+        'structure' => array(
+            'Page',
+            'Container',
+            'Section',
+            'Row',
+            'Column',
+            'Components_Wrapper',
+            'Inner_Wrapper',
+            'Template_Placeholder',
+        ),
+        'content' => array(
             'Text_Editor',
             'Heading',
             'Figure',
@@ -45,25 +55,22 @@ class Core{
             'Gallery',
             'Testimonials',
             'Menu',
-            'Column'
-        ),
-        'theme' => array(),
-        'wrappers' => array(
-            'Row',
-            'Inner_Wrapper',
             'Flip_Box',
             'Carousel',
             'Inner_Accordion',
             'Accordion_Button',
             'Accordion',
-            'Components_Wrapper',
             'Inner_Row',
+            'Counter',
+        ),
+        'theme' => array(),
+        'wrappers' => array(),
+        'oce' => array(
             'OCE_Modal_Content',
             'OCE_Dynamic_Content',
             'Offcanvas_Element',
-            'Template_Placeholder',
-            'Section',
-            'Page',
+        ),
+        'single' => array(
             'Single_Page_Structure',
             'Post_Title',
             'Sidebar',
@@ -71,18 +78,20 @@ class Core{
             'Social_Share',
             'Related_Posts',
             'Comments_Area',
+        ),
+        'archive' => array(
             'Archive_Page_Structure',
             'Archive_Title',
             'Archive_Posts',
+        ),
+        'core' => array(
             'Theme_Options',
             'Header',
             'Header_Logo',
             'Header_Preview',
-            'Container',
-            'Counter',
             'Footer',
-            'Footer_Preview'
-        )
+            'Footer_Preview',
+        ),
     );
 
     public static function getInstance() {
@@ -160,8 +169,6 @@ class Core{
     public function init_components(){
         // $this->add_core_components_on_demand();
 
-        do_action('theme_init_components');
-
         foreach( self::$core_components as $key => $components_group ) {
             foreach ($components_group as $component) {
                 do_action('before_adding_'.$component.'_components');
@@ -173,6 +180,8 @@ class Core{
             }
             do_action('add_'.$key.'_components');
         }
+
+        do_action('theme_init_components');
     }
 
     // public function add_core_components_on_demand(){

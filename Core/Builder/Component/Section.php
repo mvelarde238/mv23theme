@@ -21,7 +21,7 @@ class Section extends Component {
 
 	public static function get_builder_data() {
         return array(
-            'block_render_type' => 'section'
+            'block_category' => 'Structure'
 		);
     }
 

@@ -14,6 +14,8 @@ window.gjsI18n = function (editor, options) {
                 select_image_button: 'Seleccionar',
                 templates_system_invalid_image_file_msg: 'Por favor selecciona un archivo de imagen válido (jpg, png, gif, svg).',
                 template_saved_successfully: '¡Plantilla guardada exitosamente!',
+                structure: 'Estructura',
+                content: 'Contenido',
             },
             'react-builder': {
                 // top bar
@@ -32,8 +34,8 @@ window.gjsI18n = function (editor, options) {
                 on_component_select_label: 'Al seleccionar un componente',
                 on_component_select_desc: 'Escoge que mostrar cuando se selecciona un componente',
                 open_component_settings: 'Abrir ajustes del componente',
-                open_components_tab: 'Abrir pestaña de componentes',
-                open_style_manager: 'Abrir el gestor de estilos',
+                open_components_tab: 'Mostrar todos los componentes',
+                open_style_manager: 'Abrir el administrador de estilos',
                 do_nothing: 'No hacer nada',
                 // right sidebar
                 components: 'Componentes',
@@ -43,7 +45,7 @@ window.gjsI18n = function (editor, options) {
                 component_settings_panel: 'Panel de ajustes del componente',
                 select_component_to_edit_settings: 'Selecciona un componente para editar sus ajustes',
                 select_component_to_edit_styles: 'Selecciona un componente para editar sus estilos',
-                style_manager: 'Gestor de estilos',
+                style_manager: 'Administrador de estilos',
                 // spacing sector
                 spacing: 'ESPACIADO',
                 outter: 'EXTERIOR',
