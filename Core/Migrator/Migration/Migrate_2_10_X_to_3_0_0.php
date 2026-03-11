@@ -2140,16 +2140,17 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             $first_action = $uf_component['actions_settings']['actions'][0];
 
             if( isset( $first_action['enlace'] ) ){
-                $first_action['link'] = $first_action['enlace'];
+                $new_action['trigger'] = $first_action['trigger'] ?? 'click';
+                $new_action['action'] = $first_action['action'];
+                $new_action['link'] = $first_action['enlace'];
                 $url_type_dictionary = array(
                     'interna' => 'internal',
                     'externa' => 'external',
                 );
-                $first_action['url_type'] = $url_type_dictionary[$first_action['enlace']['url_type']] ?? 'internal';
-                unset( $first_action['enlace'] );
+                $new_action['link']['url_type'] = $url_type_dictionary[$first_action['enlace']['url_type']] ?? 'internal';
             }
 
-            $uf_component['actions_settings'] = $first_action;
+            $uf_component['actions_settings'] = $new_action;
 
             unset( $uf_component['actions_settings']['actions'] );
         }

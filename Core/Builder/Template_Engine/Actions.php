@@ -12,20 +12,20 @@ Class Actions{
 			$action = $args['actions_settings'];
     		
     		if ($action['trigger'] == 'click' && $action['action'] == 'open-page') {
-    			$link = NULL;
+    			$href = NULL;
             	$link = $action['link'];
             	switch ($link['url_type']) {
             	    case 'external':
-            	        $link = $link['url'];
+            	        $href = $link['url'];
             	        break;
                     
             	    case 'internal':
-            	        $link = get_permalink( str_replace('post_','',$link['post']) );
+            	        $href = get_permalink( str_replace('post_','',$link['post']) );
             	        break;
             	}
-            	if ($link != NULL):
+            	if ($href != NULL):
                 	$target = (isset($link['new_tab']) && $link['new_tab'] == 1) ? '_blank' : ''; 
-                	$code['start'] = '<a href="'.$link.'" target="'.$target.'">';
+                	$code['start'] = '<a href="'.$href.'" target="'.$target.'">';
 					$code['end'] = '</a>';
             	endif;
     		}
