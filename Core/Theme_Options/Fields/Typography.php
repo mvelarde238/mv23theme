@@ -139,10 +139,10 @@ class Typography {
                 ['key' => '--heading-h6-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
             ]],
             ['type' => 'section', 'label' => 'Links' ],
-            ['key' => '--link-decoration', 'label' => 'Link Decoration', 'type' => 'select', 'placeholder' => 'none', 'options' => $link_decoration_options ],
-            ['key' => '--link-hover-decoration', 'label' => 'Link Hover Decoration', 'type' => 'select', 'placeholder' => 'underline', 'options' => $link_decoration_options ],
-            ['key' => '--link-decoration-thickness', 'label' => 'Link Decoration Thickness', 'type' => 'text', 'placeholder' => '6%' ],
-            ['key' => '--link-decoration-offset', 'label' => 'Link Decoration Offset', 'type' => 'text', 'placeholder' => '6px' ],
+            ['key' => '--links-decoration', 'label' => 'Link Decoration', 'type' => 'select', 'placeholder' => 'none', 'options' => $link_decoration_options ],
+            ['key' => '--links-hover-decoration', 'label' => 'Link Hover Decoration', 'type' => 'select', 'placeholder' => 'underline', 'options' => $link_decoration_options ],
+            ['key' => '--links-decoration-thickness', 'label' => 'Link Decoration Thickness', 'type' => 'text', 'placeholder' => '1px' ],
+            ['key' => '--links-decoration-offset', 'label' => 'Link Decoration Offset', 'type' => 'text', 'placeholder' => '6px' ],
         ];
     }
 

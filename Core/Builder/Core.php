@@ -124,7 +124,7 @@ class Core{
 				'meta'   => 'page_content',
 			), get_edit_post_link( $post->ID, 'raw' ) );
 
-			$actions['ultimate_builder'] = '<a href="' . esc_url( $builder_url ) . '">' . __( 'Edit with Ultimate Builder', 'mv23theme' ) . '</a>';
+			$actions['ultimate_builder'] = '<a href="' . esc_url( $builder_url ) . '"><b>' . __( 'Edit with Ultimate Builder', 'mv23theme' ) . '</b></a>';
 		}
 
 		return $actions;
