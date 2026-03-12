@@ -11,6 +11,7 @@ CHANGELOG
 - Fix vertical nav colors and toggle-submenu position on list_terms_recursive
 - show woocommerce shop_sidebar if is_archive()
 - Fix gjs-button: transform button_style ('btn btn--main-color',etc.) to array
+- Fix Template_Engine/Actions
 
 3.2.8 26-03-11
 - Fix button styles

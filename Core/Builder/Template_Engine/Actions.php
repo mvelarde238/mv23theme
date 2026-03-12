@@ -71,7 +71,7 @@ Class Actions{
     			$selector = $toggle_box_settings['selector'];
     			if($selector){
     				$scroll_to_box = (isset($toggle_box_settings['scroll_to_box'])) ? $toggle_box_settings['scroll_to_box'] : 0;
-    				$code['start'] = '<a class="toggle-box" data-selector="'.$selector.'" data-scroll-to-box="'.$scroll_to_box.'" href="#"></a>';
+    				$code['start'] = '<a class="toggle-box" data-selector="'.$selector.'" data-scroll-to-box="'.$scroll_to_box.'" href="#">';
     				$code['end'] = '</a>';
     			}
     		}
@@ -79,7 +79,7 @@ Class Actions{
     			$offcanvas_elements_settings = (isset($action['offcanvas_elements_settings'])) ? $action['offcanvas_elements_settings'] : array( 'id' => null );
     			$id = $offcanvas_elements_settings['id'];
     			if($id){
-    				$code['start'] = '<a data-offcanvas-element="'.str_replace('post_','',$id).'" href="#"></a>';
+    				$code['start'] = '<a data-offcanvas-element="'.str_replace('post_','',$id).'" href="#">';
     				$code['end'] = '</a>';
     			}
     		}
