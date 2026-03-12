@@ -17,8 +17,10 @@ window.gjsButton = function (editor) {
                 // get datastore values and update the icon and styles accordingly
                 const datastore = editor.getComponentDatastore(model);
                 if (datastore) {
-                    const { icon, icon_position, fullwidth, text } = datastore.toJSON();
-                    const additionalClasses = ["btn"];
+                    const { icon, icon_position, fullwidth, text, button_style } = datastore.toJSON();
+
+                    // transform button_style ('btn btn--main-color',etc.) to array
+                    const additionalClasses = button_style ? button_style.split(' ') : [];
                     if (icon && icon_position) additionalClasses.push("btn--icon-" + icon_position);
                     if (fullwidth) additionalClasses.push("btn-block");
                     el.classList.add(...additionalClasses);
