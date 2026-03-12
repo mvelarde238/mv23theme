@@ -67,11 +67,13 @@ class Menu_Item {
                         Field::create( 'color', 'color' )->set_default_value('#232323')->add_dependency('use')->hide_label()->set_width( 30 )
                     ))
                 )),
-                Field::create( 'select', 'visibility', 'Visibilidad')->add_options( array(
-                    '' => 'Visible para todos los usuarios',
-                    'is_private' => 'Solo visible para usuarios admin.',
-                    'user_is_logged_in' => 'Visible para usuarios registrados',
-                    'user_is_not_logged_in' => 'Visible para usuarios no registrados',
+                Field::create( 'select', 'visibility', __('Visibility','mv23theme'))->add_options( array(
+                    '' => __('Visible to all users','mv23theme'),
+                    'is_private' => __('Only visible to admin users','mv23theme'),
+                    'user_is_logged_in' => __('Visible to registered users','mv23theme'),
+                    'user_is_not_logged_in' => __('Visible to non-registered users','mv23theme'),
+                    'comments_open' => __('Visible only if comments are open','mv23theme'),
+                    'comments_closed' => __('Visible only if comments are closed','mv23theme'),
                 ))->set_width(30),
                 Field::create( 'wp_object', 'offcanvas_element', __('OffCanvas Element','mv23theme') )->add( 'posts','post_type=offcanvas_element' )->set_button_text( __('Select', 'deafult') ),
                 Field::create('tab',__('Advanced','mv23theme')),

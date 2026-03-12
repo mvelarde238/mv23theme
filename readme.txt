@@ -13,6 +13,7 @@ CHANGELOG
 - Fix gjs-button: transform button_style ('btn btn--main-color',etc.) to array
 - Fix Template_Engine/Actions
 - Fix comments_area shortcode to use the new Comments_Area component
+- Add comments_open and comments_closed visibility options to Menu Item component
 
 3.2.8 26-03-11
 - Fix button styles

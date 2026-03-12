@@ -22,6 +22,8 @@ class Nav_Walker extends Walker_Nav_Menu{
         if ($visibility == 'is_private' && !current_user_can('administrator')) return;
         if ($visibility == 'user_is_logged_in' && !is_user_logged_in() ) return;
         if ($visibility == 'user_is_not_logged_in' && is_user_logged_in() ) return;
+        if ($visibility == 'comments_open' && !comments_open() ) return;
+        if ($visibility == 'comments_closed' && comments_open() ) return;
 
         // ************************************************************************************************************
         // ************************************************************************************************************
