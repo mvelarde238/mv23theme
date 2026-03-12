@@ -8,8 +8,8 @@
         @extend %menu-item-styles
         @extend %current-menu-item-styles
 
-        li:hover 
-            background-color: rgba(0,0,0,.05)
+        li:hover>a
+            color: var(--accent-color-1)
             
         li:not(:last-child)
             border-bottom: 1px solid var(--accent-color-2)
@@ -17,6 +17,4 @@
             padding: 16px 15px
 
     .sub-menu
-        background-color: rgba(0,0,0,.04)
-    .dark-mode & .sub-menu
-        background-color: rgba(0,0,0,.2)
+        background-color: var(--accent-color-3)

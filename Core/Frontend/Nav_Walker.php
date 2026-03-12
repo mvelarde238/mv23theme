@@ -277,8 +277,8 @@ class Nav_Walker extends Walker_Nav_Menu{
                 $list .= '<li class="'.$class.'">';
                 $list .= '<a class="'.$link_class.'" data-term="'.$term->term_id.'" href="'.$link.'">';
                 $list .= '<span class="menu-item__label">'.esc_html($term->name).'</span>';
-                $list .= '</a>';
                 if( $has_children ) $list .= '<button class="toggle-submenu"></button>';
+                $list .= '</a>';
                 if( $has_children ) $list .= self::list_terms_recursive($taxonomy, $term->term_id, $depth+1);
                 $list .= '</li>';
                 $count++;
