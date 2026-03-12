@@ -5,6 +5,7 @@ CHANGELOG
 3.2.9 26-03-12
 - Standardize social networks styles
 - Handle placeholders on text editor
+- add .menu-comp class to nav menu widget
 
 3.2.8 26-03-11
 - Fix button styles
