@@ -245,7 +245,7 @@ class Theme extends Theme_Header_Data {
         $offcanvas_elements = Offcanvas_Elements::getInstance();
 
         $this->loader->add_action( 'after_setup_theme', $offcanvas_elements, 'register_post_type', 4 );
-        $this->loader->add_action( 'uf.init', $offcanvas_elements, 'register_settings' );
+        $this->loader->add_action( 'wp_loaded', $offcanvas_elements, 'register_settings' );
         $this->loader->add_action( 'wp_enqueue_scripts', $offcanvas_elements, 'enqueue_scripts', 1000);
         $this->loader->add_action( 'footer_code', $offcanvas_elements, 'print_elements' );
 
@@ -285,7 +285,9 @@ class Theme extends Theme_Header_Data {
 
         // Menu_Item
         $menu_item = Menu_Item::getInstance();
-        $this->loader->add_action( 'uf.init', $menu_item, 'add_meta_boxes' );
+        // Add the meta boxes.
+        // Use wp_loaded to make sure some post types are registered before we try to use them in the meta boxes fields (like the product post type).
+        $this->loader->add_action( 'wp_loaded', $menu_item, 'add_meta_boxes' );
 
         // Megamenu
         $megamenu = Megamenu::getInstance();
