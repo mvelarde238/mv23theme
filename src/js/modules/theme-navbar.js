@@ -26,6 +26,8 @@ window['Theme_Navbars'] = (function(){
             for (let i = 0; i < has_children.length; i++) {
                 const item_has_children = has_children[i];
                 let toggle_submenu_button = item_has_children.querySelector('a > .toggle-submenu');
+
+                if( ! toggle_submenu_button ) continue;
     
                 toggle_submenu_button.addEventListener('click', (event)=>{
                     event.stopPropagation();
