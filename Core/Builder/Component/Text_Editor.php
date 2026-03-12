@@ -38,7 +38,7 @@ class Text_Editor extends Component {
 		if( Template_Engine::is_private( $args ) ) return;
 
 		$args['additional_classes'][] = 'component';
-		$content = $args['content'] ?? '';
+		$content = Template_Engine::handle_placeholders($args['content']) ?? '';
 	
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
@@ -48,8 +48,10 @@ class Text_Editor extends Component {
 	}
 
 	public static function get_view_template() {
-		$template = '<%= wp.editor && wp.editor.autop ? wp.editor.autop(content) : content %>';
-		return $template;
+		return '<% 
+		filtered_content = __handlePlhs(content) 
+		%>
+		<%= wp.editor && wp.editor.autop ? wp.editor.autop(filtered_content) : filtered_content %>';
 	}
 }
 
