@@ -1,24 +1,24 @@
 .sns-module
-	display: inline-block
+	display: inline-flex
+	gap: 6px
 	a
 		text-decoration: none
 		transition: 500ms all
-		margin-right: 8px
-		margin-bottom: 8px
-		&:last-child
-			margin-right: 0
+		line-height: 1
 		&:hover
 			color: var(--primary-color-dark) !important
 
+	&.style2,
+	&.style3,
+	&.style4,
+	&.style5
+		a
+			padding: 0.7em
+			aspect-ratio: 1/1
+			border-radius: 50%
+
 	&.style2
 		a
-			width: 40px
-			height: 40px
-			border-radius: 50%
-			display: inline-flex
-			align-items: center
-			margin-right: 4px
-			justify-content: center
 			background: var(--primary-color)
 			color: #fff !important
 			&:hover
@@ -40,26 +40,18 @@
 	
 	&.style3
 		a
-			width: 40px
-			height: 40px
-			border-radius: 50%
-			display: inline-flex
-			align-items: center
-			justify-content: center
 			border: 1px solid currentColor
-			margin-right: 4px
 	
 	&.style4
 		a
-			width: 40px
-			height: 40px
-			border-radius: 50%
-			display: inline-flex
-			align-items: center
-			justify-content: center
-			margin-right: 4px
 			background-color: #fff
+			color: #000 !important
 			border: 1px solid #fff
+	
+	&.style5
+		a
+			background-color: #000
+			color: #fff !important
 
 .dark-mode
 	.sns-module.style3

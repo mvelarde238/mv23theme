@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.2.9 26-03-12
+- Standardize social networks styles
+
 3.2.8 26-03-11
 - Fix button styles
 - force a space to drag components into the container
