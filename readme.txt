@@ -9,6 +9,7 @@ CHANGELOG
 - Use wp_loaded hook to add meta boxes on Menu Item and OCE to make sure some post types are registered 
   before we try to use them in the fields (like the product post type).
 - Fix vertical nav colors and toggle-submenu position on list_terms_recursive
+- show woocommerce shop_sidebar if is_archive()
 
 3.2.8 26-03-11
 - Fix button styles

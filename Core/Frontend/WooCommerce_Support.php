@@ -31,7 +31,11 @@ class WooCommerce_Support{
 
     public function after_main_content(){ ?>
                 </main>
-                <?php echo Sidebar::display( array( 'sidebar_id' => 'shop_sidebar' ) ); ?>
+                <?php 
+                if(is_archive() && is_active_sidebar('shop_sidebar')){
+                    echo Sidebar::display( array( 'sidebar_id' => 'shop_sidebar' ) ); 
+                }
+                ?>
             </div>
         </div>
         <?php
