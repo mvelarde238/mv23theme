@@ -1,7 +1,9 @@
 <?php
-function print_ccmments_area() {
+use Core\Builder\Component\Comments_Area;
+
+function print_comments_area() {
     ob_start();
-    get_template_part('partials/comments');
+    echo Comments_Area::display();
     return ob_get_clean();
 }
-add_shortcode( 'comments_area', 'print_ccmments_area' );
+add_shortcode( 'comments_area', 'print_comments_area' );

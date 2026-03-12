@@ -12,6 +12,7 @@ CHANGELOG
 - show woocommerce shop_sidebar if is_archive()
 - Fix gjs-button: transform button_style ('btn btn--main-color',etc.) to array
 - Fix Template_Engine/Actions
+- Fix comments_area shortcode to use the new Comments_Area component
 
 3.2.8 26-03-11
 - Fix button styles
