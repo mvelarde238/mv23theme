@@ -16,6 +16,15 @@ window.gjsI18n = function (editor, options) {
                 template_saved_successfully: '¡Plantilla guardada exitosamente!',
                 structure: 'Estructura',
                 content: 'Contenido',
+                // Content Migration Modal
+                content_migration_modal_title: 'Contenido Detectado',
+                content_migration_modal_message: 'Se ha detectado contenido guardado en el editor clásico de WordPress de esta publicación. Para editarlo en el constructor, es necesario migrarlo. Esta acción moverá el contenido al constructor y lo eliminará del editor clásico.',
+                content_migration_cancel_button: 'No Migrar',
+                content_migration_accept_button: 'Migrar Contenido',
+                content_migration_migrating_message: 'Migrando...',
+                content_migration_error_message: 'Error al migrar el contenido. Por favor, inténtalo de nuevo.',
+                content_migration_success_message: 'El contenido ha sido migrado al constructor exitosamente.',
+                content_migration_unknown_error_message: 'Ocurrió un error desconocido.',
             },
             'react-builder': {
                 // top bar
