@@ -2146,6 +2146,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
             && count( $uf_component['actions_settings']['actions'] ) > 0
             ){
             $first_action = $uf_component['actions_settings']['actions'][0];
+            $new_action = $first_action; // start with all properties, we'll clean up below
 
             if( isset( $first_action['enlace'] ) ){
                 $new_action['trigger'] = $first_action['trigger'] ?? 'click';
@@ -2156,6 +2157,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                     'externa' => 'external',
                 );
                 $new_action['link']['url_type'] = $url_type_dictionary[$first_action['enlace']['url_type']] ?? 'internal';
+                unset( $new_action['enlace'] );
             }
 
             $uf_component['actions_settings'] = $new_action;

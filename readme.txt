@@ -4,6 +4,7 @@ CHANGELOG
 
 3.2.10 26-03-13
 - Handle post content migration from classic editor to builder on gjs-wrapper
+- Fix action migration
 
 3.2.9 26-03-12
 - Standardize social networks styles
