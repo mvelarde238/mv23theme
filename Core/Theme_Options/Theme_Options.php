@@ -60,11 +60,12 @@ class Theme_Options extends Theme_Header_Data{
         $order_list = array( 
             'theme-options',
             'edit.php?post_type=header', 
+            'edit.php?post_type=single_template',
             'edit.php?post_type=footer', 
             'edit.php?post_type=offcanvas_element',
-            'custom-scripts-options', 
             'edit.php?post_type=megamenu', 
-            'edit.php?post_type=reusable_section' 
+            'edit.php?post_type=reusable_section',
+            'custom-scripts-options', 
         );
     
         $new_order = array();
@@ -342,36 +343,6 @@ class Theme_Options extends Theme_Header_Data{
         
         if( !empty($root_lines) ) $css .= ':root, .text-color-1 {'.implode(';', $root_lines ).'}';
         if( !empty($css) ) wp_add_inline_style( 'mv23theme-styles', $css );
-    }
-
-    public function get_page_template_settings( $type = '' ){
-        $page_settings = array(
-            'single' => array( 
-                'page_template' => 'main-content--sidebar-right', 
-                'hide_sidebar' => 0, 
-                'hide_post_title' => 0, 
-                'hide_social_share' => 0,
-                'hide_related_posts' => 0,
-                'hide_comments_area' => 0,
-            )
-        );
-
-        if( $type == 'single' ){
-            $queried_object = get_queried_object();
-            $posttype = ($queried_object) ? $queried_object->post_type : '';
-            $single_posttype_settings = get_option('single_'.$posttype.'_settings');
-
-            if( is_array($single_posttype_settings) ){
-                $page_settings['single']['hide_sidebar'] = $single_posttype_settings['hide_sidebar'] ?? 0;
-                $page_settings['single']['hide_post_title'] = $single_posttype_settings['hide_post_title'] ?? 0;
-                $page_settings['single']['hide_social_share'] = $single_posttype_settings['hide_social_share'] ?? 0;
-                $page_settings['single']['page_template'] = $single_posttype_settings['page_template'] ?? 'main-content--sidebar-right';
-                $page_settings['single']['hide_related_posts'] = $single_posttype_settings['hide_related_posts'] ?? 0;
-                $page_settings['single']['hide_comments_area'] = $single_posttype_settings['hide_comments_area'] ?? 0;
-            }
-        }
-
-        return (isset($page_settings[$type])) ? $page_settings[$type] : array();
     }
 
     public function enqueue_admin_scripts(){

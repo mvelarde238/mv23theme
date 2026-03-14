@@ -30,10 +30,6 @@ $subscribe_to_continue = Posts_Subscription::is_active($post);
 $preview_file_url = Posts_Subscription::maybe_obfuscate_link( $subscribe_to_continue, $_args['file_url'], 'subscribe-to-preview', $post->ID);
 
 $download_file_url = Posts_Subscription::maybe_obfuscate_link( $subscribe_to_continue, $_args['file_url'], 'subscribe-to-download', $post->ID);
-
-$theme_options = Theme_Options::getInstance();
-$single_page = $theme_options->get_page_template_settings('single');
-$main_content_classes[] = $single_page['page_template'];
 ?>
 
 <div id="content">
@@ -127,11 +123,9 @@ $main_content_classes[] = $single_page['page_template'];
                 </div>
             </div>
 
-            <?php if(!$single_page['hide_social_share']) echo Social_Share::display(); ?>
-            <?php if(!$single_page['hide_related_posts']) echo Related_Posts::display(); ?>
+            <?php echo Social_Share::display(); ?>
+            <?php echo Related_Posts::display(); ?>
 		</main>
-
-        <?php if( $single_page['page_template'] !== 'main-content--sidebarless' ) get_sidebar(); ?>
 	</div>
 </div>
 

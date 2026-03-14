@@ -39,6 +39,18 @@ class Core{
             'Inner_Wrapper',
             'Template_Placeholder',
         ),
+        'single' => array(
+            'Main_Content',
+            'Main',
+            'Aside',
+            'Sidebar',
+            'Single_Page_Structure',
+            'Post_Title',
+            'Post_Content',
+            'Social_Share',
+            'Related_Posts',
+            'Comments_Area',
+        ),
         'content' => array(
             'Text_Editor',
             'Heading',
@@ -70,15 +82,6 @@ class Core{
             'OCE_Dynamic_Content',
             'Offcanvas_Element',
         ),
-        'single' => array(
-            'Single_Page_Structure',
-            'Post_Title',
-            'Sidebar',
-            'Post_Content',
-            'Social_Share',
-            'Related_Posts',
-            'Comments_Area',
-        ),
         'archive' => array(
             'Archive_Page_Structure',
             'Archive_Title',
@@ -105,12 +108,13 @@ class Core{
     private function __construct(){}
 
     public function set_initial_values(){
-        $builder_posttypes = get_option('builder_posttypes');
-        if ( $builder_posttypes === false ) {
-            add_option('builder_posttypes', array('post','page','megamenu','archive_page','footer','reusable_section','portfolio'));
-            add_option('hide_wp_editor_on', array('page'));
-            add_option('insert_single_structure_on', array('post','portfolio'));
-        }
+        // Set default values for builder options if they don't exist
+        // TODO: review if this is needed or if we can set these defaults on the options definition
+        // $builder_posttypes = get_option('builder_posttypes');
+        // if ( $builder_posttypes === false ) {
+            // add_option('builder_posttypes', array('post','page','megamenu','archive_page','footer','reusable_section','portfolio'));
+            // add_option('hide_wp_editor_on', array('page'));
+        // }
     }
 
     public function hide_editor(){

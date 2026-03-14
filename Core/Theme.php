@@ -25,6 +25,7 @@ use Core\Posttype\Menu_Item;
 use Core\Posttype\Megamenu;
 use Core\Posttype\Footer;
 use Core\Posttype\Header;
+use Core\Posttype\Single_Template;
 use Core\Builder\Core as Builder;
 use Core\Offcanvas_Elements\Core as Offcanvas_Elements;
 use Core\Migrator\Core as Migrator;
@@ -300,6 +301,10 @@ class Theme extends Theme_Header_Data {
         // Header
         $header = Header::getInstance();
         $this->loader->add_action( 'uf.init', $header, 'add_meta_boxes' );
+
+        // Single Template
+        $single_template = Single_Template::getInstance();
+        $this->loader->add_action( 'wp_loaded', $single_template, 'add_meta_boxes' );
     }
 
     private function define_cleanup_hooks() {

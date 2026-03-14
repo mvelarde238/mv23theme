@@ -17,8 +17,13 @@ class Post_Title extends Component {
 
     public static function get_builder_data() {
         return array(
-            'display_gjs_block' => false
+            'block_category' => 'Single',
+            'posttypes' => array('single_template')
 		);
+    }
+
+    public static function get_icon() {
+        return 'bi-fonts';
     }
 
     public static function get_fields() {
@@ -27,14 +32,6 @@ class Post_Title extends Component {
 	}
 
     public static function display($args = array()){
-        if(!is_admin() ) {
-            $theme_options = Theme_Options::getInstance();
-            $single_page = $theme_options->get_page_template_settings('single');
-            if( $single_page['hide_post_title'] ){
-                return '';
-            }
-        }
-
         global $post;
         $post_id = isset($args['post_id']) ? $args['post_id'] : $post->ID;
 

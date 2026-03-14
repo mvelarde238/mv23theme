@@ -47,12 +47,8 @@ class Page{
 			$page_is_private = self::page_is_private(); 
             ob_start();
 			if( !$page_is_private ){
-				$insert_single_structure = get_option( 'insert_single_structure_on', array() );
-				$posttype = get_post_type();
-				if( !empty($content) && !in_array( $posttype, $insert_single_structure ) ){
-					echo '<section class="page-module section">';
-					echo $content;
-					echo '</section>';
+				if( !empty($content) ){
+					echo '<div class="text-editor component">' . $content . '</div>';
 				}
 				echo $page->the_content();
 			} 

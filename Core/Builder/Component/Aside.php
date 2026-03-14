@@ -5,15 +5,12 @@ use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Ultimate_Fields\Field;
 
-class Single_Page_Structure extends Component {
+class Aside extends Component {
 
     public function __construct() {
 		parent::__construct(
-			'single-page-structure',
-			__( 'Single Structure', 'mv23theme' ),
-			array(
-				'common_settings' => array(),
-			)
+			'aside',
+			__( 'Aside', 'mv23theme' )
 		);
 	}
 
@@ -27,6 +24,14 @@ class Single_Page_Structure extends Component {
 		$fields = array();
 		return $fields;
 	}
+
+    public static function display($args){
+        ob_start();
+		echo '<aside class="aside components-wrapper">';
+        echo Template_Engine::check_components( $args );
+        echo '</aside>';
+        return ob_get_clean();
+    }
 }
 
-new Single_Page_Structure();
+new Aside();

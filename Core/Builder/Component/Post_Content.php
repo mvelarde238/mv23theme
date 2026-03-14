@@ -16,8 +16,13 @@ class Post_Content extends Component {
 
     public static function get_builder_data() {
         return array(
-            'display_gjs_block' => false
+            'block_category' => 'Single',
+            'posttypes' => array('single_template')
 		);
+    }
+
+    public static function get_icon() {
+        return 'bi-blockquote-left';
     }
 
     public static function get_fields() {
@@ -25,7 +30,23 @@ class Post_Content extends Component {
 		return $fields;
 	}
 
-    public static function display($args = array()){
+    public static function display($args = array()) {
+        global $post;
+        $post_id = isset($args['post_id']) ? $args['post_id'] : $post->ID;
+
+        ob_start();
+        if ( isset($args['post_id']) || is_singular('single_template') ) {
+            // show a placeholder in the builder
+            echo '<p class="center-align">' . __('This is a placeholder for the content area. It will display the post content in the frontend.', 'mv23theme') . '</p>';
+        } else{
+            // render content on frontend
+            the_post();
+            echo the_content();
+        }
+        return ob_get_clean();
+    }
+
+    public static function ___display($args = array()){
         global $post;
         $post_id = isset($args['post_id']) ? $args['post_id'] : $post->ID;
 

@@ -16,8 +16,13 @@ class Comments_Area extends Component {
 
     public static function get_builder_data() {
         return array(
-            'display_gjs_block' => false
+            'block_category' => 'Single',
+            'posttypes' => array('single_template')
 		);
+    }
+
+    public static function get_icon() {
+        return 'bi-chat-left-text';
     }
 
 	public static function get_fields() {

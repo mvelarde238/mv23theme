@@ -2,6 +2,13 @@
 CHANGELOG
 **************************************************************************************************
 
+3.3.0 26-03-14
+- Single Template Implementation: new post type "single_template" and related classes and builder components 
+  to allow creating templates for single pages and assign them to post types, taxonomies or specific posts
+  -----------------------------------------------------------------------------------------------------
+  !IMPORTANT: Use the theme migrator to migrate old single structure implementation to single templates
+  -----------------------------------------------------------------------------------------------------
+
 3.2.10 26-03-13
 - Handle post content migration from classic editor to builder on gjs-wrapper
 - Fix action migration

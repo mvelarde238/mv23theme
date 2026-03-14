@@ -80,7 +80,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsSection', 'handler' => 'gjs-section', 'isComponent' => true ],
 		[ 'name' => 'gjsMap', 'handler' => 'gjs-map', 'isComponent' => true ],
 		[ 'name' => 'gjsOceComponents', 'handler' => 'gjs-oce-components', 'isComponent' => true ],
-		[ 'name' => 'gjsSinglePageStructure', 'handler' => 'gjs-single-page-structure', 'isComponent' => true ],
+		// [ 'name' => 'gjsSinglePageStructure', 'handler' => 'gjs-single-page-structure', 'isComponent' => true ],
 		[ 'name' => 'gjsPostTitle', 'handler' => 'gjs-post-title', 'isComponent' => true ],
 		[ 'name' => 'gjsSidebar', 'handler' => 'gjs-sidebar', 'isComponent' => true ],
 		[ 'name' => 'gjsPostContent', 'handler' => 'gjs-post-content', 'isComponent' => true ],
@@ -93,6 +93,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsCounter', 'handler' => 'gjs-counter', 'isComponent' => true ],
 		[ 'name' => 'gjsButton', 'handler' => 'gjs-button', 'isComponent' => true ],
 		[ 'name' => 'gjsTemplatePlaceholder', 'handler' => 'gjs-template-placeholder', 'isComponent' => true ],
+		[ 'name' => 'gjsMainContent', 'handler' => 'gjs-main-content', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true, 'hasCss' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],
@@ -184,8 +185,7 @@ class Ultimate_Builder {
 			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );
 
 			$posttype = get_post_type();
-			$insert_single_structure = get_option( 'insert_single_structure_on', array() );
-			$is_singular = in_array( $posttype, $insert_single_structure );
+			// $is_singular = in_array( $posttype, $insert_single_structure );
 			$is_archive = ( $posttype === 'archive_page') || ( get_option('page_for_posts') == get_the_ID() );
 			$user_id = get_current_user_id();
 
@@ -199,7 +199,7 @@ class Ultimate_Builder {
 				'nonce' => wp_create_nonce( 'ultimate_builder_preview' ),
 				'post_id' => get_the_ID(),
 				'post_content' => get_post_field( 'post_content', get_the_ID() ),
-				'is_singular' => $is_singular,
+				// 'is_singular' => $is_singular,
 				'is_archive' => $is_archive,
 				'theme_colors' => get_option( 'theme_colors', array() ),
 				'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,

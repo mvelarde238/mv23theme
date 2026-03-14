@@ -1,5 +1,5 @@
 .main-content
-	.sidebar
+	& > .aside
 		padding: $page-module-padding
 		width: var(--sidebar-width)
 
@@ -7,12 +7,12 @@
 	&--sidebar-right
 		display: flex 
 		gap: 20px
-		.main
+		& > .main
 			flex: 1
 			min-width: 0
 			padding: $page-module-padding
 
-		.sidebar
+		& > .aside
 			flex-shrink: 0
 
 		.full-width
@@ -23,9 +23,9 @@
 			right: 0
 
 	&--sidebar-left
-		.main
+		& > .main
 			order: 1
-		.sidebar
+		& > .aside
 			order: 0
 
 .page .main
@@ -37,12 +37,12 @@
 		&--sidebar-right
 			flex-direction: column
 
-		.sidebar
+		& > .aside
 			width: 100%	
 
 		&--sidebar-left
-			.main
+			& > .main
 				order: 0
 	
-			.sidebar
+			& > .aside
 				order: 1
