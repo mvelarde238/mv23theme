@@ -9,12 +9,12 @@ use Core\Includes\Theme_Header_Data;
 use Core\Posttype\Footer;
 use Core\Posttype\Header;
 use Core\Posttype\Single_Template;
+use Core\Posttype\Archive_Template;
 use Core\Posttype\Megamenu;
 use Core\Posttype\Portfolio;
 use Core\Posttype\Document;
 use Core\Posttype\Templates_Library;
 use Core\Posttype\Reusable_Section_CPT;
-use Core\Posttype\Archive_Page;
 use Core\Theme_Options\Theme_Options;
 
 class Admin extends Theme_Header_Data {
@@ -217,9 +217,9 @@ class Admin extends Theme_Header_Data {
         Footer::getInstance()->register_posttype();
         Header::getInstance()->register_posttype();
         Single_Template::getInstance()->register_posttype();
+        Archive_Template::getInstance()->register_posttype();
         Megamenu::getInstance()->register_posttype();
         Reusable_Section_CPT::getInstance()->register_posttype();
-        Archive_Page::getInstance()->register_posttype();
 
         if( USE_PORTFOLIO_CPT ) Portfolio::getInstance()->register_posttype();
         if( USE_DOCUMENT_CPT ) Document::getInstance()->register_posttype();

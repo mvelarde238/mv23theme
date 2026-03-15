@@ -1,22 +1,13 @@
 <?php 
-use Core\Posttype\Archive_Page;
+use Core\Posttype\Archive_Template;
 
 get_header(); 
-
-$main_content_classes = array('main-content','container');
-
-$archive_page = Archive_Page::getInstance();
-$page_template_settings = $archive_page->get_page_template_settings();
-if( $page_template_settings['has_sidebar'] ) array_push($main_content_classes, $page_template_settings['class']);
 ?>
-<div id="content">
-	<div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
-		<main class="main components-wrapper">
-			<?php echo $archive_page::the_content(); ?>
-		</main>
 
-		<?php if( $page_template_settings['has_sidebar'] ) get_sidebar(); ?>
-	</div>
+<div id="content">
+    <div class="container">
+        <?php Archive_Template::getInstance()->display(); ?>
+    </div>
 </div>
 
 <?php get_footer(); ?>

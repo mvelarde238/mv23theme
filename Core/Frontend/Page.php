@@ -2,7 +2,7 @@
 namespace Core\Frontend;
 
 use Core\Builder\Template_Engine;
-use Core\Posttype\Archive_Page;
+use Core\Posttype\Archive_Template;
 
 class Page{ 
 	private $id;
@@ -15,9 +15,9 @@ class Page{
 		if(is_home() || is_404()) {
 			$page_ID = get_option( 'page_for_posts' );
 		} else if (is_archive()) {
-			$archive_page_id = Archive_Page::getInstance()->get_archive_id();
-			if (!empty($archive_page_id)) {
-				$page_ID = $archive_page_id;
+			$archive_template_id = Archive_Template::getInstance()->get_archive_template_id();
+			if (!empty($archive_template_id)) {
+				$page_ID = $archive_template_id;
 				$key = 'post';
 			} else {
 				if (is_post_type_archive()) {
@@ -190,20 +190,6 @@ class Page{
 			}
 			if ( $container ) {
 				$container_components = $container['components'] ?? [];
-	
-				// If single page, get components inside single-page-structure:
-				if( is_singular() && !empty($container_components) && $container_components[0]['type'] === 'single-page-structure' ){
-					$single_page_structure = $container_components[0];
-					$single_main = $single_page_structure['components'][0];
-					$container_components = $single_main['components'];
-				}
-
-				// If archive page, get components inside archive-page-structure:
-				if( (is_archive() || is_home()) && !empty($container_components) && $container_components[0]['type'] === 'archive-page-structure' ){
-					$archive_page_structure = $container_components[0];
-					$archive_main = $archive_page_structure['components'][0];
-					$container_components = $archive_main['components'];
-				}
 					
 				if (is_array($container_components) && !empty($container_components)) :
 					echo '<style>'.$page_content_styles.'</style>';

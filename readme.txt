@@ -2,6 +2,13 @@
 CHANGELOG
 **************************************************************************************************
 
+3.4.0 26-03-15
+- Archive Page Structure Revision: new archive structure implementation with new components and builder blocks, 
+  allowing to create templates for archive pages and assign them to post types, taxonomies or specific terms
+  -------------------------------------------------------------------------------------------------------------
+  !IMPORTANT: Use the theme migrator to migrate old archive structure implementation to archive templates
+  -------------------------------------------------------------------------------------------------------------
+
 3.3.0 26-03-14
 - Single Template Implementation: new post type "single_template" and related classes and builder components 
   to allow creating templates for single pages and assign them to post types, taxonomies or specific posts

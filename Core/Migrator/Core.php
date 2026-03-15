@@ -18,6 +18,7 @@ use Core\Migrator\Migration\Migrate_Heading_Settings;
 use Core\Migrator\Migration\Migrate_2_10_X_to_3_0_0;
 use Core\Migrator\Migration\Cleanup_2_10_X_to_3_0_0;
 use Core\Migrator\Migration\Migrate_3_2_X_to_3_3_0;
+use Core\Migrator\Migration\Migrate_3_3_0_to_3_4_0;
 
 define ('THEME_MIGRATOR_DIR', __DIR__);
 define ('THEME_MIGRATOR_PATH', get_template_directory_uri() . '/Core/Migrator');
@@ -62,6 +63,7 @@ class Core{
             Migrate_2_10_X_to_3_0_0::getInstance()->migrate();
             Cleanup_2_10_X_to_3_0_0::getInstance()->migrate();
             Migrate_3_2_X_to_3_3_0::getInstance()->migrate();
+            Migrate_3_3_0_to_3_4_0::getInstance()->migrate();
         // }
 
         add_action( 'admin_menu', array($this, 'add_admin_page') );

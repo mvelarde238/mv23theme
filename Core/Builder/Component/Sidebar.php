@@ -20,8 +20,8 @@ class Sidebar extends Component {
 
     public static function get_builder_data() {
         return array(
-			'block_category' => 'Single',
-			'posttypes' => array('single_template')
+			'block_category' => 'Template Parts',
+			'posttypes' => array('single_template','archive_template')
 		);
     }
 
@@ -29,6 +29,7 @@ class Sidebar extends Component {
 		$fields = array(
 			Field::create( 'sidebar', 'sidebar' )
 				->make_editable()
+				->set_default_value('page_sidebar')
 				->hide_label()
 		);
 		return $fields;

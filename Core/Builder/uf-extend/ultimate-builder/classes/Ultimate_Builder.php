@@ -184,10 +184,26 @@ class Ultimate_Builder {
 			$this->register_gjs_plugins();
 			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );
 
-			$posttype = get_post_type();
-			// $is_singular = in_array( $posttype, $insert_single_structure );
-			$is_archive = ( $posttype === 'archive_page') || ( get_option('page_for_posts') == get_the_ID() );
 			$user_id = get_current_user_id();
+			$posttype = get_post_type();
+			$is_singular = ( $posttype === 'single_template');
+
+			$is_archive = ( $posttype === 'archive_template') || ( get_option('page_for_posts') == get_the_ID() );
+			$archive_settings = array();
+			if($is_archive){
+				$connected_posttype = get_post_meta( get_the_ID(), 'connected_posttype', true );
+				if( $connected_posttype ){
+					$archive_settings['connected_posttype'] = $connected_posttype;
+					$connected_taxonomy = get_post_meta( get_the_ID(), 'connected_'.$connected_posttype.'_taxonomy', true );
+					if( $connected_taxonomy ){
+						$archive_settings['connected_'.$connected_posttype.'_taxonomy'] = $connected_taxonomy;
+						$connected_terms = get_post_meta( get_the_ID(), 'connected_'.$connected_taxonomy.'_terms', true );
+						if( $connected_terms ){
+							$archive_settings['connected_'.$connected_taxonomy.'_terms'] = $connected_terms;
+						}
+					}
+				}
+			}
 
 			wp_localize_script( 'builder-app', 'BUILDER_GLOBALS', array(
 				'locale' => substr( get_user_locale($user_id), 0, 2 ),
@@ -199,8 +215,9 @@ class Ultimate_Builder {
 				'nonce' => wp_create_nonce( 'ultimate_builder_preview' ),
 				'post_id' => get_the_ID(),
 				'post_content' => get_post_field( 'post_content', get_the_ID() ),
-				// 'is_singular' => $is_singular,
+				'is_singular' => $is_singular,
 				'is_archive' => $is_archive,
+				'archive_settings' => $archive_settings,
 				'theme_colors' => get_option( 'theme_colors', array() ),
 				'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
 				'masonry_is_active' => MASONRY_IS_ACTIVE,

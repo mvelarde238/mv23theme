@@ -5,7 +5,6 @@ use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Ultimate_Fields\Field;
 use Core\Builder\Component\Heading;
-use Core\Posttype\Archive_Page;
 
 class Archive_Title extends Component {
 
@@ -18,8 +17,13 @@ class Archive_Title extends Component {
 
     public static function get_builder_data() {
         return array(
-            'display_gjs_block' => false
+            'block_category' => 'Template Parts',
+            'posttypes' => array('archive_template')
 		);
+    }
+
+    public static function get_icon() {
+        return 'bi-fonts';
     }
 
     public static function get_fields() {
@@ -33,10 +37,10 @@ class Archive_Title extends Component {
         $tagline = '';
 
         // Render archive title on builder based on archive page settings
-        if( isset($args['archive_page_settings']) ){
-            $archive_page_settings = $args['archive_page_settings'];
-            $connected_posttype = $archive_page_settings['connected_posttype'] ?? null;
-            $connected_taxonomy = $archive_page_settings['connected_'.$connected_posttype.'_taxonomy'] ?? null;
+        if( isset($args['archive_settings']) ){
+            $archive_settings = $args['archive_settings'];
+            $connected_posttype = $archive_settings['connected_posttype'] ?? null;
+            $connected_taxonomy = $archive_settings['connected_'.$connected_posttype.'_taxonomy'] ?? null;
 
             if( $connected_taxonomy ){
                 $term = get_taxonomy( $connected_taxonomy );
@@ -48,13 +52,6 @@ class Archive_Title extends Component {
 
             $add_tagline = true;
             $tagline = __('This is a placeholder for the Archive Title component. It will display the actual title on the front-end archive pages.', 'mv23theme');
-        }
-
-        if(!is_admin() ) {
-            $archive_page = Archive_Page::getInstance();
-            if( $archive_page->hide_archive_title() ){
-                return '';
-            }
         }
 
         // Render default archive titles on frontend

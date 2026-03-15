@@ -21,7 +21,7 @@ class Main_Content extends Component {
     public static function get_builder_data() {
         return array(
 			'block_category' => 'Structure',
-            'posttypes' => array('single_template'),
+            'posttypes' => array('single_template','archive_template'),
             'custom_datastore_change_callback' => true
 		);
     }
@@ -31,6 +31,7 @@ class Main_Content extends Component {
 		$fields[] = Field::create( 'tab', 'template_tab', __('Template','mv23theme') );
 		$fields[] = Field::create( 'select', 'template')
 			->hide_label()
+			->set_default_value('main-content--sidebar-right')
 			->add_options(array(
 				'main-content--sidebar-left' => __('Left Sidebar','mv23theme'),
 				'main-content--sidebar-right' => __('Right Sidebar','mv23theme'),

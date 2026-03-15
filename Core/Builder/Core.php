@@ -38,13 +38,16 @@ class Core{
             'Components_Wrapper',
             'Inner_Wrapper',
             'Template_Placeholder',
+            'Main_Content',
+        ),
+        'archive' => array(
+            'Archive_Title',
+            'Archive_Posts',
         ),
         'single' => array(
-            'Main_Content',
             'Main',
             'Aside',
             'Sidebar',
-            'Single_Page_Structure',
             'Post_Title',
             'Post_Content',
             'Social_Share',
@@ -82,11 +85,6 @@ class Core{
             'OCE_Dynamic_Content',
             'Offcanvas_Element',
         ),
-        'archive' => array(
-            'Archive_Page_Structure',
-            'Archive_Title',
-            'Archive_Posts',
-        ),
         'core' => array(
             'Theme_Options',
             'Header',
@@ -112,7 +110,7 @@ class Core{
         // TODO: review if this is needed or if we can set these defaults on the options definition
         // $builder_posttypes = get_option('builder_posttypes');
         // if ( $builder_posttypes === false ) {
-            // add_option('builder_posttypes', array('post','page','megamenu','archive_page','footer','reusable_section','portfolio'));
+            // add_option('builder_posttypes', array('post','page','megamenu','footer','reusable_section','portfolio'));
             // add_option('hide_wp_editor_on', array('page'));
         // }
     }
@@ -288,7 +286,7 @@ class Core{
     */
     public static function get_post_types( $args = array() ) {
         $default_args = array(
-            'exclude_post_types' => array( 'offcanvas_element','attachment','templates_library','reusable_section','megamenu','archive_page','footer' ),
+            'exclude_post_types' => array( 'offcanvas_element','attachment','templates_library','reusable_section','megamenu','footer' ),
             'get_post_type_args' => array( 'public'=>true )
         );
         $args = wp_parse_args( $args, $default_args );

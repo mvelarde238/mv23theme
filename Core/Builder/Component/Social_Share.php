@@ -20,7 +20,7 @@ class Social_Share extends Component {
 
     public static function get_builder_data() {
         return array(
-            'block_category' => 'Single',
+            'block_category' => 'Template Parts',
             'posttypes' => array('single_template')
 		);
     }

@@ -17,7 +17,6 @@ use Core\Admin\TinyMCE;
 use Core\Frontend\Page;
 use Core\Theme_Options\Theme_Options;
 use Core\Theme_Options\Manager;
-use Core\Posttype\Archive_Page;
 use Core\Posttype\Templates_Library;
 use Core\Posttype\Document;
 use Core\Posttype\Post;
@@ -26,6 +25,7 @@ use Core\Posttype\Megamenu;
 use Core\Posttype\Footer;
 use Core\Posttype\Header;
 use Core\Posttype\Single_Template;
+use Core\Posttype\Archive_Template;
 use Core\Builder\Core as Builder;
 use Core\Offcanvas_Elements\Core as Offcanvas_Elements;
 use Core\Migrator\Core as Migrator;
@@ -221,7 +221,7 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'customize_preview_init', $theme_options, 'enqueue_uf_customize_preview_script' );
 
         // show post types count
-        $this->loader->add_action( 'init', $theme_options, 'show_cpt_count', 999 );
+        // $this->loader->add_action( 'init', $theme_options, 'show_cpt_count', 999 );
 
         // add theme options export / import manager
         $this->loader->add_action( 'admin_menu', $theme_options_manager, 'register_metabox' );
@@ -249,19 +249,6 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'wp_loaded', $offcanvas_elements, 'register_settings' );
         $this->loader->add_action( 'wp_enqueue_scripts', $offcanvas_elements, 'enqueue_scripts', 1000);
         $this->loader->add_action( 'footer_code', $offcanvas_elements, 'print_elements' );
-
-        // Archive Pages
-        $archive_pages = Archive_Page::getInstance();
-
-        // Add the meta boxes
-        $this->loader->add_action( 'uf.init', $archive_pages, 'add_meta_boxes' );
-
-        // redirect single archive page to connected posttype / taxonomy / term
-        $this->loader->add_action( 'template_redirect', $archive_pages, 'redirect_single' );
-
-        // filter archive content if needed
-        $this->loader->add_action( 'wp_head', $archive_pages, 'wp_head_archive' );
-        $this->loader->add_action( 'pre_get_posts', $archive_pages, 'pre_get_posts' );
 
         // Templates Library
         $templates_library = Templates_Library::getInstance();
@@ -305,6 +292,17 @@ class Theme extends Theme_Header_Data {
         // Single Template
         $single_template = Single_Template::getInstance();
         $this->loader->add_action( 'wp_loaded', $single_template, 'add_meta_boxes' );
+
+        // Archive Template
+        $archive_template = Archive_Template::getInstance();
+        $this->loader->add_action( 'wp_loaded', $archive_template, 'add_meta_boxes' );
+
+        // redirect single archive page to connected posttype / taxonomy / term
+        $this->loader->add_action( 'template_redirect', $archive_template, 'redirect_single' );
+
+        // filter archive content if needed
+        $this->loader->add_action( 'wp_head', $archive_template, 'wp_head_archive' );
+        $this->loader->add_action( 'pre_get_posts', $archive_template, 'pre_get_posts' );
     }
 
     private function define_cleanup_hooks() {

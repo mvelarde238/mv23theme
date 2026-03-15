@@ -7,6 +7,7 @@ use Ultimate_Fields\Field;
 use Ultimate_Fields\Location\Post_Type;
 use WP_Query;
 use Core\Frontend\Page;
+use Core\Builder\Component\Main_Content;
 
 class Single_Template {
 	
@@ -189,35 +190,37 @@ class Single_Template {
 		$posts = $loop->posts;
 
 		if( !empty($posts) ){
+			// Track matches by specificity level (higher = more specific wins)
+			$match_by_terms    = 0; // level 3: connected to specific terms
+			$match_by_taxonomy = 0; // level 2: connected to any term of a taxonomy
+			$match_by_posttype = 0; // level 1: connected to the post type with any taxonomy
+
+			$current_post_id = get_queried_object_id();
+
 			foreach ($posts as $post_id) {
 				$connected_taxonomy = get_post_meta($post_id, 'connected_'.$posttype.'_taxonomy', true);
 				if( empty($connected_taxonomy) ){
-					// the single template is configured to work with the current post type and any taxonomy, so we return the single template
-					$is_connected = $post_id;
-					break;
-				} else { 
+					// level 1: matches any post of this post type
+					if( !$match_by_posttype ) $match_by_posttype = $post_id;
+				} else {
 					$connected_terms = get_post_meta($post_id, 'connected_'.$connected_taxonomy.'_terms', true);
-
+					$post_terms = wp_get_post_terms( $current_post_id, $connected_taxonomy, array( 'fields' => 'ids' ) );
 					if( is_array($connected_terms) && !empty($connected_terms) ){
-						// the single template is configured to work with certain terms of the selected taxonomy, so we check if the current post has any of those terms, if yes we return the single template
-                        $post_terms = wp_get_post_terms( get_queried_object_id(), $connected_taxonomy, array( 'fields' => 'ids' ) );
-                        if( is_array($post_terms) && !empty($post_terms) ){
-                            $common_terms = array_intersect($connected_terms, $post_terms);
-                            if( !empty($common_terms) ){
-                                $is_connected = $post_id;
-                                break;
-                            }
-                        }
+						// level 3: matches only if the current post has one of the connected terms
+						if( !$match_by_terms && is_array($post_terms) && !empty( array_intersect( array_map('intval', $connected_terms), $post_terms ) ) ){
+							$match_by_terms = $post_id;
+						}
 					} else {
-						// the single template is configured to work with a certain taxonomy but any term of it, so we check if the current post has any term of that taxonomy, if yes we return the single template
-                        $post_terms = wp_get_post_terms( get_queried_object_id(), $connected_taxonomy, array( 'fields' => 'ids' ) );
-                        if( is_array($post_terms) && !empty($post_terms) ){
-                            $is_connected = $post_id;
-                            break;
-                        }
+						// level 2: matches if the current post has any term of the connected taxonomy
+						if( !$match_by_taxonomy && is_array($post_terms) && !empty($post_terms) ){
+							$match_by_taxonomy = $post_id;
+						}
 					}
 				}
 			}
+
+			// Return the most specific match found
+			$is_connected = $match_by_terms ?: ( $match_by_taxonomy ?: $match_by_posttype );
 		}
 
 		return $is_connected;
@@ -233,11 +236,23 @@ class Single_Template {
             }
         } else {
             // fallback to show the default content if no single template is connected to the current post type
-            the_post();
-            if( !is_singular('single_template') ){
-                the_title('<h1 class="post-title">', '</h1>');
-            }
-            the_content();
+			echo Main_Content::display(array(
+                'components' => array(
+                    array( 
+                        'type' => 'main', 
+                        'components' => array(
+                            array( 'type' => 'post-title' ),
+                            array( 'type' => 'post-content' )
+                        )
+                    ),
+                    array( 
+                        'type' => 'aside',
+                        'components' => array(
+                            array( 'type' => 'sidebar' )
+                        )
+                    )
+                )
+            ));
         }
     }
 }

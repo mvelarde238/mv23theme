@@ -60,8 +60,9 @@ class Theme_Options extends Theme_Header_Data{
         $order_list = array( 
             'theme-options',
             'edit.php?post_type=header', 
-            'edit.php?post_type=single_template',
             'edit.php?post_type=footer', 
+            'edit.php?post_type=archive_template',
+            'edit.php?post_type=single_template',
             'edit.php?post_type=offcanvas_element',
             'edit.php?post_type=megamenu', 
             'edit.php?post_type=reusable_section',
