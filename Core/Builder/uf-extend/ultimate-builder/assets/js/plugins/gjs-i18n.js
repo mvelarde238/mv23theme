@@ -36,6 +36,7 @@ window.gjsI18n = function (editor, options) {
                 show_outlines: 'MOSTRAR CONTORNOS',
                 fullscreen: 'PANTALLA COMPLETA',
                 show_code: 'MOSTRAR CÓDIGOS',
+                edit_with_wordpress: 'EDITAR CON WORDPRESS',
                 exit_to_wp_admin: 'SALIR AL ESCRITORIO',
                 // left sidebar
                 global_settings: 'Ajustes Globales',

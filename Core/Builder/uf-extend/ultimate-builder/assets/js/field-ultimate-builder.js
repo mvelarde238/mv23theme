@@ -57,7 +57,9 @@
             if( $action === 'edit' ){
                 // add the builder button
                 var $wrapper = jQuery('<div class="uf-open-builder-wrapper"><p></p></div>');
-                var $button = jQuery('<button type="button" class="button button-primary uf-open-builder"><i class="dashicons dashicons-table-col-before"></i> Edit with Ultimate Builder</button>');
+                var locale = BUILDER_GLOBALS.locale || 'en';
+                var buttonText = { es: 'Editar con Ultimate Builder', en: 'Edit with Ultimate Builder' };
+                var $button = jQuery('<button type="button" class="button button-primary uf-open-builder"><i class="dashicons dashicons-table-col-before"></i> ' + buttonText[locale] + '</button>');
                 $wrapper.find('p').append($button);
                 this.$el.append($wrapper);
 
@@ -66,7 +68,8 @@
                     // check the post param on url
                     var post_id = urlParams.get('post');
                     if ( ! post_id ) {
-                        alert('Publish the post before opening the builder.');
+                        var alertText = { es: 'Publica la entrada antes de abrir el constructor.', en: 'Publish the post before opening the builder.' };
+                        alert(alertText[locale]);
                         return;
                     } else{
                         window.location.href = builder_link;

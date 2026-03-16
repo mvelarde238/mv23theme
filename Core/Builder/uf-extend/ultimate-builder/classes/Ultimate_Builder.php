@@ -161,6 +161,47 @@ class Ultimate_Builder {
 		// FIELD SCRIPT
 		wp_register_script( 'uf-field-ultimate-builder', $assets . 'js/field-ultimate-builder.js', array('uf-field-repeater'), $v );
 		wp_register_style( 'uf-field-ultimate-builder', $assets . 'css/field.css', array(), $v );
+
+		// BUILDER GLOBALS
+		$user_id = get_current_user_id();
+		$posttype = get_post_type();
+		$is_singular = ( $posttype === 'single_template');
+
+		$is_archive = ( $posttype === 'archive_template') || ( get_option('page_for_posts') == get_the_ID() );
+		$archive_settings = array();
+		if($is_archive){
+			$connected_posttype = get_post_meta( get_the_ID(), 'connected_posttype', true );
+			if( $connected_posttype ){
+				$archive_settings['connected_posttype'] = $connected_posttype;
+				$connected_taxonomy = get_post_meta( get_the_ID(), 'connected_'.$connected_posttype.'_taxonomy', true );
+				if( $connected_taxonomy ){
+					$archive_settings['connected_'.$connected_posttype.'_taxonomy'] = $connected_taxonomy;
+					$connected_terms = get_post_meta( get_the_ID(), 'connected_'.$connected_taxonomy.'_terms', true );
+					if( $connected_terms ){
+						$archive_settings['connected_'.$connected_taxonomy.'_terms'] = $connected_terms;
+					}
+				}
+			}
+		}
+
+		wp_localize_script( 'uf-field-ultimate-builder', 'BUILDER_GLOBALS', array(
+			'locale' => substr( get_user_locale($user_id), 0, 2 ),
+			'posttype' => $posttype,
+			'page_title' => get_the_title() ?: '',
+			'referer' => wp_get_referer(),
+			'post_edit_url' => admin_url( 'post.php?post=' . get_the_ID() . '&action=edit' ),
+			'admin_url' => admin_url( 'edit.php?post_type=' . $posttype ),
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce' => wp_create_nonce( 'ultimate_builder_preview' ),
+			'post_id' => get_the_ID(),
+			'post_content' => get_post_field( 'post_content', get_the_ID() ),
+			'is_singular' => $is_singular,
+			'is_archive' => $is_archive,
+			'archive_settings' => $archive_settings,
+			'theme_colors' => get_option( 'theme_colors', array() ),
+			'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
+			'masonry_is_active' => MASONRY_IS_ACTIVE,
+		));
 	}
 
 	public function prepare_admin_for_builder() {
@@ -183,46 +224,6 @@ class Ultimate_Builder {
 			wp_register_script( 'gjs-context-menu-options', $assets . 'js/context-menu-options.js', array(), $v );
 			$this->register_gjs_plugins();
 			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );
-
-			$user_id = get_current_user_id();
-			$posttype = get_post_type();
-			$is_singular = ( $posttype === 'single_template');
-
-			$is_archive = ( $posttype === 'archive_template') || ( get_option('page_for_posts') == get_the_ID() );
-			$archive_settings = array();
-			if($is_archive){
-				$connected_posttype = get_post_meta( get_the_ID(), 'connected_posttype', true );
-				if( $connected_posttype ){
-					$archive_settings['connected_posttype'] = $connected_posttype;
-					$connected_taxonomy = get_post_meta( get_the_ID(), 'connected_'.$connected_posttype.'_taxonomy', true );
-					if( $connected_taxonomy ){
-						$archive_settings['connected_'.$connected_posttype.'_taxonomy'] = $connected_taxonomy;
-						$connected_terms = get_post_meta( get_the_ID(), 'connected_'.$connected_taxonomy.'_terms', true );
-						if( $connected_terms ){
-							$archive_settings['connected_'.$connected_taxonomy.'_terms'] = $connected_terms;
-						}
-					}
-				}
-			}
-
-			wp_localize_script( 'builder-app', 'BUILDER_GLOBALS', array(
-				'locale' => substr( get_user_locale($user_id), 0, 2 ),
-				'posttype' => $posttype,
-				'page_title' => get_the_title() ?: '',
-				'referer' => wp_get_referer(),
-				'post_edit_url' => admin_url( 'post.php?post=' . get_the_ID() . '&action=edit' ),
-				'admin_url' => admin_url( 'edit.php?post_type=' . $posttype ),
-				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'nonce' => wp_create_nonce( 'ultimate_builder_preview' ),
-				'post_id' => get_the_ID(),
-				'post_content' => get_post_field( 'post_content', get_the_ID() ),
-				'is_singular' => $is_singular,
-				'is_archive' => $is_archive,
-				'archive_settings' => $archive_settings,
-				'theme_colors' => get_option( 'theme_colors', array() ),
-				'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
-				'masonry_is_active' => MASONRY_IS_ACTIVE,
-			));
 
 			$this->filter_admin_body_class();
 			$this->clean_admin_assets();
