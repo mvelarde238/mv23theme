@@ -4,7 +4,7 @@
  */
 namespace Core\Frontend;
 
-use Core\Builder\Component\Sidebar;
+use Core\Builder\Component\Aside;
 
 class WooCommerce_Support{
 
@@ -31,10 +31,18 @@ class WooCommerce_Support{
 
     public function after_main_content(){ ?>
                 </main>
-                <?php 
-                if(is_archive() && is_active_sidebar('shop_sidebar')){
-                    echo Sidebar::display( array( 'sidebar_id' => 'shop_sidebar' ) ); 
-                }
+                <?php
+                echo Aside::display(array(
+                    'components' => array(
+                        array(
+                            'type' => 'components-wrapper',
+                            'additional_classes' => ['shop-sidebar','sticky'],
+                            'components' => array(
+                                array( 'type' => 'sidebar', 'sidebar' => 'shop_sidebar' )
+                            )
+                        )
+                    )
+                ));
                 ?>
             </div>
         </div>

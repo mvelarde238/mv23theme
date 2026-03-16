@@ -11,6 +11,7 @@ CHANGELOG
 - Reorder components to represent builder categories
 - Add "Edit with WordPress" link on builder interface
 - Update translation files
+- Fix woocommerce sidebar support
 
 3.3.0 26-03-14
 - Single Template Implementation: new post type "single_template" and related classes and builder components 
