@@ -26,23 +26,25 @@ class WooCommerce_Support{
         <div id="content">
             <div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
                 <main class="main">
-    <?php
+        <?php
     }
 
     public function after_main_content(){ ?>
                 </main>
                 <?php
-                echo Aside::display(array(
-                    'components' => array(
-                        array(
-                            'type' => 'components-wrapper',
-                            'additional_classes' => ['shop-sidebar','sticky'],
-                            'components' => array(
-                                array( 'type' => 'sidebar', 'sidebar' => 'shop_sidebar' )
+                if(is_archive() && is_active_sidebar('shop_sidebar')){
+                    echo Aside::display(array(
+                        'components' => array(
+                            array(
+                                'type' => 'components-wrapper',
+                                'additional_classes' => ['shop-sidebar','sticky'],
+                                'components' => array(
+                                    array( 'type' => 'sidebar', 'sidebar' => 'shop_sidebar' )
+                                )
                             )
                         )
-                    )
-                ));
+                    ));
+                }
                 ?>
             </div>
         </div>

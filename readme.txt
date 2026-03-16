@@ -12,6 +12,8 @@ CHANGELOG
 - Add "Edit with WordPress" link on builder interface
 - Update translation files
 - Fix woocommerce sidebar support
+- Temporaryly remove the option to assign archive and single templates to product post type, it will be added again 
+  in future releases with a more complete implementation to handle the particularities of woocommerce templates
 
 3.3.0 26-03-14
 - Single Template Implementation: new post type "single_template" and related classes and builder components 

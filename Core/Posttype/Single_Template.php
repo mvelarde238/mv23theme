@@ -105,7 +105,7 @@ class Single_Template {
 
 		# Add post types
 		$post_types = array();
-		$excluded = array( 'attachment', 'page' );
+		$excluded = array( 'attachment', 'page', 'product' );
 		foreach( get_post_types( array('public'=>true, 'exclude_from_search'=>false), 'objects' ) as $id => $post_type ) {
 			if( in_array( $id, $excluded ) ) {
 				continue;
