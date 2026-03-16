@@ -264,6 +264,9 @@ class Archive_Template {
 			$is_connected = $match_by_terms ?: ( $match_by_taxonomy ?: $match_by_posttype );
 		}
 
+		// If there isnt any archive template configured and is in blog pages (home, tag, cat) use the settings in page for posts
+		if( !$is_connected && ( is_home() || is_tag() || is_category() ) ) return get_option('page_for_posts');
+
 		return $is_connected;
 	}
 

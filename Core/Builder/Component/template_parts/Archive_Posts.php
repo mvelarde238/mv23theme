@@ -35,10 +35,10 @@ class Archive_Posts extends Component {
 		foreach ( $listing_fields as $field ) {
 			if( in_array( $field->get_name(), $exclude ) ) continue;
 
-			if( $field->get_name() === 'pagination_type' ){
-				$pagination_options = LISTING_PAGINATION_TYPES;
-				$field->remove_option('none');
-			}
+			// if( $field->get_name() === 'pagination_type' ){
+			// 	$pagination_options = LISTING_PAGINATION_TYPES;
+			// 	$field->remove_option('none');
+			// }
 
 			$fields[] = $field;
 		}

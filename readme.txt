@@ -14,6 +14,7 @@ CHANGELOG
 - Fix woocommerce sidebar support
 - Temporaryly remove the option to assign archive and single templates to product post type, it will be added again 
   in future releases with a more complete implementation to handle the particularities of woocommerce templates
+- If there isnt any archive template configured and is in blog pages (home, tag, cat) use the settings in page for posts
 
 3.3.0 26-03-14
 - Single Template Implementation: new post type "single_template" and related classes and builder components 
