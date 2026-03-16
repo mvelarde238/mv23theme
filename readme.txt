@@ -9,6 +9,7 @@ CHANGELOG
   !IMPORTANT: Use the theme migrator to migrate old archive structure implementation to archive templates
   -------------------------------------------------------------------------------------------------------------
 - Reorder components to represent builder categories
+- Add "Edit with WordPress" link on builder interface
 
 3.3.0 26-03-14
 - Single Template Implementation: new post type "single_template" and related classes and builder components 

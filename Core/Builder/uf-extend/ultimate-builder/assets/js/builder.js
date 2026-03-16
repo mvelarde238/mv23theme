@@ -65,16 +65,23 @@
                 customViewControlButtonsAfter: [
                     { 
                         id: 'exit-to-wp-admin', 
+                        label: 'EDIT WITH WORDPRESS',
+                        iconClass: 'dashicons dashicons-feedback',
+                        href: BUILDER_GLOBALS.post_edit_url,
+                        target: '_self'
+                    },
+                    { 
+                        id: 'exit-to-wp-admin', 
                         label: 'EXIT TO WP ADMIN',
                         iconClass: 'dashicons dashicons-wordpress',
                         href: BUILDER_GLOBALS.admin_url,
                         target: '_self'
                     },
-                    { 
-                        id: 'builder:log-data', 
-                        label: 'LOG PROJECT DATA',
-                        iconClass: 'dashicons dashicons-admin-generic'
-                    },
+                    // { 
+                    //     id: 'builder:log-data', 
+                    //     label: 'LOG PROJECT DATA',
+                    //     iconClass: 'dashicons dashicons-admin-generic'
+                    // },
                 ],
                 onEditor: function(editor) {
                     window['UF_Editor'] = editor;

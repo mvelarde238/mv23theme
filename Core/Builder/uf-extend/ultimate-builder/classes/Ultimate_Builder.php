@@ -210,6 +210,7 @@ class Ultimate_Builder {
 				'posttype' => $posttype,
 				'page_title' => get_the_title() ?: '',
 				'referer' => wp_get_referer(),
+				'post_edit_url' => admin_url( 'post.php?post=' . get_the_ID() . '&action=edit' ),
 				'admin_url' => admin_url( 'edit.php?post_type=' . $posttype ),
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce' => wp_create_nonce( 'ultimate_builder_preview' ),
