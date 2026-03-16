@@ -18,12 +18,6 @@ class Template_Placeholder extends Component {
         return 'dashicons-welcome-widgets-menus';
     }
 
-	public static function get_builder_data() {
-        return array(
-			'block_category' => 'Structure'
-		);
-    }
-
 	public static function get_fields() {
 		$fields = array();
 		return $fields;

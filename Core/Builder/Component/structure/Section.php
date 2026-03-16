@@ -19,12 +19,6 @@ class Section extends Component {
         return 'dashicons-align-wide';
     }
 
-	public static function get_builder_data() {
-        return array(
-            'block_category' => 'Structure'
-		);
-    }
-
 	public static function get_fields() {
 		$fields = array();
 

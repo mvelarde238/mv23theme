@@ -285,15 +285,16 @@
 
                 // Determine block category
                 const __ = editor.createTranslator(editor);
-                let block_category = __('Content');
+                let block_category = 'content';
                 const group_builder_data = group.builder_data || {};
                 if ( group_builder_data.block_category ) {
-                    block_category = __(group_builder_data.block_category);
+                    block_category = group_builder_data.block_category;
                 }
+                const block_category_name = __( block_category.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) );
 
                 editor.BlockManager.add(group.id, {
                     label: group.title,
-                    category: block_category,
+                    category: block_category_name,
                     media: group.icon ? `<i class="${icon_source} ${group.icon}"></i>` : '',
                     content: {
                         type: gjs_component_type

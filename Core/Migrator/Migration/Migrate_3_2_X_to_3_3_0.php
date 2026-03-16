@@ -29,11 +29,13 @@ class Migrate_3_2_X_to_3_3_0 extends Migrate_Components_Settings{
     public function process_page_data_batch($batch_size, $offset) {
         global $wpdb;
 
-        $insert_single_structure_on = get_option('insert_single_structure_on', array());
+        // this settings could be empty or not exist at all
+        // $insert_single_structure_on = get_option('insert_single_structure_on', array()); 
+        $posttypes_to_migrate_to_single_template = apply_filters( 'migrator_3_2_x_to_3_3_0/posttypes_to_migrate_to_single_template', array('post') );
     
         // Obtener un lote de páginas a procesar
         $meta_keys_placeholders   = implode(',', array_fill(0, count($this->meta_keys), '%s'));
-        $post_types_placeholders  = implode(',', array_fill(0, count($insert_single_structure_on), '%s'));
+        $post_types_placeholders  = implode(',', array_fill(0, count($posttypes_to_migrate_to_single_template), '%s'));
         $pages = array();
         $query = "SELECT pm.meta_id, pm.post_id, pm.meta_key, pm.meta_value, p.post_type
             FROM {$wpdb->postmeta} pm
@@ -43,7 +45,7 @@ class Migrate_3_2_X_to_3_3_0 extends Migrate_Components_Settings{
             AND p.post_type IN ($post_types_placeholders)
             LIMIT %d OFFSET %d";
         
-        $prepare_values = array_merge($this->meta_keys, $insert_single_structure_on, array($batch_size, $offset));
+        $prepare_values = array_merge($this->meta_keys, $posttypes_to_migrate_to_single_template, array($batch_size, $offset));
         $pages = $wpdb->get_results($wpdb->prepare($query, $prepare_values));
 
         $general_control = array();

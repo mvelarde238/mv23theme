@@ -20,7 +20,6 @@ class Main_Content extends Component {
 
     public static function get_builder_data() {
         return array(
-			'block_category' => 'Structure',
             'posttypes' => array('single_template','archive_template'),
             'custom_datastore_change_callback' => true
 		);

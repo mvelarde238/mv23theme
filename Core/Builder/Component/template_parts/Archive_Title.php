@@ -17,7 +17,6 @@ class Archive_Title extends Component {
 
     public static function get_builder_data() {
         return array(
-            'block_category' => 'Template Parts',
             'posttypes' => array('archive_template')
 		);
     }

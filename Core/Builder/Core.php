@@ -38,21 +38,6 @@ class Core{
             'Components_Wrapper',
             'Inner_Wrapper',
             'Template_Placeholder',
-            'Main_Content',
-        ),
-        'archive' => array(
-            'Archive_Title',
-            'Archive_Posts',
-        ),
-        'single' => array(
-            'Main',
-            'Aside',
-            'Sidebar',
-            'Post_Title',
-            'Post_Content',
-            'Social_Share',
-            'Related_Posts',
-            'Comments_Area',
         ),
         'content' => array(
             'Text_Editor',
@@ -80,6 +65,19 @@ class Core{
         ),
         'theme' => array(),
         'wrappers' => array(),
+        'template_parts' => array(
+            'Main_Content',
+            'Main',
+            'Aside',
+            'Archive_Title',
+            'Archive_Posts',
+            'Sidebar',
+            'Post_Title',
+            'Post_Content',
+            'Social_Share',
+            'Related_Posts',
+            'Comments_Area',
+        ),
         'oce' => array(
             'OCE_Modal_Content',
             'OCE_Dynamic_Content',
@@ -169,58 +167,54 @@ class Core{
     }
 
     public function init_components(){
-        // $this->add_core_components_on_demand();
+        foreach( self::$core_components as $category => $components_group ) {
+            foreach ($components_group as $componentName) {
+                // Try category subfolder first, then fall back to flat Component/ directory.
+                // The class file must keep namespace Core\Builder\Component regardless of location.
+                $category_path = 'Core/Builder/Component/' . $category . '/' . $componentName . '.php';
+                $flat_path     = 'Core/Builder/Component/' . $componentName . '.php';
 
-        foreach( self::$core_components as $key => $components_group ) {
-            foreach ($components_group as $component) {
-                do_action('before_adding_'.$component.'_components');
-
-                // Use locate_template() function to check for the class in the child theme
-                locate_template( 'Core/Builder/Component/'.$component.'.php', true, true);
-
-                do_action('after_adding_'.$component.'_components');
+                if( locate_template( $category_path ) ) {
+                    locate_template( $category_path, true, true );
+                } else {
+                    locate_template( $flat_path, true, true );
+                }
             }
-            do_action('add_'.$key.'_components');
         }
 
         do_action('theme_init_components');
     }
 
-    // public function add_core_components_on_demand(){
-    //     add_action( 'before_adding_Inner_Row_components', function(){
-    //         new \Core\Builder\Component\Simple_Columns();
-    //     });
-    //     add_action( 'before_adding_Row_components', function(){
-    //         new \Core\Builder\Component\Card();
-    //         new \Core\Builder\Component\Items_Grid;
-    //         new \Core\Builder\Component\Content_Slider;
-    //     });
-    // }
-
     public static function register_component( $component, $class_name ){
         $namespace = 'Core\Builder\Component\\';
         $class_name = str_replace($namespace,'',$class_name);
 
-        if( in_array($class_name, self::$core_components['core']) ){
-            $category = 'core';
-        } else if ( in_array($class_name, self::$core_components['wrappers']) ) {
-            $category = 'wrappers';
+        // determine the category of the component, default to 'content' if not set
+        $category = 'content';
+        $builder_data = $component->get_builder_data();
+        if( isset($builder_data['block_category']) && !empty($builder_data['block_category']) ){
+            $category = $builder_data['block_category'];
         } else {
-            $category = 'theme';
+            // if the category is not set in the builder data, we can try to find it in the core components list
+            foreach( self::$core_components as $cat => $components_group ) {
+                if ( in_array( $class_name, $components_group ) ) {
+                    $category = $cat;
+                    break;
+                }
+            }
         }
-
+        // add category to builder data to be used in the templates
+        $component->set_builder_data( array_merge( $builder_data, array('block_category' => $category) ) );
+        
         self::$components[$category][] = $component;
     }
 
     public function get_components(){
         $_components = array();
-        $order = array('core','theme','wrappers');
 
-        foreach( $order as $category ) {
-            if( isset(self::$components[$category]) ){
-                foreach ( self::$components[$category] as $component) {
-                    $_components[] = $component;
-                }
+        foreach( self::$components as $category => $components_group ) {
+            foreach ( $components_group as $component) {
+                $_components[] = $component;
             }
         }
 
