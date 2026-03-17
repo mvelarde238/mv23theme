@@ -5,6 +5,7 @@ use stdClass;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
+use Ultimate_Fields\Ultimate_Builder\Handlebars;
 
 class Image extends Component {
 
@@ -140,7 +141,7 @@ class Image extends Component {
         if( $image_source == 'external' && $args['external_image'] ){
             $attachment = new stdClass();
             $attachment->ID = 0;
-            $attachment->guid = $args['external_image'];
+            $attachment->guid = Handlebars::parse($args['external_image']);
             $attachment->post_title = '';
             $attachment->post_excerpt = '';
         }

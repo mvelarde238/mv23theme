@@ -4,6 +4,7 @@ namespace Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
+use Ultimate_Fields\Ultimate_Builder\Handlebars;
 
 class Heading extends Component {
 
@@ -254,7 +255,7 @@ class Heading extends Component {
                     '<%1$s %2$s>%3$s</%1$s>',
                     esc_attr($contents[$key]['html_tag']),
                     Template_Engine::generate_attributes( $contents[$key] ),
-                    Template_Engine::handle_placeholders(nl2br($contents[$key]['content']))
+                    Handlebars::parse(nl2br($contents[$key]['content']))
                 );
             }
         }
@@ -265,7 +266,7 @@ class Heading extends Component {
     public static function get_view_template() {
         return '<%
         h_tag = heading.html_tag;
-        h_text = __handlePlhs(heading.content);
+        h_text = __handlebars(heading.content);
         h_cls = ["heading__text"];
         if( highlighted_element == "heading" ){
             h_cls.push("highlighted");
@@ -273,7 +274,7 @@ class Heading extends Component {
         h_html = "<" + h_tag + " class=\\"" + h_cls.join(" ") + "\\"><span>" + h_text + "</span></" + h_tag + ">";
 
         t_tag = tagline.html_tag;
-        t_text = __handlePlhs(tagline.content);
+        t_text = __handlebars(tagline.content);
         t_cls = ["heading__tagline"];
         if( highlighted_element == "tagline" ){
             t_cls.push("highlighted");

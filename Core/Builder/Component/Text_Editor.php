@@ -4,6 +4,7 @@ namespace Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
+use Ultimate_Fields\Ultimate_Builder\Handlebars;
 
 class Text_Editor extends Component {
 
@@ -38,7 +39,7 @@ class Text_Editor extends Component {
 		if( Template_Engine::is_private( $args ) ) return;
 
 		$args['additional_classes'][] = 'component';
-		$content = Template_Engine::handle_placeholders($args['content']) ?? '';
+		$content = Handlebars::parse($args['content']) ?? '';
 	
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
@@ -49,7 +50,7 @@ class Text_Editor extends Component {
 
 	public static function get_view_template() {
 		return '<% 
-		filtered_content = __handlePlhs(content) 
+		filtered_content = __handlebars(content) 
 		%>
 		<%= wp.editor && wp.editor.autop ? wp.editor.autop(filtered_content) : filtered_content %>';
 	}

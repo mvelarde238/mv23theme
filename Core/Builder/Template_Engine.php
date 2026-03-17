@@ -169,21 +169,4 @@ class Template_Engine{
     
         return $is_private;
     }
-
-    public static function handle_placeholders( $content ){
-        $page = new Page();
-        $page_id = $page->get_id();
-
-        $placeholders = array(
-            '{{post.title}}' => get_the_title($page_id),
-            '{{site.title}}' => get_bloginfo( 'name' ),
-            '{{site.tagline}}' => get_bloginfo( 'description' ),
-            '{{site.url}}' => home_url( '/' ),
-            '{{current_year}}' => date('Y'),
-        );
-
-        $content = str_replace( array_keys($placeholders), array_values($placeholders), $content );
-
-        return $content;
-    }
 }

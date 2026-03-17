@@ -3,6 +3,7 @@ namespace Ultimate_Fields\Ultimate_Builder;
 
 use Ultimate_Fields\Template;
 use Ultimate_Fields\Ultimate_Builder\Editor;
+use Ultimate_Fields\Ultimate_Builder\Handlebars;
 
 /**
  * A base class for the extension, which adds and overwrites all necessary classes.
@@ -56,7 +57,6 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsCommands', 'handler' => 'gjs-commands', 'isComponent' => false ],
 		[ 'name' => 'gjsExtendComponents', 'handler' => 'gjs-extend-components', 'isComponent' => false ],
 		[ 'name' => 'handleCommonSettings', 'handler' => 'handle-common-settings', 'isComponent' => false ],
-		[ 'name' => 'gjsDynamicData', 'handler' => 'gjs-dynamic-data', 'isComponent' => false ],
 		[ 'name' => 'gjsExtendSmProperties', 'handler' => 'gjs-extend-sm-properties', 'isComponent' => false ],
 		[ 'name' => 'saveTemplateSystem', 'handler' => 'save-template-system', 'isComponent' => false ],
 		// Shared resources (must load before components that use it)
@@ -164,19 +164,21 @@ class Ultimate_Builder {
 
 		// BUILDER GLOBALS
 		$user_id = get_current_user_id();
+		$post_id = get_the_ID();
 		$posttype = get_post_type();
 		$is_singular = ( $posttype === 'single_template');
 
-		$is_archive = ( $posttype === 'archive_template') || ( get_option('page_for_posts') == get_the_ID() );
+		// archive templates data
+		$is_archive = ( $posttype === 'archive_template') || ( get_option('page_for_posts') == $post_id );
 		$archive_settings = array();
 		if($is_archive){
-			$connected_posttype = get_post_meta( get_the_ID(), 'connected_posttype', true );
+			$connected_posttype = get_post_meta( $post_id, 'connected_posttype', true );
 			if( $connected_posttype ){
 				$archive_settings['connected_posttype'] = $connected_posttype;
-				$connected_taxonomy = get_post_meta( get_the_ID(), 'connected_'.$connected_posttype.'_taxonomy', true );
+				$connected_taxonomy = get_post_meta( $post_id, 'connected_'.$connected_posttype.'_taxonomy', true );
 				if( $connected_taxonomy ){
 					$archive_settings['connected_'.$connected_posttype.'_taxonomy'] = $connected_taxonomy;
-					$connected_terms = get_post_meta( get_the_ID(), 'connected_'.$connected_taxonomy.'_terms', true );
+					$connected_terms = get_post_meta( $post_id, 'connected_'.$connected_taxonomy.'_terms', true );
 					if( $connected_terms ){
 						$archive_settings['connected_'.$connected_taxonomy.'_terms'] = $connected_terms;
 					}
@@ -189,19 +191,21 @@ class Ultimate_Builder {
 			'posttype' => $posttype,
 			'page_title' => get_the_title() ?: '',
 			'referer' => wp_get_referer(),
-			'post_edit_url' => admin_url( 'post.php?post=' . get_the_ID() . '&action=edit' ),
+			'post_edit_url' => admin_url( 'post.php?post=' . $post_id . '&action=edit' ),
 			'admin_url' => admin_url( 'edit.php?post_type=' . $posttype ),
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'nonce' => wp_create_nonce( 'ultimate_builder_preview' ),
-			'post_id' => get_the_ID(),
-			'post_content' => get_post_field( 'post_content', get_the_ID() ),
+			'post_id' => $post_id,
+			'post_content' => get_post_field( 'post_content', $post_id ),
 			'is_singular' => $is_singular,
 			'is_archive' => $is_archive,
 			'archive_settings' => $archive_settings,
 			'theme_colors' => get_option( 'theme_colors', array() ),
 			'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
 			'masonry_is_active' => MASONRY_IS_ACTIVE,
+			'context' => Handlebars::get_context(),
 		));
+		wp_add_inline_script( 'uf-field-ultimate-builder', Handlebars::get_js() );
 	}
 
 	public function prepare_admin_for_builder() {
