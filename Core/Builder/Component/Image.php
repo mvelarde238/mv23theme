@@ -39,6 +39,7 @@ class Image extends Component {
                 )),
             Field::create( 'image', 'image', __('Image','mv23theme') )->add_dependency('image_source','selfhosted','='),
             Field::create( 'text', 'external_image', 'URL')
+                ->add_dynamic_data_selector()
                 ->hide_label()->set_prefix('URL')->add_dependency('image_source','external','=')
                 ->add_suggestions( array(
                     'https://picsum.photos/600/500?random=238'

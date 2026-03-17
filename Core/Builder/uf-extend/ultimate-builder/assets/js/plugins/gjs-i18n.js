@@ -25,6 +25,8 @@ window.gjsI18n = function (editor, options) {
                 content_migration_error_message: 'Error al migrar el contenido. Por favor, inténtalo de nuevo.',
                 content_migration_success_message: 'El contenido ha sido migrado al constructor exitosamente.',
                 content_migration_unknown_error_message: 'Ocurrió un error desconocido.',
+                // Dynamic Data Selector
+                insert_dynamic_data: 'Insertar datos dinámicos',
             },
             'react-builder': {
                 // top bar

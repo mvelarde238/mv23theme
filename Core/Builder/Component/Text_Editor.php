@@ -28,6 +28,7 @@ class Text_Editor extends Component {
 	public static function get_fields() {
 		$fields = array( 
 			Field::create( 'wysiwyg', 'content' )
+				->add_dynamic_data_selector()
 				->hide_label()->set_rows( 20 )->required()
 				->set_default_value( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Quid de Pythagora? Etiam habebis sem dicantur magna mollis euismod.' )
 		);

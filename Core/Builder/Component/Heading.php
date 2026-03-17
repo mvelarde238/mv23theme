@@ -72,6 +72,7 @@ class Heading extends Component {
 			Field::create( 'complex', 'heading' )->hide_label()
                 ->add_fields( array(
                     Field::create( 'textarea', 'content', __( 'Content', 'mv23theme' ) )
+                        ->add_dynamic_data_selector()
                         ->set_rows( 5 )
                         ->set_default_value( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' )
                         ->required()
@@ -111,6 +112,7 @@ class Heading extends Component {
                 ->hide_label()
                 ->add_fields( array(
                     Field::create( 'textarea', 'content', __( 'Content', 'mv23theme' ) )
+                        ->add_dynamic_data_selector()
                         ->set_rows( 2 )
                         ->hide_label(),
                     Field::create( 'select', 'html_tag', __( 'HTML Tag', 'mv23theme' ) )

@@ -56,10 +56,15 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsExtendEditor', 'handler' => 'gjs-extend-editor', 'isComponent' => false ],
 		[ 'name' => 'gjsCommands', 'handler' => 'gjs-commands', 'isComponent' => false ],
 		[ 'name' => 'gjsExtendComponents', 'handler' => 'gjs-extend-components', 'isComponent' => false ],
+		/*
+		* gjsDynamicDataSelector, this plugin depends on:
+		- 'openDatastore' event, defined on gjsExtendComponents, to know when to attach the selector
+		*/
+		[ 'name' => 'gjsDynamicDataSelector', 'handler' => 'gjs-dynamic-data-selector', 'isComponent' => false ],
 		[ 'name' => 'handleCommonSettings', 'handler' => 'handle-common-settings', 'isComponent' => false ],
 		[ 'name' => 'gjsExtendSmProperties', 'handler' => 'gjs-extend-sm-properties', 'isComponent' => false ],
 		[ 'name' => 'saveTemplateSystem', 'handler' => 'save-template-system', 'isComponent' => false ],
-		// Shared resources (must load before components that use it)
+		// Shared resources: (must load before components that use it)
 		[ 'name' => 'gjsSharedTemplates', 'handler' => 'gjs-shared-templates', 'isComponent' => false ],
 		[ 'name' => 'handleThemeColors', 'handler' => 'handle-theme-colors', 'isComponent' => false ],
 		// components

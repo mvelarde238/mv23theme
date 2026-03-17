@@ -58,7 +58,7 @@ class Handlebars{
 		 *
 		 * Example (in child theme's functions.php):
 		 *
-		 * add_filter( 'ultimate_builder_handlebars_context', function( $context ) {
+		 * add_filter( 'filter_ultimate_builder_handlebars_context', function( $context ) {
 		 *     $context['empresa'] = array(
 		 *         'telefono' => get_option('empresa_tel'),
 		 *         'email'    => get_option('empresa_email'),
@@ -67,7 +67,7 @@ class Handlebars{
 		 * });
 		 * // then in template: {{empresa.telefono}}
 		 */
-		return apply_filters( 'ultimate_builder_handlebars_context', $context );
+		return apply_filters( 'filter_ultimate_builder_handlebars_context', $context );
 	}
 
 	/**

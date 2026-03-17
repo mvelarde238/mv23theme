@@ -170,6 +170,16 @@ abstract class Field {
 	protected $suffix;
 
 	/**
+	 * Whether to show the dynamic data token selector below this field.
+	 * When enabled, a UI control appears letting the user pick a token
+	 * (e.g. {{post.title}}) from the Handlebars context and insert it
+	 * directly into the field input.
+	 *
+	 * @var bool
+	 */
+	protected $dynamic_data_selector = false;
+
+	/**
 	 * Creates a new field based on type, name and eventually label.
 	 *
 	 * @param  string $type  The lowercase basename of the field (ex. 'text')
@@ -330,6 +340,7 @@ abstract class Field {
 		if( $this->html_attributes )    $data[ 'html_attributes' ]    = $this->html_attributes;
 		if( $this->prefix )             $data[ 'prefix' ]             = $this->prefix;
 		if( $this->suffix )             $data[ 'suffix' ]             = $this->suffix;
+		if( $this->dynamic_data_selector )       $data[ 'dynamic_data_selector' ]       = true;
 
 		if( ! empty( $this->dependencies ) ) {
 			$data[ 'dependencies' ] = $this->export_dependencies();
@@ -805,6 +816,22 @@ abstract class Field {
 	 */
 	public function get_suffix() {
 		return $this->suffix;
+	}
+
+	/**
+	 * Enables the dynamic data token selector for this field.
+	 *
+	 * When enabled, a selector widget appears below the field input in the
+	 * builder sidebar, allowing the user to browse available Handlebars tokens
+	 * (e.g. {{post.title}}, {{site.url}}) and insert them directly into the field.
+	 *
+	 * Intended for Text, Textarea and WYSIWYG fields used inside builder components.
+	 *
+	 * @return Ultimate_Fields\Field The current instance for chaining.
+	 */
+	public function add_dynamic_data_selector() {
+		$this->dynamic_data_selector = true;
+		return $this;
 	}
 
 	/**
