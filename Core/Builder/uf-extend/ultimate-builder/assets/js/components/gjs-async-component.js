@@ -38,7 +38,12 @@ window.gjsAsyncComponent = function (editor, options) {
                     dataType: "json",
                     url: BUILDER_GLOBALS.ajax_url,
                     data: asyncData,
+                    beforeSend: function() {
+                        el.classList.add('is-loading');
+                    },
                     success: function(response) {
+                        el.classList.remove('is-loading');
+    
                         if (typeof model.get('__onSuccessCallback') === 'function') {
                             model.get('__onSuccessCallback')(response, model, editor);
                         } else {
@@ -46,6 +51,7 @@ window.gjsAsyncComponent = function (editor, options) {
                         }
                     },
                     error: function(xhr, status, error) {
+                        el.classList.remove('is-loading');
                         console.error(`Error loading ${model.get('name')} component view:`, error);
                     }
                 });
