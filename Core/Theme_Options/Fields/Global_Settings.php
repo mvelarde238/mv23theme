@@ -144,6 +144,14 @@ class Global_Settings {
             ->set_text(__('Deactivate','mv23theme'))
             ->fancy();
 
+        // Disable Ultimate Fields UI
+        $uf_disable_ui_default_value = get_option( 'uf_disable_ui', false );
+        $fields[] = Field::create( 'checkbox', 'uf_disable_ui', __('Disable Ultimate Fields UI','mv23theme') )
+            ->set_default_value($uf_disable_ui_default_value)
+            ->set_text(__('Disable','mv23theme'))
+            ->set_description(__('This will hide the Ultimate Fields UI, which is used to create and manage custom fields','mv23theme'))
+            ->fancy();
+
         return $fields;
     }
 }

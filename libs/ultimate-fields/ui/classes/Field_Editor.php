@@ -38,6 +38,14 @@ class Field_Editor {
 	protected $enqueue_callbacks = array();
 
 	/**
+	 * Holds the field container instance.
+	 *
+	 * @since 3.0
+	 * @var Field_Container
+	 */
+	public $container;
+
+	/**
 	 * Returns an instance of the editor.
 	 *
 	 * @since 3.0

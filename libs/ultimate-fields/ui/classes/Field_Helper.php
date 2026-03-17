@@ -13,6 +13,14 @@ use Ultimate_Fields\Dependency\Group as Dependency_Group;
  * @since 3.0
  */
 class Field_Helper {
+
+	/**
+	 * Holds the field meta data after import.
+	 *
+	 * @var mixed[]
+	 */
+	protected $meta;
+
 	/**
 	 * Creates a new field and imports settings for it.
 	 *
