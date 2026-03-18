@@ -15,7 +15,7 @@ class Template_Placeholder extends Component {
 	}
 
 	public static function get_icon() {
-        return 'dashicons-welcome-widgets-menus';
+        return 'bi-folder2-open';
     }
 
 	public static function get_fields() {

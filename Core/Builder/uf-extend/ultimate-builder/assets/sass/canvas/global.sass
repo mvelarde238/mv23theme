@@ -2,6 +2,7 @@
 // as wrapper is the first element in the canvas
 body
     padding-top: 0 !important
+    --placeholder-color: color-mix(in srgb,currentColor 10%,transparent)
 // This is handled in the gjs-wrapper.js file by adding padding to the wrapper element 
 // instead of the body when the place_content_under_header setting is toggled on or off
 // [data-gjs-type="wrapper"]
@@ -72,7 +73,8 @@ img.gjs-plh-image
         color: #fff
 
 /* force a space to drag components into the container */
-[data-gjs-type="container"].gjs-selected-parent,
-[data-gjs-type="container"]:has(>.page-module.gjs-selected-parent)
-    transition: 200ms all
-    padding-top: 8px
+[data-gjs-type="container"]
+    padding-top: 1px
+// [data-gjs-type="container"].gjs-selected-parent,
+// [data-gjs-type="container"]:has(>.page-module.gjs-selected-parent)
+    // padding-top: 16px

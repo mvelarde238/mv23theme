@@ -4,6 +4,13 @@ window.gjsSection = function(editor) {
 
     // Use shared templates from global resource
     const sectionTemplates = window.gjsSharedResources.templates;
+    // unset the "template-placeholder" template:
+    delete sectionTemplates['template-placeholder'];
+
+    // Labels for the ui, using the editor's translator for internationalization.
+    const __ = editor.createTranslator(editor, 'ultimate_builder');
+    const templateSelectorLabel = __('Start with a layout:','start_with_a_layout');
+    const templateSelectorDragPlaceholder = __('Drag a component here to start','drag_a_component_placeholder');
 
     // Add the section type to the DomComponents
     domc.addType('section', {
@@ -74,6 +81,18 @@ window.gjsSection = function(editor) {
                 // Create main container
                 const container = document.createElement('div');
                 container.classList.add('section-template-selector');
+
+                // Create a wrapper for the empty area to allow dropping components
+                const dragPlaceholderWrapper = document.createElement('div');
+                dragPlaceholderWrapper.classList.add('drag-placeholder-wrapper');
+                dragPlaceholderWrapper.textContent = templateSelectorDragPlaceholder;
+                container.appendChild(dragPlaceholderWrapper);
+
+                // Create a wrapper for "Start with a layout:" message
+                const messageWrapper = document.createElement('div');
+                messageWrapper.classList.add('template-selector-message');
+                messageWrapper.textContent = templateSelectorLabel;
+                container.appendChild(messageWrapper);
 
                 // Create wrapper for buttons with max-width
                 const buttonsWrapper = document.createElement('div');

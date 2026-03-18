@@ -27,6 +27,10 @@ window.gjsI18n = function (editor, options) {
                 content_migration_unknown_error_message: 'Ocurrió un error desconocido.',
                 // Dynamic Data Selector
                 insert_dynamic_data: 'Insertar datos dinámicos',
+                // Section Template Selector
+                drag_a_component_placeholder: 'Arrastra un componente aquí para empezar',
+                start_with_a_layout: 'Comienza con una estructura preestablecida:',
+                quick_add_section: '+ Agregar sección',
             },
             'react-builder': {
                 // top bar

@@ -5,6 +5,7 @@ CHANGELOG
 3.4.1 26-03-17
 - Dynamic data selector Implementation
 - Enable Ultimate Fields UI by default and add an option to disable it on theme options > global settings
+- 'Quick Add Section' implementation on container component
 
 3.4.0 26-03-15
 - Archive Page Structure Revision: new archive structure implementation with new components and builder blocks, 
