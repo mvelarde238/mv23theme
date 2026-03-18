@@ -30,7 +30,8 @@ class Button extends Component {
 
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme') ), 
-            Field::create( 'text', 'text', __('Button Text', 'mv23theme') ),
+            Field::create( 'text', 'text', __('Button Text', 'mv23theme') )
+                ->add_dynamic_data_selector(),
             Field::create( 'select', 'button_style', __('Style', 'mv23theme'))
                 ->add_options( $button_styles )
                 ->set_default_value( 'btn btn--main-color' ),

@@ -1,9 +1,9 @@
 .heading--style9
     @extend %basic-global-heading-styles
-    @extend %add-small-text-block-spacing
 
     .highlighted
         display: inline-block
+        width: fit-content
         border: 1px solid
         padding: 0.5em 25px
         position: relative
@@ -18,6 +18,12 @@
             left: -10px
         &::after
             right: -10px
+
+    &.center-align
+        align-items: center
+
+    &.right-align
+        align-items: flex-end
     
     &.left-align .heading__tagline
         margin-left: 25px

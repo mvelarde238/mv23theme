@@ -8,7 +8,7 @@ window.gjsTemplatePlaceholder = function (editor) {
     let modalContent = null;
     let modal = editor.Modal;
 
-    // Labels for the form, using the editor's translator for internationalization
+    // Labels for the ui, using the editor's translator for internationalization
     const __ = editor.createTranslator(editor);
     const modalTitle = __('Templates Library', 'templates_library');
     const loadingMessage = __('Loading templates...', 'loading_templates');

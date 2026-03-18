@@ -106,6 +106,7 @@ class Heading extends Component {
             Field::create( 'checkbox', 'add_tagline' )
                 ->fancy()
                 ->set_text(__('Add Tagline','mv23theme'))
+                ->set_default_value( 1 )
                 ->hide_label(),
 
             Field::create( 'complex', 'tagline' )
@@ -113,6 +114,7 @@ class Heading extends Component {
                 ->add_fields( array(
                     Field::create( 'textarea', 'content', __( 'Content', 'mv23theme' ) )
                         ->add_dynamic_data_selector()
+                        ->set_default_value( 'LOREM IPSUM DOLOR SIT AMET' )
                         ->set_rows( 2 )
                         ->hide_label(),
                     Field::create( 'select', 'html_tag', __( 'HTML Tag', 'mv23theme' ) )
@@ -264,51 +266,6 @@ class Heading extends Component {
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
-
-    public static function get_view_template() {
-        return '<%
-        h_tag = heading.html_tag;
-        h_text = __handlebars(heading.content);
-        h_cls = ["heading__text"];
-        if( highlighted_element == "heading" ){
-            h_cls.push("highlighted");
-        }
-        h_html = "<" + h_tag + " class=\\"" + h_cls.join(" ") + "\\"><span>" + h_text + "</span></" + h_tag + ">";
-
-        t_tag = tagline.html_tag;
-        t_text = __handlebars(tagline.content);
-        t_cls = ["heading__tagline"];
-        if( highlighted_element == "tagline" ){
-            t_cls.push("highlighted");
-        }
-        t_html = "<" + t_tag + " class=\\"" + t_cls.join(" ") + "\\"><span>" + t_text + "</span></" + t_tag + ">";
-        if( !add_tagline ){
-            t_html = "";
-        }
-
-        cmp_cls = ["heading", "heading--" + preset, text_align + "-align"];
-        cmp_style = "";
-        if( accent_color.color_variable == "Use ColorPicker" ){
-            cmp_style += "--accent-color: " + accent_color.color + ";";
-        } else {
-            if( accent_color.color_variable ) {
-                if( accent_color.color_variable.startsWith("--") ) {
-                    cmp_style += "--accent-color: var(" + accent_color.color_variable + ");";
-                } else {
-                    cmp_style += "--accent-color: " + accent_color.color_variable + ";";
-                }
-            }
-        }
-
-        cmp_content = [h_html, t_html];
-        if( tagline_position == "before" ){
-            cmp_content = [t_html, h_html];
-        }
-        %>
-        <div class="<%= cmp_cls.join(" ") %>" style="<%= cmp_style %>">
-            <%= cmp_content.join("") %>
-        </div>';
-    }
 }
 
 new Heading();

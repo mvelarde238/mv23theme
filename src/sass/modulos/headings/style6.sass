@@ -2,12 +2,8 @@
     @extend %basic-global-heading-styles
 
     &:has(.heading__text.highlighted)
-        display: flex
+        flex-direction: row
         align-items: center
-        gap: .8em
-
-    &:has(.heading__tagline.highlighted)
-        @extend %add-small-text-block-spacing
 
     .highlighted
         color: #fff
@@ -27,4 +23,4 @@
         justify-content: center
 
     &.right-align
-        flex-direction: row-reverse
+        flex-direction: row-reverse !important

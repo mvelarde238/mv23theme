@@ -110,11 +110,18 @@ window.gjsCommands = function (editor, options) {
         });
     });
 
-    commands.add('update-text-align', (editor, sender, options = {}) => {
+    commands.add('update-css-property', (editor, sender, options = {}) => {
         let component = options.component,
-            value = options.align;
+            property = options.property,
+            value = options.value,
+            unit = options.unit || '';
+
+        if(unit){
+            value = value + unit;
+        }
+
         component.addStyle({
-            'text-align': value
+            [property]: value
         });
     });
 
@@ -220,29 +227,6 @@ window.gjsCommands = function (editor, options) {
         });
         component.set('lockedComponents', !lockedComponents);
     });
-
-    commands.add('update-flex-direction', (editor, sender, options = {}) => {
-        let component = options.component,
-            direction = options.direction;
-
-        let styles = {
-            'flex-direction': direction
-        };
-
-        component.addStyle(styles);
-    });
-
-    commands.add('update-content-alignment', (editor, sender, options = {}) => {
-        let component = options.component,
-            property = options.property,
-            alignment = options.alignment;
-        
-        let styles = {
-            [property]: alignment
-        };
-
-        component.addStyle(styles);
-    }); 
 
     // Icon and Text specific commands
     commands.add('update-icon-property', (editor, sender, options = {}) => {

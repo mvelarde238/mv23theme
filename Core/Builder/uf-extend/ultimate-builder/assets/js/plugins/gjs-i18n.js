@@ -103,12 +103,16 @@ window.gjsI18n = function (editor, options) {
                 select_links: 'SELECCIONAR ENLACES',
                 select_hovered_links: 'SELECCIONAR ENLACES HOVER',
                 // heading
-                select_heading: 'SELECCIONAR ENCABEZADO',
-                select_tagline: 'SELECCIONAR SUBTÍTULO',
+                select_element: 'SELECCIONAR ELEMENTO',
+                heading: 'TÍTULO',
+                tagline: 'SUBTÍTULO',
+                space_between_elements: 'ESPACIO ENTRE ELEMENTOS',
                 // button
-                text_align: 'ALINEACIÓN DE TEXTO',
+                text_align: 'ALINEACIÓN DEL TEXTO',
+                background_and_color: 'COLOR DE FONDO Y TEXTO',
                 // text-editor
                 font_size: 'TAMAÑO DEL TEXTO',
+                text_color: 'COLOR DEL TEXTO',
             }
         }
     });

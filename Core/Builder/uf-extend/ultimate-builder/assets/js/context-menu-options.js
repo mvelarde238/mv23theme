@@ -21,9 +21,9 @@ function create_text_align_actions(component){
                     let actionClass = (item == textAlign) ? 'active' : '';
                     return actionClass;
                 },
-                command: 'update-text-align',
+                command: 'update-css-property',
                 label: '<i class="bi ' + icon_names[item] + '"></i>', 
-                args: { align: item } 
+                args: { property: 'text-align', value: item } 
             };
         textAlignAction.options.push( innerAction );
     });
@@ -91,7 +91,7 @@ function color_scheme_options(component, editor){
 
 function content_alignment_options(component, editor){
     const alignment_options = [];
-    const ccaCmd = 'update-content-alignment';
+    const ccaCmd = 'update-css-property';
     const flex_direction = component.getStyle('flex-direction') || 'column';
 
     const contentAlignmentOptions = [
@@ -146,7 +146,7 @@ function content_alignment_options(component, editor){
             class: className,
             rerender: {full: true},
             command: ccaCmd, 
-            args:{ property: option.property, alignment: option.value }
+            args:{ property: option.property, value: option.value }
         });
     });
                     
@@ -154,6 +154,20 @@ function content_alignment_options(component, editor){
         type: 'options',
         title: 'CONTENT ALIGNMENT',
         options: alignment_options
+    };
+}
+
+function get_locked_cmps_action(component){
+    return {
+        type: 'button', command: 'locked-components-toggle', rerender:{partial:true},
+        class: ()=>{
+            const lockedComponents = component.get('lockedComponents');
+            return (lockedComponents) ? 'active' : ''; 
+        }, 
+        label: ()=>{
+            const lockedComponents = component.get('lockedComponents');
+            return (lockedComponents) ? 'UNLOCK INNER COMPONENTS' : 'LOCK INNER COMPONENTS'; 
+        }, 
     };
 }
 
@@ -168,13 +182,59 @@ window['contextMenuOpts'] = {
             };
             return [
                 { type:'range', title:'FONT SIZE', command:'update-font-size', min:0, value:getFontSize },
-                textAlignAction
+                textAlignAction,
+                { 
+                    type: 'color', title: 'TEXT COLOR', command: 'update-css-property', 
+                    args: { property: 'color' }, value: ()=>{ return component.getStyle('color') || ''; } 
+                },
             ]
         },
         heading: function(component){
             return [
-                { type: 'button', label: 'SELECT HEADING', command: 'query-selector', args: { selector: '.heading__text' } },
-                { type: 'button', label: 'SELECT TAGLINE', command: 'query-selector', args: { selector: '.heading__tagline' } }
+                {
+                    type: 'options', title: 'SELECT ELEMENT',
+                    options: [
+                        { type: 'button', label: 'HEADING', command: 'query-selector', args: { selector: '.heading__text' } },
+                        { type: 'button', label: 'TAGLINE', command: 'query-selector', args: { selector: '.heading__tagline' } },
+                    ]
+                },
+                { 
+                    type: 'range', title: 'SPACE BETWEEN ELEMENTS', command: 'update-css-property', min:0, max:100, 
+                    args: { property:'gap', unit:'px' }, value: ()=>{
+                        let value = parseInt(component.getStyle('gap')) || 8;
+                        return value;
+                    }
+                },
+            ]
+        },
+        button: function(component){
+            return [
+                {
+                    type: 'options', title: 'BACKGROUND & COLOR', titleKey: 'background_and_color',
+                    options: [
+                        { 
+                            type:'color', command:'update-css-property', args: { property:'background-color' },
+                            value: ()=>{ 
+                                const backgroundColor = component.getStyle('background-color') || '';
+                                return backgroundColor; 
+                            }, 
+                        },
+                        {
+                            type:'color', command:'update-css-property', args: { property:'color' },
+                            value: ()=>{
+                                const color = component.getStyle('color') || '#000000';
+                                return color;
+                            }, 
+                        },
+                    ],
+                },
+                {
+                    type: 'range', title: 'FONT SIZE', command: 'update-css-property', min:0, max:100, args: { property:'font-size', unit:'px' },
+                    value: ()=>{
+                        let value = parseInt(component.getStyle('font-size')) || 17;
+                        return value;
+                    }
+                }
             ]
         },
         menu: function(component){
@@ -224,18 +284,20 @@ window['contextMenuOpts'] = {
             actions_group_1.push(layout_options(component, editor));
             actions_group_1.push({ type: 'range', title:'SPACE BETWEEN COMPONENTS', command: 'update-gap-property', min:0, value:getGap });
 
+            actions_group_1.push(get_locked_cmps_action(component));
+
             actions_group_2.push({
                 type: 'options', title: 'FLEX DIRECTION',
                 options: [
                     { 
-                        type: 'button', label: 'HORIZONTAL',
-                        class: (flex_direction === 'row') ? 'active' : '',
-                        command: 'update-flex-direction', rerender: {full:true}, args: { direction:'row' } 
-                    },
-                    { 
                         type: 'button', label: 'VERTICAL', 
                         class: (flex_direction === 'column') ? 'active' : '', 
-                        command: 'update-flex-direction', rerender: {full:true}, args: { direction:'column' } 
+                        command: 'update-css-property', rerender: {full:true}, args: { property:'flex-direction', value:'column' } 
+                    },
+                    { 
+                        type: 'button', label: 'HORIZONTAL',
+                        class: (flex_direction === 'row') ? 'active' : '',
+                        command: 'update-css-property', rerender: {full:true}, args: { property:'flex-direction', value:'row' } 
                     },
                 ]
             });
@@ -259,6 +321,11 @@ window['contextMenuOpts'] = {
             });
 
             return actions;
+        },
+        flipbox: function(component, editor){
+            return [
+                get_locked_cmps_action(component)
+            ]
         },
         wrapper: function(component, editor){
             let actions = [
@@ -355,7 +422,7 @@ window['contextMenuOpts'] = {
                                     ]
                                 },
                                 {
-                                    type: 'range', title: 'GAP', command: 'update-icon-property', 
+                                    type: 'range', title: 'SPACE BETWEEN ELEMENTS', command: 'update-icon-property', 
                                     min:0, max:100, args: { property:'gap' }, titleTooltip: 'Space between Icon and Text',
                                     value: ()=>{
                                         const gap = parseInt(component.getStyle('gap')) || 20;

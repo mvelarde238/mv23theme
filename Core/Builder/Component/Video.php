@@ -44,7 +44,7 @@ class Video extends Component {
             
             Field::create( 'tab', __('Video Settings','mv23theme') ),
             Field::create( 'complex', 'video_settings' )->hide_label()->add_fields(array(
-                    Field::create( 'checkbox', 'controls', __('Controls','mv23theme') )->fancy()->set_attr( 'style', $control_css ),
+                    Field::create( 'checkbox', 'controls', __('Controls','mv23theme') )->fancy()->set_attr( 'style', $control_css )->set_default_value( 1 ),
                     Field::create( 'checkbox', 'autoplay', __('AutoPlay','mv23theme') )->fancy()->set_attr( 'style', $control_css ),
                     Field::create( 'checkbox', 'muted', __('Muted','mv23theme') )->fancy()->set_attr( 'style', $control_css ),
                     Field::create( 'checkbox', 'loop', __('Loop','mv23theme') )->fancy()->set_attr( 'style', $control_css ),

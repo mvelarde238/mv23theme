@@ -96,6 +96,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsIconAndText', 'handler' => 'gjs-icon-and-text', 'isComponent' => true ],
 		[ 'name' => 'gjsFlipbox', 'handler' => 'gjs-flip-box', 'isComponent' => true ],
 		[ 'name' => 'gjsCounter', 'handler' => 'gjs-counter', 'isComponent' => true ],
+		[ 'name' => 'gjsHeading', 'handler' => 'gjs-heading', 'isComponent' => true ],
 		[ 'name' => 'gjsButton', 'handler' => 'gjs-button', 'isComponent' => true ],
 		[ 'name' => 'gjsTemplatePlaceholder', 'handler' => 'gjs-template-placeholder', 'isComponent' => true ],
 		[ 'name' => 'gjsMainContent', 'handler' => 'gjs-main-content', 'isComponent' => true ],

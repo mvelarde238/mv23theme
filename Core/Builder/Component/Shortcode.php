@@ -54,6 +54,8 @@ class Shortcode extends Component {
 	}
 
 	public static function get_view_template() {
+		$no_shortcode_message = __('There isn\'t any shortcode defined.', 'mv23theme');
+
 		$template = '<div class="shortcode-component">
 			<% if ( desktop && set_mobile_shortcode && mobile ){ %>
 				<% if ( desktop === mobile ){ %>
@@ -74,7 +76,7 @@ class Shortcode extends Component {
 					<div><i class="bi bi-phone"></i> <%= mobile %></div>
 				</div>
 			<% } else { %>
-				<div class="no-shortcode">There isnt any shortcode defined</div>
+				<div class="no-shortcode">'.$no_shortcode_message.'</div>
 			<% } %>
 		</div>';
 

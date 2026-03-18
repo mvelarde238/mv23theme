@@ -15,20 +15,6 @@ window.gjsFlipbox = function (editor) {
     `;
     editor.canvasCss = config.canvasCss;
 
-    function get_locked_cmps_action(cmp){
-        return {
-            type: 'button', command: 'locked-components-toggle', rerender:{partial:true},
-            class: ()=>{
-                const lockedComponents = cmp.get('lockedComponents');
-                return (lockedComponents) ? 'active' : ''; 
-            }, 
-            label: ()=>{
-                const lockedComponents = cmp.get('lockedComponents');
-                return (lockedComponents) ? 'UNLOCK INNER COMPONENTS' : 'LOCK INNER COMPONENTS'; 
-            }, 
-        };
-    }
-
     domc.addType('flipbox-inner', {
         model: {
             defaults: {
@@ -116,11 +102,6 @@ window.gjsFlipbox = function (editor) {
                         ] 
                     }
                 ],
-                contextMenu: function (cmp) {
-                    let actions = [];
-                    actions.push(get_locked_cmps_action(cmp));
-                    return actions;
-                }
             },
             init(){},
         },
