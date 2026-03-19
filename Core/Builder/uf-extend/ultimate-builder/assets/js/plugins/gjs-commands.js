@@ -102,27 +102,23 @@ window.gjsCommands = function (editor, options) {
     });
 
     commands.add('update-font-size', (editor, sender, options = {}) => {
-        let component = options.component,
-            value = options.value;
+        const { component, value, isFinal } = options;
+        
         component.addStyle({
             'font-size': value+'px',
             'line-height': ( (value * 2) - (value / 2) )+'px'
-        });
+        }, { partial: !isFinal });
     });
 
     commands.add('update-css-property', (editor, sender, options = {}) => {
-        let component = options.component,
-            property = options.property,
-            value = options.value,
-            unit = options.unit || '';
-
+        const { component, property, value, unit, isFinal } = options;
+        let finalValue = value;
         if(unit){
-            value = value + unit;
+            finalValue = value + unit;
         }
-
         component.addStyle({
-            [property]: value
-        });
+            [property]: finalValue
+        }, { partial: !isFinal });
     });
 
     commands.add('query-selector', (editor, sender, options = {}) => {
@@ -230,9 +226,7 @@ window.gjsCommands = function (editor, options) {
 
     // Icon and Text specific commands
     commands.add('update-icon-property', (editor, sender, options = {}) => {
-        let component = options.component,
-            value = options.value,
-            property = options.property;
+        const { component, property, value } = options;
 
         if(component.getType() === 'icon-and-text'){
             const iconCmp = component.findType('icon')[0];
