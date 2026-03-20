@@ -40,6 +40,19 @@ window.gjsDatastoreUndo = function (editor) {
         return 'ds_' + (++_dsSeq);
     }
 
+    /**
+     * Fusion window (ms): consecutive datastore changes on the same
+     * component within this interval are merged into a single undo entry
+     * instead of creating one entry per keystroke.
+     */
+    var FUSION_WINDOW = 1000;
+
+    /**
+     * Per-component merge state.
+     * { [compId]: { lastTime, stackIndex, fusionIndex } }
+     */
+    var _fusionState = {};
+
     /** Reference to editor config where temporalCompStore lives. */
     const editorConfig = editor.getConfig();
 
@@ -202,6 +215,43 @@ window.gjsDatastoreUndo = function (editor) {
     /* ------------------------------------------------------------------ */
 
     function pushToStack(compId, datastore, before, after, gjsComponentName = '') {
+        var now = Date.now();
+        var fs  = _fusionState[compId];
+
+        // ── Merge path ──────────────────────────────────────────────
+        // If the previous entry for this component is still the last
+        // item in the stack AND we are within the fusion window, update
+        // its `after` snapshot instead of creating a new entry.
+        // This collapses an entire typing session into one undo step.
+        if (fs
+            && (now - fs.lastTime) < FUSION_WINDOW
+            && fs.stackIndex === stack.length - 1
+            && fs.stackIndex === stack.pointer) {
+
+            var lastEntry = stack.at(fs.stackIndex);
+            if (lastEntry && lastEntry.get('type') === 'datastoreChange') {
+                var existingBefore = lastEntry.get('before');
+                var existingAfter  = lastEntry.get('after');
+
+                // Keep the earliest `before` per key (original state)
+                for (var key in before) {
+                    if (!(key in existingBefore)) {
+                        existingBefore[key] = before[key];
+                    }
+                }
+                // Always update `after` to the latest value
+                for (var key in after) {
+                    existingAfter[key] = after[key];
+                }
+
+                fs.lastTime = now;
+                editor.trigger('update');
+                return;
+            }
+        }
+
+        // ── Normal push (no merge) ──────────────────────────────────
+
         // Trim any redo entries that sit above the current pointer
         // (same logic backbone-undo uses internally in L())
         while (stack.length - 1 > stack.pointer) {
@@ -230,6 +280,13 @@ window.gjsDatastoreUndo = function (editor) {
             stack.shift();
             stack.pointer--;
         }
+
+        // Save fusion state for potential merging of subsequent changes
+        _fusionState[compId] = {
+            lastTime:   now,
+            stackIndex: stack.length - 1,
+            fusionIndex: fusionIndex
+        };
 
         // Notify the editor so the React History panel refreshes immediately.
         editor.trigger('update');
