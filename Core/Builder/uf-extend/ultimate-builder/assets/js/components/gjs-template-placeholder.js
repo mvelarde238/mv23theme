@@ -21,11 +21,17 @@ window.gjsTemplatePlaceholder = function (editor) {
     domc.addType('template-placeholder', {
         model: {
             defaults: {
-                tagName: 'div'
+                tagName: 'div',
+                '__temp-template-selected': false,
             }
         },
         view: {
             onRender({ el, model }) {
+                // Flag to avoid undo/redo actions triggering the selector modal
+                const templateSelected = model.get('__temp-template-selected');
+                if(templateSelected) return;
+                model.set('__temp-template-selected', true);
+
                 const that = this;
                 modalContent = document.createElement('div');
                 modalContent.className = 'templates-library-gallery-wrapper';
@@ -269,5 +275,17 @@ window.gjsTemplatePlaceholder = function (editor) {
                 item.querySelector('.templates-library__thumb').style.backgroundImage = '';
             }
         }
+    });
+
+    // Before saving remove the template placeholder component 
+    // as it is just a trigger for the selector modal 
+    // and should not be saved as part of the template structure
+    editor.on('builder:before-save-editor', () => {
+        const wrapper = editor.getWrapper();
+        const container = wrapper.findType('container')[0];
+        const templatePlaceholders = container.findType('template-placeholder');
+        templatePlaceholders.forEach(placeholder => {
+            placeholder.remove({silent:true});
+        });
     });
 }

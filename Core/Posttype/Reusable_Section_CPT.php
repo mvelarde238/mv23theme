@@ -44,7 +44,7 @@ class Reusable_Section_CPT {
     }
 
     public function get_reusable_sections(){
-        $reusable_sections = array( '0'=>__('Choose','mv23theme') );
+        $reusable_sections = array( 'choose'=>__('Choose','mv23theme') );
         
         $sections = get_posts( array('post_type' => 'reusable_section','posts_per_page' => -1, 'post_status' => 'publish') );
 
@@ -86,6 +86,7 @@ class Reusable_Section extends Component{
     public static function get_fields() {
         $fields = array( 
             Field::create( 'select', 'reusable_section', __('Select', 'mv23theme') )
+                ->set_default_value('choose')
                 ->add_options( Reusable_Section_CPT::getInstance()->get_reusable_sections() )
         );
 

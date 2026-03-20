@@ -32,6 +32,7 @@ class Image extends Component {
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'radio', 'image_source', __('Source','mv23theme'))
+                ->set_default_value( 'selfhosted' )
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
                     'selfhosted' => __('Media','mv23theme'),
@@ -49,6 +50,7 @@ class Image extends Component {
     
             Field::create( 'tab', __('Caption','mv23theme') ),
             Field::create( 'radio', 'caption_source', __('Source','mv23theme'))
+                ->set_default_value( 'global' )
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
                     'global' => __('Global','mv23theme'),

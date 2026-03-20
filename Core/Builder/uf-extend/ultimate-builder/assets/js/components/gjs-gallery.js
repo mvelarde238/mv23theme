@@ -31,8 +31,9 @@ window.gjsGallery = function (editor) {
                         firstChild.removeAttribute('id');
                         el.innerHTML = temp.innerHTML;
                         
-                        // send rand number to model to force re-render of the view and trigger gallery initialization in case the gallery is being generated and rendered for the first time in the same request (like when adding a gallery component from the blocks)
-                        model.set('__temp-handle-gallery', Math.random());
+                        // Trigger a custom event to notify that the gallery content has been updated, 
+                        // so that the view can re-initialize the grid and masonry layouts
+                        model.trigger('change:__temp-handle-gallery');
                     }
                 },
             },

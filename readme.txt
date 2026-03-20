@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.4.2 26-03-20
+- gjsDatastoreUndo Implementation
+
 3.4.1 26-03-17
 - Dynamic data selector Implementation
 - Enable Ultimate Fields UI by default and add an option to disable it on theme options > global settings

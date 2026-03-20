@@ -25,6 +25,7 @@ class Video extends Component {
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme') ),
             Field::create( 'radio', 'video_source', __('Source','mv23theme'))
+                ->set_default_value( 'selfhosted' )
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
                     'selfhosted' => __('Media','mv23theme'),

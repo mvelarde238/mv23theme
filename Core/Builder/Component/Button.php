@@ -36,17 +36,23 @@ class Button extends Component {
                 ->add_options( $button_styles )
                 ->set_default_value( 'btn btn--main-color' ),
     
-            Field::create( 'radio', 'button_type',__('Type', 'mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
-                'link' => 'Link',
-                'download' => 'Descarga',
-            )),
+            Field::create( 'radio', 'button_type',__('Type', 'mv23theme'))
+                ->set_default_value( 'link' )
+                ->set_orientation( 'horizontal' )
+                ->add_options( array(
+                    'link' => 'Link',
+                    'download' => 'Descarga',
+                )),
     
             Field::create( 'file', 'file', __('File', 'mv23theme') )->add_dependency('button_type','download','='),
     
-            Field::create( 'radio', 'url_type',__('Destination', 'mv23theme'))->set_orientation( 'horizontal' )->add_options( array(
-                'interna' => __('Internal Page', 'mv23theme'),
-                'externa' => __('Other', 'mv23theme'),
-            ))->add_dependency('button_type','link','='),
+            Field::create( 'radio', 'url_type',__('Destination', 'mv23theme'))
+                ->set_default_value( 'interna' )
+                ->set_orientation( 'horizontal' )
+                ->add_options( array(
+                    'interna' => __('Internal Page', 'mv23theme'),
+                    'externa' => __('Other', 'mv23theme'),
+                ))->add_dependency('button_type','link','='),
             Field::create( 'wp_object', 'post', '' )->set_button_text( __('Select Page', 'mv23theme') )->add_dependency('button_type','link','=')->add_dependency('url_type','interna','='),
             Field::create( 'text', 'url', '' )->add_dependency('button_type','link','=')->add_dependency('url_type','externa','='),
     

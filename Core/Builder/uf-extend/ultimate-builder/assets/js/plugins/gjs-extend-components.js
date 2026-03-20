@@ -8,6 +8,10 @@ window.gjsExtendComponents = function (editor) {
     // =====================================================================
     const viewCache = {};
 
+    // Expose viewCache so other plugins (e.g. gjs-datastore-undo) can
+    // invalidate entries when datastore values change externally.
+    editor.getConfig().viewCache = viewCache;
+
     /**
      * Invalidate (destroy) a cached view for a given compId.
      * Cleans up the change handler, removes the DOM, and deletes the entry.

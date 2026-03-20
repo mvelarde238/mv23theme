@@ -56,6 +56,8 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsExtendEditor', 'handler' => 'gjs-extend-editor', 'isComponent' => false ],
 		[ 'name' => 'gjsCommands', 'handler' => 'gjs-commands', 'isComponent' => false ],
 		[ 'name' => 'gjsExtendComponents', 'handler' => 'gjs-extend-components', 'isComponent' => false ],
+		// gjsDatastoreUndo: must load after gjsExtendComponents (depends on temporalCompStore)
+		[ 'name' => 'gjsDatastoreUndo', 'handler' => 'gjs-datastore-undo', 'isComponent' => false ],
 		/*
 		* gjsDynamicDataSelector, this plugin depends on:
 		- 'openDatastore' event, defined on gjsExtendComponents, to know when to attach the selector
