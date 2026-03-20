@@ -2,6 +2,10 @@ window.gjsHeaderPreview = function (editor, options) {
     const domc = editor.DomComponents;
     const compClass = 'header-preview';
 
+    // Labels for the ui, using the editor's translator for internationalization
+    const __ = editor.createTranslator(editor);
+    const headerPreviewName = __('Header Preview');
+
     let notSelectableComponent = {
         tagName: 'div',
         droppable: false,
@@ -13,13 +17,14 @@ window.gjsHeaderPreview = function (editor, options) {
         highlightable: false,
         selectable: false,
         hoverable: false,
+        layerable: false,
     };
 
     domc.addType(compClass, {
         extend: 'async-component-abstract',
         model: {
             defaults: Object.assign({}, notSelectableComponent, {
-                name: 'Header Preview',
+                name: headerPreviewName,
                 tagName: 'section',
                 __additionalDataCallback: (model, editor) => {
                     let apply_filters = false;

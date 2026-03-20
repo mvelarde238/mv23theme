@@ -118,7 +118,7 @@ msgstr "Widgets que se muestran en el sidebar"
 #: Core/Admin/Extend_Nav_Menu_Widget.php:18
 #: Core/Builder/Component/Accordion.php:64
 #: Core/Builder/Component/Accordion.php:67
-#: Core/Builder/Component/Button.php:34
+#: Core/Builder/Component/Button.php:35
 #: Core/Builder/Component/Menu.php:77
 #: Core/Posttype/Menu_Item.php:41
 msgid "Style"
@@ -240,10 +240,10 @@ msgstr "Acordeón"
 #: Core/Builder/Component/Button.php:32
 #: Core/Builder/Component/Code.php:23
 #: Core/Builder/Component/Gallery.php:113
-#: Core/Builder/Component/Heading.php:70
-#: Core/Builder/Component/Heading.php:73
-#: Core/Builder/Component/Heading.php:112
-#: Core/Builder/Component/Image.php:32
+#: Core/Builder/Component/Heading.php:71
+#: Core/Builder/Component/Heading.php:74
+#: Core/Builder/Component/Heading.php:115
+#: Core/Builder/Component/Image.php:33
 #: Core/Builder/Component/legacy/Card.php:24
 #: Core/Builder/Component/legacy/Content_Slider.php:24
 #: Core/Builder/Component/legacy/Content_Slider.php:31
@@ -275,11 +275,12 @@ msgstr "Ninguno"
 
 #: Core/Builder/Component/Accordion_Button.php:32
 #: Core/Builder/Component/Accordion_Button.php:35
-#: Core/Builder/Component/Button.php:54
-#: Core/Builder/Component/Button.php:55
+#: Core/Builder/Component/Button.php:61
+#: Core/Builder/Component/Button.php:62
 #: Core/Builder/Component/Icon_and_Text.php:25
 #: Core/Builder/Component/Icon_and_Text.php:29
 #: Core/Builder/Component/Icon_and_Text.php:34
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-icon-and-text.js:51
 msgid "Icon"
 msgstr "Icono"
 
@@ -287,10 +288,10 @@ msgstr "Icono"
 #: Core/Builder/Component/Accordion_Button.php:40
 #: Core/Builder/Component/Icon_and_Text.php:30
 #: Core/Builder/Component/Icon_and_Text.php:40
-#: Core/Builder/Component/Image.php:14
-#: Core/Builder/Component/Image.php:39
+#: Core/Builder/Component/Image.php:15
+#: Core/Builder/Component/Image.php:41
 msgid "Image"
-msgstr "Imágen"
+msgstr "Imagen"
 
 #: Core/Builder/Component/Accordion_Button.php:46
 msgid "Image Size"
@@ -304,7 +305,7 @@ msgstr "Pequeña"
 msgid "Automatic"
 msgstr "Automático"
 
-#: Core/Builder/Component/Button.php:47
+#: Core/Builder/Component/Button.php:54
 msgid "Other"
 msgstr "Otro"
 
@@ -319,11 +320,13 @@ msgstr "Texto"
 
 #: Core/Builder/Component/structure/Page.php:14
 #: Core/Offcanvas_Elements/Restriction/Page.php:27
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:6
 msgid "Page"
 msgstr "Página"
 
 #: Core/Posttype/Reusable_Section_CPT.php:33
 #: Core/Posttype/Reusable_Section_CPT.php:71
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-reusable-section.js:7
 msgid "Reusable Section"
 msgstr "Sección Reusable"
 
@@ -332,10 +335,11 @@ msgid "Appearance"
 msgstr "Apariencia"
 
 #: Core/Builder/Component/Button.php:13
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-button.js:7
 msgid "Button"
 msgstr "Botón"
 
-#: Core/Builder/Component/Button.php:64
+#: Core/Builder/Component/Button.php:71
 #: Core/Builder/Component/Icon_and_Text.php:72
 msgid "Other settings"
 msgstr "Otros ajustes"
@@ -348,7 +352,7 @@ msgstr "Card"
 msgid "Carousel"
 msgstr "Carrusel"
 
-#: Core/Builder/Component/Button.php:46
+#: Core/Builder/Component/Button.php:53
 #: Core/Builder/containers/popup/actions_container.php:24
 msgid "Internal Page"
 msgstr "Página interna"
@@ -357,7 +361,7 @@ msgstr "Página interna"
 msgid "External Page"
 msgstr "Página externa"
 
-#: Core/Builder/Component/Button.php:49
+#: Core/Builder/Component/Button.php:56
 msgid "Select Page"
 msgstr "Selecciona una página"
 
@@ -390,7 +394,7 @@ msgid "Seconds"
 msgstr "Segundos"
 
 #: Core/Builder/Component/Carousel.php:97
-#: Core/Builder/Component/Heading.php:98
+#: Core/Builder/Component/Heading.php:100
 #: Core/Builder/Component/Icon_and_Text.php:67
 #: Core/Builder/Component/Icon_and_Text.php:79
 #: Core/Builder/Component/Icon_and_Text.php:87
@@ -427,7 +431,7 @@ msgstr "Columnas"
 msgid "Space between items"
 msgstr "Espacio entre items"
 
-#: Core/Builder/Component/Image.php:53
+#: Core/Builder/Component/Image.php:57
 #: Core/Builder/Component/Listing.php:132
 #: Core/Builder/containers/popup/scroll_animations_container.php:31
 #: Core/Builder/containers/popup/scroll_animations_container.php:165
@@ -444,6 +448,7 @@ msgid "This is used to identify the slider in the JS code. If you leave it empty
 msgstr "Usado para identificar el slider in el código JS. Si lo dejas vacío,  se generará un UID aleatorio."
 
 #: Core/Builder/Component/structure/Components_Wrapper.php:12
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-components-wrapper.js:7
 msgid "Wrapper"
 msgstr "Contenedor"
 
@@ -477,14 +482,15 @@ msgid "End"
 msgstr "Al final"
 
 #: Core/Builder/Component/Flip_Box.php:42
-#: Core/Builder/Component/Image.php:60
-#: Core/Builder/Component/Image.php:61
-#: Core/Builder/Component/Video.php:60
+#: Core/Builder/Component/Image.php:64
+#: Core/Builder/Component/Image.php:65
 #: Core/Builder/Component/Video.php:61
+#: Core/Builder/Component/Video.php:62
 msgid "Aspect Ratio"
 msgstr ""
 
 #: Core/Builder/Component/Gallery.php:25
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-gallery.js:7
 msgid "Gallery"
 msgstr "Galería"
 
@@ -498,8 +504,8 @@ msgstr "Seleccionar folder"
 
 #: Core/Builder/Component/Gallery.php:114
 #: Core/Builder/Component/Gallery.php:122
-#: Core/Builder/Component/Image.php:33
-#: Core/Builder/Component/Image.php:49
+#: Core/Builder/Component/Image.php:34
+#: Core/Builder/Component/Image.php:52
 #: Core/Builder/Component/Listing.php:72
 #: Core/Builder/Component/Video.php:27
 #: Core/Builder/containers/popup/actions_container.php:21
@@ -603,7 +609,7 @@ msgstr "Ajustes avanzados"
 msgid "Gallery ID"
 msgstr "ID de la Galería"
 
-#: Core/Builder/Component/Button.php:65
+#: Core/Builder/Component/Button.php:72
 #: Core/Builder/Component/Gallery.php:299
 #: Core/Builder/containers/popup/common_settings_container.php:26
 #: Core/Builder/containers/popup/common_settings_container.php:44
@@ -634,105 +640,106 @@ msgstr "Usar la clase css <strong>show-gallery--GALLERY-ID</strong> en un botón
 msgid "Image Quality"
 msgstr "Calidad de la imagen"
 
-#: Core/Builder/Component/Heading.php:13
-#: Core/Builder/Component/Heading.php:148
+#: Core/Builder/Component/Heading.php:14
+#: Core/Builder/Component/Heading.php:153
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-heading.js:7
 msgid "Heading"
 msgstr "Título"
 
-#: Core/Builder/Component/Heading.php:78
-#: Core/Builder/Component/Heading.php:115
+#: Core/Builder/Component/Heading.php:80
+#: Core/Builder/Component/Heading.php:120
 msgid "HTML Tag"
 msgstr ""
 
-#: Core/Builder/Component/Heading.php:80
+#: Core/Builder/Component/Heading.php:82
 msgid "H1"
 msgstr ""
 
-#: Core/Builder/Component/Heading.php:81
+#: Core/Builder/Component/Heading.php:83
 msgid "H2"
 msgstr ""
 
-#: Core/Builder/Component/Heading.php:82
+#: Core/Builder/Component/Heading.php:84
 msgid "H3"
 msgstr ""
 
-#: Core/Builder/Component/Heading.php:83
+#: Core/Builder/Component/Heading.php:85
 msgid "H4"
 msgstr ""
 
-#: Core/Builder/Component/Heading.php:84
+#: Core/Builder/Component/Heading.php:86
 msgid "H5"
 msgstr ""
 
-#: Core/Builder/Component/Heading.php:85
+#: Core/Builder/Component/Heading.php:87
 msgid "H6"
 msgstr ""
 
-#: Core/Builder/Component/Heading.php:149
+#: Core/Builder/Component/Heading.php:154
 msgid "Tagline"
 msgstr "Subtítulo"
 
-#: Core/Builder/Component/Heading.php:117
+#: Core/Builder/Component/Heading.php:122
 msgid "Paragraph"
 msgstr "Párrafo"
 
-#: Core/Builder/Component/Heading.php:118
+#: Core/Builder/Component/Heading.php:123
 msgid "Span"
 msgstr ""
 
-#: Core/Builder/Component/Heading.php:119
+#: Core/Builder/Component/Heading.php:124
 msgid "Div"
 msgstr ""
 
-#: Core/Builder/Component/Heading.php:94
+#: Core/Builder/Component/Heading.php:96
 msgid "Alignment"
 msgstr "Alineación"
 
-#: Core/Builder/Component/Button.php:60
+#: Core/Builder/Component/Button.php:67
 #: Core/Builder/Component/Carousel.php:80
 #: Core/Builder/Component/Gallery.php:99
-#: Core/Builder/Component/Heading.php:97
+#: Core/Builder/Component/Heading.php:99
 #: Core/Builder/Component/Icon_and_Text.php:49
 #: Core/Builder/Component/Icon_and_Text.php:86
 #: Core/Builder/Component/oce/Offcanvas_Element.php:57
 msgid "Left"
 msgstr "Izquierda"
 
-#: Core/Builder/Component/Button.php:61
+#: Core/Builder/Component/Button.php:68
 #: Core/Builder/Component/Carousel.php:81
 #: Core/Builder/Component/Gallery.php:100
-#: Core/Builder/Component/Heading.php:99
+#: Core/Builder/Component/Heading.php:101
 #: Core/Builder/Component/Icon_and_Text.php:57
 #: Core/Builder/Component/Icon_and_Text.php:88
 #: Core/Builder/Component/oce/Offcanvas_Element.php:58
 msgid "Right"
 msgstr "Derecha"
 
-#: Core/Builder/Component/Heading.php:128
+#: Core/Builder/Component/Heading.php:133
 msgid "Tagline Position"
 msgstr "Posición del Subtítulo"
 
-#: Core/Builder/Component/Heading.php:131
+#: Core/Builder/Component/Heading.php:136
 msgid "Before Heading"
 msgstr "Antes del título"
 
-#: Core/Builder/Component/Heading.php:132
+#: Core/Builder/Component/Heading.php:137
 msgid "After Heading"
 msgstr "Después del título"
 
-#: Core/Builder/Component/Heading.php:154
+#: Core/Builder/Component/Heading.php:159
 msgid "Accent Color"
 msgstr ""
 
-#: Core/Builder/Component/Heading.php:160
+#: Core/Builder/Component/Heading.php:165
 msgid "Color"
 msgstr "Color"
 
-#: Core/Builder/Component/Heading.php:145
+#: Core/Builder/Component/Heading.php:150
 msgid "Highlighted Element"
 msgstr "Elemento resaltado"
 
-#: Core/Builder/Component/Heading.php:138
+#: Core/Builder/Component/Heading.php:143
 msgid "Preset Style"
 msgstr "Estilo preestablecido"
 
@@ -741,6 +748,7 @@ msgid "Code"
 msgstr "Código"
 
 #: Core/Builder/Component/Icon_and_Text.php:15
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-icon-and-text.js:6
 msgid "Icon and Text"
 msgstr "Icono y Texto"
 
@@ -754,26 +762,26 @@ msgstr "Alineación del icono"
 msgid "Default"
 msgstr "Por defecto"
 
-#: Core/Builder/Component/Image.php:36
-#: Core/Builder/Component/Video.php:30
+#: Core/Builder/Component/Image.php:38
+#: Core/Builder/Component/Video.php:31
 #: Core/Builder/containers/popup/actions_container.php:45
 #: Core/Builder/containers/popup/common_settings_container.php:47
 msgid "Media"
 msgstr "Medios"
 
-#: Core/Builder/Component/Image.php:37
-#: Core/Builder/Component/Video.php:31
+#: Core/Builder/Component/Image.php:39
+#: Core/Builder/Component/Video.php:32
 #: Core/Builder/containers/popup/actions_container.php:46
 #: Core/Builder/containers/popup/common_settings_container.php:48
 msgid "External"
 msgstr "Externo"
 
-#: Core/Builder/Component/Image.php:45
-#: Core/Builder/Component/Video.php:37
+#: Core/Builder/Component/Image.php:48
+#: Core/Builder/Component/Video.php:38
 msgid "Expand on click"
 msgstr "Expandir al hacer clic"
 
-#: Core/Builder/Component/Image.php:46
+#: Core/Builder/Component/Image.php:49
 msgid "Show the image in a popup."
 msgstr "Mostrar la imágen en un pop up"
 
@@ -794,6 +802,7 @@ msgid "Items Grid"
 msgstr "Grid de Items"
 
 #: Core/Builder/Component/Listing.php:15
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-listing.js:7
 msgid "Listing"
 msgstr ""
 
@@ -1019,6 +1028,7 @@ msgid "First year"
 msgstr "Primero año"
 
 #: Core/Builder/Component/Map.php:13
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-map.js:7
 msgid "Map"
 msgstr "Mapa"
 
@@ -1073,6 +1083,7 @@ msgid "Simple Columns"
 msgstr "Columnas Simples"
 
 #: Core/Builder/Component/Spacer.php:13
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-spacer.js:7
 msgid "Spacer"
 msgstr "Separador"
 
@@ -1080,7 +1091,7 @@ msgstr "Separador"
 msgid "Testimonials"
 msgstr "Testimonios"
 
-#: Core/Builder/Component/Text_Editor.php:13
+#: Core/Builder/Component/Text_Editor.php:14
 msgid "Text editor"
 msgstr "Editor de Texto"
 
@@ -1089,34 +1100,34 @@ msgstr "Editor de Texto"
 msgid "Video"
 msgstr ""
 
-#: Core/Builder/Component/Video.php:47
+#: Core/Builder/Component/Video.php:48
 #: Core/Builder/containers/popup/common_settings_container.php:56
 msgid "Controls"
 msgstr "Controles"
 
-#: Core/Builder/Component/Video.php:48
+#: Core/Builder/Component/Video.php:49
 #: Core/Builder/containers/popup/common_settings_container.php:57
 msgid "AutoPlay"
 msgstr ""
 
-#: Core/Builder/Component/Video.php:49
+#: Core/Builder/Component/Video.php:50
 #: Core/Builder/containers/popup/common_settings_container.php:58
 msgid "Muted"
 msgstr ""
 
-#: Core/Builder/Component/Video.php:50
+#: Core/Builder/Component/Video.php:51
 #: Core/Builder/containers/popup/common_settings_container.php:59
 msgid "Loop"
 msgstr ""
 
-#: Core/Builder/Component/Video.php:51
+#: Core/Builder/Component/Video.php:52
 #: Core/Builder/containers/popup/common_settings_container.php:55
 #: Core/Posttype/Menu_Item.php:42
 msgid "Background color"
 msgstr "Color de fondo"
 
 #: Core/Builder/Component/oce/Offcanvas_Element.php:88
-#: Core/Builder/Component/Video.php:52
+#: Core/Builder/Component/Video.php:53
 #: Core/Builder/containers/popup/common_settings_container.php:60
 msgid "Opacity"
 msgstr "Transparencia"
@@ -1240,7 +1251,7 @@ msgstr "Esquema de color"
 msgid "Video background"
 msgstr "Video de fondo"
 
-#: Core/Builder/Component/Video.php:45
+#: Core/Builder/Component/Video.php:46
 #: Core/Builder/containers/popup/common_settings_container.php:54
 msgid "Video Settings"
 msgstr "Ajustes del Video"
@@ -1253,7 +1264,7 @@ msgstr "Slider de fondo"
 msgid "Border"
 msgstr "Bordes"
 
-#: Core/Builder/Component/Button.php:66
+#: Core/Builder/Component/Button.php:73
 #: Core/Builder/Content_Selector.php:25
 msgid "Add"
 msgstr "Agregar"
@@ -1266,7 +1277,7 @@ msgstr "Básico"
 msgid "Advanced"
 msgstr "Avanzado"
 
-#: Core/Builder/Component/Button.php:59
+#: Core/Builder/Component/Button.php:66
 #: Core/Builder/Component/Icon_and_Text.php:45
 #: Core/Builder/Component/oce/Offcanvas_Element.php:55
 msgid "Position"
@@ -1717,7 +1728,7 @@ msgstr ""
 msgid "Add at least one trigger event to show the element."
 msgstr "Agrega por lo menos un trigger event para mostrar el elemento"
 
-#: Core/Builder/Component/Button.php:38
+#: Core/Builder/Component/Button.php:39
 #: Core/Builder/Component/oce/Offcanvas_Element.php:35
 #: Core/Theme_Options/Fields/Typography.php:55
 msgid "Type"
@@ -1965,7 +1976,7 @@ msgstr "Categoría de documento"
 msgid "Document Categories"
 msgstr "Categorías"
 
-#: Core/Builder/Component/Button.php:43
+#: Core/Builder/Component/Button.php:47
 #: Core/Posttype/Document.php:89
 #: Core/Posttype/Document.php:129
 #: Core/Posttype/Document.php:133
@@ -2205,6 +2216,7 @@ msgstr "Opciones de Exportar/Importar"
 #: Core/Theme_Options/Theme_Options.php:40
 #: Core/Theme_Options/Theme_Options.php:41
 #: Core/Theme_Options/UF_Container/Main.php:13
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-theme-options.js:21
 msgid "Theme Options"
 msgstr "Ajustes del Tema"
 
@@ -2480,7 +2492,7 @@ msgstr "Visitas: "
 msgid "Tags: "
 msgstr "Etiquetas: "
 
-#: Core/Builder/Component/Heading.php:106
+#: Core/Builder/Component/Heading.php:108
 msgid "Add Tagline"
 msgstr "Agregar Subtítulo"
 
@@ -2590,23 +2602,23 @@ msgstr "Resultados de búsqueda para: %s"
 msgid "Button Text"
 msgstr "Texto del botón"
 
-#: Core/Builder/Component/Button.php:45
+#: Core/Builder/Component/Button.php:49
 msgid "Destination"
 msgstr "Destino"
 
-#: Core/Builder/Component/Button.php:52
+#: Core/Builder/Component/Button.php:59
 msgid "Open in a new window"
 msgstr "Abrir en una nueva ventana"
 
-#: Core/Builder/Component/Button.php:52
+#: Core/Builder/Component/Button.php:59
 msgid "Enable"
 msgstr "Activar"
 
-#: Core/Builder/Component/Button.php:65
+#: Core/Builder/Component/Button.php:72
 msgid "Full width button"
 msgstr "Botón de ancho completo"
 
-#: Core/Builder/Component/Button.php:66
+#: Core/Builder/Component/Button.php:73
 msgid "Attributes"
 msgstr "Atributos"
 
@@ -2688,11 +2700,11 @@ msgstr "Personalizar Altura de Imagen"
 msgid "Header"
 msgstr ""
 
-#: Core/Builder/Component/Heading.php:137
+#: Core/Builder/Component/Heading.php:142
 msgid "Preset styles"
 msgstr ""
 
-#: Core/Builder/Component/Heading.php:144
+#: Core/Builder/Component/Heading.php:149
 msgid "Preset settings"
 msgstr ""
 
@@ -2704,19 +2716,19 @@ msgstr "Fuente del icono:"
 msgid "Icon Position"
 msgstr "Posición del icono"
 
-#: Core/Builder/Component/Image.php:48
+#: Core/Builder/Component/Image.php:51
 msgid "Caption"
 msgstr "Leyenda"
 
-#: Core/Builder/Component/Image.php:52
+#: Core/Builder/Component/Image.php:56
 msgid "Global"
 msgstr "Global"
 
-#: Core/Builder/Component/Image.php:55
+#: Core/Builder/Component/Image.php:59
 msgid "The legend set in the Media Library will be used."
 msgstr "Se utilizará la leyenda establecida en la Biblioteca de Medios."
 
-#: Core/Builder/Component/Image.php:62
+#: Core/Builder/Component/Image.php:66
 msgid "Select a predefined aspect ratio (width / height) or set a custom one."
 msgstr "Seleccione una relación de aspecto predefinida (ancho / alto) o establezca una personalizada."
 
@@ -2840,6 +2852,7 @@ msgid "Related %s"
 msgstr "%s Relacionados"
 
 #: Core/Builder/Component/structure/Section.php:14
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-section.js:14
 msgid "Section"
 msgstr "Sección"
 
@@ -2867,7 +2880,7 @@ msgstr "Agregar Testimonio"
 msgid "Type of testimonial:"
 msgstr "Tipo de testimonio:"
 
-#: Core/Builder/Component/Video.php:43
+#: Core/Builder/Component/Video.php:44
 msgid "Show the video in a popup."
 msgstr "Mostrar el video en un popup."
 
@@ -2947,11 +2960,11 @@ msgstr "Guardando revisión&hellip;"
 msgid "Your latest changes were saved as a revision."
 msgstr "Tus últimos cambios se guardaron como una revisión."
 
-#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:327
+#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:340
 msgid "Edit Page"
 msgstr "Editar Página"
 
-#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:374
+#: Core/Builder/uf-extend/ultimate-builder/classes/Ultimate_Builder.php:387
 msgid "Post content migrated successfully"
 msgstr "Contenido de la publicación migrado con éxito"
 
@@ -2991,172 +3004,13 @@ msgstr "Seleccione los tipos de publicación donde desea ocultar el editor de te
 msgid "Hide WP Text Editor On"
 msgstr "Ocultar el editor de texto de WP en"
 
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:628
-msgid "MuiSvgIcon"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:628
-msgid "MuiTouchRipple"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:701
-msgid "MuiButtonBase"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:701
-msgid "MuiCircularProgress"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiButton"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiBox"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiBackdrop"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiModal"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiTab"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiTabScrollButton"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiTabs"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "PrivateSwitchBase"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiCheckbox"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiFormControl"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiTypography"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiInputAdornment"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiDivider"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiListItemIcon"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiListItemText"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiMenuItem"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiList"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiPaper"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiPopover"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiMenu"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiNativeSelect"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:728
-msgid "MuiSelect"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiInputBase"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiInput"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiFilledInput"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiOutlinedInput"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiFormLabel"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiInputLabel"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiFormHelperText"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiTextField"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiCollapse"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiAccordion"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiAccordionDetails"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiAccordionSummary"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiIconButton"
-msgstr ""
-
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/app.js:730
-msgid "MuiSlider"
-msgstr ""
-
 #: Core/Builder/Component/Carousel.php:78
 #: Core/Builder/Component/Gallery.php:97
 msgid "Direction"
 msgstr "Dirección"
 
 #: Core/Builder/Component/Counter.php:13
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-counter.js:7
 msgid "Counter"
 msgstr "Contador"
 
@@ -3193,6 +3047,7 @@ msgid "Sticky Header Logo"
 msgstr "Logo del Header Sticky"
 
 #: Core/Builder/Component/core/Header_Preview.php:13
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-header-preview.js:7
 msgid "Header Preview"
 msgstr "Vista Previa del Header"
 
@@ -3237,6 +3092,7 @@ msgid "Header and Footer"
 msgstr "Header y Footer"
 
 #: Core/Builder/Component/core/Footer_Preview.php:13
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-footer-preview.js:20
 msgid "Footer Preview"
 msgstr ""
 
@@ -3498,34 +3354,78 @@ msgstr "Esta plantilla se utiliza para las publicaciones de <strong>%1$s</strong
 msgid "This template is used for <strong>%1$s</strong> posts with any <strong>%2$s</strong>."
 msgstr "Esta plantilla se utiliza para las publicaciones de <strong>%1$s</strong> con cualquier <strong>%2$s</strong>."
 
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:153
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:157
 msgid "Content Detected"
 msgstr "Contenido Detectado"
 
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:154
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:158
 msgid "Saved content has been detected in the WordPress classic editor for this post. To edit it in the builder, it needs to be migrated. This action will move the content to the builder and remove it from the classic editor."
 msgstr "Se ha detectado contenido guardado en el editor clásico de WordPress para esta publicación. Para editarlo en el constructor, debe ser migrado. Esta acción moverá el contenido al constructor y lo eliminará del editor clásico."
 
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:155
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:159
 msgid "Do Not Migrate"
 msgstr "No Migrar"
 
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:156
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:160
 msgid "Migrate Content"
 msgstr "Migrar Contenido"
 
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:157
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:161
 msgid "Migrating..."
 msgstr "Migrando..."
 
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:158
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:162
 msgid "Error migrating content. Please try again."
 msgstr "Error al migrar el contenido. Por favor, inténtelo de nuevo."
 
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:159
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:163
 msgid "Content has been successfully migrated to the builder."
 msgstr "El contenido se ha migrado correctamente al constructor."
 
-#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:160
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-wrapper.js:164
 msgid "Unknown error occurred."
 msgstr "Ocurrió un error desconocido."
+
+#: Core/Builder/Component/Shortcode.php:57
+msgid "There isn't any shortcode defined."
+msgstr "No hay ningún shortcode definido."
+
+#: Core/Theme_Options/Fields/Global_Settings.php:149
+msgid "Disable Ultimate Fields UI"
+msgstr "Desactivar la interfaz de Ultimate Fields"
+
+#: Core/Theme_Options/Fields/Global_Settings.php:151
+msgid "Disable"
+msgstr "Desactivar"
+
+#: Core/Theme_Options/Fields/Global_Settings.php:152
+msgid "This will hide the Ultimate Fields UI, which is used to create and manage custom fields"
+msgstr "Esto ocultará la interfaz de Ultimate Fields, que se utiliza para crear y gestionar campos personalizados"
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-container.js:7
+msgid "+ Quick Add Section"
+msgstr "+ Agregar sección rápidamente"
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-icon-and-text.js:35
+msgid "Icon Wrapper"
+msgstr "Contenedor de icono"
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-map.js:8
+msgid "Leaflet library is not loaded."
+msgstr "La biblioteca Leaflet no está cargada."
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-map.js:9
+msgid "Google Maps library is not loaded."
+msgstr "La biblioteca de Google Maps no está cargada."
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-section.js:12
+msgid "Start with a layout:"
+msgstr "Comienza con una estructura preestablecida:"
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/components/gjs-section.js:13
+msgid "Drag a component here to start"
+msgstr "Arrastra un componente aquí para empezar"
+
+#: Core/Builder/uf-extend/ultimate-builder/assets/js/plugins/gjs-dynamic-data-selector.js:189
+msgid "Insert Dynamic Data"
+msgstr "Insertar datos dinámicos"

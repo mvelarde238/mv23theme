@@ -2,6 +2,12 @@ window.gjsMap = function (editor) {
     const domc = editor.DomComponents;
     const compClass = 'map-component';
 
+    // Labels for the ui, using the editor's translator for internationalization
+    const __ = editor.createTranslator(editor);
+    const compName = __('Map');
+    const leaflet_not_loaded_msg = __('Leaflet library is not loaded.');
+    const google_maps_not_loaded_msg = __('Google Maps library is not loaded.');
+
     // add custom css to canvasCss
     let config = editor.getConfig();
     config.canvasCss = config.canvasCss || '';
@@ -23,7 +29,7 @@ window.gjsMap = function (editor) {
         isComponent: el => el.classList && el.classList.contains(compClass),
         model: {
             defaults: {
-                name: 'Map',
+                name: compName,
                 tagName: 'div',
                 dropable: false,
                 resizable: {
@@ -99,7 +105,7 @@ window.gjsMap = function (editor) {
                 // Initialize the map
                 if (provider === 'leaflet') {
                     if (typeof L === 'undefined') {
-                        console.log('Leaflet library is not loaded.');
+                        console.log(leaflet_not_loaded_msg);
                         return;
                     }
 
@@ -133,7 +139,7 @@ window.gjsMap = function (editor) {
 
                 if (provider === 'google') {
                     if (typeof google === 'undefined' || !google.maps) {
-                        console.log('Google Maps library is not loaded.');
+                        console.log(google_maps_not_loaded_msg);
                         return;
                     }
 

@@ -1,11 +1,15 @@
 window.gjsWrapper = function (editor, options) {
     const domc = editor.DomComponents;
 
+    // Labels for the ui, using the editor's translator for internationalization
+    const __ = editor.createTranslator(editor);
+    const compName = __('Page');
+
     /* Extend Wrapper (Body) Component */
     domc.addType('wrapper', {
         model: {
             defaults: {
-                name: 'Page',
+                name: compName,
                 droppable: false,
                 highlightable: false,
                 stylable: true,

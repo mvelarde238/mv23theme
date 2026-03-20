@@ -2,11 +2,15 @@ window.gjsButton = function (editor) {
     const domc = editor.DomComponents;
     const compClass = 'button';
 
+    // Labels for the ui, using the editor's translator for internationalization
+    const __ = editor.createTranslator(editor);
+    const buttonName = __('Button');
+
     domc.addType(compClass, {
         isComponent: el => el.classList && el.classList.contains(compClass),
         model: {
             defaults: {
-                name: 'Button',
+                name: buttonName,
                 tagName: 'a',
                 droppable: false,
                 classes: [compClass]
@@ -41,7 +45,7 @@ window.gjsButton = function (editor) {
                             el.appendChild(iconEl);
                         }
                     } else {
-                        el.textContent = 'Button';
+                        el.textContent = buttonName;
                         el.style.opacity = '0.5';
                     }
                 }

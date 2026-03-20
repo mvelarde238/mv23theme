@@ -2,11 +2,15 @@ window.gjsHeading = function (editor) {
     const domc = editor.DomComponents;
     const compClass = 'heading';
 
+    // Labels for the ui, using the editor's translator for internationalization
+    const __ = editor.createTranslator(editor);
+    const headingName = __('Heading');
+
     domc.addType(compClass, {
         isComponent: el => el.classList && el.classList.contains(compClass) && el.classList.contains('component'),
         model: {
             defaults: {
-                name: 'Heading',
+                name: headingName,
                 tagName: 'div',
                 droppable: false,
                 classes: ['component', compClass],

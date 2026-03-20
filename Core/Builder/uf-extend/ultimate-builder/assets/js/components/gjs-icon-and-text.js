@@ -1,5 +1,10 @@
 window.gjsIconAndText = function(editor) {
     const domc = editor.DomComponents;
+
+    // Labels for the ui, using the editor's translator for internationalization
+    const __ = editor.createTranslator(editor);
+    const compName = __('Icon and Text');
+
     const compClass = `icon-and-text`;
     const defaultComponents = [
         { 
@@ -27,7 +32,7 @@ window.gjsIconAndText = function(editor) {
         model: {
             defaults: {
                 tagName: 'div',
-                name: 'Icon Wrapper',
+                name: __('Icon Wrapper'),
                 classes: ['icon-wrapper'],
                 draggable: false,
                 droppable: false,
@@ -43,7 +48,7 @@ window.gjsIconAndText = function(editor) {
         model: {
             defaults: {
                 tagName: 'div',
-                name: 'Icon',
+                name: __('Icon'),
                 classes: ['icon-cmp'],
                 draggable: false,
                 droppable: false,
@@ -58,7 +63,7 @@ window.gjsIconAndText = function(editor) {
         isComponent: el => el.classList && el.classList.contains(compClass),
         model: {
             defaults: {
-                name: 'Icon and Text',
+                name: compName,
                 tagName: 'div',
                 classes: [compClass,'component','icon--left'],
                 components: defaultComponents,

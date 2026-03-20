@@ -13,13 +13,17 @@ window.gjsFooterPreview = function (editor, options) {
         highlightable: false,
         selectable: false,
         hoverable: false,
+        layerable: false,
     };
+
+    const __ = editor.createTranslator(editor);
+    const footerPreviewName = __('Footer Preview');
 
     domc.addType(compClass, {
         extend: 'async-component-abstract',
         model: {
             defaults: Object.assign({}, notSelectableComponent, {
-                name: 'Footer Preview',
+                name: footerPreviewName,
                 tagName: 'section',
             }),
         },

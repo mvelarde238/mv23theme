@@ -2,6 +2,10 @@ window.gjsListing = function (editor) {
     const domc = editor.DomComponents;
     const compClass = 'listing';
 
+    // Labels for the ui, using the editor's translator for internationalization
+    const __ = editor.createTranslator(editor);
+    const compName = __('Listing');
+
     // add custom css to canvasCss
     let config = editor.getConfig();
     config.canvasCss = config.canvasCss || '';
@@ -14,7 +18,7 @@ window.gjsListing = function (editor) {
         isComponent: el => el.classList && el.classList.contains(compClass),
         model: {
             defaults: {
-                name: 'Listing',
+                name: compName,
                 tagName: 'div',
                 classes: [compClass,'component'],
                 __onSuccessCallback: (response, model, editor) => {

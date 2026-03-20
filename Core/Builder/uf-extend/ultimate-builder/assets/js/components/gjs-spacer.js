@@ -2,11 +2,15 @@ window.gjsSpacer = function (editor) {
     const domc = editor.DomComponents;
     const compClass = 'spacer';
 
+    // Labels for the ui, using the editor's translator for internationalization
+    const __ = editor.createTranslator(editor);
+    const compName = __('Spacer');
+
     domc.addType(compClass, {
         isComponent: el => el.classList && el.classList.contains(compClass),
         model: {
             defaults: {
-                name: 'Spacer',
+                name: compName,
                 tagName: 'div',
                 droppable: false,
                 resizable: {

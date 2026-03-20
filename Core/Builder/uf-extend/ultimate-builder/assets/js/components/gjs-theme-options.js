@@ -16,10 +16,14 @@ window.gjsThemeOptions = function (editor, options) {
         layerable: false
     };
 
+    // Labels for the ui, using the editor's translator for internationalization
+    const __ = editor.createTranslator(editor);
+    const compName = __('Theme Options');
+
     domc.addType(compClass, {
         model: {
             defaults: Object.assign({}, notSelectableComponent, {
-                name: 'Theme Options',
+                name: compName,
                 tagName: 'div',
                 selectable: true
             }),

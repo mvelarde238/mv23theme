@@ -5,6 +5,7 @@ CHANGELOG
 3.4.2 26-03-20
 - gjsDatastoreUndo Implementation
 - Merge consecutive datastore changes on the same component to improve undo performance
+- Update translation files
 
 3.4.1 26-03-17
 - Dynamic data selector Implementation

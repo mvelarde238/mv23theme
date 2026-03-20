@@ -11,13 +11,14 @@ window.gjsSection = function(editor) {
     const __ = editor.createTranslator(editor, 'ultimate_builder');
     const templateSelectorLabel = __('Start with a layout:','start_with_a_layout');
     const templateSelectorDragPlaceholder = __('Drag a component here to start','drag_a_component_placeholder');
+    const compName = __('Section');
 
     // Add the section type to the DomComponents
     domc.addType('section', {
         isComponent: el => el.classList && el.classList.contains(compClass),
         model: {
             defaults: {
-                name: 'Section',
+                name: compName,
                 tagName: 'div',
                 draggable: true,
                 classes: [compClass],
