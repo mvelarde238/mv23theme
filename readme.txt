@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.4.3 26-03-24
+- Add dark mode buttons on oce-element context menu options
+
 3.4.2 26-03-20
 - gjsDatastoreUndo Implementation
 - Merge consecutive datastore changes on the same component to improve undo performance

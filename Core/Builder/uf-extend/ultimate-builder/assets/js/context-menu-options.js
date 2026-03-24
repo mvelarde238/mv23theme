@@ -435,6 +435,11 @@ window['contextMenuOpts'] = {
                     ] 
                 },
             ];   
-        }
+        },
+        ['oce-element']: function(component, editor){
+            return [
+                color_scheme_options(component, editor),
+            ]
+        },
     }
 };
