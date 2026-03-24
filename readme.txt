@@ -5,6 +5,7 @@ CHANGELOG
 3.4.3 26-03-24
 - Add dark mode buttons on oce-element context menu options
 - Vertical menu item enhancement: remove hover color on dark mode for better visibility
+- Add filter, backdrop-filter and blur settings to style manager 
 
 3.4.2 26-03-20
 - gjsDatastoreUndo Implementation
