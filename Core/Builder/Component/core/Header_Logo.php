@@ -48,13 +48,13 @@ class Header_Logo extends Component {
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
         echo '<a class="header__logo__link" href="' . esc_url( home_url() ) . '">';
-        if ( $static_logo ) {
+        if ( $static_logo_id ) {
             echo '<img src="' . esc_url($static_logo) . '" alt="Header Logo" class="static-header-logo">';
         }
-        if ( $sticky_logo ) {
+        if ( $sticky_logo_id ) {
             echo '<img src="' . esc_url($sticky_logo) . '" alt="Header Logo" class="sticky-header-logo">';
         }
-        if ( !$static_logo && !$sticky_logo ) {
+        if ( !$static_logo_id && !$sticky_logo_id ) {
             echo esc_html($blog_title);
         }
         echo '</a>';
