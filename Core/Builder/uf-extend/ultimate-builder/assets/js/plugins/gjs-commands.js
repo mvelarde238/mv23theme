@@ -30,6 +30,9 @@ window.gjsCommands = function (editor, options) {
             { silent: false }
         );
 
+        // Mark editor as saved so the beforeunload warning is cleared
+        editor.clearDirtyCount();
+
         // Trigger .uf-form submit to save the post // dosn't work
         // document.querySelector('.uf-form').dispatchEvent(new Event('submit')); 
 

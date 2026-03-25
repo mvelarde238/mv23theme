@@ -7,6 +7,7 @@ CHANGELOG
 - Vertical menu item enhancement: remove hover color on dark mode for better visibility
 - Add filter, backdrop-filter and blur settings to style manager 
 - Fixes on background-size options
+- noticeOnUnload added to prevent accidental loss of changes when navigating away from the editor
 
 3.4.2 26-03-20
 - gjsDatastoreUndo Implementation

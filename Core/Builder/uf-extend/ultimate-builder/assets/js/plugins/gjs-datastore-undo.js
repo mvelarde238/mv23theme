@@ -184,6 +184,13 @@ window.gjsDatastoreUndo = function (editor) {
                 stack.track = wasTracking;
                 editor.trigger('update');
             }, 150);
+
+            // Decrement dirty counter (undoing a change = one less unsaved change)
+            var em = editor.em || editor.getModel();
+            if (em) {
+                var curr = em.get('changesCount') || 0;
+                if (curr > 0) em.set('changesCount', curr - 1);
+            }
         },
         /** Called by C() when redoing a datastoreChange entry. */
         redo: function (object, before, after, options) {
@@ -202,6 +209,13 @@ window.gjsDatastoreUndo = function (editor) {
                 stack.track = wasTracking;
                 editor.trigger('update');
             }, 150);
+
+            // Re-increment dirty counter (redoing = change is back)
+            var em = editor.em || editor.getModel();
+            if (em) {
+                var curr = em.get('changesCount') || 0;
+                em.set('changesCount', curr + 1);
+            }
         },
         /**
          * The 'on' handler is called by backbone-undo's L() for auto-tracking.
@@ -290,6 +304,14 @@ window.gjsDatastoreUndo = function (editor) {
 
         // Notify the editor so the React History panel refreshes immediately.
         editor.trigger('update');
+
+        // Increment the editor's dirty counter so that datastore changes
+        // are included in the unsaved-changes / beforeunload warning.
+        var em = editor.em || editor.getModel();
+        if (em) {
+            var curr = em.get('changesCount') || 0;
+            em.set('changesCount', curr + 1);
+        }
     }
 
     /* ------------------------------------------------------------------ */
