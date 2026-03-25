@@ -9,6 +9,7 @@ CHANGELOG
 - Fixes on background-size options
 - noticeOnUnload added to prevent accidental loss of changes when navigating away from the editor
 - Remove unnecesary flex-wrap: wrap from column component
+- styleBg plugin migrated to local implementation for better control and customization
 
 3.4.2 26-03-20
 - gjsDatastoreUndo Implementation
