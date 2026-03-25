@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.4.4 26-03-25
+- Implements a .flipbox-trigger class to trigger the flip animation from external elements
+
 3.4.3 26-03-24
 - Add dark mode buttons on oce-element context menu options
 - Vertical menu item enhancement: remove hover color on dark mode for better visibility

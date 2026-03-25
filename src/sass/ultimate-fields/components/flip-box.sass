@@ -27,13 +27,15 @@
     // horizontal flip
     &.horizontal-flip &-back
         transform: rotateY(180deg)
-    &.horizontal-flip:hover &-inner
+    &.horizontal-flip:hover &-inner,
+    .flipbox-trigger:hover &.horizontal-flip &-inner
         transform: rotateY(180deg)
 
     // vertical flip
     &.vertical-flip &-back
         transform: rotateX(180deg)
-    &.vertical-flip:hover &-inner
+    &.vertical-flip:hover &-inner,
+    .flipbox-trigger:hover &.vertical-flip &-inner
         transform: rotateX(180deg)
 
     // zoom in
@@ -43,11 +45,13 @@
         transition: 800ms all
         transform: scale(.8)
         opacity: 0
-    &.zoom-in:hover &-front
+    &.zoom-in:hover &-front,
+    .flipbox-trigger:hover &.zoom-in &-front
         transform: scale(.8)
         opacity: 0
         pointer-events: none
-    &.zoom-in:hover &-back
+    &.zoom-in:hover &-back,
+    .flipbox-trigger:hover &.zoom-in &-back
         transform: scale(1)
         opacity: 1
 
@@ -59,7 +63,9 @@
         transition: 400ms all
     &.slide-in &-back
         transform: translateX(100%)
-    &.slide-in:hover &-front
+    &.slide-in:hover &-front,
+    .flipbox-trigger:hover &.slide-in &-front
         transform: translateX(-100%)
-    &.slide-in:hover &-back
+    &.slide-in:hover &-back,
+    .flipbox-trigger:hover &.slide-in &-back
         transform: translateX(0)
