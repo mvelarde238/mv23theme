@@ -277,12 +277,15 @@ window['contextMenuOpts'] = {
 
             const getGap = ()=>{
                 let value = parseInt(component.getStyle('gap'));
-                if(isNaN(value)) value = 24;
+                if(isNaN(value)) value = 12;
                 return value;
             };
 
             actions_group_1.push(layout_options(component, editor));
-            actions_group_1.push({ type: 'range', title:'SPACE BETWEEN COMPONENTS', command: 'update-gap-property', min:0, value:getGap });
+            actions_group_1.push({ 
+                type: 'range', title:'SPACE BETWEEN COMPONENTS', command: 'update-css-property', min:0, max:100, 
+                args: { property:'gap', unit:'px' }, value:getGap 
+            });
 
             actions_group_1.push(get_locked_cmps_action(component));
 
