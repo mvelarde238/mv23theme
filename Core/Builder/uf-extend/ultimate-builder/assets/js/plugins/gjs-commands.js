@@ -261,4 +261,16 @@ window.gjsCommands = function (editor, options) {
             }
         }
     });
+
+    // Flip Box specific commands
+    commands.add('select-flipbox-side', (editor, sender, options = {}) => {
+        const { component, side } = options;
+        const sideComponent = component.findType(`flipbox-${side}`)[0];
+        if (sideComponent) {
+            editor.select(sideComponent);
+
+            // update data-visible attribute on the main flipbox component
+            component.addAttributes({ 'data-visible': side });
+        }
+    });
 }

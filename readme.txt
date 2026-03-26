@@ -6,6 +6,7 @@ CHANGELOG
 - Implements a .flipbox-trigger class to trigger the flip animation from external elements
 - review i18n keys in style manager and update to ensure all new properties and options are properly localized
 - Fix gap command on context menu options to work with the new update-css-property
+- Flipbox component review
 
 3.4.3 26-03-24
 - Add dark mode buttons on oce-element context menu options

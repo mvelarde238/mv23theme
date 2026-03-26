@@ -444,5 +444,16 @@ window['contextMenuOpts'] = {
                 color_scheme_options(component, editor),
             ]
         },
+        flipbox: function(component){
+            return [
+                {
+                    type: 'options', title: 'SELECT FLIPBOX SIDE',
+                    options: [
+                        { type: 'button', label: 'FRONT', command: 'select-flipbox-side', args: { side: 'front' } },
+                        { type: 'button', label: 'BACK', command: 'select-flipbox-side', args: { side: 'back' } },
+                    ]
+                },
+            ]
+        },
     }
 };

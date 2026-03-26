@@ -1,0 +1,50 @@
+.flipbox
+    .cmp-action
+        opacity: 0
+        box-shadow: 0 2px 4px rgba(0,0,0,0.5)
+    &:hover
+        .cmp-action
+            opacity: 1
+        &:before,
+        &:after
+            content: ""
+            position: absolute
+            left: 0
+            width: 100%
+            height: 40px
+            z-index: 1
+        &:before
+            top: 0
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0))
+        &:after
+            bottom: 0
+            background-image: linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0))
+
+    &-front, &-back
+        pointer-events: none
+    &-front > *, &-back > *
+        pointer-events: auto
+
+[data-visible="front"]
+    > .flipbox-inner
+        > .flipbox-back
+            display: none !important
+
+[data-visible="back"]
+    > .flipbox-inner
+        > .flipbox-front
+            display: none !important
+
+.toggle-flipbox
+    position: absolute
+    top: 5px
+    right: 50%
+    transform: translateX(50%)
+    z-index: 9999
+
+.preview-flipbox
+    position: absolute
+    bottom: 5px
+    right: 50%
+    transform: translateX(50%)
+    z-index: 9999

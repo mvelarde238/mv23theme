@@ -2,19 +2,6 @@ window.gjsFlipbox = function (editor) {
     const domc = editor.DomComponents;
     const cmpClass = 'flipbox';
 
-    // add custom css to canvasCss
-    let config = editor.getConfig();
-    config.canvasCss = config.canvasCss || '';
-    config.canvasCss += `
-        .flipbox .cmp-action{ opacity:0; }
-        .flipbox:hover .cmp-action{ opacity:1; }
-        [data-visible="front"]>.flipbox-inner>.flipbox-back{ display:none !important; }
-        [data-visible="back"]>.flipbox-inner>.flipbox-front{ display:none !important; }
-        .toggle-flipbox{ position:absolute; top:5px; right:50%; transform:translateX(50%); z-index:9999; }
-        .preview-flipbox{ position:absolute; bottom:5px; right:50%; transform:translateX(50%); z-index:9999; }
-    `;
-    editor.canvasCss = config.canvasCss;
-
     domc.addType('flipbox-inner', {
         model: {
             defaults: {
@@ -47,17 +34,17 @@ window.gjsFlipbox = function (editor) {
                 hoverable: true,
                 classes: ['flipbox-front'],
                 components: [
-                    { 
-                        type: 'figure',
-                        style: { width: '100%' },
-                        components: [
+                    // { 
+                        // type: 'figure',
+                        // style: { width: '100%' },
+                        // components: [
                             { 
                                 type: 'image-component',
                                 style: { 'aspect-ratio': '4/3' },
                             },
-                            { type: 'figcaption' }
-                        ]
-                    }
+                            // { type: 'figcaption' }
+                        // ]
+                    // }
                 ],
             },
         }
