@@ -33,6 +33,12 @@ window.gjsExtendEditor = function (editor) {
         return UltimateFields.Field.File.Cache.get(file_id);
     }
 
+    editor.getComponentStyle = function(component, styleProperty, defaultValue = '' ) {
+        const propertyValue = component.getStyle(styleProperty);
+        if ( typeof propertyValue === 'object') return defaultValue;
+        return propertyValue || defaultValue;
+    }
+
     // Helpers for I18n
     const toKey = (value) => String(value)
         .trim()

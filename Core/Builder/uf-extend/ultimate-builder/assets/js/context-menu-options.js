@@ -89,10 +89,9 @@ function color_scheme_options(component, editor){
     };
 }
 
-function content_alignment_options(component, editor){
+function content_alignment_options(component, editor, flex_direction){
     const alignment_options = [];
     const ccaCmd = 'update-css-property';
-    const flex_direction = component.getStyle('flex-direction') || 'column';
 
     const contentAlignmentOptions = [
         { property:'justify-content', value:'flex-start', tooltip:'Top', icon:'' },
@@ -107,6 +106,11 @@ function content_alignment_options(component, editor){
         { property:'justify-content', value:'space-between', tooltip:'Between', icon:'' },
         { property:'justify-content', value:'space-evenly', tooltip:'Evenly', icon:'' },
     ];
+
+    const defaultValues = {
+        'justify-content': 'flex-start',
+        'align-items': 'flex-start'
+    };
 
     contentAlignmentOptions.forEach(option => {
         if( option.type && option.type === 'break' ){
@@ -134,7 +138,7 @@ function content_alignment_options(component, editor){
 
         // Determine if the current option is active based on the component's styles
         let className = '';
-        let currentValue = component.getStyle(option.property) || '';
+        let currentValue = editor.getComponentStyle(component, option.property, defaultValues[option.property]);
         if( currentValue === option.value ){
             className = 'active';
         }
@@ -149,7 +153,7 @@ function content_alignment_options(component, editor){
             args:{ property: option.property, value: option.value }
         });
     });
-                    
+
     return {
         type: 'options',
         title: 'CONTENT ALIGNMENT',
@@ -270,10 +274,10 @@ window['contextMenuOpts'] = {
             let actions = [],
                 actions_group_1 = [],
                 actions_group_2 = [];
+            
+            const flex_direction = editor.getComponentStyle(component, 'flex-direction', 'column');
 
-            const flex_direction = component.getStyle('flex-direction') || 'column';
-
-            const contentAlignmentOptions = content_alignment_options(component, editor);
+            const contentAlignmentOptions = content_alignment_options(component, editor, flex_direction);
 
             const getGap = ()=>{
                 let value = parseInt(component.getStyle('gap'));

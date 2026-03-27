@@ -8,6 +8,7 @@ CHANGELOG
   !IMPORTANT: Use the migrator to update old icon and text components to use the new icon box component
   -------------------------------------------------------------------------------------------------------------
 - Compile styles directly from page_content post meta instead of using a page_content_styles meta
+- Review components-wrapper context menu options 
 
 3.4.4 26-03-25
 - Implements a .flipbox-trigger class to trigger the flip animation from external elements
