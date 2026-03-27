@@ -106,12 +106,19 @@ class Core{
 
     public function set_initial_values(){
         // Set default values for builder options if they don't exist
-        // TODO: review if this is needed or if we can set these defaults on the options definition
-        // $builder_posttypes = get_option('builder_posttypes');
-        // if ( $builder_posttypes === false ) {
-            // add_option('builder_posttypes', array('post','page','megamenu','footer','reusable_section','portfolio'));
-            // add_option('hide_wp_editor_on', array('page'));
-        // }
+        $builder_posttypes = get_option('builder_posttypes');
+        if ( $builder_posttypes === false ) {
+            add_option('builder_posttypes', array(
+                        'page',
+                        'megamenu',
+                        'footer',
+                        'reusable_section',
+                        'header',
+                        'single_template',
+                        'archive_template'
+                        ));
+            add_option('hide_wp_editor_on', array('page'));
+        }
     }
 
     public function hide_editor(){
