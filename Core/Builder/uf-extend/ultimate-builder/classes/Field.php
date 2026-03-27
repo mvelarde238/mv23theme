@@ -77,7 +77,6 @@ class Field extends Repeater {
 	public function export_data() {    
         $builder_data = $this->get_value( $this->name );
         $components_data_raw = $this->get_value( $this->name.'_datastore' );
-        $styles = $this->get_value( $this->name.'_styles' );
 		
 		# Use the default value if needed
 		if( null === $builder_data && is_array( $this->default_value ) ) {
@@ -109,7 +108,6 @@ class Field extends Repeater {
 		return array(
 			$this->name => $builder_data,
 			$this->name.'_datastore' => $components_data,
-			$this->name.'_styles' => $styles,
 			$this->name.'_builder_link' => $builder_link,
 			$this->name.'_theme_styles' => $this->get_styles(),
 			$this->name.'_theme_scripts' => $this->get_scripts(),
@@ -132,7 +130,6 @@ class Field extends Repeater {
 	public function save( $source ) {
 		$builder_data = array();
         $components_data = array();
-		$builder_styles = '';
 
         // error_log( print_r( $source[ $this->name ]['components_data'], true ) );
 
@@ -166,14 +163,10 @@ class Field extends Repeater {
 				}
             }
 
-			if( isset( $source[ $this->name ]['css'] ) ){
-				$builder_styles = $source[ $this->name ]['css'];
-			}
 		}
 
 		$this->datastore->set( $this->name, $builder_data );
 		$this->datastore->set( $this->name.'_datastore', $components_data );
-		$this->datastore->set( $this->name.'_styles', $builder_styles );
 	}
 
 	/**

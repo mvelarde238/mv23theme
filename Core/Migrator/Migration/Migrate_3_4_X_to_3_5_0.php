@@ -2,6 +2,7 @@
 /**
  * Migration class for migrating from version 3.4.X to 3.5.0
  * This migration will handle the changes related to the Icon Box component implementation.
+ * Additionally, it will clean up old plain styles meta
  */
 namespace Core\Migrator\Migration;
 
@@ -20,7 +21,7 @@ class Migrate_3_4_X_to_3_5_0 extends Migrate_Components_Settings_v3{
     private function __construct(){
         $batch_size = 3;
         $do_the_update = true;
-        $delete_old_data = false;
+        $delete_old_data = true;
         $title = 'Migrate 3.4.X to 3.5.0 ( Icon Box Implementation )';
         $slug = 'migrate_3_4_x_to_3_5_0';
         $is_top_level = false;
@@ -132,5 +133,11 @@ class Migrate_3_4_X_to_3_5_0 extends Migrate_Components_Settings_v3{
         }
 
         unset($entry);
+    }
+
+    protected function after_page_migration( $post_id ) {
+        if ( $this->delete_old_data ) {
+            delete_post_meta( $post_id, 'page_content_styles' );
+        }
     }
 }

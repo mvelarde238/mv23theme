@@ -166,12 +166,68 @@ class Page{
 		return $component;
 	}
 
+	/**
+	 * Compiles the structured styles array from page_content into a CSS string.
+	 * 
+	 * @param array $styles The page_content['styles'] array with GrapesJS style rules.
+	 * @return string Compiled CSS string.
+	 */
+	public static function compile_styles_to_css( $styles ) {
+		if ( !is_array($styles) || empty($styles) ) {
+			return '';
+		}
+
+		$css = '';
+
+		foreach ( $styles as $style_rule ) {
+			if ( !isset($style_rule['style']) || !is_array($style_rule['style']) || empty($style_rule['style']) ) {
+				continue;
+			}
+
+			// Build selector string from selectors array
+			$selectors = isset($style_rule['selectors']) ? $style_rule['selectors'] : array();
+			$selector_parts = array();
+			foreach ( $selectors as $selector ) {
+				if ( is_string($selector) ) {
+					$selector_parts[] = $selector;
+				} elseif ( is_array($selector) && isset($selector['name']) ) {
+					$selector_parts[] = '.' . $selector['name'];
+				}
+			}
+
+			$selectors_add = isset($style_rule['selectorsAdd']) ? $style_rule['selectorsAdd'] : '';
+			$selector_string = implode('', $selector_parts) . $selectors_add;
+
+			if ( empty($selector_string) ) {
+				continue;
+			}
+
+			// Build CSS declaration block
+			$declarations = '';
+			foreach ( $style_rule['style'] as $property => $value ) {
+				$declarations .= $property . ':' . $value . ';';
+			}
+
+			$rule = $selector_string . '{' . $declarations . '}';
+
+			// Wrap in @media if needed
+			if ( !empty($style_rule['mediaText']) ) {
+				$css .= '@media ' . $style_rule['mediaText'] . '{' . $rule . '}';
+			} else {
+				$css .= $rule;
+			}
+		}
+
+		return $css;
+	}
+
 	public function the_content( $id = null ){
 		$page_ID = ($id) ? $id : self::get_id();
 
-		$page_content_styles = ($page_ID != null) ? get_post_meta($page_ID, 'page_content_styles', true) : null;
 		$page_content_datastore = ($page_ID != null) ? get_post_meta($page_ID, 'page_content_datastore', true) : null;
 		$page_content = ($page_ID != null) ? get_post_meta($page_ID, 'page_content', true) : null;
+		// Compile styles from structured data before consolidation
+		$compiled_css = self::compile_styles_to_css( is_array($page_content) ? ($page_content['styles'] ?? []) : [] );
 		// Consolidate content with datastore
 		$page_content = self::consolidate_content( $page_content, $page_content_datastore );
 
@@ -192,7 +248,7 @@ class Page{
 				$container_components = $container['components'] ?? [];
 					
 				if (is_array($container_components) && !empty($container_components)) :
-					echo '<style>'.$page_content_styles.'</style>';
+					if ( !empty($compiled_css) ) echo '<style>' . $compiled_css . '</style>';
 
 					foreach ($container_components as $component) :
 						$component['__post_id'] = $page_ID;

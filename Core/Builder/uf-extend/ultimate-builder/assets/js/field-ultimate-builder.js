@@ -35,14 +35,12 @@
                 builder_data = this.model.getValue(),
                 field_name = this.model.get('name'),
                 components_data = this.model.datastore.get( field_name + '_datastore' ),
-                styles = this.model.datastore.get( field_name + '_styles' ),
                 builder_link = this.model.datastore.get( field_name + '_builder_link' );
 
             // force initial field values
             this.model.setValue({
                 'builder_data': builder_data,
-                'components_data': components_data,
-                'css': styles
+                'components_data': components_data
             });
             this.model.trigger('value-saved');
 

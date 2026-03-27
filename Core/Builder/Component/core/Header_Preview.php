@@ -36,9 +36,9 @@ class Header_Preview extends Component {
             $theme_header_post_id = str_replace('post_', '', $theme_header_post_meta);
         	if( IS_MULTILANGUAGE && function_exists('pll_get_post') ) $theme_header_post_id = pll_get_post($theme_header_post_id);
         
-        	$page_content_styles = get_post_meta($theme_header_post_id, 'page_content_styles', true);
         	$page_content = get_post_meta( $theme_header_post_id, 'page_content', true );
             $page_content_datastore = get_post_meta( $theme_header_post_id, 'page_content_datastore', true );
+            $compiled_css = Page::compile_styles_to_css( is_array($page_content) ? ($page_content['styles'] ?? []) : [] );
             $page_content = Page::consolidate_content( $page_content, $page_content_datastore );
         
             if (is_array($page_content)) :
@@ -52,7 +52,7 @@ class Header_Preview extends Component {
                     	}
                     }
                     if ( $header ) {
-                        echo '<style>'.$page_content_styles.'</style>';
+                        if ( !empty($compiled_css) ) echo '<style>' . $compiled_css . '</style>';
                         echo Header::display( $header );
                     };
                 }

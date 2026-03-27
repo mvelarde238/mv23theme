@@ -8,7 +8,7 @@ class Templates_Generator{
         $processed = [
             'gjs_component' => null,
             'gjs_styles' => [],
-            'styles' => ''
+            'styles' => '' // kept for backward compatibility, styles are stored in gjs data since 3.5.0
         ];
 
         // Generate unique ID for this component

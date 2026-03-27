@@ -56,7 +56,6 @@ class Preview_Handler {
 			'data' => array(
 				$meta                  => $field_instance->get_value( $meta ),
 				$meta . '_datastore'   => $field_instance->get_value( $meta . '_datastore' ),
-				$meta . '_styles'      => $field_instance->get_value( $meta . '_styles' ),
 			)
 		), 10 * MINUTE_IN_SECONDS );
 

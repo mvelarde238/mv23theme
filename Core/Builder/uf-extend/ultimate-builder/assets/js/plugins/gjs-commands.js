@@ -24,8 +24,7 @@ window.gjsCommands = function (editor, options) {
             uf_field_model.get('name'),
             {
                 builder_data: values.builder_data,
-                components_data: values.components_data,
-                css: editor.getCss()
+                components_data: values.components_data
             },
             { silent: false }
         );

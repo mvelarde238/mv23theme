@@ -77,6 +77,7 @@ abstract class Migrate_Components_Settings_v3 extends Migrate_Components_Setting
             if ( $do_the_update ) {
                 update_post_meta( $page->post_id, 'page_content', $new_data['page_content'] );
                 update_post_meta( $page->post_id, 'page_content_datastore', $new_data['page_content_datastore'] );
+                $this->after_page_migration( $page->post_id );
             }
             $page_control['new_data'] = $new_data;
 
@@ -160,5 +161,15 @@ abstract class Migrate_Components_Settings_v3 extends Migrate_Components_Setting
      */
     protected function generate_cmp_id() {
         return 'cmp_' . substr( md5( uniqid() ), 0, 8 );
+    }
+
+    /**
+     * Hook called after a page has been migrated and its meta updated.
+     * Subclasses can override this for post-migration cleanup (e.g., deleting deprecated meta).
+     * 
+     * @param int $post_id The post ID that was migrated.
+     */
+    protected function after_page_migration( $post_id ) {
+        // No-op by default. Override in subclass for cleanup.
     }
 }

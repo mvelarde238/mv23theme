@@ -149,7 +149,7 @@ class Core{
 
                 $type = $oce_element_comp['oce_type'] ?? '';
                 $content = $oce_element_comp;
-                $styles = get_post_meta( $post_id, 'page_content_styles', true );
+                $styles = Page::compile_styles_to_css( $page_content['styles'] ?? [] );
                 $settings = $oce_element_comp['settings'] ?? array();
                 if( !is_array( $settings ) ) $settings = array();
                 
