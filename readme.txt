@@ -12,6 +12,7 @@ CHANGELOG
 - Review canvas styles
 - Fix handleSelectParent and handleSelectChild in ComponentToolbar
 - DEFAULT_BUILDER_POSTTYPES constant implementation and usage on Builder Options
+- Include state in compile_styles_to_css to allow styling for different states like hover, active, etc.
 
 3.4.4 26-03-25
 - Implements a .flipbox-trigger class to trigger the flip animation from external elements

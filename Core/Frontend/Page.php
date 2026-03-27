@@ -196,7 +196,8 @@ class Page{
 			}
 
 			$selectors_add = isset($style_rule['selectorsAdd']) ? $style_rule['selectorsAdd'] : '';
-			$selector_string = implode('', $selector_parts) . $selectors_add;
+			$state = isset($style_rule['state']) && !empty($style_rule['state']) ? ':' . $style_rule['state'] : '';
+			$selector_string = implode('', $selector_parts) . $selectors_add . $state;
 
 			if ( empty($selector_string) ) {
 				continue;
