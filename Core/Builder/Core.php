@@ -46,6 +46,7 @@ class Core{
             'Image',
             'Video',
             'Button',
+            'Icon_Box',
             'Spacer',
             'Map',
             'Icon_and_Text',

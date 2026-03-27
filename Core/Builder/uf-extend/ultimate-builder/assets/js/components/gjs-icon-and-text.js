@@ -11,7 +11,12 @@ window.gjsIconAndText = function(editor) {
             type: 'icon-wrapper',
             classes: ['icon-wrapper'],
             components: [
-                { type: 'icon' }
+                { 
+                    type: 'icon-box',
+                    removable: false,
+                    draggable: false,
+                    copyable: false
+                }
             ]
         },
         {
@@ -43,21 +48,6 @@ window.gjsIconAndText = function(editor) {
         },
     });
 
-    // Define the icon component
-    domc.addType('icon', {
-        model: {
-            defaults: {
-                tagName: 'div',
-                name: __('Icon'),
-                classes: ['icon-cmp'],
-                draggable: false,
-                droppable: false,
-                selectable: false,
-                hoverable: false
-            }
-        },
-    });
-
     // Define the component
     domc.addType(compClass, {
         isComponent: el => el.classList && el.classList.contains(compClass),
@@ -81,35 +71,22 @@ window.gjsIconAndText = function(editor) {
                     componentsWrapper.set('copyable', false);
                 }
                 
-                // get datastore values and update the icon and styles accordingly
+                // get datastore values and update position/alignment styles
                 const datastore = editor.getComponentDatastore(model);
                 if (datastore) {
-                    const { isource, iposition, ialignment, horizontal_alignment, content_alignment } = datastore.toJSON();
-                    const iconCmp = model.findType('icon')[0];
-
-                    if (isource === 'icon') {
-                        const iconName = datastore.get('iname');
-                        const iconPrefix = (iconName && iconName.startsWith('bi-')) ? 'bi' : 'fa';
-                        iconCmp.getEl().innerHTML = `<i class="${iconPrefix} ${iconName}"></i>`;
-                    }
-                    else if (isource === 'image') {
-                        const _image_id = datastore.get('iimage');
-                        const prepared_file_object = window.UF_Editor?.getPreparedFileObject(_image_id);
-                        const image_url = prepared_file_object ? prepared_file_object.get("url") : "";
-                        iconCmp.getEl().innerHTML = `<img src="${image_url}" alt="" />`;
-                    }
+                    const { icon_position, icon_alignment, horizontal_alignment, content_alignment } = datastore.toJSON();
 
                     // Set position class
                     el.classList.remove('icon--left', 'icon--top', 'icon--right');
-                    el.classList.add(`icon--${iposition}`);
+                    el.classList.add(`icon--${icon_position}`);
 
                     // Set icon alignment styles
                     const iconWrapper = model.findType('icon-wrapper')[0];
-                    const aligment_prop = iposition === 'top' ? 'justifyContent' : 'alignItems';
-                    iconWrapper.getEl().style[aligment_prop] = ialignment;
+                    const aligment_prop = icon_position === 'top' ? 'justifyContent' : 'alignItems';
+                    iconWrapper.getEl().style[aligment_prop] = icon_alignment;
 
                     // Set content alignment
-                    if( iposition !== 'top' ) el.style.alignItems = content_alignment;
+                    if( icon_position !== 'top' ) el.style.alignItems = content_alignment;
 
                     // Set Horizontal alignment
                     if (horizontal_alignment) {

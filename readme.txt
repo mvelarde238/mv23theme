@@ -2,6 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
+3.5.0 26-03-27
+- Icon Box Component Implementation
+  -------------------------------------------------------------------------------------------------------------
+  !IMPORTANT: Use the migrator to update old icon and text components to use the new icon box component
+  -------------------------------------------------------------------------------------------------------------
+
 3.4.4 26-03-25
 - Implements a .flipbox-trigger class to trigger the flip animation from external elements
 - review i18n keys in style manager and update to ensure all new properties and options are properly localized

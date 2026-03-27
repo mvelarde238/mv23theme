@@ -95,6 +95,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsRelatedPosts', 'handler' => 'gjs-related-posts', 'isComponent' => true ],
 		[ 'name' => 'gjsCommentsArea', 'handler' => 'gjs-comments-area', 'isComponent' => true ],
 		[ 'name' => 'gjsArchivePageStructure', 'handler' => 'gjs-archive-page-structure', 'isComponent' => true ],
+		[ 'name' => 'gjsIconBox', 'handler' => 'gjs-icon-box', 'isComponent' => true ],
 		[ 'name' => 'gjsIconAndText', 'handler' => 'gjs-icon-and-text', 'isComponent' => true ],
 		[ 'name' => 'gjsFlipbox', 'handler' => 'gjs-flip-box', 'isComponent' => true ],
 		[ 'name' => 'gjsCounter', 'handler' => 'gjs-counter', 'isComponent' => true ],

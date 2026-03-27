@@ -143,6 +143,9 @@ window.gjsCommands = function (editor, options) {
 
         // Select the rule in the CSS editor
         editor.Selectors.select(rule);
+
+        // open style manager
+        editor.Commands.run('select-styles-tab');
     });
 
     commands.add('exit-to-wp-admin', (editor, sender, options = {}) => {
@@ -227,37 +230,32 @@ window.gjsCommands = function (editor, options) {
         component.set('lockedComponents', !lockedComponents);
     });
 
-    // Icon and Text specific commands
+    // Icon Box specific commands
     commands.add('update-icon-property', (editor, sender, options = {}) => {
-        const { component, property, value } = options;
+        const { component, property, value, isFinal } = options;
+        let final_value = value;
 
-        if(component.getType() === 'icon-and-text'){
-            const iconCmp = component.findType('icon')[0];
-
+        if(component.getType() === 'icon-box'){
             // Update the specific property
-            const plainProperties = ['--icon-size','background-color','padding','border-radius','border-color','color'];
+            const plainProperties = ['font-size','background-color','padding','border-radius','border-color','color'];
             if(plainProperties.includes(property)){
-                const addUnitProperties = ['--icon-size','padding','border-radius'];
+                const addUnitProperties = ['font-size','padding','border-radius'];
                 if(addUnitProperties.includes(property)){
-                    value = value + 'px';
+                    final_value = value + 'px';
+                } else {
+                    final_value = value;
                 }
 
-                iconCmp.addStyle({
-                    [property]: value
-                });
+                component.addStyle({
+                    [property]: final_value
+                }, { partial: !isFinal });
             }
 
             if(property === 'border-width'){
-                iconCmp.addStyle({
-                    'border-style': 'solid',
-                    'border-width': value + 'px'
-                });
-            }
-
-            if(property === 'gap'){
                 component.addStyle({
-                    'gap': value + 'px'
-                });
+                    'border-style': 'solid',
+                    'border-width': final_value + 'px'
+                }, { partial: !isFinal });
             }
         }
     });

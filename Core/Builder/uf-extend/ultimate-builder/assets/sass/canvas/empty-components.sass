@@ -19,11 +19,17 @@
 [data-gjs-type="header-content"]:empty,
 [data-gjs-type="header-logo"]:empty,
 [data-gjs-type="header-logo"]:not(:has(img)),
-[data-gjs-type="shortcode"]
+[data-gjs-type="shortcode"],
+[data-gjs-type="icon-box"]:empty
     border: 3px dashed var(--placeholder-color)
     background-color: var(--placeholder-color)
     min-height: 50px
     min-width: 200px
+
+[data-gjs-type="icon-box"]:empty
+    min-height: 40px
+    width: 40px
+    min-width: 40px
 
 [data-gjs-type="header-logo"]:not(:has(img))
     display: flex

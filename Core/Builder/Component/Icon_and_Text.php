@@ -4,8 +4,6 @@ namespace Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
-use Core\Theme_Options\Theme_Options;
-use Core\Builder\Core as Builder_Core;
 
 class Icon_and_Text extends Component {
 
@@ -22,27 +20,8 @@ class Icon_and_Text extends Component {
 
 	public static function get_fields() {
 		$fields = array(
-            Field::create( 'tab', __('Icon','mv23theme') ),
-            Field::create( 'radio', 'isource', __('Icon source:', 'mv23theme'))
-                ->set_orientation( 'horizontal' )
-                ->add_options( array(
-                    'icon' => __('Icon', 'mv23theme'),
-                    'image' => __('Image', 'mv23theme'),
-                ))
-                ->set_default_value('icon')
-                ->set_width(50),
-            Field::create( 'icon', 'iname', __('Icon', 'mv23theme') )
-                ->add_set( 'bootstrap-icons' )
-                ->add_set( 'font-awesome' )
-                ->set_default_value( 'bi-box-seam' )
-                ->add_dependency('isource','icon','=')
-                ->set_width(50),
-            Field::create( 'image', 'iimage', __('Image', 'mv23theme') )
-                ->add_dependency('isource','image','=')
-                ->set_width(50),
-
             Field::create( 'tab', __('Icon Position','mv23theme') ),
-            Field::create( 'image_select', 'iposition', __('Position', 'mv23theme'))
+            Field::create( 'image_select', 'icon_position', __('Position', 'mv23theme'))
                 ->hide_label()
                 ->add_options(array(
                     'left'  => array(
@@ -58,7 +37,7 @@ class Icon_and_Text extends Component {
                         'image' =>  BUILDER_PATH.'/assets/images/icon-right.png'
                     ),
                 )),
-            Field::create( 'select', 'ialignment', __('Icon Alignment', 'mv23theme'))
+            Field::create( 'select', 'icon_alignment', __('Icon Alignment', 'mv23theme'))
                 ->set_input_type( 'radio' )
                 ->set_orientation( 'horizontal' )
                 ->set_default_value('flex-start')
@@ -96,34 +75,20 @@ class Icon_and_Text extends Component {
         if( Template_Engine::is_private( $args ) ) return;
         
 		$args['additional_classes'][] = 'component';
-        
-        $icon_source = $args['isource'];
-        if ($icon_source == 'icon') {
-            $icon_prefix = (str_starts_with($args['iname'],'fa')) ? 'fa' : 'bi';
-        	$element = '<i class="'.$icon_prefix.' '.$args['iname'].'"></i>';
-        } else {
-        	$image_url = wp_get_attachment_url($args['iimage']);
-        	$element = '<img src="'.$image_url .'" />';
-        }
 
         // set icon position styles
-        if (isset($args['iposition'])) $args['additional_classes'][] = 'icon--'.$args['iposition'];
+        if (isset($args['icon_position'])) $args['additional_classes'][] = 'icon--'.$args['icon_position'];
 
         // Set icon alignment styles
         $icon_wrapper_style = '';
-        $alignment_prop = ($args['iposition'] == 'top') ? 'justify-content' : 'align-items';
-        $icon_wrapper_style .= $alignment_prop.':'.$args['ialignment'].';';
+        $alignment_prop = ($args['icon_position'] == 'top') ? 'justify-content' : 'align-items';
+        $icon_wrapper_style .= $alignment_prop.':'.$args['icon_alignment'].';';
         $icon_wrapper_style = ($icon_wrapper_style) ? 'style="'.$icon_wrapper_style.'"' : '';
 
         // Set Horizontal alignment
         if (isset($args['horizontal_alignment']) && $args['horizontal_alignment'] != '') {
             $args['additional_classes'][] = $args['horizontal_alignment'].'-all';
         }
-
-        // get icon component ID
-        $icon_wrapper = $args['components'][0];
-        $comp_icon = $icon_wrapper['components'][0];
-        $comp_icon_id = $comp_icon['attributes']['id'] ?? '';
 
         // set content alignment
         if (isset($args['content_alignment']) && $args['content_alignment'] != 'flex-start') {
@@ -135,12 +100,10 @@ class Icon_and_Text extends Component {
         do_action( 'after_component_wrapper_start', $args );
         echo '<div '.$attributes.'>';
         
+        $icon_wrapper = $args['components'][0] ?? null;
         echo '<div class="icon-wrapper" '.$icon_wrapper_style.'>';
-	    echo '<div id="'.$comp_icon_id.'" class="icon-cmp">';
-        echo Template_Engine::check_actions( 'start', $args );
-        echo $element;
-        echo Template_Engine::check_actions( 'end', $args );
-        echo '</div>';
+        $icon_box = $icon_wrapper['components'][0] ?? null;
+		echo Template_Engine::getInstance()->handle( $icon_box );
 	    echo '</div>';
 
         $content_wrapper = $args['components'][1] ?? null;

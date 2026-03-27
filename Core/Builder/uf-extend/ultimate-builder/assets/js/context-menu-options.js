@@ -343,10 +343,21 @@ window['contextMenuOpts'] = {
             return actions;
         },
         ['icon-and-text']: function(component, editor){
-            const iconComponent = component.findType('icon')[0];
-
+            return [
+                {
+                    type: 'range', title: 'SPACE BETWEEN ELEMENTS', command: 'update-css-property', 
+                    min:0, max:100, args: { property:'gap', unit:'px' }, titleTooltip: 'Space between Icon and Text',
+                    value: ()=>{
+                        const gap = parseInt(component.getStyle('gap')) || 20;
+                        return gap;
+                    },
+                },
+                { type: 'button', label: 'SELECT ICON ELEMENT', command: 'query-selector', args: { selector: '.icon-box__icon' } }
+            ];   
+        },
+        ['icon-box']: function(component, editor){
             const getIconSize = ()=>{
-                let value = parseInt(iconComponent.getStyle('--icon-size')) || 40;
+                let value = parseInt(component.getStyle('font-size')) || 40;
                 return value;
             };
 
@@ -361,7 +372,7 @@ window['contextMenuOpts'] = {
                             options: [
                                 { 
                                     type: 'range', title: 'ICON SIZE', command: 'update-icon-property', 
-                                    value:getIconSize, min:15, max:200, args: { property:'--icon-size' }
+                                    value:getIconSize, min:15, max:200, args: { property:'font-size' }
                                 },
                                 {
                                     type: 'options', title: 'BACKGROUND & COLOR', titleKey: 'background_and_color',
@@ -369,14 +380,14 @@ window['contextMenuOpts'] = {
                                         {
                                             type:'color', command:'update-icon-property', args: { property:'background-color' },
                                             value: ()=>{ 
-                                                const backgroundColor = iconComponent.getStyle('background-color') || '';
+                                                const backgroundColor = component.getStyle('background-color') || '';
                                                 return backgroundColor; 
                                             }, 
                                         },
                                         { 
                                             type:'color', command:'update-icon-property', args: { property:'color' },
                                             value: ()=>{
-                                                const color = iconComponent.getStyle('color') || '#000000';
+                                                const color = component.getStyle('color') || '#000000';
                                                 return color; 
                                             }, 
                                         },
@@ -386,7 +397,7 @@ window['contextMenuOpts'] = {
                                     type: 'range', title: 'SPACE AROUND ICON', command: 'update-icon-property', 
                                     min:0, max:100, args: { property:'padding' },
                                     value: ()=>{
-                                        const padding = parseInt(iconComponent.getStyle('padding')) || 0;
+                                        const padding = parseInt(component.getStyle('padding')) || 0;
                                         return padding;
                                     }, 
                                 },
@@ -400,7 +411,7 @@ window['contextMenuOpts'] = {
                                     type: 'range', title: 'ROUNDED CORNERS', command: 'update-icon-property', 
                                     min:0, max:100, args: { property:'border-radius' },
                                     value: ()=>{
-                                        const radius = parseInt(iconComponent.getStyle('border-radius')) || 0;
+                                        const radius = parseInt(component.getStyle('border-radius')) || 0;
                                         return radius;
                                     }, 
                                 },
@@ -411,28 +422,20 @@ window['contextMenuOpts'] = {
                                             type: 'range', command: 'update-icon-property', 
                                             min:0, max:50, args: { property:'border-width' },
                                             value: ()=>{
-                                                const borderWidth = parseInt(iconComponent.getStyle('border-width')) || 0;
+                                                const borderWidth = parseInt(component.getStyle('border-width')) || 0;
                                                 return borderWidth;
                                             }, 
                                         },
                                         { 
                                             type:'color', command:'update-icon-property', args: { property:'border-color' },
                                             value: ()=>{
-                                                const color = iconComponent.getStyle('border-color') || '#000000';
+                                                const color = component.getStyle('border-color') || '#000000';
                                                 return color; 
                                             }, 
                                         },
                                     ]
                                 },
-                                {
-                                    type: 'range', title: 'SPACE BETWEEN ELEMENTS', command: 'update-icon-property', 
-                                    min:0, max:100, args: { property:'gap' }, titleTooltip: 'Space between Icon and Text',
-                                    value: ()=>{
-                                        const gap = parseInt(component.getStyle('gap')) || 20;
-                                        return gap;
-                                    },
-                                },
-                                // { type: 'button', label: 'SELECT ICON', command: 'query-selector', args: { selector: '.icon-cmp' } }
+                                { type: 'button', label: 'SELECT ICON ELEMENT', command: 'query-selector', args: { selector: '.icon-box__icon' } }
                             ]
                         }
                     ] 
