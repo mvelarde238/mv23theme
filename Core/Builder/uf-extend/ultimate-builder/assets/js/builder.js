@@ -29,6 +29,7 @@
                 clearStyles: true,
                 componentFirst: true,
                 showToolbar: false,
+                showOffsets: true,
                 uf_field_model: this.args.uf_field_model,
                 initial_components_data: this.args.initial_components_data,
                 theme_fonts: this.args.theme_fonts,

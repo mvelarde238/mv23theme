@@ -2,7 +2,8 @@
 // as wrapper is the first element in the canvas
 body
     padding-top: 0 !important
-    --placeholder-color: color-mix(in srgb,currentColor 4%,transparent)
+    --placeholder-color: color-mix(in srgb,currentColor 3%,transparent)
+    --font-family-base: monospace,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif
 // This is handled in the gjs-wrapper.js file by adding padding to the wrapper element 
 // instead of the body when the place_content_under_header setting is toggled on or off
 // [data-gjs-type="wrapper"]
@@ -78,3 +79,6 @@ img.gjs-plh-image
 // [data-gjs-type="container"].gjs-selected-parent,
 // [data-gjs-type="container"]:has(>.page-module.gjs-selected-parent)
     // padding-top: 16px
+
+[data-gjs-type="shortcode"]
+    font-family: var(--font-family-base)

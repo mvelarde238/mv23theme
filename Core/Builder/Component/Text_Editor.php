@@ -16,7 +16,7 @@ class Text_Editor extends Component {
 	}
 
 	public static function get_icon() {
-        return 'dashicons-editor-textcolor';
+        return 'bi bi-fonts';
     }
 
 	public static function get_title_template() {

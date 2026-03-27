@@ -75,18 +75,18 @@ window.gjsSharedResources = {
                 window.gjsSharedResources.applyResponsiveToRow(editor, sectionComponent);
             }
         },
+        'empty': {
+            label: 'Empty Section',
+            visual: '<div class="template-visual-empty">Empty</div>',
+            components: []
+        },
         'template-placeholder': {
             label: 'Template',
             visual: '<div class="template-visual-template"><i class="bi bi-folder2-open"></i></div>',
             components: [
                 { type: 'template-placeholder' }
             ]
-        }
-        // 'empty': {
-        //     label: 'Empty Section',
-        //     visual: '<div class="template-visual-empty">Empty</div>',
-        //     components: []
-        // }
+        },
     },
 
     /**
