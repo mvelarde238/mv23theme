@@ -39,15 +39,7 @@ class Builder_Options{
                     ->set_input_type( 'checkbox' )
                     ->hide_label()
                     // TODO: check why default value is not working
-                    ->set_default_value( array(
-                        'page',
-                        'megamenu',
-                        'footer',
-                        'reusable_section',
-                        'header',
-                        'single_template',
-                        'archive_template'
-                        )),
+                    ->set_default_value( DEFAULT_BUILDER_POSTTYPES ),
 
                 Field::create( 'tab', 'hide_wp_editor_tab' )->set_label( __('Hide WP Text Editor','mv23theme') ),
                 Field::create( 'message', 'hide_wp_editor_description' )

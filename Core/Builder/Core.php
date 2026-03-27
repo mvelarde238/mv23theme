@@ -108,16 +108,7 @@ class Core{
         // Set default values for builder options if they don't exist
         $builder_posttypes = get_option('builder_posttypes');
         if ( $builder_posttypes === false ) {
-            add_option('builder_posttypes', array(
-                        'page',
-                        'megamenu',
-                        'footer',
-                        'reusable_section',
-                        'header',
-                        'single_template',
-                        'archive_template'
-                        ));
-            add_option('hide_wp_editor_on', array('page'));
+            add_option('builder_posttypes', DEFAULT_BUILDER_POSTTYPES);
         }
     }
 

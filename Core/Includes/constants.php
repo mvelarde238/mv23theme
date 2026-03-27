@@ -73,3 +73,4 @@ if( !defined('LISTING_POST_TEMPLATE') ){
 // BUILDER CONSTANTS
 if( !defined('BUILDER_DEV_MODE') ) define ('BUILDER_DEV_MODE', false);
 define ('ULTIMATE_FIELDS_DISABLE_UI', get_option('uf_disable_ui', false) );
+define ('DEFAULT_BUILDER_POSTTYPES', array('page','megamenu','footer','reusable_section','header','single_template','archive_template'));

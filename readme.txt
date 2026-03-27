@@ -11,6 +11,7 @@ CHANGELOG
 - Review components-wrapper context menu options
 - Review canvas styles
 - Fix handleSelectParent and handleSelectChild in ComponentToolbar
+- DEFAULT_BUILDER_POSTTYPES constant implementation and usage on Builder Options
 
 3.4.4 26-03-25
 - Implements a .flipbox-trigger class to trigger the flip animation from external elements
