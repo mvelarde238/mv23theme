@@ -177,7 +177,8 @@ class Page{
 			return '';
 		}
 
-		$css = '';
+		$base_css = '';
+		$media_css = array(); // [ mediaText => css_string ]
 
 		foreach ( $styles as $style_rule ) {
 			if ( !isset($style_rule['style']) || !is_array($style_rule['style']) || empty($style_rule['style']) ) {
@@ -211,12 +212,29 @@ class Page{
 
 			$rule = $selector_string . '{' . $declarations . '}';
 
-			// Wrap in @media if needed
+			// Group media query rules separately to preserve cascade order
 			if ( !empty($style_rule['mediaText']) ) {
-				$css .= '@media ' . $style_rule['mediaText'] . '{' . $rule . '}';
+				$media_text = $style_rule['mediaText'];
+				if ( !isset($media_css[$media_text]) ) {
+					$media_css[$media_text] = '';
+				}
+				$media_css[$media_text] .= $rule;
 			} else {
-				$css .= $rule;
+				$base_css .= $rule;
 			}
+		}
+
+		// Sort media queries: max-width from largest to smallest to respect cascade
+		uksort($media_css, function($a, $b) {
+			$a_val = preg_match('/max-width\s*:\s*(\d+)/', $a, $ma) ? (int)$ma[1] : 0;
+			$b_val = preg_match('/max-width\s*:\s*(\d+)/', $b, $mb) ? (int)$mb[1] : 0;
+			return $b_val - $a_val;
+		});
+
+		// Output base rules first, then sorted media queries
+		$css = $base_css;
+		foreach ( $media_css as $media_text => $rules ) {
+			$css .= '@media ' . $media_text . '{' . $rules . '}';
 		}
 
 		return $css;
