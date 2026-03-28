@@ -8,6 +8,7 @@ define ('SCROLL_ANIMATIONS', scroll_animation_is_active());
 define ('FONT_AWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css');
 define ('BOOTSTRAP_ICONS', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css');
 define ('POSTS_SUBSCRIPTION', posts_subscription_is_active());
+define ('LIBS_PATH', get_template_directory_uri() . '/libs');
 
 // define ('IS_MULTILANGUAGE', class_exists('Polylang') );
 define ('IS_MULTILANGUAGE', function_exists('pll_the_languages') );

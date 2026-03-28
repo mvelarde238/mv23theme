@@ -18,6 +18,7 @@ CHANGELOG
   so small devices (tablet and phone) will have the columns stacked by default
 - Implement :state selectors in the template generator and in the gjs-template-placeholder component 
 - add stretch option to align items in columns
+- Move all ultimate fields stuff to libs folder
 
 3.4.4 26-03-25
 - Implements a .flipbox-trigger class to trigger the flip animation from external elements

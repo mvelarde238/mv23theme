@@ -66,7 +66,7 @@ class Columns_Layout {
 	 */
 	public function register_scripts() {
 		// $assets = plugins_url( 'assets/', $this->plugin_file );
-        $assets = BUILDER_PATH . '/uf-extend/columns-layout/assets/';
+        $assets = LIBS_PATH . '/columns-layout/assets/';
 		$v      = $this->version;
 		
 		// FIELD SCRIPT

@@ -164,7 +164,7 @@ class Ultimate_Builder {
 	 */
 	public function register_scripts() {
 		// $assets = plugins_url( 'assets/', $this->plugin_file );
-        $assets = BUILDER_PATH . '/uf-extend/ultimate-builder/assets/';
+        $assets = LIBS_PATH . '/ultimate-builder/assets/';
 		$v      = $this->version;
 
 		// FIELD SCRIPT
@@ -225,7 +225,7 @@ class Ultimate_Builder {
 			&& isset( $_GET['meta'] )
 			&& $_GET['action'] === 'ultimate-builder' ) 
 		{
-			$assets = BUILDER_PATH . '/uf-extend/ultimate-builder/assets/';
+			$assets = LIBS_PATH . '/ultimate-builder/assets/';
 			$v      = $this->version;
 			$app_js_path = BUILDER_DEV_MODE ? 'http://builder.lo/react/my-react-app/dist/' : $assets. 'js/';
 			$app_css_path = BUILDER_DEV_MODE ? 'http://builder.lo/react/my-react-app/dist/' : $assets. 'css/';
@@ -245,7 +245,7 @@ class Ultimate_Builder {
 	}
 
 	private function register_gjs_plugins(){
-		$assets = BUILDER_PATH . '/uf-extend/ultimate-builder/assets/';
+		$assets = LIBS_PATH . '/ultimate-builder/assets/';
 		$v = $this->version;
 
 		foreach( $this->get_gjs_plugins() as $plugin) {
