@@ -4,6 +4,7 @@ CHANGELOG
 
 3.5.1 26-03-28
 - Force space to drag components into wrappers components
+- Review Counter Component
 
 3.5.0 26-03-27
 - Icon Box Component Implementation

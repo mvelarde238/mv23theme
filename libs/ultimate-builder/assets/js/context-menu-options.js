@@ -464,5 +464,21 @@ window['contextMenuOpts'] = {
                 },
             ]
         },
+        ['counter-component']: function(component){
+            let textAlignAction = create_text_align_actions(component);
+
+            const getFontSize = ()=>{
+                let value = parseInt(component.getStyle('font-size')) || 17;
+                return value;
+            };
+            return [
+                { type:'range', title:'FONT SIZE', command:'update-css-property', args: { property: 'font-size', unit: 'px' }, min:0, value:getFontSize },
+                textAlignAction,
+                { 
+                    type: 'color', title: 'TEXT COLOR', command: 'update-css-property', 
+                    args: { property: 'color' }, value: ()=>{ return component.getStyle('color') || ''; } 
+                },
+            ]
+        },
     }
 };

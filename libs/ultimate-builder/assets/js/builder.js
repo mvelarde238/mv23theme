@@ -43,7 +43,7 @@
                 spacingSpots: {
                     excludeComponentTypes: [
                         'wrapper', 'spacer', 'shortcode', 'image-component', 'text-editor', 'flipbox', 'icon-box',
-                        'code', 'menu', 'video-component', 'button', 'map-component', 'video-component'
+                        'code', 'menu', 'video-component', 'button', 'map-component', 'video-component', 'counter-component'
                     ]
                 },
                 plugins: [...plugins, ...React_Builder_Plugins],

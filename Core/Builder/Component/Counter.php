@@ -20,16 +20,19 @@ class Counter extends Component {
 
 	public static function get_fields() {
 		$fields = array(
+            Field::create( 'section', 'content_section', __( 'Content', 'mv23theme' ) ),
             Field::create( 'number', 'number', __( 'Counter Number', 'mv23theme' ) )
-                ->set_default_value( 23 ),
+            ->set_default_value( 23 ),
+            Field::create( 'text', 'prefix', __( 'Counter Prefix', 'mv23theme' ) )->set_width( 50 ),
+            Field::create( 'text', 'suffix', __( 'Counter Suffix', 'mv23theme' ) )->set_width( 50 ),
+
+            Field::create( 'section', 'animation_section', __( 'Animation', 'mv23theme' ) ),
             Field::create( 'number', 'start', __( 'Counter Start', 'mv23theme' ) )
                 ->set_default_value( 0 )->set_placeholder(0)->set_width( 50 ),
             Field::create( 'number', 'duration', __( 'Counter Duration', 'mv23theme' ) )
                 ->set_default_value( 1000 )
                 ->set_suffix( 'ms' )
                 ->set_width( 50 ),
-            Field::create( 'text', 'prefix', __( 'Counter Prefix', 'mv23theme' ) )->set_width( 50 ),
-            Field::create( 'text', 'suffix', __( 'Counter Suffix', 'mv23theme' ) )->set_width( 50 ),
         );
 		return $fields;
 	}
