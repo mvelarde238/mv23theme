@@ -176,6 +176,7 @@ window.gjsI18n = function (editor, options) {
                 full_width: 'ANCHO COMPLETO',
                 full_width_stretched: 'EXTENDER FONDO <BR> CENTRAR CONTENIDO',
                 save_as_template: 'Guardar como plantilla',
+                stretch: 'Estirar',
                 // wrapper
                 edit_theme_options: 'EDITAR OPCIONES DE TEMA',
                 color_scheme: 'ESQUEMA DE COLOR',

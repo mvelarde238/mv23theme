@@ -105,11 +105,13 @@ function content_alignment_options(component, editor, flex_direction){
         { property:'justify-content', value:'space-around', tooltip:'Around', icon:'' },
         { property:'justify-content', value:'space-between', tooltip:'Between', icon:'' },
         { property:'justify-content', value:'space-evenly', tooltip:'Evenly', icon:'' },
+        { type:'break' },
+        { property:'align-items', value:'stretch', tooltip:'Stretch', icon:'' },
     ];
 
     const defaultValues = {
         'justify-content': 'flex-start',
-        'align-items': 'flex-start'
+        'align-items': 'stretch',
     };
 
     contentAlignmentOptions.forEach(option => {
