@@ -3,6 +3,8 @@ window.saveTemplateSystem = function (editor, options) {
     /* TO DO LIST:
     - add a pagination system for the template library modal in case there are a lot of templates saved
     - add a category selector to the save template form and filter templates by category in the library
+    - expand thumbnail on a modal window for better previsualization or make it bigger
+    - Take the screenshot with background instead of transparent, so it looks better in the library. This can be done by temporarily setting a white/dark background (depending on the context) on the component before capture, then removing it after.
     */
 
     const commands = editor.Commands;
