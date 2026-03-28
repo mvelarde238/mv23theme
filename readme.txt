@@ -14,6 +14,8 @@ CHANGELOG
 - DEFAULT_BUILDER_POSTTYPES constant implementation and usage on Builder Options
 - Include state in compile_styles_to_css to allow styling for different states like hover, active, etc.
 - Fix compile_styles_to_css to handle media query styles in cascade order and generate proper CSS rules for them
+- Set the initial columns breakoint on tablet instead of mobileLandscape, 
+  so small devices (tablet and phone) will have the columns stacked by default
 
 3.4.4 26-03-25
 - Implements a .flipbox-trigger class to trigger the flip animation from external elements

@@ -140,10 +140,10 @@ $menu-breakpoint: 896px !default;
 
 // Media Query Ranges
 $small-screen-up: 601px !default;
-$medium-screen-up: 1025px !default; // 993px
+$medium-screen-up: 993px !default;
 $large-screen-up: 1401px !default; // 1201px
 $small-screen: 600px !default;
-$medium-screen: 1024px !default; // 992px
+$medium-screen: 992px !default;
 $large-screen: 1400px !default; // 1200px
 
 $medium-and-up: "only screen and (min-width : #{$small-screen-up})" !default;
