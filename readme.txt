@@ -16,6 +16,7 @@ CHANGELOG
 - Fix compile_styles_to_css to handle media query styles in cascade order and generate proper CSS rules for them
 - Set the initial columns breakoint on tablet instead of mobileLandscape, 
   so small devices (tablet and phone) will have the columns stacked by default
+- Implement :state selectors in the template generator and in the gjs-template-placeholder component 
 
 3.4.4 26-03-25
 - Implements a .flipbox-trigger class to trigger the flip animation from external elements

@@ -70,10 +70,12 @@ class Templates_Generator{
                         $css_rules .= $property . ':' . $value . ';';
                     }
                     
+                    $state_suffix = isset($style['state']) && !empty($style['state']) ? ':' . $style['state'] : '';
+                    
                     if( isset($style['selectorsAdd']) && !empty($style['selectorsAdd']) ){
-                        $selector_string = $style['selectorsAdd'] . '{' . $css_rules . '}';
+                        $selector_string = $style['selectorsAdd'] . $state_suffix . '{' . $css_rules . '}';
                     } else {
-                        $selector_string = '#' . $comp_id . '{' . $css_rules . '}';
+                        $selector_string = '#' . $comp_id . $state_suffix . '{' . $css_rules . '}';
                     }
                     
                     // Wrap in media query if needed

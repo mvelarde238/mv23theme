@@ -220,7 +220,11 @@ window.gjsTemplatePlaceholder = function (editor) {
                             ruleOpts.atRuleType = style.atRuleType;
                             ruleOpts.atRuleParams = style.mediaText;
                         }
-                        css.setRule(`#${componentData._generatedId}`, style.style, ruleOpts);
+                        let selector = `#${componentData._generatedId}`;
+                        if(style.state) {
+                            selector += `:${style.state}`;
+                        }
+                        css.setRule(selector, style.style, ruleOpts);
                     });
                 }
 
