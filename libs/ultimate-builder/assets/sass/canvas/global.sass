@@ -45,7 +45,8 @@ img.gjs-plh-image
     width: 100%
 
 /* shortcode component */
-.shortcode-component
+[data-gjs-type="shortcode"]
+    font-family: var(--font-family-base)
     padding: 20px
     text-align: center
 
@@ -61,6 +62,7 @@ img.gjs-plh-image
 .cmp-action
     padding: 5px 10px
     font-size: 11px
+    font-family: var(--font-family-base)
     cursor: pointer
     background: var(--primary-color-lighter)
     border: 1px solid var(--primary-color-light)
@@ -73,12 +75,12 @@ img.gjs-plh-image
         border-color: var(--primary-color)
         color: #fff
 
-/* force a space to drag components into the container */
-[data-gjs-type="container"]
+/* force a space to drag components */
+[data-gjs-type="container"],
+[data-gjs-type="column"],
+[data-gjs-type="components-wrapper"]
     padding-top: 1px
+    padding-bottom: 1px
 // [data-gjs-type="container"].gjs-selected-parent,
 // [data-gjs-type="container"]:has(>.page-module.gjs-selected-parent)
     // padding-top: 16px
-
-[data-gjs-type="shortcode"]
-    font-family: var(--font-family-base)
