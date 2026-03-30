@@ -44,7 +44,7 @@ class Simple_Columns extends Component {
         $columns = $args['blocks_layout'];
 
         $components_margin = (!empty($args['components_margin'])) ? $args['components_margin'] : null;
-        if ( $components_margin && $components_margin != 20) $args['additional_attributes'] =  'data-setmargin="'.$components_margin.'"';
+        if ( $components_margin && $components_margin != 20) $args['additional_attributes']['data-setmargin'] =  $components_margin;
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);

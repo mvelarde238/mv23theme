@@ -438,7 +438,7 @@ class Listing extends Component {
 
             if( isset($args['offset']) ) $listing_args['offset'] = $args['offset'];
         }
-        $args['additional_attributes'][] = "data-listing-args='".json_encode($listing_args)."'";
+        $args['additional_attributes']['data-listing-args'] = json_encode($listing_args);
 
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);

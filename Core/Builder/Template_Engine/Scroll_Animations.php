@@ -3,11 +3,9 @@ namespace Core\Builder\Template_Engine;
 
 Class Scroll_Animations{
     /**
-     * Return html attribute
+     * Return json of scroll animations settings
      */
-    public static function get_attribute( $animations_settings ){
-        $scroll_data_attributes = '';
-    
+    public static function get_animations( $animations_settings ){    
         $scroll_animations = array();
     
         if( count($animations_settings['groups']) > 0 ){
@@ -102,11 +100,9 @@ Class Scroll_Animations{
                     'initial_rules' => $initial_rules
                 ));
             }
-                    
-            $scroll_data_attributes .= "data-scroll-animations='".json_encode($scroll_animations)."'";
         }
 
-        return $scroll_data_attributes;
+        return esc_attr(json_encode($scroll_animations));
     }
 
     private static function process_raw_properties($raw_properties) {

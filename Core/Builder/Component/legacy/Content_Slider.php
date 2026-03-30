@@ -105,12 +105,10 @@ class Content_Slider extends Component {
         $show_controls = (isset($args['show_controls']) && !empty($args['show_controls'])) ? $args['show_controls'] : 0;
         $controls_position = (isset($args['controls_position']) && !empty($args['controls_position'])) ? $args['controls_position'] : 0;
 
-        $args['additional_attributes'] = array(
-            'data-extended-bgi="'.$extender_fondo.'"',
-            'data-show-title="'.$nav_show_title.'"',
-            'data-controls-position="'.$controls_position.'"',
-            'data-scroll-to-top="'.$scroll_to_top.'"',
-        );
+        $args['additional_attributes']['data-extended-bgi'] = $extender_fondo;
+        $args['additional_attributes']['data-show-title'] = $nav_show_title;
+        $args['additional_attributes']['data-controls-position'] = $controls_position;
+        $args['additional_attributes']['data-scroll-to-top'] = $scroll_to_top;
 
 		$attributes = Template_Engine::generate_attributes( $args );
 

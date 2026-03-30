@@ -6,7 +6,11 @@ Class Actions{
      * Return html output
      */
 	public static function get_code( $args ){
-		$code = array('start' => '', 'end' => '');
+		$code = array(
+			'start' => '', 
+			'end' => '',
+			'attributes' => array()
+		);
 
     	if ( isset($args['actions_settings']) && is_array($args['actions_settings']) && !empty($args['actions_settings']) ) {
 			$action = $args['actions_settings'];
@@ -27,6 +31,8 @@ Class Actions{
                 	$target = (isset($link['new_tab']) && $link['new_tab'] == 1) ? '_blank' : ''; 
                 	$code['start'] = '<a href="'.$href.'" target="'.$target.'">';
 					$code['end'] = '</a>';
+
+					$code['attributes']['href'] = $href;
             	endif;
     		}
     		if ($action['trigger'] == 'click' && $action['action'] == 'open-image-popup') { 
@@ -37,6 +43,9 @@ Class Actions{
     				if ($link) {
     					$code['start'] = '<a class="zoom" href="'.$link.'">';
     					$code['end'] = '</a>';
+
+						$code['attributes']['class'] = 'zoom';
+						$code['attributes']['href'] = $link;
     				}
     			}
     		}
@@ -55,6 +64,9 @@ Class Actions{
     					if($video_url) {
     						$code['start'] = '<a data-fancybox href="'.$video_url.'">';
     						$code['end'] = '</a>';
+
+							$code['attributes']['data-fancybox'] = '';
+							$code['attributes']['href'] = $video_url;
     					}
     				}
     				if( $video_source == 'external' ){
@@ -62,6 +74,9 @@ Class Actions{
     					if($video_url){
     						$code['start'] = '<a data-fancybox href="'.$video_url.'">';
     						$code['end'] = '</a>';
+
+							$code['attributes']['data-fancybox'] = '';
+							$code['attributes']['href'] = $video_url;
     					}
     				}
 				}
@@ -73,6 +88,11 @@ Class Actions{
     				$scroll_to_box = (isset($toggle_box_settings['scroll_to_box'])) ? $toggle_box_settings['scroll_to_box'] : 0;
     				$code['start'] = '<a class="toggle-box" data-selector="'.$selector.'" data-scroll-to-box="'.$scroll_to_box.'" href="#">';
     				$code['end'] = '</a>';
+
+					$code['attributes']['class'] = 'toggle-box';
+					$code['attributes']['data-selector'] = $selector;
+					$code['attributes']['data-scroll-to-box'] = $scroll_to_box;
+					$code['attributes']['href'] = '#';
     			}
     		}
     		if ($action['trigger'] == 'click' && $action['action'] == 'offcanvas-element') { 
@@ -81,6 +101,9 @@ Class Actions{
     			if($id){
     				$code['start'] = '<a data-offcanvas-element="'.str_replace('post_','',$id).'" href="#">';
     				$code['end'] = '</a>';
+
+					$code['attributes']['data-offcanvas-element'] = str_replace('post_','',$id);
+					$code['attributes']['href'] = '#';
     			}
     		}
 		};

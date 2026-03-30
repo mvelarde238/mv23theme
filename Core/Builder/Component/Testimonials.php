@@ -58,7 +58,7 @@ class Testimonials extends Component {
         
 		$args['additional_classes'][] = 'carousel';
 		$args['additional_classes'][] = 'carousel--theme1';
-		$args['additional_attributes'] = array('data-controls-position="center"');
+		$args['additional_attributes']['data-controls-position'] = 'center';
         
         $testimonials = $args['testimonials'];
         $items_in_desktop = $args['items']['desktop'];

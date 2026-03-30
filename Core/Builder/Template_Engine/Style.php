@@ -41,16 +41,16 @@ Class Style{
             $styles = array_merge( $args['additional_styles'], $styles );
         } 
 
-        $css = '';
+        $inline_styles = '';
         if( !empty($styles) ){
             foreach( $styles as $key => $value ){
-                $css .= $key . ': ' . $value . '; ';
+                $inline_styles .= $key . ': ' . $value . '; ';
             }
         }
 
         return array(
             'all' => $styles,
-            'attribute' => (!empty($styles)) ? 'style="'.$css.'"' : '',
+            'inline_styles' => $inline_styles,
             'margins' => $margins,
             'paddings' => $paddings,
             'background' => $background,

@@ -63,12 +63,4 @@ Class Classes{
     
         return $text_color;
     }
-
-    /**
-     * Return html attribute
-     */
-    public static function get_attribute( $args ){
-        $classes = self::get_classes( $args );
-        return (!empty($classes)) ? 'class="'.implode(' ', $classes).'"' : '';
-    }
 }

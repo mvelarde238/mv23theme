@@ -103,7 +103,7 @@ class Card extends Component {
         if ( isset($args['aspect_ratio']) && $args['aspect_ratio'] != 'aspect-ratio-default' ) $args['additional_classes'][] = $args['aspect_ratio'];
 
         $components_margin = (!empty($args['components_margin'])) ? $args['components_margin'] : null;
-        if ( $components_margin && $components_margin != 20) $args['additional_attributes'] = array( 'data-setmargin="'.$components_margin.'"' );
+        if ( $components_margin && $components_margin != 20) $args['additional_attributes']['data-setmargin'] = $components_margin;
 
         if( isset($args['content_alignment']) && $args['content_alignment'] != 'flex-start' && !empty($args['content_alignment']) ) $args['additional_classes'][] = 'alignment-'.$args['content_alignment'];
         

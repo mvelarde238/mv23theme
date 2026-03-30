@@ -4,6 +4,7 @@ namespace Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
+use Core\Builder\Template_Engine\Actions;
 
 class Button extends Component {
 
@@ -122,7 +123,7 @@ class Button extends Component {
                     break;
             }
             if( isset($args['new_tab']) && $args['new_tab'] == 1) {
-                $args['additional_attributes'][] = 'target="_blank"';
+                $args['additional_attributes']['target'] = '_blank';
             }
                 
         }
@@ -130,33 +131,46 @@ class Button extends Component {
             if($args['file']){
                 $href = wp_get_attachment_url( $args['file'] );
                 if( isset($args['new_tab']) && $args['new_tab'] == 1) {
-                    $args['additional_attributes'][] = 'target="_blank"';
+                    $args['additional_attributes']['target'] = '_blank';
                 } else {
-                    $args['additional_attributes'][] = 'download';
+                    $args['additional_attributes']['download'] = 'download';
                 }
             }
         }
-        $args['additional_attributes'][] = 'href="'.$href.'"';
+        $args['additional_attributes']['href'] = $href;
 
         // Process custom attributes
         $attributes = ( isset($args['button_attributes']) ) ? $args['button_attributes'] : array();
-        $additional_attrs = '';
+        $additional_attrs = ''; 
         if( is_array($attributes) && count($attributes) > 0 ){
             foreach ($attributes as $item) {
                 if( $item['attribute'] && $item['value'] ){
                     if( $item['attribute'] == 'class' ){
                         $args['additional_classes'][] = $item['value'];
                     } else {
-                        $args['additional_attributes'][] = $item['attribute'].'="'.$item['value'].'"';
+                        $args['additional_attributes'][$item['attribute']] = $item['value'];
                     }
                 }
             }
         }
+
+        // Check action settings
+        $action = Actions::get_code( $args );
+        if( $action && $action['attributes'] ){
+            foreach ($action['attributes'] as $attr_key => $attr_value) {
+                if( $attr_key == 'class' ){
+                    $args['additional_classes'][] = $attr_value;
+                } else {
+                    $args['additional_attributes'][$attr_key] = $attr_value;
+                }
+            }
+        }
 		
+        $attributes = Template_Engine::generate_attributes( $args );
 		ob_start();
-        echo Template_Engine::component_wrapper('start', $args);
+        echo '<'.$args['html_tag'].' '.$attributes.'>';
         if($text) echo $text;
-        echo Template_Engine::component_wrapper('end', $args);
+        echo '</'.$args['html_tag'].'>';
 		return ob_get_clean();
 	}
 }

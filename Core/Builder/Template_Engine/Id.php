@@ -16,12 +16,4 @@ Class Id{
 
         return ( !empty($id) ) ? $id : '';
     }
-
-    /**
-     * Return html attribute
-     */
-    public static function get_attribute( $args ){
-        $id = self::get_id( $args );
-        return ( $id ) ? 'id="'.$id.'"' : '';
-    }
 }

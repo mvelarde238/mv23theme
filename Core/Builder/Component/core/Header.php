@@ -40,7 +40,7 @@ class Header extends Component {
 
 		$adjust_scroll_position = $args['settings']['adjust_scroll_position'] ?? false;
 		if ( $adjust_scroll_position ) {
-			$args['additional_attributes'][] = 'data-adjust-scroll-position="true"';
+			$args['additional_attributes']['data-adjust-scroll-position'] = 'true';
 		}
 
 		ob_start();

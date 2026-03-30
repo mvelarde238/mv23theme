@@ -267,13 +267,13 @@ class Carousel extends Component {
         $next_icon = $customize_icons['active'] ? ($customize_icons['next_icon'] ?? NEXT_CAROUSEL_ICON) : NEXT_CAROUSEL_ICON;
 
         if( $show_nav ){
-            $args['additional_attributes'][] = 'data-nav-position="'.$nav_position.'"';
+            $args['additional_attributes']['data-nav-position'] = $nav_position;
         } else {
             $args['additional_classes'][] = 'without-navigation';
         }
 
         if( $show_controls ){
-            $args['additional_attributes'][] = 'data-controls-position="'.$controls_position.'"';
+            $args['additional_attributes']['data-controls-position'] = $controls_position;
         }
         
 		ob_start();

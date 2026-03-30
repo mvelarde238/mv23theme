@@ -71,7 +71,7 @@ class Items_Grid extends Component {
         $items_in_mobile = (!empty($args['items_in_mobile'])) ? $args['items_in_mobile'] : $nth_items;
 
         $components_margin = (!empty($args['components_margin'])) ? $args['components_margin'] : null;
-        if ( $components_margin && $components_margin != 20) $args['additional_attributes'] =  'data-setmargin="'.$components_margin.'"';
+        if ( $components_margin && $components_margin != 20) $args['additional_attributes']['data-setmargin'] =  $components_margin;
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);

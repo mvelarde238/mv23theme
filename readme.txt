@@ -5,6 +5,7 @@ CHANGELOG
 3.5.1 26-03-28
 - Force space to drag components into wrappers components
 - Review Counter Component
+- Fix Template_Engine to handle attributes with key pair values
 
 3.5.0 26-03-27
 - Icon Box Component Implementation

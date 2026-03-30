@@ -53,13 +53,13 @@ class Template_Engine{
     public static function generate_attributes( $args ){
         $attributes = array();
         
-        $id = Id::get_attribute( $args );
+        $id = Id::get_id( $args );
         $style_data = Style::get_data( $args );
-        $class = Classes::get_attribute( $args );
+        $classes = Classes::get_classes( $args );
 
-        if( $id ) $attributes[] = $id;
-        if( $class ) $attributes[] = $class;
-        if( $style_data['attribute'] ) $attributes[] = $style_data['attribute'];
+        if( $id ) $attributes['id'] = $id;
+        if( $classes ) $attributes['class'] = implode(' ', $classes);
+        if( $style_data['inline_styles'] ) $attributes['style'] = $style_data['inline_styles'];
         if( SCROLL_ANIMATIONS ){
             if( 
                 isset($args['scroll_animations_settings']) && 
@@ -68,14 +68,20 @@ class Template_Engine{
                 is_array($args['scroll_animations_settings']['groups']) )
             {
                 $animations_settings = $args['scroll_animations_settings'];
-                $attributes[] = Scroll_Animations::get_attribute( $animations_settings );
+                $attributes['data-scroll-animations'] = Scroll_Animations::get_animations( $animations_settings );
             }
         } 
         if (isset($args['additional_attributes']) && is_array($args['additional_attributes']) && !empty($args['additional_attributes'])){
             $attributes = array_merge( $attributes, $args['additional_attributes'] );
         }
         
-        return ( !empty($attributes) ) ? implode(' ', $attributes ) : '';
+        $attributes_string = '';
+        if( !empty($attributes) ){
+            foreach( $attributes as $key => $value ){
+                $attributes_string .= $key.'="'.$value.'" ';
+            }
+        }
+        return $attributes_string;
     }
 
     public static function check_layout( $key, $args ){

@@ -171,9 +171,9 @@ class Image extends Component {
         }
         $caption = $attachment->post_excerpt ?? '';
         
-        if( !empty($src) ) $args['additional_attributes'][] = 'src="'.esc_url($src).'"';
-        if( !empty($alt) ) $args['additional_attributes'][] = 'alt="'.esc_attr($alt).'"';
-        if( !empty($title) ) $args['additional_attributes'][] = 'title="'.esc_attr($title).'"';
+        if( !empty($src) ) $args['additional_attributes']['src'] = esc_url($src);
+        if( !empty($alt) ) $args['additional_attributes']['alt'] = esc_attr($alt);
+        if( !empty($title) ) $args['additional_attributes']['title'] = esc_attr($title);
 
         if( isset($args['expand_on_click']) && $args['expand_on_click'] ) $args['additional_classes'][] = 'zoom';
         

@@ -321,7 +321,7 @@ class Frontend extends Theme_Header_Data {
             }
 
             if( !empty($animation_groups) ){
-                $attributes[] = Scroll_Animations::get_attribute( $animation_groups );
+                $attributes[] = 'data-scroll-animations="'.Scroll_Animations::get_animations( $animation_groups ).'"';
             } 
         }
 
