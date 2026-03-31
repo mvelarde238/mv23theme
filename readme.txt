@@ -2,7 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
-3.5.1 26-03-28
+3.5.2 26-03-30
+- Review flipbox front and back alignment options  
+
+3.5.1 26-03-28  
 - Force space to drag components into wrappers components
 - Review Counter Component
 - Fix Template_Engine to handle attributes with key pair values

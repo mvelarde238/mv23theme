@@ -93,13 +93,21 @@ function content_alignment_options(component, editor, flex_direction){
     const alignment_options = [];
     const ccaCmd = 'update-css-property';
 
+    const componentType = component.getType();
+    const defaultValues = {
+        'justify-content': (componentType.startsWith('flipbox')) ? 'safe center' : 'flex-start',
+        'align-items': (componentType.startsWith('flipbox')) ? 'safe center' : 'stretch',
+    };
+
+    const centerValue = (componentType.startsWith('flipbox')) ? 'safe center' : 'center';
+
     const contentAlignmentOptions = [
         { property:'justify-content', value:'flex-start', tooltip:'Top', icon:'' },
-        { property:'justify-content', value:'center', tooltip:'Middle', icon:'' },
+        { property:'justify-content', value:centerValue, tooltip:'Middle', icon:'' },
         { property:'justify-content', value:'flex-end', tooltip:'Bottom', icon:'' },
         { type:'break' },
         { property:'align-items', value:'flex-start', tooltip:'Start', icon:'' },
-        { property:'align-items', value:'center', tooltip:'Center', icon:'' },
+        { property:'align-items', value:centerValue, tooltip:'Center', icon:'' },
         { property:'align-items', value:'flex-end', tooltip:'End', icon:'' },
         { type:'break' },
         { property:'justify-content', value:'space-around', tooltip:'Around', icon:'' },
@@ -108,11 +116,6 @@ function content_alignment_options(component, editor, flex_direction){
         { type:'break' },
         { property:'align-items', value:'stretch', tooltip:'Stretch', icon:'' },
     ];
-
-    const defaultValues = {
-        'justify-content': 'flex-start',
-        'align-items': 'stretch',
-    };
 
     contentAlignmentOptions.forEach(option => {
         if( option.type && option.type === 'break' ){
@@ -128,13 +131,13 @@ function content_alignment_options(component, editor, flex_direction){
         let icon = '';
         if( option.property === 'justify-content' ){
             if( option.value === 'flex-start' ) icon = (flex_direction === 'column') ? 'bi-align-top' : 'bi-align-start';
-            else if( option.value === 'center' ) icon = (flex_direction === 'column') ? 'bi-align-middle' : 'bi-align-center';
+            else if( option.value === 'center' || option.value === 'safe center' ) icon = (flex_direction === 'column') ? 'bi-align-middle' : 'bi-align-center';
             else if( option.value === 'flex-end' ) icon = (flex_direction === 'column') ? 'bi-align-bottom' : 'bi-align-end';
             else if( option.value === 'space-between' ) icon = (flex_direction === 'column') ? 'bi-distribute-vertical' : 'bi-distribute-horizontal';
         }
         else if( option.property === 'align-items' ){
             if( option.value === 'flex-start' ) icon = (flex_direction === 'column') ? 'bi-align-start' : 'bi-align-top';
-            else if( option.value === 'center' ) icon = (flex_direction === 'column') ? 'bi-align-center' : 'bi-align-middle';
+            else if( option.value === 'center' || option.value === 'safe center' ) icon = (flex_direction === 'column') ? 'bi-align-center' : 'bi-align-middle';
             else if( option.value === 'flex-end' ) icon = (flex_direction === 'column') ? 'bi-align-end' : 'bi-align-bottom';
         }
 
@@ -175,6 +178,31 @@ function get_locked_cmps_action(component){
             return (lockedComponents) ? 'UNLOCK INNER COMPONENTS' : 'LOCK INNER COMPONENTS'; 
         }, 
     };
+}
+
+function get_flipbox_side_options(component, editor){
+    return [
+        {
+            type: 'options', title: 'BACKGROUND & COLOR', titleKey: 'background_and_color',
+            options: [
+                {
+                    type:'color', command:'update-css-property', args: { property:'background-color' },
+                    value: ()=>{ 
+                        const backgroundColor = component.getStyle('background-color') || '';
+                        return backgroundColor; 
+                    }, 
+                },
+                { 
+                    type:'color', command:'update-css-property', args: { property:'color' },
+                    value: ()=>{
+                        const color = component.getStyle('color') || '#000000';
+                        return color; 
+                    }, 
+                },
+            ],
+        },
+        content_alignment_options(component, editor, 'column'),
+    ]
 }
 
 window['contextMenuOpts'] = {
@@ -463,6 +491,12 @@ window['contextMenuOpts'] = {
                     ]
                 },
             ]
+        },
+        ['flipbox-front']: function(component, editor){
+            return get_flipbox_side_options(component, editor);
+        },
+        ['flipbox-back']: function(component, editor){
+            return get_flipbox_side_options(component, editor);
         },
         ['counter-component']: function(component){
             let textAlignAction = create_text_align_actions(component);

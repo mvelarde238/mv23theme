@@ -10,10 +10,11 @@ window.gjsFlipbox = function (editor) {
                 classes: ['flipbox-inner'],
                 draggable: false,
                 droppable: false,
-                delegate: {
-                    // Delegate these commands to the parent
-                    select: (cmp) => cmp.closestType(cmpClass),
-                },
+                // delegate: {
+                //     // Delegate these commands to the parent
+                //     select: (cmp) => cmp.closestType(cmpClass),
+                // },
+                selectable: false,
                 hoverable: false,
                 stylable: false
             }
@@ -80,6 +81,13 @@ window.gjsFlipbox = function (editor) {
                 selectable: true,
                 hoverable: true,
                 classes: [cmpClass, 'component'],
+                styles: `
+                    .flipbox-front, .flipbox-back {
+                        display: flex;
+                        justify-content: safe center;
+                        align-items: safe center;
+                    }
+                `,
                 components: [
                     { 
                         type: 'flipbox-inner', 
@@ -165,5 +173,12 @@ window.gjsFlipbox = function (editor) {
                 this.render();
             }
         }
+    });
+
+    // Remove the component styles before saving as they are only needed to be presented in the style manager
+    editor.on('builder:before-save-editor', () => {
+        const css = editor.Css;
+        css.remove(`.flipbox-front`);
+        css.remove(`.flipbox-back`);
     });
 }

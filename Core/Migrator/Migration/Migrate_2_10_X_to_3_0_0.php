@@ -1707,14 +1707,14 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
                     $face_id = $gjs_face['attributes']['id'];
                 }
 
-                $css_styles .= "#{$face_id} { justify-content: {$justify_content}; align-items: {$align_items}; }";
-                $gjs_styles[] = array(
-                    'selectors' => array( '#' . $face_id ),
-                    'style' => array( 
-                        'justify-content' => $justify_content,
-                        'align-items' => $align_items
-                    )
-                );
+                // $css_styles .= "#{$face_id} { justify-content: {$justify_content}; align-items: {$align_items}; }";
+                // $gjs_styles[] = array(
+                //     'selectors' => array( '#' . $face_id ),
+                //     'style' => array( 
+                //         'justify-content' => $justify_content,
+                //         'align-items' => $align_items
+                //     )
+                // );
             }
 
             unset( $uf_component[$key.'_justify_content'] );
