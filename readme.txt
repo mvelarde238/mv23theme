@@ -2,6 +2,11 @@
 CHANGELOG
 **************************************************************************************************
 
+3.5.3 26-04-01
+- Use column-gap CSS property to manage spacing between columns instead of gap
+- Add columns width presets to Row Component and update shared templates accordingly
+- Uf Feature: Implement "use_buttons" property for Image Select field
+
 3.5.2 26-03-30
 - Review flipbox front and back alignment options  
 

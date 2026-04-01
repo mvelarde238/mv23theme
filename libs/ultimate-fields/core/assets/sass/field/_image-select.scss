@@ -9,9 +9,23 @@
 		background: #fff;
 		border: 2px solid #eee;
 		margin: 0 5px 5px 0;
-
+ 
 		&.uf-selected {
 			border-color: #71848d;
+		}
+	}
+
+	button {
+		padding: 1px;
+		border: 2px solid #eee;
+		margin: 0 5px 5px 0;
+		cursor: pointer;
+		font: revert;
+		&:hover{
+			border: 2px solid #71848d;
+		}
+		span{
+			pointer-events: none;
 		}
 	}
 
@@ -19,12 +33,11 @@
 		display: none;
 	}
 
-	img {
+	img, span.label {
 		display: block;
 		max-width: 300px;
 		width: 100%;
 	}
-
 }
 
 .image-select-2-cols .uf-image-select{

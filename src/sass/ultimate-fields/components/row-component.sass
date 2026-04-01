@@ -1,8 +1,3 @@
 .row-component
     display: flex
-
-// hack to add margin-bottom to columns on medium and smaller screens 
-// (tablets and phones) to prevent them from sticking together when they stack
-@media #{$medium-and-down}
-    .column
-        margin-bottom: var(--components-spacing)
+    row-gap: var(--components-spacing)

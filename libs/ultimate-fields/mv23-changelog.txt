@@ -1,5 +1,10 @@
 mv23 changelog-------------------------
 
+- 3.2.14 01-04-2026
+- Implement "use_buttons" property for Image Select field to prevent auto-selection of the first option and allow using buttons for selection
+    (core/classes/Field/Image_Select.php)
+    (core/js/field/image-select.js)
+
 - 3.2.13 12-02-2026
 - (core/classes/Field/Select.php) Add "--Select an option--" as first option to give an empty option
 

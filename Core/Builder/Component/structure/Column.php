@@ -1,7 +1,9 @@
 <?php
 namespace Core\Builder\Component;
 
+use Ultimate_Fields\Field;
 use Core\Builder\Component;
+use Core\Builder\Component\Row;
 use Core\Builder\Template_Engine;
 use Core\Builder\Core as Builder_Core;
 
@@ -20,12 +22,13 @@ class Column extends Component {
 
 	public static function get_builder_data() {
         return array(
-            'display_gjs_block' => false
+            'display_gjs_block' => false,
+			'custom_datastore_change_callback' => true
 		);
     }
 
 	public static function get_fields() {
-		$fields = array();
+		$fields = Row::get_fields();
 
 		return $fields;
 	}

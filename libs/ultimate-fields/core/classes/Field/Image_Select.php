@@ -29,6 +29,13 @@ class Image_Select extends Field {
 	protected $show_label = false;
 
 	/**
+	 * Indicates whether to use buttons instead of radio inputs.
+	 *
+	 * @since 3.0
+	 */
+	protected $use_buttons = false;
+
+	/**
 	 * Adds an option to the select.
 	 *
 	 * @since 3.0
@@ -87,6 +94,16 @@ class Image_Select extends Field {
 	}
 
 	/**
+	 * Switches the input type from radio buttons to HTML buttons.
+	 *
+	 * @return Ultimate_Fields\Field\Image_Select
+	 */
+	public function use_buttons() {
+		$this->use_buttons = true;
+		return $this;
+	}
+
+	/**
 	 * Adds additional fields to JavaScript.
 	 *
 	 * @since 3.0
@@ -97,7 +114,8 @@ class Image_Select extends Field {
 		$settings = parent::export_field();
 
 		$settings[ 'options' ]     = $this->options;
-		$settings['show_label'] = $this->show_label;
+		$settings['show_label']   = $this->show_label;
+		$settings['use_buttons']  = $this->use_buttons;
 
 		return $settings;
 	}
@@ -140,7 +158,8 @@ class Image_Select extends Field {
 
 		$this->proxy_data_to_setters( $data, array(
 			'image_select_options'       => 'add_options',
-			'image_select_output_format' => 'set_output_type'
+			'image_select_output_format' => 'set_output_type',
+			'image_select_use_buttons'   => 'use_buttons'
 		));
 	}
 
@@ -155,8 +174,9 @@ class Image_Select extends Field {
 		$settings = parent::export();
 
 		$this->export_properties( $settings, array(
-			'options'     => array( 'image_select_options', array() ),
-			'output_type' => array( 'image_select_output_format', 'value' )
+			'options'      => array( 'image_select_options', array() ),
+			'output_type'  => array( 'image_select_output_format', 'value' ),
+			'use_buttons'  => array( 'image_select_use_buttons', false )
 		));
 
 		return $settings;

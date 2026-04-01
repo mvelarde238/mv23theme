@@ -50,7 +50,7 @@ window.gjsSharedResources = {
             visual: '<div class="template-visual-container"><div class="template-visual-col"></div><div class="template-visual-col template-visual-col-2"></div></div>',
             components: [{
                 type: 'row-component',
-                style : { gap: '1%', ['flex-wrap']: 'nowrap' },
+                style : { ['column-gap']: '2%', ['flex-wrap']: 'nowrap' },
                 components: [
                     { type: 'column', style: { width: '33%' } },
                     { type: 'column', style: { width: '66%' } }
@@ -65,7 +65,7 @@ window.gjsSharedResources = {
             visual: '<div class="template-visual-container"><div class="template-visual-col template-visual-col-2"></div><div class="template-visual-col"></div></div>',
             components: [{
                 type: 'row-component',
-                style : { gap: '1%', ['flex-wrap']: 'nowrap' },
+                style : { ['column-gap']: '2%', ['flex-wrap']: 'nowrap' },
                 components: [
                     { type: 'column', style: { width: '66%' } },
                     { type: 'column', style: { width: '33%' } }

@@ -1011,10 +1011,23 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 .uf-image-select label.uf-selected {
   border-color: #71848d;
 }
+.uf-image-select button {
+  padding: 1px;
+  border: 2px solid #eee;
+  margin: 0 5px 5px 0;
+  cursor: pointer;
+  font: revert;
+}
+.uf-image-select button:hover {
+  border: 2px solid #71848d;
+}
+.uf-image-select button span {
+  pointer-events: none;
+}
 .uf-image-select input[type=radio] {
   display: none;
 }
-.uf-image-select img {
+.uf-image-select img, .uf-image-select span.label {
   display: block;
   max-width: 300px;
   width: 100%;
@@ -1987,6 +2000,7 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   box-sizing: content-box;
   border-width: 1px;
   box-shadow: none;
+  min-height: auto;
 }
 .uf-gallery-images .button-secondary span {
   vertical-align: middle;
@@ -4070,5 +4084,11 @@ h2.uf-add-term-title {
 }
 .uf-separator-top label {
   font-weight: bold;
+}
+
+/* map field geocoder position fix */
+.uf-map-ui .leaflet-control-geocoder {
+  display: flex;
+  margin-right: 0;
 }
 /*# sourceMappingURL=ultimate-fields.css.map */
