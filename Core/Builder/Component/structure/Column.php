@@ -17,7 +17,7 @@ class Column extends Component {
 	}
 
 	public static function get_icon() {
-        return 'dashicons-columns';
+        return 'bi-layout-three-columns';
     }
 
 	public static function get_builder_data() {

@@ -11,7 +11,7 @@ class Row extends Component {
     public function __construct() {
 		parent::__construct(
 			'row-component',
-			__( 'Rows', 'mv23theme' )
+			__( 'Row', 'mv23theme' )
 		);
 	}
 
