@@ -2,8 +2,11 @@
 CHANGELOG
 **************************************************************************************************
 
-3.5.3 26-04-01
+3.6.0 26-04-01
 - Use column-gap CSS property to manage spacing between columns instead of gap
+  -------------------------------------------------------------------------------------------------------------
+  !IMPORTANT: Use the migrator to update old row components to use the new column-gap property
+  -------------------------------------------------------------------------------------------------------------
 - Add columns width presets to Row Component and update shared templates accordingly
 - Uf Feature: Implement "use_buttons" property for Image Select field
 
