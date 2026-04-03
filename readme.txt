@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.7.1 26-04-03
+- Fix additional_attributes handling on Gallery Component to properly generate attributes array 
+  for Template_Engine and avoid issues with attributes not being rendered or being rendered incorrectly
+
 3.7.0 26-04-02
 - Review Togglebox Component:
 - Remove togglebox-wrapper component, now togglebox component is the main one and handle all the logic

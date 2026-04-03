@@ -178,10 +178,10 @@ function print_theme_gallery( $atts ) {
                 $item_attrs['additional_attributes'] = []; // reset per-item to avoid accumulating previous attrs
                 if( isset($a['grid_data'][$item_counter]) ){
                     $item_grid_data = $a['grid_data'][$item_counter];
-                    if(isset($item_grid_data['x'])) $item_attrs['additional_attributes'][] = 'gs-x="'.$item_grid_data['x'].'"';
-                    if(isset($item_grid_data['y'])) $item_attrs['additional_attributes'][] = 'gs-y="'.$item_grid_data['y'].'"';
-                    if(isset($item_grid_data['w'])) $item_attrs['additional_attributes'][] = 'gs-w="'.$item_grid_data['w'].'"';
-                    if(isset($item_grid_data['h'])) $item_attrs['additional_attributes'][] = 'gs-h="'.$item_grid_data['h'].'"';
+                    if(isset($item_grid_data['x'])) $item_attrs['additional_attributes']['gs-x'] = $item_grid_data['x'];
+                    if(isset($item_grid_data['y'])) $item_attrs['additional_attributes']['gs-y'] = $item_grid_data['y'];
+                    if(isset($item_grid_data['w'])) $item_attrs['additional_attributes']['gs-w'] = $item_grid_data['w'];
+                    if(isset($item_grid_data['h'])) $item_attrs['additional_attributes']['gs-h'] = $item_grid_data['h'];
                 }
             }
 
@@ -216,10 +216,10 @@ function print_theme_gallery( $atts ) {
                     } else { // is a normal attachment image
                         $url = $attach_url;
                         $image_attrs = array();
-                        $image_attrs['additional_attributes'] = array('src="'.$attach_url.'"');
+                        $image_attrs['additional_attributes']['src'] = $attach_url;
     
                         if( !empty($a['size_styles'])){
-                            $image_attrs['additional_attributes'][] = 'style="'.$a['size_styles'].'"';
+                            $image_attrs['additional_attributes']['style'] = $a['size_styles'];
                         }
                         $the_attachment = '<img '.Template_Engine::generate_attributes($image_attrs).'>';
                     }
@@ -262,11 +262,11 @@ function print_theme_gallery( $atts ) {
 
                     $image_attrs = array();
                     $image_attrs['additional_attributes'] = array(
-                        'src="'.get_template_directory_uri().'/assets/images/pdf_poster.jpg"'
+                        'src' => get_template_directory_uri().'/assets/images/pdf_poster.jpg'
                     );
 
                     if( !empty($a['size_styles'])){
-                        $image_attrs['additional_attributes'][] = 'style="'.$a['size_styles'].'"';
+                        $image_attrs['additional_attributes']['style'] = $a['size_styles'];
                     }
                     $the_attachment = '<img '.Template_Engine::generate_attributes($image_attrs).'>';
                     break;
@@ -275,10 +275,10 @@ function print_theme_gallery( $atts ) {
                     $attachment_type = 'image';
                     $url = $attachment_id; // In this case, $attachment_id is actually the URL of the placeholder image
                     $image_attrs = array();
-                    $image_attrs['additional_attributes'] = array('src="'.$url.'"');
+                    $image_attrs['additional_attributes'] = array('src' => $url);
     
                     if( !empty($a['size_styles'])){
-                        $image_attrs['additional_attributes'][] = 'style="'.$a['size_styles'].'"';
+                        $image_attrs['additional_attributes']['style'] = $a['size_styles'];
                     }
                     $the_attachment = '<img '.Template_Engine::generate_attributes($image_attrs).'>';
                     break;
