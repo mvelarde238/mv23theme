@@ -1,4 +1,4 @@
-.v23-togglebox
+.togglebox
     $style: 'accordion-style2'
 
     &[data-style="#{$style}"]
@@ -10,6 +10,8 @@
         border-radius: 6px
         margin-bottom: 4px
         padding: 20px 40px
+        position: relative
+        transition: 200ms border-color, 200ms background-color, 200ms color
         &::before
             content: ""
             position: absolute

@@ -3,7 +3,7 @@
         // ****************************************************************************************************
         // INIT TOGGLEBOXES SCRIPT
         // ****************************************************************************************************
-        var toggleboxes = document.getElementsByClassName('v23-togglebox');
+        var toggleboxes = document.getElementsByClassName('togglebox');
 
         for (var i = 0; i < toggleboxes.length; i++) {
             var el = toggleboxes[i],

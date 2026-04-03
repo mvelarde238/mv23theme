@@ -2,6 +2,15 @@
 CHANGELOG
 **************************************************************************************************
 
+3.7.0 26-04-02
+- Review Togglebox Component:
+- Remove togglebox-wrapper component, now togglebox component is the main one and handle all the logic
+- Remove v23- prefix from classes and components names
+- Implement animation on togglebox items
+  -------------------------------------------------------------------------------------------------------------
+  !IMPORTANT: Use the migrator to update old togglebox components to use the new structure and class names
+  -------------------------------------------------------------------------------------------------------------
+
 3.6.0 26-04-01
 - Use column-gap CSS property to manage spacing between columns instead of gap
   -------------------------------------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-.v23-togglebox
+.togglebox
     $style: 'tab-style2'
 
     &[data-style="#{$style}"]
@@ -20,14 +20,11 @@
 
     &[data-style="#{$style}"] > &__nav > &__btn
         padding: 15px
-        cursor: pointer
-        margin: 0
         margin-bottom: 5px
         position: relative
         transition: 200ms all
         border-radius: 3px
         border: 1px solid var(--ui-color-2)
-        line-height: 100%
         display: inline-block
         width: 100%
         &.active, &:hover

@@ -1,0 +1,23 @@
+.togglebox
+    $style: 'vertical-accordion'
+
+    &[data-style="#{$style}"] > &__items > &__btn
+        cursor: pointer
+        display: inline-block
+        width: 100%
+        line-height: 1
+        &.active,
+        &:hover
+            color: var(--ui-color-1)
+        
+    &[data-style="#{$style}"] > &__items > &__btn > &__title
+        font-weight: var(--bold-font-weight)
+
+    &[data-style="#{$style}"] > &__items > &__btn > &__subtitle
+        display: inline-block
+        margin-left: 5px
+        &::before
+            content: '- '
+    
+    &[data-style="#{$style}"] > &__items > &__item
+        padding: 20px

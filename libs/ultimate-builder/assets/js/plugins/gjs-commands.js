@@ -138,7 +138,11 @@ window.gjsCommands = function (editor, options) {
         }
 
         // Create or get the CSS rule
-        const rule = editor.Css.setRule(`#${id} ${selector}`, {}, ruleArgs);
+        // if selector has {context.id} placeholder, replace it with the actual id
+        // and dont append the id to the selector, since it is already in the placeholder
+        const processedSelector = selector.replace(/{context\.id}/g, `#${id}`);
+        const finalSelector = processedSelector.includes(id) ? processedSelector : `#${id} ${processedSelector}`;
+        const rule = editor.Css.setRule(finalSelector, {}, ruleArgs);
 
         // Select the rule in the CSS editor
         editor.Selectors.select(rule);

@@ -40,24 +40,15 @@ class Accordion_Button extends Component {
                 Field::create( 'image', 'image', __('Image','mv23theme') )
                     ->hide_label()
                     ->add_dependency('type','image','='),
-                Field::create( 'select', 'image_size' )
-                    ->hide_label()
-                    ->add_dependency('type','image','=')
-                    ->set_prefix(__('Image Size','mv23theme'))
-                    ->add_options(array(
-                        'iconsize' => __('Small','mv23theme'),
-                        'auto' => __('Automatic','mv23theme')
-                ))
             )),
-            Field::create( 'text', 'itemid', 'ID' )
         );
 
 		return $fields;
 	}
 
 	public static function display( $args ){
-        $title = '<span class="v23-togglebox__title">'.$args['title'].'</span>';
-        $subtitle = (isset($args['subtitle']) && $args['subtitle']) ? '<span class="v23-togglebox__subtitle">'.$args['subtitle'].'</span>' : '';
+        $title = '<span class="togglebox__title">'.$args['title'].'</span>';
+        $subtitle = (isset($args['subtitle']) && $args['subtitle']) ? '<span class="togglebox__subtitle">'.$args['subtitle'].'</span>' : '';
         $argsid = (isset($args['itemid'])) ? $args['itemid'] : false;
         $slug = ($argsid) ? $argsid : sanitize_title($title);
         if( preg_match('@^[0-9]@',$slug) ) $slug = 'item-'.$slug;
@@ -68,14 +59,13 @@ class Accordion_Button extends Component {
         switch ($type) {
             case 'image':
                 $image = (is_numeric($icon_settings['image'])) ? wp_get_attachment_url($icon_settings['image']) : $icon_settings['image'];
-                $style = (isset($icon_settings['image_size']) && $icon_settings['image_size'] == 'auto') ? 'style="height:auto;width:auto;"' : '';
-                $icon_html = ($image) ? '<img '.$style.' src="'.$image .'" />' : '';
+                $icon_html = ($image) ? '<img class="togglebox__icon" src="'.$image .'" />' : '';
                 break;
             
             case 'icon':
                 $icon = $icon_settings['icon'];
                 $icon_prefix = (str_starts_with($icon,'fa')) ? 'fa' : 'bi';
-                $icon_html = ($icon) ? '<i class="'.$icon_prefix.' '.$icon.'"></i>' : '';
+                $icon_html = ($icon) ? '<i class="togglebox__icon '.$icon_prefix.' '.$icon.'"></i>' : '';
                 break;
 
             default:
@@ -84,8 +74,16 @@ class Accordion_Button extends Component {
         };
 
         $count = $args['count'] ?? 0;
+        
+        $args['additional_classes'][] = 'togglebox__btn';
+        $args['additional_attributes']['data-boxid'] = '#'.$slug;
+        $args['additional_attributes']['data-count'] = $count;
+
 		ob_start();
-        echo '<div class="v23-togglebox__btn" data-boxid="#'.$slug.'" data-count="'.$count.'">'.$icon_html.$title.$subtitle.'</div>';
+        echo Template_Engine::component_wrapper('start', $args);
+        echo Template_Engine::check_components( $args );
+        echo $icon_html.$title.$subtitle;
+        echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
 }

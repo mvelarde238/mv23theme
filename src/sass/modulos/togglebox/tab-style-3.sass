@@ -1,4 +1,4 @@
-.v23-togglebox
+.togglebox
     $style: 'tab-style3'
 
     &[data-style="#{$style}"] > &__nav
@@ -13,7 +13,6 @@
         transition: 500ms background-color
         display: inline-block
         color: var(--ui-color-1)
-        line-height: 100%
         display: inline-flex
         gap: .8em
         align-items: center
@@ -24,7 +23,7 @@
         &.active
             box-shadow: 0 0 23px var(--ui-color-2)
     
-    &[data-style="#{$style}"] > &__items
+    &[data-style="#{$style}"] > &__items > &__item.active
         padding: 2em 1em
 
     &[data-style="#{$style}"] > &__nav > &__btn > &__subtitle

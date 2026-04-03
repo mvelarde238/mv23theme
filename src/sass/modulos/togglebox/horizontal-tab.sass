@@ -1,0 +1,18 @@
+.togglebox
+    $style: 'horizontal-tabs'
+
+    &[data-style="#{$style}"] > &__nav
+        display: flex
+        gap: 15px
+        margin-bottom: 15px
+        overflow-x: auto
+        overflow-y: hidden
+        
+    &[data-style="#{$style}"] > &__nav > &__btn
+        cursor: pointer
+        line-height: 1
+        &.active, &:hover
+            color: var(--ui-color-1)
+
+    &[data-style="#{$style}"] > &__nav > &__btn > &__title
+        font-weight: var(--bold-font-weight)

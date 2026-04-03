@@ -1,7 +1,7 @@
 @mixin sombra
     box-shadow: calc( var(--shadow-separation) * -1 ) var(--shadow-separation) 0 var(--ui-color-2)
 
-.v23-togglebox
+.togglebox
     $style: 'tab-style7'
 
     &[data-style="#{$style}"]
@@ -24,7 +24,6 @@
         display: block
         width: 100%
         padding: 15px 15px
-        margin: 0
         position: relative
         transition: 200ms all
         &:not(.active)

@@ -1,4 +1,4 @@
-.v23-togglebox
+.togglebox
     $style: 'tab-style4'
 
     &[data-style="#{$style}"] > &__nav
@@ -7,23 +7,22 @@
 
     &[data-style="#{$style}"] > &__nav > &__btn
         flex-grow: 1
-        margin: 0
         padding: 1em 15px
-        line-height: 100%
         display: inline-flex
         gap: .8em
         align-items: center
         justify-content: center
-        img, i
+        border-top: 2px solid var(--ui-color-3)
+        border-bottom: 2px solid var(--ui-color-3)
+        transition: border-color .3s
+        .togglebox__icon
             margin-right: 0
-        &:not(.active)
-            border-top: 2px solid var(--ui-color-2)
-            border-bottom: 2px solid var(--ui-color-2)
-        &.active, &:hover
-            border-top: 2px solid var(--ui-color-1)
-            border-bottom: 2px solid var(--ui-color-1)
+        &:hover
+            border-color: var(--ui-color-2)
+        &.active
+            border-color: var(--ui-color-1)
     
-    &[data-style="#{$style}"] > &__items
+    &[data-style="#{$style}"] > &__items > &__item.active
         padding: 2em 1em
     
     &[data-style="#{$style}"] > &__nav > &__btn > &__subtitle

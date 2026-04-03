@@ -57,6 +57,7 @@ class Core{
             'Carousel',
             'Inner_Accordion',
             'Accordion_Button',
+            'Accordion_Item',
             'Accordion',
             'Inner_Row',
             'Counter',
