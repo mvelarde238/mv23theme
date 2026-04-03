@@ -5,6 +5,7 @@ CHANGELOG
 3.7.1 26-04-03
 - Fix additional_attributes handling on Gallery Component to properly generate attributes array 
   for Template_Engine and avoid issues with attributes not being rendered or being rendered incorrectly
+- Fix togglebox item id generation when no id attribute is set to ensure correct button/item relationship
 
 3.7.0 26-04-02
 - Review Togglebox Component:
