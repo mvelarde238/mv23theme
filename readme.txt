@@ -7,6 +7,7 @@ CHANGELOG
   for Template_Engine and avoid issues with attributes not being rendered or being rendered incorrectly
 - Fix togglebox item id generation when no id attribute is set to ensure correct button/item relationship
 - Validate datastore data before appending spans to togglebox button
+- Consolidate background properties into a single Background sector
 
 3.7.0 26-04-02
 - Review Togglebox Component:
