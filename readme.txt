@@ -7,6 +7,7 @@ CHANGELOG
 - Remove togglebox-wrapper component, now togglebox component is the main one and handle all the logic
 - Remove v23- prefix from classes and components names
 - Implement animation on togglebox items
+- Add togglebox actions wrapper to handle remove, select and add buttons
   -------------------------------------------------------------------------------------------------------------
   !IMPORTANT: Use the migrator to update old togglebox components to use the new structure and class names
   -------------------------------------------------------------------------------------------------------------

@@ -19,3 +19,6 @@
         display: block
         &.active, &:hover
             color: var(--ui-color-1)
+
+    &[data-style="#{$style}"] > &__actions
+        @extend %vertical-actions
