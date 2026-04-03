@@ -8,6 +8,7 @@ CHANGELOG
 - Fix togglebox item id generation when no id attribute is set to ensure correct button/item relationship
 - Validate datastore data before appending spans to togglebox button
 - Consolidate background properties into a single Background sector
+- Writing mode and text wrap properties added to style manager configuration for improved typography control
 
 3.7.0 26-04-02
 - Review Togglebox Component:
