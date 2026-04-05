@@ -101,13 +101,13 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsCounter', 'handler' => 'gjs-counter', 'isComponent' => true ],
 		[ 'name' => 'gjsHeading', 'handler' => 'gjs-heading', 'isComponent' => true ],
 		[ 'name' => 'gjsButton', 'handler' => 'gjs-button', 'isComponent' => true ],
+		[ 'name' => 'gjsCarousel', 'handler' => 'gjs-carousel', 'isComponent' => true ],
 		[ 'name' => 'gjsTemplatePlaceholder', 'handler' => 'gjs-template-placeholder', 'isComponent' => true ],
 		[ 'name' => 'gjsMainContent', 'handler' => 'gjs-main-content', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true, 'hasCss' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],
 		[ 'name' => 'gjsTogglebox', 'handler' => 'gjs-togglebox', 'isExternal' => true ],
-		[ 'name' => 'gjsCarousel', 'handler' => 'gjs-carousel', 'isExternal' => true ],
 		[ 'name' => 'gjsImages', 'handler' => 'gjs-images', 'isExternal' => true ],
 		[ 'name' => 'gjsVideo', 'handler' => 'gjs-video', 'isExternal' => true ],
 	);

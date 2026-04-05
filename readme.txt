@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.7.2 26-04-04
+- Carrusel Component Review
+
 3.7.1 26-04-03
 - Fix additional_attributes handling on Gallery Component to properly generate attributes array 
   for Template_Engine and avoid issues with attributes not being rendered or being rendered incorrectly

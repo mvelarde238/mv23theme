@@ -89,6 +89,9 @@ window.gjsI18n = function (editor, options) {
                 page: 'Página',
                 image: 'Imagen',
                 video: 'Video',
+                // Carousel
+                remove_confirm_msg: '¿Estás seguro de que deseas eliminar este item? Hay componentes dentro',
+                last_item_alert: 'No se puede eliminar el último item. Un carrusel debe tener al menos un item.',
             },
             'gjs-row-and-cols': {
                 row: 'Fila',
@@ -210,6 +213,8 @@ window.gjsI18n = function (editor, options) {
                 // text-editor
                 font_size: 'TAMAÑO DEL TEXTO',
                 text_color: 'COLOR DEL TEXTO',
+                // Carousel
+                select_all_items: 'SELECCIONAR TODOS LOS ITEMS',
             }
         }
     });

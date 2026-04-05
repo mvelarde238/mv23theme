@@ -24,7 +24,7 @@ class Carousel extends Component {
 
     public static function get_builder_data() {
         return array(
-            'display_gjs_block' => false
+            'custom_datastore_change_callback' => true
 		);
     }
 
@@ -161,22 +161,23 @@ class Carousel extends Component {
                 //     ->set_width( 20 )
             ))->add_dependency('carousel_type', 'slider', '='),
 
-            Field::create( 'tab', 'columns_settings_tab', __('Columns Settings','mv23theme') ),
-            Field::create( 'complex', 'items', __('Columns', 'mv23theme') )->add_fields(array(
+            Field::create( 'tab', 'columns_settings_tab', __('Columns','mv23theme') )->add_dependency('carousel_type', 'slider', '='),
+            Field::create( 'complex', 'items', __('Columns', 'mv23theme') )->hide_label()->add_fields(array(
                 Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value( '4' )->set_attr('style', $width_style),
                 Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_default_value( '3' )->set_attr('style', $width_style),
                 Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_default_value( '2' )->set_attr('style', $width_style),
                 Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_default_value( '2' )->set_attr('style', $width_style)
-            ))->add_dependency('carousel_type', 'slider', '=')->hide_label(),
+            )),
 
-            Field::create( 'complex', 'gutter', __('Space between items', 'mv23theme') )->add_fields(array(
+            Field::create( 'tab', 'space_between_items_tab', __('Space between items','mv23theme') ),
+            Field::create( 'complex', 'gutter' )->hide_label()->add_fields(array(
                 Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value( '20' )->set_attr('style', $width_style),
                 Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_default_value( '20' )->set_attr('style', $width_style),
                 Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_default_value( '20' )->set_attr('style', $width_style),
                 Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_default_value( '20' )->set_attr('style', $width_style)
             )),
 
-            Field::create( 'tab', 'advanced_settings_tab', __('Advanced Settings','mv23theme') ),
+            Field::create( 'tab', 'advanced_settings_tab', __('Advanced Settings','mv23theme') )->add_dependency('carousel_type', 'slider', '='),
             Field::create('text', 'slider_uid', __('Slider UID', 'mv23theme'))
                 ->set_description(__('This is used to identify the slider in the JS code. If you leave it empty, a random UID will be generated.', 'mv23theme'))
                 ->set_attr( 'style', 'flex-grow: initial;' ),
@@ -215,7 +216,7 @@ class Carousel extends Component {
         $carousel_type = $args['carousel_type'] ?? 'slider';
         $carousel_theme = $args['carousel_theme'] ?? 'theme1';
         if($carousel_theme !== 'none'){
-            $args['additional_classes'][] = 'carousel--'.$carousel_theme;
+            $args['additional_attributes']['data-theme'] = $carousel_theme;
         }
 
         $controls_settings = $args['controls_settings'] ?? array();
@@ -317,8 +318,8 @@ class Carousel extends Component {
                 $the_carousel = $args['components'][0];// carousel is inside a carousel wrapper
 			    foreach ($the_carousel['components'] as $item) {
                     $id = (isset($item['attributes']) && isset($item['attributes']['id'])) ? $item['attributes']['id'] : '';
-                    echo '<div class="carousel__item carousel__item--content">';
-                    echo '<div id="'.$id.'" class="components-wrapper">';
+                    echo '<div class="carousel__item--content">';
+                    echo '<div id="'.$id.'" class="carousel__item components-wrapper">';
                     echo Template_Engine::check_components( $item );
                     echo '</div>';
                     echo '</div>';

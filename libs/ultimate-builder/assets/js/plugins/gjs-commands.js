@@ -103,15 +103,6 @@ window.gjsCommands = function (editor, options) {
         console.log('editor update', values);
     });
 
-    commands.add('update-font-size', (editor, sender, options = {}) => {
-        const { component, value, isFinal } = options;
-        
-        component.addStyle({
-            'font-size': value+'px',
-            'line-height': ( (value * 2) - (value / 2) )+'px'
-        }, { partial: !isFinal });
-    });
-
     commands.add('update-css-property', (editor, sender, options = {}) => {
         const { component, property, value, unit, isFinal } = options;
         let finalValue = value;
@@ -274,4 +265,26 @@ window.gjsCommands = function (editor, options) {
             component.addAttributes({ 'data-visible': side });
         }
     });
+
+    // Carousel specific commands
+    commands.add('remove-carousel-item', (editor, sender, options = {}) => {
+        const { component } = options;
+        if (component.getType() === 'carousel-item') {
+            component.getView().removeItem();
+        }
+    });
+
+    commands.add('carousel-locked-components-toggle', (editor, sender, options = {}) => {
+        let component = options.component,
+            componentType = component.get('type');
+
+        if(componentType === 'carousel-item'){
+            let lockedComponents = component.get('lockedComponents');
+            component.components().forEach(element => {
+                element.set('locked',!lockedComponents);
+            });
+            component.set('lockedComponents', !lockedComponents);
+        }
+    });
+
 }

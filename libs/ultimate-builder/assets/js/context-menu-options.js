@@ -215,7 +215,7 @@ window['contextMenuOpts'] = {
                 return value;
             };
             return [
-                { type:'range', title:'FONT SIZE', command:'update-font-size', min:0, value:getFontSize },
+                { type:'range', title:'FONT SIZE', command:'update-css-property', min:0, value:getFontSize, args: { property: 'font-size', unit: 'px' } },
                 textAlignAction,
                 { 
                     type: 'color', title: 'TEXT COLOR', command: 'update-css-property', 
@@ -514,5 +514,30 @@ window['contextMenuOpts'] = {
                 },
             ]
         },
+        ['carousel-wrapper']: function(component, editor){
+            return [
+                { type: 'button', label: 'SELECT ALL ITEMS', command: 'query-selector', args: { selector: '.carousel__item' } }
+            ];
+        },
+        ['carousel-item']: function(component, editor){
+            let actions = [];
+
+            const itemsQuantity = component.parent().components();
+            if(itemsQuantity.length > 1) actions.push({ type: 'button', command: 'remove-carousel-item', label: 'REMOVE ITEM', class:"danger" });
+
+            actions.push({
+                type: 'button', command: 'carousel-locked-components-toggle', rerender:{partial:true},
+                class: ()=>{
+                    const lockedComponents = component.get('lockedComponents');
+                    return (lockedComponents) ? 'active' : ''; 
+                }, 
+                label: ()=>{
+                    const lockedComponents = component.get('lockedComponents');
+                    return (lockedComponents) ? 'UNLOCK INNER COMPONENTS' : 'LOCK INNER COMPONENTS'; 
+                }, 
+            });
+
+            return actions;
+        }
     }
 };
