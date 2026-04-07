@@ -220,11 +220,20 @@ window.gjsTemplatePlaceholder = function (editor) {
                             ruleOpts.atRuleType = style.atRuleType;
                             ruleOpts.atRuleParams = style.mediaText;
                         }
-                        let selector = `#${componentData._generatedId}`;
-                        if(style.state) {
-                            selector += `:${style.state}`;
+
+                        if(style.selectorsAdd) {
+                            // selectorsAdd uses %comp_id% as placeholder (e.g. "#%comp_id% .carousel__item")
+                            const resolvedSelectorsAdd = style.selectorsAdd.replaceAll('#%comp_id%', `#${componentData._generatedId}`);
+                            ruleOpts.selectorsAdd = resolvedSelectorsAdd;
+                            // Use empty selectors so the rule is created with selectorsAdd only
+                            css.setRule(resolvedSelectorsAdd, style.style, ruleOpts);
+                        } else {
+                            let selector = `#${componentData._generatedId}`;
+                            if(style.state) {
+                                selector += `:${style.state}`;
+                            }
+                            css.setRule(selector, style.style, ruleOpts);
                         }
-                        css.setRule(selector, style.style, ruleOpts);
                     });
                 }
 

@@ -57,9 +57,28 @@ window.saveTemplateSystem = function (editor, options) {
 
             let styles = [];
             if (originalId) {
-                editor.Css.getRules(`#${originalId}`).forEach(rule => {
-                    const { selectors, ...ruleData } = rule.toJSON();
-                    styles.push({ ...ruleData });
+                const idSelector = '#' + originalId;
+
+                editor.Css.getRules().forEach(rule => {
+                    const ruleJson = rule.toJSON();
+                    const selectorsAdd = ruleJson.selectorsAdd || '';
+                    const style = ruleJson.style;
+                    const mediaText = ruleJson.mediaText;
+
+                    // selectors is a Backbone Collection, read models directly
+                    const selectorModels = rule.get('selectors');
+                    const matchesSelectors = selectorModels && selectorModels.some(sel => sel.get('name') === originalId);
+
+                    // Match rules where selectorsAdd contains the id (e.g. "#iyvp .carousel__item")
+                    const matchesSelectorsAdd = selectorsAdd && selectorsAdd.includes(idSelector);
+
+                    if (matchesSelectors || matchesSelectorsAdd) {
+                        const ruleData = { style };
+                        if (selectorsAdd) ruleData.selectorsAdd = selectorsAdd.replaceAll(idSelector, '#%comp_id%');
+                        if (matchesSelectors) ruleData.selectors = selectorModels.map(sel => sel.get('name'));
+                        if (mediaText) ruleData.mediaText = mediaText;
+                        styles.push(ruleData);
+                    }
                 });
             }
 

@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.7.3 26-04-07
+- Fix: Ensure the selectorsAdd property is properly included in the save template system when additional selectors are added, 
+  allowing the template system to generate correct CSS rules for those selectors and apply styles as expected
+
 3.7.2 26-04-04
 - Carrusel Component Review
 
