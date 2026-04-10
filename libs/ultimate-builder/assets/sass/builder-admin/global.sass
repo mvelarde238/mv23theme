@@ -35,8 +35,16 @@ div.wp-link-input input
 .sui-forminator-scgen .sui-wrap:not(.sui-modal)
     margin:0 !important
 
+/* Fix for forminator */
+.sui-forminator-scgen[class*=sui-2-] #wpfooter
+    display: none
+
 /* Fix for translate x/y when FileBird Plugin is active */
 .-translate-x-1\/2
     --tw-translate-x: -50% !important
 .-translate-y-1\/2
     --tw-translate-y: -50% !important
+
+/* Hide notices in the admin area */
+.notice
+    display: none
