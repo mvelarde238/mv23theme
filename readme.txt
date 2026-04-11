@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.7.5 26-04-11
+- Testimonial Component Implementation
+
 3.7.4 26-04-10
 - Fix: Hide notices in the admin area
 
