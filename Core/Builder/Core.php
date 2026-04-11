@@ -53,7 +53,6 @@ class Core{
             'Gallery',
             'Testimonial',
             'Testimonial_Header',
-            'Testimonials',
             'Menu',
             'Flip_Box',
             'Carousel',

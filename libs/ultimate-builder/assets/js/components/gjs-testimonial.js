@@ -9,7 +9,7 @@ window.gjsTestimonial = function (editor) {
 
     // Behavioral properties that should be controlled by code, not persisted in saved JSON.
     // Used by both ensureComponentStructure (to reset stale values) and builder_component_cleanup (to strip on save).
-    const unwantedProps = ['removable', 'copyable', 'draggable', 'selectable', 'badgable', 'propagate', 'resizable', 'droppable', 'delegate'];
+    const unwantedProps = ['removable', 'copyable', 'draggable', 'selectable', 'badgable', 'propagate', 'resizable', 'droppable', 'delegate', 'name'];
 
     // Default components for the testimonial, including a header with an image and info, and a body with a text editor
     const defaultComponents = [
@@ -68,9 +68,6 @@ window.gjsTestimonial = function (editor) {
             draggable: false,
             removable: false,
             copyable: false,
-            components: [
-                { type: 'text-editor' },
-            ]
         }
     ];
 
@@ -85,36 +82,8 @@ window.gjsTestimonial = function (editor) {
                 droppable: '.testimonial__info',
                 removable: false,
                 copyable: false,
-                draggable: '.testimonial',
-                __rendered: 0,
+                draggable: '.testimonial'
             },
-        },
-        view: {
-            onRender({el, model}) {
-                if (model.get('__rendered')) return;
-                model.set('__rendered', 1);
-
-                // get the image component and set default styles for it
-                const image = model.findType('image-component')[0];
-                if (image) {
-                    editor.getComponentDatastore(image)?.set({aspect_ratio: '1/1'});
-                }
-
-                // get the quote icon and set a default icon for it
-                const quoteIcon = model.findType('icon-box')[0];
-                if (quoteIcon) {
-                    editor.getComponentDatastore(quoteIcon)?.set({icon: 'fa-quote-right'});
-                    quoteIcon.getView().render();
-                }
-
-                // get the info wrapper and add a text editor with default content
-                const infoWrapper = model.findType('components-wrapper')[0];
-                if (infoWrapper) {
-                    const textEditor = infoWrapper.append({type: 'text-editor'});
-                    editor.getComponentDatastore(textEditor[0])?.set({content: defaultInfo});
-                    textEditor[0].getView().render();
-                }
-            }
         }
     });
 
@@ -127,7 +96,8 @@ window.gjsTestimonial = function (editor) {
                 tagName: 'div',
                 droppable: '.testimonial__info, .testimonial__header',
                 classes: [compClass, 'component'],
-                components: defaultComponents
+                components: defaultComponents,
+                __needsSetup: true, // Flag to track whether initial scaffolding (text-editors, icon defaults) is needed
             }
         },
         view: {
@@ -142,6 +112,45 @@ window.gjsTestimonial = function (editor) {
                     const { testimonial_style } = datastore.toJSON();
                     el.setAttribute('data-style', testimonial_style);
                 }
+
+                if(model.get('__needsSetup')) {
+                    this.extra_customizations_on_initial_render({el, model});
+                }
+            },
+            extra_customizations_on_initial_render({el, model}) {
+                const header = model.findType('testimonial-header')[0];
+                if (header){
+                    // get the image component and set default styles for it
+                    const image = header.findType('image-component')[0];
+                    if (image) {
+                        editor.getComponentDatastore(image)?.set({aspect_ratio: '1/1'});
+                    }
+
+                    // get the quote icon and set a default icon for it
+                    const quoteIcon = header.findType('icon-box')[0];
+                    if (quoteIcon) {
+                        editor.getComponentDatastore(quoteIcon)?.set({icon: 'fa-quote-right'});
+                        quoteIcon.getView().render();
+                    }
+                    
+                    // get the info wrapper and add a text editor with default content
+                    const infoWrapper = header.findType('components-wrapper')[0];
+                    if (infoWrapper) {
+                        const textEditor = infoWrapper.append({type: 'text-editor'});
+                        editor.getComponentDatastore(textEditor[0])?.set({content: defaultInfo});
+                        textEditor[0].getView().render();
+                    }
+                }
+
+                // get testimonial body and add a text editor with default content
+                const body = model.find('.testimonial__body')[0];
+                if (body) {
+                    body.append({type: 'text-editor'});
+                }
+
+                // After the initial setup, disable the flag so scaffolding
+                // doesn't run again on subsequent renders.
+                model.set({__needsSetup: false});
             }
         }
     });
