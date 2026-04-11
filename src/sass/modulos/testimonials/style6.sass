@@ -1,0 +1,69 @@
+.testimonial
+    &[data-style="style6"]
+        gap: 0
+
+    &[data-style="style6"] &__header
+        flex-direction: column
+        align-items: start
+        width: 100%
+        height: auto
+
+    &[data-style="style6"] &__image-wrapper
+        position: relative
+        overflow: hidden
+        width: 100% // fix .figure styles
+        &:before
+            content: ''
+            position: absolute
+            width: 100%
+            height: 75%
+            bottom: 0
+            left: 0
+            background: linear-gradient(to top, rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 100%)
+            pointer-events: none
+            z-index: 2
+
+    &[data-style="style6"] &__image
+        aspect-ratio: 2.8/1
+        object-fit: cover
+        position: relative
+        z-index: 1
+
+    &[data-style="style6"] &__header &__info
+        color: #fff
+        font-size: var(--text-xxs)
+        padding: 20px
+        position: absolute
+        bottom: 0
+        z-index: 3
+
+    &[data-style="style6"] &__quote-icon
+        position: absolute
+        right: 20px
+        bottom: -20px
+        width: 40px
+        height: 40px
+        border-radius: 50%
+        z-index: 4
+        background-color: var(--primary-color)
+        color: #fff
+        display: flex
+        align-items: center
+        justify-content: center
+
+    &[data-style="style6"] &__body
+        @extend %testimonial-paper
+
+    &[data-style="style6"]:has(&__header:first-child) &__body
+        border-radius: 0 0 10px 10px
+    &[data-style="style6"]:has(&__header:first-child) &__image-wrapper
+        border-radius: 10px 10px 0 0
+
+    &[data-style="style6"]:has(&__header:last-child) &__body
+        border-radius: 10px 10px 0 0
+    &[data-style="style6"]:has(&__header:last-child) &__image-wrapper
+        border-radius: 0 0 10px 10px
+    &[data-style="style6"]:has(&__header:last-child) &__quote-icon
+        bottom: auto
+        top: -20px
+    

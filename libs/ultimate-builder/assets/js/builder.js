@@ -43,7 +43,7 @@
                 spacingSpots: {
                     excludeComponentTypes: [
                         'wrapper', 'spacer', 'shortcode', 'image-component', 'text-editor', 'flipbox', 'icon-box', 'column', 
-                        'row', 'icon-and-text', 'heading', 'togglebox-button', 'togglebox', 'carousel-wrapper',
+                        'row', 'icon-and-text', 'heading', 'togglebox-button', 'togglebox', 'carousel-wrapper', 'testimonial-header',
                         'code', 'menu', 'video-component', 'button', 'map-component', 'video-component', 'counter-component'
                     ]
                 },

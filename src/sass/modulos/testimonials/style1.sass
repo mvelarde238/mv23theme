@@ -1,0 +1,11 @@
+.testimonial
+    &[data-style="style1"]
+        @extend %testimonial-paper
+    &[data-style="style1"] &__image
+        @extend %circle-testimonial-image
+    &[data-style="style1"] &__quote-icon
+        position: absolute
+        top: 0
+        right: 0
+        font-size: var(--text-xxl)
+        color: color-mix(in srgb, currentColor 10%, transparent)

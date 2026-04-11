@@ -1,0 +1,14 @@
+.testimonial
+    &[data-style="style4"]
+        flex-direction: row
+        @extend %testimonial-paper
+    &[data-style="style4"] &__header
+        flex-direction: column
+        text-align: center
+        min-width: 120px
+    &[data-style="style4"] &__info
+        font-size: var(--text-xxs)
+    &[data-style="style4"] &__image
+        @extend %circle-testimonial-image
+    &[data-style="style4"] &__quote-icon
+        display: none

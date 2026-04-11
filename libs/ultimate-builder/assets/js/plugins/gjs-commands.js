@@ -287,4 +287,21 @@ window.gjsCommands = function (editor, options) {
         }
     });
 
+    // Testimonial specific commands
+    commands.add('update-testimonial-image-position', (editor, sender, options = {}) => {
+        const { component, position } = options;
+        if (component.getType() === 'testimonial-header') {
+
+            const directionMap = {
+                top: 'column',
+                bottom: 'column-reverse',
+                left: 'row',
+                right: 'row-reverse'
+            };
+
+            component.addStyle({
+                'flex-direction': directionMap[position] || 'row'
+            });
+        }
+    });
 }

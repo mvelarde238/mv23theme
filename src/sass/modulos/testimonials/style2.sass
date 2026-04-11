@@ -1,0 +1,18 @@
+.testimonial
+    &[data-style="style2"] 
+        @extend %testimonial-paper
+    &[data-style="style2"]:has(&__header:first-child)
+        margin-top: 40px
+    &[data-style="style2"] &__header
+        flex-direction: column
+        text-align: center
+        &:first-child
+            margin-top: -80px
+    &[data-style="style2"] &__image
+        @extend %circle-testimonial-image
+    &[data-style="style2"] &__quote-icon
+        position: absolute
+        bottom: 0
+        right: 0
+        font-size: var(--text-xxl)
+        color: color-mix(in srgb, currentColor 10%, transparent)

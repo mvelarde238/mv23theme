@@ -538,6 +538,21 @@ window['contextMenuOpts'] = {
             });
 
             return actions;
+        },
+        ['testimonial-header']: function(component){
+            return [
+                { 
+                    type: 'options', 
+                    title: 'IMAGE POSITION', 
+                    options: [
+                        { type: 'button', label: 'LEFT', command: 'update-testimonial-image-position', args: { position: 'left' } },
+                        { type: 'button', label: 'RIGHT', command: 'update-testimonial-image-position', args: { position: 'right' } },
+                        { type: 'break' },
+                        { type: 'button', label: 'TOP', command: 'update-testimonial-image-position', args: { position: 'top' } },
+                        { type: 'button', label: 'BOTTOM', command: 'update-testimonial-image-position', args: { position: 'bottom' } },
+                    ]
+                }
+            ];
         }
     }
 };

@@ -51,6 +51,8 @@ class Core{
             'Listing',
             'Code',
             'Gallery',
+            'Testimonial',
+            'Testimonial_Header',
             'Testimonials',
             'Menu',
             'Flip_Box',

@@ -92,6 +92,9 @@ window.gjsI18n = function (editor, options) {
                 // Carousel
                 remove_confirm_msg: '¿Estás seguro de que deseas eliminar este item? Hay componentes dentro',
                 last_item_alert: 'No se puede eliminar el último item. Un carrusel debe tener al menos un item.',
+                // Testimonial
+                testimonial: 'Testimonio',
+                default_testimonial_info: '<strong>John Doe</strong><br>Gerente General, Compañía',
             },
             'gjs-row-and-cols': {
                 row: 'Fila',

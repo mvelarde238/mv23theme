@@ -16,6 +16,14 @@ Class Classes{
             $classes = array_merge( $args['additional_classes'], $classes );
         }
 
+        if (isset($args['classes']) && is_array($args['classes']) && !empty($args['classes'])){
+            foreach ($args['classes'] as $class) {
+                if (is_string($class) && !empty($class)) {
+                    $classes[] = $class;
+                }
+            }
+        }
+
         if( isset($args['settings']['classes']) && !empty($args['settings']['classes']) ){
             $classes = array_merge( $classes, explode(' ', $args['settings']['classes']) );
         } 

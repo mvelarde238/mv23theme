@@ -104,28 +104,6 @@ window.gjsSinglePageStructure = function (editor, options) {
         }
     });
 
-    // Recursively ensure the component structure exists
-    const ensureComponentStructure = (parent, structureArray) => {
-        structureArray.forEach((componentDef, index) => {
-            const { type, components } = componentDef;
-            
-            // Check if a component of this type already exists in the parent
-            let existingComponent = parent.findType(type)[0];
-            
-            // If it doesn't exist, create it
-            if (!existingComponent) {
-                console.log(`Creating missing component: ${type}`);
-                parent.append({ type }, { at: index });
-                existingComponent = parent.findType(type)[0];
-            }
-            
-            // If it has child components, call recursively
-            if (components && components.length > 0 && existingComponent) {
-                ensureComponentStructure(existingComponent, components);
-            }
-        });
-    };
-
     // On builder loaded, customize the canvas
     editor.on('builder:loaded', () => {
         if( BUILDER_GLOBALS.is_singular ){
@@ -139,7 +117,7 @@ window.gjsSinglePageStructure = function (editor, options) {
                 const single_page_structure_exists = container.findType('single-page-structure')[0];
                 if ( single_page_structure_exists ) {
                     // Ensuring correct structure: main, sidebar, post-title, social-share, related-posts, etc.
-                    ensureComponentStructure(single_page_structure_exists, singlePageStructureComponents);
+                    editor.ensureComponentStructure(single_page_structure_exists, singlePageStructureComponents);
                 } else {
                     // if container has components, insert single-page-structure and move existing components into single-main just after post-title
                     container.append({ type: 'single-page-structure' });
