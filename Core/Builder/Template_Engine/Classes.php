@@ -46,7 +46,32 @@ Class Classes{
         $color_scheme = self::get_color_scheme( $args );
         if ( $color_scheme ) $classes[] = $color_scheme;
 
+        // Remove duplicate/empty classes and preserve order
+        $classes = self::remove_duplicate_classes( $classes );
+
         return $classes;
+    }
+
+    /**
+     * Remove duplicate and empty classes from array while preserving order
+     *
+     * @param array $classes
+     * @return array
+     */
+    public static function remove_duplicate_classes( $classes ){
+        if ( ! is_array( $classes ) ) return array();
+
+        $unique = array();
+        foreach ( $classes as $c ) {
+            if ( ! is_string( $c ) ) continue;
+            $c = trim( $c );
+            if ( $c === '' ) continue;
+            if ( ! in_array( $c, $unique, true ) ) {
+                $unique[] = $c;
+            }
+        }
+
+        return $unique;
     }
 
     /**

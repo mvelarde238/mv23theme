@@ -7,6 +7,8 @@ CHANGELOG
   -------------------------------------------------------------------------------------------------------------
   !IMPORTANT: Use the migrator to update old testimonials components to use the new testimonial component
   -------------------------------------------------------------------------------------------------------------
+- Implements remove_duplicate_classes() helper function in Template_Engine to clean up duplicate classes from the generated CSS rules, 
+  ensuring that the final CSS is optimized and free of redundant class names that could cause specificity issues or unnecessary bloat
 
 3.7.4 26-04-10
 - Fix: Hide notices in the admin area
