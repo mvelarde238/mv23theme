@@ -110,12 +110,13 @@ window.gjsExtendComponents = function (editor) {
             // Allow arguments to be modified before creating the model, view and etc.
             args = {
                 model: UltimateFields.Container.Group.Model,
+                component: gjs_component,
                 datastore: datastore,
                 settings: groupData,
                 silent: false
             };
 
-            UltimateFields.applyFilters('repeater_group_classes', args);
+            UltimateFields.applyFilters('before_group_create', args);
 
             // Prepare the group model
             let group_model = new args.model(_.extend({}, args.settings));
@@ -158,6 +159,38 @@ window.gjsExtendComponents = function (editor) {
                 editorConfig.temporalCompStore[clonedComponentId].setDatastore(newDatastore);
             }
         }
+
+        // Recursively copy children datastores from original to cloned component.
+        // Without this, only the top-level datastore is cloned and children
+        // (e.g. text-editor, icon-box inside a testimonial) get empty datastores
+        // which causes their field defaults to override the actual content.
+        function copyChildrenDatastores(original, cloned) {
+            const origChildren = original.components();
+            const clonedChildren = cloned.components();
+            if (!origChildren || !clonedChildren) return;
+
+            origChildren.each(function(origChild, index) {
+                const clonedChild = clonedChildren.at(index);
+                if (!clonedChild) return;
+
+                // Remove __id from cloned child to avoid DB collisions
+                delete clonedChild.attributes.__id;
+
+                const origId = origChild.attributes.__tempID;
+                const clonedId = clonedChild.attributes.__tempID;
+
+                if (origId && clonedId && temporalCompStore[origId] && temporalCompStore[clonedId]) {
+                    const ogData = { ...temporalCompStore[origId].datastore.attributes };
+                    delete ogData.__id;
+                    const newDs = new UltimateFields.Datastore(ogData);
+                    newDs.parent = temporalCompStore[clonedId].datastore.parent;
+                    temporalCompStore[clonedId].setDatastore(newDs);
+                }
+
+                copyChildrenDatastores(origChild, clonedChild);
+            });
+        }
+        copyChildrenDatastores(originalComponent, clonedComponent);
     });
 
     // Invalidate cache when a component is removed from the canvas
@@ -341,7 +374,6 @@ window.gjsExtendComponents = function (editor) {
         } catch (e) {}
     });
 
-    
     // Validation helper for inline Ultimate Fields datastores using field.validate()
     function validateDatastore(groupModel) {
         try {
