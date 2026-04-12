@@ -12,6 +12,7 @@ CHANGELOG
 - Fix data-listing-args attribute on listing component to properly escape the JSON string and prevent issues with special characters breaking the HTML output
 - Fix: Create a fresh datastore when component is cloned to re-initialize the group model so all fields work properly on the cloned component
 - Recursively copy children datastores from original to cloned component
+- Clean up temporalCompStore when a component is removed to prevent memory leaks and ensure that removed components are properly cleaned up from the editor's configuration
 
 3.7.4 26-04-10
 - Fix: Hide notices in the admin area

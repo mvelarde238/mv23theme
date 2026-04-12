@@ -193,10 +193,15 @@ window.gjsExtendComponents = function (editor) {
         copyChildrenDatastores(originalComponent, clonedComponent);
     });
 
-    // Invalidate cache when a component is removed from the canvas
+    // Invalidate cache and clean up temporalCompStore when a component is removed.
+    // GrapeJS fires component:remove for each descendant, so children are handled
+    // automatically. We just need to clean both stores for the removed component.
     editor.on('component:remove', (component) => {
         const compId = component.attributes && component.attributes.__tempID;
-        if (compId) invalidateCache(compId);
+        if (compId) {
+            invalidateCache(compId);
+            delete editor.getConfig().temporalCompStore[compId];
+        }
     });
 
     // When a component is selected, check if it has a temporal UF model
