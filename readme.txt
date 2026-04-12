@@ -10,6 +10,7 @@ CHANGELOG
 - Implements remove_duplicate_classes() helper function in Template_Engine to clean up duplicate classes from the generated CSS rules, 
   ensuring that the final CSS is optimized and free of redundant class names that could cause specificity issues or unnecessary bloat
 - Fix data-listing-args attribute on listing component to properly escape the JSON string and prevent issues with special characters breaking the HTML output
+- Fix: Create a fresh datastore when component is cloned to re-initialize the group model so all fields work properly on the cloned component
 
 3.7.4 26-04-10
 - Fix: Hide notices in the admin area

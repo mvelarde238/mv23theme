@@ -147,13 +147,16 @@ window.gjsExtendComponents = function (editor) {
         if ( temporalCompStore[originalComponentId] ) {
             if( originalComponent.getType() === clonedComponent.getType() ) {
                 const ogAttributes = temporalCompStore[originalComponentId].datastore.attributes;
-                editorConfig.temporalCompStore[clonedComponentId].datastore.attributes = { ...ogAttributes };
-            }
-        }
+                const clonedData = { ...ogAttributes };
+                delete clonedData.__id;
 
-        // remove __id from datastore attributes
-        if ( temporalCompStore[clonedComponentId] ) {
-            delete temporalCompStore[clonedComponentId].datastore.attributes.__id;
+                // Create a fresh datastore with the cloned data and re-initialize
+                // the group model so all fields (including complex/video/embed)
+                // read the correct values from the start.
+                const newDatastore = new UltimateFields.Datastore(clonedData);
+                newDatastore.parent = editorConfig.temporalCompStore[clonedComponentId].datastore.parent;
+                editorConfig.temporalCompStore[clonedComponentId].setDatastore(newDatastore);
+            }
         }
     });
 
