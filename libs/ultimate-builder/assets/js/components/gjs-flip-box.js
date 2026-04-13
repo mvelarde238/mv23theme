@@ -21,18 +21,6 @@ window.gjsFlipbox = function (editor) {
         },
     });
 
-    // Send datastore changes from inner components to the main flipbox component
-    function send_datastore_change_to_main_cmp(changed, cmp) {
-        const mainCmp = cmp.closestType(cmpClass);
-        if (mainCmp) {
-            const mainDatastore = editor.getComponentDatastore(mainCmp);
-            if (mainDatastore) {
-                mainDatastore.set(changed);
-                mainCmp.getView().render();
-            }
-        }
-    }
-
     domc.addType('flipbox-front', {
         isComponent: el => el.classList && el.classList.contains('flipbox-front'),
         model: {
@@ -40,9 +28,12 @@ window.gjsFlipbox = function (editor) {
                 name: 'Flip Box Front',
                 tagName: 'div',
                 draggable: false,
-                removable: false,
                 copyable: false,
                 classes: ['flipbox-front'],
+                delegate: {
+                    // Delegate these commands to the parent
+                    remove: (cmp) => cmp.closestType('flipbox')
+                },
                 components: [
                     { 
                         type: 'text-editor',
@@ -53,7 +44,15 @@ window.gjsFlipbox = function (editor) {
         },
         view: {
             custom_datastore_change_callback(changed) {
-                send_datastore_change_to_main_cmp(changed, this.model);
+                // Send datastore changes from inner components to the main flipbox component
+                const flipbox = this.model.closestType(cmpClass);
+                if (flipbox) {
+                    const mainDatastore = editor.getComponentDatastore(flipbox);
+                    if (mainDatastore) {
+                        mainDatastore.set(changed);
+                        flipbox.getView().render();
+                    }
+                }
             },
         }
     });
@@ -65,19 +64,8 @@ window.gjsFlipbox = function (editor) {
             defaults: {
                 name: 'Flip Box Back',
                 classes: ['flipbox-back'],
-                components: [
-                    { 
-                        type: 'text-editor',
-                        style: { 'text-align': 'center' },
-                    }
-                ],
             },
         },
-        view: {
-            custom_datastore_change_callback(changed) {
-                send_datastore_change_to_main_cmp(changed, this.model);
-            },
-        }
     });
     
     domc.addType(cmpClass, {
