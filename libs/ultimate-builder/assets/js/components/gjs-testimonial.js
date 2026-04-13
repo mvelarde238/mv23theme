@@ -120,29 +120,14 @@ window.gjsTestimonial = function (editor) {
             extra_customizations_on_initial_render({el, model}) {
                 const header = model.findType('testimonial-header')[0];
                 if (header){
-                    // get the image component and set default styles for it
-                    const image = header.findType('image-component')[0];
-                    if (image) {
-                        editor.getComponentDatastore(image)?.set({aspect_ratio: '1/1'});
-                    }
-
-                    // get the quote icon and set a default icon for it
-                    const quoteIcon = header.findType('icon-box')[0];
-                    if (quoteIcon) {
-                        editor.getComponentDatastore(quoteIcon)?.set({icon: 'fa-quote-right'});
-                        quoteIcon.getView().render();
-                    }
-                    
-                    // get the info wrapper and add a text editor with default content
+                    // add a text editor to the info wrapper
                     const infoWrapper = header.findType('components-wrapper')[0];
                     if (infoWrapper) {
-                        const textEditor = infoWrapper.append({type: 'text-editor'});
-                        editor.getComponentDatastore(textEditor[0])?.set({content: defaultInfo});
-                        textEditor[0].getView().render();
+                        infoWrapper.append({type: 'text-editor'});
                     }
                 }
 
-                // get testimonial body and add a text editor with default content
+                // get testimonial body and add a text editor
                 const body = model.find('.testimonial__body')[0];
                 if (body) {
                     body.append({type: 'text-editor'});
@@ -158,6 +143,32 @@ window.gjsTestimonial = function (editor) {
     editor.on('component:add', (model) => {
         if (model.parent() && model.parent().getClasses().includes('testimonial__info')) {
             model.set('delegate', { move: (cmp) => cmp.closestType('components-wrapper') });
+        }
+    });
+
+    UltimateFields.addFilter('before_group_create', function(args) {
+        const comp = args.component;
+        if (!comp) return;
+
+        const type = comp.get('type');
+
+        // Set default icon for quote icon inside testimonial
+        if (type === 'icon-box' && comp.getClasses().includes('testimonial__quote-icon')) {
+            if (!args.datastore.get('icon')) {
+                args.datastore.set('icon', 'fa-quote-right');
+            }
+        }
+
+        // Set default content for text-editor inside testimonial__info
+        if (type === 'text-editor' && comp.parent()?.getClasses().includes('testimonial__info')) {
+            if (!args.datastore.get('content')) {
+                const testimonial = comp.closestType(compClass);
+                if (testimonial && testimonial.get('__needsSetup')) {
+                    args.datastore.set('content', defaultInfo);
+                } else {
+                    args.datastore.set('content', 'Lorem ipsum dolor sit amet.');
+                }
+            }
         }
     });
 
