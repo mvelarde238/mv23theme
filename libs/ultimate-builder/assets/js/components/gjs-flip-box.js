@@ -10,16 +10,28 @@ window.gjsFlipbox = function (editor) {
                 classes: ['flipbox-inner'],
                 draggable: false,
                 droppable: false,
-                // delegate: {
-                //     // Delegate these commands to the parent
-                //     select: (cmp) => cmp.closestType(cmpClass),
-                // },
+                delegate: {
+                    // Delegate these commands to the parent
+                    select: (cmp) => cmp.findFirstType('flipbox-front')
+                },
                 selectable: false,
                 hoverable: false,
                 stylable: false
             }
         },
     });
+
+    // Send datastore changes from inner components to the main flipbox component
+    function send_datastore_change_to_main_cmp(changed, cmp) {
+        const mainCmp = cmp.closestType(cmpClass);
+        if (mainCmp) {
+            const mainDatastore = editor.getComponentDatastore(mainCmp);
+            if (mainDatastore) {
+                mainDatastore.set(changed);
+                mainCmp.getView().render();
+            }
+        }
+    }
 
     domc.addType('flipbox-front', {
         isComponent: el => el.classList && el.classList.contains('flipbox-front'),
@@ -28,25 +40,20 @@ window.gjsFlipbox = function (editor) {
                 name: 'Flip Box Front',
                 tagName: 'div',
                 draggable: false,
-                droppable: true,
                 removable: false,
                 copyable: false,
-                selectable: true,
-                hoverable: true,
                 classes: ['flipbox-front'],
                 components: [
-                    // { 
-                        // type: 'figure',
-                        // style: { width: '100%' },
-                        // components: [
-                            { 
-                                type: 'image-component',
-                                style: { 'aspect-ratio': '4/3' },
-                            },
-                            // { type: 'figcaption' }
-                        // ]
-                    // }
+                    { 
+                        type: 'text-editor',
+                        style: { 'text-align': 'center' },
+                    }
                 ],
+            },
+        },
+        view: {
+            custom_datastore_change_callback(changed) {
+                send_datastore_change_to_main_cmp(changed, this.model);
             },
         }
     });
@@ -65,6 +72,11 @@ window.gjsFlipbox = function (editor) {
                     }
                 ],
             },
+        },
+        view: {
+            custom_datastore_change_callback(changed) {
+                send_datastore_change_to_main_cmp(changed, this.model);
+            },
         }
     });
     
@@ -74,13 +86,12 @@ window.gjsFlipbox = function (editor) {
             defaults: {
                 name: 'Flip Box',
                 tagName: 'div',
-                draggable: true,
                 droppable: false,
-                removable: true,
-                copyable: true,
-                selectable: true,
-                hoverable: true,
                 classes: [cmpClass, 'component'],
+                delegate: {
+                    // Delegate these commands to the front component, which is the most likely target for user interactions
+                    select: (cmp) => cmp.findFirstType('flipbox-front')
+                },
                 styles: `
                     .flipbox-front, .flipbox-back {
                         display: flex;
@@ -101,8 +112,6 @@ window.gjsFlipbox = function (editor) {
             init(){},
         },
         view: {
-            init({model}){
-            },
             onRender({ el, model }) {
                 const datastore = editor.getComponentDatastore(model);
                 const preview_flip_effects = model.get('__temp_preview_flip_effects') || false;
@@ -163,6 +172,12 @@ window.gjsFlipbox = function (editor) {
                 const currentVisible = el.getAttribute('data-visible');
                 const newVisible = currentVisible === 'front' ? 'back' : 'front';
                 el.setAttribute('data-visible', newVisible);
+                // select the side that is now visible
+                setTimeout(() => {
+                    const sideType = newVisible === 'front' ? 'flipbox-front' : 'flipbox-back';
+                    const sideComponent = this.model.findFirstType(sideType);
+                    editor.select(sideComponent);
+                }, 0);
             },
             preview_flipbox: function(){
                 const preview_flip_effects = this.model.get('__temp_preview_flip_effects') || false;
@@ -171,6 +186,22 @@ window.gjsFlipbox = function (editor) {
                 // select the component
                 editor.select(this.model);
                 this.render();
+            }
+        }
+    });
+
+    // Set default content for text-editor inside front and back of flipbox
+    UltimateFields.addFilter('before_group_create', function(args) {
+        const comp = args.component;
+        if (!comp) return;
+
+        const type = comp.get('type');
+
+        // Set default content for text-editor inside front and back of flipbox
+        if (type === 'text-editor' && (comp.parent()?.getType() === 'flipbox-front' || comp.parent()?.getType() === 'flipbox-back')) {
+            if (!args.datastore.get('content')) {
+                const sideContent = comp.parent().getType() === 'flipbox-front' ? '<b>Front Side Content</b>' : '<b>Back Side Content</b>';
+                args.datastore.set('content', sideContent);
             }
         }
     });

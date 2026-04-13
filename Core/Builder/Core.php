@@ -55,6 +55,8 @@ class Core{
             'Testimonial_Header',
             'Menu',
             'Flip_Box',
+            'Flip_Box_Front',
+            'Flip_Box_Back',
             'Carousel',
             'Inner_Accordion',
             'Accordion_Button',
