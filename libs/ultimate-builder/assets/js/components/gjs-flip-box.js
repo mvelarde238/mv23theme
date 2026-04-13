@@ -28,11 +28,11 @@ window.gjsFlipbox = function (editor) {
                 name: 'Flip Box Front',
                 tagName: 'div',
                 draggable: false,
-                copyable: false,
                 classes: ['flipbox-front'],
                 delegate: {
                     // Delegate these commands to the parent
-                    remove: (cmp) => cmp.closestType('flipbox')
+                    remove: (cmp) => cmp.closestType('flipbox'),
+                    copy: (cmp) => cmp.closestType('flipbox'),
                 },
                 components: [
                     { 

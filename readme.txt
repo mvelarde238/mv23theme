@@ -5,6 +5,7 @@ CHANGELOG
 3.8.1 26-04-13
 - Fix: Ensure the custom_datastore_change_callback is properly called on all flip box components to synchronize changes with the main component, preventing issues where changes to the front or back of the flip box were not being reflected in the main component's datastore and view
 - Fix: delegate flipbox-front and back remove event to parent flipbox
+- Fix: delegate flipbox-front and back copy event to parent flipbox
 
 3.8.0 26-04-11
 - Testimonial Component Implementation
