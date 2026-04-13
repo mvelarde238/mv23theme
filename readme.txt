@@ -10,6 +10,7 @@ CHANGELOG
 - Fix: delegate flipbox-front and back copy event to parent flipbox
 - Implement before_group_create filter on testimonial component
 - Fix: Make flipbox pseudo-elements non-interactive to prevent issues with selecting content inside the component
+- Comment .components-wrapper styles to prevent affecting other components and ensure they are only applied to the intended wrapper component
 
 3.8.0 26-04-11
 - Testimonial Component Implementation
