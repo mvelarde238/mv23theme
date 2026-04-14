@@ -34,9 +34,41 @@ window.gjsExtendEditor = function (editor) {
     }
 
     editor.getComponentStyle = function(component, styleProperty, defaultValue = '' ) {
-        const propertyValue = component.getStyle(styleProperty);
-        if ( typeof propertyValue === 'object') return defaultValue;
-        return propertyValue || defaultValue;
+        const devices = editor.Devices.getDevices();
+        const currentDeviceId = editor.getDevice();
+        let currentDeviceIndex = devices.findIndex(d => d.id === currentDeviceId);
+        if (currentDeviceIndex === -1) currentDeviceIndex = 0;
+
+        // Helper function to get styleOpts for a device
+        const getStyleOptsForDevice = (device) => {
+            const isDesktop = device.id === 'desktop';
+            let styleOpts = {};
+            if (!isDesktop) {
+                const widthMedia = device.getWidthMedia();
+                if (widthMedia) {
+                    styleOpts.atRuleType = 'media';
+                    styleOpts.atRuleParams = `(max-width: ${widthMedia})`;
+                }
+            }
+            return styleOpts;
+        };
+
+        // Search from current device up to desktop
+        const selector = `#${component.getId()}`;
+        for (let i = currentDeviceIndex; i >= 0; i--) {
+            const device = devices[i];
+            const styleOpts = getStyleOptsForDevice(device);
+            const rule = editor.Css.getRule(selector, styleOpts);
+            if (rule) {
+                const styles = rule.get('style');
+                const value = styles[styleProperty];
+                if (value !== undefined) {
+                    return value;
+                }
+            }
+        }
+
+        return defaultValue;
     }
 
     // Recursively ensure the component structure exists.

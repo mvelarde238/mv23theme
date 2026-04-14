@@ -13,6 +13,7 @@ CHANGELOG
 - Update gjs-heading to preview heading style 10
 - Button component review to handle placeholder bars
 - Fix layout 2 styles (.container) on builder canvas
+- Fix getComponentStyle() to look for style from current device up to desktop
 
 3.8.1 26-04-13
 - Fix: Ensure the custom_datastore_change_callback is properly called on all flip box components to synchronize changes 
