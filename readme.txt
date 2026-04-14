@@ -7,6 +7,8 @@ CHANGELOG
 - Read default state icon from BUILDER_GLOBALS.togglebox_state_icon to allow users to set a custom one
 - Set default title for togglebox-button if not set to prevent empty buttons and improve usability
 - Accordion style 3 implementation
+- Auto select the new item when adding a new one
+- Stop and start undo manager when selecting items to avoid creating undo steps
 
 3.8.1 26-04-13
 - Fix: Ensure the custom_datastore_change_callback is properly called on all flip box components to synchronize changes 
