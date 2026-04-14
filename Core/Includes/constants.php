@@ -70,6 +70,8 @@ if( !defined('LISTING_POST_TEMPLATE') ){
         'post-horizontal' => 'Horizontal Post'
     ));
 } 
+// TOGGLEBOX_STATE_ICON
+if( !defined('TOGGLEBOX_STATE_ICON') ) define( 'TOGGLEBOX_STATE_ICON', 'bi-caret-down');
 
 // BUILDER CONSTANTS
 if( !defined('BUILDER_DEV_MODE') ) define ('BUILDER_DEV_MODE', false);

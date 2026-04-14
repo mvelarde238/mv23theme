@@ -62,6 +62,10 @@ class Accordion extends Component {
                     'label' => 'Accordion style 2',
                     'image' => BUILDER_PATH . '/assets/images/toggleboxes/accordion-style-2.png'
                 ),
+                'accordion-style3'  => array(
+                    'label' => 'Accordion style 3',
+                    'image' => BUILDER_PATH . '/assets/images/toggleboxes/accordion-style-3.png'
+                ),
                 'vertical-accordion'  => array(
                     'label' => 'Vertical accordion',
                     'image' => BUILDER_PATH . '/assets/images/toggleboxes/vertical-accordion.png'

@@ -2,6 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
+3.8.2 26-04-14
+- ToggleBox Improvements:
+- Read default state icon from BUILDER_GLOBALS.togglebox_state_icon to allow users to set a custom one
+- Set default title for togglebox-button if not set to prevent empty buttons and improve usability
+- Accordion style 3 implementation
+
 3.8.1 26-04-13
 - Fix: Ensure the custom_datastore_change_callback is properly called on all flip box components to synchronize changes 
   with the main component, preventing issues where changes to the front or back of the flip box were not being reflected 

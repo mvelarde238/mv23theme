@@ -214,6 +214,7 @@ class Ultimate_Builder {
 			'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
 			'masonry_is_active' => MASONRY_IS_ACTIVE,
 			'context' => Handlebars::get_context(),
+			'togglebox_state_icon' => TOGGLEBOX_STATE_ICON,
 		));
 		wp_add_inline_script( 'uf-field-ultimate-builder', Handlebars::get_js() );
 	}

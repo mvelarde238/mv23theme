@@ -9,7 +9,7 @@
         border: 1px solid var(--ui-color-2)
         border-radius: 6px
         margin-bottom: 4px
-        padding: 20px 40px
+        padding: 1.4em 2em
         position: relative
         transition: 200ms border-color, 200ms background-color, 200ms color
         
@@ -20,14 +20,13 @@
             margin-bottom: 0
             border-radius: 6px 6px 0 0
             border-bottom: 0
-            // .togglebox__state-icon
-                // transform: rotate(180deg)
+
         &:hover, &.active
             background-color: var(--ui-color-3)
             color: var(--ui-color-1)
 
     &[data-style="#{$style}"] > &__items > &__item
-        padding: 0 40px 30px 40px
+        padding: 0 2em 1.8em 2em
         &.active
             border: 1px solid var(--ui-color-2)
             margin-bottom: 5px
@@ -37,6 +36,6 @@
 
     &[data-style="#{$style}"] > &__items > &__btn > &__subtitle
         display: inline-block
-        margin-left: 5px
+        margin-left: .5em
         &::before
             content: '- '

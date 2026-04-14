@@ -1,22 +1,25 @@
 .togglebox
-    $style: 'vertical-accordion'
+    $style: 'accordion-style3'
 
     &[data-style="#{$style}"] > &__items > &__btn
-        cursor: pointer
+        padding: 1.2em 2.8em 1.2em 0
+        position: relative
         display: inline-block
         width: 100%
-        position: relative
-        padding: .7em 1em .7em 0
-        &.active,
+        border-bottom: 1px solid
+        transition: 200ms all
         &:hover
-            color: var(--ui-color-1)
+            background-color: var(--ui-color-3)
+        &.active
+            border-bottom: 0
 
         .togglebox__state-icon
             @extend %accordion-state-icon
             right: 0
-        
-    &[data-style="#{$style}"] > &__items > &__btn > &__title
-        font-weight: var(--bold-font-weight)
+            padding: .7em
+            background-color: var(--ui-color-1)
+            color: #fff
+            border-radius: 50%
 
     &[data-style="#{$style}"] > &__items > &__btn > &__subtitle
         display: inline-block
@@ -25,4 +28,4 @@
             content: '- '
     
     &[data-style="#{$style}"] > &__items > &__item
-        padding: 1.2em 0
+        padding: 1.8em 0
