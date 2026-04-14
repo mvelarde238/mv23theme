@@ -32,7 +32,8 @@ window.gjsButton = function (editor) {
                     // If icon or text is present, add the icon element and text content
                     if (icon || text) {
                         if (text) {
-                            el.textContent = text;
+                            const filtered_content = __handlebars(text);
+                            el.textContent = filtered_content;
                         }
                         if (icon && icon_position === "left") {
                             const iconEl = document.createElement('i');

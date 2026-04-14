@@ -5,6 +5,7 @@ use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Core\Builder\Template_Engine\Actions;
+use Ultimate_Fields\Ultimate_Builder\Handlebars;
 
 class Button extends Component {
 
@@ -96,7 +97,7 @@ class Button extends Component {
         $fullwidth = (isset($args['fullwidth'])) ? $args['fullwidth'] : false;
         if($fullwidth) $args['additional_classes'][] = 'btn-block';
             
-        $text = (isset($args['text']) && !empty($args['text'])) ? $args['text'] : '';
+        $text = (isset($args['text']) && !empty($args['text'])) ? Handlebars::parse($args['text']) : '';
         $icon = (isset( $args['icon'])) ? $args['icon'] : null;
         if( $icon ) {
             $icon_position = $args['icon_position'] ?: 'left';
