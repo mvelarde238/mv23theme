@@ -64,7 +64,7 @@ window.gjsHeading = function (editor) {
                 const taglineTag     = tagline?.html_tag  || 'p';
 
                 const highlighted    = highlighted_element || 'heading';
-                const wrappedPresets = ['style7', 'style8'];
+                const wrappedPresets = ['style7', 'style8', 'style10'];
                 const wrap           = wrappedPresets.includes(activePreset);
 
                 const buildTag = (tag, content, classes) => {

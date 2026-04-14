@@ -10,6 +10,7 @@ CHANGELOG
 - Auto select the new item when adding a new one
 - Stop and start undo manager when selecting items to avoid creating undo steps
 - Heading style 10 implementation
+- Update gjs-heading to preview heading style 10
 
 3.8.1 26-04-13
 - Fix: Ensure the custom_datastore_change_callback is properly called on all flip box components to synchronize changes 
