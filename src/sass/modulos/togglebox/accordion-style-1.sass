@@ -6,7 +6,7 @@
         border-radius: 5px
 
     &[data-style="#{$style}"] > &__items > &__btn
-        padding: 15px
+        padding: 15px 20px
         position: relative
         display: inline-block
         width: 100%
@@ -16,17 +16,9 @@
         &.active,
         &:hover
             background-color: var(--ui-color-3)
-        &:after
-            content: "\F229"
-            font-family: 'bootstrap-icons' !important
-            position: absolute
-            top: 0
-            bottom: 0
-            right: 10px
-            margin: auto
-            line-height: 100%
-            color: var(--ui-color-1)
-            display: inline-table
+
+        .togglebox__state-icon
+            @extend %accordion-state-icon
         
     &[data-style="#{$style}"] > &__items > &__btn > &__title
         font-weight: var(--bold-font-weight)

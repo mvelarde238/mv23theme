@@ -6,6 +6,15 @@ $togglebox: '.togglebox' !default
     justify-content: center
     margin-top: 0
     margin-left: 5px
+
+%accordion-state-icon
+    display: block
+    line-height: 1
+    position: absolute
+    right: 10px
+    top: 50%
+    transform: translateY(-50%)
+    transition: 200ms transform
     
 .togglebox
     --ui-color-1: var(--primary-color)
@@ -38,6 +47,9 @@ $togglebox: '.togglebox' !default
         font-size: .9em
         white-space: nowrap
         margin-top: .5em
+
+    &__state-icon
+        display: none
 
     & > &__items > &__item.active
         height: 100%

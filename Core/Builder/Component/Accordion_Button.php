@@ -74,6 +74,16 @@ class Accordion_Button extends Component {
         };
 
         $count = $args['count'] ?? 0;
+
+        $has_state_icon_component = false;
+        if( isset($args['components']) && is_array($args['components']) ){
+            foreach ($args['components'] as $component) {
+                if( $component['type'] === 'icon-box' && isset($component['classes']) && in_array('togglebox__state-icon', $component['classes']) ) {
+                    $has_state_icon_component = true;
+                    break;
+                }
+            }
+        }
         
         $args['additional_classes'][] = 'togglebox__btn';
         $args['additional_attributes']['data-boxid'] = '#'.$slug;
@@ -83,6 +93,9 @@ class Accordion_Button extends Component {
         echo Template_Engine::component_wrapper('start', $args);
         echo Template_Engine::check_components( $args );
         echo $icon_html.$title.$subtitle;
+        if( !$has_state_icon_component ) {
+            echo '<span class="togglebox__state-icon"><i class="bi bi-caret-down"></i></span>';
+        }
         echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
