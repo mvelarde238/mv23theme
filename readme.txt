@@ -9,6 +9,7 @@ CHANGELOG
 - Accordion style 3 implementation
 - Auto select the new item when adding a new one
 - Stop and start undo manager when selecting items to avoid creating undo steps
+- Heading style 10 implementation
 
 3.8.1 26-04-13
 - Fix: Ensure the custom_datastore_change_callback is properly called on all flip box components to synchronize changes 

@@ -63,6 +63,10 @@ class Heading extends Component {
                 'style9'  => array(
                     'label' => 'Style 9',
                     'image' => BUILDER_PATH . '/assets/images/headings/style9.png'
+                ),
+                'style10'  => array(
+                    'label' => 'Style 10',
+                    'image' => BUILDER_PATH . '/assets/images/headings/style10.png'
                 )
             )
         );
@@ -230,7 +234,7 @@ class Heading extends Component {
             )
         );
         $keys = ['heading', 'tagline'];
-        $wrapped_presets = array('style7', 'style8');
+        $wrapped_presets = array('style7', 'style8', 'style10');
 
         // if tagline position is before, swap the keys
         $tagline_position = $args['tagline_position'] ?? 'after';
