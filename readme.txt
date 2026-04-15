@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.8.3 26-04-15
+- Make components wrapper inside Icon and Text componente selectable to handle components spacing
+
 3.8.2 26-04-14
 - ToggleBox Improvements:
 - Read default state icon from BUILDER_GLOBALS.togglebox_state_icon to allow users to set a custom one

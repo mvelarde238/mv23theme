@@ -22,7 +22,6 @@ window.gjsIconAndText = function(editor) {
         {
             type: 'components-wrapper', 
             classes: ['components-wrapper','content-wrapper'],
-            selectable: false,
             removable: false,
             draggable: false,
             copyable: false,
