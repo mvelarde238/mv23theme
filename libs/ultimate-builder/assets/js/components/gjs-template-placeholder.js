@@ -216,8 +216,8 @@ window.gjsTemplatePlaceholder = function (editor) {
 
                     componentData.styles.forEach(style => {
                         let ruleOpts = {};
-                        if(style.atRuleType) {
-                            ruleOpts.atRuleType = style.atRuleType;
+                        if(style.atRuleType || style.mediaText) {
+                            ruleOpts.atRuleType = style.atRuleType || 'media';
                             ruleOpts.atRuleParams = style.mediaText;
                         }
 
