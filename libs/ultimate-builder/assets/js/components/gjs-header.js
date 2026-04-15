@@ -153,12 +153,54 @@ window.gjsHeader = function (editor, options) {
         }
     });
 
-    // On builder loaded, append to wrapper component
+    // On builder loaded, append to wrapper component and customize the canvas
     editor.on('builder:loaded', () => {
         if ( BUILDER_GLOBALS.posttype !== 'header' ) return;
 
         const wrapper = editor.getWrapper();
         const main_container = wrapper.findType('container')[0];
+
+        // add some demo elements to container: menu, image, heading, paragraph
+        main_container.append({ 
+            type: 'section',
+            selectable: false,
+            hoverable: false,
+            droppable: false,
+            layerable: false,
+            propagate: [ 'selectable', 'hoverable', 'droppable', 'layerable' ],
+            classes: ['page-module','demo-section'],
+            components: [
+                { type: 'oce-overlay' },
+                { 
+                    type: 'image-component',
+                    classes: ['full-width'],
+                    style: {
+                        'aspect-ratio': '9/3',
+                        width: '100vw',
+                        'max-width': '100vw',
+                    }
+                },
+                {
+                    type: 'spacer',
+                    style: {
+                        height: '20px',
+                    }
+                },
+                { type: 'heading' },
+                { 
+                    type: 'row-component',
+                    components: [
+                        { type: 'column', components: [ { type: 'text-editor' }, ] },
+                        { type: 'column', components: [ { type: 'text-editor' }, ] },
+                        { type: 'column', components: [ { type: 'text-editor' }, ] }
+                    ]
+                },
+            ],
+            style: {
+                padding: '0px 0px 40px 0px',
+                opacity: '0.5'
+            }
+        });
 
         // gjs wrapper shouldn't be selectable/removable
         wrapper.set({ 
@@ -196,6 +238,22 @@ window.gjsHeader = function (editor, options) {
                 cssRule = editor.Css.setRule(selector, {}, ruleArgs);
                 editor.Selectors.select(cssRule);
             }, 100); // delay to ensure component is fully selected and styles panel is updated
+        });
+    });
+
+    // Before saving remove demo data that shouldn't be saved
+    editor.on('builder:before-save-editor', () => {
+        if ( BUILDER_GLOBALS.posttype !== 'header' ) return;
+
+        const wrapper = editor.getWrapper();
+        const container = wrapper.findType('container')[0];
+        const sections = container.findType('section');
+        editor.getModel().skip(() => {
+            sections.forEach(section => {
+                if (section.getEl().classList.contains('demo-section')) {
+                    section.remove();
+                }
+            });
         });
     });
 }

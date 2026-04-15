@@ -169,7 +169,8 @@ window.gjsOceComponents = ( editor ) => {
             selectable: false,
             hoverable: false,
             droppable: false,
-            propagate: [ 'selectable', 'hoverable', 'droppable' ],
+            layerable: false,
+            propagate: [ 'selectable', 'hoverable', 'droppable', 'layerable' ],
             classes: ['demo-section'],
             components: [
                 { 

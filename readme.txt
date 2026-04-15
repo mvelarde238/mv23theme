@@ -14,6 +14,7 @@ CHANGELOG
 - Button component review to handle placeholder bars
 - Fix layout 2 styles (.container) on builder canvas
 - Fix getComponentStyle() to look for style from current device up to desktop
+- Add fake-content on header editor screen to simulate the presence of content and make it easier to design the header
 
 3.8.1 26-04-13
 - Fix: Ensure the custom_datastore_change_callback is properly called on all flip box components to synchronize changes 
