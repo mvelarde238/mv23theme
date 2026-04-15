@@ -20,10 +20,35 @@ window.handleCommonSettings = function (editor, options) {
 
             if (settings.layout && settings.layout.use) {
                 const layout = settings.layout.key;
-                if (layout === 'layout2' || layout === 'layout3') {
+                if (layout === 'layout2') {
+                    // full width stretched — needs container
                     component.getEl().classList.add('full-width');
+                    const firstChild = component.components().at(0);
+                    if (!firstChild || firstChild.get('type') !== 'container') {
+                        const children = [...component.components().models];
+                        const [container] = component.append({
+                            type:'container', 
+                            draggable: false, selectable: false, removable: false, 
+                            copyable: false, badgable: false
+                        });
+                        children.forEach(child => container.append(child));
+                    }
+                    component.set('droppable', false);
                 } else {
-                    component.getEl().classList.remove('full-width');
+                    // layout1 (boxed) or layout3 (full width) — no container
+                    if (layout === 'layout3') {
+                        component.getEl().classList.add('full-width');
+                    } else {
+                        component.getEl().classList.remove('full-width');
+                    }
+                    // unwrap children from container and remove it if present
+                    const firstChild = component.components().at(0);
+                    if (firstChild && firstChild.get('type') === 'container') {
+                        const inner = [...firstChild.components().models];
+                        inner.forEach(child => component.append(child));
+                        firstChild.remove();
+                    }
+                    component.set('droppable', true);
                 }
                 component.getEl().classList.add(layout);
             }

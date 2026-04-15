@@ -127,8 +127,16 @@ class Template_Engine{
 
     public static function check_components( $args ){
         if( isset($args['components']) ){
+
+            $components = $args['components'];
+            // if first component is a container use inner components
+            // this is because an inner container is implemented on layout2 structure
+            if( isset($components[0]) && $components[0]['type'] === 'container' && isset($components[0]['components']) ){
+                $components = $components[0]['components'];
+            }
+
             ob_start();
-			foreach ($args['components'] as $component) {
+			foreach ($components as $component) {
                 echo Template_Engine::getInstance()->handle( $component );
             }
             return ob_get_clean();

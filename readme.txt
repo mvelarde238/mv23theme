@@ -7,6 +7,7 @@ CHANGELOG
 - Add width 100% to theme-gallery to avoid layout issues
 - Fix datastore change handling to update image src correctly when related fields change
 - Clear actions common settings if no action is selected
+- Fix handleCommonSettings() to append a container element if layout2 is selected and remove it if another layout is selected
 
 3.8.2 26-04-14
 - ToggleBox Improvements:
