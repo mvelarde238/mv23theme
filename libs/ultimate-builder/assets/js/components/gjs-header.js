@@ -28,29 +28,25 @@ window.gjsHeader = function (editor, options) {
         return ruleArgs;
     }
 
-    // Command to edit sticky header CSS rules
-    editor.Commands.add('edit-sticky-header-toggle', (editor, sender, options = {}) => {
-        let component = options.component;
+    // Switch CSS rule for the currently selected component based on sticky editing state
+    function switchSelectedComponentCssRule(header) {
+        const selected = editor.getSelected();
+        if (!selected) return;
 
-        // Toggle editing state
-        const isEditingStickyHeader = component.get('__temp_sticky_header_editing');
-        component.set('__temp_sticky_header_editing', !isEditingStickyHeader);
-        
-        // Get the component ID and prepare to create/select CSS rule
-        const id = editor.getSelected().getId();
-        let cssRule = null;
+        const isSticky = header.get('__temp_sticky_header_editing');
+        const id = selected.getId();
         let ruleArgs = createCssRuleArgs();
+        let selector;
 
-        // Create or get the CSS rule for the sticky header, depending on the editing state
-        if (!isEditingStickyHeader) {
-            cssRule = editor.Css.setRule(`#${id}.header--sticky`, {}, ruleArgs);
+        if (isSticky) {
+            selector = (selected.get('type') !== 'header') ? `.header--sticky #${id}` : `#${id}.header--sticky`;
         } else {
-            cssRule = editor.Css.setRule(`#${id}`, {}, ruleArgs);
+            selector = `#${id}`;
         }
 
-        // Select the rule in the CSS editor
+        const cssRule = editor.Css.setRule(selector, {}, ruleArgs);
         editor.Selectors.select(cssRule);
-    });
+    }
 
     let notSelectableComponent = {
         tagName: 'div',
@@ -116,24 +112,11 @@ window.gjsHeader = function (editor, options) {
                     { type: 'header-content' }
                 ],
                 contextMenu: function (component) {
-                    const isEditingStickyHeader = component.get('__temp_sticky_header_editing');
-                    const editStickyHeaderLabel = isEditingStickyHeader ? 'TURN OFF STICKY HEADER EDITING' : 'TURN ON STICKY HEADER EDITING';
-
                     return [
                         {
                             type: 'button',
                             command: 'add-header-logo',
                             label: 'ADD DYNAMIC LOGO'
-                        },
-                        {
-                            type: 'button',
-                            command: 'edit-sticky-header-toggle',
-                            class: ()=>{
-                                const isEditingStickyHeader = component.get('__temp_sticky_header_editing');
-                                return (isEditingStickyHeader) ? 'active' : '';
-                            },
-                            label: editStickyHeaderLabel,
-                            rerender: { full:true },
                         }
                     ];
                 }
@@ -219,8 +202,30 @@ window.gjsHeader = function (editor, options) {
             wrapper.append({ type: 'header' }, { at: 0 });
         }
 
-        // on component:selected check header __temp_sticky_header_editing property 
-        // if is active add `.header--sticky #${id}` css rule to edit inner elements styles
+        // Scroll-driven sticky header editing: sync __temp_sticky_header_editing flag
+        // with the actual scroll position in the canvas, so CSS rules automatically
+        // switch between normal and .header--sticky selectors.
+        const canvasWindow = editor.Canvas.getWindow();
+        const breakpoint = BUILDER_GLOBALS.stickyHeaderBreakpoint;
+
+        canvasWindow.addEventListener('scroll', () => {
+            const header = wrapper.findType('header')[0];
+            if (!header) return;
+
+            const scrollTop = canvasWindow.pageYOffset;
+            const isSticky = header.get('__temp_sticky_header_editing');
+
+            if (scrollTop > breakpoint && !isSticky) {
+                header.set('__temp_sticky_header_editing', true);
+                switchSelectedComponentCssRule(header);
+            }
+            if (scrollTop <= breakpoint && isSticky) {
+                header.set('__temp_sticky_header_editing', false);
+                switchSelectedComponentCssRule(header);
+            }
+        });
+
+        // On component:selected, if sticky editing is active, select the sticky CSS rule
         editor.on('component:selected', (component) => {
             const header = wrapper.findType('header')[0];
             if (!header) return;
@@ -228,16 +233,23 @@ window.gjsHeader = function (editor, options) {
             const isEditingStickyHeader = header.get('__temp_sticky_header_editing');
             if (!isEditingStickyHeader) return;
 
-            const id = component.getId();
-            let cssRule = null;
-            let ruleArgs = createCssRuleArgs();
-            const selector = (component.get('type') !== 'header') ? `.header--sticky #${id}` : `#${id}.header--sticky`;
-
-            // Select the rule in the CSS editor
+            // Delay to ensure component is fully selected and styles panel is updated
             setTimeout(() => {
-                cssRule = editor.Css.setRule(selector, {}, ruleArgs);
-                editor.Selectors.select(cssRule);
-            }, 100); // delay to ensure component is fully selected and styles panel is updated
+                switchSelectedComponentCssRule(header);
+            }, 100);
+        });
+
+        // On device change, re-apply sticky CSS rule if in sticky editing mode
+        editor.on('change:device', () => {
+            const header = wrapper.findType('header')[0];
+            if (!header) return;
+
+            const isSticky = header.get('__temp_sticky_header_editing');
+            if (!isSticky) return;
+
+            setTimeout(() => {
+                switchSelectedComponentCssRule(header);
+            }, 100);
         });
     });
 
