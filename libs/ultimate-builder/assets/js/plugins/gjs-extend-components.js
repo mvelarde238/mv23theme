@@ -141,9 +141,26 @@ window.gjsExtendComponents = function (editor) {
         // copy database from original component to the cloned one
         const editorConfig = editor.getConfig(),
             temporalCompStore = editorConfig.temporalCompStore || {},
-            clonedComponentId = clonedComponent.attributes.__tempID,
-            originalComponent = editor.getSelected(),
-            originalComponentId = originalComponent.attributes.__tempID;
+            clonedComponentId = clonedComponent.attributes.__tempID;
+
+        // Resolve the original component: if the selected component delegates
+        // its copy to a parent (e.g. flipbox-front → flipbox), follow the
+        // delegate so we compare against the real cloned root.  Without this,
+        // recursive component:clone events for inner children (like the back
+        // face of a flip-box) would incorrectly use the *selected* face as
+        // the original, cloning the active side's content into both sides.
+        let originalComponent = editor.getSelected();
+        if (originalComponent) {
+            const copyDelegateFn = originalComponent.get('delegate')?.copy;
+            if (copyDelegateFn) {
+                const delegateTarget = copyDelegateFn(originalComponent);
+                if (delegateTarget) {
+                    originalComponent = delegateTarget;
+                }
+            }
+        }
+
+        const originalComponentId = originalComponent.attributes.__tempID;
 
         if ( temporalCompStore[originalComponentId] ) {
             if( originalComponent.getType() === clonedComponent.getType() ) {

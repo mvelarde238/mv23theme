@@ -17,6 +17,7 @@ CHANGELOG
 - Add fake-content on header editor screen to simulate the presence of content and make it easier to design the header
 - Scroll-driven sticky header editing implementation
 - If image is smaller than its container, set the image width to its original width, so it won't be stretched
+- Fix component:clone event to consider the case when component use delegate attrribute (flipbox)
 
 3.8.1 26-04-13
 - Fix: Ensure the custom_datastore_change_callback is properly called on all flip box components to synchronize changes 
