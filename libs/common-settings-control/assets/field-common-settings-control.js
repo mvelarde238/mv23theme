@@ -142,6 +142,7 @@
 							if(_colour_picker.length) _colour_picker.iris('hide');
 
                 			processed_data = that.filterData( this.model.get( 'container' ), raw_data );
+							console.log('processed_data', processed_data);
 
 							// check has-values class
 							const _button = $( this.model.get('_triggerButton') );
@@ -258,11 +259,15 @@
 			}
 
 			if( container_name == 'actions_container' ){
+				let clear_all = false;
 				Object.entries(raw_data).forEach(entry => {
-					if( entry[0] == 'actions' && entry[1].length === 0 ){
-						delete raw_data.actions;
+					if( entry[0] == 'action' && entry[1] == '' ){
+						clear_all = true;
 					}
 				});
+				if( clear_all ){
+					return {};
+				}
 			}
 
 			if( container_name == 'scroll_animations_container' ){

@@ -6,10 +6,10 @@ Container::create( 'actions_container' )
     ->set_layout( 'rows' )
     ->add_fields(array(
         Field::create( 'select', 'trigger' )->add_options( array(
-            'click' => 'Click'
+            'click' => __('On click','mv23theme'),
         )),
         Field::create( 'select', 'action' )->add_options( array(
-            '' => __('Select Action','mv23theme'),
+            '' => __('No action','mv23theme'),
             'open-page' => __('Open new page','mv23theme'),
             'open-image-popup' => __('Show file in pop up','mv23theme'),
             'open-video-popup' => __('Show video in pop up','mv23theme'),

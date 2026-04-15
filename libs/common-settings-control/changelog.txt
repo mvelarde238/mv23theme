@@ -1,5 +1,9 @@
 UF Common Settings Control Changelog-------------------------
 
+1.0.9 26-04-15
+- Clear actions common settings if no action is selected
+    (field-common-settings-control.js:filterData())
+
 1.0.8 26-02-02
 - Fix button styles
 
