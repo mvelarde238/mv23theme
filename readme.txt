@@ -13,6 +13,9 @@ CHANGELOG
 - Improvement: Async version of getPreparedFileObject: Checks the UltimateFields cache first; 
   if not found, fetches the attachment via wp.media and adds it to the cache for future sync access.
   Implemented on icon-box component
+- Implement ensureComponentStructure() on icon-and-text component to maintain a consistent internal structure 
+  and prevent issues with missing or misconfigured child components, especially when users modify the component structure 
+  or when migrating from older versions
 
 3.8.2 26-04-14
 - ToggleBox Improvements:

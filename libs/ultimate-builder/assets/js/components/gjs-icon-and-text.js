@@ -6,10 +6,13 @@ window.gjsIconAndText = function(editor) {
     const compName = __('Icon and Text');
 
     const compClass = `icon-and-text`;
+    const unwantedProps = [
+        'removable', 'copyable', 'draggable', 'selectable',
+        'badgable', 'propagate', 'resizable', 'droppable', 'delegate'
+    ];
     const defaultComponents = [
         { 
             type: 'icon-wrapper',
-            classes: ['icon-wrapper'],
             components: [
                 { 
                     type: 'icon-box',
@@ -21,13 +24,10 @@ window.gjsIconAndText = function(editor) {
         },
         {
             type: 'components-wrapper', 
-            classes: ['components-wrapper','content-wrapper'],
             removable: false,
             draggable: false,
             copyable: false,
-            components: [
-                { type: 'text-editor' },
-            ]
+            selectable: true,
         }
     ];
 
@@ -56,17 +56,22 @@ window.gjsIconAndText = function(editor) {
                 tagName: 'div',
                 classes: [compClass,'component','icon--left'],
                 components: defaultComponents,
+                __needsSetup: true,
             },
         },
         view: {
             onRender({ el, model }) {
-                // get components-wrapper and ensure it has the proper classes and properties
+                // Ensure structure + reset stale props from old JSON
+                editor.ensureComponentStructure(model, defaultComponents, unwantedProps);
+
+                // Ensure content-wrapper class on the components-wrapper element
                 const componentsWrapper = model.findType('components-wrapper')[0];
                 if (componentsWrapper) {
                     componentsWrapper.getEl().classList.add('content-wrapper');
-                    componentsWrapper.set('removable', false);
-                    componentsWrapper.set('draggable', false);
-                    componentsWrapper.set('copyable', false);
+                }
+
+                if (model.get('__needsSetup')) {
+                    this.initialSetup({ model });
                 }
                 
                 // get datastore values and update position/alignment styles
@@ -92,12 +97,35 @@ window.gjsIconAndText = function(editor) {
                     }
                 }
             },
+            initialSetup({ model }) {
+                // Add text-editor inside components-wrapper
+                const contentWrapper = model.findType('components-wrapper')[0];
+                if (contentWrapper && !contentWrapper.findType('text-editor').length) {
+                    contentWrapper.append({ type: 'text-editor' });
+                }
+
+                model.set({ __needsSetup: false });
+            },
             events: {
                 dblclick: 'onActive'
             },
             onActive() {
                 editor.runCommand('open-datastore');
             }
+        }
+    });
+
+    // Clean behavioral props from JSON on save
+    UltimateFields.addFilter('builder_component_cleanup', function(data) {
+        if (data.component.type === compClass) {
+            const cleanupNestedComponents = (obj) => {
+                if (!obj || !Array.isArray(obj.components)) return;
+                obj.components.forEach(child => {
+                    unwantedProps.forEach(prop => delete child[prop]);
+                    cleanupNestedComponents(child);
+                });
+            };
+            cleanupNestedComponents(data.builderComponent);
         }
     });
 }

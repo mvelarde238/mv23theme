@@ -7,6 +7,7 @@
 - [Cómo funciona](#cómo-funciona)
 - [Matching de componentes](#matching-de-componentes)
 - [Flags especiales en componentDef](#flags-especiales-en-componentdef)
+- [Componentes de contenido y `__needsSetup`](#componentes-de-contenido-y-__needssetup)
 - [unwantedProps y builder_component_cleanup](#unwantedprops-y-builder_component_cleanup)
 - [Ejemplo completo: componente compuesto](#ejemplo-completo-componente-compuesto)
 - [Referencia rápida](#referencia-rápida)
@@ -128,6 +129,8 @@ Cuando el `componentDef` tiene `classes`, busca un hijo que coincida en `type` Y
 
 > **Importante:** Si tu componente compuesto tiene varios hijos del mismo `type`, define `classes` con al menos una clase única para distinguirlos.
 
+> **⚠️ Cuidado con clases que no existen en JSON antiguo:** El matching por clases requiere que el componente guardado **ya tenga** esas clases. Si defines `classes: ['components-wrapper', 'content-wrapper']` en el `structureArray` pero los componentes viejos solo tienen `components-wrapper` en su JSON (porque `content-wrapper` se agregaba vía DOM), el matching fallará y se creará un duplicado. En ese caso, omite `classes` y usa matching solo por `type` (válido cuando no hay siblings del mismo tipo).
+
 ---
 
 ## Flags especiales en componentDef
@@ -161,6 +164,86 @@ Indica que el componente puede ser arrastrado a diferentes padres dentro del com
 ```
 
 > **Cuándo usarlo:** Cuando `draggable` permite al usuario mover el componente a un padre diferente al original definido en `structureArray`. Sin `__movable`, se crearía un duplicado al no encontrarlo entre los hijos directos del padre esperado.
+
+---
+
+## Componentes de contenido y `__needsSetup`
+
+### El problema con hijos de contenido en `defaultComponents`
+
+`ensureComponentStructure` recursa en `componentDef.components`. Si defines hijos de contenido (como `text-editor`, `icon-box`) dentro del `structureArray`, la función los buscará entre los hijos del componente existente. Si el matching falla (por diferencias en clases, type, etc.), **creará duplicados**.
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│  defaultComponents define:                                   │
+│    components-wrapper                                        │
+│      └── text-editor    ← ensureComponentStructure recursa   │
+│                                                              │
+│  JSON guardado ya tiene:                                     │
+│    components-wrapper                                        │
+│      └── text-editor    ← ya existe                          │
+│                                                              │
+│  Si el matching falla → se crea OTRO text-editor             │
+│  ❌ Resultado: dos text-editors                              │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### La solución: `__needsSetup`
+
+Los componentes de contenido (text-editors, icon-boxes editables, etc.) **no deben estar** en el `defaultComponents` que se pasa a `ensureComponentStructure`. En su lugar, se crean solo una vez usando el flag `__needsSetup`:
+
+```javascript
+const defaultComponents = [
+    {
+        type: 'components-wrapper',
+        classes: ['components-wrapper', 'mi-componente__body'],
+        removable: false,
+        // ❌ NO incluir components: [{ type: 'text-editor' }] aquí
+    }
+];
+
+domc.addType(compClass, {
+    model: {
+        defaults: {
+            name: 'Mi Componente',
+            classes: [compClass, 'component'],
+            components: defaultComponents,
+            __needsSetup: true, // Flag para scaffolding inicial
+        }
+    },
+    view: {
+        onRender({el, model}) {
+            editor.ensureComponentStructure(model, defaultComponents, unwantedProps);
+
+            // Solo en la primera creación del componente
+            if (model.get('__needsSetup')) {
+                this.initialSetup({ model });
+            }
+        },
+        initialSetup({ model }) {
+            // Agregar hijos de contenido que no van en defaultComponents
+            const body = model.find('.mi-componente__body')[0];
+            if (body && !body.findType('text-editor').length) {
+                body.append({ type: 'text-editor' });
+            }
+
+            model.set({ __needsSetup: false });
+        }
+    }
+});
+```
+
+### ¿Cuándo necesitas `__needsSetup`?
+
+| Situación | ¿Necesita `__needsSetup`? |
+|---|---|
+| El componente compuesto tiene hijos de contenido (text-editor, etc.) | **Sí** |
+| Solo tiene wrappers estructurales sin hijos de contenido | No |
+| Los hijos tienen su propio `addType()` que gestiona sus sub-componentes | No (su `addType` maneja su propia estructura) |
+
+### ¿Cómo funciona con componentes cargados desde JSON?
+
+Los componentes antiguos (cargados desde JSON) **no tienen `__needsSetup`** en sus datos guardados, por lo que `model.get('__needsSetup')` devuelve `undefined` (falsy). El `initialSetup` no se ejecuta, y los hijos de contenido que ya existen en el JSON se mantienen intactos.
 
 ---
 
@@ -267,6 +350,8 @@ window.gjsMiComponente = function (editor) {
     ];
 
     // 2. Definir la estructura del componente compuesto
+    // Solo incluir wrappers estructurales. Los hijos de contenido (text-editor, etc.)
+    // se crean en initialSetup con __needsSetup para evitar duplicados.
     const defaultComponents = [
         {
             type: 'components-wrapper',
@@ -274,13 +359,6 @@ window.gjsMiComponente = function (editor) {
             removable: false,
             copyable: false,
             draggable: false,
-            components: [
-                {
-                    type: 'image-component',
-                    classes: ['mi-componente__image'],
-                    resizable: false,
-                }
-            ]
         },
         {
             type: 'components-wrapper',
@@ -297,9 +375,7 @@ window.gjsMiComponente = function (editor) {
             draggable: false,
             removable: false,
             copyable: false,
-            components: [
-                { type: 'text-editor' },
-            ]
+            // ❌ NO poner components: [{ type: 'text-editor' }] aquí
         }
     ];
 
@@ -311,13 +387,32 @@ window.gjsMiComponente = function (editor) {
                 name: 'Mi Componente',
                 tagName: 'div',
                 classes: [compClass, 'component'],
-                components: defaultComponents
+                components: defaultComponents,
+                __needsSetup: true, // Flag para scaffolding inicial
             }
         },
         view: {
             onRender({el, model}) {
                 // 4. Asegurar estructura + resetear props obsoletas al cargar
                 editor.ensureComponentStructure(model, defaultComponents, unwantedProps);
+
+                // 5. Solo en la primera creación: agregar hijos de contenido
+                if (model.get('__needsSetup')) {
+                    this.initialSetup({ model });
+                }
+            },
+            initialSetup({ model }) {
+                const header = model.find('.mi-componente__header')[0];
+                if (header && !header.findType('image-component').length) {
+                    header.append({ type: 'image-component', classes: ['mi-componente__image'] });
+                }
+
+                const body = model.find('.mi-componente__body')[0];
+                if (body && !body.findType('text-editor').length) {
+                    body.append({ type: 'text-editor' });
+                }
+
+                model.set({ __needsSetup: false });
             }
         }
     });
@@ -364,8 +459,9 @@ Estas propiedades se aplican desde `componentDef` al componente existente si est
 ### Checklist para nuevos componentes compuestos
 
 - [ ] Definir `unwantedProps` con las propiedades comportamentales
-- [ ] Definir `defaultComponents` con la estructura esperada
-- [ ] Usar `classes` con al menos una clase única por cada hijo que comparta `type` con otro
+- [ ] Definir `defaultComponents` con la estructura esperada (solo wrappers estructurales)
+- [ ] **No incluir** hijos de contenido (`text-editor`, etc.) en `defaultComponents` — usar `__needsSetup` + `initialSetup()` para crearlos solo en la primera instanciación
+- [ ] Usar `classes` con al menos una clase única por cada hijo que comparta `type` con otro — asegurarse de que las clases ya existan en el JSON guardado de componentes antiguos
 - [ ] Usar `__movable: true` en hijos que puedan cambiar de padre
 - [ ] Llamar `ensureComponentStructure(model, defaultComponents, unwantedProps)` en `onRender`
 - [ ] Registrar `builder_component_cleanup` para limpiar props al guardar
