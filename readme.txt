@@ -16,6 +16,7 @@ CHANGELOG
 - Fix getComponentStyle() to look for style from current device up to desktop
 - Add fake-content on header editor screen to simulate the presence of content and make it easier to design the header
 - Scroll-driven sticky header editing implementation
+- Use flex-start as default value for align-items in columns, to avoid image width stetching
 
 3.8.1 26-04-13
 - Fix: Ensure the custom_datastore_change_callback is properly called on all flip box components to synchronize changes 

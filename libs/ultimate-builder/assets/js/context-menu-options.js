@@ -96,7 +96,7 @@ function content_alignment_options(component, editor, flex_direction){
     const componentType = component.getType();
     const defaultValues = {
         'justify-content': (componentType.startsWith('flipbox')) ? 'safe center' : 'flex-start',
-        'align-items': (componentType.startsWith('flipbox')) ? 'safe center' : 'stretch',
+        'align-items': (componentType.startsWith('flipbox')) ? 'safe center' : 'flex-start',
     };
 
     const centerValue = (componentType.startsWith('flipbox')) ? 'safe center' : 'center';

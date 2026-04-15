@@ -15,22 +15,22 @@ window.gjsCompWrapper = function(editor) {
                 tagName: 'div',
                 classes: [compClass,'component'],
                 // these styles affects all the components that use the class .components-wrapper:
-                // styles: `
-                //     .${compClass} {
-                //         display: flex;
-                //         flex-direction: column;
-                //         justify-content: flex-start;
-                //         flex-wrap: wrap;
-                //         gap: 12px;
-                //     }
-                // `,
+                styles: `
+                    .${compClass} {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        align-items: flex-start;
+                        gap: 24px;
+                    }
+                `,
             },
         },
     });
 
     // Remove the component styles before saving as they are only needed to be presented in the style manager
-    // editor.on('builder:before-save-editor', () => {
-    //     const css = editor.Css;
-    //     css.remove(`.${compClass}`);
-    // });
+    editor.on('builder:before-save-editor', () => {
+        const css = editor.Css;
+        css.remove(`.${compClass}`);
+    });
 }
