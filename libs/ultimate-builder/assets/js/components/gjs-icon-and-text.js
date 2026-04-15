@@ -64,7 +64,6 @@ window.gjsIconAndText = function(editor) {
                 const componentsWrapper = model.findType('components-wrapper')[0];
                 if (componentsWrapper) {
                     componentsWrapper.getEl().classList.add('content-wrapper');
-                    componentsWrapper.set('selectable', false);
                     componentsWrapper.set('removable', false);
                     componentsWrapper.set('draggable', false);
                     componentsWrapper.set('copyable', false);
