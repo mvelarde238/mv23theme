@@ -4,6 +4,7 @@ CHANGELOG
 
 3.8.3 26-04-15
 - Make components wrapper inside Icon and Text componente selectable to handle components spacing
+- Add width 100% to theme-gallery to avoid layout issues
 
 3.8.2 26-04-14
 - ToggleBox Improvements:
