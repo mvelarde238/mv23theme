@@ -26,10 +26,37 @@ class Handlebars{
 			$post_id = get_the_ID();
 		}
 
+		// If the current post is a single_template, resolve the connected post type
+		// and use a real post of that type as context source for meta fields.
+		$context_post_id = $post_id;
+		if ( get_post_type( $post_id ) === 'single_template' ) {
+			$connected_posttype = get_post_meta( $post_id, 'connected_posttype', true );
+			if ( $connected_posttype ) {
+				// On the frontend, use the queried object (the real post being viewed).
+				// In admin/builder, grab the most recent post of the connected type as sample.
+				$queried = get_queried_object_id();
+				if ( $queried && get_post_type( $queried ) === $connected_posttype ) {
+					$context_post_id = $queried;
+				} else {
+					$sample = get_posts( array(
+						'post_type'      => $connected_posttype,
+						'posts_per_page' => 1,
+						'post_status'    => 'publish',
+						'orderby'        => 'date',
+						'order'          => 'DESC',
+						'fields'         => 'ids',
+					) );
+					if ( ! empty( $sample ) ) {
+						$context_post_id = $sample[0];
+					}
+				}
+			}
+		}
+
 		$context = array(
 			'post' => array(
-				'title'     => get_the_title( $post_id ),
-				'thumbnail' => get_the_post_thumbnail_url( $post_id, 'full' ) ?: '',
+				'title'     => get_the_title( $context_post_id ),
+				'thumbnail' => get_the_post_thumbnail_url( $context_post_id, 'full' ) ?: '',
 				'meta'      => array(),
 			),
 			'site' => array(
@@ -41,10 +68,14 @@ class Handlebars{
 		);
 
 		// Add post meta under post.meta.*
-		$post_meta = get_post_meta( $post_id, '', true );
+		$post_meta = get_post_meta( $context_post_id, '', true );
 		if ( $post_meta ) {
 			foreach ( $post_meta as $key => $value ) {
 				if ( strpos( $key, '_' ) === 0 || strpos( $key, 'page_content' ) === 0 ) {
+					continue;
+				}
+				// Skip single_template config keys (connected_*) if we fell back to the template itself
+				if ( $context_post_id === $post_id && strpos( $key, 'connected_' ) === 0 ) {
 					continue;
 				}
 				$context['post']['meta'][ $key ] = maybe_unserialize( $value[0] );

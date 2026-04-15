@@ -8,6 +8,7 @@ CHANGELOG
 - Fix datastore change handling to update image src correctly when related fields change
 - Clear actions common settings if no action is selected
 - Fix handleCommonSettings() to append a container element if layout2 is selected and remove it if another layout is selected
+- Fix Handlebars:get_context() for single_template post type editing
 
 3.8.2 26-04-14
 - ToggleBox Improvements:
