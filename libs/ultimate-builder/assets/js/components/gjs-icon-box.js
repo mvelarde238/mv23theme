@@ -26,9 +26,18 @@ window.gjsIconBox = function(editor) {
                         el.innerHTML = `<i class="icon-box__icon ${iconPrefix} ${icon}"></i>`;
                     }
                     else if (source === 'image' && image) {
-                        const prepared_file_object = window.UF_Editor?.getPreparedFileObject(image);
-                        const image_url = prepared_file_object ? prepared_file_object.get("url") : "";
-                        el.innerHTML = `<img class="icon-box__icon" src="${image_url}" alt="" />`;
+                        const prepared_file_object = editor.getPreparedFileObject(image);
+                        if (prepared_file_object) {
+                            const image_url = prepared_file_object.get("url");
+                            el.innerHTML = `<img class="icon-box__icon" src="${image_url}" alt="" />`;
+                        } else {
+                            editor.getPreparedFileObjectAsync(image).then(file_object => {
+                                if (file_object) {
+                                    const image_url = file_object.get("url");
+                                    el.innerHTML = `<img class="icon-box__icon" src="${image_url}" alt="" />`;
+                                }
+                            });
+                        }
                     }
                 }
             },

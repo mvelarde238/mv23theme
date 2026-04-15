@@ -10,6 +10,9 @@ CHANGELOG
 - Fix handleCommonSettings() to append a container element if layout2 is selected and remove it if another layout is selected
 - Fix Handlebars:get_context() for single_template post type editing
 - Fix registerStyles() on gjs-template-placeholder to properly register media query styles
+- Improvement: Async version of getPreparedFileObject: Checks the UltimateFields cache first; 
+  if not found, fetches the attachment via wp.media and adds it to the cache for future sync access.
+  Implemented on icon-box component
 
 3.8.2 26-04-14
 - ToggleBox Improvements:

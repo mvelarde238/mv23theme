@@ -33,6 +33,40 @@ window.gjsExtendEditor = function (editor) {
         return UltimateFields.Field.File.Cache.get(file_id);
     }
 
+    /**
+     * Async version of getPreparedFileObject.
+     * Checks the UltimateFields cache first; if not found, fetches the attachment
+     * via wp.media and adds it to the cache for future sync access.
+     */
+    editor.getPreparedFileObjectAsync = function( file_id ) {
+        return new Promise((resolve) => {
+            if ( typeof UltimateFields === 'undefined' || !UltimateFields.Field || !UltimateFields.Field.File ) {
+                resolve(null);
+                return;
+            }
+
+            const cached = UltimateFields.Field.File.Cache.get(file_id);
+            if (cached) {
+                resolve(cached);
+                return;
+            }
+
+            if (typeof wp !== 'undefined' && wp.media) {
+                const attachment = wp.media.attachment(file_id);
+                attachment.fetch()
+                    .then(() => {
+                        UltimateFields.Field.File.Cache.add(attachment);
+                        resolve(attachment);
+                    })
+                    .fail(() => {
+                        resolve(null);
+                    });
+            } else {
+                resolve(null);
+            }
+        });
+    }
+
     editor.getComponentStyle = function(component, styleProperty, defaultValue = '' ) {
         const devices = editor.Devices.getDevices();
         const currentDeviceId = editor.getDevice();
