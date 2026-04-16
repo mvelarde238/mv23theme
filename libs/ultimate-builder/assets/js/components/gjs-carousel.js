@@ -411,7 +411,6 @@ window.gjsCarousel = function (editor) {
                 editor.select(newItem); 
             },
             removeLastItem(e){
-                e.stopPropagation();
                 const carousel = this.model.findType('carousel')[0];
                 const items = carousel.components();
                 if(items.length > 0){
@@ -428,21 +427,18 @@ window.gjsCarousel = function (editor) {
                 }
             },
             selectNextSlide(e){
-                e.stopPropagation();
                 const totalPages = this.getTotalPages();
                 if (totalPages === 0) return;
                 const nextIndex = (this.getCurrentSlideIndex() + 1) % totalPages;
                 this.goToSlide(nextIndex);
             },
             selectPrevSlide(e){
-                e.stopPropagation();
                 const totalPages = this.getTotalPages();
                 if (totalPages === 0) return;
                 const prevIndex = (this.getCurrentSlideIndex() - 1 + totalPages) % totalPages;
                 this.goToSlide(prevIndex);
             },
             onNavDotClick(e){
-                e.stopPropagation();
                 const btn = e.target.closest('button[data-nav]');
                 if (!btn) return;
                 const index = parseInt(btn.getAttribute('data-nav'), 10);

@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.8.4 26-04-16
+- Fix Carousel component: remove calls to event.stopPropagation() from navigation methods 
+  so selecting components inside the carousel no longer disrupts the editor canvas
+
 3.8.3 26-04-15
 - Make components wrapper inside Icon and Text componente selectable to handle components spacing
 - Add width 100% to theme-gallery to avoid layout issues
