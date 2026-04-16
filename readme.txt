@@ -11,6 +11,7 @@ CHANGELOG
 - Fix .full-width class to set max-width to 100vw to override images max-width
 - Fix helper classes handling on handleCommonSettings() to properly add and remove helper classes based on the current settings
 - Implements editor.handleCommonSettings() on gjs-image custom datastore change callback
+- Fix for placeholder image when full-width class is applied
 
 3.8.3 26-04-15
 - Make components wrapper inside Icon and Text componente selectable to handle components spacing
