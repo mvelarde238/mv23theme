@@ -12,6 +12,7 @@ CHANGELOG
 - Fix helper classes handling on handleCommonSettings() to properly add and remove helper classes based on the current settings
 - Implements editor.handleCommonSettings() on gjs-image custom datastore change callback
 - Fix for placeholder image when full-width class is applied
+- Remove unused libs: ultimate-fields-layout-control and columns-layout
 
 3.8.3 26-04-15
 - Make components wrapper inside Icon and Text componente selectable to handle components spacing

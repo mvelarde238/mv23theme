@@ -14,12 +14,9 @@ class Core{
     private static $components = array();
 
     private static $popup_containers = array(
-        'actions_container',
-        'blocks_layout_settings_container',
-        'common_settings_container',
-        'scroll_animations_container',
-        'row_settings_container',
-        'column_settings_container'
+        'actions',
+        'common_settings',
+        'scroll_animations',
     );
 
     /**
@@ -159,7 +156,7 @@ class Core{
         $popup_containers = array();
 		foreach( Container::get_registered() as $container ) {
             $container_id = $container->get_id(); 
-			if( in_array($container_id, self::$popup_containers) ) {
+			if( in_array( str_replace('_container', '', $container_id), self::$popup_containers) ) {
 				$popup_containers[$container_id] = $container->export_fields_settings();
 			}
 		}

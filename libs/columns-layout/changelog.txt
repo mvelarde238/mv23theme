@@ -1,5 +1,0 @@
-UF Columns Layout Changelog-------------------------
-
-1.0.5 25-07-21
-- Fix: force a width value to avoid undefined warning on save
-    (columns-layout-group.js:bindToElement())
