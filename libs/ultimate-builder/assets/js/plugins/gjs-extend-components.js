@@ -102,7 +102,8 @@ window.gjsExtendComponents = function (editor) {
             } else {
                 // is a new component
                 __type = groupData?.id;
-                datastore = new UltimateFields.Datastore({});
+                const defaults = gjs_component.get('datastoreDefaults') || {};
+                datastore = new UltimateFields.Datastore(defaults);
                 datastore.parent = uf_field_model.datastore;
             }
             datastore.set('__type', __type);

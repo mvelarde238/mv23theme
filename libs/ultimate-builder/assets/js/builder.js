@@ -358,6 +358,9 @@
                         }
                     }
 
+                    // datastoreDefaults is only used at creation time; no need to persist it
+                    delete builderComponent.datastoreDefaults;
+
                     /**
                      * Filter: builder_component_cleanup
                      * Allows external code to modify component data before saving.

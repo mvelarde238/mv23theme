@@ -5,6 +5,8 @@ CHANGELOG
 3.8.4 26-04-16
 - Fix Carousel component: remove calls to event.stopPropagation() from navigation methods 
   so selecting components inside the carousel no longer disrupts the editor canvas
+- Implements datastoreDefaults property on gjsExtendComponents to allow defining default datastore values for components, 
+  which will be used when creating a new component
 
 3.8.3 26-04-15
 - Make components wrapper inside Icon and Text componente selectable to handle components spacing
