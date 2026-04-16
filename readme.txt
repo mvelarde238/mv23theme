@@ -13,6 +13,7 @@ CHANGELOG
 - Implements editor.handleCommonSettings() on gjs-image custom datastore change callback
 - Fix for placeholder image when full-width class is applied
 - Remove unused libs: ultimate-fields-layout-control and columns-layout
+- Add text-transform property to style manager configuration
 
 3.8.3 26-04-15
 - Make components wrapper inside Icon and Text componente selectable to handle components spacing
