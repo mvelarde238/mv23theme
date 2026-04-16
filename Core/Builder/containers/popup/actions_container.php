@@ -14,7 +14,9 @@ Container::create( 'actions_container' )
             'open-image-popup' => __('Show file in pop up','mv23theme'),
             'open-video-popup' => __('Show video in pop up','mv23theme'),
             'toggle-box' => __('Show / Hide Section','mv23theme'),
-            'offcanvas-element' => __('Show Off-Canvas Element','mv23theme')
+            'offcanvas-element' => __('Show Off-Canvas Element','mv23theme'),
+            'next-post' => __('Go to next post','mv23theme'),
+            'previous-post' => __('Go to previous post','mv23theme'),
         )),
     
         Field::create( 'complex', 'link' )->hide_label()->rows_layout()->add_fields(array(

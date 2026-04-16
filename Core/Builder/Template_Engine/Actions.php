@@ -29,10 +29,9 @@ Class Actions{
             	}
             	if ($href != NULL):
                 	$target = (isset($link['new_tab']) && $link['new_tab'] == 1) ? '_blank' : ''; 
-                	$code['start'] = '<a href="'.$href.'" target="'.$target.'">';
-					$code['end'] = '</a>';
 
 					$code['attributes']['href'] = $href;
+					$code['attributes']['target'] = $target;
             	endif;
     		}
     		if ($action['trigger'] == 'click' && $action['action'] == 'open-image-popup') { 
@@ -41,9 +40,6 @@ Class Actions{
     				$image = $image_popup['internal_image'];
     				$link = wp_get_attachment_url($image);
     				if ($link) {
-    					$code['start'] = '<a class="zoom" href="'.$link.'">';
-    					$code['end'] = '</a>';
-
 						$code['attributes']['class'] = 'zoom';
 						$code['attributes']['href'] = $link;
     				}
@@ -62,9 +58,6 @@ Class Actions{
     					}
     					if( is_string($videos) ) $video_url = $videos;
     					if($video_url) {
-    						$code['start'] = '<a data-fancybox href="'.$video_url.'">';
-    						$code['end'] = '</a>';
-
 							$code['attributes']['data-fancybox'] = '';
 							$code['attributes']['href'] = $video_url;
     					}
@@ -72,9 +65,6 @@ Class Actions{
     				if( $video_source == 'external' ){
     					$video_url = $video_popup['external_video'];
     					if($video_url){
-    						$code['start'] = '<a data-fancybox href="'.$video_url.'">';
-    						$code['end'] = '</a>';
-
 							$code['attributes']['data-fancybox'] = '';
 							$code['attributes']['href'] = $video_url;
     					}
@@ -86,8 +76,6 @@ Class Actions{
     			$selector = $toggle_box_settings['selector'];
     			if($selector){
     				$scroll_to_box = (isset($toggle_box_settings['scroll_to_box'])) ? $toggle_box_settings['scroll_to_box'] : 0;
-    				$code['start'] = '<a class="toggle-box" data-selector="'.$selector.'" data-scroll-to-box="'.$scroll_to_box.'" href="#">';
-    				$code['end'] = '</a>';
 
 					$code['attributes']['class'] = 'toggle-box';
 					$code['attributes']['data-selector'] = $selector;
@@ -99,14 +87,37 @@ Class Actions{
     			$offcanvas_elements_settings = (isset($action['offcanvas_elements_settings'])) ? $action['offcanvas_elements_settings'] : array( 'id' => null );
     			$id = $offcanvas_elements_settings['id'];
     			if($id){
-    				$code['start'] = '<a data-offcanvas-element="'.str_replace('post_','',$id).'" href="#">';
-    				$code['end'] = '</a>';
-
 					$code['attributes']['data-offcanvas-element'] = str_replace('post_','',$id);
 					$code['attributes']['href'] = '#';
     			}
     		}
+			if ($action['trigger'] == 'click' && $action['action'] == 'next-post') { 
+				$next_post = get_adjacent_post( false, '', false );
+				$next_post_link = get_permalink( $next_post->ID );
+
+				$code['attributes']['class'] = 'next-post';
+				$code['attributes']['href'] = $next_post_link;
+			}
+			if ($action['trigger'] == 'click' && $action['action'] == 'previous-post') { 
+				$previous_post = get_adjacent_post( false, '', true );
+				$previous_post_link = get_permalink( $previous_post->ID );
+
+				$code['attributes']['class'] = 'previous-post';
+				$code['attributes']['href'] = $previous_post_link;
+			}
 		};
+
+		if( !empty($code['attributes']) ){			
+			$start = '<a';
+			foreach ($code['attributes'] as $attr => $value) {
+				if ($value != '') {
+					$start .= ' '.$attr.'="'.$value.'"';
+				}
+			}
+			$start .= '>';
+			$code['start'] = $start;
+			$code['end'] = '</a>';
+		}
 
     	return $code;
     }

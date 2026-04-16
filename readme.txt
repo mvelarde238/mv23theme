@@ -7,6 +7,7 @@ CHANGELOG
   so selecting components inside the carousel no longer disrupts the editor canvas
 - Implements datastoreDefaults property on gjsExtendComponents to allow defining default datastore values for components, 
   which will be used when creating a new component
+- next-post and previous-post actions implementation on Actions.p to allow navigating to the next and previous posts
 
 3.8.3 26-04-15
 - Make components wrapper inside Icon and Text componente selectable to handle components spacing
