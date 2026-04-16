@@ -19,6 +19,7 @@
 [data-gjs-type="header-content"]:empty,
 [data-gjs-type="header-logo"]:empty,
 [data-gjs-type="header-logo"]:not(:has(img)),
+[data-gjs-type="post-content"],
 [data-gjs-type="shortcode"],
 [data-gjs-type="icon-box"]:empty
     border: 3px dashed var(--placeholder-color)
@@ -36,3 +37,10 @@
     align-items: center
     justify-content: center
     max-width: 200px
+
+// placeholder component styles with inner message
+[data-gjs-type="post-content"],
+[data-gjs-type="shortcode"]
+    font-family: var(--font-family-base)
+    padding: 20px
+    text-align: center
