@@ -2,6 +2,7 @@ window.handleCommonSettings = function (editor, options) {
 
     editor.handleCommonSettings = function (component) {
         const datastore = editor.getComponentDatastore(component);
+
         if (datastore) {
             const settings = datastore.get('settings') || {};
 
@@ -53,13 +54,25 @@ window.handleCommonSettings = function (editor, options) {
                 component.getEl().classList.add(layout);
             }
 
+            const helpers_list = [
+                'overflow-scroll','overflow-hidden','hide-br','hide-br-tablet','hide-br-mobile',
+                'extend-bg-to-left','extend-bg-to-right','full-height','full-width','dark-mode'
+            ];
             if (settings.helpers && settings.helpers.use) {
-                const helpers_list = settings.helpers.list || [];
-                if (helpers_list.length) {
-                    helpers_list.forEach(helper_class => {
+                const selected_helpers_list = settings.helpers.list || [];
+                if (selected_helpers_list.length) {
+                    selected_helpers_list.forEach(helper_class => {
                         component.getEl().classList.add(helper_class);
                     });
+                } else {
+                    helpers_list.forEach(helper_class => {
+                        component.getEl().classList.remove(helper_class);
+                    });
                 }
+            } else {
+                helpers_list.forEach(helper_class => {
+                    component.getEl().classList.remove(helper_class);
+                });
             }
 
             if (settings.color_scheme && settings.color_scheme.use) {

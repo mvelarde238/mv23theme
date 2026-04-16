@@ -142,7 +142,6 @@
 							if(_colour_picker.length) _colour_picker.iris('hide');
 
                 			processed_data = that.filterData( this.model.get( 'container' ), raw_data );
-							console.log('processed_data', processed_data);
 
 							// check has-values class
 							const _button = $( this.model.get('_triggerButton') );
