@@ -9,6 +9,8 @@ CHANGELOG
   which will be used when creating a new component
 - next-post and previous-post actions implementation on Actions.p to allow navigating to the next and previous posts
 - Fix .full-width class to set max-width to 100vw to override images max-width
+- Fix helper classes handling on handleCommonSettings() to properly add and remove helper classes based on the current settings
+- Implements editor.handleCommonSettings() on gjs-image custom datastore change callback
 
 3.8.3 26-04-15
 - Make components wrapper inside Icon and Text componente selectable to handle components spacing
