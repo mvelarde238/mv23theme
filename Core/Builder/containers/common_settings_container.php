@@ -37,6 +37,7 @@ Container::create( 'common_settings_container' )
                     'extend-bg-to-left' => __('Extend background to left','mv23theme'),
                     'extend-bg-to-right' => __('Extend background to right','mv23theme'),
                     'full-height' => __('Full Height','mv23theme'),
+                    'full-width' => __('Full Width','mv23theme'),
                     'dark-mode' => __('Dark Mode','mv23theme')
                 ))->add_dependency('use')->set_width( 80 )
         )),

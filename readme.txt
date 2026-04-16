@@ -8,6 +8,7 @@ CHANGELOG
 - Implements datastoreDefaults property on gjsExtendComponents to allow defining default datastore values for components, 
   which will be used when creating a new component
 - next-post and previous-post actions implementation on Actions.p to allow navigating to the next and previous posts
+- Fix .full-width class to set max-width to 100vw to override images max-width
 
 3.8.3 26-04-15
 - Make components wrapper inside Icon and Text componente selectable to handle components spacing

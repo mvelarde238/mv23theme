@@ -144,7 +144,7 @@ class Core{
 
         // load containers that wil be generated in a pop up:
         foreach (self::$popup_containers as $container) {
-            require_once( BUILDER_DIR.'/containers/popup/'.$container.'.php' );
+            require_once( BUILDER_DIR.'/containers/'.$container.'.php' );
         }
 
         /**
