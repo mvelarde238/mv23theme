@@ -93,14 +93,14 @@ Class Actions{
     		}
 			if ($action['trigger'] == 'click' && $action['action'] == 'next-post') { 
 				$next_post = get_adjacent_post( false, '', false );
-				$next_post_link = get_permalink( $next_post->ID );
+				$next_post_link = ($next_post) ? get_permalink( $next_post->ID ) : '';
 
 				$code['attributes']['class'] = 'next-post';
 				$code['attributes']['href'] = $next_post_link;
 			}
 			if ($action['trigger'] == 'click' && $action['action'] == 'previous-post') { 
 				$previous_post = get_adjacent_post( false, '', true );
-				$previous_post_link = get_permalink( $previous_post->ID );
+				$previous_post_link = ($previous_post) ? get_permalink( $previous_post->ID ) : '';
 
 				$code['attributes']['class'] = 'previous-post';
 				$code['attributes']['href'] = $previous_post_link;
