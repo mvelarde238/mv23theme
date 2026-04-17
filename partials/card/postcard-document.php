@@ -9,7 +9,7 @@ $postcard_args = array(
     'title' => $post->post_title,
     'metadata' => array(),
     'permalink' => Post_Card::get_permalink($post),
-    'permalink_text' => __('More details','mv23theme'),
+    'permalink_text' => __('More details', 'mv23theme'),
     'permalink_icon' => 'bi-arrow-up-right',
     'permalink_class' => 'trigger-post-action',
     'excerpt' => Post_Card::get_excerpt($post, 110),
@@ -24,14 +24,14 @@ $postcard_args = array(
 
 $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
 ?>
-<div class="postcard postcard--style4" <?php echo $_args['attributes'] ?>>
+<div class="postcard postcard--<?php echo $_args['style']; ?>" <?php echo $_args['attributes'] ?>>
 	<div class="postcard__content-wrapper">
 	    <div class="postcard__content">
 	    	<div class="postcard__postdata">
 	    		<div class="postcard__terms">
 	    			<p>
 	    				<?php if (is_array($_args['main_terms']) && count($_args['main_terms']) > 0) {
-                	    	echo Post_Card::display_terms($_args['main_terms'],',');
+                	    	echo Post_Card::display_terms($_args['main_terms'],', ');
             		    } else {
                             echo $_args['posttype'];
                         }

@@ -16,7 +16,7 @@ $thumbnail_style = ($imagen) ? 'style="background-image: url('.$imagen.');"' : '
 			<div class="templates-library__footer">
 				<span class="templates-library__author"><i class="bi bi-person"></i> <?php the_author(); ?></span>
 				<span class="templates-library__date">
-					<i class="bi bi-calendar3"></i> <?php printf( '%1$s','<time class="entry-time" datetime="' . get_the_time('Y-m-d', 	$post_id) . '" itemprop="datePublished">' . get_the_time(get_option('date_format'), $post_id) . '</time>'); ?>
+					<i class="bi bi-calendar3"></i> <?php printf( '%1$s', '<time class="entry-time" datetime="' . get_the_time('Y-m-d', 	$post_id) . '" itemprop="datePublished">' . get_the_time(get_option('date_format'), $post_id) . '</time>'); ?>
 				</span>
 			</div>
 		</div>

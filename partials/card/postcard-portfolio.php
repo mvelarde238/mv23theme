@@ -9,7 +9,7 @@ $postcard_args = array(
     'title' => $post->post_title,
     'metadata' => array(),
     'permalink' => Post_Card::get_permalink($post),
-    'permalink_text' => __('More details','mv23theme'),
+    'permalink_text' => __('More details', 'mv23theme'),
     'permalink_icon' => 'bi-arrow-up-right',
     'permalink_class' => 'trigger-post-action',
     'excerpt' => Post_Card::get_excerpt($post, 110),
@@ -25,7 +25,7 @@ $postcard_args = array(
 
 $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
 ?>
-<div class="postcard postcard--style3" <?php echo $_args['attributes'] ?>>
+<div class="postcard postcard--<?php echo $_args['style']; ?>" <?php echo $_args['attributes'] ?>>
     <div class="postcard__wrapper">
         <a href="<?=$_args['permalink']?>" class="postcard__image <?=$_args['permalink_class']?>" style="background-image:url(<?=$_args['thumbnail']?>);">
             <?php if($_args['featured_video']) echo $_args['featured_video']; ?>
