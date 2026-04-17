@@ -107,7 +107,7 @@ Class Actions{
 			}
 		};
 
-		if( !empty($code['attributes']) ){			
+		if( !empty($code['attributes']) && isset($code['attributes']['href']) && $code['attributes']['href'] != '' ){			
 			$start = '<a';
 			foreach ($code['attributes'] as $attr => $value) {
 				if ($value != '') {
