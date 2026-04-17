@@ -27,6 +27,7 @@ function create_tns_slider(slider){
         axis = slider.dataset['axis'] ?? 'horizontal',
         mode = slider.dataset['mode'] ?? 'carousel',
         touch = toBool(slider.dataset['touch'] ?? false),
+        start_index = slider.dataset['startIndex'] ?? 0,
         mobile_gutter = slider.dataset['mobileGutter'] ?? 0,
         tablet_gutter = slider.dataset['tabletGutter'] ?? 0,
         laptop_gutter = slider.dataset['laptopGutter'] ?? 0,
@@ -60,6 +61,7 @@ function create_tns_slider(slider){
         controls: show_controls, 
         nav: show_nav, 
         navPosition: nav_position,
+        startIndex: parseInt(start_index),
         responsive : {
             1401 : {items:parseInt(desktop), slideBy:parseInt(desktop), gutter: parseInt(desktop_gutter)},
             1025 : {items:parseInt(laptop), slideBy:parseInt(laptop), gutter: parseInt(laptop_gutter)},
