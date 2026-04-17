@@ -373,6 +373,7 @@ window.gjsCarousel = function (editor) {
                 });
             },
             refreshNav() {
+                console.log('Refreshing nav dots');
                 const oldNav = this.el.querySelector('.tns-nav');
                 if (!oldNav) return;
 
@@ -380,6 +381,10 @@ window.gjsCarousel = function (editor) {
                 const datastore = editor.getComponentDatastore(this.model);
                 const carouselType = datastore ? datastore.get('carousel_type') : 'slider';
                 if (carouselType === 'marquee') return;
+
+                // Dont show nav if nav settings is not enabled
+                const navSettings = datastore ? datastore.get('nav_settings') : null;
+                if (navSettings && !navSettings.show) return;
 
                 oldNav.remove();
 
