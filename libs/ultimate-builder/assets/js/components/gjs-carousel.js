@@ -373,7 +373,6 @@ window.gjsCarousel = function (editor) {
                 });
             },
             refreshNav() {
-                console.log('Refreshing nav dots');
                 const oldNav = this.el.querySelector('.tns-nav');
                 if (!oldNav) return;
 

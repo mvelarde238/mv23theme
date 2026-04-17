@@ -17,6 +17,7 @@ CHANGELOG
 - Implement Template_Engine::check_actions() on Icon and Text component
 - Fix postcards to use the style defined in the arguments
 - Fix Carousel component: Dont show nav if nav settings is not enabled
+- Carousel component: add startIndex setting and implement it on createTnsSlider function
 
 3.8.3 26-04-15
 - Make components wrapper inside Icon and Text componente selectable to handle components spacing

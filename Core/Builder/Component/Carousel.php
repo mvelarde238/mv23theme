@@ -161,6 +161,21 @@ class Carousel extends Component {
                 //     ->set_width( 20 )
             ))->add_dependency('carousel_type', 'slider', '='),
 
+            // startIndex settings
+            Field::create( 'complex', 'start_index_settings' )->hide_label()->add_fields(array(
+                Field::create( 'checkbox', 'active' )->set_text(__('Set start index','mv23theme'))->hide_label(),
+                Field::create( 'text', 'index' )
+                    ->set_prefix('Start Index:')
+                    ->set_placeholder('0')
+                    ->add_suggestions( array(
+                        '0','1','2',
+                        'in_the_middle',
+                        'at_the_end'
+                    ))
+                    ->hide_label()
+                    ->add_dependency( 'active' )
+            ))->add_dependency('carousel_type', 'slider', '='), 
+
             Field::create( 'tab', 'columns_settings_tab', __('Columns','mv23theme') )->add_dependency('carousel_type', 'slider', '='),
             Field::create( 'complex', 'items', __('Columns', 'mv23theme') )->hide_label()->add_fields(array(
                 Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value( '4' )->set_attr('style', $width_style),
@@ -276,6 +291,35 @@ class Carousel extends Component {
         if( $show_controls ){
             $args['additional_attributes']['data-controls-position'] = $controls_position;
         }
+
+        // Get carousel items
+        $items = array();
+        if( isset($args['components']) && is_array($args['components']) ){
+            $the_carousel = $args['components'][0];// carousel is inside a carousel wrapper
+            $items = $the_carousel['components'];
+        }
+
+        // Handle start index
+        $start_index_settings = $args['start_index_settings'] ?? array();
+        $start_index = 0;
+        if( isset($start_index_settings['active']) && $start_index_settings['active'] ){
+            $start_index_value = $start_index_settings['index'] ?? 0;
+            if( is_numeric($start_index_value) ){
+                $start_index = intval($start_index_value);
+            } else {
+                // handle non-numeric values
+                switch ($start_index_value) {
+                    case 'in_the_middle':
+                        $start_index = floor(count($items) / 2);
+                        break;
+                    case 'at_the_end':
+                        $start_index = count($items) - 1;
+                        break;
+                    default:
+                        $start_index = 0;
+                }
+            }
+        }
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args); ?>
@@ -300,6 +344,7 @@ class Carousel extends Component {
                 data-touch="<?=$touch?>"
                 data-axis="<?=$axis?>"
                 data-mode="<?=$mode?>"
+                data-start-index="<?=$start_index?>"
                 data-prev-icon="<?=$prev_icon?>"
                 data-next-icon="<?=$next_icon?>"
                 data-slider-uid="<?=$slider_uid?>">
@@ -313,19 +358,18 @@ class Carousel extends Component {
             <div class="marquee-track">
         <?php endif; ?>
 
-            <?php 
-            if( isset($args['components']) && is_array($args['components']) ){
-                $the_carousel = $args['components'][0];// carousel is inside a carousel wrapper
-			    foreach ($the_carousel['components'] as $item) {
-                    $id = (isset($item['attributes']) && isset($item['attributes']['id'])) ? $item['attributes']['id'] : '';
-                    echo '<div class="carousel__item--content">';
-                    echo '<div id="'.$id.'" class="carousel__item components-wrapper">';
-                    echo Template_Engine::check_components( $item );
-                    echo '</div>';
-                    echo '</div>';
-			    }
+        <?php 
+        if( count($items) > 0 ){
+		    foreach ($items as $item) {
+                $id = (isset($item['attributes']) && isset($item['attributes']['id'])) ? $item['attributes']['id'] : '';
+                echo '<div class="carousel__item--content">';
+                echo '<div id="'.$id.'" class="carousel__item components-wrapper">';
+                echo Template_Engine::check_components( $item );
+                echo '</div>';
+                echo '</div>';
 		    }
-            ?>
+		}
+        ?>
 
         <?php if($carousel_type == 'slider'): ?>
             </div> 
