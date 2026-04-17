@@ -2,6 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
+3.9.0 26-04-17
+- Carousel Parts Implementation
+  -------------------------------------------------------------------------------------------------------------
+  !IMPORTANT: Use the migrator to update old carousel components to use the new carousel parts structure
+  -------------------------------------------------------------------------------------------------------------
+
 3.8.4 26-04-16
 - Fix Carousel component: remove calls to event.stopPropagation() from navigation methods 
   so selecting components inside the carousel no longer disrupts the editor canvas

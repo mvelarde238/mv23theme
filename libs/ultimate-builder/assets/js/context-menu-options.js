@@ -515,9 +515,11 @@ window['contextMenuOpts'] = {
             ]
         },
         ['carousel-wrapper']: function(component, editor){
-            return [
-                { type: 'button', label: 'SELECT ALL ITEMS', command: 'query-selector', args: { selector: '.carousel__item' } }
+            let actions = [
+                { type: 'button', label: 'SELECT ALL ITEMS', command: 'query-selector', args: { selector: '.carousel__item' } },
             ];
+
+            return actions;
         },
         ['carousel-item']: function(component, editor){
             let actions = [];

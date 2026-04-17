@@ -123,7 +123,9 @@ window.gjsCarousel = function (editor) {
                 droppable: false,
                 classes: ['carousel-wrapper', 'component', 'carousel'],
                 components: [
-                    { type: 'carousel' }
+                    { type: 'carousel' },
+                    { type: 'carousel-controls' },
+                    { type: 'carousel-nav' },
                 ],
             }
         },
@@ -153,21 +155,13 @@ window.gjsCarousel = function (editor) {
             },
             handle_datastore_data() {
                 const datastore = editor.getComponentDatastore(this.model);
-                const {carousel_type, carousel_theme, controls_settings, nav_settings, customize_icons} = datastore.toJSON();
+                const {carousel_type, carousel_theme, controls_settings, nav_settings} = datastore.toJSON();
                 const nav_position = nav_settings && nav_settings.show ? nav_settings.position : 'bottom';
                 
                 const el = this.el;
                 const carousel = this.model.findType('carousel')[0];
                 const carouselEl = carousel ? carousel.getEl() : null;
                 if (!carouselEl) return;
-    
-                // append tns-controls and tns-nav if they don't exist
-                if (!el.querySelector('.tns-controls')) {
-                    this.appendTnsControls(el);
-                }
-                if (!el.querySelector('.tns-nav')) {
-                    this.appendTnsNav(el, nav_position);
-                }
 
                 if (carousel_type === 'slider') {
                     // add carousel theme
@@ -189,39 +183,25 @@ window.gjsCarousel = function (editor) {
                         if (nav) {
                             nav.style.display = '';
                             // Move nav to correct position (top or bottom of carousel slider)
-                            const carouselSlider = el.querySelector('.carousel__slider');
-                            if (carouselSlider) {
+                            const carouselNav = this.model.findType('carousel-nav')[0];
+                            if (carouselNav) {
                                 if (nav_position === 'top') {
-                                    carouselSlider.before(nav);
+                                    carouselNav.move(this.model,{at:0});
                                 } else {
-                                    carouselSlider.after(nav);
+                                    carouselNav.move(this.model);
                                 }
                             }
                         }
                     } else {
-                        const nav = el.querySelector('.tns-nav');
+                        const nav = el.querySelector('.carousel__nav');
                         if (nav) nav.style.display = 'none';
                     }
                     el.setAttribute('data-nav-position', nav_position);
 
-                    // handle custom icons
-                    if (customize_icons && customize_icons.active) {
-                        const prevIconName = customize_icons.prev_icon || 'fa-angle-left';
-                        const nextIconName = customize_icons.next_icon || 'fa-angle-right';
-                        const prevIconPrefix = prevIconName.split('-')[0];
-                        const nextIconPrefix = nextIconName.split('-')[0];
-                        const prevIconClass = prevIconPrefix === 'fa' ? 'fa ' + prevIconName : 'bi ' + prevIconName;
-                        const nextIconClass = nextIconPrefix === 'fa' ? 'fa ' + nextIconName : 'bi ' + nextIconName;
-                        const prevBtn = el.querySelector('[data-controls="prev"] i');
-                        const nextBtn = el.querySelector('[data-controls="next"] i');
-                        if (prevBtn) prevBtn.className = `${prevIconClass}`;
-                        if (nextBtn) nextBtn.className = `${nextIconClass}`;
-                    }
-
                 } else if (carousel_type === 'marquee') {
                     el.setAttribute('data-theme', 'none');
-                    const controls = el.querySelector('.tns-controls');
-                    const nav = el.querySelector('.tns-nav');
+                    const controls = el.querySelector('.carousel-controls');
+                    const nav = el.querySelector('.carousel__nav');
                     if (controls) controls.style.display = 'none';
                     if (nav) nav.style.display = 'none';
                 }
@@ -275,54 +255,11 @@ window.gjsCarousel = function (editor) {
             events: {
                 'click .add-item-btn': 'addCarouselItem',
                 'click .remove-item-btn': 'removeLastItem',
-                'click .next-slide': 'selectNextSlide',
-                'click .prev-slide': 'selectPrevSlide',
+                'click [data-controls="next"]': 'selectNextSlide',
+                'click [data-controls="prev"]': 'selectPrevSlide',
                 'click .next-page': 'selectNextSlide',
                 'click .prev-page': 'selectPrevSlide',
                 'click .tns-nav button': 'onNavDotClick',
-            },
-            appendTnsControls: function(el) {
-                const carouselSlider = el.querySelector('.carousel__slider');
-                if (carouselSlider) {
-                    const tnsControls = document.createElement('div');
-                    tnsControls.className = 'tns-controls';
-                    
-                    const prevButton = document.createElement('button');
-                    prevButton.className = 'prev-slide';
-                    prevButton.setAttribute('data-controls', 'prev');
-                    prevButton.innerHTML = '<i class="fa fa-angle-left"></i>';
-                    
-                    const nextButton = document.createElement('button');
-                    nextButton.className = 'next-slide';
-                    nextButton.setAttribute('data-controls', 'next');
-                    nextButton.innerHTML = '<i class="fa fa-angle-right"></i>';
-                    
-                    tnsControls.appendChild(prevButton);
-                    tnsControls.appendChild(nextButton);
-                    carouselSlider.before(tnsControls);
-                }
-            },
-            appendTnsNav: function(el, position) {
-                const carouselSlider = el.querySelector('.carousel__slider');
-                if (carouselSlider) {
-                    const tnsNav = document.createElement('div');
-                    tnsNav.className = 'tns-nav';
-
-                    const totalPages = this.getTotalPages();
-
-                    for (let i = 0; i < totalPages; i++) {
-                        const btn = document.createElement('button');
-                        btn.setAttribute('data-nav', i);
-                        if (i === 0) btn.className = 'tns-nav-active';
-                        tnsNav.appendChild(btn);
-                    }
-
-                    if (position === 'top') {
-                        carouselSlider.before(tnsNav);
-                    } else {
-                        carouselSlider.after(tnsNav);
-                    }
-                }
             },
             getItemsPerPage() {
                 const datastore = editor.getComponentDatastore(this.model);
@@ -373,8 +310,8 @@ window.gjsCarousel = function (editor) {
                 });
             },
             refreshNav() {
-                const oldNav = this.el.querySelector('.tns-nav');
-                if (!oldNav) return;
+                const nav = this.el.querySelector('.carousel__nav');
+                if (!nav) return;
 
                 // Don't show nav in marquee mode
                 const datastore = editor.getComponentDatastore(this.model);
@@ -385,13 +322,21 @@ window.gjsCarousel = function (editor) {
                 const navSettings = datastore ? datastore.get('nav_settings') : null;
                 if (navSettings && !navSettings.show) return;
 
-                oldNav.remove();
+                // rernder the carousel-nav component to update the number of dots based on the new total pages
+                const carouselNav = this.model.findType('carousel-nav')[0];
+                if (carouselNav) {
+                    carouselNav.getView().render();
+                }
 
-                const navPos = datastore ? (datastore.get('nav_settings')?.position || 'bottom') : 'bottom';
-                this.appendTnsNav(this.el, navPos);
-
-                // Clamp current page if it exceeds the new total
+                // if there are just one page, hide the nav
                 const totalPages = this.getTotalPages();
+                if (totalPages <= 1 && nav) {
+                    nav.style.display = 'none';
+                } else if (nav) {
+                    nav.style.display = '';
+                }
+
+                // Clamp current page if it exceeds the new total pages after item removal
                 if (this.getCurrentSlideIndex() >= totalPages) {
                     this.setCurrentSlideIndex(Math.max(0, totalPages - 1));
                 }

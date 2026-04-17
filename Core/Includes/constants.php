@@ -73,6 +73,10 @@ if( !defined('LISTING_POST_TEMPLATE') ){
 // TOGGLEBOX_STATE_ICON
 if( !defined('TOGGLEBOX_STATE_ICON') ) define( 'TOGGLEBOX_STATE_ICON', 'bi-caret-down');
 
+// CAROUSEL ICONS
+if ( ! defined( 'PREV_CAROUSEL_ICON' ) ) define( 'PREV_CAROUSEL_ICON', 'fa-angle-left' );
+if ( ! defined( 'NEXT_CAROUSEL_ICON' ) ) define( 'NEXT_CAROUSEL_ICON', 'fa-angle-right' );
+
 // BUILDER CONSTANTS
 if( !defined('BUILDER_DEV_MODE') ) define ('BUILDER_DEV_MODE', false);
 define ('ULTIMATE_FIELDS_DISABLE_UI', get_option('uf_disable_ui', false) );

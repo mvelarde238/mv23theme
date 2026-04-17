@@ -6,9 +6,6 @@ use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Ultimate_Fields\Container\Repeater_Group;
 
-if ( ! defined( 'PREV_CAROUSEL_ICON' ) ) define( 'PREV_CAROUSEL_ICON', 'fa-angle-left' );
-if ( ! defined( 'NEXT_CAROUSEL_ICON' ) ) define( 'NEXT_CAROUSEL_ICON', 'fa-angle-right' );
-
 class Carousel extends Component {
 
     public function __construct() {
@@ -88,7 +85,11 @@ class Carousel extends Component {
                 ->add_dependency('carousel_type', 'marquee', '!='),
         
             Field::create( 'complex', 'controls_settings' )->hide_label()->add_fields(array(
-                Field::create( 'checkbox', 'show' )->hide_label()->set_text(__('Show controls','mv23theme'))->set_width( 50 ),
+                Field::create( 'checkbox', 'show' )
+                    ->hide_label()
+                    ->set_text(__('Show controls','mv23theme'))
+                    ->set_default_value(1)
+                    ->set_width( 50 ),
                 Field::create( 'select', 'position' )
                     ->hide_label()->add_dependency('show')->set_prefix( __('Position:', 'mv23theme') )->set_width( 50 )
                     ->set_default_value('center')
@@ -198,21 +199,6 @@ class Carousel extends Component {
                 ->set_attr( 'style', 'flex-grow: initial;' ),
             Field::create( 'checkbox', 'auto_height' )->hide_label()->set_text(__('Activate Auto Height','mv23theme'))->add_dependency('carousel_type', 'slider', '='),
             Field::create( 'checkbox', 'touch' )->hide_label()->set_text(__('Activate Touch','mv23theme'))->add_dependency('carousel_type', 'slider', '='),
-            Field::create( 'complex', 'customize_icons')->hide_label()->add_fields(array(
-                field::create( 'checkbox', 'active' )->hide_label()->set_text(__('Customize navigation icons','mv23theme')),
-                Field::create( 'icon', 'prev_icon' )
-                    ->add_set( 'bootstrap-icons' )
-                    ->add_set( 'font-awesome' )
-                    ->set_default_value( PREV_CAROUSEL_ICON )
-                    ->add_dependency('active')
-                    ->set_width(50),
-                Field::create( 'icon', 'next_icon' )
-                    ->add_set( 'bootstrap-icons' )
-                    ->add_set( 'font-awesome' )
-                    ->set_default_value( NEXT_CAROUSEL_ICON )
-                    ->add_dependency('active')
-                    ->set_width(50),
-            ))->add_dependency('carousel_type', 'slider', '=')
         );
 
 		return array_merge(
@@ -228,137 +214,158 @@ class Carousel extends Component {
 		$args['additional_classes'][] = 'carousel';
         $args['additional_attributes'] = array();
 
-        $carousel_type = $args['carousel_type'] ?? 'slider';
-        $carousel_theme = $args['carousel_theme'] ?? 'theme1';
-        if($carousel_theme !== 'none'){
-            $args['additional_attributes']['data-theme'] = $carousel_theme;
+        // Get carousel items
+        $items = array();
+        if( isset($args['components']) && is_array($args['components']) ){
+            $the_carousel = null;
+            foreach( $args['components'] as $comp ){
+                if( isset($comp['type']) && $comp['type'] === 'carousel' ){
+                    $the_carousel = $comp;
+                    break;
+                }
+            }
+            if( $the_carousel ){
+                $items = $the_carousel['components'];
+            }
         }
+        // return if not items found
+        if( count($items) === 0 ) return;
 
-        $controls_settings = $args['controls_settings'] ?? array();
-        $show_controls = $controls_settings['show'] ?? 0;
-        $controls_position = $controls_settings['position'] ?? 'center';
-
-        $nav_settings = $args['nav_settings'] ?? array();
-        $show_nav = $nav_settings['show'] ?? 0;
-        $nav_position = $nav_settings['position'] ?? 'bottom';
-
-        $autoplay_settings = $args['autoplay_settings'] ?? array();
-        $autoplay = $autoplay_settings['autoplay'] ?? 0;
-        $autoplay_timeout = $autoplay_settings['autoplay_timeout'] ?? 5000;
-        // $autoplay_hover_pause = $args['autoplay_hover_pause'] ?? 0;
-        // $prevent_action = $args['prevent_action'] ?? 0;
-        // $rewind = $args['rewind'] ?? 0;
-        // style="transition-timing-function: linear;" 
-
-        $carousel_mode = $args['carousel_mode'] ?? array(
-            'active' => false,
-            'mode' => 'carousel',
-            'axis' => 'horizontal',
-            'speed' => 450
-        );
-        $speed = $carousel_mode['active'] ? ($carousel_mode['speed'] ?? 450) : 450;
-        $mode = $carousel_mode['active'] ? ($carousel_mode['mode'] ?? 'carousel') : 'carousel';
-        $axis = $carousel_mode['active'] ? ($carousel_mode['axis'] ?? 'horizontal') : 'horizontal';
-
-        $auto_height = $args['auto_height'] ?? 0;
-        $touch = $args['touch'] ?? 0;
-        $slider_uid = $args['slider_uid'] ?? '';
-
-        $items_in_mobile = $args['items']['mobile'];
-        $items_in_tablet = $args['items']['tablet'];
-        $items_in_laptop = $args['items']['laptop'];
-        $items_in_desktop = $args['items']['desktop'];
-
+        // Get settings values
+        $carousel_type = $args['carousel_type'] ?? 'slider';
+        
         $gutter_in_mobile = $args['gutter']['mobile'];
         $gutter_in_tablet = $args['gutter']['tablet'];
         $gutter_in_laptop = $args['gutter']['laptop'];
         $gutter_in_desktop = $args['gutter']['desktop'];
+        
+        // Build slider attributes
+        if($carousel_type == 'slider'){
+            $carousel_theme = $args['carousel_theme'] ?? 'theme1';
+            if($carousel_theme !== 'none'){
+                $args['additional_attributes']['data-theme'] = $carousel_theme;
+            }
+            
+            $controls_settings = $args['controls_settings'] ?? array();
+            $show_controls = $controls_settings['show'] ?? 1;
+            $controls_position = $controls_settings['position'] ?? 'center';
+    
+            $nav_settings = $args['nav_settings'] ?? array();
+            $show_nav = $nav_settings['show'] ?? 0;
+            $nav_position = $nav_settings['position'] ?? 'bottom';
+    
+            $autoplay_settings = $args['autoplay_settings'] ?? array();
+            $autoplay = $autoplay_settings['autoplay'] ?? 0;
+            $autoplay_timeout = $autoplay_settings['autoplay_timeout'] ?? 5000;
+            // $autoplay_hover_pause = $args['autoplay_hover_pause'] ?? 0;
+            // $prevent_action = $args['prevent_action'] ?? 0;
+            // $rewind = $args['rewind'] ?? 0;
+            // style="transition-timing-function: linear;" 
 
-        $customize_icons = $args['customize_icons'] ?? array(  
-            'active' => false,
-            'prev_icon' => PREV_CAROUSEL_ICON,
-            'next_icon' => NEXT_CAROUSEL_ICON
-        );
-        $prev_icon = $customize_icons['active'] ? ($customize_icons['prev_icon'] ?? PREV_CAROUSEL_ICON) : PREV_CAROUSEL_ICON;
-        $next_icon = $customize_icons['active'] ? ($customize_icons['next_icon'] ?? NEXT_CAROUSEL_ICON) : NEXT_CAROUSEL_ICON;
+            $carousel_mode = $args['carousel_mode'] ?? array(
+                'active' => false,
+                'mode' => 'carousel',
+                'axis' => 'horizontal',
+                'speed' => 450
+            );
+            $speed = $carousel_mode['active'] ? ($carousel_mode['speed'] ?? 450) : 450;
+            $mode = $carousel_mode['active'] ? ($carousel_mode['mode'] ?? 'carousel') : 'carousel';
+            $axis = $carousel_mode['active'] ? ($carousel_mode['axis'] ?? 'horizontal') : 'horizontal';
+    
+            $auto_height = $args['auto_height'] ?? 0;
+            $touch = $args['touch'] ?? 0;
+            $slider_uid = (!empty($args['slider_uid']) ) ? $args['slider_uid'] : uniqid('slider_');
 
-        if( $show_nav ){
-            $args['additional_attributes']['data-nav-position'] = $nav_position;
-        } else {
-            $args['additional_classes'][] = 'without-navigation';
-        }
+            $items_in_mobile = $args['items']['mobile'];
+            $items_in_tablet = $args['items']['tablet'];
+            $items_in_laptop = $args['items']['laptop'];
+            $items_in_desktop = $args['items']['desktop'];
 
-        if( $show_controls ){
-            $args['additional_attributes']['data-controls-position'] = $controls_position;
-        }
-
-        // Get carousel items
-        $items = array();
-        if( isset($args['components']) && is_array($args['components']) ){
-            $the_carousel = $args['components'][0];// carousel is inside a carousel wrapper
-            $items = $the_carousel['components'];
-        }
-
-        // Handle start index
-        $start_index_settings = $args['start_index_settings'] ?? array();
-        $start_index = 0;
-        if( isset($start_index_settings['active']) && $start_index_settings['active'] ){
-            $start_index_value = $start_index_settings['index'] ?? 0;
-            if( is_numeric($start_index_value) ){
-                $start_index = intval($start_index_value);
+            if( $show_nav ){
+                $args['additional_attributes']['data-nav-position'] = $nav_position;
             } else {
-                // handle non-numeric values
-                switch ($start_index_value) {
-                    case 'in_the_middle':
-                        $start_index = floor(count($items) / 2);
-                        break;
-                    case 'at_the_end':
-                        $start_index = count($items) - 1;
-                        break;
-                    default:
-                        $start_index = 0;
+                $args['additional_classes'][] = 'without-navigation';
+            }
+            if( $show_controls ){
+                $args['additional_attributes']['data-controls-position'] = $controls_position;
+            }
+
+            // Handle start index
+            $start_index_settings = $args['start_index_settings'] ?? array();
+            $start_index = 0;
+            if( isset($start_index_settings['active']) && $start_index_settings['active'] ){
+                $start_index_value = $start_index_settings['index'] ?? 0;
+                if( is_numeric($start_index_value) ){
+                    $start_index = intval($start_index_value);
+                } else {
+                    // handle non-numeric values
+                    switch ($start_index_value) {
+                        case 'in_the_middle':
+                            $start_index = floor(count($items) / 2);
+                            break;
+                        case 'at_the_end':
+                            $start_index = count($items) - 1;
+                            break;
+                        default:
+                            $start_index = 0;
+                    }
                 }
             }
-        }
-        
-		ob_start();
-		echo Template_Engine::component_wrapper('start', $args); ?>
 
-        <?php if($carousel_type == 'slider'): ?>
-            <div class="carousel__slider"
-                data-show-controls="<?=$show_controls?>" 
-                data-show-nav="<?=$show_nav?>"
-                data-nav-position="<?=$nav_position?>"
-                data-mobile="<?=$items_in_mobile?>"
-                data-tablet="<?=$items_in_tablet?>"
-                data-laptop="<?=$items_in_laptop?>"
-                data-desktop="<?=$items_in_desktop?>"
-                data-mobile-gutter="<?=$gutter_in_mobile?>"
-                data-tablet-gutter="<?=$gutter_in_tablet?>"
-                data-laptop-gutter="<?=$gutter_in_laptop?>"
-                data-desktop-gutter="<?=$gutter_in_desktop?>"
-                data-autoplay="<?=$autoplay?>"
-                data-speed="<?=$speed?>"
-                data-autoplay-timeout="<?=$autoplay_timeout?>"
-                data-auto-height="<?=$auto_height?>"
-                data-touch="<?=$touch?>"
-                data-axis="<?=$axis?>"
-                data-mode="<?=$mode?>"
-                data-start-index="<?=$start_index?>"
-                data-prev-icon="<?=$prev_icon?>"
-                data-next-icon="<?=$next_icon?>"
-                data-slider-uid="<?=$slider_uid?>">
-        <?php else: 
+            $slider_attributes = [];
+            $slider_attributes['additional_attributes'] = array(
+                'class' => 'carousel__slider',
+                'data-show-nav' => $show_nav,
+                'data-nav-position' => $nav_position,
+                'data-mobile' => $items_in_mobile,
+                'data-tablet' => $items_in_tablet,
+                'data-laptop' => $items_in_laptop,
+                'data-desktop' => $items_in_desktop,
+                'data-mobile-gutter' => $gutter_in_mobile,
+                'data-tablet-gutter' => $gutter_in_tablet,
+                'data-laptop-gutter' => $gutter_in_laptop,
+                'data-desktop-gutter' => $gutter_in_desktop,
+                'data-autoplay' => $autoplay,
+                'data-speed' => $speed,
+                'data-autoplay-timeout' => $autoplay_timeout,
+                'data-auto-height' => $auto_height,
+                'data-touch' => $touch,
+                'data-axis' => $axis,
+                'data-mode' => $mode,
+                'data-start-index' => $start_index,
+                'data-slider-uid' => $slider_uid
+            );
+        }
+
+        // Build marquee attributes
+        if($carousel_type == 'marquee'){
+            $marquee_attributes = [];
             $marquee_settings = $args['marquee_settings'] ?? array();
             $marquee_speed = ( isset($marquee_settings['speed']) && is_numeric($marquee_settings['speed']) ) ? $marquee_settings['speed'] : 40;
             $fade_width = $marquee_settings['fade_width'] ?? '100px';
             $direction = $marquee_settings['direction'] ?? 'left';
-            ?>
-            <div class="marquee" data-speed="<?=$marquee_speed?>" data-direction="<?=$direction?>" style="--fade-width:<?=$fade_width?>;--d-gap:<?=$gutter_in_desktop?>px;--l-gap:<?=$gutter_in_laptop?>px; --t-gap:<?=$gutter_in_tablet?>px; --m-gap:<?=$gutter_in_mobile?>px;">
-            <div class="marquee-track">
-        <?php endif; ?>
+            $marquee_attributes['additional_attributes'] = array(
+                'class' => 'marquee',
+                'data-speed' => $marquee_speed,
+                'data-direction' => $direction,
+                'style' => "--fade-width:{$fade_width};--d-gap:{$gutter_in_desktop}px;--l-gap:{$gutter_in_laptop}px; --t-gap:{$gutter_in_tablet}px; --m-gap:{$gutter_in_mobile}px;"
+            );
+        }
 
-        <?php 
+		ob_start();
+		echo Template_Engine::component_wrapper('start', $args);
+
+        // Output starting HTML based on carousel type
+        if($carousel_type == 'slider'): 
+            $slider_attrs = Template_Engine::generate_attributes( $slider_attributes );
+            echo '<div '.$slider_attrs.'>';
+        else:
+            $marquee_attrs = Template_Engine::generate_attributes( $marquee_attributes );
+            echo '<div '.$marquee_attrs.'>';
+            echo '<div class="marquee-track">';
+        endif;
+
+        // Loop through items and render them
         if( count($items) > 0 ){
 		    foreach ($items as $item) {
                 $id = (isset($item['attributes']) && isset($item['attributes']['id'])) ? $item['attributes']['id'] : '';
@@ -369,16 +376,46 @@ class Carousel extends Component {
                 echo '</div>';
 		    }
 		}
-        ?>
 
-        <?php if($carousel_type == 'slider'): ?>
-            </div> 
-        <?php else: ?>
-            </div>
-            </div>
-        <?php endif; ?>
+        // Output closing HTML based on carousel type
+        if($carousel_type == 'slider'){
+            echo '</div>';
+        } else {
+            echo '</div>';
+            echo '</div>';
+        }
 
-        <?php echo Template_Engine::component_wrapper('end', $args);
+        // if controls are enabled, render the carousel-controls component
+        if($carousel_type == 'slider' && $show_controls ) {
+            $controls_component = null;
+            if( isset($args['components']) && is_array($args['components']) ){
+                foreach( $args['components'] as $comp ){
+                    if( isset($comp['type']) && $comp['type'] === 'carousel-controls' ){
+                        $controls_component = $comp;
+                        break;
+                    }
+                }
+            }
+            if( $controls_component ){
+                echo '<div class="carousel-controls tns-controls">';
+
+                $buttons = ['prev', 'next'];
+                foreach( $buttons as $index => $button_type ){
+                    $button_component = $controls_component['components'][$index] ?? null;
+                    if( $button_component ){
+                        $button_component['additional_attributes'] = array(
+                            'data-controls' => $button_type,
+                            'data-slider-uid' => $slider_uid
+                        );
+                        $button_component['additional_classes'] = array('go-to-'.$button_type.'-slide');
+                        echo Template_Engine::getInstance()->handle( $button_component );
+                    }
+                }
+                echo '</div>';
+            }
+        }
+
+        echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
 }

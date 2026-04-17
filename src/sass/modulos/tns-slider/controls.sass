@@ -1,16 +1,16 @@
 .tns-control-position
-    button[data-controls="prev"]
+    [data-controls="prev"]
         left: 0
-    button[data-controls="next"]
+    [data-controls="next"]
         right: 0
 
     &[data-controls-position='top']
         &.without-navigation
             padding-top: var(--controls-size) !important
-        .tns-controls button
+        .tns-controls [data-controls]
             top: 0
 
-    &[data-controls-position='center'] .tns-controls button
+    &[data-controls-position='center'] .tns-controls [data-controls]
         top: 0
         bottom: 0
         margin: auto
@@ -22,11 +22,11 @@
     &[data-controls-position='bottom']
         &.without-navigation
             padding-bottom: var(--controls-size) !important
-        .tns-controls button
+        .tns-controls [data-controls]
             bottom: 0
 
     @media only screen and (max-width: #{$container-width + 80px})
-        &[data-controls-position='center'] .tns-controls button
+        &[data-controls-position='center'] .tns-controls [data-controls]
             &[data-controls="prev"]
                 left: -10px
             &[data-controls="next"]
@@ -35,8 +35,8 @@
 .tns-control-buttons
     z-index: 89
 
-    button[data-controls="prev"],
-    button[data-controls="next"]
+    [data-controls="prev"],
+    [data-controls="next"]
         position: absolute
         width: var(--controls-size)
         height: var(--controls-size)
@@ -55,8 +55,8 @@
         &:active
             transform: scale(.9)
 
-    button[data-controls="prev"]
+    [data-controls="prev"]
         box-shadow: -4px 4px 10px var(--ui-color-2)
 
-    button[data-controls="next"]
+    [data-controls="next"]
         box-shadow: 4px 4px 10px var(--ui-color-2)

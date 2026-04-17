@@ -101,6 +101,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsCounter', 'handler' => 'gjs-counter', 'isComponent' => true ],
 		[ 'name' => 'gjsHeading', 'handler' => 'gjs-heading', 'isComponent' => true ],
 		[ 'name' => 'gjsButton', 'handler' => 'gjs-button', 'isComponent' => true ],
+		[ 'name' => 'gjsCarouselParts', 'handler' => 'gjs-carousel-parts', 'isComponent' => true ],
 		[ 'name' => 'gjsCarousel', 'handler' => 'gjs-carousel', 'isComponent' => true ],
 		[ 'name' => 'gjsTemplatePlaceholder', 'handler' => 'gjs-template-placeholder', 'isComponent' => true ],
 		[ 'name' => 'gjsMainContent', 'handler' => 'gjs-main-content', 'isComponent' => true ],
@@ -215,6 +216,8 @@ class Ultimate_Builder {
 			'masonry_is_active' => MASONRY_IS_ACTIVE,
 			'context' => Handlebars::get_context(),
 			'togglebox_state_icon' => TOGGLEBOX_STATE_ICON,
+			'prev_carousel_icon' => PREV_CAROUSEL_ICON,
+			'next_carousel_icon' => NEXT_CAROUSEL_ICON,
 		));
 		wp_add_inline_script( 'uf-field-ultimate-builder', Handlebars::get_js() );
 	}
