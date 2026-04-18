@@ -397,21 +397,8 @@ class Carousel extends Component {
                 }
             }
             if( $controls_component ){
-                echo '<div class="carousel-controls tns-controls">';
-
-                $buttons = ['prev', 'next'];
-                foreach( $buttons as $index => $button_type ){
-                    $button_component = $controls_component['components'][$index] ?? null;
-                    if( $button_component ){
-                        $button_component['additional_attributes'] = array(
-                            'data-controls' => $button_type,
-                            'data-slider-uid' => $slider_uid
-                        );
-                        $button_component['additional_classes'] = array('go-to-'.$button_type.'-slide');
-                        echo Template_Engine::getInstance()->handle( $button_component );
-                    }
-                }
-                echo '</div>';
+                $controls_component['slider_uid'] = $slider_uid;
+                echo Template_Engine::getInstance()->handle( $controls_component );
             }
         }
 

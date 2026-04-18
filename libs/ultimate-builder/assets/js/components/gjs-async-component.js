@@ -40,12 +40,16 @@ window.gjsAsyncComponent = function (editor, options) {
                     data: asyncData,
                     beforeSend: function() {
                         el.classList.add('is-loading');
+
+                        if (typeof model.get('__beforeSendCallback') === 'function') {
+                            model.get('__beforeSendCallback')(model, editor, datastore);
+                        }
                     },
                     success: function(response) {
                         el.classList.remove('is-loading');
     
                         if (typeof model.get('__onSuccessCallback') === 'function') {
-                            model.get('__onSuccessCallback')(response, model, editor);
+                            model.get('__onSuccessCallback')(response, model, editor, datastore);
                         } else {
                             el.innerHTML = response.data;
                         }

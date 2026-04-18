@@ -42,7 +42,7 @@
                 // Exclude certain component types from spacing spots to avoid layout issues
                 spacingSpots: {
                     excludeComponentTypes: [
-                        'wrapper', 'spacer', 'shortcode', 'image-component', 'text-editor', 'flipbox', 'icon-box', 'column', 
+                        'wrapper', 'spacer', 'shortcode', 'image-component', 'text-editor', 'flipbox', 'icon-box', 'column', 'listing', 
                         'row', 'icon-and-text', 'heading', 'togglebox-button', 'togglebox', 'carousel-wrapper', 'testimonial-header',
                         'code', 'menu', 'video-component', 'button', 'map-component', 'video-component', 'counter-component'
                     ]

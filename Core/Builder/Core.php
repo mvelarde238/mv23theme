@@ -54,6 +54,7 @@ class Core{
             'Flip_Box',
             'Flip_Box_Front',
             'Flip_Box_Back',
+            'Carousel_Controls',
             'Carousel',
             'Inner_Accordion',
             'Accordion_Button',

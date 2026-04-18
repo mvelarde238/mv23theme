@@ -68,8 +68,9 @@ class Listing extends Component {
         if(WOOCOMMERCE_IS_ACTIVE) $listing_post_template['woocommerce1'] = 'WooCommerce Product Basic';
 
         $listing_fields_1 = array( 
-            Field::create( 'tab', 'content_tab', __('Content','mv23theme') ),
+            Field::create( 'tab', 'content_tab', __('Content Type','mv23theme') ),
             Field::create( 'radio', 'source', __('Source','mv23theme'))
+                ->hide_label()
                 ->set_orientation( 'horizontal' )
                 ->set_default_value('auto')
                 ->add_options( array(
@@ -169,7 +170,7 @@ class Listing extends Component {
 
             Field::create( 'tab', 'carousel_settings_tab', __('Carousel Settings','mv23theme'))->add_dependency('listing_template','carousel','='),
             Field::create( 'complex', 'carousel_settings' )->hide_label()->add_fields(array(
-                Field::create( 'checkbox', 'show_controls' )->hide_label()->set_text(__('Show controls','mv23theme')),
+                Field::create( 'checkbox', 'show_controls' )->hide_label()->set_text(__('Show controls','mv23theme'))->set_default_value(1),
                 Field::create( 'checkbox', 'show_nav' )->hide_label()->set_text(__('Show carousel nav','mv23theme')),
                 Field::create( 'checkbox', 'autoplay' )->hide_label()->set_text(__('Start automatically','mv23theme')),
                 Field::create( 'text', 'carousel_id' )->set_prefix(__('Carousel ID','mv23theme'))->hide_label(),
@@ -275,10 +276,11 @@ class Listing extends Component {
         $show_filters = self::fix_boolean_on_ajax_calls( $show_filters_raw );
 
         // post status params
-        $status_params = $args['status_params'] ?? array();
-        $post_status = ( isset($status_params['set_post_status']) && $status_params['set_post_status'] && isset($status_params['post_status']) ) ? 
-            $status_params['post_status'] : 
-            ['publish'];
+        $status_params = $args['status_params'] ?? array(
+            'set_post_status' => false,
+            'post_status' => array('publish')
+        );
+        $post_status = ( self::fix_boolean_on_ajax_calls( $status_params['set_post_status'] ) && is_array($status_params['post_status']) && count($status_params['post_status']) > 0 ) ? $status_params['post_status'] : array('publish');
             
         if ($listing_source == 'manual') {
             $posttype = '';
@@ -481,14 +483,14 @@ class Listing extends Component {
                     $show_nav = (!empty($carousel_settings['show_nav'])) ? $carousel_settings['show_nav'] : 0;
                     $show_nav = (!empty($carousel_settings['show_nav'])) ? $carousel_settings['show_nav'] : 0;
                     $autoplay = (!empty($carousel_settings['autoplay'])) ? $carousel_settings['autoplay'] : 0;
-                    $carousel_id = (!empty($carousel_settings['carousel_id'])) ? $carousel_settings['carousel_id'] : '';
+                    $slider_uid = (!empty($carousel_settings['carousel_id'])) ? $carousel_settings['carousel_id'] : 'carousel-'.uniqid();
     
                     $carousel_classes_array = array('carousel','carousel-inside-component', 'carousel--theme1');
                     if( !$show_nav ) array_push($carousel_classes_array,'without-navigation');
                     ?>
-                    <div class="<?php echo implode(' ', $carousel_classes_array); ?>" data-controls-position="center"><div class="carousel__slider" 
-                        data-slider-uid="<?=$carousel_id?>"
-                        data-show-controls="<?=$show_controls?>" 
+                    <div class="<?php echo implode(' ', $carousel_classes_array); ?>" data-controls-position="center" data-theme="theme1"><div class="carousel__slider" 
+                        data-slider-uid="<?=$slider_uid?>"
+                        data-show-controls="0" 
                         data-show-nav="<?=$show_nav?>" 
                         data-touch="1" 
                         data-autoplay="<?=$autoplay?>" 
@@ -525,7 +527,31 @@ class Listing extends Component {
                 ?>
     
                 <?php if($listing_template == 'carousel'): ?>
-                    </div></div>
+                    </div>
+                    <?php
+                    // if controls are enabled, render the carousel-controls component
+                    if($show_controls ) {
+                        $controls_component = null;
+                        if( isset($args['components']) && is_array($args['components']) ){
+                            foreach( $args['components'] as $comp ){
+                                if( isset($comp['type']) && $comp['type'] === 'carousel-wrapper' ){
+                                    foreach( $comp['components'] as $inner_comp ){
+                                        if( isset($inner_comp['type']) && $inner_comp['type'] === 'carousel-controls' ){
+                                            $controls_component = $inner_comp;
+                                            break 2;
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        if( $controls_component ){
+                            $controls_component['slider_uid'] = $slider_uid;
+                            echo Template_Engine::getInstance()->handle( $controls_component );
+                        }
+                    }
+                    ?>
+                    </div>
                 <?php endif; ?>
             </div>
         <?php 
