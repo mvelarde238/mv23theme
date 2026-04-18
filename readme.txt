@@ -12,6 +12,8 @@ CHANGELOG
 - Fix postcard_settings not being sent to postcard template on listing component
 - Fix Handlebars:get_context() to include taxonomies terms in the context for single templates, allowing to use them in the templates and components
 - Fix handleCommonSettings(): dont remove full-width if component has full width layout
+- Fix gjs-togglebox: Replace addClass() and removeClass() with classList.add() and classList.remove() methods to avoid populating models classes array,
+  as these interactions are purely visual and not meant to be stored as part of the model state.
 
 3.8.4 26-04-16
 - Fix Carousel component: remove calls to event.stopPropagation() from navigation methods 
