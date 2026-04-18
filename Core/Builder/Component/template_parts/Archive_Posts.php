@@ -18,7 +18,8 @@ class Archive_Posts extends Component {
 
     public static function get_builder_data() {
         return array(
-            'posttypes' => array('archive_template')
+            'posttypes' => array('archive_template'),
+            'custom_datastore_change_callback' => true
 		);
     }
 

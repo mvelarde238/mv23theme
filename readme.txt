@@ -8,6 +8,7 @@ CHANGELOG
   !IMPORTANT: Use the migrator to update old carousel components to use the new carousel parts structure
   -------------------------------------------------------------------------------------------------------------
 - Carousel implementation inside Listing Component to allow using carousel as a listing layout
+- Handle custom_datastore_change_callback on Archive Posts component to re-render the listing when certain settings change
 
 3.8.4 26-04-16
 - Fix Carousel component: remove calls to event.stopPropagation() from navigation methods 

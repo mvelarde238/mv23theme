@@ -37,7 +37,55 @@ window.gjsArchivePageStructure = function (editor, options) {
                     };
                 }
             }),
-        }
+        },
+        view: {
+            custom_datastore_change_callback(changed) {
+                const model = this.model;
+                
+                // Ignore changes that only affect __tab (tab switching)
+                const changed_keys = Object.keys(changed);
+                if (changed_keys.length && changed_keys[0] === '__tab') return;
+
+                $rerender_listing_on_change = [
+                    // 'source',
+                    // 'posttype',
+                    // 'tax_params',
+                    // 'query_params',
+                    // 'status_params',
+                    'listing_template', 
+                    'carousel_settings',
+                    'postcard_settings',
+                    'pagination_type',
+                    'show_filter',
+                    'filters',
+                ];
+                if ( $rerender_listing_on_change.includes( changed_keys[0] ) ) {
+                    this.render();
+                }
+
+                if (changed_keys[0] === 'columns' || changed_keys[0] === 'columns_gap') {
+                    // Update CSS properties for columns and gap
+                    const datastore = editor.getComponentDatastore(model);
+                    const data = datastore.toJSON();
+                    const listing_template = data.listing_template;
+                    const listingElSelector = listing_template === 'carousel' ? '.carousel__slider' : '.posts-listing';
+                    const listingEl = model.getEl().querySelector(listingElSelector);
+                    const devices = ['desktop', 'laptop', 'tablet', 'mobile'];
+                    const columns = data.columns || {};
+                    const gaps = data.columns_gap || {};
+                    if (listingEl) {
+                        devices.forEach(device => {
+                            listingEl.style.setProperty(`--${device[0]}-columns`, columns[device]);
+                            listingEl.style.setProperty(`--${device[0]}-gap`, gaps[device]+'px');
+                        });
+                    }
+                }
+
+                if( changed_keys.includes('settings') ){
+                    editor.handleCommonSettings(model);
+                }
+            },
+        },
     });
 
     // domc.addType('archive-page-structure', {
