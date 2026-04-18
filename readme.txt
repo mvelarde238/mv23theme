@@ -9,6 +9,7 @@ CHANGELOG
   -------------------------------------------------------------------------------------------------------------
 - Carousel implementation inside Listing Component to allow using carousel as a listing layout
 - Handle custom_datastore_change_callback on Archive Posts component to re-render the listing when certain settings change
+- Fix postcard_settings not being sent to postcard template on listing component
 
 3.8.4 26-04-16
 - Fix Carousel component: remove calls to event.stopPropagation() from navigation methods 

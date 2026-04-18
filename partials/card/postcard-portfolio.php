@@ -20,7 +20,7 @@ $postcard_args = array(
     'tags' => Post_Card::get_secondary_taxonomy_terms($post),
     'date' => '<div><p class="postcard__date">'.Post_Card::display_date($post).'</p></div>',
     'viewer_icon' => 'bi-eye',
-    'style' => 'style3'
+    'style' => $args['postcard_settings']['template'] ?? 'style3'
 );
 
 $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );

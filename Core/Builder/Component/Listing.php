@@ -300,7 +300,10 @@ class Listing extends Component {
         if ($listing_source == 'auto') {
             $posttype = $args['posttype'] ?? '';
             // handle _default postcard template placeholder
-            if( $postcard_template == '_default' ) $postcard_template = $posttype;
+            if( $postcard_template === '_default' ){
+                $args['postcard_settings']['template'] = $posttype;
+                $postcard_template = $posttype;
+            } 
 
             // query params
             $query_params = $args['query_params'] ?? array();

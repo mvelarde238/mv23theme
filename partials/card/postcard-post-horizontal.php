@@ -18,7 +18,7 @@ $postcard_args = array(
     'tags' => Post_Card::get_secondary_taxonomy_terms($post),
     'date' => '<span class="postcard__date">'.Post_Card::display_date($post).'</span>',
     'viewer_icon' => 'bi-arrow-right',
-    'style' => 'style2'
+    'style' => $args['postcard_settings']['template'] ?? 'style2'
 );
 
 $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );

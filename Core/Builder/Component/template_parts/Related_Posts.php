@@ -52,7 +52,9 @@ class Related_Posts extends Component {
             ),
             'columns' => LISTING_COLUMNS,
             'columns_gap' => LISTING_GAP,
-            'post_template' => $post_type,
+            'postcard_settings' => array(
+                'template' => '_default'
+            ),
             'listing_template' => 'carousel',
             'carousel_settings' => array(
                 'show_controls' => true
