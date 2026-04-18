@@ -1,12 +1,12 @@
 .postcard
-    &--style4 &__content-wrapper
+    &--document &__content-wrapper
         background-color: color-mix( in srgb, var(--font-color) 3%, transparent )
         height: 100%
         display: flex
         flex-direction: column
         justify-content: space-between
 
-    &--style4 &__content
+    &--document &__content
         padding: 30px
         position: relative
         flex-grow: 1
@@ -15,7 +15,7 @@
         justify-content: space-between
         gap: 30px
     
-    &--style4 &__postdata
+    &--document &__postdata
         width: 100%
         display: flex
         flex-wrap: nowrap
@@ -26,7 +26,7 @@
         p
             margin-bottom: 0
 
-    &--style4 &__terms
+    &--document &__terms
         text-transform: uppercase
         overflow: hidden
         font-weight: var(--bold-font-weight)
@@ -38,7 +38,7 @@
             -webkit-box-orient: vertical
             margin-bottom: 5px
 
-    &--style4 &__tags
+    &--document &__tags
         flex-shrink: 0
         display: flex
         flex-wrap: wrap
@@ -52,22 +52,22 @@
             background-color: color-mix( in srgb, var(--font-color) 10%, transparent )
             padding: 0 6px
 
-    &--style4 &__title
+    &--document &__title
         font-size: 1.5em
         font-weight: 300
     
-    &--style4 &__footer
+    &--document &__footer
         display: flex
         justify-content: space-between
 
-    &--style4 &__date
+    &--document &__date
         font-weight: 300
         text-transform: capitalize
 
-    &--style4 &__link
+    &--document &__link
         text-align: right
 
-    &--style4 &__image
+    &--document &__image
         aspect-ratio: 16 / 9
         object-fit: cover
         width: 100%
@@ -76,7 +76,7 @@
         display: block
         filter: brightness(0.9)
 
-    &--style4 a
+    &--document a
         color: var(--font-color)
 
     &:hover .viewer

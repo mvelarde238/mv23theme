@@ -1,9 +1,9 @@
 .postcard
-    &--style2 &__content-wrapper
+    &--post-horizontal &__content-wrapper
         display: flex
         font-size: .85em
 
-    &--style2 &__image
+    &--post-horizontal &__image
         width: 180px !important
         padding-bottom: 180px !important
         height: 180px
@@ -11,16 +11,16 @@
         background-position: center
         display: block
 
-    &--style2 &__content
+    &--post-horizontal &__content
         width: calc(100% - 180px) !important
         padding-top: 0px
         padding-left: 20px
     
-    &--style2 &__title
+    &--post-horizontal &__title
         font-size: 1.3em
         margin-bottom: 5px
 
-    &--style2 &__postdata
+    &--post-horizontal &__postdata
         margin-bottom: 10px
         p:first-child
             font-size: .8em
@@ -31,7 +31,7 @@
             -webkit-box-orient: vertical
             margin-bottom: 5px
     
-    &--style2 &__tags
+    &--post-horizontal &__tags
         display: flex
         flex-wrap: wrap
         gap: 3px
@@ -44,18 +44,18 @@
             &:hover
                 text-decoration: none
     
-    &--style2 &__link
+    &--post-horizontal &__link
         text-align: right
 
 @media #{$small-and-down}
     .postcard
-        &--style2 &__content-wrapper
+        &--post-horizontal &__content-wrapper
             flex-wrap: wrap
-        &--style2 &__image
+        &--post-horizontal &__image
             width: 100% !important
             padding-bottom: 80px !important
             height: 80px
             margin-bottom: 20px
-        &--style2 &__content
+        &--post-horizontal &__content
             width: 100% !important
             padding-left: 0

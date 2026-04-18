@@ -12,7 +12,8 @@ window.gjsRelatedPosts = function (editor, options) {
                 stylable: false,
                 copyable: false,
                 __additionalData: {
-                    post_id: BUILDER_GLOBALS.post_id || null
+                    post_id: BUILDER_GLOBALS.post_id || null,
+                    post_type: BUILDER_GLOBALS.posttype || null,
                 },
             },
         },

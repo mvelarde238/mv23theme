@@ -180,7 +180,10 @@ class Listing extends Component {
             Field::create( 'complex', 'postcard_settings' )
 			    ->hide_label()
 			    ->add_fields(array(
-			    	Field::create( 'radio', 'template' )->set_orientation( 'vertical' )->add_options($listing_post_template), 
+			    	Field::create( 'radio', 'template' )
+                        ->set_default_value('_default')
+                        ->set_orientation( 'vertical' )
+                        ->add_options($listing_post_template), 
         	    	Field::create( 'select', 'on_click_post', __('On click the post card:','mv23theme') )->add_options(array(
         	            'redirect' => 'Redirigir a la página del post',
         	            'show-expander' => 'Mostrar el post en la misma página',
@@ -551,6 +554,18 @@ class Listing extends Component {
                         if( $controls_component ){
                             $controls_component['slider_uid'] = $slider_uid;
                             echo Template_Engine::getInstance()->handle( $controls_component );
+                        } else {
+                            // default controls if not custom component found
+                            ?>
+                            <div class="carousel-controls tns-controls">
+                                <div class="go-to-prev-slide component icon-box" data-controls="prev" data-slider-uid="<?=$slider_uid?>">
+                                    <i class="icon-box__icon fa <?=PREV_CAROUSEL_ICON?>"></i>
+                                </div>
+                                <div class="go-to-next-slide component icon-box" data-controls="next" data-slider-uid="<?=$slider_uid?>">
+                                    <i class="icon-box__icon fa <?=NEXT_CAROUSEL_ICON?>"></i>
+                                </div>
+                            </div>
+                            <?php
                         }
                     }
                     ?>
