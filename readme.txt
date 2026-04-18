@@ -11,6 +11,7 @@ CHANGELOG
 - Handle custom_datastore_change_callback on Archive Posts component to re-render the listing when certain settings change
 - Fix postcard_settings not being sent to postcard template on listing component
 - Fix Handlebars:get_context() to include taxonomies terms in the context for single templates, allowing to use them in the templates and components
+- Fix handleCommonSettings(): dont remove full-width if component has full width layout
 
 3.8.4 26-04-16
 - Fix Carousel component: remove calls to event.stopPropagation() from navigation methods 

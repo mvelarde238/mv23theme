@@ -19,10 +19,12 @@ window.handleCommonSettings = function (editor, options) {
                 }
             }
 
+            let has_full_width_layout = false;
             if (settings.layout && settings.layout.use) {
                 const layout = settings.layout.key;
                 if (layout === 'layout2') {
                     // full width stretched — needs container
+                    has_full_width_layout = true;    
                     component.getEl().classList.add('full-width');
                     const firstChild = component.components().at(0);
                     if (!firstChild || firstChild.get('type') !== 'container') {
@@ -38,8 +40,10 @@ window.handleCommonSettings = function (editor, options) {
                 } else {
                     // layout1 (boxed) or layout3 (full width) — no container
                     if (layout === 'layout3') {
+                        has_full_width_layout = true;
                         component.getEl().classList.add('full-width');
                     } else {
+                        has_full_width_layout = false;
                         component.getEl().classList.remove('full-width');
                     }
                     // unwrap children from container and remove it if present
@@ -66,12 +70,18 @@ window.handleCommonSettings = function (editor, options) {
                     });
                 } else {
                     helpers_list.forEach(helper_class => {
-                        component.getEl().classList.remove(helper_class);
+                        // dont remove full-width if has full width layout
+                        if (!(has_full_width_layout && helper_class === 'full-width')) {
+                            component.getEl().classList.remove(helper_class);
+                        }
                     });
                 }
             } else {
                 helpers_list.forEach(helper_class => {
-                    component.getEl().classList.remove(helper_class);
+                    // dont remove full-width if has full width layout
+                    if (!(has_full_width_layout && helper_class === 'full-width')) {
+                        component.getEl().classList.remove(helper_class);
+                    }
                 });
             }
 
