@@ -55,9 +55,10 @@ class Handlebars{
 
 		$context = array(
 			'post' => array(
-				'title'     => get_the_title( $context_post_id ),
-				'thumbnail' => get_the_post_thumbnail_url( $context_post_id, 'full' ) ?: '',
-				'meta'      => array(),
+				'title'      => get_the_title( $context_post_id ),
+				'thumbnail'  => get_the_post_thumbnail_url( $context_post_id, 'full' ) ?: '',
+				'meta'       => array(),
+				'taxonomies' => array(),
 			),
 			'site' => array(
 				'title'   => get_bloginfo( 'name' ),
@@ -79,6 +80,15 @@ class Handlebars{
 					continue;
 				}
 				$context['post']['meta'][ $key ] = maybe_unserialize( $value[0] );
+			}
+		}
+
+		// Add taxonomies under post.taxonomies.{taxonomy_name} as array of term names
+		$taxonomies = get_object_taxonomies( get_post_type( $context_post_id ) );
+		foreach ( $taxonomies as $taxonomy ) {
+			$terms = get_the_terms( $context_post_id, $taxonomy );
+			if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+				$context['post']['taxonomies'][ $taxonomy ] = wp_list_pluck( $terms, 'name' );
 			}
 		}
 
@@ -115,7 +125,13 @@ class Handlebars{
 				return '{{' . $path . '}}';
 			}
 		}
-		return is_scalar( $value ) ? (string) $value : '';
+		if ( is_scalar( $value ) ) {
+			return (string) $value;
+		}
+		if ( is_array( $value ) ) {
+			return implode( ', ', array_filter( array_map( 'strval', $value ) ) );
+		}
+		return '';
 	}
 
 	/**
@@ -135,7 +151,9 @@ class Handlebars{
 
 			    return string.replace(/\{\{([^}]+)\}\}/g, (match, token) => {
 			        const value = resolvePath(token.trim(), context);
-			        return (value !== undefined && value !== null) ? String(value) : match;
+			        if (value === undefined || value === null) return match;
+			        if (Array.isArray(value)) return value.join(', ');
+			        return String(value);
 			    });
 			};
 			JS;

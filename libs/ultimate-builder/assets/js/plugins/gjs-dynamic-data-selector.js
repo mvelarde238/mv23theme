@@ -45,11 +45,14 @@ window.gjsDynamicDataSelector = function (editor) {
             var value    = ctx[key];
             var fullPath = prefix ? prefix + '.' + key : key;
 
-            if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
+            if (Array.isArray(value)) {
+                // Arrays (e.g. taxonomy terms) → include as a single token
+                items.push({ label: fullPath, token: '{{' + fullPath + '}}' });
+            } else if (value !== null && typeof value === 'object') {
                 // Recurse into nested objects
                 var nested = flattenContext(value, fullPath, depth + 1);
                 items = items.concat(nested);
-            } else if (!Array.isArray(value)) {
+            } else {
                 items.push({ label: fullPath, token: '{{' + fullPath + '}}' });
             }
         });
