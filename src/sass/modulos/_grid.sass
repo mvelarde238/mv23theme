@@ -16,3 +16,36 @@
     @media #{$small-and-down}
         gap: var(--m-gap)
         grid-template-columns: repeat(var(--m-columns), 1fr)
+
+.has-masonry-columns
+    display: flex
+    flex-wrap: wrap
+    justify-content: flex-start
+    // masonry is not considering the gap values from css variables, so we will set a default gap value for masonry layout to ensure consistent spacing between items
+    gap: 20px
+
+    &:not(.masonry) .masonry-grid-sizer
+        display: none
+
+    .masonry-grid-item,
+    .masonry-grid-sizer
+        width: calc( calc(100% - calc(var(--d-gap) * calc(var(--d-columns) - 1))) / var(--d-columns) )
+        margin-bottom: 20px
+
+    @media #{$large-only}
+        gap: var(--l-gap)
+        .masonry-grid-item,
+        .masonry-grid-sizer
+            width: calc( calc(100% - calc(var(--l-gap) * calc(var(--l-columns) - 1))) / var(--l-columns) )
+
+    @media #{$medium-only}
+        gap: var(--t-gap)
+        .masonry-grid-item,
+        .masonry-grid-sizer
+            width: calc( calc(100% - calc(var(--t-gap) * calc(var(--t-columns) - 1))) / var(--t-columns) )
+
+    @media #{$small-and-down}
+        gap: var(--m-gap)
+        .masonry-grid-item,
+        .masonry-grid-sizer
+            width: calc( calc(100% - calc(var(--m-gap) * calc(var(--m-columns) - 1))) / var(--m-columns) )

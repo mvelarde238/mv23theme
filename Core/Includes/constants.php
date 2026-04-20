@@ -55,7 +55,13 @@ if( !defined('LISTING_GAP') ) define( 'LISTING_GAP', array('desktop' => 50,'lapt
 if( !defined('LISTING_COLUMNS') ) define( 'LISTING_COLUMNS', array('desktop' => 3,'laptop' => 3,'tablet' => 2,'mobile' => 1));
 if( !defined('LISTING_CPTS') ) define( 'LISTING_CPTS', array('post' => 'Entradas'));
 if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array( array( 'cpt_slug' => 'post', 'slug' => 'category' ) ));
-if( !defined('LISTING_TEMPLATES') ) define( 'LISTING_TEMPLATES', array('' => 'Default Listing Template', 'carousel' => 'Carousel'));
+if( !defined('LISTING_TEMPLATES') ){ 
+    define( 'LISTING_TEMPLATES', array(
+        '' => 'Default Listing Template', 
+       'carousel' => 'Carousel',
+       'masonry' => 'Masonry',
+    ));
+}
 if( !defined('LISTING_PAGINATION_TYPES') ) {
     define( 'LISTING_PAGINATION_TYPES', array(
         'none' => 'None', 

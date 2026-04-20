@@ -95,6 +95,14 @@ function print_theme_gallery( $atts ) {
         $carousel_styles = array();
         if( $a['aspectratio'] ) $carousel_styles[] = '--aspect-ratio:'.$a['aspectratio'];
 
+        // if masonry display is selected, override gap values to ensure consistent spacing (since masonry layout isnt considering the gap values from css variables)
+        if( $a['display'] == 'masonry'){
+            $a['d_gap'] = 20;
+            $a['l_gap'] = 20;
+            $a['t_gap'] = 20;
+            $a['m_gap'] = 20;
+        }
+
         $carousel_styles[] = '--d-gap:'.$a['d_gap'].'px';
         $carousel_styles[] = '--l-gap:'.$a['l_gap'].'px';
         $carousel_styles[] = '--t-gap:'.$a['t_gap'].'px';
@@ -128,13 +136,12 @@ function print_theme_gallery( $atts ) {
                 data-desktop-gutter="<?=$a['d_gap']?>">
             <?php
         } else if ( $a['display'] == 'masonry' ) {
-            echo '<div class="theme-gallery theme-gallery--masonry" style="'.implode(';', $carousel_styles).'">';
-            echo '<div class="theme-gallery theme-gallery__item-sizer"></div>';
+            echo '<div class="theme-gallery has-masonry-columns" style="'.implode(';', $carousel_styles).'">';
+            echo '<div class="masonry-grid-sizer"></div>';
 
         } else if ( $a['display'] == 'marquee' ) {
             $carousel_styles[] = '--fade-width: '.$a['marquee_fade_width'];
             echo '<div class="theme-gallery theme-gallery__marquee marquee" data-speed="'.$a['marquee_speed'].'" data-direction="'.$a['marquee_direction'].'" style="'.implode(';', $carousel_styles).'">';
-            echo '<div class="marquee-track">';
             
         } else if ( $a['display'] == 'grid' ) {
             $item_attrs['additional_classes'][] = 'grid-stack-item';
@@ -330,13 +337,13 @@ function print_theme_gallery( $atts ) {
             $attachment_link_end = '</a>';
             // END Atachment Link
 
+            if( $a['display'] == 'masonry' ) $item_attrs['additional_classes'][] = 'masonry-grid-item';
+
             echo '<div '.Template_Engine::generate_attributes($item_attrs).'>';
             if ( $a['display'] == 'grid' ) echo '<div class="grid-stack-item-content">';
-            if ( $a['display'] == 'masonry' ) echo '<div class="masonry-item-content">';
             if ( $a['link'] != 'none') echo $attachment_link_start;
             echo $the_attachment;
             if ( $a['link'] != 'none') echo $attachment_link_end;
-            if ( $a['display'] == 'masonry' ) echo '</div>'; // close masonry-item-content
             if ( $a['display'] == 'grid' ) echo '</div>'; // close grid-stack-item-content
             echo '</div>';
             $item_counter++;

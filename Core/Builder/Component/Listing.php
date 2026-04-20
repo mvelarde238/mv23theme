@@ -117,7 +117,7 @@ class Listing extends Component {
         $width_25 = 'width: 25%; min-width: initial;';
         $width_50 = 'width: 50%; min-width: initial;';
 
-        $listing_fields_2 = array( 
+        $listing_fields_2 = array(
             Field::create( 'tab', 'query_settings_tab', __('Query Settings','mv23theme')),
             Field::create( 'complex', 'query_params', '' )->add_fields(array(
                 Field::create( 'number', 'posts_per_page', __('Number of posts','mv23theme') )->set_default_value(3)->set_attr('style', $width_50),
@@ -152,8 +152,17 @@ class Listing extends Component {
             ))->add_dependency('source','auto','='),
 
             Field::create( 'tab', 'listing_template_tab', __('Listing Template','mv23theme')),
-            Field::create( 'select', 'listing_template', 'Template' )->add_options(LISTING_TEMPLATES),
-            
+            Field::create( 'select', 'listing_template', 'Template' )->add_options(LISTING_TEMPLATES)
+        );
+
+        if( !MASONRY_IS_ACTIVE ){
+            $listing_fields_2[] = Field::create( 'message', 'masonry_message', __('Activate Masonry','mv23theme') )
+                ->set_description('You need to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')
+                ->add_dependency('listing_template', 'masonry', '=')
+                ->set_attr( 'style', 'background:#ffe8e8;width:100%;' );
+        }
+
+        $listing_fields_3 = array(
             Field::create( 'complex', 'columns', __('Columns Quantity','mv23theme') )->add_fields(array(
                 Field::create( 'number', 'desktop', __('Desktop','mv23theme') )->set_minimum(1)->set_maximum(12)->set_default_value(LISTING_COLUMNS['desktop'])->set_attr('style', $width_25),
                 Field::create( 'number', 'laptop', __('Laptop','mv23theme') )->set_minimum(1)->set_maximum(12)->set_default_value(LISTING_COLUMNS['laptop'])->set_attr('style', $width_25),
@@ -166,7 +175,7 @@ class Listing extends Component {
                 Field::create( 'number', 'laptop', __('Laptop','mv23theme') )->set_default_value(LISTING_GAP['laptop'])->set_attr('style', $width_25),
                 Field::create( 'number', 'tablet', __('Tablet','mv23theme') )->set_default_value(LISTING_GAP['tablet'])->set_attr('style', $width_25),
                 Field::create( 'number', 'mobile', __('Mobile','mv23theme') )->set_default_value(LISTING_GAP['mobile'])->set_attr('style', $width_25)
-            )),
+            ))->add_dependency('listing_template', 'masonry', '!='),
 
             Field::create( 'tab', 'carousel_settings_tab', __('Carousel Settings','mv23theme'))->add_dependency('listing_template','carousel','='),
             Field::create( 'complex', 'carousel_settings' )->hide_label()->add_fields(array(
@@ -243,7 +252,7 @@ class Listing extends Component {
             Field::create( 'complex', 'filters' )->hide_label()->add_fields( $filter_fields )
         );
 
-		$fields = array_merge( $listing_fields_1, $listing_fields_2, $listing_fields_filter );
+		$fields = array_merge( $listing_fields_1, $listing_fields_2, $listing_fields_3, $listing_fields_filter );
 
 		return $fields;
 	}
@@ -448,6 +457,16 @@ class Listing extends Component {
         }
         $args['additional_attributes']['data-listing-args'] = esc_attr( json_encode($listing_args) );
 
+        // if masonry display is selected, override gap values to ensure consistent spacing (since masonry layout isnt considering the gap values from css variables)
+        if($listing_template == 'masonry'){
+            $columns_gap = array(
+                'desktop' => 20,
+                'laptop' => 20,
+                'tablet' => 20,
+                'mobile' => 20
+            );
+        }
+
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
         
@@ -480,7 +499,8 @@ class Listing extends Component {
         if ($query->have_posts()) : 
             $post_listing_class = 'posts-listing';
             if($listing_template) $post_listing_class .= ' posts-listing--'.$listing_template ;
-            if($listing_template != 'carousel') $post_listing_class .= ' has-columns';
+            if($listing_template != 'carousel' && $listing_template != 'masonry') $post_listing_class .= ' has-columns';
+            if($listing_template == 'masonry') $post_listing_class .= ' has-masonry-columns';
             ?>
             <div class="<?=$post_listing_class?>" style="<?=$css_vars?>">
                 <?php if($listing_template == 'carousel'): 
@@ -515,17 +535,20 @@ class Listing extends Component {
                 <?php 
                 do_action('on_listing_start', $args);
 
+                if($listing_template == 'masonry') echo '<div class="masonry-grid-sizer"></div>';
+
                 $count = 0;
                 while ( $query->have_posts() ) : $query->the_post();
                     $args['count'] = $count;
-                    
+                
                     if($listing_template == 'carousel') echo '<div>';
+                    if($listing_template == 'masonry') echo '<div class="masonry-grid-item">';
 
                     $_postcard_template = apply_filters('filter_listing_postcard_template', $postcard_template, $count);
 
                     get_template_part( 'partials/card/postcard', $_postcard_template, $args);
 
-                    if($listing_template == 'carousel') echo '</div>';
+                    if($listing_template == 'carousel' || $listing_template == 'masonry') echo '</div>';
                     $count++;
                 endwhile; 
 

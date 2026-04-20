@@ -103,6 +103,17 @@ window.gjsListing = function (editor) {
                             el.innerHTML = temp.innerHTML;
                         }
                     }
+
+                    if (listing_template === 'masonry' && BUILDER_GLOBALS.masonry_is_active) {
+                        setTimeout(function () {
+                            jQuery(el).find('.posts-listing').masonry({
+                                itemSelector: '.masonry-grid-item',
+                                columnWidth: '.masonry-grid-sizer',
+                                percentPosition: true,
+                                gutter: 20
+                            });
+                        }, 50);
+                    }
                 },
             },
         },

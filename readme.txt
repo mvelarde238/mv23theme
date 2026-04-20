@@ -4,6 +4,7 @@ CHANGELOG
 
 3.9.1 26-04-20
 - Fix masonry-galley column width on large devices
+- Masonry template implementation on Listing Component
 
 3.9.0 26-04-17
 - Carousel Parts Implementation

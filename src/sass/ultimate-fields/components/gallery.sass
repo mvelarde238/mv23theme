@@ -37,31 +37,3 @@
     .ui-resizable-sw
         background-color: #fff
         border-radius: 50%
-
-/* Masonry layout styles */
-.theme-gallery--masonry
-    display: flex
-    flex-wrap: wrap
-    align-items: flex-start
-    &:not(.masonry) .theme-gallery__item-sizer 
-        display: none
-    .theme-gallery__item,
-    .theme-gallery__item-sizer
-        width: calc( 100% / var(--d-columns) )
-    .masonry-item-content
-        padding: 5px
-
-    @media #{$large-only}
-        .theme-gallery__item,
-        .theme-gallery__item-sizer
-            width: calc( 100% / var(--l-columns) )
-
-    @media #{$medium-only}
-        .theme-gallery__item,
-        .theme-gallery__item-sizer
-            width: calc( 100% / var(--t-columns) )
-
-    @media #{$small-and-down}
-        .theme-gallery__item,
-        .theme-gallery__item-sizer
-            width: calc( 100% / var(--m-columns) )

@@ -89,9 +89,10 @@ window.gjsGallery = function (editor) {
                 if(display === 'masonry' && BUILDER_GLOBALS.masonry_is_active){
                     setTimeout(function () {
                         jQuery(galleryEl).masonry({
-                            itemSelector: '.theme-gallery__item',
-                            columnWidth: '.theme-gallery__item-sizer',
-                            percentPosition: true
+                            itemSelector: '.masonry-grid-item',
+                            columnWidth: '.masonry-grid-sizer',
+                            percentPosition: true,
+                            gutter: 20
                         });
                     }, 50);
                 }
