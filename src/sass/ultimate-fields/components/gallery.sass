@@ -51,6 +51,11 @@
     .masonry-item-content
         padding: 5px
 
+    @media #{$large-only}
+        .theme-gallery__item,
+        .theme-gallery__item-sizer
+            width: calc( 100% / var(--l-columns) )
+
     @media #{$medium-only}
         .theme-gallery__item,
         .theme-gallery__item-sizer
