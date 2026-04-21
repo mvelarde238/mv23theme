@@ -4,6 +4,7 @@ CHANGELOG
 
 3.9.2 26-04-21
 - Fix Carousel component to not show nav controls when there is only one slide
+- Fix Bug on Listing::builder:before-save-editor to delete just carousel items inside listing components instead of all carousel items on the page
 
 3.9.1 26-04-20
 - Fix masonry-galley column width on large devices
