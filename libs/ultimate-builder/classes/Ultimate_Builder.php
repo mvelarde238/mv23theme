@@ -218,6 +218,7 @@ class Ultimate_Builder {
 			'togglebox_state_icon' => TOGGLEBOX_STATE_ICON,
 			'prev_carousel_icon' => PREV_CAROUSEL_ICON,
 			'next_carousel_icon' => NEXT_CAROUSEL_ICON,
+			'is_page_for_posts' => get_option('page_for_posts') == $post_id
 		));
 		wp_add_inline_script( 'uf-field-ultimate-builder', Handlebars::get_js() );
 	}

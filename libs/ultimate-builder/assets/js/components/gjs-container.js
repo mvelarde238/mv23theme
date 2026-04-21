@@ -32,7 +32,7 @@ window.gjsContainer = function (editor) {
             defaults: {
                 name: 'Container',
                 tagName: 'div',
-                dropable: true,
+                droppable: true,
                 draggable: false,
                 removable: false,
                 copyable: false,

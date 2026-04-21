@@ -121,43 +121,6 @@
             const deviceManager = editor.Devices;
             const device = deviceManager.get('Mobile portrait');
             device.set('width', '375px');
-
-            // display warning before leaving the page with unsaved changes
-		    // window.addEventListener('beforeunload',function(e){
-            //     if ( editor.getProjectData() !== that.args.builder_data ) {
-            //         e.preventDefault();
-            //         e.returnValue = '';
-            //     }
-            // });
-
-            // DELETE
-            // editor.on(`component:remove`, (model) => {
-            //     if (model.getType() === 'group-component') {
-            //         let builder_comp_model = model.get('builder_comp_model');
-                    
-            //         if (builder_comp_model) {
-            //             // Clean up the datastore without calling destroy()
-            //             if (builder_comp_model.datastore && typeof builder_comp_model.datastore.clear === 'function') {
-            //                 builder_comp_model.datastore.clear();
-            //                 builder_comp_model.datastore.parent = null;
-            //             }
-                        
-            //             // Clean up the model without calling destroy()
-            //             if (typeof builder_comp_model.clear === 'function') {
-            //                 builder_comp_model.clear();
-            //             }
-                        
-            //             // Remove event listeners
-            //             builder_comp_model.off();
-                        
-            //             // Clear the reference
-            //             model.unset('builder_comp_model');
-            //         }
-            //     }
-            // });
-
-            // UPDATE
-            // editor.on('update', () => {});
         },
         add_theme_fonts: function(editor) {
             if ( !this.args.theme_fonts || this.args.theme_fonts.length === 0 ) {
@@ -231,6 +194,19 @@
                     if ( !group_builder_data.posttypes.includes(currentPostType) ) {
                         renderBlock = false;
                     }
+                    // Check for conditional posttype rules (e.g. only show if is a page and is page_for_posts, etc.)
+                    group_builder_data.posttypes.forEach( posttype => {
+                        if ( typeof posttype === 'object' && posttype.posttype === currentPostType ) {
+                            if ( posttype.is ) {
+                                const conditions = posttype.is;
+                                conditions.forEach( condition => {
+                                    if ( BUILDER_GLOBALS['is_' + condition] ) {
+                                        renderBlock = true;
+                                    }
+                                });
+                            }
+                        }
+                    });
                 }
 
                 blocksControl[group.id] = {

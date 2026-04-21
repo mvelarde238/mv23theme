@@ -31,7 +31,7 @@ window.gjsMap = function (editor) {
             defaults: {
                 name: compName,
                 tagName: 'div',
-                dropable: false,
+                droppable: false,
                 resizable: {
                     ratioDefault: true,
                     currentUnit: 1,

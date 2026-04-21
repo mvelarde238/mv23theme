@@ -20,7 +20,14 @@ class Sidebar extends Component {
 
     public static function get_builder_data() {
         return array(
-			'posttypes' => array('single_template','archive_template')
+			'posttypes' => array(
+				'single_template',
+                'archive_template',
+                array(
+                    'posttype' => 'page',
+                    'is' => ['page_for_posts']
+                )
+            ),
 		);
     }
 
