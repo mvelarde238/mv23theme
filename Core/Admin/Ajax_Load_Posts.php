@@ -156,16 +156,20 @@ class Ajax_Load_Posts{
                 $result['status'] = "success";
 
                 ob_start(); 
+                if($listing_template == 'masonry') echo '<div class="masonry-grid-sizer"></div>';
+                
                 while ( $query->have_posts() ) : 
                     $query->the_post();
 
                     if($listing_template == 'carrusel') echo '<div>';
+                    if($listing_template == 'masonry') echo '<div class="masonry-grid-item">';
                     get_template_part( 'partials/card/postcard', $postcard_template, array( 
                         'postcard_settings' => array( 'template' => $postcard_template ),
                         'on_click_post' => $on_click_post,
                         'on_click_scroll_to' => $on_click_scroll_to
                     ));
                     if($listing_template == 'carrusel') echo '</div>';
+                    if($listing_template == 'masonry') echo '</div>';
                 endwhile;
                 $result['posts'] = ob_get_clean();
 

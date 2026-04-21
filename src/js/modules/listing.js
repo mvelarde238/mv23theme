@@ -46,12 +46,25 @@
                             $items_container = $listing.find('.carousel__slider');
                             if(action === 'replace') $items_container.html('');
                         } 
+                        if ( listing_template === 'masonry' ) {
+                            $listing.masonry('destroy');
+                        }
                         if(action === 'replace') $items_container.html($items);
                         if(action === 'append') $items_container.append($items);
                         if ( listing_template === 'carousel' ) {
                             MV23_GLOBALS.carousels[ slider_uid ] = create_tns_slider( $items_container[0] );
                             $items_container.attr('data-slider-uid', slider_uid);
                             if(action === 'append') MV23_GLOBALS.carousels[ slider_uid ].goTo('next');
+                        }
+                        if ( listing_template === 'masonry' ) {
+                            setTimeout(function () {
+                                $listing.masonry({
+                                    itemSelector: '.masonry-grid-item',
+                                    columnWidth: '.masonry-grid-sizer',
+                                    percentPosition: true,
+                                    gutter: 20
+                                });
+                            }, 100); // slight delay to ensure DOM is updated before Masonry initialization
                         }
 
                         $listing.trigger('listingUpdated', {listing:$listing, items:$items, action:action, response:response});
@@ -67,6 +80,10 @@
                         if ( listing_template === 'carousel' ) {
                             carousel.destroy();
                             $items_container = $listing.find('.carousel__slider');
+                            $items_container.html('');
+                        }
+                        if ( listing_template === 'masonry' ) {
+                            $listing.masonry('destroy');
                             $items_container.html('');
                         }
                         $items_container.html('<p class="center posts-filter-error-msg">'+response.message+'</p>');
