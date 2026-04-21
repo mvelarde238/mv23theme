@@ -142,6 +142,7 @@ function print_theme_gallery( $atts ) {
         } else if ( $a['display'] == 'marquee' ) {
             $carousel_styles[] = '--fade-width: '.$a['marquee_fade_width'];
             echo '<div class="theme-gallery theme-gallery__marquee marquee" data-speed="'.$a['marquee_speed'].'" data-direction="'.$a['marquee_direction'].'" style="'.implode(';', $carousel_styles).'">';
+            echo '<div class="marquee-track">';
             
         } else if ( $a['display'] == 'grid' ) {
             $item_attrs['additional_classes'][] = 'grid-stack-item';
