@@ -112,7 +112,7 @@ window.gjsListing = function (editor) {
                                 percentPosition: true,
                                 gutter: 20
                             });
-                        }, 50);
+                        }, 100);
                     }
                 },
             },
@@ -140,6 +140,15 @@ window.gjsListing = function (editor) {
                 ];
                 if ( $rerender_listing_on_change.includes( changed_keys[0] ) ) {
                     this.render();
+                }
+
+                // if listing template is masonry and columns value changed, re-render to update masonry layout
+                if (changed_keys[0] === 'columns'){
+                    const datastore = editor.getComponentDatastore(model);
+                    const data = datastore.toJSON();
+                    if (data.listing_template === 'masonry') {
+                        this.render();
+                    }
                 }
 
                 if (changed_keys[0] === 'columns' || changed_keys[0] === 'columns_gap') {

@@ -35,7 +35,46 @@ window.gjsArchivePageStructure = function (editor, options) {
                     return {
                         archive_settings: additionalData
                     };
-                }
+                },
+                __onSuccessCallback: (response, model, editor, datastore) => {
+                    const el = model.getEl();
+                    const {listing_template} = datastore.toJSON();
+                    
+                    // Create temporary container to parse response HTML
+                    const temp = document.createElement('div');
+                    temp.innerHTML = response.data;
+                    const firstChild = temp.firstElementChild;
+
+                    // TODO: review carrusel case if needed in the future
+                    // if (listing_template === 'carousel') {
+                    //     const postcards = temp.querySelectorAll('.postcard');
+                    //     const carousel = model.findType('carousel')[0];
+                    //     editor.UndoManager.stop();
+                    //     postcards.forEach(postcard => {
+                    //         const carouselItem = carousel.append({ type: 'carousel-item' }, { temporary: true });
+                    //         carouselItem[0].getView().el.innerHTML = postcard.outerHTML;
+                    //     });
+                    //     editor.UndoManager.start();
+                        
+                    // } else {
+                    //     // Remove class attribute from component to fix: settings dosnt apply on change datastore
+                        if (firstChild) {
+                            firstChild.removeAttribute('class');
+                            el.innerHTML = temp.innerHTML;
+                        }
+                    // }
+
+                    if (listing_template === 'masonry' && BUILDER_GLOBALS.masonry_is_active) {
+                        setTimeout(function () {
+                            jQuery(el).find('.posts-listing').masonry({
+                                itemSelector: '.masonry-grid-item',
+                                columnWidth: '.masonry-grid-sizer',
+                                percentPosition: true,
+                                gutter: 20
+                            });
+                        }, 100);
+                    }
+                },
             }),
         },
         view: {
@@ -61,6 +100,15 @@ window.gjsArchivePageStructure = function (editor, options) {
                 ];
                 if ( $rerender_listing_on_change.includes( changed_keys[0] ) ) {
                     this.render();
+                }
+
+                // if listing template is masonry and columns value changed, re-render to update masonry layout
+                if (changed_keys[0] === 'columns'){
+                    const datastore = editor.getComponentDatastore(model);
+                    const data = datastore.toJSON();
+                    if (data.listing_template === 'masonry') {
+                        this.render();
+                    }
                 }
 
                 if (changed_keys[0] === 'columns' || changed_keys[0] === 'columns_gap') {
