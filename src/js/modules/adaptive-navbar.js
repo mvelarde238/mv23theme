@@ -8,13 +8,19 @@ window['Adaptive_Navbars'] = (function(){
         this.primary.classList.add('-primary');
         this.primaryItems = this.primary.querySelectorAll(':scope > li:not(.-more)');
         this.container.classList.add('--jsfied');
+
+        const moreText = {
+            'en': 'More',
+            'es': 'Más',
+            'fr': 'Plus',
+        };
         
         // insert "more" button and duplicate the list
         this.primary.insertAdjacentHTML('beforeend', `
             <li class="-more hidden-text">
                 <a href="#" type="button" aria-haspopup="true" aria-expanded="false">
                     <span class="menu-item__icon">&darr;</span>
-                    <span class="menu-item__label">More</span>
+                    <span class="menu-item__label">${moreText[MV23_GLOBALS.lang]}</span>
                 </a>
                 <ul class="-secondary">
                   ${this.primary.innerHTML}

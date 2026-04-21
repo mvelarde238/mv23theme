@@ -9,6 +9,7 @@ CHANGELOG
 - Check for conditional posttype rules to determine if component block should be rendered on the builder
   (e.g. only show a block if is a page and is page_for_posts, etc.)
 - Fix Listing Component: destroy and re-initialize masonry instance when listing is updated with masonry template to prevent layout issues
+- Internationalization: Add missing translation keys for adaptive navbar label
 
 3.9.1 26-04-20
 - Fix masonry-galley column width on large devices
