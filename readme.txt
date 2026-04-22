@@ -4,6 +4,7 @@ CHANGELOG
 
 3.9.3 26-04-22
 - Send archive_settings to have context about page for posts and shop page on the builder when editing an archive template
+- Fix z-index of secondary menu on adaptive navbar and sub-menu on global menu styles
 - imagesLoaded library implementation on masonry layouts to prevent layout issues and ensure proper initialization of masonry when images are still loading
 
 3.9.2 26-04-21
