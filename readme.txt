@@ -4,6 +4,7 @@ CHANGELOG
 
 3.9.3 26-04-22
 - Send archive_settings to have context about page for posts and shop page on the builder when editing an archive template
+- Fix z-index of secondary menu on adaptive navbar and sub-menu on global menu styles
 
 3.9.2 26-04-21
 - Fix Carousel component to not show nav controls when there is only one slide
