@@ -8,6 +8,7 @@ CHANGELOG
 - imagesLoaded library implementation on masonry layouts to prevent layout issues and ensure proper initialization of masonry when images are still loading
 - handle_editor_resize() implementation on listing and archive page structure components to trigger a global resize event when the editor device is changed, 
   allowing components to adjust their layout accordingly and prevent layout issues on responsive designs
+- Add outlines to section component to improve visibility on the editor canvas
 
 3.9.2 26-04-21
 - Fix Carousel component to not show nav controls when there is only one slide
