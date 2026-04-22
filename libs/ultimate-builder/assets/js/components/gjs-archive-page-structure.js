@@ -79,6 +79,9 @@ window.gjsArchivePageStructure = function (editor, options) {
             }),
         },
         view: {
+            init(){
+                editor.on('change:device', this.handle_editor_resize.bind(this));
+            },
             custom_datastore_change_callback(changed) {
                 const model = this.model;
                 
@@ -133,6 +136,12 @@ window.gjsArchivePageStructure = function (editor, options) {
                 if( changed_keys.includes('settings') ){
                     editor.handleCommonSettings(model);
                 }
+            },
+            handle_editor_resize(obj) {
+                // trigger global resize event to make sure all components that need to adjust on editor resize can do it
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                }, 150);
             },
         },
     });
