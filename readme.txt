@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.9.3 26-04-22
+- Send archive_settings to have context about page for posts and shop page on the builder when editing an archive template
+
 3.9.2 26-04-21
 - Fix Carousel component to not show nav controls when there is only one slide
 - Fix Bug on Listing::builder:before-save-editor to delete just carousel items inside listing components instead of all carousel items on the page

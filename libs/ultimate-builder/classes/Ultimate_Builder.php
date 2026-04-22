@@ -178,9 +178,11 @@ class Ultimate_Builder {
 		$post_id = get_the_ID();
 		$posttype = get_post_type();
 		$is_singular = ( $posttype === 'single_template');
+		$is_page_for_posts = get_option('page_for_posts') == $post_id;
+		$is_shop = class_exists( 'WooCommerce' ) && ( $posttype === 'product' || $posttype === 'product_template' );
 
 		// archive templates data
-		$is_archive = ( $posttype === 'archive_template') || ( get_option('page_for_posts') == $post_id );
+		$is_archive = ( $posttype === 'archive_template') || $is_page_for_posts;
 		$archive_settings = array();
 		if($is_archive){
 			$connected_posttype = get_post_meta( $post_id, 'connected_posttype', true );
@@ -193,6 +195,15 @@ class Ultimate_Builder {
 					if( $connected_terms ){
 						$archive_settings['connected_'.$connected_taxonomy.'_terms'] = $connected_terms;
 					}
+				}
+			} else {
+				if( $is_page_for_posts ){
+					$archive_settings['connected_posttype'] = 'post';
+				} elseif( $is_shop ){
+					$archive_settings['connected_posttype'] = 'product';
+				} else {
+					// default to 'post' if no connected posttype is set for the archive template
+					$archive_settings['connected_posttype'] = 'post';
 				}
 			}
 		}
@@ -218,7 +229,8 @@ class Ultimate_Builder {
 			'togglebox_state_icon' => TOGGLEBOX_STATE_ICON,
 			'prev_carousel_icon' => PREV_CAROUSEL_ICON,
 			'next_carousel_icon' => NEXT_CAROUSEL_ICON,
-			'is_page_for_posts' => get_option('page_for_posts') == $post_id
+			'is_page_for_posts' => $is_page_for_posts,
+			'is_shop' => $is_shop,
 		));
 		wp_add_inline_script( 'uf-field-ultimate-builder', Handlebars::get_js() );
 	}
