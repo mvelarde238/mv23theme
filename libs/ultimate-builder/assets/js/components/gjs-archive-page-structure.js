@@ -65,14 +65,15 @@ window.gjsArchivePageStructure = function (editor, options) {
                     // }
 
                     if (listing_template === 'masonry' && BUILDER_GLOBALS.masonry_is_active) {
-                        setTimeout(function () {
-                            jQuery(el).find('.posts-listing').masonry({
+                        const listingEl = el.querySelector('.posts-listing');
+                        imagesLoaded(listingEl, function () {
+                            new Masonry(listingEl, {
                                 itemSelector: '.masonry-grid-item',
                                 columnWidth: '.masonry-grid-sizer',
                                 percentPosition: true,
                                 gutter: 20
                             });
-                        }, 100);
+                        });
                     }
                 },
             }),

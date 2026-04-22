@@ -27,6 +27,23 @@
         })
 
         // ****************************************************************************************************
+        // Init Masonry Grid (wait for images/videos/background images)
+        // ****************************************************************************************************
+        if (MV23_GLOBALS.masonry_is_active) {
+            const grids = document.querySelectorAll('.has-masonry-columns');
+            grids.forEach(grid => {
+                imagesLoaded(grid, function () {
+                    new Masonry(grid, {
+                        itemSelector: '.masonry-grid-item',
+                        columnWidth: '.masonry-grid-sizer',
+                        percentPosition: true,
+                        gutter: 20
+                    });
+                });
+            });
+        }
+
+        // ****************************************************************************************************
         // ****************************************************************************************************
         // $('.cover-all').parent().css('position','relative');
         // ****************************************************************************************************

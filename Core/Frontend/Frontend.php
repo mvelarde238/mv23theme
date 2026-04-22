@@ -145,7 +145,10 @@ class Frontend extends Theme_Header_Data {
         wp_enqueue_script( 'jquery' );
     
         // masonry script
-        if (MASONRY_IS_ACTIVE) wp_enqueue_script( 'jquery-masonry' );
+        if (MASONRY_IS_ACTIVE){
+            wp_enqueue_script( 'imagesloaded' );
+            wp_enqueue_script( 'masonry' );
+        } 
 
         // gsap for scroll animations
         if( SCROLL_ANIMATIONS ) wp_enqueue_script( 'gsap', $this->theme_uri . '/assets/js/gsap.js', array(), '1.0', true);

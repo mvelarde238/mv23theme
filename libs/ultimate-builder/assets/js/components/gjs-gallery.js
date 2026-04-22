@@ -87,14 +87,14 @@ window.gjsGallery = function (editor) {
                 }
 
                 if(display === 'masonry' && BUILDER_GLOBALS.masonry_is_active){
-                    setTimeout(function () {
-                        jQuery(galleryEl).masonry({
+                    imagesLoaded(galleryEl, function () {
+                        new Masonry(galleryEl, {
                             itemSelector: '.masonry-grid-item',
                             columnWidth: '.masonry-grid-sizer',
                             percentPosition: true,
                             gutter: 20
                         });
-                    }, 50);
+                    });
                 }
             },
             custom_datastore_change_callback(changed) {

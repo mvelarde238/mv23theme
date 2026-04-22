@@ -73,7 +73,10 @@ class Admin extends Theme_Header_Data {
         wp_enqueue_script( $this->text_domain.'-admin-scripts' );
 
         // masonry script
-        if (MASONRY_IS_ACTIVE) wp_enqueue_script( 'jquery-masonry' );
+        if (MASONRY_IS_ACTIVE){
+            wp_enqueue_script( 'imagesloaded' );
+            wp_enqueue_script( 'masonry' );
+        } 
 
         // html to image script for template saving
         wp_enqueue_script( $this->text_domain.'-html-to-image', 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.min.js', array(), '1.11.13', true );
