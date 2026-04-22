@@ -16,7 +16,8 @@
 
     $(document).on('click', '.trigger-post-action', function(event){
         var $postcard = $(this).parents('.postcard'),
-            $listing = $(this).parents('.posts-listing'),
+            $listingComponent = $postcard.parents('.listing.component'),
+            $postsListing = $postcard.parents('.posts-listing'),
             url = this.getAttribute('href'),
             action = $postcard.attr('data-action');
 
@@ -60,15 +61,21 @@
             event.preventDefault();
             var scrollTo = $postcard.attr('data-scroll-to');
                 
-            var listingIsCarousel = $listing.hasClass('posts-listing--carrusel');
             // where to add the expander
-            var $expanderTarget = ( listingIsCarousel ) ? $listing : $postcard;
+            let $expanderTarget = null;
+            if ( $postsListing.hasClass('posts-listing--carousel') ){
+                $expanderTarget = $postsListing;
+            } else if ( $postsListing.hasClass('posts-listing--masonry') ){
+                $expanderTarget = $listingComponent;
+            } else {
+                $expanderTarget = $postcard;
+            }
 
             // reset all
-            var $listingItems = $listing.find('.postcard');
-            $listing.find('.expander').remove();
-            $listingItems.removeClass('active');
-            $listingItems.attr('style', '');
+            var $postsListingItems = $postsListing.find('.postcard');
+            $postsListing.find('.expander').remove();
+            $postsListingItems.removeClass('active');
+            $postsListingItems.attr('style', '');
 
             $.ajax({
                 url: url,
@@ -99,15 +106,22 @@
 
     // expander close
     $(document).on('click', '.expander-close', function(){
-        var $listing = $(this).parents('.posts-listing');
+        var $listingComponent = $(this).parents('.listing.component');
+        var $postsListing = $listingComponent.find('.posts-listing');
 
-        $listing.find('.expander').remove();
+        $listingComponent.find('.expander').remove();
         
-        var $listingItems = $listing.find('.postcard'); 
-        $listingItems.removeClass('active');
+        var $postsListingItems = $listingComponent.find('.postcard'); 
+        $postsListingItems.removeClass('active');
         
-        var listingIsCarousel = $listing.hasClass('posts-listing--carrusel');
-        var $expanderTarget = ( listingIsCarousel ) ? $listing : $listingItems;
+        let $expanderTarget = null;
+        if ( $postsListing.hasClass('posts-listing--carousel') ){
+            $expanderTarget = $postsListing;
+        } else if ( $postsListing.hasClass('posts-listing--masonry') ){
+            $expanderTarget = $listingComponent;
+        } else {
+            $expanderTarget = $postsListingItems;
+        }
         $expanderTarget.attr('style', '');
     });
             
