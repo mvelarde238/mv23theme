@@ -12,6 +12,7 @@ CHANGELOG
 - Fix expander position on listings
 - Context Menu fix: style:custom event listener commented out to prevent excessive updates on context menu during style changes. 
   Context menu is now updated on open, ensuring it reflects the current state without causing performance issues.
+- gjs-row-and-cols: update-space-between-components works with row-gap property instead of column-gap
 
 3.9.2 26-04-21
 - Fix Carousel component to not show nav controls when there is only one slide
