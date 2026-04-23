@@ -18,7 +18,8 @@ class Accordion_Button extends Component {
 
     public static function get_builder_data() {
         return array(
-            'display_gjs_block' => false
+            'display_gjs_block' => false,
+            'custom_datastore_change_callback' => true
 		);
     }
 
@@ -39,8 +40,11 @@ class Accordion_Button extends Component {
                     ->add_dependency('type','icon','='),
                 Field::create( 'image', 'image', __('Image','mv23theme') )
                     ->hide_label()
-                    ->add_dependency('type','image','='),
+                    ->add_dependency('type','image','='), 
             )),
+            Field::create( 'section', 'advanced_section', 'Advanced' ),
+            Field::create( 'text', 'item_id', __('ID for the accordion item (optional)','mv23theme') )
+                ->set_description( __('This is the ID you will see in the URL to target the accordion item','mv23theme') )
         );
 
 		return $fields;
@@ -98,6 +102,33 @@ class Accordion_Button extends Component {
         }
         echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
+	}
+
+    /**
+     * This template is used in the builder to represent the component visually with this inner structure:
+     * <i class="togglebox__icon"></i> || <img class="togglebox__icon" src="..." /> (optional)
+     * <span class="togglebox__title">Title</span>
+     * <span class="togglebox__subtitle">Subtitle</span> (optional)
+     */
+    public static function get_view_template() {
+		return '<% 
+        const iconSettings = icon_settings || {};
+        let iconHtml = "";
+        if (iconSettings.type === "icon" && iconSettings.icon) {
+            const iconPrefix = iconSettings.icon.startsWith("fa") ? "fa" : "bi";
+            iconHtml = `<i class="togglebox__icon ${iconPrefix} ${iconSettings.icon}"></i>`;
+        } else if (iconSettings.type === "image" && iconSettings.image) {
+            const imageUrl = Array.isArray(iconSettings.image_prepared) && iconSettings.image_prepared.length > 0 ? iconSettings.image_prepared[0].url : "";
+            if (imageUrl) {
+                iconHtml = `<img class="togglebox__icon" src="${imageUrl}" />`;
+            }
+        }
+
+        const titleHtml = `<span class="togglebox__title">${title}</span>`;
+        const subtitleHtml = subtitle ? `<span class="togglebox__subtitle">${subtitle}</span>` : "";
+        
+        %>
+        <%= iconHtml + titleHtml + subtitleHtml %>';
 	}
 }
 
