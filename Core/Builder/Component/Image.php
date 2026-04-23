@@ -137,7 +137,7 @@ class Image extends Component {
             if( $args['image'] ) {
                 $attachment = get_post( $args['image'] );
                 // do this to get the correct URL when theme has support for webp:
-                $attachment->guid = wp_get_attachment_image_url($args['image'], 'full');
+                if( $attachment ) $attachment->guid = wp_get_attachment_image_url($args['image'], 'full');
             }
         }
 
