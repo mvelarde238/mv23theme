@@ -1,5 +1,10 @@
 mv23 changelog-------------------------
 
+- 3.2.15 23-04-2026
+- Add file name to gallery item preview
+    (core/js/field/gallery.js)
+    (core/assets/sass/field/_gallery.scss)
+
 - 3.2.14 01-04-2026
 - Implement "use_buttons" property for Image Select field to prevent auto-selection of the first option and allow using buttons for selection
     (core/classes/Field/Image_Select.php)

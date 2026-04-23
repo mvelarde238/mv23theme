@@ -1988,6 +1988,7 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   overflow: hidden;
   background: #fff;
   padding: 5px;
+  position: relative;
 }
 .uf-gallery-images .button-secondary {
   position: absolute;
@@ -2078,6 +2079,22 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 .uf-gallery-columns-9 .uf-gallery-image {
   width: 11.11%;
   padding-bottom: 11.11%;
+}
+.uf-gallery .gallery-item-name {
+  font-size: 11px;
+  line-height: 1.2;
+  text-align: center;
+  padding: 8px;
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  height: auto;
+  margin: 0;
+  width: calc(100% - 10px);
+  box-sizing: border-box;
+  word-break: break-all;
 }
 .uf-gallery-footer {
   background: #eee;
@@ -4045,16 +4062,6 @@ h2.uf-add-term-title {
 /* fix context menu in layout group show behind other groups */
 .uf-layout-element {
   z-index: initial;
-}
-
-/* add filename to gallery */
-.gallery-item-name {
-  word-break: break-all;
-  position: absolute;
-  top: 40px;
-  left: 10px;
-  font-size: 12px;
-  width: 85%;
 }
 
 /* FLEXDATALIST */

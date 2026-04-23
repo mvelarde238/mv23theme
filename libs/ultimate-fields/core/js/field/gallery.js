@@ -297,9 +297,10 @@
 				var img = '';
 				img.url = img;
 			} else {
-				// var img = attachment.attributes.thumb;
-				var img = '';
-				img.url = img.src;
+				var thumb = attachment.attributes.thumb.src;
+				// var thumb = attachment.attributes.icon;
+				var img = {};
+				img.url = thumb;
 			}
 
 			$div
@@ -329,10 +330,10 @@
 				});
 
 			// Add filename
-			if( attachment.attributes.type != 'image' ){
+			// if( attachment.attributes.type != 'image' ){
 				$div
 					.append( '<p class="gallery-item-name">'+ attachment.attributes.filename+'</p>' );
-			}
+			// }
 		},
 
 		/**

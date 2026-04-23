@@ -4,6 +4,7 @@ CHANGELOG
 
 3.9.4 26-04-23
 - Fix broken image on Image Component
+- UF Improvement: Add file name to gallery item preview
 
 3.9.3 26-04-22
 - Send archive_settings to have context about page for posts and shop page on the builder when editing an archive template

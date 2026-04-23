@@ -17,6 +17,7 @@
 		overflow: hidden;
 		background: #fff;
 		padding: 5px;
+		position: relative;
 
 		.button-secondary {
 			position: absolute;
@@ -89,6 +90,26 @@
 	&-columns-7 &-image { width: 14.28%; padding-bottom: 14.28%; }
 	&-columns-8 &-image { width: 12.5%; padding-bottom: 12.5%; }
 	&-columns-9 &-image { width: 11.11%; padding-bottom: 11.11%; }
+
+	.gallery-item-name {
+		font-size: 11px;
+		line-height: 1.2;
+		text-align: center;
+		padding: 8px;
+		position: absolute;
+		bottom: 5px;
+		left: 5px;
+		background-color: rgba(0,0,0,.5);
+		color:#fff;
+		height: auto;
+		margin: 0;
+		width: calc(100% - 10px);
+		box-sizing: border-box;
+		word-break: break-all;
+		// overflow: hidden;
+		// text-overflow: ellipsis;
+		// white-space: nowrap;
+	}
 
 	&-footer {
 		background: #eee;
