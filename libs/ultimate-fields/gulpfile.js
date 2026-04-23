@@ -41,8 +41,7 @@ const sourcemaps = require( 'gulp-sourcemaps' );
 // });
 
 // core mv23
-// var url = 'mv23.com';
-var url = 'www.caw.posicionarweb.cl';
+var url = 'mv23.com';
 
 gulp.task('ufcoresass', function() {
 	const path = 'core';
