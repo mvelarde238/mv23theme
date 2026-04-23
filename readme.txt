@@ -5,6 +5,8 @@ CHANGELOG
 3.9.4 26-04-23
 - Fix broken image on Image Component
 - UF Improvement: Add file name to gallery item preview
+- Redirect single/archive template page to connected post type / taxonomy single page instead of showing the single template content, 
+  to prevent confusion for users and ensure they are redirected to the correct page when trying to preview or access a single template directly
 
 3.9.3 26-04-22
 - Send archive_settings to have context about page for posts and shop page on the builder when editing an archive template

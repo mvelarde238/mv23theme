@@ -333,7 +333,6 @@ class Archive_Template {
 	 */
 	function redirect_single() {
 		if( !is_singular( 'archive_template' ) ) return;
-        if( isset($_GET['ub_preview']) ) return;
 
 		$archive_template_id = get_the_ID();
 		$redirect_to = null;
@@ -360,6 +359,11 @@ class Archive_Template {
 		}
 
 		if ($redirect_to) {
+			// if isset ub_preview, add it to the redirect URL to allow previewing the archive template
+			if( isset($_GET['ub_preview']) ) {
+				$redirect_to = add_query_arg( 'ub_preview', $_GET['ub_preview'], $redirect_to );
+			}
+
 			wp_redirect( $redirect_to );
 			exit;
 		}

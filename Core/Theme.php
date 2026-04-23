@@ -292,11 +292,12 @@ class Theme extends Theme_Header_Data {
         // Single Template
         $single_template = Single_Template::getInstance();
         $this->loader->add_action( 'wp_loaded', $single_template, 'add_meta_boxes' );
+        // redirect single template page to connected posttype
+        $this->loader->add_action( 'template_redirect', $single_template, 'redirect_single' );
 
         // Archive Template
         $archive_template = Archive_Template::getInstance();
         $this->loader->add_action( 'wp_loaded', $archive_template, 'add_meta_boxes' );
-
         // redirect single archive page to connected posttype / taxonomy / term
         $this->loader->add_action( 'template_redirect', $archive_template, 'redirect_single' );
 

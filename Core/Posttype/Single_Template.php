@@ -255,4 +255,39 @@ class Single_Template {
             ));
         }
     }
+
+	/**
+	 * Redirect single single_template to connected post type single
+	 */
+	function redirect_single() {
+		if( !is_singular( 'single_template' ) ) return;
+
+		$single_template_id = get_the_ID();
+		$redirect_to = null;
+
+		$connected_posttype = get_post_meta($single_template_id, 'connected_posttype', true);
+		if ($connected_posttype) {
+			// get some post of the connected post type to find its single URL
+			$args = array(
+				'post_type' => $connected_posttype,
+				'posts_per_page' => 1,
+				'fields' => 'ids'
+			);
+			$loop = new WP_Query($args);
+			if ($loop->have_posts()) {
+				$connected_post_id = $loop->posts[0];
+				$redirect_to = get_permalink($connected_post_id);
+			}
+		}
+
+		if ($redirect_to) {
+			// if isset ub_preview, add it to the redirect URL to allow previewing the single template
+			if( isset($_GET['ub_preview']) ) {
+				$redirect_to = add_query_arg( 'ub_preview', $_GET['ub_preview'], $redirect_to );
+			}
+
+			wp_redirect( $redirect_to );
+			exit;
+		}
+	}
 }
