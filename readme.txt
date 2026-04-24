@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.9.5 26-04-24
+- Icon List Component Implementation
+
 3.9.4 26-04-23
 - Fix broken image on Image Component
 - UF Improvement: Add file name to gallery item preview

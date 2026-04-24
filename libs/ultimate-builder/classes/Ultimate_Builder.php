@@ -106,6 +106,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsTemplatePlaceholder', 'handler' => 'gjs-template-placeholder', 'isComponent' => true ],
 		[ 'name' => 'gjsMainContent', 'handler' => 'gjs-main-content', 'isComponent' => true ],
 		[ 'name' => 'gjsTestimonial', 'handler' => 'gjs-testimonial', 'isComponent' => true ],
+		[ 'name' => 'gjsIconList', 'handler' => 'gjs-icon-list', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true, 'hasCss' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],

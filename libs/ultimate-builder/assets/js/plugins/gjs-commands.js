@@ -109,9 +109,22 @@ window.gjsCommands = function (editor, options) {
         if(unit){
             finalValue = value + unit;
         }
-        component.addStyle({
+
+        // build style props object, and include additional properties if specified in options
+        let styleProps = {
             [property]: finalValue
-        }, { partial: !isFinal });
+        };
+        if(options.additionalProperties && options.additionalValues){
+            options.additionalProperties.forEach((additionalProp, index) => {
+                if( options.additionalValues[index] !== undefined ){
+                    styleProps[additionalProp] = options.additionalValues[index];
+                }
+            });
+        }
+
+        // addStyleTargets() method adds support for updating styles on multiple selected components
+        const styleManager = editor.StyleManager;
+        styleManager.addStyleTargets(styleProps, { partial: !isFinal });
     });
 
     commands.add('query-selector', (editor, sender, options = {}) => {
@@ -224,36 +237,6 @@ window.gjsCommands = function (editor, options) {
         component.set('lockedComponents', !lockedComponents);
     });
 
-    // Icon Box specific commands
-    commands.add('update-icon-property', (editor, sender, options = {}) => {
-        const { component, property, value, isFinal } = options;
-        let final_value = value;
-
-        if(component.getType() === 'icon-box'){
-            // Update the specific property
-            const plainProperties = ['font-size','background-color','padding','border-radius','border-color','color'];
-            if(plainProperties.includes(property)){
-                const addUnitProperties = ['font-size','padding','border-radius'];
-                if(addUnitProperties.includes(property)){
-                    final_value = value + 'px';
-                } else {
-                    final_value = value;
-                }
-
-                component.addStyle({
-                    [property]: final_value
-                }, { partial: !isFinal });
-            }
-
-            if(property === 'border-width'){
-                component.addStyle({
-                    'border-style': 'solid',
-                    'border-width': final_value + 'px'
-                }, { partial: !isFinal });
-            }
-        }
-    });
-
     // Flip Box specific commands
     commands.add('select-flipbox-side', (editor, sender, options = {}) => {
         const { component, side } = options;
@@ -302,6 +285,20 @@ window.gjsCommands = function (editor, options) {
             component.addStyle({
                 'flex-direction': directionMap[position] || 'row'
             });
+        }
+    });
+
+    // Icon List specific commands
+    commands.add('icon-list-actions', (editor, sender, options = {}) => {
+        const { component, action } = options;
+        if (component.getType() === 'icon-list') {
+            if (action === 'add') {
+                component.getView().addItem();
+            } else if (action === 'remove') {
+                component.getView().removeLastItem();
+            } else if (action === 'toggle-multiple-edit') {
+                component.getView().toggleMultipleEdit();
+            }
         }
     });
 }

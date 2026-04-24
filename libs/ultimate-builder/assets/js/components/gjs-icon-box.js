@@ -12,7 +12,8 @@ window.gjsIconBox = function(editor) {
                 name: compName,
                 tagName: 'div',
                 classes: ['icon-box', 'component'],
-                droppable: false
+                droppable: false,
+                badgable: false,
             },
         },
         view: {

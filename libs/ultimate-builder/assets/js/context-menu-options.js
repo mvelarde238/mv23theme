@@ -187,6 +187,7 @@ function get_flipbox_side_options(component, editor){
             options: [
                 {
                     type:'color', command:'update-css-property', args: { property:'background-color' },
+                    rerender: { partial: true },
                     value: ()=>{ 
                         const backgroundColor = component.getStyle('background-color') || '';
                         return backgroundColor; 
@@ -194,6 +195,7 @@ function get_flipbox_side_options(component, editor){
                 },
                 { 
                     type:'color', command:'update-css-property', args: { property:'color' },
+                    rerender: { partial: true },
                     value: ()=>{
                         const color = component.getStyle('color') || '#000000';
                         return color; 
@@ -218,7 +220,7 @@ window['contextMenuOpts'] = {
                 { type:'range', title:'FONT SIZE', command:'update-css-property', min:0, value:getFontSize, args: { property: 'font-size', unit: 'px' } },
                 textAlignAction,
                 { 
-                    type: 'color', title: 'TEXT COLOR', command: 'update-css-property', 
+                    type: 'color', title: 'TEXT COLOR', command: 'update-css-property', rerender: { partial: true },
                     args: { property: 'color' }, value: ()=>{ return component.getStyle('color') || ''; } 
                 },
             ]
@@ -248,6 +250,7 @@ window['contextMenuOpts'] = {
                     options: [
                         { 
                             type:'color', command:'update-css-property', args: { property:'background-color' },
+                            rerender: { partial: true },
                             value: ()=>{ 
                                 const backgroundColor = component.getStyle('background-color') || '';
                                 return backgroundColor; 
@@ -255,6 +258,7 @@ window['contextMenuOpts'] = {
                         },
                         {
                             type:'color', command:'update-css-property', args: { property:'color' },
+                            rerender: { partial: true },
                             value: ()=>{
                                 const color = component.getStyle('color') || '#000000';
                                 return color;
@@ -267,7 +271,7 @@ window['contextMenuOpts'] = {
                     value: ()=>{
                         let value = parseInt(component.getStyle('font-size')) || 17;
                         return value;
-                    }
+                    },
                 }
             ]
         },
@@ -405,21 +409,23 @@ window['contextMenuOpts'] = {
                             class: 'column',
                             options: [
                                 { 
-                                    type: 'range', title: 'ICON SIZE', command: 'update-icon-property', 
-                                    value:getIconSize, min:15, max:200, args: { property:'font-size' }
+                                    type: 'range', title: 'ICON SIZE', command: 'update-css-property', 
+                                    value:getIconSize, min:15, max:200, args: { property:'font-size', unit:'px' }
                                 },
                                 {
                                     type: 'options', title: 'BACKGROUND & COLOR', titleKey: 'background_and_color',
                                     options: [
                                         {
-                                            type:'color', command:'update-icon-property', args: { property:'background-color' },
+                                            type:'color', command:'update-css-property', args: { property:'background-color' },
+                                            rerender: { partial: true },
                                             value: ()=>{ 
                                                 const backgroundColor = component.getStyle('background-color') || '';
                                                 return backgroundColor; 
                                             }, 
                                         },
                                         { 
-                                            type:'color', command:'update-icon-property', args: { property:'color' },
+                                            type:'color', command:'update-css-property', args: { property:'color' },
+                                            rerender: { partial: true },
                                             value: ()=>{
                                                 const color = component.getStyle('color') || '#000000';
                                                 return color; 
@@ -428,8 +434,8 @@ window['contextMenuOpts'] = {
                                     ],
                                 },
                                 { 
-                                    type: 'range', title: 'SPACE AROUND ICON', command: 'update-icon-property', 
-                                    min:0, max:100, args: { property:'padding' },
+                                    type: 'range', title: 'SPACE AROUND ICON', command: 'update-css-property', 
+                                    min:0, max:100, args: { property:'padding', unit:'px' },
                                     value: ()=>{
                                         const padding = parseInt(component.getStyle('padding')) || 0;
                                         return padding;
@@ -442,8 +448,8 @@ window['contextMenuOpts'] = {
                             class: 'column',
                             options: [
                                 { 
-                                    type: 'range', title: 'ROUNDED CORNERS', command: 'update-icon-property', 
-                                    min:0, max:100, args: { property:'border-radius' },
+                                    type: 'range', title: 'ROUNDED CORNERS', command: 'update-css-property', 
+                                    min:0, max:100, args: { property:'border-radius', unit:'px' },
                                     value: ()=>{
                                         const radius = parseInt(component.getStyle('border-radius')) || 0;
                                         return radius;
@@ -453,15 +459,19 @@ window['contextMenuOpts'] = {
                                     type: 'options', title: 'BORDER SIZE & COLOR', titleKey: 'border_size_and_color',
                                     options: [
                                         { 
-                                            type: 'range', command: 'update-icon-property', 
-                                            min:0, max:50, args: { property:'border-width' },
+                                            type: 'range', command: 'update-css-property', 
+                                            min:0, max:50, args: { 
+                                                property:'border-width', unit:'px', 
+                                                additionalProperties: ['border-style'], additionalValues: ['solid'] 
+                                            },
                                             value: ()=>{
                                                 const borderWidth = parseInt(component.getStyle('border-width')) || 0;
                                                 return borderWidth;
                                             }, 
                                         },
                                         { 
-                                            type:'color', command:'update-icon-property', args: { property:'border-color' },
+                                            type:'color', command:'update-css-property', args: { property:'border-color' },
+                                            rerender: { partial: true },
                                             value: ()=>{
                                                 const color = component.getStyle('border-color') || '#000000';
                                                 return color; 
@@ -509,7 +519,7 @@ window['contextMenuOpts'] = {
                 { type:'range', title:'FONT SIZE', command:'update-css-property', args: { property: 'font-size', unit: 'px' }, min:0, value:getFontSize },
                 textAlignAction,
                 { 
-                    type: 'color', title: 'TEXT COLOR', command: 'update-css-property', 
+                    type: 'color', title: 'TEXT COLOR', command: 'update-css-property', rerender: { partial: true },
                     args: { property: 'color' }, value: ()=>{ return component.getStyle('color') || ''; } 
                 },
             ]
@@ -555,6 +565,36 @@ window['contextMenuOpts'] = {
                     ]
                 }
             ];
+        },
+        ['icon-list']: function(component){
+            return [
+                {
+                    type: 'options',
+                    options:[
+                        { type: 'button', label: 'ADD ITEM', command: 'icon-list-actions', args: { action: 'add' } },
+                        { type: 'button', label: 'REMOVE LAST ITEM', command: 'icon-list-actions', args: { action: 'remove' }, class:'danger' },
+                    ]    
+                },
+                {
+                    type: 'button', 
+                    command: 'icon-list-actions', args: { action: 'toggle-multiple-edit' }, rerender: { full: true }, 
+                    label: ()=>{
+                        const multipleEditActive = component.get('__temp_multipleEdit');
+                        return multipleEditActive ? 'DEACTIVATE MULTIPLE EDITING' : 'ACTIVATE MULTIPLE EDITING';
+                    },
+                    class: () => {
+                        const multipleEditActive = component.get('__temp_multipleEdit');
+                        return multipleEditActive ? 'active' : '';
+                    }
+                },
+                {
+                    type: 'range', title: 'SPACE BETWEEN ITEMS', command: 'update-css-property', min:0, max:100, 
+                    args: { property:'gap', unit:'px' }, titleTooltip: 'Space between list items',
+                    value: ()=>{
+                        return parseInt(component.getStyle('gap')) || 2;
+                    }
+                }
+            ]
         }
     }
 };

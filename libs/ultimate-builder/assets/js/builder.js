@@ -44,7 +44,7 @@
                     excludeComponentTypes: [
                         'wrapper', 'spacer', 'shortcode', 'image-component', 'text-editor', 'flipbox', 'icon-box', 'column', 'listing', 
                         'row', 'icon-and-text', 'heading', 'togglebox-button', 'togglebox', 'carousel-wrapper', 'testimonial-header',
-                        'code', 'menu', 'video-component', 'button', 'map-component', 'video-component', 'counter-component'
+                        'code', 'menu', 'video-component', 'button', 'map-component', 'video-component', 'counter-component', 'icon-list'
                     ]
                 },
                 plugins: [...plugins, ...React_Builder_Plugins],

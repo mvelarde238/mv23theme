@@ -95,6 +95,14 @@ window.gjsI18n = function (editor, options) {
                 // Testimonial
                 testimonial: 'Testimonio',
                 default_testimonial_info: '<strong>John Doe</strong><br>Gerente General, Compañía',
+                // Icon List
+                confirm_remove_last_item: '¿Estás seguro de que deseas eliminar el último item?',
+                select_component: 'Seleccionar componente',
+                multiple_edit: 'Edición múltiple',
+                add_item: 'Agregar item',
+                activate_multiple_edit: 'ACTIVAR EDICIÓN MÚLTIPLE',
+                deactivate_multiple_edit: 'DESACTIVAR EDICIÓN MÚLTIPLE',
+                multiple_edit_short: 'EM',
             },
             'gjs-row-and-cols': {
                 row: 'Fila',
