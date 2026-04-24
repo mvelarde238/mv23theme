@@ -102,6 +102,34 @@ window.gjsIconList = function (editor) {
         }
     });
 
+    // When a datastore value changes for a component inside an icon list with multiple edit mode active, 
+    // apply the same change to all inner components of the same type so they stay in sync.
+    editor.on('datastoreChanged', (builder_comp_model, component) => {
+        const iconListParent = component.closestType('icon-list');
+        if(!iconListParent) return;
+        if(iconListParent.get('__temp_multipleEdit')) {
+            const sameTypeComponents = iconListParent.findType(component.get('type'));
+            const datastoreChanged = builder_comp_model.datastore.changed;
+            sameTypeComponents.forEach( cmp => {
+                if(cmp.get('type') === component.get('type') && cmp !== component) {
+                    const cmpDatastore = editor.getComponentDatastore(cmp);
+                    Object.keys(datastoreChanged).forEach( key => {
+                        // Update the datastore value for this component
+                        cmpDatastore.set(key, datastoreChanged[key]);
+                        // Manually trigger a re-render of the component 
+                        // to reflect the updated datastore value
+                        cmp.view.render();
+                        // Clear the group view cache for this component 
+                        // to ensure the updated datastore values are reflected in the sidenav
+                        var vc = editorConfig.viewCache;
+                        const compId = cmp.attributes.__tempID;
+                        if (vc && vc[compId]) delete vc[compId];
+                    });
+                }
+            });
+        }
+    });
+
     // When an icon-and-text component is added inside an icon list, set it to be draggable only within the context of the list.
     editor.on('component:add', (model) => {
         if (model.parent() && model.parent().getClasses().includes('icon-list')) {
