@@ -141,7 +141,7 @@
             var carousels = $(triggerElement).find('.carousel__slider');
             if( carousels.length ){
                 for (var i = 0; i < carousels.length; i++) {
-                    var carousel_uid = $(carousels[i]).attr('data-tns-uid');
+                    var carousel_uid = $(carousels[i]).attr('data-slider-uid');
                     var carousel = MV23_GLOBALS.carousels[carousel_uid];
                     if( carousel ){
                         var nth_slides = carousel.getInfo().slideCount;

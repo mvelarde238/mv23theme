@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.9.6 26-04-29
+- Fix trigger_carousel method on scroll animations script
+
 3.9.5 26-04-24
 - Icon List Component Implementation
 - When a datastore value changes for a component inside an icon list with multiple edit mode active, 
