@@ -15,17 +15,17 @@
         }
 
         function maybe_fix_scroll_position_inside_togglebox( element_id ) {
-            // if element is inside a .v23-togglebox
+            // if element is inside a .togglebox
             // we need to consider the height of the togglebox button
             var togglebox_button_height = 0;
 
-            var togglebox = $(element_id).parents('.v23-togglebox');            
+            var togglebox = $(element_id).parents('.togglebox');            
             if( togglebox.length > 0 ){
                 var styles = MV23_GLOBALS.maybeFixScrollPositionStyles;
                 var togglebox_style = togglebox.data('style');
                 
                 if( styles.includes(togglebox_style) ){
-                    togglebox_button_height = $(element_id).closest('.v23-togglebox').find('.v23-togglebox__btn[data-boxid="'+element_id+'"]').outerHeight();
+                    togglebox_button_height = $(element_id).closest('.togglebox').find('.togglebox__btn[data-boxid="'+element_id+'"]').outerHeight();
                 }
             }
 
@@ -40,19 +40,21 @@
                 var e = new Event('mv23ReplaceState');
 			    window.dispatchEvent(e);
                 let elementPosition = $(href).offset().top;
-                let newPosition = 0;
-                var bodyStyles = window.getComputedStyle(document.body);
-                if( href != '#content' ){
-                    var sticky_header_height = bodyStyles.getPropertyValue('--sticky-header-height');
-                    newPosition = elementPosition - parseInt(sticky_header_height);
-
-                    // .maybe-fix-scroll-position implementation
-                    var togglebox_button_height = maybe_fix_scroll_position_inside_togglebox(href);
-                    newPosition = newPosition - togglebox_button_height;
-
-                } else {
-                    var static_header_height = bodyStyles.getPropertyValue('--static-header-height');
-                    newPosition = elementPosition - parseInt(static_header_height);
+                let newPosition = elementPosition;
+                if( !MV23_GLOBALS.disableHeaderHeightCalculationOnAnchors ){
+                    var bodyStyles = window.getComputedStyle(document.body);
+                    if( href != '#content' ){
+                        var sticky_header_height = bodyStyles.getPropertyValue('--sticky-header-height');
+                        newPosition = elementPosition - parseInt(sticky_header_height);
+    
+                        // .maybe-fix-scroll-position implementation
+                        var togglebox_button_height = maybe_fix_scroll_position_inside_togglebox(href);
+                        newPosition = newPosition - togglebox_button_height;
+    
+                    } else {
+                        var static_header_height = bodyStyles.getPropertyValue('--static-header-height');
+                        newPosition = elementPosition - parseInt(static_header_height);
+                    }
                 }
                 $("html, body").animate({ 
                     scrollTop: newPosition

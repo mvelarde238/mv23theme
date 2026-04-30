@@ -368,7 +368,7 @@ window['OffCanvas_Elements'] = (function(){
             }
         },
         _maybe_init_toggleboxes(el){
-            var toggleboxes = el.getElementsByClassName('v23-togglebox');
+            var toggleboxes = el.getElementsByClassName('togglebox');
             for (var i = 0; i < toggleboxes.length; i++) {
                 var el = toggleboxes[i],
                     options = { headerHeight : MV23_GLOBALS.headerHeight };

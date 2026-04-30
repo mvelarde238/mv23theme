@@ -152,6 +152,14 @@ class Global_Settings {
             ->set_description(__('This will hide the Ultimate Fields UI, which is used to create and manage custom fields','mv23theme'))
             ->fancy();
 
+        // Disable header height calculation on anchors
+        $disable_header_height_calculation_on_anchors_default_value = get_option( 'disable_header_height_calculation_on_anchors', false );
+        $fields[] = Field::create( 'checkbox', 'disable_header_height_calculation_on_anchors', __('Disable header height calculation on anchors','mv23theme') )
+            ->set_default_value($disable_header_height_calculation_on_anchors_default_value)
+            ->set_text(__('Disable','mv23theme'))
+            ->set_description(__('This will disable the calculation of header height when using anchor links. This can be useful if you have a transparent fixed header and want to avoid extra space when navigating to anchor links.','mv23theme'))
+            ->fancy();
+
         return $fields;
     }
 }

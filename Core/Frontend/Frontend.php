@@ -166,6 +166,7 @@ class Frontend extends Theme_Header_Data {
             'lang' => (function_exists('pll_current_language')) ? pll_current_language() : 'es',
             'headerHeight' => HEADER_HEIGHT,
             'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
+            'disableHeaderHeightCalculationOnAnchors' => DISABLE_HEADER_HEIGHT_CALCULATION_ON_ANCHORS,
             'listing_loading_text' => LISTING_LOADING_TEXT,
             'modal' => array(
                 'outDuration' => MODAL_OUT_DURATION
