@@ -51,7 +51,7 @@ class Text_Editor extends Component {
 
 	public static function get_view_template() {
 		return '<% 
-		filtered_content = __handlebars(content) 
+		filtered_content = Handlebars.parse(content) 
 		%>
 		<%= wp.editor && wp.editor.autop ? wp.editor.autop(filtered_content) : filtered_content %>';
 	}

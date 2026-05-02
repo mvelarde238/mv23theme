@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.9.10 26-05-02
+- replace __handlebars() method with Handlebars.parse
+
 3.9.9 26-05-02
 - Refactor gjs-togglebox:
   - Implements custom_datastore_change_callback to handle datastore changes in a more flexible way

@@ -171,7 +171,8 @@ class Ultimate_Builder {
 		$v      = $this->version;
 
 		// FIELD SCRIPT
-		wp_register_script( 'uf-field-ultimate-builder', $assets . 'js/field-ultimate-builder.js', array('uf-field-repeater'), $v );
+		wp_register_script( 'handlebars', $assets . 'js/handlebars.js', array(), $v );
+		wp_register_script( 'uf-field-ultimate-builder', $assets . 'js/field-ultimate-builder.js', array('uf-field-repeater', 'handlebars'), $v );
 		wp_register_style( 'uf-field-ultimate-builder', $assets . 'css/field.css', array(), $v );
 
 		// BUILDER GLOBALS
@@ -233,7 +234,6 @@ class Ultimate_Builder {
 			'is_page_for_posts' => $is_page_for_posts,
 			'is_shop' => $is_shop,
 		));
-		wp_add_inline_script( 'uf-field-ultimate-builder', Handlebars::get_js() );
 	}
 
 	public function prepare_admin_for_builder() {

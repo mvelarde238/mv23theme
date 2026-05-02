@@ -68,7 +68,7 @@ window.gjsHeading = function (editor) {
                 const wrap           = wrappedPresets.includes(activePreset);
 
                 const buildTag = (tag, content, classes) => {
-                    content = __handlebars(content);
+                    content = Handlebars.parse(content);
                     const inner = wrap ? `<span>${content}</span>` : content;
                     return `<${tag} class="${classes.join(' ')}">${inner}</${tag}>`;
                 };

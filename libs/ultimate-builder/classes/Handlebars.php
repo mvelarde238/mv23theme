@@ -134,31 +134,6 @@ class Handlebars{
 		return '';
 	}
 
-	/**
-	 * Returns the __handlebars() JS function as an inline script string.
-	 * Intended to be registered via wp_add_inline_script().
-	 */
-	public static function get_js(){
-		return <<<'JS'
-			__handlebars = (string) => {
-			    const context = BUILDER_GLOBALS.context;
-
-			    const resolvePath = (path, ctx) => {
-			        return path.split('.').reduce((acc, key) => {
-			            return (acc !== null && acc !== undefined && typeof acc === 'object') ? acc[key] : undefined;
-			        }, ctx);
-			    };
-
-			    return string.replace(/\{\{([^}]+)\}\}/g, (match, token) => {
-			        const value = resolvePath(token.trim(), context);
-			        if (value === undefined || value === null) return match;
-			        if (Array.isArray(value)) return value.join(', ');
-			        return String(value);
-			    });
-			};
-			JS;
-	}
-
 	public static function parse( $content ){
 		$context = self::get_context();
 		$content = preg_replace_callback(
