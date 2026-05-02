@@ -14,7 +14,7 @@ window['Theme_Navbars'] = (function(){
 		}
 
         this._handle_toggle_submenu_button();
-        
+
         if (el.classList.contains('horizontal-nav')){
             this._handle_menu_item_with_children_mouseover();    
         }
@@ -112,6 +112,63 @@ window['Theme_Navbars'] = (function(){
         return instances;
     }
 
+    /**
+     * Initializes the global ScrollSpy using GSAP ScrollTrigger.
+     * Detects sections with the `scrollspy` class and activates
+     * the parent `li` of any link pointing to that section.
+     * 
+     * Links are expected to have an `href` attribute with a hash corresponding to the section's ID (e.g., `href="...#section-id"`).
+     */
+    Theme_Navbar.initScrollSpy = function(){
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || !gsap.registerPlugin) return;
+        if (!window.MV23_gsap_scrolltrigger_registered) {
+            gsap.registerPlugin(ScrollTrigger);
+            window.MV23_gsap_scrolltrigger_registered = true;
+        }
+
+        const sections = document.querySelectorAll('.scrollspy');
+        if (!sections.length) return;
+
+        function activateLinksForId(id){
+            // remove all current-menu-item globally
+            const actives = document.querySelectorAll('.current-menu-item');
+            actives.forEach(a => a.classList.remove('current-menu-item'));
+
+            const links = document.querySelectorAll('a[href*="#"]:not([href="#"])');
+            links.forEach(link => {
+                if (link.hash === '#' + id) {
+                    const li = link.closest('li');
+                    if (li) li.classList.add('current-menu-item');
+                }
+            });
+        }
+
+        function deactivateLinksForId(id){
+            const links = document.querySelectorAll('a[href*="#"]:not([href="#"])');
+            links.forEach(link => {
+                if (link.hash === '#' + id) {
+                    const li = link.closest('li');
+                    if (li) li.classList.remove('current-menu-item');
+                }
+            });
+        }
+
+        sections.forEach(target => {
+            const id = target.id;
+            if (!id) return;
+
+            ScrollTrigger.create({
+                trigger: target,
+                start: 'top center',
+                end: 'bottom center',
+                onEnter: () => activateLinksForId(id),
+                onEnterBack: () => activateLinksForId(id),
+                onLeave: () => deactivateLinksForId(id),
+                onLeaveBack: () => deactivateLinksForId(id)
+            });
+        });
+    }
+
     return Theme_Navbar;
 })();
 
@@ -122,6 +179,7 @@ window['Theme_Navbars'] = (function(){
         // ****************************************************************************************************
 
         Theme_Navbars.init();
+        Theme_Navbars.initScrollSpy();
         
         // ****************************************************************************************************
     });

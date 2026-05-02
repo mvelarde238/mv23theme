@@ -277,8 +277,19 @@ window['contextMenuOpts'] = {
         },
         menu: function(component){
             return [
-                { type: 'button', label: 'SELECT LINKS', command: 'query-selector', args: { selector: 'a' } },
-                { type: 'button', label: 'SELECT HOVERED LINKS', command: 'query-selector', args: { selector: 'a:hover' } },
+                {
+                    type: 'options', title: 'SELECT ELEMENT',
+                    options: [
+                        { type: 'button', label: 'MENU', command: 'query-selector', args: { selector: '.menu' } },
+                        { type: 'button', label: 'ITEMS', command: 'query-selector', args: { selector: '.menu > li > a' } },
+                        { type: 'break' },
+                        { type: 'button', label: 'HOVERED ITEM', command: 'query-selector', args: { selector: '.menu > li > a:hover' } },
+                        { type: 'button', label: 'CURRENT ITEM', command: 'query-selector', args: { selector: '.current-menu-item > a' } },
+                        { type: 'break' },
+                        { type: 'button', label: 'SUBMENU', command: 'query-selector', args: { selector: '.sub-menu' } },
+                        { type: 'button', label: 'SUBMENU ITEMS', command: 'query-selector', args: { selector: '.sub-menu a' } },
+                    ]
+                },
             ]
         },
         section: function(component, editor){

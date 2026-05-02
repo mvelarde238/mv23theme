@@ -5,7 +5,7 @@
 
     .menu
         align-items: center
-
+        gap: 6px
         @extend %shared-horizontal-navs-styles
         @extend %hidden-label
         @extend %fix-for-hidden-label
@@ -14,8 +14,6 @@
 
         >li
             // max-width: 160px
-            &:not(:last-child)
-                margin-right: 6px
             & > a
                 padding: 10px
                 white-space: initial

@@ -8,6 +8,7 @@ CHANGELOG
   - scroll_target and animation properties are now included in the devicesControl object,
   allowing for better control over the togglebox behavior across different devices and states
 - Fix handle common settings to remove container when layout setting is not used 
+- Implement gsap scrolltrigger plugin on theme navbar module to handle active state of menu items when scrolling through sections with scrollspy class
 
 3.9.8 26-05-01
 - Fix .cmp-action active effect on flipbox component

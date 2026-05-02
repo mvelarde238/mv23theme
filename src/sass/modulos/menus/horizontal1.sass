@@ -3,14 +3,13 @@
     @extend %horizontal-sub-menu-styles
 
     .menu
+        gap: 6px
         @extend %shared-horizontal-navs-styles
         @extend %hidden-label
         @extend %fix-for-hidden-label
         @extend %menu-item-styles
         @extend %current-menu-item-styles
 
-        >li:not(:last-child)
-            margin-right: 6px
         >li>a
             padding: 10px
             text-align: center
