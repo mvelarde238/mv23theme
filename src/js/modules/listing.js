@@ -99,7 +99,7 @@
                 }
 
                 // Refresh ScrollTrigger breakpoints after content update
-                refreshScrollTriggerBreakpoints()
+                refreshScrollTriggerBreakpoints();
             }
         });
     }

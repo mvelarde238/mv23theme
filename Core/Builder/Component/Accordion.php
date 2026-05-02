@@ -76,13 +76,33 @@ class Accordion extends Component {
 
         // fields
         $fields = array(
-            Field::create( 'select', 'template', __('Template','mv23theme') )
+            Field::create( 'tab', 'template_tab', 'Template' ),
+            Field::create( 'radio', 'template', __('Template','mv23theme') )
+                ->set_orientation( 'horizontal' )
                 ->set_default_value('tab')
+                ->hide_label()
                 ->add_options( array(    
                     'accordion' => 'Accordion',
                     'tab' => 'Tab',
-                ))
-                ->set_width( 50 ),
+                )),
+            Field::create( 'image_select', 'tab_style', __('Style','mv23theme') )
+                ->set_attr( 'class', 'image-select-2-cols' )
+                ->add_options( $tab_styles )
+                ->set_default_value('tab-style1')
+                ->add_dependency('template','tab','='),
+            Field::create( 'image_select', 'accordion_style', __('Style','mv23theme') )
+                ->set_attr( 'class', 'image-select-2-cols' )
+                ->add_options( $accordion_styles )->add_dependency('template','accordion','='),
+
+            Field::create( 'tab', 'behavior_tab', 'Behavior' ),            
+            Field::create( 'radio', 'scroll_target', __('Scroll Target','mv23theme') )
+                ->set_default_value('')
+                ->add_options( array(
+                    '' => __('None','mv23theme'),
+                    'button' => __('The button being clicked','mv23theme'),
+                    'item' => __('The item being opened','mv23theme'),
+                    'component' => __('Top of the component','mv23theme'),
+                )),
             Field::create( 'select', 'animation', __('Animation','mv23theme') )
                 ->set_default_value('fadeIn')
                 ->add_options( array(    
@@ -95,14 +115,6 @@ class Accordion extends Component {
                     'bottomToTop' => __('Bottom to Top','mv23theme'),
                 ))
                 ->set_width( 50 ),
-            Field::create( 'image_select', 'tab_style', __('Style','mv23theme') )
-                ->set_attr( 'class', 'image-select-2-cols' )
-                ->add_options( $tab_styles )
-                ->set_default_value('tab-style1')
-                ->add_dependency('template','tab','='),
-            Field::create( 'image_select', 'accordion_style', __('Style','mv23theme') )
-                ->set_attr( 'class', 'image-select-2-cols' )
-                ->add_options( $accordion_styles )->add_dependency('template','accordion','=')
         );
 
 		return $fields;
@@ -120,18 +132,14 @@ class Accordion extends Component {
             foreach ($args['devicesControl'] as $device => $values) {
                 $template = $values['template'] ?? '';
                 $style = $values['style'] ?? '';
-                $breakpoints_arr[] = "{$device}|{$template}|{$style}";
+                $scroll_target = $values['scroll_target'] ?? '';
+                $animation = $values['animation'] ?? '';
+                $breakpoints_arr[] = "{$device}|{$template}|{$style}|{$scroll_target}|{$animation}";
             }
             $breakpoints = implode(',', $breakpoints_arr);
         }
         if( !empty($breakpoints) ){
             $args['additional_attributes']['data-breakpoints'] = $breakpoints;
-        }
-
-        // animation
-        $animation = $args['animation'] ?? 'fadeIn';
-        if( $animation != 'fadeIn' ){
-            $args['additional_attributes']['style'] = '--item-animation:'.$animation;
         }
 
 		ob_start();
