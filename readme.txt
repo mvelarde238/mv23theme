@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.9.8 26-05-01
+- Fix .cmp-action active effect on flipbox component
+
 3.9.7 26-04-30
 - disable_header_height_calculation_on_anchors option implementation: add option on global settings to disable header height calculation on anchors,
   and use it on the frontend to prevent adding extra space when navigating to anchor links if the header is fixed and transparent
