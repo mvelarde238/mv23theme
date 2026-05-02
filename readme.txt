@@ -4,9 +4,10 @@ CHANGELOG
 
 3.9.9 26-05-02
 - Refactor gjs-togglebox:
-- Implements custom_datastore_change_callback to handle datastore changes in a more flexible way
-- scroll_target and animation properties are now included in the devicesControl object,
+  - Implements custom_datastore_change_callback to handle datastore changes in a more flexible way
+  - scroll_target and animation properties are now included in the devicesControl object,
   allowing for better control over the togglebox behavior across different devices and states
+- Fix handle common settings to remove container when layout setting is not used 
 
 3.9.8 26-05-01
 - Fix .cmp-action active effect on flipbox component

@@ -20,8 +20,8 @@ window.handleCommonSettings = function (editor, options) {
             }
 
             let has_full_width_layout = false;
-            if (settings.layout && settings.layout.use) {
-                const layout = settings.layout.key;
+            if (settings.layout) {
+                const layout = (settings.layout.use) ? settings.layout.key : null;
                 if (layout === 'layout2') {
                     // full width stretched — needs container
                     has_full_width_layout = true;    
@@ -42,7 +42,7 @@ window.handleCommonSettings = function (editor, options) {
                     if (layout === 'layout3') {
                         has_full_width_layout = true;
                         component.getEl().classList.add('full-width');
-                    } else {
+                    } else if (layout === 'layout1') {
                         has_full_width_layout = false;
                         component.getEl().classList.remove('full-width');
                     }
@@ -55,7 +55,9 @@ window.handleCommonSettings = function (editor, options) {
                     }
                     component.set('droppable', true);
                 }
-                component.getEl().classList.add(layout);
+                if (layout) {
+                    component.getEl().classList.add(layout);
+                }
             }
 
             const helpers_list = [
