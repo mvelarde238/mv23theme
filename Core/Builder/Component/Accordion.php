@@ -23,7 +23,8 @@ class Accordion extends Component {
 
     public static function get_builder_data() {
         return array(
-            'display_gjs_block' => false
+            'display_gjs_block' => false,
+            'custom_datastore_change_callback' => true
 		);
     }
 
