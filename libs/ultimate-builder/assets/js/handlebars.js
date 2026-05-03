@@ -1,22 +1,124 @@
 window['Handlebars'] = (function(){
     const Handlebars = {};
 
+    // Private: resolves a dot-notation path against a context object.
+    // Returns undefined if the path cannot be resolved.
+    const _resolvePath = (path, ctx) => {
+        return path.split('.').reduce((acc, key) => {
+            return (acc !== null && acc !== undefined && typeof acc === 'object') ? acc[key] : undefined;
+        }, ctx);
+    };
+
+    // Private: returns false for null, undefined, false, '', 0, '0', and empty arrays.
+    const _isTruthy = (value) => {
+        if (value === null || value === undefined || value === false || value === '' || value === 0 || value === '0') return false;
+        if (Array.isArray(value) && value.length === 0) return false;
+        return true;
+    };
+
+    // Private: applies a named filter to a string value.
+    // Supported: uppercase, lowercase, capitalize, capitalize_words, truncate:N, number_format[:dec[:dec_sep[:thou_sep]]], slug, nl2br.
+    const _applyFilter = (value, filterExpr) => {
+        const colon = filterExpr.indexOf(':');
+        const name  = (colon !== -1 ? filterExpr.slice(0, colon) : filterExpr).trim();
+        const arg   = colon !== -1 ? filterExpr.slice(colon + 1) : null;
+
+        switch (name) {
+            case 'uppercase':      return value.toUpperCase();
+            case 'lowercase':      return value.toLowerCase();
+            case 'capitalize':     // Only capitalize first character
+                return value.length === 0 ? value : value.charAt(0).toUpperCase() + value.slice(1);
+            case 'capitalize_words':
+                return value.replace(/\b\w/g, c => c.toUpperCase());
+            case 'truncate': {
+                const len = arg !== null ? parseInt(arg, 10) : 100;
+                return value.length > len ? value.slice(0, len) + '...' : value;
+            }
+            case 'number_format': {
+                const parts   = arg !== null ? arg.split(':') : [];
+                const dec     = parts[0] !== undefined && parts[0] !== '' ? parseInt(parts[0], 10) : 0;
+                const decSep  = parts[1] !== undefined && parts[1] !== '' ? parts[1] : ',';
+                const thouSep = parts[2] !== undefined && parts[2] !== '' ? parts[2] : '.';
+                const num     = parseFloat(value);
+                if (isNaN(num)) return value;
+                const fixed = num.toFixed(dec);
+                const [intPart, decPart] = fixed.split('.');
+                const intFormatted = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, thouSep);
+                return decPart !== undefined ? intFormatted + decSep + decPart : intFormatted;
+            }
+            case 'slug':
+                return value.toLowerCase().trim()
+                    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                    .replace(/[^a-z0-9\s-]/g, '').replace(/[\s-]+/g, '-');
+            case 'nl2br':
+                return value.replace(/\n/g, '<br>');
+            default:
+                return value;
+        }
+    };
+
+    // Private: resolves {{path|filter}} and {{path|filter:arg}} tokens.
+    const _resolveWithFilter = (token, ctx) => {
+        const pipe   = token.indexOf('|');
+        const path   = token.slice(0, pipe).trim();
+        const filter = token.slice(pipe + 1).trim();
+        const raw    = _resolvePath(path, ctx);
+        if (!_isTruthy(raw)) return '';
+        const value  = Array.isArray(raw) ? raw.join(', ') : String(raw);
+        return _applyFilter(value, filter);
+    };
+
+    // Private: formats a resolved raw value to string. Returns null if unresolved.
+    const _formatValue = (value) => {
+        if (value === undefined || value === null) return null;
+        if (Array.isArray(value)) return value.join(', ');
+        return String(value);
+    };
+
+    // Private: handles {{primary ?? fallback}} tokens.
+    // Fallback can be a quoted string literal (single or double quotes) or another dot-notation path.
+    const _resolveFallback = (token, ctx) => {
+        const [primary, fallback] = token.split('??').map(s => s.trim());
+        const value = _resolvePath(primary, ctx);
+        if (_isTruthy(value)) return _formatValue(value);
+
+        const literalMatch = fallback.match(/^['"](.*)['"]\s*$/);
+        if (literalMatch) return literalMatch[1];
+
+        const fbValue = _resolvePath(fallback, ctx);
+        return _isTruthy(fbValue) ? _formatValue(fbValue) : '';
+    };
+
+    // Private: processes {{#if path}}...{{else}}...{{/if}} blocks iteratively to support nesting.
+    const _parseConditionals = (string, context) => {
+        const ifPattern = /\{\{#if\s+([^}]+)\}\}([\s\S]*?)(?:\{\{else\}\}([\s\S]*?))?\{\{\/if\}\}/g;
+        let maxPasses = 10, prev;
+        do {
+            prev = string;
+            string = string.replace(ifPattern, (match, path, ifBlock, elseBlock = '') => {
+                const value = _resolvePath(path.trim(), context);
+                return _isTruthy(value) ? ifBlock : elseBlock;
+            });
+        } while (string !== prev && --maxPasses > 0);
+        return string;
+    };
+
     Handlebars.parse = function(string){
         const context = BUILDER_GLOBALS.context;
 
-		const resolvePath = (path, ctx) => {
-		    return path.split('.').reduce((acc, key) => {
-		        return (acc !== null && acc !== undefined && typeof acc === 'object') ? acc[key] : undefined;
-		    }, ctx);
-		};
+        // First pass: resolve {{#if}}...{{else}}...{{/if}} blocks
+        string = _parseConditionals(string, context);
 
-		return string.replace(/\{\{([^}]+)\}\}/g, (match, token) => {
-	        const value = resolvePath(token.trim(), context);
-	        if (value === undefined || value === null) return match;
-	        if (Array.isArray(value)) return value.join(', ');
-	        return String(value);
-	    });
-    }
+        // Second pass: resolve {{token}}, {{token ?? fallback}}, {{token|filter}} expressions
+        return string.replace(/\{\{([^}]+)\}\}/g, (match, token) => {
+            token = token.trim();
+            if (token.includes('??')) return _resolveFallback(token, context);
+            if (token.includes('|'))  return _resolveWithFilter(token, context);
+            const value = _resolvePath(token, context);
+            if (value === undefined || value === null) return match;
+            return _formatValue(value);
+        });
+    };
 
     return Handlebars;
 })();

@@ -3,7 +3,9 @@ CHANGELOG
 **************************************************************************************************
 
 3.9.10 26-05-02
-- replace __handlebars() method with Handlebars.parse
+- Handlebars.js improvements:
+  - Add support for filters, fallback values and more complex expressions inside conditionals
+  - replace __handlebars() method with Handlebars.parse
 
 3.9.9 26-05-02
 - Refactor gjs-togglebox:

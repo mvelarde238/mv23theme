@@ -5,14 +5,14 @@
  * [x] 0. Contexto estructurado + dot-notation  →  get_context() retorna array anidado; resolve_path() navega rutas.
  *         Filter hook: 'ultimate_builder_handlebars_context'  |  JS usa BUILDER_GLOBALS.context
  *
- * [ ] 1. Filtros/modificadores  →  {{post.title|uppercase}}, {{post.meta.precio|number_format}}, {{post.meta.desc|truncate:120}}
- *         Implementar con preg_replace_callback capturando nombre y filtro.
+ * [x] 1. Filtros/modificadores  →  {{post.title|uppercase}}, {{post.meta.precio|number_format}}, {{post.meta.desc|truncate:120}}
+ *         Filtros: uppercase, lowercase, capitalize, truncate:N, number_format, slug, nl2br.
  *
- * [ ] 2. Fallback / valor por defecto  →  {{post.meta.subtitulo ?? post.title}}, {{post.meta.tel ?? 'Sin teléfono'}}
- *         Resolver con regex; evita huecos en el HTML cuando un meta está vacío.
+ * [x] 2. Fallback / valor por defecto  →  {{post.meta.subtitulo ?? post.title}}, {{post.meta.tel ?? 'Sin teléfono'}}
+ *         Soporta ruta ?? ruta y ruta ?? 'literal'. Se evalúa en el mismo pase que los tokens simples.
  *
- * [ ] 3. Condicionales simples  →  {{#if post.meta.precio}}Precio: {{post.meta.precio}}{{/if}}
- *         Requiere un segundo pase de regex o mini-parser para ocultar bloques vacíos.
+ * [x] 3. Condicionales simples  →  {{#if post.meta.precio}}Precio: {{post.meta.precio}}{{/if}}
+ *         Soporta {{#if path}}...{{else}}...{{/if}} y anidamiento mediante iteración.
  *
  * [ ] 4. Loops sobre post meta arrays  →  {{#each post.meta.galeria}}<img src="{{this.url}}">{{/each}}
  *         Útil con ACF/UF repeaters. Requiere parser más elaborado.
@@ -112,6 +112,151 @@ class Handlebars{
 	}
 
 	/**
+	 * Resolves a dot-notation path and returns the raw PHP value (null if not found).
+	 */
+	private static function resolve_path_raw( $path, $context ) {
+		$keys  = explode( '.', $path );
+		$value = $context;
+		foreach ( $keys as $key ) {
+			if ( is_array( $value ) && array_key_exists( $key, $value ) ) {
+				$value = $value[ $key ];
+			} else {
+				return null;
+			}
+		}
+		return $value;
+	}
+
+	/**
+	 * Returns true if the value is considered non-empty (truthy).
+	 */
+	private static function is_truthy( $value ) {
+		if ( $value === null || $value === false || $value === '' || $value === 0 || $value === '0' ) {
+			return false;
+		}
+		if ( is_array( $value ) && empty( $value ) ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Applies a named filter to a string value.
+	 * Supported: uppercase, lowercase, capitalize, capitalize_words, truncate:N, 
+	 * number_format[:decimals[:dec_point[:thousands_sep]]], slug, nl2br.
+	 */
+	private static function apply_filter( $value, $filter_expr ) {
+		$colon = strpos( $filter_expr, ':' );
+		$name  = $colon !== false ? substr( $filter_expr, 0, $colon ) : $filter_expr;
+		$arg   = $colon !== false ? substr( $filter_expr, $colon + 1 ) : null;
+
+		switch ( trim( $name ) ) {
+			case 'uppercase':
+				return mb_strtoupper( $value );
+			case 'lowercase':
+				return mb_strtolower( $value );
+			case 'capitalize':
+				// Capitalize only the first character of the string
+				if ( $value === '' ) return $value;
+				$first = mb_substr( $value, 0, 1 );
+				$rest  = mb_substr( $value, 1 );
+				return mb_strtoupper( $first ) . $rest;
+			case 'capitalize_words':
+				// Capitalize the first letter of every word
+				return mb_convert_case( $value, MB_CASE_TITLE );
+			case 'truncate':
+				$len = $arg !== null ? (int) $arg : 100;
+				return mb_strlen( $value ) > $len ? mb_substr( $value, 0, $len ) . '...' : $value;
+			case 'number_format':
+				$parts    = $arg !== null ? explode( ':', $arg ) : array();
+				$decimals = isset( $parts[0] ) && $parts[0] !== '' ? (int) $parts[0] : 0;
+				$dec_sep  = isset( $parts[1] ) && $parts[1] !== '' ? $parts[1] : ',';
+				$thou_sep = isset( $parts[2] ) && $parts[2] !== '' ? $parts[2] : '.';
+				return number_format( (float) $value, $decimals, $dec_sep, $thou_sep );
+			case 'slug':
+				return sanitize_title( $value );
+			case 'nl2br':
+				return nl2br( $value );
+			default:
+				return $value;
+		}
+	}
+
+	/**
+	 * Resolves {{path|filter}} and {{path|filter:arg}} tokens.
+	 */
+	private static function resolve_with_filter( $token, $context ) {
+		$pipe  = strpos( $token, '|' );
+		$path  = trim( substr( $token, 0, $pipe ) );
+		$filter_expr = trim( substr( $token, $pipe + 1 ) );
+
+		$value = self::resolve_path_raw( $path, $context );
+		if ( ! self::is_truthy( $value ) ) {
+			return '';
+		}
+		if ( is_array( $value ) ) {
+			$value = implode( ', ', array_filter( array_map( 'strval', $value ) ) );
+		} else {
+			$value = (string) $value;
+		}
+		return self::apply_filter( $value, $filter_expr );
+	}
+
+	/**
+	 * Handles {{primary ?? fallback}} tokens.
+	 * The fallback can be a quoted string literal or another dot-notation path.
+	 */
+	private static function resolve_fallback( $token, $context ) {
+		$parts    = array_map( 'trim', explode( '??', $token, 2 ) );
+		$primary  = $parts[0];
+		$fallback = $parts[1];
+
+		$value = self::resolve_path_raw( $primary, $context );
+		if ( self::is_truthy( $value ) ) {
+			if ( is_scalar( $value ) ) return (string) $value;
+			if ( is_array( $value ) ) return implode( ', ', array_filter( array_map( 'strval', $value ) ) );
+			return '';
+		}
+
+		// Quoted string literal: 'text' or "text"
+		if ( preg_match( "/^['\"](.*)['\"]\s*$/", $fallback, $m ) ) {
+			return $m[1];
+		}
+
+		// Another dot-notation path
+		$fb_value = self::resolve_path_raw( $fallback, $context );
+		if ( self::is_truthy( $fb_value ) ) {
+			if ( is_scalar( $fb_value ) ) return (string) $fb_value;
+			if ( is_array( $fb_value ) ) return implode( ', ', array_filter( array_map( 'strval', $fb_value ) ) );
+		}
+		return '';
+	}
+
+	/**
+	 * Processes {{#if path}}...{{else}}...{{/if}} blocks iteratively to support nesting.
+	 */
+	private static function parse_conditionals( $content, $context ) {
+		$pattern    = '/\{\{#if\s+([^}]+)\}\}(.*?)(?:\{\{else\}\}(.*?))?\{\{\/if\}\}/s';
+		$max_passes = 10;
+		$i          = 0;
+		do {
+			$prev    = $content;
+			$content = preg_replace_callback(
+				$pattern,
+				function( $matches ) use ( $context ) {
+					$path       = trim( $matches[1] );
+					$if_block   = $matches[2];
+					$else_block = isset( $matches[3] ) ? $matches[3] : '';
+					$value      = self::resolve_path_raw( $path, $context );
+					return self::is_truthy( $value ) ? $if_block : $else_block;
+				},
+				$content
+			);
+		} while ( $content !== $prev && ++$i < $max_passes );
+		return $content;
+	}
+
+	/**
 	 * Resolves a dot-notation path against the context array.
 	 * Returns the original {{path}} token if the path cannot be resolved.
 	 */
@@ -136,10 +281,18 @@ class Handlebars{
 
 	public static function parse( $content ){
 		$context = self::get_context();
+		$content = self::parse_conditionals( $content, $context );
 		$content = preg_replace_callback(
 			'/\{\{([^}]+)\}\}/',
 			function( $matches ) use ( $context ) {
-				return self::resolve_path( trim( $matches[1] ), $context );
+				$token = trim( $matches[1] );
+				if ( strpos( $token, '??' ) !== false ) {
+					return self::resolve_fallback( $token, $context );
+				}
+				if ( strpos( $token, '|' ) !== false ) {
+					return self::resolve_with_filter( $token, $context );
+				}
+				return self::resolve_path( $token, $context );
 			},
 			$content
 		);
