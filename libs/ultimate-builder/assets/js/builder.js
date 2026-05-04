@@ -25,7 +25,7 @@
             const plugins = this.get_plugins();
 
             // INIT THE BUILDER
-            React_Builder.init( this.$el.find('#app')[0], {
+            const builder_app = React_Builder.init( this.$el.find('#app')[0], {
                 clearStyles: true,
                 componentFirst: true,
                 showToolbar: false,
@@ -87,6 +87,7 @@
                     // },
                 ],
                 onEditor: function(editor) {
+                    editor.builderApp = builder_app;
                     window['UF_Editor'] = editor;
                     that.on_editor_load(editor);
                 }

@@ -183,6 +183,12 @@ window.gjsI18n = function (editor, options) {
                 unlock_radius: 'Desbloquear radio',
                 clear_radius: 'Limpiar radio',
                 multiple: 'MÚLTIPLE',
+                // color picker
+                confirm: 'Confirmar',
+                cancel: 'Cancelar',
+                eyedropper_tooltip: 'Cuentagotas',
+                color_swatches: 'Muestras de color',
+                theme_colors: 'Colores del tema',
             },
             'gjs-context-menu': {
                 // global

@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.9.11 26-05-04
+- Full redesign of the color picker popover
+
 3.9.10 26-05-02
 - Handlebars.js improvements:
   - Add support for filters, fallback values and more complex expressions inside conditionals

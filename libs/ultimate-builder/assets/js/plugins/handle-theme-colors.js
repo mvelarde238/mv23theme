@@ -3,7 +3,8 @@ window.handleThemeColors = function (editor, options) {
     let originalDatalist = null;
 
     editor.on('load theme-colors:update', (obj) => {
-        implement_theme_colors_on_stylemanager_datalist(editor);
+        implement_theme_colors_on_colorpicker_swatches(editor);
+        // implement_theme_colors_on_stylemanager_datalist(editor);
         inject_css_variables_in_style_manager(editor);
     });
 
@@ -15,6 +16,7 @@ window.handleThemeColors = function (editor, options) {
         }
 
         const cssProperties = [];
+        const requireVariations = ['--primary-color', '--secondary-color'];
 
         theme_colors_raw.forEach(color_item => {
             // Only process color type items
@@ -24,8 +26,8 @@ window.handleThemeColors = function (editor, options) {
                 // Add base color variable
                 cssProperties.push(`${base_var}:${color_item.color}`);
 
-                // Add variations if enabled
-                if (color_item.customize_variations) {
+                // Add variations if enabled or is primary or secondary
+                if (color_item.customize_variations || requireVariations.includes(base_var)) {
                     const light_value = color_item.light || 70;
                     const lighter_value = color_item.lighter || 94;
                     const dark_value = color_item.dark || 15;
@@ -83,6 +85,7 @@ window.handleThemeColors = function (editor, options) {
         // Process color items
         const themeColors = [];
         const cssVarsOptions = [];
+        const requireVariations = ['--primary-color', '--secondary-color'];
 
         theme_colors_raw.forEach(color_item => {
             // Only process color type items
@@ -108,8 +111,8 @@ window.handleThemeColors = function (editor, options) {
                     // Add base variable row
                     cssVarsOptions.push([`var(${base_var})`]);
 
-                    // Add variations row if enabled
-                    if (color_item.customize_variations) {
+                    // Add variations row if enabled or is primary or secondary
+                    if (color_item.customize_variations || requireVariations.includes(base_var)) {
                         cssVarsOptions.push([
                             { value: `var(${base_var}-lighter)`, label: 'lighter' },
                             { value: `var(${base_var}-light)`, label: 'light' },
@@ -179,5 +182,45 @@ window.handleThemeColors = function (editor, options) {
         // if (selected) {
         //     styleManager.render();
         // }
+    }
+
+    function implement_theme_colors_on_colorpicker_swatches(editor) {
+        const theme_colors_raw = BUILDER_GLOBALS.theme_colors || [];
+
+        if (!theme_colors_raw || theme_colors_raw.length === 0) {
+            return;
+        }
+
+        // Process color items
+        const themeColors = [];
+        const requireVariations = ['--primary-color', '--secondary-color'];
+
+        theme_colors_raw.forEach(color_item => {
+            // Only process color type items
+            if (color_item.__type === 'color') {
+                // Add to theme colors array
+                if (color_item.color) {
+                    if (color_item.css_property) {
+                        // Has CSS variable
+                        const base_var = color_item.css_property;
+                        themeColors.push(`var(${base_var})`);
+
+                        // Add variations if enabled or is primary or secondary
+                        if (color_item.customize_variations || requireVariations.includes(base_var)) {
+                            themeColors.push(`var(${base_var}-lighter)`);
+                            themeColors.push(`var(${base_var}-light)`);
+                            themeColors.push(`var(${base_var}-dark)`);
+                        }
+                    } else {
+                        // No CSS variable - use hex string
+                        themeColors.push(color_item.color);
+                    }
+                }
+            }
+        });
+
+        if (themeColors.length > 0) {
+            editor.builderApp.setThemeColors(themeColors);
+        }
     }
 }
