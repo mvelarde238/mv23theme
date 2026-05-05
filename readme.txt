@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.9.12 26-05-05
+- Color picker from `gjs-context-menu` now reuses the React `ColorPickerPopover` component
+
 3.9.11 26-05-04
 - Full redesign of the color picker popover
 
