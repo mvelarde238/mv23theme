@@ -5,7 +5,14 @@ CHANGELOG
 3.9.12 26-05-05
 - Color picker from `gjs-context-menu` now reuses the React `ColorPickerPopover` component
 - Make gradient UI handlers focusable for keyboard navigation
-- Fix save-template-system to include custom properties that dont start with __temp on the extracted template data, to prevent losing important data that is not part of the component model but is still needed for the template to work properly (e.g. devicesControl property on togglebox component)
+- Fix save-template-system to include custom properties that dont start with __temp on the extracted template data, 
+  to prevent losing important data that is not part of the component model but is still needed for the template to work properly 
+  (e.g. devicesControl property on togglebox component)
+- Implements savable property on gjs components model:
+  - Apply savable false on column component to prevent saving the columns as templates, 
+    as they are meant to be used as inner components and not as standalone templates
+  - Read savable property from component model to conditionally render "Save as Template" button in context menu header
+  - Implement savable property for image component to allow saving the component as template
 
 3.9.11 26-05-04
 - Full redesign of the color picker popover

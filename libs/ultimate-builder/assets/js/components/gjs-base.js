@@ -1,6 +1,16 @@
 window.gjsBase = function (editor) {
     const domc = editor.DomComponents;
 
+    // Extend the default type to add the savable property set to true by default
+    // All component types inherit from default, so this applies globally.
+    editor.DomComponents.addType('default', {
+        model: {
+            defaults: {
+                savable: true,
+            }
+        }
+    });
+
     // Define the component
     domc.addType('comp-base', {
         model: {
@@ -22,8 +32,8 @@ window.gjsBase = function (editor) {
                     if (view_template) {
                         const _view_template = _.template(view_template);
                         const datastore = builder_comp_model.datastore;
-                        
-                        if(datastore) el.innerHTML = _view_template(datastore.toJSON());
+
+                        if (datastore) el.innerHTML = _view_template(datastore.toJSON());
 
                     } else {
                         const name = model.get('name');
