@@ -142,6 +142,7 @@ window.gjsTemplatePlaceholder = function (editor) {
 		    			if(response.status == "success") {
 		    				if(action === 'insert') {
                                 const template_data = JSON.parse(response.template_data);
+                                console.log('Received template data for insertion:', template_data);
                                 that.insertTemplate(template_data);
                             } else if(action === 'delete') {
                                 that.removeTemplate(item, post_id);
@@ -248,13 +249,24 @@ window.gjsTemplatePlaceholder = function (editor) {
              * so the editor receives the entire hierarchy as a single block
              */
             buildComponentTree: function(componentData) {
+                const internalKeys = new Set(['type', 'attributes', 'components', 'styles', 'datastore', '_generatedId']);
+                const extraProps = {};
+                Object.keys(componentData).forEach(key => {
+                    if (!internalKeys.has(key)) {
+                        extraProps[key] = componentData[key];
+                    }
+                });
+
                 const treeNode = {
                     type: componentData.type,
+                    ...extraProps,
                 };
 
                 if(componentData._generatedId) {
                     treeNode.__id = componentData._generatedId;
-                    treeNode.attributes = { id: componentData._generatedId };
+                    treeNode.attributes = { ...componentData.attributes, id: componentData._generatedId };
+                } else if(componentData.attributes && Object.keys(componentData.attributes).length > 0) {
+                    treeNode.attributes = { ...componentData.attributes };
                 }
 
                 if(Array.isArray(componentData.components) && componentData.components.length > 0) {

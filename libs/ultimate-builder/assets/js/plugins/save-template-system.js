@@ -29,6 +29,7 @@ window.saveTemplateSystem = function (editor, options) {
      *   components: array|string, // the nested components, either as an array of component data or as raw HTML if it was a string in the original model
      *   datastore: object|null, // the datastore data if this component has a datastore reference
      *   styles: array // an array of style rules associated with this component's original id (if it had one), including any media query information for responsive styles
+     * any // additional properties that dosnt start with __temp
      * }
      */
     function extractData(componentModel) {
@@ -91,7 +92,15 @@ window.saveTemplateSystem = function (editor, options) {
                 safeComponents = childModels.map(child => walk(child));
             }
 
-            const structure = { type, attributes: safeAttributes, components: safeComponents, datastore, styles };
+            const knownKeys = new Set(['type', 'attributes', 'components', 'datastore', 'styles', '__id']);
+            const extraProps = {};
+            Object.keys(node).forEach(key => {
+                if (!knownKeys.has(key) && !key.startsWith('__temp')) {
+                    extraProps[key] = node[key];
+                }
+            });
+
+            const structure = { type, attributes: safeAttributes, components: safeComponents, datastore, styles, ...extraProps };
 
             return structure;
         }
@@ -155,6 +164,8 @@ window.saveTemplateSystem = function (editor, options) {
     commands.add('save-as-template', (editor, sender, options = {}) => {
         const component = editor.getSelected();
         const templateData = extractData(component);
+
+        console.log('Extracted template data:', templateData);
 
         // create a simple form for the modal content
         const form_wrapper = document.createElement('div');
