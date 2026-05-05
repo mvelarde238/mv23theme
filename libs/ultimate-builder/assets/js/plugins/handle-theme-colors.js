@@ -16,7 +16,7 @@ window.handleThemeColors = function (editor, options) {
         }
 
         const cssProperties = [];
-        const requireVariations = ['--primary-color', '--secondary-color'];
+        const requireVariations = ['--primary-color'];
 
         theme_colors_raw.forEach(color_item => {
             // Only process color type items
@@ -85,7 +85,7 @@ window.handleThemeColors = function (editor, options) {
         // Process color items
         const themeColors = [];
         const cssVarsOptions = [];
-        const requireVariations = ['--primary-color', '--secondary-color'];
+        const requireVariations = ['--primary-color'];
 
         theme_colors_raw.forEach(color_item => {
             // Only process color type items
@@ -193,7 +193,7 @@ window.handleThemeColors = function (editor, options) {
 
         // Process color items
         const themeColors = [];
-        const requireVariations = ['--primary-color', '--secondary-color'];
+        const requireVariations = ['--primary-color'];
 
         theme_colors_raw.forEach(color_item => {
             // Only process color type items
