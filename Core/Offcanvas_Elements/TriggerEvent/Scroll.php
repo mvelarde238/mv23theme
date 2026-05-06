@@ -62,7 +62,7 @@ class Scroll extends TriggerEvent {
             $gsap_fields[] = Field::create( 'message', 'Hint_1' )->set_description( __('Activate advanced animations in Theme Options -> Global Options','mv23theme') )->hide_label();
         }
         $gsap_fields[] = Field::create( 'text', 'trigger_element', __('Trigger Element','mv23theme') )->add_dependency( '../settings_type','gsap','=' )->required()->set_width( 20 );
-        $gsap_fields[] = Field::create( 'complex', 'start_at', __('Start at','mv23theme') )->add_fields(array(
+        $gsap_fields[] = Field::create( 'complex', 'start', __('Start at','mv23theme') )->add_fields(array(
             Field::create( 'select', 'hook', 'Trigger Point' )->add_options( array(
                 'top bottom' => __('Bottom of viewport','mv23theme'),
                 'top center' => __('Middle of viewport','mv23theme'),

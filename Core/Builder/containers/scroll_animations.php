@@ -23,7 +23,7 @@ $scroll_animation_settings_fields = array(
         Field::create( 'text', 'selector' )->add_dependency('el','selector','=')->hide_label()->set_width( 50 )
     )),
 
-    Field::create( 'complex', 'start_at', __('Point where the animation begins','mv23theme') )->add_fields(array(
+    Field::create( 'complex', 'start', __('Point where the animation starts','mv23theme') )->add_fields(array(
         Field::create( 'select', 'hook', 'Trigger Point' )->add_options( array(
             'top bottom' => __('Bottom of viewport','mv23theme'),
             'top center' => __('Middle of viewport','mv23theme'),
@@ -36,29 +36,57 @@ $scroll_animation_settings_fields = array(
         Field::create( 'text', 'custom_hook' )->add_dependency('hook','custom')->hide_label()->set_width( 50 )
     )),
 
-    Field::create( 'complex', 'end_at', __('Distance the animation lasts','mv23theme') )->add_fields(array(
-        Field::create( 'text', 'basic' )->set_prefix('+=')->set_suffix('px / %')->hide_label()->add_dependency('customize',1,'!=')->set_width( 50 ),
-        Field::create( 'checkbox', 'customize' )->set_text( __('Customize','mv23theme') )->fancy()->hide_label()->set_width( 50 ),
-        Field::create( 'text', 'custom' )->add_dependency('customize')->hide_label()->set_width( 50 )
+    // complex for scrub
+    Field::create( 'complex', 'scrub', __('Scrub animation','mv23theme') )->add_fields(array(
+        Field::create( 'select', 'scrub_value' )->add_options( array(
+            '' => __('No scrub','mv23theme'),
+            'true' => __('Scrub linked to scroll progress','mv23theme'),
+            'custom' => __('Custom','mv23theme')
+        ))->hide_label()->set_width( 50 ),
+        Field::create( 'text', 'custom_value' )->add_dependency('scrub_value','custom')->hide_label()->set_width( 50 )
     )),
 
-    // advanced settings
-    Field::create( 'checkbox', 'set_advanced_settings' )
+    // end
+    Field::create( 'checkbox', 'set_end' )
         ->hide_label()
         ->set_attr( 'class', 'uf-separator-top' )
-        ->set_text( __('Advanced Settings','mv23theme') ),
+        ->set_text( __('Set End','mv23theme') ),
+    Field::create( 'complex', 'end', __('Point where the animation ends','mv23theme') )->add_fields(array(
+        Field::create( 'select', 'hook', 'Trigger Point' )->add_options( array(
+            'bottom top' => __('When the trigger element leaves the viewport','mv23theme'),
+            '+=300' => __('300px after the start point','mv23theme'),
+            '+=100%' => __('100% of the viewport after the start point','mv23theme'),
+            'custom' => __('Custom','mv23theme')
+        ))->hide_label(),
+        Field::create( 'text', 'Hint_1' )->add_dependency('hook','bottom top')->set_default_value( 'bottom top' )->hide_label()->set_width( 50 )->set_attr( 'style', $read_only_styles ),
+        Field::create( 'text', 'Hint_2' )->add_dependency('hook','+=300')->set_default_value( '+=300' )->hide_label()->set_width( 50 )->set_attr( 'style', $read_only_styles ),
+        Field::create( 'text', 'Hint_3' )->add_dependency('hook','+=100%')->set_default_value( '+=100%' )->hide_label()->set_width( 50 )->set_attr( 'style', $read_only_styles ),
+        Field::create( 'text', 'custom_hook' )->add_dependency('hook','custom')->hide_label()
+    ))->add_dependency('set_end'),
+
+    // toggle actions
+    Field::create( 'checkbox', 'set_toggle_actions' )
+        ->hide_label()
+        ->set_attr( 'class', 'uf-separator-top' )
+        ->set_text( __('Set Toggle Actions','mv23theme') ),
     Field::create( 'text', 'toggle_actions', 'toggleActions' )
         ->set_placeholder( 'play none none reverse' )
         ->set_description( 'onEnter, onLeave, onEnterBack, onLeaveBack' )
-        ->add_dependency('set_advanced_settings'),
+        ->add_dependency('set_toggle_actions'),
+
+    // toggle class
+    Field::create( 'checkbox', 'set_toggle_class' )
+        ->hide_label()
+        ->set_attr( 'class', 'uf-separator-top' )
+        ->set_text( __('Toggle a Class','mv23theme') ),
     Field::create( 'complex', 'toggle_class', __('Toggle Class','mv23theme') )->add_fields(array(
         Field::create( 'select', 'el' )->add_options( array(
-            'this' => __('Trigger Element','mv23theme'),
-            'selector' => __('Selector','mv23theme')
+            'this' => __('On the Trigger Element','mv23theme'),
+            'selector' => __('On a specific element','mv23theme')
         ))->hide_label()->set_width( 30 ),
         Field::create( 'text', 'selector' )->add_dependency('el','selector','=')->hide_label()->set_description('Targets')->set_width( 30 ),
         Field::create( 'text', 'classname' )->hide_label()->set_description('Class Name')->set_width( 30 ),
-    ))->add_dependency('set_advanced_settings'),
+    ))->hide_label()->add_dependency('set_toggle_class'),
 
     // pin settings
     Field::create( 'checkbox', 'set_pin' )
@@ -79,18 +107,28 @@ $scroll_animation_settings_fields = array(
         ->hide_label()
         ->set_attr( 'class', 'uf-separator-top' )
         ->set_text( __('Trigger Carrusel','mv23theme') ),
-    Field::create( 'checkbox', 'disable_on_mobile', __('Disable on mobile', 'mv23theme') )
+
+    // disable settings
+    Field::create( 'checkbox', 'disable_settings' )
         ->hide_label()
         ->set_attr( 'class', 'uf-separator-top' )
-        ->set_text( __('Disable on mobile', 'mv23theme') ),
-    Field::create( 'checkbox', 'disable_everywhere', __('Disable everywhere', 'mv23theme') )
+        ->set_text( __('Disable animation on certain devices','mv23theme') ),
+    Field::create( 'complex', 'disable_on' )->add_fields(array(
+        Field::create( 'checkbox', 'mobile', __('Disable on mobile', 'mv23theme') )
+            ->set_text( __('Mobile','mv23theme') )
+            ->hide_label()
+            ->set_width( 50 ),
+        Field::create( 'checkbox', 'desktop', __('Disable on desktop', 'mv23theme') )
+            ->set_text( __('Desktop','mv23theme') )
+            ->hide_label()
+            ->set_width( 50 )
+    ))->add_dependency('disable_settings'),
+
+    // markers
+    Field::create( 'checkbox', 'show_markers' )
         ->hide_label()
         ->set_attr( 'class', 'uf-separator-top' )
-        ->set_text( __('Disable everywhere', 'mv23theme') ),
-    Field::create( 'checkbox', 'add_indicators' )
-        ->hide_label()
-        ->set_attr( 'class', 'uf-separator-top' )
-        ->set_text( __('Show indicators','mv23theme') ),
+        ->set_text( __('Show markers','mv23theme') ),
 
     // initial rules settings
     Field::create( 'checkbox', 'set_initial_rules' )

@@ -2,6 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
+3.10.0 26-05-06
+- Migrates scroll_animations_settings in the datastore to the new field schema defined in the Scroll Animations container
+  -------------------------------------------------------------------------------------------------------------
+  !IMPORTANT: Use the migrator to update old scroll animations settings to the new schema
+  -------------------------------------------------------------------------------------------------------------
+
 3.9.13 26-05-06
 - Fix: Header Preview not showing on canvas due to double fixed positioning
 - Fix: Prevent Carousel::setCurrentSlideIndex() method from being added to the undo manager stack

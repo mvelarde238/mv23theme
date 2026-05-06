@@ -12,33 +12,44 @@ Class Scroll_Animations{
             foreach ($animations_settings['groups'] as $group) {
     
                 $settings = $group['settings'];
-                if( isset($settings['disable_everywhere']) && $settings['disable_everywhere'] == 1 ) continue;
-                if( IS_MOBILE && isset($settings['disable_on_mobile']) && $settings['disable_on_mobile'] == 1 ) continue;           
+                if( isset($settings['disable_settings']) && $settings['disable_settings'] ){
+                    $disable_on_desktop = isset($settings['disable_on']['desktop']) && $settings['disable_on']['desktop'];
+                    $disable_on_mobile  = isset($settings['disable_on']['mobile'])  && $settings['disable_on']['mobile'];
+                    if( $disable_on_desktop && !IS_MOBILE ) continue;
+                    if( $disable_on_mobile  && IS_MOBILE  ) continue;
+                }
     
                 $trigger_element = ($settings['trigger_element']['el'] == 'selector' ) ? $settings['trigger_element']['selector'] : 'this';
-                $start = ($settings['start_at']['hook'] != 'custom') ? $settings['start_at']['hook'] : $settings['start_at']['custom_hook'];
-                $add_indicators = (isset($settings['add_indicators'])) ? $settings['add_indicators'] : false;
+                $start = ($settings['start']['hook'] != 'custom') ? $settings['start']['hook'] : $settings['start']['custom_hook'];
+                $show_markers = isset($settings['show_markers']) ? $settings['show_markers'] : false;
                 $pin_settings = $settings['pin_settings'] ?? array( 'pinned_el' => 'trigger_el', 'selector' => '', 'push_followers' => 1 );
                 $trigger_carrusel = (isset($settings['trigger_carrusel'])) ? $settings['trigger_carrusel'] : false;
                 $set_pin = $settings['set_pin'] ?? false;
 
                 // toggle actions setting
-                $toggle_actions = 'play none none reverse';
-                if( isset($settings['set_advanced_settings']) && $settings['set_advanced_settings'] && $settings['toggle_actions'] ){
-                    $toggle_actions = $settings['toggle_actions'];
+                $set_toggle_actions = isset($settings['set_toggle_actions']) && $settings['set_toggle_actions'];
+                $toggle_actions = ($set_toggle_actions && !empty($settings['toggle_actions'])) ? $settings['toggle_actions'] : 'play none none reverse';
+
+                // scrub setting
+                $scrub_raw  = $settings['scrub'] ?? array( 'type' => '', 'custom_value' => '' );
+                $scrub_type = $scrub_raw['scrub_value'] ?? '';
+                if ( $scrub_type === 'true' ) {
+                    $scrub = true;
+                } elseif ( $scrub_type === 'custom' && isset( $scrub_raw['custom_value'] ) && $scrub_raw['custom_value'] !== '' ) {
+                    $scrub = (float) $scrub_raw['custom_value'];
+                } else {
+                    $scrub = false;
                 }
 
                 // end setting
                 $end = '';
-                if( isset($settings['end_at']['customize']) && $settings['end_at']['customize'] ){
-                    $end = $settings['end_at']['custom'];
-                } else {
-                    if( $settings['end_at']['basic'] ) $end = '+='.$settings['end_at']['basic'];
+                if( isset($settings['set_end']) && $settings['set_end'] ){
+                    $end = ($settings['end']['hook'] !== 'custom') ? $settings['end']['hook'] : $settings['end']['custom_hook'];
                 }
 
                 // toggle class setting
                 $toggle_class = '';
-                if( isset($settings['set_advanced_settings']) && $settings['set_advanced_settings'] ){
+                if( isset($settings['set_toggle_class']) && $settings['set_toggle_class'] ){
                     $toggle_class_key = $settings['toggle_class']['el'] ?? 'this';
                     $toggle_class_class = $settings['toggle_class']['classname'] ?? '';
                     if( $toggle_class_key == 'this' ){
@@ -87,11 +98,13 @@ Class Scroll_Animations{
                 }
                             
                 array_push($scroll_animations, array(
+                    'set_toggle_actions' => $set_toggle_actions,
                     'toggle_actions' => $toggle_actions,
                     'trigger_element' => $trigger_element,
                     'start' => $start,
                     'end' => $end,
-                    'add_indicators' => $add_indicators,
+                    'scrub' => $scrub,
+                    'show_markers' => $show_markers,
                     'set_pin' => $set_pin,
                     'pin_settings' => $pin_settings,
                     'trigger_carrusel' => $trigger_carrusel,

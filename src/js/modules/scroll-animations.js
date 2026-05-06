@@ -43,13 +43,12 @@
             var scrollTriggerOptions = {
                 trigger: triggerElement,
                 start: group['start'],
-                toggleActions: group['toggle_actions'],
-                scrub: false
+                scrub: group['scrub'] ?? false
             };
 
+            if( group['set_toggle_actions'] ) scrollTriggerOptions.toggleActions = group['toggle_actions'];
             if( group['end'] ) scrollTriggerOptions.end = group['end'];
-            if( group['end'] != '+=0' && group['end'] != '' ) scrollTriggerOptions.scrub = true;
-            if( group['add_indicators'] == '1') scrollTriggerOptions.markers = true; 
+            if( group['show_markers'] == '1') scrollTriggerOptions.markers = true; 
             if( group['toggle_class'] ) scrollTriggerOptions.toggleClass = group['toggle_class'];
 
             // pin settings

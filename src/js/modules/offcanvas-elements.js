@@ -326,7 +326,7 @@ window['OffCanvas_Elements'] = (function(){
             
             if( trigger_element.length ){
                 gsap.registerPlugin(ScrollTrigger);
-                const start = (gsap_settings.start_at.hook != 'custom') ? gsap_settings.start_at.hook : gsap_settings.start_at.custom_hook;
+                const start = (gsap_settings.start.hook != 'custom') ? gsap_settings.start.hook : gsap_settings.start.custom_hook;
                 const add_indicators = gsap_settings.add_indicators;
 
                 for (let i = 0; i < trigger_element.length; i++) {
