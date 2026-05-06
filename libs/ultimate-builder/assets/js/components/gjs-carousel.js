@@ -281,7 +281,7 @@ window.gjsCarousel = function (editor) {
                 return this.model.get('__currentSlide') || 0;
             },
             setCurrentSlideIndex(index) {
-                this.model.set('__currentSlide', index);
+                this.model.set('__currentSlide', index, { noUndo: true });
             },
             goToSlide(pageIndex) {
                 const carousel = this.model.findType('carousel')[0];
