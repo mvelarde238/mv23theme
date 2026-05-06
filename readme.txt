@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.9.13 26-05-06
+- Fix: Header Preview not showing on canvas due to double fixed positioning
+
 3.9.12 26-05-05
 - Color picker from `gjs-context-menu` now reuses the React `ColorPickerPopover` component
 - Make gradient UI handlers focusable for keyboard navigation
