@@ -231,6 +231,7 @@ window.gjsCarousel = function (editor) {
 
                 this.handle_datastore_data();
                 this.appendComponentActions(el);
+                this.showCurrentSlideIndex();
             },
             appendComponentActions(el){
                 const actionDiv = document.createElement("div");
@@ -251,6 +252,15 @@ window.gjsCarousel = function (editor) {
                 });
 
                 el.appendChild(actionDiv);
+            },
+            showCurrentSlideIndex() {
+                const btn = this.el.querySelector('.select-cmp-parent');
+                if (!btn) return;
+                const totalPages = this.getTotalPages();
+                const current = this.getCurrentSlideIndex();
+                const displayCurrent = (typeof current === 'number' && totalPages > 0) ? (current + 1) : 0;
+                const displayTotal = totalPages || 0;
+                btn.textContent = `C - ${displayCurrent}/${displayTotal}`;
             },
             events: {
                 'click .add-item-btn': 'addCarouselItem',
@@ -300,6 +310,7 @@ window.gjsCarousel = function (editor) {
                 this.scrollToItem(targetItem);
 
                 this.updateNavActive();
+                this.showCurrentSlideIndex();
             },
             updateNavActive() {
                 const navContainer = this.el.querySelector('.tns-nav');
@@ -341,6 +352,7 @@ window.gjsCarousel = function (editor) {
                     this.setCurrentSlideIndex(Math.max(0, totalPages - 1));
                 }
                 this.updateNavActive();
+                this.showCurrentSlideIndex();
             },
             scrollToItem(item, behavior = 'smooth') {
                 editor.select(this.model); // Ensure carousel is selected to avoid scroll issues
@@ -358,6 +370,7 @@ window.gjsCarousel = function (editor) {
                 const newItem = items.at(items.length - 1);
                 this.scrollToItem(newItem, 'instant');
                 editor.select(newItem); 
+                this.showCurrentSlideIndex();
             },
             removeLastItem(e){
                 const carousel = this.model.findType('carousel')[0];
@@ -371,6 +384,7 @@ window.gjsCarousel = function (editor) {
                         requestAnimationFrame(() => {
                             lastItem.getView().removeItem();
                             this.refreshNav();
+                            this.showCurrentSlideIndex();
                         });
                     });
                 }
