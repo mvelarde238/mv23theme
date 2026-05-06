@@ -255,8 +255,8 @@ class Carousel extends Component {
             $nav_position = $nav_settings['position'] ?? 'bottom';
     
             $autoplay_settings = $args['autoplay_settings'] ?? array();
-            $autoplay = $autoplay_settings['autoplay'] ?? 0;
-            $autoplay_timeout = $autoplay_settings['autoplay_timeout'] ?? 5000;
+            $autoplay = $autoplay_settings['active'] ?? 0;
+            $autoplay_timeout = $autoplay_settings['timeout'] ?? 5000;
             // $autoplay_hover_pause = $args['autoplay_hover_pause'] ?? 0;
             // $prevent_action = $args['prevent_action'] ?? 0;
             // $rewind = $args['rewind'] ?? 0;

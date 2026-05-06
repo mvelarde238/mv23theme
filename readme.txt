@@ -13,6 +13,7 @@ CHANGELOG
     as they are meant to be used as inner components and not as standalone templates
   - Read savable property from component model to conditionally render "Save as Template" button in context menu header
   - Implement savable property for image component to allow saving the component as template
+- Fix carousel autoplay settings  
 
 3.9.11 26-05-04
 - Full redesign of the color picker popover
