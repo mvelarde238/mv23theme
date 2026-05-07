@@ -44,29 +44,39 @@
         }
 
         // ****************************************************************************************************
-        // ****************************************************************************************************
-        // $('.cover-all').parent().css('position','relative');
-        // ****************************************************************************************************
-        // script for .content-layouts: ajustar el valor de gap en función del ancho de su contenedor
+        // Dynamic fix for .full-width to account for scrollbar width and mobile
         // ****************************************************************************************************
 
-        // function adjustGap() {
-        //     var $grid = $('.content-layout.layout-grid');
-        //     var parentWidth = $grid.parent().width();
-
-        //     if (parentWidth < 240) {
-        //         $grid.css('gap', '10px');
-        //     } else {
-        //         $grid.css('gap', '20px');
-        //     }
-        // }
-    
-        // adjustGap();
-    
-        // $(window).resize(function() {
-        //     adjustGap();
-        // });
-
-        // ****************************************************************************************************
+        (function(){
+            var fullWidthRaf = null;
+            function updateFullWidth() {
+                var vw = document.documentElement.clientWidth; // excludes scrollbar
+                var half = Math.round(vw / 2);
+                var els = document.querySelectorAll('.full-width');
+                els.forEach(function(el){
+                    // override problematic 100vw-based styles
+                    el.style.setProperty('width', vw + 'px', 'important');
+                    el.style.setProperty('max-width', vw + 'px', 'important');
+                    el.style.setProperty('left', '50%', 'important');
+                    el.style.setProperty('right', 'auto', 'important');
+                    el.style.setProperty('margin-left', -half + 'px', 'important');
+                    el.style.setProperty('margin-right', -half + 'px', 'important');
+                    // ensure left positioning works
+                    if (window.getComputedStyle(el).position === 'static') {
+                        el.style.setProperty('position', 'relative', 'important');
+                    }
+                });
+            }
+            function scheduleUpdate() {
+                if (fullWidthRaf) cancelAnimationFrame(fullWidthRaf);
+                fullWidthRaf = requestAnimationFrame(updateFullWidth);
+            }
+            // Run on load and resize/orientation change
+            window.addEventListener('load', scheduleUpdate);
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('orientationchange', scheduleUpdate);
+            // Initial run (DOM ready)
+            scheduleUpdate();
+        })();
     });
 })(jQuery,console.log);
