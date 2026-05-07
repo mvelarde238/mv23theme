@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.10.1 26-05-07
+- set noUndo option when changing the __temp_sticky_header_editing property
+
 3.10.0 26-05-06
 - Migrates scroll_animations_settings in the datastore to the new field schema defined in the Scroll Animations container
   -------------------------------------------------------------------------------------------------------------

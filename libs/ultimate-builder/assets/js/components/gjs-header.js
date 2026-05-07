@@ -216,11 +216,11 @@ window.gjsHeader = function (editor, options) {
             const isSticky = header.get('__temp_sticky_header_editing');
 
             if (scrollTop > breakpoint && !isSticky) {
-                header.set('__temp_sticky_header_editing', true);
+                header.set('__temp_sticky_header_editing', true, { noUndo: true });
                 switchSelectedComponentCssRule(header);
             }
             if (scrollTop <= breakpoint && isSticky) {
-                header.set('__temp_sticky_header_editing', false);
+                header.set('__temp_sticky_header_editing', false, { noUndo: true });
                 switchSelectedComponentCssRule(header);
             }
         });
