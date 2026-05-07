@@ -40,10 +40,17 @@
     	}
 
         function addAnimation(triggerElement,group){
+            // scrub setting
+            var scrub_raw = group['scrub'] ?? false;
+            var scrub = false;
+            if( scrub_raw === true || scrub_raw === 'true' ) scrub = true;
+            else if( !isNaN(scrub_raw) && scrub_raw !== '' && scrub_raw !== false ) scrub = parseFloat(scrub_raw);
+
+            // scroll trigger settings
             var scrollTriggerOptions = {
                 trigger: triggerElement,
                 start: group['start'],
-                scrub: group['scrub'] ?? false
+                scrub: scrub
             };
 
             if( group['set_toggle_actions'] ) scrollTriggerOptions.toggleActions = group['toggle_actions'];

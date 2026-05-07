@@ -21,6 +21,22 @@ class Properties
                 'bottom right' => 'Bottom Right',
                 '50% 50%' => '50% 50%'
                 ]],
+            [ 'key' => 'backgroundPositionX', 'label' => 'Background Position X', 'type' => 'select', 'options' => [
+                'left' => 'Left',
+                'center' => 'Center',
+                'right' => 'Right',
+                '0%' => '0%',
+                '50%' => '50%',
+                '100%' => '100%',
+            ]],
+            [ 'key' => 'backgroundPositionY', 'label' => 'Background Position Y', 'type' => 'select', 'options' => [
+                'top' => 'Top',
+                'center' => 'Center',
+                'bottom' => 'Bottom',
+                '0%' => '0%',
+                '50%' => '50%',
+                '100%' => '100%',
+            ]],
             ['key' => 'border', 'label' => 'Border', 'type' => 'select', 'options' => [
                 '0' => '0',
                 '1px solid #000' => '1px solid #000',
@@ -52,7 +68,7 @@ class Properties
             ['key' => 'delay', 'label' => 'Delay (seconds)', 'type' => 'number', 'enable_slider' => true, 'min' => 0, 'max' => 10, 'step' => 0.1],
             ['key' => 'duration', 'label' => 'Duration (seconds)', 'type' => 'number', 'enable_slider' => true, 'min' => 0, 'max' => 10, 'step' => 0.1],
             ['key' => 'ease', 'label' => 'Ease', 'type' => 'select', 'options' => self::get_default_ease_options()],
-            ['key' => 'filter', 'label' => 'Filter', 'type' => 'selct', 'options' => [
+            ['key' => 'filter', 'label' => 'Filter', 'type' => 'select', 'options' => [
                 'contrast(200%)' => 'Contrast 200%',
                 'blur(5px)' => 'Blur 5px',
                 'brightness(0.5)' => 'Brightness 50%',

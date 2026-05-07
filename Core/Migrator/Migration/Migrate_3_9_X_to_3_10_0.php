@@ -102,7 +102,7 @@ class Migrate_3_9_X_to_3_10_0 extends Migrate_Components_Settings_v3 {
         $end_at    = isset( $settings['end_at'] ) ? $settings['end_at'] : array( 'basic' => '', 'customize' => false, 'custom' => '' );
         $end_value = '';
         if ( ! empty( $end_at['basic'] ) ) {
-            $end_value = '+=' . $end_at['basic'];
+            $end_value = $end_at['basic'];
         } elseif ( ! empty( $end_at['customize'] ) && ! empty( $end_at['custom'] ) ) {
             $end_value = $end_at['custom'];
         }

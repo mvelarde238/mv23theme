@@ -163,7 +163,9 @@ array_push($scroll_animation_fields, Field::create( 'repeater', 'groups' )
     ->add_group('group1', array(
         'title' => 'Scroll Animation',
         'edit_mode' => 'popup',
-        'title_template' => '<%= settings["animation_name"] %> <% if(settings["disable_everywhere"] == 1){ %> <span style="color:red;font-weight:bold;">(disabled)</span> <% } %>',
+        'title_template' => '<%= settings["animation_name"] %> <% if(settings["disable_settings"] == 1 && settings["disable_on"]["mobile"] && settings["disable_on"]["desktop"]){ %> 
+            <span style="color:red;font-weight:bold;">(disabled)</span> <% } 
+            %>',
         'fields' => array(
             Field::create( 'complex', 'settings' )->add_fields( $scroll_animation_settings_fields )
                 ->hide_label()->rows_layout()
