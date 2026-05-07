@@ -51,20 +51,22 @@
             var fullWidthRaf = null;
             function updateFullWidth() {
                 var vw = document.documentElement.clientWidth; // excludes scrollbar
-                var half = Math.round(vw / 2);
                 var els = document.querySelectorAll('.full-width');
                 els.forEach(function(el){
-                    // override problematic 100vw-based styles
+                    // Phase 1: reset to natural flow position so getBoundingClientRect
+                    // always reflects the element's real offset, not a previous run's value
+                    el.style.setProperty('position', 'relative', 'important');
+                    el.style.setProperty('left', '0', 'important');
+                    el.style.setProperty('right', 'auto', 'important');
+                    el.style.setProperty('margin-left', '0', 'important');
+                    el.style.setProperty('margin-right', '0', 'important');
                     el.style.setProperty('width', vw + 'px', 'important');
                     el.style.setProperty('max-width', vw + 'px', 'important');
-                    el.style.setProperty('left', '50%', 'important');
-                    el.style.setProperty('right', 'auto', 'important');
-                    el.style.setProperty('margin-left', -half + 'px', 'important');
-                    el.style.setProperty('margin-right', -half + 'px', 'important');
-                    // ensure left positioning works
-                    if (window.getComputedStyle(el).position === 'static') {
-                        el.style.setProperty('position', 'relative', 'important');
-                    }
+                    // Phase 2: force reflow, then measure natural left offset from viewport
+                    void el.offsetWidth;
+                    var naturalLeft = el.getBoundingClientRect().left;
+                    // Phase 3: shift element so its left edge aligns exactly with viewport left
+                    el.style.setProperty('left', -naturalLeft + 'px', 'important');
                 });
             }
             function scheduleUpdate() {
