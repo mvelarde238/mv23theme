@@ -101,6 +101,7 @@ class Post_Condition extends Rule {
 			->required()
 			->set_input_type( 'radio' )
 			->add_options( static::get_conditions() )
+			->set_default_value( 'is_front_page' )
 			->set_description( __( 'Note: conditions related to post navigation (Has next/previous post) only work reliably on singular post views.', 'mv23theme' ) );
 
 		$fields[] = Field::create( 'select', 'operator', __( 'Expected result', 'mv23theme' ) )
@@ -109,7 +110,8 @@ class Post_Condition extends Rule {
 			->add_options( array(
 				'is_true'  => __( 'Is true', 'mv23theme' ),
 				'is_false' => __( 'Is false', 'mv23theme' ),
-			) );
+			) )
+			->set_default_value( 'is_true' );
 
 		return $fields;
 	}
@@ -165,12 +167,12 @@ class Post_Condition extends Rule {
 	}
 
 	/**
-	 * Returns the result of rule checking.
+	 * Evaluates whether the rule's conditions are met for the current context.
 	 *
-	 * @param array $rule_data
-	 * @return bool
+	 * @param  array $rule_data The saved field values for this rule instance.
+	 * @return bool True if conditions are met (element visible), false otherwise.
 	 */
-	public static function check_rules( $rule_data ) {
+	public static function matches( $rule_data ) {
 		$restrictions_check_in = array();
 
 		$condition = isset( $rule_data['condition'] ) ? $rule_data['condition'] : '';
@@ -183,19 +185,21 @@ class Post_Condition extends Rule {
 		$post_id = get_the_ID();
 		$result  = static::evaluate_condition( $condition, $post_id );
 
-		// Unknown condition (no filter hooked for custom slug) — don't restrict.
+		// Unknown condition (no filter hooked for custom slug) — show element.
 		if ( is_null( $result ) ) {
-			return false;
+			return true;
 		}
+
+		$visibility_check = array();
 
 		if ( $operator === 'is_true' ) {
-			$restrictions_check_in[] = ! $result;
+			$visibility_check[] = $result;
 		} else {
-			$restrictions_check_in[] = $result;
+			$visibility_check[] = ! $result;
 		}
 
-		// if all items in $restrictions_check_in are true [true, true, ...] is restricted
-		$is_restricted = ( ! empty( $restrictions_check_in ) ) ? ! in_array( false, $restrictions_check_in, true ) : false;
-		return $is_restricted;
+		// true = visible: all checks must pass
+		$matches = ( ! empty( $visibility_check ) ) ? ! in_array( false, $visibility_check, true ) : true;
+		return $matches;
 	}
 }

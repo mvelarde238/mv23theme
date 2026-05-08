@@ -75,11 +75,12 @@ class Post_Meta extends Rule {
 	}
 
 	/**
-	 * Returns the result of rule checking.
+	 * Evaluates whether the rule's conditions are met for the current context.
 	 *
-	 * @return bool
+	 * @param  array $rule_data The saved field values for this rule instance.
+	 * @return bool True if conditions are met (element visible), false otherwise.
 	 */
-	public static function check_rules( $rule_data ) {
+	public static function matches( $rule_data ) {
 		$restrictions_check_in = array();
 
 		$meta_key   = isset( $rule_data['meta_key'] ) ? $rule_data['meta_key'] : '';
@@ -87,38 +88,39 @@ class Post_Meta extends Rule {
 		$meta_value = isset( $rule_data['meta_value'] ) ? $rule_data['meta_value'] : '';
 
 		if ( empty( $meta_key ) ) {
-			return false;
+			return true;
 		}
 
 		$current_post_id = get_the_ID();
 		$meta            = get_post_meta( $current_post_id, $meta_key, true );
+		$visibility_check = array();
 
 		switch ( $operator ) {
 			case 'exists':
-				$restrictions_check_in[] = ( $meta === '' || $meta === false );
+				$visibility_check[] = ( $meta !== '' && $meta !== false );
 				break;
 			case 'not_exists':
-				$restrictions_check_in[] = ( $meta !== '' && $meta !== false );
+				$visibility_check[] = ( $meta === '' || $meta === false );
 				break;
 			case 'equals':
-				$restrictions_check_in[] = ( (string) $meta !== (string) $meta_value );
+				$visibility_check[] = ( (string) $meta === (string) $meta_value );
 				break;
 			case 'not_equals':
-				$restrictions_check_in[] = ( (string) $meta === (string) $meta_value );
+				$visibility_check[] = ( (string) $meta !== (string) $meta_value );
 				break;
 			case 'contains':
-				$restrictions_check_in[] = ( strpos( (string) $meta, $meta_value ) === false );
+				$visibility_check[] = ( strpos( (string) $meta, $meta_value ) !== false );
 				break;
 			case 'greater_than':
-				$restrictions_check_in[] = ( floatval( $meta ) <= floatval( $meta_value ) );
+				$visibility_check[] = ( floatval( $meta ) > floatval( $meta_value ) );
 				break;
 			case 'less_than':
-				$restrictions_check_in[] = ( floatval( $meta ) >= floatval( $meta_value ) );
+				$visibility_check[] = ( floatval( $meta ) < floatval( $meta_value ) );
 				break;
 		}
 
-		// if all items in $restrictions_check_in are true [true, true, ...] is restricted
-		$is_restricted = ( ! empty( $restrictions_check_in ) ) ? ! in_array( false, $restrictions_check_in, true ) : false;
-		return $is_restricted;
+		// true = visible: all checks must pass
+		$matches = ( ! empty( $visibility_check ) ) ? ! in_array( false, $visibility_check, true ) : true;
+		return $matches;
 	}
 }

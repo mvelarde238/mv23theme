@@ -58,9 +58,10 @@ class User extends Rule {
 
 		$fields[] = Field::create( 'radio', 'restriction_type', __( 'Restriction type', 'mv23theme' ) )
 			->add_options(array(
+				'status' => __( 'Show the element based on user status', 'mv23theme' ),
 			    'role'     => __( 'Show the element based on a particular role', 'mv23theme' ),
-				'status' => __( 'Show the element based on user status', 'mv23theme' )
-			));
+			))
+			->set_default_value( 'status' );
 
 		$fields[] = Field::create( 'multiselect', 'roles', __( 'Roles', 'mv23theme' ) )
 			->required()
@@ -76,18 +77,20 @@ class User extends Rule {
 				'logged_out' => __( 'Logged out', 'mv23theme' ),
 			) )
 			->set_description( __( 'Select the user status, which should have access to this element.', 'mv23theme' ) )
+			->set_default_value( 'logged_in' )
 			->add_dependency( 'restriction_type', 'status' );
 
 		return $fields;
 	}
 
 	/**
-	 * Returns the result of rule checking.
+	 * Evaluates whether the rule's conditions are met for the current context.
 	 *
-	 * @return bool
+	 * @param  array $rule_data The saved field values for this rule instance.
+	 * @return bool True if conditions are met (element visible), false otherwise.
 	 */
-	public static function check_rules( $rule_data ) {
-		$restrictions_check_in = array();
+	public static function matches( $rule_data ) {
+		$visibility_check = array();
 
 		if( $rule_data['restriction_type'] === 'role' ){
 			$roles = $rule_data['roles'];
@@ -100,7 +103,7 @@ class User extends Rule {
 				$user_role = 'visitor';
 			}
 
-			$restrictions_check_in[] = !in_array( $user_role, $roles );
+			$visibility_check[] = in_array( $user_role, $roles );
 		}
 
 		if( $rule_data['restriction_type'] === 'status' ){
@@ -108,14 +111,14 @@ class User extends Rule {
 			$is_logged_in = is_user_logged_in();
 
 			if( $status === 'logged_in' ){
-				$restrictions_check_in[] = !$is_logged_in;
+				$visibility_check[] = $is_logged_in;
 			} elseif( $status === 'logged_out' ){
-				$restrictions_check_in[] = $is_logged_in;
+				$visibility_check[] = !$is_logged_in;
 			}
 		}
 
-		// if all items in $restrictions_check_in are true [true, true, ...] is restricted
-        $is_restricted = ( !empty($restrictions_check_in) ) ? !in_array(false, $restrictions_check_in, true) : false;
-		return $is_restricted;
+		// true = visible: all checks must pass
+		$matches = ( !empty($visibility_check) ) ? !in_array(false, $visibility_check, true) : true;
+		return $matches;
 	}
 }

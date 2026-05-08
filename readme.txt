@@ -7,6 +7,7 @@ CHANGELOG
 - new class to handle the conditional rendering of components based on different rules and conditions defined by the user, 
   allowing to create dynamic and personalized content that adapts to different contexts and user interactions
 - Template_Engine::is_private() method renamed to is_restricted()
+- rule_operator added to visibility settings to allow users to choose between "all" or "any" rules to hide the element
   -------------------------------------------------------------------------------------------------------------
   !IMPORTANT: Use the migrator to update old visibility settings to the new conditional rendering rules system
   -------------------------------------------------------------------------------------------------------------

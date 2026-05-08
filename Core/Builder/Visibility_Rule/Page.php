@@ -215,20 +215,22 @@ class Page extends Rule {
 	}
 
 	/**
-	 * Returns the result of rule checking.
+	 * Evaluates whether the rule's conditions are met for the current context.
 	 *
-	 * @return bool
+	 * @param  array $rule_data The saved field values for this rule instance.
+	 * @return bool True if conditions are met (element visible), false otherwise.
 	 */
-	public static function check_rules( $rule_data ) {
+	public static function matches( $rule_data ) {
 		$current_post_id = get_the_ID();
-		
+		$visibility_check = array();
+
 		if( $rule_data['restriction_type'] === 'post' ){
 			$item = $rule_data['item'];
 			$item_post = $item['post'];
 			if($item_post){
 				$evaluate_operator = [
-					'is' => function($a, $b) { return $a != $b; },
-					'is_not' => function($a, $b) { return $a == $b; }
+					'is'     => function($a, $b) { return $a == $b; },
+					'is_not' => function($a, $b) { return $a != $b; }
 				];
 
 				$item_post_id = str_replace('post_','',$item_post);
@@ -236,21 +238,21 @@ class Page extends Rule {
 
 				$item_operator = $item['operator'];
 				if ( isset($evaluate_operator[$item_operator]) ) {
-					$restrictions_check_in[] = $evaluate_operator[$item_operator]( $current_post_id, $item_post_id );
+					$visibility_check[] = $evaluate_operator[$item_operator]( $current_post_id, $item_post_id );
 				}
 			}
 		}
 
 		if( $rule_data['restriction_type'] === 'posttype' ){
-			$is_restricted_in_posttype = array();
-			$is_restricted_in_term = array();
-			$is_restricted_in_template = array();
+			$posttype_matches  = array();
+			$term_matches      = array();
+			$template_matches  = array();
 
 			// check posttype
 			if( !empty($rule_data['post_types']) ){
 				$current_post_type = get_post_type($current_post_id);
 				foreach ($rule_data['post_types'] as $posttype) {
-					$is_restricted_in_posttype[] = ( $current_post_type != $posttype );
+					$posttype_matches[] = ( $current_post_type === $posttype );
 				}
 			}
 
@@ -260,31 +262,31 @@ class Page extends Rule {
 					if( ! isset( $rule_data[ $tax_slug ] ) ) {
 						continue;
 					}
-	
+
 					if( ! empty( $rule_data[ $tax_slug ][ 'visible' ] ) ){
 						$current_terms_obj_list = get_the_terms($current_post_id, $tax_slug);
 						$current_terms_ids = wp_list_pluck($current_terms_obj_list, 'term_id');
-						
+
 						foreach( $rule_data[ $tax_slug ][ 'visible' ] as $term ){
 							$show_in_this_term = intval( str_replace( 'term_', '', $term ) );
-							$is_restricted_in_term[] = !in_array( $show_in_this_term, $current_terms_ids );
+							$term_matches[] = in_array( $show_in_this_term, $current_terms_ids );
 						}
-					} 
-	
+					}
+
 					if( ! empty( $rule_data[ $tax_slug ][ 'hidden' ] ) ){
 						$current_terms_obj_list = get_the_terms($current_post_id, $tax_slug);
 						$current_terms_ids = wp_list_pluck($current_terms_obj_list, 'term_id');
-						
+
 						foreach( $rule_data[ $tax_slug ][ 'hidden' ] as $term ){
 							$hide_in_this_term = intval( str_replace( 'term_', '', $term ) );
-							$is_restricted_in_term[] = in_array( $hide_in_this_term, $current_terms_ids );
+							$term_matches[] = !in_array( $hide_in_this_term, $current_terms_ids );
 						}
-					} 
+					}
 				}
 			}
 
 			// check templates
-			if( 
+			if(
 				in_array( 'page', $rule_data['post_types'] ) &&
 				( !empty($rule_data['templates']['visible']) || !empty($rule_data['templates']['hidden']) )
 			){
@@ -293,29 +295,31 @@ class Page extends Rule {
 				if( ! empty( $rule_data[ 'templates' ][ 'visible' ] ) ){
 					foreach( $rule_data[ 'templates' ][ 'visible' ] as $template ){
 						$show_in_this_template = str_replace( 'templates/', '', $template );
-						$is_restricted_in_template[] = ( $show_in_this_template != $current_template );
+						$template_matches[] = ( $show_in_this_template === $current_template );
 					}
 				}
-				
+
 				if( ! empty( $rule_data[ 'templates' ][ 'hidden' ] ) ){
 					foreach( $rule_data[ 'templates' ][ 'hidden' ] as $template ){
 						$hide_in_this_template = str_replace( 'templates/', '', $template );
-						$is_restricted_in_template[] = ( $hide_in_this_template == $current_template );
+						$template_matches[] = ( $hide_in_this_template !== $current_template );
 					}
 				}
 			}
 
-			if( !empty($is_restricted_in_term) ){
-				$restrictions_check_in[] = !in_array(false, $is_restricted_in_term, true);	
-			} else if( !empty($is_restricted_in_template) ){
-				$restrictions_check_in[] = !in_array(false, $is_restricted_in_template, true);
+			// Priority: terms > templates > posttype
+			// visible if at least one entry in the sub-group passes (OR within sub-group)
+			if( !empty($term_matches) ){
+				$visibility_check[] = in_array(true, $term_matches, true);
+			} elseif( !empty($template_matches) ){
+				$visibility_check[] = in_array(true, $template_matches, true);
 			} else {
-				$restrictions_check_in[] = !in_array(false, $is_restricted_in_posttype, true);
+				$visibility_check[] = in_array(true, $posttype_matches, true);
 			}
 		}
 
-		// if all items in $restrictions_check_in are true [true, true, ...] is restricted
-        $is_restricted = ( !empty($restrictions_check_in) ) ? !in_array(false, $restrictions_check_in, true) : false;
-		return $is_restricted;
+		// true = visible: all checks must pass
+		$matches = ( !empty($visibility_check) ) ? !in_array(false, $visibility_check, true) : true;
+		return $matches;
 	}
 }

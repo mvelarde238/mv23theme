@@ -65,20 +65,22 @@ class Device extends Rule {
 	}
 
 	/**
-	 * Returns the result of rule checking.
+	 * Evaluates whether the rule's conditions are met for the current context.
 	 *
-	 * @return bool
+	 * @param  array $rule_data The saved field values for this rule instance.
+	 * @return bool True if conditions are met (element visible), false otherwise.
 	 */
-	public static function check_rules( $rule_data ) {
-		if( $rule_data['restriction_type'] === 'devices' ){
+	public static function matches( $rule_data ) {
+		$visibility_check = array();
 
+		if( $rule_data['restriction_type'] === 'devices' ){
 			$devices = $rule_data['devices'];
 			$current_device = ( wp_is_mobile() ) ? 'mobile' : 'desktop';
-			$restrictions_check_in[] = !in_array( $current_device, $devices );
+			$visibility_check[] = in_array( $current_device, $devices );
 		}
 
-		// if all items in $restrictions_check_in are true [true, true, ...] is restricted
-        $is_restricted = ( !empty($restrictions_check_in) ) ? !in_array(false, $restrictions_check_in, true) : false;
-		return $is_restricted;
+		// true = visible: all checks must pass
+		$matches = ( !empty($visibility_check) ) ? !in_array(false, $visibility_check, true) : true;
+		return $matches;
 	}
 }

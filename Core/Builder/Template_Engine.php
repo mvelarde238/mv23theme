@@ -182,8 +182,8 @@ class Template_Engine{
 	    // if ($visibility == 'user_is_logged_in' && !is_user_logged_in()) $is_restricted = true;
 	    // if ($visibility == 'user_is_not_logged_in' && is_user_logged_in()) $is_restricted = true;
 
-        $visibility_rules = $args['visibility_settings']['rules'] ?? array();
-        $is_restricted_by_rules = Conditional_Rendering::instance()->check_the_visibility_rules( $visibility_rules );
+        $visibility_settings = $args['visibility_settings'] ?? array();
+        $is_restricted_by_rules = Conditional_Rendering::instance()->should_hide_element( $visibility_settings );
         if( $is_restricted_by_rules ) $is_restricted = true;
     
         return $is_restricted;

@@ -90,30 +90,33 @@ class Plugin extends Rule {
 	}
 
 	/**
-	 * Returns the result of rule checking.
+	 * Evaluates whether the rule's conditions are met for the current context.
 	 *
-	 * @return bool
+	 * @param  array $rule_data The saved field values for this rule instance.
+	 * @return bool True if conditions are met (element visible), false otherwise.
 	 */
-	public static function check_rules( $rule_data ) {
+	public static function matches( $rule_data ) {
+		$visibility_check = array();
+
 		if( $rule_data['restriction_type'] === 'plugin' ){
 			$item = $rule_data['item'];
 			$item_plugin = $item['plugin'];
 			if($item_plugin){
 				$evaluate_operator = [
-					'is_active' => function( $plugin_slug ) { return !self::plugin_is_active( $plugin_slug ); },
-					'is_not_active' => function( $plugin_slug ) { return self::plugin_is_active( $plugin_slug ); }
+					'is_active'     => function( $plugin_slug ) { return self::plugin_is_active( $plugin_slug ); },
+					'is_not_active' => function( $plugin_slug ) { return !self::plugin_is_active( $plugin_slug ); }
 				];
 
 				$item_operator = $item['operator'];
 				if ( isset($evaluate_operator[$item_operator]) ) {
-					$restrictions_check_in[] = $evaluate_operator[$item_operator]( $item_plugin );
+					$visibility_check[] = $evaluate_operator[$item_operator]( $item_plugin );
 				}
 			}
 		}
 
-        // if all items in $restrictions_check_in are true [true, true, ...] is restricted
-        $is_restricted = ( !empty($restrictions_check_in) ) ? !in_array(false, $restrictions_check_in, true) : false;
-        return $is_restricted;
+		// true = visible: all checks must pass
+		$matches = ( !empty($visibility_check) ) ? !in_array(false, $visibility_check, true) : true;
+		return $matches;
 	}
 
     /**

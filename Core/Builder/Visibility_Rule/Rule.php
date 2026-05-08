@@ -43,12 +43,16 @@ abstract class Rule {
 	}
 
 	/**
-	 * Returns the result of rules checking.
+	 * Evaluates whether the current rule's conditions are met for the current context.
 	 *
+	 * Return true  → conditions ARE met → element should be visible.
+	 * Return false → conditions are NOT met → element should be hidden.
+	 *
+	 * @param  array $rule_data The saved field values for this rule instance.
 	 * @return bool
 	 */
-	/* abstract */ public static function check_rules( $rule_data ) {
-		return false;
+	/* abstract */ public static function matches( $rule_data ) {
+		return true;
 	}
 
 	/**

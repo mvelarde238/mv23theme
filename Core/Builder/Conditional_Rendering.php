@@ -56,7 +56,6 @@ class Conditional_Rendering {
 			\Core\Builder\Visibility_Rule\Plugin::class,
 			\Core\Builder\Visibility_Rule\Post_Meta::class,
 			\Core\Builder\Visibility_Rule\Post_Condition::class,
-			// \Core\Builder\Visibility_Rule\Browser::class,
 		);
 	}
 
@@ -64,43 +63,57 @@ class Conditional_Rendering {
         return self::instance()->repeater_field;
     }
 
-	public function check_the_visibility_rules( $visibility_rules = array() ){
-        $is_restricted = false;
+	public function should_hide_element( $visibility_settings ) {
+		$visibility_rules    = $visibility_settings['rules'] ?? array();
+        $rule_operator       = $visibility_settings['rule_operator'] ?? 'all';
 
-        $all_restrictions = array();
+        $all_rule_results = array();
 
         if( is_array($visibility_rules) && count($visibility_rules) > 0 ){
 
-            $restrictions_classes_map = array();
+            $rule_class_map = array();
             $rules_classes = $this->get_visibility_rules_classes();
 		    foreach( $rules_classes as $class_name ) {
                 $type = $class_name::get_type();
-			    $restrictions_classes_map[$type] = $class_name;
-                $all_restrictions[$type] = array();
+			    $rule_class_map[$type] = $class_name;
+                $all_rule_results[$type] = array();
 		    }
 
             foreach ($visibility_rules as $rule) {
                 $type = $rule['__type'];
-                $all_restrictions[$type][] = array(
-                    'type' => $type,
-                    'is_restricted' => $restrictions_classes_map[$type]::check_rules( $rule )
+                $all_rule_results[$type][] = array(
+                    'type'    => $type,
+                    'matches' => $rule_class_map[$type]::matches( $rule )
                 );
             }
         } else {
-            // there are no restrictions
-            $all_restrictions['none'] = array( array( 'type' => 'none', 'is_restricted' => false ) );
+            // No rules configured — always visible
+            return false;
         }
 
-        $restrictions_check_in = array();
-        foreach ($all_restrictions as $restrictions_by_type) {
-            if( !empty($restrictions_by_type) ){
-                $is_restricted_in_type = !in_array( false, array_column( $restrictions_by_type, 'is_restricted' ), true );
-                $restrictions_check_in[] = $is_restricted_in_type;
+        // Collapse each type-group to a single bool using the selected operator
+        $type_group_results = array();
+        foreach ($all_rule_results as $type => $type_rules) {
+            if( !empty($type_rules) ){
+                $match_column = array_column( $type_rules, 'matches' );
+                if ( $rule_operator === 'any' ) {
+                    // ANY: type-group passes if at least one rule in it matches
+                    $type_group_results[] = in_array( true, $match_column, true );
+                } else {
+                    // ALL: type-group passes only if every rule in it matches
+                    $type_group_results[] = !in_array( false, $match_column, true );
+                }
             }
         }
 
-        $is_restricted = in_array( true, $restrictions_check_in, true );
+        if ( $rule_operator === 'any' ) {
+            // ANY inter-type: visible if at least one type-group passes → hide only if none pass
+            $should_show = in_array( true, $type_group_results, true );
+        } else {
+            // ALL inter-type: visible only if every type-group passes → hide if any fails
+            $should_show = !in_array( false, $type_group_results, true );
+        }
 
-        return $is_restricted;
+        return !$should_show;
     }
 }
