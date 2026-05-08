@@ -28,8 +28,8 @@ Class Classes{
             $classes = array_merge( $classes, explode(' ', $args['settings']['classes']) );
         } 
 
-        if (isset($args['settings']['helpers']) && !empty($args['settings']['helpers']['list']) ){
-            $classes = array_merge($classes, $args['settings']['helpers']['list']);
+        if( isset($args['settings']['utility_classes']) && is_array($args['settings']['utility_classes']) && !empty($args['settings']['utility_classes']) ){
+            $classes = array_merge( $classes, $args['settings']['utility_classes'] );
         }
 
         if (isset($args['settings']['color_scheme']) && !empty($args['settings']['color_scheme']['key']) ){
@@ -41,10 +41,7 @@ Class Classes{
             if( isset($responsive['desktop']) && $responsive['desktop'] ) $classes[] = 'hide-on-large-only';
             if( isset($responsive['tablet']) && $responsive['tablet'] ) $classes[] = 'hide-on-med-only';
             if( isset($responsive['mobile']) && $responsive['mobile'] ) $classes[] = 'hide-on-small-only';
-        } 
-        
-        $color_scheme = self::get_color_scheme( $args );
-        if ( $color_scheme ) $classes[] = $color_scheme;
+        }
 
         // Remove duplicate/empty classes and preserve order
         $classes = self::remove_duplicate_classes( $classes );
@@ -72,28 +69,5 @@ Class Classes{
         }
 
         return $unique;
-    }
-
-    /**
-     * Return color scheme string
-     */
-    public static function get_color_scheme($args){
-        $color_scheme = ( isset($args['settings']['font_color']) ) ? $args['settings']['font_color']['color_scheme'] : '';
-    
-        switch ($color_scheme) {
-            case 'dark_scheme':
-                $text_color = 'dark-mode';
-                break;
-            
-            case 'default_scheme':
-                $text_color = 'light-mode';
-                break;
-    
-            default:
-                $text_color = null;
-                break;
-        }
-    
-        return $text_color;
     }
 }

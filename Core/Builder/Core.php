@@ -161,6 +161,10 @@ class Core{
             $container_id = $container->get_id(); 
 			if( in_array( str_replace('_container', '', $container_id), self::$popup_containers) ) {
 				$popup_containers[$container_id] = $container->export_fields_settings();
+				// Enqueue scripts for all fields inside each popup container so that
+				// field-type-specific scripts (e.g. uf-field-date, uf-field-time) are
+				// available when the popup renders its fields in JS.
+				$container->enqueue_scripts();
 			}
 		}
 		wp_localize_script( 'uf-field-common-settings-control', 'POPUP_CONTAINERS', $popup_containers);

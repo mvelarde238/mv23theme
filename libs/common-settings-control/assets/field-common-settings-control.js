@@ -242,13 +242,10 @@
             	            if( !entry[1].tablet ) delete raw_data.hide_on.tablet;
             	            if( !entry[1].mobile ) delete raw_data.hide_on.mobile;
 						}
-            	    // } else if (entry[0] == 'other_settings' ){ // ???
-            	    //    if( entry[1].visibility == 'all' && entry[1].layout == 'layout1' ){
-            	    //        delete raw_data.other_settings;
-            	    //    } else {
-            	    //         if( entry[1].visibility == 'all' ) delete raw_data.other_settings.visibility;
-            	    //         if( entry[1].layout == 'layout1' ) delete raw_data.other_settings.layout;
-            	    //    }
+            	    } else if (entry[0] == 'utility_classes' ){
+						if( entry[1].length == 0 ){
+				            delete raw_data.utility_classes;
+				        }
 					} else {
             	        if( _.isObject(entry[1]) && (!entry[1].hasOwnProperty('use' ) || entry[1].use == false) ){
 							delete raw_data[ entry[0] ];

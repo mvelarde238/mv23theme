@@ -3,7 +3,6 @@ namespace Core\Builder\Component;
 
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
-use Core\Builder\Template_Engine;
 
 class Offcanvas_Element extends Component {
 
@@ -13,7 +12,8 @@ class Offcanvas_Element extends Component {
 			__( 'Offcanvas Element', 'mv23theme' ),
 			array(
 				'common_settings' => array(
-					'settings'
+					'settings',
+					'visibility_settings',
 				),
 			)
 		);

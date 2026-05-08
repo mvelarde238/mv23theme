@@ -2,7 +2,6 @@
 namespace Core\Builder\Component;
 
 use Core\Builder\Component;
-use Core\Builder\Template_Engine;
 use Ultimate_Fields\Field;
 use Core\Theme_Options\Fields\Global_Settings;
 use Core\Theme_Options\Fields\Colors;

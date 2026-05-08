@@ -21,7 +21,7 @@
 	"use strict";
 
 	var instances = [],
-		version = '10.1.0',
+		version = '10.1.1',
 		timers = {};
 
 	/**
@@ -196,7 +196,7 @@
 							_addClass(item, 'active');	
 						}
 
-						this._maybe_scroll_to_target();
+						this._maybe_scroll_to_target(btn, item);
 						this._handle_hash_in_url(btn.dataset.boxid);
 						
 						// Refresh ScrollTrigger breakpoints
@@ -337,7 +337,7 @@
 				}, timeToWaitForLast, id);
 			}, true);
 		},
-		_maybe_scroll_to_target(){
+		_maybe_scroll_to_target(btn, item){
 			const currentBreakpoint = this._get_current_breakpoint();
 			var breakpointScrollTarget = '';
 			if(this.options && this.options.breakpoints && this.options.breakpoints[currentBreakpoint]){

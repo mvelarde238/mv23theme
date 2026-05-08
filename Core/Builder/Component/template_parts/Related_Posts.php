@@ -2,7 +2,6 @@
 namespace Core\Builder\Component;
 
 use Core\Builder\Component;
-use Core\Builder\Template_Engine;
 use Ultimate_Fields\Field;
 use Core\Builder\Component\Listing;
 use Core\Theme_Options\Theme_Options;

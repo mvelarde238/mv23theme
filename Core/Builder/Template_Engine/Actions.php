@@ -28,7 +28,7 @@ Class Actions{
             	        break;
             	}
             	if ($href != NULL):
-                	$target = (isset($link['new_tab']) && $link['new_tab'] == 1) ? '_blank' : ''; 
+                	$target = (isset($link['new_tab']) && $link['new_tab'] == 1) ? '_blank' : null; 
 
 					$code['attributes']['href'] = $href;
 					$code['attributes']['target'] = $target;
@@ -110,7 +110,7 @@ Class Actions{
 		if( !empty($code['attributes']) && isset($code['attributes']['href']) && $code['attributes']['href'] != '' ){			
 			$start = '<a';
 			foreach ($code['attributes'] as $attr => $value) {
-				if ($value != '') {
+				if ($value !== null) {
 					$start .= ' '.$attr.'="'.$value.'"';
 				}
 			}

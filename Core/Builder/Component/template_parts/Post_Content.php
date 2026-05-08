@@ -2,7 +2,6 @@
 namespace Core\Builder\Component;
 
 use Core\Builder\Component;
-use Core\Builder\Template_Engine;
 use Ultimate_Fields\Field;
 
 class Post_Content extends Component {

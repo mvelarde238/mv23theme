@@ -4,7 +4,16 @@ namespace Core\Builder;
 use Ultimate_Fields\Field;
 
 /**
- * Handles visibility rules repeater and its groups.
+ * TODO:
+ * 
+ * - Cookie rule:	Mostrar si existe cookie X con valor Y	Nueva rule Cookie — $_COOKIE
+ * - Archive context rule:	is_category('noticias'), is_tag, is_tax con término específico	Extensión de rule Page o nueva Archive
+ * - WooCommerce rule:	Cart no vacío, usuario compró producto X, en página de producto, stock	Nueva rule WooCommerce (activa solo si WC activo — como Plugin rule)
+ * - Language rule:	Idioma actual via Polylang/WPML	Nueva rule Language
+ */
+
+/**
+ * Handles visibility rules repeater and its rule groups.
  */
 class Conditional_Rendering {
 	/**
@@ -56,6 +65,8 @@ class Conditional_Rendering {
 			\Core\Builder\Visibility_Rule\Plugin::class,
 			\Core\Builder\Visibility_Rule\Post_Meta::class,
 			\Core\Builder\Visibility_Rule\Post_Condition::class,
+			\Core\Builder\Visibility_Rule\Date_Time::class,
+			\Core\Builder\Visibility_Rule\URL_Parameter::class,
 		);
 	}
 

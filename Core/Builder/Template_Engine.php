@@ -79,7 +79,7 @@ class Template_Engine{
         $attributes_string = '';
         if( !empty($attributes) ){
             foreach( $attributes as $key => $value ){
-                $attributes_string .= $key.'="'.$value.'" ';
+                $attributes_string .= $key.'="'.esc_attr($value).'" ';
             }
         }
         return $attributes_string;
@@ -176,11 +176,6 @@ class Template_Engine{
 
     public static function is_restricted( $args ){
         $is_restricted = false;
-
-        // $visibility = (isset($args['settings']['visibility']) && $args['settings']['visibility']['use']) ? $args['settings']['visibility']['key'] : '';
-	    // if ($visibility == 'is_private' && !current_user_can('administrator')) $is_restricted = true;
-	    // if ($visibility == 'user_is_logged_in' && !is_user_logged_in()) $is_restricted = true;
-	    // if ($visibility == 'user_is_not_logged_in' && is_user_logged_in()) $is_restricted = true;
 
         $visibility_settings = $args['visibility_settings'] ?? array();
         $is_restricted_by_rules = Conditional_Rendering::instance()->should_hide_element( $visibility_settings );

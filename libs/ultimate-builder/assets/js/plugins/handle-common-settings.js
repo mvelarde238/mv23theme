@@ -60,29 +60,29 @@ window.handleCommonSettings = function (editor, options) {
                 }
             }
 
-            const helpers_list = [
+            const utility_classes = [
                 'overflow-scroll','overflow-hidden','hide-br','hide-br-tablet','hide-br-mobile',
-                'extend-bg-to-left','extend-bg-to-right','full-height','full-width','dark-mode'
+                'extend-bg-to-left','extend-bg-to-right','full-height','full-width','sticky'
             ];
-            if (settings.helpers && settings.helpers.use) {
-                const selected_helpers_list = settings.helpers.list || [];
-                if (selected_helpers_list.length) {
-                    selected_helpers_list.forEach(helper_class => {
-                        component.getEl().classList.add(helper_class);
+            if (settings.utility_classes && Array.isArray(settings.utility_classes) && settings.utility_classes.length) {
+                const selected_utility_classes = settings.utility_classes || [];
+                if (selected_utility_classes.length) {
+                    selected_utility_classes.forEach(utility_class => {
+                        component.getEl().classList.add(utility_class);
                     });
                 } else {
-                    helpers_list.forEach(helper_class => {
+                    utility_classes.forEach(utility_class => {
                         // dont remove full-width if has full width layout
-                        if (!(has_full_width_layout && helper_class === 'full-width')) {
-                            component.getEl().classList.remove(helper_class);
+                        if (!(has_full_width_layout && utility_class === 'full-width')) {
+                            component.getEl().classList.remove(utility_class);
                         }
                     });
                 }
             } else {
-                helpers_list.forEach(helper_class => {
+                utility_classes.forEach(utility_class => {
                     // dont remove full-width if has full width layout
-                    if (!(has_full_width_layout && helper_class === 'full-width')) {
-                        component.getEl().classList.remove(helper_class);
+                    if (!(has_full_width_layout && utility_class === 'full-width')) {
+                        component.getEl().classList.remove(utility_class);
                     }
                 });
             }

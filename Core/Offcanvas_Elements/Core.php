@@ -4,6 +4,7 @@ namespace Core\Offcanvas_Elements;
 use Core\Offcanvas_Elements\Settings;
 use Core\Utils\CPT;
 use Core\Builder\Template_Engine;
+use Core\Builder\Conditional_Rendering;
 use Core\Frontend\Page;
 
 define ('OFFCANVAS_ELEMENTS_DIR', __DIR__);
@@ -62,139 +63,97 @@ class Core{
         Settings::instance();
     }
 
-    private function check_the_restrictions( $offcanvas_element_post_id ){
-        $is_restricted = false;
-
-        if( $offcanvas_element_post_id ){
-            $restrictions = get_post_meta( $offcanvas_element_post_id, $this->slug.'_restrictions', true );
-            $all_restrictions = array();
-
-            if( is_array($restrictions) && count($restrictions) > 0 ){
-
-                $restrictions_classes_map = array();
-                $restrictions_classes = Settings::get_classes_for( 'restrictions' );
-		        foreach( $restrictions_classes as $class_name ) {
-                    $type = $class_name::get_type();
-			        $restrictions_classes_map[$type] = $class_name;
-                    $all_restrictions[$type] = array();
-		        }
-
-                foreach ($restrictions as $restriction) {
-                    $type = $restriction['__type'];
-                    $all_restrictions[$type][] = array(
-                        'type' => $type,
-                        'is_restricted' => $restrictions_classes_map[$type]::check_restrictions( $restriction )
-                    );
-                }
-            } else {
-                // there are no restrictions
-                $all_restrictions['none'] = array( array( 'type' => 'none', 'is_restricted' => false ) );
-            }
-
-            $restrictions_check_in = array();
-            foreach ($all_restrictions as $restrictions_by_type) {
-                if( !empty($restrictions_by_type) ){
-                    $is_restricted_in_type = !in_array( false, array_column( $restrictions_by_type, 'is_restricted' ), true );
-                    $restrictions_check_in[] = $is_restricted_in_type;
-                }
-            }
-
-            $is_restricted = in_array( true, $restrictions_check_in, true );
-        }
-
-        return $is_restricted;
-    }
-
     private function set_elements(){
         $args = array( 'post_type' => $this->slug, 'fields' => 'ids', 'numberposts' => -1,  );
         $posts = get_posts($args);
 
         foreach ( $posts as $post_id ) {
-            $is_restricted = $this->check_the_restrictions($post_id);
-            if(!$is_restricted){
-                $oce_element_comp = null;
-                $page_content = get_post_meta( $post_id, 'page_content', true );
-                $page_content_datastore = get_post_meta( $post_id, 'page_content_datastore', true );
-                $page_content = Page::consolidate_content( $page_content, $page_content_datastore );
+            $oce_element_comp = null;
+            $page_content = get_post_meta( $post_id, 'page_content', true );
+            $page_content_datastore = get_post_meta( $post_id, 'page_content_datastore', true );
+            $page_content = Page::consolidate_content( $page_content, $page_content_datastore );
 
-                if (is_array($page_content)) :
+            if ( is_array( $page_content ) ) :
 
-                    $wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
-                    if ( !$wrapper['type'] === 'wrapper' ) return '';
+                $wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
+                if ( !$wrapper['type'] === 'wrapper' ) return '';
 
-                    $container = null;
-			        foreach ( $wrapper['components'] as $component ) {
-			        	if ( $component['type'] === 'container' ) {
-			        		$container = $component;
-			        		break;
-			        	}
-			        }
-			        $container_components = ($container) ? $container['components'] : [];
-
-		        	if (is_array($container_components) && !empty($container_components)) :
-		        		foreach ($container_components as $component) :
-                            if ( $component['type'] === 'oce-element' ) {
-                                $oce_element_comp = $component;
-                                break; // Exit the loop once we find the oce-element
-                            }
-		        		endforeach;
-		        	endif;
-		        else: 
-		        	return '';
-		        endif;
-
-                if ( !$oce_element_comp ) {
-                    continue; // Skip to the next post if no oce-element component is found
+                $container = null;
+                foreach ( $wrapper['components'] as $component ) {
+                    if ( $component['type'] === 'container' ) {
+                        $container = $component;
+                        break;
+                    }
                 }
+                $container_components = ( $container ) ? $container['components'] : [];
 
-                $type = $oce_element_comp['oce_type'] ?? '';
-                $content = $oce_element_comp;
-                $styles = Page::compile_styles_to_css( $page_content['styles'] ?? [] );
-                $settings = $oce_element_comp['settings'] ?? array();
-                if( !is_array( $settings ) ) $settings = array();
-                
-                $kebab_cased_slug = str_replace('_','-',$this->slug);
-                
-                if( isset($oce_element_comp['attributes']) && isset($oce_element_comp['attributes']['id']) ) {
-                    $element_id = $oce_element_comp['attributes']['id'];
-                }elseif( isset($settings['id']) && $settings['id'] != '' ) {
-                    $element_id = $settings['id'];
-                } else {
-                    $element_id = $kebab_cased_slug.'-'.$post_id;
-                    $settings['id'] = $element_id;
-                }
+                if ( is_array( $container_components ) && !empty( $container_components ) ) :
+                    foreach ( $container_components as $component ) :
+                        if ( $component['type'] === 'oce-element' ) {
+                            $oce_element_comp = $component;
+                            break;
+                        }
+                    endforeach;
+                endif;
+            else :
+                return '';
+            endif;
 
-                $element_classes = [ $kebab_cased_slug, str_replace('_','-',$type) ];
-                if( $type === 'bottom_sheet' ) $element_classes[] = 'modal';
-    
-                $trigger_events = get_post_meta( $post_id, $this->slug.'_trigger_events', true );
-                $oce_settings = array(
-                    'position' => $oce_element_comp['position'] ?? '',
-                    'dismissible' => $oce_element_comp['dismissible'] ?? true,
-                    'close_on_click' => $oce_element_comp['close_on_click'] ?? true,
-                    'max_width' => $oce_element_comp['max_width'] ?? '',
-                    'max_height' => $oce_element_comp['max_height'] ?? '',
-                    'overlay_color' => $oce_element_comp['overlay_color'] ?? [],
-                    'remove_modal_content_padding' => $oce_element_comp['remove_modal_content_padding'] ?? false,
-                );
-
-                $this->elements[] = array(
-                    'id' => $element_id,
-                    'post_id' => $post_id,
-                    'is_restricted' => $is_restricted,
-                    'title' => get_the_title($post_id),
-                    'additional_classes' => $element_classes,
-                    'type' => $type,
-                    'content' => $content,
-                    'styles' => $styles,
-                    'oce_settings' => $oce_settings,
-                    'trigger_events' => $trigger_events,
-                    'settings' => $settings,
-                    'attributes' => array(
-                        'id' => $element_id
-                    )
-                );
+            if ( !$oce_element_comp ) {
+                continue;
             }
+
+            // Check visibility rules stored in the component's datastore.
+            if ( Conditional_Rendering::instance()->should_hide_element( $oce_element_comp['visibility_settings'] ?? array() ) ) {
+                continue;
+            }
+
+            $type    = $oce_element_comp['oce_type'] ?? '';
+            $content = $oce_element_comp;
+            $styles  = Page::compile_styles_to_css( $page_content['styles'] ?? [] );
+            $settings = $oce_element_comp['settings'] ?? array();
+            if ( !is_array( $settings ) ) $settings = array();
+
+            $kebab_cased_slug = str_replace( '_', '-', $this->slug );
+
+            if ( isset( $oce_element_comp['attributes'] ) && isset( $oce_element_comp['attributes']['id'] ) ) {
+                $element_id = $oce_element_comp['attributes']['id'];
+            } elseif ( isset( $settings['id'] ) && $settings['id'] != '' ) {
+                $element_id = $settings['id'];
+            } else {
+                $element_id    = $kebab_cased_slug . '-' . $post_id;
+                $settings['id'] = $element_id;
+            }
+
+            $element_classes = [ $kebab_cased_slug, str_replace( '_', '-', $type ) ];
+            if ( $type === 'bottom_sheet' ) $element_classes[] = 'modal';
+
+            $trigger_events = get_post_meta( $post_id, $this->slug . '_trigger_events', true );
+            $oce_settings = array(
+                'position'                    => $oce_element_comp['position'] ?? '',
+                'dismissible'                 => $oce_element_comp['dismissible'] ?? true,
+                'close_on_click'              => $oce_element_comp['close_on_click'] ?? true,
+                'max_width'                   => $oce_element_comp['max_width'] ?? '',
+                'max_height'                  => $oce_element_comp['max_height'] ?? '',
+                'overlay_color'               => $oce_element_comp['overlay_color'] ?? [],
+                'remove_modal_content_padding' => $oce_element_comp['remove_modal_content_padding'] ?? false,
+            );
+
+            $this->elements[] = array(
+                'id'               => $element_id,
+                'post_id'          => $post_id,
+                'title'            => get_the_title( $post_id ),
+                'additional_classes' => $element_classes,
+                'type'             => $type,
+                'content'          => $content,
+                'styles'           => $styles,
+                'oce_settings'     => $oce_settings,
+                'trigger_events'   => $trigger_events,
+                'settings'         => $settings,
+                'attributes'       => array(
+                    'id' => $element_id,
+                ),
+            );
         }
     }
 
