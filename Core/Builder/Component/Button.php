@@ -87,7 +87,7 @@ class Button extends Component {
 	}
 
     public static function display( $args ){
-        if( Template_Engine::is_private( $args ) ) return;
+        if( Template_Engine::is_restricted( $args ) ) return;
         
         $args['html_tag'] = 'a';
 		$args['additional_classes'][] = 'component';

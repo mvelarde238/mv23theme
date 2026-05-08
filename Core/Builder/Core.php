@@ -17,6 +17,7 @@ class Core{
         'actions',
         'common_settings',
         'scroll_animations',
+        'visibility',
     );
 
     /**

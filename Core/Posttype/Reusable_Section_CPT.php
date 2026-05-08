@@ -6,7 +6,6 @@ use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
 use Core\Builder\Template_Engine;
 use Core\Utils\CPT;
-use Core\Builder\Content_Selector;
 use Core\Frontend\Page;
 
 class Reusable_Section_CPT {
@@ -94,7 +93,7 @@ class Reusable_Section extends Component{
 	}
 
     public static function display( $args ){
-        if( Template_Engine::is_private( $args ) ) return;
+        if( Template_Engine::is_restricted( $args ) ) return;
 
         $page = new Page();
 		$page_content = $page->the_content( $args['reusable_section'] );

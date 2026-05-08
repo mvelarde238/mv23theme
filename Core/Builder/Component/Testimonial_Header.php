@@ -27,7 +27,7 @@ class Testimonial_Header extends Component {
 	}
 
     public static function display( $args ){
-        if( Template_Engine::is_private( $args ) ) return;
+        if( Template_Engine::is_restricted( $args ) ) return;
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
         echo Template_Engine::check_components( $args );

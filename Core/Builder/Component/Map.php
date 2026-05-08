@@ -38,7 +38,7 @@ class Map extends Component {
 	}
     
     public static function display( $args ){
-        if( Template_Engine::is_private( $args ) ) return;
+        if( Template_Engine::is_restricted( $args ) ) return;
 
         $location = $args['location'];
         if (!is_array($location)) return '';

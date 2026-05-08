@@ -30,7 +30,7 @@ class Spacer extends Component {
 	}
 
 	public static function display( $args ){
-		if( Template_Engine::is_private( $args ) ) return;
+		if( Template_Engine::is_restricted( $args ) ) return;
 		
 		$args['additional_classes'][] = 'component';
         

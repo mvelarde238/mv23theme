@@ -2,6 +2,15 @@
 CHANGELOG
 **************************************************************************************************
 
+3.11.0 26-05-xx
+- Conditional Rendering Implementation: 
+- new class to handle the conditional rendering of components based on different rules and conditions defined by the user, 
+  allowing to create dynamic and personalized content that adapts to different contexts and user interactions
+- Template_Engine::is_private() method renamed to is_restricted()
+  -------------------------------------------------------------------------------------------------------------
+  !IMPORTANT: Use the migrator to update old visibility settings to the new conditional rendering rules system
+  -------------------------------------------------------------------------------------------------------------
+
 3.10.1 26-05-07
 - set noUndo option when changing the __temp_sticky_header_editing property
 - Improvement: add a dynamic script to modify .full-width elements to account for scrollbar width 

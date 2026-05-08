@@ -22,7 +22,8 @@ abstract class Component {
 			'common_settings' => array(
 				'settings', 
 				'scroll_animations_settings',
-				'actions_settings'
+				'actions_settings',
+				'visibility_settings'
 			),
 		);
 		$args = wp_parse_args( $args, $defaults );
@@ -158,6 +159,12 @@ abstract class Component {
 				->set_attr( 'class', 'common-setting-small' )
 				->set_attr( 'style', 'min-width: initial !important;' )
 				->set_add_text( __('Actions', 'mv23theme') )
+				->hide_label(),
+			'visibility_settings' => Field::create( 'common_settings_control', 'visibility_settings' )
+				->set_container( 'visibility_container' )
+				->set_attr( 'class', 'common-setting-small' )
+				->set_attr( 'style', 'min-width: initial !important;' )
+				->set_add_text( __('Visibility', 'mv23theme') )
 				->hide_label()
 		);
 

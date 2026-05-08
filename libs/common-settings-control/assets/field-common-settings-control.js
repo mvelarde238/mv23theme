@@ -277,6 +277,14 @@
 				});
 			}
 
+			if( container_name == 'visibility_container' ){
+				Object.entries(raw_data).forEach(entry => {
+					if( entry[0] == 'rules' && entry[1].length === 0 ){
+						delete raw_data.rules;
+					}
+				});
+			}
+
             return raw_data;
         }
 	});

@@ -9,6 +9,7 @@ use Core\Builder\Template_Engine\Video;
 use Core\Builder\Template_Engine\Scroll_Animations;
 use Core\Frontend\Page;
 use Core\Builder\Core as Builder_Core;
+use Core\Builder\Conditional_Rendering;
 
 class Template_Engine{
 	private static $instance = null;
@@ -173,14 +174,18 @@ class Template_Engine{
         return $slider_background;
     }
 
-    public static function is_private( $args ){
-        $is_private = false;
+    public static function is_restricted( $args ){
+        $is_restricted = false;
 
-        $visibility = (isset($args['settings']['visibility']) && $args['settings']['visibility']['use']) ? $args['settings']['visibility']['key'] : '';
-	    if ($visibility == 'is_private' && !current_user_can('administrator')) $is_private = true;
-	    if ($visibility == 'user_is_logged_in' && !is_user_logged_in()) $is_private = true;
-	    if ($visibility == 'user_is_not_logged_in' && is_user_logged_in()) $is_private = true;
+        // $visibility = (isset($args['settings']['visibility']) && $args['settings']['visibility']['use']) ? $args['settings']['visibility']['key'] : '';
+	    // if ($visibility == 'is_private' && !current_user_can('administrator')) $is_restricted = true;
+	    // if ($visibility == 'user_is_logged_in' && !is_user_logged_in()) $is_restricted = true;
+	    // if ($visibility == 'user_is_not_logged_in' && is_user_logged_in()) $is_restricted = true;
+
+        $visibility_rules = $args['visibility_settings']['rules'] ?? array();
+        $is_restricted_by_rules = Conditional_Rendering::instance()->check_the_visibility_rules( $visibility_rules );
+        if( $is_restricted_by_rules ) $is_restricted = true;
     
-        return $is_private;
+        return $is_restricted;
     }
 }

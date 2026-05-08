@@ -44,7 +44,7 @@ class Testimonial extends Component {
 	}
 
     public static function display( $args ){
-        if( Template_Engine::is_private( $args ) ) return;
+        if( Template_Engine::is_restricted( $args ) ) return;
         $testimonial_style = ( isset($args['testimonial_style']) ) ? $args['testimonial_style'] : 'style1';
         $args['additional_attributes']['data-style'] = $testimonial_style;
 		ob_start();
