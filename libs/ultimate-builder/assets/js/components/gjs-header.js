@@ -140,8 +140,15 @@ window.gjsHeader = function (editor, options) {
     editor.on('builder:loaded', () => {
         if ( BUILDER_GLOBALS.posttype !== 'header' ) return;
 
+        // Get the main container inside the wrapper
+        // Note: we assume the main container is the third child of the wrapper, which is usually the case in a standard builder setup:
+        // wrapper
+        // ├─ theme-options
+        // ├─ header
+        // ├─ container <--- we want this one
+        // Note: findType() could be used as a more robust alternative but header can contain nested containers, so it might find the wrong one. If the builder structure changes significantly in the future, this might need to be revisited.
         const wrapper = editor.getWrapper();
-        const main_container = wrapper.findType('container')[0];
+        const main_container = wrapper.getChildAt(2); 
 
         // add some demo elements to container: menu, image, heading, paragraph
         main_container.append({ 
