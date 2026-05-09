@@ -2,25 +2,12 @@
 namespace Core\Theme_Options\Fields;
 
 use Ultimate_Fields\Field;
-use Core\Theme_Options\Theme_Options;
 
 class Global_Settings {
     public static function get_fields(){
         $fields = array(
             Field::create( 'tab', 'global_settings' )
         );
-
-        // Logos
-        $logos_fields = [];
-        foreach ( Theme_Options::getInstance()->get_logos_field_names() as $key => $value) {
-            if( $key != 'custom' ) {
-                $default_value = get_option( $key, '' );
-                $logos_fields[] = Field::create( 'image', $key, $value )->set_width(25)->set_default_value($default_value);
-            }
-        }
-        $fields[] = Field::create( 'complex', 'logos_wrapper', __('Logos','mv23theme') )
-            ->add_fields( $logos_fields )
-            ->merge();
 
         // Header and Footer
         $header_default_value = get_option( 'theme_header_post', '' );

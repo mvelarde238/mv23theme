@@ -1,9 +1,6 @@
 <?php
 if( CF7_EMAIL_LOGO ){
     $logo_url = CF7_EMAIL_LOGO;
-} else {
-    $logo_id = get_option( 'main_logo' );
-    $logo_url = ($logo_id) ? wp_get_attachment_image_url( $logo_id, 'full') : array('');
 }
 $blogname = get_option( 'blogname' );
 ?>

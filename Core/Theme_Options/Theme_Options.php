@@ -16,11 +16,6 @@ class Theme_Options extends Theme_Header_Data{
 
     private $slug = 'theme-options-menu';
 
-    /**
-     * Hold the list of available logo versions to be used as select options
-     */
-    private static $logos_field_names = array();
-
     public static function getInstance() {
         if (self::$instance == null) {
             self::$instance = new Theme_Options();
@@ -31,7 +26,6 @@ class Theme_Options extends Theme_Header_Data{
     // Constructor privado para evitar la creación directa de la instancia
     private function __construct(){
         parent::__construct();
-        $this->set_logos_field_names();
         $this->hide_repeater_groups();
     }
 
@@ -104,31 +98,6 @@ class Theme_Options extends Theme_Header_Data{
             $labels = $wp_post_types[$slug]->labels;
             $labels->all_items = $notification_count ? sprintf('%s <span class="awaiting-mod">%d</span>', $name, $notification_count) : $name;   
         }
-    }
-
-    private function set_logos_field_names(){
-        for ($i=1; $i <= LOGOS_QUANTITY; $i++) { 
-            switch ($i) {
-                case 1:
-                    $field_name = 'main_logo';
-                    break;
-        
-                case 2:
-                    $field_name = 'secondary_logo';
-                    break;
-                
-                default:
-                    $field_name = 'logo_v'.$i;
-                    break;
-            }
-            /* translators: %s: number */
-            self::$logos_field_names[$field_name] = sprintf('Version %s', $i);
-        }
-        self::$logos_field_names['custom'] = 'Custom';
-    }
-
-    public static function get_logos_field_names(){
-        return self::$logos_field_names;
     }
 
     public static function hide_repeater_groups(){

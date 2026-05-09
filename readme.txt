@@ -3,7 +3,8 @@ CHANGELOG
 **************************************************************************************************
 
 3.11.1 26-05-09
-- Implement an action setting to interact with a tns slider
+- Implemented an action setting to interact with a tns slider
+- Removed support for logos on theme options
 
 3.11.0 26-05-08
 - Conditional Rendering Implementation: 
