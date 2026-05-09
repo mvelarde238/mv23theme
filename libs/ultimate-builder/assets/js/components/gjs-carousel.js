@@ -35,7 +35,7 @@ window.gjsCarousel = function (editor) {
                         try {
                             el.parentNode.insertBefore(wrapper, el);
                             wrapper.appendChild(el);
-                            model.set('__wrapperReference', wrapper);
+                            model.set('__wrapperReference', wrapper, { noUndo: true });
                         } catch (err) {
                             console.warn('Error wrapping carousel item:', err, el);
                         }
