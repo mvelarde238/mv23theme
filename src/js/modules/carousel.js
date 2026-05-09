@@ -17,6 +17,20 @@
             MV23_GLOBALS.carousels[uniqueId] = tns_slider;
         }
 
+        function scroll_to_slide(sliderUid) {
+            // Adjust scroll position if needed
+            var target = MV23_GLOBALS.carousels[sliderUid].getInfo().container;
+            let elementPosition = $(target).offset().top;
+            let newPosition = elementPosition;
+            if( !MV23_GLOBALS.disableHeaderHeightCalculationOnAnchors ){
+                var bodyStyles = window.getComputedStyle(document.body);
+                var headerHeight = bodyStyles.getPropertyValue('--sticky-header-height');
+                newPosition = elementPosition - parseInt(headerHeight);
+            }
+
+            $("html, body").animate({ scrollTop: newPosition }, { duration: 800, queue: false });
+        }
+
         // go to slide implementation
         // example <button class="go-to-slide" data-slide="8" data-slider-uid="uniqueId" data-scroll="true"></button>
 
@@ -24,22 +38,13 @@
             e.preventDefault();
             var slide = $(this).data('slide') ?? 1;
             var scroll = $(this).data('scroll') ?? false;
-
             var sliderUid = $(this).data('slider-uid');
 
             if (MV23_GLOBALS.carousels[sliderUid]) {
-                if (DEBUG) console.log('Going to slide ' + slide + ' in carousel with UID ' + sliderUid);
-                
                 MV23_GLOBALS.carousels[sliderUid].goTo(slide - 1); // -1 because TNS is 0-indexed
                 if (scroll) {
-                    // Adjust scroll position if needed
-                    var target = MV23_GLOBALS.carousels[sliderUid].getInfo().container;
-                    var headerHeight = MV23_GLOBALS.headerHeight;
-                    $("html, body").animate({ scrollTop: ($(target).offset().top - headerHeight) }, { duration: 800, queue: false });
+                    scroll_to_slide(sliderUid);
                 }
-
-            } else {
-                if (DEBUG) console.warn('Carousel with UID ' + sliderUid + ' not found.');
             }
         });
 
@@ -47,12 +52,13 @@
         $('.go-to-next-slide').on('click', function(e) {
             e.preventDefault();
             var sliderUid = $(this).data('slider-uid');
+            var scroll = $(this).data('scroll') ?? false;
 
             if (MV23_GLOBALS.carousels[sliderUid]) {
-                if (DEBUG) console.log('Going to next slide in carousel with UID ' + sliderUid);
                 MV23_GLOBALS.carousels[sliderUid].goTo('next');
-            } else {
-                if (DEBUG) console.warn('Carousel with UID ' + sliderUid + ' not found.');
+                if (scroll) {
+                    scroll_to_slide(sliderUid);
+                }
             }
         });
 
@@ -60,11 +66,13 @@
         $('.go-to-prev-slide').on('click', function(e) {
             e.preventDefault();
             var sliderUid = $(this).data('slider-uid');
+            var scroll = $(this).data('scroll') ?? false;
+
             if (MV23_GLOBALS.carousels[sliderUid]) {
-                if (DEBUG) console.log('Going to previous slide in carousel with UID ' + sliderUid);
                 MV23_GLOBALS.carousels[sliderUid].goTo('prev');
-            } else {
-                if (DEBUG) console.warn('Carousel with UID ' + sliderUid + ' not found.');
+                if (scroll) {
+                    scroll_to_slide(sliderUid);
+                }
             }
         });
 

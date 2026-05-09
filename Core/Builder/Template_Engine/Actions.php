@@ -105,6 +105,27 @@ Class Actions{
 				$code['attributes']['class'] = 'previous-post';
 				$code['attributes']['href'] = $previous_post_link;
 			}
+			if ($action['trigger'] == 'click' && $action['action'] == 'interact-slider') { 
+				$interact_settings = (isset($action['interact_slider_settings'])) ? $action['interact_slider_settings'] : array( 'slider_uid' => null );
+				$slider_uid = $interact_settings['slider_uid'];
+				if($slider_uid){
+					$interaction_type = (isset($interact_settings['interaction_type'])) ? $interact_settings['interaction_type'] : 'next';
+					$slider_actions = array(
+						'next' => 'go-to-next-slide',
+						'previous' => 'go-to-prev-slide',
+						'go_to_slide' => 'go-to-slide',
+					);
+					$code['attributes']['class'] = $slider_actions[$interaction_type];
+					if( $interaction_type == 'go_to_slide' ){
+						$code['attributes']['data-slide'] = (isset($interact_settings['slide_number'])) ? $interact_settings['slide_number'] : 1;
+					}
+					if( isset($interact_settings['scroll_to_slider']) && $interact_settings['scroll_to_slider'] ){
+						$code['attributes']['data-scroll'] = '1';
+					}
+					$code['attributes']['data-slider-uid'] = $slider_uid;
+					$code['attributes']['href'] = '#';
+				}
+			}
 		};
 
 		if( !empty($code['attributes']) && isset($code['attributes']['href']) && $code['attributes']['href'] != '' ){			

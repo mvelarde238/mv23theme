@@ -1,6 +1,7 @@
 window.gjsCommands = function (editor, options) {
 
     const commands = editor.Commands;
+    var __ = editor.createTranslator(editor, 'ultimate_builder');
 
     commands.add('builder:save-editor', (editor, sender, options) => {
         editor.runCommand('show-preloader', { text: 'Saving changes...' });
@@ -267,6 +268,23 @@ window.gjsCommands = function (editor, options) {
                 element.set('locked',!lockedComponents);
             });
             component.set('lockedComponents', !lockedComponents);
+        }
+    });
+
+    commands.add('get-slider-uid', (editor, sender, options = {}) => {
+        const carousel = options.component;
+        if (carousel.getType() === 'carousel-wrapper') {
+            const datastore = editor.getComponentDatastore(carousel);
+            if (datastore) {
+                const slider_uid = datastore.get('slider_uid');
+                if (slider_uid) {
+                    alert('Slider UID: ' + slider_uid);
+                } else if( carousel.getId() ){
+                    alert('Slider UID: slider_' + carousel.getId());
+                } else {
+                    alert(__('No Slider UID found for this carousel.', 'no_slider_uid'));
+                }
+            }
         }
     });
 

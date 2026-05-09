@@ -92,6 +92,7 @@ window.gjsI18n = function (editor, options) {
                 // Carousel
                 remove_confirm_msg: '¿Estás seguro de que deseas eliminar este item? Hay componentes dentro',
                 last_item_alert: 'No se puede eliminar el último item. Un carrusel debe tener al menos un item.',
+                no_slider_uid: 'No se encontró Slider UID para este carrusel.',
                 // Testimonial
                 testimonial: 'Testimonio',
                 default_testimonial_info: '<strong>John Doe</strong><br>Gerente General, Compañía',
@@ -232,6 +233,7 @@ window.gjsI18n = function (editor, options) {
                 text_color: 'COLOR DEL TEXTO',
                 // Carousel
                 select_all_items: 'SELECCIONAR TODOS LOS ITEMS',
+                get_slider_uid: 'OBTENER SLIDER UID',
             }
         }
     });

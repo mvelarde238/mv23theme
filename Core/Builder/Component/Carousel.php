@@ -179,10 +179,10 @@ class Carousel extends Component {
 
             Field::create( 'tab', 'columns_settings_tab', __('Columns','mv23theme') )->add_dependency('carousel_type', 'slider', '='),
             Field::create( 'complex', 'items', __('Columns', 'mv23theme') )->hide_label()->add_fields(array(
-                Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value( '4' )->set_attr('style', $width_style),
-                Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_default_value( '3' )->set_attr('style', $width_style),
-                Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_default_value( '2' )->set_attr('style', $width_style),
-                Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_default_value( '2' )->set_attr('style', $width_style)
+                Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value( '4' )->set_minimum(1)->set_attr('style', $width_style),
+                Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_default_value( '3' )->set_minimum(1)->set_attr('style', $width_style),
+                Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_default_value( '2' )->set_minimum(1)->set_attr('style', $width_style),
+                Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_default_value( '2' )->set_minimum(1)->set_attr('style', $width_style)
             )),
 
             Field::create( 'tab', 'space_between_items_tab', __('Space between items','mv23theme') ),
@@ -195,6 +195,7 @@ class Carousel extends Component {
 
             Field::create( 'tab', 'advanced_settings_tab', __('Advanced Settings','mv23theme') )->add_dependency('carousel_type', 'slider', '='),
             Field::create('text', 'slider_uid', __('Slider UID', 'mv23theme'))
+                ->set_default_value(uniqid('slider_'))
                 ->set_description(__('This is used to identify the slider in the JS code. If you leave it empty, a random UID will be generated.', 'mv23theme'))
                 ->set_attr( 'style', 'flex-grow: initial;' ),
             Field::create( 'checkbox', 'auto_height' )->hide_label()->set_text(__('Activate Auto Height','mv23theme'))->add_dependency('carousel_type', 'slider', '='),
@@ -206,6 +207,18 @@ class Carousel extends Component {
             $settings_fields_2
         );
 	}
+
+    private static function generate_slider_uid( $args ) {
+        $uid = uniqid('slider_');
+
+        if( isset($args['slider_uid']) && !empty($args['slider_uid']) ){
+            $uid = $args['slider_uid'];
+        } else if( isset($args['attributes']) && isset($args['attributes']['id']) && !empty($args['attributes']['id']) ){
+            $uid = 'slider_' . $args['attributes']['id'];
+        }
+
+        return $uid;
+    }
 
 	public static function display( $args ){
         if( Template_Engine::is_restricted( $args ) ) return;
@@ -274,7 +287,7 @@ class Carousel extends Component {
     
             $auto_height = $args['auto_height'] ?? 0;
             $touch = $args['touch'] ?? 0;
-            $slider_uid = (!empty($args['slider_uid']) ) ? $args['slider_uid'] : uniqid('slider_');
+            $slider_uid = self::generate_slider_uid( $args );
 
             $items_in_mobile = $args['items']['mobile'];
             $items_in_tablet = $args['items']['tablet'];

@@ -1,4 +1,5 @@
-.carousel:not(:has([aria-hidden="true"])) .tns-controls
+/* hide controls in frontend if there is only one page (specificity hack to not hide them on builder) */
+.carousel:has(.tns-outer):not(:has([aria-hidden="true"])) .tns-controls
     display: none
     
 .tns-control-position

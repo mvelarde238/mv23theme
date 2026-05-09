@@ -17,6 +17,7 @@ Container::create( 'actions_container' )
             'offcanvas-element' => __('Show Off-Canvas Element','mv23theme'),
             'next-post' => __('Go to next post','mv23theme'),
             'previous-post' => __('Go to previous post','mv23theme'),
+            'interact-slider' => __('Interact with a slider','mv23theme'),
         )),
     
         Field::create( 'complex', 'link' )->hide_label()->rows_layout()->add_fields(array(
@@ -63,5 +64,21 @@ Container::create( 'actions_container' )
         Field::create( 'complex', 'offcanvas_elements_settings' )->hide_label()->rows_layout()->add_fields(array(
             Field::create( 'select', 'id', '' )
                 ->add_posts( 'offcanvas_element' )
-        ))->add_dependency('action','offcanvas-element','=')
+        ))->add_dependency('action','offcanvas-element','='),
+
+        Field::create( 'complex', 'interact_slider_settings' )->hide_label()->rows_layout()->add_fields(array(
+            Field::create( 'text', 'slider_uid', __('Slider UID', 'mv23theme') )
+                ->set_description( __('Enter the Slider UID to interact with.','mv23theme') ),
+            Field::create( 'select', 'interaction_type', __('Interaction Type','mv23theme') )
+                ->add_options( array(
+                    'next' => __('Go to next slide','mv23theme'),
+                    'previous' => __('Go to previous slide','mv23theme'),
+                    'go_to_slide' => __('Go to specific slide','mv23theme'),
+                )),
+            Field::create( 'number', 'slide_number', __('Slide Number','mv23theme') )
+                ->set_description( __('Enter the slide number to go to (starting from 1).','mv23theme') )
+                ->add_dependency('interaction_type','go_to_slide','='),
+            Field::create( 'checkbox', 'scroll_to_slider' )
+                ->set_text( __('Scroll to slider when interacting.','mv23theme') )
+        ))->add_dependency('action','interact-slider','=')
     ));

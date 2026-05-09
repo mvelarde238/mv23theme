@@ -2,7 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
-3.11.0 26-05-xx
+3.11.1 26-05-09
+- Implement an action setting to interact with a tns slider
+
+3.11.0 26-05-08
 - Conditional Rendering Implementation: 
 - new class to handle the conditional rendering of components based on different rules and conditions defined by the user, 
   allowing to create dynamic and personalized content that adapts to different contexts and user interactions
