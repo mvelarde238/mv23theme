@@ -6,27 +6,48 @@
         gsap.registerPlugin(ScrollTrigger);
 
         document.querySelectorAll('.counter').forEach(function (counter) {
-            var start = parseInt(counter.getAttribute('data-start'), 10);
-            var end = parseInt(counter.getAttribute('data-number'), 10);
-            var duration = parseInt(counter.getAttribute('data-duration'), 10) / 1000; // GSAP usa segundos
+            var end          = parseFloat(counter.getAttribute('data-number'));
+            var duration     = parseInt(counter.getAttribute('data-duration'), 10) / 1000; // GSAP usa segundos
+            var formatNumber = counter.getAttribute('data-format') === '1';
+            var thousandsSep = counter.getAttribute('data-thousands-sep') || '.';
             var counterElement = counter.querySelector('.counter-number');
+
+            function formatValue(value) {
+                var rounded = Math.round(value).toString();
+                if (!formatNumber) return rounded;
+                return rounded.replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSep);
+            }
+
+            var proxy = { value: 0 };
 
             var timeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: counter,
                     start: 'top bottom',
-                    toggleActions: "play none none reset"
+                    toggleActions: "play none none reset",
+                    onLeaveBack: function() {
+                        proxy.value = 0;
+                        counterElement.innerText = formatValue(0);
+                    }
                 }
             });
 
-            timeline.fromTo(counterElement,
-                { innerText: start },
+            timeline.fromTo(proxy,
+                { value: 0 },
                 {
-                    innerText: end,
+                    value: end,
                     duration: duration,
                     delay: .5,
-                    snap: { innerText: 1 },
-                    ease: "power1.inOut"
+                    ease: "power1.inOut",
+                    onStart: function() {
+                        counterElement.innerText = formatValue(0);
+                    },
+                    onUpdate: function() {
+                        counterElement.innerText = formatValue(proxy.value);
+                    },
+                    onComplete: function() {
+                        counterElement.innerText = formatValue(end);
+                    }
                 }
             );
         });

@@ -11,6 +11,7 @@ CHANGELOG
   -------------------------------------------------------------------------------------------------------------
   !IMPORTANT: Use the migrator to update old visibility settings to the new conditional rendering rules system
   -------------------------------------------------------------------------------------------------------------
+- Counter Component Improvement: add an option to format the value with thousands separator
 
 3.10.1 26-05-07
 - set noUndo option when changing the __temp_sticky_header_editing property
