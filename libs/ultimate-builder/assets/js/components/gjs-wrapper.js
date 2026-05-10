@@ -12,6 +12,7 @@ window.gjsWrapper = function (editor, options) {
                 name: compName,
                 droppable: false,
                 highlightable: false,
+                savable: true,
                 stylable: true,
                 unstylable: []
             },

@@ -21,7 +21,8 @@ window.saveTemplateSystem = function (editor, options) {
      * Recursively extracts all template data from the live GJS component tree, 
      * including nested components, while also handling datastore references and styles. 
      * The extracted data is structured in a way that allows it to be easily re-inserted into the editor later when the template is used.
-     * @param {Component} componentModel - The root component model to extract data from
+     * @param {Component|Collection} componentOrCollection - A single GrapeJS component model or a Backbone Collection of component models 
+     *  |-- (e.g. the result of container.components())
      * @returns {Object} An object containing the structured template data, each component in the structure includes:
      * {
      *   type: string, // the type of the component
@@ -32,7 +33,7 @@ window.saveTemplateSystem = function (editor, options) {
      * any // additional properties that dosnt start with __temp
      * }
      */
-    function extractData(componentModel) {
+    function extractData(componentOrCollection) {
         function walk(model) {
             const node = model.toJSON ? model.toJSON() : model;
             const { type, attributes = {}, __id } = node;
@@ -105,8 +106,14 @@ window.saveTemplateSystem = function (editor, options) {
             return structure;
         }
 
+        // Accept either a single component model or a Backbone Collection
+        // (e.g. the result of container.components() when saving from a wrapper)
+        const models = componentOrCollection && componentOrCollection.models
+            ? componentOrCollection.models
+            : [componentOrCollection];
+
         return {
-            structure: [walk(componentModel)]
+            structure: models.map(m => walk(m))
         };
     }
 
@@ -163,9 +170,17 @@ window.saveTemplateSystem = function (editor, options) {
      */
     commands.add('save-as-template', (editor, sender, options = {}) => {
         const component = editor.getSelected();
-        const templateData = extractData(component);
+        let componentToSave = component;
 
-        console.log('Extracted template data:', templateData);
+        // if the selected component is the wrapper, just save the components inside the main container
+        if (component && component.is('wrapper')) {
+            const container = component.findType('container')[0];
+            if (container) {
+                componentToSave = container.components();
+            }
+        }
+
+        const templateData = extractData(componentToSave);
 
         // create a simple form for the modal content
         const form_wrapper = document.createElement('div');

@@ -6,6 +6,7 @@ CHANGELOG
 - Implemented an action setting to interact with a tns slider
 - Removed support for logos on theme options
 - **SelectorManager states**: Removed `:nth-child()` and added `:focus`
+- Set savable on wrapper component to allow saving its content (inside the main container) as template and reusing it on other pages
 
 3.11.0 26-05-08
 - Conditional Rendering Implementation: 
