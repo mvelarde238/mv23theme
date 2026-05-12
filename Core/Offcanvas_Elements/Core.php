@@ -125,6 +125,9 @@ class Core{
                 $settings['id'] = $element_id;
             }
 
+            $oce_uid = $oce_element_comp['oce_uid'] ?? null;
+            // if ( $oce_uid ) $element_id = $oce_uid;
+
             $element_classes = [ $kebab_cased_slug, str_replace( '_', '-', $type ) ];
             if ( $type === 'bottom_sheet' ) $element_classes[] = 'modal';
 
@@ -140,19 +143,22 @@ class Core{
             );
 
             $this->elements[] = array(
-                'id'               => $element_id,
-                'post_id'          => $post_id,
-                'title'            => get_the_title( $post_id ),
+                'uid'                => $oce_uid ?? $element_id,
+                'post_id'            => $post_id,
+                'title'              => get_the_title( $post_id ),
                 'additional_classes' => $element_classes,
-                'type'             => $type,
-                'content'          => $content,
-                'styles'           => $styles,
-                'oce_settings'     => $oce_settings,
-                'trigger_events'   => $trigger_events,
-                'settings'         => $settings,
-                'attributes'       => array(
-                    'id' => $element_id,
+                'type'               => $type,
+                'content'            => $content,
+                'styles'             => $styles,
+                'oce_settings'       => $oce_settings,
+                'trigger_events'     => $trigger_events,
+                'settings'           => $settings,
+                'attributes'         => array(
+                    'id' => $element_id
                 ),
+                'additional_attributes' => array(
+                    'data-oce-uid' => $oce_uid
+                )
             );
         }
     }

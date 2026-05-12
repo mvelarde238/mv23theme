@@ -53,7 +53,7 @@
        */
       this.isOpen = false;
 
-      this.id = this.$el.attr('id');
+      this.id = this.$el.attr('data-oce-uid') || this.$el.attr('id');
       this._openingTrigger = undefined;
       this.$overlay = $('<div class="modal-overlay"></div>');
       this.el.tabIndex = 0;
@@ -123,7 +123,8 @@
       let $trigger = $(e.target).closest('.modal-trigger');
       if ($trigger.length) {
         let modalId = M.getIdFromTrigger($trigger[0]);
-        let modalInstance = document.getElementById(modalId).M_Modal;
+        let modalElem = document.querySelector(`[data-oce-uid="${modalId}"]`) || document.getElementById(modalId);
+        let modalInstance = modalElem && modalElem.M_Modal;
         if (modalInstance) {
           modalInstance.open($trigger);
         }

@@ -27,7 +27,7 @@
       super(Sidenav, el, options);
 
       this.el.M_Sidenav = this;
-      this.id = this.$el.attr('id');
+      this.id = this.$el.attr('data-oce-uid') || this.$el.attr('id');
 
       /**
        * Options for the Sidenav
@@ -172,7 +172,8 @@
       if (e.target && $trigger.length) {
         let sidenavId = M.getIdFromTrigger($trigger[0]);
 
-        let sidenavInstance = document.getElementById(sidenavId).M_Sidenav;
+        let sidenavElem = document.querySelector(`[data-oce-uid="${sidenavId}"]`) || document.getElementById(sidenavId);
+        let sidenavInstance = sidenavElem && sidenavElem.M_Sidenav;
         if (sidenavInstance) {
           sidenavInstance.open($trigger);
         }

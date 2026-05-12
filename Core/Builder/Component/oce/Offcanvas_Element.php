@@ -90,6 +90,11 @@ class Offcanvas_Element extends Component {
 					->enable_slider(0,100,1)->set_default_value(50)->set_width( 40 )
 					->add_dependency('use')
 			)),
+
+			Field::create( 'tab', 'advanced_settings_tab', __('Advanced Settings','mv23theme') ),
+            Field::create('text', 'oce_uid', __('UID', 'mv23theme'))
+                ->set_default_value(uniqid('oce_'))
+                ->set_description(__('This is used to identify the offcanvas element in the JS code. If you leave it empty, a random UID will be generated.', 'mv23theme')),
         );
 
 		return $fields;

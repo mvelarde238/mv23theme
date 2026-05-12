@@ -79,7 +79,9 @@ class Template_Engine{
         $attributes_string = '';
         if( !empty($attributes) ){
             foreach( $attributes as $key => $value ){
-                $attributes_string .= $key.'="'.esc_attr($value).'" ';
+                if ($value !== null){
+                    $attributes_string .= $key.'="'.esc_attr($value).'" ';
+                }
             }
         }
         return $attributes_string;

@@ -2,6 +2,11 @@
 CHANGELOG
 **************************************************************************************************
 
+3.11.3 26-05-12
+- oce_uid implemented as the main identifier for offcanvas elements instead of the id attribute, 
+  to prevent conflicts with other elements and ensure a unique identifier for each offcanvas element, 
+  especially when multiple elements are present on the same page
+
 3.11.2 26-05-11
 - Fix multi language support for footer preview
 

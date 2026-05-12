@@ -2,9 +2,9 @@ window['OffCanvas_Elements'] = (function(){
     let instances = [];
 
     function Offcanvas_Element( element_data ){
-        this.offcanvas_element_id = element_data.id;
+        this.oce_uid = element_data.uid;
         this.oce_post_id = element_data.post_id;
-        this.offcanvas_element = document.querySelector( '#'+this.offcanvas_element_id );
+        this.offcanvas_element = document.querySelector( '[data-oce-uid="'+this.oce_uid+'"]' ) || document.querySelector( '#'+this.oce_uid );
         this.type = element_data.type;
         this.trigger_events = element_data.trigger_events || [];
         this.oce_settings = element_data.oce_settings;
@@ -102,7 +102,7 @@ window['OffCanvas_Elements'] = (function(){
                         });
                 } else {
                     this._check_async_attributes('error', component, async_settings);
-                    component.innerHTML = `<p class="center-align">Some setting in ${this.offcanvas_element_id} is wrong.<p>`;
+                    component.innerHTML = `<p class="center-align">Some setting in ${this.oce_uid} is wrong.<p>`;
                 }
             }
         },
@@ -231,7 +231,7 @@ window['OffCanvas_Elements'] = (function(){
             return formated_color;
         },
         _handle_trigger_events(){
-            let { offcanvas_element_id, trigger_events } = this;
+            let { oce_uid, trigger_events } = this;
 
             trigger_events.forEach(triggerData => {
                 switch ( triggerData.__type ) {
@@ -244,7 +244,7 @@ window['OffCanvas_Elements'] = (function(){
                         break;
 
                     case 'scroll':
-                        let cookie_name = (triggerData.custom_cookie) ? triggerData.cookie_name : offcanvas_element_id+'-shown';
+                        let cookie_name = (triggerData.custom_cookie) ? triggerData.cookie_name : oce_uid+'-shown';
                         const storage_type = ( triggerData.custom_cookie ) ? triggerData.storage_type : 'session'; 
                         const storage = (storage_type === "session") ? sessionStorage : localStorage;
 
@@ -258,13 +258,13 @@ window['OffCanvas_Elements'] = (function(){
                         break;
                 
                     default:
-                        console.log('No trigger events assigned to offcanvas element with ID:'+offcanvas_element_id);
+                        console.log('No trigger events assigned to offcanvas element with UID:'+oce_uid);
                         break;
                 }
             });
         },
         _handle_click_event( triggerData ){
-            let { type, offcanvas_element_id, M_instance } = this;
+            let { type, oce_uid, M_instance } = this;
 
             var triggers = document.querySelectorAll(triggerData.selector);
 
@@ -272,7 +272,7 @@ window['OffCanvas_Elements'] = (function(){
                 let triggerClass = ( type != 'bottom_sheet' ) ? type+'-trigger' : 'modal-trigger';
                 triggers.forEach( trigger => {
                     trigger.classList.add( triggerClass );
-                    trigger.dataset.target = offcanvas_element_id;
+                    trigger.dataset.target = oce_uid;
                     if ( type === 'sidenav' ) M_instance._openingTrigger = trigger;
                 });
             };
