@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.11.2 26-05-11
+- Fix multi language support for footer preview
+
 3.11.1 26-05-09
 - Implemented an action setting to interact with a tns slider
 - Removed support for logos on theme options
