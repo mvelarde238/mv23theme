@@ -8,8 +8,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 		<?php wp_head(); ?>
-		<?php $head_scripts = get_option( 'head_scripts' ); ?>
-  		<?php if ($head_scripts) echo $head_scripts; ?>
 	</head>
 	<body <?php do_action('body_id'); ?> <?php body_class(); ?> <?php do_action('body_attributes'); ?> >
 		<?php if ( function_exists( 'wp_body_open' ) ) { wp_body_open(); } ?>

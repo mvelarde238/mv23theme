@@ -111,6 +111,12 @@ class Theme extends Theme_Header_Data {
 
         // Initialize the Track_Posts_Data instance in the frontend:
         $track_posts_data = Track_Posts_Data::getInstance();
+
+        // add custom scripts fields
+        $theme_options = Theme_Options::getInstance();
+        $this->loader->add_action( 'wp_head', $theme_options, 'print_head_scripts', 1000 );
+        $this->loader->add_action( 'wp_body_open', $theme_options, 'print_body_scripts' );
+        $this->loader->add_action( 'wp_footer', $theme_options, 'print_footer_scripts', 1000 );
     }
 
     private function define_admin_hooks() {	
@@ -248,7 +254,7 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'after_setup_theme', $offcanvas_elements, 'register_post_type', 4 );
         $this->loader->add_action( 'wp_loaded', $offcanvas_elements, 'register_settings' );
         $this->loader->add_action( 'wp_enqueue_scripts', $offcanvas_elements, 'enqueue_scripts', 1000);
-        $this->loader->add_action( 'footer_code', $offcanvas_elements, 'print_elements' );
+        $this->loader->add_action( 'wp_footer', $offcanvas_elements, 'print_elements' );
 
         // Templates Library
         $templates_library = Templates_Library::getInstance();

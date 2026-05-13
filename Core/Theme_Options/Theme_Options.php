@@ -348,4 +348,19 @@ class Theme_Options extends Theme_Header_Data{
         $uri = $this->theme_uri . '/assets/js/customizer.js';
 	    wp_enqueue_script( 'theme-custom-fields', $uri, array( 'jquery', 'uf-customize-preview' ), $this->version, true );
     }
+
+    public function print_head_scripts(){
+        $head_scripts = get_option( 'head_scripts' );
+        if ($head_scripts) echo $head_scripts;
+    }
+
+    public function print_body_scripts(){
+        $body_scripts = get_option( 'body_scripts' );
+        if ($body_scripts) echo $body_scripts;
+    }
+
+    public function print_footer_scripts(){
+        $footer_scripts = get_option( 'footer_scripts' );
+        if ($footer_scripts) echo $footer_scripts;
+    }
 }
