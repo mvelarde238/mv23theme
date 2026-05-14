@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.11.4 26-05-13
+- Remove stylable: false from header logo component to allow styling it from the style manager
+
 3.11.3 26-05-12
 - oce_uid implemented as the main identifier for offcanvas elements instead of the id attribute, 
   to prevent conflicts with other elements and ensure a unique identifier for each offcanvas element, 

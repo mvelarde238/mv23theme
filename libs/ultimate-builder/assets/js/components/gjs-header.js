@@ -68,7 +68,6 @@ window.gjsHeader = function (editor, options) {
                 name: 'Header Logo',
                 tagName: 'div',
                 classes: ['header-logo'],
-                stylable: false,
                 resizable: {
                     ratioDefault: true,
                     currentUnit: 1,
