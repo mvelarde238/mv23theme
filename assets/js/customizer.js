@@ -85,61 +85,49 @@
         });
     });
 
-    UF_Customize.bind( 'typography_css_vars', ( properties, context ) => {
-        for (const key in properties) {
-            let value = properties[key];
+    ['typography','headings', 'links'].forEach( key => { 
+        UF_Customize.bind( key+'_settings', ( properties, context ) => {
+            for (const key in properties) {
+                let value = properties[key];
 
-            if( key.startsWith('--') ){
-                set_CSS_prop(key,value);
-            } else {
-                if( key.startsWith('heading') ){
-                    // is headings complex
-                    let heading_complex = value;
-                    for (const _key in heading_complex) {
-                        let _value = heading_complex[_key];
-                        if( _key.startsWith('--') ){
-                            set_CSS_prop(_key,_value);
-                        }
-                    }
+                if( key.startsWith('--') ){
+                    set_CSS_prop(key,value);
                 } else {
-                    // is base font size
-                    html.style.setProperty('font-size', value);
+                    if( key.startsWith('heading') ){
+                        // is headings complex
+                        let heading_complex = value;
+                        for (const _key in heading_complex) {
+                            let _value = heading_complex[_key];
+                            if( _key.startsWith('--') ){
+                                set_CSS_prop(_key,_value);
+                            }
+                        }
+                    } else {
+                        // is base font size
+                        html.style.setProperty('font-size', value);
+                    }
                 }
             }
-        }
-    });
-
-    // HEADER
-    ['static','sticky'].forEach( key => { 
-        UF_Customize.bind( key+'_header_bgc', ( values, context ) => {
-            let color = '';
-            let css_property = '--'+key+'-header-color';
-            if( values.add_bgc ) color = ( values.alpha != '100' ) ? hexToRgba(values.bgc, values.alpha) : values.bgc;
-            set_CSS_prop(css_property, color);
         });
-
-        UF_Customize.bind( key+'_header_logo_height', ( value, context ) => {
-            let css_property = '--'+key+'-header-logo-height';
-            set_CSS_prop(css_property, value+'px');
-        });
-        
-        // wp.customize.preview.send('refresh');
     });
 
     //  CONTAINER
-    UF_Customize.bind( 'containers_width', ( values, context ) => {
+    UF_Customize.bind( 'containers_settings', ( values, context ) => {
         let cssRules = '';
 
         values.forEach(item => {
             let width = item.width;
-            if( width ){
-                if( item.scope == 'global' ){
-                    cssRules += ':root{--container-width:'+width+'px;}';
-                } else if( item.scope == 'custom' && item.selector ) {
-                    cssRules += item.selector+'{--container-width:'+width+'px;}';
-                } else {
-                    cssRules += '.'+item.scope+'{--container-width:'+width+'px;}';
-                }
+            let max_width = item.max_width;
+
+            if( item.scope == 'global' ){
+                if( width ) cssRules += ':root{--container-width:'+width+'%;}';
+                if( max_width ) cssRules += ':root{--container-max-width:'+max_width+'px;}';
+            } else if( item.scope == 'custom' && item.selector ) {
+                if( width ) cssRules += item.selector+'{--container-width:'+width+'%;}';
+                if( max_width ) cssRules += item.selector+'{--container-max-width:'+max_width+'px;}';
+            } else {
+                if( width ) cssRules += '.'+item.scope+'{--container-width:'+width+'%;}';
+                if( max_width ) cssRules += '.'+item.scope+'{--container-max-width:'+max_width+'px;}';
             }
         });
 

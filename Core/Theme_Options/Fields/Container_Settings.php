@@ -3,16 +3,16 @@ namespace Core\Theme_Options\Fields;
 
 use Ultimate_Fields\Field;
 
-class Page_Container {
+class Container_Settings {
 
     public static function get_fields(){
-        $containers_width_default = get_option( 'containers_width', array() );
+        $containers_settings_default = get_option( 'containers_settings', array() );
 
         $fields = array(
             Field::create( 'tab', __('Container','mv23theme') ),
 
-            Field::create( 'repeater', 'containers_width' )
-                ->set_default_value( $containers_width_default )
+            Field::create( 'repeater', 'containers_settings' )
+                ->set_default_value( $containers_settings_default )
                 ->set_add_text(__('Add rule','mv23theme'))
                 ->hide_label()
                 ->add_group( 'item', array(
@@ -21,15 +21,15 @@ class Page_Container {
                         <% if( rule_name ){ %>
                             <%= rule_name %> |  
                         <% } %>
-                        .<%= scope %>: <%= width %>px
+                        .<%= scope %>: <%= max_width %>px
                     <% } else { %>
                         <% if( rule_name ){ %>
                             <%= rule_name %> |  
                         <% } %>
-                        <%= selector %>: <%= width %>px
+                        <%= selector %>: <%= max_width %>px
                     <% } %>',
                     'fields' => array(
-                        Field::create( 'text', 'rule_name' )->set_width(25),
+                        Field::create( 'text', 'rule_name' )->set_width(20),
                         Field::create( 'select', 'scope', __('Scope','mv23theme') )->add_options(array(
                             'global' => 'Global',
                             'header' => 'Header',
@@ -39,9 +39,10 @@ class Page_Container {
                             'archive' => 'Archive',
                             'blog' => 'Blog',
                             'custom' => 'Custom'
-                        ))->set_width(25),
-                        Field::create( 'text', 'selector' )->add_dependency('scope','custom')->set_width(25),
-                        Field::create( 'number', 'width', __('Width','mv23theme') )->set_suffix('px')->set_placeholder('1240')->required()->set_width(25)
+                        ))->set_width(20),
+                        Field::create( 'text', 'selector' )->add_dependency('scope','custom')->set_width(20),
+                        Field::create( 'number', 'width', __('Width','mv23theme') )->set_placeholder('98')->set_suffix('%')->set_width(20),
+                        Field::create( 'number', 'max_width', __('Max Width','mv23theme') )->set_placeholder('1240')->set_suffix('px')->required()->set_width(20)
                     )
             ))
         );

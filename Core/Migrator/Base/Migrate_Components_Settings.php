@@ -44,10 +44,12 @@ abstract class Migrate_Components_Settings{
     }
 
     /* abstract */ public function display(){
+        $title = $this->title;
+        if( !$this->is_top_level ) $title = '―――― ' . $title;
         ?>
         <div class="wrap">
             <div class="theme-migrator">
-                <h3><?php echo esc_html( $this->title ); ?></h3>
+                <h3><?php echo esc_html( $title ); ?></h3>
                 <?php if( !$this->is_top_level ) echo '――――― '; ?>
                 <button class="theme-migrator__init-process button-primary" data-action="<?php echo esc_attr( $this->slug ); ?>" data-status="initial">
                     <span><i class="dashicons dashicons-migrate uf-button-icon"></i> INIT MIGRATION</span>

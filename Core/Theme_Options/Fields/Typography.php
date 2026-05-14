@@ -82,7 +82,7 @@ class Typography {
         );
     }
 
-    private static function get_css_properties(){
+    private static function get_css_properties($type){
         $font_weight_options = [
             '100' => '100 - Ultra Light',
             '200' => '200 - Extra Light',
@@ -104,52 +104,60 @@ class Typography {
             'underline overline' => 'underline overline'
         ];
 
-        return [
-            // ['type' => 'tab', 'label' => 'General' ],
-            ['key' => 'base_font_size', 'label' => 'Base Font Size', 'type' => 'text', 'placeholder' => '16px'],
-            ['key' => '--global-line-height', 'label' => 'Global Line Height', 'type' => 'text', 'placeholder' => '1.6' ],
-            ['key' => '--components-spacing', 'label' => 'Blocks Spacing', 'type' => 'text', 'placeholder' => '24px' ],
-            ['key' => '--normal-font-weight', 'label' => 'Normal Font Weight', 'type' => 'select', 'placeholder' => '400', 'options' => $font_weight_options ],
-            ['key' => '--bold-font-weight', 'label' => 'Bold Font Weight', 'type' => 'select', 'placeholder' => '700', 'options' => $font_weight_options ],
-            ['key' => '--headings-font-weight', 'label' => 'Headings Font Weight', 'type' => 'select', 'placeholder' => 'var(--bold-font-weight)', 'options' => $font_weight_options ],
-            ['key' => '--headings-line-height', 'label' => 'Headings Line Height', 'type' => 'text', 'placeholder' => '1.3' ],
-            ['type' => 'section', 'label' => 'Headings' ],
-            ['key' => 'heading-h1', 'label' => 'Heading H1', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h1', 'label' => 'H1 Font Size', 'type' => 'text', 'placeholder' => '2.33em'],
-                ['key' => '--heading-h1-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)'],
-            ]],
-            ['key' => 'heading-h2', 'label' => 'Heading H2', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h2', 'label' => 'H2 Font Size', 'type' => 'text', 'placeholder' => '1.94em'],
-                ['key' => '--heading-h2-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
-            ]],
-            ['key' => 'heading-h3', 'label' => 'Heading H3', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h3', 'label' => 'H3 Font Size', 'type' => 'text', 'placeholder' => '1.62em'],
-                ['key' => '--heading-h3-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
-            ]],
-            ['key' => 'heading-h4', 'label' => 'Heading H4', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h4', 'label' => 'H4 Font Size', 'type' => 'text', 'placeholder' => '1.35em'],
-                ['key' => '--heading-h4-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
-            ]],
-            ['key' => 'heading-h5', 'label' => 'Heading H5', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h5', 'label' => 'H5 Font Size', 'type' => 'text', 'placeholder' => '1.13em'],
-                ['key' => '--heading-h5-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
-            ]],
-            ['key' => 'heading-h6', 'label' => 'Heading H6', 'type' => 'complex', 'fields' => [
-                ['key' => '--heading-h6', 'label' => 'H6 Font Size', 'type' => 'text', 'placeholder' => '0.94em'],
-                ['key' => '--heading-h6-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
-            ]],
-            ['type' => 'section', 'label' => 'Links' ],
-            ['key' => '--links-decoration', 'label' => 'Link Decoration', 'type' => 'select', 'placeholder' => 'none', 'options' => $link_decoration_options ],
-            ['key' => '--links-hover-decoration', 'label' => 'Link Hover Decoration', 'type' => 'select', 'placeholder' => 'underline', 'options' => $link_decoration_options ],
-            ['key' => '--links-decoration-thickness', 'label' => 'Link Decoration Thickness', 'type' => 'text', 'placeholder' => '1px' ],
-            ['key' => '--links-decoration-offset', 'label' => 'Link Decoration Offset', 'type' => 'text', 'placeholder' => '6px' ],
+        $all_properties = [
+            'typography' => [
+                // ['type' => 'tab', 'label' => 'General' ],
+                ['key' => 'base_font_size', 'label' => 'Base Font Size', 'type' => 'text', 'placeholder' => '16px'],
+                ['key' => '--global-line-height', 'label' => 'Global Line Height', 'type' => 'text', 'placeholder' => '1.6' ],
+                ['key' => '--components-spacing', 'label' => 'Blocks Spacing', 'type' => 'text', 'placeholder' => '24px' ],
+                ['key' => '--normal-font-weight', 'label' => 'Normal Font Weight', 'type' => 'select', 'placeholder' => '400', 'options' => $font_weight_options ],
+                ['key' => '--bold-font-weight', 'label' => 'Bold Font Weight', 'type' => 'select', 'placeholder' => '700', 'options' => $font_weight_options ],
+            ],
+            'headings' => [
+                ['key' => '--headings-font-weight', 'label' => 'Headings Font Weight', 'type' => 'select', 'placeholder' => 'var(--bold-font-weight)', 'options' => $font_weight_options ],
+                ['key' => '--headings-line-height', 'label' => 'Headings Line Height', 'type' => 'text', 'placeholder' => '1.3' ],
+                // ['type' => 'section', 'label' => 'Headings' ],
+                ['key' => 'heading-h1', 'label' => 'Heading H1', 'type' => 'complex', 'fields' => [
+                    ['key' => '--heading-h1', 'label' => 'H1 Font Size', 'type' => 'text', 'placeholder' => '2.33em'],
+                    ['key' => '--heading-h1-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)'],
+                ]],
+                ['key' => 'heading-h2', 'label' => 'Heading H2', 'type' => 'complex', 'fields' => [
+                    ['key' => '--heading-h2', 'label' => 'H2 Font Size', 'type' => 'text', 'placeholder' => '1.94em'],
+                    ['key' => '--heading-h2-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
+                ]],
+                ['key' => 'heading-h3', 'label' => 'Heading H3', 'type' => 'complex', 'fields' => [
+                    ['key' => '--heading-h3', 'label' => 'H3 Font Size', 'type' => 'text', 'placeholder' => '1.62em'],
+                    ['key' => '--heading-h3-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
+                ]],
+                ['key' => 'heading-h4', 'label' => 'Heading H4', 'type' => 'complex', 'fields' => [
+                    ['key' => '--heading-h4', 'label' => 'H4 Font Size', 'type' => 'text', 'placeholder' => '1.35em'],
+                    ['key' => '--heading-h4-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
+                ]],
+                ['key' => 'heading-h5', 'label' => 'Heading H5', 'type' => 'complex', 'fields' => [
+                    ['key' => '--heading-h5', 'label' => 'H5 Font Size', 'type' => 'text', 'placeholder' => '1.13em'],
+                    ['key' => '--heading-h5-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
+                ]],
+                ['key' => 'heading-h6', 'label' => 'Heading H6', 'type' => 'complex', 'fields' => [
+                    ['key' => '--heading-h6', 'label' => 'H6 Font Size', 'type' => 'text', 'placeholder' => '0.94em'],
+                    ['key' => '--heading-h6-line-height', 'label' => 'Line Height', 'type' => 'text', 'placeholder' => 'var(--headings-line-height)']
+                ]],
+            ],
+            'links' => [
+                // ['type' => 'section', 'label' => 'Links' ],
+                ['key' => '--links-decoration', 'label' => 'Link Decoration', 'type' => 'select', 'placeholder' => 'none', 'options' => $link_decoration_options ],
+                ['key' => '--links-hover-decoration', 'label' => 'Link Hover Decoration', 'type' => 'select', 'placeholder' => 'underline', 'options' => $link_decoration_options ],
+                ['key' => '--links-decoration-thickness', 'label' => 'Link Decoration Thickness', 'type' => 'text', 'placeholder' => '1px' ],
+                ['key' => '--links-decoration-offset', 'label' => 'Link Decoration Offset', 'type' => 'text', 'placeholder' => '6px' ]
+            ]
         ];
+
+        return $all_properties[$type] ?? array();
     }
 
-    private static function get_css_properties_fields( $default_values ){
+    private static function get_css_properties_fields( $type, $default_values ){
         $fields = [];
 
-        foreach (self::get_css_properties() as $property) {
+        foreach (self::get_css_properties($type) as $property) {
             $key = $property['key'] ?? '';
             $label = $property['label'];
             $field_label = str_starts_with($key, '--') ? $key : $label;
@@ -205,37 +213,41 @@ class Typography {
         return $fields;
     }
 
-    public static function get_css_properties_complex(){
-        $typography_css_vars_default = get_option( 'typography_css_vars', array() );
+    public static function get_css_properties_complex($type){
+        $defaults = get_option( $type.'_settings', array() );
 
-        $typography_css_vars = Field::create( 'complex', 'typography_css_vars', __('Typography CSS Vars','mv23theme') )
-            ->set_default_value( $typography_css_vars_default )
-            ->add_fields( self::get_css_properties_fields( $typography_css_vars_default ) )
+        $complex_field = Field::create( 'complex', $type.'_settings' )
+            ->set_default_value( $defaults )
+            ->add_fields( self::get_css_properties_fields( $type, $defaults ) )
             ->rows_layout();
 
         if( isset($_GET['action']) && $_GET['action'] === 'ultimate-builder') {
-            $typography_css_vars->hide_label();
+            $complex_field->hide_label();
         }
 
-        return $typography_css_vars;
+        return $complex_field;
     }
 
     public static function get_fields(){
         $fonts_default = get_option( 'fonts', array() );
 
         $fields = array(
-            Field::create( 'tab', 'fonts_tab', __('Fonts','mv23theme') ),
+            Field::create( 'tab', 'typography_tab', __('Typography','mv23theme') ),
+            self::get_css_properties_complex('typography'),
 
+            Field::create( 'tab', 'headings_tab', __('Headings','mv23theme') ),
+            self::get_css_properties_complex('headings'),
+
+            Field::create( 'tab', 'links_tab', __('Links','mv23theme') ),
+            self::get_css_properties_complex('links'),
+
+            Field::create( 'tab', 'fonts_tab', __('Fonts','mv23theme') ),
             Field::create( 'repeater', 'fonts', __('Fonts','mv23theme') )
                 ->set_default_value( $fonts_default )
                 ->set_add_text(__('Add font','mv23theme'))
                 ->set_chooser_type( 'tags' )
                 ->add_group( 'google_font', self::get_google_font_group() )
                 ->add_group( 'custom_font', self::get_custom_font_group() ),
-
-            Field::create( 'tab', 'typography_tab', __('Typography','mv23theme') ),
-
-            self::get_css_properties_complex()
         );
 
         return $fields;

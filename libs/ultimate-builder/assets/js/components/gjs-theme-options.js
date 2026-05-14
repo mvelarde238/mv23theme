@@ -40,11 +40,16 @@ window.gjsThemeOptions = function (editor, options) {
                 if ( changed.fonts) {
                     this.handleFontsChange( changed.fonts );
                 }
-                if ( changed.typography_css_vars) {
-                    this.applyTypographyCSSVars( changed.typography_css_vars );
+                const typography_keys = ['typography_settings','headings_settings','links_settings'];
+                if ( keys.some( key => typography_keys.includes(key) ) ) {
+                    typography_keys.forEach( key => {
+                        if ( changed[key] ) {
+                            this.applyTypographyCSSVars( changed[key] );
+                        }
+                    });
                 }
-                if ( changed.containers_width ) {
-                    this.handleContainersWidthChange( changed.containers_width );
+                if ( changed.containers_settings ) {
+                    this.handleContainersWidthChange( changed.containers_settings );
                 }
             },
             set_CSS_prop(prop, value){
@@ -185,19 +190,22 @@ window.gjsThemeOptions = function (editor, options) {
                 // Retornar el valor en formato rgba
                 return `rgba(${r}, ${g}, ${b}, ${a})`;
             },
-            handleContainersWidthChange(containers_width){
+            handleContainersWidthChange(containers_settings){
                 let cssRules = '';
 
-                containers_width.forEach(item => {
-                    let width = item.width;
-                    if( width ){
-                        if( item.scope == 'global' ){
-                            cssRules += ':root{--container-width:'+width+'px;}';
-                        } else if( item.scope == 'custom' && item.selector ) {
-                            cssRules += item.selector+'{--container-width:'+width+'px;}';
-                        } else {
-                            cssRules += '.'+item.scope+'{--container-width:'+width+'px;}';
-                        }
+                containers_settings.forEach(item => {
+                    let width = item.width;                
+                    let max_width = item.max_width;
+
+                    if( item.scope == 'global' ){
+                        if( width ) cssRules += ':root{--container-width:'+width+'%;}';
+                        if( max_width ) cssRules += ':root{--container-max-width:'+max_width+'px;}';
+                    } else if( item.scope == 'custom' && item.selector ) {
+                        if( width ) cssRules += item.selector+'{--container-width:'+width+'%;}';
+                        if( max_width ) cssRules += item.selector+'{--container-max-width:'+max_width+'px;}';
+                    } else {
+                        if( width ) cssRules += '.'+item.scope+'{--container-width:'+width+'%;}';
+                        if( max_width ) cssRules += '.'+item.scope+'{--container-max-width:'+max_width+'px;}';
                     }
                 });
             

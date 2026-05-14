@@ -16,7 +16,7 @@ class Migrate_Inner_Components extends Migrate_Components_Settings {
     private function __construct(){
         $batch_size = 3;
         $do_the_update = true;
-        $title = '―――― Migrate Inner Components Settings ( To level up to versions >= 2.8.0 )';
+        $title = 'Migrate Inner Components Settings ( To level up to versions >= 2.8.0 )';
         $slug = 'new_inner_components_settings';
 
         parent::__construct( $batch_size, $do_the_update, $title, $slug );

@@ -16,7 +16,7 @@ class Migrate_Slider_Comp_To_Shortcode extends Migrate_Components_Settings {
     private function __construct(){
         $batch_size = 3;
         $do_the_update = true;
-        $title = '―――― Migrate Slider Comp. to Shortcode Comp. ( To level up to versions >= 2.8.0 )';
+        $title = 'Migrate Slider Comp. to Shortcode Comp. ( To level up to versions >= 2.8.0 )';
         $slug = 'new_slider_components_settings';
 
         parent::__construct( $batch_size, $do_the_update, $title, $slug );

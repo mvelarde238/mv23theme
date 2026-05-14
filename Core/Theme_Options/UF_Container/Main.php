@@ -5,7 +5,7 @@ use Ultimate_Fields\Container;
 use Core\Theme_Options\Fields\Global_Settings;
 use Core\Theme_Options\Fields\Colors;
 use Core\Theme_Options\Fields\Typography;
-use Core\Theme_Options\Fields\Page_Container;
+use Core\Theme_Options\Fields\Container_Settings;
 
 class Main{
     public static function init(){
@@ -14,11 +14,17 @@ class Main{
             ->set_description_position('label')
             ->add_location( 'options', 'theme-options' )
             ->add_location( 'customizer', array(
-                'postmessage_fields' => array( 'theme_colors', 'typography_css_vars', 'containers_width' )
+                'postmessage_fields' => array( 
+                    'theme_colors', 
+                    'typography_settings', 
+                    'headings_settings',
+                    'links_settings',
+                    'containers_settings' 
+                )
             ))
             ->add_fields( Global_Settings::get_fields() )
-            ->add_fields( Colors::get_fields() )
             ->add_fields( Typography::get_fields() )
-            ->add_fields( Page_Container::get_fields() );
+            ->add_fields( Colors::get_fields() )
+            ->add_fields( Container_Settings::get_fields() );
     }
 }

@@ -6,7 +6,7 @@ use Ultimate_Fields\Field;
 use Core\Theme_Options\Fields\Global_Settings;
 use Core\Theme_Options\Fields\Colors;
 use Core\Theme_Options\Fields\Typography;
-use Core\Theme_Options\Fields\Page_Container;
+use Core\Theme_Options\Fields\Container_Settings;
 
 class Theme_Options extends Component {
 
@@ -68,9 +68,9 @@ class Theme_Options extends Component {
 
 	public static function get_fields() {
 		$fields = array();
-        $fields = array_merge( $fields, Colors::get_fields() );
         $fields = array_merge( $fields, Typography::get_fields() );
-        $fields = array_merge( $fields, Page_Container::get_fields() );
+        $fields = array_merge( $fields, Colors::get_fields() );
+        $fields = array_merge( $fields, Container_Settings::get_fields() );
         $fields = array_merge( $fields, Global_Settings::get_fields() );
 
 		return $fields;

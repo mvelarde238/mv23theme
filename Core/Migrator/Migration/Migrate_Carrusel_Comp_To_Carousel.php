@@ -16,7 +16,7 @@ class Migrate_Carrusel_Comp_To_Carousel extends Migrate_Components_Settings {
     private function __construct(){
         $batch_size = 3;
         $do_the_update = true;
-        $title = '―――― Migrate Carusel Comp. to Carousel Comp. ( To level up to versions >= 2.8.0 )';
+        $title = 'Migrate Carusel Comp. to Carousel Comp. ( To level up to versions >= 2.8.0 )';
         $slug = 'new_carousel_components_name';
 
         parent::__construct( $batch_size, $do_the_update, $title, $slug );

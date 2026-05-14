@@ -2,6 +2,16 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.0 26-06-25
+- Migrates the monolithic "typography_css_vars" option into four separate options:
+|-- typography_settings  → base typography CSS vars
+|-- headings_settings    → heading CSS vars
+|-- links_settings       → link decoration CSS vars
+- Renames the legacy "containers_width" option to "containers_settings".
+--------------------------------------------------------------------------------------------------------------------------
+!IMPORTANT: Use the migrator to update old typography_css_vars and containers_width options to the new settings structure
+--------------------------------------------------------------------------------------------------------------------------
+
 3.11.4 26-05-13
 - Remove stylable: false from header logo component to allow styling it from the style manager
 

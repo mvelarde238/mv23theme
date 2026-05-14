@@ -57,7 +57,7 @@ $error-color: color("red", "base") !default;
 // 0. CSS properties
 // ==========================================================================
 
-$container-width: 1240px !default; // used in some @media queries
+$container-max-width: 1240px !default; // used in some @media queries
 
 @mixin css-properties{
     --static-header-height: 84px;
@@ -81,7 +81,8 @@ $container-width: 1240px !default; // used in some @media queries
 	--static-header-color: initial;
 	--static-header-logo-height: 60px;
 	--sticky-header-logo-height: 60px;
-	--container-width: #{$container-width};
+	--container-width: 98%;
+	--container-max-width: #{$container-max-width};
 	--fancybox-zIndex: 1600;
 	--sidebar-width: 280px;
 	--form-ui-color-1: var(--primary-color);

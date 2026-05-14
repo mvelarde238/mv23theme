@@ -196,7 +196,6 @@ class Theme_Options extends Theme_Header_Data{
 
         // theme colors
         $theme_colors = get_option('theme_colors', array());
-        
         if (is_array($theme_colors) && !empty($theme_colors)) {
             foreach ($theme_colors as $color_item) {
                 // Process color type items
@@ -225,48 +224,37 @@ class Theme_Options extends Theme_Header_Data{
             }
         }
 
-        // header
-        $header_options = array('static_header_bgc','sticky_header_bgc','static_header_logo_height','sticky_header_logo_height');
-        $header_properties = array('--static-header-color','--sticky-header-color','--static-header-logo-height','--sticky-header-logo-height');
-        $count = 0;
-        foreach ($header_options as $option) {
-            $the_value = get_option( $option );
-            if( $count < 2 && is_array($the_value) && $the_value['add_bgc'] ) {
-                $color = Helpers::hexToRgb( $the_value['bgc'], $the_value['alpha'] );
-                $properties[] = $header_properties[$count].': rgba('.$color.')';
-            }
-            if( $count > 1 ){
-                if($the_value) $properties[] = $header_properties[$count].': '.$the_value.'px';
-            }
-            $count++;
-        }
-
         // containers
-        $containers_width = get_option( 'containers_width' );
-        if( !empty($containers_width) ){
-            foreach ($containers_width as $item) {
+        $containers_settings = get_option( 'containers_settings' );
+        if( !empty($containers_settings) ){
+            foreach ($containers_settings as $item) {
                 $width = $item['width'];
-                if( $width ){
-                    if( $item['scope'] === 'global' ){
-                        $properties[] = '--container-width:'.$width.'px';
-                    } elseif ( $item['scope'] === 'custom' && !empty($item['selector']) ){
-                        $properties[] = $item['selector'].'{--container-width:'.$width.'px}';
-                    } else {
-                        $properties[] = '.'.$item['scope'].'{--container-width:'.$width.'px}';
-                    }
+                $max_width = $item['max_width'];
+                if( $item['scope'] === 'global' ){
+                    if( $width ) $properties[] = '--container-width:'.$width.'%';
+                    if( $max_width ) $properties[] = '--container-max-width:'.$max_width.'px';
+                } elseif ( $item['scope'] === 'custom' && !empty($item['selector']) ){
+                    if( $width ) $properties[] = $item['selector'].'{--container-width:'.$width.'%}';
+                    if( $max_width ) $properties[] = $item['selector'].'{--container-max-width:'.$max_width.'px}';
+                } else {
+                    if( $width ) $properties[] = '.'.$item['scope'].'{--container-width:'.$width.'%}';
+                    if( $max_width ) $properties[] = '.'.$item['scope'].'{--container-max-width:'.$max_width.'px}';
                 }
             }
         }
 
         // typography css vars
-        $typography_css_vars = get_option('typography_css_vars');
-        if( is_array($typography_css_vars) ){
-            foreach ($typography_css_vars as $prop => $value) {
-                if($value){
-                    if( str_starts_with($prop,'--') ){
-                        $properties[] = $prop.':'.$value;
-                    }
-                } 
+        $types = ['typography','headings','links'];
+        foreach ($types as $type) {
+            $type_settings = get_option($type.'_settings');
+            if( is_array($type_settings) ){
+                foreach ($type_settings as $prop => $value) {
+                    if($value){
+                        if( str_starts_with($prop,'--') ){
+                            $properties[] = $prop.':'.$value;
+                        }
+                    } 
+                }
             }
         }
 
@@ -276,11 +264,14 @@ class Theme_Options extends Theme_Header_Data{
     public function get_html_properties(){
         $properties = [];
 
-        $typography_css_vars = get_option('typography_css_vars');
-        if( is_array($typography_css_vars) ){
-            foreach ($typography_css_vars as $prop => $value) {
-                if($value && $prop === 'base_font_size' ){
-                    if($value != '16px') $properties[] = 'font-size:'.$value;
+        $types = ['typography','headings','links'];
+        foreach ($types as $type) {
+            $type_settings = get_option($type.'_settings');
+            if( is_array($type_settings) ){
+                foreach ($type_settings as $prop => $value) {
+                    if($value && $prop === 'base_font_size' ){
+                        if($value != '16px') $properties[] = 'font-size:'.$value;
+                    }
                 }
             }
         }

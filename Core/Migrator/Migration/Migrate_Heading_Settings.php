@@ -16,7 +16,7 @@ class Migrate_Heading_Settings extends Migrate_Components_Settings {
     private function __construct(){
         $batch_size = 3;
         $do_the_update = true;
-        $title = '―――― Migrate Heading ( To level up to versions >= 2.9.0 )';
+        $title = 'Migrate Heading ( To level up to versions >= 2.9.0 )';
         $slug = 'add_heading_tagline_checkbox';
 
         parent::__construct( $batch_size, $do_the_update, $title, $slug );
