@@ -4,6 +4,7 @@ CHANGELOG
 
 3.12.1 26-05-15
 - Remove gallery margins
+- filter_post_meta_box_post_types to reuse post format and featured video meta box on custom post types
 
 3.12.0 26-05-14
 - Migrates the monolithic "typography_css_vars" option into four separate options:

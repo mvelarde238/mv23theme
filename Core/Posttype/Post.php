@@ -20,6 +20,7 @@ class Post {
     public function add_meta_boxes(){
         $post_types = array('post');
         if( USE_PORTFOLIO_CPT ) $post_types[] = 'portfolio';
+        $post_types = apply_filters( 'filter_post_meta_box_post_types', $post_types );
 
         // POSTS FORMAT
         Container::create( 'post_format' )
