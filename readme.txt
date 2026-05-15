@@ -2,7 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
-3.12.0 26-06-25
+3.12.1 26-05-15
+- Remove gallery margins
+
+3.12.0 26-05-14
 - Migrates the monolithic "typography_css_vars" option into four separate options:
 |-- typography_settings  → base typography CSS vars
 |-- headings_settings    → heading CSS vars
