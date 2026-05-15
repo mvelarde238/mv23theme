@@ -13,7 +13,8 @@ window.gjsThemeOptions = function (editor, options) {
         highlightable: false,
         selectable: false,
         hoverable: false,
-        layerable: false
+        layerable: false,
+        savable: false,
     };
 
     // Labels for the ui, using the editor's translator for internationalization
@@ -29,6 +30,14 @@ window.gjsThemeOptions = function (editor, options) {
             }),
         },
         view: {
+            onRender({el, model}){
+                // Add theme options stuff after a short delay to ensure canvas is ready
+                setTimeout(() => {
+                    const datastore = editor.getComponentDatastore(model);
+                    const data = datastore.toJSON();
+                    this.custom_datastore_change_callback(data);
+                }, 500);
+            },
             custom_datastore_change_callback(changed) {
                 // Ignore changes that only affect __tab (tab switching)
                 const keys = Object.keys(changed);
@@ -39,14 +48,6 @@ window.gjsThemeOptions = function (editor, options) {
                 }
                 if ( changed.fonts) {
                     this.handleFontsChange( changed.fonts );
-                }
-                const typography_keys = ['typography_settings','headings_settings','links_settings'];
-                if ( keys.some( key => typography_keys.includes(key) ) ) {
-                    typography_keys.forEach( key => {
-                        if ( changed[key] ) {
-                            this.applyTypographyCSSVars( changed[key] );
-                        }
-                    });
                 }
                 if ( changed.containers_settings ) {
                     this.handleContainersWidthChange( changed.containers_settings );
@@ -144,31 +145,6 @@ window.gjsThemeOptions = function (editor, options) {
 
                 if(cssRules) this.addOrUpdateStyle(cssRules, 'fonts-style');
             },
-            applyTypographyCSSVars(properties){
-                for (const key in properties) {
-                    let value = properties[key];
-
-                    if( key.startsWith('--') ){
-                        this.set_CSS_prop(key,value);
-                    } else {
-                        if( key.startsWith('heading') ){
-                            // is headings complex
-                            let heading_complex = value;
-                            for (const _key in heading_complex) {
-                                let _value = heading_complex[_key];
-                                if( _key.startsWith('--') ){
-                                    this.set_CSS_prop(_key,_value);
-                                }
-                            }
-                        } else {
-                            // is base font size
-                            const canvas = editor.Canvas,
-                                _document = canvas.getDocument();
-                            _document.querySelector('html').style.setProperty('font-size', value);
-                        }
-                    }
-                }
-            },
             hexToRgba(hex, alpha) {
                 // Remover el símbolo '#' si está presente
                 hex = hex.replace(/^#/, '');
@@ -221,7 +197,7 @@ window.gjsThemeOptions = function (editor, options) {
                 if (!styleElement) {
                     styleElement = _document.createElement('style');
                     styleElement.id = key; // Asignamos un ID para que sea fácil encontrarla
-                    _document.head.appendChild(styleElement); // Añadimos la etiqueta al head
+                    _document.body.appendChild(styleElement); // Añadimos la etiqueta al body
                 }
             
                 // Sobrescribe el contenido del estilo con el nuevo cssContent
@@ -235,7 +211,7 @@ window.gjsThemeOptions = function (editor, options) {
         const wrapper = editor.getWrapper();
         const themeOptions_exists = wrapper.findType('theme-options')[0];
         if ( !themeOptions_exists ) {
-            wrapper.append({type: 'theme-options'}, {at: 0});
+            wrapper.append({type: 'theme-options'});
         }
     });
 }

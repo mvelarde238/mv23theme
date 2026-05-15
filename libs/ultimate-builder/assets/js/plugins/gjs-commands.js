@@ -228,6 +228,15 @@ window.gjsCommands = function (editor, options) {
         }
     });
 
+    commands.add('select-global-styles', (editor) => {
+        const wrapper = editor.getWrapper();
+        const globalStyles = wrapper.findType('global-styles')[0];
+        if ( globalStyles ) {
+            editor.select(globalStyles);
+            editor.Commands.run('open-datastore');
+        }
+    });
+
     commands.add('locked-components-toggle', (editor, sender, options = {}) => {
         let component = options.component;
 

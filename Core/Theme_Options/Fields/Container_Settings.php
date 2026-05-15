@@ -14,7 +14,7 @@ class Container_Settings {
             Field::create( 'repeater', 'containers_settings' )
                 ->set_default_value( $containers_settings_default )
                 ->set_add_text(__('Add rule','mv23theme'))
-                ->hide_label()
+                // ->hide_label()
                 ->add_group( 'item', array(
                     'edit_mode' => 'popup',
                     'title_template' => '<% if( scope != "custom" ){ %>

@@ -113,9 +113,19 @@ class Image_Select extends Field {
 	public function export_field() {
 		$settings = parent::export_field();
 
-		$settings[ 'options' ]     = $this->options;
-		$settings['show_label']   = $this->show_label;
-		$settings['use_buttons']  = $this->use_buttons;
+		// Export options as an ordered array so JavaScript preserves insertion order.
+		// PHP converts numeric string keys (e.g. '992') to integers, which causes
+		// JS engines to sort them numerically when iterating an object.
+		$ordered_options = array();
+		foreach( $this->options as $key => $value ) {
+			$entry = is_array( $value ) ? $value : array( 'label' => $value );
+			$entry['key'] = (string) $key;
+			$ordered_options[] = $entry;
+		}
+
+		$settings['options']     = $ordered_options;
+		$settings['show_label']  = $this->show_label;
+		$settings['use_buttons'] = $this->use_buttons;
 
 		return $settings;
 	}

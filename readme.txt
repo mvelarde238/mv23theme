@@ -8,6 +8,8 @@ CHANGELOG
 |-- headings_settings    → heading CSS vars
 |-- links_settings       → link decoration CSS vars
 - Renames the legacy "containers_width" option to "containers_settings".
+- Implements a device switch on global styles to allow styling for different devices and preview the changes on the canvas, 
+  improving the responsive design capabilities of the builder and allowing users to create more tailored styles for different screen sizes.
 --------------------------------------------------------------------------------------------------------------------------
 !IMPORTANT: Use the migrator to update old typography_css_vars and containers_width options to the new settings structure
 --------------------------------------------------------------------------------------------------------------------------

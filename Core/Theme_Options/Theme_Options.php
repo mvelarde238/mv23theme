@@ -6,6 +6,7 @@ use Ultimate_Fields\Options_Page;
 use Ultimate_Fields\Field\Font;
 use Core\Utils\Helpers;
 use Core\Theme_Options\UF_Container\Main;
+use Core\Theme_Options\UF_Container\Global_Styles;
 use Core\Theme_Options\UF_Container\Custom_Scripts;
 use Core\Theme_Options\UF_Container\Posts_Subscription;
 use Core\Theme_Options\UF_Container\Track_Posts_Data;
@@ -37,6 +38,7 @@ class Theme_Options extends Theme_Header_Data{
 
             // load uf-containers
             Main::init();
+            Global_Styles::init();
             Custom_Scripts::init();
             Builder_Options::init();
             Posts_Subscription::init();
@@ -258,6 +260,38 @@ class Theme_Options extends Theme_Header_Data{
             }
         }
 
+        // breakpoint typography css vars
+        $breakpoints_ids = ['tablet', 'mobileLandscape', 'mobilePortrait'];
+        $breakpoints = array(
+            'tablet' => 992,
+            'mobileLandscape' => 768,
+            'mobilePortrait' => 480
+        );
+        foreach ($breakpoints_ids as $bp_id) {
+            $bp_root_lines = array();
+            $bp_css = '';
+            foreach ($types as $type) {
+                $type_settings = get_option( '_breakpoint_' . $bp_id . '_' . $type . '_settings' );
+                if( is_array($type_settings) ){
+                    foreach ($type_settings as $prop => $value) {
+                        if( $value ){
+                            if( str_starts_with($prop, '--') ){
+                                $bp_root_lines[] = $prop . ':' . $value;
+                            } elseif( $prop === 'base_font_size' ){
+                                $bp_css .= 'html{font-size:' . $value . '}';
+                            }
+                        }
+                    }
+                }
+            }
+            if( !empty($bp_root_lines) ){
+                $bp_css .= ':root, .text-color-1{' . implode(';', $bp_root_lines) . '}';
+            }
+            if( !empty($bp_css) ){
+                $properties[] = '@media (max-width:' . $breakpoints[$bp_id] . 'px){' . $bp_css . '}';
+            }
+        }
+
         return $properties;
     }
 
@@ -283,12 +317,16 @@ class Theme_Options extends Theme_Header_Data{
         $properties = self::$instance->get_css_properties();
         $root_lines = array();
         $css = '';
+        $media_css = '';
 
         if( !empty($properties) ){
             foreach ($properties as $prop) {
                 if( str_starts_with($prop,'--') ){ 
                     // is a css property
                     $root_lines[] = $prop;
+                } elseif( str_starts_with($prop, '@media') ){
+                    // defer media queries to the end
+                    $media_css .= $prop;
                 } else { 
                     // is a css rule
                     $css .= $prop;
@@ -303,6 +341,7 @@ class Theme_Options extends Theme_Header_Data{
         }
         
         if( !empty($root_lines) ) $css .= ':root, .text-color-1 {'.implode(';', $root_lines ).'}';
+        $css .= $media_css;
         if( !empty($css) ) wp_add_inline_style( 'mv23theme-styles', $css );
     }
 

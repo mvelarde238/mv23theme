@@ -71,14 +71,17 @@ class Frontend extends Theme_Header_Data {
             self::add_style( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css', array(), $this->version, 'all' );
         }
 
-        $theme_options = Theme_Options::getInstance();
+        // avoid registering theme options stuff on builder/admin context as they will be loaded dinamically when needed
+        if( !is_admin() ) {
+            $theme_options = Theme_Options::getInstance();
 
-        // add theme fonts styles
-        $fonts = $theme_options->get_theme_fonts();
-        $count = 0;
-        foreach ($fonts['urls'] as $url) {
-            self::add_style( $fonts['names'][$count], $url );
-            $count++;
+            // add theme fonts styles
+            $fonts = $theme_options->get_theme_fonts();
+            $count = 0;
+            foreach ($fonts['urls'] as $url) {
+                self::add_style( $fonts['names'][$count], $url );
+                $count++;
+            }
         }
 
         do_action( $this->text_domain.'_add_additional_styles' );
@@ -88,9 +91,11 @@ class Frontend extends Theme_Header_Data {
             wp_register_style( $style['handle'], $style['src'], $style['deps'], $style['ver'], $style['media'] );
         }
 
-        // register inline styles from theme options
-        $theme_options->add_theme_fonts();
-        $theme_options->add_css_properties();
+        if( !is_admin() ) {
+            // register inline styles from theme options
+            $theme_options->add_theme_fonts();
+            $theme_options->add_css_properties();
+        }
     }
 
     /*

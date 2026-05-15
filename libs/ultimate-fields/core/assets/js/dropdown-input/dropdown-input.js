@@ -48,7 +48,9 @@ class DropdownInput {
 
     filtrarYMostrar() {
         const valor = this.input.value.toLowerCase();
-        this.filtradas = this.opciones.filter(op => op.toLowerCase().includes(valor));
+        this.filtradas = this.opciones.filter(op => {
+            return String(op).toLowerCase().includes(valor);
+        });
         this.renderDropdown();
         this.mostrarDropdown();
     }

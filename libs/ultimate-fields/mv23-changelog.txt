@@ -1,5 +1,11 @@
 mv23 changelog-------------------------
 
+- 3.2.16 14-05-2026
+- FIX: Image Select options reordering — export options as ordered array to preserve PHP insertion order in JavaScript
+    (core/classes/Field/Image_Select.php)
+    (core/templates/field/image-select.php)
+    (core/js/field/image-select.js)
+
 - 3.2.15 23-04-2026
 - Add file name to gallery item preview
     (core/js/field/gallery.js)

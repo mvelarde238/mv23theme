@@ -20,9 +20,9 @@
 			// Locate the first option and use it if any
 			const useButtons = this.get( 'use_buttons' );
 			if( ! this.getValue() && ! useButtons ) {
-				_.each( this.get( 'options' ), function( option, key ) {
+				_.each( this.get( 'options' ), function( option ) {
 					if( ! set ) {
-						that.setValue( key );
+						that.setValue( option.key );
 						set = true;
 					}
 				});

@@ -86,6 +86,7 @@ window.gjsI18n = function (editor, options) {
                 section: 'Sección',
                 spacer: 'Separador',
                 theme_options: 'Opciones de tema',
+                global_styles: 'Estilos globales',
                 page: 'Página',
                 image: 'Imagen',
                 video: 'Video',
@@ -200,6 +201,7 @@ window.gjsI18n = function (editor, options) {
                 stretch: 'Estirar',
                 // wrapper
                 edit_theme_options: 'EDITAR OPCIONES DE TEMA',
+                edit_global_styles: 'EDITAR ESTILOS GLOBALES',
                 color_scheme: 'ESQUEMA DE COLOR',
                 dark_mode: 'MODO OSCURO',
                 light_mode: 'MODO CLARO',

@@ -224,7 +224,7 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'admin_enqueue_scripts', $theme_options, 'enqueue_admin_scripts' );
 
         // int scripts for the customizer
-        $this->loader->add_action( 'customize_preview_init', $theme_options, 'enqueue_uf_customize_preview_script' );
+        // $this->loader->add_action( 'customize_preview_init', $theme_options, 'enqueue_uf_customize_preview_script' );
 
         // show post types count
         // $this->loader->add_action( 'init', $theme_options, 'show_cpt_count', 999 );

@@ -77,6 +77,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsHeaderPreview', 'handler' => 'gjs-header-preview', 'isComponent' => true ],
 		[ 'name' => 'gjsFooterPreview', 'handler' => 'gjs-footer-preview', 'isComponent' => true ],
 		[ 'name' => 'gjsThemeOptions', 'handler' => 'gjs-theme-options', 'isComponent' => true ],
+		[ 'name' => 'gjsGlobalStyles', 'handler' => 'gjs-global-styles', 'isComponent' => true ],
 		[ 'name' => 'gjsCompWrapper', 'handler' => 'gjs-components-wrapper', 'isComponent' => true ],
 		[ 'name' => 'gjsListing', 'handler' => 'gjs-listing', 'isComponent' => true ],
 		[ 'name' => 'gjsGallery', 'handler' => 'gjs-gallery', 'isComponent' => true ],

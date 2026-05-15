@@ -87,6 +87,7 @@ class Core{
         ),
         'core' => array(
             'Theme_Options',
+            'Global_Styles',
             'Header',
             'Header_Logo',
             'Header_Preview',
