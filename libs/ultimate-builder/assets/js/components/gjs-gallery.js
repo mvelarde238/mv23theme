@@ -47,6 +47,10 @@ window.gjsGallery = function (editor) {
             init({model}){
                 this.listenTo(model, 'change:__temp-handle-gallery', this.handle_gallery_display_change);
                 editor.on('change:device', this.handle_editor_resize.bind(this));
+
+                // force non-droppable
+                // TODO: REVIEW BUG: droppable should be false by default due to this components is extending from async-component-abstract
+                model.set('droppable', false);
             },
             handle_gallery_display_change() {
                 const model = this.model;

@@ -4,6 +4,7 @@ CHANGELOG
 
 3.12.2 26-05-16
 - Masonry layouts refactor to use Packery library instead of Masonry, to improve layout stability
+- Bug: Force droppable false on gjs-gallery component
 
 3.12.1 26-05-15
 - Remove gallery margins
