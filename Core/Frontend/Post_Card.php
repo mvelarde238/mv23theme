@@ -10,10 +10,10 @@ class Post_Card {
     public static function get_permalink($post) {
         $permalink = get_permalink($post->ID);
 
-        if( $post->post_type == 'post' || $post->post_type == 'portfolio' ) {
-            $post_format = get_post_meta( $post->ID, 'post_format', true );
+        $post_format = get_post_meta( $post->ID, 'post_format', true );
+        if( $post_format == 'link' ){
             $post_link = get_post_meta( $post->ID, 'post_link', true );
-            if( $post_format == 'link' && !empty($post_link) ) $permalink = $post_link;
+            if( !empty($post_link) ) $permalink = $post_link;
         }
 
         return apply_filters('filter_post_card_permalink', $permalink, $post);

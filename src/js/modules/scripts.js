@@ -27,18 +27,21 @@
         })
 
         // ****************************************************************************************************
-        // Init Masonry Grid (wait for images/videos/background images)
+        // Init Bricks Layout (wait for images/videos/background images)
         // ****************************************************************************************************
         if (MV23_GLOBALS.masonry_is_active) {
             const grids = document.querySelectorAll('.has-masonry-columns');
             grids.forEach(grid => {
                 imagesLoaded(grid, function () {
-                    new Masonry(grid, {
+                    const packery = new Packery(grid, {
                         itemSelector: '.masonry-grid-item',
                         columnWidth: '.masonry-grid-sizer',
-                        percentPosition: true,
-                        gutter: 20
+                        gutter: '.masonry-gutter-sizer',
+                        percentPosition: true
                     });
+
+                    // Store Packery instance on the grid element for later access
+                    grid.packeryInstance = packery;
                 });
             });
         }

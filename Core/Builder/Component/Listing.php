@@ -171,11 +171,11 @@ class Listing extends Component {
             )),
             
             Field::create( 'complex', 'columns_gap', __('Space between columns','mv23theme') )->add_fields(array(
-                Field::create( 'number', 'desktop', __('Desktop','mv23theme') )->set_default_value(LISTING_GAP['desktop'])->set_attr('style', $width_25),
-                Field::create( 'number', 'laptop', __('Laptop','mv23theme') )->set_default_value(LISTING_GAP['laptop'])->set_attr('style', $width_25),
-                Field::create( 'number', 'tablet', __('Tablet','mv23theme') )->set_default_value(LISTING_GAP['tablet'])->set_attr('style', $width_25),
-                Field::create( 'number', 'mobile', __('Mobile','mv23theme') )->set_default_value(LISTING_GAP['mobile'])->set_attr('style', $width_25)
-            ))->add_dependency('listing_template', 'masonry', '!='),
+                Field::create( 'number', 'desktop', __('Desktop','mv23theme') )->set_minimum(0)->set_default_value(LISTING_GAP['desktop'])->set_attr('style', $width_25),
+                Field::create( 'number', 'laptop', __('Laptop','mv23theme') )->set_minimum(0)->set_default_value(LISTING_GAP['laptop'])->set_attr('style', $width_25),
+                Field::create( 'number', 'tablet', __('Tablet','mv23theme') )->set_minimum(0)->set_default_value(LISTING_GAP['tablet'])->set_attr('style', $width_25),
+                Field::create( 'number', 'mobile', __('Mobile','mv23theme') )->set_minimum(0)->set_default_value(LISTING_GAP['mobile'])->set_attr('style', $width_25)
+            )),
 
             Field::create( 'tab', 'carousel_settings_tab', __('Carousel Settings','mv23theme'))->add_dependency('listing_template','carousel','='),
             Field::create( 'complex', 'carousel_settings' )->hide_label()->add_fields(array(
@@ -457,16 +457,6 @@ class Listing extends Component {
         }
         $args['additional_attributes']['data-listing-args'] = esc_attr( json_encode($listing_args) );
 
-        // if masonry display is selected, override gap values to ensure consistent spacing (since masonry layout isnt considering the gap values from css variables)
-        if($listing_template == 'masonry'){
-            $columns_gap = array(
-                'desktop' => 20,
-                'laptop' => 20,
-                'tablet' => 20,
-                'mobile' => 20
-            );
-        }
-
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
         
@@ -535,7 +525,10 @@ class Listing extends Component {
                 <?php 
                 do_action('on_listing_start', $args);
 
-                if($listing_template == 'masonry') echo '<div class="masonry-grid-sizer"></div>';
+                if($listing_template == 'masonry'){
+                    echo '<div class="masonry-grid-sizer"></div>';
+                    echo '<div class="masonry-gutter-sizer"></div>';
+                } 
 
                 $count = 0;
                 while ( $query->have_posts() ) : $query->the_post();

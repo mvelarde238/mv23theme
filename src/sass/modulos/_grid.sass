@@ -21,11 +21,11 @@
     display: flex
     flex-wrap: wrap
     justify-content: flex-start
-    // masonry is not considering the gap values from css variables, so we will set a default gap value for masonry layout to ensure consistent spacing between items
-    gap: 20px
+    gap: var(--d-gap)
 
-    &:not(.masonry) .masonry-grid-sizer
-        display: none
+    &:not(.masonry) 
+        .masonry-grid-sizer
+            display: none
 
     video
         aspect-ratio: 16/9
@@ -34,22 +34,30 @@
     .masonry-grid-item,
     .masonry-grid-sizer
         width: calc( calc(100% - calc(var(--d-gap) * calc(var(--d-columns) - 1))) / var(--d-columns) )
-        margin-bottom: 20px
+
+    .masonry-gutter-sizer
+        width: var(--d-gap)
 
     @media #{$large-only}
         gap: var(--l-gap)
         .masonry-grid-item,
         .masonry-grid-sizer
             width: calc( calc(100% - calc(var(--l-gap) * calc(var(--l-columns) - 1))) / var(--l-columns) )
+        .masonry-gutter-sizer
+            width: var(--l-gap)
 
     @media #{$medium-only}
         gap: var(--t-gap)
         .masonry-grid-item,
         .masonry-grid-sizer
             width: calc( calc(100% - calc(var(--t-gap) * calc(var(--t-columns) - 1))) / var(--t-columns) )
+        .masonry-gutter-sizer
+            width: var(--t-gap)
 
     @media #{$small-and-down}
         gap: var(--m-gap)
         .masonry-grid-item,
         .masonry-grid-sizer
             width: calc( calc(100% - calc(var(--m-gap) * calc(var(--m-columns) - 1))) / var(--m-columns) )
+        .masonry-gutter-sizer
+            width: var(--m-gap)

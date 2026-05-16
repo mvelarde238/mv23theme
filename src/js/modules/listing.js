@@ -46,25 +46,35 @@
                             $items_container = $listing.find('.carousel__slider');
                             if(action === 'replace') $items_container.html('');
                         } 
-                        if ( listing_template === 'masonry' ) {
-                            $listing.masonry('destroy');
-                        }
+
                         if(action === 'replace') $items_container.html($items);
                         if(action === 'append') $items_container.append($items);
+
                         if ( listing_template === 'carousel' ) {
                             MV23_GLOBALS.carousels[ slider_uid ] = create_tns_slider( $items_container[0] );
                             $items_container.attr('data-slider-uid', slider_uid);
                             if(action === 'append') MV23_GLOBALS.carousels[ slider_uid ].goTo('next');
                         }
                         if ( listing_template === 'masonry' ) {
-                            setTimeout(function () {
-                                $listing.masonry({
-                                    itemSelector: '.masonry-grid-item',
-                                    columnWidth: '.masonry-grid-sizer',
-                                    percentPosition: true,
-                                    gutter: 20
+                            if (action === 'replace') {
+                                var packery = Packery.data($items_container[0]);
+                                if (packery) packery.destroy();
+                                imagesLoaded($items_container[0], function () {
+                                    new Packery($items_container[0], {
+                                        itemSelector: '.masonry-grid-item',
+                                        columnWidth: '.masonry-grid-sizer',
+                                        gutter: '.masonry-gutter-sizer',
+                                        percentPosition: true
+                                    });
                                 });
-                            }, 100); // slight delay to ensure DOM is updated before Masonry initialization
+                            }
+                            if (action === 'append') {
+                                imagesLoaded($items_container[0], function () {
+                                    const packeryInstance = Packery.data($items_container[0]);
+                                    packeryInstance.addItems($items.toArray());
+                                    packeryInstance.layout();
+                                });
+                            }
                         }
 
                         $listing.trigger('listingUpdated', {listing:$listing, items:$items, action:action, response:response});
@@ -83,7 +93,8 @@
                             $items_container.html('');
                         }
                         if ( listing_template === 'masonry' ) {
-                            $listing.masonry('destroy');
+                            var packery = Packery.data($items_container[0]);
+                            if(packery) packery.destroy();
                             $items_container.html('');
                         }
                         $items_container.html('<p class="center posts-filter-error-msg">'+response.message+'</p>');

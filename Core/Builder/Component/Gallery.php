@@ -150,22 +150,21 @@ class Gallery extends Component {
         }
         
         // columns and gutter settings
-        $fields[] = Field::create( 'tab', '_gallery-colums-tab', __('Columns', 'mv23theme') )
-            ->add_dependency('display', array('grid'), 'NOT_IN');
+        $fields[] = Field::create( 'tab', '_gallery-colums-tab', __('Columns', 'mv23theme') );
         $width_style = 'width: 25%; min-width: initial;';
         $fields[] = Field::create( 'complex', 'items', __('Columns', 'mv23theme') )->hide_label()->add_fields(array(
-            Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value(5)->set_attr( 'style', $width_style ),
-            Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_default_value(4)->set_attr( 'style', $width_style ),
-            Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_default_value(3)->set_attr( 'style', $width_style ),
-            Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_default_value(2)->set_attr( 'style', $width_style )
+            Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_minimum(1)->set_default_value(GALLERY_COLUMNS['desktop'])->set_attr( 'style', $width_style ),
+            Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_minimum(1)->set_default_value(GALLERY_COLUMNS['laptop'])->set_attr( 'style', $width_style ),
+            Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_minimum(1)->set_default_value(GALLERY_COLUMNS['tablet'])->set_attr( 'style', $width_style ),
+            Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_minimum(1)->set_default_value(GALLERY_COLUMNS['mobile'])->set_attr( 'style', $width_style )
         ))->add_dependency('display', array('marquee','grid'), 'NOT_IN');
 
         $fields[] = Field::create( 'complex', 'gutter', __('Space between items', 'mv23theme') )->add_fields(array(
-            Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value(4)->set_attr( 'style', $width_style ),
-            Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_default_value(4)->set_attr( 'style', $width_style ),
-            Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_default_value(4)->set_attr( 'style', $width_style ),
-            Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_default_value(4)->set_attr( 'style', $width_style )
-        ))->add_dependency('display', array('masonry','grid'), 'NOT_IN');
+            Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_minimum(0)->set_default_value(GALLERY_GAP['desktop'])->set_attr( 'style', $width_style ),
+            Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_minimum(0)->set_default_value(GALLERY_GAP['laptop'])->set_attr( 'style', $width_style ),
+            Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_minimum(0)->set_default_value(GALLERY_GAP['tablet'])->set_attr( 'style', $width_style ),
+            Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_minimum(0)->set_default_value(GALLERY_GAP['mobile'])->set_attr( 'style', $width_style )
+        ));
         
         // images settings
         $fields[] = Field::create( 'tab', __('Images Size', 'mv23theme') )->add_dependency('display', array('grid'), 'NOT_IN');
@@ -339,15 +338,15 @@ class Gallery extends Component {
         $targetsize = $args['action']['targetsize'] ?? 'full';
         $display = $args['display'] ?? 'grid';
 
-        $d_columns = $args['items']['desktop'] ?? 4;
-        $l_columns = $args['items']['laptop'] ?? 3;
-        $t_columns = $args['items']['tablet'] ?? 2;
-        $m_columns = $args['items']['mobile'] ?? 1;
+        $d_columns = $args['items']['desktop'] ?? GALLERY_COLUMNS['desktop'];
+        $l_columns = $args['items']['laptop'] ?? GALLERY_COLUMNS['laptop'];
+        $t_columns = $args['items']['tablet'] ?? GALLERY_COLUMNS['tablet'];
+        $m_columns = $args['items']['mobile'] ?? GALLERY_COLUMNS['mobile'];
 
-        $d_gap = $args['gutter']['desktop'] ?? 4;
-        $l_gap = $args['gutter']['laptop'] ?? 4;
-        $t_gap = $args['gutter']['tablet'] ?? 4;
-        $m_gap = $args['gutter']['mobile'] ?? 4;
+        $d_gap = $args['gutter']['desktop'] ?? GALLERY_GAP['desktop'];
+        $l_gap = $args['gutter']['laptop'] ?? GALLERY_GAP['laptop'];
+        $t_gap = $args['gutter']['tablet'] ?? GALLERY_GAP['tablet'];
+        $m_gap = $args['gutter']['mobile'] ?? GALLERY_GAP['mobile'];
 
         $shortcode_name = ($source === 'manual') ? 'theme_gallery' : 'theme_gallery';
         $gallery_id = $args['use_id']['id'] ?? '';

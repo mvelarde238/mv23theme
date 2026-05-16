@@ -107,11 +107,11 @@ window.gjsListing = function (editor) {
                     if (listing_template === 'masonry' && BUILDER_GLOBALS.masonry_is_active) {
                         const listingEl = el.querySelector('.posts-listing');
                         imagesLoaded(listingEl, function () {
-                            new Masonry(listingEl, {
+                            new Packery(listingEl, {
                                 itemSelector: '.masonry-grid-item',
                                 columnWidth: '.masonry-grid-sizer',
+                                gutter: '.masonry-gutter-sizer',
                                 percentPosition: true,
-                                gutter: 20
                             });
                         });
                     }

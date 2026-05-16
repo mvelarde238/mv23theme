@@ -156,7 +156,10 @@ class Ajax_Load_Posts{
                 $result['status'] = "success";
 
                 ob_start(); 
-                if($listing_template == 'masonry') echo '<div class="masonry-grid-sizer"></div>';
+                if($listing_template == 'masonry'){
+                    echo '<div class="masonry-grid-sizer"></div>';
+                    echo '<div class="masonry-gutter-sizer"></div>';
+                } 
                 
                 while ( $query->have_posts() ) : 
                     $query->the_post();

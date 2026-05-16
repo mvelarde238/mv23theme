@@ -114,6 +114,10 @@ class Frontend extends Theme_Header_Data {
             self::add_script( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js', array(), $this->version, true);
         }
 
+        if( MASONRY_IS_ACTIVE ){
+            self::add_script( 'bricks-library', $this->theme_uri . '/assets/js/packery.js', array(), $this->version, true);
+        }
+
         // Ensure GSAP is loaded before main scripts if scroll animations are enabled
         $dependencies = array();
         if( SCROLL_ANIMATIONS ) $dependencies[] = 'gsap';
@@ -149,10 +153,10 @@ class Frontend extends Theme_Header_Data {
         wp_register_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', array(), '', true );
         wp_enqueue_script( 'jquery' );
     
-        // masonry script
+        // bricks library script
         if (MASONRY_IS_ACTIVE){
             wp_enqueue_script( 'imagesloaded' );
-            wp_enqueue_script( 'masonry' );
+            wp_enqueue_script( 'bricks-library' );
         } 
 
         // gsap for scroll animations

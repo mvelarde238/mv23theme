@@ -47,12 +47,17 @@ if( !defined('LOGOS_QUANTITY') ) define ('LOGOS_QUANTITY', 2);
 if( !defined('USE_PORTFOLIO_CPT') ) define( 'USE_PORTFOLIO_CPT', false);
 if( !defined('USE_DOCUMENT_CPT') ) define( 'USE_DOCUMENT_CPT', false);
 
+// GALLERY CONSTANTS
+if( !defined('GALLERY_COLUMNS') ) define( 'GALLERY_COLUMNS', array('desktop' => 5,'laptop' => 4,'tablet' => 3,'mobile' => 2));
+if( !defined('GALLERY_GAP') ) define( 'GALLERY_GAP', array('desktop' => 4,'laptop' => 4,'tablet' => 4,'mobile' => 4));
+
+// LISTING COMPONENT CONSTANTS
 if( !defined('LISTING_LOADING_TEXT') ) define( 'LISTING_LOADING_TEXT', array('es' => 'Cargando...', 'en' => 'Loading...' ));
 if( !defined('LISTING_LOAD_MORE_TEXT') ) define( 'LISTING_LOAD_MORE_TEXT', array('es' => 'Cargar más...', 'en' => 'Load more...' ));
 if( !defined('LISTING_EXPANDER_HEIGHT') ) define( 'LISTING_EXPANDER_HEIGHT', '500px');
 if( !defined('LISTING_EXPANDER_RESPONSE_HEIGHT') ) define( 'LISTING_EXPANDER_RESPONSE_HEIGHT', '500px');
 if( !defined('LISTING_EXPANDER_SCROLL_DURATION') ) define( 'LISTING_EXPANDER_SCROLL_DURATION', '500');
-if( !defined('LISTING_GAP') ) define( 'LISTING_GAP', array('desktop' => 50,'laptop' => 40,'tablet' => 30,'mobile' => 20 ));
+if( !defined('LISTING_GAP') ) define( 'LISTING_GAP', array('desktop' => 50,'laptop' => 40,'tablet' => 20,'mobile' => 10 ));
 if( !defined('LISTING_COLUMNS') ) define( 'LISTING_COLUMNS', array('desktop' => 3,'laptop' => 3,'tablet' => 2,'mobile' => 1));
 if( !defined('LISTING_CPTS') ) define( 'LISTING_CPTS', array('post' => 'Entradas'));
 if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array( array( 'cpt_slug' => 'post', 'slug' => 'category' ) ));

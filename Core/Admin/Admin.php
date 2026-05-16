@@ -75,7 +75,7 @@ class Admin extends Theme_Header_Data {
         // masonry script
         if (MASONRY_IS_ACTIVE){
             wp_enqueue_script( 'imagesloaded' );
-            wp_enqueue_script( 'masonry' );
+            wp_enqueue_script( 'bricks-library' );
         } 
 
         // html to image script for template saving

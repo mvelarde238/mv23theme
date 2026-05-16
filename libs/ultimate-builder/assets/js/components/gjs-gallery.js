@@ -10,6 +10,7 @@ window.gjsGallery = function (editor) {
     let config = editor.getConfig();
     config.canvasCss = config.canvasCss || '';
     config.canvasCss += `.theme-gallery-comp {width: 100%;}`;
+    config.canvasCss += `.theme-gallery--grid {margin: 0 !important;}`; // Fix a bug where GridStack expand over the component
     config.canvasCss += `.theme-gallery .grid-stack-item a {pointer-events: none;}`;
     editor.canvasCss = config.canvasCss;
 
@@ -57,12 +58,17 @@ window.gjsGallery = function (editor) {
                 const {display, gallery} = datastore.toJSON();
 
                 if(display === 'grid'){
+                    const gutter = getGutterFromCurrentDevice(galleryEl, editor.Canvas.getWindow());
+
                     var grid = GridStack.init({
                         resizable: {
                             handles: 'e,se,s,sw,w'
                         },
-                        margin: 5,
+                        margin: gutter/2, // GridStack uses margin on all sides of the item, so we divide gutter by 2 to get the correct spacing between items
                     }, galleryEl);
+
+                    // store grid instance directly on the model object (not in attributes) to avoid circular JSON serialization
+                    model.__temp_grid_instance = grid;
 
                     // store the attachment ID in the gridstackNode for later retrieval:
                     const items = grid.getGridItems();
@@ -87,15 +93,19 @@ window.gjsGallery = function (editor) {
                 }
 
                 if(display === 'masonry' && BUILDER_GLOBALS.masonry_is_active){
+                    const that = this;
                     imagesLoaded(galleryEl, function () {
-                        new Masonry(galleryEl, {
-                            itemSelector: '.masonry-grid-item',
-                            columnWidth: '.masonry-grid-sizer',
-                            percentPosition: true,
-                            gutter: 20
-                        });
+                        that.init_bricks_layout(galleryEl);
                     });
                 }
+            },
+            init_bricks_layout(galleryEl){
+                new Packery(galleryEl, {
+                    itemSelector: '.masonry-grid-item',
+                    columnWidth: '.masonry-grid-sizer',
+                    gutter: '.masonry-gutter-sizer',
+                    percentPosition: true
+                });
             },
             custom_datastore_change_callback(changed) {
                 const model = this.model;
@@ -180,25 +190,38 @@ window.gjsGallery = function (editor) {
                     editor.handleCommonSettings(model);
                 }
                 
-                this.maybe_relayout_masonry();
+                this.maybe_relayout_gallery();
             },
             handle_editor_resize(obj) {
                 // trigger global resize event to make sure all components that need to adjust on editor resize can do it
                 setTimeout(() => {
                     window.dispatchEvent(new Event('resize'));
+                    this.maybe_relayout_gallery();
                 }, 250);
             },
-            maybe_relayout_masonry() {
+            maybe_relayout_gallery() {
                 const model = this.model;
                 const galleryEl = model.getEl().querySelector('.theme-gallery');
                 if(!galleryEl) return;
+
+                const datastore = editor.getComponentDatastore(model);
+                const {display} = datastore.toJSON();
     
-                // Get the Masonry instance via its element to re-layout after changes
-                if(BUILDER_GLOBALS.masonry_is_active){
-                    var msnry = Masonry.data(galleryEl);
-                    if (msnry) msnry.layout();
+                if(display == 'masonry' && BUILDER_GLOBALS.masonry_is_active){
+                    // Get the Packery instance via its element to re-layout after changes
+                    var packery = Packery.data(galleryEl);
+                    if(packery) packery.layout();
+                }
+                if(display == 'grid'){
+                    // Get the GridStack instance via its element to re-layout after changes
+                    var grid = model.__temp_grid_instance;
+                    if(grid){
+                        const newMargin = getGutterFromCurrentDevice(galleryEl, editor.Canvas.getWindow()) / 2;
+                        grid.margin(newMargin);
+                        grid.compact();
+                    } 
                 }
             }
         }
-    });
-}
+    }); 
+};

@@ -70,8 +70,8 @@ window.gjsArchivePageStructure = function (editor, options) {
                             new Masonry(listingEl, {
                                 itemSelector: '.masonry-grid-item',
                                 columnWidth: '.masonry-grid-sizer',
+                                gutter: '.masonry-gutter-sizer',
                                 percentPosition: true,
-                                gutter: 20
                             });
                         });
                     }

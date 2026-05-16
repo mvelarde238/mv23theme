@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.2 26-05-16
+- Masonry layouts refactor to use Packery library instead of Masonry, to improve layout stability
+
 3.12.1 26-05-15
 - Remove gallery margins
 - filter_post_meta_box_post_types to reuse post format and featured video meta box on custom post types

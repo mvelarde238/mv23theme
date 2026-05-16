@@ -3,9 +3,9 @@
 * returns object with viewport dimensions to match css in width and height properties 
 * ( source: http://andylangton.co.uk/blog/development/get-viewport-size-width-and-height-javascript ) 
 */
-function updateViewportDimensions() { 
-	var w=window,
-	d=document,
+function updateViewportDimensions( windowContext = window ) { 
+	var w=windowContext,
+	d=w.document,
 	e=d.documentElement,
 	g=d.getElementsByTagName('body')[0],
 	x=w.innerWidth||e.clientWidth||g.clientWidth,
@@ -122,7 +122,7 @@ Math.easeInOutQuad = function (t, b, c, d) {
 // ****************************************************************************************************
 // SERIALIZE FORM TO OBJECT
 // ****************************************************************************************************
-$.fn.serializeObject = function()
+jQuery.fn.serializeObject = function()
 {
     var o = {};
     var a = this.serializeArray();
@@ -183,4 +183,32 @@ function hexToRgba(hex, alpha) {
 
     // Retornar el valor en formato rgba
     return `rgba(${r}, ${g}, ${b}, ${a})`;
+}
+
+// ****************************************************************************************************
+// GET GUTTER FROM CSS VARIABLE
+// style="--d-gap: 20px; --l-gap: 20px; --t-gap: 10px; --m-gap: 10px;"
+// ****************************************************************************************************
+
+function getGutterFromStyles(element, device){
+    const styles = getComputedStyle(element);
+    const gutterValue = styles.getPropertyValue(`--${device}-gap`).trim();
+    return parseInt(gutterValue);
+}
+
+function getGutterFromCurrentDevice(element, windowContext = window){
+    const viewport = updateViewportDimensions(windowContext);
+    const map = {
+        m: 480,
+        t: 768,
+        l: 992
+    }
+    let device = 'd';
+    for(const key in map){
+        if(viewport.width < map[key]){
+            device = key;
+            break;
+        }
+    }
+    return getGutterFromStyles(element, device);
 }

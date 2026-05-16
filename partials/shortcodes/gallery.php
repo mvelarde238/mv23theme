@@ -94,15 +94,6 @@ function print_theme_gallery( $atts ) {
 
         $carousel_styles = array();
         if( $a['aspectratio'] ) $carousel_styles[] = '--aspect-ratio:'.$a['aspectratio'];
-
-        // if masonry display is selected, override gap values to ensure consistent spacing (since masonry layout isnt considering the gap values from css variables)
-        if( $a['display'] == 'masonry'){
-            $a['d_gap'] = 20;
-            $a['l_gap'] = 20;
-            $a['t_gap'] = 20;
-            $a['m_gap'] = 20;
-        }
-
         $carousel_styles[] = '--d-gap:'.$a['d_gap'].'px';
         $carousel_styles[] = '--l-gap:'.$a['l_gap'].'px';
         $carousel_styles[] = '--t-gap:'.$a['t_gap'].'px';
@@ -138,6 +129,7 @@ function print_theme_gallery( $atts ) {
         } else if ( $a['display'] == 'masonry' ) {
             echo '<div class="theme-gallery has-masonry-columns" style="'.implode(';', $carousel_styles).'">';
             echo '<div class="masonry-grid-sizer"></div>';
+            echo '<div class="masonry-gutter-sizer"></div>';
 
         } else if ( $a['display'] == 'marquee' ) {
             $carousel_styles[] = '--fade-width: '.$a['marquee_fade_width'];
