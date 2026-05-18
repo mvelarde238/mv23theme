@@ -205,7 +205,7 @@ window.gjsGallery = function (editor) {
             },
             maybe_relayout_gallery() {
                 const model = this.model;
-                const galleryEl = model.getEl().querySelector('.theme-gallery');
+                const galleryEl = model.getEl()?.querySelector('.theme-gallery');
                 if(!galleryEl) return;
 
                 const datastore = editor.getComponentDatastore(model);
