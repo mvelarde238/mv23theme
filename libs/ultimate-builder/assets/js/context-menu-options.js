@@ -284,7 +284,7 @@ window['contextMenuOpts'] = {
                         { type: 'button', label: 'ITEMS', command: 'query-selector', args: { selector: '.menu > li > a' } },
                         { type: 'break' },
                         { type: 'button', label: 'HOVERED ITEM', command: 'query-selector', args: { selector: '.menu > li > a:hover' } },
-                        { type: 'button', label: 'CURRENT ITEM', command: 'query-selector', args: { selector: '.current-menu-item > a' } },
+                        { type: 'button', label: 'CURRENT ITEM', command: 'query-selector', args: { selector: 'li.current-menu-item > a' } },
                         { type: 'break' },
                         { type: 'button', label: 'SUBMENU', command: 'query-selector', args: { selector: '.sub-menu' } },
                         { type: 'button', label: 'SUBMENU ITEMS', command: 'query-selector', args: { selector: '.sub-menu a' } },
