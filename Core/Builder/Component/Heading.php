@@ -67,6 +67,10 @@ class Heading extends Component {
                 'style10'  => array(
                     'label' => 'Style 10',
                     'image' => BUILDER_PATH . '/assets/images/headings/style10.png'
+                ),
+                'style11'  => array(
+                    'label' => 'Style 11',
+                    'image' => BUILDER_PATH . '/assets/images/headings/style11.png'
                 )
             )
         );

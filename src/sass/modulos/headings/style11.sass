@@ -1,0 +1,30 @@
+.heading--style11
+    @extend .heading--style4
+    --line-width: 50px
+    --dot-size: 24px
+
+    .highlighted
+        padding-bottom: calc(var(--dot-size) / 2)
+        &:after
+            width: var(--dot-size)
+            height: var(--dot-size)
+            border-radius: 50%
+            background-color: var(--accent-color)
+            border: 5px solid #fff
+            bottom: calc( calc(var(--dot-size) / 2) * -1 )
+        &:before
+            background-color: currentColor
+            width: 150px
+            opacity: .1
+
+    &.right-align
+        .highlighted
+            &:before
+                left: initial
+                right: 0
+
+    &.center-align
+        .highlighted 
+            &:before
+                right: 0
+                margin: auto

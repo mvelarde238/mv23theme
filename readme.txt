@@ -4,6 +4,7 @@ CHANGELOG
 
 3.12.3 26-05-18
 - Fix current-menu-item selector on context menu options to properly apply active styles on menu items when they are selected
+- Heading style 11 implementation
 
 3.12.2 26-05-16
 - Masonry layouts refactor to use Packery library instead of Masonry, to improve layout stability
