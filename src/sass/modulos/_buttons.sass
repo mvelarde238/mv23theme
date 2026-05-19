@@ -27,6 +27,31 @@
 		&:hover
 			background-color: var(--secondary-color-dark)
 			color: #fff
+
+	&.btn--outline
+		background-color: transparent
+		border: 1px solid
+		color: currentColor
+		&:hover
+			background-color: var(--primary-color)
+			color: #fff
+
+	&.btn--outline-main-color
+		background-color: transparent
+		border: 1px solid var(--primary-color)
+		color: var(--primary-color)
+		&:hover
+			background-color: var(--primary-color)
+			color: #fff
+
+	&.btn--outline-secondary-color
+		background-color: transparent
+		border: 1px solid var(--secondary-color)
+		color: var(--secondary-color)
+		&:hover
+			background-color: var(--secondary-color)
+			color: #fff
+
 	&.btn--white
 		background-color: #fff
 		box-shadow: 0 0 8px rgba($font-color,.2)

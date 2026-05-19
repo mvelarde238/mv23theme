@@ -23,27 +23,27 @@ class Button extends Component {
 	public static function get_fields() {
 
         $button_styles = apply_filters( 'filter_core_button_styles', array(
-            'btn btn--main-color' => 'Botón Corporativo 1',
-            'btn btn--secondary-color' => 'Botón Corporativo 2',
-            'btn btn--white' => 'Botón Blanco',
-            'btn' => 'Botón Simple',
-            'link' => 'Link'
+            'btn' => __('Default Button', 'mv23theme'),
+            'btn btn--main-color' => __('Corporate Button 1', 'mv23theme'),
+            'btn btn--secondary-color' => __('Corporate Button 2', 'mv23theme'),
+            'btn btn--outline' => __('Outlined Button', 'mv23theme'),
+            'btn btn--outline-main-color' => __('Outlined Button 1', 'mv23theme'),
+            'btn btn--outline-secondary-color' => __('Outlined Button 2', 'mv23theme'),
+            'btn btn--white' => __('White Button', 'mv23theme'),
+            'link' => __('Link', 'mv23theme')
         ));
 
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme') ), 
             Field::create( 'text', 'text', __('Button Text', 'mv23theme') )
                 ->add_dynamic_data_selector(),
-            Field::create( 'select', 'button_style', __('Style', 'mv23theme'))
-                ->add_options( $button_styles )
-                ->set_default_value( 'btn btn--main-color' ),
     
             Field::create( 'radio', 'button_type',__('Type', 'mv23theme'))
                 ->set_default_value( 'link' )
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
-                    'link' => 'Link',
-                    'download' => 'Descarga',
+                    'link' => __('Link', 'mv23theme'),
+                    'download' => __('Download', 'mv23theme'),
                 )),
     
             Field::create( 'file', 'file', __('File', 'mv23theme') )->add_dependency('button_type','download','='),
@@ -60,6 +60,13 @@ class Button extends Component {
     
             Field::create( 'checkbox', 'new_tab', __('Open in a new window', 'mv23theme') )->set_text( __('Enable', 'mv23theme') ),
 
+            Field::create( 'tab', __('Style', 'mv23theme') ),
+            Field::create( 'select', 'button_style', __('Style', 'mv23theme'))
+                ->add_options( $button_styles )
+                ->set_default_value( 'btn btn--main-color' ),
+
+            Field::create( 'checkbox', 'fullwidth' )->set_text( __('Full width button', 'mv23theme') )->hide_label(),
+
             Field::create( 'tab', __('Icon', 'mv23theme') ),
             Field::create( 'icon', 'icon', __('Icon', 'mv23theme') )
                 ->add_set( 'bootstrap-icons' )
@@ -69,9 +76,8 @@ class Button extends Component {
                 'left' => __('Left', 'mv23theme'),
                 'right' => __('Right', 'mv23theme')
             ))->set_orientation( 'horizontal' )->set_width(50),
-    
+
             Field::create( 'tab', '_other_settings', __('Other settings','mv23theme') ),
-            Field::create( 'checkbox', 'fullwidth', __('Full width button', 'mv23theme') )->set_text( __('Activate', 'mv23theme') ),
             Field::create( 'repeater', 'button_attributes', __('Attributes', 'mv23theme') )->set_add_text(__('Add', 'mv23theme'))
                 ->set_layout( 'grid' )
                 ->add_group('item', array(
