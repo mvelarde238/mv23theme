@@ -40,12 +40,16 @@
                     if(response) {
                         var main = $('.main', response);
                         var is_woocommerce = $(main).find('.woocommerce-product-gallery').length;
+                        var containerStyles = $('.container style', response);
 
                         var content_wrapper = document.createElement('div');
                         if ( is_woocommerce ) content_wrapper.className = "woocommerce woocommerce-page woocommerce-js";
                         content_wrapper.innerHTML = main.html();
 
                         $postModal_content.html( content_wrapper );
+                        if ( containerStyles.length ) {
+                            containerStyles.clone().prependTo( $postModal_content );
+                        }
 
                         /** Initialize product gallery **/
                         if ( is_woocommerce ) {
@@ -93,9 +97,13 @@
                 },
                 success: function success(response) {
                     var content = $('.main', response);
+                    var containerStyles = $('.container style', response);
                     if(response) {
                         $expanderTarget.find('.expander-loading').remove();
                         $expanderTarget.find('.expander-response').html( content.html() );
+                        if ( containerStyles.length ) {
+                            containerStyles.clone().prependTo( $expanderTarget.find('.expander-response') );
+                        }
                         // colorbox
                         // $expanderTarget.find('.expander-response .zoom').colorbox({ rel:'expander-group', maxHeight:"96%", maxWidth: "96%" });
                     }
