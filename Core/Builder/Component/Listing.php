@@ -133,7 +133,7 @@ class Listing extends Component {
                     'menu_order' => __('Custom','mv23theme'),
                     // 'comment_count' => __('Comentarios','mv23theme')
                 ))->set_attr('style', $width_50),
-                Field::create( 'number', 'offset', 'Offset' )->set_attr('style', $width_50),
+                Field::create( 'number', 'offset', 'Offset' )->set_attr('style', $width_50)->set_minimum(0),
             ))->add_dependency('source','auto','='),
 
             Field::create( 'complex', 'status_params', '' )->add_fields(array(
@@ -332,7 +332,9 @@ class Listing extends Component {
                 'paged' => ( get_query_var('paged') ) ? get_query_var('paged') : 1
             );
             if( isset($args['post__not_in']) ) $args_query['post__not_in'] = $args['post__not_in'];
-            if( isset($args['offset']) ) $args_query['offset'] = $args['offset'];
+            if( isset($query_params['offset']) && is_numeric($query_params['offset']) && $query_params['offset'] > 0 ){
+                $args_query['offset'] = $query_params['offset'];
+            } 
         
             // check if tax_query is needed 
             $tax_params = ( isset($args['tax_params']) ) ? $args['tax_params'] : null;
@@ -452,8 +454,6 @@ class Listing extends Component {
             $listing_args['per_page'] = $posts_per_page;
             $listing_args['order'] = $order;
             $listing_args['orderby'] = $orderby;
-
-            if( isset($args['offset']) ) $listing_args['offset'] = $args['offset'];
         }
         $args['additional_attributes']['data-listing-args'] = esc_attr( json_encode($listing_args) );
 

@@ -7,6 +7,7 @@ CHANGELOG
 - Button component: add new outline button styles and move style selection to a separate tab
 - Update translation files
 - Review single header preview
+- Fix offset option on listing component
 
 3.12.3 26-05-18
 - Fix current-menu-item selector on context menu options to properly apply active styles on menu items when they are selected
