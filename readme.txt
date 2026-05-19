@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.4 26-05-19
+- Use user google api key for fonts selector if defined on theme options, otherwise fallback to constant if defined
+
 3.12.3 26-05-18
 - Fix current-menu-item selector on context menu options to properly apply active styles on menu items when they are selected
 - Heading style 11 implementation

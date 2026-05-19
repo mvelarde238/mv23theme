@@ -5,7 +5,15 @@ use Ultimate_Fields\Field;
 
 class Fonts {
     private static function get_google_api_key(){
-        return defined('MV23_GOOGLE_API_KEY') ? MV23_GOOGLE_API_KEY : '';
+        // get api key for google fonts, we can check for a specific option, or a constant defined in wp-config.php
+        
+        $key = get_option( 'uf_google_maps_api_key', '' );
+
+        if ( ! $key && defined('MV23_GOOGLE_API_KEY') ) {
+            $key = MV23_GOOGLE_API_KEY;
+        }
+
+        return $key;
     }
 
     private static function get_google_font_group(){
