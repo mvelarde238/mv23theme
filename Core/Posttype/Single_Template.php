@@ -236,7 +236,7 @@ class Single_Template {
             }
         } else {
             // fallback to show the default content if no single template is connected to the current post type
-			echo Main_Content::display(array(
+			$default_content = apply_filters('filter_default_single_content', array(
                 'components' => array(
                     array( 
                         'type' => 'main', 
@@ -253,6 +253,7 @@ class Single_Template {
                     )
                 )
             ));
+			echo Main_Content::display($default_content);
         }
     }
 

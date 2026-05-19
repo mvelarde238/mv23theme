@@ -294,6 +294,7 @@ class Theme extends Theme_Header_Data {
         // Header
         $header = Header::getInstance();
         $this->loader->add_action( 'uf.init', $header, 'add_meta_boxes' );
+        $this->loader->add_filter( 'filter_default_single_content', $header, 'filter_default_single_content' );
 
         // Single Template
         $single_template = Single_Template::getInstance();

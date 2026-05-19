@@ -134,4 +134,24 @@ class Header {
 
         return $actions;
     }
+
+    /**
+     * Filter default single content to hide the sidebar and post title for header post type
+     */
+    public function filter_default_single_content($default_content) {
+        if ( is_singular('header') ) {
+            $default_content = array(
+                'template' => 'main-content--sidebarless',
+                'components' => array(
+                    array( 
+                        'type' => 'main', 
+                        'components' => array(
+                            array( 'type' => 'post-content' )
+                        )
+                    ),
+                )
+            );
+        }
+        return $default_content;
+    }
 }
