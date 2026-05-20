@@ -8,7 +8,10 @@ CHANGELOG
   - CSS is stored per-device (`custom_css` map on the component model, keyed by device ID)
   - Live canvas preview via `editor.Css.addRules()` with `shallow: true` (rules excluded from standard export)
 - Placeholder support for textarea field on Ultimate Fields
-- custom_global_css option implementation on global styles to allow users to add custom CSS that will be applied globally on the site, with a textarea field in the global styles settings for easy management
+- custom_global_css option implementation on global styles to allow users to add custom CSS that will be applied globally on the site, 
+  with a textarea field in the global styles settings for easy management
+- Fix: ensure global styles and theme options datastore changes are properly handled when previewing the page on the builder, 
+  to keep the preview in sync with the latest changes made by the user
 
 3.12.4 26-05-19
 - Use user google api key for fonts selector if defined on theme options, otherwise fallback to constant if defined

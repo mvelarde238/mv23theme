@@ -36,6 +36,14 @@ class Preview_Handler {
 			wp_send_json_error( 'field_not_found' );
 		}
 
+		// Capture any options written to DB during the component save (global-styles, theme-options)
+		$captured_options = array();
+		$option_capture_cb = function( $value, $option ) use ( &$captured_options ) {
+			$captured_options[ $option ] = $value;
+			return $value;
+		};
+		add_filter( 'pre_update_option', $option_capture_cb, 10, 2 );
+
 		// Process the data to save and send components correctly for preview
 		$components_data_raw = isset( $data['components_data'] ) ? $data['components_data'] : array();
 		$field_instance->save( array(
@@ -45,6 +53,8 @@ class Preview_Handler {
 				'css' => isset( $data['css'] ) ? $data['css'] : '',
 			)
 		) );
+
+		remove_filter( 'pre_update_option', $option_capture_cb, 10 );
 
 		// Save the data in a transient for previewing
 		$token = function_exists( 'wp_generate_uuid4' ) ? wp_generate_uuid4() : uniqid( 'ubp_', true );
@@ -56,7 +66,8 @@ class Preview_Handler {
 			'data' => array(
 				$meta                  => $field_instance->get_value( $meta ),
 				$meta . '_datastore'   => $field_instance->get_value( $meta . '_datastore' ),
-			)
+			),
+			'options' => $captured_options,
 		), 10 * MINUTE_IN_SECONDS );
 
 		$preview_url = get_permalink( $post_id );
@@ -122,6 +133,15 @@ class Preview_Handler {
 					}
 					return null;
 				}, 10, 4 );
+
+				// Inject captured options (global-styles, theme-options) via pre_option filters
+				if ( ! empty( $t['options'] ) && is_array( $t['options'] ) ) {
+					foreach ( $t['options'] as $option_name => $option_value ) {
+						add_filter( 'pre_option_' . $option_name, function() use ( $option_value ) {
+							return $option_value;
+						} );
+					}
+				}
 			}
 		}
 	}

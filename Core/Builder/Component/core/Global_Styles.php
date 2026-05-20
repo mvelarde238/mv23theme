@@ -22,7 +22,8 @@ class Global_Styles extends Component {
 	public function change_datastore() {
 		// on save component, create a new datastore and save the fields
 		add_action( 'uf.ultimate_builder.save_component', function( $processed_values, &$component_data, $group, $ultimate_builder ) {
-		    if ( $component_data['__type'] == 'global-styles' && isset( $_GET['post'] ) ) {
+		    $in_post_context = isset( $_GET['post'] ) || ( wp_doing_ajax() && isset( $_POST['post_id'] ) );
+	    	if ( $component_data['__type'] == 'global-styles' && $in_post_context ) {
 		        // create a new datastore for global styles
 		        $datastore = new \Ultimate_Fields\Datastore\Options;
 

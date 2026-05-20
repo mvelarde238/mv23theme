@@ -38,7 +38,8 @@ class Theme_Options extends Component {
 
 		// on save component, create a new datastore and save the fields
 		add_action( 'uf.ultimate_builder.save_component', function( $processed_values, &$component_data, $group, $ultimate_builder ) {
-		    if ( $component_data['__type'] == 'theme-options' && isset( $_GET['post'] ) ) {
+		    $in_post_context = isset( $_GET['post'] ) || ( wp_doing_ajax() && isset( $_POST['post_id'] ) );
+	    	if ( $component_data['__type'] == 'theme-options' && $in_post_context ) {
 		        // create a new datastore for theme options
 		        $datastore = new \Ultimate_Fields\Datastore\Options;
 
