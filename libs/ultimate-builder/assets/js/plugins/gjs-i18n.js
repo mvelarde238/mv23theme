@@ -120,6 +120,8 @@ window.gjsI18n = function (editor, options) {
                 show_outlines: 'MOSTRAR CONTORNOS',
                 fullscreen: 'PANTALLA COMPLETA',
                 show_code: 'MOSTRAR CÓDIGOS',
+                theme_options: 'AJUSTES DEL TEMA',
+                global_styles: 'ESTILOS GLOBALES',
                 edit_with_wordpress: 'EDITAR CON WORDPRESS',
                 exit_to_wp_admin: 'SALIR AL ESCRITORIO',
                 // left sidebar
@@ -205,7 +207,7 @@ window.gjsI18n = function (editor, options) {
                 save_as_template: 'Guardar como plantilla',
                 stretch: 'Estirar',
                 // wrapper
-                edit_theme_options: 'EDITAR OPCIONES DE TEMA',
+                edit_theme_options: 'EDITAR AJUSTES DEL TEMA',
                 edit_global_styles: 'EDITAR ESTILOS GLOBALES',
                 color_scheme: 'ESQUEMA DE COLOR',
                 dark_mode: 'MODO OSCURO',

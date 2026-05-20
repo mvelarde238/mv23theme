@@ -384,12 +384,12 @@ window['contextMenuOpts'] = {
                 {
                     type: 'button',
                     label: 'EDIT THEME OPTIONS',
-                    command: 'select-theme-options'
+                    command: 'edit-theme-options'
                 },
                 {
                     type: 'button',
                     label: 'EDIT GLOBAL STYLES',
-                    command: 'select-global-styles'
+                    command: 'edit-global-styles'
                 },
                 color_scheme_options(component, editor),
             ];

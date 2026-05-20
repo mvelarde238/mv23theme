@@ -219,7 +219,7 @@ window.gjsCommands = function (editor, options) {
         editor.Commands.run('select-component-settings-tab');
     });
 
-    commands.add('select-theme-options', (editor) => {
+    commands.add('edit-theme-options', (editor) => {
         const wrapper = editor.getWrapper();
         const themeOptions = wrapper.findType('theme-options')[0];  
         if ( themeOptions ) {
@@ -228,7 +228,7 @@ window.gjsCommands = function (editor, options) {
         }
     });
 
-    commands.add('select-global-styles', (editor) => {
+    commands.add('edit-global-styles', (editor) => {
         const wrapper = editor.getWrapper();
         const globalStyles = wrapper.findType('global-styles')[0];
         if ( globalStyles ) {

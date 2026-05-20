@@ -65,9 +65,22 @@
                         className: 'primary-button builder-save-button'
                     }
                 ],
+                viewControlsOptions: {
+                    showCode: false,
+                },
                 customViewControlButtonsAfter: [
+                    {
+                        id: 'edit-theme-options', 
+                        label: 'THEME OPTIONS',
+                        iconClass: 'dashicons dashicons-admin-generic',
+                    },
+                    {
+                        id: 'edit-global-styles',
+                        label: 'GLOBAL STYLES',
+                        iconClass: 'dashicons dashicons-admin-appearance',
+                    },
                     { 
-                        id: 'exit-to-wp-admin', 
+                        id: 'edit-with-wp', 
                         label: 'EDIT WITH WORDPRESS',
                         iconClass: 'dashicons dashicons-feedback',
                         href: BUILDER_GLOBALS.post_edit_url,
@@ -80,11 +93,11 @@
                         href: BUILDER_GLOBALS.admin_url,
                         target: '_self'
                     },
-                    { 
-                        id: 'builder:log-data', 
-                        label: 'LOG PROJECT DATA',
-                        iconClass: 'dashicons dashicons-admin-generic'
-                    },
+                    // { 
+                    //     id: 'builder:log-data', 
+                    //     label: 'LOG PROJECT DATA',
+                    //     iconClass: 'dashicons dashicons-admin-generic'
+                    // },
                 ],
                 onEditor: function(editor) {
                     editor.builderApp = builder_app;
