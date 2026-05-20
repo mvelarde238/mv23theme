@@ -52,6 +52,22 @@ class Textarea extends Field {
 	protected $content_style = '';
 
 	/**
+	 * The MIME type for CodeMirror, or false if disabled.
+	 *
+	 * @since 3.0
+	 * @var string|false
+	 */
+	protected $codemirror_type = false;
+
+	/**
+	 * The CodeMirror settings returned by wp_enqueue_code_editor(), or false.
+	 *
+	 * @since 3.0
+	 * @var array|false
+	 */
+	protected $codemirror_settings = false;
+
+	/**
 	 * This is the value, which would be displayed as a placeholder within the field.
 	 *
 	 * @since 3.0
@@ -60,12 +76,42 @@ class Textarea extends Field {
 	protected $placeholder;
 
 	/**
+	 * Enables CodeMirror for this textarea.
+	 *
+	 * @since 3.0
+	 *
+	 * @param string $type MIME type for the CodeMirror language mode. Common values:
+	 *                     'text/css'           — CSS
+	 *                     'text/javascript'    — JavaScript
+	 *                     'text/html'          — HTML
+	 *                     'application/x-httpd-php' — PHP (mixed with HTML)
+	 *                     'application/json'   — JSON
+	 *                     'text/x-markdown'    — Markdown
+	 *                     'text/x-yaml'        — YAML
+	 *                     'text/x-sh'          — Shell / Bash
+	 * @return Ultimate_Fields\Field\Textarea
+	 */
+	public function set_codemirror( $type = 'text/css' ) {
+		$this->codemirror_type = $type;
+
+		return $this;
+	}
+
+	/**
 	 * Enqueues the scripts for the field.
 	 *
 	 * @since 3.0
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'uf-field-textarea' );
+
+		if ( $this->codemirror_type ) {
+			$settings = wp_enqueue_code_editor( array( 'type' => $this->codemirror_type ) );
+			// wp_enqueue_code_editor returns false when the user has disabled syntax highlighting.
+			if ( false !== $settings ) {
+				$this->codemirror_settings = $settings;
+			}
+		}
 	}
 
 	/**
@@ -131,6 +177,9 @@ class Textarea extends Field {
 		$settings[ 'content_style' ] = $this->content_style;
 		if( $this->placeholder ) {
 			$settings[ 'placeholder' ] = $this->placeholder;
+		}
+		if ( false !== $this->codemirror_settings ) {
+			$settings[ 'codemirror' ] = $this->codemirror_settings;
 		}
 
 		return $settings;

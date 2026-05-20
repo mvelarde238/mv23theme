@@ -553,6 +553,12 @@
   width: 100%;
 }
 
+/* CodeMirror placeholder addon — WP's bundled codemirror.min.css omits this rule */
+.CodeMirror-placeholder {
+  color: #999 !important;
+  font-style: italic;
+}
+
 .uf-field-layout-row {
   position: relative;
   display: flex;

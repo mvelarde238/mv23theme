@@ -4,6 +4,9 @@ mv23 changelog-------------------------
 - Placeholder support for textarea field
     (core/classes/Field/Textarea.php)
     (core/js/field/textarea.js)
+- CodeMirror support for textarea field
+    (core/js/field/textarea.js)
+    (core/assets/css/ultimate-fields.css)
 
 - 3.2.16 14-05-2026
 - FIX: Image Select options reordering — export options as ordered array to preserve PHP insertion order in JavaScript
