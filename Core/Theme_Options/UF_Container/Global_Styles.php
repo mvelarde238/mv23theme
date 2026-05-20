@@ -3,7 +3,7 @@ namespace Core\Theme_Options\UF_Container;
 
 use Ultimate_Fields\Container;
 use Core\Theme_Options\Fields\Device_Switch;
-use Core\Theme_Options\Fields\Typography;
+use Core\Theme_Options\Fields\Global_Styles as Global_Styles_Options;
 
 class Global_Styles{
     public static function init(){
@@ -19,6 +19,6 @@ class Global_Styles{
             //     )
             // ))
             ->add_fields( Device_Switch::get_fields() )
-            ->add_fields( Typography::get_fields() );
+            ->add_fields( Global_Styles_Options::get_fields() );
     }
 }

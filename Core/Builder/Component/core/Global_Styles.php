@@ -3,7 +3,7 @@ namespace Core\Builder\Component;
 
 use Core\Builder\Component;
 use Core\Theme_Options\Fields\Device_Switch;
-use Core\Theme_Options\Fields\Typography;
+use Core\Theme_Options\Fields\Global_Styles as Global_Styles_Options;
 
 class Global_Styles extends Component {
 
@@ -52,7 +52,7 @@ class Global_Styles extends Component {
 	public static function get_fields() {
 		$fields = array();
         $fields = array_merge( $fields, Device_Switch::get_fields() );
-        $fields = array_merge( $fields, Typography::get_fields() );
+        $fields = array_merge( $fields, Global_Styles_Options::get_fields() );
 
 		return $fields;
 	}

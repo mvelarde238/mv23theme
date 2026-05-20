@@ -71,7 +71,7 @@ window.gjsGlobalStyles = function (editor, options) {
                     editor.setDevice( device || 'desktop' );
                 }
 
-                const typography_keys = ['typography_settings','headings_settings','links_settings'];
+                const typography_keys = ['typography_settings','headings_settings','links_settings','custom_css_settings'];
                 if ( keys.some( key => typography_keys.includes(key) ) ) {
                     typography_keys.forEach( key => {
                         if ( changed[key] ) {
@@ -81,7 +81,7 @@ window.gjsGlobalStyles = function (editor, options) {
                 }
 
                 const breakpoints_ids = ['tablet', 'mobileLandscape', 'mobilePortrait'];
-                const types = ['typography', 'headings', 'links'];
+                const types = ['typography', 'headings', 'links', 'custom_css'];
                 const bp_keys = breakpoints_ids.flatMap( bp => types.map( t => `_breakpoint_${bp}_${t}_settings` ) );
                 if ( keys.some( key => bp_keys.includes(key) ) ) {
                     bp_keys.forEach( key => {
@@ -136,14 +136,28 @@ window.gjsGlobalStyles = function (editor, options) {
                                     this.set_CSS_prop(_key,_value);
                                 }
                             }
-                        } else {
+                        } else if( key === 'base_font_size' ){
                             // is base font size — use a <style> tag so it always
                             // overrides the saved stylesheet. When cleared, reset
                             // to 16px (browser default = what the frontend will show).
                             this.set_base_font_size(value);
+                        
+                        } else if ( key === 'custom_global_css' ) {
+                            this.inject_custom_global_css(value);
                         }
                     }
                 }
+            },
+            inject_custom_global_css(css) {
+                const _document = editor.Canvas.getDocument();
+                const styleId = 'uf-custom-global-css';
+                let styleEl = _document.getElementById(styleId);
+                if ( !styleEl ) {
+                    styleEl = _document.createElement('style');
+                    styleEl.id = styleId;
+                    _document.body.appendChild(styleEl);
+                }
+                styleEl.textContent = css || '';
             },
             applyBreakpointCSSVars(styleKey, bp, properties) {
                 const bp_px = breakpoints[bp];

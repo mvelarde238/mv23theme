@@ -3,7 +3,7 @@ namespace Core\Theme_Options\Fields;
 
 use Ultimate_Fields\Field;
 
-class Typography {
+class Global_Styles {
 
     private static function get_css_properties($type){
         $font_weight_options = [
@@ -71,6 +71,9 @@ class Typography {
                 ['key' => '--links-hover-decoration', 'label' => 'Link Hover Decoration', 'type' => 'select', 'placeholder' => 'underline', 'options' => $link_decoration_options ],
                 ['key' => '--links-decoration-thickness', 'label' => 'Link Decoration Thickness', 'type' => 'text', 'placeholder' => '1px' ],
                 ['key' => '--links-decoration-offset', 'label' => 'Link Decoration Offset', 'type' => 'text', 'placeholder' => '6px' ]
+            ],
+            'custom_css' => [
+                ['key' => 'custom_global_css', 'label' => 'Custom CSS', 'type' => 'textarea', 'placeholder' => 'e.g. body { background-color: white; }' ]
             ]
         ];
 
@@ -94,6 +97,11 @@ class Typography {
 
             } elseif ($type === 'text') {
                 $field = Field::create('text', $key, $field_label)
+                    ->set_default_value( $default_values[$key] ?? '' )
+                    ->set_placeholder( $property['placeholder'] ?? '' );
+
+            } elseif ($type === 'textarea') {
+                $field = Field::create('textarea', $key, $field_label)
                     ->set_default_value( $default_values[$key] ?? '' )
                     ->set_placeholder( $property['placeholder'] ?? '' );
 
@@ -178,6 +186,9 @@ class Typography {
             self::generate_complex_field('links', true, 'tablet'),
             self::generate_complex_field('links', true, 'mobileLandscape'),
             self::generate_complex_field('links', true, 'mobilePortrait'),
+
+            Field::create( 'tab', 'custom_css_tab', __('Custom CSS','mv23theme') ),
+            self::generate_complex_field('custom_css')
         );
 
         return $fields;

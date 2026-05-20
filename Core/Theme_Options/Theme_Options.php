@@ -246,7 +246,7 @@ class Theme_Options extends Theme_Header_Data{
         }
 
         // typography css vars
-        $types = ['typography','headings','links'];
+        $types = ['typography','headings','links', 'custom_css'];
         foreach ($types as $type) {
             $type_settings = get_option($type.'_settings');
             if( is_array($type_settings) ){
@@ -254,6 +254,12 @@ class Theme_Options extends Theme_Header_Data{
                     if($value){
                         if( str_starts_with($prop,'--') ){
                             $properties[] = $prop.':'.$value;
+                        
+                        } elseif( $prop === 'base_font_size' ){
+                            $properties[] = 'html{font-size:'.$value.'}';
+                        
+                        } elseif( $prop === 'custom_global_css' ){
+                            $properties[] = preg_replace('/\s*([{};:,])\s*/', '$1', preg_replace('/\s+/', ' ', trim($value)));
                         }
                     } 
                 }
@@ -273,8 +279,12 @@ class Theme_Options extends Theme_Header_Data{
                         if( $value ){
                             if( str_starts_with($prop, '--') ){
                                 $bp_root_lines[] = $prop . ':' . $value;
+
                             } elseif( $prop === 'base_font_size' ){
                                 $bp_css .= 'html{font-size:' . $value . '}';
+                            
+                            } elseif( $prop === 'custom_global_css' ){
+                                $bp_css .= preg_replace('/\s*([{};:,])\s*/', '$1', preg_replace('/\s+/', ' ', trim($value)));
                             }
                         }
                     }
