@@ -12,6 +12,8 @@ CHANGELOG
   with a textarea field in the global styles settings for easy management
 - Fix: ensure global styles and theme options datastore changes are properly handled when previewing the page on the builder, 
   to keep the preview in sync with the latest changes made by the user
+- CodeMirror support for textarea field on Ultimate Fields, allowing users to have a better code editing experience 
+  with syntax highlighting and other CodeMirror features when editing textarea fields with CodeMirror enabled
 
 3.12.4 26-05-19
 - Use user google api key for fonts selector if defined on theme options, otherwise fallback to constant if defined

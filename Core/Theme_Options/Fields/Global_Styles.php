@@ -73,7 +73,7 @@ class Global_Styles {
                 ['key' => '--links-decoration-offset', 'label' => 'Link Decoration Offset', 'type' => 'text', 'placeholder' => '6px' ]
             ],
             'custom_css' => [
-                ['key' => 'custom_global_css', 'label' => 'Custom CSS', 'type' => 'textarea', 'placeholder' => 'e.g. body { background-color: white; }' ]
+                ['key' => 'custom_global_css', 'label' => 'Custom CSS', 'type' => 'textarea', 'placeholder' => 'e.g. body { background-color: white; }', 'codemirror' => 'text/css' ]
             ]
         ];
 
@@ -104,6 +104,9 @@ class Global_Styles {
                 $field = Field::create('textarea', $key, $field_label)
                     ->set_default_value( $default_values[$key] ?? '' )
                     ->set_placeholder( $property['placeholder'] ?? '' );
+                if ( !empty( $property['codemirror'] ) ) {
+                    $field->set_codemirror( $property['codemirror'] );
+                }
 
             } elseif ($type === 'select') {
                 $property_options = $property['options'];
@@ -188,7 +191,10 @@ class Global_Styles {
             self::generate_complex_field('links', true, 'mobilePortrait'),
 
             Field::create( 'tab', 'custom_css_tab', __('Custom CSS','mv23theme') ),
-            self::generate_complex_field('custom_css')
+            self::generate_complex_field('custom_css'),
+            self::generate_complex_field('custom_css', true, 'tablet'),
+            self::generate_complex_field('custom_css', true, 'mobileLandscape'),
+            self::generate_complex_field('custom_css', true, 'mobilePortrait')
         );
 
         return $fields;
