@@ -27,6 +27,7 @@
 			$input = $( '<textarea />' )
 				.attr( 'rows', this.model.get( 'rows' ) )
 				.val( this.model.getValue() )
+				.attr( 'placeholder', this.model.get( 'placeholder' ) )
 				.appendTo( this.$el );
 
 			// Assign a manual keyup handler

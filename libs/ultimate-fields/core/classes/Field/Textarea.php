@@ -52,6 +52,14 @@ class Textarea extends Field {
 	protected $content_style = '';
 
 	/**
+	 * This is the value, which would be displayed as a placeholder within the field.
+	 *
+	 * @since 3.0
+	 * @var string
+	 */
+	protected $placeholder;
+
+	/**
 	 * Enqueues the scripts for the field.
 	 *
 	 * @since 3.0
@@ -96,6 +104,20 @@ class Textarea extends Field {
 	}
 
 	/**
+	 * Allow a custom placeholder to be used for the fields' input.
+	 *
+	 * @since 3.0
+	 *
+	 * @param string $placeholder The placeholder to use.
+	 * @return Ultimate_Fields\Field\Textarea The instance of the field.
+	 */
+	public function set_placeholder( $text ) {
+		$this->placeholder = $text;
+
+		return $this;
+	}
+
+	/**
 	 * Exports the field's settings.
 	 *
 	 * @since 3.0
@@ -107,6 +129,9 @@ class Textarea extends Field {
 
 		$settings[ 'rows' ] = $this->rows;
 		$settings[ 'content_style' ] = $this->content_style;
+		if( $this->placeholder ) {
+			$settings[ 'placeholder' ] = $this->placeholder;
+		}
 
 		return $settings;
 	}
@@ -126,7 +151,8 @@ class Textarea extends Field {
 			'content_style'              => 'set_content_style',
 			'apply_the_content' => 'apply_the_content',
 			'apply_shortcodes'  => 'do_shortcodes',
-			'apply_wpautop'     => 'add_paragraphs'
+			'apply_wpautop'     => 'add_paragraphs',
+			'placeholder'       => 'set_placeholder'
 		));
 	}
 
@@ -145,7 +171,8 @@ class Textarea extends Field {
 			'content_style'        => array( 'content_style', 8 ),
 			'the_content' => array( 'apply_the_content', false ),
 			'shortcodes'  => array( 'apply_shortcodes', false ),
-			'paragraphs'  => array( 'apply_wpautop', false )
+			'paragraphs'  => array( 'apply_wpautop', false ),
+			'placeholder'   => array( 'placeholder', null ),
 		));
 
 		return $settings;
