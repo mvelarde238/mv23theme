@@ -262,11 +262,7 @@ class Theme_Options extends Theme_Header_Data{
 
         // breakpoint typography css vars
         $breakpoints_ids = ['tablet', 'mobileLandscape', 'mobilePortrait'];
-        $breakpoints = array(
-            'tablet' => 992,
-            'mobileLandscape' => 768,
-            'mobilePortrait' => 480
-        );
+        $breakpoints = BREAKPOINTS;
         foreach ($breakpoints_ids as $bp_id) {
             $bp_root_lines = array();
             $bp_css = '';

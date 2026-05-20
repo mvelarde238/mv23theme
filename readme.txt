@@ -2,6 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.5 26-05-20
+- **Custom CSS Editor**: Per-component CSS textarea in the Style Manager with `%root%` placeholder support
+  - `%root%` is automatically resolved to the component's unique selector on export
+  - CSS is stored per-device (`custom_css` map on the component model, keyed by device ID)
+  - Live canvas preview via `editor.Css.addRules()` with `shallow: true` (rules excluded from standard export)
+
 3.12.4 26-05-19
 - Use user google api key for fonts selector if defined on theme options, otherwise fallback to constant if defined
 - Button component: add new outline button styles and move style selection to a separate tab

@@ -80,11 +80,11 @@
                         href: BUILDER_GLOBALS.admin_url,
                         target: '_self'
                     },
-                    // { 
-                    //     id: 'builder:log-data', 
-                    //     label: 'LOG PROJECT DATA',
-                    //     iconClass: 'dashicons dashicons-admin-generic'
-                    // },
+                    { 
+                        id: 'builder:log-data', 
+                        label: 'LOG PROJECT DATA',
+                        iconClass: 'dashicons dashicons-admin-generic'
+                    },
                 ],
                 onEditor: function(editor) {
                     editor.builderApp = builder_app;

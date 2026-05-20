@@ -250,10 +250,10 @@ class Ultimate_Builder {
 			$app_js_path = BUILDER_DEV_MODE ? 'http://builder.lo/react/my-react-app/dist/' : $assets. 'js/';
 			$app_css_path = BUILDER_DEV_MODE ? 'http://builder.lo/react/my-react-app/dist/' : $assets. 'css/';
 
-			wp_register_style( 'builder-admin-styles', $assets . 'css/builder-admin.css', array(), $v );
+			wp_register_style( 'builder-admin-styles', $assets . 'css/builder-admin.css', array('wp-codemirror'), $v );
 			wp_register_style( 'canvas-css', $assets . 'css/canvas.css', array(), $v );
 			wp_register_style( 'builder-app-styles', $app_css_path . 'app.css', array(), $v ); 
-			wp_register_script( 'builder-app', $app_js_path . 'app.js', array(), $v );
+			wp_register_script( 'builder-app', $app_js_path . 'app.js', array('wp-codemirror'), $v );
 			wp_register_script( 'gjs-context-menu-options', $assets . 'js/context-menu-options.js', array(), $v );
 			$this->register_gjs_plugins();
 			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );

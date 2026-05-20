@@ -240,6 +240,76 @@ class Page{
 		return $css;
 	}
 
+	/**
+	 * Recursively collects custom_css from a component and its children.
+	 *
+	 * @param array  $component  Component array (post-consolidation)
+	 * @param string &$base_css  Accumulated desktop CSS
+	 * @param array  &$media_css Accumulated CSS grouped by media query text
+	 */
+	private static function collect_custom_css_from_component( $component, &$base_css, &$media_css ) {
+		if ( !is_array($component) ) return;
+
+		$breakpoints = array_map( fn($v) => 'max-width: ' . $v . 'px', BREAKPOINTS );
+
+		$custom_css = $component['custom_css'] ?? null;
+		if ( is_array($custom_css) && !empty($custom_css) ) {
+			$id = $component['attributes']['id'] ?? null;
+			if ( $id ) {
+				foreach ( $custom_css as $bp => $rules ) {
+					if ( empty($rules) ) continue;
+					$resolved = str_replace( '%root%', '#' . $id, $rules );
+					if ( $bp === 'desktop' ) {
+						$base_css .= $resolved;
+					} elseif ( isset($breakpoints[$bp]) ) {
+						$media_text = $breakpoints[$bp];
+						if ( !isset($media_css[$media_text]) ) $media_css[$media_text] = '';
+						$media_css[$media_text] .= $resolved;
+					}
+				}
+			}
+		}
+
+		if ( isset($component['components']) && is_array($component['components']) ) {
+			foreach ( $component['components'] as $child ) {
+				self::collect_custom_css_from_component( $child, $base_css, $media_css );
+			}
+		}
+	}
+
+	/**
+	 * Compiles custom_css from all components in page_content into a CSS string.
+	 * Must be called after consolidate_content().
+	 *
+	 * @param array $page_content Consolidated page content structure
+	 * @return string Compiled CSS string
+	 */
+	public static function compile_components_custom_css( $page_content ) {
+		if ( !is_array($page_content) ) return '';
+
+		$base_css  = '';
+		$media_css = array();
+
+		$wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
+		if ( $wrapper ) {
+			self::collect_custom_css_from_component( $wrapper, $base_css, $media_css );
+		}
+
+		// Sort media queries: max-width from largest to smallest to respect cascade
+		uksort($media_css, function($a, $b) {
+			$a_val = preg_match('/max-width\s*:\s*(\d+)/', $a, $ma) ? (int)$ma[1] : 0;
+			$b_val = preg_match('/max-width\s*:\s*(\d+)/', $b, $mb) ? (int)$mb[1] : 0;
+			return $b_val - $a_val;
+		});
+
+		$css = $base_css;
+		foreach ( $media_css as $media_text => $rules ) {
+			$css .= '@media (' . $media_text . '){' . $rules . '}';
+		}
+
+		return $css;
+	}
+
 	public function the_content( $id = null ){
 		$page_ID = ($id) ? $id : self::get_id();
 
@@ -249,6 +319,8 @@ class Page{
 		$compiled_css = self::compile_styles_to_css( is_array($page_content) ? ($page_content['styles'] ?? []) : [] );
 		// Consolidate content with datastore
 		$page_content = self::consolidate_content( $page_content, $page_content_datastore );
+		// Compile component custom_css after consolidation (appended last to override styles above)
+		$compiled_css .= self::compile_components_custom_css( $page_content );
 
 		if (is_array($page_content)) :
 			ob_start();

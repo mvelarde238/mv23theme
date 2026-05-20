@@ -164,6 +164,11 @@ window.gjsI18n = function (editor, options) {
                 degree: 'Grados',
                 type: 'Tipo',
                 direction: 'Dirección',
+                custom_css_sector_title: 'CSS Personalizado',
+                custom_css_select_hint: 'Selecciona un componente para editar su CSS personalizado',
+                custom_css_placeholder_hint: 'Use %root% para apuntar al selector del componente seleccionado.',
+                custom_css_scope_hint_start: 'El CSS se aplicará al dispositivo:',
+                custom_css_scope_hint_end: 'al guardar.',
                 // spacing sector
                 outter: 'EXTERIOR',
                 inner: 'INTERIOR',
