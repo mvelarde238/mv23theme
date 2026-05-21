@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+- 3.2.18 21-05-2026
+- Fix renderAttachment() method on gallery for font files
+    (core/js/field/gallery.js)
+
 - 3.2.17 20-05-2026
 - Placeholder support for textarea field
     (core/classes/Field/Textarea.php)

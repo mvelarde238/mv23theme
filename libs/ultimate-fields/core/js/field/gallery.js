@@ -296,6 +296,11 @@
 				// var img = attachment.attributes.icon;
 				var img = '';
 				img.url = img;
+
+			} else if ( attachment.attributes.type == 'font' ) {
+				var img = attachment.attributes.icon;
+				img.url = img;
+				
 			} else {
 				var thumb = attachment.attributes.thumb.src;
 				// var thumb = attachment.attributes.icon;
