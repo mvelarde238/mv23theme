@@ -24,12 +24,16 @@ class Fonts {
             'title_template' => '<%= (scope != "custom") ? scope : selector %> font: <%= google_font.family %> <%= google_font.variants.join(",") %>',
             'fields' => array(
                 Field::create( 'font', 'google_font', __('Google Font','mv23theme') )->set_api_key( self::get_google_api_key() ),
-                Field::create( 'select', 'scope', __('Scope','mv23theme') )->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options(array(
-                    'any' => __('Any, just load the font','mv23theme'),
-                    'global' => __('Global (body)','mv23theme'),
-                    'headings' => __('Headings (h1, h2, h3, h4, h5, h6, b, strong)','mv23theme'),
-                    'custom' => __('Custom CSS selector','mv23theme')
-                )),
+                Field::create( 'select', 'scope', __('Scope','mv23theme') )
+                    ->set_input_type( 'radio' )
+                    ->set_orientation( 'horizontal' )
+                    ->set_default_value('any')
+                    ->add_options(array(
+                        'global' => __('Global (body)','mv23theme'),
+                        'headings' => __('Headings (h1, h2, h3, h4, h5, h6, b, strong)','mv23theme'),
+                        'any' => __('Any, just load the font','mv23theme'),
+                        'custom' => __('Custom CSS selector','mv23theme')
+                    )),
                 Field::create( 'text', 'selector' )->add_dependency('scope','custom')
             )
         );
@@ -40,50 +44,52 @@ class Fonts {
             'title' => __('Custom Font','mv23theme'),
             'layout' => 'rows',
             'edit_mode' => 'popup',
-            'title_template' => '<%= (scope != "custom") ? scope : selector %> font: <%= custom_font_data.name %>',
+            'title_template' => '<%= (scope != "custom") ? scope : selector %> font: <%= name %>',
             'fields' => array(
-                Field::create( 'complex', 'custom_font_data', __('Custom font data','mv23theme') )->merge()->add_fields(array(
-                    Field::create( 'text', 'name', __('Name','mv23theme') )->required()->set_width(20),
-                    Field::create( 'select', 'variant', __('Variant','mv23theme') )->add_options(array(
-                        'normal' => 'Normal',
-                        'bold' => 'Bold',
-                        'bolder' => 'Bolder',
-                        'lighter' => 'Lighter',
-                        '100' => '100',
-                        '200' => '200',
-                        '300' => '300',
-                        '400' => '400',
-                        '500' => '500',
-                        '600' => '600',
-                        '700' => '700',
-                        '800' => '800',
-                        '900' => '900'
-                    ))->set_width(20),
-                    Field::create( 'select', 'type', __('Type','mv23theme') )->set_input_type( 'radio' )->add_options(array(
-                        'file' => __('File','mv23theme'),
-                        'url' => __('Url','mv23theme')
-                    ))->set_width(20),
-                    Field::create( 'gallery', 'files', __('@font-face files ( woff2, woff )','mv23theme') )
-                        ->set_file_type('font/woff, font/woff2')
-                        ->set_attr( 'class', 'hide-gallery-order' )
-                        ->add_dependency( 'type', 'file' )
-                        ->set_width(40),
-                    Field::create( 'repeater', 'urls', __('Urls for @font-face css declaration ( woff2, woff )','mv23theme') )
-                        ->set_add_text(__('Add a url','mv23theme'))
-                        ->set_layout( 'table' )
-                        ->add_dependency( 'type', 'url' )
-                        ->add_group('item', array(
-                            'fields' => array(
-                                Field::create( 'text', 'url' )
-                            )
-                        ))->set_width(100)
-                )),
-                Field::create( 'select', 'scope', __('Scope','mv23theme') )->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_options(array(
-                    'any' => __('Any, just load the font','mv23theme'),
-                    'global' => __('Global (body)','mv23theme'),
-                    'headings' => __('Headings (h1, h2, h3, h4, h5, h6)','mv23theme'),
-                    'custom' => __('Custom CSS selector','mv23theme')
-                )),
+                Field::create( 'text', 'name', __('Name','mv23theme') )->required()->set_width(20),
+                Field::create( 'select', 'variant', __('Variant','mv23theme') )->add_options(array(
+                    'normal' => 'Normal',
+                    'bold' => 'Bold',
+                    'bolder' => 'Bolder',
+                    'lighter' => 'Lighter',
+                    '100' => '100',
+                    '200' => '200',
+                    '300' => '300',
+                    '400' => '400',
+                    '500' => '500',
+                    '600' => '600',
+                    '700' => '700',
+                    '800' => '800',
+                    '900' => '900'
+                ))->set_width(20),
+                Field::create( 'select', 'type', __('Type','mv23theme') )->set_input_type( 'radio' )->add_options(array(
+                    'file' => __('File','mv23theme'),
+                    'url' => __('Url','mv23theme')
+                ))->set_width(20),
+                Field::create( 'gallery', 'files', __('@font-face files ( woff2, woff )','mv23theme') )
+                    ->set_file_type('font/woff, font/woff2')
+                    ->set_attr( 'class', 'hide-gallery-order' )
+                    ->add_dependency( 'type', 'file' )
+                    ->set_width(40),
+                Field::create( 'repeater', 'urls', __('Urls for @font-face css declaration ( woff2, woff )','mv23theme') )
+                    ->set_add_text(__('Add a url','mv23theme'))
+                    ->set_layout( 'table' )
+                    ->add_dependency( 'type', 'url' )
+                    ->add_group('item', array(
+                        'fields' => array(
+                            Field::create( 'text', 'url' )
+                        )
+                    ))->set_width(100),
+                Field::create( 'select', 'scope', __('Scope','mv23theme') )
+                    ->set_input_type( 'radio' )
+                    ->set_orientation( 'horizontal' )
+                    ->set_default_value('any')
+                    ->add_options(array(
+                        'global' => __('Global (body)','mv23theme'),
+                        'headings' => __('Headings (h1, h2, h3, h4, h5, h6)','mv23theme'),
+                        'any' => __('Any, just load the font','mv23theme'),
+                        'custom' => __('Custom CSS selector','mv23theme')
+                    )),
                 Field::create( 'text', 'selector' )->add_dependency('scope','custom')
             )
         );

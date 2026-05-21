@@ -140,18 +140,19 @@ class Theme_Options extends Theme_Header_Data{
                     }
                 }   
                 if( $item['__type'] == 'custom_font' ){
-                    if( !isset($item['files']) || !is_array($item['files']) || empty($item['files']) ) continue;
-
-                    $files = $item['files'];
-                    $name = $item['name'];
-                    $variant = $item['variant'];
-                    $type = (isset($item['type'])) ? $item['type'] : 'file';
-                    $names[] = $name;
                     // font urls
                     $custom_font_urls = array();
-                    if($type == 'file' && is_array($files) && !empty($files)){
-                        foreach ($files as $file) {
-                            $custom_font_urls[] = 'url('.wp_get_attachment_url($file).')';
+                    $type = $item['type'] ?? 'file';
+                    $name = $item['name'] ?? '';
+                    $names[] = $name;
+                    $variant = $item['variant'] ?? 'normal';
+
+                    if($type == 'file'){
+                        $files = $item['files'] ?? array();
+                        if( is_array($files) && !empty($files) ){
+                            foreach ($files as $file) {
+                                $custom_font_urls[] = 'url('.wp_get_attachment_url($file).')';
+                            }
                         }
                     }
                     if($type == 'url' && isset($item['urls']) && is_array($item['urls']) && !empty($item['urls'])){

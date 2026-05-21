@@ -43,10 +43,22 @@ window.gjsThemeOptions = function (editor, options) {
                 const keys = Object.keys(changed);
                 if (keys.length && keys[0] === '__tab') return;
 
+                // When changed is empty (e.g. repeater item deletion), read full state from datastore
+                if (keys.length === 0) {
+                    const datastore = editor.getComponentDatastore(this.model);
+                    if (datastore) {
+                        const fullData = datastore.toJSON();
+                        if (fullData.fonts !== undefined) this.handleFontsChange(fullData.fonts);
+                        if (fullData.theme_colors) this.applyThemeColors(fullData.theme_colors);
+                        if (fullData.containers_settings) this.handleContainersWidthChange(fullData.containers_settings);
+                    }
+                    return;
+                }
+
                 if ( changed.theme_colors ) {
                     this.applyThemeColors( changed.theme_colors );
                 }
-                if ( changed.fonts) {
+                if ( changed.fonts !== undefined ) {
                     this.handleFontsChange( changed.fonts );
                 }
                 if ( changed.containers_settings ) {
@@ -104,7 +116,9 @@ window.gjsThemeOptions = function (editor, options) {
                 });
             },
             handleFontsChange(fonts){
+                if (!Array.isArray(fonts)) fonts = Object.values(fonts || {});
                 let cssRules = '';
+                const fileFontPromises = [];
 
                 fonts.forEach(font_group => {
                     if( font_group.__type === 'google_font' ){
@@ -139,11 +153,48 @@ window.gjsThemeOptions = function (editor, options) {
                         }
                     }
                     if( font_group.__type === 'custom_font' ){
-                        // TODO: handle custom font files loading
+                        const name = font_group.name;
+                        const variant = font_group.variant || 'normal';
+                        const type = font_group.type || 'file';
+                        const scope = font_group.scope;
+
+                        const buildFontRules = (fontUrls) => {
+                            if (!fontUrls.length) return '';
+                            let rules = `@font-face{font-family:"${name}";font-weight:${variant};src:${fontUrls.join(',')};} `;
+                            if (scope !== 'any') {
+                                const scopes = { global: 'body', headings: 'h1,h2,h3,h4,h5,h6' };
+                                if (scope === 'custom' && font_group.selector) scopes['custom'] = font_group.selector;
+                                const selector = scopes[scope];
+                                if (selector) rules += `${selector}{font-family:"${name}",Sans-Serif;} `;
+                            }
+                            return rules;
+                        };
+
+                        if (type === 'url' && Array.isArray(font_group.urls) && font_group.urls.length) {
+                            const fontUrls = font_group.urls.filter(item => item.url).map(item => `url(${item.url})`);
+                            cssRules += buildFontRules(fontUrls);
+                        } else if (type === 'file' && Array.isArray(font_group.files) && font_group.files.length) {
+                            fileFontPromises.push(
+                                Promise.all(font_group.files.map(id => editor.getPreparedFileObjectAsync(id)))
+                                    .then(attachments => {
+                                        const fontUrls = attachments
+                                            .filter(a => a && a.get && a.get('url'))
+                                            .map(a => `url(${a.get('url')})`);
+                                        return buildFontRules(fontUrls);
+                                    })
+                            );
+                        }
                     }
                 });
 
-                if(cssRules) this.addOrUpdateStyle(cssRules, 'fonts-style');
+                // Always overwrite to reflect deletions
+                this.addOrUpdateStyle(cssRules, 'fonts-style');
+
+                // Rebuild file-fonts style from scratch to reflect deletions
+                const self = this;
+                Promise.all(fileFontPromises).then(rulesArray => {
+                    self.addOrUpdateStyle(rulesArray.filter(Boolean).join(''), 'custom-file-fonts-style');
+                });
             },
             hexToRgba(hex, alpha) {
                 // Remover el símbolo '#' si está presente
