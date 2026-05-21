@@ -39,34 +39,11 @@
             });
         }
         
-        function extend_bg(element, key) {
-            var $element = $(element);
-            
-            var browser_side_distance = (key === 'left') ?
-                $element.offset().left :
-                $(window).width() - ($element.offset().left + $element.width());
-            
-            // Get current width in pixels for calculation
-            var element_width = $element.outerWidth();
-            
-            // Build CSS object
-            var styles = {
-                'box-sizing': 'border-box'
-            };
-            styles['padding-' + key] = browser_side_distance + 'px';
-            styles['margin-' + key] = (browser_side_distance * -1) + 'px';
-            styles['width'] = 'calc(' + element_width + 'px + ' + browser_side_distance + 'px)';
-            
-            // Apply styles
-            $element.css(styles);
-        }
-        
         function do_extend_bg() {
             var breakpoint = get_container_width_breakpoint();
             
             // Disable when viewport is smaller than container-width
             if (window.innerWidth < breakpoint) {
-                // Reset all elements to original state
                 $('.extend-bg-to-left, .extend-bg-to-right').each(function() {
                     if ($(this).data('extend-bg-initialized')) {
                         reset_element(this);
@@ -75,22 +52,37 @@
                 return;
             }
             
-            // Process left and right extensions
-            ['left', 'right'].forEach(function(key) {
-                var $extend_elements = $('.extend-bg-to-' + key);
+            // Process each element once, handling both sides together
+            $('.extend-bg-to-left, .extend-bg-to-right').each(function() {
+                var $element = $(this);
+                var hasLeft  = $element.hasClass('extend-bg-to-left');
+                var hasRight = $element.hasClass('extend-bg-to-right');
                 
-                if ($extend_elements.length) {
-                    $extend_elements.each(function() {
-                        // Store original values on first run
-                        store_original_values(this);
-                        
-                        // Reset before recalculating
-                        reset_element(this);
-                        
-                        // Apply extension
-                        extend_bg(this, key);
-                    });
+                store_original_values(this);
+                
+                // Reset once before measuring to get accurate natural positions
+                reset_element(this);
+                
+                var leftDist    = hasLeft  ? $element.offset().left : 0;
+                var rightDist   = hasRight ? $(window).width() - ($element.offset().left + $element.outerWidth()) : 0;
+                var elementWidth = $element.outerWidth();
+                
+                // Build all styles in a single pass
+                var styles = {
+                    'box-sizing': 'border-box',
+                    'width': 'calc(' + elementWidth + 'px + ' + leftDist + 'px + ' + rightDist + 'px)'
+                };
+                
+                if (hasLeft) {
+                    styles['padding-left'] = leftDist + 'px';
+                    styles['margin-left']  = (leftDist * -1) + 'px';
                 }
+                if (hasRight) {
+                    styles['padding-right'] = rightDist + 'px';
+                    styles['margin-right']  = (rightDist * -1) + 'px';
+                }
+                
+                $element.css(styles);
             });
         }
         
