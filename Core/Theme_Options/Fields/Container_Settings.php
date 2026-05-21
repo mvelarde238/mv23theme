@@ -29,7 +29,13 @@ class Container_Settings {
                         <%= selector %>: <%= max_width %>px
                     <% } %>',
                     'fields' => array(
-                        Field::create( 'text', 'rule_name' )->set_width(20),
+                        Field::create( 'text', 'rule_name' )
+                            ->add_suggestions(array(
+                                'Global Container',
+                                'Header Container',
+                                'Footer Container',
+                            ))
+                            ->set_width(20),
                         Field::create( 'select', 'scope', __('Scope','mv23theme') )->add_options(array(
                             'global' => 'Global',
                             'header' => 'Header',
