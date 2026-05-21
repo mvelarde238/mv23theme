@@ -40,6 +40,7 @@ class Header_Preview extends Component {
             $page_content_datastore = get_post_meta( $theme_header_post_id, 'page_content_datastore', true );
             $compiled_css = Page::compile_styles_to_css( is_array($page_content) ? ($page_content['styles'] ?? []) : [] );
             $page_content = Page::consolidate_content( $page_content, $page_content_datastore );
+            $compiled_css .= Page::compile_components_custom_css( $page_content );
         
             if (is_array($page_content)) :
                 $wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;

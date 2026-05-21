@@ -5,6 +5,7 @@ CHANGELOG
 3.12.6 26-05-21
 - Uf Fix: renderAttachment() method on gallery for font files
 - Review Theme Options > Fonts to correctly handle custom fonts
+- Compile custom_css on Header and Footer components
 
 3.12.5 26-05-20
 - **Custom CSS Editor**: Per-component CSS textarea in the Style Manager with `%root%` placeholder support
