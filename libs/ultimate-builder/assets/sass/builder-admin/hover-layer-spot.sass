@@ -1,0 +1,22 @@
+// .spot:has(.hover-layer-btn)
+    // background-color: rgba(0, 0, 0, 0.1)
+    
+.hover-layer-btn
+    pointer-events: auto
+    background: var(--brand-color-1) !important
+    font-size: 10px !important
+    min-height: 24px !important
+
+    &.edit-header,
+    &.edit-footer
+        position: absolute
+        right: 50%
+        transform: translateX(50%)
+
+    &.edit-header
+        top: 15px
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1)
+    
+    &.edit-footer
+        bottom: 15px
+        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2), 0 -4px 8px rgba(0, 0, 0, 0.1)

@@ -53,6 +53,8 @@ window.gjsI18n = function (editor, options) {
                 template_saved_successfully: '¡Plantilla guardada exitosamente!',
                 structure: 'Estructura',
                 content: 'Contenido',
+                edit_header: 'Editar Header',
+                edit_footer: 'Editar Pie de página',
                 // Content Migration Modal
                 content_migration_modal_title: 'Contenido Detectado',
                 content_migration_modal_message: 'Se ha detectado contenido guardado en el editor clásico de WordPress de esta publicación. Para editarlo en el constructor, es necesario migrarlo. Esta acción moverá el contenido al constructor y lo eliminará del editor clásico.',

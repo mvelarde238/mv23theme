@@ -292,7 +292,7 @@ class Listing extends Component {
             'set_post_status' => false,
             'post_status' => array('publish')
         );
-        $post_status = ( self::fix_boolean_on_ajax_calls( $status_params['set_post_status'] ) && is_array($status_params['post_status']) && count($status_params['post_status']) > 0 ) ? $status_params['post_status'] : array('publish');
+        $post_status = ( self::fix_boolean_on_ajax_calls( $status_params['set_post_status'] ) && isset($status_params['post_status']) && is_array($status_params['post_status']) && count($status_params['post_status']) > 0 ) ? $status_params['post_status'] : array('publish');
             
         if ($listing_source == 'manual') {
             $posttype = '';

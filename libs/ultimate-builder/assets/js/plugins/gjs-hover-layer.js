@@ -18,20 +18,20 @@ window.gjsHoverLayer = function (editor) {
         el: `.${name}-container`,
         template: _.template(`
             <% spots.forEach((spot, index) => { 
-                const isTextSelectedSpot = spot.type === spotTypeName;
+                const isHoverLayerSpot = spot.type === spotTypeName;
 
-                if(isTextSelectedSpot) { 
+                if(isHoverLayerSpot) { 
                     const style = Object.entries(spot.getStyle())
                         .map(([k, v]) => \`\${k}:\${v}\`)
                         .join(';');
-            %>
-                <div class="spot" style="<%= style %>">
-                    <button type="button" class="hover-layer-btn">
-                        <i class="bi bi-database" aria-hidden="true"></i> 
-                        <span>Edit Component</span>
-                    </button>
-                </div>
-            <% }
+                %>
+                    <div class="spot" style="<%= style %>">
+                        <a href="<%= edit_header_url %>" class="button button-primary hover-layer-btn edit-header"><%= editHeaderText %></a>
+                        <% if (posttype != 'footer') { %>
+                            <a href="<%= edit_footer_url %>" class="button button-primary hover-layer-btn edit-footer"><%= editFooterText %></a>
+                        <% } %>
+                    </div>
+                <% }
             }) %>
         `),
         initialize: function () {
@@ -45,21 +45,17 @@ window.gjsHoverLayer = function (editor) {
                     this.model.set({ spots: editor.Canvas.getSpots() });
                     this.render();
                 },
-                // Add a new canvas spot for the last hovered component
+                // Add a new canvas spot only for the wrapper component
                 componentHovered: (component) => {
-                    // If component isn't connected to a datastore, ignore it
-                    if (!component.get('__tempID')) return;
-
-                    // Remove all spots related to our custom type
                     editor.Canvas.removeSpots({ type: spotTypeName });
-                    // Don't add spot if component is already selected
-                    if (component != editor.getSelected()) {
-                        editor.Canvas.addSpot({ type: spotTypeName, component });
-                        this.model.set({ lastHoveredComponent: component });
-                    }
+
+                    if (!component.is('wrapper')) return;
+
+                    editor.Canvas.addSpot({ type: spotTypeName, component });
+                    this.model.set({ lastHoveredComponent: component });
                 },
-                // Remove all spots related to our custom type when component is toggled (selected/deselected)
-                componentToggled: (component) => {
+                // Remove the spot when the wrapper is selected
+                componentToggled: () => {
                     editor.Canvas.removeSpots({ type: spotTypeName });
                 }
             };
@@ -67,7 +63,7 @@ window.gjsHoverLayer = function (editor) {
             // Bind events
             editor.on('canvas:spot', this.eventHandlers.spotUpdate);
             editor.on('component:hovered', this.eventHandlers.componentHovered);
-            editor.on('component:toggled', this.eventHandlers.componentToggled);
+            // editor.on('component:toggled', this.eventHandlers.componentToggled);
 
             editor.onReady(() => {
                 // Once the editor is ready, append our custom elements to GrapesJS spots container
@@ -76,28 +72,24 @@ window.gjsHoverLayer = function (editor) {
         },
         render: function () {
             const { spots, spotTypeName } = this.model.toJSON();
-            this.$el.html(this.template({ spots, spotTypeName }));
+            const { edit_header_url, edit_footer_url, posttype } = BUILDER_GLOBALS;
+
+            const __ = editor.createTranslator(editor);
+            const editHeaderText = __('Edit Header');
+            const editFooterText = __('Edit Footer');
+
+            this.$el.html(this.template({ 
+                spots, 
+                spotTypeName, 
+                edit_header_url, 
+                edit_footer_url, 
+                posttype, 
+                editHeaderText, 
+                editFooterText 
+            }));
+
             return this;
-        },
-        events: {
-            "click .hover-layer-btn": 'handleClick'
-        },
-        handleClick: function (event) {
-            event.preventDefault();
-            const lastHoveredComponent = this.model.get('lastHoveredComponent');
-
-            if (!lastHoveredComponent) {
-                console.warn('No component to select');
-                return;
-            }
-
-            try {
-                editor.select(lastHoveredComponent);
-                editor.runCommand('open-datastore');
-            } catch (error) {
-                console.error('Error selecting component or running command:', error);
-            }
-        },
+        }
     });
 
     const createContainer = () => {

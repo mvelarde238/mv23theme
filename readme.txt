@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.7 26-05-22
+- Canvas Improvements:
+  - Add links to edit footer and header templates
+
 3.12.6 26-05-21
 - Uf Fix: renderAttachment() method on gallery for font files
 - Review Theme Options > Fonts to correctly handle custom fonts

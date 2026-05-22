@@ -51,10 +51,10 @@ class Ultimate_Builder {
 	 * @var array
 	 */
 	private $gjs_plugins = array(
-		// [ 'name' => 'gjsHoverLayer', 'handler' => 'gjs-hover-layer', 'isComponent' => false ],
 		[ 'name' => 'gjsI18n', 'handler' => 'gjs-i18n', 'isComponent' => false ],
 		[ 'name' => 'gjsExtendEditor', 'handler' => 'gjs-extend-editor', 'isComponent' => false ],
 		[ 'name' => 'gjsCommands', 'handler' => 'gjs-commands', 'isComponent' => false ],
+		[ 'name' => 'gjsHoverLayer', 'handler' => 'gjs-hover-layer', 'isComponent' => false ],
 		[ 'name' => 'gjsExtendComponents', 'handler' => 'gjs-extend-components', 'isComponent' => false ],
 		// gjsDatastoreUndo: must load after gjsExtendComponents (depends on temporalCompStore)
 		[ 'name' => 'gjsDatastoreUndo', 'handler' => 'gjs-datastore-undo', 'isComponent' => false ],
@@ -176,13 +176,41 @@ class Ultimate_Builder {
 		wp_register_script( 'uf-field-ultimate-builder', $assets . 'js/field-ultimate-builder.js', array('uf-field-repeater', 'handlebars'), $v );
 		wp_register_style( 'uf-field-ultimate-builder', $assets . 'css/field.css', array(), $v );
 
-		// BUILDER GLOBALS
+		// localize the script with the builder globals
+		$builder_globals = $this->get_builder_globals();
+		wp_localize_script( 'uf-field-ultimate-builder', 'BUILDER_GLOBALS', $builder_globals );
+	}
+
+	private function get_builder_globals() {
 		$user_id = get_current_user_id();
 		$post_id = get_the_ID();
 		$posttype = get_post_type();
 		$is_singular = ( $posttype === 'single_template');
 		$is_page_for_posts = get_option('page_for_posts') == $post_id;
 		$is_shop = class_exists( 'WooCommerce' ) && ( $posttype === 'product' || $posttype === 'product_template' );
+
+		$builder_globals = array(
+			'locale' => substr( get_user_locale($user_id), 0, 2 ),
+			'posttype' => $posttype,
+			'page_title' => get_the_title() ?: '',
+			'referer' => wp_get_referer(),
+			'post_edit_url' => admin_url( 'post.php?post=' . $post_id . '&action=edit' ),
+			'admin_url' => admin_url( 'edit.php?post_type=' . $posttype ),
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce' => wp_create_nonce( 'ultimate_builder_preview' ),
+			'post_id' => $post_id,
+			'post_content' => get_post_field( 'post_content', $post_id ),
+			'is_singular' => $is_singular,
+			'theme_colors' => get_option( 'theme_colors', array() ),
+			'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
+			'masonry_is_active' => MASONRY_IS_ACTIVE,
+			'context' => Handlebars::get_context(),
+			'togglebox_state_icon' => TOGGLEBOX_STATE_ICON,
+			'prev_carousel_icon' => PREV_CAROUSEL_ICON,
+			'next_carousel_icon' => NEXT_CAROUSEL_ICON,
+			'is_page_for_posts' => $is_page_for_posts,
+			'is_shop' => $is_shop,
+		);
 
 		// archive templates data
 		$is_archive = ( $posttype === 'archive_template') || $is_page_for_posts;
@@ -210,31 +238,27 @@ class Ultimate_Builder {
 				}
 			}
 		}
+		$builder_globals['is_archive'] = $is_archive;
+		$builder_globals['archive_settings'] = $archive_settings;
 
-		wp_localize_script( 'uf-field-ultimate-builder', 'BUILDER_GLOBALS', array(
-			'locale' => substr( get_user_locale($user_id), 0, 2 ),
-			'posttype' => $posttype,
-			'page_title' => get_the_title() ?: '',
-			'referer' => wp_get_referer(),
-			'post_edit_url' => admin_url( 'post.php?post=' . $post_id . '&action=edit' ),
-			'admin_url' => admin_url( 'edit.php?post_type=' . $posttype ),
-			'ajax_url' => admin_url( 'admin-ajax.php' ),
-			'nonce' => wp_create_nonce( 'ultimate_builder_preview' ),
-			'post_id' => $post_id,
-			'post_content' => get_post_field( 'post_content', $post_id ),
-			'is_singular' => $is_singular,
-			'is_archive' => $is_archive,
-			'archive_settings' => $archive_settings,
-			'theme_colors' => get_option( 'theme_colors', array() ),
-			'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
-			'masonry_is_active' => MASONRY_IS_ACTIVE,
-			'context' => Handlebars::get_context(),
-			'togglebox_state_icon' => TOGGLEBOX_STATE_ICON,
-			'prev_carousel_icon' => PREV_CAROUSEL_ICON,
-			'next_carousel_icon' => NEXT_CAROUSEL_ICON,
-			'is_page_for_posts' => $is_page_for_posts,
-			'is_shop' => $is_shop,
-		));
+		// Edit header/footer URLs
+		$options = array('header', 'footer');
+		foreach ($options as $option) {
+			$meta_key = 'theme_' . $option . '_post';
+			$post_meta = get_option($meta_key);
+			if ($post_meta) {
+				$post_id = str_replace('post_', '', $post_meta);
+				if ( IS_MULTILANGUAGE && function_exists('pll_get_post') ) {
+					$post_id = pll_get_post($post_id);
+				}
+				$edit_url = admin_url( 'post.php?post=' . $post_id . '&action=edit&action=ultimate-builder&meta=page_content' );
+				$builder_globals['edit_' . $option . '_url'] = esc_url( $edit_url );
+			} else {
+				$builder_globals['edit_' . $option . '_url'] = false;
+			}
+		}
+
+		return $builder_globals;
 	}
 
 	public function prepare_admin_for_builder() {
