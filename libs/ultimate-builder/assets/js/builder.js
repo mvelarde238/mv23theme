@@ -39,14 +39,6 @@
                 // Temporarily store datastores for each component
                 temporalCompStore: {},
                 builderInstance: that,
-                // Exclude certain component types from spacing spots to avoid layout issues
-                spacingSpots: {
-                    excludeComponentTypes: [
-                        'wrapper', 'spacer', 'shortcode', 'image-component', 'text-editor', 'flipbox', 'icon-box', 'column', 'listing', 
-                        'row', 'icon-and-text', 'heading', 'togglebox-button', 'togglebox', 'carousel-wrapper', 'testimonial-header',
-                        'code', 'menu', 'video-component', 'button', 'map-component', 'video-component', 'counter-component', 'icon-list'
-                    ]
-                },
                 plugins: [...plugins, ...React_Builder_Plugins],
                 pluginsOpts: {
                     [window['gjs-context-menu'].default]: window['contextMenuOpts']

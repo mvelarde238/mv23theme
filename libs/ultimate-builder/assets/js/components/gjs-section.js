@@ -22,6 +22,7 @@ window.gjsSection = function(editor) {
                 tagName: 'div',
                 draggable: true,
                 classes: [compClass],
+                cssSpots: ['padding', 'margin'],
                 styles: `
                     .${compClass} {
                         padding: 40px 0px 40px 0px;
