@@ -7,6 +7,7 @@ CHANGELOG
 - Review Theme Options > Fonts to correctly handle custom fonts
 - Compile custom_css on Header and Footer components
 - Fix extend-bg script to properly handle the case where the component extends its background to both sides
+- Use --blog-color on body#tinymce.wp-editor
 
 3.12.5 26-05-20
 - **Custom CSS Editor**: Per-component CSS textarea in the Style Manager with `%root%` placeholder support
