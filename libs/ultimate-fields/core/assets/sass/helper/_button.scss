@@ -2,6 +2,7 @@
 .wp-core-ui .uf-button,
 .uf-button {
 	position: relative;
+	min-height: 25px;
 
 	a, a:focus {
 		text-decoration: none;
@@ -19,26 +20,29 @@
 	}
 
 	&-icon {
-		margin: 3px 4px 0 -2px;
+		line-height: 1 !important;
+		margin-top: 8px;
+		margin-right: 4px;
 
+		// delete group icon
 		&.dashicons-no-alt {
-			margin-top: 4px;
+			// background-color: yellow;
+			margin-top: 10px;
 		}
 
+		// add group icon
 		&.dashicons-plus {
-			margin: 5px 0px 0 -6px;
+			margin-top: 11px;
 		}
 	}
 
 	&-no-text {
 		padding: 3px 6px;
-		height: 20px;
-		line-height: 20px;
 		box-sizing: content-box;
 
 		.dashicons {
 			display: block;
-			margin: 0;
+			margin: 5px;
 		}
 	}
 

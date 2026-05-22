@@ -30,6 +30,7 @@
 .wp-core-ui .uf-button,
 .uf-button {
   position: relative;
+  min-height: 25px;
 }
 .wp-core-ui .uf-button a, .wp-core-ui .uf-button a:focus,
 .uf-button a,
@@ -49,27 +50,27 @@
 }
 .wp-core-ui .uf-button-icon,
 .uf-button-icon {
-  margin: 3px 4px 0 -2px;
+  line-height: 1 !important;
+  margin-top: 8px;
+  margin-right: 4px;
 }
 .wp-core-ui .uf-button-icon.dashicons-no-alt,
 .uf-button-icon.dashicons-no-alt {
-  margin-top: 4px;
+  margin-top: 10px;
 }
 .wp-core-ui .uf-button-icon.dashicons-plus,
 .uf-button-icon.dashicons-plus {
-  margin: 5px 0px 0 -6px;
+  margin-top: 11px;
 }
 .wp-core-ui .uf-button-no-text,
 .uf-button-no-text {
   padding: 3px 6px;
-  height: 20px;
-  line-height: 20px;
   box-sizing: content-box;
 }
 .wp-core-ui .uf-button-no-text .dashicons,
 .uf-button-no-text .dashicons {
   display: block;
-  margin: 0;
+  margin: 5px;
 }
 .wp-core-ui .uf-button-right,
 .uf-button-right {
@@ -553,12 +554,6 @@
   width: 100%;
 }
 
-/* CodeMirror placeholder addon — WP's bundled codemirror.min.css omits this rule */
-.CodeMirror-placeholder {
-  color: #999 !important;
-  font-style: italic;
-}
-
 .uf-field-layout-row {
   position: relative;
   display: flex;
@@ -791,6 +786,8 @@
   vertical-align: middle;
   margin: 0;
   width: 100%;
+  min-height: 30px;
+  padding: 0 6px;
 }
 
 .uf-field-input:has(> .uf-field-prefix),
@@ -936,6 +933,13 @@ input:not(:checked) + .uf-fancy-checkbox-wrap {
 }
 input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   left: 20px;
+}
+
+.uf-field-input select {
+  min-height: 30px;
+  padding: 0 30px 0 6px;
+  height: 30px;
+  line-height: 1;
 }
 
 .uf-radio {
@@ -1107,9 +1111,6 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   display: flex;
   text-align: center;
   padding: 8px;
-}
-.uf-file-buttons .uf-button {
-  min-height: 23px;
 }
 .uf-file-buttons .uf-button + .uf-button {
   margin-left: 5px;
@@ -1474,6 +1475,8 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 }
 .uf-field-type-number input {
   padding-right: 0 !important;
+  min-height: 30px;
+  padding: 0 6px;
 }
 .uf-field-type-number .uf-field-input {
   display: flex;
@@ -2008,6 +2011,9 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   border-width: 1px;
   box-shadow: none;
   min-height: auto;
+}
+.uf-gallery-images .button-secondary .dashicons {
+  line-height: 1;
 }
 .uf-gallery-images .button-secondary span {
   vertical-align: middle;

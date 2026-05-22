@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+|- 3.2.19 21-05-2026
+- Fix button, input and select elements height in wp version 7
+    (core/assets/sass/..)
+
 - 3.2.18 21-05-2026
 - Fix renderAttachment() method on gallery for font files
     (core/js/field/gallery.js)
