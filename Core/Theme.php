@@ -10,6 +10,7 @@ use Core\Includes\Loader;
 use Core\Frontend\Frontend;
 use Core\Frontend\WooCommerce_Support;
 use Core\Admin\Admin;
+use Core\Admin\Duplicate_Page;
 use Core\Cleanup\Cleanup;
 use Core\Admin\Ajax_Load_Posts;
 use Core\Admin\Hardening_WP;
@@ -177,6 +178,12 @@ class Theme extends Theme_Header_Data {
 
         // Extend Nav Menu Widget
         $this->loader->add_filter( 'widgets_init', $admin, 'extend_nav_widget' );
+
+        // Duplicate post
+        $duplicate_page = new Duplicate_Page();
+        $this->loader->add_filter( 'post_row_actions', $duplicate_page, 'add_duplicate_link', 10, 2 );
+        $this->loader->add_filter( 'page_row_actions', $duplicate_page, 'add_duplicate_link', 10, 2 );
+        $this->loader->add_action( 'admin_action_' . Duplicate_Page::ACTION, $duplicate_page, 'handle_duplicate_request' );
 
         // ajax callback to load posts in listing component
         $ajax_load_posts = new Ajax_Load_Posts();

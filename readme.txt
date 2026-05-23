@@ -5,6 +5,9 @@ CHANGELOG
 3.12.7 26-05-22
 - Canvas Improvements:
   - Add links to edit footer and header templates
+- Duplicate_Page class implementation to allow duplicating pages from the admin pages list, 
+  with support for duplicating all page meta including builder content and settings, 
+  and redirecting to the new page edit screen after duplication
 
 3.12.6 26-05-21
 - Uf Fix: renderAttachment() method on gallery for font files
