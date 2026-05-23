@@ -8,6 +8,7 @@ CHANGELOG
 - Duplicate_Page class implementation to allow duplicating pages from the admin pages list, 
   with support for duplicating all page meta including builder content and settings, 
   and redirecting to the new page edit screen after duplication
+- Offcanvas Elements Improvements: Add a duplicate method to handle the duplication of offcanvas element posts
 
 3.12.6 26-05-21
 - Uf Fix: renderAttachment() method on gallery for font files
