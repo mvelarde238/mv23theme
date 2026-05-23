@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.8 26-05-23
+- clickable_area implementation on actions settings
+
 3.12.7 26-05-22
 - Canvas Improvements:
   - Add links to edit footer and header templates

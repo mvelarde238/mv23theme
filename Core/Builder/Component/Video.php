@@ -5,6 +5,7 @@ use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Core\Builder\Template_Engine\Video as Template_Engine_Video;
+use Core\Builder\Template_Engine\Actions;
 
 class Video extends Component {
 
@@ -147,13 +148,14 @@ class Video extends Component {
         $caption = ($attachment) ? $attachment->post_excerpt : null;
         
         $attributes = Template_Engine::generate_attributes( $args );
+        $action = Actions::get_code( $args );
         ob_start();
         echo '<div '.$attributes.'>';
         do_action( 'after_component_wrapper_start', $args );
         echo Template_Engine::check_layout('start', $args);
-        echo Template_Engine::check_actions( 'start', $args );
+        echo Template_Engine::check_actions( $action, 'start' );
         echo $video_data['code'];
-        echo Template_Engine::check_actions( 'end', $args );
+        echo Template_Engine::check_actions( $action, 'end' );
         if( $caption ) echo '<p class="media-caption">'.esc_html($caption).'</p>';
         echo Template_Engine::check_layout('end', $args);
         do_action( 'before_component_wrapper_end', $args );

@@ -29,21 +29,14 @@ class Section extends Component {
         if( Template_Engine::is_restricted( $args ) ) return;
 
 		$args['additional_classes'][] = 'page-module';
+		$args['html_tag'] = 'section';
         
         $attributes = Template_Engine::generate_attributes( $args );
 
 		ob_start();
-        echo Template_Engine::check_full_width('start', $args);
-        echo '<section '.$attributes.'>';
-        do_action( 'after_component_wrapper_start', $args );
-        echo Template_Engine::check_video_background( $args );
-        echo Template_Engine::check_slider_background( $args );
-        echo Template_Engine::check_layout('start', $args);
+		echo Template_Engine::component_wrapper( 'start', $args );
 		echo Template_Engine::check_components( $args );
-        echo Template_Engine::check_layout('end', $args);
-        do_action( 'before_component_wrapper_end', $args );
-        echo '</section>';
-        echo Template_Engine::check_full_width('end', $args);
+		echo Template_Engine::component_wrapper( 'end', $args );
 		return ob_get_clean();
 	}
 }
