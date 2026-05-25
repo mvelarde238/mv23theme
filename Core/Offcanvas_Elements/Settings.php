@@ -54,7 +54,8 @@ class Settings {
 					\Core\Offcanvas_Elements\TriggerEvent\Click::class,
 					\Core\Offcanvas_Elements\TriggerEvent\Scroll::class,
 					\Core\Offcanvas_Elements\TriggerEvent\CustomEvent::class,
-					\Core\Offcanvas_Elements\TriggerEvent\HashEvent::class
+					\Core\Offcanvas_Elements\TriggerEvent\HashEvent::class,
+					\Core\Offcanvas_Elements\TriggerEvent\UrlParam::class
 				);
 
 			default:

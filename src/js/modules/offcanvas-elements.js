@@ -247,6 +247,10 @@ window['OffCanvas_Elements'] = (function(){
                         this._handle_hash_event( triggerData );
                         break;
 
+                    case 'url_param':
+                        this._handle_url_param_event( triggerData );
+                        break;
+
                     case 'scroll':
                         let cookie_name = (triggerData.custom_cookie) ? triggerData.cookie_name : oce_uid+'-shown';
                         const storage_type = ( triggerData.custom_cookie ) ? triggerData.storage_type : 'session'; 
@@ -299,6 +303,13 @@ window['OffCanvas_Elements'] = (function(){
             // dosnt work with woo events:
             // event_name && document.body.addEventListener(event_name, function() { instance.open(); }); 
             event_name && $(document.body).on( event_name, function(){ M_instance.open(); });
+        },
+        _handle_url_param_event( triggerData ){
+            let { M_instance } = this;
+            const params = new URLSearchParams( window.location.search );
+            if ( params.get( triggerData.param_name ) === triggerData.param_value ) {
+                M_instance.open();
+            }
         },
         _handle_hash_event( triggerData ){
             let { M_instance } = this;
