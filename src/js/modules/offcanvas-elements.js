@@ -243,6 +243,10 @@ window['OffCanvas_Elements'] = (function(){
                         this._handle_custom_event( triggerData );
                         break;
 
+                    case 'hash_event':
+                        this._handle_hash_event( triggerData );
+                        break;
+
                     case 'scroll':
                         let cookie_name = (triggerData.custom_cookie) ? triggerData.cookie_name : oce_uid+'-shown';
                         const storage_type = ( triggerData.custom_cookie ) ? triggerData.storage_type : 'session'; 
@@ -295,6 +299,31 @@ window['OffCanvas_Elements'] = (function(){
             // dosnt work with woo events:
             // event_name && document.body.addEventListener(event_name, function() { instance.open(); }); 
             event_name && $(document.body).on( event_name, function(){ M_instance.open(); });
+        },
+        _handle_hash_event( triggerData ){
+            let { M_instance } = this;
+            const targetHash = '#' + triggerData.hash_value;
+
+            // Check on page load
+            if ( window.location.hash === targetHash ) {
+                M_instance.open();
+            }
+
+            // Listen for hash changes at any point
+            window.addEventListener( 'hashchange', function() {
+                if ( window.location.hash === targetHash ) {
+                    M_instance.open();
+                }
+            });
+
+            // Clean the hash from the URL when the element closes
+            const _prevOnCloseEnd = M_instance.options.onCloseEnd;
+            M_instance.options.onCloseEnd = function() {
+                if ( window.location.hash === targetHash ) {
+                    history.replaceState( null, '', window.location.pathname + window.location.search );
+                }
+                if ( typeof _prevOnCloseEnd === 'function' ) _prevOnCloseEnd();
+            };
         },
         _handle_basic_scroll_event( triggerData, storage , cookie_name){
             let { M_instance } = this;

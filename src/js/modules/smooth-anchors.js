@@ -35,34 +35,38 @@
         $('a[href^="#"]').click(function (event) {
             event.preventDefault();
             var href = $(this).attr('href');
-            if ( href != '#!' && $(href).length > 0 ) {
+            if ( href != '#!' ) {
                 history.pushState({},null,href);
+                window.dispatchEvent(new Event('hashchange'));
                 var e = new Event('mv23ReplaceState');
 			    window.dispatchEvent(e);
-                let elementPosition = $(href).offset().top;
-                let newPosition = elementPosition;
-                if( !MV23_GLOBALS.disableHeaderHeightCalculationOnAnchors ){
-                    var bodyStyles = window.getComputedStyle(document.body);
-                    if( href != '#content' ){
-                        var sticky_header_height = bodyStyles.getPropertyValue('--sticky-header-height');
-                        newPosition = elementPosition - parseInt(sticky_header_height);
-    
-                        // .maybe-fix-scroll-position implementation
-                        var togglebox_button_height = maybe_fix_scroll_position_inside_togglebox(href);
-                        newPosition = newPosition - togglebox_button_height;
-    
-                    } else {
-                        var static_header_height = bodyStyles.getPropertyValue('--static-header-height');
-                        newPosition = elementPosition - parseInt(static_header_height);
+
+                if( $(href).length > 0 ){
+                    let elementPosition = $(href).offset().top;
+                    let newPosition = elementPosition;
+                    if( !MV23_GLOBALS.disableHeaderHeightCalculationOnAnchors ){
+                        var bodyStyles = window.getComputedStyle(document.body);
+                        if( href != '#content' ){
+                            var sticky_header_height = bodyStyles.getPropertyValue('--sticky-header-height');
+                            newPosition = elementPosition - parseInt(sticky_header_height);
+                        
+                            // .maybe-fix-scroll-position implementation
+                            var togglebox_button_height = maybe_fix_scroll_position_inside_togglebox(href);
+                            newPosition = newPosition - togglebox_button_height;
+                        
+                        } else {
+                            var static_header_height = bodyStyles.getPropertyValue('--static-header-height');
+                            newPosition = elementPosition - parseInt(static_header_height);
+                        }
                     }
+                    $("html, body").animate({ 
+                        scrollTop: newPosition
+                    }, {
+                        duration: 800, 
+                        queue: false, 
+                        // easing: 'easeOutCubic'
+                    });
                 }
-                $("html, body").animate({ 
-                    scrollTop: newPosition
-                }, {
-                    duration: 800, 
-                    queue: false, 
-                    // easing: 'easeOutCubic'
-                });
             }
         });
         // ****************************************************************************************************

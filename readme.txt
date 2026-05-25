@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.9 26-05-25
+- HashEvent implementation for offcanvas elements to allow triggering offcanvas elements based on URL hash, 
+  and automatically clean the hash from the URL when the offcanvas element is closed
+
 3.12.8 26-05-23
 - clickable_area implementation on actions settings
 
