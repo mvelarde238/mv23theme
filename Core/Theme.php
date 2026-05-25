@@ -10,6 +10,7 @@ use Core\Includes\Loader;
 use Core\Frontend\Frontend;
 use Core\Frontend\WooCommerce_Support;
 use Core\Admin\Admin;
+use Core\Admin\Duplicate_Page;
 use Core\Cleanup\Cleanup;
 use Core\Admin\Ajax_Load_Posts;
 use Core\Admin\Hardening_WP;
@@ -28,6 +29,7 @@ use Core\Posttype\Single_Template;
 use Core\Posttype\Archive_Template;
 use Core\Builder\Core as Builder;
 use Core\Offcanvas_Elements\Core as Offcanvas_Elements;
+use Core\Offcanvas_Elements\Duplicate as OCE_Duplicate;
 use Core\Migrator\Core as Migrator;
 use Core\Theme_Options\UF_Container\Posts_Subscription;
 use Core\Theme_Options\UF_Container\Track_Posts_Data;
@@ -178,6 +180,12 @@ class Theme extends Theme_Header_Data {
         // Extend Nav Menu Widget
         $this->loader->add_filter( 'widgets_init', $admin, 'extend_nav_widget' );
 
+        // Duplicate post
+        $duplicate_page = new Duplicate_Page();
+        $this->loader->add_filter( 'post_row_actions', $duplicate_page, 'add_duplicate_link', 10, 2 );
+        $this->loader->add_filter( 'page_row_actions', $duplicate_page, 'add_duplicate_link', 10, 2 );
+        $this->loader->add_action( 'admin_action_' . Duplicate_Page::ACTION, $duplicate_page, 'handle_duplicate_request' );
+
         // ajax callback to load posts in listing component
         $ajax_load_posts = new Ajax_Load_Posts();
 
@@ -255,6 +263,10 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'wp_loaded', $offcanvas_elements, 'register_settings' );
         $this->loader->add_action( 'wp_enqueue_scripts', $offcanvas_elements, 'enqueue_scripts', 1000);
         $this->loader->add_action( 'wp_footer', $offcanvas_elements, 'print_elements' );
+
+        // Regenerate all builder IDs when an offcanvas_element post is duplicated
+        $oce_duplicate = new OCE_Duplicate();
+        $this->loader->add_action( 'mv_after_duplicate_post', $oce_duplicate, 'on_duplicate', 10, 4 );
 
         // Templates Library
         $templates_library = Templates_Library::getInstance();

@@ -9,11 +9,14 @@ Class Actions{
 		$code = array(
 			'start' => '', 
 			'end' => '',
-			'attributes' => array()
+			'attributes' => array(),
+			'clickable_area' => 'inner_content'
 		);
 
     	if ( isset($args['actions_settings']) && is_array($args['actions_settings']) && !empty($args['actions_settings']) ) {
 			$action = $args['actions_settings'];
+
+			if( isset($action['clickable_area']) ) $code['clickable_area'] = $action['clickable_area'];
     		
     		if ($action['trigger'] == 'click' && $action['action'] == 'open-page') {
     			$href = NULL;
@@ -128,6 +131,15 @@ Class Actions{
 			}
 		};
 
+		// if the clickable area is extra_layer, we will append a class to place the link over the entire component
+		if( $code['clickable_area'] === 'extra_layer' ){
+			if( isset($code['attributes']['class']) ){
+				$code['attributes']['class'] .= ' cover-all';
+			} else {
+				$code['attributes']['class'] = 'cover-all';
+			}
+		}
+
 		if( !empty($code['attributes']) && isset($code['attributes']['href']) && $code['attributes']['href'] != '' ){			
 			$start = '<a';
 			foreach ($code['attributes'] as $attr => $value) {
@@ -138,6 +150,12 @@ Class Actions{
 			$start .= '>';
 			$code['start'] = $start;
 			$code['end'] = '</a>';
+		}
+
+		// if the clickable area is extra_layer, we will use just the start code
+		if( $code['clickable_area'] === 'extra_layer' ){
+			$code['start'] = $code['start'].$code['end'];
+			$code['end'] = '';
 		}
 
     	return $code;

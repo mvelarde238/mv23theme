@@ -107,22 +107,26 @@ class Template_Engine{
         $attributes = self::generate_attributes( $args );
 
         $html_tag = ( isset($args['html_tag']) && !empty($args['html_tag']) ) ? $args['html_tag'] : 'div';
+        $action = Actions::get_code( $args );
+        $clickable_area = ( isset($action['clickable_area']) ) ? $action['clickable_area'] : 'inner_content';
 
         ob_start();
         if ($key == 'start'){
             echo self::check_full_width('start', $args);
+            if( $clickable_area === 'entire_component' ) echo self::check_actions( $action, 'start' );
             echo '<'.$html_tag.' '.$attributes.'>';
             do_action( 'after_component_wrapper_start', $args );
             echo self::check_video_background( $args );
             echo self::check_slider_background( $args );
+            if( $clickable_area === 'inner_content' || $clickable_area === 'extra_layer' ) echo self::check_actions( $action, 'start' );
             echo self::check_layout('start', $args);
-            echo self::check_actions('start', $args );
         }
         if ($key == 'end'){  
-            echo self::check_actions('end', $args );
             echo self::check_layout('end', $args);
+            if( $clickable_area === 'inner_content' ) echo self::check_actions( $action, 'end' );
             do_action( 'before_component_wrapper_end', $args );
             echo '</'.$html_tag.'>';
+            if( $clickable_area === 'entire_component' ) echo self::check_actions( $action, 'end' );
             echo self::check_full_width('end', $args);
         } 
         return ob_get_clean();
@@ -146,9 +150,7 @@ class Template_Engine{
 		}
     }
 
-    public static function check_actions( $key, $args ){
-        $action = Actions::get_code( $args );
-
+    public static function check_actions( $action, $key ){
         if( $action && $key == 'start' ) echo $action['start'];
         if( $action && $key == 'end' ) echo $action['end'];
     }

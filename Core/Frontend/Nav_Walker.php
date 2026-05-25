@@ -214,9 +214,9 @@ class Nav_Walker extends Walker_Nav_Menu{
         if( $dynamic_content_settings['is_active'] ){
             $dynamic_content_settings['type'] = $dynamic_content_meta['content_type'];
 
-            $posttype = $dynamic_content_meta['connected_posttype'];
-            $taxonomy = $dynamic_content_meta['connected_'.$posttype.'_taxonomy'];
-            $terms = $dynamic_content_meta['connected_'.$taxonomy.'_terms'];
+            $posttype = $dynamic_content_meta['connected_posttype'] ?? '';
+            $taxonomy = $dynamic_content_meta['connected_'.$posttype.'_taxonomy'] ?? '';
+            $terms = $dynamic_content_meta['connected_'.$taxonomy.'_terms'] ?? array();
 
             if( $dynamic_content_settings['type'] == 'list_posts' ){
                 $posts_args = array(

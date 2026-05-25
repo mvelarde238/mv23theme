@@ -2,10 +2,17 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.8 26-05-23
+- clickable_area implementation on actions settings
+
 3.12.7 26-05-22
 - Canvas Improvements:
   - Add links to edit footer and header templates
 - Fix border sector to show the correct current value instead of default
+- Duplicate_Page class implementation to allow duplicating pages from the admin pages list, 
+  with support for duplicating all page meta including builder content and settings, 
+  and redirecting to the new page edit screen after duplication
+- Offcanvas Elements Improvements: Add a duplicate method to handle the duplication of offcanvas element posts
 
 3.12.6 26-05-21
 - Uf Fix: renderAttachment() method on gallery for font files
