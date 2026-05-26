@@ -104,7 +104,14 @@ class Archive_Posts extends Component {
 
             if( IS_MULTILANGUAGE ){
                 // fix a possible polylang-issue where tax_params is populated with a post--language taxonomy that doesn't exist, causing the listing to break
-                $listing_args['tax_params'] = array();
+                // remove post--language taxonomy from tax_params if it exists, to prevent issues with polylang
+                if( isset($listing_args['tax_params']) ){
+                    foreach( $listing_args['tax_params'] as $key => $value ){
+                        if( strpos($key, 'post--language') !== false ){
+                            unset($listing_args['tax_params'][$key]);
+                        }
+                    }
+                }
             }
 
             do_action('before_loop');

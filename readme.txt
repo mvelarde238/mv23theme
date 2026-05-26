@@ -6,7 +6,7 @@ CHANGELOG
 - HashEvent and UrlParam implementation for offcanvas elements to allow triggering offcanvas elements based on URL hash and URL parameters, 
   and automatically clean the hash from the URL when the offcanvas element is closed
 - fix a possible polylang-issue in Archive_Posts.php where tax_params is populated with a post--language taxonomy that doesn't exist, 
-  causing the listing to break
+  causing the listing to break, remove post--language taxonomy from tax_params if it exists, to prevent issues with polylang
 
 3.12.8 26-05-23
 - clickable_area implementation on actions settings
