@@ -102,6 +102,11 @@ class Archive_Posts extends Component {
             $postcard_template = self::handle_postcard_template('archive-page', $args, null, $archive_template);
             $listing_args['postcard_settings']['template'] = $postcard_template;
 
+            if( IS_MULTILANGUAGE ){
+                // fix a possible polylang-issue where tax_params is populated with a post--language taxonomy that doesn't exist, causing the listing to break
+                $listing_args['tax_params'] = array();
+            }
+
             do_action('before_loop');
             echo Listing::display($listing_args);
         }
