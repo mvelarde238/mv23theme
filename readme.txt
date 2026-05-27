@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.10 26-05-26
+- if it's an icon and text component and the clickable area is set to inner content
+  force entire component to be clickable, because of the structure of the component
+
 3.12.9 26-05-25
 - HashEvent and UrlParam implementation for offcanvas elements to allow triggering offcanvas elements based on URL hash and URL parameters, 
   and automatically clean the hash from the URL when the offcanvas element is closed

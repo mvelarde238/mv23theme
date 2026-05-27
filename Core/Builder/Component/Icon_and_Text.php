@@ -97,9 +97,7 @@ class Icon_and_Text extends Component {
 		
         $attributes = Template_Engine::generate_attributes( $args );
 		ob_start();
-        do_action( 'after_component_wrapper_start', $args );
-        echo Template_Engine::check_actions('start', $args );
-        echo '<div '.$attributes.'>';
+        echo Template_Engine::component_wrapper('start', $args);
         
         $icon_wrapper = $args['components'][0] ?? null;
         echo '<div class="icon-wrapper" '.$icon_wrapper_style.'>';
@@ -111,9 +109,7 @@ class Icon_and_Text extends Component {
         $content_wrapper['additional_classes'][] = 'content-wrapper';
 		echo Template_Engine::getInstance()->handle( $content_wrapper );
 
-        do_action( 'before_component_wrapper_end', $args );
-        echo '</div>';
-        echo Template_Engine::check_actions('end', $args );
+        echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
 }

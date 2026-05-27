@@ -17,6 +17,12 @@ Class Actions{
 			$action = $args['actions_settings'];
 
 			if( isset($action['clickable_area']) ) $code['clickable_area'] = $action['clickable_area'];
+
+			// if it's an icon and text component and the clickable area is set to inner content
+			// force entire component to be clickable, because of the structure of the component
+			if( $args['type'] == 'icon-and-text' && isset($action['clickable_area']) && $action['clickable_area'] == 'inner_content' ){
+				$code['clickable_area'] = 'entire_component';
+			}
     		
     		if ($action['trigger'] == 'click' && $action['action'] == 'open-page') {
     			$href = NULL;
