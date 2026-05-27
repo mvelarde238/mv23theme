@@ -69,6 +69,7 @@ class Core{
 
         foreach ( $posts as $post_id ) {
             $oce_element_comp = null;
+
             $page_content = get_post_meta( $post_id, 'page_content', true );
             $page_content_datastore = get_post_meta( $post_id, 'page_content_datastore', true );
             $page_content = Page::consolidate_content( $page_content, $page_content_datastore );
@@ -103,13 +104,27 @@ class Core{
                 continue;
             }
 
+            // look for modal content and close button components inside the oce element component
+            $oce_modal_content_comp = null;
+            $oce_modal_close_comp = null;
+
+            foreach ( $oce_element_comp['components'] ?? [] as $component ) {
+                if ( $component['type'] === 'oce-modal-content' ) {
+                    $oce_modal_content_comp = $component;
+                }
+                if ( $component['type'] === 'icon-box' ) {
+                    $oce_modal_close_comp = $component;
+                }
+            }
+
             // Check visibility rules stored in the component's datastore.
             if ( Conditional_Rendering::instance()->should_hide_element( $oce_element_comp['visibility_settings'] ?? array() ) ) {
                 continue;
             }
 
             $type    = $oce_element_comp['oce_type'] ?? '';
-            $content = $oce_element_comp;
+            $content = $oce_modal_content_comp;
+            $close_button = $oce_modal_close_comp;
             $styles  = Page::compile_styles_to_css( $page_content['styles'] ?? [] );
             $settings = $oce_element_comp['settings'] ?? array();
             if ( !is_array( $settings ) ) $settings = array();
@@ -149,6 +164,7 @@ class Core{
                 'additional_classes' => $element_classes,
                 'type'               => $type,
                 'content'            => $content,
+                'close_button'       => $close_button,
                 'styles'             => $styles,
                 'oce_settings'       => $oce_settings,
                 'trigger_events'     => $trigger_events,
@@ -167,6 +183,21 @@ class Core{
         return $this->elements;
     }
 
+    private function print_close_button( array $element_args ): void {
+        $is_sidenav = $element_args['type'] === 'sidenav';
+
+        if ( !$is_sidenav && !( $element_args['oce_settings']['dismissible'] ?? false ) ) {
+            return;
+        }
+
+        if ( $element_args['close_button'] ) {
+            echo Template_Engine::getInstance()->handle( $element_args['close_button'] );
+        } else {
+            $close_class = $is_sidenav ? 'sidenav-close' : 'modal-close';
+            echo '<a href="#!" class="' . $close_class . '"></a>';
+        }
+    }
+
     function print_elements(){
         foreach ( $this->get_elements() as $element_args ) { 
             $attributes = Template_Engine::generate_attributes( $element_args );
@@ -182,11 +213,7 @@ class Core{
             } 
             echo '</div>';
 
-            if( $element_args['type'] === 'sidenav' ){
-                echo '<a href="#!" class="sidenav-close"></a>';
-            } else {
-                if( $element_args['oce_settings']['dismissible'] ) echo '<a href="#!" class="modal-close"></a>';
-            }
+            $this->print_close_button( $element_args );
             echo '</div>';
         }
     }

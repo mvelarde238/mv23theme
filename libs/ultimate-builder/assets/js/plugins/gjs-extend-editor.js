@@ -167,8 +167,8 @@ window.gjsExtendEditor = function (editor) {
             // For regular components, create if missing.
             if (!isMovable && !existingComponent) {
                 console.log(`Creating missing component: ${type}`);
-                parent.append({ type }, { at: index });
-                existingComponent = parent.findType(type)[0];
+                parent.append(componentDef, { at: index });
+                existingComponent = findByDef(parent.components().models, componentDef) || parent.findType(type)[0];
             }
 
             // Apply simple properties from the structure definition to the existing component.

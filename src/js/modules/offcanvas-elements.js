@@ -25,6 +25,7 @@ window['OffCanvas_Elements'] = (function(){
             this._handle_styles();
             this._handle_trigger_events();
             this._handle_close_on_click_setting();
+            this._handle_oce_modal_close();
         }
     }
     
@@ -406,6 +407,14 @@ window['OffCanvas_Elements'] = (function(){
                     element.classList.add(close_on_click_class);
                 });
             }
+        },
+        _handle_oce_modal_close(){
+            let { offcanvas_element, M_instance } = this;
+            offcanvas_element.addEventListener('click', function(event) {
+                if ( event.target.closest('.oce-modal-close') ) {
+                    M_instance.close();
+                }
+            });
         },
         _maybe_init_toggleboxes(el){
             var toggleboxes = el.getElementsByClassName('togglebox');

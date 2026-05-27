@@ -77,6 +77,23 @@ window.gjsOceComponents = ( editor ) => {
         },
     });
 
+    // Behavioral properties
+    const unwantedProps = ['removable', 'copyable', 'draggable', 'selectable', 'badgable', 'propagate', 'resizable', 'droppable', 'delegate', 'name'];
+
+    // Default components
+    const defaultComponents = [
+        { type: 'oce-modal-content' },
+        { 
+            type: 'icon-box',
+            classes: ['oce-modal-close'],
+            removable: false,
+            copyable: false,
+            draggable: false,
+            badgable: false,
+            datastoreDefaults: { icon: 'bi-x-lg' },
+        }
+    ];
+
     // Define the offcanvas component
     domc.addType('oce-element', {
         model: {
@@ -87,9 +104,14 @@ window.gjsOceComponents = ( editor ) => {
                 draggable: false,
                 droppable: false,
                 copyable: false,
-                components: [
-                    { type: 'oce-modal-content' }
-                ],
+                components: defaultComponents,
+                styles: `
+                    .oce-modal-close {
+                        position: absolute;
+                        top: 6px;
+                        right: 6px;
+                    }
+                `,
                 contextMenu: function (component) {
                     return [
                         {
@@ -104,6 +126,9 @@ window.gjsOceComponents = ( editor ) => {
         },
         view: {
             onRender({ el, model }) {
+                // Ensure the default structure
+                editor.ensureComponentStructure(model, defaultComponents, unwantedProps);
+
                 const datastore = editor.getComponentDatastore(model);
 
 				if (datastore) {
@@ -132,7 +157,7 @@ window.gjsOceComponents = ( editor ) => {
                         const alpha = overlay_color.alpha || 50; // alpha is always a number 0-100
                         const finalColor = `rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, ${alpha / 100})`;
                         const overlay = editor.getWrapper().findType('oce-overlay')[0]?.view.el;
-                        console.log('Overlay element found:', overlay);
+                        // console.log('Overlay element found:', overlay);
                         if (overlay) {
                             overlay.style.backgroundColor = finalColor;
                         }
@@ -229,5 +254,23 @@ window.gjsOceComponents = ( editor ) => {
                 section.remove({silent:true});
             }
         });
+
+        // Remove the oce-modal-close styles before saving as they are only needed to be presented in the style manager
+        const css = editor.Css;
+        css.remove(`.oce-modal-close`);
+    });
+
+    UltimateFields.addFilter('builder_component_cleanup', function(data) {
+        if (data.component.type === 'oce-element') {
+            // Recursively strip behavioral props from nested children
+            const cleanupNestedComponents = (obj) => {
+                if (!obj || !Array.isArray(obj.components)) return;
+                obj.components.forEach(child => {
+                    unwantedProps.forEach(prop => delete child[prop]);
+                    cleanupNestedComponents(child);
+                });
+            };
+            cleanupNestedComponents(data.builderComponent);
+        }
     });
 }
