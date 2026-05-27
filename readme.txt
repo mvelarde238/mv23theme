@@ -6,6 +6,7 @@ CHANGELOG
 - if it's an icon and text component and the clickable area is set to inner content
   force entire component to be clickable, because of the structure of the component
 - oce-modal-close implementation on offcanvas elements to allow editing its styles from the style manager
+- if the offcanvas element is dismissible, show the close button, if not hide it
 
 3.12.9 26-05-25
 - HashEvent and UrlParam implementation for offcanvas elements to allow triggering offcanvas elements based on URL hash and URL parameters, 

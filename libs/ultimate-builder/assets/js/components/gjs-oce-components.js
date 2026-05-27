@@ -170,6 +170,14 @@ window.gjsOceComponents = ( editor ) => {
                             modalContent.style.padding = '0';
                         }
                     }
+
+                    const dismissible = datastore.get('dismissible');
+                    if (!dismissible) {
+                        const closeButton = el.querySelector('.oce-modal-close');
+                        if (closeButton) {
+                            closeButton.style.display = 'none';
+                        }   
+                    }
                 }
             },
             events: {
