@@ -230,13 +230,13 @@ msgstr "Acordeón"
 #: Core/Builder/Component/Heading.php:79
 #: Core/Builder/Component/Heading.php:82
 #: Core/Builder/Component/Heading.php:123
-#: Core/Builder/Component/Image.php:33
+#: Core/Builder/Component/Image.php:34
 #: Core/Builder/Component/Map.php:23
 #: Core/Builder/Component/Menu.php:65
 #: Core/Builder/Component/Shortcode.php:23
-#: Core/Builder/Component/Video.php:26
-#: Core/Offcanvas_Elements/Settings.php:73
-#: Core/Offcanvas_Elements/Settings.php:74
+#: Core/Builder/Component/Video.php:27
+#: Core/Offcanvas_Elements/Settings.php:75
+#: Core/Offcanvas_Elements/Settings.php:76
 #: Core/Posttype/Document.php:167
 msgid "Content"
 msgstr "Contenido"
@@ -267,8 +267,8 @@ msgstr "Icono"
 #: Core/Builder/Component/Accordion_Button.php:41
 #: Core/Builder/Component/Icon_Box.php:27
 #: Core/Builder/Component/Icon_Box.php:35
-#: Core/Builder/Component/Image.php:15
-#: Core/Builder/Component/Image.php:41
+#: Core/Builder/Component/Image.php:16
+#: Core/Builder/Component/Image.php:42
 msgid "Image"
 msgstr "Imagen"
 
@@ -283,6 +283,7 @@ msgstr "Estructura"
 
 #: Core/Builder/Component/structure/Page.php:13
 #: Core/Builder/Visibility_Rule/Page.php:26
+#: Core/Posttype/Post.php:53
 #: libs/ultimate-builder/assets/js/components/gjs-wrapper.js:6
 msgid "Page"
 msgstr "Página"
@@ -312,23 +313,21 @@ msgid "Carousel"
 msgstr "Carrusel"
 
 #: Core/Builder/Component/Button.php:55
-#: Core/Builder/containers/actions.php:27
+#: Core/Posttype/Post.php:46
 msgid "Internal Page"
 msgstr "Página interna"
 
-#: Core/Builder/containers/actions.php:28
-msgid "External Page"
-msgstr "Página externa"
-
 #: Core/Builder/Component/Button.php:58
+#: Core/Posttype/Post.php:55
 msgid "Select Page"
 msgstr "Selecciona una página"
 
-#: Core/Builder/containers/actions.php:34
+#: Core/Builder/containers/actions.php:35
+#: Core/Posttype/Post.php:45
 msgid "External URL"
 msgstr "URL externa"
 
-#: Core/Builder/containers/actions.php:37
+#: Core/Builder/containers/actions.php:38
 msgid "Open in a new window."
 msgstr "Abrir en una nueva ventana"
 
@@ -384,7 +383,7 @@ msgstr "Columnas"
 msgid "Space between items"
 msgstr "Espacio entre items"
 
-#: Core/Builder/Component/Image.php:57
+#: Core/Builder/Component/Image.php:58
 #: Core/Builder/Component/Listing.php:133
 #: Core/Builder/containers/scroll_animations.php:31
 #: Core/Builder/containers/scroll_animations.php:44
@@ -423,10 +422,10 @@ msgid "End"
 msgstr "Al final"
 
 #: Core/Builder/Component/Flip_Box.php:42
-#: Core/Builder/Component/Image.php:64
 #: Core/Builder/Component/Image.php:65
-#: Core/Builder/Component/Video.php:61
+#: Core/Builder/Component/Image.php:66
 #: Core/Builder/Component/Video.php:62
+#: Core/Builder/Component/Video.php:63
 msgid "Aspect Ratio"
 msgstr ""
 
@@ -445,13 +444,13 @@ msgstr "Seleccionar folder"
 
 #: Core/Builder/Component/Gallery.php:114
 #: Core/Builder/Component/Gallery.php:122
-#: Core/Builder/Component/Image.php:34
-#: Core/Builder/Component/Image.php:52
+#: Core/Builder/Component/Image.php:35
+#: Core/Builder/Component/Image.php:53
 #: Core/Builder/Component/Listing.php:72
-#: Core/Builder/Component/Video.php:27
-#: Core/Builder/containers/actions.php:24
+#: Core/Builder/Component/Video.php:28
+#: Core/Builder/containers/actions.php:25
 #: Core/Builder/containers/common_settings.php:43
-#: Core/Posttype/Post.php:49
+#: Core/Posttype/Post.php:75
 msgid "Source"
 msgstr "Fuente"
 
@@ -482,11 +481,11 @@ msgid "Appearance of the images in the gallery. If you select \"default\" the im
 msgstr "Apariencia de las imágenes en la galeria. Seleccione -default-  para que mantengan su aspecto original."
 
 #: Core/Builder/Component/oce/Offcanvas_Element.php:62
-#: Core/Theme_Options/Fields/Container_Settings.php:45
+#: Core/Theme_Options/Fields/Container_Settings.php:51
 msgid "Max Width"
 msgstr "Anchura máxima"
 
-#: Core/Theme_Options/Fields/Container_Settings.php:44
+#: Core/Theme_Options/Fields/Container_Settings.php:50
 msgid "Width"
 msgstr "Ancho"
 
@@ -564,7 +563,7 @@ msgstr "ID de la Galería"
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:101
 #: Core/Posttype/Footer.php:43
 #: Core/Posttype/Header.php:43
-#: Core/Posttype/Post.php:48
+#: Core/Posttype/Post.php:74
 #: Core/Theme_Options/Fields/Global_Settings.php:32
 #: Core/Theme_Options/Fields/Global_Settings.php:50
 #: Core/Theme_Options/Fields/Global_Settings.php:60
@@ -702,26 +701,26 @@ msgstr "Alineación del icono"
 msgid "Default"
 msgstr "Por defecto"
 
-#: Core/Builder/Component/Image.php:38
-#: Core/Builder/Component/Video.php:31
-#: Core/Builder/containers/actions.php:48
+#: Core/Builder/Component/Image.php:39
+#: Core/Builder/Component/Video.php:32
+#: Core/Builder/containers/actions.php:49
 #: Core/Builder/containers/common_settings.php:44
 msgid "Media"
 msgstr "Medios"
 
-#: Core/Builder/Component/Image.php:39
-#: Core/Builder/Component/Video.php:32
-#: Core/Builder/containers/actions.php:49
+#: Core/Builder/Component/Image.php:40
+#: Core/Builder/Component/Video.php:33
+#: Core/Builder/containers/actions.php:50
 #: Core/Builder/containers/common_settings.php:45
 msgid "External"
 msgstr "Externo"
 
-#: Core/Builder/Component/Image.php:48
-#: Core/Builder/Component/Video.php:38
+#: Core/Builder/Component/Image.php:49
+#: Core/Builder/Component/Video.php:39
 msgid "Expand on click"
 msgstr "Expandir al hacer clic"
 
-#: Core/Builder/Component/Image.php:49
+#: Core/Builder/Component/Image.php:50
 msgid "Show the image in a popup."
 msgstr "Mostrar la imágen en un pop up"
 
@@ -811,7 +810,7 @@ msgstr "Título"
 #: Core/Builder/Component/Listing.php:131
 #: Core/Builder/containers/scroll_animations.php:16
 #: Core/Offcanvas_Elements/TriggerEvent/Scroll.php:91
-#: Core/Theme_Options/Fields/Fonts.php:46
+#: Core/Theme_Options/Fields/Fonts.php:49
 msgid "Name"
 msgstr "Nombre"
 
@@ -1014,38 +1013,38 @@ msgstr "Separador"
 msgid "Text editor"
 msgstr "Editor de Texto"
 
-#: Core/Builder/Component/Video.php:14
+#: Core/Builder/Component/Video.php:15
 msgid "Video"
 msgstr ""
 
-#: Core/Builder/Component/Video.php:48
+#: Core/Builder/Component/Video.php:49
 #: Core/Builder/containers/common_settings.php:53
 msgid "Controls"
 msgstr "Controles"
 
-#: Core/Builder/Component/Video.php:49
+#: Core/Builder/Component/Video.php:50
 #: Core/Builder/containers/common_settings.php:54
 msgid "AutoPlay"
 msgstr ""
 
-#: Core/Builder/Component/Video.php:50
+#: Core/Builder/Component/Video.php:51
 #: Core/Builder/containers/common_settings.php:55
 msgid "Muted"
 msgstr ""
 
-#: Core/Builder/Component/Video.php:51
+#: Core/Builder/Component/Video.php:52
 #: Core/Builder/containers/common_settings.php:56
 msgid "Loop"
 msgstr ""
 
-#: Core/Builder/Component/Video.php:52
+#: Core/Builder/Component/Video.php:53
 #: Core/Builder/containers/common_settings.php:52
 #: Core/Posttype/Menu_Item.php:42
 msgid "Background color"
 msgstr "Color de fondo"
 
 #: Core/Builder/Component/oce/Offcanvas_Element.php:88
-#: Core/Builder/Component/Video.php:53
+#: Core/Builder/Component/Video.php:54
 #: Core/Builder/containers/common_settings.php:57
 msgid "Opacity"
 msgstr "Transparencia"
@@ -1135,7 +1134,7 @@ msgstr "Esquema de color"
 msgid "Video background"
 msgstr "Video de fondo"
 
-#: Core/Builder/Component/Video.php:46
+#: Core/Builder/Component/Video.php:47
 #: Core/Builder/containers/common_settings.php:51
 msgid "Video Settings"
 msgstr "Ajustes del Video"
@@ -1180,7 +1179,7 @@ msgid "Activate scroll animations on Theme Options -> Global Animations"
 msgstr "Activar animaciones avanzadas en Theme Options -> Global Options"
 
 #: Core/Builder/containers/scroll_animations.php:18
-#: Core/Offcanvas_Elements/Settings.php:101
+#: Core/Offcanvas_Elements/Settings.php:103
 msgid "Trigger"
 msgstr "Disparador"
 
@@ -1347,18 +1346,18 @@ msgstr "Agregar Ajustes"
 msgid "Page %s"
 msgstr "Página %s"
 
-#: Core/Frontend/Post_Card.php:174
+#: Core/Frontend/Post_Card.php:202
 msgid "Like"
 msgstr "Me gusta"
 
-#: Core/Frontend/Post_Card.php:181
+#: Core/Frontend/Post_Card.php:209
 #: single-document.php:45
 #: single-document.php:110
 msgid "Preview"
 msgstr "Previsualizar"
 
 #: Core/Builder/Component/Button.php:46
-#: Core/Frontend/Post_Card.php:188
+#: Core/Frontend/Post_Card.php:216
 #: single-document.php:50
 #: single-document.php:117
 msgid "Download"
@@ -1511,17 +1510,17 @@ msgstr ""
 msgid "Select the roles, which should have access to this element or leave blank for all roles."
 msgstr "Selecciona los roles que deberían tener acceso a este elemento o deja en blanco para todos los roles."
 
-#: Core/Offcanvas_Elements/Settings.php:88
+#: Core/Offcanvas_Elements/Settings.php:90
 msgid "Add Trigger Event"
 msgstr ""
 
-#: Core/Offcanvas_Elements/Settings.php:89
+#: Core/Offcanvas_Elements/Settings.php:91
 msgid "Add at least one trigger event to show the element."
 msgstr "Agrega por lo menos un trigger event para mostrar el elemento"
 
 #: Core/Builder/Component/Button.php:41
 #: Core/Builder/Component/oce/Offcanvas_Element.php:35
-#: Core/Theme_Options/Fields/Fonts.php:62
+#: Core/Theme_Options/Fields/Fonts.php:65
 msgid "Type"
 msgstr "Tipo"
 
@@ -1772,7 +1771,9 @@ msgstr "Categorías"
 #: Core/Posttype/Document.php:89
 #: Core/Posttype/Document.php:129
 #: Core/Posttype/Document.php:133
-#: Core/Theme_Options/Fields/Fonts.php:63
+#: Core/Posttype/Post.php:47
+#: Core/Posttype/Post.php:58
+#: Core/Theme_Options/Fields/Fonts.php:66
 msgid "File"
 msgstr "Archivo"
 
@@ -1785,11 +1786,12 @@ msgid "Category"
 msgstr "Categoría"
 
 #: Core/Posttype/Document.php:130
-#: Core/Theme_Options/Fields/Fonts.php:64
+#: Core/Theme_Options/Fields/Fonts.php:67
 msgid "Url"
 msgstr "Url"
 
 #: Core/Posttype/Document.php:132
+#: Core/Posttype/Post.php:49
 msgid "URL"
 msgstr "URL"
 
@@ -1923,9 +1925,9 @@ msgstr "Si el logo del sticky header es más pequeño que el logo del header est
 msgid "Container"
 msgstr "Contenedor"
 
-#: Core/Theme_Options/Fields/Container_Settings.php:33
+#: Core/Theme_Options/Fields/Container_Settings.php:39
 #: Core/Theme_Options/Fields/Fonts.php:27
-#: Core/Theme_Options/Fields/Fonts.php:81
+#: Core/Theme_Options/Fields/Fonts.php:83
 msgid "Scope"
 msgstr "Alcance"
 
@@ -1934,63 +1936,59 @@ msgstr "Alcance"
 msgid "Google Font"
 msgstr "Fuente de Google"
 
-#: Core/Theme_Options/Fields/Fonts.php:28
-#: Core/Theme_Options/Fields/Fonts.php:82
+#: Core/Theme_Options/Fields/Fonts.php:34
+#: Core/Theme_Options/Fields/Fonts.php:90
 msgid "Any, just load the font"
 msgstr "Ninguna, solo carga la fuente"
 
-#: Core/Theme_Options/Fields/Fonts.php:29
-#: Core/Theme_Options/Fields/Fonts.php:83
+#: Core/Theme_Options/Fields/Fonts.php:32
+#: Core/Theme_Options/Fields/Fonts.php:88
 msgid "Global (body)"
 msgstr "Alcance global (body)"
 
-#: Core/Theme_Options/Fields/Fonts.php:30
+#: Core/Theme_Options/Fields/Fonts.php:33
 msgid "Headings (h1, h2, h3, h4, h5, h6, b, strong)"
 msgstr "Títulos (h1, h2, h3, h4, h5, h6, b, strong)"
 
-#: Core/Theme_Options/Fields/Fonts.php:31
-#: Core/Theme_Options/Fields/Fonts.php:85
+#: Core/Theme_Options/Fields/Fonts.php:35
+#: Core/Theme_Options/Fields/Fonts.php:91
 msgid "Custom CSS selector"
 msgstr "Selector CSS personalizado"
 
-#: Core/Theme_Options/Fields/Fonts.php:40
+#: Core/Theme_Options/Fields/Fonts.php:44
 msgid "Custom Font"
 msgstr "Fuente personalizada"
 
-#: Core/Theme_Options/Fields/Fonts.php:45
-msgid "Custom font data"
-msgstr "Datos de la fuente personalizada"
-
-#: Core/Theme_Options/Fields/Fonts.php:47
+#: Core/Theme_Options/Fields/Fonts.php:50
 msgid "Variant"
 msgstr "Variante"
 
-#: Core/Theme_Options/Fields/Fonts.php:66
+#: Core/Theme_Options/Fields/Fonts.php:69
 msgid "@font-face files ( woff2, woff )"
 msgstr ""
 
-#: Core/Theme_Options/Fields/Fonts.php:71
+#: Core/Theme_Options/Fields/Fonts.php:74
 msgid "Urls for @font-face css declaration ( woff2, woff )"
 msgstr "Urls para ser usadas en la declaración CSS @font-face ( woff2, woff )"
 
-#: Core/Theme_Options/Fields/Fonts.php:72
+#: Core/Theme_Options/Fields/Fonts.php:75
 msgid "Add a url"
 msgstr "Agregar una url"
 
-#: Core/Theme_Options/Fields/Fonts.php:84
+#: Core/Theme_Options/Fields/Fonts.php:89
 msgid "Headings (h1, h2, h3, h4, h5, h6)"
 msgstr "Títulos (h1, h2, h3, h4, h5, h6)"
 
-#: Core/Theme_Options/Fields/Typography.php:164
+#: Core/Theme_Options/Fields/Global_Styles.php:175
 msgid "Typography"
 msgstr "Tipografía"
 
-#: Core/Theme_Options/Fields/Fonts.php:96
-#: Core/Theme_Options/Fields/Fonts.php:97
+#: Core/Theme_Options/Fields/Fonts.php:102
+#: Core/Theme_Options/Fields/Fonts.php:103
 msgid "Fonts"
 msgstr "Tipos de letra"
 
-#: Core/Theme_Options/Fields/Fonts.php:99
+#: Core/Theme_Options/Fields/Fonts.php:105
 msgid "Add font"
 msgstr "Agregar tipo de letra"
 
@@ -2188,13 +2186,13 @@ msgstr "%s - borrador actualizado."
 msgid "Last modified"
 msgstr "Última modificación"
 
-#: partials/card/postcard-document.php:12
-#: partials/card/postcard-portfolio.php:12
+#: partials/card/postcard-document.php:13
+#: partials/card/postcard-portfolio.php:13
 msgid "More details"
 msgstr "Más detalles"
 
-#: partials/card/postcard-post-horizontal.php:10
-#: partials/card/postcard-post.php:12
+#: partials/card/postcard-post-horizontal.php:11
+#: partials/card/postcard-post.php:13
 msgid "Read More"
 msgstr "Leer Más"
 
@@ -2333,14 +2331,17 @@ msgid "Button Text"
 msgstr "Texto del botón"
 
 #: Core/Builder/Component/Button.php:51
+#: Core/Posttype/Post.php:42
 msgid "Destination"
 msgstr "Destino"
 
 #: Core/Builder/Component/Button.php:61
+#: Core/Posttype/Post.php:62
 msgid "Open in a new window"
 msgstr "Abrir en una nueva ventana"
 
 #: Core/Builder/Component/Button.php:61
+#: Core/Posttype/Post.php:63
 msgid "Enable"
 msgstr "Activar"
 
@@ -2438,19 +2439,19 @@ msgstr "Fuente del icono:"
 msgid "Icon Position"
 msgstr "Posición del icono"
 
-#: Core/Builder/Component/Image.php:51
+#: Core/Builder/Component/Image.php:52
 msgid "Caption"
 msgstr "Leyenda"
 
-#: Core/Builder/Component/Image.php:56
+#: Core/Builder/Component/Image.php:57
 msgid "Global"
 msgstr "Global"
 
-#: Core/Builder/Component/Image.php:59
+#: Core/Builder/Component/Image.php:60
 msgid "The legend set in the Media Library will be used."
 msgstr "Se utilizará la leyenda establecida en la Biblioteca de Medios."
 
-#: Core/Builder/Component/Image.php:66
+#: Core/Builder/Component/Image.php:67
 msgid "Select a predefined aspect ratio (width / height) or set a custom one."
 msgstr "Seleccione una relación de aspecto predefinida (ancho / alto) o establezca una personalizada."
 
@@ -2504,7 +2505,7 @@ msgid "Unordered List"
 msgstr "Lista Desordenada"
 
 #: Core/Builder/Component/Menu.php:38
-#: Core/Theme_Options/Fields/Typography.php:176
+#: Core/Theme_Options/Fields/Global_Styles.php:187
 msgid "Links"
 msgstr "Enlaces"
 
@@ -2589,7 +2590,7 @@ msgstr "Sin Barra Lateral"
 msgid "Social Share"
 msgstr "Compartir en Redes Sociales"
 
-#: Core/Builder/Component/Video.php:44
+#: Core/Builder/Component/Video.php:45
 msgid "Show the video in a popup."
 msgstr "Mostrar el video en un popup."
 
@@ -2597,43 +2598,43 @@ msgstr "Mostrar el video en un popup."
 msgid "Builder"
 msgstr ""
 
-#: Core/Builder/containers/actions.php:13
+#: Core/Builder/containers/actions.php:14
 msgid "Open new page"
 msgstr "Abrir nueva página"
 
-#: Core/Builder/containers/actions.php:14
+#: Core/Builder/containers/actions.php:15
 msgid "Show file in pop up"
 msgstr "Mostrar archivo en un popup"
 
-#: Core/Builder/containers/actions.php:15
+#: Core/Builder/containers/actions.php:16
 msgid "Show video in pop up"
 msgstr "Mostrar video en un popup"
 
-#: Core/Builder/containers/actions.php:16
+#: Core/Builder/containers/actions.php:17
 msgid "Show / Hide Section"
 msgstr "Mostrar / Ocultar Sección"
 
-#: Core/Builder/containers/actions.php:17
+#: Core/Builder/containers/actions.php:18
 msgid "Show Off-Canvas Element"
 msgstr "Mostrar Elemento Off-Canvas"
 
-#: Core/Builder/containers/actions.php:30
+#: Core/Builder/containers/actions.php:31
 msgid "Internal URL"
 msgstr "URL Interna"
 
-#: Core/Builder/containers/actions.php:32
+#: Core/Builder/containers/actions.php:33
 msgid "Select the page"
 msgstr "Seleccionar la página"
 
-#: Core/Builder/containers/actions.php:45
+#: Core/Builder/containers/actions.php:46
 msgid "Select the video source:"
 msgstr "Seleccionar la fuente del video:"
 
-#: Core/Builder/containers/actions.php:59
+#: Core/Builder/containers/actions.php:60
 msgid "Internal selector -ID or CLASS- of the section to show/hide, use only lowercase and hyphens ( - )"
 msgstr "Selector interno -ID o CLASS- de la sección para mostrar/ocultar, use solo minúsculas y guiones ( - )"
 
-#: Core/Builder/containers/actions.php:61
+#: Core/Builder/containers/actions.php:62
 msgid "Scroll page to box."
 msgstr "Desplazar la página hasta el cuadro."
 
@@ -2665,11 +2666,11 @@ msgstr "Guardando revisión&hellip;"
 msgid "Your latest changes were saved as a revision."
 msgstr "Tus últimos cambios se guardaron como una revisión."
 
-#: libs/ultimate-builder/classes/Ultimate_Builder.php:361
+#: libs/ultimate-builder/classes/Ultimate_Builder.php:385
 msgid "Edit Page"
 msgstr "Editar Página"
 
-#: libs/ultimate-builder/classes/Ultimate_Builder.php:408
+#: libs/ultimate-builder/classes/Ultimate_Builder.php:432
 msgid "Post content migrated successfully"
 msgstr "Contenido de la publicación migrado con éxito"
 
@@ -3237,7 +3238,7 @@ msgstr "Página siguiente"
 msgid "<strong>John Doe</strong><br>CEO, Company"
 msgstr "<strong>John Doe</strong><br>CEO, Compañía"
 
-#: Core/Builder/containers/actions.php:12
+#: Core/Builder/containers/actions.php:13
 msgid "No action"
 msgstr "Ninguna acción"
 
@@ -3332,15 +3333,15 @@ msgstr "UID"
 msgid "This is used to identify the offcanvas element in the JS code. If you leave it empty, a random UID will be generated."
 msgstr "Esto se utiliza para identificar el elemento offcanvas en el código JS. Si lo deja vacío, se generará un UID aleatorio."
 
-#: Core/Builder/containers/actions.php:18
+#: Core/Builder/containers/actions.php:19
 msgid "Go to next post"
 msgstr "Ir al siguiente post"
 
-#: Core/Builder/containers/actions.php:19
+#: Core/Builder/containers/actions.php:20
 msgid "Go to previous post"
 msgstr "Ir al post anterior"
 
-#: Core/Builder/containers/actions.php:20
+#: Core/Builder/containers/actions.php:21
 msgid "Interact with a slider"
 msgstr "Interactuar con un slider"
 
@@ -3677,10 +3678,12 @@ msgid "The value to compare against."
 msgstr "El valor con el que comparar."
 
 #: Core/Builder/Visibility_Rule/URL_Parameter.php:30
+#: Core/Offcanvas_Elements/TriggerEvent/UrlParam.php:26
 msgid "URL Parameter"
 msgstr "Parámetro URL"
 
 #: Core/Builder/Visibility_Rule/URL_Parameter.php:56
+#: Core/Offcanvas_Elements/TriggerEvent/UrlParam.php:45
 msgid "Parameter Name"
 msgstr "Nombre del parámetro"
 
@@ -3689,6 +3692,7 @@ msgid "The URL query parameter to evaluate (e.g. \"promo\")."
 msgstr "El parámetro de consulta URL a evaluar (por ejemplo, \"promo\")."
 
 #: Core/Builder/Visibility_Rule/URL_Parameter.php:71
+#: Core/Offcanvas_Elements/TriggerEvent/UrlParam.php:48
 msgid "Parameter Value"
 msgstr "Valor del parámetro"
 
@@ -3729,20 +3733,20 @@ msgid "This will disable the calculation of header height when using anchor link
 msgstr "Esto desactivará el cálculo de la altura del encabezado al usar enlaces de anclaje. Esto puede ser útil si tienes un encabezado fijo transparente y deseas evitar espacio adicional al navegar a enlaces de anclaje."
 
 #. translators: %s is replaced with the type of settings, e.g. "Typography", "Headings" or "Links"
-#: Core/Theme_Options/Fields/Typography.php:147
+#: Core/Theme_Options/Fields/Global_Styles.php:158
 #, php-format
 msgid "%s Settings"
 msgstr "%s"
 
-#: Core/Theme_Options/Fields/Typography.php:170
+#: Core/Theme_Options/Fields/Global_Styles.php:181
 msgid "Headings"
 msgstr "Encabezados"
 
-#: Core/Theme_Options/UF_Container/Custom_Scripts.php:14
+#: Core/Theme_Options/UF_Container/Custom_Scripts.php:16
 msgid "Scripts entered here will be output in the head section."
 msgstr "Los scripts ingresados aquí se mostrarán en la sección head."
 
-#: Core/Theme_Options/UF_Container/Custom_Scripts.php:19
+#: Core/Theme_Options/UF_Container/Custom_Scripts.php:20
 msgid "Scripts entered here will be output immediately after the opening body tag."
 msgstr "Los scripts ingresados aquí se mostrarán inmediatamente después de la etiqueta de apertura del body."
 
@@ -3773,3 +3777,116 @@ msgstr "¿Está seguro de que desea eliminar el último elemento?"
 #: libs/ultimate-builder/assets/js/plugins/gjs-commands.js:294
 msgid "No Slider UID found for this carousel."
 msgstr "No se encontró UID de Slider para este carrusel."
+
+#: Core/Admin/Duplicate_Page.php:47
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: Core/Admin/Duplicate_Page.php:60
+msgid "No post ID supplied."
+msgstr "No se proporcionó ID de publicación."
+
+#: Core/Admin/Duplicate_Page.php:66
+msgid "Security check failed, please try again."
+msgstr "La verificación de seguridad falló, por favor intente de nuevo."
+
+#: Core/Admin/Duplicate_Page.php:70
+msgid "You are not allowed to duplicate this post."
+msgstr "No tiene permiso para duplicar esta publicación."
+
+#: Core/Admin/Duplicate_Page.php:76
+msgid "Original post not found."
+msgstr "No se encontró la publicación original."
+
+#: Core/Admin/Duplicate_Page.php:119
+msgid "- Copy"
+msgstr "- Copia"
+
+#: Core/Builder/containers/actions.php:28
+msgid "Select a page"
+msgstr "Seleccionar una página"
+
+#: Core/Builder/containers/actions.php:29
+msgid "Enter URL"
+msgstr "Ingresar URL"
+
+#: Core/Builder/containers/actions.php:42
+msgid "Select an image"
+msgstr "Seleccionar una imagen"
+
+#: Core/Builder/containers/actions.php:52
+msgid "Enter the video URL"
+msgstr "Ingresar URL del video"
+
+#: Core/Builder/containers/actions.php:53
+msgid "Select a video"
+msgstr "Seleccionar un video"
+
+#: Core/Builder/containers/actions.php:65
+msgid "Select an offcanvas element"
+msgstr "Seleccionar un elemento offcanvas"
+
+#: Core/Builder/containers/actions.php:85
+msgid "Clickable Area"
+msgstr "Área clicable"
+
+#: Core/Builder/containers/actions.php:87
+msgid "Inner content"
+msgstr "Contenido interno"
+
+#: Core/Builder/containers/actions.php:88
+msgid "Entire component"
+msgstr "Componente completo"
+
+#: Core/Builder/containers/actions.php:89
+msgid "Extra layer over the component"
+msgstr "Capa extra sobre el componente"
+
+#: Core/Offcanvas_Elements/TriggerEvent/HashEvent.php:26
+msgid "URL Hash"
+msgstr "Hash de URL"
+
+#: Core/Offcanvas_Elements/TriggerEvent/HashEvent.php:45
+msgid "Hash Value"
+msgstr "Valor del Hash"
+
+#: Core/Offcanvas_Elements/TriggerEvent/HashEvent.php:46
+msgid "Enter the hash without #, e.g. open-modal"
+msgstr "Ingrese el hash sin #, por ejemplo, open-modal"
+
+#: Core/Offcanvas_Elements/TriggerEvent/UrlParam.php:46
+msgid "Parameter name, e.g. modal"
+msgstr "Nombre del parámetro, por ejemplo, modal"
+
+#: Core/Offcanvas_Elements/TriggerEvent/UrlParam.php:49
+msgid "Parameter value, e.g. contact"
+msgstr "Valor del parámetro, por ejemplo, contact"
+
+#: Core/Posttype/Post.php:38
+msgid "Link Post Format Info"
+msgstr "Información del formato de publicación de enlace"
+
+#: Core/Posttype/Post.php:39
+msgid "When the \"Link\" format is selected, the post card will link to an external URL instead of its single page. The URL can be set in the \"Link Destination\" field."
+msgstr "Cuando se selecciona el formato \"Enlace\", la tarjeta de la publicación se vinculará a una URL externa en lugar de a su página individual. La URL se puede establecer en el campo \"Destino del enlace\"."
+
+#: Core/Theme_Options/Fields/Global_Styles.php:193
+msgid "Custom CSS"
+msgstr "CSS personalizado"
+
+#: Core/Theme_Options/UF_Container/Custom_Scripts.php:9
+msgid ""
+"Enter your custom scripts here...\n"
+"\n"
+"Use <script>...</script> for JavaScript\n"
+"\n"
+"Use (function($){ ... })(jQuery) for jQuery"
+msgstr ""
+
+#: libs/ultimate-builder/assets/js/plugins/gjs-hover-layer.js:78
+msgid "Edit Header"
+msgstr "Editar Header"
+
+#: libs/ultimate-builder/assets/js/plugins/gjs-hover-layer.js:79
+msgid "Edit Footer"
+msgstr "Editar Pie de Página"

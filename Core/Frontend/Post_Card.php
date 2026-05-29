@@ -7,13 +7,41 @@ use Core\Theme_Options\UF_Container\Posts_Subscription;
 class Post_Card {
     public function __construct() {}
 
+    public static function get_link_target($post) {
+        $post_format = get_post_meta( $post->ID, 'post_format', true );
+        if ( $post_format === 'link' && get_post_meta( $post->ID, 'post_link_new_tab', true ) ) {
+            return '_blank';
+        }
+        return '';
+    }
+
     public static function get_permalink($post) {
         $permalink = get_permalink($post->ID);
 
         $post_format = get_post_meta( $post->ID, 'post_format', true );
         if( $post_format == 'link' ){
-            $post_link = get_post_meta( $post->ID, 'post_link', true );
-            if( !empty($post_link) ) $permalink = $post_link;
+            $post_link_type = get_post_meta( $post->ID, 'post_link_type', true ) ?: 'external';
+            switch ( $post_link_type ) {
+                case 'internal':
+                    $post_link_post = get_post_meta( $post->ID, 'post_link_post', true );
+                    if ( $post_link_post ) {
+                        $permalink = get_permalink( str_replace( 'post_', '', $post_link_post ) );
+                    }
+                    break;
+                case 'file':
+                    $post_link_file = get_post_meta( $post->ID, 'post_link_file', true );
+                    if ( $post_link_file ) {
+                        $permalink = wp_get_attachment_url( $post_link_file );
+                    }
+                    break;
+                case 'external':
+                default:
+                    $post_link_url = get_post_meta( $post->ID, 'post_link_url', true );
+                    // Backward compat: fall back to legacy 'post_link' meta key
+                    if ( empty( $post_link_url ) ) $post_link_url = get_post_meta( $post->ID, 'post_link', true );
+                    if ( !empty( $post_link_url ) ) $permalink = $post_link_url;
+                    break;
+            }
         }
 
         return apply_filters('filter_post_card_permalink', $permalink, $post);

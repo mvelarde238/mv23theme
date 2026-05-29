@@ -9,6 +9,7 @@ $postcard_args = array(
     'title' => $post->post_title,
     'metadata' => array(),
     'permalink' => Post_Card::get_permalink($post),
+    'permalink_target' => Post_Card::get_link_target($post),
     'permalink_text' => __('More details', 'mv23theme'),
     'permalink_icon' => 'bi-arrow-up-right',
     'permalink_class' => 'trigger-post-action',
@@ -48,7 +49,7 @@ $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
                 
             <div>
                 <h2 class="postcard__title">
-                    <a class="<?=$_args['permalink_class']?>" href="<?=$_args['permalink']?>"><?php echo $_args['title']; ?></a>
+                    <a class="<?=$_args['permalink_class']?>" href="<?=$_args['permalink']?>" <?php if($_args['permalink_target']) echo 'target="'.$_args['permalink_target'].'"'; ?>><?php echo $_args['title']; ?></a>
                 </h2>
                 <?php if($_args['excerpt']) echo '<div class="postcard__excerpt">'.$_args['excerpt'].'</div>'; ?>
             </div>
@@ -57,7 +58,7 @@ $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
                 <?php echo $_args['date']; ?>
 
 	    		<div class="postcard__link">
-                    <a class="<?=$_args['permalink_class']?>" href="<?=$_args['permalink']?>">
+                    <a class="<?=$_args['permalink_class']?>" href="<?=$_args['permalink']?>" <?php if($_args['permalink_target']) echo 'target="'.$_args['permalink_target'].'"'; ?>>
                         <?php if( $_args['permalink_text'] ) echo $_args['permalink_text']; ?>
                         <?php if( $_args['permalink_icon'] ) echo ' <i class="bi '.$_args['permalink_icon'].'"></i>'; ?>
                     </a>
@@ -65,7 +66,7 @@ $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
 	    	</div>
 	    </div>
 
-        <a href="<?=$_args['permalink']?>" class="<?=$_args['permalink_class']?>">
+        <a href="<?=$_args['permalink']?>" class="<?=$_args['permalink_class']?>" <?php if($_args['permalink_target']) echo 'target="'.$_args['permalink_target'].'"'; ?>>
             <img class="postcard__image" src="<?=$_args['thumbnail']?>">
             <?php if($_args['viewer_icon']) echo '<span class="viewer"><i class="bi '.$_args['viewer_icon'].'"></i></span>'; ?>
         </a>

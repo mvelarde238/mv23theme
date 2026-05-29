@@ -35,7 +35,33 @@ class Post {
 	                	''   => __('Standard','mv23theme'),
 	                	'link'   => __('Link','mv23theme')
                     )),
-                Field::create( 'text', 'post_link' )->add_dependency('post_format','link','=')
+                Field::create( 'message', 'post_format_link_info', __('Link Post Format Info', 'mv23theme') )
+                    ->set_description( __('When the "Link" format is selected, the post card will link to an external URL instead of its single page. The URL can be set in the "Link Destination" field.', 'mv23theme') )
+                    ->add_dependency('post_format','link','=')
+                    ->hide_label(),
+                Field::create( 'select', 'post_link_type', __('Destination', 'mv23theme') )
+	                ->set_default_value( 'external' )
+	                ->add_options( array(
+	                    'external' => __('External URL', 'mv23theme'),
+	                    'internal' => __('Internal Page', 'mv23theme'),
+	                    'file'     => __('File', 'mv23theme'),
+	                ))->add_dependency('post_format','link','='),
+                Field::create( 'text', 'post_link_url', __('URL', 'mv23theme') )
+                    ->hide_label()
+	                ->add_dependency('post_format','link','=')
+	                ->add_dependency('post_link_type','external','='),
+                Field::create( 'wp_object', 'post_link_post', __('Page', 'mv23theme') )
+                    ->hide_label()
+	                ->set_button_text( __('Select Page', 'mv23theme') )
+	                ->add_dependency('post_format','link','=')
+	                ->add_dependency('post_link_type','internal','='),
+                Field::create( 'file', 'post_link_file', __('File', 'mv23theme') )
+                    ->hide_label()
+	                ->add_dependency('post_format','link','=')
+	                ->add_dependency('post_link_type','file','='),
+                Field::create( 'checkbox', 'post_link_new_tab', __('Open in a new window', 'mv23theme') )
+	                ->set_text( __('Enable', 'mv23theme') )
+	                ->add_dependency('post_format','link','=')
             ));
 
         // FEATURED VIDEO

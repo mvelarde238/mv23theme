@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.11 26-05-29
+- Improve link post format implementation to allow users to choose between external URL, internal page or file as the link destination
+
 3.12.10 26-05-26
 - if it's an icon and text component and the clickable area is set to inner content
   force entire component to be clickable, because of the structure of the component
