@@ -46,7 +46,7 @@ class Post {
 	                    'internal' => __('Internal Page', 'mv23theme'),
 	                    'file'     => __('File', 'mv23theme'),
 	                ))->add_dependency('post_format','link','='),
-                Field::create( 'text', 'post_link_url', __('URL', 'mv23theme') )
+                Field::create( 'text', 'post_link', __('URL', 'mv23theme') )
                     ->hide_label()
 	                ->add_dependency('post_format','link','=')
 	                ->add_dependency('post_link_type','external','='),

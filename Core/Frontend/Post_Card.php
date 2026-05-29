@@ -36,9 +36,7 @@ class Post_Card {
                     break;
                 case 'external':
                 default:
-                    $post_link_url = get_post_meta( $post->ID, 'post_link_url', true );
-                    // Backward compat: fall back to legacy 'post_link' meta key
-                    if ( empty( $post_link_url ) ) $post_link_url = get_post_meta( $post->ID, 'post_link', true );
+                    $post_link_url = get_post_meta( $post->ID, 'post_link', true );
                     if ( !empty( $post_link_url ) ) $permalink = $post_link_url;
                     break;
             }
