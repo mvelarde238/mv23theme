@@ -83,6 +83,7 @@ class Font extends Field {
 			->localize( 'select-font',       __( 'Select font', 'ultimate-fields' ) )
 			->localize( 'change-font',       __( 'Change font', 'ultimate-fields' ) )
 			->localize( 'font-clear',        __( 'Clear choice', 'ultimate-fields' ) )
+			->localize( 'edit-variants',     __( 'Edit variants', 'ultimate-fields' ) )
 			->localize( 'font-preview-text', __( 'Preview Text', 'ultimate-fields' ) )
 			->localize( 'font-search',       __( 'Search', 'ultimate-fields' ) )
 			->localize( 'font-categories',   __( 'Categories', 'ultimate-fields' ) )

@@ -1,6 +1,14 @@
 mv23 changelog-------------------------
 
-|- 3.2.19 21-05-2026
+- 3.2.20 30-05-2026
+- Font.js improvements:
+  - Added "Edit variants" button to open a popup for managing font variants (weights, styles)
+  - Popup allows adding/removing/editing variants with fields for weight, style, and preview text
+  - Variants are saved as part of the font field value and can be rendered in the preview
+    (core/js/field/font.js)
+    (core/templates/field/font.php)
+
+- 3.2.19 21-05-2026
 - Fix button, input and select elements height in wp version 7
     (core/assets/sass/..)
 

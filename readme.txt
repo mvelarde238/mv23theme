@@ -6,6 +6,9 @@ CHANGELOG
 - Minor bug fixes and performance improvements
   - add silent option when updating datastore on global styles to prevent populating the undo manager
   - fix radio colors on dark mode
+- UF Font.js improvements
+  - Add an "Edit Variants" button to the font field interface that opens the Google Fonts page for the selected font family,
+   allowing users to easily view and select different variants of the font directly from the builder interface.
 
 3.12.11 26-05-29
 - Improve link post format implementation to allow users to choose between external URL, internal page or file as the link destination

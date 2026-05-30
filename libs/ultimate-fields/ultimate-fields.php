@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin name: Ultimate Fields
- * Version:     3.2.19
+ * Version:     3.2.20
  * Plugin URI:  https://www.ultimate-fields.com/
  * Author:      Radoslav Georgiev
  * Author URI:  http://rageorgiev.com/

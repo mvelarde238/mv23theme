@@ -158,6 +158,15 @@
 			button.render();
 
 			button = new UltimateFields.Button({
+				text:     UltimateFields.L10N.localize( 'edit-variants' ),
+				icon:     'dashicons-editor-ul',
+				callback: _.bind( that.openVariantsPopup, that )
+			});
+
+			$footer.append( button.$el );
+			button.render();
+
+			button = new UltimateFields.Button({
 				text:     UltimateFields.L10N.localize( 'font-clear' ),
 				icon:     'dashicons-no',
 				callback: _.bind( that.clear, that )
@@ -165,6 +174,62 @@
 
 			$footer.append( button.$el );
 			button.render();
+		},
+
+		/**
+		 * Opens a popup to edit only the variants of the currently selected font.
+		 */
+		openVariantsPopup: function() {
+			var that     = this,
+				value    = this.model.getValue(),
+				family   = value.family,
+				selected = value.variants || [];
+
+			$.ajax({
+				type: 'post',
+				url:  window.location.href,
+				data: {
+					uf_action: 'get_fonts_list_' + that.model.get( 'name' ),
+					nonce:     that.model.get( 'nonce' )
+				},
+				success: function( data ) {
+					var fonts    = $.parseJSON( data ),
+						fontData = _.find( fonts, function( f ) { return f.family === family; } ),
+						font, view, overlayLayer;
+
+					if ( ! fontData ) return;
+
+					// Load all variants of this font via Google Fonts
+					( function( fam, vars ) {
+						var url = fam.replace( /\s/g, '+' ) + ':' + vars.join( ',' );
+						setTimeout( function() {
+							$( "<link href='http://fonts.googleapis.com/css?family=" + url + "' rel='stylesheet' type='text/css' />" ).appendTo( 'head' );
+						}, 30 );
+					})( family, fontData.variants );
+
+					font = new fontField.FontModel( fontData );
+
+					view = new fontField.FontVariantsView({
+						model:    font,
+						selected: selected
+					});
+
+					overlayLayer = UltimateFields.Overlay.show({
+						view:    view,
+						title:   family,
+						buttons: view.getButtons()
+					});
+
+					view.on( 'save', function( variants ) {
+						that.model.setValue({
+							family:   family,
+							variants: variants
+						});
+						overlayLayer.removeScreen();
+						that.render();
+					});
+				}
+			});
 		},
 
 		/**
@@ -311,7 +376,7 @@
 				}
 
 				if( visible && s ) {
-					visible = font.get( 'family' ).toLowerCase().indexOf( s ) != -1;
+					visible = font.get( 'family' ).toLowerCase().indexOf( s.toLowerCase() ) != -1;
 				}
 
 				font.set( 'filtered', ! visible );
@@ -529,7 +594,7 @@
 			args = args || {};
 
 			this.text = this.model.get( 'previewText' );
-			this.selected = [];
+			this.selected = args.selected || [];
 		},
 
 		/**
@@ -539,10 +604,12 @@
 			var that = this,
 				tmpl = UltimateFields.template( 'font-variants' );
 
+			this.$el.css( 'font-family', this.model.get( 'family' ) );
+
 			this.$el.html( tmpl( {
 				family:                this.model.get( 'family' ),
 				variants:              this.model.get( 'variants' ),
-				selected:              [],
+				selected:              this.selected,
 				text:                  this.text,
 				getVariantStyle:       fontField.getVariantStyle,
 				getVariantDescription: fontField.getVariantDescription
@@ -555,7 +622,7 @@
 			return [
 				this.selectButton = new UltimateFields.Button({
 					text:     UltimateFields.L10N.localize( 'select' ),
-					disabled: true,
+					disabled: this.selected.length === 0,
 					type:     'primary',
 					icon:     'dashicons-edit',
 					callback: _.bind( that.save, that )
