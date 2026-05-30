@@ -15,6 +15,7 @@ use Core\Cleanup\Cleanup;
 use Core\Admin\Ajax_Load_Posts;
 use Core\Admin\Hardening_WP;
 use Core\Admin\TinyMCE;
+use Core\Admin\Classic_Editor;
 use Core\Frontend\Page;
 use Core\Theme_Options\Theme_Options;
 use Core\Theme_Options\Manager;
@@ -122,6 +123,9 @@ class Theme extends Theme_Header_Data {
     }
 
     private function define_admin_hooks() {	
+        // Classic Editor (runs its own add_filter/add_action in constructor)
+        new Classic_Editor();
+
         $admin = new Admin();
 
         // CRITICAL FIX: Sanitize post fields before revision processing

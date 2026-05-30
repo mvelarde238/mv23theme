@@ -23,6 +23,25 @@ class Global_Settings {
                 ->set_width(50),
         ));
 
+        // Classic Editor
+        $activate_classic_editor_default           = get_option( 'activate_classic_editor', false );
+        $disable_gutenberg_frontend_styles_default = get_option( 'disable_gutenberg_frontend_styles', false );
+        $fields[] = Field::create( 'complex', 'classic_editor_wrapper', __( 'Classic Editor', 'mv23theme' ) )->merge()->add_fields( array(
+            Field::create( 'checkbox', 'activate_classic_editor' )
+                ->set_default_value( $activate_classic_editor_default )
+                ->set_text( __( 'Disable Gutenberg & enable Classic Editor + Classic Widgets', 'mv23theme' ) )
+                ->fancy()
+                ->hide_label()
+                ->set_width( 50 ),
+            Field::create( 'checkbox', 'disable_gutenberg_frontend_styles' )
+                ->set_default_value( $disable_gutenberg_frontend_styles_default )
+                ->set_text( __( 'Remove block CSS from frontend (wp-block-library)', 'mv23theme' ) )
+                ->add_dependency( 'activate_classic_editor' )
+                ->fancy()
+                ->hide_label()
+                ->set_width( 50 ),
+        ) );
+
         // Global Animations
         $default_value_scroll_animations = get_option( 'activate_scroll_animations', false );
         $default_value_global_animations = get_option( 'global_animations', array() );

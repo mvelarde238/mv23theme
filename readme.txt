@@ -9,6 +9,8 @@ CHANGELOG
 - UF Font.js improvements
   - Add an "Edit Variants" button to the font field interface that opens the Google Fonts page for the selected font family,
    allowing users to easily view and select different variants of the font directly from the builder interface.
+- Core\Admin\Classic_Editor class implementation to ensure the classic editor is used in the builder context 
+  and prevent conflicts with Gutenberg styles and scripts
 
 3.12.11 26-05-29
 - Improve link post format implementation to allow users to choose between external URL, internal page or file as the link destination
