@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.12 26-05-30
+- Minor bug fixes and performance improvements
+  - add silent option when updating datastore on global styles to prevent populating the undo manager
+
 3.12.11 26-05-29
 - Improve link post format implementation to allow users to choose between external URL, internal page or file as the link destination
 

@@ -46,7 +46,7 @@ window.gjsGlobalStyles = function (editor, options) {
                     const device = selected ? selected.get('id') : 'desktop';
 
                     // update the datastore to show the correct values for the current device
-                    datastore.set({ device_switch: device });
+                    datastore.set({ device_switch: device }, {silent: true});
 
                     // also update the field in the model so it reflects the current device
                     const builder_comp_model = editor.getBuilderCompModel(model);
