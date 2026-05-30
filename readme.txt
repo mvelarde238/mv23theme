@@ -2,6 +2,11 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.15 26-05-30
+- License updated to GPL-2.0-or-later (split license model)
+  - PHP files: GPL-2.0-or-later
+  - Ultimate Builder JS bundle (builder.js): Proprietary — All Rights Reserved
+
 3.12.14 26-05-30
 - GLightbox fixes and improvements
   - Fix CSS selector specificity: :has(iframe) was being stripped by the CSS minifier, breaking iframe-only overrides
