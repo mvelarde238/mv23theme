@@ -123,6 +123,7 @@ window.gjsThemeOptions = function (editor, options) {
                 fonts.forEach(font_group => {
                     if( font_group.__type === 'google_font' ){
                         let value = font_group.google_font;
+                        if( !value || typeof value !== 'object' || !value.family ) return;
                         var url = value.family.replace( /\s/g, '+' ) + ':' + value.variants.join( ',' );
                         const canvas = editor.Canvas,
                             _document = canvas.getDocument();
