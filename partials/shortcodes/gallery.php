@@ -307,8 +307,15 @@ function print_theme_gallery( $atts ) {
                         break;
                 }
                 $caption = ( wp_get_attachment_caption($attachment_id) ) ? wp_get_attachment_caption($attachment_id) : '';
-                $dont_use_fancybox = array('custom', 'post', 'none');
-                if(!in_array($a['link'], $dont_use_fancybox)) $attachment_link_start .= 'data-fancybox="'.$gallery_id.'" ';
+                $dont_use_glightbox = array('custom', 'post', 'none');
+                if(!in_array($a['link'], $dont_use_glightbox)) {
+                    if( $attachment_type === 'pdf' ) {
+                        // PDFs open standalone as iframe — GLightbox ignores per-element type overrides inside grouped galleries
+                        $attachment_link_start .= 'data-glightbox ';
+                    } else {
+                        $attachment_link_start .= 'data-gallery="'.$gallery_id.'" ';
+                    }
+                }
                 if( $a['link'] == 'custom' || $a['link'] == 'post' ){
                     // get attachment target
                     $attachment_target = get_post_meta($attachment_id, '_gallery_link_target', true);
@@ -316,7 +323,7 @@ function print_theme_gallery( $atts ) {
                         $attachment_link_start .= 'target="_blank" rel="noopener noreferrer" ';
                     } 
                 }
-                $attachment_link_start .= 'href="'.$attachment_link.'" data-caption="'.$caption.'"';
+                $attachment_link_start .= 'href="'.$attachment_link.'" data-description="'.$caption.'"';
                 if( 
                     ( $attachment_type === 'video' && !$is_remote_video ) ||
                     $attachment_type === 'pdf'

@@ -36,7 +36,12 @@
                 // Verificar si la clase comienza con el prefijo
                 if (clase.startsWith(prefijo)) {
                     const gallerySlug = clase.substring(prefijo.length);
-                    Fancybox.fromSelector('[data-fancybox="' + gallerySlug + '"]');
+                    const lb = GLightbox({
+                        selector: '[data-gallery="' + gallerySlug + '"]',
+                        touchNavigation: true,
+                        loop: false,
+                    });
+                    lb.open();
                 }
             }
         });

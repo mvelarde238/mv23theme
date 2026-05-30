@@ -2,6 +2,17 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.13 26-05-30
+- Replace FancyBox with GLightbox (MIT license)
+  - Removed fancybox.umd.js and fancybox.css
+  - Added glightbox.min.js and glightbox.css
+  - Rewritten fancybox.js module to initialize GLightbox
+  - Updated galleries.js to open grouped galleries programmatically with GLightbox
+  - Updated subscribe-to-continue.js to use GLightbox for preview/download file popups
+  - Updated data attributes across PHP files: data-fancybox → data-gallery / data-glightbox, data-caption → data-description
+  - PDFs open standalone as iframe via data-glightbox attribute (auto-detected by extension)
+  - GLightbox iframe overrides added to glightbox-overrides.sass
+
 3.12.12 26-05-30
 - Minor bug fixes and performance improvements
   - add silent option when updating datastore on global styles to prevent populating the undo manager

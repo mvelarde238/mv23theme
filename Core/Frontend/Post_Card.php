@@ -202,7 +202,7 @@ class Post_Card {
             } elseif ($action == 'post_previsualizations') {
                 $actions_html .= '<a href="' . esc_url($preview_file_url) . '"';
                 if (!$subscribe_to_continue) {
-                    $actions_html .= ' class="previsualization-count-js" data-fancybox data-caption="' . esc_attr($post->post_title) . '"';
+                    $actions_html .= ' class="previsualization-count-js" data-glightbox data-description="' . esc_attr($post->post_title) . '"';
                 }
                 $actions_html .= ' title="' . __('Preview', 'mv23theme') . '"><i class="bi bi-arrows-angle-expand"></i> ' . do_shortcode('[post_previsualizations]') . '</a>';
                 

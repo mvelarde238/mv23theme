@@ -76,20 +76,12 @@
                 do_post_action('previsualization_count', response.data_id);
 
                 if(response.file_url){
-                    new Fancybox([
-                            { src: response.file_url }
-                        ],
-                        {
-                            hideScrollbar: true,
-                            Toolbar: {
-                                display: {
-                                    left: ["infobar"],
-                                    middle: [ "zoomIn", "zoomOut", "toggle1to1" ],
-                                    right: ["fullscreen", "slideshow", "thumbs", "close"],
-                                },
-                            },
-                        }
-                    );
+                    const lb = GLightbox({
+                        elements: [{ href: response.file_url }],
+                        touchNavigation: true,
+                        closeOnOutsideClick: true,
+                    });
+                    lb.open();
                 }
             } else {
                 switch (response.errorType) {

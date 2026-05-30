@@ -67,14 +67,14 @@ Class Actions{
     					}
     					if( is_string($videos) ) $video_url = $videos;
     					if($video_url) {
-							$code['attributes']['data-fancybox'] = '';
+							$code['attributes']['data-glightbox'] = '';
 							$code['attributes']['href'] = $video_url;
     					}
     				}
     				if( $video_source == 'external' ){
     					$video_url = $video_popup['external_video'];
     					if($video_url){
-							$code['attributes']['data-fancybox'] = '';
+							$code['attributes']['data-glightbox'] = '';
 							$code['attributes']['href'] = $video_url;
     					}
     				}

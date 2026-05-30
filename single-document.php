@@ -41,7 +41,7 @@ $download_file_url = Posts_Subscription::maybe_obfuscate_link( $subscribe_to_con
                         <?php
                             if( $_args['can_be_previewed'] ){
                                 echo '<a href="'.esc_url($preview_file_url).'"';
-                                if(!$subscribe_to_continue) echo ' class="previsualization-count-js" data-fancybox data-caption="'.esc_attr($_args['title']).'"'; 
+                                if(!$subscribe_to_continue) echo ' class="previsualization-count-js" data-glightbox data-description="'.esc_attr($_args['title']).'"'; 
                                 echo ' title="'.__('Preview', 'mv23theme').'">';
                             } else {
                                 if( !$_args['is_remote_video'] ): 
@@ -105,7 +105,7 @@ $download_file_url = Posts_Subscription::maybe_obfuscate_link( $subscribe_to_con
                             if( $_args['file_url'] ){
                                 if ( $_args['can_be_previewed'] ) :
                                     echo '<a href="'.esc_url($preview_file_url).'"';
-                                    if(!$subscribe_to_continue) echo ' class="btn previsualization-count-js" data-fancybox data-caption="'.esc_attr($_args['title']).'"'; 
+                                    if(!$subscribe_to_continue) echo ' class="btn previsualization-count-js" data-glightbox data-description="'.esc_attr($_args['title']).'"'; 
                                     if($subscribe_to_continue) echo ' class="btn"'; 
                                     echo ' title="'.__('Preview', 'mv23theme').'"><i class="bi bi-arrows-angle-expand"></i> '.__('Preview', 'mv23theme').'</a>';
                                 endif;
