@@ -509,8 +509,6 @@ class TinyMCE{
     public function add_plugins($plugins) {
         $plugins['table'] = get_template_directory_uri() .'/assets/js/mce-table-plugin.min.js';
 		$plugins['icon_mce_button'] = get_template_directory_uri() .'/assets/js/mce-icon-button.js';
-		// $plugins['fontSizeCleaner'] = get_template_directory_uri() . '/assets/js/mce-font-size-cleaner.js';
-		// $plugins['fontweightselect'] = get_template_directory_uri() . '/assets/js/mce-fontweightselect.js';
         return $plugins;
     }
 }
