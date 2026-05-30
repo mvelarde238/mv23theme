@@ -2,6 +2,15 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.14 26-05-30
+- GLightbox fixes and improvements
+  - Fix CSS selector specificity: :has(iframe) was being stripped by the CSS minifier, breaking iframe-only overrides
+  - Replace :has() approach with a JS-driven class (mv23-iframe-slide) toggled on open/slide_changed events
+  - Fix iframe centering: use position:absolute + translate(-50%,-50%) instead of flex alignment
+  - Fix external image URLs without recognized extension (e.g. CDN URLs) rendering with broken layout at desktop widths
+    by explicitly emitting data-type="image" / data-type="video" in gallery.php
+  - Fix blank description panel appearing for items without caption: only emit data-description attribute when caption is non-empty
+
 3.12.13 26-05-30
 - Replace FancyBox with GLightbox (MIT license)
   - Removed fancybox.umd.js and fancybox.css

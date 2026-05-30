@@ -1,16 +1,29 @@
 // -------------------------------------------------------
 // GLightbox overrides
 // -------------------------------------------------------
-.glightbox-container
-    .ginner-container:has(.gslide-external)
-        justify-content: center
-        align-items: center
-        height: 100%
+
+// External image URLs without a recognized extension get .gslide-external but
+// the default flex container has no centering — fix that here.
+.glightbox-container .gslide-external
+    justify-content: center
+    align-items: center
+
+// Iframe slides (PDFs): JS adds .mv23-iframe-slide to .glightbox-container
+// Avoids :has(iframe) — CSS minifier strips the space inside :has() making it invalid
+.glightbox-container.mv23-iframe-slide
+    .ginner-container
+        position: relative
 
     .gslide-external
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
         width: 90vw
+        min-width: 0
         height: 85vh
-        max-width: 90vw
+        max-height: 85vh
+        max-width: none
 
         iframe
             width: 100%

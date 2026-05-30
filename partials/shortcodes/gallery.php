@@ -309,12 +309,7 @@ function print_theme_gallery( $atts ) {
                 $caption = ( wp_get_attachment_caption($attachment_id) ) ? wp_get_attachment_caption($attachment_id) : '';
                 $dont_use_glightbox = array('custom', 'post', 'none');
                 if(!in_array($a['link'], $dont_use_glightbox)) {
-                    if( $attachment_type === 'pdf' ) {
-                        // PDFs open standalone as iframe — GLightbox ignores per-element type overrides inside grouped galleries
-                        $attachment_link_start .= 'data-glightbox ';
-                    } else {
-                        $attachment_link_start .= 'data-gallery="'.$gallery_id.'" ';
-                    }
+                    $attachment_link_start .= 'data-gallery="'.$gallery_id.'" ';
                 }
                 if( $a['link'] == 'custom' || $a['link'] == 'post' ){
                     // get attachment target
@@ -323,7 +318,16 @@ function print_theme_gallery( $atts ) {
                         $attachment_link_start .= 'target="_blank" rel="noopener noreferrer" ';
                     } 
                 }
-                $attachment_link_start .= 'href="'.$attachment_link.'" data-description="'.$caption.'"';
+                $attachment_link_start .= 'href="'.$attachment_link.'"';
+                // Explicitly set data-type so GLightbox uses the correct renderer.
+                // Without this, URLs without a recognized extension (e.g. external image CDNs)
+                // fall back to "external" type which has broken layout at desktop widths.
+                if( $attachment_type === 'image' ) {
+                    $attachment_link_start .= ' data-type="image"';
+                } elseif( $attachment_type === 'video' && $is_remote_video ) {
+                    $attachment_link_start .= ' data-type="video"';
+                }
+                if( $caption ) $attachment_link_start .= ' data-description="'.$caption.'"';
                 if( 
                     ( $attachment_type === 'video' && !$is_remote_video ) ||
                     $attachment_type === 'pdf'
