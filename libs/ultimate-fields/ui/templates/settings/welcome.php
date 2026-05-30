@@ -1,27 +1,8 @@
 <div class="wrap uf-welcome">
-	<div class="uf-welcome-section uf-welcome-section-first uf-welcome-top">
-		<div class="uf-welcome-intro">
-			<h1><?php _e( 'Hello!', 'ultimate-fields' ) ?></h1>
-			<div class="about-text">
-				<p><?php _e( 'Thank you for installing or updating to Ultimate Fields 3!', 'ultimate-fields' ) ?></p>
-				<p><?php _e( 'This is a complete rewrite of the plugin, which brings a ton of improvements and new features. To learn more about them, take a look below or visit <a href="https://www.ultimate-fields.com/" target="_blank">our new website</a>.', 'ultimate-fields' ) ?></p>
-			</div>
-		</div>
-
-		<div class="wp-ui-highlight uf-welcome-version">
-			<span class="ultimate-fields-icon">
-				<?php echo file_get_contents( ULTIMATE_FIELDS_UI_DIR . 'assets/icon.svg' ) ?>
-			</span>
-			<strong><?php printf( __( 'Version %s', 'ultimate-fields' ), ULTIMATE_FIELDS_VERSION ) ?></strong>
-		</div>
-	</div>
-
-	<hr />
-
 	<div class="uf-welcome-section uf-welcome-changelog">
-		<h2><?php _e( 'Introducing a cool new plugin', 'ultimate-fields' ) ?><sup>2</sup></h2>
-		<p><?php _e( 'Ultimate Fields 3 is a completely new plugin, following the same philosophy as the first version.', 'ultimate-fields' ) ?></p>
-		<p><?php _e( 'Following the trends on the World Wide Web and the ones for WordPress, this version introduces a completely JavaScript driven interface. This allows for improved user experience and various functions, which were nearly impossible to exist in its PHP based equivalent.', 'ultimate-fields' ) ?></p>
+		<h2><?php _e( 'What is Ultimate Fields?', 'ultimate-fields' ) ?></h2>
+		<p><?php _e( 'Ultimate Fields is a custom fields manager for WordPress. It lets you add fields to posts, pages, custom post types, options pages, taxonomies, users, widgets and more — all from a clean, JavaScript-driven interface.', 'ultimate-fields' ) ?></p>
+		<p><?php _e( 'With support for over 30 field types — including repeaters, complex fields, galleries, fonts and conditional logic — it provides a flexible and developer-friendly API to define and retrieve data anywhere in your theme.', 'ultimate-fields' ) ?></p>
 	</div>
 
 	<hr />
@@ -120,11 +101,6 @@
 			<div class="uf-welcome-column">
 				<h4><?php _e( 'JSON Synchronization', 'ultimate-fields' ) ?></h4>
 				<p><?php _e( 'Fields can be automatically saved and synchronized in your theme.', 'ultimate-fields' ) ?></p>
-			</div>
-
-			<div class="uf-welcome-column uf-welcome-column-top">
-				<h4><?php _e( 'New website & Documentation', 'ultimate-fields' ) ?></h4>
-				<p><?php _e( 'The website of the plugin is now live and full of docs.', 'ultimate-fields' ) ?></p>
 			</div>
 
 			<div class="uf-welcome-column uf-welcome-column-top">
