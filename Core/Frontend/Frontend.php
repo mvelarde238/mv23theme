@@ -13,6 +13,7 @@ use Core\Builder\Template_Engine\Scroll_Animations;
 use Core\Builder\Template_Engine\Id;
 use Core\Builder\Template_Engine\Classes;
 use Core\Builder\Core as Builder_Core;
+use Core\Posttype\Single_Template;
 
 class Frontend extends Theme_Header_Data {
 
@@ -268,15 +269,30 @@ class Frontend extends Theme_Header_Data {
         return array_merge( $wrapper, $wrapper_datastore );
     }
 
+    /**
+     * Returns the effective wrapper: the connected single template's wrapper on
+     * singular posts, falling back to the current page's own wrapper.
+     */
+    public function get_effective_wrapper() {
+        if ( is_singular() ) {
+            $single_template_id = Single_Template::getInstance()->get_single_template_id();
+            if ( $single_template_id ) {
+                $wrapper = $this->get_wrapper( $single_template_id );
+                if ( $wrapper ) return $wrapper;
+            }
+        }
+        return $this->get_wrapper();
+    }
+
     public function body_id(){
-        $wrapper = $this->get_wrapper();
+        $wrapper = $this->get_effective_wrapper();
         $id = ($wrapper) ? Id::get_id( $wrapper ) : null;
 
         echo ($id) ? 'id="'.$id.'"' : '';
     }
 
     public function body_class( $classes ) {
-        $wrapper = $this->get_wrapper();
+        $wrapper = $this->get_effective_wrapper();
         if( $wrapper ) {
             $classes_from_wrapper = Classes::get_classes( $wrapper );
             if( is_array( $classes_from_wrapper ) && !empty( $classes_from_wrapper ) ){
@@ -303,7 +319,7 @@ class Frontend extends Theme_Header_Data {
     }
 
     public function body_attributes(){
-        $wrapper = $this->get_wrapper();
+        $wrapper = $this->get_effective_wrapper();
         $styles = [];
         $attributes = [];
 
@@ -376,7 +392,7 @@ class Frontend extends Theme_Header_Data {
     }
 
     public function filter_theme_header_post_option( $value ) {
-        $wrapper = $this->get_wrapper();
+        $wrapper = $this->get_effective_wrapper();
         if( $wrapper ) {
             $custom_header_post = $wrapper['custom_header_post'] ?? null;
             if ( $custom_header_post ) {
