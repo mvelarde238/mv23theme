@@ -56,6 +56,7 @@ class Handlebars{
 		$context = array(
 			'post' => array(
 				'title'      => get_the_title( $context_post_id ),
+				'excerpt'    => get_the_excerpt( $context_post_id ),
 				'thumbnail'  => get_the_post_thumbnail_url( $context_post_id, 'full' ) ?: '',
 				'meta'       => array(),
 				'taxonomies' => array(),
