@@ -225,7 +225,6 @@
 							family:   family,
 							variants: variants
 						});
-						overlayLayer.removeScreen();
 						that.render();
 					});
 				}

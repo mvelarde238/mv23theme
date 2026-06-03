@@ -1,5 +1,13 @@
 mv23 changelog-------------------------
 
+- 3.2.21 03-06-2026
+- Fix: openVariantsPopup called removeScreen() manually in the save handler, 
+    but the overlay system already wraps button callbacks to call removeScreen() automatically when save() returns true. 
+    This double call popped undefined from the empty views array, throwing a TypeError that blocked the variant value 
+    from being saved and the preview from re-rendering.
+    Solution: remove the explicit overlayLayer.removeScreen() call, relying solely on the automatic mechanism.
+    (core/js/field/font.js: openVariantsPopup, line ~228)
+
 - 3.2.20 30-05-2026
 - Font.js improvements:
   - Added "Edit variants" button to open a popup for managing font variants (weights, styles)

@@ -2,6 +2,13 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.16 26-06-03
+- UF FIX: openVariantsPopup called removeScreen() manually in the save handler, 
+  but the overlay system already wraps button callbacks to call removeScreen() automatically when save() returns true. 
+  This double call popped undefined from the empty views array, throwing a TypeError that blocked the variant value 
+  from being saved and the preview from re-rendering.
+  Solution: remove the explicit overlayLayer.removeScreen() call, relying solely on the automatic mechanism.
+
 3.12.15 26-05-30
 - License updated to GPL-2.0-or-later (split license model)
   - PHP files: GPL-2.0-or-later
