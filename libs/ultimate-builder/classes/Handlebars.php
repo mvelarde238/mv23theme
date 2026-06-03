@@ -53,11 +53,13 @@ class Handlebars{
 			}
 		}
 
+		$no_thumbnail = get_stylesheet_directory_uri() . '/assets/images/nothumb.jpg';
+
 		$context = array(
 			'post' => array(
 				'title'      => get_the_title( $context_post_id ),
-				'excerpt'    => get_the_excerpt( $context_post_id ),
-				'thumbnail'  => get_the_post_thumbnail_url( $context_post_id, 'full' ) ?: '',
+				'excerpt'    => get_post_field('post_excerpt', $context_post_id),
+				'thumbnail'  => get_the_post_thumbnail_url( $context_post_id, 'full' ) ?: $no_thumbnail,
 				'meta'       => array(),
 				'taxonomies' => array(),
 			),
