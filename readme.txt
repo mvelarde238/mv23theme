@@ -16,6 +16,8 @@ CHANGELOG
     duration of the migration + save; listener is removed and window.onbeforeunload is explicitly
     nulled after a 500 ms settling window once all async callbacks have fired
 - gjs row plugin update: Access to contextMenu with a safe check to prevent errors if the plugin is not available
+- Implements theme_init_components_[before/after]_category hooks to allow registering components before or after a category is registered, 
+  giving more control over the order of components in the builder
 
 3.12.16 26-06-03
 - UF FIX: openVariantsPopup called removeScreen() manually in the save handler, 

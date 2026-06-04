@@ -174,6 +174,8 @@ class Core{
 
     public function init_components(){
         foreach( self::$core_components as $category => $components_group ) {
+            do_action('theme_init_components_before_'.$category.'_category');
+
             foreach ($components_group as $componentName) {
                 // Try category subfolder first, then fall back to flat Component/ directory.
                 // The class file must keep namespace Core\Builder\Component regardless of location.
@@ -186,6 +188,8 @@ class Core{
                     locate_template( $flat_path, true, true );
                 }
             }
+
+            do_action('theme_init_components_after_'.$category.'_category');
         }
 
         do_action('theme_init_components');
