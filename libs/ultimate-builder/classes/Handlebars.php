@@ -58,6 +58,7 @@ class Handlebars{
 
 		$context = array(
 			'post' => array(
+				'id'        => $context_post_id,
 				'title'      => get_the_title( $context_post_id ),
 				'excerpt'    => get_post_field('post_excerpt', $context_post_id),
 				'thumbnail'  => get_the_post_thumbnail_url( $context_post_id, 'full' ) ?: $no_thumbnail,

@@ -14,6 +14,8 @@ CHANGELOG
 - Social Share Component: add styles setting to allow users to choose between different predefined styles for the social share buttons, 
   and a more_icon setting to choose the icon for the "more" button when there are more networks than the ones shown by default
 - Handlebars improvment: add a filter to wrap text in spans with a custom class
+- Breadcrumbs Component Implementation: new component to display breadcrumbs with dynamic data from the current page, 
+  with customizable separator and option to show/hide the home link
 
 3.12.15 26-05-30
 - License updated to GPL-2.0-or-later (split license model)

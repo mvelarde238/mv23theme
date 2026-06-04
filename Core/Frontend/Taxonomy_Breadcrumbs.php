@@ -4,11 +4,15 @@ namespace Core\Frontend;
 class Taxonomy_Breadcrumbs{
     public function __construct(){}
 
-    static function get_terms_ids($taxonomy = 'category'){
-        global $post;
+    static function get_terms_ids($taxonomy = 'category', $post_id = null){
+        if ( ! $post_id ) {
+            global $post;
+            $post_id = $post ? $post->ID : null;
+        }
+        if ( ! $post_id ) return array();
 
         // Obtener términos del post en la taxonomía dada
-        $terms = get_the_terms($post->ID, $taxonomy);
+        $terms = get_the_terms($post_id, $taxonomy);
 
         // Reorganizar términos en un array asociativo basado en IDs
         $terms_by_id = array();
@@ -22,11 +26,11 @@ class Taxonomy_Breadcrumbs{
         return $terms_by_id;
     }
 
-    static function get_root_term($taxonomy = 'category'){
+    static function get_root_term($taxonomy = 'category', $post_id = null){
         $root_term = null;
 
         if(is_singular()){
-            $terms_by_id = self::get_terms_ids($taxonomy);
+            $terms_by_id = self::get_terms_ids($taxonomy, $post_id);
     
             // Buscar el término de nivel más alto (sin padre)
             $root_terms = array_filter($terms_by_id, function ($term) {
@@ -62,14 +66,14 @@ class Taxonomy_Breadcrumbs{
         return implode(' <i class="bi bi-arrow-right-circle"></i> ', $breadcrumb_links);
     }
 
-    static function generate_single_breadcrumbs($taxonomy = 'category') {
-        $terms_by_id = self::get_terms_ids($taxonomy);
+    static function generate_single_breadcrumbs($taxonomy = 'category', $post_id = null) {
+        $terms_by_id = self::get_terms_ids($taxonomy, $post_id);
         if (empty($terms_by_id)) {
             return;
         }
     
         // Elegir el primer término raíz disponible
-        $root_term = self::get_root_term($taxonomy);
+        $root_term = self::get_root_term($taxonomy, $post_id);
         $terms_breadcrumbs = [$root_term];
     
         // Recorrer jerárquicamente hasta el último hijo más profundo

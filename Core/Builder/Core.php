@@ -79,6 +79,7 @@ class Core{
             'Social_Share',
             'Related_Posts',
             'Comments_Area',
+            'Breadcrumbs',
         ),
         'oce' => array(
             'OCE_Modal_Content',
