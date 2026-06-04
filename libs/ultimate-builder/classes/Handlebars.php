@@ -60,6 +60,7 @@ class Handlebars{
 				'title'      => get_the_title( $context_post_id ),
 				'excerpt'    => get_post_field('post_excerpt', $context_post_id),
 				'thumbnail'  => get_the_post_thumbnail_url( $context_post_id, 'full' ) ?: $no_thumbnail,
+				'date'       => get_the_date( '', $context_post_id ),
 				'meta'       => array(),
 				'taxonomies' => array(),
 			),

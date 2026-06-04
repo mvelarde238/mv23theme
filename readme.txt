@@ -10,6 +10,7 @@ CHANGELOG
   Solution: remove the explicit overlayLayer.removeScreen() call, relying solely on the automatic mechanism.
 - Add excerpt to the Handlebars context in the builder to allow using {{post.excerpt}} in templates and components
 - Frontend::get_effective_wrapper() method implementation to determine the correct wrapper on single templates
+- Add date to the Handlebars context in the builder to allow using {{post.date}} in templates and components
 
 3.12.15 26-05-30
 - License updated to GPL-2.0-or-later (split license model)
