@@ -9,7 +9,6 @@ window.gjsSocialShare = function (editor, options) {
                 tagName: 'div',
                 classes: ['component'],
                 droppable: false,
-                stylable: false,
                 copyable: false,
                 __additionalData: {
                     post_id: BUILDER_GLOBALS.post_id || null

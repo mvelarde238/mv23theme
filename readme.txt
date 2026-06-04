@@ -11,6 +11,8 @@ CHANGELOG
 - Add excerpt to the Handlebars context in the builder to allow using {{post.excerpt}} in templates and components
 - Frontend::get_effective_wrapper() method implementation to determine the correct wrapper on single templates
 - Add date to the Handlebars context in the builder to allow using {{post.date}} in templates and components
+- Social Share Component: add styles setting to allow users to choose between different predefined styles for the social share buttons, 
+  and a more_icon setting to choose the icon for the "more" button when there are more networks than the ones shown by default
 
 3.12.15 26-05-30
 - License updated to GPL-2.0-or-later (split license model)

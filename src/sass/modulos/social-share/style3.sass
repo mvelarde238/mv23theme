@@ -1,0 +1,83 @@
+.social-share-buttons[data-style="style3"]
+    display: flex
+    flex-wrap: wrap
+    gap: 6px
+
+    button
+        border: 0
+        background: transparent
+        cursor: pointer
+        padding: 4px
+
+        span:last-child
+            display: none
+
+        span:first-child
+            display: flex
+            align-items: center
+            justify-content: center
+            width: 36px
+            height: 36px
+            border-radius: 50%
+            background-color: var(--font-color)
+            color: #fff
+            font-size: 1.1em
+            transition: opacity 0.2s
+
+        &:hover span:first-child
+            opacity: 0.75
+
+        &[data-sharer="twitter"] span:first-child
+            background-color: #000000
+        &[data-sharer="threads"] span:first-child
+            background-color: #000000
+        &[data-sharer="facebook"] span:first-child
+            background-color: #1877f2
+        &[data-sharer="linkedin"] span:first-child
+            background-color: #0a66c2
+        &[data-sharer="email"] span:first-child
+            background-color: #d44638
+        &[data-sharer="whatsapp"] span:first-child
+            background-color: #25d366
+        &[data-sharer="telegram"] span:first-child
+            background-color: #0088cc
+        &[data-sharer="viber"] span:first-child
+            background-color: #665cac
+        &[data-sharer="pinterest"] span:first-child
+            background-color: #e60023
+        &[data-sharer="tumblr"] span:first-child
+            background-color: #001935
+        &[data-sharer="hackernews"] span:first-child
+            background-color: #ff6600
+        &[data-sharer="reddit"] span:first-child
+            background-color: #ff4500
+        &[data-sharer="vk.com"] span:first-child
+            background-color: #4680c2
+        &[data-sharer="buffer"] span:first-child
+            background-color: #168eea
+        &[data-sharer="xing"] span:first-child
+            background-color: #026466
+        &[data-sharer="line"] span:first-child
+            background-color: #00c300
+        &[data-sharer="instapaper"] span:first-child
+            background-color: #000000
+        &[data-sharer="pocket"] span:first-child
+            background-color: #ef4056
+        &[data-sharer="flipboard"] span:first-child
+            background-color: #e12828
+        &[data-sharer="weibo"] span:first-child
+            background-color: #e6162d
+        &[data-sharer="blogger"] span:first-child
+            background-color: #f57d00
+        &[data-sharer="baidu"] span:first-child
+            background-color: #2932e1
+        &[data-sharer="ok.ru"] span:first-child
+            background-color: #f58220
+        &[data-sharer="evernote"] span:first-child
+            background-color: #00a82d
+        &[data-sharer="skype"] span:first-child
+            background-color: #00aff0
+        &[data-sharer="trello"] span:first-child
+            background-color: #0079bf
+        &[data-sharer="diaspora"] span:first-child
+            background-color: #000000

@@ -2,6 +2,7 @@
 namespace Core\Builder\Component;
 
 use Core\Builder\Component;
+use Core\Builder\Template_Engine;
 use Ultimate_Fields\Field;
 use Core\Theme_Options\Theme_Options;
 
@@ -28,7 +29,36 @@ class Social_Share extends Component {
     }
 
 	public static function get_fields() {
-		$fields = array();
+		$fields = array(
+            Field::create( 'text', 'title' )
+                ->hide_label()
+                ->set_prefix(__('Title: ','mv23theme'))
+                ->add_suggestions(array(__('Share this post:','mv23theme'))),
+
+            Field::create( 'image_select', 'style' )
+                // ->hide_label()
+                // ->show_label()
+                ->set_default_value('style2')
+                ->set_attr( 'class', 'image-select-2-cols' )->add_options(array(
+                    'style1'  => array(
+                        'label' => 'Style 1',
+                        'image' => BUILDER_PATH.'/assets/images/social-share/style1.png'
+                    ),
+                    'style2'  => array(
+                        'label' => 'Style 2',
+                        'image' => BUILDER_PATH.'/assets/images/social-share/style2.png'
+                    ),
+                    'style3'  => array(
+                        'label' => 'Style 3',
+                        'image' => BUILDER_PATH.'/assets/images/social-share/style3.png'
+                    )
+                )),
+
+            Field::create( 'icon', 'more_icon', __('More Icon', 'mv23theme') )
+                ->add_set( 'bootstrap-icons' )
+                ->add_set( 'font-awesome' )
+                ->set_default_value( 'bi-three-dots' ),
+        );
 		return $fields;
 	}
 
@@ -121,19 +151,22 @@ class Social_Share extends Component {
             'limit' => self::$limit,
             'more_text' => __('more', 'mv23theme'),
             'more_icon' => 'bi-three-dots',
-            'alignment' => ''
+            'alignment' => '',
+            'style' => 'style2'
         );
         
         $atts = wp_parse_args($args, $defaults);
-        
+       
         // Obtener redes sociales seleccionadas o usar todas por defecto
         $social_networks = self::get_social_networks();
         $selected_networks = $atts['networks'] ? explode(',', $atts['networks']) : array_keys($social_networks);
 
-        $output = '<div class="social-share component">';
-        $output .= '<h6>'.esc_html($atts['title']).'</h6>';
+        $output = Template_Engine::component_wrapper('start', $args);
+        if($atts['title']) {
+            $output .= '<h6>'.esc_html($atts['title']).'</h6>';
+        }
         $limit = $atts['limit'];
-        $output .= '<div class="social-share-buttons"';
+        $output .= '<div class="social-share-buttons" data-style="'.esc_attr($atts['style']).'"';
         
         // buttons alignment
         if($atts['alignment']) {
@@ -148,13 +181,16 @@ class Social_Share extends Component {
         }
         
         $output .= '</div>';
+        $output .= Template_Engine::component_wrapper('end', $args);
 
+        // Modal to show more social networks
         $output .= '<div id="more-social-share-modal" class="modal bottom-sheet theme-modal text-xs"><div class="modal-content">';
         $output .= '<div class="container">';
-        $output .= '<h6>'.esc_html($atts['title']).'</h6>';
-        $output .= '<div class="social-share-buttons">';
+        if($atts['title']) {
+            $output .= '<h6>'.esc_html($atts['title']).'</h6>';
+        }
+        $output .= '<div class="social-share-buttons" data-style="style2">';
         $output .= self::generate_buttons($selected_networks, $limit, 999);
-        $output .= '</div>';
         $output .= '</div>';
         $output .= '</div>';
         $output .= '</div>';

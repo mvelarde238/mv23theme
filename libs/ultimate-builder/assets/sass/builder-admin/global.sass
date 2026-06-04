@@ -48,3 +48,8 @@ div.wp-link-input input
 /* Hide notices in the admin area */
 .notice
     display: none
+
+/* fix for checkbox and radio inputs on WordPress 7 */
+[type=checkbox],
+[type=radio]
+    -webkit-appearance: auto !important

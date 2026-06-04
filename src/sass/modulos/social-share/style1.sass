@@ -1,0 +1,26 @@
+.social-share-buttons[data-style="style1"]
+    display: flex
+    flex-wrap: wrap
+    gap: 6px
+
+    button
+        border: 0
+        background: transparent
+        cursor: pointer
+
+        span:last-child
+            display: none
+
+        span:first-child
+            // display: flex
+            // align-items: center
+            // justify-content: center
+            // width: 36px
+            // height: 36px
+            // border-radius: 50%
+            // color: #fff
+            // font-size: 1.1em
+            transition: opacity 0.2s
+
+        &:hover span:first-child
+            opacity: 0.75
