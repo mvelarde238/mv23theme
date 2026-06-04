@@ -153,14 +153,13 @@ class Breadcrumbs extends Component {
         $separator   = ' <i class="' . $sep_prefix . ' ' . $sep_class . '"></i> ';
 
         $links       = array();
-        $last_index  = count( $items ) - 1;
 
         foreach ( $items as $i => $item ) {
             $label = ! empty( $item['raw'] ) ? $item['label'] : esc_html( $item['label'] );
-            if ( $i === $last_index ) {
-                $links[] = '<span class="breadcrumb-current">' . $label . '</span>';
-            } else {
+            if ( ! empty( $item['url'] ) ) {
                 $links[] = '<a href="' . esc_url( $item['url'] ) . '">' . $label . '</a>';
+            } else {
+                $links[] = '<span class="breadcrumb-current">' . $label . '</span>';
             }
         }
 

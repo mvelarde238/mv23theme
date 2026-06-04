@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.17 26-06-04
+- Fix Breadcrumbs Component: if the last item in the breadcrumbs has a URL, it should be rendered as a link
+
 3.12.16 26-06-03
 - UF FIX: openVariantsPopup called removeScreen() manually in the save handler, 
   but the overlay system already wraps button callbacks to call removeScreen() automatically when save() returns true. 
