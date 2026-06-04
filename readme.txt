@@ -4,6 +4,9 @@ CHANGELOG
 
 3.12.17 26-06-04
 - Fix Breadcrumbs Component: if the last item in the breadcrumbs has a URL, it should be rendered as a link
+- Actions filters implementation:
+  - filter_builder_action_options: to allow modifying the available options for actions settings
+  - filter_builder_custom_action: to allow handling custom actions or overriding built-in ones, with access to the full component args for context
 
 3.12.16 26-06-03
 - UF FIX: openVariantsPopup called removeScreen() manually in the save handler, 

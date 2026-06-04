@@ -9,7 +9,7 @@ Container::create( 'actions_container' )
             'click' => __('On click','mv23theme'),
         )),
 
-        Field::create( 'select', 'action' )->add_options( array(
+        Field::create( 'select', 'action' )->add_options( apply_filters( 'filter_builder_action_options', array(
             '' => __('No action','mv23theme'),
             'open-page' => __('Open new page','mv23theme'),
             'open-image-popup' => __('Show file in pop up','mv23theme'),
@@ -19,7 +19,7 @@ Container::create( 'actions_container' )
             'next-post' => __('Go to next post','mv23theme'),
             'previous-post' => __('Go to previous post','mv23theme'),
             'interact-slider' => __('Interact with a slider','mv23theme'),
-        )),
+        ) ) ),
     
         Field::create( 'complex', 'link' )->hide_label()->rows_layout()->add_fields(array(
             Field::create( 'radio', 'url_type', __('Source','mv23theme'))

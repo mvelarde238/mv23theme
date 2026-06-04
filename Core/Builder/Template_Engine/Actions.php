@@ -135,7 +135,16 @@ Class Actions{
 					$code['attributes']['href'] = '#';
 				}
 			}
-		};
+		}; // end actions_settings block
+
+		/**
+		 * Allow child themes and plugins to handle custom actions or override built-in ones.
+		 * Access the action config via $args['actions_settings'].
+		 *
+		 * @param array $code Current code array ('attributes', 'start', 'end', 'clickable_area').
+		 * @param array $args Full component args passed to get_code().
+		 */
+		$code = apply_filters( 'filter_builder_custom_action', $code, $args );
 
 		// if the clickable area is extra_layer, we will append a class to place the link over the entire component
 		if( $code['clickable_area'] === 'extra_layer' ){
