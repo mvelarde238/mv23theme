@@ -7,6 +7,14 @@ CHANGELOG
 - Actions filters implementation:
   - filter_builder_action_options: to allow modifying the available options for actions settings
   - filter_builder_custom_action: to allow handling custom actions or overriding built-in ones, with access to the full component args for context
+- Fix gjs-wrapper: post content migration no longer triggers the "unsaved changes" browser alert after saving
+  - Root cause: GrapesJS's handleUpdates() uses setTimeout(0) internally to increment changesCount, so
+    clearDirtyCount() called synchronously was always overwritten by queued timers; gjs-datastore-undo.js
+    also increments changesCount directly in pushToStack(), bypassing UndoManager.stop()
+  - Solution: attach a reactive listener on editor.em 'change:changesCount' that immediately calls
+    clearDirtyCount() whenever the counter rises above 0, keeping it pinned to 0 for the entire
+    duration of the migration + save; listener is removed and window.onbeforeunload is explicitly
+    nulled after a 500 ms settling window once all async callbacks have fired
 
 3.12.16 26-06-03
 - UF FIX: openVariantsPopup called removeScreen() manually in the save handler, 

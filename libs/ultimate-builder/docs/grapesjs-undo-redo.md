@@ -7,6 +7,10 @@
 - [Eventos disponibles](#eventos-disponibles)
 - [Patrón recomendado](#patrón-recomendado)
 - [Problemas comunes y soluciones](#problemas-comunes-y-soluciones)
+  - [Problema 1: UI no se actualiza después de undo/redo](#problema-1-ui-no-se-actualiza-después-de-undoredo)
+  - [Problema 2: Elementos del DOM persisten después de undo](#problema-2-elementos-del-dom-persisten-después-de-undo)
+  - [Problema 3: Cambios no registrados en undo stack](#problema-3-cambios-no-registrados-en-undo-stack)
+  - [Problema 4: beforeunload alert persiste aunque el stack esté vacío](#problema-4-beforeunload-alert-persiste-aunque-el-stack-esté-vacío-tras-una-operación-masiva)
 - [Opciones avanzadas](#opciones-avanzadas)
 - [Mejores prácticas](#mejores-prácticas)
 
@@ -290,6 +294,64 @@ editor.UndoManager.skip(() => {
   // Múltiples cambios aquí no se registran
 });
 ```
+
+---
+
+### Problema 4: `beforeunload` alert persiste aunque el stack esté vacío tras una operación masiva
+
+**Síntoma:** El historial muestra "No history yet" pero el navegador sigue mostrando el alert "¿Quieres salir del sitio web?"
+
+**Causa raíz:**
+`handleUpdates()` (interno de GrapesJS) usa `setTimeout(0)` para incrementar `changesCount`. Esto significa que:
+
+1. `stop()`/`start()` + `clearDirtyCount()` se ejecutan síncronamente
+2. Los timers de `handleUpdates()` ya están en la cola del event loop
+3. Esos timers incrementan `changesCount` **después** de que `clearDirtyCount()` retornó
+4. El plugin `gjs-datastore-undo.js` también incrementa `changesCount` directamente en `pushToStack()`, **fuera** del UndoManager, ignorando `stop()`
+
+Además, `skip()` solo protege código **síncrono** — los callbacks async de `append()` (rendering, inicialización de componentes) se ejecutan fuera del `skip()` y sí incrementan el contador.
+
+**❌ Incorrecto — `stop()`/`start()` no cubre los timers async:**
+```javascript
+editor.UndoManager.stop();
+model.append(components);
+datastore.set({ content: '...' });
+editor.UndoManager.start();
+editor.UndoManager.clear();
+editor.clearDirtyCount();
+// ❌ Los setTimeout(0) internos de GrapesJS se ejecutan DESPUÉS de esto
+//    y vuelven a incrementar changesCount
+```
+
+**✅ Correcto — listener reactivo en `change:changesCount`:**
+```javascript
+// Activar guard reactivo ANTES de las operaciones
+editor.UndoManager.stop();
+const keepClean = (model, value) => {
+    if (value > 0) editor.clearDirtyCount();
+};
+editor.em.on('change:changesCount', keepClean);
+
+// ... operaciones de append, datastore.set, select, trigger ...
+
+// Ejecutar el save mientras el guard está activo
+editor.runCommand('builder:save-editor');
+
+// Esperar a que todos los setTimeout(0) internos hayan disparado,
+// luego desactivar el guard y confirmar estado limpio
+setTimeout(() => {
+    editor.em.off('change:changesCount', keepClean);
+    editor.UndoManager.start();
+    editor.UndoManager.clear();
+    editor.clearDirtyCount();
+    window.onbeforeunload = null; // safety net final
+}, 500);
+```
+
+**Por qué funciona:**
+- El listener se ejecuta síncronamente cada vez que `changesCount` cambia a cualquier valor > 0
+- Cubre tanto los `setTimeout(0)` internos de `handleUpdates()` como los incrementos directos de `gjs-datastore-undo.js`
+- `window.onbeforeunload = null` al final garantiza que no quede ningún handler residual
 
 ---
 

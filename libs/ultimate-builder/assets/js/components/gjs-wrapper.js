@@ -226,6 +226,17 @@ window.gjsWrapper = function (editor, options) {
                                 ]
                             };
                             let section_for_migrated_content;
+                            let text_editor_for_migrated_content;
+
+                            // GrapesJS's handleUpdates() uses setTimeout(0) internally, so
+                            // changesCount increments fire AFTER clearDirtyCount() runs in the
+                            // save command. A reactive listener on change:changesCount is the
+                            // only reliable way to keep changesCount at 0 throughout the migration.
+                            editor.UndoManager.stop();
+                            const keepClean = (model, value) => {
+                                if (value > 0) editor.clearDirtyCount();
+                            };
+                            editor.em.on('change:changesCount', keepClean);
 
                             if( BUILDER_GLOBALS.is_singular ){
                                 // Add text-editor component with the post content below post-title
@@ -233,21 +244,17 @@ window.gjsWrapper = function (editor, options) {
                                 if (single_main) {
                                     const post_title = model.findType('post-title')[0];
                                     const insertIndex = post_title ? post_title.index() + 1 : 0;
-                                    section_for_migrated_content = single_main.append(content_to_insert, { at: insertIndex, silent: true });
+                                    section_for_migrated_content = single_main.append(content_to_insert, { at: insertIndex });
                                 }
                             } else {
                                 // For non-singular templates, we can add the text-editor as first child of the container
                                 const container = model.findType('container')[0];
-                                section_for_migrated_content = container.append(content_to_insert, { at: 0, silent: true });
+                                section_for_migrated_content = container.append(content_to_insert, { at: 0 });
                             }
 
-                            const text_editor_for_migrated_content = section_for_migrated_content[0].findType('text-editor')[0];
+                            text_editor_for_migrated_content = section_for_migrated_content[0].findType('text-editor')[0];
 
                             if(text_editor_for_migrated_content){
-                                // select and focus the new text-editor
-                                editor.select(text_editor_for_migrated_content);
-                                editor.trigger('component:toggled', text_editor_for_migrated_content);
-
                                 // add the content to the new text-editor's datastore
                                 const text_editor_datastore = editor.getComponentDatastore(text_editor_for_migrated_content);
                                 if (text_editor_datastore) {
@@ -255,6 +262,10 @@ window.gjsWrapper = function (editor, options) {
                                         content: BUILDER_GLOBALS.post_content
                                     });
                                 }
+
+                                // select and focus the new text-editor
+                                editor.select(text_editor_for_migrated_content);
+                                editor.trigger('component:toggled', text_editor_for_migrated_content);
                             }
 
                             // Clear the global post_content
@@ -271,6 +282,16 @@ window.gjsWrapper = function (editor, options) {
 
                             // Save the editor
                             editor.runCommand('builder:save-editor');
+
+                            // After all async handlers (handleUpdates, datastore listeners, etc.)
+                            // have settled, detach the guard, resume tracking, and confirm clean state.
+                            setTimeout(() => {
+                                editor.em.off('change:changesCount', keepClean);
+                                editor.UndoManager.start();
+                                editor.UndoManager.clear();
+                                editor.clearDirtyCount();
+                                window.onbeforeunload = null;
+                            }, 500);
                         } else {
                             alert(migrationErrorMessage + ': ' + (data.data || unknownErrorMessage));
                             acceptBtn.textContent = acceptButtonLabel;
