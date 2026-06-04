@@ -6,7 +6,8 @@
  *         Filter hook: 'ultimate_builder_handlebars_context'  |  JS usa BUILDER_GLOBALS.context
  *
  * [x] 1. Filtros/modificadores  →  {{post.title|uppercase}}, {{post.meta.precio|number_format}}, {{post.meta.desc|truncate:120}}
- *         Filtros: uppercase, lowercase, capitalize, truncate:N, number_format, slug, nl2br.
+ *         Filtros escalares: uppercase, lowercase, capitalize, capitalize_words, truncate:N, number_format, slug, nl2br, spans[:class], join.
+ *         Filtros array-aware: spans[:class[:sep]]  →  cada item en <span>; join[:sep]  →  implode con separador arbitrario.
  *
  * [x] 2. Fallback / valor por defecto  →  {{post.meta.subtitulo ?? post.title}}, {{post.meta.tel ?? 'Sin teléfono'}}
  *         Soporta ruta ?? ruta y ruta ?? 'literal'. Se evalúa en el mismo pase que los tokens simples.
@@ -181,6 +182,15 @@ class Handlebars{
 				return sanitize_title( $value );
 			case 'nl2br':
 				return nl2br( $value );
+			case 'spans':
+				// spans[:class[:separator]] — scalar version wraps the value in a single <span>
+				$args      = $arg !== null ? explode( ':', $arg, 2 ) : array();
+				$css_class = isset( $args[0] ) && $args[0] !== '' ? $args[0] : null;
+				$attr      = $css_class ? ' class="' . esc_attr( $css_class ) . '"' : '';
+				return '<span' . $attr . '>' . esc_html( $value ) . '</span>';
+			case 'join':
+				// join on a scalar is a no-op (nothing to join)
+				return $value;
 			default:
 				return $value;
 		}
@@ -198,7 +208,32 @@ class Handlebars{
 		if ( ! self::is_truthy( $value ) ) {
 			return '';
 		}
+
+		// Array-aware filters: intercept before implode so each item stays separate.
 		if ( is_array( $value ) ) {
+			$colon       = strpos( $filter_expr, ':' );
+			$filter_name = trim( $colon !== false ? substr( $filter_expr, 0, $colon ) : $filter_expr );
+			$filter_args = $colon !== false ? substr( $filter_expr, $colon + 1 ) : null;
+
+			if ( $filter_name === 'spans' ) {
+				// spans[:class[:separator]]
+				$args      = $filter_args !== null ? explode( ':', $filter_args, 2 ) : array();
+				$css_class = isset( $args[0] ) && $args[0] !== '' ? $args[0] : null;
+				$separator = isset( $args[1] ) ? $args[1] : '';
+				$attr      = $css_class ? ' class="' . esc_attr( $css_class ) . '"' : '';
+				$items     = array_filter( array_map( 'strval', $value ) );
+				return implode( $separator, array_map(
+					fn( $t ) => '<span' . $attr . '>' . esc_html( $t ) . '</span>',
+					$items
+				) );
+			}
+
+			if ( $filter_name === 'join' ) {
+				// join[:separator]  — default separator is empty string (not ", ")
+				$separator = $filter_args !== null ? $filter_args : '';
+				return implode( $separator, array_filter( array_map( 'strval', $value ) ) );
+			}
+
 			$value = implode( ', ', array_filter( array_map( 'strval', $value ) ) );
 		} else {
 			$value = (string) $value;

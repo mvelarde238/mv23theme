@@ -17,7 +17,8 @@ window['Handlebars'] = (function(){
     };
 
     // Private: applies a named filter to a string value.
-    // Supported: uppercase, lowercase, capitalize, capitalize_words, truncate:N, number_format[:dec[:dec_sep[:thou_sep]]], slug, nl2br.
+    // Supported: uppercase, lowercase, capitalize, capitalize_words, truncate:N, number_format[:dec[:dec_sep[:thou_sep]]], slug, nl2br, spans[:class], join.
+    // Array-aware filters (spans[:class[:sep]], join[:sep]) are handled in _resolveWithFilter before reaching here.
     const _applyFilter = (value, filterExpr) => {
         const colon = filterExpr.indexOf(':');
         const name  = (colon !== -1 ? filterExpr.slice(0, colon) : filterExpr).trim();
@@ -52,6 +53,16 @@ window['Handlebars'] = (function(){
                     .replace(/[^a-z0-9\s-]/g, '').replace(/[\s-]+/g, '-');
             case 'nl2br':
                 return value.replace(/\n/g, '<br>');
+            case 'spans': {
+                // spans[:class[:separator]] — scalar version wraps the value in a single <span>
+                const args    = arg !== null ? arg.split(':', 2) : [];
+                const cls     = args[0] && args[0] !== '' ? args[0] : null;
+                const attr    = cls ? ` class="${cls}"` : '';
+                return `<span${attr}>${value}</span>`;
+            }
+            case 'join':
+                // join on a scalar is a no-op (nothing to join)
+                return value;
             default:
                 return value;
         }
@@ -59,13 +70,38 @@ window['Handlebars'] = (function(){
 
     // Private: resolves {{path|filter}} and {{path|filter:arg}} tokens.
     const _resolveWithFilter = (token, ctx) => {
-        const pipe   = token.indexOf('|');
-        const path   = token.slice(0, pipe).trim();
-        const filter = token.slice(pipe + 1).trim();
-        const raw    = _resolvePath(path, ctx);
+        const pipe       = token.indexOf('|');
+        const path       = token.slice(0, pipe).trim();
+        const filterExpr = token.slice(pipe + 1).trim();
+        const raw        = _resolvePath(path, ctx);
         if (!_isTruthy(raw)) return '';
-        const value  = Array.isArray(raw) ? raw.join(', ') : String(raw);
-        return _applyFilter(value, filter);
+
+        // Array-aware filters: intercept before join so each item stays separate.
+        if (Array.isArray(raw)) {
+            const colon      = filterExpr.indexOf(':');
+            const filterName = (colon !== -1 ? filterExpr.slice(0, colon) : filterExpr).trim();
+            const filterArgs = colon !== -1 ? filterExpr.slice(colon + 1) : null;
+
+            if (filterName === 'spans') {
+                // spans[:class[:separator]]
+                const args      = filterArgs !== null ? filterArgs.split(':', 2) : [];
+                const cls       = args[0] && args[0] !== '' ? args[0] : null;
+                const separator = args[1] !== undefined ? args[1] : '';
+                const attr      = cls ? ` class="${cls}"` : '';
+                return raw.filter(Boolean).map(t => `<span${attr}>${t}</span>`).join(separator);
+            }
+
+            if (filterName === 'join') {
+                // join[:separator] — default separator is empty string
+                const separator = filterArgs !== null ? filterArgs : '';
+                return raw.filter(Boolean).join(separator);
+            }
+
+            const value = raw.join(', ');
+            return _applyFilter(value, filterExpr);
+        }
+
+        return _applyFilter(String(raw), filterExpr);
     };
 
     // Private: formats a resolved raw value to string. Returns null if unresolved.
