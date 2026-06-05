@@ -1470,6 +1470,35 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   margin-top: 5px;
 }
 
+.small-object-preview .uf-object {
+  display: flex;
+  background: transparent;
+  border: 0;
+  justify-content: space-between;
+}
+.small-object-preview .uf-object-preview-body h4 {
+  margin-bottom: 0;
+}
+.small-object-preview .uf-object-preview-body p {
+  display: none;
+}
+.small-object-preview .uf-object-buttons, .small-object-preview .uf-objects-buttons {
+  border-top: 0;
+}
+.small-object-preview .button-secondary,
+.small-object-preview .button-primary {
+  font-size: 9px;
+}
+.small-object-preview .uf-button-icon {
+  margin-top: 3px;
+}
+.small-object-preview .uf-button-no-text .dashicons {
+  margin: 0;
+}
+.small-object-preview .uf-button {
+  min-height: 20px;
+}
+
 .uf-field-type-number .input {
   position: relative;
 }

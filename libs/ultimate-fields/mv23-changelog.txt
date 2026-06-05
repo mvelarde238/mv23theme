@@ -1,5 +1,9 @@
 mv23 changelog-------------------------
 
+- 3.2.22 05-06-2026
+- .small-object-preview class for small previews in wp_object field
+    (core/assets/sass/field/_object.scss)
+
 - 3.2.21 03-06-2026
 - Fix: openVariantsPopup called removeScreen() manually in the save handler, 
     but the overlay system already wraps button callbacks to call removeScreen() automatically when save() returns true. 

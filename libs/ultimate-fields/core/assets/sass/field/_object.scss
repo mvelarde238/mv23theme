@@ -334,3 +334,36 @@
 		margin-top: 5px;
 	}
 }
+
+.small-object-preview{
+	.uf-object{
+		display: flex;
+		background: transparent;
+		border: 0;
+		justify-content: space-between;
+	}
+	.uf-object-preview-body{
+		h4{
+			margin-bottom: 0;
+		}
+		p{
+			display: none;
+		}
+	}
+	.uf-object-buttons{
+		border-top: 0;
+	}
+	.button-secondary,
+	.button-primary{
+		font-size: 9px
+	}
+	.uf-button-icon{
+		margin-top: 3px;
+	}
+	.uf-button-no-text .dashicons{
+		margin: 0;
+	}
+	.uf-button{
+		min-height: 20px;
+	}
+}

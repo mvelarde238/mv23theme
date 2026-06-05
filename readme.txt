@@ -7,6 +7,7 @@ CHANGELOG
   to prevent issues with autoplay getting stuck or behaving unexpectedly after manual navigation
 - .gallery-slider-animation-in and .gallery-slider-animation-out classes implementation on tns sliders
 - filter_listing_query_args implementation on posts filter to allow filtering the ajax_load_posts query arguments
+- UF improvment: .small-object-preview class for small previews in wp_object field
 
 3.12.17 26-06-04
 - Fix Breadcrumbs Component: if the last item in the breadcrumbs has a URL, it should be rendered as a link
