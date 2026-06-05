@@ -62,6 +62,12 @@ function create_tns_slider(slider){
         nav: show_nav, 
         navPosition: nav_position,
         startIndex: parseInt(start_index),
+
+        // Custom animation classes for gallery mode
+        animateIn: 'gallery-slider-animation-in',
+        animateOut: 'gallery-slider-animation-out',
+
+        // Responsive settings
         responsive : {
             1401 : {items:parseInt(desktop), slideBy:parseInt(desktop), gutter: parseInt(desktop_gutter)},
             1025 : {items:parseInt(laptop), slideBy:parseInt(laptop), gutter: parseInt(laptop_gutter)},

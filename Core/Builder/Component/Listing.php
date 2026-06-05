@@ -182,6 +182,10 @@ class Listing extends Component {
                 Field::create( 'checkbox', 'show_controls' )->hide_label()->set_text(__('Show controls','mv23theme'))->set_default_value(1),
                 Field::create( 'checkbox', 'show_nav' )->hide_label()->set_text(__('Show carousel nav','mv23theme')),
                 Field::create( 'checkbox', 'autoplay' )->hide_label()->set_text(__('Start automatically','mv23theme')),
+                Field::create( 'select', 'mode' )->hide_label()->set_prefix(__('Mode','mv23theme'))->add_options( array(
+                    'carousel' => 'Carrusel Mode',
+                    'gallery' => 'Fade Mode',
+                )),
                 Field::create( 'text', 'carousel_id' )->set_prefix(__('Carousel ID','mv23theme'))->hide_label(),
             ))->add_dependency('listing_template','carousel','='),
             
@@ -499,6 +503,7 @@ class Listing extends Component {
                     $show_nav = (!empty($carousel_settings['show_nav'])) ? $carousel_settings['show_nav'] : 0;
                     $show_nav = (!empty($carousel_settings['show_nav'])) ? $carousel_settings['show_nav'] : 0;
                     $autoplay = (!empty($carousel_settings['autoplay'])) ? $carousel_settings['autoplay'] : 0;
+                    $mode = $carousel_settings['mode'] ?? 'carousel';
                     $slider_uid = (!empty($carousel_settings['carousel_id'])) ? $carousel_settings['carousel_id'] : 'carousel-'.uniqid();
     
                     $carousel_classes_array = array('carousel','carousel-inside-component', 'carousel--theme1');
@@ -509,6 +514,7 @@ class Listing extends Component {
                         data-show-controls="0" 
                         data-show-nav="<?=$show_nav?>" 
                         data-touch="1" 
+                        data-mode="<?=$mode?>"
                         data-autoplay="<?=$autoplay?>" 
                         data-speed="450"
                         data-nav-position="bottom"

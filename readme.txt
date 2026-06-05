@@ -2,6 +2,11 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.18 26-06-05
+- Carousel Component Fix: pause the slider before navigating to the next/previous slide and resume autoplay after the navigation, 
+  to prevent issues with autoplay getting stuck or behaving unexpectedly after manual navigation
+- .gallery-slider-animation-in and .gallery-slider-animation-out classes implementation on tns sliders
+
 3.12.17 26-06-04
 - Fix Breadcrumbs Component: if the last item in the breadcrumbs has a URL, it should be rendered as a link
 - Actions filters implementation:

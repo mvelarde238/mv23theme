@@ -26,3 +26,31 @@
             gap: var(--m-gap)
             & > div
                 width: calc((100% / var(--m-columns) - var(--m-gap) + var(--m-gap) / var(--m-columns)))
+
+/* ANIMATION FOR GALLERY MODE */
+/* the incoming slide scales in and becomes fully opaque */
+.gallery-slider-animation-in
+    animation: gallerySliderAnimationIn 0.6s ease-in-out forwards
+    z-index: 2
+
+/* the outgoing slide becomes fully transparent */
+.gallery-slider-animation-out
+    animation: gallerySliderAnimationOut 0.6s ease-in-out forwards
+    z-index: 1
+
+@keyframes gallerySliderAnimationIn
+    0%
+        opacity: 0
+        transform: scale(0.98)
+    40%
+        /* Less than half the time, it is already very visible */
+        opacity: 0.8
+    100%
+        opacity: 1
+        transform: scale(1)
+
+@keyframes gallerySliderAnimationOut
+    0%
+        opacity: 1
+    100%
+        opacity: 0

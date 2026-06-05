@@ -41,7 +41,10 @@
             var sliderUid = $(this).data('slider-uid');
 
             if (MV23_GLOBALS.carousels[sliderUid]) {
-                MV23_GLOBALS.carousels[sliderUid].goTo(slide - 1); // -1 because TNS is 0-indexed
+                const slider = MV23_GLOBALS.carousels[sliderUid];
+                slider.pause();
+                slider.goTo(slide - 1); // -1 because TNS is 0-indexed
+                slider.play();
                 if (scroll) {
                     scroll_to_slide(sliderUid);
                 }
@@ -55,7 +58,10 @@
             var scroll = $(this).data('scroll') ?? false;
 
             if (MV23_GLOBALS.carousels[sliderUid]) {
-                MV23_GLOBALS.carousels[sliderUid].goTo('next');
+                const slider = MV23_GLOBALS.carousels[sliderUid];
+                slider.pause();
+                slider.goTo('next');
+                slider.play();
                 if (scroll) {
                     scroll_to_slide(sliderUid);
                 }
@@ -69,7 +75,10 @@
             var scroll = $(this).data('scroll') ?? false;
 
             if (MV23_GLOBALS.carousels[sliderUid]) {
-                MV23_GLOBALS.carousels[sliderUid].goTo('prev');
+                const slider = MV23_GLOBALS.carousels[sliderUid];
+                slider.pause();
+                slider.goTo('prev');
+                slider.play();
                 if (scroll) {
                     scroll_to_slide(sliderUid);
                 }
