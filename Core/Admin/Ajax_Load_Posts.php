@@ -150,6 +150,7 @@ class Ajax_Load_Posts{
                 }
             }
 
+            $args_query = apply_filters('filter_listing_query_args', $args_query, $listing_args, $filter_values);
             $query = new WP_Query( $args_query ); 
 
             if ($query->have_posts()) {
