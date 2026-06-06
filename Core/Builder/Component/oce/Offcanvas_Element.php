@@ -56,7 +56,10 @@ class Offcanvas_Element extends Component {
 				->add_options(array(
 					'left' => __('Left'),
 					'right' => __('Right')
-				))->set_input_type( 'radio' )->set_orientation( 'horizontal' )->add_dependency('oce_type','sidenav','='),
+				))->set_input_type( 'radio' )
+				->set_orientation( 'horizontal' )
+				->set_default_value('right')
+				->add_dependency('oce_type','sidenav','='),
 			Field::create( 'number', 'max_width' )
 				->hide_label()
 				->set_prefix( __('Max Width','mv23theme') )
