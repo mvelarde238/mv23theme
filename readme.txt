@@ -2,6 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.19 26-06-06
+- Small tweaks on styles to force a space to drag components into wrappers components:
+  * [data-gjs-type="container"] now have 5px padding top and bottom
+  * [data-gjs-type="column"] now have 10px padding top and bottom
+  * [data-gjs-type="components-wrapper"] styles are removed because they were causing "misalignments"
+
 3.12.18 26-06-05
 - Carousel Component Fix: pause the slider before navigating to the next/previous slide and resume autoplay after the navigation, 
   to prevent issues with autoplay getting stuck or behaving unexpectedly after manual navigation
