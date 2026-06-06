@@ -14,7 +14,8 @@ window.gjsListing = function (editor) {
             selectable: false,
             draggable: false,
             layerable: false,
-            propagate: ['selectable', 'draggable'],
+            droppable: false,
+            propagate: ['selectable', 'draggable', 'droppable'],
             components: [
                 {
                     type: 'carousel',
@@ -91,7 +92,13 @@ window.gjsListing = function (editor) {
                         const carousel = model.findType('carousel')[0];
                         editor.UndoManager.stop();
                         postcards.forEach(postcard => {
-                            const carouselItem = carousel.append({ type: 'carousel-item' }, { temporary: true });
+                            const carouselItem = carousel.append({ 
+                                type: 'carousel-item',
+                                selectable: false,
+                                droppable: false,
+                                copyable: false,
+                                hoverable: false,
+                            }, { temporary: true });
                             carouselItem[0].getView().el.innerHTML = postcard.outerHTML;
                         });
                         editor.UndoManager.start();
