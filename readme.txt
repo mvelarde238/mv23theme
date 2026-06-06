@@ -7,6 +7,8 @@ CHANGELOG
   * [data-gjs-type="container"] now have 5px padding top and bottom
   * [data-gjs-type="column"] now have 10px padding top and bottom
   * [data-gjs-type="components-wrapper"] styles are removed because they were causing "misalignments"
+- App fix: Implement isFinal flag in GCMColorPickerBridge to distinguish between live preview changes and final confirmed changes, 
+  allowing for better undo stack management
 
 3.12.18 26-06-05
 - Carousel Component Fix: pause the slider before navigating to the next/previous slide and resume autoplay after the navigation, 
