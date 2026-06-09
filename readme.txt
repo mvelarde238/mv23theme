@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.20 26-06-09
+- Carousel theme implementation on gallery component
+
 3.12.19 26-06-06
 - Small tweaks on styles to force a space to drag components into wrappers components:
   * [data-gjs-type="container"] now have 5px padding top and bottom

@@ -306,6 +306,14 @@ class Gallery extends Component {
                 'large' => __('Large', 'mv23theme'),
                 'full' => __('Full', 'mv23theme'),
             ))->set_default_value('large');
+        $fields[] =  Field::create( 'select', 'carousel_theme', __('Carousel Theme', 'mv23theme') )
+                ->add_options( array(
+                    'theme1' => __('Theme 1','mv23theme'),
+                    // 'theme2' => __('Theme 2','mv23theme'),
+                    'none' => __('None','mv23theme'),
+                ))
+                ->set_default_value('theme1')
+                ->add_dependency('display', 'slider', '=');
 
 		return $fields;
 	}
@@ -344,7 +352,7 @@ class Gallery extends Component {
         $m_columns = $args['items']['mobile'] ?? GALLERY_COLUMNS['mobile'];
 
         $d_gap = $args['gutter']['desktop'] ?? GALLERY_GAP['desktop'];
-        $l_gap = $args['gutter']['laptop'] ?? GALLERY_GAP['laptop'];
+        $l_gap = $args['gutter']['laptop'] ?? GALLERY_GAP['laptop']; 
         $t_gap = $args['gutter']['tablet'] ?? GALLERY_GAP['tablet'];
         $m_gap = $args['gutter']['mobile'] ?? GALLERY_GAP['mobile'];
 
@@ -383,6 +391,11 @@ class Gallery extends Component {
 
             $direction = $args['marquee_settings']['direction'] ?? 'left';
             $shortcode .= ' marquee_direction="'.$direction.'"';
+        }
+
+        if( $display == 'slider' ){
+            $carousel_theme = $args['carousel_theme'] ?? 'theme1';
+            if($carousel_theme != 'none') $shortcode .= ' carousel_theme="'.$carousel_theme.'"';
         }
 
         // handle size styles in shorcode size_styles='max-width: 100%;...'

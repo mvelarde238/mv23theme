@@ -19,6 +19,7 @@ function print_theme_gallery( $atts ) {
         'link' => 'file',
         'aspectratio' => '',
         'display' => 'default',
+        'carousel_theme' => 'theme1',
         'wpmf_folder_id' => null,
         'gallery_id' => null,
         'marquee_speed' => 18,
@@ -107,8 +108,10 @@ function print_theme_gallery( $atts ) {
             'additional_classes' => ['theme-gallery__item']
         );
 
-        if( $a['display'] == 'slider' ){ ?>
-            <div class="theme-gallery carousel carousel--theme1 carousel-inside-component theme-gallery--slider" data-controls-position="center" style="<?=implode(';',$carousel_styles)?>">
+        if( $a['display'] == 'slider' ){ 
+            $carousel_theme = $a['carousel_theme'] ?? 'theme1';
+            ?>
+            <div class="theme-gallery carousel carousel-inside-component theme-gallery--slider" data-theme="<?=$carousel_theme?>" data-controls-position="center" style="<?=implode(';',$carousel_styles)?>">
             <div class="carousel__slider" 
                 data-show-controls="1" 
                 data-show-nav="1" 
