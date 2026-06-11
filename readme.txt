@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.21 26-06-11
+- Start index setting implementation on Accordion component to allow users to choose which item will be open by default when the accordion is rendered
+- Comnponents spacing added to .togglebox__btn
+
 3.12.20 26-06-09
 - Carousel theme implementation on gallery component
 

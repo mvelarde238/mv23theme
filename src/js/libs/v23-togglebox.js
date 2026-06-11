@@ -215,8 +215,8 @@
 
 				if (activeTemplate === 'tab') {
 					let startIndex = this.options.startIndex;
-					_addClass(this.items[startIndex].btn, 'active');
-					_addClass(this.items[startIndex].box, 'active');	
+					_addClass(this.items[startIndex]?.btn, 'active');
+					_addClass(this.items[startIndex]?.box, 'active');	
 				}
 			}
 			if( this.options.multistep ) this._add_multistep_mode_classes();
@@ -472,18 +472,18 @@
 	};
 
 	function _hasClass(element, cls) {
-		return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+		return (' ' + element?.className + ' ').indexOf(' ' + cls + ' ') > -1;
 	};
 
 	function _addClass(elem, className) {
 		// TODO : ELEM IS ARRAY
-		if (!_hasClass(elem, className)) {
+		if (elem && !_hasClass(elem, className)) {
 			elem.className += ' ' + className;
 		}
 	};	
 
 	function _removeClass(elem, className) {
-		var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
+		var newClass = ' ' + elem?.className.replace( /[\t\r\n]/g, ' ') + ' ';
 		if (_hasClass(elem, className)) {
 			while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
 				newClass = newClass.replace(' ' + className + ' ', ' ');

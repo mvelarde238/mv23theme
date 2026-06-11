@@ -113,8 +113,11 @@ class Accordion extends Component {
                     'rightToLeft' => __('Right to Left','mv23theme'),
                     'topToBottom' => __('Top to Bottom','mv23theme'),
                     'bottomToTop' => __('Bottom to Top','mv23theme'),
-                ))
-                ->set_width( 50 ),
+                )),
+            Field::create( 'number', 'start_index', __('Start Index','mv23theme') )
+                ->set_default_value(0)
+                ->set_description(__('The index of the item that will be open by default. Starts at 0.','mv23theme'))
+                ->add_dependency('template','tab','=')
         );
 
 		return $fields;
@@ -140,6 +143,12 @@ class Accordion extends Component {
         }
         if( !empty($breakpoints) ){
             $args['additional_attributes']['data-breakpoints'] = $breakpoints;
+        }
+
+        // start index
+        $start_index = $args['start_index'] ?? 0;
+        if( $start_index ){
+            $args['additional_attributes']['data-start-index'] = $start_index;
         }
 
 		ob_start();
