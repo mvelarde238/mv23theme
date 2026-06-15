@@ -51,7 +51,7 @@ class Accordion_Button extends Component {
 	}
 
 	public static function display( $args ){
-        $title = '<span class="togglebox__title">'.$args['title'].'</span>';
+        $title = (isset($args['title']) && $args['title']) ? '<span class="togglebox__title">'.$args['title'].'</span>' : '';
         $subtitle = (isset($args['subtitle']) && $args['subtitle']) ? '<span class="togglebox__subtitle">'.$args['subtitle'].'</span>' : '';
         $argsid = (isset($args['itemid'])) ? $args['itemid'] : false;
         $slug = ($argsid) ? $argsid : sanitize_title($title);
