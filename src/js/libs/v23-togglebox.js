@@ -21,7 +21,7 @@
 	"use strict";
 
 	var instances = [],
-		version = '10.1.1',
+		version = '10.1.2',
 		timers = {};
 
 	/**
@@ -76,6 +76,7 @@
 				dataBreakpoints = this.el.dataset.breakpoints,
 				dataHeaderHeight = this.el.dataset.headerheight,
 				dataStartIndex = this.el.dataset.startIndex,
+				dataTabButtonBehavior = this.el.dataset.tabButtonBehavior,
 				dataDelay = this.el.dataset.delay;
 
 			if (dataTemplate != undefined) dataOptions.initialTemplate = dataTemplate;
@@ -83,6 +84,7 @@
 			if (dataHeaderHeight != undefined) dataOptions.headerHeight = dataHeaderHeight;
             if (dataStartIndex != undefined) dataOptions.startIndex = parseInt(dataStartIndex);
             if (this.el.hasAttribute("data-multistep")) dataOptions.multistep = 1;
+            if (dataTabButtonBehavior != undefined) dataOptions.tab_button_behavior = dataTabButtonBehavior;
             if (dataDelay != undefined) dataOptions.delay = parseInt(dataDelay);
 			
             // js-options are overriddden if data-options are passed
@@ -106,6 +108,7 @@
 				headerHeight : 0,
 				multistep : 0,
 				startIndex: 0, // initial active tab index
+				tab_button_behavior: 'default', // default || toggle
 				delay: 0 // add a delay to ensure all elements inside are loaded
 			};
 			
@@ -192,8 +195,14 @@
 							_toggleClass(btn, 'active');
 							_toggleClass(item, 'active');
 						} else {
-							_addClass(btn, 'active');
-							_addClass(item, 'active');	
+							const tabButtonBehavior = this.options.tab_button_behavior || 'default';
+							if(tabButtonBehavior == 'toggle'){
+								_toggleClass(btn, 'active');
+								_toggleClass(item, 'active');
+							} else {
+								_addClass(btn, 'active');
+								_addClass(item, 'active');	
+							}
 						}
 
 						this._maybe_scroll_to_target(btn, item);

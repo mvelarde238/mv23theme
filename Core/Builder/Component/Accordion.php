@@ -118,6 +118,15 @@ class Accordion extends Component {
                 ->set_default_value(0)
                 ->set_description(__('The index of the item that will be open by default. Starts at 0.','mv23theme'))
                 ->add_dependency('template','tab','=')
+                ->set_width( 50 ),
+            Field::create( 'select', 'tab_button_behavior', __('Tab Button Behavior','mv23theme') )
+                ->set_default_value('default')
+                ->add_options( array(    
+                    'default' => __('Default','mv23theme'),
+                    'toggle' => __('Toggle','mv23theme'),
+                ))
+                ->add_dependency('template','tab','=')
+                ->set_width( 50 )
         );
 
 		return $fields;
@@ -149,6 +158,12 @@ class Accordion extends Component {
         $start_index = $args['start_index'] ?? 0;
         if( $start_index ){
             $args['additional_attributes']['data-start-index'] = $start_index;
+        }
+
+        // tab button behavior
+        $tab_button_behavior = $args['tab_button_behavior'] ?? 'default';
+        if( $tab_button_behavior && $tab_button_behavior !== 'default' ){
+            $args['additional_attributes']['data-tab-button-behavior'] = $tab_button_behavior;
         }
 
 		ob_start();

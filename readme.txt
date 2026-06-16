@@ -4,6 +4,8 @@ CHANGELOG
 
 3.12.22 26-06-15
 - Fix: Avoid accordion button title html if the title is empty to prevent rendering empty tags
+- Tab button behavior implementation on Accordion component to allow users to choose between default behavior (only open the item) 
+  or toggle behavior (open/close the item) when clicking on an already active tab, giving more control over the interaction of the accordion component
 
 3.12.21 26-06-11
 - Start index setting implementation on Accordion component to allow users to choose which item will be open by default when the accordion is rendered
