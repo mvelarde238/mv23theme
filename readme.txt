@@ -5,6 +5,7 @@ CHANGELOG
 3.12.23 26-06-20
 - Hide carousel controls on builder when the carousel type is set to marquee
 - Commented out the automatic carousel items wrapping to avoid issues with carousel items reordering from layers panel
+- Deleted the automatic carousel item wrapper code
 
 3.12.22 26-06-15
 - Fix: Avoid accordion button title html if the title is empty to prevent rendering empty tags

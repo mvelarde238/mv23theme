@@ -13,42 +13,10 @@ window.gjsCarousel = function (editor) {
                 draggable: '.carousel__slider',
                 removable: false,
                 lockedComponents: false,
-                classes: ['carousel__item', 'components-wrapper'],
-                __wrapperReference: null,
+                classes: ['carousel__item', 'components-wrapper']
             },
         }, 
         view: {
-            onRender({ el, model }) {
-                // wrap el with a temporal div with class "carousel-item-wrapper"
-                // This is needed to properly initialize the carousel
-                const wrapper = document.createElement('div');
-                wrapper.className = 'carousel-item-wrapper';
-
-                // Try to insert the wrapper once the element has a parentNode.
-                // Sometimes GrapesJS triggers onRender before the component
-                // is attached to the DOM, so el.parentNode can be null.
-                let attempts = 0;
-                const maxAttempts = 60; // ~1 second at 60fps
-
-                const tryWrap = () => {
-                    if (el.parentNode) {
-                        try {
-                            el.parentNode.insertBefore(wrapper, el);
-                            wrapper.appendChild(el);
-                            model.set('__wrapperReference', wrapper, { noUndo: true });
-                        } catch (err) {
-                            console.warn('Error wrapping carousel item:', err, el);
-                        }
-                    } else if (attempts++ < maxAttempts) {
-                        requestAnimationFrame(tryWrap);
-                    } else {
-                        console.warn('Could not wrap carousel item: parentNode not found', el);
-                    }
-                };
-
-                // Commented out the automatic wrapping to avoid issues with carousel items reordering from layers panel.
-                // tryWrap();
-            },
             removeItem: function(){
                 let item = this.model,
                     carousel = item.parent(),
@@ -68,10 +36,6 @@ window.gjsCarousel = function (editor) {
 
                 if(remove){
                     item.remove();
-
-                    // delete the corresponding html wrapper if exists
-                    const wrapper = item.get('__wrapperReference');
-                    if(wrapper && wrapper.length) wrapper.remove();
                 } 
             }
         }
