@@ -200,7 +200,7 @@ window.gjsCarousel = function (editor) {
 
                 } else if (carousel_type === 'marquee') {
                     el.setAttribute('data-theme', 'none');
-                    const controls = el.querySelector('.carousel-controls');
+                    const controls = el.querySelector('.carousel__controls');
                     const nav = el.querySelector('.carousel__nav');
                     if (controls) controls.style.display = 'none';
                     if (nav) nav.style.display = 'none';

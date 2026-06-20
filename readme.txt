@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.12.23 26-06-20
+- Hide carousel controls on builder when the carousel type is set to marquee
+
 3.12.22 26-06-15
 - Fix: Avoid accordion button title html if the title is empty to prevent rendering empty tags
 - Tab button behavior implementation on Accordion component to allow users to choose between default behavior (only open the item) 
