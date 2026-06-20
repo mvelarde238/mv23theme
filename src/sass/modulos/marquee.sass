@@ -2,6 +2,13 @@
     width: 100%
     display: flex
     overflow: hidden
+    cursor: grab
+    touch-action: pan-y
+    user-select: none
+    -webkit-user-select: none
+    img
+        -webkit-user-drag: none
+        pointer-events: none
     --fade-width: 100px
     // fade effect using mask
     mask-image: linear-gradient(to right, transparent, black var(--fade-width), black calc(100% - var(--fade-width)), transparent)
