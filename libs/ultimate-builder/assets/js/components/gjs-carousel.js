@@ -46,7 +46,8 @@ window.gjsCarousel = function (editor) {
                     }
                 };
 
-                tryWrap();
+                // Commented out the automatic wrapping to avoid issues with carousel items reordering from layers panel.
+                // tryWrap();
             },
             removeItem: function(){
                 let item = this.model,
@@ -66,10 +67,11 @@ window.gjsCarousel = function (editor) {
                 if(children.length > 0) remove = confirm(removeConfirmMsg);
 
                 if(remove){
-                    // delete the corresponding html wrapper
-                    const wrapper = item.get('__wrapperReference');
-                    if(wrapper) wrapper.remove();
                     item.remove();
+
+                    // delete the corresponding html wrapper if exists
+                    const wrapper = item.get('__wrapperReference');
+                    if(wrapper && wrapper.length) wrapper.remove();
                 } 
             }
         }
