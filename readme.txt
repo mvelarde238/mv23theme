@@ -7,6 +7,7 @@ CHANGELOG
 - Commented out the automatic carousel items wrapping to avoid issues with carousel items reordering from layers panel
 - Deleted the automatic carousel item wrapper code
 - Refactor marquee.js to use a Constructor Pattern and implement drag events to allow users to manually drag the marquee content
+- Update gjs-image plugin: Fix context menu action for background color to work with partial updates and rerender the context menu
 
 3.12.22 26-06-15
 - Fix: Avoid accordion button title html if the title is empty to prevent rendering empty tags
