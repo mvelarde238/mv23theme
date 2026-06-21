@@ -125,15 +125,57 @@ window['Handlebars'] = (function(){
         return _isTruthy(fbValue) ? _formatValue(fbValue) : '';
     };
 
-    // Private: processes {{#if path}}...{{else}}...{{/if}} blocks iteratively to support nesting.
+    // Private: evaluates a condition expression (plain path or comparison) against context.
+    // Supports: >, >=, <, <=, ==, !=
+    // Right-hand side may be a quoted string literal, a numeric literal, or a dot-notation path.
+    const _evaluateCondition = (expr, ctx) => {
+        // Multi-char operators must come before single-char ones to avoid partial matches.
+        const operators = ['>=', '<=', '!=', '==', '>', '<'];
+        for (const op of operators) {
+            const pos = expr.indexOf(op);
+            if (pos === -1) continue;
+
+            const leftPath  = expr.slice(0, pos).trim();
+            const rightExpr = expr.slice(pos + op.length).trim();
+
+            let left  = _resolvePath(leftPath, ctx);
+            let right;
+
+            // Right side: quoted string literal, numeric literal, or another path.
+            const literalMatch = rightExpr.match(/^['"](.*)['"]\s*$/);
+            if (literalMatch) {
+                right = literalMatch[1];
+            } else if (!isNaN(rightExpr) && rightExpr !== '') {
+                right = Number(rightExpr);
+                left  = isNaN(Number(left)) ? left : Number(left);
+            } else {
+                right = _resolvePath(rightExpr, ctx);
+            }
+
+            switch (op) {
+                case '>':  return left > right;
+                case '>=': return left >= right;
+                case '<':  return left < right;
+                case '<=': return left <= right;
+                case '==': return left == right; // eslint-disable-line eqeqeq
+                case '!=': return left != right; // eslint-disable-line eqeqeq
+            }
+        }
+
+        // No operator found — fall back to simple truthy check.
+        return _isTruthy(_resolvePath(expr, ctx));
+    };
+
+    // Private: processes {{#if expr}}...{{else}}...{{/if}} blocks iteratively to support nesting.
+    // The expression may be a plain path (truthy check) or a comparison:
+    //   {{#if post.meta.precio >= 100}}Caro{{else}}Barato{{/if}}
     const _parseConditionals = (string, context) => {
         const ifPattern = /\{\{#if\s+([^}]+)\}\}([\s\S]*?)(?:\{\{else\}\}([\s\S]*?))?\{\{\/if\}\}/g;
         let maxPasses = 10, prev;
         do {
             prev = string;
-            string = string.replace(ifPattern, (match, path, ifBlock, elseBlock = '') => {
-                const value = _resolvePath(path.trim(), context);
-                return _isTruthy(value) ? ifBlock : elseBlock;
+            string = string.replace(ifPattern, (match, expr, ifBlock, elseBlock = '') => {
+                return _evaluateCondition(expr.trim(), context) ? ifBlock : elseBlock;
             });
         } while (string !== prev && --maxPasses > 0);
         return string;

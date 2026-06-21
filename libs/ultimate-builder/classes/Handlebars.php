@@ -14,8 +14,10 @@
  *
  * [x] 3. Condicionales simples  →  {{#if post.meta.precio}}Precio: {{post.meta.precio}}{{/if}}
  *         Soporta {{#if path}}...{{else}}...{{/if}} y anidamiento mediante iteración.
+ * 
+ * [x] 4. Condicionales con comparación  →  {{#if post.meta.precio >/==/<=/etc. 100}}Caro{{else}}Barato{{/if}}
  *
- * [ ] 4. Loops sobre post meta arrays  →  {{#each post.meta.galeria}}<img src="{{this.url}}">{{/each}}
+ * [ ] 5. Loops sobre post meta arrays  →  {{#each post.meta.galeria}}<img src="{{this.url}}">{{/each}}
  *         Útil con ACF/UF repeaters. Requiere parser más elaborado.
  */
 namespace Ultimate_Fields\Ultimate_Builder;
@@ -273,7 +275,56 @@ class Handlebars{
 	}
 
 	/**
-	 * Processes {{#if path}}...{{else}}...{{/if}} blocks iteratively to support nesting.
+	 * Evaluates a condition expression against the context.
+	 * Supports simple truthiness (path) and comparisons: >, >=, <, <=, ==, !=
+	 * Right-hand side may be a quoted string literal, a numeric literal, or a dot-notation path.
+	 *
+	 * Examples:
+	 *   post.meta.precio >= 100
+	 *   post.meta.status == 'activo'
+	 *   post.meta.stock != 0
+	 */
+	private static function evaluate_condition( $expr, $context ) {
+		// Multi-char operators must come before single-char ones to avoid partial matches.
+		$operators = array( '>=', '<=', '!=', '==', '>', '<' );
+		foreach ( $operators as $op ) {
+			$pos = strpos( $expr, $op );
+			if ( $pos === false ) {
+				continue;
+			}
+			$left_path  = trim( substr( $expr, 0, $pos ) );
+			$right_expr = trim( substr( $expr, $pos + strlen( $op ) ) );
+
+			$left = self::resolve_path_raw( $left_path, $context );
+
+			// Right side: quoted string literal, numeric literal, or another path.
+			if ( preg_match( "/^['\"](.*)['\"]\$/", $right_expr, $m ) ) {
+				$right = $m[1];
+			} elseif ( is_numeric( $right_expr ) ) {
+				$right = $right_expr + 0;
+				$left  = is_numeric( $left ) ? $left + 0 : $left;
+			} else {
+				$right = self::resolve_path_raw( $right_expr, $context );
+			}
+
+			switch ( $op ) {
+				case '>':  return $left > $right;
+				case '>=': return $left >= $right;
+				case '<':  return $left < $right;
+				case '<=': return $left <= $right;
+				case '==': return $left == $right; // phpcs:ignore WordPress.PHP.StrictComparisons
+				case '!=': return $left != $right; // phpcs:ignore WordPress.PHP.StrictComparisons
+			}
+		}
+
+		// No operator found — fall back to simple truthy check.
+		return self::is_truthy( self::resolve_path_raw( $expr, $context ) );
+	}
+
+	/**
+	 * Processes {{#if expr}}...{{else}}...{{/if}} blocks iteratively to support nesting.
+	 * The expression may be a plain path (truthy check) or a comparison:
+	 *   {{#if post.meta.precio >= 100}}Expensive{{else}}Cheap{{/if}}
 	 */
 	private static function parse_conditionals( $content, $context ) {
 		$pattern    = '/\{\{#if\s+([^}]+)\}\}(.*?)(?:\{\{else\}\}(.*?))?\{\{\/if\}\}/s';
@@ -284,11 +335,10 @@ class Handlebars{
 			$content = preg_replace_callback(
 				$pattern,
 				function( $matches ) use ( $context ) {
-					$path       = trim( $matches[1] );
+					$expr       = trim( $matches[1] );
 					$if_block   = $matches[2];
 					$else_block = isset( $matches[3] ) ? $matches[3] : '';
-					$value      = self::resolve_path_raw( $path, $context );
-					return self::is_truthy( $value ) ? $if_block : $else_block;
+					return self::evaluate_condition( $expr, $context ) ? $if_block : $else_block;
 				},
 				$content
 			);
