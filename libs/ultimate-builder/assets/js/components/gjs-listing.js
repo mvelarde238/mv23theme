@@ -143,6 +143,7 @@ window.gjsListing = function (editor) {
 
                 $rerender_listing_on_change = [
                     'source',
+                    'posts',
                     'posttype',
                     'tax_params',
                     'query_params',
