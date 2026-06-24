@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.13.1 26-06-24
+- Listing::hide_permalink() method implementation to allow hiding the permalink on postcard items
+
 3.13.0 26-06-23
 - Postcard CPT Implementation: new post type to allow users to create postcards with custom content and styles
 |-- support for dynamic data from the current post

@@ -290,6 +290,11 @@ class Listing extends Component {
         $postcard_template = $postcard_settings['template'] ?? '_default';
         $on_click_post = $postcard_settings['on_click_post'] ?? 'redirect';
         $on_click_scroll_to = $postcard_settings['on_click_scroll_to'] ?? '';
+
+        if( $on_click_post === 'none' ){
+            add_filter('post_link', array(__CLASS__, 'hide_permalink'), 30, 2);
+            add_filter('post_type_link', array(__CLASS__, 'hide_permalink'), 30, 2);
+        }
         
         // get postcard template content if it is a postcard template
         $postcard_cpt_template = null;
@@ -651,6 +656,11 @@ class Listing extends Component {
         }
         echo '</div>'; // close pagination
         wp_reset_postdata();
+
+        if( $on_click_post === 'none' ){
+            remove_filter('post_link', array(__CLASS__, 'hide_permalink'), 30, 2);
+            remove_filter('post_type_link', array(__CLASS__, 'hide_permalink'), 30, 2);
+        }
     
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
@@ -660,6 +670,10 @@ class Listing extends Component {
         if( $value === 'true' ) return true;
         if( $value === 'false' ) return false;
         return $value;
+    }
+
+    public static function hide_permalink( $permalink, $post ) {
+        return '#';
     }
 }
 
