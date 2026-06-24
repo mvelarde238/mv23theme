@@ -28,6 +28,7 @@ use Core\Posttype\Footer;
 use Core\Posttype\Header;
 use Core\Posttype\Single_Template;
 use Core\Posttype\Archive_Template;
+use Core\Posttype\Postcard;
 use Core\Builder\Core as Builder;
 use Core\Offcanvas_Elements\Core as Offcanvas_Elements;
 use Core\Offcanvas_Elements\Duplicate as OCE_Duplicate;
@@ -109,7 +110,8 @@ class Theme extends Theme_Header_Data {
 
         if( POSTS_SUBSCRIPTION['enabled'] ){
             $posts_subscription = Posts_Subscription::getInstance();
-            $this->loader->add_filter( 'filter_post_card_permalink', $posts_subscription, 'filter_post_card_permalink', 10, 2 );
+            $this->loader->add_filter( 'post_link', $posts_subscription, 'filter_post_card_permalink', 20, 2 );
+            $this->loader->add_filter( 'post_type_link', $posts_subscription, 'filter_post_card_permalink', 20, 2 );
         }
 
         // Initialize the Track_Posts_Data instance in the frontend:
@@ -292,6 +294,8 @@ class Theme extends Theme_Header_Data {
         // Post
         $post = Post::getInstance();
         $this->loader->add_action( 'uf.init', $post, 'add_meta_boxes' );
+        $this->loader->add_filter( 'post_link', $post, 'filter_the_permalink', 10, 2 );
+        $this->loader->add_filter( 'post_type_link', $post, 'filter_the_permalink', 10, 2 );
 
         // Menu_Item
         $menu_item = Menu_Item::getInstance();
@@ -323,6 +327,10 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'wp_loaded', $archive_template, 'add_meta_boxes' );
         // redirect single archive page to connected posttype / taxonomy / term
         $this->loader->add_action( 'template_redirect', $archive_template, 'redirect_single' );
+
+        // Postcard
+        $postcard = Postcard::getInstance();
+        $this->loader->add_action( 'uf.init', $postcard, 'add_meta_boxes');
 
         // filter archive content if needed
         $this->loader->add_action( 'wp_head', $archive_template, 'wp_head_archive' );

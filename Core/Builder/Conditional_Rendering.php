@@ -67,6 +67,7 @@ class Conditional_Rendering {
 			\Core\Builder\Visibility_Rule\Post_Condition::class,
 			\Core\Builder\Visibility_Rule\Date_Time::class,
 			\Core\Builder\Visibility_Rule\URL_Parameter::class,
+			\Core\Builder\Visibility_Rule\Context_Condition::class,
 		);
 	}
 

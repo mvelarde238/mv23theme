@@ -14,6 +14,55 @@
         expanderInner = '<div class="expander-inner">'+expanderResponse+closeBtn+'</div>',
         loading = '<div class="expander-loading"></div>';
 
+    // sync trigger links inside each .postcard 
+    $('.postcard').each(function(){
+        var $pc = $(this);
+        var $primary = $pc.find('a.trigger-post-action').first();
+        if ( $primary.length ) {
+            var href = $primary.attr('href');
+            if ( href ) {
+                $pc.find('a').filter(function(){
+                    return this.getAttribute('href') === href;
+                }).addClass('trigger-post-action');
+            }
+        }
+    });
+
+    /**
+     * For grid-based post listings, finds the last postcard in the same row
+     * as the clicked postcard so the expander can be inserted right after it.
+     * The expander then uses grid-column: 1 / -1 in CSS to span the full row.
+     */
+    function getGridRowInsertTarget($postsListing, $postcard) {
+        // Detect the current device key (d/l/t/m) based on viewport width,
+        // using the same breakpoints defined in the CSS variables
+        const viewport = updateViewportDimensions();
+        const breakpoints = { m: 480, t: 768, l: 992 };
+        let device = 'd';
+        for (const key in breakpoints) {
+            if (viewport.width < breakpoints[key]) {
+                device = key;
+                break;
+            }
+        }
+
+        // Read the column count for the active device from the CSS custom property
+        // e.g. --d-columns:3, --l-columns:3, --t-columns:2, --m-columns:1
+        const columns = parseInt( getComputedStyle($postsListing[0]).getPropertyValue(`--${device}-columns`).trim() ) || 1;
+
+        // Determine the index of the clicked postcard within the listing
+        const $allPostcards = $postsListing.find('.postcard');
+        const postcardIndex = $allPostcards.index($postcard);
+
+        // Calculate the index of the last postcard in the same row,
+        // clamped to the total number of postcards to handle incomplete rows
+        const lastInRowIndex = Math.min( Math.floor(postcardIndex / columns) * columns + columns - 1, $allPostcards.length - 1 );
+
+        // Return the postcard element after which the expander will be inserted
+        return $allPostcards.eq(lastInRowIndex);
+    }
+
+    // post action
     $(document).on('click', '.trigger-post-action', function(event){
         var $postcard = $(this).parents('.postcard'),
             $listingComponent = $postcard.parents('.listing.component'),
@@ -67,12 +116,15 @@
                 
             // where to add the expander
             let $expanderTarget = null;
+            let $expanderInsertAfter = null;
             if ( $postsListing.hasClass('posts-listing--carousel') ){
                 $expanderTarget = $postsListing;
             } else if ( $postsListing.hasClass('posts-listing--masonry') ){
                 $expanderTarget = $listingComponent;
             } else {
-                $expanderTarget = $postcard;
+                // Grid layout: insert expander after the last postcard in the clicked row
+                $expanderTarget = $postsListing;
+                $expanderInsertAfter = getGridRowInsertTarget($postsListing, $postcard);
             }
 
             // reset all
@@ -84,10 +136,13 @@
             $.ajax({
                 url: url,
                 beforeSend: function beforeSend() {
-                    // open expander
+                    // insert expander
                     $postcard.addClass('active');
-                    $expanderTarget.css('paddingBottom', expanderHeight);
-                    $expanderTarget.append('<div class="expander">'+expanderInner+'</div>');
+                    if ( $expanderInsertAfter ) {
+                        $('<div class="expander">'+expanderInner+'</div>').insertAfter($expanderInsertAfter);
+                    } else {
+                        $expanderTarget.append('<div class="expander">'+expanderInner+'</div>');
+                    }
                     $expanderTarget.find('.expander-response').css('height', expanderResponseHeight);
                     $expanderTarget.find('.expander').append(loading);
                     if( scrollTo == 'postcard' || scrollTo == 'expander' ){
@@ -130,7 +185,6 @@
         } else {
             $expanderTarget = $postsListingItems;
         }
-        $expanderTarget.attr('style', '');
     });
             
 })(jQuery,console.log);

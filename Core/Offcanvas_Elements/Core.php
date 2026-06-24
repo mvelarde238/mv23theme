@@ -126,6 +126,7 @@ class Core{
             $content = $oce_modal_content_comp;
             $close_button = $oce_modal_close_comp;
             $styles  = Page::compile_styles_to_css( $page_content['styles'] ?? [] );
+            $styles .= Page::compile_components_custom_css( $page_content );
             $settings = $oce_element_comp['settings'] ?? array();
             if ( !is_array( $settings ) ) $settings = array();
 

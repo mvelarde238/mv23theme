@@ -6,6 +6,8 @@ use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use WP_Query;
 use Core\Frontend\Pagination;
+use Core\Posttype\Postcard;
+use Core\Builder\Component\Postcard as Postcard_Component;
 
 class Listing extends Component {
 
@@ -187,8 +189,14 @@ class Listing extends Component {
                     'gallery' => 'Fade Mode',
                 )),
                 Field::create( 'text', 'carousel_id' )->set_prefix(__('Carousel ID','mv23theme'))->hide_label(),
-            ))->add_dependency('listing_template','carousel','='),
-            
+            ))->add_dependency('listing_template','carousel','=')
+        );
+
+        // postcard fields
+        $postcards = Postcard::getInstance()->get_postcards();
+        $listing_post_template = array_merge( $listing_post_template, $postcards );
+
+        $postcard_fields = array(
             Field::create( 'tab', 'postcard_settings_tab', __('Post Card Settings','mv23theme')),
             Field::create( 'complex', 'postcard_settings' )
 			    ->hide_label()
@@ -209,7 +217,10 @@ class Listing extends Component {
                 	    'expander' => __('To the expander','mv23theme')
                 	))->add_dependency( 'on_click_post', 'show-expander', '=' )
 			    )),
-            
+        );
+
+        // pagination fields
+        $pagination_fields = array(
             Field::create( 'tab', 'pagination_tab', __('Pagination','mv23theme')),
             Field::create( 'select', 'pagination_type', __('Pagination type','mv23theme') )->add_options(LISTING_PAGINATION_TYPES),
             Field::create( 'checkbox', 'pagination_scrolltop', '' )->set_text(__('Scroll to top','mv23theme'))->add_dependency('pagination_type','numeric','='),
@@ -256,7 +267,7 @@ class Listing extends Component {
             Field::create( 'complex', 'filters' )->hide_label()->add_fields( $filter_fields )
         );
 
-		$fields = array_merge( $listing_fields_1, $listing_fields_2, $listing_fields_3, $listing_fields_filter );
+		$fields = array_merge( $listing_fields_1, $listing_fields_2, $listing_fields_3, $postcard_fields, $pagination_fields, $listing_fields_filter );
 
 		return $fields;
 	}
@@ -279,6 +290,12 @@ class Listing extends Component {
         $postcard_template = $postcard_settings['template'] ?? '_default';
         $on_click_post = $postcard_settings['on_click_post'] ?? 'redirect';
         $on_click_scroll_to = $postcard_settings['on_click_scroll_to'] ?? '';
+        
+        // get postcard template content if it is a postcard template
+        $postcard_cpt_template = null;
+        if( strpos($postcard_template, 'postcard_') === 0 ){
+            $postcard_cpt_template = Postcard::getInstance()->get_data( str_replace('postcard_','',$postcard_template) );
+        }
 
         // pagination
         $pagination_type = $args['pagination_type'] ?? 'none';
@@ -495,6 +512,10 @@ class Listing extends Component {
             if($listing_template) $post_listing_class .= ' posts-listing--'.$listing_template ;
             if($listing_template != 'carousel' && $listing_template != 'masonry') $post_listing_class .= ' has-columns';
             if($listing_template == 'masonry') $post_listing_class .= ' has-masonry-columns';
+
+            if( $postcard_cpt_template && $postcard_cpt_template['has_content']){
+                echo '<style>'.$postcard_cpt_template['styles'].'</style>';
+            }
             ?>
             <div class="<?=$post_listing_class?>" style="<?=$css_vars?>">
                 <?php if($listing_template == 'carousel'): 
@@ -543,9 +564,17 @@ class Listing extends Component {
                     if($listing_template == 'carousel') echo '<div>';
                     if($listing_template == 'masonry') echo '<div class="masonry-grid-item">';
 
-                    $_postcard_template = apply_filters('filter_listing_postcard_template', $postcard_template, $count);
-
-                    get_template_part( 'partials/card/postcard', $_postcard_template, $args);
+                    if( $postcard_cpt_template && $postcard_cpt_template['has_content']){
+                        $postcard_cpt_template['component']['postcard_settings'] = array(
+                            'on_click_post' => $on_click_post,
+                            'on_click_scroll_to' => $on_click_scroll_to
+                        );
+                        echo Postcard_Component::display( $postcard_cpt_template['component'] );
+                        // echo Template_Engine::check_components( array('components' => array( $postcard_cpt_template['component'] ) ) );
+                    } else {
+                        $_postcard_template = apply_filters('filter_listing_postcard_template', $postcard_template, $count);
+                        get_template_part( 'partials/card/postcard', $_postcard_template, $args);
+                    }
 
                     if($listing_template == 'carousel' || $listing_template == 'masonry') echo '</div>';
                     $count++;

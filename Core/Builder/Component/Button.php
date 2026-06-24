@@ -56,7 +56,10 @@ class Button extends Component {
                     'externa' => __('Other', 'mv23theme'),
                 ))->add_dependency('button_type','link','='),
             Field::create( 'wp_object', 'post', '' )->set_button_text( __('Select Page', 'mv23theme') )->add_dependency('button_type','link','=')->add_dependency('url_type','interna','='),
-            Field::create( 'text', 'url', '' )->add_dependency('button_type','link','=')->add_dependency('url_type','externa','='),
+            Field::create( 'text', 'url', '' )
+                ->add_dependency('button_type','link','=')
+                ->add_dependency('url_type','externa','=')
+                ->add_dynamic_data_selector(),
     
             Field::create( 'checkbox', 'new_tab', __('Open in a new window', 'mv23theme') )->set_text( __('Enable', 'mv23theme') ),
 
@@ -120,7 +123,7 @@ class Button extends Component {
             $url_type = $args['url_type'];
             switch ($url_type) {
                 case 'externa':
-                    $href = $args['url'];
+                    $href = Handlebars::parse($args['url']);
                     break;
                 
                 case 'interna':

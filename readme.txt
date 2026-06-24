@@ -2,6 +2,17 @@
 CHANGELOG
 **************************************************************************************************
 
+3.13.0 26-06-23
+- Postcard CPT Implementation: new post type to allow users to create postcards with custom content and styles
+|-- support for dynamic data from the current post
+|-- filter_post_card_permalink filter removed from Post_Card::get_permalink(), 
+|   use post_link and post_type_link filters instead to modify the permalink when needed
+|-- custom components:
+|---- Postcard_Trigger: new required component to trigger the action configured on the parent listing
+|---- Featured_Media: new optional component to display featured image or video on the postcard
+- Context_Condition visibility rule implementation to allow users to show/hide components based on the current context of the post, 
+  such as the current post type, post meta, or other contextual information handled by the Handlebars context
+  
 3.12.23 26-06-20
 - Hide carousel controls on builder when the carousel type is set to marquee
 - Commented out the automatic carousel items wrapping to avoid issues with carousel items reordering from layers panel

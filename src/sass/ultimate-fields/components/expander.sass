@@ -6,15 +6,12 @@
             max-width: 100%
             width: 100%
 
-.posts-listing--masonry
-    .expander
-        position: static !important
+.carousel
+    & + .expander
+        margin-top: 30px
     
 .expander
-    width: 100%
-    position: absolute
-    left: 0
-    top: auto
+    grid-column: 1 / -1 // force expander to take full width of the row
     background-color: var(--blog-color)
     z-index: 120
 

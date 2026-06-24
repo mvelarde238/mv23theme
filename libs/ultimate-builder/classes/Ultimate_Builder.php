@@ -109,12 +109,16 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsMainContent', 'handler' => 'gjs-main-content', 'isComponent' => true ],
 		[ 'name' => 'gjsTestimonial', 'handler' => 'gjs-testimonial', 'isComponent' => true ],
 		[ 'name' => 'gjsIconList', 'handler' => 'gjs-icon-list', 'isComponent' => true ],
+		[ 'name' => 'gjsPostcard', 'handler' => 'gjs-postcard', 'isComponent' => true ],
+		[ 'name' => 'gjsPostcardTrigger', 'handler' => 'gjs-postcard-trigger', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true, 'hasCss' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],
 		[ 'name' => 'gjsTogglebox', 'handler' => 'gjs-togglebox', 'isExternal' => true ],
 		[ 'name' => 'gjsImages', 'handler' => 'gjs-images', 'isExternal' => true ],
 		[ 'name' => 'gjsVideo', 'handler' => 'gjs-video', 'isExternal' => true ],
+		// featured media component extends gjsImage component, so it must load after gjsImages
+		[ 'name' => 'gjsFeaturedMedia', 'handler' => 'gjs-featured-media', 'isComponent' => true ],
 	);
 
 	/**

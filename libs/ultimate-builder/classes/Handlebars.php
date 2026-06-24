@@ -22,6 +22,8 @@
  */
 namespace Ultimate_Fields\Ultimate_Builder;
 
+use Core\Utils\Helpers;
+
 class Handlebars{
 
 	public static function get_context( $post_id = null ){
@@ -29,13 +31,17 @@ class Handlebars{
 			$post_id = get_the_ID();
 		}
 
-		// If the current post is a single_template, resolve the connected post type
+		// If the current post is a single_template or postcard, resolve the connected post type,
 		// and use a real post of that type as context source for meta fields.
 		$context_post_id = $post_id;
-		if ( get_post_type( $post_id ) === 'single_template' ) {
+		$resolve_post_types = array( 'single_template', 'postcard' );
+		$post_type = get_post_type( $post_id );
+		if ( in_array( $post_type, $resolve_post_types ) ) {
 			$connected_posttype = get_post_meta( $post_id, 'connected_posttype', true );
+
 			if ( $connected_posttype ) {
-				// On the frontend, use the queried object (the real post being viewed).
+				// On the frontend, use the queried object (the real post being viewed).?
+				// On Loops, use the queried object (the real post being iterated).?
 				// In admin/builder, grab the most recent post of the connected type as sample.
 				$queried = get_queried_object_id();
 				if ( $queried && get_post_type( $queried ) === $connected_posttype ) {
@@ -45,8 +51,7 @@ class Handlebars{
 						'post_type'      => $connected_posttype,
 						'posts_per_page' => 1,
 						'post_status'    => 'publish',
-						'orderby'        => 'date',
-						'order'          => 'DESC',
+						'orderby'        => 'rand',
 						'fields'         => 'ids',
 					) );
 					if ( ! empty( $sample ) ) {
@@ -56,13 +61,22 @@ class Handlebars{
 			}
 		}
 
+		$post_type = get_post_type( $context_post_id );
 		$no_thumbnail = get_stylesheet_directory_uri() . '/assets/images/nothumb.jpg';
+
+		$post_excerpt = get_post_field( 'post_excerpt', $context_post_id );
+		if ( empty( $post_excerpt ) ) {
+			$post_content = get_post_field( 'post_content', $context_post_id );
+			$post_excerpt = wp_trim_words( wp_strip_all_tags( $post_content ), 55, '...' );
+		}
 
 		$context = array(
 			'post' => array(
 				'id'        => $context_post_id,
 				'title'      => get_the_title( $context_post_id ),
-				'excerpt'    => get_post_field('post_excerpt', $context_post_id),
+				'excerpt'    => $post_excerpt,
+				'permalink'  => get_permalink( $context_post_id ),
+				'posttype'   => $post_type,
 				'thumbnail'  => get_the_post_thumbnail_url( $context_post_id, 'full' ) ?: $no_thumbnail,
 				'date'       => get_the_date( '', $context_post_id ),
 				'meta'       => array(),
@@ -91,14 +105,18 @@ class Handlebars{
 			}
 		}
 
-		// Add taxonomies under post.taxonomies.{taxonomy_name} as array of term names
+		// Add taxonomies under post.taxonomies.{taxonomy_name} as array of term names (always an array)
 		$taxonomies = get_object_taxonomies( get_post_type( $context_post_id ) );
 		foreach ( $taxonomies as $taxonomy ) {
-			$terms = get_the_terms( $context_post_id, $taxonomy );
-			if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
-				$context['post']['taxonomies'][ $taxonomy ] = wp_list_pluck( $terms, 'name' );
-			}
+			$context['post']['taxonomies'][ $taxonomy ] = Helpers::get_terms_names( $context_post_id, $taxonomy );
 		}
+
+		// Add main and secondary taxonomy terms under post.main/secondary_terms as array of term names (empty if no terms available)
+		$main_taxonomy = Helpers::get_main_taxonomy( $post_type );
+		$context['post']['main_terms'] = Helpers::get_terms_names( $context_post_id, $main_taxonomy );
+
+		$secondary_taxonomy = Helpers::get_secondary_taxonomy( $post_type );
+		$context['post']['secondary_terms'] = Helpers::get_terms_names( $context_post_id, $secondary_taxonomy );
 
 		/**
 		 * Allows child themes or plugins to register additional context data.
@@ -319,6 +337,24 @@ class Handlebars{
 
 		// No operator found — fall back to simple truthy check.
 		return self::is_truthy( self::resolve_path_raw( $expr, $context ) );
+	}
+
+	/**
+	 * Public wrapper — evaluates a condition expression against the Handlebars context.
+	 *
+	 * Designed for external callers such as visibility rules that need to test an
+	 * expression string (e.g. "post.posttype == 'post'", "post.meta.price > 100",
+	 * "post.meta.my_field") without having access to the private evaluate_condition().
+	 *
+	 * @param  string     $expr    The condition expression to evaluate.
+	 * @param  array|null $context Optional pre-built context; defaults to get_context().
+	 * @return bool
+	 */
+	public static function evaluate_expression( $expr, $context = null ) {
+		if ( $context === null ) {
+			$context = self::get_context();
+		}
+		return self::evaluate_condition( $expr, $context );
 	}
 
 	/**

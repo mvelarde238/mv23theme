@@ -1,6 +1,8 @@
 <?php
 namespace Core\Builder\Template_Engine;
 
+use Ultimate_Fields\Ultimate_Builder\Handlebars;
+
 Class Actions{
     /**
      * Return html output
@@ -29,7 +31,7 @@ Class Actions{
             	$link = $action['link'];
             	switch ($link['url_type']) {
             	    case 'external':
-            	        $href = $link['url'];
+            	        $href = Handlebars::parse($link['url']);
             	        break;
                     
             	    case 'internal':

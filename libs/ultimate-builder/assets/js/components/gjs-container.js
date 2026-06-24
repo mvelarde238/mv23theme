@@ -66,6 +66,7 @@ window.gjsContainer = function (editor) {
 
             ensureQuickAddAtEnd() {
                 if( BUILDER_GLOBALS.is_singular ) return; // Disable quick-add in single post/page builder
+                if( BUILDER_GLOBALS.posttype === 'postcard' ) return; // Disable quick-add in postcard builder
 
                 // Remove existing quick-add element from DOM
                 const existingQuickAdd = this.el.querySelector('.container-quick-add');

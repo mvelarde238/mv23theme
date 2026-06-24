@@ -3,6 +3,7 @@ namespace Core\Posttype;
 
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
+use Core\Builder\Template_Engine\Video;
 
 class Post {
 
@@ -81,5 +82,65 @@ class Post {
                 Field::create( 'embed', 'featured_video_url', 'URL')->add_dependency('featured_video_source','external','=')->add_dependency( 'use_featured_video' ),
                 Field::create( 'video', 'featured_video' )->add_dependency('featured_video_source','selfhosted','=')->add_dependency( 'use_featured_video' ),
             ));
+    }
+
+    public function filter_the_permalink($permalink, $post){
+        if( get_post_meta( $post->ID, 'post_format', true ) == 'link' ){
+            $post_link_type = get_post_meta( $post->ID, 'post_link_type', true ) ?: 'external';
+            switch ( $post_link_type ) {
+                case 'internal':
+                    $post_link_post = get_post_meta( $post->ID, 'post_link_post', true );
+                    if ( $post_link_post ) {
+                        $permalink = get_permalink( str_replace( 'post_', '', $post_link_post ) );
+                    }
+                    break;
+                case 'file':
+                    $post_link_file = get_post_meta( $post->ID, 'post_link_file', true );
+                    if ( $post_link_file ) {
+                        $permalink = wp_get_attachment_url( $post_link_file );
+                    }
+                    break;
+                case 'external':
+                default:
+                    $post_link_url = get_post_meta( $post->ID, 'post_link', true );
+                    if ( !empty( $post_link_url ) ) $permalink = $post_link_url;
+                    break;
+            }
+        }
+
+        return $permalink;
+    }
+
+    public function get_featured_video($post) {
+        $featured_video = null;
+        $use_featured_video = get_post_meta($post->ID, 'use_featured_video', true);
+        if ($use_featured_video) {
+            $featured_video_source = get_post_meta($post->ID, 'featured_video_source', true);
+            $video_meta_data = ($featured_video_source == 'selfhosted') ? 'featured_video' : 'featured_video_url';
+            $video_data = get_post_meta($post->ID, $video_meta_data, true);
+
+            $video_settings = array(
+                'video_source' => $featured_video_source,
+                'classes' => 'video-background',
+                'controls' => false,
+                'muted' => true,
+                'autoplay' => true,
+                'loop' => true,
+                'bgc' => '#000'
+            );
+
+            if ($featured_video_source == 'selfhosted') {
+                $video_settings['video'] = $video_data;
+            }
+            if ($featured_video_source == 'external') {
+                $video_settings['external_url'] = $video_data;
+            }
+
+            $video_data = Video::get_video_data($video_settings);
+            if( !empty($video_data['code']) ) {
+                $featured_video = $video_data['code'];
+            }
+        }
+        return $featured_video;
     }
 }

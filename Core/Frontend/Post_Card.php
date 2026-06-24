@@ -1,8 +1,9 @@
 <?php
 namespace Core\Frontend;
 
-use Core\Builder\Template_Engine\Video;
 use Core\Theme_Options\UF_Container\Posts_Subscription;
+use Core\Posttype\Post;
+use Core\Utils\Helpers;
 
 class Post_Card {
     public function __construct() {}
@@ -16,33 +17,7 @@ class Post_Card {
     }
 
     public static function get_permalink($post) {
-        $permalink = get_permalink($post->ID);
-
-        $post_format = get_post_meta( $post->ID, 'post_format', true );
-        if( $post_format == 'link' ){
-            $post_link_type = get_post_meta( $post->ID, 'post_link_type', true ) ?: 'external';
-            switch ( $post_link_type ) {
-                case 'internal':
-                    $post_link_post = get_post_meta( $post->ID, 'post_link_post', true );
-                    if ( $post_link_post ) {
-                        $permalink = get_permalink( str_replace( 'post_', '', $post_link_post ) );
-                    }
-                    break;
-                case 'file':
-                    $post_link_file = get_post_meta( $post->ID, 'post_link_file', true );
-                    if ( $post_link_file ) {
-                        $permalink = wp_get_attachment_url( $post_link_file );
-                    }
-                    break;
-                case 'external':
-                default:
-                    $post_link_url = get_post_meta( $post->ID, 'post_link', true );
-                    if ( !empty( $post_link_url ) ) $permalink = $post_link_url;
-                    break;
-            }
-        }
-
-        return apply_filters('filter_post_card_permalink', $permalink, $post);
+        return get_permalink($post->ID);
     }
 
     public static function get_excerpt($post, $length = null) {
@@ -88,78 +63,19 @@ class Post_Card {
     public static function get_main_taxonomy_terms($post) {
         $terms = array();
         $posttype = $post->post_type;
-
-        $main_taxonomy_list = apply_filters('filter_main_taxonomy_list', array(
-            'post' => 'category',
-            'product' => 'product_cat'
-        ));
-
-        if( isset($main_taxonomy_list[$posttype]) ){
-            $terms = get_the_terms($post->ID, $main_taxonomy_list[$posttype]);
-        } else {
-            if( taxonomy_exists($posttype.'-cat') ){
-                $terms = get_the_terms($post->ID, $posttype.'-cat');
-            }
-            if( taxonomy_exists($posttype.'_cat') ){
-                $terms = get_the_terms($post->ID, $posttype.'_cat');
-            }
-        }
-
+        $terms = get_the_terms($post->ID, Helpers::get_main_taxonomy($posttype));
         return $terms;
     }
 
     public static function get_secondary_taxonomy_terms($post) {
         $terms = array();
         $posttype = $post->post_type;
-
-        $secondary_taxonomy_list = apply_filters('filter_secondary_taxonomy_list', array(
-            'post' => 'post_tag',
-            'product' => 'product_tag'
-        ));
-
-        if( isset($secondary_taxonomy_list[$posttype]) ){
-            $terms = get_the_terms($post->ID, $secondary_taxonomy_list[$posttype]);
-        } else {
-            if( taxonomy_exists($posttype.'-tag') ){
-                $terms = get_the_terms($post->ID, $posttype.'-tag');
-            }
-            if( taxonomy_exists($posttype.'_tag') ){
-                $terms = get_the_terms($post->ID, $posttype.'_tag');
-            }
-        }
+        $terms = get_the_terms($post->ID, Helpers::get_secondary_taxonomy($posttype));
         return $terms;
     }
 
     public static function get_featured_video($post) {
-        $featured_video = null;
-        $use_featured_video = get_post_meta($post->ID, 'use_featured_video', true);
-        if ($use_featured_video) {
-            $featured_video_source = get_post_meta($post->ID, 'featured_video_source', true);
-            $video_meta_data = ($featured_video_source == 'selfhosted') ? 'featured_video' : 'featured_video_url';
-            $video_data = get_post_meta($post->ID, $video_meta_data, true);
-
-            $video_settings = array(
-                'video_source' => $featured_video_source,
-                'classes' => 'video-background',
-                'controls' => false,
-                'muted' => true,
-                'autoplay' => true,
-                'loop' => true,
-                'bgc' => '#000'
-            );
-
-            if ($featured_video_source == 'selfhosted') {
-                $video_settings['video'] = $video_data;
-            }
-            if ($featured_video_source == 'external') {
-                $video_settings['external_url'] = $video_data;
-            }
-
-            $video_data = Video::get_video_data($video_settings);
-            if( !empty($video_data['code']) ) {
-                $featured_video = $video_data['code'];
-            }
-        }
+        $featured_video = Post::getInstance()->get_featured_video($post);
         return $featured_video;
     }
 

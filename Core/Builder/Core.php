@@ -95,6 +95,11 @@ class Core{
             'Footer',
             'Footer_Preview',
         ),
+        'postcard' => array(
+            'Postcard',
+            'Featured_Media',
+            'Postcard_Trigger',
+        ),
     );
 
     public static function getInstance() {
@@ -128,8 +133,9 @@ class Core{
     public function add_ultimate_builder_link( $actions, $post ) {
 		$post_type = get_post_type( $post );
         $builder_posttypes = ( is_array(get_option('builder_posttypes')) ) ? get_option('builder_posttypes') : array();
+        $builtin_posttypes = array( 'offcanvas_element', 'postcard' );
 
-		if ( in_array( $post_type, $builder_posttypes ) || $post_type === 'offcanvas_element' ) {
+		if ( in_array( $post_type, $builder_posttypes ) || in_array( $post_type, $builtin_posttypes ) ) {
 			$builder_url = add_query_arg( array(
 				'action' => 'ultimate-builder',
 				'meta'   => 'page_content',

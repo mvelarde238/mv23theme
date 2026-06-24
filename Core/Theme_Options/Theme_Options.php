@@ -60,6 +60,7 @@ class Theme_Options extends Theme_Header_Data{
             'edit.php?post_type=archive_template',
             'edit.php?post_type=single_template',
             'edit.php?post_type=offcanvas_element',
+            'edit.php?post_type=postcard', 
             'edit.php?post_type=megamenu', 
             'edit.php?post_type=reusable_section',
             'custom-scripts-options', 
