@@ -31,7 +31,7 @@ use Core\Posttype\Archive_Template;
 use Core\Posttype\Postcard;
 use Core\Builder\Core as Builder;
 use Core\Offcanvas_Elements\Core as Offcanvas_Elements;
-use Core\Offcanvas_Elements\Duplicate as OCE_Duplicate;
+use Core\Builder\Duplicate as Builder_Duplicate;
 use Core\Migrator\Core as Migrator;
 use Core\Theme_Options\UF_Container\Posts_Subscription;
 use Core\Theme_Options\UF_Container\Track_Posts_Data;
@@ -270,9 +270,9 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'wp_enqueue_scripts', $offcanvas_elements, 'enqueue_scripts', 1000);
         $this->loader->add_action( 'wp_footer', $offcanvas_elements, 'print_elements' );
 
-        // Regenerate all builder IDs when an offcanvas_element post is duplicated
-        $oce_duplicate = new OCE_Duplicate();
-        $this->loader->add_action( 'mv_after_duplicate_post', $oce_duplicate, 'on_duplicate', 10, 4 );
+        // Regenerate all builder IDs when a builder-powered post is duplicated
+        $builder_duplicate = new Builder_Duplicate( [ 'offcanvas_element', 'postcard' ] );
+        $this->loader->add_action( 'mv_after_duplicate_post', $builder_duplicate, 'on_duplicate', 10, 4 );
 
         // Templates Library
         $templates_library = Templates_Library::getInstance();

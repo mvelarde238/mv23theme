@@ -1,13 +1,17 @@
 <?php
-namespace Core\Offcanvas_Elements;
+namespace Core\Builder;
 
 /**
- * Offcanvas Element – post duplication handling.
+ * Builder post duplication handler.
  *
  * Hooks into mv_after_duplicate_post (fired by Core\Admin\Duplicate_Page)
  * and regenerates all builder IDs stored in page_content and
- * page_content_datastore of the duplicated offcanvas_element post, so that
- * when several OCE posts are rendered on the same page their IDs never collide.
+ * page_content_datastore of the duplicated post, so that when several posts
+ * are rendered on the same page their IDs never collide.
+ *
+ * Pass the post types that should be handled to the constructor:
+ *
+ *   new Duplicate( ['offcanvas_element', 'postcard'] )
  *
  * IDs replaced:
  *  - cmp_* component IDs  — datastore keys, __id values, attributes.id values
@@ -16,6 +20,16 @@ namespace Core\Offcanvas_Elements;
  *  - Frame / page random IDs (16-char strings in the GJS structure)
  */
 class Duplicate {
+
+    /** @var string[] Post type slugs that should have their IDs regenerated. */
+    private array $post_types;
+
+    /**
+     * @param string[] $post_types Post type slugs to handle.
+     */
+    public function __construct( array $post_types ) {
+        $this->post_types = $post_types;
+    }
 
     // -------------------------------------------------------------------------
     // Public hook callback
@@ -30,7 +44,7 @@ class Duplicate {
      * @param \WP_Post $original     The original post object.
      */
     public function on_duplicate( int $new_post_id, int $original_id, string $post_type, \WP_Post $original ): void {
-        if ( $post_type !== 'offcanvas_element' ) {
+        if ( ! in_array( $post_type, $this->post_types, true ) ) {
             return;
         }
 
