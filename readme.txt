@@ -6,6 +6,7 @@ CHANGELOG
 - Listing::hide_permalink() method implementation to allow hiding the permalink on postcard items
 - Core\Offcanvas_Elements\Duplicate moved to Core\Builder\Duplicate; now accepts an array of post types 
   so postcard duplication also regenerates builder IDs
+- Fix gjs-listing to extract and paste postcard <style> if it exists when rendering a listing component
 
 3.13.0 26-06-23
 - Postcard CPT Implementation: new post type to allow users to create postcards with custom content and styles

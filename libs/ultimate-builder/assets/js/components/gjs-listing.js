@@ -20,6 +20,7 @@ window.gjsListing = function (editor) {
                 {
                     type: 'carousel',
                     components: []
+
                 },
                 { type: 'carousel-controls' },
                 { type: 'carousel-nav' },
@@ -102,6 +103,10 @@ window.gjsListing = function (editor) {
                             carouselItem[0].getView().el.innerHTML = postcard.outerHTML;
                         });
                         editor.UndoManager.start();
+
+                        // extract and paste postcard <style> if it exists
+                        const postcardStyle = temp.querySelector('style');
+                        if (postcardStyle) el.appendChild(postcardStyle);
                         
                     } else {
                         // Remove class attribute from component to fix: settings dosnt apply on change datastore
