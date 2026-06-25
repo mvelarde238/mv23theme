@@ -54,7 +54,8 @@ class Core{
 				'show_in_nav_menus' => false,
                 'exclude_from_search' => true,
 				'show_ui' => true,
-				'supports' => array('title')
+				'supports' => array('title'),
+                'public' => false,
 			)
 		);
 	}

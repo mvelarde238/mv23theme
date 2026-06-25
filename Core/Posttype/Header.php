@@ -4,6 +4,7 @@ namespace Core\Posttype;
 use Core\Utils\CPT;
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
+use Core\Builder\Core as Builder_Core;
 
 class Header {
 
@@ -13,7 +14,6 @@ class Header {
         if (self::$instance == null) {
             self::$instance = new Header();
 
-            add_filter( 'pll_get_post_types', array( self::$instance, 'add_header_cpt_to_pll'), 10, 2);
             add_action( 'admin_action_save_as_theme_header_post', array( self::$instance, 'save_as_theme_header'));
             add_filter( 'post_row_actions', array( self::$instance, 'add_action_in_admin_list'), 10, 2 );
         }
@@ -33,7 +33,10 @@ class Header {
                 'show_in_menu' => 'theme-options-menu',
                 'show_in_nav_menus' => false,
                 'exclude_from_search' => true,
-                'supports' => array('title')
+                'supports' => array('title','revisions'),
+                'public' => false,
+                'show_ui' => true,
+                'show_in_admin_bar' => false,
             )
         );
 
@@ -61,20 +64,15 @@ class Header {
                     ->add( 'posts', 'post_type=header' )
                     ->hide_label()
             ));
-    }
 
-    /*
-     * Add CPT to Polylang
-     */
-    public function add_header_cpt_to_pll($post_types, $hide) {
-        if ($hide){
-            // hides 'header' from the list of custom post types in Polylang settings
-            unset($post_types['header']);
-        } else {
-            // enables language and translation management for 'header'
-            $post_types['header'] = 'header';
-        }
-        return $post_types;
+        Container::create( 'header_settings' )
+            ->add_location( 'post_type', 'header' )
+            ->set_description_position('label')
+		    ->set_title('Header Settings')
+		    ->add_fields(array(
+                Field::create( 'ultimate_builder', 'page_content', __('Content','mv23theme') )
+                    ->add_groups( Builder_Core::getInstance()->get_groups_for_builder() )
+            ));
     }
 
     public function handle_is_theme_header_admin_column($column_name, $post) {

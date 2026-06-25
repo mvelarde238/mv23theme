@@ -8,6 +8,7 @@ use Ultimate_Fields\Location\Post_Type;
 use WP_Query;
 use Core\Frontend\Page;
 use Core\Builder\Component\Main_Content;
+use Core\Builder\Core as Builder_Core;
 
 class Archive_Template {
 	
@@ -35,7 +36,10 @@ class Archive_Template {
 				'query_var'           => true,
 				'can_export'          => true,
 				'rewrite'             => false,
-				'menu_icon'           => 'dashicons-editor-table'
+				'menu_icon'           => 'dashicons-editor-table',
+				'public'              => false,
+                'show_ui'             => true,
+                'show_in_admin_bar'   => false,
             )
         );
 
@@ -153,10 +157,19 @@ class Archive_Template {
 		$archive_template_location->context = 'side';
 		$archive_template_fields = self::get_fields();
 
-		Container::create( 'archive_template_settings' )
+		Container::create( 'archive_template_settings_1' )
 		    ->set_title('Archive Template Settings')
 		    ->add_location( $archive_template_location )
 		    ->add_fields($archive_template_fields);
+
+		Container::create( 'archive_template_settings_2' )
+            ->add_location( 'post_type', 'archive_template' )
+            ->set_description_position('label')
+		    ->set_title('Archive Template Settings')
+		    ->add_fields(array(
+                Field::create( 'ultimate_builder', 'page_content', __('Content','mv23theme') )
+                    ->add_groups( Builder_Core::getInstance()->get_groups_for_builder() )
+            ));
 	}
 
 	/**

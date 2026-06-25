@@ -34,6 +34,7 @@ class Templates_Library {
 				'exclude_from_search' => true,
 				'supports' => array('title','thumbnail'),
 				'menu_icon' => 'dashicons-tagcloud',
+				'public' => false,
 			)
 		);
 		

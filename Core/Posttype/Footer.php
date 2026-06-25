@@ -4,6 +4,7 @@ namespace Core\Posttype;
 use Core\Utils\CPT;
 use Ultimate_Fields\Container;
 use Ultimate_Fields\Field;
+use Core\Builder\Core as Builder_Core;
 
 class Footer {
 
@@ -13,7 +14,6 @@ class Footer {
         if (self::$instance == null) {
             self::$instance = new Footer();
 
-            add_filter( 'pll_get_post_types', array( self::$instance, 'add_footer_cpt_to_pll'), 10, 2);
             add_action( 'admin_action_save_as_theme_footer_post', array( self::$instance, 'save_as_theme_footer'));
             add_filter( 'post_row_actions', array( self::$instance, 'add_action_in_admin_list'), 10, 2 );
         }
@@ -33,7 +33,10 @@ class Footer {
                 'show_in_menu' => 'theme-options-menu',
                 'show_in_nav_menus' => false,
                 'exclude_from_search' => true,
-                'supports' => array('title')
+                'supports' => array('title','revisions'),
+                'public' => false,
+                'show_ui' => true,
+                'show_in_admin_bar' => false,
             )
         );
 
@@ -61,20 +64,15 @@ class Footer {
                     ->add( 'posts', 'post_type=footer' )
                     ->hide_label()
             ));
-    }
 
-    /*
-     * Add CPT to Polylang
-     */
-    public function add_footer_cpt_to_pll($post_types, $hide) {
-        if ($hide){
-            // hides 'footer' from the list of custom post types in Polylang settings
-            unset($post_types['footer']);
-        } else {
-            // enables language and translation management for 'footer'
-            $post_types['footer'] = 'footer';
-        }
-        return $post_types;
+        Container::create( 'footer_settings' )
+            ->add_location( 'post_type', 'footer' )
+            ->set_description_position('label')
+		    ->set_title('Footer Settings')
+		    ->add_fields(array(
+                Field::create( 'ultimate_builder', 'page_content', __('Content','mv23theme') )
+                    ->add_groups( Builder_Core::getInstance()->get_groups_for_builder() )
+            ));
     }
 
     public function handle_is_theme_footer_admin_column($column_name, $post) {

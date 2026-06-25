@@ -7,6 +7,7 @@ use Ultimate_Fields\Field;
 use Core\Builder\Template_Engine;
 use Core\Utils\CPT;
 use Core\Frontend\Page;
+use Core\Builder\Core as Builder_Core;
 
 class Reusable_Section_CPT {
 
@@ -34,10 +35,12 @@ class Reusable_Section_CPT {
             ), 
             array(
                 'show_in_menu' => 'theme-options-menu',
-                'show_in_nav_menus' => false,
-                'show_in_admin_bar' => false,
+                'show_in_nav_menus'   => false,
                 'exclude_from_search' => true,
-                'supports' => array('title','page-attributes','revisions')
+                'supports'            => array('title','page-attributes','revisions'),
+                'public'              => false,
+                'show_ui'             => true,
+                'show_in_admin_bar'   => false,
             )
         );
     }
@@ -54,6 +57,17 @@ class Reusable_Section_CPT {
         wp_reset_postdata();
 
         return $reusable_sections;
+    }
+
+    public function add_meta_boxes(){
+        Container::create( 'reusable_section_settings' )
+            ->add_location( 'post_type', 'reusable_section' )
+            ->set_description_position('label')
+		    ->set_title('Reusable Section Settings')
+		    ->add_fields(array(
+                Field::create( 'ultimate_builder', 'page_content', __('Content','mv23theme') )
+                    ->add_groups( Builder_Core::getInstance()->get_groups_for_builder() )
+            ));
     }
 }
 

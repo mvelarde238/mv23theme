@@ -133,7 +133,11 @@ class Core{
     public function add_ultimate_builder_link( $actions, $post ) {
 		$post_type = get_post_type( $post );
         $builder_posttypes = ( is_array(get_option('builder_posttypes')) ) ? get_option('builder_posttypes') : array();
-        $builtin_posttypes = array( 'offcanvas_element', 'postcard' );
+        $builtin_posttypes = array( 
+            'offcanvas_element', 'postcard', 'header', 
+            'footer', 'single_template', 'archive_template', 
+            'reusable_section', 'megamenu' 
+        );
 
 		if ( in_array( $post_type, $builder_posttypes ) || in_array( $post_type, $builtin_posttypes ) ) {
 			$builder_url = add_query_arg( array(

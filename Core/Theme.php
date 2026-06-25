@@ -16,6 +16,7 @@ use Core\Admin\Ajax_Load_Posts;
 use Core\Admin\Hardening_WP;
 use Core\Admin\TinyMCE;
 use Core\Admin\Classic_Editor;
+use Core\Admin\Polylang_Support;
 use Core\Frontend\Page;
 use Core\Theme_Options\Theme_Options;
 use Core\Theme_Options\Manager;
@@ -29,6 +30,7 @@ use Core\Posttype\Header;
 use Core\Posttype\Single_Template;
 use Core\Posttype\Archive_Template;
 use Core\Posttype\Postcard;
+use Core\Posttype\Reusable_Section_CPT;
 use Core\Builder\Core as Builder;
 use Core\Offcanvas_Elements\Core as Offcanvas_Elements;
 use Core\Builder\Duplicate as Builder_Duplicate;
@@ -271,7 +273,7 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'wp_footer', $offcanvas_elements, 'print_elements' );
 
         // Regenerate all builder IDs when a builder-powered post is duplicated
-        $builder_duplicate = new Builder_Duplicate( [ 'offcanvas_element', 'postcard' ] );
+        $builder_duplicate = new Builder_Duplicate( [ 'offcanvas_element', 'postcard', 'reusable_section', 'megamenu' ] );
         $this->loader->add_action( 'mv_after_duplicate_post', $builder_duplicate, 'on_duplicate', 10, 4 );
 
         // Templates Library
@@ -327,14 +329,22 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'wp_loaded', $archive_template, 'add_meta_boxes' );
         // redirect single archive page to connected posttype / taxonomy / term
         $this->loader->add_action( 'template_redirect', $archive_template, 'redirect_single' );
-
+        
+        // filter archive content if needed
+        $this->loader->add_action( 'wp_head', $archive_template, 'wp_head_archive' );
+        $this->loader->add_action( 'pre_get_posts', $archive_template, 'pre_get_posts' );
+        
         // Postcard
         $postcard = Postcard::getInstance();
         $this->loader->add_action( 'uf.init', $postcard, 'add_meta_boxes');
 
-        // filter archive content if needed
-        $this->loader->add_action( 'wp_head', $archive_template, 'wp_head_archive' );
-        $this->loader->add_action( 'pre_get_posts', $archive_template, 'pre_get_posts' );
+        // Reusable Section
+        $reusable_section = Reusable_Section_CPT::getInstance();
+        $this->loader->add_action( 'uf.init', $reusable_section, 'add_meta_boxes');
+
+        // Polylang Support
+        $polylang_support = Polylang_Support::getInstance();
+        $this->loader->add_filter( 'pll_get_post_types', $polylang_support, 'add_posttypes_to_pll', 10, 2 );
     }
 
     private function define_cleanup_hooks() {

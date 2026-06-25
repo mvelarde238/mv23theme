@@ -8,6 +8,7 @@ CHANGELOG
   so postcard duplication also regenerates builder IDs
 - Fix gjs-listing to extract and paste postcard <style> if it exists when rendering a listing component
 - Update listing comp on builder when posts are selected in manual mode
+- Set public to false on all built-in post types
 
 3.13.0 26-06-23
 - Postcard CPT Implementation: new post type to allow users to create postcards with custom content and styles
