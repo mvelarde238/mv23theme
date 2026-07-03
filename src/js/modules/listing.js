@@ -27,10 +27,12 @@
             contentType: false,
             beforeSend: function(){
                 $component.attr('data-status','loading');
+                $filter.parent().attr('data-status','loading');
                 $pagination && $pagination.html('<p class="center">'+loading_text+'</p>');
             },
             success: function(response) {
                 $component.attr('data-status','loaded');
+                $filter.parent().attr('data-status','loaded');
                 var $items_container = ( listing_template === 'carousel' ) ? $listing.find('.carousel__slider') : $listing;
                 if ( listing_template === 'carousel' ) {
                     var slider_uid = $listing.find('.carousel__slider').attr('data-slider-uid');
@@ -97,7 +99,7 @@
                             if(packery) packery.destroy();
                             $items_container.html('');
                         }
-                        $items_container.html('<p class="center posts-filter-error-msg">'+response.message+'</p>');
+                        $items_container.html('<p class="center listing-filter__error-msg">'+response.message+'</p>');
                         if ( listing_template === 'carousel' ){
                             MV23_GLOBALS.carousels[ slider_uid ] = create_tns_slider( $items_container[0] );
                             $items_container.attr('data-slider-uid', slider_uid);
@@ -134,9 +136,15 @@
     if( $components.length ){
         $components.each(function(i, e){
             var $component = $(e),
-                $filter = $component.find('.posts-filter form'),
+                listing_uid = $component.data('listing-uid'),
+                $filter = null,
                 $listing = $component.find('.posts-listing'),
                 $pagination = $component.find('.pagination');
+
+            // find a .listing-filter component with the same listing_uid
+            if( listing_uid ) {
+                $filter = $('.listing-filter[data-listing-uid="'+listing_uid+'"] form');
+            }
     
             $component.on('click','a.page-numbers', function(event){
 
@@ -160,12 +168,14 @@
                 do_the_ajax($component, $listing, null, $filter, paged, action);
             });
             
-            $component.on('click','.posts-filter__submit',function(ev){
-                ev.preventDefault();
-                var paged = 1, action = 'replace';
+            if( $filter && $filter.length ) {
+                $filter.on('click','.listing-filter__submit',function(ev){
+                    ev.preventDefault();
+                    var paged = 1, action = 'replace';
 
-                do_the_ajax($component, $listing, $pagination, $filter, paged, action);
-            });
+                    do_the_ajax($component, $listing, $pagination, $filter, paged, action);
+                });
+            }
 
             $component.on('listingUpdated', function(e,data){
                 e.preventDefault();

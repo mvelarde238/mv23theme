@@ -107,11 +107,6 @@
         background-color: var(--ui-color-2)
         border-color: var(--ui-color-4)
         color: var(--ui-font-color)
-    .uf-field .select2-container--default .select2-selection--multiple, .uf-field .select2-container--default.select2-container--focus .select2-selection--multiple,
-    .uf-field .select2-container--default .select2-selection--multiple .select2-selection__choice
-        background-color: var(--ui-color-2)
-        border-color: var(--ui-color-4)
-        color: var(--ui-font-color)
     .common-setting-small .button-primary
         color: var(--ui-font-color)
         &:hover
@@ -119,6 +114,15 @@
             background-color: var(--ui-color-2)
     .uf-separator-top
         background: var(--ui-color-2) !important
+
+    // select2 overrides
+    .uf-field .select2-container--default .select2-selection--multiple, .uf-field .select2-container--default.select2-container--focus .select2-selection--multiple,
+    .uf-field .select2-container--default .select2-selection--multiple .select2-selection__choice
+        background-color: var(--ui-color-2)
+        border-color: var(--ui-color-4)
+        color: var(--ui-font-color)
+    .select2-search input[type=search]
+        background: transparent !important
 
     // object preview
     .uf-object-preview

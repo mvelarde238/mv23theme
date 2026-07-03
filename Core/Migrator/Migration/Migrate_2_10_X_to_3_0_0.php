@@ -10,7 +10,6 @@ use Core\Builder\Template_Engine\Box_Shadow;
 use Core\Builder\Template_Engine\Background;
 use Core\Builder\Template_Engine\Color;
 use Core\Builder\Template_Engine\Width;
-use Core\Builder\Component\Listing;
 use Ultimate_Fields\Ultimate_Builder\Templates_Generator;
 
 class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
@@ -1735,6 +1734,35 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         unset( $uf_component['back_content'] );
     }
 
+    private function get_listing_taxonomies() {
+        if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array( array( 'cpt_slug' => 'post', 'slug' => 'category' ) ));
+        
+        $listing_taxonomies = LISTING_TAXONOMIES;
+
+        if(WOOCOMMERCE_IS_ACTIVE){
+            array_push($listing_taxonomies, array(
+                'cpt_slug' => 'product', 
+                'slug' => 'product_cat'
+            ));
+        } 
+
+        if(USE_PORTFOLIO_CPT){
+            array_push($listing_taxonomies, array(
+                'cpt_slug' => 'portfolio', 
+                'slug' => 'portfolio-cat'
+            ));
+        }
+
+        if(USE_DOCUMENT_CPT){
+            array_push($listing_taxonomies, array(
+                'cpt_slug' => 'document', 
+                'slug' => 'document-cat'
+            ));
+        }
+
+        return $listing_taxonomies;
+    }
+
     private function process_listing_component( $component, &$uf_component, &$gjs_component, &$css_styles, &$gjs_styles, $id ){
         $uf_component['source'] = $component['show'];
         $uf_component['listing_template'] = $component['list_template'];
@@ -1760,7 +1788,7 @@ class Migrate_2_10_X_to_3_0_0 extends Migrate_Components_Settings {
         // migrate taxonomies to a better format
         $uf_component['tax_params'] = array();
         if( isset($component['taxonomies_field']) && is_array($component['taxonomies_field']) ){
-            $listing_taxonomies = Listing::get_listing_taxonomies();
+            $listing_taxonomies = $this->get_listing_taxonomies();
             foreach( $listing_taxonomies as $tax_data ){
                 $tax_name = $tax_data['slug'];
                 if( isset($component['taxonomies_field'][$tax_name]) ){

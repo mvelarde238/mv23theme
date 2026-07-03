@@ -1006,6 +1006,13 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   border-radius: 2px;
   border-color: #ddd;
 }
+.uf-field .select2-search input[type=search] {
+  min-height: 26px;
+}
+
+#component-settings .select2-search input[type=search] {
+  background: transparent !important;
+}
 
 .uf-image-select {
   overflow: hidden;

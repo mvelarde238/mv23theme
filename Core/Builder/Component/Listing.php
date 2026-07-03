@@ -8,6 +8,7 @@ use WP_Query;
 use Core\Frontend\Pagination;
 use Core\Posttype\Postcard;
 use Core\Builder\Component\Postcard as Postcard_Component;
+use Core\Builder\Core;
 
 class Listing extends Component {
 
@@ -29,41 +30,8 @@ class Listing extends Component {
 		);
     }
 
-    public static function get_listing_taxonomies() {
-        $listing_taxonomies = LISTING_TAXONOMIES;
-
-        if(WOOCOMMERCE_IS_ACTIVE){
-            array_push($listing_taxonomies, array(
-                'cpt_slug' => 'product', 
-                'slug' => 'product_cat'
-            ));
-        } 
-
-        if(USE_PORTFOLIO_CPT){
-            array_push($listing_taxonomies, array(
-                'cpt_slug' => 'portfolio', 
-                'slug' => 'portfolio-cat'
-            ));
-        }
-
-        if(USE_DOCUMENT_CPT){
-            array_push($listing_taxonomies, array(
-                'cpt_slug' => 'document', 
-                'slug' => 'document-cat'
-            ));
-        }
-
-        return $listing_taxonomies;
-    }
-
 	public static function get_fields() {
-        $listing_cpts = LISTING_CPTS;
-        if(WOOCOMMERCE_IS_ACTIVE) $listing_cpts['product'] = 'Productos';
-        if(USE_DOCUMENT_CPT) $listing_cpts['document'] = 'Documentos';
-        if(USE_PORTFOLIO_CPT) $listing_cpts['portfolio'] = 'Portfolio';
-
-        $listing_taxonomies = Listing::get_listing_taxonomies();
-
+        $posttypes = Core::get_post_types();
         $listing_post_template = LISTING_POST_TEMPLATE;
         $listing_post_template['document'] = 'Document';
         $listing_post_template['portfolio'] = 'Portfolio';
@@ -80,12 +48,34 @@ class Listing extends Component {
                     'manual'=>'Manual',
                 )),
             Field::create( 'wp_objects', 'posts', '' )->set_button_text( __('Select the posts','mv23theme') )->add_dependency('source','manual','='),
-        
-            Field::create( 'select', 'posttype', __('Post type','mv23theme') )
-                ->add_options($listing_cpts)
+
+            Field::create( 'radio', 'posttype', __('Select a post type','mv23theme') )
                 ->set_default_value('post')
                 ->add_dependency('source','auto','=')
+                ->set_orientation( 'horizontal' )
+                ->add_options( $posttypes )
         );
+
+        // add taxonomies parameters for each post type
+        $tax_params = Field::create( 'complex', 'tax_params', __('Categories','mv23theme') )
+            ->hide_label()
+            ->add_dependency('source','auto','=');
+        
+        foreach($posttypes as $cpt_slug => $cpt_name){
+            $taxonomies = get_object_taxonomies( $cpt_slug, 'objects' );
+            if( is_array($taxonomies) && count($taxonomies) > 0 ){
+                foreach($taxonomies as $tax_slug => $tax_object){
+                    if( !$tax_object->public || !$tax_object->show_ui ) continue;
+                    $tax_name = $tax_object->labels->name;
+                    $tax_params->add_fields( array(
+                        Field::create( 'multiselect', $cpt_slug .'--'. $tax_slug, $tax_name )
+                            ->add_terms( $tax_slug )
+                            ->add_dependency('../posttype', $cpt_slug, '=')
+                    ));
+                }
+            }
+        }
+        array_push($listing_fields_1, $tax_params);
 
         if(WOOCOMMERCE_IS_ACTIVE){
             $woocommerce_keys_field = Field::create('select','woocommerce_key','WooCommerce Tag')
@@ -99,21 +89,6 @@ class Listing extends Component {
                 ))->set_width(16);
 
             array_push($listing_fields_1, $woocommerce_keys_field);
-        }
-
-        if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
-            $tax_params = Field::create( 'complex', 'tax_params', __('Categories','mv23theme') )
-                ->hide_label()
-                ->add_dependency('source','auto','=');
-
-            foreach($listing_taxonomies as $tax){
-                $tax_params->add_fields( array(
-                    Field::create( 'multiselect', $tax['cpt_slug'] .'--'. $tax['slug'] )->add_terms( $tax['slug'] )
-                        ->add_dependency('../posttype', $tax['cpt_slug'], '=')
-                        ->set_width(20)
-                ));
-            }
-            array_push($listing_fields_1, $tax_params);
         }
 
         $width_25 = 'width: 25%; min-width: initial;';
@@ -179,6 +154,12 @@ class Listing extends Component {
                 Field::create( 'number', 'mobile', __('Mobile','mv23theme') )->set_minimum(0)->set_default_value(LISTING_GAP['mobile'])->set_attr('style', $width_25)
             )),
 
+            Field::create('text', 'listing_uid')
+                ->set_prefix(__('Listing UID','mv23theme'))
+                ->hide_label()
+                ->set_default_value(uniqid('listing_'))
+                ->set_description(__('This is used to identify the listing. If you leave it empty, a random UID will be generated.', 'mv23theme')),
+
             Field::create( 'tab', 'carousel_settings_tab', __('Carousel Settings','mv23theme'))->add_dependency('listing_template','carousel','='),
             Field::create( 'complex', 'carousel_settings' )->hide_label()->add_fields(array(
                 Field::create( 'checkbox', 'show_controls' )->hide_label()->set_text(__('Show controls','mv23theme'))->set_default_value(1),
@@ -226,48 +207,7 @@ class Listing extends Component {
             Field::create( 'checkbox', 'pagination_scrolltop', '' )->set_text(__('Scroll to top','mv23theme'))->add_dependency('pagination_type','numeric','='),
         );
 
-        // FILTER FIELDS
-        $filter_fields = array();
-        if( is_array($listing_taxonomies) && count($listing_taxonomies) > 0 ){
-            foreach($listing_taxonomies as $tax){
-                array_push($filter_fields, 
-                    Field::create( 'complex', $tax['slug'] )
-                        ->hide_label()
-                        ->add_dependency('../show_filter')
-                        ->add_dependency('../posttype', $tax['cpt_slug'], '=')
-                        ->add_dependency_group()
-                        ->add_dependency('../show_filter')
-                        ->add_dependency('../connected_posttype', $tax['cpt_slug'], '=')
-                        ->add_fields(array(
-                            Field::create( 'checkbox', 'show', ucwords($tax['slug']).' filter' )
-                                ->fancy()
-                                ->set_width(50),
-                            Field::create( 'select', 'initial_value', __('Initial value','mv23theme') )
-                                ->add_terms( $tax['slug'] )
-                                ->add_dependency('show')
-                                ->set_width(50)
-                        ))
-                );
-            }
-        }
-
-        array_push($filter_fields, Field::create( 'complex', 'month' )->add_fields(array(
-            Field::create( 'checkbox', 'show', __('Month filter','mv23theme') )->fancy()
-        ))->hide_label()->add_dependency('../show_filter'));
-
-        array_push($filter_fields, Field::create( 'complex', 'year' )->add_fields(array(
-            Field::create( 'checkbox', 'show', __('Year filter','mv23theme') )->fancy()->set_width(50),
-            Field::create( 'number', 'initial_value', __('Initial value','mv23theme') )->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value('')->set_width(50),
-            Field::create( 'number', 'first_year')->set_prefix(__('First year','mv23theme'))->hide_label()->set_minimum(2012)->set_maximum(date('Y'))->add_dependency('show')->set_default_value(2012)->set_width(50),
-        ))->hide_label()->add_dependency('../show_filter'));
-
-        $listing_fields_filter = array(
-            Field::create( 'tab', 'filters_tab', __('Filters','mv23theme')),
-            Field::create( 'checkbox', 'show_filter', __('Filter','mv23theme') )->set_text( __('Show filters','mv23theme') )->fancy()->hide_label(),
-            Field::create( 'complex', 'filters' )->hide_label()->add_fields( $filter_fields )
-        );
-
-		$fields = array_merge( $listing_fields_1, $listing_fields_2, $listing_fields_3, $postcard_fields, $pagination_fields, $listing_fields_filter );
+		$fields = array_merge( $listing_fields_1, $listing_fields_2, $listing_fields_3, $postcard_fields, $pagination_fields );
 
 		return $fields;
 	}
@@ -305,13 +245,6 @@ class Listing extends Component {
         // pagination
         $pagination_type = $args['pagination_type'] ?? 'none';
         $pagination_scrolltop = $args['pagination_scrolltop'] ?? false;
-
-        // filters
-        $the_filters = $args['filters'] ?? array();
-        $filter_taxonomies = array();
-        $filter_default_terms = array();
-        $show_filters_raw = $args['show_filter'] ?? false;
-        $show_filters = self::fix_boolean_on_ajax_calls( $show_filters_raw );
 
         // post status params
         $status_params = $args['status_params'] ?? array(
@@ -416,28 +349,6 @@ class Listing extends Component {
                     }
                 } 
             }
-        
-            // taxonomies and default terms for filter
-            foreach($pt_taxonomies as $tax){
-                if( isset($the_filters[$tax]) ){
-                    $show_tax = self::fix_boolean_on_ajax_calls( $the_filters[$tax]['show'] );
-                    if($show_tax){
-                        $default_term = $the_filters[$tax]['initial_value'];
-                        array_push($query_taxonomies,$tax);
-                        array_push($filter_taxonomies,$tax);
-                        array_push($filter_default_terms,$default_term);
-                    }
-                }
-            }
-        
-            // check date params -> it breaks ajax filters
-            // if($show_filters){
-                // $date_params = array();
-                // if( isset($the_filters['year']) && $the_filters['year']['show'] && $the_filters['year']['initial_value'] ){
-                    // $date_params['year'] = $the_filters['year']['initial_value'];
-                // } 
-                // if( count($date_params) ) $args_query['date_query'] = array( $date_params );
-            // }
         }
         
         if(WOOCOMMERCE_IS_ACTIVE){
@@ -483,28 +394,12 @@ class Listing extends Component {
         }
         $args['additional_attributes']['data-listing-args'] = esc_attr( json_encode($listing_args) );
 
+        // uid
+        $listing_uid = $args['listing_uid'] ?? 'listing-'.uniqid();
+        $args['additional_attributes']['data-listing-uid'] = esc_attr( $listing_uid );
+
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
-        
-        if($show_filters) {
-            $show_month = 0;
-            if( isset($the_filters['month']) ){
-                $show_month = self::fix_boolean_on_ajax_calls( $the_filters['month']['show'] );
-            }
-    
-            $show_year = 0;
-            $firstyear = '';
-            $default_year = '';
-            if( isset($the_filters['year']) ){
-                $show_year = self::fix_boolean_on_ajax_calls( $the_filters['year']['show'] );
-                $firstyear = $the_filters['year']['first_year'];
-                $default_year = $the_filters['year']['initial_value'];
-            }
-            
-            do_action( 'before_posts_filter', $args );
-            echo do_shortcode('[posts_filter posttype="'.$posttype.'" firstyear="'.$firstyear.'" show_year="'.$show_year.'" show_month="'.$show_month.'" default_year="'.$default_year.'" filter_taxonomies="'.implode(',',$filter_taxonomies).'" filter_default_terms="'.implode(',',$filter_default_terms).'"]');
-            do_action( 'after_posts_filter', $args );
-        };
         
         if(WOOCOMMERCE_IS_ACTIVE && $posttype == 'product') echo do_shortcode('[shop_messages]');
 

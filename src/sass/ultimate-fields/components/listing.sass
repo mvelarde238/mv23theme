@@ -2,8 +2,25 @@
     .load_more_posts i
         margin-right: 8px
         display: inline-block
-    &[data-status="loading"] .load_more_posts i
-        animation: rotating1 1.2s linear infinite
+
+    .listing-filter__error-msg
+        grid-column: 1 / -1 // force element to take full width of the row
+
+    &[data-status="loading"] 
+        position: relative
+        opacity: 0.75
+        &:before
+            content: ''
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
+            background: transparent url('../images/loading2.gif') center no-repeat
+            background-size: 20px 20px
+            z-index: 89
+        .load_more_posts i
+            animation: rotating1 1.2s linear infinite
 
 .post-modal,
 .expander

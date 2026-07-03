@@ -20,11 +20,10 @@ class Ajax_Load_Posts{
         $filter_values = $_REQUEST;
         $paged = $_REQUEST["paged"];
         $lang = $_REQUEST["lang"];
+        $taxonomies = $_REQUEST["taxonomies"] ?? array();
 
         $listing_args = json_decode(stripslashes($_REQUEST['listing_args']), true);
         $posttype = $listing_args["posttype"];
-        $taxonomies = $listing_args["taxonomies"];
-        $terms = $listing_args["terms"];
         $postcard_template = $listing_args["post_template"];
         $listing_template = $listing_args["listing_template"];
         $on_click_post = $listing_args["on_click_post"];
@@ -68,21 +67,20 @@ class Ajax_Load_Posts{
                 if( $per_page ) $args_query['posts_per_page'] = $per_page;
                 // if( $offset ) $args_query['offset'] = $offset; // not working ?
 
-                if( is_array($taxonomies) && is_array($terms) ){
+                // Taxonomy query
+                if( is_array($taxonomies) ) {
                     $tax_query = array( 'relation' => 'AND' );
 
-                    foreach ($taxonomies as $tax) {
-                        $_terms = ( isset( $filter_values[$tax] ) && !empty( $filter_values[$tax] ) ) ? array($filter_values[$tax]) : $terms;
-
-                        if( empty($_terms) ) continue;
-
-                        array_push($tax_query, array(
-                            'taxonomy' => $tax,
-                            'field' => 'term_id',
-                            'terms' => $_terms,
-                            'include_children' => true,
-                            'operator' => 'IN'
-                        ));
+                    foreach ($taxonomies as $taxonomy => $terms) {
+                        if (!empty($terms)) {
+                            $tax_query[] = [
+                                'taxonomy' => $taxonomy,
+                                'field'    => 'term_id',
+                                'terms'    => $terms,
+                                'include_children' => true, // ?
+                                'operator' => 'IN' // ?
+                            ];
+                        }
                     }
 
                     if($wookey == 'featured'){
@@ -276,24 +274,6 @@ class Ajax_Load_Posts{
         // WooCommerce special filters
         if ($wookey) {
             $query_params['wookey'] = sanitize_key($wookey);
-        }
-        
-        // Taxonomy filters (when multiple terms or different from base)
-        if (is_array($taxonomies)) {
-            foreach ($taxonomies as $tax) {
-                if (isset($filter_values[$tax]) && !empty($filter_values[$tax])) {
-                    $query_params[$tax] = intval($filter_values[$tax]);
-                }
-            }
-        }
-        
-        // Multiple terms: add all as query parameters (Opción B)
-        if (is_array($terms) && count($terms) > 1) {
-            foreach ($taxonomies as $index => $tax) {
-                if (isset($terms[$index]) && !isset($query_params[$tax])) {
-                    $query_params[$tax] = intval($terms[$index]);
-                }
-            }
         }
         
         // Append query parameters if any

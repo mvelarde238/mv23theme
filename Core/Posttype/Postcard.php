@@ -49,9 +49,7 @@ class Postcard {
 			->set_orientation( 'horizontal' )
 			->set_default_value( $default_connected_posttype ? $default_connected_posttype : 'post' )
 			->set_options_callback( function() {
-                return Builder_Core::get_post_types(array(
-                    'get_post_type_args' => array( 'public'=>true, 'exclude_from_search'=>false ),
-                ));
+                return Builder_Core::get_post_types();
             });
 
         # Add page content field
