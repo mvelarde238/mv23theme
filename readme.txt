@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.13.2 26-07-03
+- Standarize icons on carrousel, togglebox and accordion components to use the same icon set for consistency across the builder
+
 3.13.1 26-06-24
 - Listing::hide_permalink() method implementation to allow hiding the permalink on postcard items
 - Core\Offcanvas_Elements\Duplicate moved to Core\Builder\Duplicate; now accepts an array of post types 

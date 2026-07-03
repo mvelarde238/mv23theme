@@ -88,11 +88,14 @@ if( !defined('LISTING_POST_TEMPLATE') ){
     ));
 } 
 // TOGGLEBOX_STATE_ICON
-if( !defined('TOGGLEBOX_STATE_ICON') ) define( 'TOGGLEBOX_STATE_ICON', 'bi-caret-down');
+if( !defined('TOGGLEBOX_STATE_ICON') ) define( 'TOGGLEBOX_STATE_ICON', 'fa-angle-down' );
 
 // CAROUSEL ICONS
 if ( ! defined( 'PREV_CAROUSEL_ICON' ) ) define( 'PREV_CAROUSEL_ICON', 'fa-angle-left' );
 if ( ! defined( 'NEXT_CAROUSEL_ICON' ) ) define( 'NEXT_CAROUSEL_ICON', 'fa-angle-right' );
+
+// OTHER ICONS
+if ( ! defined( 'GO_TOP_ICON' ) ) define( 'GO_TOP_ICON', 'fa-angle-up' );
 
 // BUILDER CONSTANTS
 if( !defined('BUILDER_DEV_MODE') ) define ('BUILDER_DEV_MODE', false);
