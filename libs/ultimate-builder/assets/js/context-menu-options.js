@@ -543,7 +543,7 @@ window['contextMenuOpts'] = {
         ['carousel-wrapper']: function(component, editor){
             let actions = [
                 { type: 'button', label: 'SELECT ALL ITEMS', command: 'query-selector', args: { selector: '.carousel__item' } },
-                { type: 'button', label: 'GET SLIDER UID', command: 'get-slider-uid' },
+                { type: 'button', label: 'GET SLIDER UID', command: 'get-component-uid' },
             ];
 
             return actions;
@@ -612,6 +612,13 @@ window['contextMenuOpts'] = {
                     }
                 }
             ]
-        }
+        },
+        ['listing']: function(component, editor){
+            let actions = [
+                { type: 'button', label: 'GET LISTING UID', command: 'get-component-uid' },
+            ];
+
+            return actions;
+        },
     }
 };

@@ -47,6 +47,7 @@ class Core{
             'Icon_List',
             'Gallery',
             'Listing',
+            'Listing_Filter',
             'Menu',
             'Flip_Box',
             'Flip_Box_Front',
@@ -300,7 +301,7 @@ class Core{
     */
     public static function get_post_types( $args = array() ) {
         $default_args = array(
-            'exclude_post_types' => array( 'offcanvas_element','attachment','templates_library','reusable_section','megamenu','footer' ),
+            'exclude_post_types' => array( 'attachment' ),
             'get_post_type_args' => array( 'public'=>true )
         );
         $args = wp_parse_args( $args, $default_args );

@@ -146,14 +146,13 @@ window.gjsListing = function (editor) {
                     'posts',
                     'posttype',
                     'tax_params',
+                    'woocommerce_key',
                     'query_params',
                     'status_params',
                     'listing_template', 
                     'carousel_settings',
                     'postcard_settings',
                     'pagination_type',
-                    'show_filter',
-                    'filters',
                 ];
                 if ( $rerender_listing_on_change.includes( changed_keys[0] ) ) {
                     this.render();

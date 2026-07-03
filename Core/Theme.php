@@ -255,8 +255,11 @@ class Theme extends Theme_Header_Data {
         $builder = Builder::getInstance();
 
         // $this->loader->add_action( 'after_setup_theme', $builder, 'init_components', 15 ); // theme launch at 10
-        $this->loader->add_action( 'uf.init', $builder, 'init_components');
-        $this->loader->add_action( 'uf.init', $builder, 'add_meta_boxes');
+        // these two methods are set to init hook (in replace of 'uf.init') and 23 priority to make sure all -plugin- post types 
+        // are registered before we try to use them in some components (Listing, Listing_Filter) of the builder
+        $this->loader->add_action( 'init', $builder, 'init_components', 23);
+        $this->loader->add_action( 'init', $builder, 'add_meta_boxes', 23);
+
         $this->loader->add_action( 'uf.register_scripts', $builder, 'register_popup_containers', 20);
         $this->loader->add_action( 'admin_init', $builder, 'set_initial_values');
         $this->loader->add_action( 'admin_init', $builder, 'hide_editor');

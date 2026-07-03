@@ -45,10 +45,13 @@ abstract class Migrate_Components_Settings_v3 extends Migrate_Components_Setting
         global $wpdb;
 
         $meta_keys_placeholders = implode(',', array_fill(0, count($this->meta_keys), '%s'));
+        // We can uncomment the following line to limit the migration to specific pages for testing purposes.
+        // $pages = [345, 2767];
         $query = "SELECT pm.meta_id, pm.post_id, pm.meta_key, pm.meta_value, p.post_type
             FROM {$wpdb->postmeta} pm
             JOIN {$wpdb->posts} p ON pm.post_id = p.ID
             WHERE pm.meta_key IN ($meta_keys_placeholders)
+            -- AND p.ID IN (" . implode(',', $pages) . ")
             AND p.post_type != 'revision'
             LIMIT %d OFFSET %d";
 
@@ -60,18 +63,21 @@ abstract class Migrate_Components_Settings_v3 extends Migrate_Components_Setting
 
         foreach ($pages as $page) {
             $old_data = maybe_unserialize($page->meta_value);
+            $old_datastore = get_post_meta( $page->post_id, 'page_content_datastore', true );
 
             $page_control = array(
                 'title'    => get_the_title( $page->post_id ),
                 'id'       => $page->post_id,
                 'posttype' => $page->post_type,
                 'meta'     => $page->meta_key,
-                'old_data' => $old_data
+                'old_data' => [
+                    'page_content'           => $old_data,
+                    'page_content_datastore' => $old_datastore,
+                ]
             );
 
             error_log( 'Migrating page: ' . get_the_title( $page->post_id ) . ' (ID: ' . $page->post_id . ') - Meta Key: ' . $page->meta_key );
 
-            $old_datastore = get_post_meta( $page->post_id, 'page_content_datastore', true );
             $new_data = $this->migrate_page_content_data( $old_data, $old_datastore );
 
             if ( $do_the_update ) {

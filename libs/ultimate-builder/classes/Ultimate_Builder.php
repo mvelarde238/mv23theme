@@ -80,6 +80,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsGlobalStyles', 'handler' => 'gjs-global-styles', 'isComponent' => true ],
 		[ 'name' => 'gjsCompWrapper', 'handler' => 'gjs-components-wrapper', 'isComponent' => true ],
 		[ 'name' => 'gjsListing', 'handler' => 'gjs-listing', 'isComponent' => true ],
+		[ 'name' => 'gjsListingFilter', 'handler' => 'gjs-listing-filter', 'isComponent' => true ],
 		[ 'name' => 'gjsGallery', 'handler' => 'gjs-gallery', 'isComponent' => true ],
 		[ 'name' => 'gjsMenu', 'handler' => 'gjs-menu', 'isComponent' => true ],
 		[ 'name' => 'gjsSpacer', 'handler' => 'gjs-spacer', 'isComponent' => true ],

@@ -280,18 +280,22 @@ window.gjsCommands = function (editor, options) {
         }
     });
 
-    commands.add('get-slider-uid', (editor, sender, options = {}) => {
-        const carousel = options.component;
-        if (carousel.getType() === 'carousel-wrapper') {
-            const datastore = editor.getComponentDatastore(carousel);
+    commands.add('get-component-uid', (editor, sender, options = {}) => {
+        const component = options.component;
+        const componentsWithUID = ['carousel-wrapper', 'listing'];
+
+        if (componentsWithUID.includes(component.getType())) {
+            const datastore = editor.getComponentDatastore(component);
             if (datastore) {
-                const slider_uid = datastore.get('slider_uid');
-                if (slider_uid) {
-                    alert('Slider UID: ' + slider_uid);
-                } else if( carousel.getId() ){
-                    alert('Slider UID: slider_' + carousel.getId());
+                const key = component.getType() === 'carousel-wrapper' ? 'slider' : 'listing';
+
+                const uid = datastore.get(`${key}_uid`);
+                if (uid) {
+                    alert(`${key.charAt(0).toUpperCase() + key.slice(1)} UID: ` + uid);
+                } else if( component.getId() ){
+                    alert(`${key.charAt(0).toUpperCase() + key.slice(1)} UID: ${key}_${component.getId()}`);
                 } else {
-                    alert(__('No Slider UID found for this carousel.', 'no_slider_uid'));
+                    alert(__('No UID found for this component.', 'no_uid'));
                 }
             }
         }

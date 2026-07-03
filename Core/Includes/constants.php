@@ -64,8 +64,6 @@ if( !defined('LISTING_EXPANDER_RESPONSE_HEIGHT') ) define( 'LISTING_EXPANDER_RES
 if( !defined('LISTING_EXPANDER_SCROLL_DURATION') ) define( 'LISTING_EXPANDER_SCROLL_DURATION', '500');
 if( !defined('LISTING_GAP') ) define( 'LISTING_GAP', array('desktop' => 50,'laptop' => 40,'tablet' => 20,'mobile' => 10 ));
 if( !defined('LISTING_COLUMNS') ) define( 'LISTING_COLUMNS', array('desktop' => 3,'laptop' => 3,'tablet' => 2,'mobile' => 1));
-if( !defined('LISTING_CPTS') ) define( 'LISTING_CPTS', array('post' => 'Entradas'));
-if( !defined('LISTING_TAXONOMIES') ) define( 'LISTING_TAXONOMIES', array( array( 'cpt_slug' => 'post', 'slug' => 'category' ) ));
 if( !defined('LISTING_TEMPLATES') ){ 
     define( 'LISTING_TEMPLATES', array(
         '' => 'Default Listing Template', 

@@ -34,7 +34,7 @@ abstract class Component {
 		if( $args['add_common_settings'] ){
 			self::add_common_settings( $component );
 		}
-		$component->add_fields( static::get_fields() );
+		$component->set_fields_callback( array( get_called_class(), 'get_fields' ) );
 		$component->set_description_position( 'label' );
 
 		$title_template = static::get_title_template();

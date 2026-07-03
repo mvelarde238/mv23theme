@@ -2,6 +2,14 @@
 CHANGELOG
 **************************************************************************************************
 
+3.14.0 26-07-03
+- Listing Filter Component Implementation
+- before/after_posts_filter action hook removed from listing component
+- [posts_filter] shortcode removed
+--------------------------------------------------------------------------------------------------------------------------
+!IMPORTANT: Use the migrator to extract the filter from the listing components
+--------------------------------------------------------------------------------------------------------------------------
+
 3.13.1 26-06-24
 - Listing::hide_permalink() method implementation to allow hiding the permalink on postcard items
 - Core\Offcanvas_Elements\Duplicate moved to Core\Builder\Duplicate; now accepts an array of post types 

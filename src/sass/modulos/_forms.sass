@@ -60,6 +60,31 @@ textarea
     &:focus
         outline: 0
 
+.tags-wrapper
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    gap: 8px
+
+.tag-label
+    border: 1px solid
+    border-color: var(--form-ui-color-2)
+    background-color: var(--form-ui-color-3)
+    border-radius: 4px
+    display: inline-flex
+    align-items: center
+    gap: 8px
+    padding: var(--button-padding)
+    cursor: pointer
+    &:hover
+        border-color: var(--form-ui-color-1)
+    input
+        width: 20px
+        height: 20px
+    span
+        font-size: .9em
+        line-height: 1em
+
 .wpcf7-checkbox,
 .wpcf7-acceptance:has(.add-wrapper-styles),
 .wpcf7-radio

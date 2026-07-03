@@ -28,6 +28,7 @@ use Core\Migrator\Migration\Migrate_3_9_X_to_3_10_0;
 use Core\Migrator\Migration\Migrate_3_10_X_to_3_11_0;
 use Core\Migrator\Migration\Migrate_OCE_Restrictions_to_Visibility;
 use Core\Migrator\Migration\Migrate_3_11_X_to_3_12_0;
+use Core\Migrator\Migration\Migrate_3_13_X_to_3_14_0;
 
 define ('THEME_MIGRATOR_DIR', __DIR__);
 define ('THEME_MIGRATOR_PATH', get_template_directory_uri() . '/Core/Migrator');
@@ -82,6 +83,7 @@ class Core{
             Migrate_3_10_X_to_3_11_0::getInstance()->migrate();
             Migrate_OCE_Restrictions_to_Visibility::getInstance()->migrate();
             Migrate_3_11_X_to_3_12_0::getInstance()->migrate();
+            Migrate_3_13_X_to_3_14_0::getInstance()->migrate();
         // }
 
         add_action( 'admin_menu', array($this, 'add_admin_page') );
