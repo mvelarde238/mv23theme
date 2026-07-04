@@ -1,0 +1,44 @@
+.carousel
+    --ui-color-1: var(--primary-color)
+    --ui-color-2: var(--primary-color-light)
+    --ui-color-3: #{$white}
+
+    .tns-inner
+        cursor: grab
+        &:active
+            cursor: grabbing
+
+    // hide controls in frontend if there is only one page (specificity hack to not hide them on builder)
+    &:has(.tns-outer):not(:has([aria-hidden="true"])) .tns-controls
+        display: none
+
+    // CONTROLS POSITIONING:
+    [data-controls]
+        position: absolute
+        z-index: 89
+        cursor: pointer
+
+    [data-controls="prev"]
+        left: 0
+    [data-controls="next"]
+        right: 0
+
+    &[data-controls-position='top']
+        [data-controls]
+            top: 0
+
+    &[data-controls-position='center']
+        [data-controls]
+            top: 50%
+        [data-controls="prev"]
+            transform: translateY(-50%) translateX(-50%)
+        [data-controls="next"]
+            transform: translateY(-50%) translateX(50%)
+
+    &[data-controls-position='bottom']
+        [data-controls]
+            bottom: 0
+
+.dark-mode .carousel
+    --ui-color-1: #{$white} 
+    --ui-color-3: #{$white-lighten-2} 

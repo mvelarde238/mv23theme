@@ -1,0 +1,55 @@
+.carousel[data-theme="theme1"]
+    [data-controls]
+        padding: 12px
+        background-color: var(--ui-color-3)
+        color: var(--ui-color-1)
+        border-radius: 50%
+        border: 0
+
+    [data-controls="prev"]
+        box-shadow: -4px 4px 10px var(--ui-color-2)
+
+    [data-controls="next"]
+        box-shadow: 4px 4px 10px var(--ui-color-2)
+
+    [data-controls]:active
+        transform: scale(.9)
+    &[data-controls-position='center'] [data-controls="prev"]:active
+        transform: translateY(-50%) translateX(-50%) scale(.9)
+    &[data-controls-position='center'] [data-controls="next"]:active
+        transform: translateY(-50%) translateX(50%) scale(.9)
+
+    // NAVIGATION
+    .tns-nav
+        width: fit-content
+        max-width: 80%
+        margin: auto
+        display: flex
+        gap: 15px
+        align-items: center
+        overflow: auto
+        padding: 15px
+
+        button
+            background-color: var(--ui-color-2)
+            height: 6px !important
+            width: 6px !important
+            border: 0
+            border-radius: 50%
+            outline: 0
+            padding-left: 0
+
+            &.tns-nav-active
+                background-color: var(--ui-color-1)
+                transform: scale(1.8)
+                position: relative
+
+                &:before
+                    content: ''
+                    position: absolute
+                    top: -2px
+                    left: -2px
+                    width: 10px
+                    height: 10px
+                    border: 1px solid var(--ui-color-1)
+                    border-radius: 50%

@@ -37,9 +37,6 @@
 @import "modulos/viewer";
 @import "modulos/searchform";
 @import "modulos/subir-btn";
-@import "modulos/tns-slider/navigation";
-@import "modulos/tns-slider/controls";
-@import "modulos/tns-slider/theme";
 @import "modulos/scroll";
 @import "modulos/special-list-1";
 @import "modulos/theme-list";
@@ -99,9 +96,8 @@
 @import "modulos/postcards/document";
 @import "modulos/postcards/search-result";
 
-@import "modulos/tns-slider/navigation";
-@import "modulos/tns-slider/controls";
-@import "modulos/tns-slider/theme";
+@import "modulos/tns-slider/global";
+@import "modulos/tns-slider/theme1";
 
 @import "modulos/special-titles/special-title-1";
 @import "modulos/special-titles/special-title-2";
@@ -130,9 +126,9 @@
 @import "ultimate-fields/components/icon-list";
 @import "ultimate-fields/components/listing-filter";
 
-@import "ultimate-fields/components/card";
-@import "ultimate-fields/components/fila";
-@import "ultimate-fields/components/items-grid";
-@import "ultimate-fields/components/logos-grid";
-@import "ultimate-fields/components/slider-de-contenidos";
+// @import "ultimate-fields/components/card";
+// @import "ultimate-fields/components/fila";
+// @import "ultimate-fields/components/items-grid";
+// @import "ultimate-fields/components/logos-grid";
+// @import "ultimate-fields/components/slider-de-contenidos";
 @import "modulos/utils";

@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.14.1 26-07-04
+- data-theme 1 styles implementation on tns sliders to allow users to use the default theme styles on the carousel component
+
 3.14.0 26-07-03
 - Listing Filter Component Implementation
 - before/after_posts_filter action hook removed from listing component
