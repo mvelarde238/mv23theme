@@ -46,12 +46,12 @@ abstract class Migrate_Components_Settings_v3 extends Migrate_Components_Setting
 
         $meta_keys_placeholders = implode(',', array_fill(0, count($this->meta_keys), '%s'));
         // We can uncomment the following line to limit the migration to specific pages for testing purposes.
-        // $pages = [345, 2767];
+        // $test_pages = [345, 2767];
+        // AND p.ID IN (" . implode(',', $test_pages) . ")
         $query = "SELECT pm.meta_id, pm.post_id, pm.meta_key, pm.meta_value, p.post_type
             FROM {$wpdb->postmeta} pm
             JOIN {$wpdb->posts} p ON pm.post_id = p.ID
             WHERE pm.meta_key IN ($meta_keys_placeholders)
-            -- AND p.ID IN (" . implode(',', $pages) . ")
             AND p.post_type != 'revision'
             LIMIT %d OFFSET %d";
 
