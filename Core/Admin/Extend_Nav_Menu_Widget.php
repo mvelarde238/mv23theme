@@ -9,14 +9,14 @@ use \Core\Builder\Component\Menu as MenuComponent;
 class Extend_Nav_Menu_Widget extends WP_Nav_Menu_Widget {
 
     public function __construct() {
-
-        $menu_styles_image_select = MenuComponent::get_menu_styles_image_select();
-        
-        Container::create( 'wysiwyg_widget' )
+        Container::create( 'nav_menu_widget' )
 	        ->add_location( 'widget', 'Core\Admin\Extend_Nav_Menu_Widget' )
-            ->add_fields(array(
-                Field::create( 'image_select', 'style', __('Style','mv23theme') )->add_options( $menu_styles_image_select )
-            ));
+            ->set_fields_callback(function() {
+                $menu_styles_image_select = MenuComponent::get_menu_styles_image_select();
+                return array(
+                    Field::create( 'image_select', 'style', __('Style','mv23theme') )->add_options( $menu_styles_image_select )
+                );
+            });
 
         parent::__construct();
     }

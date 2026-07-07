@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.14.2 26-07-06
+- use set_fields_callback instead of add_fields on Extend_Nav_Menu_Widget to avoid issues with Menu component being loaded too early
+
 3.14.1 26-07-04
 - data-theme 1 styles implementation on tns sliders to allow users to use the default theme styles on the carousel component
 
