@@ -4,6 +4,7 @@ namespace Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
+use Ultimate_Fields\Ultimate_Builder\Handlebars;
 
 class Code extends Component {
 
@@ -21,9 +22,12 @@ class Code extends Component {
 	public static function get_fields() {
 		$fields = array( 
             Field::create( 'tab', __('Content','mv23theme') ),
-            Field::create( 'textarea', 'content' )->hide_label()->set_rows( 20 )->set_attr(array(
-                'data-type' => 'html'
-            )),
+            Field::create( 'textarea', 'content' )
+				->add_dynamic_data_selector()
+				->set_codemirror('text/html')
+				->hide_label()->set_rows( 20 )->set_attr(array(
+                	'data-type' => 'html'
+            	)),
         );
 
 		return $fields;
@@ -33,7 +37,7 @@ class Code extends Component {
 		if( Template_Engine::is_restricted( $args ) ) return;
 		
 		$args['additional_classes'][] = 'component';
-		$content = $args['content'];
+		$content = Handlebars::parse($args['content']) ?? '';
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);

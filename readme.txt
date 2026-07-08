@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.14.3 26-07-07
+- Code Component: use Handlebars::parse() to parse the content before rendering it, allowing users to use Handlebars expressions 
+  and dynamic data in the code component
+
 3.14.2 26-07-06
 - use set_fields_callback instead of add_fields on Extend_Nav_Menu_Widget to avoid issues with Menu component being loaded too early
 - remove pointer-events: none from marquee imgs to allow images to be inteactive and clickable
