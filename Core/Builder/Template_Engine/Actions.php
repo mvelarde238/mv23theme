@@ -137,6 +137,16 @@ Class Actions{
 					$code['attributes']['href'] = '#';
 				}
 			}
+
+			// if additional classes are set, we will append them to the class attribute
+			if( isset($action['additional_classes']) && !empty($action['additional_classes']) ){
+				$additional_classes = $action['additional_classes'];
+				if( isset($code['attributes']['class']) ){
+					$code['attributes']['class'] .= ' '.$additional_classes;
+				} else {
+					$code['attributes']['class'] = $additional_classes;
+				}
+			}
 		}; // end actions_settings block
 
 		/**
