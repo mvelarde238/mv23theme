@@ -2,6 +2,11 @@
 CHANGELOG
 **************************************************************************************************
 
+3.14.4 26-07-08
+- App.js update: 
+|-- **Custom CSS Editor bugfix**: Live preview no longer destroys Style Manager styles
+|-- Disabled `autoComplete` on `<TextInputField>` to prevent browser autofill from interfering with CSS property editing in the Style Manager
+
 3.14.3 26-07-07
 - Code Component: use Handlebars::parse() to parse the content before rendering it, allowing users to use Handlebars expressions 
   and dynamic data in the code component
