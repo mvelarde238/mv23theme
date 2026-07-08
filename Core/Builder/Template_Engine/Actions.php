@@ -140,7 +140,7 @@ Class Actions{
 
 			// if additional classes are set, we will append them to the class attribute
 			if( isset($action['additional_classes']) && !empty($action['additional_classes']) ){
-				$additional_classes = $action['additional_classes'];
+				$additional_classes = Handlebars::parse($action['additional_classes']);
 				if( isset($code['attributes']['class']) ){
 					$code['attributes']['class'] .= ' '.$additional_classes;
 				} else {

@@ -9,6 +9,8 @@ CHANGELOG
   allowing users to access document information such as file url, file size, and other metadata in their templates and components
 - Additional classes setting implementation on actions settings to allow users to add custom classes to the generated link 
   for better styling and customization
+- Handlebars::parse() method implementation on reading additional classes settings to allow users to use Handlebars expressions 
+  and dynamic data in the additional classes settings
 
 3.14.2 26-07-06
 - use set_fields_callback instead of add_fields on Extend_Nav_Menu_Widget to avoid issues with Menu component being loaded too early

@@ -1,5 +1,6 @@
 <?php
 namespace Core\Builder\Template_Engine;
+use Ultimate_Fields\Ultimate_Builder\Handlebars;
 
 Class Classes{
     /**
@@ -25,7 +26,8 @@ Class Classes{
         }
 
         if( isset($args['settings']['classes']) && !empty($args['settings']['classes']) ){
-            $classes = array_merge( $classes, explode(' ', $args['settings']['classes']) );
+            $additional_classes = Handlebars::parse($args['settings']['classes']);
+            $classes = array_merge( $classes, explode(' ', $additional_classes) );
         } 
 
         if( isset($args['settings']['utility_classes']) && is_array($args['settings']['utility_classes']) && !empty($args['settings']['utility_classes']) ){
