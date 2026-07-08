@@ -5,6 +5,8 @@ CHANGELOG
 3.14.3 26-07-07
 - Code Component: use Handlebars::parse() to parse the content before rendering it, allowing users to use Handlebars expressions 
   and dynamic data in the code component
+- Document::add_document_data_to_handlebars_context() method implementation to add document data to the Handlebars context, 
+  allowing users to access document information such as file url, file size, and other metadata in their templates and components
 
 3.14.2 26-07-06
 - use set_fields_callback instead of add_fields on Extend_Nav_Menu_Widget to avoid issues with Menu component being loaded too early

@@ -289,6 +289,7 @@ class Theme extends Theme_Header_Data {
             $this->loader->add_action( 'uf.init', $document, 'add_meta_boxes' );
             $this->loader->add_action( 'single_template', $document, 'single_template' );
             $this->loader->add_filter( 'filter_postcard', $document, 'filter_postcard', 10, 3 );
+            $this->loader->add_filter( 'filter_ultimate_builder_handlebars_context', $document, 'add_document_data_to_handlebars_context', 10, 3 );
         }
 
         // ajax functions for Templates Library CPT

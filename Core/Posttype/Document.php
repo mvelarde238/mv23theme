@@ -244,6 +244,8 @@ class Document {
         // icon
         $icon = ($ext) ? 'bi-filetype-'.$ext : 'bi-file-earmark';
         if( $is_remote_video ) $icon = $remote_video_data['icon'];
+        $icon_prefix = (str_starts_with($icon,'fa')) ? 'fa' : 'bi';
+        $icon_class = $icon_prefix.' '.$icon;
 
         // can be previewed
         $can_be_previewed_ext = array('jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg', 'video', 'pdf');
@@ -264,6 +266,7 @@ class Document {
         return array(
             'file_url' => $file_url,
             'icon' => $icon,
+            'icon_class' => $icon_class,
             'extension' => $ext,
             'is_remote_video' => $is_remote_video,
             'can_be_previewed' => $can_be_previewed,
@@ -335,7 +338,6 @@ class Document {
     public function filter_postcard($postcard_args, $post, $args){
         if ( 
             in_array($post->post_type, Document::get_registered_posttypes()) 
-            && $postcard_args['style'] === 'style4'
         ){
             $id = $post->ID;
             $document_data = Document::get_document_data($id);
@@ -369,5 +371,17 @@ class Document {
             }
         }
         return $postcard_args;
+    }
+
+    public function add_document_data_to_handlebars_context($context) {
+        $id = $context['post']['id'] ?? null;
+        if( $id ){
+            $post_type = $context['post']['posttype'] ?? null;
+            if ( in_array($post_type, Document::get_registered_posttypes()) ) {
+                $document_data = Document::get_document_data($id);
+                $context['document'] = $document_data;
+            }
+        }
+        return $context;
     }
 }
