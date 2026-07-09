@@ -204,22 +204,6 @@ class Archive_Template {
 		}
 	}
 
-    public function get_archive_tax_params(){
-		$tax_params = array();
-
-		// get tax from context: category, tag, or custom taxonomy
-		$posttype = self::$instance->get_archive_post_type();
-		$taxonomy = self::$instance->get_taxonomy();
-		$term = get_queried_object_id();
-		if( !empty($taxonomy) && !empty($term) ){
-			$tax_params = array(
-				$posttype.'--'.$taxonomy => array( (int) $term )
-			);
-		}
-
-		return $tax_params;
-	}
-
 	/**
 	 * Get archive template page ID in archive.php
 	 */
@@ -287,24 +271,19 @@ class Archive_Template {
         $listing_args = array(
             'additional_classes' => array( 'disable-numeric-ajax-pagination' ),
             'source' => 'auto',
-            'posttype' => self::$instance->get_archive_post_type(),
-            'tax_params' => self::$instance->get_archive_tax_params(),
             'listing_template' => '',
             'columns' => LISTING_COLUMNS,
             'columns_gap' => LISTING_GAP,
             'carousel_settings' => array(),
+			// posttype is needed to handle the "_default" postcard template placeholder in the listing component:
+			'posttype' => self::$instance->get_archive_post_type(),
             'postcard_settings' => array(
-			    'template' => self::$instance->get_archive_post_type(),
+			    'template' => '_default',
 			    'on_click_post' => '',
 			    'on_click_scroll_to' => ''
 		    ),
             'pagination_type' => 'numeric',
-            'pagination_scrolltop' => false,
-            'show_filter' => false,
-            'filters' => array(),
-            'query_params' => array(
-                'posts_per_page' => get_option( 'posts_per_page', 12 ),
-            ),
+            'pagination_scrolltop' => false
         );
 
         return $listing_args;

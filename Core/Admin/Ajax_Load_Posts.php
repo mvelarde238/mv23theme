@@ -18,172 +18,172 @@ class Ajax_Load_Posts{
         );
 
         $filter_values = $_REQUEST;
-        $paged = $_REQUEST["paged"];
-        $lang = $_REQUEST["lang"];
+        $paged = (int) ($_REQUEST["paged"] ?? 1);
+        $lang = sanitize_key($_REQUEST["lang"] ?? 'es');
         $taxonomies = $_REQUEST["taxonomies"] ?? array();
 
         $listing_args = json_decode(stripslashes($_REQUEST['listing_args']), true);
-        $posttype = $listing_args["posttype"];
         $postcard_template = $listing_args["post_template"];
         $listing_template = $listing_args["listing_template"];
         $on_click_post = $listing_args["on_click_post"];
         $on_click_scroll_to = $listing_args["on_click_scroll_to"];
-        $per_page = $listing_args["per_page"] ?? null;
-        // $offset = (int) $listing_args["offset"] ?? null;
-        $order = $listing_args["order"] ?? null;
-        $orderby = $listing_args["orderby"] ?? null;
-        $wookey = $listing_args["wookey"];
+        $wookey = $listing_args["wookey"] ?? '';
         $pagination_type = $listing_args["pagination_type"];
-        $post_status = $listing_args["post_status"] ?? 'publish';
+        $posttype = $listing_args["posttype"] ?? '';
 
-        if ( $posttype && $paged && $per_page ) {
-            $paged = ($paged) ? (int) $paged : 1;
+        $query_args = $listing_args['query_args'] ?? null;
 
-            $args_query = array( 
-                'post_type' => $posttype, 
-                'paged' => $paged,
-                'post_status' => $post_status
-            );
+        if ( $query_args && $paged ) {
 
-            $listing_source = $listing_args['source'] ?? 'auto';
-            if ($listing_source == 'manual') { // for admin use only
-                $manual_posts = $listing_args['posts'] ?? array();
-                if (is_array($manual_posts) && count($manual_posts) > 0) {
-                    $posts_ids = array();
-                    foreach ($manual_posts as $post) {
-                        array_push($posts_ids, str_replace('post_','',$post) );
-                    }
-                    $args_query['post_type'] = 'any';
-                    $args_query['post__in'] = $posts_ids;
-                    $args_query['orderby'] = 'post__in'; // to keep the order of manual posts
-                    // when using post__in, all posts are returned in one page, so we need to paginate manually
-                    $args_query['posts_per_page'] = -1; 
-                }
-            }
+            // Whitelist allowed WP_Query keys to prevent arbitrary query injection
+            $allowed_keys = array('post_type', 'posts_per_page', 'order', 'orderby', 'tax_query', 'meta_query', 'post_status', 'date_query', 's', 'post__in');
+            $query_args = array_intersect_key($query_args, array_flip($allowed_keys));
 
-            if ($listing_source == 'auto') {
-                if( $order ) $args_query['order'] = $order;
-                if( $orderby ) $args_query['orderby'] = $orderby;
-                if( $per_page ) $args_query['posts_per_page'] = $per_page;
-                // if( $offset ) $args_query['offset'] = $offset; // not working ?
+            $query_args['paged'] = $paged;
 
-                // Taxonomy query
-                if( is_array($taxonomies) ) {
-                    $tax_query = array( 'relation' => 'AND' );
-
-                    foreach ($taxonomies as $taxonomy => $terms) {
-                        if (!empty($terms)) {
-                            $tax_query[] = [
-                                'taxonomy' => $taxonomy,
-                                'field'    => 'term_id',
-                                'terms'    => $terms,
-                                'include_children' => true, // ?
-                                'operator' => 'IN' // ?
-                            ];
-                        }
-                    }
-
-                    if($wookey == 'featured'){
-                        array_push($tax_query, array(
-                            'taxonomy' => 'product_visibility',
-                            'field'    => 'name',
-                            'terms'    => 'featured',
+            // Override tax_query if the listing-filter component sends taxonomy filters
+            if ( is_array($taxonomies) && !empty($taxonomies) ) {
+                $tax_query = array( 'relation' => 'AND' );
+                foreach ($taxonomies as $taxonomy => $terms) {
+                    if (!empty($terms)) {
+                        $tax_query[] = array(
+                            'taxonomy' => sanitize_key($taxonomy),
+                            'field'    => 'term_id',
+                            'terms'    => array_map('intval', (array) $terms),
+                            'include_children' => true,
                             'operator' => 'IN'
-                        ));
-                    }
-
-                    if( count($tax_query) > 1 ) $args_query['tax_query'] = $tax_query;
-                }
-
-                if ( isset($filter_values['search']) && !empty($filter_values['search']) ) {
-                    $args_query['s'] =  $filter_values['search'];
-                }
-            
-                if ( isset($filter_values['year']) || isset($filter_values['month']) ) {
-                    $year = $filter_values['year'] ?? null;
-                    $month = $filter_values['month'] ?? null;
-
-                    switch ($posttype) {
-                        case 'event':
-                            if ($year && $month) $dates = array( $year.'-'.$month.'-01 01:00:00', $year.'-'.$month.'-31 23:59:59' );
-                            if (!$month) $dates = array( $year.'-01-01 01:00:00', $year.'-12-31 23:59:59' );
-                        
-                            $args_query['meta_query'] =  array(
-                                'event_start_clause' => array(
-                                    'key' => '_event_start',
-                                    'value' => $dates,
-                                    'compare' => 'BETWEEN',
-                                    'type' => 'DATE'
-                                )
-                            );
-                            $args_query['orderby'] = 'event_start_clause';
-                            break;
-                        
-                        default:
-                            $date_params = array();
-                            if($year) $date_params['year'] = $year;
-                            if($month) $date_params['month'] = $month;
-                            $args_query['date_query'] = array( $date_params );
-                            break;
+                        );
                     }
                 }
-
-                if($wookey == 'on_sale'){
-                    $args_query['meta_query'] = array(
-                        array(
-                            'key'           => '_sale_price',
-                            'value'         => 0,
-                            'compare'       => '>',
-                            'type'          => 'numeric'
-                        )
-                    );
-                }
-                if($wookey == 'best_selling'){
-                    $args_query['meta_query'] = array(
-                        array(
-                            'key' => 'total_sales'
-                        )
-                    );
-                    $args_query['orderby'] = 'meta_value_num';
+                if ( count($tax_query) > 1 ) {
+                    $query_args['tax_query'] = $tax_query;
+                } else {
+                    unset($query_args['tax_query']);
                 }
             }
 
-            $args_query = apply_filters('filter_listing_query_args', $args_query, $listing_args, $filter_values);
-            $query = new WP_Query( $args_query ); 
+            if ( isset($filter_values['search']) && !empty($filter_values['search']) ) {
+                $query_args['s'] = sanitize_text_field($filter_values['search']);
+            }
+
+            if ( isset($filter_values['year']) || isset($filter_values['month']) ) {
+                $year = isset($filter_values['year']) ? intval($filter_values['year']) : null;
+                $month = isset($filter_values['month']) ? intval($filter_values['month']) : null;
+
+                switch ($posttype) {
+                    case 'event':
+                        if ($year && $month) $dates = array( $year.'-'.$month.'-01 01:00:00', $year.'-'.$month.'-31 23:59:59' );
+                        if (!$month) $dates = array( $year.'-01-01 01:00:00', $year.'-12-31 23:59:59' );
+                        $query_args['meta_query'] = array(
+                            'event_start_clause' => array(
+                                'key' => '_event_start',
+                                'value' => $dates,
+                                'compare' => 'BETWEEN',
+                                'type' => 'DATE'
+                            )
+                        );
+                        $query_args['orderby'] = 'event_start_clause';
+                        break;
+                    default:
+                        $date_params = array();
+                        if ($year) $date_params['year'] = $year;
+                        if ($month) $date_params['month'] = $month;
+                        $query_args['date_query'] = array( $date_params );
+                        break;
+                }
+            }
+
+            // custom field query (from listing-filter component)
+            if ( isset($filter_values['custom']) && is_array($filter_values['custom']) ) {
+                $custom_compare  = ( isset($filter_values['custom_compare']) && is_array($filter_values['custom_compare']) ) ? $filter_values['custom_compare'] : array();
+                $allowed_compares = array( '=', '!=', '>', '>=', '<', '<=', 'LIKE', 'NOT LIKE' );
+
+                $meta_query = isset($query_args['meta_query']) ? $query_args['meta_query'] : array();
+                if ( !isset($meta_query['relation']) ) $meta_query['relation'] = 'AND';
+
+                foreach ( $filter_values['custom'] as $meta_key => $value ) {
+                    if ( !is_array($value) && $value === '' ) continue;
+                    $meta_key = sanitize_key($meta_key);
+
+                    if ( is_array($value) && isset($value['min'], $value['max']) ) {
+                        // number_range → BETWEEN
+                        if ( $value['min'] === '' && $value['max'] === '' ) continue;
+                        $min = floatval($value['min']);
+                        $max = floatval($value['max']);
+                        if ( $min > $max ) { $t = $min; $min = $max; $max = $t; }
+                        $meta_query[] = array(
+                            'key'     => $meta_key,
+                            'value'   => array( $min, $max ),
+                            'compare' => 'BETWEEN',
+                            'type'    => 'NUMERIC',
+                        );
+
+                    } elseif ( is_array($value) ) {
+                        // checkboxes → IN
+                        $sanitized = array_values( array_filter( array_map( 'sanitize_text_field', $value ) ) );
+                        if ( empty($sanitized) ) continue;
+                        $meta_query[] = array(
+                            'key'     => $meta_key,
+                            'value'   => $sanitized,
+                            'compare' => 'IN',
+                        );
+
+                    } else {
+                        // text / select / radio
+                        $sanitized_value = sanitize_text_field($value);
+                        if ( $sanitized_value === '' ) continue;
+                        $compare = isset($custom_compare[$meta_key]) ? strtoupper( sanitize_text_field( $custom_compare[$meta_key] ) ) : '=';
+                        if ( !in_array($compare, $allowed_compares) ) $compare = '=';
+                        $meta_query[] = array(
+                            'key'     => $meta_key,
+                            'value'   => $sanitized_value,
+                            'compare' => $compare,
+                        );
+                    }
+                }
+
+                if ( count($meta_query) > 1 ) {
+                    $query_args['meta_query'] = $meta_query;
+                }
+            }
+            // end custom field query
+
+            $query_args = apply_filters('filter_listing_query_args', $query_args, $listing_args, $filter_values);
+            $query = new WP_Query( $query_args );
 
             if ($query->have_posts()) {
                 $result['status'] = "success";
 
-                ob_start(); 
-                if($listing_template == 'masonry'){
+                ob_start();
+                if ($listing_template == 'masonry') {
                     echo '<div class="masonry-grid-sizer"></div>';
                     echo '<div class="masonry-gutter-sizer"></div>';
-                } 
-                
-                while ( $query->have_posts() ) : 
+                }
+
+                while ( $query->have_posts() ) :
                     $query->the_post();
 
-                    if($listing_template == 'carrusel') echo '<div>';
-                    if($listing_template == 'masonry') echo '<div class="masonry-grid-item">';
-                    get_template_part( 'partials/card/postcard', $postcard_template, array( 
+                    if ($listing_template == 'carousel') echo '<div>';
+                    if ($listing_template == 'masonry') echo '<div class="masonry-grid-item">';
+                    get_template_part( 'partials/card/postcard', $postcard_template, array(
                         'postcard_settings' => array( 'template' => $postcard_template ),
                         'on_click_post' => $on_click_post,
                         'on_click_scroll_to' => $on_click_scroll_to
                     ));
-                    if($listing_template == 'carrusel') echo '</div>';
-                    if($listing_template == 'masonry') echo '</div>';
+                    if ($listing_template == 'carousel') echo '</div>';
+                    if ($listing_template == 'masonry') echo '</div>';
                 endwhile;
                 $result['posts'] = ob_get_clean();
 
-                if ( $query->max_num_pages > 1 ){
-                    ob_start(); 
-                    if($pagination_type == 'numeric') {
+                if ( $query->max_num_pages > 1 ) {
+                    ob_start();
+                    if ($pagination_type == 'numeric') {
                         $base_url = $this->generate_base_url($listing_args, $filter_values);
                         Pagination::display($query, $paged, $base_url);
                     }
-                    if($pagination_type == 'load-more'){
+                    if ($pagination_type == 'load-more') {
                         $load_more_text = LISTING_LOAD_MORE_TEXT;
-                        echo '<p class="aligncenter"><button class="btn load_more_posts" data-paged="2">'.$load_more_text[$lang].'</button></p>'; 
+                        echo '<p class="aligncenter"><button class="btn load_more_posts" data-paged="2">'.$load_more_text[$lang].'</button></p>';
                     }
                     $result['pagination'] = ob_get_clean();
                     $result['max_num_pages'] = $query->max_num_pages;
@@ -201,11 +201,9 @@ class Ajax_Load_Posts{
             $result['message'] = $texts[1][$lang];
         }
 
-        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-            $result = json_encode($result);
-            echo $result;
-        }
-        else {
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            echo json_encode($result);
+        } else {
             header("Location: ".$_SERVER["HTTP_REFERER"]);
         }
         wp_die();

@@ -4,11 +4,11 @@ namespace Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
-use WP_Query;
 use Core\Frontend\Pagination;
 use Core\Posttype\Postcard;
 use Core\Builder\Component\Postcard as Postcard_Component;
 use Core\Builder\Core;
+use Core\Frontend\Listing_Data_Provider;
 
 class Listing extends Component {
 
@@ -221,8 +221,6 @@ class Listing extends Component {
         $columns = $args['columns'] ?? LISTING_COLUMNS;
         $columns_gap = $args['columns_gap'] ?? LISTING_GAP;
         $listing_template = $args['listing_template'] ?? '';
-        $query_taxonomies = array();
-        $query_terms = array();
         $woocommerce_key = ( WOOCOMMERCE_IS_ACTIVE && isset($args['woocommerce_key']) ) ? $args['woocommerce_key'] : '';
         
         // postcard settings
@@ -242,156 +240,31 @@ class Listing extends Component {
             $postcard_cpt_template = Postcard::getInstance()->get_data( str_replace('postcard_','',$postcard_template) );
         }
 
+        // handle "_default" postcard template placeholder
+        $posttype = ($listing_source === 'auto') ? $args['posttype'] ?? '' : '';
+        if( $postcard_template === '_default' ){
+            $args['postcard_settings']['template'] = $posttype;
+            $postcard_template = $posttype;
+        } 
+
         // pagination
         $pagination_type = $args['pagination_type'] ?? 'none';
         $pagination_scrolltop = $args['pagination_scrolltop'] ?? false;
-
-        // post status params
-        $status_params = $args['status_params'] ?? array(
-            'set_post_status' => false,
-            'post_status' => array('publish')
-        );
-        $post_status = ( self::fix_boolean_on_ajax_calls( $status_params['set_post_status'] ) && isset($status_params['post_status']) && is_array($status_params['post_status']) && count($status_params['post_status']) > 0 ) ? $status_params['post_status'] : array('publish');
-            
-        if ($listing_source == 'manual') {
-            $posttype = '';
-            $posts_ids = array();
-            $posts_meta = $args['posts'];
-            foreach ($posts_meta as $post) {
-                array_push($posts_ids, str_replace('post_','',$post) );
-            };
-            
-            $args_query = array();
-            $args_query['posts_per_page'] = -1;
-            $args_query['post_type'] = 'any';
-            $args_query['post__in'] = $posts_ids;
-            $args_query['orderby'] = 'post__in';
-        }
         
-        if ($listing_source == 'auto') {
-            $posttype = $args['posttype'] ?? '';
-            // handle _default postcard template placeholder
-            if( $postcard_template === '_default' ){
-                $args['postcard_settings']['template'] = $posttype;
-                $postcard_template = $posttype;
-            } 
-
-            // query params
-            $query_params = $args['query_params'] ?? array();
-            $posts_per_page = $query_params['posts_per_page'] ?? 3;
-            $order = $query_params['order'] ?? 'DESC';
-            $orderby = $query_params['orderby'] ?? 'date';
-
-            $args_query = array( 
-                'post_type' => $posttype,
-                'posts_per_page' => $posts_per_page,
-                'order' => $order,
-                'orderby' => $orderby,
-                'post_status' => $post_status,
-                'paged' => ( get_query_var('paged') ) ? get_query_var('paged') : 1
-            );
-            if( isset($args['post__not_in']) ) $args_query['post__not_in'] = $args['post__not_in'];
-            if( isset($query_params['offset']) && is_numeric($query_params['offset']) && $query_params['offset'] > 0 ){
-                $args_query['offset'] = $query_params['offset'];
-            } 
-        
-            // check if tax_query is needed 
-            $tax_params = ( isset($args['tax_params']) ) ? $args['tax_params'] : null;
-            $pt_taxonomies = get_object_taxonomies( $posttype ); // get taxonomies for selected posttype 
-        
-            if( is_array($tax_params) ){    
-                $tax_query = array( 'relation' => 'AND' );
-                foreach ($tax_params as $tax => $terms) {
-                    $tax_parts = explode( '--', $tax );
-                    $tax_name = $tax_parts[1];
-                    // $tax_cpt = $tax_parts[0]; // util, but not used
-
-                    // create tax_query if tax belongs to selected posttype and there are selected terms
-                    if( in_array($tax_name,$pt_taxonomies) && is_array($terms) && count($terms) > 0 ){
-                        if( !empty($terms[0]) ){            
-                            array_push($tax_query, array(
-                                'taxonomy' => $tax_name,
-                                'field' => 'term_id',
-                                'terms' => $terms,
-                                'include_children' => true,
-                                'operator' => 'IN'
-                            ));
-                        }
-                    }
-                }
-            
-                /* woo featured products */
-                if(WOOCOMMERCE_IS_ACTIVE){
-                    if($woocommerce_key == 'featured'){
-                        array_push($tax_query, array(
-                            'taxonomy' => 'product_visibility',
-                            'field'    => 'name',
-                            'terms'    => array('featured'),
-                            'operator' => 'IN'
-                        ));
-                    }
-                }
-                /* end woo featured products */
-            
-                if( count($tax_query) > 1 ){ // add tax query
-                    $args_query['tax_query'] = $tax_query;
-                
-                    // taxonomies and terms for pagination, load more, etc
-                    foreach ($tax_query as $query) {
-                        if( isset($query['taxonomy']) ){
-                            array_push($query_taxonomies,$query['taxonomy']);
-                            if( is_array($query['terms']) ){
-                                foreach ($query['terms'] as $term) {
-                                    array_push($query_terms,$term);
-                                }
-                            }
-                        }
-                    }
-                } 
-            }
-        }
-        
-        if(WOOCOMMERCE_IS_ACTIVE){
-            if($woocommerce_key == 'on_sale'){
-                $args_query['meta_query'] = array(
-                    array(
-                        'key'           => '_sale_price',
-                        'value'         => 0,
-                        'compare'       => '>',
-                        'type'          => 'numeric'
-                    )
-                );
-            }
-            if($woocommerce_key == 'best_selling'){
-                $args_query['meta_query'] = array(
-                    array(
-                        'key' => 'total_sales'
-                    )
-                );
-                $args_query['orderby'] = 'meta_value_num';
-            }
-        }
-        
-        $query = new WP_Query( $args_query ); 
+        $args['data_source'] = $args['data_source'] ?? 'custom_query';
+        $query = Listing_Data_Provider::get_data( $args ); 
 
         $listing_args = array(
             'post_template' => $postcard_template,
             'listing_template' => $listing_template,
             'on_click_post' => $on_click_post,
             'on_click_scroll_to' => $on_click_scroll_to,
-            'taxonomies' => $query_taxonomies,
-            'terms' => $query_terms,
             'wookey' => $woocommerce_key,
             'posttype' => $posttype,
             'pagination_type' => $pagination_type,
             'scrollTop' => $pagination_scrolltop,
-            'post_status' => $post_status
+            'query_args' => $query->query,
         );
-        if ($listing_source == 'auto') {
-            $listing_args['per_page'] = $posts_per_page;
-            $listing_args['order'] = $order;
-            $listing_args['orderby'] = $orderby;
-        }
         $args['additional_attributes']['data-listing-args'] = esc_attr( json_encode($listing_args) );
 
         // uid
@@ -560,12 +433,6 @@ class Listing extends Component {
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
-
-    private static function fix_boolean_on_ajax_calls( $value ) {
-        if( $value === 'true' ) return true;
-        if( $value === 'false' ) return false;
-        return $value;
-    }
 
     public static function hide_permalink( $permalink, $post ) {
         return '#';

@@ -117,6 +117,39 @@
         });
     }
 
+    function reset_filter_form($filter) {
+        var form = $filter && $filter[0];
+
+        if (!form || !form.elements) return;
+
+        Array.prototype.forEach.call(form.elements, function(field) {
+            if (!field || field.disabled || !field.name) return;
+
+            var type = (field.type || '').toLowerCase(),
+                tagName = (field.tagName || '').toLowerCase(),
+                resetValue = field.getAttribute('data-reset-value'),
+                resetChecked = field.getAttribute('data-reset-checked');
+
+            if (type === 'submit' || type === 'button' || type === 'file' || type === 'hidden') return;
+
+            if (type === 'checkbox' || type === 'radio') {
+                field.checked = resetChecked === '1';
+                return;
+            }
+
+            if (tagName === 'select' && field.multiple) {
+                Array.prototype.forEach.call(field.options, function(option) {
+                    option.selected = option.value === resetValue;
+                });
+                return;
+            }
+
+            field.value = (resetValue !== null) ? resetValue : '';
+        });
+
+        $filter.find('select').trigger('change');
+    }
+
     function getPagedParameter(url) {
         const parsedUrl = new URL(url, window.location.origin);
         const params = new URLSearchParams(parsedUrl.search);
@@ -175,6 +208,14 @@
 
                     do_the_ajax($component, $listing, $pagination, $filter, paged, action);
                 });
+
+                $filter.on('click','.listing-filter__reset',function(ev){
+                    ev.preventDefault();
+                    var paged = 1, action = 'replace';
+
+                    reset_filter_form($filter);
+                    do_the_ajax($component, $listing, $pagination, $filter, paged, action);
+                });
             }
 
             $component.on('listingUpdated', function(e,data){
@@ -191,4 +232,20 @@
             });
         });   
     }
+
+    $(document).on('click', '.listing-filter__reset', function(event) {
+        var $button = $(this),
+            $filter = $button.closest('form'),
+            $filterComponent = $button.closest('.listing-filter'),
+            listing_uid = $filterComponent.data('listing-uid'),
+            $listingComponent = listing_uid ? $('.component.listing[data-listing-uid="'+listing_uid+'"]') : $();
+
+        if ($listingComponent.length) return;
+
+        event.preventDefault();
+        reset_filter_form($filter);
+
+        var resetUrl = $button.attr('data-reset-url') || $filter.attr('action') || window.location.pathname;
+        window.location.href = resetUrl;
+    });
 })(jQuery,console.log);

@@ -9,6 +9,7 @@ use Core\Includes\Theme_Header_Data;
 use Core\Includes\Loader;
 use Core\Frontend\Frontend;
 use Core\Frontend\WooCommerce_Support;
+use Core\Frontend\Archive_Search;
 use Core\Admin\Admin;
 use Core\Admin\Duplicate_Page;
 use Core\Cleanup\Cleanup;
@@ -124,6 +125,11 @@ class Theme extends Theme_Header_Data {
         $this->loader->add_action( 'wp_head', $theme_options, 'print_head_scripts', 1000 );
         $this->loader->add_action( 'wp_body_open', $theme_options, 'print_body_scripts' );
         $this->loader->add_action( 'wp_footer', $theme_options, 'print_footer_scripts', 1000 );
+
+        // Initialize the Archive_Search instance in the frontend:
+        $archive_search = new Archive_Search();
+        $this->loader->add_filter( 'posts_where', $archive_search, 'post_content_to_meta_queries', 10, 2 );
+        $this->loader->add_action( 'pre_get_posts', $archive_search, 'customize_main_query', 10, 1 );
     }
 
     private function define_admin_hooks() {	

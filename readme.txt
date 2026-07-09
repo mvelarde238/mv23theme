@@ -2,6 +2,17 @@
 CHANGELOG
 **************************************************************************************************
 
+3.14.5 26-07-09
+- Listing Filter Improvements:
+|-- custom field group support on listing filter component to allow users to filter posts based on custom fields
+|-- if there is not a listing connected, the filter works as a search form, 
+    allowing users to be redirected to the archive page with the filter settings applied
+|-- customize_main_query() method implementation to allow customizing the main query on archive pages based on the filter settings applied, 
+    allowing users to filter posts based on custom fields and other criteria
+|-- Listing_Data_Provider class implementation to provide data to the listing component based on custom params or the main query
+|-- send query_args to ajax_load_posts() instead of re-building the query_args from the listing settings
+|-- reset button implementation on listing filter component to allow users to reset the filter settings and return to the default state
+
 3.14.4 26-07-08
 - App.js update: 
 |-- **Custom CSS Editor bugfix**: Live preview no longer destroys Style Manager styles

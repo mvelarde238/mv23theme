@@ -54,12 +54,11 @@ class Archive_Posts extends Component {
 	}
 
     // handle "_default" placeholder or empty postcard template to use posttype as template
-    private static function handle_postcard_template( $key, $args, $posttype, $archive_template ){
+    private static function handle_postcard_template( $args, $posttype ){
         $postcard_template = '';
 
         $postcard_settings = $args['postcard_settings'] ?? array();
         $postcard_template = $postcard_settings['template'] ?? '_default';
-        $posttype = ( $key === 'archive-page') ? $archive_template->get_archive_post_type() : $posttype;
         if( $postcard_template == '_default' || empty($postcard_template) ) $postcard_template = $posttype;
 
         return $postcard_template;
@@ -87,7 +86,7 @@ class Archive_Posts extends Component {
                 );
             }
 
-            $postcard_template = self::handle_postcard_template('builder', $args, $posttype, $archive_template);
+            $postcard_template = self::handle_postcard_template($args, $posttype);
             $listing_args['postcard_settings']['template'] = $postcard_template;
 
             echo Listing::display($listing_args);
@@ -99,22 +98,9 @@ class Archive_Posts extends Component {
             echo '<p class="archive-posts-placeholder">' . esc_html($msg) . '</p>';
         } 
         if ( is_post_type_archive() || is_tax() || is_category() || is_tag() || is_home() ) {
-            $postcard_template = self::handle_postcard_template('archive-page', $args, null, $archive_template);
-            $listing_args['postcard_settings']['template'] = $postcard_template;
-
-            if( IS_MULTILANGUAGE ){
-                // fix a possible polylang-issue where tax_params is populated with a post--language taxonomy that doesn't exist, causing the listing to break
-                // remove post--language taxonomy from tax_params if it exists, to prevent issues with polylang
-                if( isset($listing_args['tax_params']) ){
-                    foreach( $listing_args['tax_params'] as $key => $value ){
-                        if( strpos($key, 'post--language') !== false ){
-                            unset($listing_args['tax_params'][$key]);
-                        }
-                    }
-                }
-            }
-
             do_action('before_loop');
+            $listing_args['data_source'] = 'main_query';
+            $listing_args['additional_classes'][] = 'listing'; // this is needed for the listing js script to work properly
             echo Listing::display($listing_args);
         }
         return ob_get_clean();
