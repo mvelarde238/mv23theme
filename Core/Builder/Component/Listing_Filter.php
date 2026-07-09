@@ -140,7 +140,7 @@ class Listing_Filter extends Component {
 
         // Add submit button group
         $filters_repeater->add_group('submit', array(
-            'title' => __('Filter button','mv23theme'),
+            'title' => __('Submit','mv23theme'),
             'fields' => array(
                 Field::create( 'text', 'text' )
                     ->hide_label()->set_prefix(__('Button text','mv23theme'))
@@ -501,7 +501,7 @@ if ( ! filterItems.length ) {
                 submitHtml += '<span class="field-desc"><button type="button" class="listing-filter__reset">' + escapeHtml( filterGroup.reset_text || 'RESET' ) + ' <i class="fa fa-undo"></i></button></span>';
             }
 
-            submitHtml += '<button type="button" class="listing-filter__submit btn btn--main-color btn-block">' + escapeHtml( filterGroup.text || 'FILTER' ) + '</button>';
+            submitHtml += '<button type="submit" class="listing-filter__submit btn btn--main-color btn-block">' + escapeHtml( filterGroup.text || 'FILTER' ) + '</button>';
             html += '<div class="field-wrapper">' + submitHtml + '</div>';
             return;
         }
