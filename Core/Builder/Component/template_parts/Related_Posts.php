@@ -17,7 +17,8 @@ class Related_Posts extends Component {
 
     public static function get_builder_data() {
         return array(
-            'posttypes' => array('single_template')
+            'posttypes' => array('single_template'),
+            'custom_datastore_change_callback' => true
 		);
     }
 
@@ -27,6 +28,21 @@ class Related_Posts extends Component {
 
 	public static function get_fields() {
 		$fields = array();
+
+        # Add listing fields
+		$listing_fields = Listing::get_fields();
+		$exclude = ['posttype','woocommerce_key','tax_params','status_params','pagination_scrolltop'];
+		foreach ( $listing_fields as $field ) {
+            $field_name = $field->get_name();
+			
+            if( in_array( $field_name, $exclude ) ) continue;
+            if( $field_name === 'listing_template' ){
+                $field->set_default_value('carousel');
+            }
+
+			$fields[] = $field;
+		}
+
 		return $fields;
 	}
 
@@ -59,36 +75,35 @@ class Related_Posts extends Component {
         $post_type = get_post_type( $post->ID );
         $post_type_name = get_post_type_object( $post_type )->labels->name;
 
-        $default_args = array(
+        $custom_listing_args = array(
             'show' => 'auto',
             'post__not_in' => array($post->ID),
             'query_params' => array(
-                'posts_per_page' => 5,
+                'posts_per_page' => 3,
                 'orderby' => 'rand',
-            ),
-            'columns' => LISTING_COLUMNS,
-            'columns_gap' => LISTING_GAP,
-            'postcard_settings' => array(
-                'template' => '_default'
-            ),
-            'listing_template' => 'carousel',
-            'carousel_settings' => array(
-                'show_controls' => true
             ),
             'posttype' => $post->post_type,
         );
+        $listing_args = array_merge($custom_listing_args, $args);
 
         // Automatically include taxonomy terms of the current post as query params for related posts
         $taxonomies = get_object_taxonomies( get_post_type( $post->ID ) );
+
+        // fix for polylang plugin, which creates taxonomies that we don't want to use for related posts:
+        $excluded_taxonomies = array('post_translations');
+
 		foreach ( $taxonomies as $taxonomy ) {
 			$terms = get_the_terms( $post->ID, $taxonomy );
 			if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
-                $default_args['tax_params'][$post->post_type.'--'.$taxonomy] = wp_list_pluck( $terms, 'term_id' );
+                $posttype__taxonomy = $post_type . '--' . $taxonomy;
+                if( !in_array($taxonomy, $excluded_taxonomies) ) {
+                    $listing_args['tax_params'][$posttype__taxonomy] = wp_list_pluck( $terms, 'term_id' );
+                }
 			}
 		}
 
         // filter the related posts arguments
-        $related_posts_args = apply_filters('filter_related_'.$post->post_type.'_args', $default_args, $post->ID);
+        $related_posts_args = apply_filters('filter_related_'.$post->post_type.'_args', $listing_args, $post->ID);
 
         ob_start();
         echo '<div class="related-posts component">';

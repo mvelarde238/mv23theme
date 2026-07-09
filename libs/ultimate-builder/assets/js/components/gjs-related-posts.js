@@ -2,7 +2,7 @@ window.gjsRelatedPosts = function (editor, options) {
     const domc = editor.DomComponents;
 
     domc.addType('related-posts', {
-        extend: 'async-component-abstract',
+        extend: 'archive-posts',
         model: {
             defaults: {
                 name: 'Related Posts',
