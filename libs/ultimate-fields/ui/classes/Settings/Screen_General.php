@@ -11,6 +11,15 @@ use Ultimate_Fields\Options_Page;
  */
 class Screen_General extends Screen {
 	/**
+	 * Holds the generated settings options page instance.
+	 *
+	 * @since 3.0
+	 *
+	 * @var Options_Page
+	 */
+	protected $page;
+
+	/**
 	 * Holds the fields, which will be used for the settings page.
 	 *
 	 * @since 3.0
