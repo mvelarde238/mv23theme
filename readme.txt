@@ -12,6 +12,7 @@ CHANGELOG
 |-- Listing_Data_Provider class implementation to provide data to the listing component based on custom params or the main query
 |-- send query_args to ajax_load_posts() instead of re-building the query_args from the listing settings
 |-- reset button implementation on listing filter component to allow users to reset the filter settings and return to the default state
+|-- Listing_Filter::get_view_template() method implementation to provide the view template preview on the builder canvas
 
 3.14.4 26-07-08
 - App.js update: 

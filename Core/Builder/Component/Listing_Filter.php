@@ -312,7 +312,7 @@ class Listing_Filter extends Component {
                     echo '<div class="field-wrapper">';
                     if( $show_reset_button ) {
                         echo '<span class="field-desc">';
-                        echo '<button type="button" class="listing-filter__reset" data-reset-url="'.esc_url( $form_action_url ).'">'.esc_html( $reset_button_text ).' <i class="bi bi-arrow-counterclockwise"></i></button>';
+                        echo '<button type="button" class="listing-filter__reset" data-reset-url="'.esc_url( $form_action_url ).'">'.esc_html( $reset_button_text ).' <i class="fa fa-undo"></i></button>';
                         echo '</span>';
                     }
                     echo '<button type="submit" class="listing-filter__submit btn btn--main-color btn-block">'.$button_text.'</button>';
@@ -448,6 +448,86 @@ class Listing_Filter extends Component {
 
         echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
+    }
+
+    public static function get_view_template() {
+		$template = <<<'BACKBONE'
+<%
+var filterItems = Array.isArray( filters ) ? filters : [];
+var layout = template || 'horizontal';
+var selectedPosttype = posttype || 'post';
+var sampleItems = window.UF_Editor?.getListingFilterSampleItems( 8 ) || [];
+var renderFieldWrapper = window.UF_Editor?.renderFieldWrapper;
+var escapeHtml = window.UF_Editor?.escapeHtml || function( value ) {
+    return _.escape( value == null ? '' : String( value ) );
+};
+
+var html = '<div class="listing-filter" data-template="' + escapeHtml( layout ) + '">';
+html += '<form action="#" method="GET">';
+html += '<div class="fields-row">';
+
+if ( ! filterItems.length ) {
+    html += renderFieldWrapper( 'SEARCH:', '<input type="text" class="listing-filter__search-input" value="" />' );
+    html += '<div class="field-wrapper"><button type="button" class="listing-filter__submit btn btn--main-color btn-block">FILTER</button></div>';
+} else {
+    _.each( filterItems, function( filterGroup ) {
+        var filterType = filterGroup.__type || '';
+
+        if ( filterType === 'break' ) {
+            html += '</div><div class="fields-row">';
+            return;
+        }
+
+        if ( filterType === 'search' ) {
+            html += renderFieldWrapper( filterGroup.label || 'SEARCH:', '<input type="text" class="listing-filter__search-input" value="" />' );
+            return;
+        }
+
+        if ( filterType === 'month' ) {
+            html += renderFieldWrapper( 'MONTH:', window.UF_Editor?.renderSelect( 'listing-filter__month-select', sampleItems, true ) );
+            return;
+        }
+
+        if ( filterType === 'year' ) {
+            var yearItems = window.UF_Editor?.getListingFilterYearItems( 8 ) || [];
+            html += renderFieldWrapper( 'YEAR:', window.UF_Editor?.renderSelect( 'listing-filter__year-select', yearItems, true ) );
+            return;
+        }
+
+        if ( filterType === 'submit' ) {
+            var submitHtml = '';
+
+            if ( filterGroup.show_reset_button ) {
+                submitHtml += '<span class="field-desc"><button type="button" class="listing-filter__reset">' + escapeHtml( filterGroup.reset_text || 'RESET' ) + ' <i class="fa fa-undo"></i></button></span>';
+            }
+
+            submitHtml += '<button type="button" class="listing-filter__submit btn btn--main-color btn-block">' + escapeHtml( filterGroup.text || 'FILTER' ) + '</button>';
+            html += '<div class="field-wrapper">' + submitHtml + '</div>';
+            return;
+        }
+
+        if ( filterType === 'customfield' ) {
+            html += window.UF_Editor?.renderListingFilterCustomField( filterGroup );
+            return;
+        }
+
+        if ( filterType.indexOf( 'taxfilter__' ) === 0 ) {
+            html += window.UF_Editor?.renderListingFilterTaxonomyField( filterGroup, selectedPosttype );
+            return;
+        }
+
+        html += renderFieldWrapper( window.UF_Editor?.slugToLabel( filterType, 'Filter' ), '<input type="text" value="" />' );
+    } );
+}
+
+html += '</div>';
+html += '</form>';
+html += '</div>';
+%>
+<%= html %>
+BACKBONE;
+
+        return $template;
     }
 }
 
