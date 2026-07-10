@@ -15,6 +15,36 @@
 
             // Do the normal initialization
             field.Model.prototype.setDatastore.call(this, datastore);
+        },
+
+        getSEOValue: function() {
+            var value = this.getValue(),
+                components = value && value.components_data ? value.components_data : null,
+                seoParts = [];
+
+            if( ! components ) {
+                return false;
+            }
+
+            _.each( components, function( component ) {
+                var content;
+
+                if( ! component || 'text-editor' !== component.__type ) {
+                    return;
+                }
+
+                if( 'string' !== typeof component.content ) {
+                    return;
+                }
+
+                content = $.trim( component.content );
+
+                if( content ) {
+                    seoParts.push( content );
+                }
+            });
+
+            return seoParts.length ? seoParts.join(' ') : false;
         }
     });
 
