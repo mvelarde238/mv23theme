@@ -17,6 +17,7 @@ CHANGELOG
 |-- Exclude certain taxonomies (e.g. 'post_translations') from being used as query params for related posts, 
     to prevent issues with the Polylang plugin which creates these taxonomies and can cause unexpected behavior when fetching related posts
 |-- Add listing settings to the related posts arguments to allow users to customize the listing layout and behavior for related posts
+- add icon-box class to togglebox state icon
 
 3.14.4 26-07-08
 - App.js update: 
