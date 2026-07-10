@@ -10,6 +10,11 @@
             loop: false,
             closeOnOutsideClick: true,
         });
+
+        window.mv23RefreshLightbox = function() {
+            if (!window.mv23Lightbox || typeof window.mv23Lightbox.reload !== 'function') return;
+            window.mv23Lightbox.reload();
+        };
         
         function mv23UpdateIframeClass() {
             var container = document.querySelector('.glightbox-container');
@@ -22,6 +27,10 @@
 
         window.mv23Lightbox.on('open', function() { setTimeout(mv23UpdateIframeClass, 80); });
         window.mv23Lightbox.on('slide_changed', function() { setTimeout(mv23UpdateIframeClass, 80); });
+
+        $(document).on('listingUpdated', function() {
+            window.mv23RefreshLightbox();
+        });
 
         // ****************************************************************************************************
     });

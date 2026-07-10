@@ -2,6 +2,11 @@
 CHANGELOG
 **************************************************************************************************
 
+3.14.6 26-07-10
+- Lightbox Improvements:
+|-- mv23RefreshLightbox() method implementation to allow refreshing the lightbox when the listing is updated
+- Fix Ajax_Load_Posts to use the correct postcard template when the listing is updated
+
 3.14.5 26-07-09
 - Listing Filter Improvements:
 |-- custom field group support on listing filter component to allow users to filter posts based on custom fields

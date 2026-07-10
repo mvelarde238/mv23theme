@@ -2,6 +2,8 @@
 namespace Core\Admin;
 
 use WP_Query;
+use Core\Posttype\Postcard;
+use Core\Builder\Component\Postcard as Postcard_Component;
 use Core\Frontend\Pagination;
 
 class Ajax_Load_Posts{
@@ -32,6 +34,11 @@ class Ajax_Load_Posts{
         $posttype = $listing_args["posttype"] ?? '';
 
         $query_args = $listing_args['query_args'] ?? null;
+        $postcard_cpt_template = null;
+
+        if ( strpos($postcard_template, 'postcard_') === 0 ) {
+            $postcard_cpt_template = Postcard::getInstance()->get_data( str_replace('postcard_', '', $postcard_template) );
+        }
 
         if ( $query_args && $paged ) {
 
@@ -154,26 +161,53 @@ class Ajax_Load_Posts{
             if ($query->have_posts()) {
                 $result['status'] = "success";
 
+                if ( $on_click_post === 'none' ) {
+                    add_filter('post_link', array($this, 'hide_permalink'), 30, 2);
+                    add_filter('post_type_link', array($this, 'hide_permalink'), 30, 2);
+                }
+
                 ob_start();
+                if ( $postcard_cpt_template && $postcard_cpt_template['has_content'] ) {
+                    echo '<style>'.$postcard_cpt_template['styles'].'</style>';
+                }
                 if ($listing_template == 'masonry') {
                     echo '<div class="masonry-grid-sizer"></div>';
                     echo '<div class="masonry-gutter-sizer"></div>';
                 }
 
+                $count = 0;
                 while ( $query->have_posts() ) :
                     $query->the_post();
 
                     if ($listing_template == 'carousel') echo '<div>';
                     if ($listing_template == 'masonry') echo '<div class="masonry-grid-item">';
-                    get_template_part( 'partials/card/postcard', $postcard_template, array(
-                        'postcard_settings' => array( 'template' => $postcard_template ),
-                        'on_click_post' => $on_click_post,
-                        'on_click_scroll_to' => $on_click_scroll_to
-                    ));
+
+                    if ( $postcard_cpt_template && $postcard_cpt_template['has_content'] ) {
+                        $postcard_cpt_template['component']['postcard_settings'] = array(
+                            'on_click_post' => $on_click_post,
+                            'on_click_scroll_to' => $on_click_scroll_to
+                        );
+                        echo Postcard_Component::display( $postcard_cpt_template['component'] );
+                    } else {
+                        $_postcard_template = apply_filters('filter_listing_postcard_template', $postcard_template, $count);
+                        get_template_part( 'partials/card/postcard', $_postcard_template, array(
+                            'postcard_settings' => array( 'template' => $_postcard_template ),
+                            'on_click_post' => $on_click_post,
+                            'on_click_scroll_to' => $on_click_scroll_to,
+                            'count' => $count,
+                        ));
+                    }
+
                     if ($listing_template == 'carousel') echo '</div>';
                     if ($listing_template == 'masonry') echo '</div>';
+                    $count++;
                 endwhile;
                 $result['posts'] = ob_get_clean();
+
+                if ( $on_click_post === 'none' ) {
+                    remove_filter('post_link', array($this, 'hide_permalink'), 30, 2);
+                    remove_filter('post_type_link', array($this, 'hide_permalink'), 30, 2);
+                }
 
                 if ( $query->max_num_pages > 1 ) {
                     ob_start();
@@ -207,6 +241,10 @@ class Ajax_Load_Posts{
             header("Location: ".$_SERVER["HTTP_REFERER"]);
         }
         wp_die();
+    }
+
+    public function hide_permalink( $permalink, $post ) {
+        return '#';
     }
 
     /**
