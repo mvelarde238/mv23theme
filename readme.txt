@@ -6,6 +6,7 @@ CHANGELOG
 - Lightbox Improvements:
 |-- mv23RefreshLightbox() method implementation to allow refreshing the lightbox when the listing is updated
 - Fix Ajax_Load_Posts to use the correct postcard template when the listing is updated
+- Template_Engine::is_restricted() method implemented on accordion button component
 
 3.14.5 26-07-09
 - Listing Filter Improvements:
