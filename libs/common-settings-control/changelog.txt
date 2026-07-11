@@ -1,5 +1,9 @@
 UF Common Settings Control Changelog-------------------------
 
+1.0.10 26-07-11
+- Fix: Remove rule_operator if rules is empty
+    (field-common-settings-control.js:filterData())
+
 1.0.9 26-04-15
 - Clear actions common settings if no action is selected
     (field-common-settings-control.js:filterData())

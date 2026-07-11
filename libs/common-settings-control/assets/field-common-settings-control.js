@@ -142,6 +142,8 @@
 							if(_colour_picker.length) _colour_picker.iris('hide');
 
                 			processed_data = that.filterData( this.model.get( 'container' ), raw_data );
+							console.log('processed_data', processed_data);
+							console.log('isEmpty', _.isEmpty(processed_data));
 
 							// check has-values class
 							const _button = $( this.model.get('_triggerButton') );
@@ -278,6 +280,7 @@
 				Object.entries(raw_data).forEach(entry => {
 					if( entry[0] == 'rules' && entry[1].length === 0 ){
 						delete raw_data.rules;
+						delete raw_data.rule_operator;
 					}
 				});
 			}

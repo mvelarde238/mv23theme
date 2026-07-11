@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.14.7 26-07-11
+- Common settings control fix: Remove rule_operator if rules is empty
+
 3.14.6 26-07-10
 - Lightbox Improvements:
 |-- mv23RefreshLightbox() method implementation to allow refreshing the lightbox when the listing is updated
