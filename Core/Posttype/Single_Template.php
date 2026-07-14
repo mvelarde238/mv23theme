@@ -187,7 +187,7 @@ class Single_Template {
 		$is_connected = 0;
 		$posttype = self::$instance->get_single_post_type();
 
-		$args = array(
+		$args = apply_filters('filter_single_template_query_args', array(
 			'post_type' => 'single_template',
 			'posts_per_page' => -1,
 			'fields' => 'ids',
@@ -198,7 +198,7 @@ class Single_Template {
 					'compare' => '='
 				)
 			)
-		);
+		));
 		$loop = new WP_Query( $args );
 		$posts = $loop->posts;
 

@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.14.8 26-07-14
+- filter_single_template_query_args filter implementation to allow modifying the query arguments used to fetch single_template posts, 
+  allowing users to customize the query and retrieve specific single_template posts based on their needs
+
 3.14.7 26-07-11
 - Common settings control fix: Remove rule_operator if rules is empty
 
