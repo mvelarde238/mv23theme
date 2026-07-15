@@ -63,10 +63,6 @@ window.gjsFlipbox = function (editor) {
                 tagName: 'div',
                 droppable: false,
                 classes: [cmpClass, 'component'],
-                delegate: {
-                    // Delegate these commands to the front component, which is the most likely target for user interactions
-                    select: (cmp) => cmp.findFirstType('flipbox-front')
-                },
                 styles: `
                     .flipbox-front, .flipbox-back {
                         display: flex;
