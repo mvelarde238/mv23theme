@@ -68,8 +68,41 @@ window.gjsExtendComponents = function (editor) {
             window.jQuery(this).closest('.uf-field').triggerHandler('uf-sorted');
         });
     }
-    
+
+    // =====================================================================
     // Extend gjs component connecting it with Ultimate Fields datastore
+    // =====================================================================
+    /**
+     * Resolves the component that actually owns the datastore for the given component.
+     * Some component types (e.g. flipbox-front / flipbox-back) declare
+     * `builder_data.share_datastore_with: '<type>'` so they don't have (and don't save)
+     * their own datastore, but instead reuse the datastore of the closest ancestor of
+     * that type. This keeps a single datastore per group of components (e.g. one per
+     * flipbox instead of one per flipbox + one per side).
+     */
+    function resolveDatastoreOwner(component, editorConfig) {
+        const groups = editorConfig.groups || [];
+        let current = component;
+
+        while (current) {
+            const groupData = groups.find(g => g.id === current.get('type'));
+            const shareWith = groupData && groupData.builder_data && groupData.builder_data.share_datastore_with;
+            if (!shareWith) break;
+
+            const ancestor = current.closestType(shareWith);
+            if (!ancestor) break;
+
+            current = ancestor;
+        }
+
+        return current;
+    }
+    
+    /**
+    * When a component is created, check if it has a group associated with it
+    * and create a model for it. The model will be used to render the group view
+    * inside the component settings panel.
+    */
     editor.on('component:create', (gjs_component) => {
         const editorConfig = editor.getConfig(), 
             type = gjs_component.get('type');
@@ -85,10 +118,20 @@ window.gjsExtendComponents = function (editor) {
 
             let component_data, __type, datastore;
 
-            // generate a temporal id and assign it to gjs component and
-            // temporalCompStore to connect them during the save process
+            // generate a temporal id and assign it to gjs component to identify it
+            // during the editing and save process (e.g. remove, clone)
             const generatedId = builderInstance.generateId();
             gjs_component.attributes.__tempID = generatedId;
+
+            // Some component types (e.g. flipbox-front / flipbox-back) don't have their
+            // own datastore: they share the datastore of an ancestor component instead, so
+            // only one datastore ends up being saved per group of components. In that case,
+            // skip creating a model/datastore for this component entirely.
+            const shareDatastoreWith = groupData.builder_data && groupData.builder_data.share_datastore_with;
+            if (shareDatastoreWith) {
+                return;
+            }
+
             editorConfig.temporalCompStore[generatedId] = {};
 
             // find the corresponding component dataStore using the builder instance method
@@ -227,6 +270,12 @@ window.gjsExtendComponents = function (editor) {
     editor.on('component:selected', (component) => {
         try {
             const editorConfig = editor.getConfig();
+
+            // Resolve the component that actually owns the datastore (e.g. flipbox-front/back
+            // share the datastore of their parent flipbox instead of having their own), so the
+            // rest of this handler operates on the real owner.
+            component = resolveDatastoreOwner(component, editorConfig);
+
             const compId = component.attributes && component.attributes.__tempID;
             const store = editorConfig.temporalCompStore || {};
 
@@ -379,6 +428,10 @@ window.gjsExtendComponents = function (editor) {
     editor.on('component:deselected', (component) => {
         try {
             const editorConfig = editor.getConfig();
+
+            // Resolve to the real datastore owner, same as on component:selected
+            if (component) component = resolveDatastoreOwner(component, editorConfig);
+
             const active = editorConfig.activeDatastore;
             if (!active) return;
 

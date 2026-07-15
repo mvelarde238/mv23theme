@@ -2,6 +2,11 @@
 CHANGELOG
 **************************************************************************************************
 
+3.14.9 26-07-15
+- Flip Box Improvements:
+|-- flipbox-front and flipbox-back components no longer keep their own datastore: they share the datastore of the closest ancestor 'flipbox' component, 
+    so only one datastore gets saved per flipbox (see gjs-extend-components.js resolveDatastoreOwner)
+
 3.14.8 26-07-14
 - filter_single_template_query_args filter implementation to allow modifying the query arguments used to fetch single_template posts, 
   allowing users to customize the query and retrieve specific single_template posts based on their needs

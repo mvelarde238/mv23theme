@@ -4,7 +4,6 @@ namespace Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
-use Core\Builder\Component\Flip_Box;
 
 class Flip_Box_Front extends Component {
 
@@ -18,7 +17,10 @@ class Flip_Box_Front extends Component {
     public static function get_builder_data() {
         return array(
             'display_gjs_block' => false,
-            'custom_datastore_change_callback' => true
+            // flipbox-front doesn't keep its own datastore: it shares the datastore
+            // of the closest ancestor 'flipbox' component, so only one datastore
+            // gets saved per flipbox (see gjs-extend-components.js resolveDatastoreOwner)
+            'share_datastore_with' => 'flipbox'
 		);
     }
 
@@ -27,7 +29,7 @@ class Flip_Box_Front extends Component {
     }
     
 	public static function get_fields() {
-		return Flip_Box::get_fields();
+		return array();
 	}
 
 	public static function display( $args ){        

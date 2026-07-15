@@ -42,19 +42,6 @@ window.gjsFlipbox = function (editor) {
                 ],
             },
         },
-        view: {
-            custom_datastore_change_callback(changed) {
-                // Send datastore changes from inner components to the main flipbox component
-                const flipbox = this.model.closestType(cmpClass);
-                if (flipbox) {
-                    const mainDatastore = editor.getComponentDatastore(flipbox);
-                    if (mainDatastore) {
-                        mainDatastore.set(changed);
-                        flipbox.getView().render();
-                    }
-                }
-            },
-        }
     });
 
     domc.addType('flipbox-back', {
