@@ -7,6 +7,8 @@ CHANGELOG
 |-- flipbox-front and flipbox-back components no longer keep their own datastore: they share the datastore of the closest ancestor 'flipbox' component, 
     so only one datastore gets saved per flipbox (see gjs-extend-components.js resolveDatastoreOwner)
 |-- flipbox no longer delegates select commands to the front component, allowing users to select the whole flipbox to add custom CSS and styles
+- .highlight-inner-message utility class implementation to allow showing a message inside empty components on the builder canvas, 
+  to provide guidance to users on how to use the component and what content is expected
 
 3.14.8 26-07-14
 - filter_single_template_query_args filter implementation to allow modifying the query arguments used to fetch single_template posts, 
