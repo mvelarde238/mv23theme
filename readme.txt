@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.14.10 26-07-17
+- Uf Improvement: Enable prefix for checkbox fields
+
 3.14.9 26-07-15
 - Flip Box Improvements:
 |-- flipbox-front and flipbox-back components no longer keep their own datastore: they share the datastore of the closest ancestor 'flipbox' component, 

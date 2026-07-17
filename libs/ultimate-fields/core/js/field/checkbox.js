@@ -18,10 +18,15 @@
 		 * Renders the field.
 		 */
 		render: function() {
-			var that = this,
-				$input, $label;
+			var that = this, $input, $label, prefix;
 
 			this.$el.addClass( 'uf-checkbox' );
+
+			if( prefix = this.model.get( 'prefix' ) ) {
+				$( '<span class="uf-field-prefix" />' )
+					.html( prefix )
+					.appendTo( this.$el );
+			}
 
 			$input = $( '<input type="checkbox" />' );
 			if( this.model.getValue() ) $input.prop( 'checked', 'checked' );

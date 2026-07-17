@@ -1,5 +1,10 @@
 mv23 changelog-------------------------
 
+- 3.2.23 17-07-2026
+- Enable prefix for checkbox fields
+    (core/js/field/checkbox.js)
+    (core/assets/sass/field/_text.scss)
+
 - 3.2.22 05-06-2026
 - .small-object-preview class for small previews in wp_object field
     (core/assets/sass/field/_object.scss)

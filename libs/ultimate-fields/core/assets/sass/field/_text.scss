@@ -46,7 +46,9 @@
 	border-left: 0;
 }
 
-.uf-field-prefix:has( + .uf-radio ) {
+.uf-field-prefix:has( + .uf-radio ),
+// for checkboxes:
+.uf-field-prefix:has( + label ){ 
     margin-right: 9px;
 	border-right: 1px solid #ccc;
 	border-radius: 3px;

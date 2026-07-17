@@ -821,7 +821,8 @@
   border-left: 0;
 }
 
-.uf-field-prefix:has(+ .uf-radio) {
+.uf-field-prefix:has(+ .uf-radio),
+.uf-field-prefix:has(+ label) {
   margin-right: 9px;
   border-right: 1px solid #ccc;
   border-radius: 3px;
@@ -1008,10 +1009,6 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 }
 .uf-field .select2-search input[type=search] {
   min-height: 26px;
-}
-
-#component-settings .select2-search input[type=search] {
-  background: transparent !important;
 }
 
 .uf-image-select {
