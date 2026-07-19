@@ -543,7 +543,7 @@ window['contextMenuOpts'] = {
         ['carousel-wrapper']: function(component, editor){
             let actions = [
                 { type: 'button', label: 'SELECT ALL ITEMS', command: 'query-selector', args: { selector: '.carousel__item' } },
-                { type: 'button', label: 'GET SLIDER UID', command: 'get-component-uid' },
+                { type: 'button', label: 'GET SLIDER UID', command: 'get-slider-uid' },
             ];
 
             return actions;
@@ -615,8 +615,14 @@ window['contextMenuOpts'] = {
         },
         ['listing']: function(component, editor){
             let actions = [
-                { type: 'button', label: 'GET LISTING UID', command: 'get-component-uid' },
+                { type: 'button', label: 'GET LISTING UID', command: 'get-component-uid' }
             ];
+
+            const datastore = editor.getComponentDatastore(component);
+            const { listing_template } = datastore.toJSON();
+            if(listing_template && listing_template === 'carousel') {
+                actions.push({ type: 'button', label: 'GET SLIDER UID', command: 'get-slider-uid' });
+            }
 
             return actions;
         },

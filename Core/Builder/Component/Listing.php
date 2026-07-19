@@ -9,6 +9,8 @@ use Core\Posttype\Postcard;
 use Core\Builder\Component\Postcard as Postcard_Component;
 use Core\Builder\Core;
 use Core\Frontend\Listing_Data_Provider;
+use Core\Builder\Slider_Settings;
+use Core\Builder\Component\Carousel;
 
 class Listing extends Component {
 
@@ -160,17 +162,11 @@ class Listing extends Component {
                 ->set_default_value(uniqid('listing_'))
                 ->set_description(__('This is used to identify the listing. If you leave it empty, a random UID will be generated.', 'mv23theme')),
 
-            Field::create( 'tab', 'carousel_settings_tab', __('Carousel Settings','mv23theme'))->add_dependency('listing_template','carousel','='),
-            Field::create( 'complex', 'carousel_settings' )->hide_label()->add_fields(array(
-                Field::create( 'checkbox', 'show_controls' )->hide_label()->set_text(__('Show controls','mv23theme'))->set_default_value(1),
-                Field::create( 'checkbox', 'show_nav' )->hide_label()->set_text(__('Show carousel nav','mv23theme')),
-                Field::create( 'checkbox', 'autoplay' )->hide_label()->set_text(__('Start automatically','mv23theme')),
-                Field::create( 'select', 'mode' )->hide_label()->set_prefix(__('Mode','mv23theme'))->add_options( array(
-                    'carousel' => 'Carrusel Mode',
-                    'gallery' => 'Fade Mode',
-                )),
-                Field::create( 'text', 'carousel_id' )->set_prefix(__('Carousel ID','mv23theme'))->hide_label(),
-            ))->add_dependency('listing_template','carousel','=')
+            Field::create( 'tab', 'slider_settings_tab', __('Carousel Settings','mv23theme'))
+                ->add_dependency('listing_template','carousel','='),
+            Slider_Settings::getRepeater( 'slider_settings', __('Slider Settings', 'mv23theme') )
+                ->hide_label()
+                ->add_dependency('listing_template','carousel','=')
         );
 
         // postcard fields
@@ -292,35 +288,9 @@ class Listing extends Component {
             ?>
             <div class="<?=$post_listing_class?>" style="<?=$css_vars?>">
                 <?php if($listing_template == 'carousel'): 
-                    $carousel_settings = $args['carousel_settings'] ?? array();
-                    $show_controls = (!empty($carousel_settings['show_controls'])) ? $carousel_settings['show_controls'] : 0;
-                    $show_nav = (!empty($carousel_settings['show_nav'])) ? $carousel_settings['show_nav'] : 0;
-                    $show_nav = (!empty($carousel_settings['show_nav'])) ? $carousel_settings['show_nav'] : 0;
-                    $autoplay = (!empty($carousel_settings['autoplay'])) ? $carousel_settings['autoplay'] : 0;
-                    $mode = $carousel_settings['mode'] ?? 'carousel';
-                    $slider_uid = (!empty($carousel_settings['carousel_id'])) ? $carousel_settings['carousel_id'] : 'carousel-'.uniqid();
-    
-                    $carousel_classes_array = array('carousel','carousel-inside-component', 'carousel--theme1');
-                    if( !$show_nav ) array_push($carousel_classes_array,'without-navigation');
-                    ?>
-                    <div class="<?php echo implode(' ', $carousel_classes_array); ?>" data-controls-position="center" data-theme="theme1"><div class="carousel__slider" 
-                        data-slider-uid="<?=$slider_uid?>"
-                        data-show-controls="0" 
-                        data-show-nav="<?=$show_nav?>" 
-                        data-touch="1" 
-                        data-mode="<?=$mode?>"
-                        data-autoplay="<?=$autoplay?>" 
-                        data-speed="450"
-                        data-nav-position="bottom"
-                        data-mobile="<?=$columns['mobile']?>"
-                        data-tablet="<?=$columns['tablet']?>"
-                        data-laptop="<?=$columns['laptop']?>"
-                        data-desktop="<?=$columns['desktop']?>"
-                        data-mobile-gutter="<?=$columns_gap['mobile']?>"
-                        data-tablet-gutter="<?=$columns_gap['tablet']?>"
-                        data-laptop-gutter="<?=$columns_gap['laptop']?>"
-                        data-desktop-gutter="<?=$columns_gap['desktop']?>">
-                <?php endif; ?>
+                    echo '<div class="carousel">';
+                    echo Carousel::slider_start( $args );
+                endif; ?>
     
                 <?php 
                 do_action('on_listing_start', $args);
@@ -356,45 +326,11 @@ class Listing extends Component {
                 do_action('on_listing_end', $args);
                 ?>
     
-                <?php if($listing_template == 'carousel'): ?>
-                    </div>
-                    <?php
-                    // if controls are enabled, render the carousel-controls component
-                    if($show_controls ) {
-                        $controls_component = null;
-                        if( isset($args['components']) && is_array($args['components']) ){
-                            foreach( $args['components'] as $comp ){
-                                if( isset($comp['type']) && $comp['type'] === 'carousel-wrapper' ){
-                                    foreach( $comp['components'] as $inner_comp ){
-                                        if( isset($inner_comp['type']) && $inner_comp['type'] === 'carousel-controls' ){
-                                            $controls_component = $inner_comp;
-                                            break 2;
-                                        }
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                        if( $controls_component ){
-                            $controls_component['slider_uid'] = $slider_uid;
-                            echo Template_Engine::getInstance()->handle( $controls_component );
-                        } else {
-                            // default controls if not custom component found
-                            ?>
-                            <div class="carousel-controls tns-controls">
-                                <div class="go-to-prev-slide component icon-box" data-controls="prev" data-slider-uid="<?=$slider_uid?>">
-                                    <i class="icon-box__icon fa <?=PREV_CAROUSEL_ICON?>"></i>
-                                </div>
-                                <div class="go-to-next-slide component icon-box" data-controls="next" data-slider-uid="<?=$slider_uid?>">
-                                    <i class="icon-box__icon fa <?=NEXT_CAROUSEL_ICON?>"></i>
-                                </div>
-                            </div>
-                            <?php
-                        }
-                    }
-                    ?>
-                    </div>
-                <?php endif; ?>
+                <?php if($listing_template == 'carousel'):
+                    echo Carousel::slider_end();
+                    echo Carousel::slider_controls( $args, true );
+                    echo '</div>';
+                endif; ?>
             </div>
         <?php 
         endif;

@@ -282,12 +282,12 @@ window.gjsCommands = function (editor, options) {
 
     commands.add('get-component-uid', (editor, sender, options = {}) => {
         const component = options.component;
-        const componentsWithUID = ['carousel-wrapper', 'listing'];
+        const componentsWithUID = ['listing'];
 
         if (componentsWithUID.includes(component.getType())) {
             const datastore = editor.getComponentDatastore(component);
             if (datastore) {
-                const key = component.getType() === 'carousel-wrapper' ? 'slider' : 'listing';
+                const key = component.getType() === 'listing' ? 'listing' : 'component';
 
                 const uid = datastore.get(`${key}_uid`);
                 if (uid) {
@@ -296,6 +296,30 @@ window.gjsCommands = function (editor, options) {
                     alert(`${key.charAt(0).toUpperCase() + key.slice(1)} UID: ${key}_${component.getId()}`);
                 } else {
                     alert(__('No UID found for this component.', 'no_uid'));
+                }
+            }
+        }
+    });
+
+    commands.add('get-slider-uid', (editor, sender, options = {}) => {
+        const component = options.component;
+        const componentsWithSliderUID = ['carousel-wrapper', 'listing'];
+
+        if (componentsWithSliderUID.includes(component.getType())) {
+            const datastore = editor.getComponentDatastore(component);
+            if (datastore) {
+                let sliderUID = null;
+                datastore.get('slider_settings').forEach(setting => {
+                    const key = setting.property || setting.__type;
+                    if (key === 'slider_uid') {
+                        sliderUID = setting.value;
+                    }
+                });
+
+                if (sliderUID) {
+                    alert('Slider UID: ' + sliderUID);
+                } else {
+                    alert(__('No Slider UID found for this component.', 'no_slider_uid'));
                 }
             }
         }

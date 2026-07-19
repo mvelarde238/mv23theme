@@ -1,6 +1,32 @@
 window.gjsCarousel = function (editor) {
     const domc = editor.DomComponents;
 
+    const createSliderUid = () => {
+        const timestamp = Date.now().toString(16);
+        const random = Math.random().toString(16).slice(2, 10);
+
+        return `slider_${timestamp}${random}`;
+    };
+
+    const sliderSettingsToMap = (settings) => {
+        const defaults = {
+            slider_theme: 'theme1'
+        };
+
+        if (!Array.isArray(settings)) {
+            return defaults;
+        }
+
+        settings.forEach(row => {
+            if (!row || typeof row !== 'object') return;
+            const key = row.property || row.__type;
+            if (!key || !Object.prototype.hasOwnProperty.call(row, 'value')) return;
+            defaults[key] = row.value;
+        });
+
+        return defaults;
+    };
+
     // Editor's translator for internationalization
     const __ = editor.createTranslator(editor);
 
@@ -109,11 +135,7 @@ window.gjsCarousel = function (editor) {
             custom_datastore_change_callback(changed) {
                 // Ignore changes that don't affect the carousel's appearance or behavior
                 const changed_keys = Object.keys(changed);
-                const ignored_changes = [
-                    '__tab', '__hidden', 'carousel_mode', 
-                    'autoplay_settings', 'slider_uid',
-                    'auto_height', 'touch', 'marquee_settings'
-                ];
+                const ignored_changes = ['__tab', '__hidden', 'marquee_settings'];
                 if (changed_keys.length && ignored_changes.includes(changed_keys[0])) return;
 
                 // For other changes, we can handle specific updates without full re-render
@@ -121,8 +143,9 @@ window.gjsCarousel = function (editor) {
             },
             handle_datastore_data() {
                 const datastore = editor.getComponentDatastore(this.model);
-                const {carousel_type, carousel_theme, controls_settings, nav_settings} = datastore.toJSON();
-                const nav_position = nav_settings && nav_settings.show ? nav_settings.position : 'bottom';
+                const {carousel_type, slider_settings} = datastore.toJSON();
+                const settings = sliderSettingsToMap(slider_settings);
+                const nav_position = settings.nav ? settings.nav_position : 'bottom';
                 
                 const el = this.el;
                 const carousel = this.model.findType('carousel')[0];
@@ -130,12 +153,12 @@ window.gjsCarousel = function (editor) {
                 if (!carouselEl) return;
 
                 if (carousel_type === 'slider') {
-                    // add carousel theme
-                    el.setAttribute('data-theme', carousel_theme);
+                    // add slider theme
+                    carouselEl.setAttribute('data-slider-theme', settings.slider_theme || 'theme1');
 
                     // handle controls visibility and position
-                    if (controls_settings && controls_settings.show ){
-                        el.setAttribute('data-controls-position', controls_settings.position);
+                    if (settings.controls ){
+                        carouselEl.setAttribute('data-controls-position', settings.controls_position || 'center');
                         const controls = el.querySelector('.tns-controls');
                         if (controls) controls.style.display = '';
                     } else {
@@ -144,7 +167,7 @@ window.gjsCarousel = function (editor) {
                     }
 
                     // handle nav visibility and position
-                    if (nav_settings && nav_settings.show ){
+                    if (settings.nav ){
                         const nav = el.querySelector('.tns-nav');
                         if (nav) {
                             nav.style.display = '';
@@ -162,10 +185,10 @@ window.gjsCarousel = function (editor) {
                         const nav = el.querySelector('.carousel__nav');
                         if (nav) nav.style.display = 'none';
                     }
-                    el.setAttribute('data-nav-position', nav_position);
+                    carouselEl.setAttribute('data-nav-position', nav_position);
 
                 } else if (carousel_type === 'marquee') {
-                    el.setAttribute('data-theme', 'none');
+                    carouselEl.setAttribute('data-theme', 'none');
                     const controls = el.querySelector('.carousel__controls');
                     const nav = el.querySelector('.carousel__nav');
                     if (controls) controls.style.display = 'none';
@@ -296,8 +319,8 @@ window.gjsCarousel = function (editor) {
                 if (carouselType === 'marquee') return;
 
                 // Dont show nav if nav settings is not enabled
-                const navSettings = datastore ? datastore.get('nav_settings') : null;
-                if (navSettings && !navSettings.show) return;
+                const sliderSettings = datastore ? sliderSettingsToMap(datastore.get('slider_settings')) : null;
+                if (sliderSettings && !sliderSettings.nav) return;
 
                 // rernder the carousel-nav component to update the number of dots based on the new total pages
                 const carouselNav = this.model.findType('carousel-nav')[0];
@@ -372,6 +395,35 @@ window.gjsCarousel = function (editor) {
                 if (!btn) return;
                 const index = parseInt(btn.getAttribute('data-nav'), 10);
                 if (!isNaN(index)) this.goToSlide(index);
+            }
+        }
+    });
+
+    // Add a filter to generate a unique slider UID when a slider_uid group is created in the repeater. 
+    // This ensures that each carousel has a unique identifier for its settings and state management.
+    UltimateFields.addFilter('repeater_group_classes', function($args) {
+        const datastore = $args && $args.datastore;
+        if (!datastore || datastore.get('__type') !== 'slider_uid' || datastore.get('value')) {
+            return;
+        }
+        datastore.set('value', createSliderUid());
+    });
+
+    // After component clone, change the slider_uid to a new unique value to avoid conflicts between cloned components.
+    editor.on('afterComponentClone', (clonedComponent, newDatastore) => {
+        const compType = clonedComponent.get('type');
+        const compWithSliderSettings = ['carousel-wrapper', 'listing', 'gallery'];
+
+        if ( compWithSliderSettings.includes(compType) && newDatastore) {
+            const slider_settings = newDatastore.get('slider_settings');
+            if (slider_settings && Array.isArray(slider_settings)) {
+                const settings = slider_settings.map(row => ({ ...row }));
+                const uidGroup = settings.find(row => row.__type === 'slider_uid');
+
+                if (uidGroup) {
+                    uidGroup.value = createSliderUid();
+                    newDatastore.set('slider_settings', settings);
+                }
             }
         }
     });

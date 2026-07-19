@@ -18,6 +18,7 @@ use Core\Admin\Hardening_WP;
 use Core\Admin\TinyMCE;
 use Core\Admin\Classic_Editor;
 use Core\Admin\Polylang_Support;
+use Core\Admin\WP_Media_Folder_Support;
 use Core\Frontend\Page;
 use Core\Theme_Options\Theme_Options;
 use Core\Theme_Options\Manager;
@@ -355,6 +356,18 @@ class Theme extends Theme_Header_Data {
         // Polylang Support
         $polylang_support = Polylang_Support::getInstance();
         $this->loader->add_filter( 'pll_get_post_types', $polylang_support, 'add_posttypes_to_pll', 10, 2 );
+
+        // WP Media Folder Support
+        if ( WPMEDIAFOLDER_IS_ACTIVE ) {
+            $wp_media_folder_support = WP_Media_Folder_Support::getInstance();
+            $this->loader->add_filter( 'filter_gallery_sources', $wp_media_folder_support, 'add_wp_media_folder_source' );
+            $this->loader->add_filter( 'filter_gallery_content_tab_fields', $wp_media_folder_support, 'add_wp_media_folder_content_tab_fields' );
+            $this->loader->add_action( 'before_gallery_process', $wp_media_folder_support, 'stop_gallery_process_if_wp_media_folder_is_empty' );
+            $this->loader->add_filter( 'filter_gallery_settings', $wp_media_folder_support, 'filter_gallery_settings', 10, 2 );
+            $this->loader->add_filter( 'filter_gallery_attachments', $wp_media_folder_support, 'filter_gallery_attachments', 10, 3 );
+            $this->loader->add_filter( 'filter_gallery_attachment_data', $wp_media_folder_support, 'filter_gallery_attachment_data', 10, 4 );
+            $this->loader->add_filter( 'filter_gallery_attachment_link_attributes', $wp_media_folder_support, 'filter_gallery_attachment_link_attributes', 10, 4 );
+        }
     }
 
     private function define_cleanup_hooks() {

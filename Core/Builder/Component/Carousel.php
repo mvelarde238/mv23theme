@@ -5,6 +5,7 @@ use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Ultimate_Fields\Container\Repeater_Group;
+use Core\Builder\Slider_Settings;
 
 class Carousel extends Component {
 
@@ -43,17 +44,7 @@ class Carousel extends Component {
                         'label' => 'marquee',
                         'image' => BUILDER_PATH.'/assets/images/galleries/marquee.png'
                     )
-            )),
-            Field::create( 'select', 'carousel_theme' )
-                ->add_options( array(
-                    'theme1' => __('Theme 1','mv23theme'),
-                    // 'theme2' => __('Theme 2','mv23theme'),
-                    'none' => __('None','mv23theme'),
-                ))
-                ->set_default_value('theme1')
-                ->hide_label()
-                ->set_prefix( __('Carousel Theme:', 'mv23theme') )
-                ->add_dependency('carousel_type', 'slider', '=')
+            ))
         );
 
         if( !SCROLL_ANIMATIONS ){
@@ -61,6 +52,14 @@ class Carousel extends Component {
         }
         
 		$settings_fields_2  = array(
+            // Slider Settings
+            Field::create( 'tab', 'slider_settings_tab', __('Slider Settings','mv23theme') )
+                ->add_dependency('carousel_type', 'slider', '='),
+            Slider_Settings::getRepeater( 'slider_settings', __('Slider Settings', 'mv23theme') )
+                ->hide_label()
+                ->add_dependency('carousel_type', 'slider', '='),
+
+            // Marquee Settings
             Field::create( 'tab', 'marquee_settings_tab', __('Marquee Settings','mv23theme') )
                 ->add_dependency('carousel_type', 'marquee', '='),
             Field::create( 'complex', 'marquee_settings', __('Marquee Settings', 'mv23theme') )->hide_label()->add_fields(array(
@@ -81,102 +80,7 @@ class Carousel extends Component {
                     ->set_width( 50 ),
             ))->add_dependency('carousel_type', 'marquee', '='),
 
-            Field::create( 'tab', 'slider_settings_tab', __('Slider Settings','mv23theme') )
-                ->add_dependency('carousel_type', 'marquee', '!='),
-        
-            Field::create( 'complex', 'controls_settings' )->hide_label()->add_fields(array(
-                Field::create( 'checkbox', 'show' )
-                    ->hide_label()
-                    ->set_text(__('Show controls','mv23theme'))
-                    ->set_default_value(1)
-                    ->set_width( 50 ),
-                Field::create( 'select', 'position' )
-                    ->hide_label()->add_dependency('show')->set_prefix( __('Position:', 'mv23theme') )->set_width( 50 )
-                    ->set_default_value('center')
-                    ->add_options( array(
-                        'top' => __('Top','mv23theme'),
-                        'center' => __('Center','mv23theme'),
-                        'bottom' => __('Bottom','mv23theme'),
-                    )),
-            ))->add_dependency('carousel_type', 'slider', '='),
-
-            Field::create( 'complex', 'nav_settings' )->hide_label()->add_fields(array(
-                Field::create( 'checkbox', 'show' )->hide_label()->set_text(__('Show nav','mv23theme'))->set_width( 50 ),
-                Field::create( 'select', 'position' )
-                    ->hide_label()->add_dependency('show')->set_prefix( __('Position:', 'mv23theme') )->set_width( 50 )
-                    ->set_default_value('bottom')
-                    ->add_options( array(
-                        'top' => __('Top','mv23theme'),
-                        'bottom' => __('Bottom','mv23theme'),
-                    ))
-            ))->add_dependency('carousel_type', 'slider', '='),
-
-            Field::create( 'complex', 'carousel_mode' )->hide_label()->add_fields(array(
-                field::create( 'checkbox', 'active' )->hide_label()->set_text(__('Customize slider mode','mv23theme')),
-                Field::create( 'select', 'mode' )
-                    ->add_options( array(
-                        'carousel' => 'Carrusel Mode',
-                        'gallery' => 'Fade Mode',
-                    ))
-                    ->hide_label()
-                    ->add_dependency('active')
-                    ->set_width( 20 ),
-                Field::create( 'select', 'axis' )
-                    ->add_options( array(
-                        'horizontal' => 'Horizontal',
-                        'vertical' => 'Vertical',
-                    ))
-                    ->add_dependency('mode','carousel','=')
-                    ->add_dependency('active')
-                    ->set_prefix('Axis:')
-                    ->hide_label()
-                    ->set_width( 20 ),
-                Field::create( 'number', 'speed' )
-                    ->set_prefix('Animation Speed:')
-                    ->add_dependency('active')
-                    ->set_default_value(450)
-                    ->set_placeholder('450')
-                    ->set_suffix( 'ms' )
-                    ->hide_label()
-                // Field::create( 'checkbox', 'disable_rewind' )->set_text(__('Disable rewind','mv23theme'))
-                //     ->hide_label()
-                //     ->add_dependency('mode','carousel','=')
-                //     ->set_width( 20 )
-            ))->add_dependency('carousel_type', 'slider', '='),
-
-            Field::create( 'complex', 'autoplay_settings' )->hide_label()->add_fields(array(
-                Field::create( 'checkbox', 'active' )->set_text(__('Start Automatically','mv23theme'))->hide_label(),
-                Field::create( 'number', 'timeout' )
-                    ->set_prefix('Timeout:')
-                    ->set_placeholder('5000')
-                    ->set_suffix( 'ms' )
-                    ->hide_label()
-                    ->add_dependency( 'active' ),
-                // Field::create( 'checkbox', 'hover_pause' )->set_text(__('Pause on Hover','mv23theme'))
-                //     ->hide_label()
-                //     ->add_dependency( 'active' )
-                //     ->set_width( 20 ),
-                // Field::create( 'checkbox', 'prevent_action' )->set_text(__('Prevent action when running','mv23theme'))
-                //     ->hide_label()
-                //     ->add_dependency( 'active' )
-                //     ->set_width( 20 )
-            ))->add_dependency('carousel_type', 'slider', '='),
-
-            // startIndex settings
-            Field::create( 'complex', 'start_index_settings' )->hide_label()->add_fields(array(
-                Field::create( 'checkbox', 'active' )->set_text(__('Set start index','mv23theme'))->hide_label(),
-                Field::create( 'text', 'index' )
-                    ->set_prefix('Start Index:')
-                    ->set_placeholder('0')
-                    ->add_suggestions( array(
-                        '0','1','2',
-                        'in_the_middle',
-                        'at_the_end'
-                    ))
-                    ->hide_label()
-                    ->add_dependency( 'active' )
-            ))->add_dependency('carousel_type', 'slider', '='), 
-
+            // Columns Settings
             Field::create( 'tab', 'columns_settings_tab', __('Columns','mv23theme') )->add_dependency('carousel_type', 'slider', '='),
             Field::create( 'complex', 'items', __('Columns', 'mv23theme') )->hide_label()->add_fields(array(
                 Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value( '4' )->set_minimum(1)->set_attr('style', $width_style),
@@ -185,21 +89,14 @@ class Carousel extends Component {
                 Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_default_value( '2' )->set_minimum(1)->set_attr('style', $width_style)
             )),
 
+            // Space Between Items Settings
             Field::create( 'tab', 'space_between_items_tab', __('Space between items','mv23theme') ),
             Field::create( 'complex', 'gutter' )->hide_label()->add_fields(array(
                 Field::create( 'number', 'desktop', __('Desktop', 'mv23theme') )->set_default_value( '20' )->set_attr('style', $width_style),
                 Field::create( 'number', 'laptop', __('Laptop', 'mv23theme') )->set_default_value( '20' )->set_attr('style', $width_style),
                 Field::create( 'number', 'tablet', __('Tablet', 'mv23theme') )->set_default_value( '20' )->set_attr('style', $width_style),
                 Field::create( 'number', 'mobile', __('Mobile', 'mv23theme') )->set_default_value( '20' )->set_attr('style', $width_style)
-            )),
-
-            Field::create( 'tab', 'advanced_settings_tab', __('Advanced Settings','mv23theme') )->add_dependency('carousel_type', 'slider', '='),
-            Field::create('text', 'slider_uid', __('Slider UID', 'mv23theme'))
-                ->set_default_value(uniqid('slider_'))
-                ->set_description(__('This is used to identify the slider in the JS code. If you leave it empty, a random UID will be generated.', 'mv23theme'))
-                ->set_attr( 'style', 'flex-grow: initial;' ),
-            Field::create( 'checkbox', 'auto_height' )->hide_label()->set_text(__('Activate Auto Height','mv23theme'))->add_dependency('carousel_type', 'slider', '='),
-            Field::create( 'checkbox', 'touch' )->hide_label()->set_text(__('Activate Touch','mv23theme'))->add_dependency('carousel_type', 'slider', '='),
+            ))
         );
 
 		return array_merge(
@@ -208,16 +105,38 @@ class Carousel extends Component {
         );
 	}
 
-    private static function generate_slider_uid( $args ) {
-        $uid = uniqid('slider_');
+    private static function get_slider_uid( $slider_settings ){
+        $uid = uniqid('test_slider_');
 
-        if( isset($args['slider_uid']) && !empty($args['slider_uid']) ){
-            $uid = $args['slider_uid'];
-        } else if( isset($args['attributes']) && isset($args['attributes']['id']) && !empty($args['attributes']['id']) ){
-            $uid = 'slider_' . $args['attributes']['id'];
+        if( isset($slider_settings['slider_uid']) && !empty($slider_settings['slider_uid']) ){
+            $uid = $slider_settings['slider_uid'];
         }
 
         return $uid;
+    }
+
+    private static function get_controls_component( $components ){
+        if( !is_array( $components ) ) return null;
+
+        foreach( $components as $component ){
+            if( isset( $component['type'] ) && $component['type'] === 'carousel-controls' ){
+                return $component;
+            }
+
+            if(
+                isset( $component['type'], $component['components'] )
+                && $component['type'] === 'carousel-wrapper'
+                && is_array( $component['components'] )
+            ){
+                $controls_component = self::get_controls_component( $component['components'] );
+
+                if( $controls_component ){
+                    return $controls_component;
+                }
+            }
+        }
+
+        return null;
     }
 
 	public static function display( $args ){
@@ -251,104 +170,6 @@ class Carousel extends Component {
         $gutter_in_tablet = $args['gutter']['tablet'];
         $gutter_in_laptop = $args['gutter']['laptop'];
         $gutter_in_desktop = $args['gutter']['desktop'];
-        
-        // Build slider attributes
-        if($carousel_type == 'slider'){
-            $carousel_theme = $args['carousel_theme'] ?? 'theme1';
-            if($carousel_theme !== 'none'){
-                $args['additional_attributes']['data-theme'] = $carousel_theme;
-            }
-            
-            $controls_settings = $args['controls_settings'] ?? array();
-            $show_controls = $controls_settings['show'] ?? 1;
-            $controls_position = $controls_settings['position'] ?? 'center';
-    
-            $nav_settings = $args['nav_settings'] ?? array();
-            $show_nav = $nav_settings['show'] ?? 0;
-            $nav_position = $nav_settings['position'] ?? 'bottom';
-    
-            $autoplay_settings = $args['autoplay_settings'] ?? array();
-            $autoplay = $autoplay_settings['active'] ?? 0;
-            $autoplay_timeout = $autoplay_settings['timeout'] ?? 5000;
-            // $autoplay_hover_pause = $args['autoplay_hover_pause'] ?? 0;
-            // $prevent_action = $args['prevent_action'] ?? 0;
-            // $rewind = $args['rewind'] ?? 0;
-            // style="transition-timing-function: linear;" 
-
-            $carousel_mode = $args['carousel_mode'] ?? array(
-                'active' => false,
-                'mode' => 'carousel',
-                'axis' => 'horizontal',
-                'speed' => 450
-            );
-            $speed = $carousel_mode['active'] ? ($carousel_mode['speed'] ?? 450) : 450;
-            $mode = $carousel_mode['active'] ? ($carousel_mode['mode'] ?? 'carousel') : 'carousel';
-            $axis = $carousel_mode['active'] ? ($carousel_mode['axis'] ?? 'horizontal') : 'horizontal';
-    
-            $auto_height = $args['auto_height'] ?? 0;
-            $touch = $args['touch'] ?? 0;
-            $slider_uid = self::generate_slider_uid( $args );
-
-            $items_in_mobile = $args['items']['mobile'];
-            $items_in_tablet = $args['items']['tablet'];
-            $items_in_laptop = $args['items']['laptop'];
-            $items_in_desktop = $args['items']['desktop'];
-
-            if( $show_nav ){
-                $args['additional_attributes']['data-nav-position'] = $nav_position;
-            } else {
-                $args['additional_classes'][] = 'without-navigation';
-            }
-            if( $show_controls ){
-                $args['additional_attributes']['data-controls-position'] = $controls_position;
-            }
-
-            // Handle start index
-            $start_index_settings = $args['start_index_settings'] ?? array();
-            $start_index = 0;
-            if( isset($start_index_settings['active']) && $start_index_settings['active'] ){
-                $start_index_value = $start_index_settings['index'] ?? 0;
-                if( is_numeric($start_index_value) ){
-                    $start_index = intval($start_index_value);
-                } else {
-                    // handle non-numeric values
-                    switch ($start_index_value) {
-                        case 'in_the_middle':
-                            $start_index = floor(count($items) / 2);
-                            break;
-                        case 'at_the_end':
-                            $start_index = count($items) - 1;
-                            break;
-                        default:
-                            $start_index = 0;
-                    }
-                }
-            }
-
-            $slider_attributes = [];
-            $slider_attributes['additional_attributes'] = array(
-                'class' => 'carousel__slider',
-                'data-show-nav' => $show_nav,
-                'data-nav-position' => $nav_position,
-                'data-mobile' => $items_in_mobile,
-                'data-tablet' => $items_in_tablet,
-                'data-laptop' => $items_in_laptop,
-                'data-desktop' => $items_in_desktop,
-                'data-mobile-gutter' => $gutter_in_mobile,
-                'data-tablet-gutter' => $gutter_in_tablet,
-                'data-laptop-gutter' => $gutter_in_laptop,
-                'data-desktop-gutter' => $gutter_in_desktop,
-                'data-autoplay' => $autoplay,
-                'data-speed' => $speed,
-                'data-autoplay-timeout' => $autoplay_timeout,
-                'data-auto-height' => $auto_height,
-                'data-touch' => $touch,
-                'data-axis' => $axis,
-                'data-mode' => $mode,
-                'data-start-index' => $start_index,
-                'data-slider-uid' => $slider_uid
-            );
-        }
 
         // Build marquee attributes
         if($carousel_type == 'marquee'){
@@ -370,8 +191,7 @@ class Carousel extends Component {
 
         // Output starting HTML based on carousel type
         if($carousel_type == 'slider'): 
-            $slider_attrs = Template_Engine::generate_attributes( $slider_attributes );
-            echo '<div '.$slider_attrs.'>';
+            echo self::slider_start( $args );
         else:
             $marquee_attrs = Template_Engine::generate_attributes( $marquee_attributes );
             echo '<div '.$marquee_attrs.'>';
@@ -392,32 +212,119 @@ class Carousel extends Component {
 
         // Output closing HTML based on carousel type
         if($carousel_type == 'slider'){
-            echo '</div>';
-        } else {
-            echo '</div>';
-            echo '</div>';
-        }
+            echo self::slider_end();
+            echo self::slider_controls( $args );
 
-        // if controls are enabled, render the carousel-controls component
-        if($carousel_type == 'slider' && $show_controls ) {
-            $controls_component = null;
-            if( isset($args['components']) && is_array($args['components']) ){
-                foreach( $args['components'] as $comp ){
-                    if( isset($comp['type']) && $comp['type'] === 'carousel-controls' ){
-                        $controls_component = $comp;
-                        break;
-                    }
-                }
-            }
-            if( $controls_component ){
-                $controls_component['slider_uid'] = $slider_uid;
-                echo Template_Engine::getInstance()->handle( $controls_component );
-            }
+        } else if($carousel_type == 'marquee'){
+            echo '</div>';
+            echo '</div>';
         }
 
         echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}
+
+    static function slider_start( $args ){
+        // force controls false to avoid tns controls being generated, we will use our own controls component
+        $args['slider_settings'][] = array(
+            '__type' => 'controls',
+            'property' => 'controls',
+            'value' => false
+        );
+
+        // force "theme1" if not set
+        $slider_theme_set = false;
+        foreach( $args['slider_settings'] as $setting ){
+            if( isset($setting['__type']) && $setting['__type'] === 'slider_theme' ){
+                $slider_theme_set = true;
+                break;
+            }
+        }
+        if( !$slider_theme_set ){
+            $args['slider_settings'][] = array(
+                '__type' => 'slider_theme',
+                'property' => 'slider_theme',
+                'value' => 'theme1'
+            );
+        }
+
+        // Build slider attributes
+        $slider_attributes = [];
+
+        if( $args['__type'] === 'carousel-wrapper' || $args['__type'] === 'theme-gallery-comp' ){
+            $items = $args['items'];
+            $gutter = $args['gutter'];
+        }
+
+        if( $args['__type'] === 'listing' ){
+            $items = $args['columns'] ?? LISTING_COLUMNS;
+            $gutter = $args['columns_gap'] ?? LISTING_GAP;
+        }
+
+        $items_in_mobile = $items['mobile'];
+        $items_in_tablet = $items['tablet'];
+        $items_in_laptop = $items['laptop'];
+        $items_in_desktop = $items['desktop'];
+
+        $gutter_in_mobile = $gutter['mobile'];
+        $gutter_in_tablet = $gutter['tablet'];
+        $gutter_in_laptop = $gutter['laptop'];
+        $gutter_in_desktop = $gutter['desktop'];
+
+        $slider_attributes['additional_attributes'] = array_merge( 
+            array(
+                'class' => 'carousel__slider',
+                'data-mobile' => $items_in_mobile,
+                'data-tablet' => $items_in_tablet,
+                'data-laptop' => $items_in_laptop,
+                'data-desktop' => $items_in_desktop,
+                'data-mobile-gutter' => $gutter_in_mobile,
+                'data-tablet-gutter' => $gutter_in_tablet,
+                'data-laptop-gutter' => $gutter_in_laptop,
+                'data-desktop-gutter' => $gutter_in_desktop,
+            ), 
+            Slider_Settings::to_dataset_attributes( $args['slider_settings'] ?? array() )
+        );
+
+        $slider_attrs = Template_Engine::generate_attributes( $slider_attributes );
+        return '<div '.$slider_attrs.'>';
+    }
+
+    static function slider_end(){
+        return '</div>';
+    }
+
+    static function slider_controls( $args, $required = false ){
+        $slider_settings = Slider_Settings::from_repeater( $args['slider_settings'] ?? array() );
+
+        $show_controls = !empty( $slider_settings['controls'] );
+        
+        // if controls are enabled, render the carousel-controls component
+        if($show_controls ) {
+            $slider_uid = self::get_slider_uid( $slider_settings );
+            $controls_component = self::get_controls_component( $args['components'] ?? null );
+
+            ob_start();
+            if( $controls_component ){
+                $controls_component['slider_uid'] = $slider_uid;
+                echo Template_Engine::getInstance()->handle( $controls_component );
+            } else {
+                if( $required ){ ?>
+                    <div class="carousel-controls tns-controls">
+                        <div class="go-to-prev-slide component icon-box" data-controls="prev" data-slider-uid="<?=$slider_uid?>">
+                            <i class="icon-box__icon fa <?=PREV_CAROUSEL_ICON?>"></i>
+                        </div>
+                        <div class="go-to-next-slide component icon-box" data-controls="next" data-slider-uid="<?=$slider_uid?>">
+                            <i class="icon-box__icon fa <?=NEXT_CAROUSEL_ICON?>"></i>
+                        </div>
+                    </div>
+                    <?php
+                }
+            }
+            return ob_get_clean();
+        }
+        return '';
+    }
 }
 
 new Carousel();

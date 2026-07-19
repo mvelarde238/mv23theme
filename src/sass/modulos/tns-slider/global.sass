@@ -3,7 +3,8 @@
     --ui-color-2: var(--primary-color-light)
     --ui-color-3: #{$white}
 
-    .tns-inner
+    .tns-inner:has([data-mouse-drag="1"]),
+    .tns-inner:has([data-mouse-drag="true"])
         cursor: grab
         &:active
             cursor: grabbing
@@ -23,11 +24,11 @@
     [data-controls="next"]
         right: 0
 
-    &[data-controls-position='top']
+    &:has([data-controls-position='top'])
         [data-controls]
             top: 0
 
-    &[data-controls-position='center']
+    &:has([data-controls-position='center'])
         [data-controls]
             top: 50%
         [data-controls="prev"]
@@ -35,7 +36,7 @@
         [data-controls="next"]
             transform: translateY(-50%) translateX(50%)
 
-    &[data-controls-position='bottom']
+    &:has([data-controls-position='bottom'])
         [data-controls]
             bottom: 0
 

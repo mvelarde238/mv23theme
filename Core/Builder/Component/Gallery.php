@@ -4,20 +4,11 @@ namespace Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
+use Core\Builder\Template_Engine\Video as Video_Template_Engine;
+use Core\Builder\Slider_Settings;
+use Core\Builder\Component\Carousel;
 
 class Gallery extends Component {
-
-    // temporary in-memory storage for data that needs to be generated and accessed in the same request 
-    // (like the grid data generated in the builder and used in the shortcode render)
-    private static array $temp_data = [];
-
-    public static function set_temp_data( string $key, mixed $value ): void {
-        self::$temp_data[$key] = $value;
-    }
-
-    public static function get_temp_data( string $key ): mixed {
-        return self::$temp_data[$key] ?? null;
-    }
 
     public function __construct() {
 		parent::__construct(
@@ -102,13 +93,19 @@ class Gallery extends Component {
                 ->set_default_value('left')
                 ->set_width( 50 )
         ))->add_dependency('display', 'marquee', '=');
+
+        // Slider Settings
+        $fields[] = Field::create( 'tab', 'slider_settings_tab', __('Slider Settings','mv23theme') )
+            ->add_dependency('display', 'slider', '=');
+        $fields[] = Slider_Settings::getRepeater( 'slider_settings', __('Slider Settings', 'mv23theme') )
+            ->hide_label()
+            ->add_dependency('display', 'slider', '=');
         
         // content fields
-        $sources = array(
+        $sources = apply_filters('filter_gallery_sources', array(
             'placeholders' => __('Placeholders', 'mv23theme'),
             'manual' => __('Select Images', 'mv23theme'),
-        );
-        if(WPMEDIAFOLDER_IS_ACTIVE) $sources = array_merge( array('wp-media' => __('Select Folder', 'mv23theme')), $sources );
+        ));
 
         $fields[] = Field::create( 'tab', __('Content','mv23theme') );
         $fields[] = Field::create( 'radio', 'source', __('Source', 'mv23theme'))
@@ -131,23 +128,8 @@ class Gallery extends Component {
         $fields[] = Field::create( 'gallery', 'gallery' )
             ->hide_label()
             ->add_dependency('source', 'manual', '=');
-        
-        if(WPMEDIAFOLDER_IS_ACTIVE) {
-            // wp media fields
-            $fields[] = Field::create( 'select', 'wp_media_folder' )->add_terms( 'wpmf-category' )->fancy()->set_width(25)->add_dependency('source', 'wp-media', '=');
-            $fields[] = Field::create( 'message', 'wp_media_folder_message', __('WP Media Folder', 'mv23theme') )->set_description('<a href="'.admin_url().'upload.php" target="_blank">'.__('Create a new WP Media Folder', 'mv23theme').'</a>')->add_dependency('source', 'wp-media', '=')->set_width(70);
-            // Field::create( 'checkbox', 'autoinsert' )->set_text( '¿Autoinsertar las imágenes agregadas a la galerîa?' ); // dosnt work, the shortcode needs the attachments id's
-            // Field::create( 'select', 'orderby', 'Ordenar por')->add_options( array(
-            //     'custom' => 'Personalizado',
-            //     'rand' => 'Random',
-            //     'title' => 'Tìtulo',
-            //     'date' => 'Fecha'
-            // ))->add_dependency('../wp_media_folder','0','!=');
-            // Field::create( 'select', 'order', 'Orden')->add_options( array(
-            //     'DESC' => 'Descendente',
-            //     'ASC' => 'Ascendente',
-            // ));
-        }
+
+        $fields = apply_filters('filter_gallery_content_tab_fields', $fields);
         
         // columns and gutter settings
         $fields[] = Field::create( 'tab', '_gallery-colums-tab', __('Columns', 'mv23theme') );
@@ -167,56 +149,24 @@ class Gallery extends Component {
         ));
         
         // images settings
+        $images_path = BUILDER_PATH.'/assets/images/aspect-ratio/';
         $fields[] = Field::create( 'tab', __('Images Size', 'mv23theme') )->add_dependency('display', array('grid'), 'NOT_IN');
         $fields[] = Field::create( 'image_select', 'aspect_ratio', __('Aspect ratio','mv23theme') )
             ->set_description(__('Appearance of the images in the gallery. If you select "default" the images will keep their original aspect ratio.', 'mv23theme'))
             ->set_attr( 'class', 'image-select-3-cols' )
             ->set_default_value('1/1')
             ->add_options(array(
-                'default' => array(
-                    'label' => 'default',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-default.png'
-                ),
-                '1/1'  => array(
-                    'label' => '1:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-1-1.png'
-                ),
-                '4/3'  => array(
-                    'label' => '4:3',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-4-3.png'
-                ),
-                '16/9'  => array(
-                    'label' => '16:9',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-16-9.png'
-                ),
-                '2/1'  => array(
-                    'label' => '2:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-2-1.png'
-                ),
-                '2.5/1'  => array(
-                    'label' => '2.5:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-2_5-1.png'
-                ),
-                '4/1'  => array(
-                    'label' => '4:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-4-1.png'
-                ),
-                '3/4'  => array(
-                    'label' => '3:4',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-3-4.png'
-                ),
-                '9/16'  => array(
-                    'label' => '9:16',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-9-16.png'
-                ),
-                '1/2'  => array(
-                    'label' => '1:2',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-1-2.png'
-                ),
-                '1/2.5'  => array(
-                    'label' => '1:2.5',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-1-2_5.png'
-                )
+                'default' => array('label' => 'default', 'image' => $images_path.'aspect-ratio-default.png'),
+                '1/1'  => array('label' => '1:1', 'image' => $images_path.'aspect-ratio-1-1.png'),
+                '4/3'  => array('label' => '4:3', 'image' => $images_path.'aspect-ratio-4-3.png'),
+                '16/9'  => array('label' => '16:9', 'image' => $images_path.'aspect-ratio-16-9.png'),
+                '2/1'  => array('label' => '2:1', 'image' => $images_path.'aspect-ratio-2-1.png'),
+                '2.5/1'  => array('label' => '2.5:1', 'image' => $images_path.'aspect-ratio-2_5-1.png'),
+                '4/1'  => array('label' => '4:1', 'image' => $images_path.'aspect-ratio-4-1.png'),
+                '3/4'  => array('label' => '3:4', 'image' => $images_path.'aspect-ratio-3-4.png'),
+                '9/16'  => array('label' => '9:16', 'image' => $images_path.'aspect-ratio-9-16.png'),
+                '1/2'  => array('label' => '1:2', 'image' => $images_path.'aspect-ratio-1-2.png'),
+                '1/2.5'  => array('label' => '1:2.5', 'image' => $images_path.'aspect-ratio-1-2_5.png')
             ));
 
         // size settings
@@ -306,41 +256,152 @@ class Gallery extends Component {
                 'large' => __('Large', 'mv23theme'),
                 'full' => __('Full', 'mv23theme'),
             ))->set_default_value('large');
-        $fields[] =  Field::create( 'select', 'carousel_theme', __('Carousel Theme', 'mv23theme') )
-                ->add_options( array(
-                    'theme1' => __('Theme 1','mv23theme'),
-                    // 'theme2' => __('Theme 2','mv23theme'),
-                    'none' => __('None','mv23theme'),
-                ))
-                ->set_default_value('theme1')
-                ->add_dependency('display', 'slider', '=');
 
 		return $fields;
 	}
 
     public static function display( $args ){
         if( Template_Engine::is_restricted( $args ) ) return;
+
+        $args['additional_classes'][] = 'component';
+        $args['__type'] = 'theme-gallery-comp';
         
         $source = $args['source'] ?? 'manual';
         if( $source == 'manual' ){
             $gallery = $args['gallery'] ?? array();
             if( empty($gallery) ) return '';
-        } elseif( $source == 'wp-media' ){
-            $wp_media_folder = $args['wp_media_folder'] ?? 0;
-            if( empty($wp_media_folder) ) return '';
         } else if( $source == 'placeholders' ){
             $placeholders_quantity = $args['placeholders_quantity'] ?? 8;
             if( empty($placeholders_quantity) ) return '';
-        } else {
-            return '';
         }
 
-		$args['additional_classes'][] = 'component';
-        $args['__type'] = 'theme-gallery-comp';
+        do_action('before_gallery_process', $args);
 
+        // check if gallery should be hidden
         $hide_gallery = $args['use_id']['hide_gallery'] ?? false;
         if($hide_gallery === true) $args['additional_classes'][] = 'hide';
+        
+        // build gallery settings
+        $gallery_settings = self::get_gallery_settings($args);
 
+        // get gallery attachments
+        $attachments = self::get_gallery_attachments($gallery_settings, $args);
+        if( empty($attachments) ) return '';
+
+        // prepare item attributes
+        $item_attrs = array(
+            'additional_classes' => ['theme-gallery__item']
+        );
+        if ( $gallery_settings['display'] == 'grid' ){
+            $item_attrs['additional_classes'][] = 'grid-stack-item';
+        }
+        if( $gallery_settings['display'] == 'masonry' ){
+            $item_attrs['additional_classes'][] = 'masonry-grid-item';
+        } 
+
+		ob_start();
+		echo Template_Engine::component_wrapper('start', $args);
+        
+        echo self::get_gallery_wrapper_start( $gallery_settings, $args );
+
+        $item_counter = 0;
+        foreach ($attachments as $attachment_id) :
+            $type = $gallery_settings['use_placeholder_images'] ? 'placeholder' : get_post_mime_type($attachment_id);
+            $attachment_type = '';
+            $is_remote_video = false;
+
+            // handle grid data for grid display
+            if( $gallery_settings['display'] == 'grid' ){
+                $item_attrs['additional_attributes'] = []; // reset per-item to avoid accumulating previous attrs
+                if( isset($gallery_settings['grid_data'][$item_counter]) ){
+                    $item_grid_data = $gallery_settings['grid_data'][$item_counter];
+                    if(isset($item_grid_data['x'])) $item_attrs['additional_attributes']['gs-x'] = $item_grid_data['x'];
+                    if(isset($item_grid_data['y'])) $item_attrs['additional_attributes']['gs-y'] = $item_grid_data['y'];
+                    if(isset($item_grid_data['w'])) $item_attrs['additional_attributes']['gs-w'] = $item_grid_data['w'];
+                    if(isset($item_grid_data['h'])) $item_attrs['additional_attributes']['gs-h'] = $item_grid_data['h'];
+                }
+            }
+
+            // get the attachment output
+            $the_attachment_data = self::get_attachment_output( $attachment_id, $gallery_settings, $type);
+            $the_attachment_link = self::get_attachment_link( $attachment_id, $gallery_settings, $the_attachment_data );
+
+            echo '<div '.Template_Engine::generate_attributes($item_attrs).'>';
+            if ( $gallery_settings['display'] == 'grid' ) echo '<div class="grid-stack-item-content">';
+            if ( $gallery_settings['link'] != 'none') echo $the_attachment_link['start'];
+            echo $the_attachment_data['output'];
+            if ( $gallery_settings['link'] != 'none') echo $the_attachment_link['end'];
+            if ( $gallery_settings['display'] == 'grid' ) echo '</div>'; // close grid-stack-item-content
+            echo '</div>';
+            $item_counter++;
+        endforeach;
+        
+        echo self::get_gallery_wrapper_end( $gallery_settings, $args );
+    
+		echo Template_Engine::component_wrapper('end', $args);
+		return ob_get_clean();
+	}
+
+    private static function get_gallery_wrapper_start( $gallery_settings, $args ){
+        $wrapper_styles = array();
+
+        if( $gallery_settings['aspectratio'] ) $wrapper_styles[] = '--aspect-ratio:'.$gallery_settings['aspectratio'];
+        $wrapper_styles[] = '--d-gap:'.$gallery_settings['d_gap'].'px';
+        $wrapper_styles[] = '--l-gap:'.$gallery_settings['l_gap'].'px';
+        $wrapper_styles[] = '--t-gap:'.$gallery_settings['t_gap'].'px';
+        $wrapper_styles[] = '--m-gap:'.$gallery_settings['m_gap'].'px';
+        $wrapper_styles[] = '--d-columns:'.$gallery_settings['d_columns'];
+        $wrapper_styles[] = '--l-columns:'.$gallery_settings['l_columns'];
+        $wrapper_styles[] = '--t-columns:'.$gallery_settings['t_columns'];
+        $wrapper_styles[] = '--m-columns:'.$gallery_settings['m_columns'];
+
+        ob_start();
+        if( $gallery_settings['display'] == 'slider' ){ 
+            ?>
+            <div class="theme-gallery theme-gallery--slider carousel" style="<?=implode(';',$wrapper_styles)?>">
+            <?php echo Carousel::slider_start( $args ); ?>
+            <?php
+        } else if ( $gallery_settings['display'] == 'masonry' ) {
+            echo '<div class="theme-gallery has-masonry-columns" style="'.implode(';', $wrapper_styles).'">';
+            echo '<div class="masonry-grid-sizer"></div>';
+            echo '<div class="masonry-gutter-sizer"></div>';
+
+        } else if ( $gallery_settings['display'] == 'marquee' ) {
+            $wrapper_styles[] = '--fade-width: '.$gallery_settings['marquee_fade_width'];
+            echo '<div class="theme-gallery theme-gallery__marquee marquee" data-speed="'.$gallery_settings['marquee_speed'].'" data-direction="'.$gallery_settings['marquee_direction'].'" style="'.implode(';', $wrapper_styles).'">';
+            echo '<div class="marquee-track">';
+            
+        } else if ( $gallery_settings['display'] == 'grid' ) {
+            echo '<div class="theme-gallery grid-stack theme-gallery--grid" style="'.implode(';', $wrapper_styles).'">';
+             
+        } else if ( $gallery_settings['display'] == 'default' ) {
+            echo '<div class="theme-gallery has-columns theme-gallery--'.$gallery_settings['display'].'" style="'.implode(';', $wrapper_styles).'">';
+
+        } else {
+            echo '<div class="theme-gallery theme-gallery--'.$gallery_settings['display'].'" style="'.implode(';', $wrapper_styles).'">';
+        }
+        return ob_get_clean();
+    }
+
+    private static function get_gallery_wrapper_end( $gallery_settings, $args ){
+        ob_start();
+        if( $gallery_settings['display'] == 'slider' ){ 
+            echo Carousel::slider_end(); // close carousel__slider
+            echo Carousel::slider_controls( $args, true );
+            echo '</div>'; // close theme-gallery
+        } else if ( $gallery_settings['display'] == 'marquee' ) {
+            echo '</div></div>'; // close marquee-track and theme-gallery
+        } else {
+            echo '</div>'; // close theme-gallery
+        }
+        return ob_get_clean();
+    }
+
+    private static function get_gallery_settings($args) {
+        $rand_id = 'gallery_'.substr(md5(microtime()),rand(0,26),5);
+        $gallery_id = $args['use_id']['id'] ?? $rand_id;
+        
+        $source = $args['source'] ?? 'manual';
         $link = $args['action']['link'] ?? 'file';
         $image_quality = $args['image_quality'] ?? 'large';
         $targetsize = $args['action']['targetsize'] ?? 'full';
@@ -356,49 +417,53 @@ class Gallery extends Component {
         $t_gap = $args['gutter']['tablet'] ?? GALLERY_GAP['tablet'];
         $m_gap = $args['gutter']['mobile'] ?? GALLERY_GAP['mobile'];
 
-        $shortcode_name = ($source === 'manual') ? 'theme_gallery' : 'theme_gallery';
-        $gallery_id = $args['use_id']['id'] ?? '';
-
-        $shortcode = '['.$shortcode_name.' link="'.$link.'" d_columns="'.$d_columns.'" l_columns="'.$l_columns.'" t_columns="'.$t_columns.'" m_columns="'.$m_columns.'" d_gap="'.$d_gap.'" l_gap="'.$l_gap.'" t_gap="'.$t_gap.'" m_gap="'.$m_gap.'" size="'.$image_quality.'" targetsize="'.$targetsize.'" display="'.$display.'" gallery_id="'.$gallery_id.'"';
+        $gallery_settings = array(
+            'link' => $link,
+            'd_columns' => $d_columns,
+            'l_columns' => $l_columns,
+            't_columns' => $t_columns,
+            'm_columns' => $m_columns,
+            'd_gap' => $d_gap,
+            'l_gap' => $l_gap,
+            't_gap' => $t_gap,
+            'm_gap' => $m_gap,
+            'size' => $image_quality,
+            'targetsize' => $targetsize,
+            'display' => $display,
+            'gallery_id' => $gallery_id,
+            'aspectratio' => '',
+            'use_placeholder_images' => false
+        );
 
         $aspect_ratio = $args['aspect_ratio'] ?? 'default';
-        if($aspect_ratio != 'default') $shortcode .= ' aspectratio="'.$aspect_ratio.'"';
+        if($aspect_ratio != 'default') $gallery_settings['aspectratio'] = $aspect_ratio;
 
-        if($source == 'wp-media'){
-        	$wp_media_folder = $args['wp_media_folder'] ?? 0;
-        	if($wp_media_folder){
-        		$shortcode .= ' wpmf_folder_id="'.$wp_media_folder.'" wpmf_autoinsert="1"';
-        	}
-        } else if( $source == 'placeholders' ){
+        if( $source == 'placeholders' ){
             $placeholders_quantity = $args['placeholders_quantity'] ?? 8;
-            $shortcode .= ' use_placeholder_images="1" placeholders_quantity="'.$placeholders_quantity.'"';
+            $gallery_settings['use_placeholder_images'] = '1';
+            $gallery_settings['placeholders_quantity'] = $placeholders_quantity;
 
             $placeholders_source = $args['placeholders_source'] ?? 'picsum';
-            $shortcode .= ' placeholders_source="'.$placeholders_source.'"';
+            $gallery_settings['placeholders_source'] = $placeholders_source;
         } else {
         	$gallery = $args['gallery'] ?? array();
         	$ids = (is_array($gallery)) ? implode(',',$gallery) : '';
-        	$shortcode .= ' ids="'.$ids.'"';
+        	$gallery_settings['ids'] = $ids;
         }
 
         if( $display == 'marquee' ){
             $speed = $args['marquee_settings']['speed'] ?? 40;
             $marquee_speed = ( is_numeric($speed) ) ? $speed : 40;
-            $shortcode .= ' marquee_speed="'.$marquee_speed.'"';
+            $gallery_settings['marquee_speed'] = $marquee_speed;
 
             $fade_width = $args['marquee_settings']['fade_width'] ?? '100px';
-            $shortcode .= ' marquee_fade_width="'.$fade_width.'"';
+            $gallery_settings['marquee_fade_width'] = $fade_width;
 
             $direction = $args['marquee_settings']['direction'] ?? 'left';
-            $shortcode .= ' marquee_direction="'.$direction.'"';
+            $gallery_settings['marquee_direction'] = $direction;
         }
 
-        if( $display == 'slider' ){
-            $carousel_theme = $args['carousel_theme'] ?? 'theme1';
-            if($carousel_theme != 'none') $shortcode .= ' carousel_theme="'.$carousel_theme.'"';
-        }
-
-        // handle size styles in shorcode size_styles='max-width: 100%;...'
+        // handle size styles: 'max-width: 100%;...'
         $size_styles = '';
         $size_properties = array('height', 'width');
         foreach($size_properties as $size_property){
@@ -414,27 +479,211 @@ class Gallery extends Component {
                 }
             }
         }
-        if($size_styles) $shortcode .= ' size_styles="'.$size_styles.'"';
+        if($size_styles) $gallery_settings['size_styles'] = $size_styles;
 
         // grid data
         if( $display == 'grid' ){
             $grid_data = $args['grid_data'] ?? array();
-            if( is_array($grid_data) && !empty($grid_data) ) {
-                $grid_data_key = 'grid_data_' . uniqid();
-                self::set_temp_data( $grid_data_key, $grid_data );
-                $shortcode .= ' grid_data_key="'.$grid_data_key.'"';
+
+            if( empty($grid_data) ){
+                $gallery_settings['grid_data'] = array(
+                    ['x'=>0,'y'=>0,'w'=>3,'h'=>3],
+                    ['x'=>3,'y'=>0,'w'=>4,'h'=>2],
+                    ['x'=>7,'y'=>0,'w'=>3,'h'=>3],
+                    ['x'=>10,'y'=>0,'w'=>2,'h'=>2],
+                    ['x'=>3,'y'=>2,'w'=>4,'h'=>3],
+                    ['x'=>10,'y'=>2,'w'=>2,'h'=>3],
+                    ['x'=>0,'y'=>3,'w'=>3,'h'=>2],
+                    ['x'=>7,'y'=>3,'w'=>3,'h'=>2]
+                );
+            } else {
+                $gallery_settings['grid_data'] = $grid_data;
             }
         }
-        
-        // end of shortcode
-        $shortcode .= ']';
-        
-		ob_start();
-		echo Template_Engine::component_wrapper('start', $args);
-        if($shortcode) echo do_shortcode($shortcode);
-		echo Template_Engine::component_wrapper('end', $args);
-		return ob_get_clean();
-	}
+
+        if ( isset($gallery_settings['use_placeholder_images']) && $gallery_settings['use_placeholder_images'] ) {
+            $gallery_settings['link'] = 'placeholder'; // override link type since these are not real attachments
+        }
+
+        return apply_filters('filter_gallery_settings', $gallery_settings, $args);
+    }
+
+    private static function get_gallery_attachments($gallery_settings, $args) {
+        $attachments = array();
+
+        if ( isset($gallery_settings['use_placeholder_images']) && $gallery_settings['use_placeholder_images'] ) {
+            $placeholders_source = $gallery_settings['placeholders_source'] ?? 'picsum';
+            $placeholders_quantity = $gallery_settings['placeholders_quantity'] ?? 8;
+
+            switch ($placeholders_source) {
+                case 'picsum':
+                    for ($i = 0; $i < $placeholders_quantity; $i++) {
+                        array_push( $attachments, 'https://picsum.photos/600/500?random=' . $i );
+                    }
+                    break;
+                
+                case 'unsplash':
+                default:
+                    for ($i = 0; $i < $placeholders_quantity; $i++) {
+                        array_push( $attachments, 'https://unsplash.it/600/500?sig=' . $i );
+                    }
+                    break;
+                
+                case 'placehold':   
+                    for ($i = 0; $i < $placeholders_quantity; $i++) {
+                        array_push( $attachments, 'https://placehold.co/600x500' );
+                    }
+                    break;
+            }
+        } else {
+            $attachments = explode(',',$gallery_settings['ids']);
+        }
+
+        return apply_filters('filter_gallery_attachments', $attachments, $gallery_settings, $args);
+    }
+
+    private static function get_attachment_output( $attachment_id, $gallery_settings, $type ){
+        switch ($type) {
+            case 'image/jpeg':
+            case 'image/png':
+            case 'image/gif':
+                $attachment_type = 'image';
+
+                $attach_url = wp_get_attachment_image_url($attachment_id, $gallery_settings['size']);
+                $url = $attach_url;
+
+                $image_attrs = array();
+                $image_attrs['additional_attributes']['src'] = $attach_url;
+    
+                if( !empty($gallery_settings['size_styles'])){
+                    $image_attrs['additional_attributes']['style'] = $gallery_settings['size_styles'];
+                }
+                $the_attachment = '<img '.Template_Engine::generate_attributes($image_attrs).'>';
+            break;
+
+            case 'video/mpeg':
+            case 'video/mp4': 
+            case 'video/quicktime':
+                $attachment_type = 'video';
+                $url = wp_get_attachment_url($attachment_id);
+
+                $video_args = array(
+                    'video' => array(
+                        'videos' => array($attachment_id),
+                        'poster' => null
+                    ),
+                    'video_settings' => array()
+                );
+
+                if ($gallery_settings['link'] != 'none'){
+                    $video_args['video_settings']['controls'] = 0;
+                    $video_args['video_settings']['autoplay'] = 1;
+                    $video_args['video_settings']['muted'] = 1;
+                    $video_args['video_settings']['loop'] = 1;
+                } 
+
+                if( !empty($gallery_settings['size_styles'])){
+                    $video_args['video_settings']['styles'] = $gallery_settings['size_styles'];
+                }
+
+                $video_data = Video_Template_Engine::get_video_data( $video_args );
+                if( !empty($video_data['code']) ) $the_attachment = $video_data['code'];
+                
+                break;
+
+            case 'application/pdf':
+                $attachment_type = 'pdf';
+                $url = wp_get_attachment_url($attachment_id);
+
+                $image_attrs = array();
+                $image_attrs['additional_attributes'] = array(
+                    'src' => get_template_directory_uri().'/assets/images/pdf_poster.jpg'
+                );
+
+                if( !empty($gallery_settings['size_styles'])){
+                    $image_attrs['additional_attributes']['style'] = $gallery_settings['size_styles'];
+                }
+                $the_attachment = '<img '.Template_Engine::generate_attributes($image_attrs).'>';
+                break;
+
+            case 'placeholder':
+                $attachment_type = 'image';
+                $url = $attachment_id; // In this case, $attachment_id is actually the URL of the placeholder image
+
+                $image_attrs = array();
+                $image_attrs['additional_attributes'] = array('src' => $url);
+    
+                if( !empty($gallery_settings['size_styles'])){
+                    $image_attrs['additional_attributes']['style'] = $gallery_settings['size_styles'];
+                }
+                $the_attachment = '<img '.Template_Engine::generate_attributes($image_attrs).'>';
+                break;
+                
+            default:
+                $url = wp_get_attachment_url($attachment_id);
+                $the_attachment = '<p>'.$type.'</p>';
+                $attachment_type = $type;
+        }
+
+        $attachment_data = apply_filters('filter_gallery_attachment_data', array(
+            'output' => $the_attachment,
+            'url' => $url,
+            'type' => $attachment_type
+        ), $attachment_id, $gallery_settings, $type);
+
+        return $attachment_data;
+    }
+
+    private static function get_attachment_link( $attachment_id, $gallery_settings, $the_attachment_data ){
+        $link_attrs = array();
+
+        if($gallery_settings['link'] != 'none') {
+            $attachment_type = $the_attachment_data['type'];
+
+            // href
+            switch ($gallery_settings['link']) {
+                case 'file':
+                    $attachment_link = ($attachment_type === 'image') 
+                        ? wp_get_attachment_image_url($attachment_id, $gallery_settings['targetsize']) 
+                        : $the_attachment_data['url'];
+                    break;
+                case 'post':
+                    $attachment_link = get_attachment_link($attachment_id);
+                    break;
+                default:
+                    $attachment_link = $the_attachment_data['url'];
+                    break;
+            }
+            $link_attrs['href'] = $attachment_link;
+
+            // caption
+            $caption = wp_get_attachment_caption($attachment_id) ?? '';
+            if( $caption ) $link_attrs['data-description'] = $caption;
+            
+            // data gallery
+            $dont_use_glightbox = array('custom', 'post', 'none');
+            if(!in_array($gallery_settings['link'], $dont_use_glightbox)) {
+                $link_attrs['data-gallery'] = $gallery_settings['gallery_id'];
+            }
+
+            // Explicitly set data-type so GLightbox uses the correct renderer.
+            // Without this, URLs without a recognized extension (e.g. external image CDNs)
+            // fall back to "external" type which has broken layout at desktop widths.
+            if( $attachment_type === 'image' ) {
+                $link_attrs['data-type'] = 'image';
+            }
+        }
+
+        $link_attrs = apply_filters('filter_gallery_attachment_link_attributes', $link_attrs, $attachment_id, $gallery_settings, $the_attachment_data);
+
+        $attachment_link_start = '<a '.Template_Engine::generate_attributes( array( 'additional_attributes' => $link_attrs ) ).'>';
+        $attachment_link_end = '</a>';
+
+        return array(
+            'start' => $attachment_link_start,
+            'end' => $attachment_link_end
+        );
+    }
 }
 
 new Gallery();

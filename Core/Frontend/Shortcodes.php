@@ -7,7 +7,6 @@ class Shortcodes{
     public function init(){
         get_template_part( 'partials/shortcodes/icono' );
         get_template_part( 'partials/shortcodes/social-networks' );
-        get_template_part( 'partials/shortcodes/gallery' );
         get_template_part( 'partials/shortcodes/comments-area' );
         get_template_part( 'partials/shortcodes/nav' );
         get_template_part( 'partials/shortcodes/social-share' );

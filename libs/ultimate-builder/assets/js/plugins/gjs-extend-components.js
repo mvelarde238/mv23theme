@@ -218,6 +218,9 @@ window.gjsExtendComponents = function (editor) {
                 const newDatastore = new UltimateFields.Datastore(clonedData);
                 newDatastore.parent = editorConfig.temporalCompStore[clonedComponentId].datastore.parent;
                 editorConfig.temporalCompStore[clonedComponentId].setDatastore(newDatastore);
+
+                // Trigger an event so other plugins can react to the clone and update their own state if needed.
+                editor.trigger('afterComponentClone', clonedComponent, newDatastore);
             }
         }
 

@@ -96,6 +96,7 @@ window.gjsI18n = function (editor, options) {
                 remove_confirm_msg: '¿Estás seguro de que deseas eliminar este item? Hay componentes dentro',
                 last_item_alert: 'No se puede eliminar el último item. Un carrusel debe tener al menos un item.',
                 no_uid: 'No se encontró UID para este componente.',
+                no_slider_uid: 'No se encontró UID para este carrusel.',
                 // Testimonial
                 testimonial: 'Testimonio',
                 default_testimonial_info: '<strong>John Doe</strong><br>Gerente General, Compañía',

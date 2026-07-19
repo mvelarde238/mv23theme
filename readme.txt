@@ -2,6 +2,15 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.00 26-07-18
+- Slider Settings Implementation: new settings to allow users to customize the behavior and appearance of sliders on
+  carousel, listing and gallery components, including options for autoplay, navigation, pagination, and more
+- All the code related to wp-media-folder has been moved to WP_Media_Folder_Support Class, to improve code organization and maintainability
+- Shortcode theme_gallery has been removed, use the new gallery component instead
+--------------------------------------------------------------------------------------------------------------------------
+!IMPORTANT: Use the migrator to update old components to use the new slider settings structure
+--------------------------------------------------------------------------------------------------------------------------
+
 3.14.10 26-07-17
 - Uf Improvement: Enable prefix for checkbox fields
 
