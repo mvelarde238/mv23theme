@@ -2,7 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
-3.15.00 26-07-18
+3.15.1 26-07-22
+- Clear unused scripts: content-slider.js, components-wrapper.js
+
+3.15.0 26-07-18
 - Slider Settings Implementation: new settings to allow users to customize the behavior and appearance of sliders on
   carousel, listing and gallery components, including options for autoplay, navigation, pagination, and more
 - All the code related to wp-media-folder has been moved to WP_Media_Folder_Support Class, to improve code organization and maintainability
