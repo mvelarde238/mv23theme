@@ -5,6 +5,7 @@ CHANGELOG
 3.15.2 26-07-23
 - Added autoplay button output setting to slider settings to allow users to choose whether to show or hide the autoplay button on the slider, 
   with a default value of true to show the button by default
+- Fix slider_uid property name on Slider_Settings::get_default_groups() method
 
 3.15.1 26-07-22
 - Clear unused scripts: content-slider.js, components-wrapper.js

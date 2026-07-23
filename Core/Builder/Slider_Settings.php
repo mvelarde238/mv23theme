@@ -240,7 +240,7 @@ class Slider_Settings
             ),
             array(
                 '__type' => 'slider_uid',
-                'property' => 'uid',
+                'property' => 'slider_uid',
                 'value' => ''
             )
         );
