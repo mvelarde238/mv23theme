@@ -63,6 +63,7 @@ function create_tns_slider(slider){
         nav_position = slider.dataset['navPosition'] ?? 'bottom',
         show_nav = toBool(slider.dataset['showNav'] ?? false),
         autoplay = toBool(slider.dataset['autoplay'] ?? false),
+        autoplay_button_output = toBool(slider.dataset['autoplayButtonOutput'] ?? true),
         autoplay_position = slider.dataset['autoplayPosition'] ?? 'top',
         autoplay_timeout = slider.dataset['autoplayTimeout'] ?? 5000,
         autoplay_direction = slider.dataset['autoplayDirection'] ?? 'forward',
@@ -119,6 +120,7 @@ function create_tns_slider(slider){
 
     if (hasData(slider, 'mode')) slider_options.mode = mode;
     if (hasData(slider, 'showControls')) slider_options.controls = show_controls;
+    if (hasData(slider, 'autoplayButtonOutput')) slider_options.autoplayButtonOutput = autoplay_button_output;
     if (hasData(slider, 'touch')) slider_options.touch = 1;
     if (hasData(slider, 'autoplay')) slider_options.autoplay = autoplay;
     if (hasData(slider, 'autoplayPosition')) slider_options.autoplayPosition = autoplay_position;

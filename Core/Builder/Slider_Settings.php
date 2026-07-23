@@ -41,7 +41,7 @@ class Slider_Settings
             ['key' => 'auto_height', 'label' => __('Auto Height', 'mv23theme'), 'type' => 'boolean', 'default' => false],
             ['key' => 'autoplay', 'label' => __('Autoplay', 'mv23theme'), 'type' => 'boolean', 'default' => false],
             // ['key' => 'autoplayButton', 'label' => __('Autoplay Button Selector', 'mv23theme'), 'type' => 'text'],
-            // ['key' => 'autoplayButtonOutput', 'label' => __('Output Autoplay Button', 'mv23theme'), 'type' => 'boolean', 'default' => true],
+            ['key' => 'autoplay_button_output', 'label' => __('Autoplay Button Output', 'mv23theme'), 'type' => 'boolean', 'default' => true],
             ['key' => 'autoplay_direction', 'label' => __('Autoplay Direction', 'mv23theme'), 'type' => 'select', 'default' => 'forward', 'options' => [
                     'forward' => __('Forward', 'mv23theme'),
                     'backward' => __('Backward', 'mv23theme')
@@ -388,6 +388,7 @@ class Slider_Settings
             'nav_position' => 'data-nav-position',
             'speed' => 'data-speed',
             'autoplay' => 'data-autoplay',
+            'autoplay_button_output' => 'data-autoplay-button-output',
             'autoplay_position' => 'data-autoplay-position',
             'autoplay_timeout' => 'data-autoplay-timeout',
             'autoplay_direction' => 'data-autoplay-direction',
