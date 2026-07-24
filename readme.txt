@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.3 26-07-24
+- V23_ToggleBox library updated to 10.2.0 with accessibility improvements
+
 3.15.2 26-07-23
 - Added autoplay button output setting to slider settings to allow users to choose whether to show or hide the autoplay button on the slider, 
   with a default value of true to show the button by default
