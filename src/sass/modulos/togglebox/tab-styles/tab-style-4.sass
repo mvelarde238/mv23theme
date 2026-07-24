@@ -1,11 +1,10 @@
-.togglebox
-    $style: 'tab-style4'
+.togglebox[data-style="tab-style4"]
 
-    &[data-style="#{$style}"] > &__nav
+    & > #{$tgb}__nav
         display: flex
         flex-wrap: wrap
 
-    &[data-style="#{$style}"] > &__nav > &__btn
+    & > #{$tgb}__nav > #{$tgb}__btn
         flex-grow: 1
         padding: 1em 15px
         display: inline-flex
@@ -22,8 +21,8 @@
         &.active
             border-color: var(--ui-color-1)
     
-    &[data-style="#{$style}"] > &__items > &__item.active
+    & > #{$tgb}__items > #{$tgb}__item.active
         padding: 2em 1em
     
-    &[data-style="#{$style}"] > &__nav > &__btn > &__subtitle
+    & > #{$tgb}__nav > #{$tgb}__btn > #{$tgb}__subtitle
         margin-top: 0

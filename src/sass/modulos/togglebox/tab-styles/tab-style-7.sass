@@ -1,28 +1,24 @@
 @mixin sombra
     box-shadow: calc( var(--shadow-separation) * -1 ) var(--shadow-separation) 0 var(--ui-color-2)
 
-.togglebox
-    $style: 'tab-style7'
+.togglebox[data-style="tab-style7"]
+    display: flex
+    justify-content: space-between
+    --shadow-separation: 5px
 
-    &[data-style="#{$style}"]
-        display: flex
-        justify-content: space-between
-        --shadow-separation: 5px
-
-    &[data-style="#{$style}"] > &__nav
+    & > #{$tgb}__nav
         width: 30%
         margin-top: 60px
 
-    &[data-style="#{$style}"] > &__items
+    & > #{$tgb}__items
         width: 70%
         border: 1px solid var(--ui-color-2)
         background-color: var(--ui-color-3)
         padding: 40px
         @include sombra
 
-    &[data-style="#{$style}"] > &__nav > &__btn
+    & > #{$tgb}__nav > #{$tgb}__btn
         display: block
-        width: 100%
         padding: 15px 15px
         position: relative
         transition: 200ms all
@@ -47,8 +43,8 @@
                 width: 1px
                 background-color: var(--ui-color-3)
 
-    &[data-style="#{$style}"] > &__nav > &__btn > &__title
+    & > #{$tgb}__nav > #{$tgb}__btn > #{$tgb}__title
         margin-right: .8em
 
-    &[data-style="#{$style}"] > &__actions
+    & > #{$tgb}__actions
         @extend %vertical-actions

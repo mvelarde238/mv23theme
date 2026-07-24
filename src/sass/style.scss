@@ -54,10 +54,13 @@
 @import "modulos/testimonials/global";
 @import "modulos/marquee";
 @import "modulos/post-title";
+@import "modulos/togglebox/global";
 
 @import "modulos/pages/global";
 @import "modulos/pages/single-post";
 @import "modulos/pages/single-document";
+@import "modulos/pages/template";
+@import "modulos/pages/search-result";
 @import "modulos/pages/template";
 
 @import "modulos/menus/global";
@@ -68,23 +71,6 @@
 @import "modulos/menus/vertical1";
 @import "modulos/menus/links-nav";
 @import "modulos/menus/adaptive-navbar";
-
-@import "modulos/togglebox/global";
-@import "modulos/togglebox/tab-style-1";
-@import "modulos/togglebox/tab-style-2";
-@import "modulos/togglebox/tab-style-3";
-@import "modulos/togglebox/tab-style-4";
-@import "modulos/togglebox/tab-style-5";
-@import "modulos/togglebox/tab-style-6";
-@import "modulos/togglebox/tab-style-7";
-@import "modulos/togglebox/horizontal-tab";
-@import "modulos/togglebox/vertical-tab";
-@import "modulos/togglebox/accordion-style-1";
-@import "modulos/togglebox/accordion-style-2";
-@import "modulos/togglebox/accordion-style-3";
-@import "modulos/togglebox/vertical-accordion";
-@import "modulos/pages/search-result";
-@import "modulos/pages/template";
 
 @import "plugins/contact-form-7";
 @import "plugins/theme-my-login";

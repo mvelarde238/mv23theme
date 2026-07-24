@@ -209,7 +209,9 @@
 						this._handle_hash_in_url(btn.dataset.boxid);
 						
 						// Refresh ScrollTrigger breakpoints
-                		refreshScrollTriggerBreakpoints();
+						if (typeof refreshScrollTriggerBreakpoints === 'function'){
+							refreshScrollTriggerBreakpoints();
+						}
 
 					} else {
 						_removeClass(this.items[i].btn, 'active');

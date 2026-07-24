@@ -1,22 +1,19 @@
-.togglebox
-    $style: 'tab-style6'
+.togglebox[data-style="tab-style6"]
+    display: flex
+    justify-content: space-between
 
-    &[data-style="#{$style}"]
-        display: flex
-        justify-content: space-between
-
-    &[data-style="#{$style}"] > &__nav
+    & > #{$tgb}__nav
         width: 300px
         flex-shrink: 0
         margin: 23px 0
 
-    &[data-style="#{$style}"] > &__items
+    & > #{$tgb}__items
         flex-grow: 1
         width: 100%
         border-left: 1px solid var(--ui-color-2)
         padding: 20px 0 20px 30px
 
-    &[data-style="#{$style}"] > &__nav > &__btn
+    & > #{$tgb}__nav > #{$tgb}__btn
         display: block
         padding: 10px 15px
         position: relative
@@ -38,8 +35,8 @@
             &:before
                 opacity: 1
 
-    &[data-style="#{$style}"] > &__nav > &__btn > &__title
+    & > #{$tgb}__nav > #{$tgb}__btn > #{$tgb}__title
         margin-right: .8em
 
-    &[data-style="#{$style}"] > &__actions
+    & > #{$tgb}__actions
         @extend %vertical-actions

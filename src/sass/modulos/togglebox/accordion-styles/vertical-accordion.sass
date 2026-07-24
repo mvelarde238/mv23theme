@@ -1,7 +1,6 @@
-.togglebox
-    $style: 'vertical-accordion'
+.togglebox[data-style="vertical-accordion"]
 
-    &[data-style="#{$style}"] > &__items > &__btn
+    & > #{$tgb}__items > #{$tgb}__btn
         cursor: pointer
         display: inline-block
         width: 100%
@@ -11,18 +10,18 @@
         &:hover
             color: var(--ui-color-1)
 
-        .togglebox__state-icon
+        #{$tgb}__state-icon
             @extend %accordion-state-icon
             right: 0
         
-    &[data-style="#{$style}"] > &__items > &__btn > &__title
+    & > #{$tgb}__items > #{$tgb}__btn > #{$tgb}__title
         font-weight: var(--bold-font-weight)
 
-    &[data-style="#{$style}"] > &__items > &__btn > &__subtitle
+    & > #{$tgb}__items > #{$tgb}__btn > #{$tgb}__subtitle
         display: inline-block
         margin-left: .5em
         &::before
             content: '- '
     
-    &[data-style="#{$style}"] > &__items > &__item
+    & > #{$tgb}__items > #{$tgb}__item
         padding: 1.2em 0

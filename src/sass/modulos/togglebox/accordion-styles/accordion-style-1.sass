@@ -1,11 +1,8 @@
-.togglebox
-    $style: 'accordion-style1'
+.togglebox[data-style="accordion-style1"]
+    border: 1px solid var(--ui-color-2)
+    border-radius: 5px
 
-    &[data-style="#{$style}"]
-        border: 1px solid var(--ui-color-2)
-        border-radius: 5px
-
-    &[data-style="#{$style}"] > &__items > &__btn
+    & > #{$tgb}__items > #{$tgb}__btn
         padding: 1em 2.2em 1em 1.2em
         position: relative
         display: inline-block
@@ -16,17 +13,17 @@
         &:hover
             background-color: var(--ui-color-3)
 
-        .togglebox__state-icon
+        #{$tgb}__state-icon
             @extend %accordion-state-icon
         
-    &[data-style="#{$style}"] > &__items > &__btn > &__title
+    & > #{$tgb}__items > #{$tgb}__btn > #{$tgb}__title
         font-weight: var(--bold-font-weight)
 
-    &[data-style="#{$style}"] > &__items > &__btn > &__subtitle
+    & > #{$tgb}__items > #{$tgb}__btn > #{$tgb}__subtitle
         display: inline-block
         margin-left: .5em
         &::before
             content: '- '
     
-    &[data-style="#{$style}"] > &__items > &__item
+    & > #{$tgb}__items > #{$tgb}__item
         padding: 1.2em

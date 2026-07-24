@@ -1,10 +1,7 @@
-.togglebox
-    $style: 'accordion-style2'
+.togglebox[data-style="accordion-style2"]
+    --icon-size: 1.5em
 
-    &[data-style="#{$style}"]
-        --icon-size: 1.5em
-
-    &[data-style="#{$style}"] > &__items > &__btn
+    & > #{$tgb}__items > #{$tgb}__btn
         display: block
         border: 1px solid var(--ui-color-2)
         border-radius: 6px
@@ -13,7 +10,7 @@
         position: relative
         transition: 200ms border-color, 200ms background-color, 200ms color
         
-        .togglebox__state-icon
+        #{$tgb}__state-icon
             @extend %accordion-state-icon
             
         &.active
@@ -25,7 +22,7 @@
             background-color: var(--ui-color-3)
             color: var(--ui-color-1)
 
-    &[data-style="#{$style}"] > &__items > &__item
+    & > #{$tgb}__items > #{$tgb}__item
         padding: 0 2em 1.8em 2em
         &.active
             border: 1px solid var(--ui-color-2)
@@ -34,7 +31,7 @@
             border-radius: 0 0 6px 6px
             background-color: var(--ui-color-3)
 
-    &[data-style="#{$style}"] > &__items > &__btn > &__subtitle
+    & > #{$tgb}__items > #{$tgb}__btn > #{$tgb}__subtitle
         display: inline-block
         margin-left: .5em
         &::before
