@@ -7,6 +7,11 @@ CHANGELOG
   with a default value of true to show the button by default
 - Fix slider_uid property name on Slider_Settings::get_default_groups() method
 - v23-togglebox files synced to v23-togglebox repo to ensure compatibility with the latest version of the togglebox plugin
+- Listing Filter Component Improvements:
+|-- filter_filters_repeater filter implementation to allow modifying the filters repeater structure and add custom filter group types,
+    giving more flexibility and customization options for the listing filter component
+|-- display_custom_filters_repeater_group action implementation to allow rendering custom filter group types on the frontend, 
+    giving users the ability to create and display their own custom filter groups in the listing filter component
 
 3.15.1 26-07-22
 - Clear unused scripts: content-slider.js, components-wrapper.js

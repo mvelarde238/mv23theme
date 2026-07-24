@@ -155,7 +155,7 @@ class Listing_Filter extends Component {
             )
         ));
 
-        $fields[] = $filters_repeater;
+        $fields[] = apply_filters( 'filter_filters_repeater', $filters_repeater );
 
         // Add listing UID field
         $fields[] = Field::create('text', 'listing_uid')
@@ -435,9 +435,7 @@ class Listing_Filter extends Component {
                         }
 
                     } else {
-                        echo '<div class="field-wrapper">';
-                        echo '<span class="field-desc">'.$filter_group['__type'].'</span>';
-                        echo '</div>';
+                        do_action( 'display_custom_filters_repeater_group', $filter_group );
                     }
                     break;
             }
