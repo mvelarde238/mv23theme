@@ -253,7 +253,7 @@
 
           // Call onCloseEnd callback
           if (typeof this.options.onCloseEnd === 'function') {
-            this.options.onCloseEnd.call(this, this.el);
+            this.options.onCloseEnd.call(this, this.el, this._openingTrigger);
           }
         }
       };

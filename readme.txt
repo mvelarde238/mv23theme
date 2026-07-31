@@ -5,6 +5,9 @@ CHANGELOG
 3.15.4 26-07-30
 - Accessibility Improvements on Theme Navbars, Megamenus and Offcanvas Elements
 - skip-link button implementation to allow users to skip to the main content of the page for better accessibility and navigation
+- Fix Carousel to read columns and columns_gap from the correct args when used inside related-posts components
+- Accessibility Improvements on Modals: added aria-modal, aria-hidden and role attributes to modals for better accessibility and screen reader support, 
+  and added focus management to ensure that focus is properly handled when modals are opened and closed
 
 3.15.3 26-07-24
 - V23_ToggleBox library updated to 10.2.0 with accessibility improvements
