@@ -48,7 +48,6 @@ class Header extends Component {
 		echo '<div class="header-content container">';
 		echo Template_Engine::check_components( $header_content );
 		echo '</div>';
-		echo '<div id="megamenus"></div>';
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}

@@ -7,13 +7,38 @@ use Core\Frontend\Page;
 class Nav_Walker extends Walker_Nav_Menu{
     private $context = array();
 
+    // This property will hold the current parent item being processed
+    private $current_parent_item = null;
+
     public function __construct( $context = array() ){
         $this->context = $context;
-        // add_filter( 'wp_nav_menu_objects', array($this, 'remove_sub_items'), 10, 2 );
+    }
+
+    public function is_megamenu( $item ) {
+        return get_post_meta($item->ID,'is_megamenu',true);
+    }
+
+    public function display_element( $item, &$children_elements, $max_depth, $depth, $args, &$output ) {
+
+        if ( $this->is_megamenu( $item ) ) {
+            unset( $children_elements[ $item->ID ] );
+        }
+
+        parent::display_element(
+            $item,
+            $children_elements,
+            $max_depth,
+            $depth,
+            $args,
+            $output
+        );
     }
 
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
         if (is_array($args)) return $output;
+
+        // Store the current parent item being processed
+        $this->current_parent_item = $item;
 
         // ************************************************************************************************************
         // ************************************************************************************************************
@@ -51,14 +76,20 @@ class Nav_Walker extends Walker_Nav_Menu{
                 $classes[] = 'menu-item-has-children';
             };
 
-            if( $dynamic_content_settings['type'] == 'list_all_in_megamenu' && !empty($dynamic_content_settings['megamenu']) ) {
+            if( 
+                $dynamic_content_settings['type'] == 'list_all_in_megamenu' 
+                && !empty($dynamic_content_settings['megamenu']) 
+                ) {
                 $is_megamenu = true;
             }
         }
         // ************************************************************************************************************
         // ************************************************************************************************************
 
-        if ($is_megamenu) $classes[] = 'has-megamenu';
+        if ($is_megamenu){
+            $classes = array_diff($classes, array('menu-item-has-children'));
+            $classes[] = 'has-megamenu';
+        } 
         if ($hide_label) $classes[] = 'hidden-text';
 
         $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
@@ -90,7 +121,7 @@ class Nav_Walker extends Walker_Nav_Menu{
         }
         $style = ( !empty($styles) ) ? 'style="'.implode(';', $styles).'"' : '';
 
-        $output .= $indent . '<li' . $id . $value . $class_names . $style.'>';
+        $output .= $indent . '<li' . $id . $value . $class_names . $style.' role="none">';
     
         $atts = array();
         $atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
@@ -102,6 +133,11 @@ class Nav_Walker extends Walker_Nav_Menu{
         }
         if($offcanvas_element){
             $atts['data-offcanvas-element'] = str_replace('post_','',$offcanvas_element);
+        }
+        // add ARIA attributes for accessibility
+        $atts['role'] = 'menuitem';
+        if (in_array('menu-item-has-children', $classes) || $is_megamenu || $dynamic_content_settings['is_active'] || $offcanvas_element) {
+            $atts['aria-haspopup'] = 'true';
         }
     
         $atts = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args );
@@ -132,19 +168,21 @@ class Nav_Walker extends Walker_Nav_Menu{
         $item_output .= '<a'. $attributes .'>';
         $item_output .= $icon_html;
         $item_output .= $args->link_before .'<span class="menu-item__label">'. apply_filters( 'the_title', $item->title, $item->ID ) .'</span>'. $args->link_after;
+        $item_output .= '</a>';
         if (in_array('menu-item-has-children', $classes)) {
             $item_output .= '<button class="toggle-submenu" aria-expanded="false"></button>';
         }
-        $item_output .= '</a>';
         $item_output .= $args->after;
 
         $megamenu_data = get_post_meta($item->ID,'megamenu_post',true);
         if( $depth == 0 && $is_megamenu && $megamenu_data ) {
             $page = new Page();
             $megamenu_id = str_replace('post_', '', $megamenu_data);
-            $item_output .= '<div id="megamenu-'.$item->ID.'" class="megamenu"><div class="container">';
+            $item_output .= '<div id="megamenu-'.$item->ID.'" class="megamenu"';
+            $item_output .= ' aria-label="'.esc_attr__('Megamenu for', 'mv23theme').' '.esc_attr($item->title).'">';
+            $item_output .= '<div class="container">';
             $item_output .= $page->the_content( $megamenu_id );
-            $item_output .= '<a href="#" class="megamenu-close"></a>';
+            $item_output .= '<a href="#" class="megamenu-close" aria-label="'.esc_attr__('Close megamenu', 'mv23theme').'"></a>';
             $item_output .= '</div></div>'; 
         }
 
@@ -154,10 +192,12 @@ class Nav_Walker extends Walker_Nav_Menu{
         if( $dynamic_content_settings['is_active'] ){
             if ($dynamic_content_settings['type'] == 'list_posts' && count($dynamic_content_settings['posts']) ) {
                 $posts = $dynamic_content_settings['posts'];
-                $item_output .= '<ul class="sub-menu">';
+                $item_output .= '<ul class="sub-menu" role="menu" aria-label="'.esc_attr($item->title).'">';
                 foreach ($posts as $post) {
                     $post_id = $post->ID;
-                    $item_output .= '<li><a href="' . get_permalink($post_id) . '">' . get_the_title($post_id) . '</a></li>';
+                    $item_output .= '<li class="menu-item" role="none">';
+                    $item_output .= '<a href="' . get_permalink($post_id) . '" role="menuitem">' . get_the_title($post_id) . '</a>';
+                    $item_output .= '</li>';
                 }
                 $item_output .= '</ul>';
             }
@@ -176,33 +216,32 @@ class Nav_Walker extends Walker_Nav_Menu{
         $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
     }
 
-    function remove_sub_items( $items,$args ) {
-        if( $args->theme_location == 'main-nav' ){
-            $new_items = array();
-            for ($i=1;$i<count($items)+1;$i++){
-                if( empty($items[$i]->menu_item_parent) ){
-                   $new_items= array_merge($new_items, $this->nav_tree($items[$i],$items));
-                }
-            } 
-            return $new_items; 
-        } else {
-            return $items;   
+    /**
+     * Adds the start of a level. This is the opening <ul> tag for a submenu.
+     * 
+     * @param string   $output Used to append additional content (passed by reference).
+     * @param int      $depth  Depth of menu item. Used for padding.
+     * @param stdClass $args   An object of wp_nav_menu() arguments.
+     */
+    public function start_lvl( &$output, $depth = 0, $args = null ) {
+        $indent = str_repeat("\t", $depth);
+        
+        // get the parent title to be used in the aria-label for the submenu
+        $parent_title = '';
+        if ( ! empty( $this->current_parent_item ) && is_object( $this->current_parent_item ) ) {
+            $parent_title = $this->current_parent_item->title;
         }
-    }
-    
-    function nav_tree($parent,$items){
-        $rtn = array();
-        $rtn[] = $parent;
-    
-        $is_megamenu = get_post_meta($parent->ID,'is_megamenu',true);
-        if ($is_megamenu) return $rtn;
-    
-        for ($i=1;$i<count($items)+1;$i++){
-            if($items[$i]->menu_item_parent && $items[$i]->menu_item_parent == $parent->ID){
-                $rtn= array_merge($rtn, $this->nav_tree($items[$i],$items));
-            }
+
+        // Fallback for older WordPress versions if the object is missing
+        if ( empty( $parent_title ) ) {
+            $parent_title = __( 'Sub', 'mv23theme' );
         }
-        return $rtn;
+
+        // Dynamically build a unique aria-label matching the parent's text
+        $aria_label = sprintf( __( '%s submenu', 'mv23theme' ), $parent_title );
+
+        // Construct the <ul> tag with classes, role, and aria-label
+        $output .= "\n$indent<ul class=\"sub-menu\" role=\"menu\" aria-label=\"" . esc_attr( $aria_label ) . "\">\n";
     }
 
     function get_dynamic_content_settings( $item ){
@@ -244,12 +283,15 @@ class Nav_Walker extends Walker_Nav_Menu{
                         foreach ($terms as $term) {
                             $dynamic_content_settings['terms'] .= self::list_terms_recursive( $taxonomy, $term, 1 );
                         }
+                    } else {
+                        $dynamic_content_settings['terms'] .= self::list_terms_recursive( $taxonomy, NULL, 1 );
                     }
                 }
             }
 
             if( $dynamic_content_settings['type'] == 'list_all_in_megamenu' ) {
-                $dynamic_content_settings['megamenu'] = ( $taxonomy != '' ) ? $this->get_terms_and_posts_megamenu( $item, $posttype, $taxonomy ) : '';
+                $taxonomy = $dynamic_content_meta['connected_'.$posttype.'_taxonomy'] ?? '';
+                $dynamic_content_settings['megamenu'] = $this->get_terms_and_posts_megamenu( $item, $posttype, $taxonomy );
             }
         }
 
@@ -267,7 +309,7 @@ class Nav_Walker extends Walker_Nav_Menu{
         $list = '';
         
         if (!empty($terms)) {
-            $list .= ($depth == 0) ? '<ul class="menu">' : '<ul class="sub-menu">';
+            $list .= ($depth == 0) ? '<ul class="menu" role="menubar">' : '<ul class="sub-menu" role="menu" aria-label="Submenu">';
             $count = 0;
             foreach ($terms as $term) {
                 $class = 'menu-item item-depth-'.$depth;
@@ -276,11 +318,11 @@ class Nav_Walker extends Walker_Nav_Menu{
                 $link_class = ( $count == 0 ) ? 'active' : '';
                 $link = get_term_link( $term->term_id, $taxonomy );
                 
-                $list .= '<li class="'.$class.'">';
-                $list .= '<a class="'.$link_class.'" data-term="'.$term->term_id.'" href="'.$link.'">';
+                $list .= '<li class="'.$class.'" role="none">';
+                $list .= '<a class="'.$link_class.'" data-term="'.$term->term_id.'" href="'.$link.'" role="menuitem" aria-haspopup="'.($has_children ? 'true' : 'false').'">';
                 $list .= '<span class="menu-item__label">'.esc_html($term->name).'</span>';
-                if( $has_children ) $list .= '<button class="toggle-submenu"></button>';
                 $list .= '</a>';
+                if( $has_children ) $list .= '<button class="toggle-submenu"></button>';
                 if( $has_children ) $list .= self::list_terms_recursive($taxonomy, $term->term_id, $depth+1);
                 $list .= '</li>';
                 $count++;
@@ -294,66 +336,63 @@ class Nav_Walker extends Walker_Nav_Menu{
     function get_terms_and_posts_megamenu( $item, $posttype, $taxonomy ){
         $terms_list = self::list_terms_recursive( $taxonomy, NULL, 0 ); // NULL list all terms, TODO: use connected_taxonomy_terms
         ob_start(); ?>
-        <div id="megamenu-<?=$item->ID?>" class="megamenu dynamic-megamenu container text-color-1">
-            <div class="component"> 
-                <div class="dynamic-megamenu__box"> 
-                    <div class="dynamic-megamenu__nav"> 
+        <div id="megamenu-<?=$item->ID?>" class="megamenu dynamic-megamenu light-theme" aria-label="<?=esc_attr__('Megamenu for', 'mv23theme').' '.esc_attr($item->title)?>">
+            <div class="dynamic-megamenu__box"> 
+                <div class="dynamic-megamenu__sidenav"> 
+                    <nav class="component menu-comp" aria-label="Main Navigation">
                         <?php 
-                        // edit clases to avoid menu item clearing
-                        $terms_list_edited = str_replace('menu-item','menuitem',$terms_list);
-                        $terms_list_edited = str_replace('sub-menu','submenu',$terms_list_edited);
-                        $terms_list_edited = str_replace('menu-item-has-children','menuitemhaschildren',$terms_list_edited);
+                        $terms_list_edited = str_replace('class="menu"','class="menu vertical-nav vertical-nav-1"',$terms_list);
                         echo $terms_list_edited;
                         ?>
-                    </div> 
-                    <div class="dynamic-megamenu__content"> 
-                        <div class="dynamic-megamenu__posts">
-                            <?php
-                            $terms_args = array(
-                                'taxonomy' => $taxonomy,
-                                'hide_empty' => false
-                            );
-                            $terms = get_terms($terms_args);
-                            if ($terms) {
-                                foreach ($terms as $term) :
-                                    echo '<ul style="display:none;" class="dynamic-megamenu-list dynamic-megamenu-term-'.$term->term_id.'">';
-                                    $term_args = array(
-                                        'post_type' => $posttype,
-                                        'posts_per_page' => -1,
-                                        'orderby' => 'menu_order',
-                                        // 'order' => 'ASC',
-                                        // 'orderby' => 'title',
-                                        'tax_query' => array(
-                                            array (
-                                                'taxonomy' => $taxonomy,
-                                                'field' => 'id',
-                                                'terms' => $term->term_id
-                                                )
-                                            ),
-                                        );
-                                    $term_posts = get_posts($term_args);
-                                    foreach ($term_posts as $post) {
-                                        $id = $post->ID;
-                                        $term_ids = [];
-                                        $terms = get_the_terms($id, $taxonomy);
-                                        if ($terms && !is_wp_error($terms)) {
-                                            foreach($terms as $term){
-                                                $term_ids[] = 'list-item-term-'.$term->term_id;
-                                            }
+                    </nav>
+                </div> 
+                <div class="dynamic-megamenu__content"> 
+                    <div class="dynamic-megamenu__posts">
+                        <?php
+                        $terms_args = array(
+                            'taxonomy' => $taxonomy,
+                            'hide_empty' => false
+                        );
+                        $terms = get_terms($terms_args);
+                        if ($terms) {
+                            foreach ($terms as $term) :
+                                echo '<ul style="display:none;" class="dynamic-megamenu-list dynamic-megamenu-term-'.$term->term_id.'">';
+                                $term_args = array(
+                                    'post_type' => $posttype,
+                                    'posts_per_page' => -1,
+                                    'orderby' => 'menu_order',
+                                    // 'order' => 'ASC',
+                                    // 'orderby' => 'title',
+                                    'tax_query' => array(
+                                        array (
+                                            'taxonomy' => $taxonomy,
+                                            'field' => 'id',
+                                            'terms' => $term->term_id
+                                            )
+                                        ),
+                                    );
+                                $term_posts = get_posts($term_args);
+                                foreach ($term_posts as $post) {
+                                    $id = $post->ID;
+                                    $term_ids = [];
+                                    $terms = get_the_terms($id, $taxonomy);
+                                    if ($terms && !is_wp_error($terms)) {
+                                        foreach($terms as $term){
+                                            $term_ids[] = 'list-item-term-'.$term->term_id;
                                         }
-                                        $list_item_class = join( " ", $term_ids );
-                                        echo '<li class="'.$list_item_class.'"><a href="' . get_permalink($id) . '">' . get_the_title($id) . '</a></li>';
                                     }
-                                    echo '</ul>';
-                                endforeach;
-                            }
-                            ?>
-                        </div>
-                        <div class="dynamic-megamenu__header">
-                            <p class="mb0 term-active-name">■ <b></b></p>
-                            <a href="#" class="megamenu-close"></a>
-                        </div>
-                    </div> 
+                                    $list_item_class = join( " ", $term_ids );
+                                    echo '<li class="'.$list_item_class.'"><a href="' . get_permalink($id) . '">' . get_the_title($id) . '</a></li>';
+                                }
+                                echo '</ul>';
+                            endforeach;
+                        }
+                        ?>
+                    </div>
+                    <div class="dynamic-megamenu__header">
+                        <p class="mb0 term-active-name">■ <b></b></p>
+                        <a href="#" class="megamenu-close" aria-label="Close"></a>
+                    </div>
                 </div> 
             </div>
         </div> 

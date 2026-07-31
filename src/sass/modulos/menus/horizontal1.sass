@@ -1,24 +1,18 @@
 .horizontal-nav-1
     @extend %basic-global-menu-styles
+    @extend %shared-horizontal-navs-styles
+    @extend %menu-item-styles
     @extend %horizontal-sub-menu-styles
-
-    .menu
-        gap: 6px
-        @extend %shared-horizontal-navs-styles
-        @extend %hidden-label
-        @extend %fix-for-hidden-label
-        @extend %menu-item-styles
-        @extend %current-menu-item-styles
-
-        >li>a
-            padding: 10px
-            text-align: center
-
-    .-more
-        border: 1px solid
-        border-radius: 3px
-
     @extend %item-has-children-arrow-visibility
+    @extend %current-menu-item-styles
+    @extend %hidden-label
+    @extend %fix-for-hidden-label
+
+    gap: 6px
+
+    >li>a
+        padding: 10px
+        text-align: center
 
     @media only screen and (max-width: #{$menu-breakpoint})
         .toggle-submenu
@@ -27,6 +21,5 @@
             bottom: 0
             margin: auto
             right: 5px
-        .menu, .sub-menu
-            li.menu-item-has-children>a
-                padding-right: 50px
+        li.menu-item-has-children>a
+            padding-right: 50px

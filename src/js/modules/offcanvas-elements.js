@@ -17,7 +17,7 @@ window['OffCanvas_Elements'] = (function(){
 		}
 
         this.M_instance = null;
-        this.M_instance_options = []
+        this.M_instance_options = {};
         this._handle_on_open_start_property();
         // this._handle_callback_settings();
         this._create_the_M_instance();
@@ -26,6 +26,7 @@ window['OffCanvas_Elements'] = (function(){
             this._handle_trigger_events();
             this._handle_close_on_click_setting();
             this._handle_oce_modal_close();
+            this._handle_keyboard_navigation();
         }
     }
     
@@ -40,6 +41,27 @@ window['OffCanvas_Elements'] = (function(){
 
                 // reflow map size if there is any map inside the offcanvas element
                 this._maybe_reflow_map_size(this.offcanvas_element);
+            };
+
+            this.M_instance_options.onOpenEnd = ()=>{
+                // update the aria-expanded attribute of the trigger element when the offcanvas is opened
+                if( this.M_instance._openingTrigger ) this.M_instance._openingTrigger.setAttribute('aria-expanded', 'true');
+                this.offcanvas_element.setAttribute('aria-hidden', 'false');
+                
+                // on open focus the first focusable element inside the offcanvas element
+                const focusableElements = this.offcanvas_element.querySelectorAll('a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
+                if (focusableElements.length > 0) {
+                    focusableElements[0].focus();
+                }
+            };
+
+            this.M_instance_options.onCloseEnd = ()=>{
+                // update the aria-expanded attribute of the trigger element when the offcanvas is closed
+                if( this.M_instance._openingTrigger ) this.M_instance._openingTrigger.setAttribute('aria-expanded', 'false');
+                this.offcanvas_element.setAttribute('aria-hidden', 'true');
+                
+                // on close return focus to the trigger element
+                if( this.M_instance._openingTrigger ) this.M_instance._openingTrigger.focus();
             };
         },
         _handle_async_settings(component, trigger){
@@ -204,6 +226,11 @@ window['OffCanvas_Elements'] = (function(){
                 M_instance_options.draggable = false;
                 this.M_instance = M.Sidenav.init( offcanvas_element, M_instance_options );
             }
+
+            // add role and aria attributes for accessibility
+            offcanvas_element.setAttribute('role', 'dialog');
+            offcanvas_element.setAttribute('aria-modal', 'true');
+            offcanvas_element.setAttribute('aria-hidden', 'true');
         },
         _handle_styles(){
             let { oce_settings, offcanvas_element, M_instance, type } = this;
@@ -264,10 +291,6 @@ window['OffCanvas_Elements'] = (function(){
                         if( triggerData.settings_type == 'gsap' && MV23_GLOBALS.scrollAnimations ){
                             this._handle_gsap_event( triggerData, storage, cookie_name );
                         }
-                        break;
-                
-                    default:
-                        console.log('No trigger events assigned to offcanvas element with UID:'+oce_uid);
                         break;
                 }
             });
@@ -434,6 +457,33 @@ window['OffCanvas_Elements'] = (function(){
 
                 if( provider == 'leaflet' ) map.invalidateSize(false);
             }
+        },
+
+        // ***************************************
+        // Accessibility and Keyboard Navigation
+        // ***************************************
+
+        _handle_keyboard_navigation(){
+            // implement trap focus inside the offcanvas element when it is open
+            this.offcanvas_element.addEventListener('keydown', (event) => {
+                if (event.key === 'Tab') {
+                    const focusableElements = this.offcanvas_element.querySelectorAll('a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
+                    const firstElement = focusableElements[0];
+                    const lastElement = focusableElements[focusableElements.length - 1];
+
+                    if (event.shiftKey) { // Shift + Tab
+                        if (document.activeElement === firstElement) {
+                            event.preventDefault();
+                            lastElement.focus();
+                        }
+                    } else { // Tab
+                        if (document.activeElement === lastElement) {
+                            event.preventDefault();
+                            firstElement.focus();
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -481,8 +531,17 @@ window['OffCanvas_Elements'] = (function(){
         */
         document.querySelectorAll('[data-offcanvas-element]').forEach(element => {
             let OCE_element = OffCanvas_Elements.getElementById( element.dataset.offcanvasElement );
+
+            // add aria attributes for accessibility
+            if( OCE_element ){
+                element.setAttribute('aria-controls', OCE_element.oce_uid);
+                element.setAttribute('aria-expanded', 'false');
+            }
+
             OCE_element && element.addEventListener('click', (ev) => {
                 ev.preventDefault();
+
+                OCE_element.M_instance._openingTrigger = element;
                 OCE_element.M_instance.open( this );
             });
         });

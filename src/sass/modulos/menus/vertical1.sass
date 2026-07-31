@@ -2,16 +2,15 @@
     @extend %vertical-sub-menu-styles
     @extend %basic-global-menu-styles
     @extend %toggle-submenu-styles-for-vertical-menus 
+    @extend %menu-item-styles
+    @extend %current-menu-item-styles
 
-    .menu
-        width: 100%
-        @extend %menu-item-styles
-        @extend %current-menu-item-styles
+    width: 100%
             
-        li:not(:last-child)
-            border-bottom: 1px solid var(--accent-color-2)
-        a
-            padding: 16px 15px
+    li:not(:last-child)
+        border-bottom: 1px solid var(--accent-color-2)
+    a
+        padding: 16px 15px
 
     .sub-menu
         background-color: var(--accent-color-3)

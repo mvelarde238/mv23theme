@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.4 26-07-30
+- Accessibility Improvements on Theme Navbars, Megamenus and Offcanvas Elements (partially)
+
 3.15.3 26-07-24
 - V23_ToggleBox library updated to 10.2.0 with accessibility improvements
 

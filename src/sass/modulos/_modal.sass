@@ -6,6 +6,12 @@
 
 .modal, .sidenav
     @extend .scroll
+
+    // a11y: focus outline for keyboard navigation
+    &:focus-visible, *:focus-visible
+        outline: var(--focus-outline)
+        outline-offset: -2px
+
     &:not(.bottom-sheet)
         &[data-status="loading"]
             min-height: 400px

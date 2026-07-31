@@ -1,12 +1,12 @@
 function remove_empty_paragraphs() {
-    // Selecciona todos los elementos <p> en el documento
+    // Select all <p> elements in the document
     const paragraphs = document.querySelectorAll('p');
 
-    // Itera sobre cada elemento <p>
+    // Iterate over each <p> element
     paragraphs.forEach((p) => {
-        // Verifica si el <p> está vacío o contiene solo espacios
+        // Check if the <p> is empty or contains only spaces
         if ( p.innerHTML.trim() === '' && !p.hasAttributes() ) {
-            // Elimina el elemento <p> del DOM
+            // Remove the <p> element from the DOM
             p.remove();
         }
     });

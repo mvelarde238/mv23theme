@@ -90,37 +90,38 @@ class Menu extends Component {
         if( Template_Engine::is_restricted( $args ) ) return;
         
 		$args['additional_classes'][] = 'component';
+        $args['additional_attributes']['role'] = 'navigation';
+        $args['html_tag'] = 'nav';
 		$args['__type'] = 'menu-comp';
 
         $type = $args['menu_type'] ?? 'menu';
         $menu = $args['menu'] ?? '';
-
         $location = $args['location'] ?? '';
+
+        // Determine menu classes based on style and orientation
+        $menu_classes = array('menu');
         $style = $args['style'] ?? '';
         $orientation_nav_class = ( str_contains($style,'horizontal') ) ? 'horizontal-nav' : 'vertical-nav';
+        $menu_classes[] = $orientation_nav_class;
+        if( $style ) $menu_classes[] = $style;
 
-        $args['additional_classes'][] = $orientation_nav_class;
-        if( $style ) $args['additional_classes'][] = $style;
-
-        $context = array(
-            'menu_style' => $style,
+        $nav_menu_args = array(
+            'container' => false,
+            'container_class' => '',
+            'menu_class' => implode(' ', $menu_classes),
+            'walker' => new Nav_Walker( array(
+                'menu_style' => $style
+            ) ),
+            // add role="menubar" for accessibility
+            'items_wrap' => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>'
         );
+        if( $type === 'menu' ) $nav_menu_args['menu'] = $menu;
+        if( $type === 'location' ) $nav_menu_args['theme_location'] = $location;
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
-
-        if( $type === 'menu' ){
-            wp_nav_menu(array(
-                'menu' => $menu,
-                'container' => false,                           
-                'container_class' => '',
-                'walker' => new Nav_Walker( $context ),
-            ));
-        }
-        if( $type === 'location' ){
-            wp_nav_menu( array('theme_location' => $location, 'walker' => new Nav_Walker( $context )) );
-        }
-
+        wp_nav_menu( $nav_menu_args );
+        echo '<div class="megamenus-wrapper"></div>';
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
 	}

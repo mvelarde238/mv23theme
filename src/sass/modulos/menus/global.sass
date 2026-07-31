@@ -1,28 +1,60 @@
 .menu-comp
+    position: relative
     --accent-color-1: var(--primary-color)
     --accent-color-2: var(--primary-color-light)
     --accent-color-3: var(--primary-color-lighter)
+    .header &
+        position: static
     
 %clear-unordered-list
-    ul
-        margin: 0
-        padding-left: 0
-    li
+    margin: 0
+    padding-left: 0
+    .menu-item
         list-style-type: none
         position: relative
+    .sub-menu
+        padding-left: 0
+        margin: 0
 
 %clear-links
-    a
+    .menu-item > a
         display: block
         text-decoration: none
         color: inherit
         &:hover
             text-decoration: none
 
+%toggle-submenu-styles
+    .toggle-submenu
+        display: inline-block
+        width: 35px
+        height: 30px
+        line-height: 30px
+        border: 1px solid
+        font-size: 14px
+        background-color: transparent
+        border-radius: 3px
+        outline: 0
+        transition: 250ms all
+        cursor: pointer
+        &:before
+            content: '\F22C'
+            font-family: bootstrap-icons !important
+            transform-origin: center
+        &[aria-expanded="true"]
+            transform: scaleY(-1) 
+
 %basic-global-menu-styles
     @extend %clear-unordered-list
     @extend %clear-links
     @extend %toggle-submenu-styles
+
+%shared-horizontal-navs-styles
+    display: flex
+    flex-wrap: wrap
+    justify-content: safe center
+    & > li > a
+        white-space: nowrap
 
 %menu-item-styles
     .menu-item__icon
@@ -42,25 +74,6 @@
         padding: 12px 20px
         color: var(--font-color)
         white-space: initial
-
-%hidden-label
-    &>li.hidden-text>a>.menu-item__label
-        display: none
-
-%fix-for-hidden-label
-    &>li.hidden-text>a>.menu-item__icon
-        margin-right: 0
-
-%shared-horizontal-navs-styles
-    display: flex
-    justify-content: safe center
-    & > li > a
-        white-space: nowrap
-    .-secondary
-        background-color: #fff
-        box-shadow: 0 2px 5px var(--accent-color-3)
-        @extend %menu-item-styles
-        @extend %sub-menu-item-styles
 
 %horizontal-sub-menu-styles
     .sub-menu
@@ -87,19 +100,6 @@
 
         @extend %sub-menu-item-styles
 
-    .-secondary .sub-menu
-        top: 0
-    .-secondary .sub-menu.open-from-right
-        right: 100%
-    .-secondary .sub-menu.open-from-left
-        left: 100%
-
-%vertical-sub-menu-styles
-    .sub-menu
-        display: none
-        animation-name: vertical-sub-menu-animation
-        animation-duration: 300ms
-
 %item-has-children-arrow-down
     content: '\f107'
     font: normal normal normal 19px/1 FontAwesome
@@ -115,53 +115,18 @@
     right: 10px
     font: normal normal normal 19px/1 FontAwesome
 
-%toggle-submenu-styles
-    a:has(>.toggle-submenu)
-        position: relative
-    .toggle-submenu
-        display: inline-block
-        width: 35px
-        height: 30px
-        line-height: 30px
-        border: 1px solid
-        font-size: 14px
-        background-color: transparent
-        border-radius: 3px
-        outline: 0
-        transition: 250ms all
-        cursor: pointer
-        &:before
-            content: '\F22C'
-            font-family: bootstrap-icons !important
-            transform-origin: center
-        &[aria-expanded="true"]
-            transform: scaleY(-1) 
-
-%toggle-submenu-styles-for-vertical-menus 
-    a:has(>.toggle-submenu)
-        padding-right: 65px !important
-    .toggle-submenu
-        position: absolute
-        top: 0
-        bottom: 0
-        right: 15px
-        margin: auto
-
 %item-has-children-arrow-visibility
-    .menu
-        >li.has-megamenu>a:after,
-        >li.menu-item-has-children>a:after
-            @extend %item-has-children-arrow-down
-    .sub-menu, .-secondary
-        li.menu-item-has-children>a:after
-            @extend %item-has-children-arrow-right
+    >li.has-megamenu>a:after,
+    >li.menu-item-has-children>a:after
+        @extend %item-has-children-arrow-down
+    .sub-menu li.menu-item-has-children>a:after
+        @extend %item-has-children-arrow-right
     .toggle-submenu
         display: none
     @media only screen and (max-width: #{$menu-breakpoint})
-        .menu
-            >li.has-megamenu>a:after,
-            li.menu-item-has-children>a:after
-                display: none
+        >li.has-megamenu>a:after,
+        li.menu-item-has-children>a:after
+            display: none
         .toggle-submenu
             display: block
 
@@ -174,8 +139,34 @@
             font-weight: initial
             color: inherit
 
-.-secondary
-    @extend %current-menu-item-styles
+%hidden-label
+    &>li.hidden-text>a>.menu-item__label
+        display: none
+
+%fix-for-hidden-label
+    &>li.hidden-text>a>.menu-item__icon
+        margin-right: 0
+    .-secondary .sub-menu
+        top: 0
+    .-secondary .sub-menu.open-from-right
+        right: 100%
+    .-secondary .sub-menu.open-from-left
+        left: 100%
+
+%vertical-sub-menu-styles
+    .sub-menu
+        display: none
+        animation-name: vertical-sub-menu-animation
+        animation-duration: 300ms
+
+%toggle-submenu-styles-for-vertical-menus
+    li:has(> .toggle-submenu)
+        > a
+            padding-right: 65px !important
+    .toggle-submenu
+        position: absolute
+        top: 0
+        right: 15px
 
 @keyframes horizontal-sub-menu-animation
     from
@@ -192,3 +183,32 @@
     to
         opacity: 1
         transform: translateX( 0px )
+
+// ============================================
+// ACCESSIBILITY IMPROVEMENTS
+// ============================================
+
+// Focus styles for menu items
+.menu-comp
+    a[role="menuitem"]:focus-visible,
+    .toggle-submenu:focus-visible
+        outline: var(--focus-outline)
+
+// Respect reduced motion preferences
+@media (prefers-reduced-motion: reduce)
+    .sub-menu
+        animation: none !important
+        transition: none !important
+
+    .toggle-submenu
+        transition: none !important
+
+// High contrast mode support
+@media (forced-colors: active)
+    .toggle-submenu
+        border: 1px solid ButtonText
+        &:focus-visible
+            outline: 2px solid ButtonText
+
+    a[role="menuitem"]:focus-visible
+        outline: 2px solid ButtonText

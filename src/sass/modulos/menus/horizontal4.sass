@@ -1,35 +1,33 @@
 .horizontal-nav-4
-    --icon-size: 22px
     @extend %basic-global-menu-styles
+    @extend %shared-horizontal-navs-styles
+    @extend %menu-item-styles
     @extend %horizontal-sub-menu-styles
-
-    .menu
-        align-items: center
-        gap: 6px
-        @extend %shared-horizontal-navs-styles
-        @extend %hidden-label
-        @extend %fix-for-hidden-label
-        @extend %menu-item-styles
-        @extend %current-menu-item-styles
-
-        >li
-            // max-width: 160px
-            & > a
-                padding: 10px
-                white-space: initial
-                display: flex
-                align-items: center
-            &:hover
-                background-color: var(--accent-color-3)
-            & > a .menu-item__icon
-                font-size: var(--icon-size)
-                line-height: var(--icon-size)
-                margin-right: 10px
-                img
-                    min-width: var(--icon-size)
-                    max-height: var(--icon-size)
-
     @extend %item-has-children-arrow-visibility
+    @extend %current-menu-item-styles
+    @extend %hidden-label
+    @extend %fix-for-hidden-label
+
+    --icon-size: 22px
+    align-items: center
+    gap: 6px
+
+    >li
+        max-width: 160px
+        & > a
+            padding: 10px
+            white-space: initial
+            display: flex !important
+            align-items: center
+        &:hover
+            background-color: var(--accent-color-3)
+        & > a .menu-item__icon
+            font-size: var(--icon-size)
+            line-height: var(--icon-size)
+            margin-right: 10px
+            img
+                min-width: var(--icon-size)
+                max-height: var(--icon-size)
 
     @media only screen and (max-width: #{$menu-breakpoint})
         .toggle-submenu
@@ -38,6 +36,5 @@
             bottom: 0
             margin: auto
             right: 5px
-        .menu, .sub-menu
-            li.menu-item-has-children>a
-                padding-right: 50px
+        li.menu-item-has-children>a
+            padding-right: 50px

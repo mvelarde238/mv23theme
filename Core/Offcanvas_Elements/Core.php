@@ -115,6 +115,10 @@ class Core{
                 }
                 if ( $component['type'] === 'icon-box' ) {
                     $oce_modal_close_comp = $component;
+
+                    // set the html tag to 'a' and add href attribute to the close button component for accessibility
+                    $oce_modal_close_comp['html_tag'] = 'a';
+                    $oce_modal_close_comp['additional_attributes']['href'] = '#!';
                 }
             }
 
@@ -196,7 +200,7 @@ class Core{
             echo Template_Engine::getInstance()->handle( $element_args['close_button'] );
         } else {
             $close_class = $is_sidenav ? 'sidenav-close' : 'modal-close';
-            echo '<a href="#!" class="' . $close_class . '"></a>';
+            echo '<a href="#!" class="' . $close_class . '" aria-label="Close"></a>';
         }
     }
 
