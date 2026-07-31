@@ -26,6 +26,7 @@ window['OffCanvas_Elements'] = (function(){
             this._handle_trigger_events();
             this._handle_close_on_click_setting();
             this._handle_oce_modal_close();
+            this._create_a11y_attributes();
             this._handle_keyboard_navigation();
         }
     }
@@ -33,6 +34,10 @@ window['OffCanvas_Elements'] = (function(){
     Offcanvas_Element.prototype = {
         _handle_on_open_start_property(){
             this.M_instance_options.onOpenStart = ()=>{
+                // update the aria-expanded attribute of the trigger element when the offcanvas is opened
+                if( this.M_instance._openingTrigger ) this.M_instance._openingTrigger.setAttribute('aria-expanded', 'true');
+                this.offcanvas_element.setAttribute('aria-hidden', 'false');
+
                 // when the offcanvas is opened i need to check for dynamic content components to load their content
                 let dynamic_content_components = this.offcanvas_element.querySelectorAll('.oce-dynamic-content');
                 dynamic_content_components.length && dynamic_content_components.forEach( component => {
@@ -44,24 +49,33 @@ window['OffCanvas_Elements'] = (function(){
             };
 
             this.M_instance_options.onOpenEnd = ()=>{
-                // update the aria-expanded attribute of the trigger element when the offcanvas is opened
-                if( this.M_instance._openingTrigger ) this.M_instance._openingTrigger.setAttribute('aria-expanded', 'true');
-                this.offcanvas_element.setAttribute('aria-hidden', 'false');
-                
                 // on open focus the first focusable element inside the offcanvas element
                 const focusableElements = this.offcanvas_element.querySelectorAll('a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
                 if (focusableElements.length > 0) {
                     focusableElements[0].focus();
                 }
             };
-
+            
             this.M_instance_options.onCloseEnd = ()=>{
+                // on close blur the active element to remove focus from any element inside the offcanvas
+                if (document.activeElement) {
+                    document.activeElement.blur();
+                }
+
+                // return focus to the trigger element
+                if( this.M_instance._openingTrigger ){
+                    this.M_instance._openingTrigger.focus();
+                } else {
+                    // if the trigger element is not available, focus the first focusable element in the document
+                    const firstFocusable = document.querySelector('a, button, input, [tabindex]:not([tabindex="-1"])');
+                    if (firstFocusable) {
+                        firstFocusable.focus();
+                    }
+                }
+    
                 // update the aria-expanded attribute of the trigger element when the offcanvas is closed
                 if( this.M_instance._openingTrigger ) this.M_instance._openingTrigger.setAttribute('aria-expanded', 'false');
                 this.offcanvas_element.setAttribute('aria-hidden', 'true');
-                
-                // on close return focus to the trigger element
-                if( this.M_instance._openingTrigger ) this.M_instance._openingTrigger.focus();
             };
         },
         _handle_async_settings(component, trigger){
@@ -226,11 +240,6 @@ window['OffCanvas_Elements'] = (function(){
                 M_instance_options.draggable = false;
                 this.M_instance = M.Sidenav.init( offcanvas_element, M_instance_options );
             }
-
-            // add role and aria attributes for accessibility
-            offcanvas_element.setAttribute('role', 'dialog');
-            offcanvas_element.setAttribute('aria-modal', 'true');
-            offcanvas_element.setAttribute('aria-hidden', 'true');
         },
         _handle_styles(){
             let { oce_settings, offcanvas_element, M_instance, type } = this;
@@ -315,7 +324,7 @@ window['OffCanvas_Elements'] = (function(){
                         event.preventDefault();
                         M_instance._openingTrigger = event.target;
                         // i need send a cash $trigger to open method:
-                        M_instance.open( $(event.target) ); 
+                        M_instance.open( jQuery(event.target) ); 
                     }
                 });
             } 
@@ -401,7 +410,9 @@ window['OffCanvas_Elements'] = (function(){
                         onEnter: function() {
                             if( triggerData.custom_cookie && storage.getItem(cookie_name) ) return;
                         
-                            M_instance.open();
+                            // i need send a cash $trigger to open method:
+                            M_instance.open( $(jQuery(trigger_element[i])) );
+                            trigger_element[i].setAttribute('tabindex', '-1');
                             
                             if(triggerData.custom_cookie){
                                 storage.setItem(cookie_name,'true');
@@ -418,6 +429,10 @@ window['OffCanvas_Elements'] = (function(){
                     if( add_indicators ) scrollTriggerOptions.markers = true; 
 
                     ScrollTrigger.create(scrollTriggerOptions);
+
+                    trigger_element[i].addEventListener('blur', () => {
+                        trigger_element[i].removeAttribute('tabindex');
+                    }, { once: true });
                 }
             }
         },
@@ -462,6 +477,19 @@ window['OffCanvas_Elements'] = (function(){
         // ***************************************
         // Accessibility and Keyboard Navigation
         // ***************************************
+
+        _create_a11y_attributes(){
+            this.offcanvas_element.setAttribute('role', 'dialog');
+            this.offcanvas_element.setAttribute('aria-modal', 'true');
+            this.offcanvas_element.setAttribute('aria-hidden', 'true');
+
+            if( this.M_instance._openingTrigger ){
+                const trigger = this.M_instance._openingTrigger;
+                trigger.setAttribute('aria-haspopup', 'true');
+                trigger.setAttribute('aria-controls', this.oce_uid);
+                trigger.setAttribute('aria-expanded', 'false');
+            } 
+        },
 
         _handle_keyboard_navigation(){
             // implement trap focus inside the offcanvas element when it is open
@@ -521,29 +549,29 @@ window['OffCanvas_Elements'] = (function(){
     return Offcanvas_Element;
 })();
 
-(function($,c){
-    document.addEventListener('DOMContentLoaded', function() {
-        OffCanvas_Elements.init( OFFCANVAS_ELEMENTS );
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize OffCanvas_Elements with the OFFCANVAS_ELEMENTS data
+    OffCanvas_Elements.init( OFFCANVAS_ELEMENTS );
 
-        /* 
-        show an offcanvas element using a data attribute 
-        E.g. data-offcanvas-element="238" 
-        */
-        document.querySelectorAll('[data-offcanvas-element]').forEach(element => {
-            let OCE_element = OffCanvas_Elements.getElementById( element.dataset.offcanvasElement );
+    /* 
+    show an offcanvas element using a data attribute 
+    E.g. data-offcanvas-element="238" 
+    */
+    document.querySelectorAll('[data-offcanvas-element]').forEach(element => {
+        let OCE_element = OffCanvas_Elements.getElementById( element.dataset.offcanvasElement );
 
-            // add aria attributes for accessibility
-            if( OCE_element ){
-                element.setAttribute('aria-controls', OCE_element.oce_uid);
-                element.setAttribute('aria-expanded', 'false');
-            }
+        // add aria attributes for accessibility
+        if( OCE_element ){
+            element.setAttribute('aria-haspopup', 'true');
+            element.setAttribute('aria-controls', OCE_element.oce_uid);
+            element.setAttribute('aria-expanded', 'false');
+        }
 
-            OCE_element && element.addEventListener('click', (ev) => {
-                ev.preventDefault();
+        OCE_element && element.addEventListener('click', (ev) => {
+            ev.preventDefault();
 
-                OCE_element.M_instance._openingTrigger = element;
-                OCE_element.M_instance.open( this );
-            });
+            // i need send a cash $trigger to open method:
+            OCE_element.M_instance.open( jQuery(element) );
         });
     });
-})(jQuery,console.log); 
+});
