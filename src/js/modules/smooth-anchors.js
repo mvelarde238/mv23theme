@@ -32,7 +32,7 @@
             return togglebox_button_height;
         }
 
-        $('a[href^="#"]').click(function (event) {
+        $('a[href^="#"]:not(.no-smooth-scroll)').click(function (event) {
             event.preventDefault();
             var href = $(this).attr('href');
             if ( href != '#!' ) {
@@ -65,6 +65,10 @@
                         duration: 800, 
                         queue: false, 
                         // easing: 'easeOutCubic'
+                        // complete: function() {
+                        //     console.log('Smooth Anchors: scroll complete, focusing on ' + href);
+                        //     $(href).attr('tabindex', '-1').focus();
+                        // }
                     });
                 }
             }
