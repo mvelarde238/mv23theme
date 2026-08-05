@@ -6,11 +6,13 @@
             max-width: 100%
             width: 100%
 
-.carousel
+.posts-listing--carousel,
+.posts-listing--expander
     & + .expander
         margin-top: 30px
     
 .expander
+    --expander-height: 500px
     grid-column: 1 / -1 // force expander to take full width of the row
     background-color: var(--blog-color)
     z-index: 120
@@ -21,6 +23,7 @@
     &-response
         overflow: auto
         padding: 8%
+        height: var(--expander-height)
         @extend .scroll
 
     &-close
@@ -31,6 +34,9 @@
         right: 30px
         cursor: pointer
         z-index: 89
+        color: currentColor
+        background: transparent
+        border: 0
 
         &::before,
         &::after

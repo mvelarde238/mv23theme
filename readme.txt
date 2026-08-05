@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.5 26-08-05
+- Accessibility Improvements on listing expander: added aria-expanded and aria-controls attributes to the expander button for better accessibility 
+  and screen reader support, and added focus management to ensure that focus is properly handled when the expander is opened and closed
+
 3.15.4 26-07-30
 - Accessibility Improvements on Theme Navbars, Megamenus and Offcanvas Elements
 - skip-link button implementation to allow users to skip to the main content of the page for better accessibility and navigation

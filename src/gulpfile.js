@@ -77,6 +77,7 @@ var jsfiles = [
 	"js/libs/materialize/*",
 	"js/libs/*",
 	'js/functions/*',
+	'js/utils/*',
 	'js/modules/*'
 ];
 

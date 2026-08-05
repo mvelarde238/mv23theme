@@ -181,8 +181,6 @@ class Frontend extends Theme_Header_Data {
             'modal' => array(
                 'outDuration' => MODAL_OUT_DURATION
             ),
-            'expanderHeight' => LISTING_EXPANDER_HEIGHT,
-            'expanderResponseHeight' => LISTING_EXPANDER_RESPONSE_HEIGHT,
             'expanderScrollDuration' => LISTING_EXPANDER_SCROLL_DURATION,
             'carousels' => array(),
             'scrollAnimations' => SCROLL_ANIMATIONS,

@@ -218,7 +218,7 @@ class Listing extends Component {
         $columns_gap = $args['columns_gap'] ?? LISTING_GAP;
         $listing_template = $args['listing_template'] ?? '';
         $woocommerce_key = ( WOOCOMMERCE_IS_ACTIVE && isset($args['woocommerce_key']) ) ? $args['woocommerce_key'] : '';
-        
+
         // postcard settings
         $postcard_settings = $args['postcard_settings'] ?? array();
         $postcard_template = $postcard_settings['template'] ?? '_default';
@@ -228,6 +228,9 @@ class Listing extends Component {
         if( $on_click_post === 'none' ){
             add_filter('post_link', array(__CLASS__, 'hide_permalink'), 30, 2);
             add_filter('post_type_link', array(__CLASS__, 'hide_permalink'), 30, 2);
+        }
+        if( $on_click_post === 'show-expander' ){
+            $args['additional_classes'][] = 'listing--expander';
         }
         
         // get postcard template content if it is a postcard template

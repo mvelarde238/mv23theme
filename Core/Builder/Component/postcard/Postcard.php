@@ -83,6 +83,7 @@ class Postcard extends Component {
 
     public static function display( $args ){
         global $post;
+        $args['html_tag'] = 'article';
         $args['additional_attributes']['data-id'] = esc_attr($post->ID);
 
         $postcard_settings = $args['postcard_settings'] ?? array();
