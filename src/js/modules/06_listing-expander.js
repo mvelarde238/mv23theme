@@ -107,42 +107,51 @@ window['ListingsExpander'] = (function() {
                 trigger.setAttribute('aria-expanded', 'false');
                 trigger.setAttribute('aria-controls', this.expander.id);
 
-                AllyManager.handleDisclosureTriggerClick({
+                // on click, if postcard is different than current hide the panel
+                // this is because all triggers are using the same panel, so we need to close it before opening a new one
+                // otherwise a click on a different postcard will close the panel
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const isSamePostcard = this.currentTrigger && this.currentTrigger.closest('.postcard') === trigger.closest('.postcard');
+
+                    if (!isSamePostcard && this.currentTrigger) {
+                        Disclosure.close(this.currentTrigger);
+                    }
+                });
+
+                Disclosure.create({
                     trigger: trigger,
                     panel: this.expander,
                     allTriggers: this.allTriggers,
-                    onStart: (isExpanded) => {
+                    focusFirstTabbable: true,
+                    tabFocusTrap: true,
+                    onOpenStart: ()=>{
+                        this.currentTrigger = trigger;
+                        this.currentPostcard = this.currentTrigger.closest('.postcard');
                         this.allPostcards.forEach(postcard => postcard.classList.remove('active'));
 
-                        this.currentTrigger = (!isExpanded) ? trigger : null;
-                        this.currentPostcard = (!isExpanded) ? this.currentTrigger.closest('.postcard') : null;
-
-                        if (!isExpanded) {
-                            if( this.listingType == 'grid' ){
-                                this._moveExpander();
-                            }
-
-                            // add aria-labelledby
-                            const postcardTitle = this.currentPostcard.querySelector('h2');
-                            AllyManager.setAriaLabelledBy({ panel: this.expander, title: postcardTitle });
+                        if( this.listingType == 'grid' ){
+                            this._moveExpander();
                         }
+
+                        // add aria-labelledby to the panel
+                        const postcardTitle = this.currentPostcard.querySelector('h2');
+                        if (postcardTitle && !postcardTitle.id) {
+                            postcardTitle.id = 'title-' + Math.floor(Math.random() * 1000000);
+                        }
+                        this.expander.setAttribute('aria-labelledby', postcardTitle.id);
                     },
-                    onEnd: (isExpanded)=>{
+                    onOpenEnd: ()=>{
+                        this.currentPostcard.classList.add('active');
+                        this._loadContent();
+                    },
+                    onCloseEnd: ()=>{
+                        this._cancelPendingLoad();
                         this.expanderResponse.innerHTML = '';
-                        this.loadingIndicator.hidden = !isExpanded;
-
-                        if (isExpanded) {
-                            AllyManager.activateDisclosure({ 
-                                panel: this.expander,
-                                trigger: this.currentTrigger,
-                            });
-
-                            this.currentPostcard.classList.add('active');
-                            this._loadContent();
-                        } else {
-                            this._cancelPendingLoad();
-                        }
-                    }
+                        this.currentPostcard.classList.remove('active');
+                        this.currentTrigger = null;
+                        this.currentPostcard = null;
+                    },
                 });
             }
         },
@@ -196,11 +205,8 @@ window['ListingsExpander'] = (function() {
             if (!this.closeBtn) return;
 
             this.closeBtn.addEventListener('click', () => {
-                AllyManager.closeDisclosure({ trigger: this.currentTrigger, panel: this.expander });
+                Disclosure.close( this.currentTrigger );
                 this._cancelPendingLoad();
-                this.currentPostcard?.classList.remove('active');
-                this.currentPostcard = null;
-                this.currentTrigger = null;
             });
         },
         // Cancels any in-flight fetch and scroll animation so a late response can't write into a closed/switched panel
@@ -215,7 +221,7 @@ window['ListingsExpander'] = (function() {
             if (region) region.textContent = message;
         },
         // Smoothly scrolls to the postcard or the expander, per the listing's on_click_scroll_to/scrollTop config
-        _scrollToTarget() {
+        _maybeScrollToTarget() {
             const scrollTo = this.listingArgs.on_click_scroll_to;
             if (!this.listingArgs.scrollTop || (scrollTo !== 'postcard' && scrollTo !== 'expander')) return;
 
@@ -223,27 +229,15 @@ window['ListingsExpander'] = (function() {
             if (!target) return;
 
             const targetY = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-            this._animateScrollTo(targetY, scrollDuration);
-        },
-        _animateScrollTo(targetY, duration) {
-            const startY = window.pageYOffset;
-            const distance = targetY - startY;
-            const startTime = performance.now();
-
-            function step(now) {
-                const progress = Math.min((now - startTime) / duration, 1);
-                const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-                window.scrollTo(0, startY + distance * eased);
-                if (progress < 1) requestAnimationFrame(step);
-            }
-            requestAnimationFrame(step);
+            animateScrollTo(targetY, scrollDuration);
         },
         _loadContent() {
             this.expander.setAttribute('aria-busy', 'true');
+            this.loadingIndicator.hidden = false;
             const token = ++this._loadToken;
             this._loadController = new AbortController();
 
-            this._scrollToTarget();
+            this._maybeScrollToTarget();
 
             this._fetchPostContent(this.currentTrigger.href, this._loadController.signal)
                 .then((html) => {

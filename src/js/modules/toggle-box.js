@@ -1,40 +1,84 @@
-(function($,c){
-    document.addEventListener('DOMContentLoaded', function() {
+window['Toggle_Boxes'] = (function(){
+    let instances = [];
 
-        var toggle_buttons = document.querySelectorAll('.toggle-box');
-        var headerHeight = MV23_GLOBALS.headerHeight;
+    function Toggle_Box( el ){
+        this.trigger = el;
 
-        for (var i = 0; i < toggle_buttons.length; i++) {
-            var selector = toggle_buttons[i].dataset.selector;
-            
-            if(selector){
-                var toggle_boxes = document.querySelectorAll(selector);
-                for (var ind = 0; ind < toggle_boxes.length; ind++) {
-                    toggle_boxes[ind].style.display = 'none';
-                }
-            }
+        this.selector = el.dataset.selector;
+        if(!this.selector) return;
+
+        this.panel = document.querySelector( this.selector );
+        if(!this.panel) return;
+
+        // Set initial ARIA attributes on the panel element
+        this.panel.setAttribute('hidden', 'true');
+        const panelId = this.panel.id || `toggle-box-panel-${Math.random().toString(36).substr(2, 9)}`;
+        this.panel.id = panelId;
+
+        // Set ARIA attributes on the trigger element
+        this.trigger.setAttribute('aria-expanded', 'false');
+        this.trigger.setAttribute('aria-controls', panelId);
+
+        this.scrollToBox = el.dataset.scrollToBox;
+
+        // Bind all private methods
+		for (var fn in this) {
+			if (fn.charAt(0) === '_' && typeof this[fn] === 'function') {
+				this[fn] = this[fn].bind(this);
+			}
+		}
+
+        this._init();
+    }
+    
+    Toggle_Box.prototype = {
+        _init(){
+            this._handleDisclosure();
+        },
+        _handleDisclosure(){
+            Disclosure.create({
+                trigger: this.trigger,
+                panel: this.panel,
+                focusFirstTabbable: true,
+                tabFocusTrap: true,
+                onOpenEnd: ()=>{
+                    this.trigger.classList.add( 'active' );
+
+                    if(this.scrollToBox != 0){
+                        const targetY = this.panel.getBoundingClientRect().top + window.pageYOffset - MV23_GLOBALS.headerHeight;
+                        animateScrollTo(targetY, 800);
+                    }
+                },
+                onCloseEnd: ()=>{
+                    this.trigger.classList.remove( 'active' );
+                },
+            });
+        }
+    };
+
+    Toggle_Box.create = function( el ){
+        let instance = new Toggle_Box(el);
+        if (instance.panel) instances.push(instance);
+		return instance;
+    }
+
+    Toggle_Box.init = function(){
+        var trigger = document.querySelectorAll('.toggle-box');
+
+        for (var i = 0; i < trigger.length; i++) {
+            Toggle_Box.create( trigger[i] );
         }
 
-        $('body').on('click', '.toggle-box', function(ev){
-            var selector = this.dataset.selector;
-            var scrollToBox = this.dataset.scrollToBox;
-            if(selector){
-                ev.preventDefault();
-                var boxes = document.querySelectorAll(selector);
-                for (var ind = 0; ind < boxes.length; ind++) {
-                    if (boxes[ind].style.display === 'none' || boxes[ind].style.display === '') {
-                        $(this).parent().addClass('active');
-                        $(boxes[ind]).slideDown(function() {$(this).css('display', 'block');});
-                        
-                        if(scrollToBox != 0){
-                            $("html, body").animate({ scrollTop: ($(boxes[ind]).offset().top - headerHeight) }, {duration: 800, queue: false});
-                        }
-                    } else {
-                        $(this).parent().removeClass('active');
-                        $(boxes[ind]).slideUp();
-                    }
-                }
-            }
-        });
-    });
-})(jQuery,console.log); 
+        return instances;
+    }
+
+    Toggle_Box.getInstances = function(){
+        return instances;
+    }
+
+    return Toggle_Box;
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
+    Toggle_Boxes.init();
+});

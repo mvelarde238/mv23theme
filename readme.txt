@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.6 26-08-08
+- Accessibility Improvements on listing with expander: added aria-expanded and aria-controls attributes to the expander button for better accessibility 
+  and screen reader support, and added focus management to ensure that focus is properly handled when the expander is opened and closed
+  
 3.15.5 26-08-05
 - Accessibility Improvements on listing expander: added aria-expanded and aria-controls attributes to the expander button for better accessibility 
   and screen reader support, and added focus management to ensure that focus is properly handled when the expander is opened and closed

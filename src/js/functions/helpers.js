@@ -14,6 +14,25 @@ function updateViewportDimensions( windowContext = window ) {
 	return { width:x,height:y };
 };
 
+/*
+* Animate the scroll to a specific Y position over a given duration
+* @param {number} targetY - The target Y position to scroll to
+* @param {number} duration - The duration of the scroll animation in milliseconds
+*/
+function animateScrollTo(targetY, duration) {
+    const startY = window.pageYOffset;
+    const distance = targetY - startY;
+    const startTime = performance.now();
+
+    function step(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        window.scrollTo(0, startY + distance * eased);
+        if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+};
+
 // var waitForFinalEvent = (function () {
 // 	var timers = {};
 // 	return function (callback, ms, uniqueId) {
