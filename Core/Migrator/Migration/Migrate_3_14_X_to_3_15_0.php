@@ -122,6 +122,7 @@ class Migrate_3_14_X_to_3_15_0 extends Migrate_Components_Settings_v3 {
 
         if ( array_key_exists( 'show_controls', $settings ) ) {
             $mapped['controls'] = ! empty( $settings['show_controls'] );
+            $mapped['controls_position'] = 'center';
         }
 
         if ( array_key_exists( 'show_nav', $settings ) ) {

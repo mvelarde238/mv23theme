@@ -224,6 +224,11 @@ class Slider_Settings
                 'value' => true
             ),
             array(
+                '__type' => 'controls_position',
+                'property' => 'controls_position',
+                'value' => 'center'
+            ),
+            array(
                 '__type' => 'nav',
                 'property' => 'nav',
                 'value' => false
