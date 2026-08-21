@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.8 26-08-21
+- gjs video/image plugins updated
+
 3.15.7 26-08-20
 - Fix: Ensure sidenav save its opening trigger when opened programmatically, 
   to allow proper focus management and accessibility support when the sidenav is opened without a user interaction
