@@ -46,9 +46,6 @@ class Icon_and_Text extends Component {
                     'center'  => __('Center', 'mv23theme'),
                     'flex-end'  => __('End', 'mv23theme'),
                 )),
-
-            // GLOBAL
-            Field::create( 'tab', __('Other settings','mv23theme') ),
             Field::create( 'select', 'content_alignment', __('Content Alignment', 'mv23theme'))
                 ->set_input_type( 'radio' )
                 ->set_orientation( 'horizontal' )
@@ -58,6 +55,9 @@ class Icon_and_Text extends Component {
                     'center'  => __('Center', 'mv23theme'),
                     'flex-end'  => __('End', 'mv23theme'),
                 )),
+
+            // Other settings
+            Field::create( 'tab', __('Other settings','mv23theme') ),
             Field::create( 'select', 'horizontal_alignment', __('Horizontal Alignment', 'mv23theme'))
                 ->set_description( __("This setting allows you to align the entire component.", 'mv23theme') )
                 ->add_options(array(
