@@ -224,7 +224,7 @@ window.gjsI18n = function (editor, options) {
                 gap: 'ESPACIO ENTRE ELEMENTOS',
                 // components-wrapper
                 space_between_components: 'ESPACIO ENTRE COMPONENTES',
-                content_alignment: 'ALINEACIÓN DE CONTENIDO',
+                content_alignment: 'ALINEAR CONTENIDO',
                 // section
                 add_section: 'AÑADIR SECCIÓN',
                 above: 'ARRIBA',

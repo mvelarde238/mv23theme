@@ -321,6 +321,7 @@ window['contextMenuOpts'] = {
                 actions_group_2 = [];
             
             const flex_direction = editor.getComponentStyle(component, 'flex-direction', 'column');
+            const flex_wrap = editor.getComponentStyle(component, 'flex-wrap', 'wrap');
 
             const contentAlignmentOptions = content_alignment_options(component, editor, flex_direction);
 
@@ -330,15 +331,9 @@ window['contextMenuOpts'] = {
                 return value;
             };
 
-            actions_group_1.push(layout_options(component, editor));
-            actions_group_1.push({ 
-                type: 'range', title:'SPACE BETWEEN COMPONENTS', command: 'update-css-property', min:0, max:100, 
-                args: { property:'gap', unit:'px' }, value:getGap 
-            });
+            // actions_group_1.push(layout_options(component, editor));
 
-            actions_group_1.push(get_locked_cmps_action(component));
-
-            actions_group_2.push({
+            actions_group_1.push({
                 type: 'options', title: 'FLEX DIRECTION',
                 options: [
                     { 
@@ -353,7 +348,33 @@ window['contextMenuOpts'] = {
                     },
                 ]
             });
+
+            actions_group_1.push({
+                type: 'options', title: 'FLEX WRAP',
+                options: [
+                    {
+                        type: 'button', label: 'WRAP',
+                        class: (flex_wrap === 'wrap') ? 'active' : '',
+                        command: 'update-css-property', rerender: {full:true}, args: { property:'flex-wrap', value:'wrap' } 
+                    },
+                    {
+                        type: 'button', label: 'NO WRAP',
+                        class: (flex_wrap === 'nowrap') ? 'active' : '',
+                        command: 'update-css-property', rerender: {full:true}, args: { property:'flex-wrap', value:'nowrap' } 
+                    },
+                ]
+            });
+
+            actions_group_1.push({ 
+                type: 'range', 
+                title:'SPACE BETWEEN COMPONENTS', 
+                command: 'update-css-property', min:0, max:100, 
+                args: { property:'gap', unit:'px' }, value:getGap 
+            });
+
             actions_group_2.push(contentAlignmentOptions);
+
+            actions_group_2.push(get_locked_cmps_action(component));
 
             actions.push({
                 type: 'options',

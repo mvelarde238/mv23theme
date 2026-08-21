@@ -7,6 +7,9 @@ CHANGELOG
 - Add droppable property to gjs-icon-and-text component to prevent dropping other components inside it, 
   as it is meant to be a self-contained component with a specific structure and layout
 - Review Button fields ui
+- gjs-row-and-cols plugins updated to fix i18n on context menu options
+- components-wrapper has flex-wrap: wrap by default to allow wrapping of components inside it when the available space is not enough, 
+  improving the layout and responsiveness of the components inside the wrapper
 
 3.15.7 26-08-20
 - Fix: Ensure sidenav save its opening trigger when opened programmatically, 
