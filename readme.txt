@@ -4,6 +4,8 @@ CHANGELOG
 
 3.15.8 26-08-21
 - gjs video/image plugins updated
+- Add droppable property to gjs-icon-and-text component to prevent dropping other components inside it, 
+  as it is meant to be a self-contained component with a specific structure and layout
 
 3.15.7 26-08-20
 - Fix: Ensure sidenav save its opening trigger when opened programmatically, 
