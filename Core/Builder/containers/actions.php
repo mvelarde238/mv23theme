@@ -94,4 +94,5 @@ Container::create( 'actions_container' )
 
         Field::create( 'text', 'additional_classes', __('Additional Classes','mv23theme') )
             ->set_description( __('Add additional classes to the generated link.','mv23theme') )
+            ->add_dependency('action','','!=')
     ));
