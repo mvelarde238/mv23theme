@@ -35,10 +35,12 @@ class Button extends Component {
 
 		$fields = array(
             Field::create( 'tab', __('Content','mv23theme') ), 
-            Field::create( 'text', 'text', __('Button Text', 'mv23theme') )
+            Field::create( 'text', 'text'  )
+                ->hide_label()->set_placeholder( __('Enter button text ...', 'mv23theme') )
                 ->add_dynamic_data_selector(),
     
-            Field::create( 'radio', 'button_type',__('Type', 'mv23theme'))
+            Field::create( 'radio', 'button_type' )
+                ->hide_label()->set_prefix( __('Type', 'mv23theme') )
                 ->set_default_value( 'link' )
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
@@ -46,9 +48,12 @@ class Button extends Component {
                     'download' => __('Download', 'mv23theme'),
                 )),
     
-            Field::create( 'file', 'file', __('File', 'mv23theme') )->add_dependency('button_type','download','='),
+            Field::create( 'file', 'file' )
+                ->hide_label()
+                ->add_dependency('button_type','download','='),
     
-            Field::create( 'radio', 'url_type',__('Destination', 'mv23theme'))
+            Field::create( 'radio', 'url_type' )
+                ->hide_label()->set_prefix( __('Destination', 'mv23theme') )
                 ->set_default_value( 'interna' )
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
@@ -61,17 +66,19 @@ class Button extends Component {
                 ->add_dependency('url_type','externa','=')
                 ->add_dynamic_data_selector(),
     
-            Field::create( 'checkbox', 'new_tab', __('Open in a new window', 'mv23theme') )->set_text( __('Enable', 'mv23theme') ),
+            Field::create( 'checkbox', 'new_tab' )->set_text( __('Open in a new window', 'mv23theme') )->hide_label(),
 
             Field::create( 'tab', __('Style', 'mv23theme') ),
-            Field::create( 'select', 'button_style', __('Style', 'mv23theme'))
+            Field::create( 'select', 'button_style' )
+                ->hide_label()
                 ->add_options( $button_styles )
                 ->set_default_value( 'btn btn--main-color' ),
 
             Field::create( 'checkbox', 'fullwidth' )->set_text( __('Full width button', 'mv23theme') )->hide_label(),
 
             Field::create( 'tab', __('Icon', 'mv23theme') ),
-            Field::create( 'icon', 'icon', __('Icon', 'mv23theme') )
+            Field::create( 'icon', 'icon' )
+                ->hide_label()
                 ->add_set( 'bootstrap-icons' )
                 ->add_set( 'font-awesome' )
                 ->set_width( 50 ),
@@ -80,14 +87,20 @@ class Button extends Component {
                 'right' => __('Right', 'mv23theme')
             ))->set_orientation( 'horizontal' )->set_width(50),
 
-            Field::create( 'tab', '_other_settings', __('Other settings','mv23theme') ),
-            Field::create( 'repeater', 'button_attributes', __('Attributes', 'mv23theme') )->set_add_text(__('Add', 'mv23theme'))
+            Field::create( 'tab', '_other_settings', __('Attributes', 'mv23theme') ),
+            Field::create( 'repeater', 'button_attributes' )
+                ->hide_label()
+                ->set_add_text(__('Add', 'mv23theme'))
                 ->set_layout( 'grid' )
                 ->add_group('item', array(
                     'title_template' => '<%= attribute %> : <%= value %>',
                     'fields' => array(
-                        Field::create( 'text', 'attribute' )->set_attr('style', 'width: 50%;min-width: unset;'),
-                        Field::create( 'text', 'value' )->set_attr('style', 'width: 50%;min-width: unset;'),
+                        Field::create( 'text', 'attribute' )
+                            ->hide_label()->set_prefix( __('Attribute', 'mv23theme') )
+                            ->set_placeholder( __('Attribute', 'mv23theme') ),
+                        Field::create( 'text', 'value' )
+                            ->hide_label()->set_prefix( __('Value', 'mv23theme') )
+                            ->set_placeholder( __('Value', 'mv23theme') )
                     )
             ))           
         );
