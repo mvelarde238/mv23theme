@@ -35,25 +35,41 @@ class OCE_Dynamic_Content extends Component {
 						'page' => __( 'Page: generate the content from an internal page', 'mv23theme' ),
 						'url' => __( 'Url: generate the content from an url', 'mv23theme' ),
 						'link' => __( 'Link: generate the content dinamically from the link clicked', 'mv23theme' )
-					))->set_width(50),
-					Field::create( 'wp_object', 'page_source', __( 'Page item', 'mv23theme' ) )->add( 'posts' )->add_dependency('content_source','page','=')->required()->set_width(50),
+					)),
+					Field::create( 'wp_object', 'page_source', __( 'Page item', 'mv23theme' ) )->add( 'posts' )->add_dependency('content_source','page','=')->required(),
 					Field::create( 'text', 'url_source', __( 'Enter the url', 'mv23theme' ) )->add_dependency('content_source','url','=')->required(),
 					Field::create( 'message', '_url_source_hint' )->set_description(__('Use trigger events tab to add a CSS selector for the link source','mv23theme'))->add_dependency('content_source','link','=')->hide_label(),
 					Field::create( 'checkbox', 'clear_on_close', __('Clear on close','mv23theme') )->set_description(__('Clear the content on close','mv23theme'))->set_default_value(1)->fancy()->set_width(20),
 					Field::create( 'checkbox', 'load_on_iframe', __('Load on iframe','mv23theme') )->set_description(__('Load the content in an iframe','mv23theme'))->set_default_value(1)->fancy()->set_width(20),
 					Field::create( 'checkbox', 'cherry_pick_sections' )->set_description(__('Let you choose only the sections you want','mv23theme'))->fancy()->add_dependency('load_on_iframe','1','!=')->set_width(20),
-					Field::create( 'text', 'cherry_picked_sections', __( 'CSS Selector for cherry picked sections', 'mv23theme' ) )->set_description( __( 'Please enter the CSS selector that matches the section(s) you want to display in the offcanvas element.', 'mv23theme' ) )->add_dependency('cherry_pick_sections')->add_dependency('load_on_iframe','1','!='),
+					Field::create( 'text', 'cherry_picked_sections', __( 'CSS Selector for cherry picked sections', 'mv23theme' ) )
+						->set_description( __( 'Please enter the CSS selector that matches the section(s) you want to display in the offcanvas element.', 'mv23theme' ) )
+						->add_suggestions( array( '.main', '.main-content', '#content' ) )
+						->add_dependency('cherry_pick_sections')
+						->add_dependency('load_on_iframe','1','!='),
 				)),
-				Field::create( 'repeater', 'attributes', __('HTML Attributes','mv23theme') )->set_layout( 'table' )->set_add_text(__('Add Attribute','mv23theme'))
+				Field::create( 'repeater', 'attributes', __('HTML Attributes','mv23theme') )
+					// ->set_layout( 'table' )
+					->set_add_text(__('Add Attribute','mv23theme'))
             		->add_group('item', array(
+						'title_template' => '<%= status %>',
             		    'fields' => array(
-            		        Field::create( 'select', 'status', __('Status','mv23theme') )->set_width( 30 )->add_options(array(
-								'beforeSend' => __('Before Send','mv23theme'), 
-								'success' => __('Success','mv23theme'), 
-								'error' => __('Error','mv23theme') 
-							)),
-            		        Field::create( 'text', 'attribute', __('HTML Atribute','mv23theme') )->set_width( 30 ),
-            		        Field::create( 'text', 'value', __('Value','mv23theme') )->set_width( 30 )
+            		        Field::create( 'select', 'status' )
+								->hide_label()
+								->set_prefix(__('Status: ','mv23theme'))
+								->add_options(array(
+									'beforeSend' => __('Before Send','mv23theme'), 
+									'success' => __('Success','mv23theme'), 
+									'error' => __('Error','mv23theme') 
+								)),
+            		        Field::create( 'text', 'attribute' )
+								->hide_label()
+								->set_prefix(__('Attribute: ','mv23theme'))
+								->add_suggestions( array( 'data-status' ) ),
+            		        Field::create( 'text', 'value' )
+								->hide_label()
+								->set_prefix(__('Value: ','mv23theme'))
+								->add_suggestions( array( 'loading', 'loaded', 'error' ) )
             		    )
 					)
 				)
