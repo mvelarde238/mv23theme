@@ -409,12 +409,15 @@
       body.style.overflow = '';
     }
 
-    open() {
+    open($trigger = null) {
       if (this.isOpen === true) {
         return;
       }
 
       this.isOpen = true;
+
+      // Set opening trigger, undefined indicates modal was opened by javascript
+      this._openingTrigger = !!$trigger ? $trigger[0] : undefined;
 
       // Run onOpenStart callback
       if (typeof this.options.onOpenStart === 'function') {

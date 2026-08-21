@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.7 26-08-20
+- Fix: Ensure sidenav save its opening trigger when opened programmatically, 
+  to allow proper focus management and accessibility support when the sidenav is opened without a user interaction
+
 3.15.6 26-08-08
 - Accessibility Improvements on listing with expander: added aria-expanded and aria-controls attributes to the expander button for better accessibility 
   and screen reader support, and added focus management to ensure that focus is properly handled when the expander is opened and closed
