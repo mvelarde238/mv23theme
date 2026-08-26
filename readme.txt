@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.9 26-08-26
+- Added Language visibility rule for Polylang/WPML integration
+
 3.15.8 26-08-21
 - gjs video/image plugins updated
 - Add droppable property to gjs-icon-and-text component to prevent dropping other components inside it, 
