@@ -1,9 +1,16 @@
 .postcard
+    display: flex
+    flex-direction: column
+
     &--post &__content
         font-size: .85em
         border: 1px solid var(--primary-color-light)
         padding: 20px
         position: relative
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        flex: 1
     
     &--post &__title
         font-size: 1.3em

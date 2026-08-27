@@ -5,6 +5,7 @@ CHANGELOG
 3.15.10 26-08-27
 - Builder app.js updated: Added keyboard shortcuts for toggling left sidebar panels 
   (Layers, History, Global Settings, Pages) using `ctrl`/`command` + respective keys.
+- Added equalize post cards height option to listing component to allow users to match the height of all post cards within a listing
 
 3.15.9 26-08-26
 - Added Language visibility rule for Polylang/WPML integration

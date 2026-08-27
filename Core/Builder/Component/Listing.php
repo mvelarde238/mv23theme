@@ -192,8 +192,12 @@ class Listing extends Component {
                 	    '' => __('Dont move the scroll','mv23theme'),
                 	    'postcard' => __('To the post card','mv23theme'),
                 	    'expander' => __('To the expander','mv23theme')
-                	))->add_dependency( 'on_click_post', 'show-expander', '=' )
-			    )),
+                	))->add_dependency( 'on_click_post', 'show-expander', '=' ),
+                )),
+			Field::create( 'checkbox', 'equalize_postcards_height', '' )
+                ->set_text( __('Equalize post cards height','mv23theme') )
+                ->hide_label()->fancy()
+                ->add_dependency( '../listing_template', 'masonry', '!=' )
         );
 
         // pagination fields
@@ -224,6 +228,7 @@ class Listing extends Component {
         $postcard_template = $postcard_settings['template'] ?? '_default';
         $on_click_post = $postcard_settings['on_click_post'] ?? 'redirect';
         $on_click_scroll_to = $postcard_settings['on_click_scroll_to'] ?? '';
+        $equalize_postcards_height = !empty( $args['equalize_postcards_height'] ) && $listing_template !== 'masonry';
 
         if( $on_click_post === 'none' ){
             add_filter('post_link', array(__CLASS__, 'hide_permalink'), 30, 2);
@@ -262,6 +267,7 @@ class Listing extends Component {
             'posttype' => $posttype,
             'pagination_type' => $pagination_type,
             'scrollTop' => $pagination_scrolltop,
+            'equalizeHeight' => $equalize_postcards_height,
             'query_args' => $query->query,
         );
         $args['additional_attributes']['data-listing-args'] = esc_attr( json_encode($listing_args) );

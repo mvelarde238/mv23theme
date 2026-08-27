@@ -10,7 +10,8 @@
             listing_args = $component.attr('data-listing-args'),
             paged = paged || 1,
             listing_template = JSON.parse(listing_args).listing_template,
-            scrollTop = JSON.parse(listing_args).scrollTop;
+            scrollTop = JSON.parse(listing_args).scrollTop,
+            equalizeHeight = JSON.parse(listing_args).equalizeHeight;
 
         formData.append('action', "load_posts");
         formData.append('nonce', MV23_GLOBALS.nonce);
@@ -82,6 +83,8 @@
                         $listing.trigger('listingUpdated', {listing:$listing, items:$items, action:action, response:response});
                         $pagination && $pagination.html(response.pagination);
 
+                        if(equalizeHeight) equalize_postcards_height($listing, listing_template);
+
                         if(scrollTop) {
                             var headerHeight = MV23_GLOBALS.headerHeight;
                             $("html, body").animate({ scrollTop: ($component.offset().top - headerHeight) }, {duration: 800, queue: false});
@@ -114,6 +117,23 @@
                 // Refresh ScrollTrigger breakpoints after content update
                 refreshScrollTriggerBreakpoints();
             }
+        });
+    }
+
+    function equalize_postcards_height($listing, listing_template){
+        if( listing_template === 'masonry' ) return;
+
+        var $postcards = $listing.find('.postcard');
+        if( !$postcards.length ) return;
+
+        imagesLoaded($listing[0], function(){
+            $postcards.css('height','auto');
+            var maxHeight = 0;
+            $postcards.each(function(){
+                var height = $(this).outerHeight();
+                if(height > maxHeight) maxHeight = height;
+            });
+            $postcards.css('height', maxHeight + 'px');
         });
     }
 
@@ -178,7 +198,10 @@
             if( listing_uid ) {
                 $filter = $('.listing-filter[data-listing-uid="'+listing_uid+'"] form');
             }
-    
+
+            var initial_listing_args = JSON.parse( $component.attr('data-listing-args') || '{}' );
+            if( initial_listing_args.equalizeHeight ) equalize_postcards_height($listing, initial_listing_args.listing_template);
+
             $component.on('click','a.page-numbers', function(event){
 
                 // check .disable-numeric-ajax-pagination class to allow numeric pagination to work without ajax (full page reload)
