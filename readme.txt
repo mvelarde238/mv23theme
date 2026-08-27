@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.10 26-08-27
+- Builder app.js updated: Added keyboard shortcuts for toggling left sidebar panels 
+  (Layers, History, Global Settings, Pages) using `ctrl`/`command` + respective keys.
+
 3.15.9 26-08-26
 - Added Language visibility rule for Polylang/WPML integration
 
