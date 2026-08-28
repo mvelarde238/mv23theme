@@ -18,37 +18,7 @@ process.on('warning', (warning) => {
 });
 
 // Project configuration
-var project = 'mv23theme', // Nombre de proyecto, usado como nombre de archivo al momento de crear el zip
-	url = 'mv23.com', // Local Development URL for BrowserSync. Default: './'
-	build = '../', // Folder donde se guarda el zip 
-	buildInclude = [
-		// Archivos que se van a guardar en el zip
-		'../**/*.php',
-		'../**/*.html',
-		'../**/*.css',
-		'../**/*.scss',
-		'../**/*.sass',
-		'../**/*.js',
-		'../**/*.json',
-		'../**/*.svg',
-		'../**/*.png',
-		'../**/*.jpg',
-		'../**/*.ico',
-		'../**/*.po',
-		'../**/*.mo',
-		'../**/*.gif',
-		'../**/*.ttf',
-		'../**/*.otf',
-		'../**/*.eot',
-		'../**/*.woff',
-		'../**/*.woff2',
-
-		// include specific files and folders
-		'../screenshot.png',
-
-		// exclude files and folders
-		'!node_modules/**/*'
-	];
+var url = 'mv23.com'; // Local Development URL for BrowserSync. Default: './'
 
 /*
 * Dependencias
@@ -60,9 +30,9 @@ var gulp = require('gulp'),
 	uglifyJs = require('gulp-uglify'),
 	babel = require('gulp-babel'),
 	browserSync = require('browser-sync'),
-	// svgmin       = require('gulp-svgmin'),
 	mergeQueries = require('gulp-merge-media-queries'),
-	filelist = require('gulp-filelist'),
+	// filelist = require('gulp-filelist'),
+	// svgmin       = require('gulp-svgmin'),
 	//  zip          = require('gulp-zip'),
 	//  runSequence  = require('run-sequence'),
 	lel = null;
@@ -71,7 +41,8 @@ var gulp = require('gulp'),
 * Tareas
 */
 /*
-* Lista todos los archivos js en un json
+* Concatena los archivos js
+* used by childthemes to override some file
 */
 var jsfiles = [
 	"js/libs/materialize/*",
@@ -80,18 +51,6 @@ var jsfiles = [
 	'js/utils/*',
 	'js/modules/*'
 ];
-
-gulp.task('listjs', function () {
-	return gulp.src(jsfiles, { nodir: true })
-		.pipe(filelist('js_filelist.json'))
-		.pipe(gulp.dest('./'));
-});
-
-/*
-* Concatena los archivos js
-* used by childthemes to override some file
-*/
-// const js_filelist = require('./js_filelist.json');
 gulp.task('js', function () {
 	return gulp.src(jsfiles)
 		.pipe(concat('scripts.js'))
@@ -172,28 +131,6 @@ gulp.task('serve', function () {
 	gulp.watch(['sass/**/*.scss', 'sass/**/*.sass'], gulp.series('sass'));
 });
 
-
-
-// WATCH
-gulp.task('w', function () {
-	gulp.watch('js/**/*.js', gulp.series('js'));
-	gulp.watch(['sass/**/*.scss', 'sass/**/*.sass'], gulp.series('sass'));
-});
-
-
-
-
-/*
-* Minimiza archivos svg
-*/
-gulp.task('svg', function () {
-	return gulp.src('svg/*.svg')
-		.pipe(svgmin())
-		.pipe(gulp.dest('../assets/images/svg/'));
-});
-
-
-
 // **************************************************************************
 // **************************************************************************
 // ADMIN-SCRIPTS.JS
@@ -202,11 +139,7 @@ gulp.task('svg', function () {
 var adminJSFiles = [
 	'js/functions/helpers.js',
 	'js/modules/stickyHeader.js',
-	'js/libs/gridstack.all.js',
-	// 'js/modulos/admin-custom-uploader.js',
-	// 'js/modulos/repeater-fields.js',
-	// 'js/modulos/datepicker_input.js',
-	// 'js/admin-scripts.js'
+	'js/libs/gridstack.all.js'
 ];
 
 var adminSASSFiles = [
@@ -233,56 +166,3 @@ gulp.task('adminsass', function () {
 		.pipe(gulp.dest('../assets/css/'))
 		.pipe(browserSync.stream());
 });
-
-// gulp.task('adminwatch', function () {
-// 	gulp.watch(adminJSFiles, gulp.series('adminjs'));
-// 	gulp.watch(['sass/**/*.scss', 'sass/**/*.sass'], gulp.series('adminsass'));
-// });
-
-// gulp.task('adminserve', function () {
-// 	var files = ['../**/*.php'];
-// 	browserSync.init(files, {
-// 		proxy: url,
-// 		injectChanges: true
-// 	});
-// 	gulp.watch(adminJSFiles, gulp.series('adminjs'));
-// 	gulp.watch(['sass/**/*.scss', 'sass/**/*.sass'], gulp.series('adminsass'));
-// });
-
-
-// **************************************************************************
-// **************************************************************************
-// TASKS TO ZIP
-// **************************************************************************
-// **************************************************************************
-// create a folder with files
-// gulp.task('buildFilesToZip', function () {
-	// return gulp.src(buildInclude)
-		// .pipe(gulp.dest(build))
-	// .pipe(notify({ message: 'Copy from buildFilesToZip complete', onLast: true }));
-// });
-
-// zip files
-// gulp.task('buildZip', function () {
-	// return gulp.src(build + '/**/')
-		// .pipe(zip(project + '.zip'))
-		// .pipe(gulp.dest('../'))
-	// .pipe(notify({ message: 'Zip task complete', onLast: true }));
-// });
-
-// search files and zip'em
-// gulp.task('zip', function () {
-	// return gulp.src(buildInclude)
-		// .pipe(zip(project + '.zip'))
-		// .pipe(gulp.dest('../'))
-// });
-
-// Build process: 
-// compile sass and scss
-// concat js files
-// concat materializecss js files
-// create zip
-// gulp.task('build', function (cb) {
-	// runSequence('sass', 'js', 'adminjs', 'editorsass', 'adminsass', 'zip', cb);
-// });
-
