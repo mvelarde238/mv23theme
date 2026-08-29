@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.11 26-08-28
+- Moved ultimate-builder JS files from libs/ultimate-builder/assets/ to src/js/builder to be compiled into a single bundle
+
 3.15.10 26-08-27
 - Builder app.js updated: Added keyboard shortcuts for toggling left sidebar panels 
   (Layers, History, Global Settings, Pages) using `ctrl`/`command` + respective keys.

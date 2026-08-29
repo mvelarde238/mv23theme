@@ -19,11 +19,11 @@ class Field extends Repeater {
 	 * @since 1.0
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( 'gjs-context-menu-options' );
-		$this->enqueue_gjs_plugins();
-        wp_enqueue_script( 'builder' );
 		wp_enqueue_script( 'uf-field-ultimate-builder' );
 		wp_enqueue_style( 'uf-field-ultimate-builder' );
+		
+		$this->enqueue_gjs_plugins();
+        wp_enqueue_script( 'builder' );
 
 		# Enqueue the scripts for all groups
 		foreach( $this->groups as $group ) {
@@ -45,11 +45,13 @@ class Field extends Repeater {
 		$gjs_plugins_info = $this->get_gjs_plugins();
 		
 		foreach ( $gjs_plugins_info as $plugin_info ) {
-			wp_enqueue_script( $plugin_info['handle'] );
+			if( isset( $plugin_info['isExternal'] ) && $plugin_info['isExternal'] === true ) {
+				wp_enqueue_script( $plugin_info['handle'] );
+				if( isset( $plugin_info['hasCss'] ) && $plugin_info['hasCss'] === true ) {
+					wp_enqueue_style( $plugin_info['handle'] . '-style' );
+				}
+			}
 		}
-
-		// TODO: register dinamically if the plugin "hasCss" is true:
-		wp_enqueue_style( 'gjs-context-menu-style' );
 	}
 
 	/**
@@ -201,7 +203,7 @@ class Field extends Repeater {
 
 		$frontend_styles_control = array_merge( 
 			Frontend::get_styles_control_handles(), 
-			array('canvas-css') 
+			array('canvas-styles') 
 		);
 
 		global $wp_styles;
@@ -271,6 +273,7 @@ class Field extends Repeater {
 					'handle' => $plugin['handler'],
 					'isComponent' => $plugin['isComponent'] ?? false,
 					'isExternal' => $plugin['isExternal'] ?? false,
+					'hasCss' => $plugin['hasCss'] ?? false,
 				);
 			}
 		}

@@ -139,7 +139,7 @@ class Ultimate_Builder {
 		Template::instance()->add_path( dirname( $plugin_file ) . '/templates/' );
 
 		add_filter( 'uf.field.class', array( $this, 'generate_field_class' ), 10, 2 );
-		add_action( 'uf.register_scripts', array( $this, 'register_scripts' ) );
+		add_action( 'uf.register_scripts', array( $this, 'register_field_scripts' ) );
 		add_action( 'post_action_ultimate-builder', array( $this, 'prepare_admin_for_builder' ) );
 		add_action( 'wp_ajax_ultimate_builder_preview_save', array( Preview_Handler::class, 'ajax_preview_save' ) );
 		add_action( 'wp_ajax_migrate_post_content_to_builder', array( $this, 'ajax_migrate_post_content' ) );
@@ -172,19 +172,14 @@ class Ultimate_Builder {
 	 *
 	 * @since 1.0
 	 */
-	public function register_scripts() {
-		// $assets = plugins_url( 'assets/', $this->plugin_file );
-        $assets = LIBS_PATH . '/ultimate-builder/assets/';
+	public function register_field_scripts() {
+        $assets = LIBS_PATH . '/ultimate-builder/assets';
 		$v      = $this->version;
 
-		// FIELD SCRIPT
-		wp_register_script( 'handlebars', $assets . 'js/handlebars.js', array(), $v );
-		wp_register_script( 'uf-field-ultimate-builder', $assets . 'js/field-ultimate-builder.js', array('uf-field-repeater', 'handlebars'), $v );
-		wp_register_style( 'uf-field-ultimate-builder', $assets . 'css/field.css', array(), $v );
-
-		// localize the script with the builder globals
-		$builder_globals = $this->get_builder_globals();
-		wp_localize_script( 'uf-field-ultimate-builder', 'BUILDER_GLOBALS', $builder_globals );
+		// FIELD SCRIPTS
+		wp_register_script( 'uf-field-ultimate-builder', $assets . '/field-ultimate-builder.js', array('uf-field-repeater'), $v );
+		wp_register_style( 'uf-field-ultimate-builder', $assets . '/field.css', array(), $v );
+		wp_localize_script( 'uf-field-ultimate-builder', 'BUILDER_GLOBALS', $this->get_builder_globals() );
 	}
 
 	private function get_builder_globals() {
@@ -275,18 +270,18 @@ class Ultimate_Builder {
 			&& isset( $_GET['meta'] )
 			&& $_GET['action'] === 'ultimate-builder' ) 
 		{
-			$assets = LIBS_PATH . '/ultimate-builder/assets/';
 			$v      = $this->version;
-			$app_js_path = BUILDER_DEV_MODE ? 'http://builder.lo/react/my-react-app/dist/' : $assets. 'js/';
-			$app_css_path = BUILDER_DEV_MODE ? 'http://builder.lo/react/my-react-app/dist/' : $assets. 'css/';
+			$app_js_path = BUILDER_DEV_MODE ? 'http://builder.lo/react/my-react-app/dist/' : ASSETS_PATH . '/js/';
+			$app_css_path = BUILDER_DEV_MODE ? 'http://builder.lo/react/my-react-app/dist/' : ASSETS_PATH . '/css/';
 
-			wp_register_style( 'builder-admin-styles', $assets . 'css/builder-admin.css', array('wp-codemirror'), $v );
-			wp_register_style( 'canvas-css', $assets . 'css/canvas.css', array(), $v );
-			wp_register_style( 'builder-app-styles', $app_css_path . 'app.css', array(), $v ); 
-			wp_register_script( 'builder-app', $app_js_path . 'app.js', array('wp-codemirror'), $v );
-			wp_register_script( 'gjs-context-menu-options', $assets . 'js/context-menu-options.js', array(), $v );
+			wp_register_style( 'builder-styles', ASSETS_PATH . '/css/builder-styles.css', array('wp-codemirror'), $v );
+			wp_register_style( 'canvas-styles', ASSETS_PATH . '/css/canvas-styles.css', array(), $v );
+
+			wp_register_style( 'app-styles', $app_css_path . 'app.css', array(), $v ); 
+			wp_register_script( 'app-scripts', $app_js_path . 'app.js', array('wp-codemirror'), $v );
+
 			$this->register_gjs_plugins();
-			wp_register_script( 'builder', $assets . 'js/builder.js', array(), $v );
+			wp_register_script( 'builder', ASSETS_PATH . '/js/builder.js', array('uf-field-ultimate-builder'), $v );
 
 			$this->filter_admin_body_class();
 			$this->clean_admin_assets();
@@ -303,23 +298,17 @@ class Ultimate_Builder {
 				if( BUILDER_DEV_MODE ){
 					$script_url = 'http://builder.lo/' . $plugin['handler'] . '/dist/index.js';
 				} else {
-					$script_url = $assets . 'js/external-plugins/' . $plugin['handler'] . '.js';
+					$script_url = ASSETS_PATH . '/js/gjs-plugins/' . $plugin['handler'] . '.js';
 				}
-			} else {
-				if(isset( $plugin['url'] ) ){
-					$script_url = $plugin['url'];
-				} else {
-					$folder = $plugin['isComponent'] ? 'components' : 'plugins';
-					$script_url = $assets . 'js/' . $folder . '/' . $plugin['handler'] . '.js';
+
+				if( isset( $plugin['hasCss'] ) && $plugin['hasCss'] === true ) {
+					$css_url = BUILDER_DEV_MODE ? 'http://builder.lo/' . $plugin['handler'] . '/dist/style.css' : ASSETS_PATH . '/js/gjs-plugins/' . $plugin['handler'] . '.css';
+					wp_register_style( $plugin['handler'] . '-style', $css_url, array(), $v );
 				}
+				
+				wp_register_script( $plugin['handler'], $script_url, array('uf-field-ultimate-builder'), $v );
 			}
-
-			wp_register_script( $plugin['handler'], $script_url, array(), $v );
 		}
-
-		// TODO: register dinamically if the plugin "hasCss" is true:
-		$gjs_cm_css = BUILDER_DEV_MODE ? 'http://builder.lo/gjs-context-menu/dist/style.css' : $assets. 'js/external-plugins/gjs-context-menu.css';
-		wp_register_style( 'gjs-context-menu-style', $gjs_cm_css, array(), $v );
 	}
 
 	/**
@@ -382,9 +371,9 @@ class Ultimate_Builder {
 			// Enqueue post lock scripts
 			Post_Lock_Handler::enqueue_scripts();
 	
-			wp_enqueue_script( 'builder-app' );
-			wp_enqueue_style( 'builder-app-styles' );
-			wp_enqueue_style( 'builder-admin-styles' );
+			wp_enqueue_script( 'app-scripts' );
+			wp_enqueue_style( 'app-styles' );
+			wp_enqueue_style( 'builder-styles' );
 			
 			// Ensure global variables are set for admin-header.php
 			global $title, $parent_file, $submenu_file;

@@ -17,8 +17,29 @@ process.on('warning', (warning) => {
     console.warn(warning.name + ': ' + warning.message);
 });
 
-// Project configuration
-var url = 'mv23.com'; // Local Development URL for BrowserSync. Default: './'
+/**
+ * Project settings
+ * @url Local development URL for BrowserSync
+ * @builderBanner Banner for compiled files
+ * @sassParms Parameters for Sass compilation
+ */
+const url = 'mv23.com', 
+	builderBanner = '/*! Copyright (c) 2026 Miguel Velarde / velarde23.com — All Rights Reserved. Proprietary and Confidential. */\n',
+	sassParms = {
+	    quietDeps: true,
+	    verbose: false,
+	    logger: {
+	        warn: function(message) {
+	            // Silenciar warnings específicos
+	            if (message.includes('fs.Stats constructor is deprecated') || 
+	                message.includes('DEP0180')) {
+	                return;
+	            }
+	            console.warn(message);
+	        }
+	    },
+	    silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'color-functions']
+	};
 
 /*
 * Dependencias
@@ -31,11 +52,7 @@ var gulp = require('gulp'),
 	babel = require('gulp-babel'),
 	browserSync = require('browser-sync'),
 	mergeQueries = require('gulp-merge-media-queries'),
-	// filelist = require('gulp-filelist'),
-	// svgmin       = require('gulp-svgmin'),
-	//  zip          = require('gulp-zip'),
-	//  runSequence  = require('run-sequence'),
-	lel = null;
+	header = require('gulp-header');
 
 /*
 * Tareas
@@ -68,22 +85,7 @@ var cssfiles = [
 gulp.task('sass', function () {
 	return gulp.src(cssfiles)
 	.pipe(concat('style.css'))
-	.pipe(sass({
-        // includePaths: [parenttheme_path+'sass/'] this is for child themes
-        quietDeps: true,
-        verbose: false,
-        logger: {
-            warn: function(message) {
-                // Silenciar warnings específicos
-                if (message.includes('fs.Stats constructor is deprecated') || 
-                    message.includes('DEP0180')) {
-                    return;
-                }
-                console.warn(message);
-            }
-        },
-        silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'color-functions']
-    }).on('error', sass.logError))
+	.pipe(sass(sassParms).on('error', sass.logError))
 	.pipe(mergeQueries({ log: true }))
 	.pipe(minifyCSS())
 	.pipe(gulp.dest('../assets/css/'))
@@ -99,12 +101,7 @@ var editorCssfiles = [
 gulp.task('editorsass', function () {
     return gulp.src(editorCssfiles)
     .pipe(concat('editor-style.css'))
-    .pipe(sass({
-        // includePaths: [parenttheme_path+'sass/'] this is for child themes
-        quietDeps: true,
-        verbose: false,
-        silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'color-functions']
-    }).on('error', sass.logError))
+    .pipe(sass(sassParms).on('error', sass.logError))
     .pipe(minifyCSS())
     .pipe(gulp.dest('../assets/css/'))
     .pipe(browserSync.stream());
@@ -133,7 +130,7 @@ gulp.task('serve', function () {
 
 // **************************************************************************
 // **************************************************************************
-// ADMIN-SCRIPTS.JS
+// ADMIN TASKS
 // **************************************************************************
 // **************************************************************************
 var adminJSFiles = [
@@ -157,12 +154,57 @@ gulp.task('adminjs', function () {
 
 gulp.task('adminsass', function () {
 	return gulp.src(adminSASSFiles)
-		.pipe(sass({
-			quietDeps: true,
-			verbose: false,
-			silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'color-functions']
-		}).on('error', sass.logError))
+		.pipe(sass(sassParms).on('error', sass.logError))
 		.pipe(minifyCSS())
 		.pipe(gulp.dest('../assets/css/'))
 		.pipe(browserSync.stream());
+});
+
+// **************************************************************************
+// **************************************************************************
+// BUILDER TASKS
+// **************************************************************************
+// **************************************************************************
+
+var jsfiles = [
+	"js/builder/utils/*",
+	"js/builder/plugins/*",
+	"js/builder/components/*",
+	"js/builder/builder.js"
+];
+gulp.task('builderjs', function () {
+	return gulp.src(jsfiles)
+		.pipe(concat('builder.js'))
+		.pipe(babel({ presets: ['@babel/preset-env'] }))
+		.pipe(uglifyJs())
+		.pipe(header(builderBanner))
+		.pipe(gulp.dest('../assets/js/'))
+		.pipe(browserSync.stream());
+});
+
+gulp.task('buildersass', function() {
+    return gulp.src( 'sass/builder-styles.sass' )
+        .pipe( concat( 'builder-styles.css') )
+        .pipe(sass(sassParms).on('error', sass.logError))
+        .pipe(minifyCSS())
+        .pipe( gulp.dest( '../assets/css/' ) )
+        .pipe(browserSync.stream());
+});
+
+gulp.task('canvassass', function() {
+    return gulp.src( 'sass/canvas-styles.sass' )
+        .pipe( concat( 'canvas-styles.css') )
+        .pipe(sass(sassParms).on('error', sass.logError))
+        .pipe(minifyCSS())
+        .pipe( gulp.dest( '../assets/css/' ) )
+        .pipe(browserSync.stream());
+});
+
+gulp.task('builderserve', function () {
+    browserSync.init({
+        proxy: url,
+        injectChanges: true
+    });
+
+	gulp.watch(['sass/builder/**/*.sass','sass/canvas/**/*.sass'], gulp.series('buildersass','canvassass'));
 });

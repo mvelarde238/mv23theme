@@ -1,0 +1,265 @@
+window.gjsListing = function (editor) {
+    const domc = editor.DomComponents;
+    const compClass = 'listing';
+
+    const carouselSettingsToMap = (settings) => {
+        const defaults = {
+            mode: 'carousel',
+            axis: 'horizontal',
+            controls: true,
+            controls_position: 'center',
+            nav: true,
+            nav_position: 'bottom',
+            speed: 300,
+            autoplay: false,
+            autoplay_position: 'top',
+            autoplay_timeout: 5000,
+            autoplay_direction: 'forward',
+            autoplay_text: 'start|stop',
+            autoplay_hover_pause: false,
+            autoplay_reset_on_visibility: true,
+            animate_in: 'tns-fadeIn',
+            animate_out: 'tns-fadeOut',
+            animate_normal: 'tns-normal',
+            loop: true,
+            rewind: false,
+            auto_height: false,
+            touch: true,
+            mouse_drag: false,
+            swipe_angle: 15,
+            prevent_action_when_running: false,
+            prevent_scroll_on_touch: 'false',
+            freezable: true,
+            start_index: 0,
+        };
+
+        if (!Array.isArray(settings)) {
+            return defaults;
+        }
+
+        settings.forEach(row => {
+            if (!row || typeof row !== 'object') return;
+            const key = row.property || row.__type;
+            if (!key || !Object.prototype.hasOwnProperty.call(row, 'value')) return;
+            defaults[key] = row.value;
+        });
+
+        return defaults;
+    };
+
+    // Labels for the ui, using the editor's translator for internationalization
+    const __ = editor.createTranslator(editor);
+    const compName = __('Listing');
+
+    const unwantedProps = ['removable', 'copyable', 'draggable', 'selectable', 'badgable', 'propagate', 'resizable', 'droppable', 'delegate','layerable'];
+
+    const defaultComponents = [
+        {
+            type: 'carousel-wrapper',
+            selectable: false,
+            draggable: false,
+            layerable: false,
+            droppable: false,
+            propagate: ['selectable', 'draggable', 'droppable'],
+            components: [
+                {
+                    type: 'carousel',
+                    components: []
+
+                },
+                { type: 'carousel-controls' },
+                { type: 'carousel-nav' },
+            ]
+        }
+    ];
+
+    // add custom css to canvasCss
+    let config = editor.getConfig();
+    config.canvasCss = config.canvasCss || '';
+    config.canvasCss += `.listing a { pointer-events: none; }
+        .listing .postcard { flex-shrink: 0; }
+        .listing .carousel-wrapper .component__actions { display: none; }`;
+    editor.canvasCss = config.canvasCss;
+
+    // Define the component
+    domc.addType(compClass, {
+        extend: 'async-component-abstract',
+        isComponent: el => el.classList && el.classList.contains(compClass),
+        model: {
+            defaults: {
+                name: compName,
+                tagName: 'div',
+                classes: [compClass,'component'],
+                components: defaultComponents,
+                __beforeSendCallback: (model, editor, datastore) => {
+                    editor.ensureComponentStructure(model, defaultComponents, unwantedProps);
+                    
+                    const {listing_template, columns, carousel_settings, columns_gap, listing_uid} = datastore.toJSON();
+                    const carouselWrapper = model.findType('carousel-wrapper')[0];
+                    const carousel = model.findType('carousel')[0];
+                    carousel.empty({silent: true});
+                    
+                    if (listing_template === 'carousel') {
+                        carouselWrapper.getView().el.style.display = '';
+                        const carouselDatastore = editor.getComponentDatastore(carouselWrapper);
+                        const normalizedCarouselSettings = carouselSettingsToMap(carousel_settings);
+                        carouselDatastore.set({
+                            items: columns,
+                            carousel_settings: carousel_settings,
+                            slider_uid: listing_uid,
+                            gutter: columns_gap
+                        }, {silent: true} );
+                        carouselDatastore.set('carousel_settings_map', normalizedCarouselSettings, {silent: true});
+                        carouselWrapper.getView().render();
+                    } else {
+                        carouselWrapper.getView().el.style.display = 'none';
+                    }
+                },
+                __onSuccessCallback: (response, model, editor, datastore) => {
+                    const el = model.getEl();
+                    const {listing_template} = datastore.toJSON();
+                    
+                    // Create temporary container to parse response HTML
+                    const temp = document.createElement('div');
+                    temp.innerHTML = response.data;
+                    const firstChild = temp.firstElementChild;
+
+                    if (listing_template === 'carousel') {
+                        const postcards = temp.querySelectorAll('.postcard');
+                        const carousel = model.findType('carousel')[0];
+                        editor.UndoManager.stop();
+                        postcards.forEach(postcard => {
+                            const carouselItem = carousel.append({ 
+                                type: 'carousel-item',
+                                selectable: false,
+                                droppable: false,
+                                copyable: false,
+                                hoverable: false,
+                            }, { temporary: true });
+                            carouselItem[0].getView().el.innerHTML = postcard.outerHTML;
+                        });
+                        editor.UndoManager.start();
+
+                        // extract and paste postcard <style> if it exists
+                        const postcardStyle = temp.querySelector('style');
+                        if (postcardStyle) el.appendChild(postcardStyle);
+                        
+                    } else {
+                        // Remove class attribute from component to fix: settings dosnt apply on change datastore
+                        if (firstChild) {
+                            firstChild.removeAttribute('class');
+                            el.innerHTML = temp.innerHTML;
+                        }
+                    }
+
+                    if (listing_template === 'masonry' && BUILDER_GLOBALS.masonry_is_active) {
+                        const listingEl = el.querySelector('.posts-listing');
+                        imagesLoaded(listingEl, function () {
+                            new Packery(listingEl, {
+                                itemSelector: '.masonry-grid-item',
+                                columnWidth: '.masonry-grid-sizer',
+                                gutter: '.masonry-gutter-sizer',
+                                percentPosition: true,
+                            });
+                        });
+                    }
+                },
+            },
+        },
+        view: {
+            init(){
+                editor.on('change:device', this.handle_editor_resize.bind(this));
+            },
+            custom_datastore_change_callback(changed) {
+                const model = this.model;
+                
+                // Ignore changes that only affect __tab (tab switching)
+                const changed_keys = Object.keys(changed);
+                if (changed_keys.length && changed_keys[0] === '__tab') return;
+
+                $rerender_listing_on_change = [
+                    'source',
+                    'posts',
+                    'posttype',
+                    'tax_params',
+                    'woocommerce_key',
+                    'query_params',
+                    'status_params',
+                    'listing_template', 
+                    'carousel_settings',
+                    'postcard_settings',
+                    'pagination_type',
+                ];
+                if ( $rerender_listing_on_change.includes( changed_keys[0] ) ) {
+                    this.render();
+                }
+
+                // if listing template is masonry and columns value changed, re-render to update masonry layout
+                if (changed_keys[0] === 'columns'){
+                    const datastore = editor.getComponentDatastore(model);
+                    const data = datastore.toJSON();
+                    if (data.listing_template === 'masonry') {
+                        this.render();
+                    }
+                }
+
+                if (changed_keys[0] === 'columns' || changed_keys[0] === 'columns_gap') {
+                    // Update CSS properties for columns and gap
+                    const datastore = editor.getComponentDatastore(model);
+                    const data = datastore.toJSON();
+                    const listing_template = data.listing_template;
+                    const listingElSelector = listing_template === 'carousel' ? '.carousel__slider' : '.posts-listing';
+                    const listingEl = model.getEl().querySelector(listingElSelector);
+                    const devices = ['desktop', 'laptop', 'tablet', 'mobile'];
+                    const columns = data.columns || {};
+                    const gaps = data.columns_gap || {};
+                    if (listingEl) {
+                        devices.forEach(device => {
+                            listingEl.style.setProperty(`--${device[0]}-columns`, columns[device]);
+                            listingEl.style.setProperty(`--${device[0]}-gap`, gaps[device]+'px');
+                        });
+                    }
+                }
+
+                if( changed_keys.includes('settings') ){
+                    editor.handleCommonSettings(model);
+                }
+            },
+            handle_editor_resize(obj) {
+                // trigger global resize event to make sure all components that need to adjust on editor resize can do it
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                }, 150);
+            },
+        },
+    });
+
+    // Before saving remove data that shouldn't be saved
+    editor.on('builder:before-save-editor', () => {
+        const wrapper = editor.getWrapper();
+        const container = wrapper.findType('container')[0];
+        const listings = container.findType('listing');
+        listings.forEach(listing => {
+            const carouselItems = listing.findType('carousel-item');
+            carouselItems.forEach(carouselItem => {
+                carouselItem.remove({silent: true});
+            });
+        });
+    });
+
+    UltimateFields.addFilter('builder_component_cleanup', function(data) {
+        if (data.component.type === compClass) {
+            // Recursively strip behavioral props from nested children so they are never persisted in JSON.
+            // These props are re-applied at runtime by ensureComponentStructure from defaultComponents.
+            const cleanupNestedComponents = (obj) => {
+                if (!obj || !Array.isArray(obj.components)) return;
+
+                obj.components.forEach(child => {
+                    unwantedProps.forEach(prop => delete child[prop]);
+                    cleanupNestedComponents(child);
+                });
+            };
+            cleanupNestedComponents(data.builderComponent);
+        }
+    });
+};
