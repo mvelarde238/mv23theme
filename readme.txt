@@ -2,6 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.12
+- Theme_Version class implementation: tracks the installed theme version in the database (mv23_theme_version option) 
+  against the current style.css version, replacing manual style.css version checks
+- Migrator now skips migrations already applied based on the installed version, instead of running all of them on every page load
+- Dashboard widget implementation: notifies admins when there are pending migrations, with a direct link to the Theme Migrator page
+
 3.15.11 26-08-28
 - Moved ultimate-builder JS files from libs/ultimate-builder/assets/ to src/js/builder to be compiled into a single bundle
 

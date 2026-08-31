@@ -6,6 +6,7 @@
 namespace Core;
 
 use Core\Includes\Theme_Header_Data;
+use Core\Includes\Theme_Version;
 use Core\Includes\Loader;
 use Core\Frontend\Frontend;
 use Core\Frontend\WooCommerce_Support;
@@ -50,6 +51,12 @@ class Theme extends Theme_Header_Data {
     }
     
     public function init(){
+        $theme_version = Theme_Version::getInstance();
+        $theme_version->maybe_upgrade();
+
+        // stamp fresh installs immediately, no migrations needed
+        $this->loader->add_action( 'after_switch_theme', $theme_version, 'stamp_on_theme_activation' );
+
         // init migrator module
         Migrator::getInstance();
         

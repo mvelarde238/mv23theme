@@ -1,6 +1,7 @@
 <?php
 namespace Core\Migrator;
 
+use Core\Includes\Theme_Version;
 use Core\Migrator\Migration\Migrate_0_4_X_to_0_5_0;
 use Core\Migrator\Migration\Migrate_1_5_X_to_2_0_1;
 use Core\Migrator\Migration\Migrate_Gmaps_to_Leaflet;
@@ -51,45 +52,54 @@ class Core{
         return self::$instance;
     }
     
+    // migrations tied to a theme version, mapped to their target ("to") version
+    private $versioned_migrations = array(
+        Migrate_0_4_X_to_0_5_0::class                 => '0.5.0',
+        Migrate_1_5_X_to_2_0_1::class                 => '2.0.1',
+        Migrate_Gmaps_to_Leaflet::class                => '2.0.1',
+        Migrate_ScrollMagic_to_GSAP::class             => '2.1.0',
+        Migrate_Timeline_Group_To_Groups::class        => '2.2.0',
+        Migrate_2_2_X_to_2_3_0::class                  => '2.3.0',
+        Migrate_Gallery_Settings::class                => '2.4.0',
+        Migrate_Video_Settings::class                  => '2.5.0',
+        Migrate_OCE_Settings::class                    => '2.6.0',
+        Migrate_Accordion_Settings::class              => '2.7.0',
+        Migrate_Inner_Components::class                => '2.8.0',
+        Migrate_Slider_Comp_To_Shortcode::class        => '2.8.0',
+        Migrate_Carrusel_Comp_To_Carousel::class       => '2.8.0',
+        Migrate_Heading_Settings::class                => '2.9.0',
+        Migrate_2_10_X_to_3_0_0::class                 => '3.0.0',
+        Cleanup_2_10_X_to_3_0_0::class                 => '3.0.0',
+        Migrate_3_2_X_to_3_3_0::class                  => '3.3.0',
+        Migrate_3_3_0_to_3_4_0::class                  => '3.4.0',
+        Migrate_3_4_X_to_3_5_0::class                  => '3.5.0',
+        Migrate_3_5_X_to_3_6_0::class                  => '3.6.0',
+        Migrate_3_6_X_to_3_7_0::class                  => '3.7.0',
+        Migrate_3_7_X_to_3_8_0::class                  => '3.8.0',
+        Migrate_3_8_X_to_3_9_0::class                  => '3.9.0',
+        Migrate_3_9_X_to_3_10_0::class                 => '3.10.0',
+        Migrate_3_10_X_to_3_11_0::class                => '3.11.0',
+        Migrate_OCE_Restrictions_to_Visibility::class  => '3.11.0',
+        Migrate_3_11_X_to_3_12_0::class                => '3.12.0',
+        Migrate_3_13_X_to_3_14_0::class                => '3.14.0',
+        Migrate_3_14_X_to_3_15_0::class                => '3.15.0',
+    );
+
     private function __construct(){
         $this->slug = 'theme-migrator';
 
-        // if( $this->theme_version_is_less( THEME_VERSION, '0.5.0' ) ){
-        // if( !get_option('theme_version') ){
-            Migrate_0_4_X_to_0_5_0::getInstance()->migrate();
-            Migrate_1_5_X_to_2_0_1::getInstance()->migrate();
-            Migrate_Gmaps_to_Leaflet::getInstance()->migrate();
-            Migrate_ScrollMagic_to_GSAP::getInstance()->migrate();
-            Migrate_Timeline_Group_To_Groups::getInstance()->migrate();
-            Migrate_2_2_X_to_2_3_0::getInstance()->migrate();
-            // these migrators extend Core\Migrator\Base\Migrate_Components_Settings:
-            Migrate_Gallery_Settings::getInstance()->migrate();
-            Migrate_Video_Settings::getInstance()->migrate();
-            Migrate_OCE_Settings::getInstance()->migrate();
-            Migrate_Accordion_Settings::getInstance()->migrate();
-            Migrate_Inner_Components::getInstance()->migrate();
-            Migrate_Slider_Comp_To_Shortcode::getInstance()->migrate();
-            Migrate_Carrusel_Comp_To_Carousel::getInstance()->migrate();
-            Migrate_Heading_Settings::getInstance()->migrate();
-            Migrate_2_10_X_to_3_0_0::getInstance()->migrate();
-            Cleanup_2_10_X_to_3_0_0::getInstance()->migrate();
-            Migrate_3_2_X_to_3_3_0::getInstance()->migrate();
-            Migrate_3_3_0_to_3_4_0::getInstance()->migrate();
-            Migrate_3_4_X_to_3_5_0::getInstance()->migrate();
-            Migrate_3_5_X_to_3_6_0::getInstance()->migrate();
-            Migrate_3_6_X_to_3_7_0::getInstance()->migrate();
-            Migrate_3_7_X_to_3_8_0::getInstance()->migrate();
-            Migrate_3_8_X_to_3_9_0::getInstance()->migrate();
-            Migrate_3_9_X_to_3_10_0::getInstance()->migrate();
-            Migrate_3_10_X_to_3_11_0::getInstance()->migrate();
-            Migrate_OCE_Restrictions_to_Visibility::getInstance()->migrate();
-            Migrate_3_11_X_to_3_12_0::getInstance()->migrate();
-            Migrate_3_13_X_to_3_14_0::getInstance()->migrate();
-            Migrate_3_14_X_to_3_15_0::getInstance()->migrate();
-        // }
+        $installed_version = Theme_Version::getInstance()->get_installed_version();
+
+        foreach ( $this->versioned_migrations as $migration_class => $target_version ) {
+            if ( version_compare( $installed_version, $target_version, '<' ) ) {
+                $migration_class::getInstance()->migrate();
+            }
+        }
 
         add_action( 'admin_menu', array($this, 'add_admin_page') );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_migrator_scripts') );
+        add_action( 'admin_post_mv23_mark_migrations_complete', array( $this, 'handle_mark_migrations_complete') );
+        add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widget') );
     }
 
     public function add_admin_page(){
@@ -110,6 +120,47 @@ class Core{
 
     public function display(){
         do_action('theme_migrator_display');
+        echo '<hr>';
+        $this->render_version_status();
+    }
+
+    private function render_version_status(){
+        $theme_version = Theme_Version::getInstance();
+        ?>
+        <div class="wrap theme-migrator__version-status">
+            <p>
+                <?php
+                printf(
+                    /* translators: 1: installed version, 2: current theme version */
+                    esc_html__( 'Installed version: %1$s — Current theme version: %2$s', 'mv23theme' ),
+                    esc_html( $theme_version->get_installed_version() ),
+                    esc_html( $theme_version->get_current_version() )
+                );
+                ?>
+            </p>
+            <?php if ( $theme_version->needs_upgrade() ) : ?>
+                <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+                    <input type="hidden" name="action" value="mv23_mark_migrations_complete">
+                    <?php wp_nonce_field( 'mv23_mark_migrations_complete' ); ?>
+                    <button type="submit" class="button" onclick="return confirm('<?php echo esc_js( __( 'Confirm all applicable migrations above have finished successfully?', 'mv23theme' ) ); ?>');">
+                        <?php esc_html_e( 'Mark migrations as complete', 'mv23theme' ); ?>
+                    </button>
+                </form>
+            <?php endif; ?>
+        </div>
+        <?php
+    }
+
+    public function handle_mark_migrations_complete(){
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( esc_html__( 'You are not allowed to do this.', 'mv23theme' ) );
+        }
+        check_admin_referer( 'mv23_mark_migrations_complete' );
+
+        Theme_Version::getInstance()->mark_upgraded();
+
+        wp_safe_redirect( admin_url( 'admin.php?page=' . $this->get_slug() ) );
+        exit;
     }
 
     public function enqueue_migrator_scripts( $hook ) {
@@ -149,5 +200,38 @@ class Core{
 
     public function get_slug(){
         return $this->slug;
+    }
+
+    public function add_dashboard_widget(){
+        if ( ! current_user_can( 'manage_options' ) || ! Theme_Version::getInstance()->needs_upgrade() ) {
+            return;
+        }
+
+        wp_add_dashboard_widget(
+            'mv23_theme_migrations_widget',
+            __( 'Theme Migrations Available', 'mv23theme' ),
+            array( $this, 'render_dashboard_widget' )
+        );
+    }
+
+    public function render_dashboard_widget(){
+        $theme_version = Theme_Version::getInstance();
+        ?>
+        <p>
+            <?php
+            printf(
+                /* translators: 1: installed version, 2: current theme version */
+                esc_html__( 'The theme code is at version %2$s but the site is migrated up to %1$s. Some migrations may be pending.', 'mv23theme' ),
+                esc_html( $theme_version->get_installed_version() ),
+                esc_html( $theme_version->get_current_version() )
+            );
+            ?>
+        </p>
+        <p>
+            <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . $this->get_slug() ) ); ?>" class="button button-primary">
+                <?php esc_html_e( 'Go to Theme Migrator', 'mv23theme' ); ?>
+            </a>
+        </p>
+        <?php
     }
 }
