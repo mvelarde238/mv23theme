@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.13
+* .icon--left class removed from gjs-icon-and-text component because it is a computed class based on the icon_position datastore value
+
 3.15.12
 - Theme_Version class implementation: tracks the installed theme version in the database (mv23_theme_version option) 
   against the current style.css version, replacing manual style.css version checks

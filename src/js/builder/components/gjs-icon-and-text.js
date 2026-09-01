@@ -54,7 +54,7 @@ window.gjsIconAndText = function(editor) {
             defaults: {
                 name: compName,
                 tagName: 'div',
-                classes: [compClass,'component','icon--left'],
+                classes: [compClass,'component'],
                 droppable: false,
                 components: defaultComponents,
                 __needsSetup: true,
