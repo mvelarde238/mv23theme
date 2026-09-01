@@ -140,6 +140,87 @@ hr
 	border-bottom: 0
 	margin-bottom: var(--components-spacing)
 
+.page-module
+	padding: $page-module-padding
+
+.cover-all
+	position: absolute !important
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	margin: auto
+	z-index: 125
+	display: flex
+	align-items: center
+	justify-content: center
+	transition: 300ms all
+	text-decoration: none
+
+:has(> .cover-all)
+	position: relative
+
+:has(> .video-background)
+	overflow: hidden
+	position: relative
+	background-color: #000
+	background-image: url() !important
+	video, iframe
+		position: absolute
+		top: 0
+		left: 0
+		width: 101%
+		height: 101%
+		object-fit: cover
+		z-index: 1
+		opacity: var(--video-opacity)
+		pointer-events: none
+	iframe
+		width: 100%
+	.video-background ~ *
+		position: relative
+		z-index: 56
+
+.sticky,
+.pinned-block
+	position: sticky
+	top: var(--sticky-header-height)
+	transition: 500ms top
+
+.pinned-block
+	height: fit-content
+
+img[data-fancybox], img.zoom
+	cursor: zoom-in
+
+.full-width
+	width: 100vw
+	max-width: 100vw // fix for images
+	position: relative
+	left: 50%
+	right: 50%
+	margin-left: -50vw !important
+	margin-right: -50vw !important
+
+.full-height
+	min-height: 100dvh
+	display: flex
+	flex-direction: column
+	justify-content: center
+	align-items: center
+
+.extend-bg-to-left,
+.extend-bg-to-right
+	position: relative
+	*:not(.extended-bg)
+		position: relative
+		z-index: 56
+.extended-bg
+	position: absolute
+	top: 0
+	height: 100%
+	pointer-events: none
+
 @media #{$medium-and-down}
 	.hide-br br
 		display: none
@@ -177,3 +258,6 @@ hr
 	.center-background-on-mobile
 		background-size: cover
 		background-position: center
+	.page-module
+		padding-top: 20px
+		padding-bottom: 20px
