@@ -2,11 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
-3.15.13
+3.15.13 26-09-01
 * .icon--left class removed from gjs-icon-and-text component because it is a computed class based on the icon_position datastore value
 * import components-wrapper component styles on style.scss
+* Updated buttons component styles in style.scss
 
-3.15.12
+3.15.12 26-09-01
 - Theme_Version class implementation: tracks the installed theme version in the database (mv23_theme_version option) 
   against the current style.css version, replacing manual style.css version checks
 - Migrator now skips migrations already applied based on the installed version, instead of running all of them on every page load
