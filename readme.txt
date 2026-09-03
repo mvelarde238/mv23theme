@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.14
+- Added language attributes to the HTML tag for better accessibility and SEO.
+
 3.15.13 26-09-01
 * .icon--left class removed from gjs-icon-and-text component because it is a computed class based on the icon_position datastore value
 * import components-wrapper component styles on style.scss
