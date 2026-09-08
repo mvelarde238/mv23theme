@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.15 26-09-08
+- Added pulse component styles in style.scss
+
 3.15.14
 - Added language attributes to the HTML tag for better accessibility and SEO.
 
