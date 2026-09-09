@@ -234,6 +234,11 @@ class Slider_Settings
                 'value' => false
             ),
             array(
+                '__type' => 'nav_position',
+                'property' => 'nav_position',
+                'value' => 'bottom'
+            ),
+            array(
                 '__type' => 'rewind',
                 'property' => 'rewind',
                 'value' => true
@@ -243,11 +248,14 @@ class Slider_Settings
                 'property' => 'mouse_drag',
                 'value' => true
             ),
-            array(
-                '__type' => 'slider_uid',
-                'property' => 'slider_uid',
-                'value' => ''
-            )
+
+            // Don't include the slider_uid by default; 
+            // the "repeater_group_classes" js filter that generates a unique UID is not triggering a datastore change
+            // array(
+            //     '__type' => 'slider_uid',
+            //     'property' => 'slider_uid',
+            //     'value' => ''
+            // )
         );
     }
 

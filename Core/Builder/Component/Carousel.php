@@ -141,6 +141,10 @@ class Carousel extends Component {
 
 	public static function display( $args ){
         if( Template_Engine::is_restricted( $args ) ) return;
+
+        if( $args['attributes']['id'] == 'debug' ){
+            error_log(print_r($args['slider_settings'], true));
+        }
         
 		$args['additional_classes'][] = 'component';
 		$args['additional_classes'][] = 'carousel';
@@ -183,6 +187,22 @@ class Carousel extends Component {
                 'data-speed' => $marquee_speed,
                 'data-direction' => $direction,
                 'style' => "--fade-width:{$fade_width};--d-gap:{$gutter_in_desktop}px;--l-gap:{$gutter_in_laptop}px; --t-gap:{$gutter_in_tablet}px; --m-gap:{$gutter_in_mobile}px;"
+            );
+        }
+
+        // add slider UID if not already set
+        $slider_uid_set = false;
+        foreach( $args['slider_settings'] as $setting ){
+            if( isset($setting['__type']) && $setting['__type'] === 'slider_uid' ){
+                $slider_uid_set = true;
+                break;
+            }
+        }
+        if( !$slider_uid_set ){
+            $args['slider_settings'][] = array(
+                '__type' => 'slider_uid',
+                'property' => 'slider_uid',
+                'value' => uniqid('slider_')
             );
         }
 
