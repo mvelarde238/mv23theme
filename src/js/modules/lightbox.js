@@ -4,6 +4,16 @@
         // Init GLightbox
         // ****************************************************************************************************
 
+        // GLightbox groups every matched element into a single shared gallery unless it has its
+        // own data-gallery value, so give each ungrouped trigger a unique one to keep it isolated.
+        function mv23IsolateUngroupedTriggers() {
+            var triggers = document.querySelectorAll('.zoom:not([data-gallery]), [data-glightbox]:not([data-gallery])');
+            triggers.forEach(function(el, index) {
+                el.setAttribute('data-gallery', 'mv23-zoom-' + Date.now() + '-' + index);
+            });
+        }
+        mv23IsolateUngroupedTriggers();
+
         window.mv23Lightbox = GLightbox({
             selector: '[data-gallery], [data-glightbox], .zoom',
             touchNavigation: true,
@@ -13,6 +23,7 @@
 
         window.mv23RefreshLightbox = function() {
             if (!window.mv23Lightbox || typeof window.mv23Lightbox.reload !== 'function') return;
+            mv23IsolateUngroupedTriggers();
             window.mv23Lightbox.reload();
         };
         
