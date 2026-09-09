@@ -168,10 +168,10 @@ class Ajax_Load_Posts{
                     add_filter('post_type_link', array($this, 'hide_permalink'), 30, 2);
                 }
 
+                // Sent separately (not as part of "posts") so it isn't parsed as a carousel/masonry item
+                $result['postcard_styles'] = ( $postcard_cpt_template && $postcard_cpt_template['has_content'] ) ? $postcard_cpt_template['styles'] : '';
+
                 ob_start();
-                if ( $postcard_cpt_template && $postcard_cpt_template['has_content'] ) {
-                    echo '<style>'.$postcard_cpt_template['styles'].'</style>';
-                }
                 if ($listing_template == 'masonry') {
                     echo '<div class="masonry-grid-sizer"></div>';
                     echo '<div class="masonry-gutter-sizer"></div>';

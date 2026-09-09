@@ -292,7 +292,7 @@ class Listing extends Component {
             if($listing_template == 'masonry') $post_listing_class .= ' has-masonry-columns';
 
             if( $postcard_cpt_template && $postcard_cpt_template['has_content']){
-                echo '<style>'.$postcard_cpt_template['styles'].'</style>';
+                echo '<style class="postcard-cpt-styles">'.$postcard_cpt_template['styles'].'</style>';
             }
             ?>
             <div class="<?=$post_listing_class?>" style="<?=$css_vars?>">

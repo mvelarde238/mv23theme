@@ -44,6 +44,8 @@
                     case 'success':
                         var $items = $(response.posts);
 
+                        update_postcard_styles($listing, response.postcard_styles);
+
                         if ( listing_template === 'carousel' ){
                             carousel.destroy();
                             $items_container = $listing.find('.carousel__slider');
@@ -118,6 +120,22 @@
                 refreshScrollTriggerBreakpoints();
             }
         });
+    }
+
+    // Keeps postcard CSS out of the items container so it's never parsed as a carousel/masonry item
+    function update_postcard_styles($listing, css){
+        var $style = $listing.prev('style.postcard-cpt-styles');
+
+        if ( !css ) {
+            $style.remove();
+            return;
+        }
+
+        if ( $style.length ) {
+            $style.text(css);
+        } else {
+            $('<style class="postcard-cpt-styles">'+css+'</style>').insertBefore($listing);
+        }
     }
 
     function equalize_postcards_height($listing, listing_template){
