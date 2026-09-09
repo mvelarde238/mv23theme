@@ -68,21 +68,21 @@ window.gjsHeader = function (editor, options) {
                 name: 'Header Logo',
                 tagName: 'div',
                 classes: ['header-logo'],
-                resizable: {
-                    ratioDefault: true,
-                    currentUnit: 1,
-                    keepAutoWidth: true,
-                    cl: false,
-                    cr: false,
-                    tl: false,
-                    tc: false,
-                    tr: false,
-                    bl: false,
-                    bc: true,
-                    br: false,
-                    maxDim: null,
-                    minDim: 15
-                },
+                // resizable: {
+                //     ratioDefault: true,
+                //     currentUnit: 1,
+                //     keepAutoWidth: true,
+                //     cl: false,
+                //     cr: false,
+                //     tl: false,
+                //     tc: false,
+                //     tr: false,
+                //     bl: false,
+                //     bc: true,
+                //     br: false,
+                //     maxDim: null,
+                //     minDim: 15
+                // },
             }
         },
     });
@@ -165,11 +165,12 @@ window.gjsHeader = function (editor, options) {
                 { type: 'oce-overlay' },
                 { 
                     type: 'image-component',
-                    classes: ['full-width'],
+                    // classes: ['full-width'],
                     style: {
                         'aspect-ratio': '9/3',
-                        width: '100vw',
-                        'max-width': '100vw',
+                        width: '100%',
+                        // width: '100vw',
+                        // 'max-width': '100vw',
                     }
                 },
                 {
