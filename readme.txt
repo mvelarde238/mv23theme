@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+- 3.15.16 26-09-09
+- Fixes issue on ajax loading of posts related to empty taxonomy terms
+
 3.15.15 26-09-08
 - Added pulse component styles in style.scss
 

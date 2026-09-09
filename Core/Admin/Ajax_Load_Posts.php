@@ -52,11 +52,13 @@ class Ajax_Load_Posts{
             if ( is_array($taxonomies) && !empty($taxonomies) ) {
                 $tax_query = array( 'relation' => 'AND' );
                 foreach ($taxonomies as $taxonomy => $terms) {
+                    // term_id 0 means "Todas las categorías" (all), so it must not filter the query
+                    $terms = array_filter(array_map('intval', (array) $terms));
                     if (!empty($terms)) {
                         $tax_query[] = array(
                             'taxonomy' => sanitize_key($taxonomy),
                             'field'    => 'term_id',
-                            'terms'    => array_map('intval', (array) $terms),
+                            'terms'    => array_values($terms),
                             'include_children' => true,
                             'operator' => 'IN'
                         );
