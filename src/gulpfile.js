@@ -166,14 +166,14 @@ gulp.task('adminsass', function () {
 // **************************************************************************
 // **************************************************************************
 
-var jsfiles = [
+var builderJsfiles = [
 	"js/builder/utils/*",
 	"js/builder/plugins/*",
 	"js/builder/components/*",
 	"js/builder/builder.js"
 ];
 gulp.task('builderjs', function () {
-	return gulp.src(jsfiles)
+	return gulp.src(builderJsfiles)
 		.pipe(concat('builder.js'))
 		.pipe(babel({ presets: ['@babel/preset-env'] }))
 		.pipe(uglifyJs())
