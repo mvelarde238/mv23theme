@@ -8,6 +8,7 @@ CHANGELOG
 - Spacer component now has a default height of 30px set via its style property
 - Isolated ungrouped lightbox triggers
 - Fixed postcard CPT template styles being injected as an extra carousel/masonry item on ajax listing reload
+- height: calc(100% + 60px) comment in _sideNav.scss
 
 3.15.15 26-09-08
 - Added pulse component styles in style.scss
