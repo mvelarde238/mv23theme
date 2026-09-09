@@ -5,6 +5,7 @@ CHANGELOG
 - 3.15.16 26-09-09
 - Fixes issue on ajax loading of posts related to empty taxonomy terms
 - resizable property removed from header-logo component because it was not taking effect for the sticky version
+- Spacer component now has a default height of 30px set via its style property
 
 3.15.15 26-09-08
 - Added pulse component styles in style.scss
