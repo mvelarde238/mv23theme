@@ -7,7 +7,8 @@ window.handleCommonSettings = function (editor, options) {
             const settings = datastore.get('settings') || {};
 
             if (settings.id) {
-                component.setId(settings.id);
+                let silentForFlipBox = (component.get('type') === 'flipbox');
+                component.setId(settings.id, {silent: silentForFlipBox});
             }
 
             if (settings.classes) {
