@@ -92,7 +92,9 @@ class Listing_Filter extends Component {
                                 'radio' => __('Radio buttons','mv23theme'),
                                 'checkboxes' => __('Checkboxes','mv23theme'),
                             ))
-                            ->set_width(50)
+                            ->set_width(50),
+                        Field::create( 'checkbox', 'hide_empty' )
+                            ->hide_label()->set_prefix(__('Hide empty terms','mv23theme'))->set_width(50),
                     )
                 ));
             }
@@ -390,9 +392,10 @@ class Listing_Filter extends Component {
                         if( $cpt_slug && $tax_slug && $cpt_slug == $posttype ) {
                             $tax_object = get_taxonomy( $tax_slug );
                             if( $tax_object ) {
+                                $hide_empty = $filter_group['hide_empty'] ?? false;
                                 $terms = get_terms( array(
                                     'taxonomy' => $tax_slug,
-                                    'hide_empty' => false,
+                                    'hide_empty' => !empty($hide_empty),
                                 ));
                                 $default_term = $filter_group['initial_value'] ?? '';
                                 $display_type = $filter_group['display_type'] ?? 'select';

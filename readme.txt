@@ -2,7 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
-- 3.15.16 26-09-09
+3.15.17 26-09-15
+- Added hide_empty option to taxonomy filters in the listing filter component
+
+3.15.16 26-09-09
 - Fixes issue on ajax loading of posts related to empty taxonomy terms
 - resizable property removed from header-logo component because it was not taking effect for the sticky version
 - Spacer component now has a default height of 30px set via its style property
