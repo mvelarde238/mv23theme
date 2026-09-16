@@ -31,7 +31,7 @@ class Accordion extends Component {
 	public static function get_fields() {
         // tab styles
         $tab_styles_array = array();
-        $tab_styles_quantity = 7;
+        $tab_styles_quantity = 8;
         for ($i=1; $i <= $tab_styles_quantity ; $i++) { 
             $tab_styles_array['tab-style'.$i] = array(
                 'label' => 'Tab style '.$i,

@@ -5,6 +5,7 @@ CHANGELOG
 3.15.17 26-09-15
 - Added hide_empty option to taxonomy filters in the listing filter component
 - Fixed issue with flip box component ID handling for silent updates
+- Tab-style-8 implementation
 
 3.15.16 26-09-09
 - Fixes issue on ajax loading of posts related to empty taxonomy terms
