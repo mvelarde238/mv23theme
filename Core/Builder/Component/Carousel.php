@@ -141,10 +141,6 @@ class Carousel extends Component {
 
 	public static function display( $args ){
         if( Template_Engine::is_restricted( $args ) ) return;
-
-        if( $args['attributes']['id'] == 'debug' ){
-            error_log(print_r($args['slider_settings'], true));
-        }
         
 		$args['additional_classes'][] = 'component';
 		$args['additional_classes'][] = 'carousel';
