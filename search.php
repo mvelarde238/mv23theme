@@ -4,7 +4,7 @@ use Core\Builder\Component\Archive_Title;
 get_header(); 
 ?>
 
-<div id="content">
+<div id="content" class="content-wrapper">
 	<div id="main-content" class="main-content  container main-content--sidebar-left">
 		<main class="main" itemtype="http://schema.org/Blog">
 			<?php echo Archive_Title::display( array() ); ?>

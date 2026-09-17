@@ -10,6 +10,7 @@ window.gjsWrapper = function (editor, options) {
         model: {
             defaults: {
                 name: compName,
+                classes: ['content-wrapper'],
                 droppable: false,
                 highlightable: false,
                 savable: true,
@@ -25,6 +26,12 @@ window.gjsWrapper = function (editor, options) {
                 // Initial handling of datastore data
                 setTimeout(() => {
                     this.handle_datastore_data();
+                }, 100);
+
+                // Add class to body for single-[cpt] page styling
+                setTimeout(() => {
+                    const canvas = editor.Canvas;
+                    canvas.getBody()?.classList.add('single-'+BUILDER_GLOBALS.context.post.posttype);
                 }, 100);
             },
             custom_datastore_change_callback(changed) {

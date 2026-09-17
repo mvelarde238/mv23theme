@@ -32,7 +32,7 @@ $preview_file_url = Posts_Subscription::maybe_obfuscate_link( $subscribe_to_cont
 $download_file_url = Posts_Subscription::maybe_obfuscate_link( $subscribe_to_continue, $_args['file_url'], 'subscribe-to-download', $post->ID);
 ?>
 
-<div id="content">
+<div id="content" class="content-wrapper">
 	<div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
 		<main class="main">
             <div class="single-document__content-wrapper">

@@ -5,7 +5,7 @@
  */
 get_header(); ?>
 
-<div id="content">
+<div id="content" class="content-wrapper">
     <div id="main-content" class="main-content  container main-content--sidebar-left">
         <main class="main">
             <?php if (have_posts()) : while (have_posts()) : the_post(); ?>

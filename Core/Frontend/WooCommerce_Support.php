@@ -23,7 +23,7 @@ class WooCommerce_Support{
         $main_content_classes = array('main-content','container');
         if(is_archive() && is_active_sidebar('shop_sidebar')) array_push($main_content_classes,'main-content--sidebar-left');
         ?>
-        <div id="content">
+        <div id="content" class="content-wrapper">
             <div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
                 <main class="main">
         <?php
