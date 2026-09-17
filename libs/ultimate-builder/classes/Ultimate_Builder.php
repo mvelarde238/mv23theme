@@ -295,10 +295,14 @@ class Ultimate_Builder {
 
 		foreach( $this->get_gjs_plugins() as $plugin) {
 			if( isset( $plugin['isExternal'] ) && $plugin['isExternal'] === true ) {
-				if( BUILDER_DEV_MODE ){
-					$script_url = 'http://builder.lo/' . $plugin['handler'] . '/dist/index.js';
+				if( isset( $plugin['url'] ) && !empty( $plugin['url'] ) ){
+					$script_url = $plugin['url'];
 				} else {
-					$script_url = ASSETS_PATH . '/js/gjs-plugins/' . $plugin['handler'] . '.js';
+					if( BUILDER_DEV_MODE ){
+						$script_url = 'http://builder.lo/' . $plugin['handler'] . '/dist/index.js';
+					} else {
+						$script_url = ASSETS_PATH . '/js/gjs-plugins/' . $plugin['handler'] . '.js';
+					}
 				}
 
 				if( isset( $plugin['hasCss'] ) && $plugin['hasCss'] === true ) {

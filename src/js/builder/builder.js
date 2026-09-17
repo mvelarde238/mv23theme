@@ -41,7 +41,7 @@
                 builderInstance: that,
                 plugins: [...plugins, ...React_Builder_Plugins],
                 pluginsOpts: {
-                    [window['gjs-context-menu'].default]: window['contextMenuOpts']
+                    [window['gjsContextMenu'].default]: window['contextMenuOpts']
                 },
                 customTopbarButtonsAfter: [
                     {
@@ -164,16 +164,9 @@
 
             const customPlugins = this.args.gjs_plugins || [];
             customPlugins.forEach( plugin => {
-                if (plugin.isExternal) {
-                    const externalPlugin = window[plugin.handle];
-                    if (externalPlugin) {
-                        plugins.push(externalPlugin?.default || externalPlugin);
-                    }
-                } else {
-                    const pluginObj = window[plugin.name];
-                    if (pluginObj) {
-                        plugins.push(pluginObj);
-                    }
+                const pluginInstance = window[plugin.name];
+                if (pluginInstance) {
+                    plugins.push(pluginInstance?.default || pluginInstance);
                 }
             });
 

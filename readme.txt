@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.18 26-09-17
+- Updated gjs-plugins to set its library names to its respective plugin names
+
 3.15.17 26-09-15
 - Added hide_empty option to taxonomy filters in the listing filter component
 - Fixed issue with flip box component ID handling for silent updates
