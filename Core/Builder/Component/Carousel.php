@@ -187,20 +187,7 @@ class Carousel extends Component {
         }
 
         // add slider UID if not already set
-        $slider_uid_set = false;
-        foreach( $args['slider_settings'] as $setting ){
-            if( isset($setting['__type']) && $setting['__type'] === 'slider_uid' ){
-                $slider_uid_set = true;
-                break;
-            }
-        }
-        if( !$slider_uid_set ){
-            $args['slider_settings'][] = array(
-                '__type' => 'slider_uid',
-                'property' => 'slider_uid',
-                'value' => uniqid('slider_')
-            );
-        }
+        self::create_slider_uid_on_the_fly( $args );
 
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
@@ -340,6 +327,24 @@ class Carousel extends Component {
             return ob_get_clean();
         }
         return '';
+    }
+
+    static function create_slider_uid_on_the_fly( &$args ){
+        // add slider UID if not already set
+        $slider_uid_set = false;
+        foreach( $args['slider_settings'] as $setting ){
+            if( isset($setting['__type']) && $setting['__type'] === 'slider_uid' ){
+                $slider_uid_set = true;
+                break;
+            }
+        }
+        if( !$slider_uid_set ){
+            $args['slider_settings'][] = array(
+                '__type' => 'slider_uid',
+                'property' => 'slider_uid',
+                'value' => uniqid('slider_')
+            );
+        }
     }
 }
 

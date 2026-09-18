@@ -276,6 +276,9 @@ class Listing extends Component {
         $listing_uid = $args['listing_uid'] ?? 'listing-'.uniqid();
         $args['additional_attributes']['data-listing-uid'] = esc_attr( $listing_uid );
 
+        // add slider UID if not already set
+        Carousel::create_slider_uid_on_the_fly( $args );
+
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
         
