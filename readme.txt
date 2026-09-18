@@ -4,6 +4,7 @@ CHANGELOG
 
 3.15.19
 - Added create_slider_uid_on_the_fly method to Carousel component to automatically generate a unique slider UID if not set
+- Added width to featured-media component to handle aspect ratio for media elements
 
 3.15.18 26-09-17
 - Updated gjs-plugins to set its library names to its respective plugin names
