@@ -17,7 +17,11 @@
  * 
  * [x] 4. Condicionales con comparación  →  {{#if post.meta.precio >/==/<=/etc. 100}}Caro{{else}}Barato{{/if}}
  *
- * [ ] 5. Loops sobre post meta arrays  →  {{#each post.meta.galeria}}<img src="{{this.url}}">{{/each}}
+ * [x] 5. Formato de fechas  →  {{post.date_raw|date_format}} → "Oct, 2026" (usa 'M, Y' por defecto)
+ *         {{post.date_raw|date_format:Y}}, {{post.meta.alguna_fecha|date_format:d/m/Y}}, etc. (tokens de PHP date(), respeta locale vía wp_date()).
+ *         post.date_raw es la fecha del post en formato ISO 'Y-m-d', pensado para usarse con este filtro (reemplaza a date_parts).
+ *
+ * [ ] 6. Loops sobre post meta arrays  →  {{#each post.meta.galeria}}<img src="{{this.url}}">{{/each}}
  *         Útil con ACF/UF repeaters. Requiere parser más elaborado.
  */
 namespace Ultimate_Fields\Ultimate_Builder;
@@ -79,11 +83,7 @@ class Handlebars{
 				'posttype'   => $post_type,
 				'thumbnail'  => get_the_post_thumbnail_url( $context_post_id, 'full' ) ?: $no_thumbnail,
 				'date'       => get_the_date( '', $context_post_id ),
-				'date_parts' => array(
-					'year'  => get_the_date( 'Y', $context_post_id ),
-					'month' => get_the_date( 'm', $context_post_id ),
-					'day'   => get_the_date( 'd', $context_post_id ),
-				),
+				'date_raw'   => get_the_date( 'Y-m-d', $context_post_id ), // ISO date, meant for use with the date_format filter
 				'meta'       => array(),
 				'taxonomies' => array(),
 			),
@@ -217,6 +217,18 @@ class Handlebars{
 			case 'join':
 				// join on a scalar is a no-op (nothing to join)
 				return $value;
+			case 'date_format': {
+				// date_format[:format] — expects value as 'Y-m-d'; format uses PHP date() tokens, defaults to 'M, Y'
+				$date = \DateTime::createFromFormat( 'Y-m-d', $value );
+				if ( ! $date ) {
+					return $value; // not a recognizable date, leave untouched
+				}
+				$format = $arg !== null ? trim( $arg ) : 'M, Y';
+				if ( preg_match( "/^['\"](.*)['\"]\$/", $format, $m ) ) {
+					$format = $m[1];
+				}
+				return wp_date( $format, $date->getTimestamp() ); // wp_date() localizes month/day names to the site's active locale
+			}
 			default:
 				return $value;
 		}

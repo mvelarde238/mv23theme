@@ -63,6 +63,31 @@ window['Handlebars'] = (function(){
             case 'join':
                 // join on a scalar is a no-op (nothing to join)
                 return value;
+            case 'date_format': {
+                // date_format[:format] — expects value as 'Y-m-d'; format uses PHP date()-style tokens, defaults to 'M, Y'
+                const parts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+                if (!parts) return value; // not a recognizable date, leave untouched
+                const date = new Date(Number(parts[1]), Number(parts[2]) - 1, Number(parts[3]));
+                if (isNaN(date.getTime())) return value;
+
+                let format = arg !== null ? arg.trim() : 'M, Y';
+                const literalMatch = format.match(/^['"](.*)['"]\s*$/);
+                if (literalMatch) format = literalMatch[1];
+
+                const locale = (typeof BUILDER_GLOBALS !== 'undefined' && BUILDER_GLOBALS.locale) ? BUILDER_GLOBALS.locale.replace('_', '-') : 'es';
+                const tokens = {
+                    Y: () => String(date.getFullYear()),
+                    y: () => String(date.getFullYear()).slice(-2),
+                    F: () => new Intl.DateTimeFormat(locale, { month: 'long' }).format(date),
+                    M: () => new Intl.DateTimeFormat(locale, { month: 'short' }).format(date).replace('.', ''),
+                    m: () => String(date.getMonth() + 1).padStart(2, '0'),
+                    n: () => String(date.getMonth() + 1),
+                    d: () => String(date.getDate()).padStart(2, '0'),
+                    j: () => String(date.getDate()),
+                };
+                // Only PHP date() tokens supported here are replaced; other characters pass through unchanged.
+                return format.replace(/[YyFMmndj]/g, (t) => (tokens[t] ? tokens[t]() : t));
+            }
             default:
                 return value;
         }
