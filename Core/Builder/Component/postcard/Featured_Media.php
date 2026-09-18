@@ -20,7 +20,8 @@ class Featured_Media extends Component {
 
     public static function get_builder_data() {
         return array(
-            'posttypes' => array('postcard'),
+            'posttypes' => array('single_template','postcard'),
+            'block_category' => 'template_parts',
             'custom_datastore_change_callback' => true
 		);
     }
