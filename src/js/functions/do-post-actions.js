@@ -5,10 +5,11 @@
  * @param {*} postcard 
  * @param {*} count_wrapper 
  * @param {*} restrict_in_session if true, check session storage to prevent multiple actions
+ * @param {*} eventTrigger the DOM element that triggered the event
  * @return void
  */
 
-function do_post_action(action_key, post_id, postcard = null, count_wrapper = null, restrict_in_session = false) {
+function do_post_action(action_key, post_id, postcard = null, count_wrapper = null, restrict_in_session = false, eventTrigger = null) {
     const action_session = action_key + '-' + post_id,
         events_detail = { post_id: post_id, postcard: postcard };
 
@@ -27,12 +28,14 @@ function do_post_action(action_key, post_id, postcard = null, count_wrapper = nu
             nonce: MV23_GLOBALS.nonce
         },
         beforeSend: function () {
+            if (eventTrigger) $(eventTrigger).addClass('processing');
             if (count_wrapper) $(count_wrapper).parent().addClass('processing');
             let loading_event = new CustomEvent(action_key + '_loading', { detail: events_detail });
             document.body.dispatchEvent(loading_event);
         },
         success: function (response) {
-            $(count_wrapper).parent().removeClass('processing');
+            if (eventTrigger) $(eventTrigger).removeClass('processing');
+            if (count_wrapper) $(count_wrapper).parent().removeClass('processing');
             if (response.success) {
                 if (count_wrapper) $(count_wrapper).text(response.data);
                 if (restrict_in_session) sessionStorage.setItem(action_session, '1');
