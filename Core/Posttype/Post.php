@@ -111,36 +111,26 @@ class Post {
         return $permalink;
     }
 
-    public function get_featured_video($post) {
-        $featured_video = null;
+    public function get_featured_video_data($post) {
+        $video_data = array(
+            'has_video' => false,
+            'source' => '',
+            'video' => '',
+            'external_url' => ''
+        );
         $use_featured_video = get_post_meta($post->ID, 'use_featured_video', true);
         if ($use_featured_video) {
+            $video_data['has_video'] = true;
             $featured_video_source = get_post_meta($post->ID, 'featured_video_source', true);
-            $video_meta_data = ($featured_video_source == 'selfhosted') ? 'featured_video' : 'featured_video_url';
-            $video_data = get_post_meta($post->ID, $video_meta_data, true);
-
-            $video_settings = array(
-                'video_source' => $featured_video_source,
-                'classes' => 'video-background',
-                'controls' => false,
-                'muted' => true,
-                'autoplay' => true,
-                'loop' => true,
-                'bgc' => '#000'
-            );
+            $video_data['source'] = $featured_video_source;
 
             if ($featured_video_source == 'selfhosted') {
-                $video_settings['video'] = $video_data;
+                $video_data['video'] = get_post_meta($post->ID, 'featured_video', true);
             }
             if ($featured_video_source == 'external') {
-                $video_settings['external_url'] = $video_data;
-            }
-
-            $video_data = Video::get_video_data($video_settings);
-            if( !empty($video_data['code']) ) {
-                $featured_video = $video_data['code'];
+                $video_data['external_url'] = get_post_meta($post->ID, 'featured_video_url', true);
             }
         }
-        return $featured_video;
+        return $video_data;
     }
 }

@@ -35,7 +35,11 @@ Class Video{
                     $poster = ( $videos['poster'] ) ? wp_get_attachment_url( $videos['poster'] ) : null;
                     $video_data['url'] = $video_url;
                     $video_data['code'] = '<video ';
-                    if( $video_settings['classes'] ) $video_data['code'] .= ' class="'.$video_settings['classes'].'"';
+
+                    $video_settings_classes = ( is_array($video_settings['classes']) ) ? implode(' ', $video_settings['classes']) : $video_settings['classes'];
+                    // error_log($video_settings_classes);
+
+                    if( $video_settings['classes'] ) $video_data['code'] .= ' class="'.$video_settings_classes.'"';
                     if( $video_settings['controls'] ) $video_data['code'] .= ' controls';
                     if( $video_settings['muted'] ) $video_data['code'] .= ' muted';
                     if( $video_settings['loop'] ) $video_data['code'] .= ' loop';
@@ -71,6 +75,12 @@ Class Video{
 
                 $video_data['code'] = wp_oembed_get( $video_url, $video_args );
             }
+        }
+
+        // if there isn't a video, show a placeholder
+        if( !$video_data['code'] ){
+            $video_data['code'] = '<img class="no-video" src="'.get_stylesheet_directory_uri().'/assets/images/novideo.jpg" />';
+            $video_data['video'] = array( "videos" => array() );
         }
 
     	return $video_data;

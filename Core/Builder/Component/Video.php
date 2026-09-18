@@ -144,7 +144,8 @@ class Video extends Component {
 
         $args['additional_classes'][] = $video_source;
 
-        $attachment = ($video_source === 'selfhosted') ? get_post( $args['video']['videos'][0] ): null;
+        $video_id = ($video_source === 'selfhosted' && isset($args['video']['videos'][0])) ? $args['video']['videos'][0] : null;
+        $attachment = ($video_source === 'selfhosted') ? get_post( $video_id ): null;
         $caption = ($attachment) ? $attachment->post_excerpt : null;
         
         $attributes = Template_Engine::generate_attributes( $args );

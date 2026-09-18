@@ -27,7 +27,7 @@ $_args = apply_filters( 'filter_postcard', $postcard_args, $post, $args );
 <div class="postcard postcard--<?php echo $_args['style']; ?>" <?php echo $_args['attributes'] ?>>
 	<div class="postcard__content-wrapper">
 		<a href="<?=$_args['permalink']?>" class="postcard__image <?=$_args['permalink_class']?>" <?php if($_args['permalink_target']) echo 'target="'.$_args['permalink_target'].'"'; ?> style="background-image:url(<?=$_args['thumbnail']?>);">
-			<?php if($_args['featured_video']) echo $_args['featured_video']; ?>
+			<?php if($_args['featured_video']['has_video']) echo $_args['featured_video']['code']; ?>
 		</a>
 		<div class="postcard__content">
 			<h2 class="postcard__title">

@@ -4,6 +4,7 @@ namespace Core\Frontend;
 use Core\Theme_Options\UF_Container\Posts_Subscription;
 use Core\Posttype\Post;
 use Core\Utils\Helpers;
+use Core\Builder\Component\Video;
 
 class Post_Card {
     public function __construct() {}
@@ -75,8 +76,23 @@ class Post_Card {
     }
 
     public static function get_featured_video($post) {
-        $featured_video = Post::getInstance()->get_featured_video($post);
-        return $featured_video;
+        $featured_video_data = Post::getInstance()->get_featured_video_data($post);
+
+        if ( $featured_video_data['has_video'] ) {
+            $args = array(
+                '__type' => 'video-component',
+                'additional_classes' => array('video-background'),
+                'controls' => false,
+                'muted' => true,
+                'autoplay' => true,
+                'loop' => true,
+                'bgc' => '#000'
+            );
+            $video_args = array_merge($args, $featured_video_data);
+            $featured_video_data['code'] = Video::display( $video_args );
+        }
+
+        return $featured_video_data;
     }
 
     public static function display_terms($terms, $separator = '') {

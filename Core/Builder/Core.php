@@ -76,6 +76,7 @@ class Core{
             'Archive_Posts',
             'Sidebar',
             'Post_Title',
+            'Featured_Media',
             'Post_Content',
             'Social_Share',
             'Related_Posts',
@@ -98,7 +99,6 @@ class Core{
         ),
         'postcard' => array(
             'Postcard',
-            'Featured_Media',
             'Postcard_Trigger',
         ),
     );

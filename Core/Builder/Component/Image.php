@@ -130,16 +130,15 @@ class Image extends Component {
         if( Template_Engine::is_restricted( $args ) ) return;
         
 		$args['additional_classes'][] = 'media';
-
-        $attachment = false;
-        $image_source = $args['image_source'] ?? 'selfhosted';
         
-        if( $image_source == 'selfhosted' ){
-            if( $args['image'] ) {
-                $attachment = get_post( $args['image'] );
-                // do this to get the correct URL when theme has support for webp:
-                if( $attachment ) $attachment->guid = wp_get_attachment_image_url($args['image'], 'full');
-            }
+        // generate the attachment object based on the image source
+        $image_source = $args['image_source'] ?? 'selfhosted';
+        $attachment = false;
+
+        if( $image_source == 'selfhosted' && $args['image'] ){
+            $attachment = get_post( $args['image'] );
+            // do this to get the correct URL when theme has support for webp:
+            if( $attachment ) $attachment->guid = wp_get_attachment_image_url($args['image'], 'full');
         }
 
         if( $image_source == 'external' && $args['external_image'] ){
@@ -159,12 +158,12 @@ class Image extends Component {
             $args['additional_classes'][] = 'no-image';
         }
 
+        // populate attachment data
         $alt = get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true);
         $title = $attachment->post_title;
         $src = $attachment->guid;
-        // $href = get_permalink( $attachment->ID );
 
-        // set caption
+        // populate caption based on caption source
         $caption_source = $args['caption_source'] ?? 'global';
         $custom_caption = $args['custom_caption'] ?? '';
         if( $caption_source == 'custom' ){
@@ -172,6 +171,7 @@ class Image extends Component {
         }
         $caption = $attachment->post_excerpt ?? '';
         
+        // set additional attributes for the image element
         if( !empty($src) ) $args['additional_attributes']['src'] = esc_url($src);
         if( !empty($alt) ) $args['additional_attributes']['alt'] = esc_attr($alt);
         if( !empty($title) ) $args['additional_attributes']['title'] = esc_attr($title);
