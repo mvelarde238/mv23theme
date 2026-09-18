@@ -79,6 +79,11 @@ class Handlebars{
 				'posttype'   => $post_type,
 				'thumbnail'  => get_the_post_thumbnail_url( $context_post_id, 'full' ) ?: $no_thumbnail,
 				'date'       => get_the_date( '', $context_post_id ),
+				'date_parts' => array(
+					'year'  => get_the_date( 'Y', $context_post_id ),
+					'month' => get_the_date( 'm', $context_post_id ),
+					'day'   => get_the_date( 'd', $context_post_id ),
+				),
 				'meta'       => array(),
 				'taxonomies' => array(),
 			),

@@ -7,6 +7,7 @@ CHANGELOG
 - Added single-[cpt] class to canvas body for better styling of single custom post type pages
 - Added .content-wrapper class to #content and wrapper gjs-component for consistent styling
 - Added eventTrigger parameter to do_post_action function to track the DOM element that triggered the action
+- Added date_parts array to the post context, providing separate year, month, and day values for better date handling in templates
 
 3.15.17 26-09-15
 - Added hide_empty option to taxonomy filters in the listing filter component
