@@ -28,9 +28,10 @@ window.gjsWrapper = function (editor, options) {
                     this.handle_datastore_data();
                 }, 100);
 
-                // Add class to body for single-[cpt] page styling
+                // Add class to body for page-[ID] and single-[cpt] page styling
                 setTimeout(() => {
                     const canvas = editor.Canvas;
+                    canvas.getBody()?.classList.add('page-id-'+BUILDER_GLOBALS.post_id);
                     canvas.getBody()?.classList.add('single-'+BUILDER_GLOBALS.context.post.posttype);
                 }, 100);
             },
