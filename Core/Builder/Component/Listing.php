@@ -11,6 +11,7 @@ use Core\Builder\Core;
 use Core\Frontend\Listing_Data_Provider;
 use Core\Builder\Slider_Settings;
 use Core\Builder\Component\Carousel;
+use Ultimate_Fields\Container\Repeater_Group;
 
 class Listing extends Component {
 
@@ -30,6 +31,82 @@ class Listing extends Component {
             'block_render_type' => 'listing',
             'custom_datastore_change_callback' => true
 		);
+    }
+
+    private static function get_meta_queries_fields(){
+        $relation_group = new Repeater_Group( 'relation' );
+        $relation_group->set_title(__('Relation','mv23theme'));
+        $relation_group->set_maximum( 1 );
+        $relation_group->add_fields(array(
+            Field::create( 'radio', 'relation' )->set_orientation( 'horizontal' )->add_options(array(
+                'AND' => __('AND','mv23theme'),
+                'OR' => __('OR','mv23theme')
+            ))->hide_label()
+        ));
+
+        $meta_query_group = new Repeater_Group( 'meta_query' );
+        $meta_query_group->set_title(__('Meta Query','mv23theme'));
+        $meta_query_group->add_fields(array(
+            Field::create( 'text', 'key' )->hide_label()->set_prefix(__('Meta Key','mv23theme')),
+            Field::create( 'select', 'compare' )->hide_label()->set_prefix(__('Compare','mv23theme'))
+                ->add_options(array(
+                    '' => '', 
+                    '=' => __('Equal','mv23theme'),
+                    '!=' => __('Not Equal','mv23theme'),
+                    '>' => __('Greater Than','mv23theme'),
+                    '>=' => __('Greater Than or Equal','mv23theme'),
+                    '<' => __('Less Than','mv23theme'),
+                    '<=' => __('Less Than or Equal','mv23theme'),
+                    'IN' => __('In','mv23theme'),
+                    'NOT IN' => __('Not In','mv23theme'),
+                    'BETWEEN' => __('Between','mv23theme'),
+                    'NOT BETWEEN' => __('Not Between','mv23theme'),
+                    'LIKE' => __('Like','mv23theme'),
+                    'NOT LIKE' => __('Not Like','mv23theme'),
+                    'REGEXP' => __('Regexp','mv23theme'),
+                    'NOT REGEXP' => __('Not Regexp','mv23theme'),
+                    'RLIKE' => __('Rlike','mv23theme'),
+                    'EXISTS' => __('Exists','mv23theme'),
+                    'NOT EXISTS' => __('Not Exists','mv23theme'),
+                )),
+            Field::create( 'text', 'value' )->hide_label()->set_prefix(__('Meta Value','mv23theme'))
+                ->add_suggestions( array( '@today', '@+1 day', '@-1 day', '@+1 week', '@-1 week', '@first day of this month', '@last day of this month' ) ),
+            Field::create( 'select', 'type' )->hide_label()->set_prefix(__('Type','mv23theme'))
+                ->add_options(array(
+                    '' => '',
+                    'NUMERIC' => __('Numeric','mv23theme'),
+                    'BINARY' => __('Binary','mv23theme'),
+                    'CHAR' => __('Char','mv23theme'),
+                    'DATE' => __('Date','mv23theme'),
+                    'DATETIME' => __('Datetime','mv23theme'),
+                    'DECIMAL' => __('Decimal','mv23theme'),
+                    'SIGNED' => __('Signed','mv23theme'),
+                    'TIME' => __('Time','mv23theme'),
+                    'UNSIGNED' => __('Unsigned','mv23theme')
+                ))
+        ));
+
+        $grouped_queries_group = new Repeater_Group('grouped_queries' );
+        $grouped_queries_group->set_title(__('Grouped Queries','mv23theme'));
+        $grouped_queries_group->add_fields(array(
+            Field::create( 'repeater', 'grouped_queries' )
+                ->set_chooser_type('tags')
+                ->set_add_text( __('Add grouped query','mv23theme') )
+                ->hide_label()
+                ->add_group( $relation_group )
+                ->add_group( $meta_query_group )
+        ));
+
+        return array(
+            Field::create( 'tab', 'meta_queries_tab', __('Meta Queries','mv23theme')),
+            Field::create( 'repeater', 'meta_queries' )
+                ->set_chooser_type('tags')
+                ->set_add_text( __('Add meta query','mv23theme') )
+                ->hide_label()
+                ->add_group( $relation_group )
+                ->add_group( $meta_query_group )
+                ->add_group( $grouped_queries_group )
+        );
     }
 
 	public static function get_fields() {
@@ -96,7 +173,7 @@ class Listing extends Component {
         $width_25 = 'width: 25%; min-width: initial;';
         $width_50 = 'width: 50%; min-width: initial;';
 
-        $listing_fields_2 = array(
+        $query_settings_fields = array(
             Field::create( 'tab', 'query_settings_tab', __('Query Settings','mv23theme')),
             Field::create( 'complex', 'query_params', '' )->add_fields(array(
                 Field::create( 'number', 'posts_per_page', __('Number of posts','mv23theme') )->set_default_value(3)->set_attr('style', $width_50),
@@ -128,14 +205,17 @@ class Listing extends Component {
                     'inherit' => __('Inherit','mv23theme'),
                     'trash' => __('Trash','mv23theme')
                 ))->add_dependency('set_post_status')->hide_label()
-            ))->add_dependency('source','auto','='),
+            ))->add_dependency('source','auto','=')
+        );
 
+        $meta_queries_fields = self::get_meta_queries_fields();
+
+        $listing_template_fields = array(
             Field::create( 'tab', 'listing_template_tab', __('Listing Template','mv23theme')),
             Field::create( 'select', 'listing_template', 'Template' )->add_options(LISTING_TEMPLATES)
         );
-
         if( !MASONRY_IS_ACTIVE ){
-            $listing_fields_2[] = Field::create( 'message', 'masonry_message', __('Activate Masonry','mv23theme') )
+            $query_settings_fields[] = Field::create( 'message', 'masonry_message', __('Activate Masonry','mv23theme') )
                 ->set_description('You need to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')
                 ->add_dependency('listing_template', 'masonry', '=')
                 ->set_attr( 'style', 'background:#ffe8e8;width:100%;' );
@@ -207,7 +287,15 @@ class Listing extends Component {
             Field::create( 'checkbox', 'pagination_scrolltop', '' )->set_text(__('Scroll to top','mv23theme'))->add_dependency('pagination_type','numeric','='),
         );
 
-		$fields = array_merge( $listing_fields_1, $listing_fields_2, $listing_fields_3, $postcard_fields, $pagination_fields );
+		$fields = array_merge( 
+            $listing_fields_1, 
+            $query_settings_fields, 
+            $meta_queries_fields, 
+            $listing_template_fields, 
+            $listing_fields_3, 
+            $postcard_fields, 
+            $pagination_fields 
+        );
 
 		return $fields;
 	}
