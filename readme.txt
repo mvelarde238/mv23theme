@@ -4,6 +4,7 @@ CHANGELOG
 
 3.15.20 26-09-19
 - Meta queries support added to Listing component
+- Added posts_count shortcode to display the number of published posts for a given post type
 
 3.15.19 26-09-18
 - Added create_slider_uid_on_the_fly method to Carousel component to automatically generate a unique slider UID if not set

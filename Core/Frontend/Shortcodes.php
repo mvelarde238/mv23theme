@@ -12,6 +12,7 @@ class Shortcodes{
         get_template_part( 'partials/shortcodes/social-share' );
         get_template_part( 'partials/shortcodes/archive-title' );
         get_template_part( 'partials/shortcodes/counter' );
+        get_template_part( 'partials/shortcodes/posts-count' );
 
         if (IS_MULTILANGUAGE) {
         	get_template_part( 'partials/shortcodes/idiomas' );
