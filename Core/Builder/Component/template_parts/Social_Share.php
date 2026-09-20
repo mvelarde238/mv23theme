@@ -20,7 +20,7 @@ class Social_Share extends Component {
 
     public static function get_builder_data() {
         return array(
-            'posttypes' => array('single_template')
+            'posttypes' => array('single_template', 'offcanvas_element')
 		);
     }
 
@@ -57,7 +57,20 @@ class Social_Share extends Component {
             Field::create( 'icon', 'more_icon', __('More Icon', 'mv23theme') )
                 ->add_set( 'bootstrap-icons' )
                 ->add_set( 'font-awesome' )
-                ->set_default_value( 'bi-three-dots' ),
+                ->set_default_value( 'bi-three-dots' )->set_width( 50 ),
+
+            Field::create( 'select', 'alignment', __('Alignment', 'mv23theme') )
+                ->add_options(array(
+                    'left' => __('Left', 'mv23theme'),
+                    'center' => __('Center', 'mv23theme'),
+                    'right' => __('Right', 'mv23theme')
+                ))
+                ->set_default_value('left')
+                ->set_width( 50 ),
+
+            Field::create( 'number', 'limit', __('Limit', 'mv23theme') )
+                ->set_default_value( self::$limit )
+                ->set_width( 50 ),
         );
 		return $fields;
 	}
