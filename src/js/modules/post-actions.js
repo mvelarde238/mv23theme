@@ -6,7 +6,7 @@
                 post_id = null,
                 postcard = null,
                 count_wrapper = null,
-                eventTrigger = event.target;
+                eventTrigger = event.currentTarget;
 
             if (MV23_GLOBALS.isSingle) {
                 post_id = MV23_GLOBALS.pageID;
@@ -25,7 +25,7 @@
                 post_id = null,
                 postcard = null,
                 count_wrapper = null,
-                eventTrigger = event.target;
+                eventTrigger = event.currentTarget;
 
             if( MV23_GLOBALS.isSingle ){
                 post_id = MV23_GLOBALS.pageID;
@@ -44,7 +44,7 @@
                 post_id = null,
                 postcard = null,
                 count_wrapper = null,
-                eventTrigger = event.target;
+                eventTrigger = event.currentTarget;
 
             if( MV23_GLOBALS.isSingle ){
                 post_id = MV23_GLOBALS.pageID;

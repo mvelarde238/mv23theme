@@ -9,6 +9,7 @@ CHANGELOG
 - gjs-video plugin updated to sset `droppable` to `false` for video components
 - Featured Media Component updated to exclude caption fields and use {{post.thumbnail}} as the default image source
 - Added alignment option to Social Share component for better control over buttons positioning
+- Fixed issue with eventTrigger parameter not being set correctly in post actions
 
 3.15.19 26-09-18
 - Added create_slider_uid_on_the_fly method to Carousel component to automatically generate a unique slider UID if not set
