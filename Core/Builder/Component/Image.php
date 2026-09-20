@@ -49,7 +49,7 @@ class Image extends Component {
             Field::create( 'checkbox', 'expand_on_click', __('Expand on click','mv23theme') )->fancy()
                 ->set_text( __( 'Show the image in a popup.', 'mv23theme' ) ),
     
-            Field::create( 'tab', __('Caption','mv23theme') ),
+            Field::create( 'tab', 'caption_tab', __('Caption','mv23theme') ),
             Field::create( 'radio', 'caption_source', __('Source','mv23theme'))
                 ->set_default_value( 'global' )
                 ->set_orientation( 'horizontal' )
@@ -62,7 +62,7 @@ class Image extends Component {
             Field::create( 'text', 'custom_caption' )
                 ->hide_label()->add_dependency( 'caption_source', 'custom', '=' ),
             
-            Field::create( 'tab', __('Aspect Ratio','mv23theme') ),
+            Field::create( 'tab', 'aspect_ratio_tab', __('Aspect Ratio','mv23theme') ),
             Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )
                 ->set_description( __('Select a predefined aspect ratio (width / height) or set a custom one.', 'mv23theme') )
                 ->hide_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(

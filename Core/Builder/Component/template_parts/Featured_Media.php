@@ -28,8 +28,25 @@ class Featured_Media extends Component {
     }
 
     public static function get_fields() {
-        $fields = Image::get_fields();
+        $fields = array();
 
+        # Add Image fields
+		$image_fields = Image::get_fields();
+		$exclude = ['caption_tab','caption_source','custom_caption'];
+		foreach ( $image_fields as $field ) {
+			if( in_array( $field->get_name(), $exclude ) ) continue;
+
+			if( $field->get_name() === 'image_source' ){
+                $field->set_default_value( 'external' );
+            }
+            if( $field->get_name() === 'external_image' ){
+                $field->set_default_value( '{{post.thumbnail}}' );
+            }
+
+			$fields[] = $field;
+		}
+
+        # Add video_settings
         $control_css = 'width:50%;min-width:auto;flex-grow:initial;';
         $fields[] = Field::create( 'tab', __('Video Settings','mv23theme') );
         $fields[] = Field::create( 'complex', 'video_settings' )->hide_label()->add_fields(array(
