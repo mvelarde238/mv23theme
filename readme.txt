@@ -6,6 +6,7 @@ CHANGELOG
 - Meta queries support added to Listing component
 - Added posts_count shortcode to display the number of published posts for a given post type
 - Added page-id-[ID] class to canvas body for better styling of individual pages
+- gjs-video plugin updated to sset `droppable` to `false` for video components
 
 3.15.19 26-09-18
 - Added create_slider_uid_on_the_fly method to Carousel component to automatically generate a unique slider UID if not set
