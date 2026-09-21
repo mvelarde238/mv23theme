@@ -4,6 +4,7 @@ CHANGELOG
 
 3.15.21
 - Gallery component updated to include responsive gutter-fix for margins and widths defined in the SASS file
+- Added overflow: hidden to icon-box component to handle image corner cases
 
 3.15.20 26-09-19
 - Meta queries support added to Listing component
