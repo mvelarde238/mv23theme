@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.15.21
+- Gallery component updated to include responsive gutter-fix for margins and widths defined in the SASS file
+
 3.15.20 26-09-19
 - Meta queries support added to Listing component
 - Added posts_count shortcode to display the number of published posts for a given post type

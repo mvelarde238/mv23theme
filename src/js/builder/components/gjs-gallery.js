@@ -10,7 +10,9 @@ window.gjsGallery = function (editor) {
     let config = editor.getConfig();
     config.canvasCss = config.canvasCss || '';
     config.canvasCss += `.theme-gallery-comp {width: 100%;}`;
-    config.canvasCss += `.theme-gallery--grid {margin: 0 !important;}`; // Fix a bug where GridStack expand over the component
+    // Fix a bug where GridStack expand over the component:
+    // commented to avoid overriding the responsive "gutter-fix" (margins and widths) defined in the SASS file
+    // config.canvasCss += `.theme-gallery--grid {margin: 0 !important;}`; 
     config.canvasCss += `.theme-gallery .grid-stack-item a {pointer-events: none;}`;
     editor.canvasCss = config.canvasCss;
 

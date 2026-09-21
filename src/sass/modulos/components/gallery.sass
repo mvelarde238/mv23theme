@@ -26,6 +26,18 @@
 
 /* GridStack layout styles */
 .theme-gallery--grid
+    margin: calc( (var(--d-gap) / 2) * -1 )
+    width: calc(100% + var(--d-gap))
+    @media #{$large-only}
+        margin: calc( (var(--l-gap) / 2) * -1 )
+        width: calc(100% + var(--l-gap))
+    @media #{$medium-only}
+        margin: calc( (var(--t-gap) / 2) * -1 )
+        width: calc(100% + var(--t-gap))
+    @media #{$small-and-down}
+        margin: calc( (var(--m-gap) / 2) * -1 )
+        width: calc(100% + var(--m-gap))
+
     .grid-stack-item
         img, video, iframe, .media__element
             object-fit: cover
@@ -37,17 +49,3 @@
     .ui-resizable-sw
         background-color: #fff
         border-radius: 50%
-
-    // not working on columns??
-    // @media #{$extra-large-and-up}
-    //     margin: calc(var(--d-gap) / 2)
-    // @media #{$large-only}
-    //     margin: calc(var(--l-gap) / 2)
-    // @media #{$medium-only}
-    //     margin: calc(var(--t-gap) / 2)
-    // @media #{$small-and-down}
-    //     margin: calc(var(--m-gap) / 2)
-
-    .theme-gallery-comp:has(&)
-        border: 1px solid #cfcfcf
-        border-radius: 4px
