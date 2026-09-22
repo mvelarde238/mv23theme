@@ -1,0 +1,13 @@
+.icon-box
+    line-height: 0
+    &:has(img)
+        overflow: hidden // to handle img corner cases
+    img, svg
+        max-width: fit-content
+        height: 1em
+    i
+        width: 1em
+        aspect-ratio: 1/1
+        display: inline-flex
+        align-items: center
+        justify-content: center

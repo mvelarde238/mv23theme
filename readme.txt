@@ -4,6 +4,7 @@ CHANGELOG
 
 3.15.22 26-09-22
 - Excluded meta_queries_tab and meta_queries fields from the Archive Posts component listing fields
+- Added &:has(img) selector to icon-box component to handle image corner cases
 
 3.15.21 26-09-21
 - Gallery component updated to include responsive gutter-fix for margins and widths defined in the SASS file
