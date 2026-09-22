@@ -31,6 +31,37 @@ class Gallery extends Component {
 	public static function get_fields() {
 		$fields = array();
 
+        // content fields
+        $sources = apply_filters('filter_gallery_sources', array(
+            'manual' => __('Select Images', 'mv23theme'),
+            'placeholders' => __('Placeholders', 'mv23theme'),
+        ));
+
+        $fields[] = Field::create( 'tab', __('Content','mv23theme') );
+        $fields[] = Field::create( 'radio', 'source', __('Source', 'mv23theme'))
+            ->set_default_value('manual')
+            ->set_orientation('horizontal')
+            ->add_options( $sources );
+        $fields[] = Field::create( 'number', 'placeholders_quantity', __('Number of images', 'mv23theme') )
+            ->set_default_value(GALLERY_PLACEHOLDERS_QUANTITY)
+            ->add_dependency('source', 'placeholders', '=')
+            ->set_width(50);
+        $fields[] = Field::create( 'select', 'placeholders_source', __('Source', 'mv23theme') )
+            ->add_options( array(
+                'dummy-content' => 'Dummy Content',
+                'picsum' => 'Picsum',
+                'unsplash' => 'Unsplash',
+                'placehold' => 'Placehold',
+            ))
+            ->set_default_value('dummy-content')
+            ->add_dependency('source', 'placeholders', '=')
+            ->set_width(50);
+        $fields[] = Field::create( 'gallery', 'gallery' )
+            ->hide_label()
+            ->add_dependency('source', 'manual', '=');
+
+        $fields = apply_filters('filter_gallery_content_tab_fields', $fields);
+
         // gallery type
         $fields[] = Field::create( 'tab', __('Gallery Type','mv23theme') );
 
@@ -100,36 +131,6 @@ class Gallery extends Component {
         $fields[] = Slider_Settings::getRepeater( 'slider_settings', __('Slider Settings', 'mv23theme') )
             ->hide_label()
             ->add_dependency('display', 'slider', '=');
-        
-        // content fields
-        $sources = apply_filters('filter_gallery_sources', array(
-            'placeholders' => __('Placeholders', 'mv23theme'),
-            'manual' => __('Select Images', 'mv23theme'),
-        ));
-
-        $fields[] = Field::create( 'tab', __('Content','mv23theme') );
-        $fields[] = Field::create( 'radio', 'source', __('Source', 'mv23theme'))
-            ->set_default_value('placeholders')
-            ->set_orientation('horizontal')
-            ->add_options( $sources );
-        $fields[] = Field::create( 'number', 'placeholders_quantity', __('Number of images', 'mv23theme') )
-            ->set_default_value(8)
-            ->add_dependency('source', 'placeholders', '=')
-            ->set_width(50);
-        $fields[] = Field::create( 'select', 'placeholders_source', __('Source', 'mv23theme') )
-            ->add_options( array(
-                'picsum' => 'Picsum',
-                'unsplash' => 'Unsplash',
-                'placehold' => 'Placehold',
-            ))
-            ->set_default_value('picsum')
-            ->add_dependency('source', 'placeholders', '=')
-            ->set_width(50);
-        $fields[] = Field::create( 'gallery', 'gallery' )
-            ->hide_label()
-            ->add_dependency('source', 'manual', '=');
-
-        $fields = apply_filters('filter_gallery_content_tab_fields', $fields);
         
         // columns and gutter settings
         $fields[] = Field::create( 'tab', '_gallery-colums-tab', __('Columns', 'mv23theme') );
@@ -267,12 +268,13 @@ class Gallery extends Component {
         $args['__type'] = 'theme-gallery-comp';
         
         $source = $args['source'] ?? 'manual';
-        if( $source == 'manual' ){
-            $gallery = $args['gallery'] ?? array();
-            if( empty($gallery) ) return '';
-        } else if( $source == 'placeholders' ){
-            $placeholders_quantity = $args['placeholders_quantity'] ?? 8;
-            if( empty($placeholders_quantity) ) return '';
+
+        // if all is empty, generate dummy placeholder images
+        if( ($source == 'manual' && empty($args['gallery'])) || ($source == 'placeholders' && empty($args['placeholders_quantity'])) ){
+            $args['source'] = 'placeholders';
+            $args['use_placeholder_images'] = true;
+            $args['placeholders_quantity'] = GALLERY_PLACEHOLDERS_QUANTITY;
+            $args['placeholders_source'] = 'dummy-content';
         }
 
         do_action('before_gallery_process', $args);
@@ -439,11 +441,11 @@ class Gallery extends Component {
         if($aspect_ratio != 'default') $gallery_settings['aspectratio'] = $aspect_ratio;
 
         if( $source == 'placeholders' ){
-            $placeholders_quantity = $args['placeholders_quantity'] ?? 8;
+            $placeholders_quantity = $args['placeholders_quantity'] ?? GALLERY_PLACEHOLDERS_QUANTITY;
             $gallery_settings['use_placeholder_images'] = '1';
             $gallery_settings['placeholders_quantity'] = $placeholders_quantity;
 
-            $placeholders_source = $args['placeholders_source'] ?? 'picsum';
+            $placeholders_source = $args['placeholders_source'] ?? 'dummy-content';
             $gallery_settings['placeholders_source'] = $placeholders_source;
         } else {
         	$gallery = $args['gallery'] ?? array();
@@ -486,16 +488,7 @@ class Gallery extends Component {
             $grid_data = $args['grid_data'] ?? array();
 
             if( empty($grid_data) ){
-                $gallery_settings['grid_data'] = array(
-                    ['x'=>0,'y'=>0,'w'=>3,'h'=>3],
-                    ['x'=>3,'y'=>0,'w'=>4,'h'=>2],
-                    ['x'=>7,'y'=>0,'w'=>3,'h'=>3],
-                    ['x'=>10,'y'=>0,'w'=>2,'h'=>2],
-                    ['x'=>3,'y'=>2,'w'=>4,'h'=>3],
-                    ['x'=>10,'y'=>2,'w'=>2,'h'=>3],
-                    ['x'=>0,'y'=>3,'w'=>3,'h'=>2],
-                    ['x'=>7,'y'=>3,'w'=>3,'h'=>2]
-                );
+                $gallery_settings['grid_data'] = GALLERY_GRID_DATA;
             } else {
                 $gallery_settings['grid_data'] = $grid_data;
             }
@@ -512,8 +505,8 @@ class Gallery extends Component {
         $attachments = array();
 
         if ( isset($gallery_settings['use_placeholder_images']) && $gallery_settings['use_placeholder_images'] ) {
-            $placeholders_source = $gallery_settings['placeholders_source'] ?? 'picsum';
-            $placeholders_quantity = $gallery_settings['placeholders_quantity'] ?? 8;
+            $placeholders_source = $gallery_settings['placeholders_source'] ?? 'dummy-content';
+            $placeholders_quantity = $gallery_settings['placeholders_quantity'] ?? GALLERY_PLACEHOLDERS_QUANTITY;
 
             switch ($placeholders_source) {
                 case 'picsum':
@@ -532,6 +525,12 @@ class Gallery extends Component {
                 case 'placehold':   
                     for ($i = 0; $i < $placeholders_quantity; $i++) {
                         array_push( $attachments, 'https://placehold.co/600x500' );
+                    }
+                    break;
+                
+                case 'dummy-content':   
+                    for ($i = 0; $i < $placeholders_quantity; $i++) {
+                        array_push( $attachments, get_stylesheet_directory_uri().'/assets/images/nothumb.jpg' );
                     }
                     break;
             }

@@ -56,6 +56,17 @@ if( !defined('USE_DOCUMENT_CPT') ) define( 'USE_DOCUMENT_CPT', false);
 // GALLERY CONSTANTS
 if( !defined('GALLERY_COLUMNS') ) define( 'GALLERY_COLUMNS', array('desktop' => 5,'laptop' => 4,'tablet' => 3,'mobile' => 2));
 if( !defined('GALLERY_GAP') ) define( 'GALLERY_GAP', array('desktop' => 4,'laptop' => 4,'tablet' => 4,'mobile' => 4));
+if( !defined('GALLERY_PLACEHOLDERS_QUANTITY') ) define( 'GALLERY_PLACEHOLDERS_QUANTITY', 8);
+if( !defined('GALLERY_GRID_DATA') ) define( 'GALLERY_GRID_DATA', array(
+    ['x'=>0,'y'=>0,'w'=>3,'h'=>3],
+    ['x'=>3,'y'=>0,'w'=>4,'h'=>2],
+    ['x'=>7,'y'=>0,'w'=>3,'h'=>3],
+    ['x'=>10,'y'=>0,'w'=>2,'h'=>2],
+    ['x'=>3,'y'=>2,'w'=>4,'h'=>3],
+    ['x'=>10,'y'=>2,'w'=>2,'h'=>3],
+    ['x'=>0,'y'=>3,'w'=>3,'h'=>2],
+    ['x'=>7,'y'=>3,'w'=>3,'h'=>2]
+));
 
 // LISTING COMPONENT CONSTANTS
 if( !defined('LISTING_LOADING_TEXT') ) define( 'LISTING_LOADING_TEXT', array('es' => 'Cargando...', 'en' => 'Loading...' ));
