@@ -112,7 +112,9 @@ class Reusable_Section extends Component{
         $page = new Page();
 		$page_content = $page->the_content( $args['reusable_section'] );
         ob_start();
+        echo Template_Engine::component_wrapper('start', $args);
         echo $page_content;
+        echo Template_Engine::component_wrapper('end', $args);
         return ob_get_clean();
     }
 }
