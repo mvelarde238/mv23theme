@@ -321,7 +321,7 @@ window['contextMenuOpts'] = {
                 actions_group_2 = [];
             
             const flex_direction = editor.getComponentStyle(component, 'flex-direction', 'column');
-            const flex_wrap = editor.getComponentStyle(component, 'flex-wrap', 'wrap');
+            const flex_wrap = editor.getComponentStyle(component, 'flex-wrap', 'nowrap');
 
             const contentAlignmentOptions = content_alignment_options(component, editor, flex_direction);
 
@@ -353,14 +353,14 @@ window['contextMenuOpts'] = {
                 type: 'options', title: 'FLEX WRAP',
                 options: [
                     {
-                        type: 'button', label: 'WRAP',
-                        class: (flex_wrap === 'wrap') ? 'active' : '',
-                        command: 'update-css-property', rerender: {full:true}, args: { property:'flex-wrap', value:'wrap' } 
-                    },
-                    {
                         type: 'button', label: 'NO WRAP',
                         class: (flex_wrap === 'nowrap') ? 'active' : '',
                         command: 'update-css-property', rerender: {full:true}, args: { property:'flex-wrap', value:'nowrap' } 
+                    },
+                    {
+                        type: 'button', label: 'WRAP',
+                        class: (flex_wrap === 'wrap') ? 'active' : '',
+                        command: 'update-css-property', rerender: {full:true}, args: { property:'flex-wrap', value:'wrap' } 
                     },
                 ]
             });

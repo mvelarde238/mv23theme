@@ -20,7 +20,7 @@ window.gjsCompWrapper = function(editor) {
                         display: flex;
                         flex-direction: column;
                         justify-content: flex-start;
-                        flex-wrap: wrap;
+                        flex-wrap: nowrap;
                         gap: 24px;
                     }
                 `,
