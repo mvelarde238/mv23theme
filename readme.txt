@@ -4,6 +4,7 @@ CHANGELOG
 
 3.15.23 26-09-24
 - Updated Reusable Section component to properly wrap content with component wrapper for consistent styling
+- Removed default flex-wrap:wrap from components-wrapper component, this setting must now be applied explicitly if needed
 
 3.15.22 26-09-22
 - Excluded meta_queries_tab and meta_queries fields from the Archive Posts component listing fields
