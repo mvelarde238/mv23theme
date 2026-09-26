@@ -246,7 +246,8 @@
                         extend: 'comp-base',
                         model: {
                             defaults: {
-                                name: group.title
+                                name: group.title,
+                                classes: ['component', group.id],
                             }
                         }
                     });

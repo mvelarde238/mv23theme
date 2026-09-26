@@ -31,6 +31,7 @@ use Core\Migrator\Migration\Migrate_OCE_Restrictions_to_Visibility;
 use Core\Migrator\Migration\Migrate_3_11_X_to_3_12_0;
 use Core\Migrator\Migration\Migrate_3_13_X_to_3_14_0;
 use Core\Migrator\Migration\Migrate_3_14_X_to_3_15_0;
+use Core\Migrator\Migration\Migrate_3_15_X_to_3_16_0;
 
 define ('THEME_MIGRATOR_DIR', __DIR__);
 define ('THEME_MIGRATOR_PATH', get_template_directory_uri() . '/Core/Migrator');
@@ -83,6 +84,7 @@ class Core{
         Migrate_3_11_X_to_3_12_0::class                => '3.12.0',
         Migrate_3_13_X_to_3_14_0::class                => '3.14.0',
         Migrate_3_14_X_to_3_15_0::class                => '3.15.0',
+        Migrate_3_15_X_to_3_16_0::class                => '3.16.0',
     );
 
     private function __construct(){

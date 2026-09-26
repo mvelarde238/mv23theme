@@ -2,6 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
+3.16.0 26-09-26
+- Standardized component type classes by adding the `type` as a class inside `classes` when missing
+--------------------------------------------------------------------------------------------------------------------------
+!IMPORTANT: Use the migrator to update old components to the new standardized class structure
+--------------------------------------------------------------------------------------------------------------------------
+
 3.15.23 26-09-24
 - Updated Reusable Section component to properly wrap content with component wrapper for consistent styling
 - Removed default flex-wrap:wrap from components-wrapper component, this setting must now be applied explicitly if needed
