@@ -5,6 +5,7 @@ CHANGELOG
 3.16.1 26-09-28
 - Maybe reflow map size when template changes (for Google Maps and Leaflet) in the v23 togglebox library
 - map__gmap renamed to map-component__map
+- Pseudo-element for active tab button indicator on tab style 2 and tab style 1
 
 3.16.0 26-09-26
 - Standardized component type classes by adding the `type` as a class inside `classes` when missing
