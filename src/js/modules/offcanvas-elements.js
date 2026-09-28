@@ -463,7 +463,7 @@ window['OffCanvas_Elements'] = (function(){
             }
         },
         _maybe_reflow_map_size(el){
-            var maps = el.getElementsByClassName('map__gmap');
+            var maps = el.getElementsByClassName('map-component__map');
             for (var i = 0; i < maps.length; i++) {
                 let map = maps[i].mapObject,
                     provider = maps[i].dataset.provider;

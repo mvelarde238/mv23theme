@@ -3,7 +3,7 @@ var styleArray = [ { "stylers": [ { "hue": "#19511B" }, { "saturation": 0 }, { "
 (function($,c){      
     document.addEventListener('DOMContentLoaded', function() {
 
-		var mapas = document.getElementsByClassName('map__gmap'); 
+		var mapas = document.getElementsByClassName('map-component__map'); 
 		if (mapas.length){
 	
         	function initMap(element) {

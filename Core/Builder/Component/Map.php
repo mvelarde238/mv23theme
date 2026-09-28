@@ -71,7 +71,7 @@ class Map extends Component {
         if($lat && $lng) : 
             $map_id = uniqid('map_');
             ?>
-            <div id="<?=$map_id?>" class="map__gmap" 
+            <div id="<?=$map_id?>" class="map-component__map" 
                 data-lat="<?=$lat?>" 
                 data-lng="<?=$lng?>" 
                 data-icon="<?=$icon_url?>" 
