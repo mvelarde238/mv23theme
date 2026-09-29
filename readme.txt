@@ -7,6 +7,7 @@ CHANGELOG
   ensuring consistent layout on different devices.
 - gjs-togglebox plugin: Added handleTemplateChange method to togglebox view to update template-specific classes  without re-rendering the entire component
 - v23 togglebox library: Fix _maybe_scroll_to_target() to ensure proper scrolling behavior
+- imagesloaded script added as a dependency for main scripts to ensure proper loading order
 
 3.16.1 26-09-28
 - Maybe reflow map size when template changes (for Google Maps and Leaflet) in the v23 togglebox library
