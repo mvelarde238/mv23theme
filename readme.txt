@@ -2,6 +2,12 @@
 CHANGELOG
 **************************************************************************************************
 
+3.16.2 26-09-29
+- gjs-row-and-cols plugin updated: Improved handling of initial column styles across all breakpoints, 
+  ensuring consistent layout on different devices.
+- gjs-togglebox plugin: Added handleTemplateChange method to togglebox view to update template-specific classes 
+  without re-rendering the entire component
+
 3.16.1 26-09-28
 - Maybe reflow map size when template changes (for Google Maps and Leaflet) in the v23 togglebox library
 - map__gmap renamed to map-component__map
