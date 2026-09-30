@@ -207,6 +207,7 @@ class Ultimate_Builder {
 			'masonry_is_active' => MASONRY_IS_ACTIVE,
 			'context' => Handlebars::get_context(),
 			'togglebox_state_icon' => TOGGLEBOX_STATE_ICON,
+			'default_carousel_theme' => DEFAULT_CAROUSEL_THEME,
 			'prev_carousel_icon' => PREV_CAROUSEL_ICON,
 			'next_carousel_icon' => NEXT_CAROUSEL_ICON,
 			'is_page_for_posts' => $is_page_for_posts,

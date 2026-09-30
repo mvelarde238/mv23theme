@@ -10,7 +10,7 @@ window.gjsCarousel = function (editor) {
 
     const sliderSettingsToMap = (settings) => {
         const defaults = {
-            slider_theme: 'theme1'
+            slider_theme: BUILDER_GLOBALS.default_carousel_theme
         };
 
         if (!Array.isArray(settings)) {
@@ -154,7 +154,7 @@ window.gjsCarousel = function (editor) {
 
                 if (carousel_type === 'slider') {
                     // add slider theme
-                    carouselEl.setAttribute('data-slider-theme', settings.slider_theme || 'theme1');
+                    carouselEl.setAttribute('data-slider-theme', settings.slider_theme || BUILDER_GLOBALS.default_carousel_theme);
 
                     // handle controls visibility and position
                     if (settings.controls ){
