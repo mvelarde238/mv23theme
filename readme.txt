@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+3.16.3 26-09-30
+- Reordered marquee and lightbox initialization sequence to ensure proper loading and functionality
+
 3.16.2 26-09-29
 - gjs-row-and-cols plugin updated: Improved handling of initial column styles across all breakpoints, 
   ensuring consistent layout on different devices.
