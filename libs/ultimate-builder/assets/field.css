@@ -31,3 +31,72 @@
         margin-right: 10px;
     }
 }
+.uf-export-builder,
+.uf-import-builder{
+    background-color: #ffffff !important;
+    line-height: 40px !important;
+    margin-left: 10px !important;
+    i{
+        vertical-align: text-top;
+        margin-right: 10px;
+    }
+}
+
+.uf-io-modal-overlay{
+    position: fixed;
+    z-index: 100000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.uf-io-modal{
+    background: #fff;
+    width: 90%;
+    max-width: 560px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 4px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+.uf-io-modal-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-bottom: 1px solid #dcdcde;
+    h2{
+        margin: 0;
+        font-size: 18px;
+    }
+}
+.uf-io-modal-close{
+    background: none;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    color: #646970;
+}
+.uf-io-modal-body{
+    padding: 20px;
+    .uf-io-textarea{
+        width: 100%;
+        margin-top: 10px;
+        font-family: monospace;
+        font-size: 12px;
+    }
+    .uf-io-feedback{
+        min-height: 18px;
+        color: #d63638;
+    }
+}
+.uf-io-modal-actions{
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}

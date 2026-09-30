@@ -4,6 +4,7 @@ namespace Ultimate_Fields\Ultimate_Builder;
 use Ultimate_Fields\Template;
 use Ultimate_Fields\Ultimate_Builder\Editor;
 use Ultimate_Fields\Ultimate_Builder\Handlebars;
+use Core\Includes\Theme_Version;
 
 /**
  * A base class for the extension, which adds and overwrites all necessary classes.
@@ -142,6 +143,7 @@ class Ultimate_Builder {
 		add_action( 'uf.register_scripts', array( $this, 'register_field_scripts' ) );
 		add_action( 'post_action_ultimate-builder', array( $this, 'prepare_admin_for_builder' ) );
 		add_action( 'wp_ajax_ultimate_builder_preview_save', array( Preview_Handler::class, 'ajax_preview_save' ) );
+		add_action( 'wp_ajax_ultimate_builder_import', array( Import_Handler::class, 'ajax_import' ) );
 		add_action( 'wp_ajax_migrate_post_content_to_builder', array( $this, 'ajax_migrate_post_content' ) );
 		add_action( 'init', array( Preview_Handler::class, 'maybe_apply_preview' ), 1 );
 		add_action( 'init', array( $this, 'remove_plugins_support') );
@@ -177,7 +179,8 @@ class Ultimate_Builder {
 		$v      = $this->version;
 
 		// FIELD SCRIPTS
-		wp_register_script( 'uf-field-ultimate-builder', $assets . '/field-ultimate-builder.js', array('uf-field-repeater'), $v );
+		wp_register_script( 'uf-field-import-export', $assets . '/field-import-export.js', array('jquery'), $v );
+		wp_register_script( 'uf-field-ultimate-builder', $assets . '/field-ultimate-builder.js', array('uf-field-repeater', 'uf-field-import-export'), $v );
 		wp_register_style( 'uf-field-ultimate-builder', $assets . '/field.css', array(), $v );
 		wp_localize_script( 'uf-field-ultimate-builder', 'BUILDER_GLOBALS', $this->get_builder_globals() );
 	}
@@ -212,6 +215,8 @@ class Ultimate_Builder {
 			'next_carousel_icon' => NEXT_CAROUSEL_ICON,
 			'is_page_for_posts' => $is_page_for_posts,
 			'is_shop' => $is_shop,
+			'theme_version' => Theme_Version::getInstance()->get_current_version(),
+			'import_nonce' => wp_create_nonce( 'ultimate_builder_import' ),
 		);
 
 		// archive templates data

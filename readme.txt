@@ -8,6 +8,7 @@ CHANGELOG
 - Set DEFAULT_CAROUSEL_THEME constant to define the default theme for carousels
 - Updated gjs-carousel component to use DEFAULT_CAROUSEL_THEME as the default theme if no specific theme is set
 - Improved handling of slider settings propagation from listing components to inner carousel components within the builder
+- Import/Export functionality added on ultimate builder field
 
 3.16.2 26-09-29
 - gjs-row-and-cols plugin updated: Improved handling of initial column styles across all breakpoints, 

@@ -103,6 +103,29 @@
                         window.location.href = builder_link;
                     }
                 });
+
+                // Add the export/import buttons
+                var exportText = { es: 'Exportar', en: 'Export' };
+                var importText = { es: 'Importar', en: 'Import' };
+                var $exportButton = jQuery('<button type="button" class="button uf-export-builder"><i class="dashicons dashicons-download"></i> ' + exportText[locale] + '</button>');
+                var $importButton = jQuery('<button type="button" class="button uf-import-builder"><i class="dashicons dashicons-upload"></i> ' + importText[locale] + '</button>');
+                $wrapper.find('p').append($exportButton).append($importButton);
+
+                $exportButton.on('click', function (e) {
+                    e.preventDefault();
+                    UFBuilderIO.openExportModal(builder_data, components_data, BUILDER_GLOBALS.theme_version, BUILDER_GLOBALS.posttype);
+                });
+
+                $importButton.on('click', function (e) {
+                    e.preventDefault();
+                    var post_id = urlParams.get('post');
+                    if ( ! post_id ) {
+                        var importAlertText = { es: 'Publica la entrada antes de importar contenido.', en: 'Publish the post before importing content.' };
+                        alert(importAlertText[locale]);
+                        return;
+                    }
+                    UFBuilderIO.openImportModal(post_id, field_name);
+                });
             }
 
             if( $action === 'ultimate-builder' ){
