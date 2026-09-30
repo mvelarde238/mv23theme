@@ -274,7 +274,7 @@ class Archive_Template {
             'listing_template' => '',
             'columns' => LISTING_COLUMNS,
             'columns_gap' => LISTING_GAP,
-            'carousel_settings' => array(),
+            'slider_settings' => array(),
 			// posttype is needed to handle the "_default" postcard template placeholder in the listing component:
 			'posttype' => self::$instance->get_archive_post_type(),
             'postcard_settings' => array(

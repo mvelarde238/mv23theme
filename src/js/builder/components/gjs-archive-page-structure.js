@@ -96,7 +96,7 @@ window.gjsArchivePageStructure = function (editor, options) {
                     'query_params',
                     // 'status_params',
                     'listing_template', 
-                    'carousel_settings',
+                    // 'slider_settings',
                     'postcard_settings',
                     'pagination_type'
                 ];

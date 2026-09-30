@@ -2,51 +2,6 @@ window.gjsListing = function (editor) {
     const domc = editor.DomComponents;
     const compClass = 'listing';
 
-    const carouselSettingsToMap = (settings) => {
-        const defaults = {
-            mode: 'carousel',
-            axis: 'horizontal',
-            controls: true,
-            controls_position: 'center',
-            nav: true,
-            nav_position: 'bottom',
-            speed: 300,
-            autoplay: false,
-            autoplay_position: 'top',
-            autoplay_timeout: 5000,
-            autoplay_direction: 'forward',
-            autoplay_text: 'start|stop',
-            autoplay_hover_pause: false,
-            autoplay_reset_on_visibility: true,
-            animate_in: 'tns-fadeIn',
-            animate_out: 'tns-fadeOut',
-            animate_normal: 'tns-normal',
-            loop: true,
-            rewind: false,
-            auto_height: false,
-            touch: true,
-            mouse_drag: false,
-            swipe_angle: 15,
-            prevent_action_when_running: false,
-            prevent_scroll_on_touch: 'false',
-            freezable: true,
-            start_index: 0,
-        };
-
-        if (!Array.isArray(settings)) {
-            return defaults;
-        }
-
-        settings.forEach(row => {
-            if (!row || typeof row !== 'object') return;
-            const key = row.property || row.__type;
-            if (!key || !Object.prototype.hasOwnProperty.call(row, 'value')) return;
-            defaults[key] = row.value;
-        });
-
-        return defaults;
-    };
-
     // Labels for the ui, using the editor's translator for internationalization
     const __ = editor.createTranslator(editor);
     const compName = __('Listing');
@@ -94,23 +49,22 @@ window.gjsListing = function (editor) {
                 __beforeSendCallback: (model, editor, datastore) => {
                     editor.ensureComponentStructure(model, defaultComponents, unwantedProps);
                     
-                    const {listing_template, columns, carousel_settings, columns_gap, listing_uid} = datastore.toJSON();
+                    const {listing_template, columns, slider_settings, columns_gap} = datastore.toJSON();
                     const carouselWrapper = model.findType('carousel-wrapper')[0];
                     const carousel = model.findType('carousel')[0];
                     carousel.empty({silent: true});
                     
                     if (listing_template === 'carousel') {
                         carouselWrapper.getView().el.style.display = '';
+                        
                         const carouselDatastore = editor.getComponentDatastore(carouselWrapper);
-                        const normalizedCarouselSettings = carouselSettingsToMap(carousel_settings);
                         carouselDatastore.set({
+                            slider_settings: slider_settings,
                             items: columns,
-                            carousel_settings: carousel_settings,
-                            slider_uid: listing_uid,
                             gutter: columns_gap
                         }, {silent: true} );
-                        carouselDatastore.set('carousel_settings_map', normalizedCarouselSettings, {silent: true});
                         carouselWrapper.getView().render();
+
                     } else {
                         carouselWrapper.getView().el.style.display = 'none';
                     }
@@ -185,8 +139,7 @@ window.gjsListing = function (editor) {
                     'woocommerce_key',
                     'query_params',
                     'status_params',
-                    'listing_template', 
-                    'carousel_settings',
+                    'listing_template',
                     'postcard_settings',
                     'pagination_type',
                 ];
@@ -223,6 +176,17 @@ window.gjsListing = function (editor) {
 
                 if( changed_keys.includes('settings') ){
                     editor.handleCommonSettings(model);
+                }
+
+                if( changed_keys.includes('slider_settings') ){
+                    const datastore = editor.getComponentDatastore(model);
+                    const { listing_template, slider_settings } = datastore.toJSON();
+                    if (listing_template === 'carousel') {
+                        const carouselWrapper = model.findType('carousel-wrapper')[0];
+                        const carouselDatastore = editor.getComponentDatastore(carouselWrapper);                       
+                        carouselDatastore.set('slider_settings', slider_settings);
+                        carouselWrapper.view.custom_datastore_change_callback({'slider_settings': slider_settings});
+                    }
                 }
             },
             handle_editor_resize(obj) {
