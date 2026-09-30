@@ -301,6 +301,9 @@ class Gallery extends Component {
             $item_attrs['additional_classes'][] = 'masonry-grid-item';
         } 
 
+        // add slider UID if not already set
+        Carousel::create_slider_uid_on_the_fly( $args );
+
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
         
