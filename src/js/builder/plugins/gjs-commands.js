@@ -282,12 +282,12 @@ window.gjsCommands = function (editor, options) {
 
     commands.add('get-component-uid', (editor, sender, options = {}) => {
         const component = options.component;
-        const componentsWithUID = ['listing'];
+        const componentsWithUID = ['listing','archive-posts'];
 
         if (componentsWithUID.includes(component.getType())) {
             const datastore = editor.getComponentDatastore(component);
             if (datastore) {
-                const key = component.getType() === 'listing' ? 'listing' : 'component';
+                const key = [ 'listing', 'archive-posts' ].includes(component.getType()) ? 'listing' : 'component';
 
                 const uid = datastore.get(`${key}_uid`);
                 if (uid) {

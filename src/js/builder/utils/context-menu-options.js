@@ -207,6 +207,33 @@ function get_flipbox_side_options(component, editor){
     ]
 }
 
+function get_listing_actions(component, editor){
+    let actions = [
+        { type: 'button', label: 'GET LISTING UID', command: 'get-component-uid' }
+    ];
+
+    const datastore = editor.getComponentDatastore(component);
+    const { listing_template, postcard_settings } = datastore.toJSON();
+
+    if(listing_template && listing_template === 'carousel') {
+        actions.push({ type: 'button', label: 'GET SLIDER UID', command: 'get-slider-uid' });
+    }
+
+    // Check if the component has postcard settings and if the template starts with 'postcard_'
+    if(postcard_settings && postcard_settings.template && postcard_settings.template.startsWith('postcard_')) {
+        // postcard_settings.template: postcard_[postcardId]
+        const postcardId = postcard_settings.template.split('_')[1];
+        // replace the post id in the url with the postcardId
+        const postEditUrl = BUILDER_GLOBALS.post_edit_url.replace(/post=\d+/, 'post=' + postcardId);
+        // add the action to edit the postcard
+        const href = postEditUrl + '&action=ultimate-builder&meta=page_content';
+        
+        actions.push({ type: 'link', label: 'EDIT POSTCARD', href: href, target: '_self' });
+    }
+
+    return actions;
+}
+
 window['contextMenuOpts'] = {
     actions: {
         ['text-editor']: function(component){
@@ -635,30 +662,10 @@ window['contextMenuOpts'] = {
             ]
         },
         ['listing']: function(component, editor){
-            let actions = [
-                { type: 'button', label: 'GET LISTING UID', command: 'get-component-uid' }
-            ];
-
-            const datastore = editor.getComponentDatastore(component);
-            const { listing_template, postcard_settings } = datastore.toJSON();
-
-            if(listing_template && listing_template === 'carousel') {
-                actions.push({ type: 'button', label: 'GET SLIDER UID', command: 'get-slider-uid' });
-            }
-
-            // Check if the component has postcard settings and if the template starts with 'postcard_'
-            if(postcard_settings && postcard_settings.template && postcard_settings.template.startsWith('postcard_')) {
-                // postcard_settings.template: postcard_[postcardId]
-                const postcardId = postcard_settings.template.split('_')[1];
-                // replace the post id in the url with the postcardId
-                const postEditUrl = BUILDER_GLOBALS.post_edit_url.replace(/post=\d+/, 'post=' + postcardId);
-                // add the action to edit the postcard
-                const href = postEditUrl + '&action=ultimate-builder&meta=page_content';
-
-                actions.push({ type: 'link', label: 'EDIT POSTCARD', href: href, target: '_self' });
-            }
-
-            return actions;
+            return get_listing_actions(component, editor);
         },
+        ['archive-posts']: function(component, editor){
+            return get_listing_actions(component, editor);
+        }
     }
 };
