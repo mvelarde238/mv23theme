@@ -116,7 +116,7 @@ class Slider_Settings
             // ['key' => 'responsive', 'label' => __('Responsive Options', 'mv23theme'), 'type' => 'text'],
             ['key' => 'slide_by', 'label' => __('Slide By', 'mv23theme'), 'type' => 'text', 'default' => 'page', 'suggestions' => ['1', 'page']],
             ['key' => 'slider_uid', 'label' => 'Slider UID', 'type' => 'text' ],
-            ['key' => 'slider_theme', 'label' => 'Slider Theme', 'type' => 'text', 'suggestions' => ['theme1', 'none'], 'default' => 'theme1'],
+            ['key' => 'slider_theme', 'label' => 'Slider Theme', 'type' => 'text', 'suggestions' => ['theme1', 'theme2', 'none'], 'default' => DEFAULT_CAROUSEL_THEME],
             ['key' => 'speed', 'label' => __('Speed (ms)', 'mv23theme'), 'type' => 'number', 'min' => 1, 'max' => 10000, 'default' => 300],
             ['key' => 'start_index', 'label' => __('Start Index', 'mv23theme'), 'type' => 'text', 'default' => '0', 'suggestions' => ['0', '1', '2', 'in_the_middle', 'at_the_end']],
             ['key' => 'swipe_angle', 'label' => __('Swipe Angle', 'mv23theme'), 'type' => 'number', 'min' => 0, 'max' => 180, 'step' => 1, 'enable_slider' => true, 'default' => 15],

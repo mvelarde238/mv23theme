@@ -234,7 +234,7 @@ class Carousel extends Component {
             'value' => false
         );
 
-        // force "theme1" if not set
+        // force DEFAULT_CAROUSEL_THEME if not set
         $slider_theme_set = false;
         foreach( $args['slider_settings'] as $setting ){
             if( isset($setting['__type']) && $setting['__type'] === 'slider_theme' ){
@@ -246,7 +246,7 @@ class Carousel extends Component {
             $args['slider_settings'][] = array(
                 '__type' => 'slider_theme',
                 'property' => 'slider_theme',
-                'value' => 'theme1'
+                'value' => DEFAULT_CAROUSEL_THEME
             );
         }
 

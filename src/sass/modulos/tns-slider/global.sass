@@ -1,7 +1,8 @@
 .carousel
     --ui-color-1: var(--primary-color)
     --ui-color-2: var(--primary-color-light)
-    --ui-color-3: #{$white}
+    --ui-color-3: var(--primary-color-lighter)
+    --ui-color-4: #{$white}
 
     .tns-inner:has([data-mouse-drag="1"]),
     .tns-inner:has([data-mouse-drag="true"])
@@ -39,6 +40,13 @@
     &:has([data-controls-position='bottom'])
         [data-controls]
             bottom: 0
+
+    [data-controls]:active
+        transform: scale(.9)
+    &:has([data-controls-position='center']) [data-controls="prev"]:active
+        transform: translateY(-50%) translateX(-50%) scale(.9)
+    &:has([data-controls-position='center']) [data-controls="next"]:active
+        transform: translateY(-50%) translateX(50%) scale(.9)
 
 .dark-mode .carousel
     --ui-color-1: #{$white} 

@@ -101,6 +101,7 @@ if( !defined('LISTING_POST_TEMPLATE') ){
 if( !defined('TOGGLEBOX_STATE_ICON') ) define( 'TOGGLEBOX_STATE_ICON', 'fa-angle-down' );
 
 // CAROUSEL ICONS
+if ( ! defined( 'DEFAULT_CAROUSEL_THEME' ) ) define( 'DEFAULT_CAROUSEL_THEME', 'theme1' );
 if ( ! defined( 'PREV_CAROUSEL_ICON' ) ) define( 'PREV_CAROUSEL_ICON', 'fa-angle-left' );
 if ( ! defined( 'NEXT_CAROUSEL_ICON' ) ) define( 'NEXT_CAROUSEL_ICON', 'fa-angle-right' );
 

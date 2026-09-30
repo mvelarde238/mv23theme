@@ -1,0 +1,34 @@
+.carousel:has([data-slider-theme="theme2"])
+    [data-controls]
+        padding: 1.5em
+        background-color: var(--ui-color-4)
+        color: var(--ui-color-1)
+        border: 0
+
+    [data-controls="prev"],
+    [data-controls="next"]
+        &:hover
+            background-color: var(--ui-color-3)
+
+    // NAVIGATION
+    .tns-nav
+        width: fit-content
+        max-width: 80%
+        margin: auto
+        display: flex
+        gap: 5px
+        align-items: center
+        overflow: auto
+
+        button
+            background-color: var(--ui-color-2)
+            width: 3em
+            height: 2px
+            border: 0
+            &.tns-nav-active
+                background-color: var(--ui-color-1)
+
+    &:has([data-nav-position='bottom']) .tns-nav
+        margin-top: var(--components-spacing)
+    &:has([data-nav-position='top']) .tns-nav
+        margin-bottom: var(--components-spacing)

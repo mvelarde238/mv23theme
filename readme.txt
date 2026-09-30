@@ -5,6 +5,7 @@ CHANGELOG
 3.16.3 26-09-30
 - Reordered marquee and lightbox initialization sequence to ensure proper loading and functionality
 - Added create_slider_uid_on_the_fly method to Gallery component to automatically generate a unique slider UID if not set
+- Set DEFAULT_CAROUSEL_THEME constant to define the default theme for carousels
 
 3.16.2 26-09-29
 - gjs-row-and-cols plugin updated: Improved handling of initial column styles across all breakpoints, 
