@@ -1,7 +1,7 @@
 /**
  * Shared Templates and Resources for GrapesJS Components
  * This module provides common templates, CSS, and helper functions
- * to be used by section, container, and other components.
+ * to be used by page-content, container, and other components.
  */
 window.gjsSharedResources = {
     /**

@@ -45,16 +45,16 @@ class Footer_Preview extends Component {
             if (is_array($page_content)) :
                 $wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
                 if ( $wrapper['type'] === 'wrapper' ){
-                    $container = null;
+                    $page_content_comp = null;
                     foreach ( $wrapper['components'] as $component ) {
-                    	if ( $component['type'] === 'container' ) {
-                    		$container = $component;
+                    	if ( $component['type'] === 'page-content' ) {
+                    		$page_content_comp = $component;
                     		break;
                     	}
                     }
-                    if ( $container ) {
+                    if ( $page_content_comp ) {
                         if ( !empty($compiled_css) ) echo '<style>' . $compiled_css . '</style>';
-                        echo Footer::display( $container );
+                        echo Footer::display( $page_content_comp );
                     };
                 }
         	endif;

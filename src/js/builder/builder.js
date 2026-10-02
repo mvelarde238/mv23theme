@@ -223,7 +223,7 @@
         // READ
         add_existing_content: function (editor) {
             if (!this.args.builder_data || !this.args.builder_data.pages) {
-                editor.setComponents({type: 'container'});                
+                editor.setComponents({type: 'page-content'});
             } else {
                 editor.loadProjectData(this.args.builder_data);
             }

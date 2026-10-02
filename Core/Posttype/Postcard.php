@@ -76,7 +76,7 @@ class Postcard {
     }
 
     public function get_data( $post_id ){
-        $container = null;
+        $page_content_comp = null;
 
         $page_content = get_post_meta( $post_id, 'page_content', true );
         $page_content_datastore = get_post_meta( $post_id, 'page_content_datastore', true );
@@ -87,15 +87,15 @@ class Postcard {
             $wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
             if ( $wrapper['type'] === 'wrapper' ){
                 foreach ( $wrapper['components'] as $component ) {
-                    if ( $component['type'] === 'container' ) {
-                        $container = $component;
+                    if ( $component['type'] === 'page-content' ) {
+                        $page_content_comp = $component;
                         break;
                     }
                 }
             }
         endif;
 
-        $content = $container;
+        $content = $page_content_comp;
         $styles  = Page::compile_styles_to_css( $page_content['styles'] ?? [] );
         $styles .= Page::compile_components_custom_css( $page_content );
 

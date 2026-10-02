@@ -1,6 +1,6 @@
 /* make components visible */
 [data-gjs-type="wrapper"],
-[data-gjs-type="wrapper"]>[data-gjs-type="container"]
+[data-gjs-type="page-content"]
     min-height: 100vh
     
 /* empty component wrappers styles */
@@ -23,6 +23,7 @@
 [data-gjs-type="shortcode"],
 [data-gjs-type="icon-box"]:empty,
 [data-gjs-type="postcard"]:empty,
+[data-gjs-type="container"]:empty,
 .highlight-on-empty:empty,
 .highlight-inner-message
     border: 3px dashed var(--placeholder-color)

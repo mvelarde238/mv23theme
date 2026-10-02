@@ -108,20 +108,20 @@ window.gjsSinglePageStructure = function (editor, options) {
     editor.on('builder:loaded', () => {
         if( BUILDER_GLOBALS.is_singular ){
             const wrapper = editor.getWrapper();
-            const container = wrapper.findType('container')[0];
+            const page_content = wrapper.findType('page-content')[0];
 
-            // Check if container has any component
-            const existingComponents = container.components();
+            // Check if page-content has any component
+            const existingComponents = page_content.components();
             if (existingComponents.length > 0) {
 
-                const single_page_structure_exists = container.findType('single-page-structure')[0];
+                const single_page_structure_exists = page_content.findType('single-page-structure')[0];
                 if ( single_page_structure_exists ) {
                     // Ensuring correct structure: main, sidebar, post-title, social-share, related-posts, etc.
                     editor.ensureComponentStructure(single_page_structure_exists, singlePageStructureComponents);
                 } else {
-                    // if container has components, insert single-page-structure and move existing components into single-main just after post-title
-                    container.append({ type: 'single-page-structure' });
-                    const single_page_structure = container.findType('single-page-structure')[0];
+                    // if page_content has components, insert single-page-structure and move existing components into single-main just after post-title
+                    page_content.append({ type: 'single-page-structure' });
+                    const single_page_structure = page_content.findType('single-page-structure')[0];
                     const single_main = single_page_structure.findType('single-main')[0];
                     const post_title = single_page_structure.findType('post-title')[0];
     
@@ -132,9 +132,9 @@ window.gjsSinglePageStructure = function (editor, options) {
                 }
 
             } else {
-                // if container is empty, just insert single-page-structure with a default section just after post-title
-                container.append({ type: 'single-page-structure' });
-                const single_page_structure = container.findType('single-page-structure')[0];
+                // if page-content is empty, just insert single-page-structure with a default section just after post-title
+                page_content.append({ type: 'single-page-structure' });
+                const single_page_structure = page_content.findType('single-page-structure')[0];
                 const single_main = single_page_structure.findType('single-main')[0];
                 const post_title = single_page_structure.findType('post-title')[0];
                 single_main.append(
@@ -146,9 +146,9 @@ window.gjsSinglePageStructure = function (editor, options) {
             // Add class to wrapper for single page styling
             wrapper.addClass(['single', 'single-'+BUILDER_GLOBALS.posttype]);
 
-            // Make container non-droppable and non-selectable
+            // Make page-content non-droppable and non-selectable
             // in order to work only within single-page-structure
-            container.set({
+            page_content.set({
                 droppable: false,
                 selectable: false,
             });

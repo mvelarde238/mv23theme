@@ -139,21 +139,21 @@ window.gjsHeader = function (editor, options) {
     editor.on('builder:loaded', () => {
         if ( BUILDER_GLOBALS.posttype !== 'header' ) return;
 
-        // Get the main container inside the wrapper
+        // Get the page-content inside the wrapper
         const wrapper = editor.getWrapper();
-        let main_container = null;
+        let page_content = null;
         wrapper.get('components').each( component => {
-            if( component.get('type') === 'container' ){
-                main_container = component;
+            if( component.get('type') === 'page-content' ){
+                page_content = component;
             }
         });
-        if ( !main_container ) {
-            console.error('Main container not found in wrapper, cannot initialize header component properly.');
+        if ( !page_content ) {
+            console.error('Page content not found in wrapper, cannot initialize header component properly.');
             return;
         }
 
-        // add some demo elements to container: menu, image, heading, paragraph
-        main_container.append({ 
+        // add some demo elements to page-content: menu, image, heading, paragraph
+        page_content.append({ 
             type: 'section',
             selectable: false,
             hoverable: false,
@@ -163,29 +163,31 @@ window.gjsHeader = function (editor, options) {
             classes: ['page-module','demo-section'],
             components: [
                 { type: 'oce-overlay' },
-                { 
-                    type: 'image-component',
-                    // classes: ['full-width'],
-                    style: {
-                        'aspect-ratio': '9/3',
-                        width: '100%',
-                        // width: '100vw',
-                        // 'max-width': '100vw',
-                    }
-                },
                 {
-                    type: 'spacer',
-                    style: {
-                        height: '20px',
-                    }
-                },
-                { type: 'heading' },
-                { 
-                    type: 'row-component',
+                    type: 'container',
                     components: [
-                        { type: 'column', components: [ { type: 'text-editor' }, ] },
-                        { type: 'column', components: [ { type: 'text-editor' }, ] },
-                        { type: 'column', components: [ { type: 'text-editor' }, ] }
+                        { 
+                            type: 'image-component',
+                            style: {
+                                'aspect-ratio': '9/3',
+                                width: '100%',
+                            }
+                        },
+                        {
+                            type: 'spacer',
+                            style: {
+                                height: '20px',
+                            }
+                        },
+                        { type: 'heading' },
+                        { 
+                            type: 'row-component',
+                            components: [
+                                { type: 'column', components: [ { type: 'text-editor' }, ] },
+                                { type: 'column', components: [ { type: 'text-editor' }, ] },
+                                { type: 'column', components: [ { type: 'text-editor' }, ] }
+                            ]
+                        },
                     ]
                 },
             ],
@@ -201,7 +203,7 @@ window.gjsHeader = function (editor, options) {
             removable: false,
             hoverable: false
         });
-        main_container.set({
+        page_content.set({
             droppable: false,
             selectable: false,
         });
@@ -268,8 +270,8 @@ window.gjsHeader = function (editor, options) {
         if ( BUILDER_GLOBALS.posttype !== 'header' ) return;
 
         const wrapper = editor.getWrapper();
-        const container = wrapper.findType('container')[0];
-        const sections = container.findType('section');
+        const page_content = wrapper.findType('page-content')[0];
+        const sections = page_content.findType('section');
         editor.getModel().skip(() => {
             sections.forEach(section => {
                 if (section.getEl().classList.contains('demo-section')) {

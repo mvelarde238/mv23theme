@@ -57,6 +57,10 @@ class Global_Styles extends Component {
 
 		return $fields;
 	}
+
+	public static function display( $args ){
+		return '';
+	}
 }
 
 new Global_Styles();

@@ -26,11 +26,11 @@ window.gjsPostcard = ( editor ) => {
         if ( BUILDER_GLOBALS.posttype !== 'postcard' ) return;
 
         const wrapper = editor.getWrapper();
-        const container = wrapper.findType('container')[0];
+        const page_content = wrapper.findType('page-content')[0];
 
         // Add postcard element to the canvas if not present
         if (!wrapper.findType('postcard').length) {
-            container.append({ type: 'postcard' });
+            page_content.append({ type: 'postcard' });
         }
 
         // gjs wrapper shouldn't be selectable/removable
@@ -39,7 +39,7 @@ window.gjsPostcard = ( editor ) => {
             removable: false,
             hoverable: false
         });
-        container.set({
+        page_content.set({
             droppable: false,
             selectable: false,
         });

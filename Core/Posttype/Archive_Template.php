@@ -7,7 +7,7 @@ use Ultimate_Fields\Field;
 use Ultimate_Fields\Location\Post_Type;
 use WP_Query;
 use Core\Frontend\Page;
-use Core\Builder\Component\Main_Content;
+use Core\Builder\Component\Section;
 use Core\Builder\Core as Builder_Core;
 
 class Archive_Template {
@@ -299,22 +299,32 @@ class Archive_Template {
             }
         } else {
             // fallback to show the default content if no archive template is connected to the current post type
-            echo Main_Content::display(array(
-                'template' => 'main-content--sidebar-left',
+			echo Section::display(array(
                 'components' => array(
                     array( 
-                        'type' => 'main', 
-                        'components' => array(
-                            array( 'type' => 'archive-title' ),
-                            array( 'type' => 'archive-posts' )
-                        )
-                    ),
-                    array( 
-                        'type' => 'aside',
-                        'components' => array(
-                            array( 'type' => 'sidebar' )
-                        )
-                    )
+						'type' => 'container',
+						'components' => array(
+							array( 
+								'type' => 'main-content',
+								'template' => 'main-content--sidebar-left',
+								'components' => array(
+									array( 
+										'type' => 'main',
+										'components' => array(
+											array( 'type' => 'archive-title' ),
+											array( 'type' => 'archive-posts' )
+										)
+									),
+									array( 
+										'type' => 'aside',
+										'components' => array(
+											array( 'type' => 'sidebar' )
+										)
+									)
+								)
+							)
+						)
+					)
                 )
             ));
         }

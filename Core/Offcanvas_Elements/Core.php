@@ -78,19 +78,19 @@ class Core{
             if ( is_array( $page_content ) ) :
 
                 $wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
-                if ( !$wrapper['type'] === 'wrapper' ) return '';
+                if ( $wrapper['type'] !== 'wrapper' ) return '';
 
-                $container = null;
+                $page_content_comp = null;
                 foreach ( $wrapper['components'] as $component ) {
-                    if ( $component['type'] === 'container' ) {
-                        $container = $component;
+                    if ( $component['type'] === 'page-content' ) {
+                        $page_content_comp = $component;
                         break;
                     }
                 }
-                $container_components = ( $container ) ? $container['components'] : [];
+                $page_content_components = ( $page_content_comp ) ? $page_content_comp['components'] : [];
 
-                if ( is_array( $container_components ) && !empty( $container_components ) ) :
-                    foreach ( $container_components as $component ) :
+                if ( is_array( $page_content_components ) && !empty( $page_content_components ) ) :
+                    foreach ( $page_content_components as $component ) :
                         if ( $component['type'] === 'oce-element' ) {
                             $oce_element_comp = $component;
                             break;

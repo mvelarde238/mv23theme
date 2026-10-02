@@ -142,7 +142,6 @@ window.gjsTemplatePlaceholder = function (editor) {
 		    			if(response.status == "success") {
 		    				if(action === 'insert') {
                                 const template_data = JSON.parse(response.template_data);
-                                console.log('Received template data for insertion:', template_data);
                                 that.insertTemplate(template_data);
                             } else if(action === 'delete') {
                                 that.removeTemplate(item, post_id);
@@ -307,8 +306,8 @@ window.gjsTemplatePlaceholder = function (editor) {
     // and should not be saved as part of the template structure
     editor.on('builder:before-save-editor', () => {
         const wrapper = editor.getWrapper();
-        const container = wrapper.findType('container')[0];
-        const templatePlaceholders = container.findType('template-placeholder');
+        const page_content = wrapper.findType('page-content')[0];
+        const templatePlaceholders = page_content.findType('template-placeholder');
         templatePlaceholders.forEach(placeholder => {
             placeholder.remove({silent:true});
         });

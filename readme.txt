@@ -2,6 +2,19 @@
 CHANGELOG
 **************************************************************************************************
 
+4.0.0 26-10-02
+- Page content metadata refactorized to use the new Page_Content component structure
+|-- page content component now holds all the content generated on the builder, replacing the old container component
+|-- External scripts that autocomplete page data hooked to wp_insert_post must now use the new page-content component
+    instead of the old container component and use container components inside sections.
+|-- container component refactored to work as a regular component and now lives inside sections
+|-- layout handling removed from common settings and components
+|-- Removed support for .full-width class
+|-- .global-wrapper removed from header.php and footer.php
+--------------------------------------------------------------------------------------------------------------------------
+!IMPORTANT: Use the migrator to update old page_content metadata to the new Page_Content component structure.
+--------------------------------------------------------------------------------------------------------------------------
+
 3.16.3 26-09-30
 - Reordered marquee and lightbox initialization sequence to ensure proper loading and functionality
 - Added create_slider_uid_on_the_fly method to Gallery component to automatically generate a unique slider UID if not set

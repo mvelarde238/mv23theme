@@ -7,7 +7,7 @@ use Ultimate_Fields\Field;
 use Ultimate_Fields\Location\Post_Type;
 use WP_Query;
 use Core\Frontend\Page;
-use Core\Builder\Component\Main_Content;
+use Core\Builder\Component\Section;
 use Core\Builder\Core as Builder_Core;
 
 class Single_Template {
@@ -252,21 +252,32 @@ class Single_Template {
 			$default_content = apply_filters('filter_default_single_content', array(
                 'components' => array(
                     array( 
-                        'type' => 'main', 
-                        'components' => array(
-                            array( 'type' => 'post-title' ),
-                            array( 'type' => 'post-content' )
-                        )
-                    ),
-                    array( 
-                        'type' => 'aside',
-                        'components' => array(
-                            array( 'type' => 'sidebar' )
-                        )
-                    )
+						'type' => 'container',
+						'components' => array(
+							array( 
+								'type' => 'main-content',
+								'template' => 'main-content--sidebar-right',
+								'components' => array(
+									array( 
+										'type' => 'main',
+										'components' => array(
+											array( 'type' => 'post-title' ),
+											array( 'type' => 'post-content' )
+										)
+									),
+									array( 
+										'type' => 'aside',
+										'components' => array(
+											array( 'type' => 'sidebar' )
+										)
+									)
+								)
+							)
+						)
+					)
                 )
             ));
-			echo Main_Content::display($default_content);
+			echo Section::display($default_content);
         }
     }
 

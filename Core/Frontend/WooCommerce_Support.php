@@ -20,33 +20,37 @@ class WooCommerce_Support{
     }
 
     public function before_main_content(){ 
-        $main_content_classes = array('main-content','container');
-        if(is_archive() && is_active_sidebar('shop_sidebar')) array_push($main_content_classes,'main-content--sidebar-left');
+        $main_content_classes = array('main-content');
+        if(is_archive() && is_active_sidebar('shop_sidebar')) $main_content_classes[] = 'main-content--sidebar-left';
         ?>
-        <div id="content" class="content-wrapper">
-            <div id="main-content" class="<?php echo implode(' ',$main_content_classes) ?>">
-                <main class="main">
+        <div id="content">
+            <section class="page-module">
+                <div class="container">
+                    <div class="<?php echo esc_attr(implode(' ', $main_content_classes)); ?>">
+                        <main class="main">
         <?php
     }
 
     public function after_main_content(){ ?>
-                </main>
-                <?php
-                if(is_archive() && is_active_sidebar('shop_sidebar')){
-                    echo Aside::display(array(
-                        'components' => array(
-                            array(
-                                'type' => 'components-wrapper',
-                                'additional_classes' => ['shop-sidebar','sticky'],
+                        </main>
+                        <?php
+                        if(is_archive() && is_active_sidebar('shop_sidebar')){
+                            echo Aside::display(array(
                                 'components' => array(
-                                    array( 'type' => 'sidebar', 'sidebar' => 'shop_sidebar' )
+                                    array(
+                                        'type' => 'components-wrapper',
+                                        'additional_classes' => ['shop-sidebar','sticky'],
+                                        'components' => array(
+                                            array( 'type' => 'sidebar', 'sidebar' => 'shop_sidebar' )
+                                        )
+                                    )
                                 )
-                            )
-                        )
-                    ));
-                }
-                ?>
-            </div>
+                            ));
+                        }
+                        ?>
+                    </div>
+                </div>
+            </section>
         </div>
         <?php
     }

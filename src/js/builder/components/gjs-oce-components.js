@@ -194,10 +194,10 @@ window.gjsOceComponents = ( editor ) => {
         if ( BUILDER_GLOBALS.posttype !== 'offcanvas_element' ) return;
 
         const wrapper = editor.getWrapper();
-        const container = wrapper.findType('container')[0];
+        const page_content = wrapper.findType('page-content')[0];
 
-        // add some demo elements to container: menu, image, heading, paragraph
-        container.append({ 
+        // add some demo elements to page-content: menu, image, heading, paragraph
+        page_content.append({ 
             type: 'section',
             selectable: false,
             hoverable: false,
@@ -206,36 +206,41 @@ window.gjsOceComponents = ( editor ) => {
             propagate: [ 'selectable', 'hoverable', 'droppable', 'layerable' ],
             classes: ['demo-section'],
             components: [
-                { 
-                    type: 'image-component',
-                    style: {
-                        'aspect-ratio': '9/3',
-                    }
-                },
                 {
-                    type: 'spacer',
-                    style: {
-                        height: '20px',
-                    }
-                },
-                { type: 'heading' },
-                { 
-                    type: 'row-component',
+                    type: 'container',
                     components: [
-                        { type: 'column', components: [ { type: 'text-editor' }, ] },
-                        { type: 'column', components: [ { type: 'text-editor' }, ] },
-                        { type: 'column', components: [ { type: 'text-editor' }, ] }
+                        { 
+                            type: 'image-component',
+                            style: {
+                                'aspect-ratio': '9/3',
+                            }
+                        },
+                        {
+                            type: 'spacer',
+                            style: {
+                                height: '20px',
+                            }
+                        },
+                        { type: 'heading' },
+                        { 
+                            type: 'row-component',
+                            components: [
+                                { type: 'column', components: [ { type: 'text-editor' }, ] },
+                                { type: 'column', components: [ { type: 'text-editor' }, ] },
+                                { type: 'column', components: [ { type: 'text-editor' }, ] }
+                            ]
+                        },
                     ]
-                },
+                }
             ]
         });
 
         // Add oce-overlay and oce-element to the canvas if not present
         if (!wrapper.findType('oce-overlay').length) {
-            container.append({ type: 'oce-overlay' });
+            page_content.append({ type: 'oce-overlay' });
         }
         if (!wrapper.findType('oce-element').length) {
-            container.append({ type: 'oce-element' });
+            page_content.append({ type: 'oce-element' });
         }
 
         // gjs wrapper shouldn't be selectable/removable
@@ -244,7 +249,7 @@ window.gjsOceComponents = ( editor ) => {
             removable: false,
             hoverable: false
         });
-        container.set({
+        page_content.set({
             droppable: false,
             selectable: false,
         });
@@ -255,8 +260,8 @@ window.gjsOceComponents = ( editor ) => {
         if ( BUILDER_GLOBALS.posttype !== 'offcanvas_element' ) return;
 
         const wrapper = editor.getWrapper();
-        const container = wrapper.findType('container')[0];
-        const sections = container.findType('section');
+        const page_content = wrapper.findType('page-content')[0];
+        const sections = page_content.findType('section');
         sections.forEach(section => {
             if (section.getEl().classList.contains('demo-section')) {
                 section.remove({silent:true});

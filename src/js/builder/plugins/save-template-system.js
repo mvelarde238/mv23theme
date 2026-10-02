@@ -22,7 +22,7 @@ window.saveTemplateSystem = function (editor, options) {
      * including nested components, while also handling datastore references and styles. 
      * The extracted data is structured in a way that allows it to be easily re-inserted into the editor later when the template is used.
      * @param {Component|Collection} componentOrCollection - A single GrapeJS component model or a Backbone Collection of component models 
-     *  |-- (e.g. the result of container.components())
+     *  |-- (e.g. the result of page_content.components())
      * @returns {Object} An object containing the structured template data, each component in the structure includes:
      * {
      *   type: string, // the type of the component
@@ -107,7 +107,7 @@ window.saveTemplateSystem = function (editor, options) {
         }
 
         // Accept either a single component model or a Backbone Collection
-        // (e.g. the result of container.components() when saving from a wrapper)
+        // (e.g. the result of page_content.components() when saving from a wrapper)
         const models = componentOrCollection && componentOrCollection.models
             ? componentOrCollection.models
             : [componentOrCollection];
@@ -172,11 +172,11 @@ window.saveTemplateSystem = function (editor, options) {
         const component = editor.getSelected();
         let componentToSave = component;
 
-        // if the selected component is the wrapper, just save the components inside the main container
+        // if the selected component is the wrapper, just save the components inside the page content
         if (component && component.is('wrapper')) {
-            const container = component.findType('container')[0];
-            if (container) {
-                componentToSave = container.components();
+            const pageContent = component.findType('page_content')[0];
+            if (pageContent) {
+                componentToSave = pageContent.components();
             }
         }
 

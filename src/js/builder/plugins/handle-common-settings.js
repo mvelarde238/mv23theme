@@ -20,50 +20,9 @@ window.handleCommonSettings = function (editor, options) {
                 }
             }
 
-            let has_full_width_layout = false;
-            if (settings.layout) {
-                const layout = (settings.layout.use) ? settings.layout.key : null;
-                if (layout === 'layout2') {
-                    // full width stretched — needs container
-                    has_full_width_layout = true;    
-                    component.getEl().classList.add('full-width');
-                    const firstChild = component.components().at(0);
-                    if (!firstChild || firstChild.get('type') !== 'container') {
-                        const children = [...component.components().models];
-                        const [container] = component.append({
-                            type:'container', 
-                            draggable: false, selectable: false, removable: false, 
-                            copyable: false, badgable: false
-                        });
-                        children.forEach(child => container.append(child));
-                    }
-                    component.set('droppable', false);
-                } else {
-                    // layout1 (boxed) or layout3 (full width) — no container
-                    if (layout === 'layout3') {
-                        has_full_width_layout = true;
-                        component.getEl().classList.add('full-width');
-                    } else if (layout === 'layout1') {
-                        has_full_width_layout = false;
-                        component.getEl().classList.remove('full-width');
-                    }
-                    // unwrap children from container and remove it if present
-                    const firstChild = component.components().at(0);
-                    if (firstChild && firstChild.get('type') === 'container') {
-                        const inner = [...firstChild.components().models];
-                        inner.forEach(child => component.append(child));
-                        firstChild.remove();
-                    }
-                    component.set('droppable', true);
-                }
-                if (layout) {
-                    component.getEl().classList.add(layout);
-                }
-            }
-
             const utility_classes = [
                 'overflow-scroll','overflow-hidden','hide-br','hide-br-tablet','hide-br-mobile',
-                'extend-bg-to-left','extend-bg-to-right','full-height','full-width','sticky'
+                'extend-bg-to-left','extend-bg-to-right','full-height','sticky'
             ];
             if (settings.utility_classes && Array.isArray(settings.utility_classes) && settings.utility_classes.length) {
                 const selected_utility_classes = settings.utility_classes || [];
@@ -73,18 +32,12 @@ window.handleCommonSettings = function (editor, options) {
                     });
                 } else {
                     utility_classes.forEach(utility_class => {
-                        // dont remove full-width if has full width layout
-                        if (!(has_full_width_layout && utility_class === 'full-width')) {
-                            component.getEl().classList.remove(utility_class);
-                        }
+                        component.getEl().classList.remove(utility_class);
                     });
                 }
             } else {
                 utility_classes.forEach(utility_class => {
-                    // dont remove full-width if has full width layout
-                    if (!(has_full_width_layout && utility_class === 'full-width')) {
-                        component.getEl().classList.remove(utility_class);
-                    }
+                    component.getEl().classList.remove(utility_class);
                 });
             }
 

@@ -153,12 +153,10 @@ class Video extends Component {
         ob_start();
         echo '<div '.$attributes.'>';
         do_action( 'after_component_wrapper_start', $args );
-        echo Template_Engine::check_layout('start', $args);
         echo Template_Engine::check_actions( $action, 'start' );
         echo $video_data['code'];
         echo Template_Engine::check_actions( $action, 'end' );
         if( $caption ) echo '<p class="media-caption">'.esc_html($caption).'</p>';
-        echo Template_Engine::check_layout('end', $args);
         do_action( 'before_component_wrapper_end', $args );
         echo '</div>';
         return ob_get_clean();

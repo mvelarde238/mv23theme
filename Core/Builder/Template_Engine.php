@@ -87,22 +87,6 @@ class Template_Engine{
         return $attributes_string;
     }
 
-    public static function check_layout( $key, $args ){
-        $layout = (isset($args['settings']['layout'])) ? $args['settings']['layout']['key'] : 'layout1';
-        $containered_layouts = array('layout2');
-
-        if ($key == 'start' && in_array($layout, $containered_layouts) ) return '<div class="container">';
-        if ($key == 'end' && in_array($layout, $containered_layouts) ) return '</div>';
-    }
-
-    public static function check_full_width( $key, $args ){
-        $layout = (isset($args['settings']['layout'])) ? $args['settings']['layout']['key'] : 'layout1';
-        $full_width_layouts = array('layout2','layout3');
-
-        if ($key == 'start' && in_array($layout, $full_width_layouts) ) return '<div class="full-width">';
-        if ($key == 'end' && in_array($layout, $full_width_layouts) ) return '</div>';
-    }
-
     public static function component_wrapper( $key, $args ){
         $attributes = self::generate_attributes( $args );
 
@@ -112,36 +96,25 @@ class Template_Engine{
 
         ob_start();
         if ($key == 'start'){
-            echo self::check_full_width('start', $args);
             if( $clickable_area === 'entire_component' ) echo self::check_actions( $action, 'start' );
             echo '<'.$html_tag.' '.$attributes.'>';
             do_action( 'after_component_wrapper_start', $args );
             echo self::check_video_background( $args );
             echo self::check_slider_background( $args );
             if( $clickable_area === 'inner_content' || $clickable_area === 'extra_layer' ) echo self::check_actions( $action, 'start' );
-            echo self::check_layout('start', $args);
         }
-        if ($key == 'end'){  
-            echo self::check_layout('end', $args);
+        if ($key == 'end'){
             if( $clickable_area === 'inner_content' ) echo self::check_actions( $action, 'end' );
             do_action( 'before_component_wrapper_end', $args );
             echo '</'.$html_tag.'>';
             if( $clickable_area === 'entire_component' ) echo self::check_actions( $action, 'end' );
-            echo self::check_full_width('end', $args);
         } 
         return ob_get_clean();
     }
 
     public static function check_components( $args ){
         if( isset($args['components']) ){
-
             $components = $args['components'];
-            // if first component is a container use inner components
-            // this is because an inner container is implemented on layout2 structure
-            if( isset($components[0]) && $components[0]['type'] === 'container' && isset($components[0]['components']) ){
-                $components = $components[0]['components'];
-            }
-
             ob_start();
 			foreach ($components as $component) {
                 echo Template_Engine::getInstance()->handle( $component );

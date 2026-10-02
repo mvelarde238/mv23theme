@@ -15,5 +15,4 @@
 
 		<a class="skip-link no-smooth-scroll" href="#content"><?php esc_html_e( 'Skip to content', 'mv23theme' ); ?></a>
 
-		<div class="global-wrapper">
-			<?php get_template_part('partials/header'); ?>
+		<?php get_template_part('partials/header'); ?>

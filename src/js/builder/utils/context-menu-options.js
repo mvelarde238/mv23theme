@@ -31,36 +31,6 @@ function create_text_align_actions(component){
     return textAlignAction;
 }
 
-function layout_options(component, editor){
-    const layoutActions = [
-        { id: 'layout1', name: 'BOXED' },
-        { id: 'layout3', name: 'FULL WIDTH' },
-        { type: 'break' },
-        { id: 'layout2', name: 'FULL WIDTH STRETCHED' },
-    ];
-    let layoutOptions = layoutActions.map( layout => {
-        if( layout.type && layout.type === 'break' ){
-            return { type: 'break' };
-        }
-        return {
-            type: 'button',
-            label: layout.name,
-            class: ()=>{
-                let datastore = editor.getComponentDatastore( component );
-                let current_layout = datastore ? (datastore.get('settings') || {}).layout?.key : 'layout1';
-                return (layout.id === current_layout) ? 'active' : '';
-            },
-            rerender: true,
-            command: 'set-section-layout',
-            args: { layout: layout.id }
-        }
-    });
-    return {
-        type: 'options', title: 'LAYOUT',
-        options: layoutOptions
-    };
-}
-
 function color_scheme_options(component, editor){
     const layoutActions = [
         { id: 'light-mode', name: 'LIGHT MODE' },
@@ -321,7 +291,6 @@ window['contextMenuOpts'] = {
         },
         section: function(component, editor){
             return [
-                layout_options(component, editor),
                 {
                     type: 'options', title: 'ADD SECTION',
                     options: [
@@ -357,8 +326,6 @@ window['contextMenuOpts'] = {
                 if(isNaN(value)) value = 12;
                 return value;
             };
-
-            // actions_group_1.push(layout_options(component, editor));
 
             actions_group_1.push({
                 type: 'options', title: 'FLEX DIRECTION',

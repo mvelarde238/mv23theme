@@ -10,7 +10,7 @@ window.gjsWrapper = function (editor, options) {
         model: {
             defaults: {
                 name: compName,
-                classes: ['content-wrapper'],
+                classes: ['content-wrapper'], // ??????????????????????????????????
                 droppable: false,
                 highlightable: false,
                 savable: true,
@@ -230,7 +230,12 @@ window.gjsWrapper = function (editor, options) {
                             const content_to_insert = {
                                 type: 'section',
                                 components: [
-                                    { type: 'text-editor' }
+                                    {
+                                        type: 'container',
+                                        components: [
+                                            { type: 'text-editor' }
+                                        ],
+                                    }
                                 ]
                             };
                             let section_for_migrated_content;
@@ -255,9 +260,9 @@ window.gjsWrapper = function (editor, options) {
                                     section_for_migrated_content = single_main.append(content_to_insert, { at: insertIndex });
                                 }
                             } else {
-                                // For non-singular templates, we can add the text-editor as first child of the container
-                                const container = model.findType('container')[0];
-                                section_for_migrated_content = container.append(content_to_insert, { at: 0 });
+                                // For non-singular templates, we can add the text-editor as first child of the page content
+                                const page_content = model.findType('page-content')[0];
+                                section_for_migrated_content = page_content.append(content_to_insert, { at: 0 });
                             }
 
                             text_editor_for_migrated_content = section_for_migrated_content[0].findType('text-editor')[0];

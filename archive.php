@@ -4,10 +4,8 @@ use Core\Posttype\Archive_Template;
 get_header(); 
 ?>
 
-<div id="content" class="content-wrapper">
-    <div class="container">
-        <?php Archive_Template::getInstance()->display(); ?>
-    </div>
+<div id="content">
+    <?php Archive_Template::getInstance()->display(); ?>
 </div>
 
 <?php get_footer(); ?>

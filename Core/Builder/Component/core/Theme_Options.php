@@ -75,6 +75,10 @@ class Theme_Options extends Component {
 
 		return $fields;
 	}
+
+	public static function display( $args ){
+		return '';
+	}
 }
 
 new Theme_Options();

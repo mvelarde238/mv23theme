@@ -1,8 +1,4 @@
 .main-content
-	& > .aside
-		padding: $page-module-padding
-		width: var(--sidebar-width)
-
 	&--sidebar-left,
 	&--sidebar-right
 		display: flex 
@@ -10,39 +6,23 @@
 		& > .main
 			flex: 1
 			min-width: 0
-			padding: $page-module-padding
-
 		& > .aside
+			width: var(--sidebar-width)
 			flex-shrink: 0
-
-		.full-width
-			width: 100%
-			margin-left: 0 !important
-			margin-right: 0 !important
-			left: 0
-			right: 0
+		@media #{$medium-and-down}
+			flex-direction: column
+			& > .aside
+				width: 100%
 
 	&--sidebar-left
-		& > .main
-			order: 1
+		flex-direction: row-reverse
 		& > .aside
-			order: 0
-
-.page .main
-	padding: 0
-
-@media #{$medium-and-down}
-	.main-content
-		&--sidebar-left,
-		&--sidebar-right
+			border-right: 1px solid var(--primary-color-light)
+			padding-right: 20px !important
+		@media #{$medium-and-down}
 			flex-direction: column
 
+	&--sidebar-right
 		& > .aside
-			width: 100%	
-
-		&--sidebar-left
-			& > .main
-				order: 0
-	
-			& > .aside
-				order: 1
+			border-left: 1px solid var(--primary-color-light)
+			padding-left: 20px !important

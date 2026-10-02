@@ -201,8 +201,8 @@ window.gjsListing = function (editor) {
     // Before saving remove data that shouldn't be saved
     editor.on('builder:before-save-editor', () => {
         const wrapper = editor.getWrapper();
-        const container = wrapper.findType('container')[0];
-        const listings = container.findType('listing');
+        const page_content = wrapper.findType('page-content')[0];
+        const listings = page_content.findType('listing');
         listings.forEach(listing => {
             const carouselItems = listing.findType('carousel-item');
             carouselItems.forEach(carouselItem => {

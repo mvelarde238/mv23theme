@@ -71,6 +71,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsSharedTemplates', 'handler' => 'gjs-shared-templates', 'isComponent' => false ],
 		[ 'name' => 'handleThemeColors', 'handler' => 'handle-theme-colors', 'isComponent' => false ],
 		// components
+		[ 'name' => 'gjsPageContent', 'handler' => 'gjs-page-content', 'isComponent' => true ],
 		[ 'name' => 'gjsBase', 'handler' => 'gjs-base', 'isComponent' => true ],
 		[ 'name' => 'gjsAsyncComponent', 'handler' => 'gjs-async-component', 'isComponent' => true ],
 		[ 'name' => 'gjsWrapper', 'handler' => 'gjs-wrapper', 'isComponent' => true ],

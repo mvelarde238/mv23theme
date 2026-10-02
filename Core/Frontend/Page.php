@@ -48,7 +48,10 @@ class Page{
             ob_start();
 			if( !$page_is_private ){
 				if( !empty($content) ){
+					echo '<section class="page-module">';
+					echo '<div class="container">'; 
 					echo '<div class="text-editor component">' . $content . '</div>';
+					echo '</div></section>';
 				}
 				echo $page->the_content();
 			} 
@@ -326,29 +329,19 @@ class Page{
 			ob_start();
 
 			$wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
-			if ( !$wrapper['type'] === 'wrapper' ) return '';
+			if ( !$wrapper || $wrapper['type'] !== 'wrapper' ) return '';
 
-			$container = null;
-			foreach ( $wrapper['components'] as $component ) {
-				if ( $component['type'] === 'container' ) {
-					$container = $component;
-					break;
-				}
-			}
-			if ( $container ) {
-				$container_components = $container['components'] ?? [];
+			if ( $wrapper ) {
+				$components_to_render = $wrapper['components'] ?? [];
 					
-				if (is_array($container_components) && !empty($container_components)) :
+				if (is_array($components_to_render) && !empty($components_to_render)) :
 					if ( !empty($compiled_css) ) echo '<style>' . $compiled_css . '</style>';
 
-					foreach ($container_components as $component) :
+					foreach ($components_to_render as $component) :
 						$component['__post_id'] = $page_ID;
 						echo Template_Engine::getInstance()->handle( $component );
-
 					endforeach;
 				endif;
-			} else {
-				error_log('No container found in wrapper component.');
 			}
 
 			return ob_get_clean();

@@ -12,21 +12,11 @@ Container::create( 'common_settings_container' )
         Field::create( 'text', 'classes', __('Classes','mv23theme') )
             ->set_description( __('Section class attribute, use only lowercase letters and hyphens (-)', 'mv23theme' ) )
             ->set_width( 50 ),
-        Field::create( 'complex', 'layout' )->set_attr( 'style', 'flex-wrap: nowrap;' )->add_fields(array(
-            Field::create( 'checkbox', 'use', __('Layout','mv23theme') )
-                ->fancy()
-                ->set_attr( 'style', 'flex-grow: initial;min-width: auto;' ),
-            Field::create( 'select', 'key', __('Layout','mv23theme'))->add_options( array(
-                'layout1' => __('Standard Layout','mv23theme'),
-                'layout2' => __('Extend background / Center content','mv23theme'),
-                'layout3' => __('Fully extended','mv23theme')
-            ))->add_dependency('use')->set_attr( 'style', 'flex-grow: 1;' )
-        )),
         Field::create( 'multiselect', 'utility_classes', __('Utility classes','mv23theme') )
             ->set_input_type( 'checkbox' )
             ->set_orientation( 'horizontal' )
             ->add_options( array(
-                'full-width' => __('Full Width','mv23theme'),
+                // 'full-width' => __('Full Width','mv23theme'),
                 'full-height' => __('Full Height','mv23theme'),
                 'sticky' => __('Sticky','mv23theme'),
                 'overflow-scroll' => __('Overflow scroll','mv23theme'),

@@ -331,6 +331,9 @@ class Carousel extends Component {
     static function create_slider_uid_on_the_fly( &$args ){
         // add slider UID if not already set
         $slider_uid_set = false;
+        if( !isset($args['slider_settings']) || !is_array($args['slider_settings']) ){
+            $args['slider_settings'] = array();
+        }
         foreach( $args['slider_settings'] as $setting ){
             if( isset($setting['__type']) && $setting['__type'] === 'slider_uid' ){
                 $slider_uid_set = true;

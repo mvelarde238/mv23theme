@@ -39,18 +39,14 @@ class Button extends Component {
                 ->hide_label()->set_placeholder( __('Enter button text ...', 'mv23theme') )
                 ->add_dynamic_data_selector(),
     
-            Field::create( 'radio', 'button_type' )
-                ->hide_label()->set_prefix( __('Type', 'mv23theme') )
-                ->set_default_value( 'link' )
-                ->set_orientation( 'horizontal' )
-                ->add_options( array(
-                    'link' => __('Link', 'mv23theme'),
-                    'download' => __('Download', 'mv23theme'),
-                )),
-    
-            Field::create( 'file', 'file' )
-                ->hide_label()
-                ->add_dependency('button_type','download','='),
+            // Field::create( 'radio', 'button_type' )
+            //     ->hide_label()->set_prefix( __('Type', 'mv23theme') )
+            //     ->set_default_value( 'link' )
+            //     ->set_orientation( 'horizontal' )
+            //     ->add_options( array(
+            //         'link' => __('Link', 'mv23theme'),
+            //         'download' => __('Download', 'mv23theme'),
+            //     )),
     
             Field::create( 'radio', 'url_type' )
                 ->hide_label()->set_prefix( __('Destination', 'mv23theme') )
@@ -59,14 +55,23 @@ class Button extends Component {
                 ->add_options( array(
                     'interna' => __('Internal Page', 'mv23theme'),
                     'externa' => __('Other', 'mv23theme'),
-                ))->add_dependency('button_type','link','='),
-            Field::create( 'wp_object', 'post', '' )->set_button_text( __('Select Page', 'mv23theme') )->add_dependency('button_type','link','=')->add_dependency('url_type','interna','='),
+                ))->add_dependency('download_file',0 , '='),
+            Field::create( 'wp_object', 'post', '' )->set_button_text( __('Select Page', 'mv23theme') )
+                ->add_dependency('download_file',0 , '=')
+                ->add_dependency('url_type','interna','='),
             Field::create( 'text', 'url', '' )
-                ->add_dependency('button_type','link','=')
+                ->add_dependency('download_file',0 , '=')
                 ->add_dependency('url_type','externa','=')
                 ->add_dynamic_data_selector(),
     
-            Field::create( 'checkbox', 'new_tab' )->set_text( __('Open in a new window', 'mv23theme') )->hide_label(),
+            Field::create( 'checkbox', 'new_tab' )->set_text( __('Open in a new window', 'mv23theme') )
+                ->hide_label()
+                ->add_dependency('download_file',0 , '='),
+
+            Field::create( 'checkbox', 'download_file' )->set_text( __('Download a file', 'mv23theme') )->hide_label(),
+            Field::create( 'file', 'file' )
+                ->hide_label()
+                ->add_dependency('download_file'),
 
             Field::create( 'tab', __('Style', 'mv23theme') ),
             Field::create( 'select', 'button_style' )
@@ -130,7 +135,7 @@ class Button extends Component {
             $text = ( $icon_position === 'left' ) ? $icon_html.$text : $text.$icon_html;
         } 
 
-        $type = $args['button_type'];
+        $type = (isset($args['download_file']) && $args['download_file']) ? 'download' : 'link';
         $href = '#';
         if($type == 'link'){
             $url_type = $args['url_type'];

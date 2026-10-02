@@ -1,15 +1,9 @@
 <?php get_header(); ?>
 
-<div id="content" class="content-wrapper">
-	<div id="main-content" class="main-content container">
-		<main class="main">
-			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-					<?php the_content(); ?>
-				</article>
-			<?php endwhile; endif; ?>
-		</main>
-	</div>
+<div id="content">
+	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+		<?php the_content(); ?>
+	<?php endwhile; endif; ?>
 </div>
 
 <?php get_footer(); ?>

@@ -26,12 +26,12 @@ class Core{
     private static $core_components = array(
         'structure' => array(
             'Page',
+            'Page_Content',
             'Container',
             'Section',
             'Row',
             'Column',
             'Components_Wrapper',
-            'Inner_Wrapper',
             'Template_Placeholder',
         ),
         'content' => array(
@@ -54,11 +54,9 @@ class Core{
             'Flip_Box_Back',
             'Carousel_Controls',
             'Carousel',
-            'Inner_Accordion',
             'Accordion_Button',
             'Accordion_Item',
             'Accordion',
-            'Inner_Row',
             'Map',
             'Shortcode',
             'Code',
