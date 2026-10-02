@@ -11,6 +11,7 @@ CHANGELOG
 |-- layout handling removed from common settings and components
 |-- Removed support for .full-width class
 |-- .global-wrapper removed from header.php and footer.php
+|-- .footer-content wrapper removed from Footer component
 --------------------------------------------------------------------------------------------------------------------------
 !IMPORTANT: Use the migrator to update old page_content metadata to the new Page_Content component structure.
 --------------------------------------------------------------------------------------------------------------------------

@@ -1,6 +1,4 @@
 <?php
-use Core\Builder\Component\Footer_Preview;
+use Core\Builder\Component\Footer;
 
-if(!is_singular('footer')) {
-    echo Footer_Preview::display(array());
-}
+echo Footer::display(array());

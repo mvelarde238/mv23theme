@@ -2,8 +2,7 @@
 namespace Core\Builder\Component;
 
 use Core\Builder\Component;
-use Core\Builder\Template_Engine;
-use Core\Frontend\Page;
+use Core\Builder\Component\Footer;
 
 class Footer_Preview extends Component {
 
@@ -29,38 +28,10 @@ class Footer_Preview extends Component {
 	}
 
     public static function display( $args ){
-		ob_start();
-		$theme_footer_post_meta = get_option('theme_footer_post');
-
-        if ($theme_footer_post_meta): 
-            $theme_footer_post_id = str_replace('post_', '', $theme_footer_post_meta);
-        	if( IS_MULTILANGUAGE && function_exists('pll_get_post') ) $theme_footer_post_id = pll_get_post($theme_footer_post_id);
-            
-        	$page_content = get_post_meta( $theme_footer_post_id, 'page_content', true );
-            $page_content_datastore = get_post_meta( $theme_footer_post_id, 'page_content_datastore', true );
-            $compiled_css = Page::compile_styles_to_css( is_array($page_content) ? ($page_content['styles'] ?? []) : [] );
-            $page_content = Page::consolidate_content( $page_content, $page_content_datastore );
-            $compiled_css .= Page::compile_components_custom_css( $page_content );
-        
-            if (is_array($page_content)) :
-                $wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
-                if ( $wrapper['type'] === 'wrapper' ){
-                    $page_content_comp = null;
-                    foreach ( $wrapper['components'] as $component ) {
-                    	if ( $component['type'] === 'page-content' ) {
-                    		$page_content_comp = $component;
-                    		break;
-                    	}
-                    }
-                    if ( $page_content_comp ) {
-                        if ( !empty($compiled_css) ) echo '<style>' . $compiled_css . '</style>';
-                        echo Footer::display( $page_content_comp );
-                    };
-                }
-        	endif;
-        endif;
-		return ob_get_clean();
-	}
+        ob_start();
+        echo Footer::display( $args );
+        return ob_get_clean();
+    }
 }
 
 new Footer_Preview();

@@ -208,11 +208,10 @@ class Core{
         foreach ( $this->get_elements() as $element_args ) { 
             $attributes = Template_Engine::generate_attributes( $element_args );
 
+            echo '<div '.$attributes.'>';
             if( !empty( $element_args['styles'] ) ) {
                 echo '<style>'.$element_args['styles'].'</style>';
             }
-
-            echo '<div '.$attributes.'>';
             echo '<div class="modal-content">';
             if($element_args['content']){
                 echo Template_Engine::check_components( $element_args['content'] );

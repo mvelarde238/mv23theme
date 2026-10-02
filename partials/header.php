@@ -1,4 +1,4 @@
 <?php
-use Core\Builder\Component\Header_Preview;
+use Core\Builder\Component\Header;
 
-echo Header_Preview::display(array());
+echo Header::display(array());
