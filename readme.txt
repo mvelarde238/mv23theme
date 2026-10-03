@@ -12,6 +12,7 @@ CHANGELOG
 |-- Removed support for .full-width class
 |-- .global-wrapper removed from header.php and footer.php
 |-- .footer-content wrapper removed from Footer component
+|-- Import/Export functionality added on ultimate builder field for version 4.0.0 and above
 --------------------------------------------------------------------------------------------------------------------------
 !IMPORTANT: Use the migrator to update old page_content metadata to the new Page_Content component structure.
 --------------------------------------------------------------------------------------------------------------------------

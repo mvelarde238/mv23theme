@@ -126,6 +126,21 @@
     }
 
     /**
+     * Export/import is only available when the theme version is >= 4.0.0.
+     */
+    UFBuilderIO.isImportExportSupported = function () {
+        var parts = String(BUILDER_GLOBALS.theme_version || '').split('.'),
+            min = [4, 0, 0];
+
+        for (var i = 0; i < 3; i++) {
+            var current = parseInt(parts[i], 10) || 0;
+            if (current > min[i]) return true;
+            if (current < min[i]) return false;
+        }
+        return true;
+    };
+
+    /**
      * Opens a modal to export the current builder content as a file or to the clipboard.
      */
     UFBuilderIO.openExportModal = function (builderData, componentsData, themeVersion, postType) {
