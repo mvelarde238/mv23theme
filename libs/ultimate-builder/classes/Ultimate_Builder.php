@@ -70,6 +70,7 @@ class Ultimate_Builder {
 		// Shared resources: (must load before components that use it)
 		[ 'name' => 'gjsSharedTemplates', 'handler' => 'gjs-shared-templates', 'isComponent' => false ],
 		[ 'name' => 'handleThemeColors', 'handler' => 'handle-theme-colors', 'isComponent' => false ],
+		[ 'name' => 'handleBuilderSettings', 'handler' => 'handle-builder-settings', 'isComponent' => false ],
 		// components
 		[ 'name' => 'gjsPageContent', 'handler' => 'gjs-page-content', 'isComponent' => true ],
 		[ 'name' => 'gjsBase', 'handler' => 'gjs-base', 'isComponent' => true ],

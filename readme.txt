@@ -2,6 +2,11 @@
 CHANGELOG
 **************************************************************************************************
 
+4.0.1 26-10-07
+- Builder settings panel implementation
+|-- Added support for customizing component behavior based on builder settings
+|-- default section padding and columns-gap settings added to the builder settings panel
+
 4.0.0 26-10-02
 - Page content metadata refactorized to use the new Page_Content component structure
 |-- page content component now holds all the content generated on the builder, replacing the old container component

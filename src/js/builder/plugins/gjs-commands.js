@@ -21,6 +21,16 @@ window.gjsCommands = function (editor, options) {
 
         const values = builder.prepare_project_data(raw_project_data, temporalCompStore, editor);
 
+        // add builderSettings to components_data to be processed by the backend.
+        // editorConfig.builderSettings only holds the flat settings values (see
+        // handle-builder-settings.js), so re-wrap it with __type here since
+        // that's the shape Field.php::save() expects per component.
+        const builder_settings = editor.getConfig().builderSettings || {};
+        values.components_data['builder-settings-id-238'] = {
+            __type: 'builder-settings',
+            builder_settings: builder_settings
+        };
+
         uf_field_model.datastore.set(
             uf_field_model.get('name'),
             {
