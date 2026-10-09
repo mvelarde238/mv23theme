@@ -76,14 +76,14 @@ class Listing extends Component {
             array_push($listing_fields_1, $woocommerce_keys_field);
         }
 
+        $tax_queries_fields = array(
+            Field::create( 'section', 'tax_queries_section', __('Tax Queries','mv23theme'))->add_dependency('source','auto','='),
+            Tax_Queries::getRepeater( 'tax_queries', __('Tax Queries','mv23theme') )->hide_label()
+        );
+
         $query_parameters_fields = array(
             Field::create( 'tab', 'query_parameters_tab', __('Query Parameters','mv23theme'))->add_dependency('source','auto','='),
             Query_Parameters::getRepeater( 'query_parameters', __('Query Parameters','mv23theme') )->hide_label()
-        );
-
-        $tax_queries_fields = array(
-            Field::create( 'tab', 'tax_queries_tab', __('Tax Queries','mv23theme'))->add_dependency('source','auto','='),
-            Tax_Queries::getRepeater( 'tax_queries', __('Tax Queries','mv23theme') )->hide_label()
         );
 
         $meta_queries_fields = array(
@@ -172,8 +172,8 @@ class Listing extends Component {
 
 		$fields = array_merge( 
             $listing_fields_1, 
-            $query_parameters_fields, 
             $tax_queries_fields,
+            $query_parameters_fields, 
             $meta_queries_fields, 
             $listing_template_fields, 
             $listing_fields_3, 
