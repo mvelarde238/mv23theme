@@ -2,6 +2,7 @@
 namespace Core\Frontend;
 
 use WP_Query;
+use Core\Builder\Component\Settings\Query_Parameters;
 
 class Listing_Data_Provider {
 
@@ -21,53 +22,32 @@ class Listing_Data_Provider {
     private static function build_custom_query( $args = array() ) {
         $query = array();
 
-        $args_query = array();
         $listing_source = $args['source'] ?? 'auto'; // auto || manual
         $woocommerce_key = ( WOOCOMMERCE_IS_ACTIVE && isset($args['woocommerce_key']) ) ? $args['woocommerce_key'] : '';
-            
+        
         if ($listing_source == 'manual') {
             $posts_ids = array();
             $manual_posts_raw = $args['posts'];
             foreach ($manual_posts_raw as $post) {
                 array_push($posts_ids, str_replace('post_','',$post) );
             };
-            
-            $args_query['post__in'] = $posts_ids;
-            $args_query['orderby'] = 'post__in';
-            $args_query['post_type'] = 'any';
-            $args_query['posts_per_page'] = -1; // ?
+                
+            $query_args = array();
+            $query_args['post__in'] = $posts_ids;
+            $query_args['orderby'] = 'post__in';
+            $query_args['post_type'] = 'any';
+            $query_args['posts_per_page'] = -1; // ?
         }
         
         if ($listing_source == 'auto') {
-            $args_query['paged'] = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+            // query parameters
+            $query_args = Query_Parameters::from_repeater($args['query_parameters'] ?? array());
+
+            if ( get_query_var('paged') ) $query_args['paged'] = get_query_var('paged');
 
             // post type
             $posttype = $args['posttype'] ?? '';
-            $args_query['post_type'] = $posttype;
-
-            // query params
-            $query_params = $args['query_params'] ?? array();
-            $posts_per_page = $query_params['posts_per_page'] ?? 3;
-            $order = $query_params['order'] ?? 'DESC';
-            $orderby = $query_params['orderby'] ?? 'date';
-
-            // post status params
-            $status_params = $args['status_params'] ?? array(
-                'set_post_status' => false,
-                'post_status' => array('publish')
-            );
-            $post_status = ( self::fix_boolean_on_ajax_calls( $status_params['set_post_status'] ) && isset($status_params['post_status']) && is_array($status_params['post_status']) && count($status_params['post_status']) > 0 ) ? $status_params['post_status'] : array('publish');
-
-            $args_query['posts_per_page'] = $posts_per_page;
-            $args_query['order'] = $order;
-            $args_query['orderby'] = $orderby;
-            $args_query['post_status'] = $post_status;
-    
-            // optional params
-            if( isset($args['post__not_in']) ) $args_query['post__not_in'] = $args['post__not_in'];
-            if( isset($query_params['offset']) && is_numeric($query_params['offset']) && $query_params['offset'] > 0 ){
-                $args_query['offset'] = $query_params['offset'];
-            } 
+            $query_args['post_type'] = $posttype;
         
             // check if tax_query is needed 
             $tax_params = ( isset($args['tax_params']) ) ? $args['tax_params'] : null;
@@ -109,13 +89,13 @@ class Listing_Data_Provider {
                 /* end woo featured products */
             
                 if( count($tax_query) > 1 ){ // add tax query
-                    $args_query['tax_query'] = $tax_query;
+                    $query_args['tax_query'] = $tax_query;
                 }
             }
 
             if(WOOCOMMERCE_IS_ACTIVE){
                 if($woocommerce_key == 'on_sale'){
-                    $args_query['meta_query'] = array(
+                    $query_args['meta_query'] = array(
                         array(
                             'key'           => '_sale_price',
                             'value'         => 0,
@@ -125,23 +105,23 @@ class Listing_Data_Provider {
                     );
                 }
                 if($woocommerce_key == 'best_selling'){
-                    $args_query['meta_query'] = array(
+                    $query_args['meta_query'] = array(
                         array(
                             'key' => 'total_sales'
                         )
                     );
-                    $args_query['orderby'] = 'meta_value_num';
+                    $query_args['orderby'] = 'meta_value_num';
                 }
             }
 
             // Handle meta queries from the listing arguments
             $meta_queries = self::build_meta_queries( $args['meta_queries'] ?? array() );
             if( !empty($meta_queries) ){
-                $args_query['meta_query'] = array_merge( $args_query['meta_query'] ?? array(), $meta_queries );
+                $query_args['meta_query'] = array_merge( $query_args['meta_query'] ?? array(), $meta_queries );
             }
         }
 
-        $query = new WP_Query( $args_query );
+        $query = new WP_Query( $query_args );
 
         return $query;
     }

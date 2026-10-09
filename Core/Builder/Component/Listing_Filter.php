@@ -317,7 +317,7 @@ class Listing_Filter extends Component {
                         echo '<button type="button" class="listing-filter__reset" data-reset-url="'.esc_url( $form_action_url ).'">'.esc_html( $reset_button_text ).' <i class="fa fa-undo"></i></button>';
                         echo '</span>';
                     }
-                    echo '<button type="submit" class="listing-filter__submit btn btn--main-color btn-block">'.$button_text.'</button>';
+                    echo '<button type="submit" class="listing-filter__submit">'.$button_text.'</button>';
                     echo '</div>';
                     break;
 
@@ -502,7 +502,7 @@ if ( ! filterItems.length ) {
                 submitHtml += '<span class="field-desc"><button type="button" class="listing-filter__reset">' + escapeHtml( filterGroup.reset_text || 'RESET' ) + ' <i class="fa fa-undo"></i></button></span>';
             }
 
-            submitHtml += '<button type="submit" class="listing-filter__submit btn btn--main-color btn-block">' + escapeHtml( filterGroup.text || 'FILTER' ) + '</button>';
+            submitHtml += '<button type="submit" class="listing-filter__submit">' + escapeHtml( filterGroup.text || 'FILTER' ) + '</button>';
             html += '<div class="field-wrapper">' + submitHtml + '</div>';
             return;
         }

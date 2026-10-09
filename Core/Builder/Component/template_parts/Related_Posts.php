@@ -31,7 +31,7 @@ class Related_Posts extends Component {
 
         # Add listing fields
 		$listing_fields = Listing::get_fields();
-		$exclude = ['posttype','woocommerce_key','tax_params','status_params','pagination_scrolltop'];
+		$exclude = ['posttype','woocommerce_key','tax_params','query_parameters','pagination_scrolltop'];
 		foreach ( $listing_fields as $field ) {
             $field_name = $field->get_name();
 			
@@ -78,9 +78,9 @@ class Related_Posts extends Component {
         $custom_listing_args = array(
             'show' => 'auto',
             'post__not_in' => array($post->ID),
-            'query_params' => array(
-                'posts_per_page' => 3,
-                'orderby' => 'rand',
+            'query_parameters' => array(
+                array( '__type' => 'posts_per_page', 'value' => 3 ),
+                array( '__type' => 'orderby', 'value' => 'rand' ),
             ),
             'posttype' => $post->post_type,
         );

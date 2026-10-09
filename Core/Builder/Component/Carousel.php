@@ -4,7 +4,7 @@ namespace Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
-use Core\Builder\Slider_Settings;
+use Core\Builder\Component\Settings\Slider_Settings;
 
 class Carousel extends Component {
 

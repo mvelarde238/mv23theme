@@ -9,9 +9,10 @@ use Core\Posttype\Postcard;
 use Core\Builder\Component\Postcard as Postcard_Component;
 use Core\Builder\Core;
 use Core\Frontend\Listing_Data_Provider;
-use Core\Builder\Slider_Settings;
+use Core\Builder\Component\Settings\Slider_Settings;
 use Core\Builder\Component\Carousel;
 use Ultimate_Fields\Container\Repeater_Group;
+use Core\Builder\Component\Settings\Query_Parameters;
 
 class Listing extends Component {
 
@@ -98,7 +99,8 @@ class Listing extends Component {
         ));
 
         return array(
-            Field::create( 'tab', 'meta_queries_tab', __('Meta Queries','mv23theme')),
+            Field::create( 'tab', 'meta_queries_tab', __('Meta Queries','mv23theme'))
+                ->add_dependency('source','auto','='),
             Field::create( 'repeater', 'meta_queries' )
                 ->set_chooser_type('tags')
                 ->set_add_text( __('Add meta query','mv23theme') )
@@ -170,42 +172,9 @@ class Listing extends Component {
             array_push($listing_fields_1, $woocommerce_keys_field);
         }
 
-        $width_25 = 'width: 25%; min-width: initial;';
-        $width_50 = 'width: 50%; min-width: initial;';
-
-        $query_settings_fields = array(
-            Field::create( 'tab', 'query_settings_tab', __('Query Settings','mv23theme')),
-            Field::create( 'complex', 'query_params', '' )->add_fields(array(
-                Field::create( 'number', 'posts_per_page', __('Number of posts','mv23theme') )->set_default_value(3)->set_attr('style', $width_50),
-                Field::create( 'select', 'order', __('Order','mv23theme') )->add_options(array(
-                    'DESC' => __('Descending','mv23theme'),
-                    'ASC' => __('Ascending','mv23theme')
-                ))->set_attr('style', $width_50),
-                Field::create( 'select', 'orderby', __('Order by','mv23theme') )->add_options(array(
-                    'date' => __('Date','mv23theme'),
-                    'title' => __('Title','mv23theme'),
-                    'name' => __('Name','mv23theme'),
-                    'rand' => __('Random','mv23theme'),
-                    'menu_order' => __('Custom','mv23theme'),
-                    // 'comment_count' => __('Comentarios','mv23theme')
-                ))->set_attr('style', $width_50),
-                Field::create( 'number', 'offset', 'Offset' )->set_attr('style', $width_50)->set_minimum(0),
-            ))->add_dependency('source','auto','='),
-
-            Field::create( 'complex', 'status_params', '' )->add_fields(array(
-                Field::create( 'checkbox', 'set_post_status' )
-                    ->set_text( __('Set post status','mv23theme') )
-                    ->hide_label()->fancy(),
-                Field::create( 'multiselect', 'post_status' )->add_options(array(
-                    'publish' => __('Published','mv23theme'),
-                    'draft' => __('Draft','mv23theme'),
-                    'pending' => __('Pending','mv23theme'),
-                    'future' => __('Scheduled','mv23theme'),
-                    'private' => __('Private','mv23theme'),
-                    'inherit' => __('Inherit','mv23theme'),
-                    'trash' => __('Trash','mv23theme')
-                ))->add_dependency('set_post_status')->hide_label()
-            ))->add_dependency('source','auto','=')
+        $query_parameters_fields = array(
+            Field::create( 'tab', 'query_parameters_tab', __('Query Parameters','mv23theme'))->add_dependency('source','auto','='),
+            Query_Parameters::getRepeater( 'query_parameters', __('Query Parameters','mv23theme') )->hide_label()
         );
 
         $meta_queries_fields = self::get_meta_queries_fields();
@@ -215,12 +184,14 @@ class Listing extends Component {
             Field::create( 'select', 'listing_template', 'Template' )->add_options(LISTING_TEMPLATES)
         );
         if( !MASONRY_IS_ACTIVE ){
-            $query_settings_fields[] = Field::create( 'message', 'masonry_message', __('Activate Masonry','mv23theme') )
+            $listing_template_fields[] = Field::create( 'message', 'masonry_message', __('Activate Masonry','mv23theme') )
                 ->set_description('You need to activate masonry gallery to use this feature: <a href="'.admin_url().'admin.php?page=theme-options#global_options" target="_blank">Activate Masonry Gallery</a>')
                 ->add_dependency('listing_template', 'masonry', '=')
                 ->set_attr( 'style', 'background:#ffe8e8;width:100%;' );
         }
 
+        $width_25 = 'width: 25%; min-width: initial;';
+        
         $listing_fields_3 = array(
             Field::create( 'complex', 'columns', __('Columns Quantity','mv23theme') )->add_fields(array(
                 Field::create( 'number', 'desktop', __('Desktop','mv23theme') )->set_minimum(1)->set_maximum(12)->set_default_value(LISTING_COLUMNS['desktop'])->set_attr('style', $width_25),
@@ -289,7 +260,7 @@ class Listing extends Component {
 
 		$fields = array_merge( 
             $listing_fields_1, 
-            $query_settings_fields, 
+            $query_parameters_fields, 
             $meta_queries_fields, 
             $listing_template_fields, 
             $listing_fields_3, 

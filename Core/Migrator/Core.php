@@ -2,37 +2,43 @@
 namespace Core\Migrator;
 
 use Core\Includes\Theme_Version;
-use Core\Migrator\Migration\Migrate_0_4_X_to_0_5_0;
-use Core\Migrator\Migration\Migrate_1_5_X_to_2_0_1;
-use Core\Migrator\Migration\Migrate_Gmaps_to_Leaflet;
-use Core\Migrator\Migration\Migrate_ScrollMagic_to_GSAP;
-use Core\Migrator\Migration\Migrate_Timeline_Group_To_Groups;
-use Core\Migrator\Migration\Migrate_2_2_X_to_2_3_0;
-use Core\Migrator\Migration\Migrate_Gallery_Settings;
-use Core\Migrator\Migration\Migrate_Video_Settings;
-use Core\Migrator\Migration\Migrate_OCE_Settings;
-use Core\Migrator\Migration\Migrate_Accordion_Settings;
-use Core\Migrator\Migration\Migrate_Inner_Components;
-use Core\Migrator\Migration\Migrate_Slider_Comp_To_Shortcode;
-use Core\Migrator\Migration\Migrate_Carrusel_Comp_To_Carousel;
-use Core\Migrator\Migration\Migrate_Heading_Settings;
-use Core\Migrator\Migration\Migrate_2_10_X_to_3_0_0;
-use Core\Migrator\Migration\Cleanup_2_10_X_to_3_0_0;
-use Core\Migrator\Migration\Migrate_3_2_X_to_3_3_0;
-use Core\Migrator\Migration\Migrate_3_3_0_to_3_4_0;
-use Core\Migrator\Migration\Migrate_3_4_X_to_3_5_0;
-use Core\Migrator\Migration\Migrate_3_5_X_to_3_6_0;
-use Core\Migrator\Migration\Migrate_3_6_X_to_3_7_0;
-use Core\Migrator\Migration\Migrate_3_7_X_to_3_8_0;
-use Core\Migrator\Migration\Migrate_3_8_X_to_3_9_0;
-use Core\Migrator\Migration\Migrate_3_9_X_to_3_10_0;
-use Core\Migrator\Migration\Migrate_3_10_X_to_3_11_0;
-use Core\Migrator\Migration\Migrate_OCE_Restrictions_to_Visibility;
-use Core\Migrator\Migration\Migrate_3_11_X_to_3_12_0;
-use Core\Migrator\Migration\Migrate_3_13_X_to_3_14_0;
-use Core\Migrator\Migration\Migrate_3_14_X_to_3_15_0;
-use Core\Migrator\Migration\Migrate_3_15_X_to_3_16_0;
-use Core\Migrator\Migration\Migrate_3_16_X_to_4_0_0;
+
+// V1
+use Core\Migrator\Migration\V1\Migrate_0_4_X_to_0_5_0;
+// V2
+use Core\Migrator\Migration\V2\Migrate_1_5_X_to_2_0_1;
+use Core\Migrator\Migration\V2\Migrate_Gmaps_to_Leaflet;
+use Core\Migrator\Migration\V2\Migrate_ScrollMagic_to_GSAP;
+use Core\Migrator\Migration\V2\Migrate_Timeline_Group_To_Groups;
+use Core\Migrator\Migration\V2\Migrate_2_2_X_to_2_3_0;
+use Core\Migrator\Migration\V2\Migrate_Gallery_Settings;
+use Core\Migrator\Migration\V2\Migrate_Video_Settings;
+use Core\Migrator\Migration\V2\Migrate_OCE_Settings;
+use Core\Migrator\Migration\V2\Migrate_Accordion_Settings;
+use Core\Migrator\Migration\V2\Migrate_Inner_Components;
+use Core\Migrator\Migration\V2\Migrate_Slider_Comp_To_Shortcode;
+use Core\Migrator\Migration\V2\Migrate_Carrusel_Comp_To_Carousel;
+use Core\Migrator\Migration\V2\Migrate_Heading_Settings;
+// V3
+use Core\Migrator\Migration\V3\Migrate_2_10_X_to_3_0_0;
+use Core\Migrator\Migration\V3\Cleanup_2_10_X_to_3_0_0;
+use Core\Migrator\Migration\V3\Migrate_3_2_X_to_3_3_0;
+use Core\Migrator\Migration\V3\Migrate_3_3_0_to_3_4_0;
+use Core\Migrator\Migration\V3\Migrate_3_4_X_to_3_5_0;
+use Core\Migrator\Migration\V3\Migrate_3_5_X_to_3_6_0;
+use Core\Migrator\Migration\V3\Migrate_3_6_X_to_3_7_0;
+use Core\Migrator\Migration\V3\Migrate_3_7_X_to_3_8_0;
+use Core\Migrator\Migration\V3\Migrate_3_8_X_to_3_9_0;
+use Core\Migrator\Migration\V3\Migrate_3_9_X_to_3_10_0;
+use Core\Migrator\Migration\V3\Migrate_3_10_X_to_3_11_0;
+use Core\Migrator\Migration\V3\Migrate_OCE_Restrictions_to_Visibility;
+use Core\Migrator\Migration\V3\Migrate_3_11_X_to_3_12_0;
+use Core\Migrator\Migration\V3\Migrate_3_13_X_to_3_14_0;
+use Core\Migrator\Migration\V3\Migrate_3_14_X_to_3_15_0;
+use Core\Migrator\Migration\V3\Migrate_3_15_X_to_3_16_0;
+// V4
+use Core\Migrator\Migration\V4\Migrate_3_16_X_to_4_0_0;
+use Core\Migrator\Migration\V4\Migrate_4_0_X_to_4_1_0;
 
 define ('THEME_MIGRATOR_DIR', __DIR__);
 define ('THEME_MIGRATOR_PATH', get_template_directory_uri() . '/Core/Migrator');
@@ -87,6 +93,7 @@ class Core{
         Migrate_3_14_X_to_3_15_0::class                => '3.15.0',
         Migrate_3_15_X_to_3_16_0::class                => '3.16.0',
         Migrate_3_16_X_to_4_0_0::class                 => '4.0.0',
+        Migrate_4_0_X_to_4_1_0::class                 => '4.1.0',
     );
 
     private function __construct(){

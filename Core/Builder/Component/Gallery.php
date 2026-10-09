@@ -5,7 +5,7 @@ use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
 use Core\Builder\Template_Engine\Video as Video_Template_Engine;
-use Core\Builder\Slider_Settings;
+use Core\Builder\Component\Settings\Slider_Settings;
 use Core\Builder\Component\Carousel;
 
 class Gallery extends Component {
