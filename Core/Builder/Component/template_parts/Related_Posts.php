@@ -31,7 +31,7 @@ class Related_Posts extends Component {
 
         # Add listing fields
 		$listing_fields = Listing::get_fields();
-		$exclude = ['posttype','woocommerce_key','tax_params','query_parameters','pagination_scrolltop'];
+		$exclude = ['posttype','woocommerce_key','query_parameters','pagination_scrolltop'];
 		foreach ( $listing_fields as $field ) {
             $field_name = $field->get_name();
 			
@@ -97,7 +97,12 @@ class Related_Posts extends Component {
 			if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
                 $posttype__taxonomy = $post_type . '--' . $taxonomy;
                 if( !in_array($taxonomy, $excluded_taxonomies) ) {
-                    $listing_args['tax_params'][$posttype__taxonomy] = wp_list_pluck( $terms, 'term_id' );
+                    $listing_args['tax_queries'][] = array(
+                        '__type' => 'taxgroup__' . $post_type . '__' . $taxonomy,
+                        'terms' => wp_list_pluck( $terms, 'term_id' ),
+                        'include_children' => true,
+                        'operator' => 'IN',
+                    );
                 }
 			}
 		}

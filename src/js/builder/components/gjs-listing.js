@@ -135,9 +135,10 @@ window.gjsListing = function (editor) {
                     'source',
                     'posts',
                     'posttype',
-                    'tax_params',
                     'woocommerce_key',
                     'query_parameters',
+                    'tax_queries',
+                    'meta_queries',
                     'listing_template',
                     'postcard_settings',
                     'pagination_type',
@@ -146,20 +147,20 @@ window.gjsListing = function (editor) {
                     this.render();
                 }
 
+                const datastore = editor.getComponentDatastore(model);
+                const data = datastore.toJSON();
+
                 // if listing template is masonry and columns value changed, re-render to update masonry layout
                 if (changed_keys[0] === 'columns'){
-                    const datastore = editor.getComponentDatastore(model);
-                    const data = datastore.toJSON();
-                    if (data.listing_template === 'masonry') {
+                    const { listing_template } = data;
+                    if (listing_template === 'masonry') {
                         this.render();
                     }
                 }
 
                 if (changed_keys[0] === 'columns' || changed_keys[0] === 'columns_gap') {
                     // Update CSS properties for columns and gap
-                    const datastore = editor.getComponentDatastore(model);
-                    const data = datastore.toJSON();
-                    const listing_template = data.listing_template;
+                    const { listing_template } = data;
                     const listingElSelector = listing_template === 'carousel' ? '.carousel__slider' : '.posts-listing';
                     const listingEl = model.getEl().querySelector(listingElSelector);
                     const devices = ['desktop', 'laptop', 'tablet', 'mobile'];
@@ -178,13 +179,37 @@ window.gjsListing = function (editor) {
                 }
 
                 if( changed_keys.includes('slider_settings') ){
-                    const datastore = editor.getComponentDatastore(model);
-                    const { listing_template, slider_settings } = datastore.toJSON();
+                    const { listing_template, slider_settings } = data;
                     if (listing_template === 'carousel') {
                         const carouselWrapper = model.findType('carousel-wrapper')[0];
                         const carouselDatastore = editor.getComponentDatastore(carouselWrapper);                       
                         carouselDatastore.set('slider_settings', slider_settings);
                         carouselWrapper.view.custom_datastore_change_callback({'slider_settings': slider_settings});
+                    }
+                }
+
+                this.toggle_group_types_visibility(data.posttype);
+            },
+            toggle_group_types_visibility(posttype) {
+                const model = this.model;
+                const builder_comp_model = editor.getBuilderCompModel(model);
+                if (builder_comp_model) {
+                    const fields_models = builder_comp_model.get('fields') || {};
+                    const tax_queries_repeater = fields_models.find(fm => fm.get('name') == 'tax_queries');
+                    if (tax_queries_repeater) {
+                        const groupTypes = tax_queries_repeater.groupTypes || [];
+                        groupTypes.forEach(group => {
+                            const group_id = group.get('id');
+                            if (group_id.startsWith('taxgroup__')) {
+                                const group_posttype = group_id.split('__')[1];
+                                if (group_posttype !== posttype) {
+                                    group.set('can_be_added', false);
+                                } else {
+                                    group.set('can_be_added', true);
+                                }
+                            }
+                        });
+                        tax_queries_repeater.trigger('value-replaced');
                     }
                 }
             },
@@ -195,6 +220,19 @@ window.gjsListing = function (editor) {
                 }, 150);
             },
         },
+    });
+
+    // on openDatastore, check if the component is a listing and if so, call toggle_group_types_visibility with the current posttype
+    editor.on('openDatastore', (builder_comp_model, component) => {
+        if (component && component.get('type') === compClass) {
+            const datastore = editor.getComponentDatastore(component);
+            if (datastore) {
+                const { posttype } = datastore.toJSON();
+                setTimeout(() => {
+                    component.view.toggle_group_types_visibility(posttype); 
+                }, 50);
+            }
+        }
     });
 
     // Before saving remove data that shouldn't be saved

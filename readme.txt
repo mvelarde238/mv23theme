@@ -5,8 +5,9 @@ CHANGELOG
 4.1.0 26-10-09
 - Query Parameters tab and repeater added to Listing component
 - Migration files reordered on the basis of their version numbers
+- Tax_Query repeater added to Listing component
 --------------------------------------------------------------------------------------------------------------------------
-!IMPORTANT: Use the migrator to update old Listing component query parameters handling to the new structure
+!IMPORTANT: Use the migrator to update old Listing component query parameters and taxonomy handling to the new structure
 --------------------------------------------------------------------------------------------------------------------------
 
 4.0.1 26-10-07

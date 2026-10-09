@@ -38,7 +38,7 @@ class Archive_Posts extends Component {
 
 		# Add listing fields
 		$listing_fields = Listing::get_fields();
-		$exclude = ['meta_queries_tab','meta_queries','content_tab','source','posttype','woocommerce_key','tax_params','query_settings_tab','query_parameters','pagination_scrolltop'];
+		$exclude = ['meta_queries_tab','meta_queries','content_tab','source','posttype','woocommerce_key','query_settings_tab','query_parameters','pagination_scrolltop'];
 		foreach ( $listing_fields as $field ) {
 			if( in_array( $field->get_name(), $exclude ) ) continue;
 
@@ -81,8 +81,13 @@ class Archive_Posts extends Component {
                 $listing_args['posttype'] = $posttype;
             }
             if( $taxonomy && !empty($terms) ){
-                $listing_args['tax_params'] = array(
-                    $posttype.'--'.$taxonomy => $terms
+                $listing_args['tax_queries'] = array(
+                    array(
+                        '__type' => 'taxtaxgroup__' . $posttype . '__' . $taxonomy,
+                        'terms' => $terms,
+                        'include_children' => true,
+                        'operator' => 'IN',
+                    )
                 );
             }
 

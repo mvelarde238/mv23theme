@@ -13,6 +13,8 @@ use Core\Builder\Component\Settings\Slider_Settings;
 use Core\Builder\Component\Carousel;
 use Ultimate_Fields\Container\Repeater_Group;
 use Core\Builder\Component\Settings\Query_Parameters;
+use Core\Builder\Component\Settings\Meta_Queries;
+use Core\Builder\Component\Settings\Tax_Queries;
 
 class Listing extends Component {
 
@@ -32,83 +34,6 @@ class Listing extends Component {
             'block_render_type' => 'listing',
             'custom_datastore_change_callback' => true
 		);
-    }
-
-    private static function get_meta_queries_fields(){
-        $relation_group = new Repeater_Group( 'relation' );
-        $relation_group->set_title(__('Relation','mv23theme'));
-        $relation_group->set_maximum( 1 );
-        $relation_group->add_fields(array(
-            Field::create( 'radio', 'relation' )->set_orientation( 'horizontal' )->add_options(array(
-                'AND' => __('AND','mv23theme'),
-                'OR' => __('OR','mv23theme')
-            ))->hide_label()
-        ));
-
-        $meta_query_group = new Repeater_Group( 'meta_query' );
-        $meta_query_group->set_title(__('Meta Query','mv23theme'));
-        $meta_query_group->add_fields(array(
-            Field::create( 'text', 'key' )->hide_label()->set_prefix(__('Meta Key','mv23theme')),
-            Field::create( 'select', 'compare' )->hide_label()->set_prefix(__('Compare','mv23theme'))
-                ->add_options(array(
-                    '' => '', 
-                    '=' => __('Equal','mv23theme'),
-                    '!=' => __('Not Equal','mv23theme'),
-                    '>' => __('Greater Than','mv23theme'),
-                    '>=' => __('Greater Than or Equal','mv23theme'),
-                    '<' => __('Less Than','mv23theme'),
-                    '<=' => __('Less Than or Equal','mv23theme'),
-                    'IN' => __('In','mv23theme'),
-                    'NOT IN' => __('Not In','mv23theme'),
-                    'BETWEEN' => __('Between','mv23theme'),
-                    'NOT BETWEEN' => __('Not Between','mv23theme'),
-                    'LIKE' => __('Like','mv23theme'),
-                    'NOT LIKE' => __('Not Like','mv23theme'),
-                    'REGEXP' => __('Regexp','mv23theme'),
-                    'NOT REGEXP' => __('Not Regexp','mv23theme'),
-                    'RLIKE' => __('Rlike','mv23theme'),
-                    'EXISTS' => __('Exists','mv23theme'),
-                    'NOT EXISTS' => __('Not Exists','mv23theme'),
-                )),
-            Field::create( 'text', 'value' )->hide_label()->set_prefix(__('Meta Value','mv23theme'))
-                ->add_suggestions( array( '@today', '@+1 day', '@-1 day', '@+1 week', '@-1 week', '@first day of this month', '@last day of this month' ) ),
-            Field::create( 'select', 'type' )->hide_label()->set_prefix(__('Type','mv23theme'))
-                ->add_options(array(
-                    '' => '',
-                    'NUMERIC' => __('Numeric','mv23theme'),
-                    'BINARY' => __('Binary','mv23theme'),
-                    'CHAR' => __('Char','mv23theme'),
-                    'DATE' => __('Date','mv23theme'),
-                    'DATETIME' => __('Datetime','mv23theme'),
-                    'DECIMAL' => __('Decimal','mv23theme'),
-                    'SIGNED' => __('Signed','mv23theme'),
-                    'TIME' => __('Time','mv23theme'),
-                    'UNSIGNED' => __('Unsigned','mv23theme')
-                ))
-        ));
-
-        $grouped_queries_group = new Repeater_Group('grouped_queries' );
-        $grouped_queries_group->set_title(__('Grouped Queries','mv23theme'));
-        $grouped_queries_group->add_fields(array(
-            Field::create( 'repeater', 'grouped_queries' )
-                ->set_chooser_type('tags')
-                ->set_add_text( __('Add grouped query','mv23theme') )
-                ->hide_label()
-                ->add_group( $relation_group )
-                ->add_group( $meta_query_group )
-        ));
-
-        return array(
-            Field::create( 'tab', 'meta_queries_tab', __('Meta Queries','mv23theme'))
-                ->add_dependency('source','auto','='),
-            Field::create( 'repeater', 'meta_queries' )
-                ->set_chooser_type('tags')
-                ->set_add_text( __('Add meta query','mv23theme') )
-                ->hide_label()
-                ->add_group( $relation_group )
-                ->add_group( $meta_query_group )
-                ->add_group( $grouped_queries_group )
-        );
     }
 
 	public static function get_fields() {
@@ -137,27 +62,6 @@ class Listing extends Component {
                 ->add_options( $posttypes )
         );
 
-        // add taxonomies parameters for each post type
-        $tax_params = Field::create( 'complex', 'tax_params', __('Categories','mv23theme') )
-            ->hide_label()
-            ->add_dependency('source','auto','=');
-        
-        foreach($posttypes as $cpt_slug => $cpt_name){
-            $taxonomies = get_object_taxonomies( $cpt_slug, 'objects' );
-            if( is_array($taxonomies) && count($taxonomies) > 0 ){
-                foreach($taxonomies as $tax_slug => $tax_object){
-                    if( !$tax_object->public || !$tax_object->show_ui ) continue;
-                    $tax_name = $tax_object->labels->name;
-                    $tax_params->add_fields( array(
-                        Field::create( 'multiselect', $cpt_slug .'--'. $tax_slug, $tax_name )
-                            ->add_terms( $tax_slug )
-                            ->add_dependency('../posttype', $cpt_slug, '=')
-                    ));
-                }
-            }
-        }
-        array_push($listing_fields_1, $tax_params);
-
         if(WOOCOMMERCE_IS_ACTIVE){
             $woocommerce_keys_field = Field::create('select','woocommerce_key','WooCommerce Tag')
                 ->add_dependency('source','auto','=')
@@ -177,7 +81,15 @@ class Listing extends Component {
             Query_Parameters::getRepeater( 'query_parameters', __('Query Parameters','mv23theme') )->hide_label()
         );
 
-        $meta_queries_fields = self::get_meta_queries_fields();
+        $tax_queries_fields = array(
+            Field::create( 'tab', 'tax_queries_tab', __('Tax Queries','mv23theme'))->add_dependency('source','auto','='),
+            Tax_Queries::getRepeater( 'tax_queries', __('Tax Queries','mv23theme') )->hide_label()
+        );
+
+        $meta_queries_fields = array(
+            Field::create( 'tab', 'meta_queries_tab', __('Meta Queries','mv23theme'))->add_dependency('source','auto','='),
+            Meta_Queries::getRepeater( 'meta_queries', __('Meta Queries','mv23theme') )->hide_label()
+        );
 
         $listing_template_fields = array(
             Field::create( 'tab', 'listing_template_tab', __('Listing Template','mv23theme')),
@@ -261,6 +173,7 @@ class Listing extends Component {
 		$fields = array_merge( 
             $listing_fields_1, 
             $query_parameters_fields, 
+            $tax_queries_fields,
             $meta_queries_fields, 
             $listing_template_fields, 
             $listing_fields_3, 

@@ -42,11 +42,16 @@ class Migrate_4_0_X_to_4_1_0 extends Migrate_Components_Settings_v3 {
 
     private function migrate_listing_datastore( $entry ) {
         $settings = $this->extract_legacy_listing_settings( $entry );
-
         $entry['query_parameters'] = $this->build_repeater_settings( $settings );
+
+        $tax_queries = $this->build_tax_queries_from_legacy_params( $entry['tax_params'] ?? array() );
+        if ( ! empty( $tax_queries ) ) {
+            $entry['tax_queries'] = $tax_queries;
+        }
 
         unset( $entry['query_params']);
         unset( $entry['status_params'] );
+        unset( $entry['tax_params'] );
 
         return $entry;
     }
@@ -114,6 +119,43 @@ class Migrate_4_0_X_to_4_1_0 extends Migrate_Components_Settings_v3 {
             $repeater[] = array(
                 '__type' => $parameter['key'],
                 'value' => $parameter['value'],
+            );
+        }
+
+        return $repeater;
+    }
+
+    // legacy format: array( 'posttype--taxonomy' => array( term_id, ... ) ), always queried with IN + include_children
+    private function build_tax_queries_from_legacy_params( $tax_params ) {
+        $repeater = array();
+
+        if ( ! is_array( $tax_params ) ) {
+            return $repeater;
+        }
+
+        foreach ( $tax_params as $key => $terms ) {
+            $parts = explode( '--', (string) $key, 2 );
+            if ( count( $parts ) !== 2 || $parts[0] === '' || $parts[1] === '' ) {
+                continue;
+            }
+
+            if ( ! is_array( $terms ) ) {
+                $terms = array( $terms );
+            }
+
+            $terms = array_values( array_filter( $terms, function ( $term ) {
+                return $term !== '' && $term !== null;
+            } ) );
+
+            if ( empty( $terms ) ) {
+                continue;
+            }
+
+            $repeater[] = array(
+                '__type'           => 'taxgroup__' . $parts[0] . '__' . $parts[1],
+                'terms'            => $terms,
+                'include_children' => true,
+                'operator'         => 'IN',
             );
         }
 

@@ -92,8 +92,9 @@ window.gjsArchivePageStructure = function (editor, options) {
                 $rerender_listing_on_change = [
                     'source',
                     // 'posttype',
-                    // 'tax_params',
                     'query_parameters',
+                    'tax_queries',
+                    'meta_queries',
                     'listing_template', 
                     // 'slider_settings',
                     'postcard_settings',
