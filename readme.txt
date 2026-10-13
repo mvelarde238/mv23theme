@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+4.2.1 26-10-13
+- Cleaned up component datastore on save and before exporting in the ultimate builder field
+  keys cleaned up include 'settings', 'scroll_animations_settings', 'actions_settings', 'visibility_settings', and '__hidden'
+
 4.2.0 26-10-12
 - Listing filters refactored to use GJS components instead of repeater groups
 - Hooks and filters removed: 

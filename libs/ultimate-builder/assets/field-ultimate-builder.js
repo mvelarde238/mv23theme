@@ -111,6 +111,16 @@
                     var $exportButton = jQuery('<button type="button" class="button uf-export-builder"><i class="dashicons dashicons-download"></i> ' + exportText[locale] + '</button>');
                     var $importButton = jQuery('<button type="button" class="button uf-import-builder"><i class="dashicons dashicons-upload"></i> ' + importText[locale] + '</button>');
                     $wrapper.find('p').append($exportButton).append($importButton);
+
+                    // clean up component datastore before exporting
+                    for (var __compID in components_data) {
+                        ['settings', 'scroll_animations_settings', 'actions_settings', 'visibility_settings'].forEach(function(empty_key) {
+                            if (components_data[__compID].hasOwnProperty(empty_key) && !components_data[__compID][empty_key]) {
+                                delete components_data[__compID][empty_key];
+                            }
+                        });
+                        delete components_data[__compID].__hidden;
+                    }
                     
                     $exportButton.on('click', function (e) {
                         e.preventDefault();
