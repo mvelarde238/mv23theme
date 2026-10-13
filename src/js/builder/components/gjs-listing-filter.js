@@ -6,77 +6,67 @@ window.gjsListingFilter = function (editor) {
     const __ = editor.createTranslator(editor);
     const compName = __('Listing Filter');
 
+    // Define filters components 
+    ['search','month','year','postmeta','taxonomy','submit'].forEach(function(filter) {
+        let filterType = filter+'-filter';
+        let filterName = filter.charAt(0).toUpperCase() + filter.slice(1) + ' Filter';
+
+        domc.addType(filterType, {
+            extend: 'comp-base',
+            isComponent: el => el.classList && el.classList.contains(filterType),
+            model: {
+                defaults: {
+                    name: __(filterName),
+                    tagName: 'div',
+                    classes: [filterType,'field-wrapper'],
+                    // draggable: '[data-gjs-type="listing-filter"]' // esto no me permite crear estructuras dentro de columnas
+                },
+            },
+        });
+    });
+
     // Define the component
     domc.addType(compClass, {
-        extend: 'comp-base',
         isComponent: el => el.classList && el.classList.contains(compClass),
         model: {
             defaults: {
                 name: compName,
                 tagName: 'div',
                 classes: [compClass,'component'],
+                droppable: true,
+                __needsSetup: true,
+                styles: `
+                    .${compClass} {
+                        display: flex;
+                        flex-wrap: wrap;
+                        flex-direction: row;
+                        gap: 6px;
+                    }
+                `,
             },
         },
         view: {
-            custom_datastore_change_callback(changed) {
-                const model = this.model;
-                
-                // Ignore changes that only affect __tab (tab switching)
-                const changed_keys = Object.keys(changed);
-                if (changed_keys.length && changed_keys[0] === '__tab') return;
-
-                const rerender_component_on_change = [
-                    'filters',
-                    'template',
-                ];
-                if ( rerender_component_on_change.includes( changed_keys[0] ) ) {
-                    this.render();
+            onRender({ el, model }) {
+                if (model.get('__needsSetup')) {
+                    this.initialSetup({ model });
                 }
-
-                // if (changed_keys[0] === 'xxx'){ ... }
-                    
-                // Update the taxonomy tags in the repeater based on the current post type
-                const datastore = editor.getComponentDatastore(model);
-                const { posttype } = datastore.toJSON();
-                this.toggle_group_types_visibility(posttype);
             },
-            toggle_group_types_visibility(posttype) {
-                const model = this.model;
-                const builder_comp_model = editor.getBuilderCompModel(model);
-                if (builder_comp_model) {
-                    const fields_models = builder_comp_model.get('fields') || {};
-                    const filters_repeater = fields_models.find(fm => fm.get('name') == 'filters');
-                    if (filters_repeater) {
-                        const groupTypes = filters_repeater.groupTypes || [];
-                        groupTypes.forEach(group => {
-                            const group_id = group.get('id');
-                            if (group_id.startsWith('taxfilter__')) {
-                                const group_posttype = group_id.split('__')[1];
-                                if (group_posttype !== posttype) {
-                                    group.set('can_be_added', false);
-                                } else {
-                                    group.set('can_be_added', true);
-                                }
-                            }
-                        });
-                        filters_repeater.trigger('value-replaced');
-                    }
+            initialSetup({ model }) {
+                // If listing filter is empty, add a search and submit filter by default
+                if (!model.components().length) {
+                    model.append({ type: 'search-filter' });
+                    model.append({ type: 'submit-filter' });
                 }
-            }
-        },
+
+                model.set({ __needsSetup: false });
+            },
+        }
     });
 
-    // on openDatastore, check if the component is a listing-filter and if so, call toggle_group_types_visibility with the current posttype
-    editor.on('openDatastore', (builder_comp_model, component) => {
-        if (component && component.get('type') === compClass) {
-            const datastore = editor.getComponentDatastore(component);
-            if (datastore) {
-                const { posttype } = datastore.toJSON();
-                setTimeout(() => {
-                    component.view.toggle_group_types_visibility(posttype); 
-                }, 0);
-            }
-        }
+    // Remove the component styles before saving as they are only needed to be presented in the style manager
+    editor.on('builder:before-save-editor', () => {
+        const css = editor.Css;
+        css.remove(`.${compClass}`);
     });
 
     // ***********************************************************************************
@@ -142,11 +132,13 @@ window.gjsListingFilter = function (editor) {
         return items;
     }
 
-    ufEditor.renderSelect = function( selectClass, options, includeAll ) {
+    ufEditor.renderSelect = function( selectClass, options, includeAll, allLabel ) {
         var html = '<select class="' + selectClass + '">';
 
         if ( includeAll ) {
-            html += '<option value="">All</option>';
+            var defaultAll = ( typeof includeAll === 'string' ) ? includeAll : 'All';
+            var allText = allLabel || defaultAll;
+            html += '<option value="">' + ufEditor.escapeHtml( allText ) + '</option>';
         }
 
         _.each( options, function( option ) {
@@ -157,11 +149,19 @@ window.gjsListingFilter = function (editor) {
         return html;
     }
 
-    ufEditor.renderChoices = function( inputType, inputName, options ) {
+    ufEditor.renderChoices = function( inputType, inputName, options, allLabel ) {
         var html = '<div class="tags-wrapper">';
 
+        if ( inputType === 'radio' && allLabel !== false ) {
+            var allText = allLabel || 'All';
+            html += '<label class="tag-label">';
+            html += '<input type="radio" name="' + ufEditor.escapeHtml( inputName ) + '" value="" checked>';
+            html += ' <span>' + ufEditor.escapeHtml( allText ) + '</span>';
+            html += '</label>';
+        }
+
         _.each( options, function( option, index ) {
-            var checked = inputType === 'radio' && index === 0 ? ' checked' : '';
+            var checked = ( inputType === 'radio' && allLabel === false && index === 0 ) ? ' checked' : '';
             var name = inputType === 'checkbox' ? inputName + '[]' : inputName;
             html += '<label class="tag-label">';
             html += '<input type="' + inputType + '" name="' + ufEditor.escapeHtml( name ) + '" value="' + ufEditor.escapeHtml( option.value ) + '"' + checked + '>';
@@ -174,62 +174,57 @@ window.gjsListingFilter = function (editor) {
     }
 
     ufEditor.renderFieldWrapper = function( label, content ) {
-        var html = '<div class="field-wrapper">';
+        var html = '';
 
         if ( label ) {
             html += '<span class="field-desc">' + ufEditor.escapeHtml( label ) + '</span>';
         }
 
         html += content;
-        html += '</div>';
 
         return html;
     }
 
-    ufEditor.renderListingFilterTaxonomyField = function( filterGroup, currentPosttype ) {
-        var parts = String( filterGroup.__type || '' ).split( '__' );
-        var cptSlug = parts[1] || '';
-        var taxSlug = parts[2] || '';
-        var displayType = filterGroup.display_type || 'select';
+    ufEditor.renderListingFilterTaxonomyField = function( filterData ) {
+        var taxSlug = filterData.taxonomy;
+        var displayType = filterData.display_type || 'select';
+        var allText = filterData.all_text || 'All';
 
-        if ( cptSlug && currentPosttype && cptSlug !== currentPosttype ) {
-            return '';
-        }
-
-        var label = ufEditor.slugToLabel( taxSlug, 'Taxonomy' ).toUpperCase() + ':';
+        var label = filterData.hide_label ? '' : ( filterData.label || ufEditor.slugToLabel( taxSlug, 'Taxonomy' ).toUpperCase() );
         var items = ufEditor.getListingFilterOptionItems();
 
         if ( displayType === 'radio' ) {
-            return ufEditor.renderFieldWrapper( label, ufEditor.renderChoices( 'radio', 'taxonomy_' + taxSlug, items ) );
+            return ufEditor.renderFieldWrapper( label, ufEditor.renderChoices( 'radio', 'taxonomies[' + ( taxSlug || 'taxonomy' ) + ']', items, allText ) );
         }
 
         if ( displayType === 'checkboxes' ) {
-            return ufEditor.renderFieldWrapper( label, ufEditor.renderChoices( 'checkbox', 'taxonomy_' + taxSlug, items ) );
+            return ufEditor.renderFieldWrapper( label, ufEditor.renderChoices( 'checkbox', 'taxonomies[' + ( taxSlug || 'taxonomy' ) + ']', items ) );
         }
 
-        return ufEditor.renderFieldWrapper( label, ufEditor.renderSelect( 'listing-filter__term-select', items, true ) );
+        return ufEditor.renderFieldWrapper( label, ufEditor.renderSelect( 'listing-filter__term-select', items, true, allText ) );
     }
 
-    ufEditor.renderListingFilterCustomField = function( filterGroup ) {
-        var displayType = filterGroup.display_type || 'text';
-        var metaKey = filterGroup.meta_key || 'custom_field';
-        var label = filterGroup.label || ufEditor.slugToLabel( metaKey, 'Custom Field' );
-        var items = ufEditor.getListingFilterOptionItems( filterGroup.options );
+    ufEditor.renderListingFilterPostMeta = function( filterData ) {
+        var displayType = filterData.display_type || 'text';
+        var metaKey = filterData.meta_key || 'custom_field';
+        var allText = filterData.all_text || 'All';
+        var label = filterData.hide_label ? '' : ( filterData.label || ufEditor.slugToLabel( metaKey, 'POST META' ) );
+        var items = ufEditor.getListingFilterOptionItems( filterData.options );
 
         if ( displayType === 'number_range' ) {
             return ufEditor.renderFieldWrapper( label, '<div class="number-range-wrapper"><input type="number" class="listing-filter__number-input" placeholder="Min"><input type="number" class="listing-filter__number-input" placeholder="Max"></div>' );
         }
 
         if ( displayType === 'select' ) {
-            return ufEditor.renderFieldWrapper( label, ufEditor.renderSelect( 'listing-filter__custom-select', items, true ) );
+            return ufEditor.renderFieldWrapper( label, ufEditor.renderSelect( 'listing-filter__custom-select', items, true, allText ) );
         }
 
         if ( displayType === 'radio' ) {
-            return ufEditor.renderFieldWrapper( label, ufEditor.renderChoices( 'radio', metaKey, items ) );
+            return ufEditor.renderFieldWrapper( label, ufEditor.renderChoices( 'radio', 'custom[' + metaKey + ']', items, allText ) );
         }
 
         if ( displayType === 'checkboxes' ) {
-            return ufEditor.renderFieldWrapper( label, ufEditor.renderChoices( 'checkbox', metaKey, items ) );
+            return ufEditor.renderFieldWrapper( label, ufEditor.renderChoices( 'checkbox', 'custom[' + metaKey + ']', items ) );
         }
 
         return ufEditor.renderFieldWrapper( label, '<input type="text" class="listing-filter__custom-text-input" value="" />' );

@@ -39,6 +39,7 @@ use Core\Migrator\Migration\V3\Migrate_3_15_X_to_3_16_0;
 // V4
 use Core\Migrator\Migration\V4\Migrate_3_16_X_to_4_0_0;
 use Core\Migrator\Migration\V4\Migrate_4_0_X_to_4_1_0;
+use Core\Migrator\Migration\V4\Migrate_4_1_X_to_4_2_0;
 
 define ('THEME_MIGRATOR_DIR', __DIR__);
 define ('THEME_MIGRATOR_PATH', get_template_directory_uri() . '/Core/Migrator');
@@ -94,6 +95,7 @@ class Core{
         Migrate_3_15_X_to_3_16_0::class                => '3.16.0',
         Migrate_3_16_X_to_4_0_0::class                 => '4.0.0',
         Migrate_4_0_X_to_4_1_0::class                 => '4.1.0',
+        Migrate_4_1_X_to_4_2_0::class                 => '4.2.0',
     );
 
     private function __construct(){

@@ -366,4 +366,16 @@ window.gjsCommands = function (editor, options) {
             }
         }
     });
+
+    // Listing Filter specific commands
+    editor.Commands.add('add-listing-filter-item', (editor, sender, options = {}) => {
+        let component = options.component,
+            cmpType = options.cmpType;
+
+        if (component.getType() !== 'listing-filter') return;
+        
+        component.append({
+            type: cmpType,
+        });
+    });
 };

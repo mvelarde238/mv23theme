@@ -100,6 +100,14 @@ class Core{
             'Postcard',
             'Postcard_Trigger',
         ),
+        'listing-filters' => array(
+            'Search_Filter',
+            'Month_Filter',
+            'Year_Filter',
+            'Postmeta_Filter',
+            'Taxonomy_Filter',
+            'Submit_Filter',
+        ),
     );
 
     public static function getInstance() {

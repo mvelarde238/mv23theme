@@ -631,6 +631,53 @@ window['contextMenuOpts'] = {
         ['listing']: function(component, editor){
             return get_listing_actions(component, editor);
         },
+        ['listing-filter']: function(component, editor){
+            const flex_direction = editor.getComponentStyle(component, 'flex-direction', 'row');
+
+            const getGap = ()=>{
+                let value = parseInt(component.getStyle('gap'));
+                if(isNaN(value)) value = 6;
+                return value;
+            };
+
+            return [
+                { 
+                    type: 'options',
+                    title: 'ADD LISTING FILTER ITEM',
+                    options: [
+                        { type: 'button', command: 'add-listing-filter-item', args: { cmpType: 'search-filter' }, label: 'SEARCH' },
+                        { type: 'button', command: 'add-listing-filter-item', args: { cmpType: 'month-filter' }, label: 'MONTH' },
+                        { type: 'break' },
+                        { type: 'button', command: 'add-listing-filter-item', args: { cmpType: 'year-filter' }, label: 'YEAR' },
+                        { type: 'button', command: 'add-listing-filter-item', args: { cmpType: 'postmeta-filter' }, label: 'POSTMETA' },
+                        { type: 'break' },
+                        { type: 'button', command: 'add-listing-filter-item', args: { cmpType: 'taxonomy-filter' }, label: 'TAXONOMY' },
+                        { type: 'button', command: 'add-listing-filter-item', args: { cmpType: 'submit-filter' }, label: 'SUBMIT' }
+                    ]
+                },
+                {
+                    type: 'options', title: 'ITEMS DIRECTION',
+                    options: [
+                        { 
+                            type: 'button', label: 'HORIZONTAL',
+                            class: (flex_direction === 'row') ? 'active' : '',
+                            command: 'update-css-property', rerender: {full:true}, args: { property:'flex-direction', value:'row' } 
+                        },
+                        { 
+                            type: 'button', label: 'VERTICAL', 
+                            class: (flex_direction === 'column') ? 'active' : '', 
+                            command: 'update-css-property', rerender: {full:true}, args: { property:'flex-direction', value:'column' } 
+                        },
+                    ]
+                },
+                { 
+                    type: 'range', 
+                    title:'SPACE BETWEEN ITEMS', 
+                    command: 'update-css-property', min:0, max:100, 
+                    args: { property:'gap', unit:'px' }, value:getGap 
+                }
+            ]
+        },
         ['archive-posts']: function(component, editor){
             return get_listing_actions(component, editor);
         }

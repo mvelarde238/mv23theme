@@ -185,8 +185,40 @@
             field.value = (resetValue !== null) ? resetValue : '';
         });
 
+        $filter.data('is-resetting', true);
         $filter.find('select').trigger('change');
+        $filter.data('is-resetting', false);
     }
+
+    // Submits the filter form on change (debounced) for fields inside .trigger-submit-on-change
+    var submit_timers = new WeakMap();
+    function trigger_submit_on_change(event) {
+        var $field = $(event.target),
+            $wrapper = $field.closest('.trigger-submit-on-change');
+
+        if (!$wrapper.length || !$field.is('input, select, textarea')) return;
+
+        var $filter = $field.closest('form.listing-filter');
+        if (!$filter.length || $filter.data('is-resetting')) return;
+
+        var isTyping = event.type === 'input' && $field.is('input:not([type=checkbox], [type=radio]), textarea');
+        if (event.type === 'change' && $field.is('input:not([type=checkbox], [type=radio]), textarea')) return;
+
+        var form = $filter[0];
+        clearTimeout(submit_timers.get(form));
+        submit_timers.set(form, setTimeout(function(){
+            var $submit = $filter.find('.listing-filter__submit').first();
+            if ($submit.length) {
+                $submit.trigger('click');
+            } else if (form.requestSubmit) {
+                form.requestSubmit();
+            } else {
+                form.submit();
+            }
+        }, isTyping ? 500 : 300));
+    }
+
+    $(document).on('input change', 'form.listing-filter .trigger-submit-on-change', trigger_submit_on_change);
 
     function getPagedParameter(url) {
         const parsedUrl = new URL(url, window.location.origin);
@@ -214,7 +246,7 @@
 
             // find a .listing-filter component with the same listing_uid
             if( listing_uid ) {
-                $filter = $('.listing-filter[data-listing-uid="'+listing_uid+'"] form');
+                $filter = $('form.listing-filter[data-listing-uid="'+listing_uid+'"]');
             }
 
             var initial_listing_args = JSON.parse( $component.attr('data-listing-args') || '{}' );
@@ -276,9 +308,8 @@
 
     $(document).on('click', '.listing-filter__reset', function(event) {
         var $button = $(this),
-            $filter = $button.closest('form'),
-            $filterComponent = $button.closest('.listing-filter'),
-            listing_uid = $filterComponent.data('listing-uid'),
+            $filter = $button.closest('form.listing-filter'),
+            listing_uid = $filter.data('listing-uid'),
             $listingComponent = listing_uid ? $('.component.listing[data-listing-uid="'+listing_uid+'"]') : $();
 
         if ($listingComponent.length) return;

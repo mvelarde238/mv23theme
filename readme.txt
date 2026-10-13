@@ -2,6 +2,15 @@
 CHANGELOG
 **************************************************************************************************
 
+4.2.0 26-10-12
+- Listing filters refactored to use GJS components instead of repeater groups
+- Hooks and filters removed: 
+  * filter_filters_repeater
+  * display_custom_filters_repeater_group
+--------------------------------------------------------------------------------------------------------------------------
+!IMPORTANT: Use the migrator to update old Listing component query parameters and taxonomy handling to the new structure
+--------------------------------------------------------------------------------------------------------------------------
+
 4.1.0 26-10-09
 - Query Parameters tab and repeater added to Listing component
 - Migration files reordered on the basis of their version numbers

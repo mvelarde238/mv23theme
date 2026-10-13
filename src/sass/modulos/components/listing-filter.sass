@@ -1,20 +1,11 @@
 .listing-filter
-    form
-        display: flex
-        flex-direction: column
-        gap: 6px
-
-    .fields-row
-        display: flex
-        gap: 6px
-        justify-content: center
-        align-items: flex-end
-    &[data-template='vertical']
-        .fields-row
-            flex-direction: column
+    display: flex
+    flex-wrap: wrap
+    flex-direction: row
+    gap: 6px
 
     .field-wrapper
-        width: 100%
+        flex-grow: 1
     .field-desc
         display: block
         font-size: .9em
@@ -23,8 +14,6 @@
     select, input
         margin-bottom: 0 !important
         outline: 0
-    .btn
-        font-size: 1em
     &-error-msg
         width: 100%
 
@@ -61,20 +50,3 @@
                 height: 100%
                 background: var(--primary-color-dark) url('../images/loading2.gif') center no-repeat
                 background-size: 20px 20px
-    
-@media only screen and (max-width: 768px)
-    .listing-filter
-        .fields-row
-            flex-wrap: wrap
-        &[data-template='horizontal']
-            .field-wrapper
-                width: calc(50% - 6px)
-                margin-bottom: 15px
-                &:has(.listing-filter__submit),
-                &:has(.tags-wrapper)
-                    width: 100%
-
-@media #{$small-and-down}
-    .listing-filter
-        .field-wrapper
-            width: 100%
