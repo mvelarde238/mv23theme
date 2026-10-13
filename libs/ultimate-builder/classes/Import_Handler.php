@@ -61,6 +61,37 @@ class Import_Handler {
 	}
 
 	/**
+	 * AJAX: returns the raw builder data stored in the database for export.
+	 */
+	public static function ajax_export() {
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'ultimate_builder_import' ) ) {
+			wp_send_json_error( 'nonce_invalid' );
+		}
+
+		$post_id = isset( $_POST['post_id'] ) ? intval( $_POST['post_id'] ) : 0;
+		$meta    = isset( $_POST['meta'] ) ? sanitize_text_field( $_POST['meta'] ) : '';
+
+		if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+			wp_send_json_error( 'no_permissions' );
+		}
+
+		list( $field_instance ) = self::get_field_and_datastore( $post_id, $meta );
+		if ( ! $field_instance ) {
+			wp_send_json_error( 'field_not_found' );
+		}
+
+		$builder_data    = $field_instance->get_value( $meta );
+		$components_data = $field_instance->get_value( $meta . '_datastore' );
+
+		wp_send_json_success( array(
+			'theme_version'          => Theme_Version::getInstance()->get_current_version(),
+			'post_type'              => get_post_type( $post_id ),
+			'page_content'           => $builder_data ? $builder_data : array(),
+			'page_content_datastore' => $components_data ? $components_data : (object) array(),
+		) );
+	}
+
+	/**
 	 * Looks up the builder field for a post and attaches a fresh post meta datastore to it.
 	 *
 	 * @return array{0: Field|null, 1: \Ultimate_Fields\Datastore\Post_Meta|null}

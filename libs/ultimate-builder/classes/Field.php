@@ -156,6 +156,11 @@ class Field extends Repeater {
 
 						do_action_ref_array( 'uf.ultimate_builder.save_component', array( $group_processed_values, &$component_data, $group, $this ) );
 
+						// delete __hidden key if it exists
+						if ( isset( $group_processed_values['__hidden'] ) ) {
+							unset( $group_processed_values['__hidden'] );
+						}
+
 						// Only save the component data in the builder datastore if it doesn't have a custom datastore 
 						// (like theme-options component) to avoid saving it twice
 						if( !isset( $component_data['has_custom_datastore'] ) || !$component_data['has_custom_datastore'] ){

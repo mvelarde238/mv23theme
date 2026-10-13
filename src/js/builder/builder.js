@@ -322,7 +322,7 @@
                             let datastoreJSON = datastore.toJSON();
 
                             // clean up component datastore
-                            ['settings','scroll_animations_settings','actions_settings','visibility_settings','__hidden'].forEach(key => {
+                            ['settings','scroll_animations_settings','actions_settings','visibility_settings'].forEach(key => {
                                 if (datastoreJSON.hasOwnProperty(key) && !datastoreJSON[key]) {
                                     delete datastoreJSON[key];
                                 }

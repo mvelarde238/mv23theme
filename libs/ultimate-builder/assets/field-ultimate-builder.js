@@ -112,19 +112,15 @@
                     var $importButton = jQuery('<button type="button" class="button uf-import-builder"><i class="dashicons dashicons-upload"></i> ' + importText[locale] + '</button>');
                     $wrapper.find('p').append($exportButton).append($importButton);
 
-                    // clean up component datastore before exporting
-                    for (var __compID in components_data) {
-                        ['settings', 'scroll_animations_settings', 'actions_settings', 'visibility_settings'].forEach(function(empty_key) {
-                            if (components_data[__compID].hasOwnProperty(empty_key) && !components_data[__compID][empty_key]) {
-                                delete components_data[__compID][empty_key];
-                            }
-                        });
-                        delete components_data[__compID].__hidden;
-                    }
-                    
                     $exportButton.on('click', function (e) {
                         e.preventDefault();
-                        UFBuilderIO.openExportModal(builder_data, components_data, BUILDER_GLOBALS.theme_version, BUILDER_GLOBALS.posttype);
+                        var post_id = urlParams.get('post');
+                        if ( ! post_id ) {
+                            var exportAlertText = { es: 'Publica la entrada antes de exportar contenido.', en: 'Publish the post before exporting content.' };
+                            alert(exportAlertText[locale]);
+                            return;
+                        }
+                        UFBuilderIO.openExportModal(post_id, field_name);
                     });
                 
                     $importButton.on('click', function (e) {

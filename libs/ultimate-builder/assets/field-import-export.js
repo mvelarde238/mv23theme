@@ -143,24 +143,36 @@
     /**
      * Opens a modal to export the current builder content as a file or to the clipboard.
      */
-    UFBuilderIO.openExportModal = function (builderData, componentsData, themeVersion, postType) {
-        var exportObject = {
-            theme_version: themeVersion,
-            post_type: postType,
-            page_content: builderData,
-            page_content_datastore: componentsData
-        };
-        var json = JSON.stringify(exportObject, null, 2);
-
+    UFBuilderIO.openExportModal = function (postId, fieldName) {
         var body =
             '<p>' + t('export_modal_description') + '</p>' +
             '<div class="uf-io-modal-actions">' +
-                '<button type="button" class="button button-primary uf-io-download">' + t('download_button') + '</button>' +
-                '<button type="button" class="button uf-io-copy">' + t('copy_button') + '</button>' +
+                '<button type="button" class="button button-primary uf-io-download" disabled>' + t('download_button') + '</button>' +
+                '<button type="button" class="button uf-io-copy" disabled>' + t('copy_button') + '</button>' +
+                '<span class="spinner is-active uf-io-loader"></span>' +
             '</div>' +
             '<p class="uf-io-feedback"></p>';
 
         var $overlay = buildModal(t('export_modal_title'), body);
+        var json = '';
+
+        $.post(BUILDER_GLOBALS.ajax_url, {
+            action: 'ultimate_builder_export',
+            nonce: BUILDER_GLOBALS.import_nonce,
+            post_id: postId,
+            meta: fieldName
+        }).done(function (response) {
+            if (response && response.success) {
+                json = JSON.stringify(response.data, null, 2);
+                $overlay.find('.uf-io-download, .uf-io-copy').prop('disabled', false);
+            } else {
+                $overlay.find('.uf-io-feedback').text(getImportErrorMessage(response && response.data));
+            }
+        }).fail(function () {
+            $overlay.find('.uf-io-feedback').text(t('request_failed'));
+        }).always(function () {
+            $overlay.find('.uf-io-loader').remove();
+        });
 
         $overlay.find('.uf-io-download').on('click', function () {
             var blob = new Blob([json], { type: 'application/json' });

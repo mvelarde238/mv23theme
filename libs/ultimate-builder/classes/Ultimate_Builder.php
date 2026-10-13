@@ -146,6 +146,7 @@ class Ultimate_Builder {
 		add_action( 'post_action_ultimate-builder', array( $this, 'prepare_admin_for_builder' ) );
 		add_action( 'wp_ajax_ultimate_builder_preview_save', array( Preview_Handler::class, 'ajax_preview_save' ) );
 		add_action( 'wp_ajax_ultimate_builder_import', array( Import_Handler::class, 'ajax_import' ) );
+		add_action( 'wp_ajax_ultimate_builder_export', array( Import_Handler::class, 'ajax_export' ) );
 		add_action( 'wp_ajax_migrate_post_content_to_builder', array( $this, 'ajax_migrate_post_content' ) );
 		add_action( 'init', array( Preview_Handler::class, 'maybe_apply_preview' ), 1 );
 		add_action( 'init', array( $this, 'remove_plugins_support') );
