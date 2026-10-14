@@ -4,7 +4,6 @@ namespace Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
 use Core\Builder\Template_Engine;
-use Core\Builder\Core as Builder_Core;
 
 class Row extends Component {
 
@@ -22,144 +21,87 @@ class Row extends Component {
 	public static function get_builder_data() {
         return array(
 			'block_name' => 'Columns',
-			'block_category' => 'structure',
-			'custom_datastore_change_callback' => true
+			'block_category' => 'structure'
 		);
     }
 
-	public static function get_fields() {
+	public static function get_fields() {		
 		$fields = array(
-			Field::create( 'select', 'columns', __('Select the number of columns for this row', 'mv23theme') )
-				->set_attr( 'style', 'display: none;' )
-				->add_options(array(
-					'2' => '2',
-					'3' => '3',
-					'4' => '4',
-					'5' => '5',
-					'6' => '6',
-				)),
-			Field::create( 'image_select', '2_columns_width_presets', __('Select a predefined columns width preset', 'mv23theme') )
+			Field::create( 'select', 'columns')->set_attr( 'style', 'display: none;' )
+				->add_options(array( '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6' )),
+
+			Field::create( 'actions_control', '2_columns_width_presets', __('Predefined columns sizes:', 'mv23theme') )
 				->add_dependency( 'columns', '2' )
-				->use_buttons()
-                ->show_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
-                '1/2-1/2' => array(
-                    'label' => '2 Columns',
-                    'image' => BUILDER_PATH.'/assets/images/columns/2/1fr-1fr.png',
-                ),
-				'1/3-2/3' => array(
-					'label' => '1/3 + 2/3',
-					'image' => BUILDER_PATH.'/assets/images/columns/2/1fr-2fr.png',
-				),
-				'2/3-1/3' => array(
-					'label' => '2/3 + 1/3',
-					'image' => BUILDER_PATH.'/assets/images/columns/2/2fr-1fr.png',
-				),
-				'1/4-3/4' => array(
-					'label' => '1/4 + 3/4',
-					'image' => BUILDER_PATH.'/assets/images/columns/2/1fr-3fr.png',
-				),
-				'3/4-1/4' => array(
-					'label' => '3/4 + 1/4',
-					'image' => BUILDER_PATH.'/assets/images/columns/2/3fr-1fr.png',
-				),
-				// these keywords need more testing for a better integration with the resizing mechanism, 
-                // so for now we will keep them out of the presets
-				// 'stretch-auto' => array(
-				// 	'label' => 'Stretch + Auto',
-				// 	'image' => BUILDER_PATH.'/assets/images/columns/2/stretch-auto.png',
-				// ),
-				// 'auto-stretch' => array(
-				// 	'label' => 'Auto + Stretch',
-				// 	'image' => BUILDER_PATH.'/assets/images/columns/2/auto-stretch.png',
-				// ),
-				'full-br-full' => array(
-					'label' => 'Full Width',
-					'image' => BUILDER_PATH.'/assets/images/columns/2/fullwidth.png',
-				),
-            )),
-			Field::create( 'image_select', '3_columns_width_presets', __('Select a predefined columns width preset', 'mv23theme') )
+				->set_actions( self::columns_width_presets(array(
+					array( 'label' => '2 Columns', 'preset' => '1/2-1/2', 'image' => '2/1fr-1fr.png' ),
+					array( 'label' => '1/3 - 2/3', 'image' => '2/1fr-2fr.png' ),
+					array( 'label' => '2/3 - 1/3', 'image' => '2/2fr-1fr.png' ),
+					array( 'label' => '1/4 - 3/4', 'image' => '2/1fr-3fr.png' ),
+					array( 'label' => '3/4 - 1/4', 'image' => '2/3fr-1fr.png' ),
+					array( 'label' => 'Full Width', 'preset' => 'full-br-full', 'image' => '2/fullwidth.png' ),
+				))),
+
+			Field::create( 'actions_control', '3_columns_width_presets', __('Predefined columns sizes:', 'mv23theme') )
 				->add_dependency( 'columns', '3' )
-				->use_buttons()
-				->show_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
-				'1/3-1/3-1/3' => array(
-					'label' => '3 Columns',
-					'image' => BUILDER_PATH.'/assets/images/columns/3/1fr-1fr-1fr.png',
-				),
-				'1/4-1/2-1/4' => array(
-					'label' => '1/4 + 1/2 + 1/4',
-					'image' => BUILDER_PATH.'/assets/images/columns/3/1fr-2fr-1fr.png',
-				),
-				'1/2-1/4-1/4' => array(
-					'label' => '1/2 + 1/4 + 1/4',
-					'image' => BUILDER_PATH.'/assets/images/columns/3/2fr-1fr-1fr.png',
-				),
-				'1/4-1/4-1/2' => array(
-					'label' => '1/4 + 1/4 + 1/2',
-					'image' => BUILDER_PATH.'/assets/images/columns/3/1fr-1fr-2fr.png',
-				),
-				'1/8-3/4-1/8' => array(
-					'label' => '1/8 + 6/8 + 1/8',
-					'image' => BUILDER_PATH.'/assets/images/columns/3/1fr-6fr-1fr.png',
-				),
-				'full-br-full-br-full' => array(
-					'label' => 'Full Width',
-					'image' => BUILDER_PATH.'/assets/images/columns/3/fullwidth.png',
-				),
-				'full-br-1/2-1/2' => array(
-					'label' => 'Full Width + 1/2 + 1/2',
-					'image' => BUILDER_PATH.'/assets/images/columns/3/1fr--1fr-1fr.png',
-				),
-				'1/2-1/2-br-full' => array(
-					'label' => '1/2 + 1/2 + Full Width',
-					'image' => BUILDER_PATH.'/assets/images/columns/3/1fr-1fr--1fr.png',
-				),
-			)),
-			Field::create( 'image_select', '4_columns_width_presets', __('Select a predefined columns width preset', 'mv23theme') )
+				->set_actions( self::columns_width_presets(array(
+					array( 'label' => '3 Columns', 'preset' => '1/3-1/3-1/3', 'image' => '3/1fr-1fr-1fr.png' ),
+					array( 'label' => '1/4 - 1/2 - 1/4', 'image' => '3/1fr-2fr-1fr.png' ),
+					array( 'label' => '1/2 - 1/4 - 1/4', 'image' => '3/2fr-1fr-1fr.png' ),
+					array( 'label' => '1/4 - 1/4 - 1/2', 'image' => '3/1fr-1fr-2fr.png' ),
+					array( 'label' => '1/8 - 3/4 - 1/8', 'image' => '3/1fr-6fr-1fr.png' ),
+					array( 'label' => 'Full Width', 'preset' => 'full-br-full-br-full', 'image' => '3/fullwidth.png' ),
+					array( 'label' => 'Full Width + 1/2 + 1/2', 'preset' => 'full-br-1/2-1/2', 'image' => '3/1fr--1fr-1fr.png' ),
+					array( 'label' => '1/2 + 1/2 + Full Width', 'preset' => '1/2-1/2-br-full', 'image' => '3/1fr-1fr--1fr.png' ),
+				)) ),
+
+			Field::create( 'actions_control', '4_columns_width_presets', __('Predefined columns sizes:', 'mv23theme') )
 				->add_dependency( 'columns', '4' )
-				->use_buttons()
-				->show_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
-				'1/4-1/4-1/4-1/4' => array(
-					'label' => '4 Columns',
-					'image' => BUILDER_PATH.'/assets/images/columns/4/1fr-1fr-1fr-1fr.png',
-				),
-				'full-br-full-br-full-br-full' => array(
-					'label' => 'Full Width',
-					'image' => BUILDER_PATH.'/assets/images/columns/4/fullwidth.png',
-				),
-				'1/2-1/2-br-1/2-1/2' => array(
-					'label' => '1/2 + 1/2',
-					'image' => BUILDER_PATH.'/assets/images/columns/4/1fr-1fr--1fr-1fr.png',
-				),
-			)),
-			Field::create( 'image_select', '5_columns_width_presets', __('Select a predefined columns width preset', 'mv23theme') )
+				->set_actions( self::columns_width_presets(array(
+					array( 'label' => '4 Columns', 'preset' => '1/4-1/4-1/4-1/4', 'image' => '4/1fr-1fr-1fr-1fr.png' ),
+					array( 'label' => 'Full Width', 'preset' => 'full-br-full-br-full-br-full', 'image' => '4/fullwidth.png' ),
+					array( 'label' => '1/2 + 1/2', 'preset' => '1/2-1/2-br-1/2-1/2', 'image' => '4/1fr-1fr--1fr-1fr.png' ),
+				)) ),
+
+			Field::create( 'actions_control', '5_columns_width_presets', __('Predefined columns sizes:', 'mv23theme') )
 				->add_dependency( 'columns', '5' )
-				->use_buttons()
-				->show_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
-				'1/5-1/5-1/5-1/5-1/5' => array(
-					'label' => '5 Columns',
-					'image' => BUILDER_PATH.'/assets/images/columns/5/1fr-1fr-1fr-1fr-1fr.png',
-				),
-				'full-br-full-br-full-br-full-br-full' => array(
-					'label' => 'Full Width',
-					'image' => BUILDER_PATH.'/assets/images/columns/5/fullwidth.png',
-				),
-			)),
-			Field::create( 'image_select', '6_columns_width_presets', __('Select a predefined columns width preset', 'mv23theme') )
+				->set_actions( self::columns_width_presets(array(
+					array( 'label' => '5 Columns', 'preset' => '1/5-1/5-1/5-1/5-1/5', 'image' => '5/1fr-1fr-1fr-1fr-1fr.png' ),
+					array( 'label' => 'Full Width', 'preset' => 'full-br-full-br-full-br-full-br-full', 'image' => '5/fullwidth.png' ),
+				)) ),
+
+			Field::create( 'actions_control', '6_columns_width_presets', __('Predefined columns sizes:', 'mv23theme') )
 				->add_dependency( 'columns', '6' )
-				->use_buttons()
-				->show_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
-				'1/6-1/6-1/6-1/6-1/6-1/6' => array(
-					'label' => '6 Columns',
-					'image' => BUILDER_PATH.'/assets/images/columns/6/1fr-1fr-1fr-1fr-1fr-1fr.png',
-				),
-				'full-br-full-br-full-br-full-br-full-br-full' => array(
-					'label' => 'Full Width',
-					'image' => BUILDER_PATH.'/assets/images/columns/6/fullwidth.png',
-				),
-			)),
+				->set_actions( self::columns_width_presets(array(
+					array( 'label' => '6 Columns', 'preset' => '1/6-1/6-1/6-1/6-1/6-1/6', 'image' => '6/1fr-1fr-1fr-1fr-1fr-1fr.png' ),
+					array( 'label' => 'Full Width', 'preset' => 'full-br-full-br-full-br-full-br-full-br-full', 'image' => '6/fullwidth.png' ),
+				)) ),
+
+			Field::create( 'actions_control', 'common_actions' )
+				->hide_label()
+				->set_actions( array(
+					array( 'label' => __('Add Column', 'mv23theme'), 'command' => 'add-col', 'class' => 'uf-button button-primary' ),
+					array( 'label' => __('Lock inner components', 'mv23theme'), 'command' => 'locked-components-toggle' )
+				))
 		);
 
 		return $fields;
+	}
+
+	private static function columns_width_presets( $presets_raw ){
+		$presets = [];
+
+		foreach( $presets_raw as $key => $preset ){
+			$preset_value = $preset['preset'] ?? $preset['label'];
+
+			$presets[$key] = array(
+				'label' => $preset['label'],
+				'command' => 'column-width-presets',
+				'image' => BUILDER_PATH.'/assets/images/columns/'.$preset['image'],
+				'args' => array( 'preset' => str_replace( ' ', '', $preset_value ) )
+			);
+		}
+
+		return $presets;
 	}
 
 	public static function display( $args ){

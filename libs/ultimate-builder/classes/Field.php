@@ -161,9 +161,13 @@ class Field extends Repeater {
 							unset( $group_processed_values['__hidden'] );
 						}
 
-						// Only save the component data in the builder datastore if it doesn't have a custom datastore 
-						// (like theme-options component) to avoid saving it twice
-						if( !isset( $component_data['has_custom_datastore'] ) || !$component_data['has_custom_datastore'] ){
+						// Only save the component data in the builder datastore 
+						// if it doesn't have a custom datastore (like theme-options component) to avoid saving it twice
+						// or if the component hasn't been marked to skip datastore saving
+						if( 
+							(!isset( $component_data['has_custom_datastore'] ) || !$component_data['has_custom_datastore']) &&
+							(!isset( $component_data['skip_datastore_saving'] ) || !$component_data['skip_datastore_saving'])
+							){
 							$components_data[$__id] = $group_processed_values;
 						}
 					}

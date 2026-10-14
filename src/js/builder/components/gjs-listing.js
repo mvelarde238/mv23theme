@@ -31,9 +31,9 @@ window.gjsListing = function (editor) {
     // add custom css to canvasCss
     let config = editor.getConfig();
     config.canvasCss = config.canvasCss || '';
-    config.canvasCss += `.listing a { pointer-events: none; }
-        .listing .postcard { flex-shrink: 0; }
-        .listing .carousel-wrapper .component__actions { display: none; }`;
+    config.canvasCss += `.listing-patch a { pointer-events: none; }
+        .listing-patch .postcard { flex-shrink: 0; }
+        .listing-patch .carousel-wrapper .component__actions { display: none; }`;
     editor.canvasCss = config.canvasCss;
 
     // Define the component
@@ -45,16 +45,16 @@ window.gjsListing = function (editor) {
                 name: compName,
                 tagName: 'div',
                 classes: [compClass,'component'],
-                components: defaultComponents,
                 __beforeSendCallback: (model, editor, datastore) => {
-                    editor.ensureComponentStructure(model, defaultComponents, unwantedProps);
                     
                     const {listing_template, columns, slider_settings, columns_gap} = datastore.toJSON();
-                    const carouselWrapper = model.findType('carousel-wrapper')[0];
-                    const carousel = model.findType('carousel')[0];
-                    carousel.empty({silent: true});
                     
                     if (listing_template === 'carousel') {
+                        editor.ensureComponentStructure(model, defaultComponents, unwantedProps);
+                        const carouselWrapper = model.findType('carousel-wrapper')[0];
+                        const carousel = model.findType('carousel')[0];
+                        carousel.empty({silent: true});
+
                         carouselWrapper.getView().el.style.display = '';
                         
                         const carouselDatastore = editor.getComponentDatastore(carouselWrapper);
@@ -66,12 +66,17 @@ window.gjsListing = function (editor) {
                         carouselWrapper.getView().render();
 
                     } else {
-                        carouselWrapper.getView().el.style.display = 'none';
+                        const carouselWrapper = model.findType('carousel-wrapper')[0];
+                        carouselWrapper?.remove();
                     }
                 },
                 __onSuccessCallback: (response, model, editor, datastore) => {
                     const el = model.getEl();
                     const {listing_template} = datastore.toJSON();
+
+                    // Add a temporary class to fix listing styles in the canvas 
+                    // in all listing components (Listing, Archive Posts, Related Posts)
+                    el.classList.add('listing-patch');
                     
                     // Create temporary container to parse response HTML
                     const temp = document.createElement('div');
@@ -148,28 +153,23 @@ window.gjsListing = function (editor) {
                 }
 
                 const datastore = editor.getComponentDatastore(model);
-                const data = datastore.toJSON();
+                const {listing_template, columns, slider_settings, columns_gap,} = datastore.toJSON();
 
                 // if listing template is masonry and columns value changed, re-render to update masonry layout
-                if (changed_keys[0] === 'columns'){
-                    const { listing_template } = data;
-                    if (listing_template === 'masonry') {
-                        this.render();
-                    }
+                if (changed_keys[0] === 'columns' && listing_template === 'masonry'){
+                    this.render();
                 }
 
+                // Update CSS properties for columns and gap
                 if (changed_keys[0] === 'columns' || changed_keys[0] === 'columns_gap') {
-                    // Update CSS properties for columns and gap
-                    const { listing_template } = data;
                     const listingElSelector = listing_template === 'carousel' ? '.carousel__slider' : '.posts-listing';
                     const listingEl = model.getEl().querySelector(listingElSelector);
-                    const devices = ['desktop', 'laptop', 'tablet', 'mobile'];
-                    const columns = data.columns || {};
-                    const gaps = data.columns_gap || {};
+                    
                     if (listingEl) {
+                        const devices = ['desktop', 'laptop', 'tablet', 'mobile'];
                         devices.forEach(device => {
                             listingEl.style.setProperty(`--${device[0]}-columns`, columns[device]);
-                            listingEl.style.setProperty(`--${device[0]}-gap`, gaps[device]+'px');
+                            listingEl.style.setProperty(`--${device[0]}-gap`, columns_gap[device]+'px');
                         });
                     }
                 }
@@ -178,14 +178,11 @@ window.gjsListing = function (editor) {
                     editor.handleCommonSettings(model);
                 }
 
-                if( changed_keys.includes('slider_settings') ){
-                    const { listing_template, slider_settings } = data;
-                    if (listing_template === 'carousel') {
-                        const carouselWrapper = model.findType('carousel-wrapper')[0];
-                        const carouselDatastore = editor.getComponentDatastore(carouselWrapper);                       
-                        carouselDatastore.set('slider_settings', slider_settings);
-                        carouselWrapper.view.custom_datastore_change_callback({'slider_settings': slider_settings});
-                    }
+                if( changed_keys.includes('slider_settings') && listing_template === 'carousel' ){
+                    const carouselWrapper = model.findType('carousel-wrapper')[0];
+                    const carouselDatastore = editor.getComponentDatastore(carouselWrapper);                       
+                    carouselDatastore.set('slider_settings', slider_settings);
+                    carouselWrapper.view.custom_datastore_change_callback({'slider_settings': slider_settings});
                 }
 
                 this.toggle_group_types_visibility(data.posttype);
@@ -239,17 +236,34 @@ window.gjsListing = function (editor) {
     editor.on('builder:before-save-editor', () => {
         const wrapper = editor.getWrapper();
         const page_content = wrapper.findType('page-content')[0];
+
         const listings = page_content.findType('listing');
-        listings.forEach(listing => {
+        const archivePosts = page_content.findType('archive-posts');
+        const relatedPosts = page_content.findType('related-posts');
+        const listingComponents = [...listings, ...archivePosts, ...relatedPosts];
+
+        listingComponents.forEach(listing => {
+            // Remove any carousel items before saving to prevent them from being persisted in JSON
             const carouselItems = listing.findType('carousel-item');
             carouselItems.forEach(carouselItem => {
                 carouselItem.remove({silent: true});
             });
+
+            // remove carouselWrapper datastore
+            const carouselWrapper = listing.findType('carousel-wrapper')[0];
+            if (carouselWrapper) {
+                const datastore = editor.getComponentDatastore(carouselWrapper);
+                if (datastore) {
+                    datastore.clear();
+                }
+            }
         });
     });
 
     UltimateFields.addFilter('builder_component_cleanup', function(data) {
-        if (data.component.type === compClass) {
+        const listingComponentsType = ['listing', 'archive-posts', 'related-posts'];
+
+        if (listingComponentsType.includes(data.component.type)) {
             // Recursively strip behavioral props from nested children so they are never persisted in JSON.
             // These props are re-applied at runtime by ensureComponentStructure from defaultComponents.
             const cleanupNestedComponents = (obj) => {
@@ -261,6 +275,12 @@ window.gjsListing = function (editor) {
                 });
             };
             cleanupNestedComponents(data.builderComponent);
+        }
+
+        if (data.component.type === compClass) {
+            if( data.componentDataStore.listing_template != 'carousel' ){
+                delete data.componentDataStore.slider_settings;
+            }
         }
     });
 };

@@ -2,12 +2,12 @@ window.gjsRelatedPosts = function (editor, options) {
     const domc = editor.DomComponents;
 
     domc.addType('related-posts', {
-        extend: 'archive-posts',
+        extend: 'listing',
         model: {
             defaults: {
                 name: 'Related Posts',
                 tagName: 'div',
-                classes: ['component'],
+                classes: ['related-posts','component'],
                 droppable: false,
                 stylable: false,
                 copyable: false,

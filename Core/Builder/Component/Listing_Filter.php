@@ -35,6 +35,18 @@ class Listing_Filter extends Component {
             ->hide_label()
             ->required();
 
+        $actions_class = 'uf-button button-primary';
+        $action_cmd = 'add-listing-filter-item';
+        $fields[] = Field::create( 'actions_control', 'common_actions', __('Add filters','mv23theme') )
+			->set_actions( array(
+                array( 'label' => __('Search', 'mv23theme'), 'command' => $action_cmd, 'class' => $actions_class, 'args' => array( 'cmpType' => 'search-filter' ) ),
+				array( 'label' => __('Month', 'mv23theme'), 'command' => $action_cmd, 'class' => $actions_class, 'args' => array( 'cmpType' => 'month-filter' ) ),
+				array( 'label' => __('Year', 'mv23theme'), 'command' => $action_cmd, 'class' => $actions_class, 'args' => array( 'cmpType' => 'year-filter' ) ),
+                array( 'label' => __('Taxonomy', 'mv23theme'), 'command' => $action_cmd, 'class' => $actions_class, 'args' => array( 'cmpType' => 'taxonomy-filter' ) ),
+                array( 'label' => __('Post Meta', 'mv23theme'), 'command' => $action_cmd, 'class' => $actions_class, 'args' => array( 'cmpType' => 'postmeta-filter' ) ),
+                array( 'label' => __('Submit', 'mv23theme'), 'command' => $action_cmd, 'class' => $actions_class, 'args' => array( 'cmpType' => 'submit-filter' ) ),
+			));
+
 		return $fields;
 	}
 

@@ -258,7 +258,7 @@ class Carousel extends Component {
             $gutter = $args['gutter'];
         }
 
-        if( $args['__type'] === 'listing' || $args['__type'] === 'related-posts' ){
+        if( $args['__type'] === 'listing' || $args['__type'] === 'related-posts' || $args['__type'] === 'archive-posts' ){
             $items = $args['columns'] ?? LISTING_COLUMNS;
             $gutter = $args['columns_gap'] ?? LISTING_GAP;
         }

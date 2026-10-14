@@ -1,0 +1,43 @@
+.actions-control__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.action-trigger{
+    padding: 8px !important;
+    
+    img {
+        display: block;
+        margin: 0 auto;
+    }
+}
+.action-trigger:has(img){
+    padding: 0 !important;
+}
+.action-trigger:has(img+span){
+    padding: 0 3px 8px 3px !important;
+}
+.action-trigger__label {
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    display: block;
+    line-height: 1;
+}
+
+.actions-control-2-cols .actions-control__actions{
+	display: grid; 
+	grid-template-columns: 1fr 1fr;
+}
+.actions-control-3-cols .actions-control__actions{
+	display: grid; 
+	grid-template-columns: 1fr 1fr 1fr;
+}
+.actions-control-4-cols .actions-control__actions{
+	display: grid; 
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.actions-control-5-cols .actions-control__actions{
+	display: grid; 
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}

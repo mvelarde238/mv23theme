@@ -229,5 +229,22 @@ window.gjsGallery = function (editor) {
                 }
             }
         }
-    }); 
+    });
+
+    // Clean up grid data for the gallery component before saving
+    UltimateFields.addFilter('builder_component_cleanup', function(data) {
+        if (data.component.type === compClass) {
+            if( data.componentDataStore.display === 'grid' ){
+                data.builderComponent.grid_data?.forEach(item => {
+                    delete item.content;
+                });
+            } else {
+                delete data.builderComponent.grid_data;
+            }
+
+            if( data.componentDataStore.display != 'slider' ){
+                delete data.componentDataStore.slider_settings;
+            }
+        }
+    });
 };

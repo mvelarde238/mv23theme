@@ -63,67 +63,44 @@ class Image extends Component {
                 ->hide_label()->add_dependency( 'caption_source', 'custom', '=' ),
             
             Field::create( 'tab', 'aspect_ratio_tab', __('Aspect Ratio','mv23theme') ),
-            Field::create( 'image_select', 'aspect_ratio', __('Aspect Ratio') )
-                ->set_description( __('Select a predefined aspect ratio (width / height) or set a custom one.', 'mv23theme') )
-                ->hide_label()->set_attr( 'class', 'image-select-3-cols' )->add_options(array(
-                'default' => array(
-                    'label' => 'default',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-default.png'
-                ),
-                '1/1'  => array(
-                    'label' => '1:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-1-1.png'
-                ),
-                '4/3'  => array(
-                    'label' => '4:3',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-4-3.png'
-                ),
-                '16/9'  => array(
-                    'label' => '16:9',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-16-9.png'
-                ),
-                '2/1'  => array(
-                    'label' => '2:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-2-1.png'
-                ),
-                '2.5/1'  => array(
-                    'label' => '2.5:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-2_5-1.png'
-                ),
-                '4/1'  => array(
-                    'label' => '4:1',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-4-1.png'
-                ),
-                '3/4'  => array(
-                    'label' => '3:4',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-3-4.png'
-                ),
-                '9/16'  => array(
-                    'label' => '9:16',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-9-16.png'
-                ),
-                '1/2'  => array(
-                    'label' => '1:2',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-1-2.png'
-                ),
-                '1/2.5'  => array(
-                    'label' => '1:2.5',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-1-2_5.png'
-                ),
-                'custom'  => array(
-                    'label' => 'custom',
-                    'image' => BUILDER_PATH.'/assets/images/aspect-ratio/aspect-ratio-custom.png'
-                ),
-            )),
-            Field::create( 'text', 'custom_aspect_ratio' )
+            Field::create( 'actions_control', 'aspect_ratio_actions' )
                 ->hide_label()
-                ->set_prefix( 'Custom Width / Height' )
-                ->add_suggestions(array( '1/1', '4/3', '16/9', '2/1', '2.5/1', '4/1', '3/4', '9/16', '1/2', '1/2.5' ))
-                ->set_validation_rule('^(\d+(\.\d+)?)(\s*\/\s*(\d+(\.\d+)?))?$')
-                ->add_dependency( 'aspect_ratio', 'custom' )
+                ->set_attr( 'class', 'actions-control-3-cols' )
+                ->set_description( __('Select a predefined aspect ratio (width / height).', 'mv23theme') )
+                ->set_actions( self::get_aspect_ratio_actions(array(
+                    array( 'label' => 'initial', 'image' => 'aspect-ratio-default.png' ),
+                    array( 'label' => '1/1', 'image' => 'aspect-ratio-1-1.png' ),
+                    array( 'label' => '4/3', 'image' => 'aspect-ratio-4-3.png' ),
+                    array( 'label' => '16/9', 'image' => 'aspect-ratio-16-9.png' ),
+                    array( 'label' => '2/1', 'image' => 'aspect-ratio-2-1.png' ),
+                    array( 'label' => '2.5/1', 'image' => 'aspect-ratio-2_5-1.png' ),
+                    array( 'label' => '4/1', 'image' => 'aspect-ratio-4-1.png' ),
+                    array( 'label' => '3/4', 'image' => 'aspect-ratio-3-4.png' ),
+                    array( 'label' => '9/16', 'image' => 'aspect-ratio-9-16.png' ),
+                    array( 'label' => '1/2', 'image' => 'aspect-ratio-1-2.png' ),
+                    array( 'label' => '1/1.25', 'image' => 'aspect-ratio-1-2_5.png' )
+                )) ),
         );
 
 		return $fields;
+	}
+
+    private static function get_aspect_ratio_actions( $ratios_raw ){
+		$ratios = [];
+
+		foreach( $ratios_raw as $key => $ratio ){
+			$ratio_value = $ratio['preset'] ?? $ratio['label'];
+
+			$ratios[$key] = array(
+				'label' => $ratio['label'],
+                'hide_label' => true,
+				'command' => 'update-css-property',
+				'image' => BUILDER_PATH.'/assets/images/aspect-ratio/'.$ratio['image'],
+				'args' => array( 'property' => 'aspect-ratio', 'value' => $ratio_value )
+			);
+		}
+
+		return $ratios;
 	}
 
     public static function display( $args ){

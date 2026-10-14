@@ -25,7 +25,16 @@ class Spacer extends Component {
     }
 
 	public static function get_fields() {
-		$fields = array();
+		$fields = array(
+			Field::create( 'actions_control', 'common_actions', __( 'Set component height', 'mv23theme' ) )
+				->set_actions( array(
+					array( 'label' => '10px', 'command' => 'update-css-property', 'args' => array( 'property' => 'height', 'value' => '10px' ) ),
+					array( 'label' => '20px', 'command' => 'update-css-property', 'args' => array( 'property' => 'height', 'value' => '20px' ) ),
+					array( 'label' => '30px', 'command' => 'update-css-property', 'args' => array( 'property' => 'height', 'value' => '30px' ), 'class' => 'uf-button button-primary' ),
+					array( 'label' => '40px', 'command' => 'update-css-property', 'args' => array( 'property' => 'height', 'value' => '40px' ) ),
+					array( 'label' => '50px', 'command' => 'update-css-property', 'args' => array( 'property' => 'height', 'value' => '50px' ) )
+				) )
+		);
 		return $fields;
 	}
 

@@ -2,6 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
+4.2.2 26-10-14
+- Ultimate_Fields\Actions_Control field implementation
+- Cleaning of the data that components store in their datastore
+
 4.2.1 26-10-13
 - Cleaned up component datastore on save and before exporting in the ultimate builder field
   keys cleaned up include 'settings', 'scroll_animations_settings', 'actions_settings', 'visibility_settings', and '__hidden'
