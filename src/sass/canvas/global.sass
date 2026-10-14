@@ -41,13 +41,6 @@ img.gjs-plh-image
     &:not(.active)
         display: none
 
-/* force a space to drag components */
-// [data-gjs-type="components-wrapper"]
-[data-gjs-type="container"],
-[data-gjs-type="column"]
-    padding-top: 10px
-    padding-bottom: 10px
-
 /* togglebox */
 .togglebox__title:empty,
 .togglebox__subtitle:empty
@@ -57,3 +50,23 @@ img.gjs-plh-image
 .gjs-plh-video
     aspect-ratio: var(--aspect-ratio, 16/9) !important
     object-fit: cover
+
+/* force a space to drag components */
+[data-gjs-type="container"],
+[data-gjs-type="column"]
+    padding-top: 10px
+    padding-bottom: 10px
+
+/* highlight selected parent when component is dragged */
+.gjs-selected-parent
+    position: relative
+    &:before
+        content: ""
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 333
+        width: 100%
+        height: 100%
+        background-color: var(--placeholder-color)
+        pointer-events: none

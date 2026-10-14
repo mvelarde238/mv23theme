@@ -5,7 +5,6 @@
     
 /* empty component wrappers styles */
 [data-gjs-type="section"]:empty,
-[data-gjs-type="components-wrapper"]:empty,
 [data-gjs-type="column"]:empty,
 [data-gjs-type="gallery"]:empty,
 [data-gjs-type="carousel-item"]:empty,
@@ -23,7 +22,6 @@
 [data-gjs-type="shortcode"],
 [data-gjs-type="icon-box"]:empty,
 [data-gjs-type="postcard"]:empty,
-[data-gjs-type="container"]:empty,
 [data-gjs-type="listing-filter"]:empty,
 .highlight-on-empty:empty,
 .highlight-inner-message
@@ -31,6 +29,13 @@
     background-color: var(--placeholder-color)
     min-height: 50px
     min-width: 20px
+
+[data-gjs-type="container"]:empty,
+[data-gjs-type="components-wrapper"]:empty
+    border: 3px dashed var(--placeholder-color)
+    background-color: var(--placeholder-color)
+    padding-top: 25px
+    padding-bottom: 25px
 
 [data-gjs-type="icon-box"]:empty
     min-height: 40px

@@ -12,16 +12,7 @@ class Testimonial_Header extends Component {
 			'testimonial-header',
 			__( 'Testimonial Header', 'mv23theme' )
 		);
-		
-		add_action( 'uf.ultimate_builder.save_component', array( $this, 'on_save_component' ), 10, 4 );
 	}
-
-    public function on_save_component( $processed_values, &$component_data, $group, $ultimate_builder ) {
-        if ( $component_data['__type'] == 'testimonial-header' ){
-            // Mark this component to prevent it from being saved in page_content_datastore
-			$component_data['skip_datastore_saving'] = true;
-        }
-    }
 
     public static function get_builder_data() {
         return array(

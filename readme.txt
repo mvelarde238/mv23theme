@@ -5,6 +5,7 @@ CHANGELOG
 4.2.2 26-10-14
 - Ultimate_Fields\Actions_Control field implementation
 - Cleaning of the data that components store in their datastore
+- highlight selected parent when component is dragged
 
 4.2.1 26-10-13
 - Cleaned up component datastore on save and before exporting in the ultimate builder field
