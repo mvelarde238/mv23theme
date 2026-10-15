@@ -84,9 +84,9 @@ Container::create( 'actions_container' )
 
         Field::create( 'radio', 'clickable_area', __('Clickable Area','mv23theme') )
             ->add_options( array(
-                'inner_content' => __('Inner content','mv23theme'),
-                'entire_component' => __('Entire component','mv23theme'),
                 'extra_layer' => __('Extra layer over the component','mv23theme'),
+                'entire_component' => __('Entire component','mv23theme'),
+                'inner_content' => __('Inner content','mv23theme')
             ))
             ->set_orientation( 'horizontal' )
             ->add_dependency('trigger','click','=')

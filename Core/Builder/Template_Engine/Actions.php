@@ -20,10 +20,20 @@ Class Actions{
 
 			if( isset($action['clickable_area']) ) $code['clickable_area'] = $action['clickable_area'];
 
-			// if it's an icon and text component and the clickable area is set to inner content
-			// force entire component to be clickable, because of the structure of the component
-			if( $args['type'] == 'icon-and-text' && isset($action['clickable_area']) && $action['clickable_area'] == 'inner_content' ){
+			// Force entire component to be clickable on these components because of their structure:
+			// - if it's an icon and text component and the clickable area is set to inner_content
+			// - if it's an spacer component and the clickable area is set to inner_content
+			// - if it's a image component and the clickable area is set to extra_layer
+			if( 
+				( $args['type'] == 'icon-and-text' && isset($action['clickable_area']) && $action['clickable_area'] == 'inner_content' ) || 
+				( $args['type'] == 'spacer' && isset($action['clickable_area']) && $action['clickable_area'] == 'inner_content' ) || 
+				( $args['type'] == 'image-component' && isset($action['clickable_area']) && $action['clickable_area'] == 'extra_layer' )
+			){
 				$code['clickable_area'] = 'entire_component';
+			}
+			// if it's a column component and the clickable area is set to entire_component force inner_content
+			if( $args['type'] == 'column' && isset($action['clickable_area']) && $action['clickable_area'] == 'entire_component' ){
+				$code['clickable_area'] = 'inner_content';
 			}
     		
     		if ($action['trigger'] == 'click' && $action['action'] == 'open-page') {
@@ -159,7 +169,8 @@ Class Actions{
 		$code = apply_filters( 'filter_builder_custom_action', $code, $args );
 
 		// if the clickable area is extra_layer, we will append a class to place the link over the entire component
-		if( $code['clickable_area'] === 'extra_layer' ){
+		$avoid_extra_layer_for = array('button', 'image-component',);
+		if( $code['clickable_area'] === 'extra_layer' && !in_array($args['type'], $avoid_extra_layer_for) ){
 			if( isset($code['attributes']['class']) ){
 				$code['attributes']['class'] .= ' cover-all';
 			} else {

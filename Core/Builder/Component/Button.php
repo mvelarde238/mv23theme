@@ -38,16 +38,7 @@ class Button extends Component {
             Field::create( 'text', 'text'  )
                 ->hide_label()->set_placeholder( __('Enter button text ...', 'mv23theme') )
                 ->add_dynamic_data_selector(),
-    
-            // Field::create( 'radio', 'button_type' )
-            //     ->hide_label()->set_prefix( __('Type', 'mv23theme') )
-            //     ->set_default_value( 'link' )
-            //     ->set_orientation( 'horizontal' )
-            //     ->add_options( array(
-            //         'link' => __('Link', 'mv23theme'),
-            //         'download' => __('Download', 'mv23theme'),
-            //     )),
-    
+                
             Field::create( 'radio', 'url_type' )
                 ->hide_label()->set_prefix( __('Destination', 'mv23theme') )
                 ->set_default_value( 'interna' )
