@@ -26,15 +26,15 @@ class Icon_and_Text extends Component {
                 ->add_options(array(
                     'left'  => array(
                         'label' => __('Left', 'mv23theme'),
-                        'image' =>  BUILDER_PATH.'/assets/images/icon-left.png'
+                        'image' =>  BUILDER_PATH.'/assets/images/icon-position/icon-left.png'
                     ),
                     'top'  => array(
                         'label' => __('Top', 'mv23theme'),
-                        'image' =>  BUILDER_PATH.'/assets/images/icon-top.png'
+                        'image' =>  BUILDER_PATH.'/assets/images/icon-position/icon-top.png'
                     ),
                     'right'  => array(
                         'label' => __('Right', 'mv23theme'),
-                        'image' =>  BUILDER_PATH.'/assets/images/icon-right.png'
+                        'image' =>  BUILDER_PATH.'/assets/images/icon-position/icon-right.png'
                     ),
                 )),
             Field::create( 'select', 'icon_alignment', __('Icon Alignment', 'mv23theme'))

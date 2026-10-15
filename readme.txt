@@ -6,6 +6,7 @@ CHANGELOG
 - Updated libraries script (html-to-image, grapesjs, leaflet) register to be loaded from the theme assets instead of CDN 
 - Fixed clickable area handling for icon-and-text, spacer, and image components in the template engine actions
 - Fix Carousel styles on dark mode
+- Preset icon styles handling improved for icon-box component
 
 4.2.2 26-10-14
 - Ultimate_Fields\Actions_Control field implementation

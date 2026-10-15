@@ -378,4 +378,69 @@ window.gjsCommands = function (editor, options) {
             type: cmpType,
         });
     });
+
+    // Icon Box specific functions and commands
+
+    // transform single value to four-value shorthand for padding and rounded corners
+    function normalizePresetStyles(presetStylesRaw) {
+        const presetStyles = { ...presetStylesRaw };
+        if (presetStyles.padding && !presetStyles.padding.includes(' ')) {
+            presetStyles.padding = `${presetStyles.padding} ${presetStyles.padding} ${presetStyles.padding} ${presetStyles.padding}`;
+        }
+        if (presetStyles.rounded && !presetStyles.rounded.includes(' ')) {
+            presetStyles.rounded = `${presetStyles.rounded} ${presetStyles.rounded} ${presetStyles.rounded} ${presetStyles.rounded}`;
+        }
+        return presetStyles;
+    }
+
+    // Get the preset styles for the icon box, merging defaults with builder settings and normalizing them
+    function getPresetStyles(){
+        const presetStylesDefaults = {
+            padding: '20px', color: '#ffffff', 
+            borderWidth: '2px', rounded: '12px', 
+            backgroundColor: 'var(--primary-color)', 
+            gradient: 'linear-gradient(135deg, #00BCD4 0%, #3858e9 100%)'
+        };
+
+        const builderSettings = editor.getConfig().builderSettings || {};
+        const presetStylesRaw = _.extend({}, presetStylesDefaults, builderSettings.preset_icon_styles);
+
+        Object.keys(presetStylesDefaults).forEach((key) => {
+            if (typeof presetStylesRaw[key] !== 'string' || presetStylesRaw[key].trim() === '') {
+                presetStylesRaw[key] = presetStylesDefaults[key];
+            }
+        });
+
+        return normalizePresetStyles(presetStylesRaw);
+    }
+
+    commands.add('set-preset-icon-style', (editor, sender, options = {}) => {
+        const { component, preset } = options;
+        if (component.getType() === 'icon-box') {
+
+            const presetStyles = getPresetStyles();
+
+            if(preset && preset !== 'none'){
+                component.addStyle({
+                    'border-radius': preset.includes('circle') ? '50% 50% 50% 50%' :
+                                     preset.includes('rounded') ? presetStyles.rounded :
+                                     preset.includes('square') ? '' : '',
+                    'border': preset.includes('outline') ? `${presetStyles.borderWidth} solid` : '',
+                    'background-color': (preset.includes('outline') || preset.includes('gradient')) ? '' : presetStyles.backgroundColor,
+                    'color': preset.includes('outline') ? '' : presetStyles.color,
+                    'padding': presetStyles.padding,
+                    'background-image': preset.includes('gradient') ? presetStyles.gradient : '',
+                });
+            } else {
+                component.addStyle({
+                    'border-radius': '',
+                    'border': '',
+                    'background-color': '',
+                    'background-image': '',
+                    'color': '',
+                    'padding': ''
+                });
+            }
+        }
+    });
 };
