@@ -31,14 +31,26 @@
         margin-right: 10px;
     }
 }
+
+.second-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
 .uf-export-builder,
 .uf-import-builder{
-    background-color: #ffffff !important;
+    color: #6f747a;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 11px;
+    cursor: pointer;
     line-height: 40px !important;
-    margin-left: 10px !important;
     i{
-        vertical-align: text-top;
-        margin-right: 10px;
+        font-size: 16px;
+        vertical-align: middle;
+        margin-right: 4px;
     }
 }
 

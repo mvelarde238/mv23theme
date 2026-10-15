@@ -84,11 +84,11 @@
 
             if( $action === 'edit' ){
                 // add the builder button
-                var $wrapper = jQuery('<div class="uf-open-builder-wrapper"><p></p></div>');
+                var $wrapper = jQuery('<div class="uf-open-builder-wrapper"><p class="first-row"></p></div>');
                 var locale = BUILDER_GLOBALS.locale || 'en';
                 var buttonText = { es: 'Editar con Ultimate Builder', en: 'Edit with Ultimate Builder' };
                 var $button = jQuery('<button type="button" class="button button-primary uf-open-builder"><i class="dashicons dashicons-table-col-before"></i> ' + buttonText[locale] + '</button>');
-                $wrapper.find('p').append($button);
+                $wrapper.find('p.first-row').append($button);
                 this.$el.append($wrapper);
 
                 $button.on('click', function (e) {
@@ -108,9 +108,11 @@
                     // Add the export/import buttons
                     var exportText = { es: 'Exportar', en: 'Export' };
                     var importText = { es: 'Importar', en: 'Import' };
-                    var $exportButton = jQuery('<button type="button" class="button uf-export-builder"><i class="dashicons dashicons-download"></i> ' + exportText[locale] + '</button>');
-                    var $importButton = jQuery('<button type="button" class="button uf-import-builder"><i class="dashicons dashicons-upload"></i> ' + importText[locale] + '</button>');
-                    $wrapper.find('p').append($exportButton).append($importButton);
+                    var $exportButton = jQuery('<a type="button" class="uf-export-builder"><i class="dashicons dashicons-download"></i> ' + exportText[locale] + '</a>');
+                    var $importButton = jQuery('<a type="button" class="uf-import-builder"><i class="dashicons dashicons-upload"></i> ' + importText[locale] + '</a>');
+                    $secondRow = jQuery('<p class="second-row"></p>');
+                    $wrapper.append($secondRow);
+                    $secondRow.append($exportButton).append($importButton);
 
                     $exportButton.on('click', function (e) {
                         e.preventDefault();
