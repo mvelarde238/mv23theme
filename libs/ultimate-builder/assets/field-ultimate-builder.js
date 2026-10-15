@@ -110,8 +110,9 @@
                     var importText = { es: 'Importar', en: 'Import' };
                     var $exportButton = jQuery('<a type="button" class="uf-export-builder"><i class="dashicons dashicons-download"></i> ' + exportText[locale] + '</a>');
                     var $importButton = jQuery('<a type="button" class="uf-import-builder"><i class="dashicons dashicons-upload"></i> ' + importText[locale] + '</a>');
-                    $secondRow = jQuery('<p class="second-row"></p>');
-                    $wrapper.append($secondRow);
+
+                    this.$el.append('<hr><p class="second-row"></p>');
+                    var $secondRow = this.$el.find('p.second-row');
                     $secondRow.append($exportButton).append($importButton);
 
                     $exportButton.on('click', function (e) {
