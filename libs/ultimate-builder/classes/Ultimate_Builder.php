@@ -283,6 +283,7 @@ class Ultimate_Builder {
 			$app_js_path = BUILDER_DEV_MODE ? 'http://builder.lo/react/my-react-app/dist/' : ASSETS_PATH . '/js/';
 			$app_css_path = BUILDER_DEV_MODE ? 'http://builder.lo/react/my-react-app/dist/' : ASSETS_PATH . '/css/';
 
+			wp_register_style( 'grapes-styles', ASSETS_PATH . '/css/grapes.min.css', array(), $v );
 			wp_register_style( 'builder-styles', ASSETS_PATH . '/css/builder-styles.css', array('wp-codemirror'), $v );
 			wp_register_style( 'canvas-styles', ASSETS_PATH . '/css/canvas-styles.css', array(), $v );
 
@@ -385,6 +386,7 @@ class Ultimate_Builder {
 			Post_Lock_Handler::enqueue_scripts();
 	
 			wp_enqueue_script( 'app-scripts' );
+			wp_enqueue_style( 'grapes-styles' );
 			wp_enqueue_style( 'app-styles' );
 			wp_enqueue_style( 'builder-styles' );
 			

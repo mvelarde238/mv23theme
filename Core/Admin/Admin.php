@@ -80,7 +80,7 @@ class Admin extends Theme_Header_Data {
         } 
 
         // html to image script for template saving
-        wp_enqueue_script( $this->text_domain.'-html-to-image', 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.min.js', array(), '1.11.13', true );
+        wp_enqueue_script( $this->text_domain.'-html-to-image', $this->theme_uri . '/assets/js/html-to-image.min.js', array(), '1.11.13', true );
     }
 
     public function register_nav_menus() {

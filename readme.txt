@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+4.2.3 26-10-15
+- Updated libraries script (html-to-image, grapesjs, leaflet) register to be loaded from the theme assets instead of CDN  
+
 4.2.2 26-10-14
 - Ultimate_Fields\Actions_Control field implementation
 - Cleaning of the data that components store in their datastore

@@ -296,11 +296,11 @@ class Core {
 		/**
 		 * Add Leaflet scripts and styles.
 		 */
-		wp_register_script( 'uf-leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js', array(), '1.0', true);
-		wp_register_script( 'uf-leaflet-geocoder', 'https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js', array('uf-leaflet'), '1.0', true);
+		wp_register_script( 'uf-leaflet', ULTIMATE_FIELDS_URL . 'assets/js/leaflet/leaflet.js', array(), '1.7.1', true);
+		wp_register_script( 'uf-leaflet-geocoder', ULTIMATE_FIELDS_URL . 'assets/js/leaflet/Control.Geocoder.js', array('uf-leaflet'), '4.0.0', true);
 		
-		wp_register_style( 'uf-leaflet-css', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css', array(), '1.0', 'all' );
-		wp_register_style( 'uf-leaflet-geocoder-css', 'https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css', array('uf-leaflet-css'), '1.0', 'all' );
+		wp_register_style( 'uf-leaflet-css', ULTIMATE_FIELDS_URL . 'assets/css/leaflet/leaflet.css', array(), '1.7.1', 'all' );
+		wp_register_style( 'uf-leaflet-geocoder-css', ULTIMATE_FIELDS_URL . 'assets/css/leaflet/Control.Geocoder.css', array('uf-leaflet-css'), '4.0.0', 'all' );
 		
 		// Prepare some shortcuts
 		$js     = ULTIMATE_FIELDS_URL . 'js/';

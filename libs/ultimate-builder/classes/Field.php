@@ -218,7 +218,6 @@ class Field extends Repeater {
 		global $wp_styles;
 		foreach ( $frontend_styles_control as $handle ) {
 			if ( isset( $wp_styles->registered[$handle] ) ) {
-				// error_log( 'Found style handle: ' . $handle );
 				$style_info = $wp_styles->registered[$handle];
 				if ( isset( $style_info->src ) ) {
 					// check for extra styles to add before this one
@@ -228,8 +227,9 @@ class Field extends Repeater {
 						}
 					}
 
-					// add the style url
-					$styles[] = $style_info->src;
+					// add the style url with version if available
+					$version = isset( $style_info->ver ) ? $style_info->ver : '';
+					$styles[] = $style_info->src . ( $version ? '?ver=' . $version : '' );
 
 					// check for extra styles to add after this one
 					if ( isset( $style_info->extra['after'] ) && is_array( $style_info->extra['after'] ) ) {
@@ -254,7 +254,8 @@ class Field extends Repeater {
 			if ( isset( $wp_scripts->registered[$handle] ) ) {
 				$script_info = $wp_scripts->registered[$handle];
 				if ( isset( $script_info->src ) ) {
-					$scripts[] = $script_info->src;
+					$version = isset( $script_info->ver ) ? $script_info->ver : '';
+					$scripts[] = $script_info->src . ( $version ? '?ver=' . $version : '' );
 				}
 			}
 		}

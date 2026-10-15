@@ -68,8 +68,9 @@ class Frontend extends Theme_Header_Data {
         self::add_style( $this->text_domain.'-styles', $this->theme_uri . '/assets/css/style.css', array(), $this->version, 'all' );
         self::add_style( $this->text_domain.'-font-awesome', FONT_AWESOME, array(), $this->version, 'all' );
         self::add_style( $this->text_domain.'-bootstrap-icons', BOOTSTRAP_ICONS, array(), $this->version, 'all' );
+
         if( LEAFLET_IS_ACTIVE ) {
-            self::add_style( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css', array(), $this->version, 'all' );
+            self::add_style( 'uf-leaflet-css', $this->theme_uri . '/libs/ultimate-fields/core/assets/css/leaflet/leaflet.css', array(), '1.7.1', 'all' );
         }
 
         // avoid registering theme options stuff on builder/admin context as they will be loaded dinamically when needed
@@ -112,7 +113,7 @@ class Frontend extends Theme_Header_Data {
         }
 
         if( LEAFLET_IS_ACTIVE ){
-            self::add_script( 'leaflet', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js', array(), $this->version, true);
+            self::add_script( 'uf-leaflet', $this->theme_uri . '/libs/ultimate-fields/core/assets/js/leaflet/leaflet.js', array(), '1.7.1', true);
         }
 
         if( MASONRY_IS_ACTIVE ){
