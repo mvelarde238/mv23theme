@@ -8,6 +8,7 @@ CHANGELOG
 - Fix Carousel styles on dark mode
 - Preset icon styles handling improved for icon-box component
 - Added .apply-theme-colors class to the global settings panel container, component-settings and overlay wrapper for consistent theming
+- Fixed issue with styles not being applied correctly in post modal
 
 4.2.2 26-10-14
 - Ultimate_Fields\Actions_Control field implementation

@@ -44,17 +44,18 @@
                     $postModal.attr('data-status','');
                     
                     if(response) {
-                        var main = $('.main', response);
-                        var is_woocommerce = $(main).find('.woocommerce-product-gallery').length;
-                        var containerStyles = $('.container style', response);
+                        var responseDocument = new DOMParser().parseFromString(response, 'text/html');
+                        var main = responseDocument.querySelector('.main');
+                        var is_woocommerce = main && $(main).find('.woocommerce-product-gallery').length;
+                        var containerStyles = responseDocument.querySelectorAll('#content style');
 
                         var content_wrapper = document.createElement('div');
                         if ( is_woocommerce ) content_wrapper.className = "woocommerce woocommerce-page woocommerce-js";
-                        content_wrapper.innerHTML = main.html();
+                        content_wrapper.innerHTML = main ? main.innerHTML : '';
 
                         $postModal_content.html( content_wrapper );
                         if ( containerStyles.length ) {
-                            containerStyles.clone().prependTo( $postModal_content );
+                            $(containerStyles).clone().prependTo( $postModal_content );
                         }
 
                         /** Initialize product gallery **/
