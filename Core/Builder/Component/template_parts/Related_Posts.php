@@ -77,14 +77,17 @@ class Related_Posts extends Component {
 
         $custom_listing_args = array(
             'show' => 'auto',
-            'post__not_in' => array($post->ID),
-            'query_parameters' => array(
-                array( '__type' => 'posts_per_page', 'value' => 3 ),
-                array( '__type' => 'orderby', 'value' => 'rand' ),
-            ),
             'posttype' => $post->post_type,
         );
         $listing_args = array_merge($custom_listing_args, $args);
+
+        // Merge custom query arguments with the provided arguments
+        $custom_query_parameters = array(
+            array( '__type' => 'posts_per_page', 'value' => 3 ),
+            array( '__type' => 'orderby', 'value' => 'rand' ),
+            array( '__type' => 'post__not_in', 'value' => array($post->ID) ),
+        );
+        $listing_args['query_parameters'] = array_merge($custom_query_parameters, $listing_args['query_parameters'] ?? array());
 
         // Automatically include taxonomy terms of the current post as query params for related posts
         $taxonomies = get_object_taxonomies( get_post_type( $post->ID ) );
