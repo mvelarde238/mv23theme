@@ -56,13 +56,20 @@ class Button extends Component {
                 ->add_dynamic_data_selector(),
     
             Field::create( 'checkbox', 'new_tab' )->set_text( __('Open in a new window', 'mv23theme') )
-                ->hide_label()
-                ->add_dependency('download_file',0 , '='),
+                ->hide_label(),
 
             Field::create( 'checkbox', 'download_file' )->set_text( __('Download a file', 'mv23theme') )->hide_label(),
-            Field::create( 'file', 'file' )
-                ->hide_label()
+            Field::create( 'radio', 'download_file_type' )
+                ->hide_label()->set_prefix( __('Choose', 'mv23theme') )
+                ->set_orientation( 'horizontal' )
+                ->add_options( array(
+                    'file' => __('Select File', 'mv23theme'),
+                    'url' => __('Enter URL', 'mv23theme')
+                ))
+                ->set_default_value( 'file' )
                 ->add_dependency('download_file'),
+            Field::create( 'file', 'file' )->hide_label()->add_dependency('download_file')->add_dependency('download_file_type','file','='),
+            Field::create( 'text', 'file_url' )->hide_label()->add_dependency('download_file')->add_dependency('download_file_type','url','='),
 
             Field::create( 'tab', __('Style', 'mv23theme') ),
             Field::create( 'select', 'button_style' )
@@ -128,6 +135,7 @@ class Button extends Component {
 
         $type = (isset($args['download_file']) && $args['download_file']) ? 'download' : 'link';
         $href = '#';
+        
         if($type == 'link'){
             $url_type = $args['url_type'];
             switch ($url_type) {
@@ -143,17 +151,29 @@ class Button extends Component {
             }
             if( isset($args['new_tab']) && $args['new_tab'] == 1) {
                 $args['additional_attributes']['target'] = '_blank';
-            }
-                
+            }   
         }
+
         if($type == 'download'){
-            if($args['file']){
-                $href = wp_get_attachment_url( $args['file'] );
-                if( isset($args['new_tab']) && $args['new_tab'] == 1) {
-                    $args['additional_attributes']['target'] = '_blank';
-                } else {
-                    $args['additional_attributes']['download'] = 'download';
-                }
+            $download_file_type = (isset($args['download_file_type'])) ? $args['download_file_type'] : 'file';
+
+            switch ($download_file_type) {
+                case 'file':
+                    if($args['file']){
+                        $href = wp_get_attachment_url( $args['file'] );
+                    }
+                    break;
+                case 'url':
+                    if($args['file_url']){
+                        $href = Handlebars::parse($args['file_url']);
+                    }
+                    break;
+            }
+
+            if( isset($args['new_tab']) && $args['new_tab'] == 1) {
+                $args['additional_attributes']['target'] = '_blank';
+            } else {
+                $args['additional_attributes']['download'] = 'download';
             }
         }
         $args['additional_attributes']['href'] = $href;

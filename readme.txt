@@ -5,6 +5,7 @@ CHANGELOG
 4.2.4 26-10-16
 - Updated Handlebars parsing features to improve date formatting with text literals
 - Fix Related Posts custom query parameters handling
+- Added download_file_type option to the Button component to specify whether the download should be a file or a URL
 
 4.2.3 26-10-15
 - Updated libraries script (html-to-image, grapesjs, leaflet) register to be loaded from the theme assets instead of CDN 
