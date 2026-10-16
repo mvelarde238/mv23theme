@@ -7,6 +7,7 @@ CHANGELOG
 - Fixed clickable area handling for icon-and-text, spacer, and image components in the template engine actions
 - Fix Carousel styles on dark mode
 - Preset icon styles handling improved for icon-box component
+- Added .apply-theme-colors class to the global settings panel container, component-settings and overlay wrapper for consistent theming
 
 4.2.2 26-10-14
 - Ultimate_Fields\Actions_Control field implementation

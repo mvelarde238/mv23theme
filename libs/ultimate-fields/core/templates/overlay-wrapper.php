@@ -1,5 +1,5 @@
 <div class="uf-overlay-background"></div>
-<div class="uf-overlay-box">
+<div class="uf-overlay-box apply-theme-colors">
 	<header class="uf-overlay-header">
 		<h2 class="uf-overlay-title"></h2>
 		<button type="button" class="uf-overlay-close">

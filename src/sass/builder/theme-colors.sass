@@ -1,6 +1,4 @@
-#component-settings,
-#global-settings-panel,
-.uf-overlay-box
+.apply-theme-colors
     color: var(--ui-font-color)
 
     &>.uf-group>.uf-group-header
@@ -104,10 +102,14 @@
         background: var(--ui-color-2)
     .uf-icon-preview-icon
         color: var(--ui-font-color)
-    .uf-section
+    
+    .uf-section, .uf-boxed-fields .uf-section
         background-color: var(--ui-color-2)
         border-color: var(--ui-color-4)
         color: var(--ui-font-color)
+    .uf-boxed-fields.uf-fields-layout-grid > .uf-section
+        border-top-color: var(--ui-color-4)
+
     .common-setting-small .button-primary
         color: var(--ui-font-color)
         &:hover
