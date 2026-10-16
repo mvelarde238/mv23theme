@@ -28,13 +28,47 @@ window.handleBuilderSettings = function (editor) {
     const datastore = new UltimateFields.Datastore(defaults);
     builderSettingsModel.setDatastore(datastore);
 
+    /**
+     * Recursively applies default values to the given value.
+     *
+     * @param {*} value The value to apply defaults to.
+     * @param {*} defaultValue The default value to apply.
+     * @returns {*} The value with defaults applied.
+     */
+    function applyDefaults(value, defaultValue) {
+        if (defaultValue && typeof defaultValue === 'object' && !Array.isArray(defaultValue)) {
+            const result = value && typeof value === 'object' && !Array.isArray(value)
+                ? { ...value }
+                : {};
+
+            Object.keys(defaultValue).forEach((key) => {
+                result[key] = applyDefaults(result[key], defaultValue[key]);
+            });
+
+            return result;
+        }
+
+        if (value === null || value === undefined ||
+            (typeof value === 'string' && value.trim() === '')) {
+            return defaultValue;
+        }
+
+        return value;
+    }
+
     // Expose only the actual settings values (not the {__type, builder_settings}
     // datastore wrapper), so consumers like gjs-section.js can read e.g.
     // editorConfig.builderSettings.default_sections_padding directly.
     // gjs-commands.js re-wraps this value with __type when saving, since
     // that's the shape the backend expects (see Field.php::save()).
     function getBuilderSettingsValue() {
-        return datastore.get('builder_settings') || {};
+        const builder_settings = datastore.get('builder_settings') || {};
+
+        const builder_settings_complex_field = builderSettingsModel.get('fields').models[1];
+        const default_values = builder_settings_complex_field.get('default_value');
+
+        // Apply default values recursively to the builder settings.
+        return applyDefaults(builder_settings, default_values);
     }
 
     // keep editorConfig.builderSettings always in sync with the datastore,

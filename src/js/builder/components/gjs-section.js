@@ -37,10 +37,8 @@ window.gjsSection = function(editor) {
             const isFirstCreation = !model.get('__id');
             
             if ( isFirstCreation ){ 
-                const editorConfig = editor.getConfig();
-                const builderSettings = editorConfig.builderSettings || {};
-                const defaultPadding = { top: 40, left: 0, right: 0, bottom: 40 };
-                const padding = _.extend({}, defaultPadding, builderSettings.default_sections_padding);
+                const builderSettings = editor.getConfig().builderSettings || {};
+                const padding = builderSettings.default_sections_padding || {};
                 const paddingValue = `${padding.top}px ${padding.right}px ${padding.bottom}px ${padding.left}px`;
         
                 if (paddingValue !== '40px 0px 40px 0px') {

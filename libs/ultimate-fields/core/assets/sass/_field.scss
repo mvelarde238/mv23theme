@@ -115,6 +115,17 @@
 		display: block;
 		width: 100%;
 	}
+
+	&[data-type='html'] textarea{
+	  background-color: #161616;
+	  color: darkseagreen;
+	}
+	&[data-input-alignment="center"] input{
+	  text-align: center;
+	}
+	&[data-input-alignment="right"] input{
+	  text-align: right;
+	}
 }
 
 // Layout of block fields (label on the left, field on the right)

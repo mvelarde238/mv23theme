@@ -390,11 +390,11 @@ window.gjsExtendComponents = function (editor) {
                     }
 
                     // Validate using field.validate() before propagating changes
-                    const validation = validateDatastore(builder_comp_model);
-                    if (!validation.valid) {
-                        editor.trigger('datastoreInvalid', builder_comp_model, component, validation.errors);
-                        return;
-                    }
+                    // const validation = validateDatastore(builder_comp_model);
+                    // if (!validation.valid) {
+                    //     editor.trigger('datastoreInvalid', builder_comp_model, component, validation.errors);
+                    //     return;
+                    // }
 
                     // Notify editor that datastore changed; allow other code to persist
                     editor.trigger('datastoreChanged', builder_comp_model, component);
@@ -454,40 +454,40 @@ window.gjsExtendComponents = function (editor) {
     });
 
     // Validation helper for inline Ultimate Fields datastores using field.validate()
-    function validateDatastore(groupModel) {
-        try {
-            if (!groupModel) return { valid: true };
+    // function validateDatastore(groupModel) {
+    //     try {
+    //         if (!groupModel) return { valid: true };
 
-            const tabs = (groupModel.get && groupModel.get('tabs')) || {};
-            const fields = (groupModel.get && groupModel.get('fields')) || null;
-            const errors = {};
+    //         const tabs = (groupModel.get && groupModel.get('tabs')) || {};
+    //         const fields = (groupModel.get && groupModel.get('fields')) || null;
+    //         const errors = {};
 
-            if (fields && typeof fields.each === 'function') {
-                fields.each(function (field) {
-                    try {
-                        // If the field's tab is set and that tab is hidden, skip
-                        if (field.get('tab') && tabs && !tabs[field.get('tab')]) return;
+    //         if (fields && typeof fields.each === 'function') {
+    //             fields.each(function (field) {
+    //                 try {
+    //                     // If the field's tab is set and that tab is hidden, skip
+    //                     if (field.get('tab') && tabs && !tabs[field.get('tab')]) return;
 
-                        // Silent validation (true -> silent) to get state without UI side-effects
-                        var state = typeof field.validate === 'function' ? field.validate(true) : undefined;
+    //                     // Silent validation (true -> silent) to get state without UI side-effects
+    //                     var state = typeof field.validate === 'function' ? field.validate(true) : undefined;
 
-                        if (typeof state !== 'undefined') {
-                            var name = (field.get && field.get('name')) || field.cid || 'unknown';
-                            errors[name] = state;
-                            try { field.set('invalid', true); } catch (e) {}
-                        } else {
-                            try { field.set('invalid', false); } catch (e) {}
-                        }
-                    } catch (err) {
-                        try { errors[field.get('name') || field.cid || 'unknown'] = err; } catch (e) { errors['unknown'] = err; }
-                    }
-                });
-            }
+    //                     if (typeof state !== 'undefined') {
+    //                         var name = (field.get && field.get('name')) || field.cid || 'unknown';
+    //                         errors[name] = state;
+    //                         try { field.set('invalid', true); } catch (e) {}
+    //                     } else {
+    //                         try { field.set('invalid', false); } catch (e) {}
+    //                     }
+    //                 } catch (err) {
+    //                     try { errors[field.get('name') || field.cid || 'unknown'] = err; } catch (e) { errors['unknown'] = err; }
+    //                 }
+    //             });
+    //         }
 
-            if (Object.keys(errors).length) return { valid: false, errors: errors };
-            return { valid: true };
-        } catch (err) {
-            return { valid: false, errors: err };
-        }
-    }
+    //         if (Object.keys(errors).length) return { valid: false, errors: errors };
+    //         return { valid: true };
+    //     } catch (err) {
+    //         return { valid: false, errors: err };
+    //     }
+    // }
 }

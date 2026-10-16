@@ -49,9 +49,28 @@ class Builder_Settings extends Component {
     }
 
 	public static function get_fields() {
-        $builder_settings_default = get_option( 'builder_settings', array() );
+        $builder_settings_default = get_option( 'builder_settings', array(
+			'on_select_component_behavior' => 'component-settings',
+			'default_sections_padding' => array(
+				'top' => 40,
+				'left' => 0,
+				'right' => 0,
+				'bottom' => 40
+			),
+			'default_columns_gap' => 2,
+			'preset_icon_styles' => array(
+				'padding' => '20px',
+				'color' => '#ffffff',
+				'borderWidth' => '2px',
+				'rounded' => '12px',
+				'backgroundColor' => 'var(--primary-color)',
+				'gradient' => 'linear-gradient(135deg, #00BCD4 0%, #3858e9 100%)'
+			)
+		) );
 
 		$width_style = 'width: 50%; min-width: initial;';
+		$def_gradient = $builder_settings_default['preset_icon_styles']['gradient'];
+		$def_background = $builder_settings_default['preset_icon_styles']['backgroundColor'];
 
 		$fields = array(
 			Field::create( 'section', 'builder_settings_section', __('Builder Settings', 'mv23theme') ),
@@ -66,14 +85,16 @@ class Builder_Settings extends Component {
 
 				Field::create( 'tab', 'sections_customizations', __('Sections', 'mv23theme')),
 				Field::create( 'complex', 'default_sections_padding', __('Default Sections Padding (pixels)', 'mv23theme') )->add_fields(array(
-            		Field::create( 'number', 'top' )->hide_label()->set_prefix(__('Top', 'mv23theme'))->set_minimum(0)->set_placeholder(40),
-            		Field::create( 'number', 'left' )->hide_label()->set_prefix(__('Left', 'mv23theme'))->set_minimum(0)->set_placeholder(0)->set_attr( 'style', $width_style ),
-            		Field::create( 'number', 'right' )->hide_label()->set_prefix(__('Right', 'mv23theme'))->set_minimum(0)->set_placeholder(0)->set_attr( 'style', $width_style ),
-            		Field::create( 'number', 'bottom' )->hide_label()->set_prefix(__('Bottom', 'mv23theme'))->set_minimum(0)->set_placeholder(40)
+            		Field::create( 'number', 'top' )->hide_label()->set_prefix(__('Top', 'mv23theme'))->set_placeholder('40')->set_minimum(0)->set_attr( 'data-input-alignment', 'center'),
+            		Field::create( 'number', 'left' )->hide_label()->set_prefix(__('Left', 'mv23theme'))->set_placeholder('0')->set_minimum(0)->set_attr( 'style', $width_style ),
+            		Field::create( 'number', 'right' )->hide_label()->set_prefix(__('Right', 'mv23theme'))->set_placeholder('0')->set_minimum(0)->set_attr( 'style', $width_style ),
+            		Field::create( 'number', 'bottom' )->hide_label()->set_prefix(__('Bottom', 'mv23theme'))->set_placeholder('40')->set_minimum(0)->set_attr( 'data-input-alignment', 'center')
         		)),
 
 				Field::create( 'tab', 'columns_customizations', __('Columns', 'mv23theme')),
-				Field::create( 'number', 'default_columns_gap' )->hide_label()->set_prefix( __('Default Columns Gap', 'mv23theme'))->set_minimum(0)->set_placeholder(2)->set_suffix('%'),
+				Field::create( 'number', 'default_columns_gap' )
+					->hide_label()->set_prefix( __('Default Columns Gap', 'mv23theme'))
+					->set_minimum(0)->set_placeholder("2")->set_suffix('%'),
 
 				Field::create( 'tab', 'icon_styles_customizations', __('Preset Icon Styles', 'mv23theme')),
 				Field::create( 'complex', 'preset_icon_styles' )->hide_label()->add_fields(array(
@@ -81,8 +102,8 @@ class Builder_Settings extends Component {
             		Field::create( 'text', 'color' )->set_placeholder('#ffffff')->set_attr( 'style', $width_style ),
             		Field::create( 'text', 'borderWidth', __('Border Width', 'mv23theme'))->set_placeholder('2px')->set_attr( 'style', $width_style ),
             		Field::create( 'text', 'rounded' )->set_placeholder('12px')->set_attr( 'style', $width_style ),
-            		Field::create( 'text', 'backgroundColor', __('Background Color', 'mv23theme'))->set_placeholder('var(--primary-color)'),
-            		Field::create( 'textarea', 'gradient' )->set_rows(2)->set_placeholder('linear-gradient(135deg, #00BCD4 0%, #3858e9 100%)'),
+            		Field::create( 'text', 'backgroundColor', __('Background Color', 'mv23theme'))->set_placeholder($def_background),
+            		Field::create( 'textarea', 'gradient' )->set_rows(2)->set_placeholder($def_gradient),
         		)),
 			))->hide_label()->set_default_value( $builder_settings_default ),
 			// End of builder settings complex field, no more fields can be added after this.

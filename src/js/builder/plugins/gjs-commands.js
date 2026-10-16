@@ -393,32 +393,12 @@ window.gjsCommands = function (editor, options) {
         return presetStyles;
     }
 
-    // Get the preset styles for the icon box, merging defaults with builder settings and normalizing them
-    function getPresetStyles(){
-        const presetStylesDefaults = {
-            padding: '20px', color: '#ffffff', 
-            borderWidth: '2px', rounded: '12px', 
-            backgroundColor: 'var(--primary-color)', 
-            gradient: 'linear-gradient(135deg, #00BCD4 0%, #3858e9 100%)'
-        };
-
-        const builderSettings = editor.getConfig().builderSettings || {};
-        const presetStylesRaw = _.extend({}, presetStylesDefaults, builderSettings.preset_icon_styles);
-
-        Object.keys(presetStylesDefaults).forEach((key) => {
-            if (typeof presetStylesRaw[key] !== 'string' || presetStylesRaw[key].trim() === '') {
-                presetStylesRaw[key] = presetStylesDefaults[key];
-            }
-        });
-
-        return normalizePresetStyles(presetStylesRaw);
-    }
-
     commands.add('set-preset-icon-style', (editor, sender, options = {}) => {
         const { component, preset } = options;
         if (component.getType() === 'icon-box') {
 
-            const presetStyles = getPresetStyles();
+            const builderSettings = editor.getConfig().builderSettings || {};
+            const presetStyles = normalizePresetStyles(builderSettings.preset_icon_styles);
 
             if(preset && preset !== 'none'){
                 component.addStyle({

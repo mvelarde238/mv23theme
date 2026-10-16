@@ -553,6 +553,16 @@
   display: block;
   width: 100%;
 }
+.uf-field[data-type=html] textarea {
+  background-color: #161616;
+  color: darkseagreen;
+}
+.uf-field[data-input-alignment=center] input {
+  text-align: center;
+}
+.uf-field[data-input-alignment=right] input {
+  text-align: right;
+}
 
 .uf-field-layout-row {
   position: relative;
@@ -4080,11 +4090,6 @@ h2.uf-add-term-title {
   width: 100%;
   height: auto;
   outline: 0;
-}
-
-.uf-field[data-type=html] textarea {
-  background-color: #161616;
-  color: darkseagreen;
 }
 
 .select2-container {
