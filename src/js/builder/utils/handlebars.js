@@ -64,7 +64,7 @@ window['Handlebars'] = (function(){
                 // join on a scalar is a no-op (nothing to join)
                 return value;
             case 'date_format': {
-                // date_format[:format] — expects value as 'Y-m-d'; format uses PHP date()-style tokens, defaults to 'M, Y'
+                // date_format[:format] — expects value as 'Y-m-d'; format uses PHP date()-style tokens and escapes, defaults to 'M, Y'
                 const parts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
                 if (!parts) return value; // not a recognizable date, leave untouched
                 const date = new Date(Number(parts[1]), Number(parts[2]) - 1, Number(parts[3]));
@@ -85,8 +85,11 @@ window['Handlebars'] = (function(){
                     d: () => String(date.getDate()).padStart(2, '0'),
                     j: () => String(date.getDate()),
                 };
-                // Only PHP date() tokens supported here are replaced; other characters pass through unchanged.
-                return format.replace(/[YyFMmndj]/g, (t) => (tokens[t] ? tokens[t]() : t));
+                // Only supported PHP date() tokens are replaced; backslash escapes the following character.
+                return format.replace(/\\([\s\S])|[YyFMmndj]/g, (match, escaped) => {
+                    if (escaped !== undefined) return escaped;
+                    return tokens[match] ? tokens[match]() : match;
+                });
             }
             default:
                 return value;

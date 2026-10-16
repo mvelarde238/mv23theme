@@ -19,7 +19,8 @@
  *
  * [x] 5. Formato de fechas  →  {{post.date_raw|date_format}} → "Oct, 2026" (usa 'M, Y' por defecto)
  *         {{post.date_raw|date_format:Y}}, {{post.meta.alguna_fecha|date_format:d/m/Y}}, etc. (tokens de PHP date(), respeta locale vía wp_date()).
- *         post.date_raw es la fecha del post en formato ISO 'Y-m-d', pensado para usarse con este filtro (reemplaza a date_parts).
+ *         Para texto literal, escape los caracteres con \ (por ejemplo, {{post.date_raw|date_format:j \d\e F, Y}}).
+ *         Use post.date_raw (ISO 'Y-m-d') con este filtro; post.date es una fecha ya formateada para mostrar.
  *
  * [ ] 6. Loops sobre post meta arrays  →  {{#each post.meta.galeria}}<img src="{{this.url}}">{{/each}}
  *         Útil con ACF/UF repeaters. Requiere parser más elaborado.
