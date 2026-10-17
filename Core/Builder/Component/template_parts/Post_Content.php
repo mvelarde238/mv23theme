@@ -24,7 +24,10 @@ class Post_Content extends Component {
     }
 
     public static function get_fields() {
-		$fields = array();
+		$fields = array(
+            Field::create('message', 'post_content_message')->hide_label()
+                ->set_description(__('This component displays the post content saved in the classic WordPress editor.', 'mv23theme'))
+        );
 		return $fields;
 	}
 
@@ -33,27 +36,18 @@ class Post_Content extends Component {
         $post_id = isset($args['post_id']) ? $args['post_id'] : $post->ID;
 
         ob_start();
-        if ( isset($args['post_id']) || is_singular('single_template') ) {
+        // if ( isset($args['post_id']) ) {
             // show a placeholder in the builder
-            echo '<p class="center-align">' . __('This is a placeholder for the content area. It will display the post content in the frontend.', 'mv23theme') . '</p>';
-        } else{
+            // echo '<p class="center-align">' . __('This is a placeholder for the content area. It will display the post content in the frontend.', 'mv23theme') . '</p>';
+        // } else{
             // render content on frontend
-            the_post();
-            echo the_content();
-        }
+            $content = get_post_field('post_content', $post_id);
+
+            if (!empty($content)) {
+                echo '<div class="component">' . do_shortcode(wpautop(oembed( $content ))) . '</div>';
+            }
+        // }
         return ob_get_clean();
-    }
-
-    public static function ___display($args = array()){
-        global $post;
-        $post_id = isset($args['post_id']) ? $args['post_id'] : $post->ID;
-
-        $content = get_post_field('post_content', $post_id);
-        if (!empty($content)) {
-            ob_start();
-            echo '<div class="component">' . do_shortcode(wpautop(oembed( $content ))) . '</div>';
-            return ob_get_clean();
-        }
     }
 }
 
