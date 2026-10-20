@@ -202,7 +202,11 @@ class Posts extends Type {
 		$args = array(
 			'post_type'      => get_post_types(),
 			'posts_per_page' => -1,
-			'post__in'       => $ids
+			'post__in'       => $ids,
+			// Mixing translated and untranslated post types (e.g. non-public CPTs) makes
+			// Polylang filter the whole query by the current language, which excludes
+			// untranslated posts entirely. Since IDs are already known, language is irrelevant here.
+			'lang'           => ''
 		);
 
 		foreach( get_posts( $args ) as $post ) {
@@ -227,7 +231,10 @@ class Posts extends Type {
 		$args = array(
 			'post_type'      => array_values( get_post_types() ),
 			'posts_per_page' => -1,
-			'post__in'       => array_map( 'intval', $ids )
+			'post__in'       => array_map( 'intval', $ids ),
+			// See the note in export_items(): bypass Polylang's language filtering here,
+			// since looking up specific, already-known post IDs should not be language-restricted.
+			'lang'           => ''
 		);
 
 		foreach( get_posts( $args ) as $post ) {
