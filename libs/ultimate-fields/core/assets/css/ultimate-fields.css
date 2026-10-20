@@ -1233,8 +1233,7 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
   display: inline-block;
 }
 .uf-object-spinner {
-  float: none;
-  margin: 0 0 3px 10px;
+  float: right;
 }
 .uf-object-preview {
   background: #fff;
@@ -1336,9 +1335,6 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 }
 .uf-chooser-footer .uf-button + .uf-button {
   margin-left: 6px;
-}
-.uf-chooser-button-right {
-  float: right;
 }
 .uf-chooser-item {
   cursor: default;
@@ -1511,6 +1507,11 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 }
 .small-object-preview .uf-button {
   min-height: 20px;
+}
+.small-object-preview .uf-object-remove-button {
+  font-size: 0;
+  padding: 0 0 0 6px;
+  line-height: 27px;
 }
 
 .uf-field-type-number .input {

@@ -13,8 +13,7 @@
 	}
 
 	&-spinner {
-		float: none;
-		margin: 0 0 3px 10px;
+		float: right;
 	}
 
 	&-preview {
@@ -140,10 +139,6 @@
 		.uf-button + .uf-button {
 			margin-left: 6px;
 		}
-	}
-
-	&-button-right {
-		float: right;
 	}
 
 	&-item {
@@ -365,5 +360,11 @@
 	}
 	.uf-button{
 		min-height: 20px;
+	}
+
+	.uf-object-remove-button {
+		font-size: 0;
+		padding: 0 0 0 6px;
+		line-height: 27px;
 	}
 }

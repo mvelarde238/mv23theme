@@ -116,6 +116,10 @@
 				this.$el.addClass( this.model.get( 'cssClass' ) );
 			}
 
+			if( this.model.get( 'title' ) ) {
+				this.$el.attr( 'title', this.model.get( 'title' ) );
+			}
+
 			this.setIcon();
 			this.model.on( 'change:icon', _.bind( this.setIcon, this ) );
 

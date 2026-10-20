@@ -292,6 +292,7 @@
 			toggleButton = this.toggleButton = new UltimateFields.Button({
 				text:    '',
 				icon:    'dashicons-arrow-down',
+				title: 'Select',
 				cssClass: 'uf-object-toggle-button',
 				callback: function() {
 					if( that.chooser ) {
@@ -314,7 +315,8 @@
 				text: UltimateFields.L10N.localize( 'remove' ),
 				icon: 'dashicons-no',
 				type: 'primary',
-				cssClass: 'uf-button-right',
+				title: 'Remove',
+				cssClass: 'uf-object-remove-button',
 				callback: function() {
 					if( that.chooser ) that.chooser.remove();
 					that.model.setValue( false );
@@ -329,7 +331,7 @@
 
 			// Add a spinner
 			$spinner = $( '<span class="spinner uf-object-spinner" />' );
-			toggleButton.$el.after( $spinner );
+			removeButton.$el.after( $spinner );
 		},
 
 		/**

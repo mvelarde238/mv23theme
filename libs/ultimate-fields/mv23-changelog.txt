@@ -3,6 +3,8 @@ mv23 changelog-------------------------
 - 3.2.24 19-10-2026
 - Fix Polylang compatibility issues on export_items() and prepare() methods
     (core\classes\Helper\Object\Type\Posts.php)
+- Add support for title attribute on UltimateFields.Button
+    (core/js/uf.js)
 
 - 3.2.23 17-07-2026
 - Enable prefix for checkbox fields
