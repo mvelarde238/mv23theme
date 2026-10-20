@@ -146,11 +146,18 @@ class Listing extends Component {
                         ->set_orientation( 'vertical' )
                         ->add_options($listing_post_template), 
         	    	Field::create( 'select', 'on_click_post', __('On click the post card:','mv23theme') )->add_options(array(
-        	            'redirect' => 'Redirigir a la página del post',
-        	            'show-expander' => 'Mostrar el post en la misma página',
-                	    'show-popup' => 'Mostrar el post en un popup',
-                	    'none' => 'Ninguna'
+        	            'redirect' => __('Redirect to the post page','mv23theme'),
+        	            'show-expander' => __('Show the post on the same page','mv23theme'),
+                	    'show-popup' => __('Show the post in a popup','mv23theme'),
+                	    'none' => __('None','mv23theme')
                 	)),
+                    Field::create( 'wp_object', 'oce_element' )
+                        ->add('posts', 'post_type=offcanvas_element' )
+                        ->hide_filters()
+                        ->set_attr('class', 'small-object-preview')
+                        ->hide_label()->set_button_text(__('Select popup','mv23theme'))
+                        ->set_description(__('If no popup is selected, a default one will be used.','mv23theme'))
+                        ->add_dependency( 'on_click_post', 'show-popup', '=' ),
                 	Field::create( 'select', 'on_click_scroll_to', __('On click, scroll to:','mv23theme') )->add_options(array(
                 	    '' => __('Dont move the scroll','mv23theme'),
                 	    'postcard' => __('To the post card','mv23theme'),
@@ -189,6 +196,7 @@ class Listing extends Component {
         
 		$args['additional_classes'][] = 'component';
 
+        $listing_args = array();
         $listing_source = $args['source'] ?? 'auto'; // auto || manual
         $columns = $args['columns'] ?? LISTING_COLUMNS;
         $columns_gap = $args['columns_gap'] ?? LISTING_GAP;
@@ -199,6 +207,7 @@ class Listing extends Component {
         $postcard_settings = $args['postcard_settings'] ?? array();
         $postcard_template = $postcard_settings['template'] ?? '_default';
         $on_click_post = $postcard_settings['on_click_post'] ?? 'redirect';
+        $oce_element = $postcard_settings['oce_element'] ?? false;
         $on_click_scroll_to = $postcard_settings['on_click_scroll_to'] ?? '';
         $equalize_postcards_height = !empty( $args['equalize_postcards_height'] ) && $listing_template !== 'masonry';
 
@@ -208,6 +217,9 @@ class Listing extends Component {
         }
         if( $on_click_post === 'show-expander' ){
             $args['additional_classes'][] = 'listing--expander';
+        }
+        if( $on_click_post === 'show-popup' && $oce_element ){
+            $listing_args['oce_element'] = str_replace('post_','',$oce_element);
         }
         
         // get postcard template content if it is a postcard template
@@ -230,18 +242,17 @@ class Listing extends Component {
         $args['data_source'] = $args['data_source'] ?? 'custom_query';
         $query = Listing_Data_Provider::get_data( $args ); 
 
-        $listing_args = array(
-            'post_template' => $postcard_template,
-            'listing_template' => $listing_template,
-            'on_click_post' => $on_click_post,
-            'on_click_scroll_to' => $on_click_scroll_to,
-            'wookey' => $woocommerce_key,
-            'posttype' => $posttype,
-            'pagination_type' => $pagination_type,
-            'scrollTop' => $pagination_scrolltop,
-            'equalizeHeight' => $equalize_postcards_height,
-            'query_args' => $query->query,
-        );
+        $listing_args['post_template'] = $postcard_template;
+        $listing_args['listing_template'] = $listing_template;
+        $listing_args['on_click_post'] = $on_click_post;
+        $listing_args['on_click_scroll_to'] = $on_click_scroll_to;
+        $listing_args['wookey'] = $woocommerce_key;
+        $listing_args['posttype'] = $posttype;
+        $listing_args['pagination_type'] = $pagination_type;
+        $listing_args['scrollTop'] = $pagination_scrolltop;
+        $listing_args['equalizeHeight'] = $equalize_postcards_height;
+        $listing_args['query_args'] = $query->query;
+
         $args['additional_attributes']['data-listing-args'] = esc_attr( json_encode($listing_args) );
 
         // uid

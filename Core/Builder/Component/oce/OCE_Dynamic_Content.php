@@ -42,9 +42,9 @@ class OCE_Dynamic_Content extends Component {
 					Field::create( 'checkbox', 'clear_on_close', __('Clear on close','mv23theme') )->set_description(__('Clear the content on close','mv23theme'))->set_default_value(1)->fancy()->set_width(20),
 					Field::create( 'checkbox', 'load_on_iframe', __('Load on iframe','mv23theme') )->set_description(__('Load the content in an iframe','mv23theme'))->set_default_value(1)->fancy()->set_width(20),
 					Field::create( 'checkbox', 'cherry_pick_sections' )->set_description(__('Let you choose only the sections you want','mv23theme'))->fancy()->add_dependency('load_on_iframe','1','!=')->set_width(20),
-					Field::create( 'text', 'cherry_picked_sections', __( 'CSS Selector for cherry picked sections', 'mv23theme' ) )
+					Field::create( 'textarea', 'cherry_picked_sections', __( 'CSS Selector for cherry picked sections', 'mv23theme' ) )
+						->set_rows(2)
 						->set_description( __( 'Please enter the CSS selector that matches the section(s) you want to display in the offcanvas element.', 'mv23theme' ) )
-						->add_suggestions( array( '.page-content' ) )
 						->add_dependency('cherry_pick_sections')
 						->add_dependency('load_on_iframe','1','!='),
 				)),

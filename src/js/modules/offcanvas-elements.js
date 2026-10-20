@@ -213,6 +213,12 @@ window['OffCanvas_Elements'] = (function(){
     
             el.innerHTML = content;
             this._maybe_init_toggleboxes(el);
+
+            // Dispatch a custom event to indicate that the offcanvas element content has been loaded
+            var dynamicContentLoadedEvent = new CustomEvent('oce_dynamic_content_loaded', {
+                detail: { modal: this.offcanvas_element },
+            });
+            document.body.dispatchEvent(dynamicContentLoadedEvent);
         },
         _handle_async_error(error, msg, el, debug, async_settings) {
             this._check_async_attributes('error', el, async_settings);
@@ -333,9 +339,16 @@ window['OffCanvas_Elements'] = (function(){
             let { M_instance } = this;
             let event_source = triggerData.event_source; 
             let event_name = (event_source == 'custom') ? triggerData.event_name : triggerData[event_source+'_event'];                            
-            // dosnt work with woo events:
-            // event_name && document.body.addEventListener(event_name, function() { instance.open(); }); 
-            event_name && $(document.body).on( event_name, function(){ M_instance.open(); });
+            // this dosn't work with woo events:
+            // event_name && document.body.addEventListener(event_name, function(eventArgs) { 
+                // const $trigger = jQuery(eventArgs.detail.trigger);
+                // M_instance.open($trigger); 
+            // }); 
+            event_name && $(document.body).on( event_name, function(eventArgs){
+                // i need send a cash $trigger to open method:
+                const $trigger = jQuery(eventArgs.detail?.trigger);
+                M_instance.open($trigger); 
+            });
         },
         _handle_url_param_event( triggerData ){
             let { M_instance } = this;

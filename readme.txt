@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+4.2.5 26-10-19
+- Listing refactored to use an offcanvas element to show the content of the post when selected
+
 4.2.4 26-10-16
 - Updated Handlebars parsing features to improve date formatting with text literals
 - Fix Related Posts custom query parameters handling
