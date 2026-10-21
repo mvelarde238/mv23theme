@@ -4,6 +4,7 @@ CHANGELOG
 
 4.2.7 26-10-22
 - v23-Togglebox library update: Replace `data-boxid` with the UUID-based `data-item-uuid` and `data-uuid` relationship
+- Fix issue with builder settings not being correctly applied
 
 4.2.6 26-10-21
 - Fixed component settings "leaking" between components of the same type on save, caused by reusing a shared

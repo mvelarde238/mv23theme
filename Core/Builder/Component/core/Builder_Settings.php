@@ -67,10 +67,11 @@ class Builder_Settings extends Component {
 				'gradient' => 'linear-gradient(135deg, #00BCD4 0%, #3858e9 100%)'
 			)
 		) );
+		// *Note* If these default values are changed, 
+		// make sure to update the corresponding defaults in the JavaScript handler 
+		// as well to keep them in sync: (src\js\builder\plugins\handle-builder-settings.js).
 
 		$width_style = 'width: 50%; min-width: initial;';
-		$def_gradient = $builder_settings_default['preset_icon_styles']['gradient'];
-		$def_background = $builder_settings_default['preset_icon_styles']['backgroundColor'];
 
 		$fields = array(
 			Field::create( 'section', 'builder_settings_section', __('Builder Settings', 'mv23theme') ),
@@ -102,8 +103,8 @@ class Builder_Settings extends Component {
             		Field::create( 'text', 'color' )->set_placeholder('#ffffff')->set_attr( 'style', $width_style ),
             		Field::create( 'text', 'borderWidth', __('Border Width', 'mv23theme'))->set_placeholder('2px')->set_attr( 'style', $width_style ),
             		Field::create( 'text', 'rounded' )->set_placeholder('12px')->set_attr( 'style', $width_style ),
-            		Field::create( 'text', 'backgroundColor', __('Background Color', 'mv23theme'))->set_placeholder($def_background),
-            		Field::create( 'textarea', 'gradient' )->set_rows(2)->set_placeholder($def_gradient),
+            		Field::create( 'text', 'backgroundColor', __('Background Color', 'mv23theme'))->set_placeholder('var(--primary-color)'),
+            		Field::create( 'textarea', 'gradient' )->set_rows(2)->set_placeholder('linear-gradient(135deg, #00BCD4 0%, #3858e9 100%)'),
         		)),
 			))->hide_label()->set_default_value( $builder_settings_default ),
 			// End of builder settings complex field, no more fields can be added after this.

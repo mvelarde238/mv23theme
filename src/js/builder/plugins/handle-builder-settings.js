@@ -64,8 +64,28 @@ window.handleBuilderSettings = function (editor) {
     function getBuilderSettingsValue() {
         const builder_settings = datastore.get('builder_settings') || {};
 
-        const builder_settings_complex_field = builderSettingsModel.get('fields').models[1];
-        const default_values = builder_settings_complex_field.get('default_value');
+        // It retrieves the current builder settings from the datastore:
+        // const builder_settings_complex_field = builderSettingsModel.get('fields').models[1];
+        // const default_values = builder_settings_complex_field.get('default_value');
+        // These are the default values for the builder settings, used to fill in any missing values from the datastore:
+        const default_values = {
+            on_select_component_behavior: 'component-settings',
+            default_sections_padding: {
+                top: 40,
+                left: 0,
+                right: 0,
+                bottom: 40
+            },
+            default_columns_gap: 2,
+            preset_icon_styles: {
+                padding: '20px',
+                color: '#ffffff',
+                borderWidth: '2px',
+                rounded: '12px',
+                backgroundColor: 'var(--primary-color)',
+                gradient: 'linear-gradient(135deg, #00BCD4 0%, #3858e9 100%)'
+            }
+        };
 
         // Apply default values recursively to the builder settings.
         return applyDefaults(builder_settings, default_values);
@@ -80,6 +100,7 @@ window.handleBuilderSettings = function (editor) {
     editorConfig.builderSettings = getBuilderSettingsValue();
     datastore.on('change', () => {
         editorConfig.builderSettings = getBuilderSettingsValue();
+        console.log('Updated editorConfig.builderSettings:', editorConfig.builderSettings);
     });
 
     // The view is created once and reused on every open instead of being
