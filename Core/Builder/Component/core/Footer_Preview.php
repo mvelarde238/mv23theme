@@ -29,7 +29,9 @@ class Footer_Preview extends Component {
 
     public static function display( $args ){
         ob_start();
-        echo Footer::display( $args );
+        if( is_admin() ){
+            echo Footer::display( $args );
+        }
         return ob_get_clean();
     }
 }

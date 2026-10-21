@@ -29,7 +29,9 @@ class Header_Preview extends Component {
 
     public static function display( $args ){
         ob_start();
-        echo Header::display( $args );
+        if( is_admin() ){
+            echo Header::display( $args );
+        }
         return ob_get_clean();
     }    
 }
