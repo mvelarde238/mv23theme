@@ -194,15 +194,6 @@ class Accordion extends Component {
                 }
             }
 
-            // generate slugs for buttons/items relationship
-            $slugs = [];
-            foreach ($the_accordion_items as $item){
-                $slug = $the_accordion_id.'-item-'.uniqid();
-                $id = (!empty($item['attributes']['id'])) ? $item['attributes']['id'] : $slug;
-                $item['attributes']['id'] = $id;
-                $slugs[] = $id;
-            }
-
             $nav = '<div class="togglebox__nav">';
             $itemsbox = '<div class="togglebox__items">';
             
@@ -211,18 +202,12 @@ class Accordion extends Component {
             foreach ($the_accordion_buttons as $button){
                 $count_str = ($count < 10) ? '0'.($count + 1) : ($count + 1);
                 $button['count'] = $count_str;
-                $button['itemid'] = $slugs[$count];
                 $nav .= Template_Engine::getInstance()->handle( $button );
                 $count++;
             }
 
-            $count = 0;
             foreach ($the_accordion_items as $item){
-                $slug = $slugs[$count];
-                $id = (!empty($item['attributes']['id'])) ? $item['attributes']['id'] : $slug;
-                $item['additional_attributes']['id'] = $id;
                 $itemsbox .= Template_Engine::getInstance()->handle( $item );
-                $count++;
             }
 
             $nav .= '</div>';

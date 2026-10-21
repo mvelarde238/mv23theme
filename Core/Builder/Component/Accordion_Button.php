@@ -55,9 +55,6 @@ class Accordion_Button extends Component {
         
         $title = (isset($args['title']) && $args['title']) ? '<span class="togglebox__title">'.$args['title'].'</span>' : '';
         $subtitle = (isset($args['subtitle']) && $args['subtitle']) ? '<span class="togglebox__subtitle">'.$args['subtitle'].'</span>' : '';
-        $argsid = (isset($args['itemid'])) ? $args['itemid'] : false;
-        $slug = ($argsid) ? $argsid : sanitize_title($title);
-        if( preg_match('@^[0-9]@',$slug) ) $slug = 'item-'.$slug;
 
         $icon_settings = $args['icon_settings'];
         $type = $icon_settings['type'] ?? '';
@@ -92,8 +89,8 @@ class Accordion_Button extends Component {
         }
         
         $args['additional_classes'][] = 'togglebox__btn';
-        $args['additional_attributes']['data-boxid'] = '#'.$slug;
         $args['additional_attributes']['data-count'] = $count;
+        $args['additional_attributes']['data-item-uuid'] = $args['itemUUID'];
 
 		ob_start();
         echo Template_Engine::component_wrapper('start', $args);

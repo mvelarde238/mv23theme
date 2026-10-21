@@ -27,6 +27,7 @@ class Accordion_Item extends Component {
 	public static function display( $args ){
         $args['additional_classes'][] = 'togglebox__item';
         $args['additional_classes'][] = 'components-wrapper';
+		$args['additional_attributes']['data-uuid'] = $args['uuid'];
 		ob_start();
         echo Template_Engine::component_wrapper('start', $args);
         echo Template_Engine::check_components( $args );
