@@ -46,30 +46,13 @@ class Related_Posts extends Component {
 		return $fields;
 	}
 
-    public static function display($args = array()) {        
-        global $post;
-
+    public static function display($args = array()) {
         if( isset($args['post_id']) ) {
-            // Is builder context with a specific post ID provided
+            // In the builder use the specific post ID provided in the arguments
             $post = get_post( $args['post_id'] );
-
-            if( isset( $args['post_type'] ) && $args['post_type'] === "single_template" ) {
-                // If it's a single_template, try to resolve the connected post type and use a sample post of that type
-                $connected_posttype = get_post_meta( $args['post_id'], 'connected_posttype', true );
-                if ( $connected_posttype ) {
-                    $sample = get_posts( array(
-                        'post_type'      => $connected_posttype,
-                        'posts_per_page' => 1,
-                        'post_status'    => 'publish',
-                        'orderby'        => 'date',
-                        'order'          => 'DESC',
-                        'fields'         => 'ids',
-                    ) );
-                    if ( ! empty( $sample ) ) {
-                        $post = get_post( $sample[0] );
-                    }
-                }
-            }
+        } else {
+            // On the frontend, use the global post object
+            global $post;
         }
 
         $post_type = get_post_type( $post->ID );

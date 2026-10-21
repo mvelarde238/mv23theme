@@ -3,6 +3,8 @@ namespace Core\Builder\Component;
 
 use Core\Builder\Component;
 use Ultimate_Fields\Field;
+use Core\Frontend\Page;
+use Core\Builder\Template_Engine;
 
 class Post_Content extends Component {
 
@@ -35,18 +37,41 @@ class Post_Content extends Component {
         global $post;
         $post_id = isset($args['post_id']) ? $args['post_id'] : $post->ID;
 
+        $classic_editor_content = get_post_field('post_content', $post_id);
         ob_start();
-        // if ( isset($args['post_id']) ) {
-            // show a placeholder in the builder
-            // echo '<p class="center-align">' . __('This is a placeholder for the content area. It will display the post content in the frontend.', 'mv23theme') . '</p>';
-        // } else{
-            // render content on frontend
-            $content = get_post_field('post_content', $post_id);
+        if (!empty($classic_editor_content)) {
+            echo '<div class="component text-editor">' . do_shortcode(wpautop(oembed( $classic_editor_content ))) . '</div>';
+        }
 
-            if (!empty($content)) {
-                echo '<div class="component">' . do_shortcode(wpautop(oembed( $content ))) . '</div>';
+        // Render the components inside the gjs-page-content wrapper
+        $page_content = get_post_meta( $post_id, 'page_content', true );
+        $page_content_datastore = get_post_meta( $post_id, 'page_content_datastore', true );
+        $compiled_css = Page::compile_styles_to_css( is_array($page_content) ? ($page_content['styles'] ?? []) : [] );
+        $page_content = Page::consolidate_content( $page_content, $page_content_datastore );
+        $compiled_css .= Page::compile_components_custom_css( $page_content );
+    
+        if (is_array($page_content)) :
+            $wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
+            if ( $wrapper['type'] === 'wrapper' ){
+                $page_content_comp = null;
+                foreach ( $wrapper['components'] as $component ) {
+                	if ( $component['type'] === 'page-content' ) {
+                		$page_content_comp = $component;
+                		break;
+                	}
+                }
+				$components_to_render = $page_content_comp['components'] ?? [];
+				
+				if (is_array($components_to_render) && !empty($components_to_render)) :
+					if ( !empty($compiled_css) ) echo '<style>' . $compiled_css . '</style>';
+				
+					foreach ($components_to_render as $component) :
+						echo Template_Engine::getInstance()->handle( $component );
+					endforeach;
+				endif;
             }
-        // }
+    	endif;
+
         return ob_get_clean();
     }
 }
