@@ -151,6 +151,19 @@ class Field extends Repeater {
 						isset( $this->groups[ $component_data['__type'] ] )
 						){	
 						$group = $this->groups[ $component_data[ '__type' ] ];
+
+						// Groups are reused (one instance per component __type), so a fresh
+						// datastore must be assigned on every iteration. Otherwise, values left
+						// over from a previously saved component of the same type (e.g. keys
+						// stripped on the client because they were empty, like "settings" or
+						// "actions_settings") are never cleared and "leak" into this component.
+						// Note: unlike export_data(), the "uf.ultimate_builder.group_datastore"
+						// filter is intentionally NOT applied here, since it's meant for read
+						// contexts only; custom-datastore components (postcard, theme-options)
+						// handle their own persistence via the "uf.ultimate_builder.save_component"
+						// action below.
+						$group->set_datastore( new Group_Datastore( $component_data ) );
+
 						$group->save( $component_data );
 						$group_processed_values = $group->get_datastore()->get_values();
 

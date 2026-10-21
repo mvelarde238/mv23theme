@@ -2,6 +2,14 @@
 CHANGELOG
 **************************************************************************************************
 
+4.2.6 26-10-21
+- Fixed component settings "leaking" between components of the same type on save, caused by reusing a shared
+  group datastore across iterations instead of assigning a fresh one per component
+  * (libs\ultimate-builder\classes\Field.php::save() -> $group->set_datastore( new Group_Datastore( $component_data ) );)
+--------------------------------------------------------------------------------------------------------------------------
+!IMPORTANT: This fix the bug created when cleaning up the component datastore on version 4.2.1
+--------------------------------------------------------------------------------------------------------------------------
+
 4.2.5 26-10-19
 - Listing refactored to use an offcanvas element to show the content of the post when selected
 
