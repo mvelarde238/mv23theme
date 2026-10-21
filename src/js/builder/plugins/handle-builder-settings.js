@@ -100,7 +100,6 @@ window.handleBuilderSettings = function (editor) {
     editorConfig.builderSettings = getBuilderSettingsValue();
     datastore.on('change', () => {
         editorConfig.builderSettings = getBuilderSettingsValue();
-        console.log('Updated editorConfig.builderSettings:', editorConfig.builderSettings);
     });
 
     // The view is created once and reused on every open instead of being
