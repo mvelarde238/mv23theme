@@ -39,6 +39,8 @@ window.gjsSingleTemplate = function (editor, options) {
                 stylable: false,
                 selectable: false,
                 hoverable: false,
+                droppable: false,
+                savable: false,
                 __onSuccessCallback: (response, model, editor, datastore) => {
                     const el = model.getEl();                        
                     el.innerHTML = response.data;
@@ -58,26 +60,41 @@ window.gjsSingleTemplate = function (editor, options) {
                         if (slot) {
                             slot.appendChild(areaEl);
                         } else if (pageContent) {
-                            pageContent.append(area);
+                            pageContent.append(area, { noUndo: true });
                             areaEl = area.getEl();
                             areaEl.classList.add('discarded-area','highlight-inner-message');
                         }
                         areaEl.setAttribute('data-slot-id', slotId);
                     });
                 
-                    // 2. Verify that each slot has an editable-area; if not, create a new one
+                    // 2. Verify that each slot has an editable-area; if not, create a new one.
+                    // noUndo keeps the undo stack clean, but changesCount (used by beforeunload)
+                    // is still bumped asynchronously, so it is pinned to its previous value.
+                    const em = editor.getModel();
+                    const baseCount = em.get('changesCount') || 0;
+                    const pinCount = () => {
+                        if ((em.get('changesCount') || 0) > baseCount) em.set('changesCount', baseCount);
+                    };
+                    em.on('change:changesCount', pinCount);
+
                     slots.forEach(slot => {
                         if (slot.querySelector('.editable-area')) return;
-                    
+
                         const slotId = slot.getAttribute('data-slot-id');
                         const [newArea] = model.append({
                             type: 'editable-area',
                             slotId: slotId
-                        });
+                        }, { noUndo: true });
                         const newAreaEl = newArea.getEl();
                         newAreaEl.setAttribute('data-slot-id', slotId);
                         slot.appendChild(newAreaEl);
                     });
+
+                    pinCount();
+                    setTimeout(() => {
+                        pinCount();
+                        em.off('change:changesCount', pinCount);
+                    }, 300);
                 }
             },
         },
@@ -91,7 +108,9 @@ window.gjsSingleTemplate = function (editor, options) {
                 tagName: 'div',
                 classes: ['editable-area-slot'],
                 stylable: false,
-                droppable: false
+                copyable: false,
+                droppable: false,
+                savable: false
             },
         },
     });
@@ -106,7 +125,8 @@ window.gjsSingleTemplate = function (editor, options) {
                 removable: false,
                 draggable: false,
                 copyable: false,
-                selectable: false
+                selectable: false,
+                savable: false
             },
         },
     });
