@@ -265,7 +265,7 @@ class Single_Template {
 
 	/**
 	 * Replaces every editable-area-slot with the children of the matching editable-area.
-	 * Slots without a matching area are left untouched.
+	 * Slots without a matching area are removed from the output.
 	 */
 	private function fill_slots( $components, array $areas, array $template_datastore, array &$moved_ids ){
 		$result = array();
@@ -281,8 +281,8 @@ class Single_Template {
 						$this->collect_component_ids( $moved, $moved_ids );
 						$result[] = $moved;
 					}
-					continue;
 				}
+				continue;
 			}
 			if ( !empty($component['components']) ) {
 				$component['components'] = $this->fill_slots( $component['components'], $areas, $template_datastore, $moved_ids );
@@ -305,18 +305,18 @@ class Single_Template {
 		if ( !is_array($template_content) ) return null;
 		if ( !is_array($template_datastore) ) $template_datastore = array();
 
+		$wrapper = $template_content['pages'][0]['frames'][0]['component'] ?? null;
+		if ( !is_array($wrapper) ) return array( 'page_content' => $template_content, 'datastore' => $template_datastore );
+
 		$post_content   = $post_id ? get_post_meta( $post_id, 'page_content', true ) : null;
 		$post_datastore = $post_id ? get_post_meta( $post_id, 'page_content_datastore', true ) : null;
-		if ( !is_array($post_content) ) return array( 'page_content' => $template_content, 'datastore' => $template_datastore );
+		if ( !is_array($post_content) ) $post_content = array();
 		if ( !is_array($post_datastore) ) $post_datastore = array();
 
 		$areas = array();
 		$this->collect_editable_areas( $post_content['pages'][0]['frames'][0]['component'] ?? null, $areas );
-		if ( empty($areas) ) return array( 'page_content' => $template_content, 'datastore' => $template_datastore );
 
-		$wrapper = $template_content['pages'][0]['frames'][0]['component'] ?? null;
-		if ( !is_array($wrapper) ) return array( 'page_content' => $template_content, 'datastore' => $template_datastore );
-
+		// Always runs so slots without content are removed from the output
 		$moved_ids = array();
 		$template_content['pages'][0]['frames'][0]['component']['components'] =
 			$this->fill_slots( $wrapper['components'] ?? array(), $areas, $template_datastore, $moved_ids );
