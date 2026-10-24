@@ -27,9 +27,9 @@ class Main extends Component {
 
     public static function display($args){
         ob_start();
-		echo '<main class="main components-wrapper">';
+        echo Template_Engine::component_wrapper('start', $args);
         echo Template_Engine::check_components( $args );
-        echo '</main>';
+        echo Template_Engine::component_wrapper('end', $args);
         return ob_get_clean();
     }
 }

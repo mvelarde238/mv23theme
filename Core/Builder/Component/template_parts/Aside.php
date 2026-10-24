@@ -27,9 +27,9 @@ class Aside extends Component {
 
     public static function display($args){
         ob_start();
-		echo '<aside class="aside components-wrapper">';
+        echo Template_Engine::component_wrapper('start', $args);
         echo Template_Engine::check_components( $args );
-        echo '</aside>';
+        echo Template_Engine::component_wrapper('end', $args);
         return ob_get_clean();
     }
 }

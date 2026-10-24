@@ -31,7 +31,7 @@ class Post_Title extends Component {
 
     public static function display($args = array()){
         global $post;
-        $post_id = isset($args['post_id']) ? $args['post_id'] : $post->ID;
+        $post_id = isset($args['post_id']) ? $args['post_id'] : ($post ? $post->ID : 0);
 
         $post_title_posttypes = apply_filters('filter_post_title_posttypes', array(
             'post' => array( 'main_taxonomy' => 'category', 'tag_taxonomy' => 'post_tag' ),
@@ -87,7 +87,7 @@ class Post_Title extends Component {
             echo '</div>';
 
         } else {
-            echo '<p>' . __('No post selected', 'mv23theme') . '</p>';
+            echo '<p class="component">' . __('No post selected for Post_Title', 'mv23theme') . '</p>';
         }
         return ob_get_clean();
     }

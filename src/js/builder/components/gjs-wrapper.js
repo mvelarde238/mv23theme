@@ -21,7 +21,7 @@ window.gjsWrapper = function (editor, options) {
         view: {
             onRender({el, model}) {
                 // Handle post content migration from classic editor to builder
-                this.handle_post_content();
+                // this.handle_post_content();
 
                 // Initial handling of datastore data
                 setTimeout(() => {
@@ -251,14 +251,16 @@ window.gjsWrapper = function (editor, options) {
                             };
                             editor.em.on('change:changesCount', keepClean);
 
-                            if( BUILDER_GLOBALS.is_singular ){
+                            if( BUILDER_GLOBALS.is_single_template_cpt ){
+                                //it should be migrated to any/first editable area
+
                                 // Add text-editor component with the post content below post-title
-                                const single_main = model.findType('single-main')[0];
-                                if (single_main) {
-                                    const post_title = model.findType('post-title')[0];
-                                    const insertIndex = post_title ? post_title.index() + 1 : 0;
-                                    section_for_migrated_content = single_main.append(content_to_insert, { at: insertIndex });
-                                }
+                                // const single_main = model.findType('single-main')[0];
+                                // if (single_main) {
+                                //     const post_title = model.findType('post-title')[0];
+                                //     const insertIndex = post_title ? post_title.index() + 1 : 0;
+                                //     section_for_migrated_content = single_main.append(content_to_insert, { at: insertIndex });
+                                // }
                             } else {
                                 // For non-singular templates, we can add the text-editor as first child of the page content
                                 const page_content = model.findType('page-content')[0];

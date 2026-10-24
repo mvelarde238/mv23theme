@@ -33,6 +33,7 @@ class Core{
             'Column',
             'Components_Wrapper',
             'Template_Placeholder',
+            'Single_Template'
         ),
         'content' => array(
             'Text_Editor',
@@ -80,6 +81,7 @@ class Core{
             'Related_Posts',
             'Comments_Area',
             'Breadcrumbs',
+            'Editable_Area_Slot'
         ),
         'oce' => array(
             'OCE_Modal_Content',

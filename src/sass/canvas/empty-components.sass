@@ -18,11 +18,13 @@
 [data-gjs-type="header-content"]:empty,
 [data-gjs-type="header-logo"]:empty,
 [data-gjs-type="header-logo"]:not(:has(img)),
-[data-gjs-type="shortcode"],
 [data-gjs-type="icon-box"]:empty,
 [data-gjs-type="postcard"]:empty,
 [data-gjs-type="listing-filter"]:empty,
 [data-gjs-type="main"]:empty,
+[data-gjs-type="editable-area"]:empty,
+[data-gjs-type="shortcode"],
+[data-gjs-type="editable-area-slot"],
 .highlight-on-empty:empty,
 .highlight-inner-message
     border: 3px dashed var(--placeholder-color)
@@ -50,6 +52,7 @@
 
 // placeholder component styles with inner message
 [data-gjs-type="shortcode"],
+[data-gjs-type="editable-area-slot"],
 .highlight-inner-message
     font-family: var(--font-family-base)
     padding: 20px

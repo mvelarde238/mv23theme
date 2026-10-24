@@ -106,7 +106,7 @@ window.gjsSinglePageStructure = function (editor, options) {
 
     // On builder loaded, customize the canvas
     editor.on('builder:loaded', () => {
-        if( BUILDER_GLOBALS.is_singular ){
+        if( BUILDER_GLOBALS.is_single_template_cpt ){
             const wrapper = editor.getWrapper();
             const page_content = wrapper.findType('page-content')[0];
 

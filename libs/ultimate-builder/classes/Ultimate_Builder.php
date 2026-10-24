@@ -92,7 +92,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsSection', 'handler' => 'gjs-section', 'isComponent' => true ],
 		[ 'name' => 'gjsMap', 'handler' => 'gjs-map', 'isComponent' => true ],
 		[ 'name' => 'gjsOceComponents', 'handler' => 'gjs-oce-components', 'isComponent' => true ],
-		// [ 'name' => 'gjsSinglePageStructure', 'handler' => 'gjs-single-page-structure', 'isComponent' => true ],
+		[ 'name' => 'gjsSingleTemplate', 'handler' => 'gjs-single-template', 'isComponent' => true ],
 		[ 'name' => 'gjsPostTitle', 'handler' => 'gjs-post-title', 'isComponent' => true ],
 		[ 'name' => 'gjsSidebar', 'handler' => 'gjs-sidebar', 'isComponent' => true ],
 		[ 'name' => 'gjsPostContent', 'handler' => 'gjs-post-content', 'isComponent' => true ],
@@ -192,9 +192,13 @@ class Ultimate_Builder {
 		$user_id = get_current_user_id();
 		$post_id = get_the_ID();
 		$posttype = get_post_type();
-		$is_singular = ( $posttype === 'single_template');
+		$is_single_template_cpt = ( $posttype === 'single_template');
+		$use_single_template_structure = ( $posttype === 'post' );
 		$is_page_for_posts = get_option('page_for_posts') == $post_id;
 		$is_shop = class_exists( 'WooCommerce' ) && ( $posttype === 'product' || $posttype === 'product_template' );
+
+		$post_type_obj = get_post_type_object( $posttype );
+		$use_single_template_structure = ( $posttype != 'page' && ( $post_type_obj && $post_type_obj->public ) );
 
 		$builder_globals = array(
 			'locale' => substr( get_user_locale($user_id), 0, 2 ),
@@ -207,7 +211,8 @@ class Ultimate_Builder {
 			'nonce' => wp_create_nonce( 'ultimate_builder_preview' ),
 			'post_id' => $post_id,
 			'post_content' => get_post_field( 'post_content', $post_id ),
-			'is_singular' => $is_singular,
+			'is_single_template_cpt' => $is_single_template_cpt,
+			'use_single_template_structure' => $use_single_template_structure,
 			'theme_colors' => get_option( 'theme_colors', array() ),
 			'stickyHeaderBreakpoint' => STICKY_HEADER_BREAKPOINT,
 			'masonry_is_active' => MASONRY_IS_ACTIVE,

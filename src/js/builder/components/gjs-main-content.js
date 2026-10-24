@@ -7,14 +7,10 @@ window.gjsMainContent = function (editor, options) {
                 name: 'Main',
                 tagName: 'main',
                 classes: ['main','components-wrapper'],
-                stylable: false,
                 removable: false,
                 copyable: false,
                 draggable: false,
-                badgable: false,
-                highlightable: false,
-                selectable: false,
-                hoverable: false,
+                highlightable: false
             },
         },
     });
@@ -25,14 +21,10 @@ window.gjsMainContent = function (editor, options) {
                 name: 'Aside',
                 tagName: 'aside',
                 classes: ['aside','components-wrapper'],
-                stylable: false,
                 removable: false,
                 copyable: false,
                 draggable: false,
-                badgable: false,
-                highlightable: false,
-                selectable: false,
-                hoverable: false,
+                highlightable: false
             },
         },
     });
@@ -74,7 +66,7 @@ window.gjsMainContent = function (editor, options) {
                     
                     // Handle sidebar visibility
                     const aside_display = (data['template'] === 'main-content--sidebarless' ) ? 'none' : 'flex';
-                    if(aside) aside.setStyle({ display: aside_display });
+                    if(aside) aside.getEl().style.display = aside_display;
 
                     // Handle template
                     model.set('classes', ['main-content', data['template']]);

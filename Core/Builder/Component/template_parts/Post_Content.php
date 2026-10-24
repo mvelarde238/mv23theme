@@ -35,43 +35,19 @@ class Post_Content extends Component {
 
     public static function display($args = array()) {
         global $post;
-        $post_id = isset($args['post_id']) ? $args['post_id'] : $post->ID;
+        $post_id = isset($args['post_id']) ? $args['post_id'] : ($post ? $post->ID : 0);
+        
+        if( !$post_id ){
+            ob_start();
+            echo '<p class="component">' . __('No post selected for Posts_Content', 'mv23theme') . '</p>';
+            return ob_get_clean();
+        }
 
         $classic_editor_content = get_post_field('post_content', $post_id);
         ob_start();
         if (!empty($classic_editor_content)) {
             echo '<div class="component text-editor">' . do_shortcode(wpautop(oembed( $classic_editor_content ))) . '</div>';
         }
-
-        // Render the components inside the gjs-page-content wrapper
-        $page_content = get_post_meta( $post_id, 'page_content', true );
-        $page_content_datastore = get_post_meta( $post_id, 'page_content_datastore', true );
-        $compiled_css = Page::compile_styles_to_css( is_array($page_content) ? ($page_content['styles'] ?? []) : [] );
-        $page_content = Page::consolidate_content( $page_content, $page_content_datastore );
-        $compiled_css .= Page::compile_components_custom_css( $page_content );
-    
-        if (is_array($page_content)) :
-            $wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
-            if ( $wrapper['type'] === 'wrapper' ){
-                $page_content_comp = null;
-                foreach ( $wrapper['components'] as $component ) {
-                	if ( $component['type'] === 'page-content' ) {
-                		$page_content_comp = $component;
-                		break;
-                	}
-                }
-				$components_to_render = $page_content_comp['components'] ?? [];
-				
-				if (is_array($components_to_render) && !empty($components_to_render)) :
-					if ( !empty($compiled_css) ) echo '<style>' . $compiled_css . '</style>';
-				
-					foreach ($components_to_render as $component) :
-						echo Template_Engine::getInstance()->handle( $component );
-					endforeach;
-				endif;
-            }
-    	endif;
-
         return ob_get_clean();
     }
 }

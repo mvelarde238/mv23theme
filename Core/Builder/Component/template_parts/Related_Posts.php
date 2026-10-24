@@ -55,6 +55,12 @@ class Related_Posts extends Component {
             global $post;
         }
 
+        if(!$post){
+            ob_start();
+            echo '<p class="component">' . __('No post selected for Related_Posts', 'mv23theme') . '</p>';
+            return ob_get_clean();
+        }
+
         $post_type = get_post_type( $post->ID );
         $post_type_name = get_post_type_object( $post_type )->labels->name;
 

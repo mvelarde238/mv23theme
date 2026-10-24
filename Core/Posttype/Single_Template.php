@@ -183,9 +183,9 @@ class Single_Template {
 	/**
 	 * Get single template page ID in single.php
 	 */
-	public function get_single_template_id() {
+	public function get_single_template_id( $posttype = null ) {
 		$is_connected = 0;
-		$posttype = self::$instance->get_single_post_type();
+		$posttype = $posttype ?: self::$instance->get_single_post_type();
 
 		$args = apply_filters('filter_single_template_query_args', array(
 			'post_type' => 'single_template',
@@ -239,11 +239,108 @@ class Single_Template {
 		return $is_connected;
 	}
 
+	/**
+	 * Collects the editable-areas of a component tree indexed by slotId.
+	 */
+	private function collect_editable_areas( $component, array &$areas ){
+		if ( !is_array($component) ) return;
+		if ( ( $component['type'] ?? '' ) === 'editable-area' && !empty($component['slotId']) ) {
+			$areas[ $component['slotId'] ] = $component;
+		}
+		foreach ( $component['components'] ?? array() as $child ) {
+			$this->collect_editable_areas( $child, $areas );
+		}
+	}
+
+	/**
+	 * Collects the __id of a component and all its descendants.
+	 */
+	private function collect_component_ids( $component, array &$ids ){
+		if ( !is_array($component) ) return;
+		if ( !empty($component['__id']) ) $ids[] = $component['__id'];
+		foreach ( $component['components'] ?? array() as $child ) {
+			$this->collect_component_ids( $child, $ids );
+		}
+	}
+
+	/**
+	 * Replaces every editable-area-slot with the children of the matching editable-area.
+	 * Slots without a matching area are left untouched.
+	 */
+	private function fill_slots( $components, array $areas, array $template_datastore, array &$moved_ids ){
+		$result = array();
+		foreach ( $components as $component ) {
+			if ( !is_array($component) ) {
+				$result[] = $component;
+				continue;
+			}
+			if ( ( $component['type'] ?? '' ) === 'editable-area-slot' ) {
+				$slot_id = $template_datastore[ $component['__id'] ?? '' ]['slot_id'] ?? ( $component['slot_id'] ?? null );
+				if ( $slot_id && isset($areas[$slot_id]) ) {
+					foreach ( $areas[$slot_id]['components'] ?? array() as $moved ) {
+						$this->collect_component_ids( $moved, $moved_ids );
+						$result[] = $moved;
+					}
+					continue;
+				}
+			}
+			if ( !empty($component['components']) ) {
+				$component['components'] = $this->fill_slots( $component['components'], $areas, $template_datastore, $moved_ids );
+			}
+			$result[] = $component;
+		}
+		return $result;
+	}
+
+	/**
+	 * Merges the editable-areas content of a post into the slots of a single template.
+	 * Moves each area's components into its slot, and merges the post styles and the datastore
+	 * entries of the moved components into the template ones.
+	 *
+	 * @return array|null array( 'page_content' => array, 'datastore' => array ), null if the template has no content.
+	 */
+	public function merge_slots( $template_id, $post_id ){
+		$template_content   = get_post_meta( $template_id, 'page_content', true );
+		$template_datastore = get_post_meta( $template_id, 'page_content_datastore', true );
+		if ( !is_array($template_content) ) return null;
+		if ( !is_array($template_datastore) ) $template_datastore = array();
+
+		$post_content   = $post_id ? get_post_meta( $post_id, 'page_content', true ) : null;
+		$post_datastore = $post_id ? get_post_meta( $post_id, 'page_content_datastore', true ) : null;
+		if ( !is_array($post_content) ) return array( 'page_content' => $template_content, 'datastore' => $template_datastore );
+		if ( !is_array($post_datastore) ) $post_datastore = array();
+
+		$areas = array();
+		$this->collect_editable_areas( $post_content['pages'][0]['frames'][0]['component'] ?? null, $areas );
+		if ( empty($areas) ) return array( 'page_content' => $template_content, 'datastore' => $template_datastore );
+
+		$wrapper = $template_content['pages'][0]['frames'][0]['component'] ?? null;
+		if ( !is_array($wrapper) ) return array( 'page_content' => $template_content, 'datastore' => $template_datastore );
+
+		$moved_ids = array();
+		$template_content['pages'][0]['frames'][0]['component']['components'] =
+			$this->fill_slots( $wrapper['components'] ?? array(), $areas, $template_datastore, $moved_ids );
+
+		if ( empty($moved_ids) ) return array( 'page_content' => $template_content, 'datastore' => $template_datastore );
+
+		foreach ( $moved_ids as $id ) {
+			if ( isset($post_datastore[$id]) ) $template_datastore[$id] = $post_datastore[$id];
+		}
+
+		$template_content['styles'] = array_merge(
+			is_array($template_content['styles'] ?? null) ? $template_content['styles'] : array(),
+			is_array($post_content['styles'] ?? null) ? $post_content['styles'] : array()
+		);
+
+		return array( 'page_content' => $template_content, 'datastore' => $template_datastore );
+	}
+
     public function display(){
         $single_template_id = self::$instance->get_single_template_id();
         if( $single_template_id ){
-            $page = new Page();
-		    $page_content = $page->the_content( $single_template_id );
+            $post_id = get_queried_object_id();
+            $merged = $this->merge_slots( $single_template_id, $post_id );
+            $page_content = $merged ? Page::render_content( $merged['page_content'], $merged['datastore'], $post_id ) : '';
 	        if (!empty($page_content)) {
                 echo $page_content;
             }

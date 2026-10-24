@@ -314,39 +314,41 @@ class Page{
 	}
 
 	public function the_content( $id = null ){
-		$page_ID = ($id) ? $id : self::get_id();
+	    $page_ID = ($id) ? $id : self::get_id();
 
-		$page_content_datastore = ($page_ID != null) ? get_post_meta($page_ID, 'page_content_datastore', true) : null;
-		$page_content = ($page_ID != null) ? get_post_meta($page_ID, 'page_content', true) : null;
-		// Compile styles from structured data before consolidation
-		$compiled_css = self::compile_styles_to_css( is_array($page_content) ? ($page_content['styles'] ?? []) : [] );
-		// Consolidate content with datastore
-		$page_content = self::consolidate_content( $page_content, $page_content_datastore );
-		// Compile component custom_css after consolidation (appended last to override styles above)
-		$compiled_css .= self::compile_components_custom_css( $page_content );
+	    $page_content_datastore = ($page_ID != null) ? get_post_meta($page_ID, 'page_content_datastore', true) : null;
+	    $page_content = ($page_ID != null) ? get_post_meta($page_ID, 'page_content', true) : null;
 
-		if (is_array($page_content)) :
-			ob_start();
+	    return self::render_content( $page_content, $page_content_datastore, $page_ID );
+	}
 
-			$wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
-			if ( !$wrapper || $wrapper['type'] !== 'wrapper' ) return '';
+	/**
+	 * Renders a page_content structure with its datastore.
+	 */
+	public static function render_content( $page_content, $datastore, $post_id ){
+	    if ( !is_array($page_content) ) return '';
 
-			if ( $wrapper ) {
-				$components_to_render = $wrapper['components'] ?? [];
-					
-				if (is_array($components_to_render) && !empty($components_to_render)) :
-					if ( !empty($compiled_css) ) echo '<style>' . $compiled_css . '</style>';
+	    // Compile styles from structured data before consolidation
+	    $compiled_css = self::compile_styles_to_css( $page_content['styles'] ?? [] );
+	    // Consolidate content with datastore
+	    $page_content = self::consolidate_content( $page_content, $datastore );
+	    // Compile component custom_css after consolidation (appended last to override styles above)
+	    $compiled_css .= self::compile_components_custom_css( $page_content );
 
-					foreach ($components_to_render as $component) :
-						$component['__post_id'] = $page_ID;
-						echo Template_Engine::getInstance()->handle( $component );
-					endforeach;
-				endif;
-			}
+	    $wrapper = $page_content['pages'][0]['frames'][0]['component'] ?? null;
+	    if ( !$wrapper || ( $wrapper['type'] ?? '' ) !== 'wrapper' ) return '';
 
-			return ob_get_clean();
-		else: 
-			return '';
-		endif;
+	    $components_to_render = $wrapper['components'] ?? [];
+	    if ( !is_array($components_to_render) || empty($components_to_render) ) return '';
+
+	    ob_start();
+	    if ( !empty($compiled_css) ) echo '<style>' . $compiled_css . '</style>';
+
+	    foreach ( $components_to_render as $component ) {
+	        $component['__post_id'] = $post_id;
+	        echo Template_Engine::getInstance()->handle( $component );
+	    }
+
+	    return ob_get_clean();
 	}
 }
