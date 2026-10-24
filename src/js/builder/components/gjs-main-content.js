@@ -10,7 +10,8 @@ window.gjsMainContent = function (editor, options) {
                 removable: false,
                 copyable: false,
                 draggable: false,
-                highlightable: false
+                highlightable: false,
+                savable: false,
             },
         },
     });
@@ -24,7 +25,8 @@ window.gjsMainContent = function (editor, options) {
                 removable: false,
                 copyable: false,
                 draggable: false,
-                highlightable: false
+                highlightable: false,
+                savable: false
             },
         },
     });
