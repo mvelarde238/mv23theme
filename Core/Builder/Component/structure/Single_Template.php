@@ -29,23 +29,19 @@ class Single_Template extends Component {
 	}
 
     public static function display( $args ){
+        // Only display the single template content in the admin context with a valid post ID
         if( is_admin() && isset( $args['post_id'] ) ){
-            global $post;
             $context_post_id = $args['post_id'];
             $posttype = get_post_type( $context_post_id );
             $single_template_id = Single_Template_Posttype::getInstance()->get_single_template_id( $posttype );
 
-            $previous_post = $post;
-            $post = get_post( $context_post_id );
-            setup_postdata( $post );
-
             $page = new Page();
             $page_content = $page->the_content( $single_template_id );
 
-            $post = $previous_post;
-            if ( $previous_post ) setup_postdata( $previous_post ); else wp_reset_postdata();
-
-            return $page_content;
+            ob_start();
+            echo $page_content;
+            $output = ob_get_clean();
+            return $output;
         }
     }
 }

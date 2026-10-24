@@ -23,6 +23,10 @@ class Editable_Area_Slot extends Component {
 		);
     }
 
+	public static function get_icon() {
+        return 'dashicons-editor-insertmore';
+    }
+
 	public static function get_fields() {
 		$fields = array(
 			Field::create('text','slot_id')
@@ -37,7 +41,6 @@ class Editable_Area_Slot extends Component {
 
         ob_start();
 		echo Template_Engine::component_wrapper('start', $args);
-		if(!is_admin()) echo Template_Engine::check_components( $args );
 		echo Template_Engine::component_wrapper('end', $args);
 		return ob_get_clean();
     }

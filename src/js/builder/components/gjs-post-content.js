@@ -10,10 +10,7 @@ window.gjsPostContent = function (editor, options) {
                 classes: ['component'],
                 droppable: false,
                 stylable: false,
-                copyable: false,
-                __additionalData: {
-                    post_id: BUILDER_GLOBALS.context.post.id || null
-                },
+                copyable: false
             },
         },
     });

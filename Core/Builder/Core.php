@@ -77,11 +77,11 @@ class Core{
             'Post_Title',
             'Featured_Media',
             'Post_Content',
+            'Editable_Area_Slot',
             'Social_Share',
             'Related_Posts',
             'Comments_Area',
-            'Breadcrumbs',
-            'Editable_Area_Slot'
+            'Breadcrumbs'
         ),
         'oce' => array(
             'OCE_Modal_Content',
@@ -284,6 +284,14 @@ class Core{
      * 
      */
     public function ajax_get_component_view(){
+        // Set the global post context so components resolve it as they do on the frontend
+        $context_post_id = isset( $_REQUEST['post_id'] ) ? absint( $_REQUEST['post_id'] ) : 0;
+        if ( $context_post_id && current_user_can( 'edit_post', $context_post_id ) ) {
+            global $post;
+            $post = get_post( $context_post_id );
+            if ( $post ) setup_postdata( $post );
+        }
+
         if ( isset( $_REQUEST['apply_filters'] ) && isset($_REQUEST['filters_to_apply'] ) ) {
             if ( is_array( $_REQUEST['filters_to_apply'] ) ) {
                 foreach ( $_REQUEST['filters_to_apply'] as $filter ) {

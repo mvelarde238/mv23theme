@@ -39,9 +39,6 @@ window.gjsSingleTemplate = function (editor, options) {
                 stylable: false,
                 selectable: false,
                 hoverable: false,
-                __additionalData: {
-                    post_id: BUILDER_GLOBALS.context.post.id || null
-                },
                 __onSuccessCallback: (response, model, editor, datastore) => {
                     const el = model.getEl();                        
                     el.innerHTML = response.data;
@@ -117,7 +114,6 @@ window.gjsSingleTemplate = function (editor, options) {
     // On builder loaded, customize the canvas
     editor.on('builder:loaded', () => {
         if( BUILDER_GLOBALS.use_single_template_structure ){
-            // alert('Managing single template structure');
             const wrapper = editor.getWrapper();
             const page_content = wrapper.findType('page-content')[0];
             const single_template = wrapper.findType('single-template');

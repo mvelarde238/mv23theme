@@ -25,6 +25,8 @@ window.gjsAsyncComponent = function (editor, options) {
 
                 asyncData['type'] = model.get('type');
                 asyncData['action'] = model.get('__action');
+                const contextPostId = BUILDER_GLOBALS.context?.post?.id || BUILDER_GLOBALS.post_id;
+                if (contextPostId) asyncData['post_id'] = contextPostId;
                 Object.assign(asyncData, model.get('__additionalData'));
                 
                 // additional data via callback, must return an object

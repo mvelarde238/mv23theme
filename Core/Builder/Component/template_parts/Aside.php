@@ -26,6 +26,7 @@ class Aside extends Component {
 	}
 
     public static function display($args){
+        $args['html_tag'] = 'aside';
         ob_start();
         echo Template_Engine::component_wrapper('start', $args);
         echo Template_Engine::check_components( $args );
