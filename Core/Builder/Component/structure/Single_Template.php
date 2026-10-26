@@ -4,6 +4,7 @@ namespace Core\Builder\Component;
 use Core\Builder\Component;
 use Core\Frontend\Page;
 use Core\Posttype\Single_Template as Single_Template_Posttype;
+use Core\Builder\Component\Section;
 
 class Single_Template extends Component {
 
@@ -35,11 +36,44 @@ class Single_Template extends Component {
             $posttype = get_post_type( $context_post_id );
             $single_template_id = Single_Template_Posttype::getInstance()->get_single_template_id( $posttype );
 
-            $page = new Page();
-            $page_content = $page->the_content( $single_template_id );
-
             ob_start();
-            echo $page_content;
+            if( $single_template_id ){
+                $page = new Page();
+                $page_content = $page->the_content( $single_template_id );
+                echo $page_content;
+            } else {
+                // fallback to show the default content if no single template is connected to the current post type
+			    $default_content = array(
+                    'components' => array(
+                        array( 
+			    			'type' => 'container',
+			    			'components' => array(
+			    				array( 
+			    					'type' => 'main-content',
+			    					'template' => 'main-content--sidebar-right',
+			    					'components' => array(
+			    						array( 
+			    							'type' => 'main',
+			    							'components' => array(
+			    								array( 'type' => 'post-title' ),
+			    								array( 'type' => 'post-content' ),
+                                                array( 'type' => 'editable-area-slot', 'slot_id' => 'main-slot' )
+			    							)
+			    						),
+			    						array( 
+			    							'type' => 'aside',
+			    							'components' => array(
+			    								array( 'type' => 'sidebar' )
+			    							)
+			    						)
+			    					)
+			    				)
+			    			)
+			    		)
+                    )
+                );
+			    echo Section::display($default_content);
+            }
             $output = ob_get_clean();
             return $output;
         }

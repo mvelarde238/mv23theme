@@ -9,6 +9,7 @@ use WP_Query;
 use Core\Frontend\Page;
 use Core\Builder\Component\Section;
 use Core\Builder\Core as Builder_Core;
+use Ultimate_Fields\Ultimate_Builder\Templates_Generator;
 
 class Single_Template {
 	
@@ -302,6 +303,58 @@ class Single_Template {
 	public function merge_slots( $template_id, $post_id ){
 		$template_content   = get_post_meta( $template_id, 'page_content', true );
 		$template_datastore = get_post_meta( $template_id, 'page_content_datastore', true );
+		
+		if ( !is_array($template_content) ){
+			$content_structure = [
+        	    "type" => "wrapper",
+        	    "components" => [
+        	        [
+        	            "type" => "page-content",
+        	            "components" => [
+        	                [
+        	                    "type" => "section",
+        	                    "components" => [
+        	                        [
+        	                            "type" => "container",
+        	                            "components" => [
+        	                                [ 
+												"type" => "main-content",
+												"components" => [
+													[
+														"type" => "main",
+														"components" => [
+															[ "type" => "post-title" ],
+															[ "type" => "post-content" ],
+															[
+																"type" => "editable-area-slot",
+																"slot_id" => "main-slot"
+															]
+														]
+													],
+													[
+														"type" => "aside",
+														"components" => [
+															[
+																"type" => "sidebar"
+															]
+														]
+													]
+												]
+											]
+        	                            ]
+        	                        ]
+        	                    ]
+        	                ]
+        	            ],
+        	        ]
+        	    ]
+        	];
+
+			$template = Templates_Generator::generate_templates( $content_structure );
+			$template_content = $template['gjs_template'] ?? array();
+			$template_datastore = $template['datastore'] ?? array();
+		};
+
 		if ( !is_array($template_content) ) return null;
 		if ( !is_array($template_datastore) ) $template_datastore = array();
 
@@ -337,44 +390,13 @@ class Single_Template {
 
     public function display(){
         $single_template_id = self::$instance->get_single_template_id();
-        if( $single_template_id ){
-            $post_id = get_queried_object_id();
-            $merged = $this->merge_slots( $single_template_id, $post_id );
-            $page_content = $merged ? Page::render_content( $merged['page_content'], $merged['datastore'], $post_id ) : '';
-	        if (!empty($page_content)) {
-                echo $page_content;
-            }
-        } else {
-            // fallback to show the default content if no single template is connected to the current post type
-			$default_content = apply_filters('filter_default_single_content', array(
-                'components' => array(
-                    array( 
-						'type' => 'container',
-						'components' => array(
-							array( 
-								'type' => 'main-content',
-								'template' => 'main-content--sidebar-right',
-								'components' => array(
-									array( 
-										'type' => 'main',
-										'components' => array(
-											array( 'type' => 'post-title' ),
-											array( 'type' => 'post-content' )
-										)
-									),
-									array( 
-										'type' => 'aside',
-										'components' => array(
-											array( 'type' => 'sidebar' )
-										)
-									)
-								)
-							)
-						)
-					)
-                )
-            ));
-			echo Section::display($default_content);
+        $post_id = get_queried_object_id();
+
+        $merged = $this->merge_slots( $single_template_id, $post_id );
+        $page_content = $merged ? Page::render_content( $merged['page_content'], $merged['datastore'], $post_id ) : '';
+	        
+		if (!empty($page_content)) {
+        	echo $page_content;
         }
     }
 

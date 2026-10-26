@@ -30,13 +30,15 @@ class Editable_Area_Slot extends Component {
 	public static function get_fields() {
 		$fields = array(
 			Field::create('text','slot_id')
-				->set_default_value( uniqid('slot-') )
-				->set_attr('style','opacity:.5;pointer-events:none;')
+				->set_default_value( 'main-slot' )
+				->add_suggestions( array( 'main-slot', 'secondary-slot', 'tertiary-slot' ) )
+				->set_description( __('Enter the name of this editable area slot. Using suggested names like main-slot, secondary-slot or tertiary-slot is recommended to maintain consistency between templates.', 'mv23theme') )
 		);
 		return $fields;
 	}
 
     public static function display($args){
+		$args['additional_classes'] = array('editable-area-slot');
 		$args['additional_attributes']['data-slot-id'] = $args['slot_id'];
 
         ob_start();
