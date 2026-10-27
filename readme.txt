@@ -5,6 +5,7 @@ CHANGELOG
 4.3.0 26-10-26
 - Added migration to move post Builder content into editable areas and update single-template slots
 - Migrated button destination values and removed the component class from components-wrapper elements
+- gjs-wrapper -> handle_post_content() moved to a backup file
 --------------------------------------------------------------------------------------------------------------------------
 !IMPORTANT: Use the migrator to update old theme components and settings to the latest structure
 - filter_default_single_content removed from Single_Template.php
