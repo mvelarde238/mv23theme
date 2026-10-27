@@ -26,6 +26,7 @@ class Main extends Component {
 	}
 
     public static function display($args){
+        $args['additional_classes'][] = 'components-wrapper';
         $args['html_tag'] = 'main';
         ob_start();
         echo Template_Engine::component_wrapper('start', $args);

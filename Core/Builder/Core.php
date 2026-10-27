@@ -33,7 +33,10 @@ class Core{
             'Column',
             'Components_Wrapper',
             'Template_Placeholder',
-            'Single_Template'
+            'Single_Template',
+            'Main_Content',
+            'Main',
+            'Aside',
         ),
         'content' => array(
             'Text_Editor',
@@ -68,12 +71,8 @@ class Core{
         'theme' => array(),
         'wrappers' => array(),
         'template_parts' => array(
-            'Main_Content',
-            'Main',
-            'Aside',
             'Archive_Title',
             'Archive_Posts',
-            'Sidebar',
             'Post_Title',
             'Featured_Media',
             'Post_Content',
@@ -81,7 +80,8 @@ class Core{
             'Social_Share',
             'Related_Posts',
             'Comments_Area',
-            'Breadcrumbs'
+            'Breadcrumbs',
+            'Sidebar',
         ),
         'oce' => array(
             'OCE_Modal_Content',
