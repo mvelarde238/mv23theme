@@ -31,10 +31,19 @@ class Templates_Generator{
         }
 
         // GJS Component (hierarchical structure)
-        $processed['gjs_component'] = [
+        $props = isset($component['props']) && is_array($component['props'])
+            ? $component['props']
+            : [];
+        $processed['gjs_component'] = array_merge($props, [
             'type' => $component['type'],
             '__id' => $__id
-        ];
+        ]);
+        $attributes = isset($component['attributes']) && is_array($component['attributes'])
+            ? $component['attributes']
+            : [];
+        if (!empty($attributes)) {
+            $processed['gjs_component']['attributes'] = $attributes;
+        }
         if (!empty($gjs_sub_components)) {
             $processed['gjs_component']['components'] = $gjs_sub_components;
         }
@@ -44,7 +53,7 @@ class Templates_Generator{
             '__type' => $component['type']
         ];
         // Copy component data except reserved keys
-        $reserved_keys = ['type', 'components', 'styles'];
+        $reserved_keys = ['type', 'components', 'styles', 'attributes', 'props'];
         foreach ($component as $key => $value) {
             if (!in_array($key, $reserved_keys)) {
                 $datastore_entry[$key] = $value;
