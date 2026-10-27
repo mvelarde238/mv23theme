@@ -41,18 +41,18 @@ class Button extends Component {
                 
             Field::create( 'radio', 'url_type' )
                 ->hide_label()->set_prefix( __('Destination', 'mv23theme') )
-                ->set_default_value( 'interna' )
+                ->set_default_value( 'internal' )
                 ->set_orientation( 'horizontal' )
                 ->add_options( array(
-                    'interna' => __('Internal Page', 'mv23theme'),
-                    'externa' => __('Other', 'mv23theme'),
+                    'internal' => __('Internal Page', 'mv23theme'),
+                    'external' => __('Other', 'mv23theme'),
                 ))->add_dependency('download_file',0 , '='),
             Field::create( 'wp_object', 'post', '' )->set_button_text( __('Select Page', 'mv23theme') )
                 ->add_dependency('download_file',0 , '=')
-                ->add_dependency('url_type','interna','='),
+                ->add_dependency('url_type','internal','='),
             Field::create( 'text', 'url', '' )
                 ->add_dependency('download_file',0 , '=')
-                ->add_dependency('url_type','externa','=')
+                ->add_dependency('url_type','external','=')
                 ->add_dynamic_data_selector(),
     
             Field::create( 'checkbox', 'new_tab' )->set_text( __('Open in a new window', 'mv23theme') )
@@ -139,11 +139,11 @@ class Button extends Component {
         if($type == 'link'){
             $url_type = $args['url_type'];
             switch ($url_type) {
-                case 'externa':
+                case 'external':
                     $href = Handlebars::parse($args['url']);
                     break;
                 
-                case 'interna':
+                case 'internal':
                     if($args['post']){
                         $href = get_permalink( str_replace('post_','',$args['post']) );
                     }

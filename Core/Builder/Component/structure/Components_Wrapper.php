@@ -24,8 +24,6 @@ class Components_Wrapper extends Component {
 
 	public static function display( $args ){
 		if( Template_Engine::is_restricted( $args ) ) return;
-		
-		$args['additional_classes'][] = 'component';
         
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);

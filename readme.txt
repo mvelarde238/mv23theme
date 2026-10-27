@@ -2,6 +2,15 @@
 CHANGELOG
 **************************************************************************************************
 
+4.3.0 26-10-26
+- Added migration to move post Builder content into editable areas and update single-template slots
+- Migrated button destination values and removed the component class from components-wrapper elements
+--------------------------------------------------------------------------------------------------------------------------
+!IMPORTANT: Use the migrator to update old theme components and settings to the latest structure
+- filter_default_single_content removed from Single_Template.php
+- Replace Section>Container with Single_Template>Editable_Area(slotId:main-slot) on CPT's that use "autocomplete" scripts
+--------------------------------------------------------------------------------------------------------------------------
+
 4.2.7 26-10-22
 - v23-Togglebox library update: Replace `data-boxid` with the UUID-based `data-item-uuid` and `data-uuid` relationship
 - Fix issue with builder settings not being correctly applied
@@ -2864,3 +2873,4 @@ TO-DO
 - add set_suffix to "number" for borders
 - chequear responsive: columnas no shrink?
 - revisar todas las funciones donde se usa hex to rgb function
+- After migrating to 4.3.0, review and update autocomplete scripts in each child theme.

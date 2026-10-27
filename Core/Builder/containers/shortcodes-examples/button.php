@@ -16,11 +16,11 @@ Container::create( 'button' )
     ->add_fields(array(
         Field::create( 'text', 'text', 'Texto del botón'),
         Field::create( 'radio', 'url_type','Seleccione que contenido se abrirá al hacer clic:')->set_orientation( 'horizontal' )->add_options( array(
-            'interna' => 'Página Interna',
-            'externa' => 'Página Externa',
+            'internal' => 'Página Interna',
+            'external' => 'Página Externa',
         )),
-        Field::create( 'wp_object', 'href', 'URL Interna' )->set_button_text( 'Selecciona la página' )->add_dependency('url_type','interna','='),
-        Field::create( 'text', 'url', 'URL Externa' )->add_dependency('url_type','externa','='),
+        Field::create( 'wp_object', 'href', 'URL Interna' )->set_button_text( 'Selecciona la página' )->add_dependency('url_type','internal','='),
+        Field::create( 'text', 'url', 'URL Externa' )->add_dependency('url_type','external','='),
         Field::create( 'select', 'style', 'Estilo')->add_options( array(
             'btn' => 'Botón Simple',
             'btn btn--main-color' => 'Botón Corporativo 1',

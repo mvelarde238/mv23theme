@@ -13,7 +13,7 @@ window.gjsCompWrapper = function(editor) {
             defaults: {
                 name: compName,
                 tagName: 'div',
-                classes: [compClass,'component'],
+                classes: [compClass],
                 // these styles affects all the components that use the class .components-wrapper:
                 styles: `
                     .${compClass} {
