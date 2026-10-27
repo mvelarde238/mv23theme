@@ -7,8 +7,8 @@ window.gjsSidebar = function (editor, options) {
             defaults: {
                 name: 'Sidebar',
                 tagName: 'div',
+                classes: ['sidebar','component'],
                 droppable: false,
-                stylable: false,
                 copyable: false
             },
         },

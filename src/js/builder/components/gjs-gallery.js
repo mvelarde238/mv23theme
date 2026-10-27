@@ -30,18 +30,14 @@ window.gjsGallery = function (editor) {
                 },
                 __onSuccessCallback: (response, model, editor) => {
                     const el = model.getEl();
-                    const temp = document.createElement('div');
-                    temp.innerHTML = response.data;
-                    const firstChild = temp.firstElementChild;
-                    
-                    if (firstChild) {
-                        firstChild.removeAttribute('id');
-                        el.innerHTML = temp.innerHTML;
-                        
-                        // Trigger a custom event to notify that the gallery content has been updated, 
-                        // so that the view can re-initialize the grid and masonry layouts
-                        model.trigger('change:__temp-handle-gallery');
-                    }
+                    if (!el || !response.data) return;
+
+                    // only the inner content is loaded (without the wrapper tag), see async-component-abstract
+                    el.innerHTML = model.getView().getContent(response.data);
+
+                    // Trigger a custom event to notify that the gallery content has been updated, 
+                    // so that the view can re-initialize the grid and masonry layouts
+                    model.trigger('change:__temp-handle-gallery');
                 },
             },
         },

@@ -5,6 +5,7 @@ use Core\Builder\Component;
 use Ultimate_Fields\Field;
 use Core\Builder\Component\Listing;
 use Core\Theme_Options\Theme_Options;
+use Core\Builder\Template_Engine;
 
 class Related_Posts extends Component {
 
@@ -99,13 +100,13 @@ class Related_Posts extends Component {
 			}
 		}
 
+        
         // filter the related posts arguments
         $related_posts_args = apply_filters('filter_related_'.$post->post_type.'_args', $listing_args, $post->ID);
+        $related_posts_args['additional_classes'][] = 'listing';
 
         ob_start();
-        echo '<div class="related-posts component">';
         echo Listing::display($related_posts_args);
-        echo '</div>';
         return ob_get_clean();
     }
 }

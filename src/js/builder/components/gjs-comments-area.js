@@ -7,9 +7,8 @@ window.gjsCommentsArea = function (editor, options) {
             defaults: {
                 name: 'Comments Area',
                 tagName: 'div',
-                classes: ['component'],
+                classes: ['comments-area','component'],
                 droppable: false,
-                stylable: false,
                 copyable: false
             },
         },

@@ -3,6 +3,7 @@ namespace Core\Builder\Component;
 
 use Core\Builder\Component;
 use Ultimate_Fields\Field;
+use Core\Builder\Template_Engine;
 
 class Sidebar extends Component {
 
@@ -63,11 +64,12 @@ class Sidebar extends Component {
 		// 	} 
 		// }
 
-        ob_start(); ?>
-		<?php if (is_active_sidebar($sidebar)) : ?>
-			<?php dynamic_sidebar($sidebar); ?>
-		<?php endif ?>
-        <?php
+        ob_start();
+        echo Template_Engine::component_wrapper('start', $args);
+		if (is_active_sidebar($sidebar)) :
+			dynamic_sidebar($sidebar);
+		endif;
+        echo Template_Engine::component_wrapper('end', $args);
         return ob_get_clean();
     }
 }

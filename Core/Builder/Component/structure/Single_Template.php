@@ -56,6 +56,7 @@ class Single_Template extends Component {
 			    							'type' => 'main',
 			    							'components' => array(
 			    								array( 'type' => 'post-title' ),
+												// array( 'type' => 'featured-media' ),
 			    								array( 'type' => 'post-content' ),
                                                 array( 'type' => 'editable-area-slot', 'slot_id' => 'main-slot' )
 			    							)

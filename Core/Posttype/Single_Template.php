@@ -324,6 +324,7 @@ class Single_Template {
 														"type" => "main",
 														"components" => [
 															[ "type" => "post-title" ],
+															// [ "type" => "featured-media" ],
 															[ "type" => "post-content" ],
 															[
 																"type" => "editable-area-slot",

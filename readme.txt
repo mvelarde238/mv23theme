@@ -12,6 +12,7 @@ CHANGELOG
 - filter_default_single_content removed from Single_Template.php
 - Replace Section>Container with Single_Template>Editable_Area(slotId:main-slot) on CPT's that use "autocomplete" scripts
 --------------------------------------------------------------------------------------------------------------------------
+- App.js updated: Hide the custom css editor when the selected component has `stylable: false`
 
 4.2.7 26-10-22
 - v23-Togglebox library update: Replace `data-boxid` with the UUID-based `data-item-uuid` and `data-uuid` relationship

@@ -10,6 +10,7 @@ window.gjsArchivePageStructure = function (editor, options) {
                 droppable: false,
                 stylable: false,
                 copyable: false,
+                __contentOnly: false,
                 __additionalDataCallback: function(model, editor) {
                     const additionalData = BUILDER_GLOBALS.archive_settings;
                     return {

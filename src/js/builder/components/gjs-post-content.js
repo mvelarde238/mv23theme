@@ -7,9 +7,8 @@ window.gjsPostContent = function (editor, options) {
             defaults: {
                 name: 'Post Content',
                 tagName: 'div',
-                classes: ['component'],
+                classes: ['post-content', 'component'],
                 droppable: false,
-                stylable: false,
                 copyable: false
             },
         },

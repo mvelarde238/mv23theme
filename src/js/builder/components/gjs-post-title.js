@@ -7,9 +7,8 @@ window.gjsPostTitle = function (editor, options) {
             defaults: {
                 name: 'Post Title',
                 tagName: 'div',
-                classes: ['component'],
+                classes: ['post-title','component'],
                 droppable: false,
-                stylable: false,
                 copyable: false
             },
         },

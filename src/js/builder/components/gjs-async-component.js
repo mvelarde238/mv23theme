@@ -12,10 +12,28 @@ window.gjsAsyncComponent = function (editor, options) {
                 __additionalData: {},
                 __additionalDataCallback: null,
                 __onSuccessCallback: null,
+                // true: only the inner content of the response root tag is loaded (avoids duplicating id/classes of the wrapper).
+                // false: the full response is loaded as is.
+                __contentOnly: true,
             },
         },
         view: {
+            // Returns the html to inject in the component. Override it in the extending component's view to customize.
+            // By default, only the inner content of the root tag of the response is used.
+            getContent(html) {
+                if (!this.model.get('__contentOnly') || typeof html !== 'string') return html;
+
+                const tpl = document.createElement('template');
+                tpl.innerHTML = html.trim();
+                const root = tpl.content.children[0];
+                const onlyRoot = tpl.content.children.length === 1 &&
+                    Array.from(tpl.content.childNodes).every(n => n === root || n.nodeType === 8 || (n.nodeType === 3 && !n.textContent.trim()));
+
+                return onlyRoot ? root.innerHTML : html;
+            },
+
             onRender({el, model}) {
+                const view = this;
                 const asyncData = {},
                     datastore = editor.getComponentDatastore(model);
                 
@@ -53,7 +71,7 @@ window.gjsAsyncComponent = function (editor, options) {
                         if (typeof model.get('__onSuccessCallback') === 'function') {
                             model.get('__onSuccessCallback')(response, model, editor, datastore);
                         } else {
-                            el.innerHTML = response.data;
+                            el.innerHTML = view.getContent(response.data);
                         }
                     },
                     error: function(xhr, status, error) {

@@ -3,7 +3,6 @@ namespace Core\Builder\Component;
 
 use Core\Builder\Component;
 use Ultimate_Fields\Field;
-use Core\Frontend\Page;
 use Core\Builder\Template_Engine;
 
 class Post_Content extends Component {
@@ -39,16 +38,20 @@ class Post_Content extends Component {
         
         if( !$post_id ){
             ob_start();
-            echo '<p class="component">' . __('No post selected for Posts_Content', 'mv23theme') . '</p>';
+            echo Template_Engine::component_wrapper('start', $args);
+            echo '<p>' . __('No post selected for Posts_Content', 'mv23theme') . '</p>';
+            echo Template_Engine::component_wrapper('end', $args);
             return ob_get_clean();
         }
 
         $classic_editor_content = get_post_field('post_content', $post_id);
-        ob_start();
         if (!empty($classic_editor_content)) {
-            echo '<div class="component text-editor">' . do_shortcode(wpautop(oembed( $classic_editor_content ))) . '</div>';
+            ob_start();
+            echo Template_Engine::component_wrapper('start', $args);
+            echo do_shortcode(wpautop(oembed( $classic_editor_content )));
+            echo Template_Engine::component_wrapper('end', $args);
+            return ob_get_clean();
         }
-        return ob_get_clean();
     }
 }
 

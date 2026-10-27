@@ -7,9 +7,8 @@ window.gjsRelatedPosts = function (editor, options) {
             defaults: {
                 name: 'Related Posts',
                 tagName: 'div',
-                classes: ['related-posts','component'],
+                classes: ['related-posts','listing','component'],
                 droppable: false,
-                stylable: false,
                 copyable: false,
                 __additionalData: {
                     post_id: BUILDER_GLOBALS.context.post.id || null,

@@ -3,6 +3,7 @@ namespace Core\Builder\Component;
 
 use Core\Builder\Component;
 use Ultimate_Fields\Field;
+use Core\Builder\Template_Engine;
 
 class Comments_Area extends Component {
 
@@ -29,19 +30,24 @@ class Comments_Area extends Component {
 	}
 
     public static function display($args = array()) {
-        ob_start();
+        
         // show a placeholder in the builder
         if ( isset($args['post_id']) ) {
+            ob_start();
+            echo Template_Engine::component_wrapper('start', $args);
             echo '<p class="center-align">' . __('This is a placeholder for the comments area component. It will display comments in the frontend.', 'mv23theme') . '</p>';
+            echo Template_Engine::component_wrapper('end', $args);
+            return ob_get_clean();
         }
 
         // render comments template on frontend
         if ( comments_open() || get_comments_number() ) :
-            echo '<div class="comments-area component">';
+            ob_start();
+            echo Template_Engine::component_wrapper('start', $args);
             comments_template();
-            echo '</div>';
+            echo Template_Engine::component_wrapper('end', $args);
+            return ob_get_clean();
         endif;
-        return ob_get_clean();
     }
 }
 

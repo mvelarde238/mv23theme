@@ -1,7 +1,6 @@
 <?php
 use Ultimate_Fields\Field;
 use Core\Builder\Component;
-use Core\Builder\Template_Engine;
 use Core\Builder\Component\Image;
 use Core\Builder\Component\Video;
 use Core\Posttype\Post;
@@ -64,6 +63,7 @@ class Featured_Media extends Component {
     public static function display( $args ){
         global $post;
         $featured_video_data = Post::getInstance()->get_featured_video_data($post);
+        $args['additional_classes'][] = 'featured-media';
 
         ob_start();
         if ( $featured_video_data['has_video'] ) {
@@ -72,6 +72,10 @@ class Featured_Media extends Component {
             echo Video::display( $video_args );
         } else {
             $args['__type'] = 'image-component';
+
+            if ( !isset($args['image_source']) ) $args['image_source'] = 'external';
+            if ( !isset($args['external_image']) ) $args['external_image'] = '{{post.thumbnail}}';
+
             echo Image::display( $args );
         }
         return ob_get_clean();
