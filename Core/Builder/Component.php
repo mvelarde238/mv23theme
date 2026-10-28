@@ -23,7 +23,8 @@ abstract class Component {
 				'settings', 
 				'scroll_animations_settings',
 				'actions_settings',
-				'visibility_settings'
+				'visibility_settings',
+				'hooks_settings'
 			),
 		);
 		$args = wp_parse_args( $args, $defaults );
@@ -165,7 +166,13 @@ abstract class Component {
 				->set_attr( 'class', 'common-setting-small' )
 				->set_attr( 'style', 'min-width: initial !important;' )
 				->set_add_text( __('Visibility', 'mv23theme') )
-				->hide_label()
+				->hide_label(),
+			'hooks_settings' => Field::create( 'common_settings_control', 'hooks_settings' )
+				->set_container( 'hooks_container' )
+				->set_attr( 'class', 'common-setting-small' )
+				->set_attr( 'style', 'min-width: initial !important;' )
+				->set_add_text( __('Hooks', 'mv23theme') )
+				->hide_label(),
 		);
 
 		$commmon_settings_fields = array();

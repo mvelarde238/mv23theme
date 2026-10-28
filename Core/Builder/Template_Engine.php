@@ -98,6 +98,7 @@ class Template_Engine{
         if ($key == 'start'){
             if( $clickable_area === 'entire_component' ) echo self::check_actions( $action, 'start' );
             echo '<'.$html_tag.' '.$attributes.'>';
+            self::check_hooks( $args );
             do_action( 'after_component_wrapper_start', $args );
             echo self::check_video_background( $args );
             echo self::check_slider_background( $args );
@@ -159,5 +160,15 @@ class Template_Engine{
         if( $is_restricted_by_rules ) $is_restricted = true;
     
         return $is_restricted;
+    }
+
+    public static function check_hooks( $args ){
+        $hooks_settings = $args['hooks_settings'] ?? array();
+        $hooks = $hooks_settings['hooks'] ?? array();
+        if( is_array($hooks) ){
+            foreach( $hooks as $hook ){
+                do_action( $hook['hook_name'] );
+            }
+        }
     }
 }
