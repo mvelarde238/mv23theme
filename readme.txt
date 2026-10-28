@@ -14,6 +14,7 @@ CHANGELOG
 --------------------------------------------------------------------------------------------------------------------------
 - App.js updated: Hide the custom css editor when the selected component has `stylable: false`
 - Templates_Generator preserves `attributes` and maps custom `props` to the GrapesJS component root (e.g. `slotId`)
+- Fixed migration to move page content into single-template > editable areas
 
 4.2.7 26-10-22
 - v23-Togglebox library update: Replace `data-boxid` with the UUID-based `data-item-uuid` and `data-uuid` relationship

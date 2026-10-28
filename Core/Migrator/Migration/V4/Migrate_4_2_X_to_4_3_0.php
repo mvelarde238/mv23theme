@@ -214,10 +214,15 @@ class Migrate_4_2_X_to_4_3_0 extends Migrate_Components_Settings_v3 {
 
         $page_content['components'] = array(
             array(
-                'type'       => 'editable-area',
-                'classes'    => array( 'editable-area', 'components-wrapper' ),
-                'slotId'     => 'main-slot',
-                'components' => $moved_components,
+                'type' => 'single-template',
+                'components' => array(
+                    array(
+                        'type'       => 'editable-area',
+                        'classes'    => array( 'editable-area', 'components-wrapper' ),
+                        'slotId'     => 'main-slot',
+                        'components' => $moved_components,
+                    ),
+                ),
             ),
         );
     }
