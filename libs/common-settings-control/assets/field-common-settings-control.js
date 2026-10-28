@@ -285,6 +285,14 @@
 				});
 			}
 
+			if( container_name == 'hooks_container' ){
+				Object.entries(raw_data).forEach(entry => {
+					if( entry[0] == 'hooks' && entry[1].length === 0 ){
+						delete raw_data.hooks;
+					}
+				});
+			}
+
             return raw_data;
         }
 	});

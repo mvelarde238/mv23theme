@@ -98,7 +98,7 @@ class Template_Engine{
         if ($key == 'start'){
             if( $clickable_area === 'entire_component' ) echo self::check_actions( $action, 'start' );
             echo '<'.$html_tag.' '.$attributes.'>';
-            self::check_hooks( $args );
+            self::check_hooks( $args, 'start' );
             do_action( 'after_component_wrapper_start', $args );
             echo self::check_video_background( $args );
             echo self::check_slider_background( $args );
@@ -107,6 +107,7 @@ class Template_Engine{
         if ($key == 'end'){
             if( $clickable_area === 'inner_content' ) echo self::check_actions( $action, 'end' );
             do_action( 'before_component_wrapper_end', $args );
+            self::check_hooks( $args, 'end' );
             echo '</'.$html_tag.'>';
             if( $clickable_area === 'entire_component' ) echo self::check_actions( $action, 'end' );
         } 
@@ -162,11 +163,13 @@ class Template_Engine{
         return $is_restricted;
     }
 
-    public static function check_hooks( $args ){
+    public static function check_hooks( $args, $position = 'start' ){
         $hooks_settings = $args['hooks_settings'] ?? array();
         $hooks = $hooks_settings['hooks'] ?? array();
         if( is_array($hooks) ){
             foreach( $hooks as $hook ){
+                $hook_position = ( isset($hook['hook_position']) && $hook['hook_position'] === 'end' ) ? 'end' : 'start';
+                if( $hook_position !== $position || empty($hook['hook_name']) ) continue;
                 do_action( $hook['hook_name'] );
             }
         }
