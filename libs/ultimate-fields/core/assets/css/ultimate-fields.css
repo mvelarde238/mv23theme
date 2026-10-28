@@ -3603,6 +3603,7 @@ input:checked + .uf-fancy-checkbox-wrap .uf-fancy-checkbox-button {
 
 .dropdown-wrapper {
   position: relative;
+  width: 100%;
 }
 .dropdown-wrapper .input-row {
   display: flex;
