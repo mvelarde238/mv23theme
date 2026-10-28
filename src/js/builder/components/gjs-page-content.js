@@ -68,9 +68,9 @@ window.gjsPageContent = function (editor, options) {
             },
 
             ensureQuickAddAtEnd() {
-                if( BUILDER_GLOBALS.is_single_template_cpt ) return; // Disable quick-add in single template cpt builder
+                // if( BUILDER_GLOBALS.is_single_template_cpt ) return; // Disable quick-add in single template cpt builder
                 if( BUILDER_GLOBALS.posttype === 'postcard' ) return; // Disable quick-add in postcard builder
-                if( BUILDER_GLOBALS.use_single_template_structure ) return; // Disable quick-add when using single template structure
+                if( BUILDER_GLOBALS.use_single_template_structure != '' ) return; // Disable quick-add when using single template structure
 
                 // Remove existing quick-add element from DOM
                 const existingQuickAdd = this.el.querySelector('.container-quick-add');

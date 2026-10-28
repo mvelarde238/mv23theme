@@ -193,10 +193,9 @@ class Ultimate_Builder {
 		$post_id = get_the_ID();
 		$posttype = get_post_type();
 		$is_single_template_cpt = ( $posttype === 'single_template');
-		$use_single_template_structure = ( $posttype === 'post' );
 		$is_page_for_posts = get_option('page_for_posts') == $post_id;
 		$is_shop = class_exists( 'WooCommerce' ) && ( $posttype === 'product' || $posttype === 'product_template' );
-
+		
 		$post_type_obj = get_post_type_object( $posttype );
 		$use_single_template_structure = ( $posttype != 'page' && ( $post_type_obj && $post_type_obj->public ) );
 
