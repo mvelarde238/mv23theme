@@ -70,6 +70,8 @@ window.gjsI18n = function (editor, options) {
                 drag_a_component_placeholder: 'Arrastra un componente aquí para empezar',
                 start_with_a_layout: 'Comienza con una estructura preestablecida:',
                 quick_add_section: '+ Agregar sección',
+                // Editable area
+                drag_a_component_here: 'Arrastra un componente aquí',
                 // Components
                 button: 'Botón',
                 heading: 'Título',

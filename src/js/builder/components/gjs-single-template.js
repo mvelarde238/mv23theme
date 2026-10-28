@@ -1,6 +1,10 @@
 window.gjsSingleTemplate = function (editor, options) {
     const domc = editor.DomComponents;
 
+    // Labels for the ui, using the editor's translator for internationalization.
+    const __ = editor.createTranslator(editor, 'ultimate_builder');
+    const dragPlaceholderText = __('Drag a component here','drag_a_component_here');
+
     // add .is-dimmed class to all components inside the single-template container but keep the editable areas focused
     function focusEditableArea(el) {
         // Dim all components inside the single-template container
@@ -148,6 +152,18 @@ window.gjsSingleTemplate = function (editor, options) {
                 savable: false
             },
         },
+        view: {
+            onRender({ el, model }) {
+                this.showPlaceholder();
+            },
+            showPlaceholder() {
+                const dragPlaceholder = document.createElement('div');
+                dragPlaceholder.classList.add('drag-placeholder');
+                dragPlaceholder.textContent = dragPlaceholderText;
+                
+                this.el.appendChild(dragPlaceholder);
+            },
+        }
     });
 
     // On builder loaded, customize the canvas
