@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+4.3.1 26-10-27
+- Added Full Focus Mode option to Single Template component
+
 4.3.0 26-10-26
 - Added migration to move post Builder content into editable areas and update single-template slots
 - Migrated button destination values and removed the component class from components-wrapper elements

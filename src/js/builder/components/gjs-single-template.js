@@ -1,15 +1,6 @@
 window.gjsSingleTemplate = function (editor, options) {
     const domc = editor.DomComponents;
 
-    // add custom css to canvasCss
-    let config = editor.getConfig();
-    config.canvasCss = config.canvasCss || '';
-    config.canvasCss += `
-        .single-template .component.is-dimmed { opacity: 0.4; }
-        .discarded-area{ --placeholder-color: color-mix(in srgb, rgb(255 17 0) 18%, transparent); }
-    `;
-    editor.canvasCss = config.canvasCss;
-
     // add .is-dimmed class to all components inside the single-template container but keep the editable areas focused
     function focusEditableArea(el) {
         // Dim all components inside the single-template container
@@ -37,14 +28,17 @@ window.gjsSingleTemplate = function (editor, options) {
                 tagName: 'div',
                 classes: ['single-template'],
                 stylable: false,
-                selectable: false,
                 hoverable: false,
                 droppable: false,
                 savable: false,
                 __onSuccessCallback: (response, model, editor, datastore) => {
                     const el = model.getEl();                        
                     el.innerHTML = response.data;
+
+                    // Focus the editable areas within the single-template container
                     focusEditableArea(el);
+                    // Handle datastore data after focusing editable areas
+                    model.getView().handle_datastore_data();
                     
                     const editableAreas = editor.getWrapper().findType('editable-area');
                     const slots = Array.from(el.querySelectorAll('.editable-area-slot'));
@@ -98,6 +92,31 @@ window.gjsSingleTemplate = function (editor, options) {
                 }
             },
         },
+        view: {
+            custom_datastore_change_callback(changed) {
+                const model = this.model;
+                
+                // Ignore changes that only affect __tab (tab switching)
+                const changed_keys = Object.keys(changed);
+                if (changed_keys.length && changed_keys[0] === '__tab') return;
+
+                this.handle_datastore_data();
+            },
+            handle_datastore_data() {
+                const model = this.model;
+
+                const datastore = editor.getComponentDatastore(model);
+                if (datastore) {
+                    const data = datastore.toJSON();
+                    // if full focus mode is active, add a class to handle full focus mode
+                    if( data.full_focus_mode ){
+                        model.getEl().classList.add('full-focus-mode');
+                    } else {
+                        model.getEl().classList.remove('full-focus-mode');
+                    }
+                }
+            }
+        }
     });
 
     domc.addType('editable-area-slot', {

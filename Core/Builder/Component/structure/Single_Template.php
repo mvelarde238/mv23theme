@@ -5,6 +5,7 @@ use Core\Builder\Component;
 use Core\Frontend\Page;
 use Core\Posttype\Single_Template as Single_Template_Posttype;
 use Core\Builder\Component\Section;
+use Ultimate_Fields\Field;
 
 class Single_Template extends Component {
 
@@ -20,12 +21,18 @@ class Single_Template extends Component {
         
     public static function get_builder_data() {
         return array(
-            'display_gjs_block' => false
+            'display_gjs_block' => false,
+			'custom_datastore_change_callback' => true
         );
     }
 
 	public static function get_fields() {
-		$fields = array();
+		$fields = array(
+			Field::create( 'checkbox', 'full_focus_mode')
+				->hide_label()->fancy()
+				->set_text( __( 'Enable Full Focus Mode', 'mv23theme' ) )
+				->set_description( __( 'Enabling Full Focus Mode will hide other elements and distractions on the page.', 'mv23theme' ) )
+		);
 		return $fields;
 	}
 
