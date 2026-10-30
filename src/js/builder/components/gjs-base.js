@@ -18,7 +18,7 @@ window.gjsBase = function (editor) {
                 tagName: 'div',
                 classes: ['component'],
                 draggable: true,
-                droppable: false,
+                droppable: false
             }
         },
         view: {
@@ -43,7 +43,13 @@ window.gjsBase = function (editor) {
                         el.appendChild(btn);
                     }
                 }
+
+                // on render callback
+                if (typeof this.__onRenderCallback === 'function') {
+                    this.__onRenderCallback({el, model});
+                }
             },
+            __onRenderCallback: null,
             events: {
                 dblclick: 'onActive',
                 'click .edit-btn': 'onEditClick',

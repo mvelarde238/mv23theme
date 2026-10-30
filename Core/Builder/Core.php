@@ -18,6 +18,7 @@ class Core{
         'common_settings',
         'scroll_animations',
         'visibility',
+        'hooks',
     );
 
     /**

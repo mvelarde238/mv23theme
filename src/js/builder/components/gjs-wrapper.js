@@ -30,6 +30,10 @@ window.gjsWrapper = function (editor, options) {
                     const canvas = editor.Canvas;
                     canvas.getBody()?.classList.add('page-id-'+BUILDER_GLOBALS.post_id);
                     canvas.getBody()?.classList.add('single-'+BUILDER_GLOBALS.context.post.posttype);
+
+                    if(BUILDER_GLOBALS.woocommerce_is_active){
+                        canvas.getBody()?.classList.add('woocommerce');
+                    }
                 }, 100);
             },
             custom_datastore_change_callback(changed) {

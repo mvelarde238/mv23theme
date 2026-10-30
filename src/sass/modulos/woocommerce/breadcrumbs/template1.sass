@@ -1,0 +1,42 @@
+.woo-breadcrumbs.template1
+    --angle: 30deg
+    --gap: 4px
+    --space-around: .7em 2em
+
+    .woocommerce-breadcrumb
+        overflow: hidden
+        padding-bottom: 1px // fix for hidden border bottom
+    
+    .breadcrumb-delimiter
+        display: none
+
+    a, span
+        display: inline-block
+        padding: var(--space-around)
+        color: var(--accent-color) !important
+        position: relative
+        margin-right: var(--gap)
+
+        &:before,
+        &::after
+            content: ''
+            position: absolute
+            right: 0
+            width: 100%
+            height: 50%
+            background-color: var(--bg-color)
+            z-index: -1
+            border: 1px solid var(--border-color)
+        &:before
+            top: 0
+            transform: skewX(var(--angle))
+            border-bottom: 0
+        &::after
+            bottom: 0
+            transform: skewX(calc(-1 * var(--angle)))
+            border-top: 0
+
+        &:first-child
+            border-left: 1px solid var(--border-color)
+            &:before, &::after
+                width: 110%

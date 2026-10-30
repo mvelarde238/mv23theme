@@ -166,7 +166,7 @@ class Frontend extends Theme_Header_Data {
         if( SCROLL_ANIMATIONS ) wp_enqueue_script( 'gsap', $this->theme_uri . '/assets/js/gsap.js', array(), '1.0', true);
 
         // localize global variables
-        wp_localize_script( $this->text_domain . '-scripts', 'MV23_GLOBALS', array(
+        $mv23_globals = apply_filters('filter_mv23_globals', array(
             'pageID' => get_the_ID(),
             'isSingle' => is_single(),
             'isMobile' => wp_is_mobile(), 
@@ -188,13 +188,12 @@ class Frontend extends Theme_Header_Data {
             'scrollAnimations' => SCROLL_ANIMATIONS,
             'open_minicart_on_add_to_cart' => OPEN_MINICART_ON_ADD_TO_CART,
             'minicart_sidenav_position' => MINICART_SIDENAV_POSITION,
-            'woocommerce_is_active' => WOOCOMMERCE_IS_ACTIVE,
-            'items_in_cart' => (WOOCOMMERCE_IS_ACTIVE) ? WC()->cart->get_cart_contents_count() : null,
             'menu_breakpoint' => 896,
             'masonry_is_active' => MASONRY_IS_ACTIVE,
             'debug' => DEBUG_SCRIPTS,
             'maybeFixScrollPositionStyles' => MAYBE_FIX_SCROLL_POSITION_STYLES
-        )); 
+        ));
+        wp_localize_script( $this->text_domain . '-scripts', 'MV23_GLOBALS', $mv23_globals ); 
 
         foreach( self::$scripts_control as $script ){
             wp_enqueue_script( $script['handle'] );

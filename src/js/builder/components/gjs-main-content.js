@@ -56,6 +56,7 @@ window.gjsMainContent = function (editor, options) {
                 if (changed_keys.length && changed_keys[0] === '__tab') return;
 
                 this.handle_datastore_data();
+                editor.handleCommonSettings(model);
             },
             handle_datastore_data() {
                 const model = this.model;

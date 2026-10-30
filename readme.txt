@@ -6,6 +6,7 @@ CHANGELOG
 - Added Full Focus Mode option to Single Template component
 - Drag placeholder implementation for editable areas in the single template component
 - Hooks settings implementation on common settings
+- Improved handling of WooCommerce product on single template pages
 
 4.3.0 26-10-26
 - Added migration to move post Builder content into editable areas and update single-template slots

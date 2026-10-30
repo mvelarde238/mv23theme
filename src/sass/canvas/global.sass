@@ -54,7 +54,9 @@ img.gjs-plh-image
 /* force a space to drag components */
 [data-gjs-type="container"],
 [data-gjs-type="column"],
-[data-gjs-type="editable-area"]
+[data-gjs-type="editable-area"],
+[data-gjs-type="woo-product-wrapper"],
+[data-gjs-type="woo-product-summary"]
     padding-top: 10px
     padding-bottom: 10px
 
@@ -71,3 +73,7 @@ img.gjs-plh-image
         height: 100%
         background-color: var(--placeholder-color)
         pointer-events: none
+
+/* editable area slot placeholder color */
+[data-gjs-type="editable-area-slot"]
+    --placeholder-color: color-mix(in srgb,var(--text-accent) 13%,transparent)

@@ -1,0 +1,28 @@
+.woo-product-tabs.template2
+    .tabs
+        position: relative
+        &::before, &::after
+            content: ""
+            display: block !important
+            position: absolute
+            z-index: 1
+            left: 0
+            width: 100%
+            height: 2px
+            background-color: var(--bg-color)
+            border: 0 !important
+        &::before
+            top: 0
+        &::after
+            bottom: 0
+
+        li
+            border-top: 2px solid var(--bg-color) !important
+            border-bottom: 2px solid var(--bg-color) !important
+            border-radius: 0 !important
+            position: relative
+            z-index: 10 !important
+            &.active
+                border-color: var(--accent-color) !important
+            &:hover:not(.active)
+                border-color: var(--border-color) !important

@@ -1,0 +1,21 @@
+// fix woo elements style inside build-in components
+.woo-breadcrumbs .woocommerce-breadcrumb,
+.woo-product-rating .woocommerce-product-rating
+    margin-bottom: 0 !important
+.woo-product-images div.images
+    width: 100% !important
+.woo-product-summary.summary
+    width: 100% !important
+.woo-add-to-cart form.cart
+    margin-bottom: 0 !important
+
+// Fix add to cart button width on single product page
+.single_add_to_cart_button
+    width: auto !important
+
+// Fix onsale badge aspect ratio and centering
+.woocommerce span.onsale
+    aspect-ratio: 1 / 1
+    display: flex
+    justify-content: center
+    align-items: center

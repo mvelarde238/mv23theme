@@ -1,0 +1,23 @@
+.woo-breadcrumbs.template2
+    --space-around: .7em 2em
+
+    .woocommerce-breadcrumb
+        width: max-content
+        display: flex
+        align-items: center
+        background-color: #fff
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1)
+        border-radius: 4px
+
+    .breadcrumb-delimiter
+        display: none
+    
+    a, span
+        display: inline-block
+        padding: var(--space-around)
+        border-bottom: 2px solid transparent
+        &:not(:last-child)
+            border-right: 1px solid var(--border-color)
+        &:last-child
+            border-color: var(--accent-color)
+            

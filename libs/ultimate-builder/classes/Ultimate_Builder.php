@@ -115,6 +115,7 @@ class Ultimate_Builder {
 		[ 'name' => 'gjsIconList', 'handler' => 'gjs-icon-list', 'isComponent' => true ],
 		[ 'name' => 'gjsPostcard', 'handler' => 'gjs-postcard', 'isComponent' => true ],
 		[ 'name' => 'gjsPostcardTrigger', 'handler' => 'gjs-postcard-trigger', 'isComponent' => true ],
+		[ 'name' => 'gjsWooComponents', 'handler' => 'gjs-woo-components', 'isComponent' => true ],
 		// external components
 		[ 'name' => 'gjsContextMenu', 'handler' => 'gjs-context-menu', 'isExternal' => true, 'hasCss' => true ],
 		[ 'name' => 'gjsRowAndCols', 'handler' => 'gjs-row-and-cols', 'isExternal' => true ],
@@ -224,6 +225,7 @@ class Ultimate_Builder {
 			'is_shop' => $is_shop,
 			'theme_version' => Theme_Version::getInstance()->get_current_version(),
 			'import_nonce' => wp_create_nonce( 'ultimate_builder_import' ),
+			'woocommerce_is_active' => WOOCOMMERCE_IS_ACTIVE,
 		);
 
 		// archive templates data

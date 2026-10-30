@@ -1,0 +1,19 @@
+.woo-product-tabs
+    --accent-color: var(--primary-color)
+    --border-color: color-mix( in srgb, var(--accent-color), white 70% )
+    --bg-color: color-mix( in srgb, var(--accent-color), white 94% )
+    
+// woocommerce styles clean up
+.woo-product-tabs[class*="template"]
+    .tabs
+        &:before
+            display: none !important
+        li
+            border: 0 !important
+            background-color: transparent !important
+            &:before, &:after
+                display: none
+
+@import "template1"
+@import "template2"
+@import "template3"
