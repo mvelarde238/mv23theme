@@ -15,32 +15,25 @@ ul.page-numbers
 		&:before
 			display: none
 		
-		a
+		a, span
 			border: 2px solid var(--primary-color)
 			color: var(--primary-color)
 			width: 44px
+			line-height: 42px !important
+			padding: 0 !important
 			height: 44px
-			line-height: 42px
 			text-align: center
 			display: inline-block
 			margin-right: 5px
 			border-radius: 50%
 
 			&:hover
-				background-color: var(--primary-color)
-				color: #fff
+				background-color: var(--primary-color) !important
+				color: #fff !important
 
 	.current
-		width: 44px
-		height: 44px
-		line-height: 42px
-		border-radius: 50%
-		text-align: center
-		display: inline-block
-		margin-right: 5px
-		color: #fff
-		border: 2px solid var(--primary-color)
-		background-color: var(--primary-color)
+		background-color: var(--primary-color) !important
+		color: #fff !important
 
 	.next
 		line-height: 42px

@@ -24,7 +24,6 @@
 
 @import "modulos/accessibility";
 @import "modulos/animations";
-@import "modulos/icon-and-text-widget";
 @import "modulos/video-modal";
 @import "modulos/blockquote";
 @import "modulos/buttons";
@@ -43,12 +42,11 @@
 @import "modulos/scroll";
 @import "modulos/special-list-1";
 @import "modulos/theme-list";
-@import "modulos/aside";
+@import "modulos/sidebar";
 @import "modulos/table";
 @import "modulos/sns-module";
 @import "modulos/modal";
 @import "modulos/minicart";
-@import "modulos/widget-shopping-cart";
 @import "modulos/modal-close";
 @import "modulos/social-share/global";
 @import "modulos/lang-switcher";
@@ -76,7 +74,6 @@
 
 @import "plugins/contact-form-7";
 @import "plugins/theme-my-login";
-@import "plugins/woocommerce";
 
 @import "modulos/postcards/post";
 @import "modulos/postcards/post-horizontal";
@@ -119,5 +116,8 @@
 @import "modulos/woocommerce/global";
 @import "modulos/woocommerce/breadcrumbs/global";
 @import "modulos/woocommerce/product-tabs/global";
+
+@import "modulos/widget/icon-and-text";
+@import "modulos/widget/shopping-cart";
 
 @import "modulos/utils";

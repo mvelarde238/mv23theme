@@ -16,7 +16,7 @@ class Woo_Breadcrumbs extends Component {
 
     public static function get_builder_data() {
         return array(
-            'posttypes' => array('single_template'),
+            'posttypes' => array('single_template', 'archive_template'),
             'block_category' => 'woocommerce'
 		);
     }
@@ -41,14 +41,14 @@ class Woo_Breadcrumbs extends Component {
             Field::create( 'section', '_template_section', 'Template' ),
             Field::create( 'image_select', 'template' )->hide_label()->add_options( $templates ),
 
-            Field::create( 'section', '_delimiter_section', __('Delmiter', 'mv23theme') ),
+            Field::create( 'section', '_delimiter_section', __('Delimiter', 'mv23theme') ),
             Field::create( 'radio', 'delimiter_type' )
                 ->hide_label()->set_prefix(__('Delimiter type','mv23theme'))
                 ->add_options( array(
                     'text' => __('Text', 'mv23theme'),
                     'icon' => __('Icon', 'mv23theme')
                 ))->set_orientation( 'horizontal' ),
-            Field::create( 'Text', 'delimiter_text' )
+            Field::create( 'text', 'delimiter_text' )
                 ->hide_label()->set_prefix(__('Delimiter text','mv23theme'))
                 ->set_placeholder('/')
                 ->add_dependency( 'delimiter_type', 'text', '=' ),

@@ -23,6 +23,7 @@ class Sidebar extends Component {
 			'posttypes' => array(
 				'single_template',
                 'archive_template',
+				'offcanvas_element',
                 array(
                     'posttype' => 'page',
                     'is' => ['page_for_posts']
@@ -42,6 +43,8 @@ class Sidebar extends Component {
 	}
 
     public static function display($args){
+		$args['additional_classes'][] = 'components-wrapper';
+		
 		$sidebar = isset($args['sidebar']) ? $args['sidebar'] : 'page_sidebar';
 
 		// if( isset($args['post_id']) ) {

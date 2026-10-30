@@ -31,13 +31,22 @@ Container::create( 'hooks_container' )
                     'fields' => array(
                         Field::create( 'text', 'hook_name', __('Hook Name','mv23theme') )
                             ->add_suggestions(array(
+                                '--General Hooks--',
                                 'woocommerce_before_main_content',
+                                'woocommerce_after_main_content',
+
+                                '--Single Product Hooks--',
                                 'woocommerce_before_single_product',
                                 'woocommerce_before_single_product_summary',
                                 'woocommerce_single_product_summary',
                                 'woocommerce_after_single_product_summary',
                                 'woocommerce_after_single_product',
-                                'woocommerce_after_main_content',
+
+                                '--Archive Hooks--',
+                                'woocommerce_shop_loop_header',
+                                'woocommerce_before_shop_loop',
+                                'woocommerce_after_shop_loop',
+                                'woocommerce_sidebar'
                             )),
                         $position_field()
                     )

@@ -6,6 +6,7 @@ namespace Core\Frontend;
 
 use Core\Builder\Component\Aside;
 use Core\Posttype\Single_Template as Single_Template_Posttype;
+use Core\Posttype\Archive_Template as Archive_Template_Posttype;
 use Core\Frontend\Frontend;
 
 class WooCommerce_Support{
@@ -26,10 +27,10 @@ class WooCommerce_Support{
         if(is_archive() && is_active_sidebar('shop_sidebar')) $main_content_classes[] = 'main-content--sidebar-left';
         ?>
         <div id="content">
-            <section class="page-module">
+            <section class="page-module section">
                 <div class="container">
                     <div class="<?php echo esc_attr(implode(' ', $main_content_classes)); ?>">
-                        <main class="main">
+                        <main class="main components-wrapper">
         <?php
     }
 
@@ -38,10 +39,11 @@ class WooCommerce_Support{
                         <?php
                         if(is_archive() && is_active_sidebar('shop_sidebar')){
                             echo Aside::display(array(
+                                'type' => 'aside',
                                 'components' => array(
                                     array(
                                         'type' => 'components-wrapper',
-                                        'additional_classes' => ['shop-sidebar','sticky'],
+                                        'additional_classes' => ['sticky'],
                                         'components' => array(
                                             array( 'type' => 'sidebar', 'sidebar' => 'shop_sidebar' )
                                         )
@@ -105,6 +107,11 @@ class WooCommerce_Support{
             'Woo_Product_Tabs',
             'Woo_Product_Upsells',
             'Woo_Related_Products',
+            // Archive components
+            'Woo_Shop_Loop_Header',
+            'Woo_Result_Count',
+            'Woo_Catalog_Ordering',
+            'Woo_Shop_Loop',
         );
 
         foreach ($components as $componentName) {
@@ -121,8 +128,43 @@ class WooCommerce_Support{
         }
     }
 
-    // Switch the product template to the custom single template if available
-    public function switch_product_to_single_template($template) {
+    // Register the shop sidebar for WooCommerce pages
+    public function register_sidebar(){
+        register_sidebar(array(
+            'id' => 'shop_sidebar',
+			'name' => __('Shop Sidebar', 'mv23theme'),
+            'description' => __('Shop Sidebar Widgets', 'mv23theme'),
+			'before_widget' => '<div id="%1$s" class="widget component %2$s">',
+			'after_widget' => '</div>',
+			'before_title' => '<h4 class="widgettitle">',
+			'after_title' => '</h4>',
+		));
+    }
+
+    // Switch the WooCommerce templates to custom templates if available
+    public function override_woo_templates($template) {
+
+        if( is_archive() && get_post_type() === 'product' ){
+            $archive_template_id = Archive_Template_Posttype::getInstance()->get_archive_template_id( 'product' );
+            if ( !$archive_template_id ) {
+                return $template;
+            }
+
+            // Remove default WooCommerce templates to use custom ones
+            remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
+            remove_action('woocommerce_before_main_content', array($this, 'before_main_content'), 10);
+            remove_action('woocommerce_after_main_content', array($this, 'after_main_content'), 10);
+            remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
+            remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
+
+            // Locate the archive template file
+            $archive_template_file = locate_template(array('archive.php'));
+
+            if (!empty($archive_template_file)) {
+                $template = $archive_template_file;
+            }
+        }
+
         if (is_singular('product')) {
             // Return the default template if no single template is connected to the product post type
             $single_template_id = Single_Template_Posttype::getInstance()->get_single_template_id( 'product' );
@@ -132,6 +174,8 @@ class WooCommerce_Support{
 
             // Remove default WooCommerce templates to use custom ones
             remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
+            remove_action('woocommerce_before_main_content', array($this, 'before_main_content'), 10);
+            remove_action('woocommerce_after_main_content', array($this, 'after_main_content'), 10);
             remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10);
             remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
             remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_title', 5);

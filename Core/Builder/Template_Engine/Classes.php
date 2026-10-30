@@ -9,6 +9,10 @@ Class Classes{
     public static function get_classes( $args ){
         $classes = array();
 
+        if( isset($args['type']) && $args['type'] != '' ){
+            $classes[] = $args['type'];
+        }
+
         if( isset($args['__type']) && $args['__type'] != '' && gettype($args['__type']) == 'string' ){
             $classes[] = str_replace('_','-',$args['__type']);
         }

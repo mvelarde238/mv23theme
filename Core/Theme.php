@@ -117,12 +117,13 @@ class Theme extends Theme_Header_Data {
             $this->loader->add_action( 'woocommerce_before_shop_loop', $woocommerce_support, 'show_shop_header_sidebar', 15);
             $this->loader->add_action( 'wp_ajax_get_cart_quantity', $woocommerce_support, 'get_cart_unique_items_count');
             $this->loader->add_action( 'wp_ajax_nopriv_get_cart_quantity', $woocommerce_support, 'get_cart_unique_items_count');
-            $this->loader->add_filter( 'template_include', $woocommerce_support, 'switch_product_to_single_template', 40, 1 );
+            $this->loader->add_filter( 'template_include', $woocommerce_support, 'override_woo_templates', 40, 1 );
             $this->loader->add_action( $this->text_domain.'_add_additional_styles', $woocommerce_support, 'add_styles', 10 );
             $this->loader->add_filter( 'filter_ultimate_builder_handlebars_context', $woocommerce_support, 'add_product_meta_to_context', 10, 1 );
             $this->loader->add_action( 'wp', $woocommerce_support, 'set_up_global_product_on_single', 10 );
             $this->loader->add_action( 'theme_init_components', $woocommerce_support, 'init_components', 10 );
             $this->loader->add_filter( 'filter_mv23_globals', $woocommerce_support, 'add_woocommerce_globals', 10, 1 );
+            $this->loader->add_action( 'widgets_init', $woocommerce_support, 'register_sidebar' );
         }
 
         if( POSTS_SUBSCRIPTION['enabled'] ){
