@@ -6,6 +6,7 @@ CHANGELOG
 - Improved handling of WooCommerce product on single template pages
 - Improved handling of WooCommerce archive pages
 - Removed support for shop_header_sidebar
+- Custom fields reorganized on archive and single template cpt for better usability
 
 4.3.1 26-10-27
 - Added Full Focus Mode option to Single Template component

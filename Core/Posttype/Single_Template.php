@@ -106,7 +106,6 @@ class Single_Template {
 
 	public static function get_fields(){
 		$single_template_fields = array();
-		$single_template_fields[] = Field::create( 'tab', 'content_tab', __('Content Type','mv23theme') );
 
 		# Add post types
 		$post_types = array();
@@ -153,24 +152,16 @@ class Single_Template {
 	}
 
 	public function add_meta_boxes(){
-		$single_template_location = new Post_Type();
-		$single_template_location->add_post_type( 'single_template' );
-		$single_template_location->context = 'side';
 		$single_template_fields = self::get_fields();
 
-		Container::create( 'single_template_settings_1' )
-		    ->set_title('Single Template Settings')
-		    ->add_location( $single_template_location )
-		    ->add_fields($single_template_fields);
+		$single_template_fields[] = Field::create( 'ultimate_builder', 'page_content', __('Content','mv23theme') )
+                    ->add_groups( Builder_Core::getInstance()->get_groups_for_builder() );
 
 		Container::create( 'single_template_settings_2' )
             ->add_location( 'post_type', 'single_template' )
             ->set_description_position('label')
 		    ->set_title('Single Template Settings')
-		    ->add_fields(array(
-                Field::create( 'ultimate_builder', 'page_content', __('Content','mv23theme') )
-                    ->add_groups( Builder_Core::getInstance()->get_groups_for_builder() )
-            ));
+		    ->add_fields($single_template_fields);
 	}
 
 	/**

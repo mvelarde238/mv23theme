@@ -105,7 +105,6 @@ class Archive_Template {
 
 	public static function get_fields(){
 		$archive_template_fields = array();
-		$archive_template_fields[] = Field::create( 'tab', 'content_tab', __('Content Type','mv23theme') );
 
 		# Add post types
 		$post_types = array();
@@ -152,24 +151,16 @@ class Archive_Template {
 	}
 
 	public function add_meta_boxes(){
-		$archive_template_location = new Post_Type();
-		$archive_template_location->add_post_type( 'archive_template' );
-		$archive_template_location->context = 'side';
 		$archive_template_fields = self::get_fields();
 
-		Container::create( 'archive_template_settings_1' )
-		    ->set_title('Archive Template Settings')
-		    ->add_location( $archive_template_location )
-		    ->add_fields($archive_template_fields);
+		$archive_template_fields[] = Field::create( 'ultimate_builder', 'page_content', __('Content','mv23theme') )
+            ->add_groups( Builder_Core::getInstance()->get_groups_for_builder() );
 
 		Container::create( 'archive_template_settings_2' )
             ->add_location( 'post_type', 'archive_template' )
             ->set_description_position('label')
 		    ->set_title('Archive Template Settings')
-		    ->add_fields(array(
-                Field::create( 'ultimate_builder', 'page_content', __('Content','mv23theme') )
-                    ->add_groups( Builder_Core::getInstance()->get_groups_for_builder() )
-            ));
+		    ->add_fields($archive_template_fields);
 	}
 
 	/**
