@@ -13,6 +13,7 @@ CHANGELOG
   when one is opened or keeping multiple sections open simultaneously.
 - Listing_Data_Provider now defaults to an empty array for manual posts if none are provided, preventing errors when no posts are selected.
 - Counter component updated to support decimal values for the number field
+- Fix save template system to correctly handle state (hover, active, etc) rules
 
 4.3.2 26-10-30
 - Improved handling of WooCommerce product on single template pages

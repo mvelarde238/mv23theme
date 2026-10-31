@@ -79,6 +79,7 @@ window.saveTemplateSystem = function (editor, options) {
                         if (selectorsAdd) ruleData.selectorsAdd = selectorsAdd.replaceAll(idSelector, '#%comp_id%');
                         if (matchesSelectors) ruleData.selectors = selectorModels.map(sel => sel.get('name'));
                         if (mediaText) ruleData.mediaText = mediaText;
+                        if (ruleJson.state) ruleData.state = ruleJson.state;
                         styles.push(ruleData);
                     }
                 });

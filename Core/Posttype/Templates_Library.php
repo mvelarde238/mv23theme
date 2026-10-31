@@ -27,8 +27,9 @@ class Templates_Library {
 				'plural' => 'Templates'
 			),
 			array(
-				"show_in_menu" => false,
+				'show_ui' => false,
 				// 'show_in_menu' => 'edit.php?post_type=page',
+				"show_in_menu" => false,
 				'show_in_nav_menus' => false,
 				'show_in_admin_bar' => false,
 				'exclude_from_search' => true,
