@@ -344,7 +344,7 @@ window['OffCanvas_Elements'] = (function(){
                 // const $trigger = jQuery(eventArgs.detail.trigger);
                 // M_instance.open($trigger); 
             // }); 
-            event_name && $(document.body).on( event_name, function(eventArgs){
+            event_name && jQuery(document.body).on( event_name, function(eventArgs){
                 // i need send a cash $trigger to open method:
                 const $trigger = jQuery(eventArgs.detail?.trigger);
                 M_instance.open($trigger); 
@@ -388,8 +388,8 @@ window['OffCanvas_Elements'] = (function(){
             // if visualization cookie is automatic show the element on every page reload
             if( !triggerData.custom_cookie ) storage.removeItem(cookie_name);
 
-            $(window).scroll(function(){
-                let xscrollTop = $(document).scrollTop();  
+            jQuery(window).scroll(function(){
+                let xscrollTop = jQuery(document).scrollTop();  
                 if ( xscrollTop > triggerData.scroll_top && !storage.getItem(cookie_name) ) {
                     M_instance.open();
                     storage.setItem(cookie_name,'true');
@@ -424,7 +424,7 @@ window['OffCanvas_Elements'] = (function(){
                             if( triggerData.custom_cookie && storage.getItem(cookie_name) ) return;
                         
                             // i need send a cash $trigger to open method:
-                            M_instance.open( $(jQuery(trigger_element[i])) );
+                            M_instance.open( jQuery(trigger_element[i]) );
                             trigger_element[i].setAttribute('tabindex', '-1');
                             
                             if(triggerData.custom_cookie){

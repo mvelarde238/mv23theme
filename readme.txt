@@ -10,6 +10,8 @@ CHANGELOG
 - Added component for handling WooCommerce postcard elements
 - Added component for handling WooCommerce product attributes
 - Hide WooCommerce breadcrumbs and notices on single template builder ui
+- Use WordPress jQuery version instead of a custom one
+  Replace `$()` with `jQuery()` for better compatibility with jQuery environments.
 
 4.3.1 26-10-27
 - Added Full Focus Mode option to Single Template component

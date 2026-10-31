@@ -28,16 +28,16 @@ function do_post_action(action_key, post_id, postcard = null, count_wrapper = nu
             nonce: MV23_GLOBALS.nonce
         },
         beforeSend: function () {
-            if (eventTrigger) $(eventTrigger).addClass('processing');
-            if (count_wrapper) $(count_wrapper).parent().addClass('processing');
+            if (eventTrigger) jQuery(eventTrigger).addClass('processing');
+            if (count_wrapper) jQuery(count_wrapper).parent().addClass('processing');
             let loading_event = new CustomEvent(action_key + '_loading', { detail: events_detail });
             document.body.dispatchEvent(loading_event);
         },
         success: function (response) {
-            if (eventTrigger) $(eventTrigger).removeClass('processing');
-            if (count_wrapper) $(count_wrapper).parent().removeClass('processing');
+            if (eventTrigger) jQuery(eventTrigger).removeClass('processing');
+            if (count_wrapper) jQuery(count_wrapper).parent().removeClass('processing');
             if (response.success) {
-                if (count_wrapper) $(count_wrapper).text(response.data);
+                if (count_wrapper) jQuery(count_wrapper).text(response.data);
                 if (restrict_in_session) sessionStorage.setItem(action_session, '1');
                 let success_event = new CustomEvent(action_key + '_success', { detail: events_detail });
                 document.body.dispatchEvent(success_event);
