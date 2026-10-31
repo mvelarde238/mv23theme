@@ -4,6 +4,10 @@ CHANGELOG
 
 4.3.3 26-10-31
 - Cache handling implementation for async components
+- App.js updated:
+  **Custom CSS Editor bugfix**: Pasted CSS was lost when switching components before the debounce fired. 
+  Pending edits now keep their own target component/device and are flushed immediately on select, 
+  deselect, device change and editor blur.
 
 4.3.2 26-10-30
 - Improved handling of WooCommerce product on single template pages
