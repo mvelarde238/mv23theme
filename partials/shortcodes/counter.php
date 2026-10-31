@@ -7,6 +7,7 @@ function print_counter( $atts ) {
 		'suffix'              => '',
 		'format_number'       => '0',
 		'thousands_separator' => '.',
+		'decimal_separator'   => ',',
 	), $atts );
 
 	$prefix = ! empty( $a['prefix'] ) ? esc_html( $a['prefix'] ) : '';
@@ -17,7 +18,8 @@ function print_counter( $atts ) {
 		data-duration="' . esc_attr( $a['duration'] ) . '"
 		data-number="' . esc_attr( $a['number'] ) . '"
 		data-format="' . esc_attr( $a['format_number'] ) . '"
-		data-thousands-sep="' . esc_attr( $a['thousands_separator'] ) . '">';
+		data-thousands-sep="' . esc_attr( $a['thousands_separator'] ) . '"
+		data-decimal-sep="' . esc_attr( $a['decimal_separator'] ) . '">';
 	echo $prefix . '<span class="counter-number">' . esc_html( $a['number'] ) . '</span>' . $suffix;
 	echo '</span>';
 	return ob_get_clean();

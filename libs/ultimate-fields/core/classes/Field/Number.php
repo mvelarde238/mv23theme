@@ -70,6 +70,17 @@ class Number extends Field {
 	 * @return mixed
 	 */
 	protected function sanitize_value( $value ) {
+		return $this->convert_to_number( $value );
+	}
+
+	protected function convert_to_number( $value ) {
+		if(
+			is_float( $value )
+			|| ( is_string( $value ) && is_numeric( $value ) && false !== strpos( $value, '.' ) )
+		) {
+			return floatval( $value );
+		}
+
 		return intval( $value );
 	}
 
@@ -276,8 +287,8 @@ class Number extends Field {
 	public function handle( $value, $source = null ) {
 		$value = parent::handle( $value, $source );
 
-		return is_int( $value ) || ( is_string( $value ) && strlen( $value ) )
-			? intval( $value )
+		return is_int( $value ) || is_float( $value ) || ( is_string( $value ) && strlen( $value ) )
+			? $this->convert_to_number( $value )
 			: null;
 	}
 }

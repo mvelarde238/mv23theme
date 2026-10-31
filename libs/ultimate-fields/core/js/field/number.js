@@ -54,9 +54,9 @@
 			if( false !== this.model.get( 'maximum' ) )
 				this.$input.attr( 'max', this.model.get( 'maximum' ) );
 
-			if( this.model.get( 'slider_enabled' ) ) {
-				this.$input.attr( 'step', this.model.get( 'step' ) );
+			this.$input.attr( 'step', this.model.get( 'step' ) );
 
+			if( this.model.get( 'slider_enabled' ) ) {
 				this.slider();
 			} else {
 				// Indicate that it's a basic input

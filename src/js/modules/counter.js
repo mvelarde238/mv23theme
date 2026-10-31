@@ -6,16 +6,22 @@
         gsap.registerPlugin(ScrollTrigger);
 
         document.querySelectorAll('.counter').forEach(function (counter) {
-            var end          = parseFloat(counter.getAttribute('data-number'));
+            var numberString = counter.getAttribute('data-number');
+            var end          = parseFloat(numberString);
             var duration     = parseInt(counter.getAttribute('data-duration'), 10) / 1000; // GSAP usa segundos
             var formatNumber = counter.getAttribute('data-format') === '1';
             var thousandsSep = counter.getAttribute('data-thousands-sep') || '.';
+            var decimalSep   = counter.getAttribute('data-decimal-sep') || ',';
+            var decimalPart  = (numberString.split('.')[1] || '').split(/[eE]/)[0];
+            var decimals     = decimalPart.length;
             var counterElement = counter.querySelector('.counter-number');
 
             function formatValue(value) {
-                var rounded = Math.round(value).toString();
-                if (!formatNumber) return rounded;
-                return rounded.replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSep);
+                var parts = Number(value).toFixed(decimals).split('.');
+                if (formatNumber) {
+                    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSep);
+                }
+                return parts[0] + (decimals > 0 ? (formatNumber ? decimalSep : '.') + parts[1] : '');
             }
 
             var proxy = { value: 0 };

@@ -22,14 +22,18 @@ class Counter extends Component {
 		$fields = array(
             Field::create( 'section', 'content_section', __( 'Content', 'mv23theme' ) ),
             Field::create( 'number', 'number', __( 'Counter Number', 'mv23theme' ) )
-            ->set_default_value( 23 ),
+                ->set_step( 0.01 )
+                ->set_default_value( 23 ),
             Field::create( 'text', 'prefix', __( 'Counter Prefix', 'mv23theme' ) )->set_width( 50 ),
             Field::create( 'text', 'suffix', __( 'Counter Suffix', 'mv23theme' ) )->set_width( 50 ),
             Field::create( 'checkbox', 'format_number', __( 'Format Number', 'mv23theme' ) )
-                ->fancy()
-                ->set_width( 50 ),
+                ->fancy(),
             Field::create( 'text', 'thousands_separator', __( 'Thousands Separator', 'mv23theme' ) )
                 ->set_default_value( '.' )
+                ->add_dependency( 'format_number' )
+                ->set_width( 50 ),
+            Field::create( 'text', 'decimal_separator', __( 'Decimal Separator', 'mv23theme' ) )
+                ->set_default_value( ',' )
                 ->add_dependency( 'format_number' )
                 ->set_width( 50 ),
 
@@ -53,11 +57,12 @@ class Counter extends Component {
             'suffix'              => esc_attr( $args['suffix'] ),
             'format_number'       => ! empty( $args['format_number'] ) ? '1' : '0',
             'thousands_separator' => esc_attr( $args['thousands_separator'] ?? '.' ),
+            'decimal_separator'  => esc_attr( $args['decimal_separator'] ?? ',' ),
         ];
 
         $shortcode = '[counter';
         foreach ( $shortcode_atts as $key => $value ) {
-            if ( ! empty( $value ) ) {
+            if ( null !== $value && '' !== (string) $value ) {
                 $shortcode .= ' ' . $key . '="' . $value . '"';
             }
         }
@@ -71,7 +76,7 @@ class Counter extends Component {
 	}
 
     public static function get_view_template() {
-		$template = '<%= prefix %><span class="counter-number"><% var _n = parseInt(number, 10).toString(); print(format_number == "1" ? _n.replace(/\B(?=(\d{3})+(?!\d))/g, thousands_separator || ".") : _n); %></span><%= suffix %>';
+		$template = '<%= prefix %><span class="counter-number"><% var _parts = String(number).split("."); var _integer = _parts[0]; var _decimal = _parts[1] || ""; if (format_number == "1") { _integer = _integer.replace(/\\B(?=(\\d{3})+(?!\\d))/g, thousands_separator || "."); } print(_integer + (_decimal ? (format_number == "1" ? (decimal_separator || ",") : ".") + _decimal : "")); %></span><%= suffix %>';
 
         return $template;
     }
