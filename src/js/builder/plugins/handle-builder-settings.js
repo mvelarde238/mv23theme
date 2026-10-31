@@ -70,6 +70,7 @@ window.handleBuilderSettings = function (editor) {
         // These are the default values for the builder settings, used to fill in any missing values from the datastore:
         const default_values = {
             on_select_component_behavior: 'component-settings',
+            style_manager_accordion_behavior: 'single',
             default_sections_padding: {
                 top: 40,
                 left: 0,

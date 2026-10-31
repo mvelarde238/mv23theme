@@ -51,6 +51,7 @@ class Builder_Settings extends Component {
 	public static function get_fields() {
         $builder_settings_default = get_option( 'builder_settings', array(
 			'on_select_component_behavior' => 'component-settings',
+			'style_manager_accordion_behavior' => 'single',
 			'default_sections_padding' => array(
 				'top' => 40,
 				'left' => 0,
@@ -83,6 +84,10 @@ class Builder_Settings extends Component {
 					'blocks' => __('Open Components Tab', 'mv23theme'),
                     'none' => __('Do Nothing', 'mv23theme'),
 				))->set_description(__('Choose what happens when a component is selected.', 'mv23theme')),
+				Field::create( 'select', 'style_manager_accordion_behavior', __('Style Manager Accordion Behavior', 'mv23theme'))->add_options(array(
+					'single' => __('Close other sections', 'mv23theme'),
+					'multiple' => __('Keep other sections open', 'mv23theme'),
+				)),
 
 				Field::create( 'tab', 'sections_customizations', __('Sections', 'mv23theme')),
 				Field::create( 'complex', 'default_sections_padding', __('Default Sections Padding (pixels)', 'mv23theme') )->add_fields(array(

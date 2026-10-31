@@ -8,6 +8,9 @@ CHANGELOG
   **Custom CSS Editor bugfix**: Pasted CSS was lost when switching components before the debounce fired. 
   Pending edits now keep their own target component/device and are flushed immediately on select, 
   deselect, device change and editor blur.
+  
+  **Style Manager accordion behavior**: Added option to choose between closing other sections 
+  when one is opened or keeping multiple sections open simultaneously.
 
 4.3.2 26-10-30
 - Improved handling of WooCommerce product on single template pages
