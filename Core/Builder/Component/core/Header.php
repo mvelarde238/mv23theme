@@ -41,7 +41,10 @@ class Header extends Component {
        
         if ($theme_header_post_meta): 
             $theme_header_post_id = str_replace('post_', '', $theme_header_post_meta);
-        	if( IS_MULTILANGUAGE && function_exists('pll_get_post') ) $theme_header_post_id = pll_get_post($theme_header_post_id);
+        	if( IS_MULTILANGUAGE && function_exists('pll_get_post') ){
+				$translated_post_id = pll_get_post($theme_header_post_id);
+				if ( $translated_post_id ) $theme_header_post_id = $translated_post_id;
+			}
             
         	$page_content = get_post_meta( $theme_header_post_id, 'page_content', true );
             $page_content_datastore = get_post_meta( $theme_header_post_id, 'page_content_datastore', true );
