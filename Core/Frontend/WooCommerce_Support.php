@@ -112,6 +112,11 @@ class WooCommerce_Support{
             'Woo_Result_Count',
             'Woo_Catalog_Ordering',
             'Woo_Shop_Loop',
+            // Postcard components
+            'Woo_Loop_Sale_Flash',
+            'Woo_Loop_Rating',
+            'Woo_Loop_Price',
+            'Woo_Loop_Add_To_Cart',
         );
 
         foreach ($components as $componentName) {

@@ -7,6 +7,7 @@ CHANGELOG
 - Improved handling of WooCommerce archive pages
 - Removed support for shop_header_sidebar
 - Custom fields reorganized on archive and single template cpt for better usability
+- Added component for handling WooCommerce postcard elements
 
 4.3.1 26-10-27
 - Added Full Focus Mode option to Single Template component
