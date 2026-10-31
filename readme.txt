@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+4.3.3 26-10-31
+- Cache handling implementation for async components
+
 4.3.2 26-10-30
 - Improved handling of WooCommerce product on single template pages
 - Improved handling of WooCommerce archive pages

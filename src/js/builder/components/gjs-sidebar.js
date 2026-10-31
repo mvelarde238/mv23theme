@@ -9,7 +9,7 @@ window.gjsSidebar = function (editor, options) {
                 tagName: 'div',
                 classes: ['sidebar','component'],
                 droppable: false,
-                copyable: false
+                copyable: false,
             },
         },
     });

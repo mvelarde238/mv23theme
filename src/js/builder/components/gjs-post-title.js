@@ -9,7 +9,7 @@ window.gjsPostTitle = function (editor, options) {
                 tagName: 'div',
                 classes: ['post-title','component'],
                 droppable: false,
-                copyable: false
+                copyable: false,
             },
         },
     });

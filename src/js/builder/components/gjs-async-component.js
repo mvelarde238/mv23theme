@@ -12,10 +12,17 @@ window.gjsAsyncComponent = function (editor, options) {
                 __additionalData: {},
                 __additionalDataCallback: null,
                 __onSuccessCallback: null,
-                // true: only the inner content of the response root tag is loaded (avoids duplicating id/classes of the wrapper).
+                // true: only the inner content of the response root tag is loaded 
+                // (avoids duplicating id/classes of the wrapper).
                 // false: the full response is loaded as is.
                 __contentOnly: true,
+                // true: ajax only runs on first load (or when the request data changes); 
+                // later renders use the component's own cache.
+                __cache: true,
             },
+            clearAsyncCache() {
+                delete this.__asyncCache;
+            }
         },
         view: {
             // Returns the html to inject in the component. Override it in the extending component's view to customize.
@@ -43,14 +50,35 @@ window.gjsAsyncComponent = function (editor, options) {
 
                 asyncData['type'] = model.get('type');
                 asyncData['action'] = model.get('__action');
+
                 const contextPostId = BUILDER_GLOBALS.context?.post?.id || BUILDER_GLOBALS.post_id;
                 if (contextPostId) asyncData['post_id'] = contextPostId;
+
                 Object.assign(asyncData, model.get('__additionalData'));
                 
                 // additional data via callback, must return an object
                 if (typeof model.get('__additionalDataCallback') === 'function') {
                     const callbackData = model.get('__additionalDataCallback')(model, editor);
                     Object.assign(asyncData, callbackData);
+                }
+
+                const useCache = model.get('__cache');
+                const cacheKey = useCache ? JSON.stringify(asyncData) : null;
+                const cached = useCache ? model.__asyncCache : null;
+
+                const handleSuccess = (response) => {
+                    el.classList.remove('is-loading');
+                
+                    if (typeof model.get('__onSuccessCallback') === 'function') {
+                        model.get('__onSuccessCallback')(response, model, editor, datastore);
+                    } else {
+                        el.innerHTML = view.getContent(response.data);
+                    }
+                };
+
+                if (cached && cached.key === cacheKey) {
+                    handleSuccess(cached.response);
+                    return;
                 }
 
                 jQuery.ajax({
@@ -60,19 +88,14 @@ window.gjsAsyncComponent = function (editor, options) {
                     data: asyncData,
                     beforeSend: function() {
                         el.classList.add('is-loading');
-
+                    
                         if (typeof model.get('__beforeSendCallback') === 'function') {
                             model.get('__beforeSendCallback')(model, editor, datastore);
                         }
                     },
                     success: function(response) {
-                        el.classList.remove('is-loading');
-    
-                        if (typeof model.get('__onSuccessCallback') === 'function') {
-                            model.get('__onSuccessCallback')(response, model, editor, datastore);
-                        } else {
-                            el.innerHTML = view.getContent(response.data);
-                        }
+                        if (useCache) model.__asyncCache = { key: cacheKey, response };
+                        handleSuccess(response);
                     },
                     error: function(xhr, status, error) {
                         el.classList.remove('is-loading');

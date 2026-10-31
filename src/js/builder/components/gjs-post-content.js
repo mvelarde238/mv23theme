@@ -9,7 +9,7 @@ window.gjsPostContent = function (editor, options) {
                 tagName: 'div',
                 classes: ['post-content', 'component'],
                 droppable: false,
-                copyable: false
+                copyable: false,
             },
         },
     });
