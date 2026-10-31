@@ -11,6 +11,7 @@ CHANGELOG
   
   **Style Manager accordion behavior**: Added option to choose between closing other sections 
   when one is opened or keeping multiple sections open simultaneously.
+- Listing_Data_Provider now defaults to an empty array for manual posts if none are provided, preventing errors when no posts are selected.
 
 4.3.2 26-10-30
 - Improved handling of WooCommerce product on single template pages

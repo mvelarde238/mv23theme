@@ -28,13 +28,13 @@ class Listing_Data_Provider {
         
         if ($listing_source == 'manual') {
             $posts_ids = array();
-            $manual_posts_raw = $args['posts'];
+            $manual_posts_raw = $args['posts'] ?? [];
             foreach ($manual_posts_raw as $post) {
                 array_push($posts_ids, str_replace('post_','',$post) );
             };
                 
             $query_args = array();
-            $query_args['post__in'] = $posts_ids;
+            $query_args['post__in'] = ! empty( $posts_ids ) ? $posts_ids : array( 0 );
             $query_args['orderby'] = 'post__in';
             $query_args['post_type'] = 'any';
             $query_args['posts_per_page'] = -1; // ?
