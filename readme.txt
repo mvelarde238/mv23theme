@@ -9,6 +9,7 @@ CHANGELOG
 - Custom fields reorganized on archive and single template cpt for better usability
 - Added component for handling WooCommerce postcard elements
 - Added component for handling WooCommerce product attributes
+- Hide WooCommerce breadcrumbs and notices on single template builder ui
 
 4.3.1 26-10-27
 - Added Full Focus Mode option to Single Template component

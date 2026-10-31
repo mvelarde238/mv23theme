@@ -1,4 +1,4 @@
-.single-template
+[data-gjs-type="single-template"]
     .is-dimmed
         opacity: 0.4
         pointer-events: none
@@ -6,6 +6,11 @@
     &.full-focus-mode
         .is-dimmed
             display: none
+
+    // Hide WooCommerce breadcrumbs and notices in the main area
+    .main>.woocommerce-breadcrumb,
+    .woocommerce-notices-wrapper
+        display: none
 
 .discarded-area
     --placeholder-color: color-mix(in srgb, rgb(255 17 0) 18%, transparent)
