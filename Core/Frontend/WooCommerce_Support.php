@@ -105,6 +105,7 @@ class WooCommerce_Support{
             'Woo_Product_Meta',
             'Woo_Product_Share',
             'Woo_Product_Tabs',
+            'Woo_Product_Attributes',
             'Woo_Product_Upsells',
             'Woo_Related_Products',
             // Archive components

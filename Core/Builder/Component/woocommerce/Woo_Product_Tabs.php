@@ -22,7 +22,7 @@ class Woo_Product_Tabs extends Component {
     }
 
     public static function get_icon() {
-        return 'bi-layout-text-sidebar-reverse';
+        return 'bi-segmented-nav';
     }
 
     public static function get_fields() {
