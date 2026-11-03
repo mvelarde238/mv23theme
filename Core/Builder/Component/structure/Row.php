@@ -109,7 +109,6 @@ class Row extends Component {
 		
 		$args['__type'] = array('row-component');
 		$args['additional_classes'][] = 'row-component';
-		$args['additional_classes'][] = 'component';
 
 		ob_start();
 		echo Template_Engine::component_wrapper('start', $args);

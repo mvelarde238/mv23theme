@@ -107,6 +107,7 @@ class Image extends Component {
         if( Template_Engine::is_restricted( $args ) ) return;
         
 		$args['additional_classes'][] = 'media';
+		$args['additional_classes'][] = 'component';
         
         // generate the attachment object based on the image source
         $image_source = $args['image_source'] ?? 'selfhosted';
