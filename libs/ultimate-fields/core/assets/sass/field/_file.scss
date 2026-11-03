@@ -12,11 +12,12 @@
 		text-align: center;
 		background-size: 20px 20px;
 		background-position: 0 0, 10px 0, 10px -10px, 0px 10px;
+		--color1: #ccc;
 		background-image:
-		  linear-gradient(45deg, #ccc 26%, transparent 26%), 
-		  linear-gradient(135deg, #ccc 26%, transparent 26%),
-		  linear-gradient(45deg, transparent 75%, #ccc 75%),
-		  linear-gradient(135deg, transparent 75%, #ccc 75%);
+		  linear-gradient(45deg, var(--color1) 26%, transparent 26%), 
+		  linear-gradient(135deg, var(--color1) 26%, transparent 26%),
+		  linear-gradient(45deg, transparent 75%, var(--color1) 75%),
+		  linear-gradient(135deg, transparent 75%, var(--color1) 75%);
 
 		&:has(em)
 		{

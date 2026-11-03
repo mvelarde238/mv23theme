@@ -5,6 +5,7 @@ CHANGELOG
 4.3.4 26-11-03
 - Image component updated to include 'component' class
 - Removed 'component' class from Row component
+- Fixed issue with file preview component not using the correct color variable for its background
 
 4.3.3 26-10-31
 - Cache handling implementation for async components

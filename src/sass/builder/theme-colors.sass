@@ -53,6 +53,8 @@
     .uf-field-suffix, .uf-field-prefix
         background-color: var(--ui-color-3)
         border-color: var(--ui-color-4)
+    .uf-field-prefix:has(+ .uf-radio), .uf-field-prefix:has(+ label)
+        border-color: var(--ui-color-4)
     .uf-field-layout-grid.uf-field-type-complex > .uf-field-label
         border-color: var(--ui-color-4)
     textarea, input, select, 
@@ -98,12 +100,16 @@
                     background-color: var(--ui-color-4)
         button.dropdown-button
             border-color: var(--ui-color-4)
+    .uf-file
+        background-color: var(--ui-color-2)
     .uf-file, .uf-file-preview, .uf-video, .uf-video-preview-wrapper, .uf-video-footer, .uf-gallery, .uf-gallery-preview-wrapper, .uf-gallery-footer
         border-color: var(--ui-color-4)
     .uf-file-buttons, .uf-video-footer, .uf-gallery-footer, .uf-gallery, .uf-gallery-images
         background: var(--ui-color-2)
     .uf-icon-preview-icon
         color: var(--ui-font-color)
+    .uf-file-preview
+        --color1: var(--ui-color-3)
     
     .uf-section, .uf-boxed-fields .uf-section
         background-color: var(--ui-color-2)
@@ -346,6 +352,5 @@
         background-color: initial !important
         border-color: initial !important
         color: initial !important
-// .upload-ui
-//     .button
-//         color: #2271b1 !important
+    .upload-ui .button
+        background-color: var(--ui-color-2)
