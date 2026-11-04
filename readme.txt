@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+4.3.5 26-11-04
+- Updated translations for new components and features
+
 4.3.4 26-11-03
 - Image component updated to include 'component' class
 - Removed 'component' class from Row component
