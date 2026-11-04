@@ -4,6 +4,7 @@ CHANGELOG
 
 4.3.5 26-11-04
 - Updated translations for new components and features
+- Moved hooks handling from hooks_settings to settings in the Template Engine
 
 4.3.4 26-11-03
 - Image component updated to include 'component' class

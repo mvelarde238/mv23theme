@@ -164,8 +164,8 @@ class Template_Engine{
     }
 
     public static function check_hooks( $args, $position = 'start' ){
-        $hooks_settings = $args['hooks_settings'] ?? array();
-        $hooks = $hooks_settings['hooks'] ?? array();
+        $settings = $args['settings'] ?? array();
+        $hooks = $settings['hooks'] ?? array();
         if( is_array($hooks) ){
             foreach( $hooks as $hook ){
                 $hook_position = ( isset($hook['hook_position']) && $hook['hook_position'] === 'end' ) ? 'end' : 'start';

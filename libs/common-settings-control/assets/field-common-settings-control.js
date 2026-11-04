@@ -248,6 +248,10 @@
 						if( entry[1].length == 0 ){
 				            delete raw_data.utility_classes;
 				        }
+					} else if (entry[0] == 'hooks' ){
+						if( entry[1].length == 0 ){
+				            delete raw_data.hooks;
+				        }
 					} else {
             	        if( _.isObject(entry[1]) && (!entry[1].hasOwnProperty('use' ) || entry[1].use == false) ){
 							delete raw_data[ entry[0] ];
@@ -281,14 +285,6 @@
 					if( entry[0] == 'rules' && entry[1].length === 0 ){
 						delete raw_data.rules;
 						delete raw_data.rule_operator;
-					}
-				});
-			}
-
-			if( container_name == 'hooks_container' ){
-				Object.entries(raw_data).forEach(entry => {
-					if( entry[0] == 'hooks' && entry[1].length === 0 ){
-						delete raw_data.hooks;
 					}
 				});
 			}
