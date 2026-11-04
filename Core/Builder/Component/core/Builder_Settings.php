@@ -107,7 +107,7 @@ class Builder_Settings extends Component {
             		Field::create( 'text', 'padding' )->set_placeholder('20px')->set_attr( 'style', $width_style ),
             		Field::create( 'text', 'color' )->set_placeholder('#ffffff')->set_attr( 'style', $width_style ),
             		Field::create( 'text', 'borderWidth', __('Border Width', 'mv23theme'))->set_placeholder('2px')->set_attr( 'style', $width_style ),
-            		Field::create( 'text', 'rounded' )->set_placeholder('12px')->set_attr( 'style', $width_style ),
+            		Field::create( 'text', 'rounded', __('Rounded', 'mv23theme'))->set_placeholder('12px')->set_attr( 'style', $width_style ),
             		Field::create( 'text', 'backgroundColor', __('Background Color', 'mv23theme'))->set_placeholder('var(--primary-color)'),
             		Field::create( 'textarea', 'gradient' )->set_rows(2)->set_placeholder('linear-gradient(135deg, #00BCD4 0%, #3858e9 100%)'),
         		)),

@@ -3790,7 +3790,7 @@ msgstr "Padding predeterminado (en píxeles)"
 
 #: Core/Builder/Component/core/Builder_Settings.php:102
 msgid "Default Columns Gap"
-msgstr "Espaciado predeterminado entre columnas"
+msgstr "Espaciado entre columnas"
 
 #: Core/Builder/Component/core/Builder_Settings.php:105
 #: Core/Builder/Component/Icon_Box.php:38
