@@ -194,6 +194,7 @@ class Layout extends Repeater {
 					}
 
 					$group = $this->groups[ $column[ '__type' ] ];
+					$group->get_datastore()->parent = $this->datastore;
 					$group->save( $column );
 					$row[] = $group->get_datastore()->get_values();
 				}

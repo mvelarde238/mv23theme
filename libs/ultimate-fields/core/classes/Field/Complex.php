@@ -290,6 +290,7 @@ class Complex extends Field {
 
 		# Get the right datastore
 		$datastore = $this->get_internal_datastore();
+		$datastore->parent = $this->datastore;
 
 		# Put the values into a datastore
 		if( $this->get_group() ) {

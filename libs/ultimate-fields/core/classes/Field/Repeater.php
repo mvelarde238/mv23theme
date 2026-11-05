@@ -546,6 +546,7 @@ class Repeater extends Field {
 				}
 
 				$group = $this->groups[ $row[ '__type' ] ];
+				$group->get_datastore()->parent = $this->datastore;
 				$group->save( $row );
 				$value[] = $group->get_datastore()->get_values();
 			}

@@ -27,6 +27,13 @@ abstract class Datastore implements ArrayAccess {
 
 	protected $deleted = array();
 
+	/**
+	 * Holds the datastore of the upper level (used by "../" dependencies).
+	 *
+	 * @var Datastore|null
+	 */
+	public $parent = null;
+
     /**
      * Initializes the datastore, eventually with some values.
      *
