@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+4.3.6 26-11-05
+- Deleted empty common settings array entries on save
+
 4.3.5 26-11-04
 - Updated translations for new components and features
 - Moved hooks handling from hooks_settings to settings in the Template Engine

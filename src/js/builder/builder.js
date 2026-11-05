@@ -323,8 +323,10 @@
 
                             // clean up component datastore
                             ['settings','scroll_animations_settings','actions_settings','visibility_settings'].forEach(key => {
-                                if (datastoreJSON.hasOwnProperty(key) && !datastoreJSON[key]) {
-                                    delete datastoreJSON[key];
+                                if (datastoreJSON.hasOwnProperty(key)) {
+                                    if(!datastoreJSON[key] || Object.keys(datastoreJSON[key]).length === 0){
+                                        delete datastoreJSON[key];
+                                    }
                                 }
                             });
 
