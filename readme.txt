@@ -4,6 +4,7 @@ CHANGELOG
 
 4.3.6 26-11-05
 - Deleted empty common settings array entries on save
+- Deleted all keys ending with "*_prepared" from component datastore on save
 
 4.3.5 26-11-04
 - Updated translations for new components and features

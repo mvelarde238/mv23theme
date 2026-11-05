@@ -329,6 +329,12 @@
                                     }
                                 }
                             });
+                            // delete all keys ending with "*_prepared"
+                            Object.keys(datastoreJSON).forEach(key => {
+                                if (key.endsWith('_prepared')) {
+                                    delete datastoreJSON[key];
+                                }
+                            });
 
                             // Merge datastore JSON into componentDataStore
                             componentDataStore = {...datastoreJSON, ...componentDataStore}
