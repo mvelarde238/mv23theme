@@ -846,11 +846,49 @@ class Container {
 			}
 		}
 
+		# Remove the values of hidden fields after validation, so that
+		# dependencies are evaluated against the submitted values.
+		$this->purge_hidden_values( $this->datastore );
+
 		return $errors;
 	}
 
 	/**
-	 * Enqueues the scripts for the containers' scripts.
+	 * Removes from a datastore the values of fields which are hidden
+	 * by conditional logic (dependencies or hidden tabs).
+	 *
+	 * @param Ultimate_Fields\Datastore $datastore The datastore to clean.
+	 */
+	public function purge_hidden_values( $datastore ) {
+		if( ! $datastore || ! apply_filters( 'uf.skip_hidden_values', true, $this ) ) {
+			return;
+		}
+
+		$tab    = false;
+		$tabs   = array();
+		$hidden = array();
+
+		# Evaluate everything first, so removals don't affect other rules
+		foreach( $this->get_fields() as $field ) {
+			$field->set_datastore( $datastore );
+
+			if( is_a( $field, Field\Tab::class ) ) {
+				$tab = $field->get_name();
+				$tabs[ $tab ] = $field->is_hidden();
+				continue;
+			}
+
+			if( ! $field->is_hidden() && ( ! $tab || empty( $tabs[ $tab ] ) ) ) {
+				continue;
+			}
+
+			$hidden[] = $field->get_name();
+		}
+
+		foreach( $hidden as $name ) {
+			$datastore->forget( $name );
+		}
+	}
 	 *
 	 * @since 3.0
 	 */

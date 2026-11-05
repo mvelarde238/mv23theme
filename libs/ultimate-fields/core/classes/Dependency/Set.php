@@ -62,13 +62,18 @@ class Set implements Countable, ArrayAccess {
 	 * @return bool
 	 */
 	public function check( $datastore ) {
+		if( empty( $this->groups ) ) {
+			return false;
+		}
+
+		# The field is visible when at least one group matches
 		foreach( $this->groups as $group ) {
-			if( ! $group->check( $datastore ) ) {
-				return true;
+			if( $group->check( $datastore ) ) {
+				return false;
 			}
 		}
 
-		return false;
+		return true;
 	}
 
 	/**

@@ -87,6 +87,16 @@ abstract class Datastore implements ArrayAccess {
 		$this->deleted[ $key ] = 1;
 	}
 
+	/**
+	 * Removes a value from the pending values and marks it for deletion.
+	 *
+	 * @param string $key The key of the value.
+	 */
+	public function forget( $key ) {
+		unset( $this->values[ $key ] );
+		$this->delete( $key );
+	}
+
     /**
      * Spawns a new datastore from the content of a single value.
      *

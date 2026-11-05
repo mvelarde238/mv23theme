@@ -297,6 +297,8 @@ class Complex extends Field {
 				$field->set_datastore( $datastore );
 				$field->save( $source );
 			}
+
+			$this->get_group()->purge_hidden_values( $datastore );
 		}
 
 		# Save

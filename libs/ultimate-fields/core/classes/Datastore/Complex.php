@@ -88,5 +88,9 @@ class Complex extends Datastore {
 		foreach( $this->get_values() as $key => $value ) {
 			$this->real_datastore->set( $this->prefix . $key, $value );
 		}
+
+		foreach( array_keys( $this->deleted ) as $key ) {
+			$this->real_datastore->forget( $this->prefix . $key );
+		}
 	}
 }
