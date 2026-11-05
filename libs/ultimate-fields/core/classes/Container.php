@@ -889,6 +889,9 @@ class Container {
 			$datastore->forget( $name );
 		}
 	}
+
+	/**
+	 * Enqueues the scripts for the containers' scripts.
 	 *
 	 * @since 3.0
 	 */
