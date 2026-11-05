@@ -220,9 +220,38 @@
 		},
 
 		/**
+		 * Removes the values of fields hidden by conditional logic (dependencies or tabs).
+		 */
+		removeHiddenFieldsValues( raw_data ) {
+			var popup = this.model.get( '_popup_container' ),
+				fields = popup && popup.model ? popup.model.get( 'fields' ) : null,
+				tabs = {};
+
+			if( ! fields ) return raw_data;
+
+			fields.each( function( field ) {
+				if( 'Tab' == field.get( 'type' ) ) tabs[ field.get( 'name' ) ] = field.get( 'visible' );
+			});
+
+			fields.each( function( field ) {
+				var tab = field.get( 'tab' );
+
+				if( 'Tab' == field.get( 'type' ) ) return;
+
+				if( ! field.get( 'visible' ) || ( tab && ! tabs[ tab ] ) ) {
+					delete raw_data[ field.get( 'name' ) ];
+				}
+			});
+
+			return raw_data;
+		},
+
+		/**
 		 * Filter the raw settings data cleaning empty or not used setting options
 		 */
         filterData( container_name, raw_data ) {
+			raw_data = this.removeHiddenFieldsValues( raw_data );
+
 			if( container_name == 'common_settings_container' ){
             	Object.entries(raw_data).forEach(entry => {
 					if( entry[0] == 'id'  ){
