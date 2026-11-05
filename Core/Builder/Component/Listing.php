@@ -65,7 +65,7 @@ class Listing extends Component {
         if(WOOCOMMERCE_IS_ACTIVE){
             $woocommerce_keys_field = Field::create('select','woocommerce_key','WooCommerce Tag')
                 ->add_dependency('source','auto','=')
-                ->add_dependency('../posttype', 'product', '=')
+                ->add_dependency('posttype', 'product', '=')
                 ->add_options(array(
                     '' => __('None','mv23theme'),
                     'featured' => __('Featured','mv23theme'),

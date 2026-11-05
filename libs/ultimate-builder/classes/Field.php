@@ -162,7 +162,9 @@ class Field extends Repeater {
 						// contexts only; custom-datastore components (postcard, theme-options)
 						// handle their own persistence via the "uf.ultimate_builder.save_component"
 						// action below.
-						$group->set_datastore( new Group_Datastore( $component_data ) );
+						$component_datastore = new Group_Datastore( $component_data );
+						$component_datastore->parent = $this->datastore;
+						$group->set_datastore( $component_datastore );
 
 						$group->save( $component_data );
 						$group_processed_values = $group->get_datastore()->get_values();
