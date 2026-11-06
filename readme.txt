@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+4.3.7 26-11-06
+- Actions_Control field updated to ensure no values are saved for this field type
+
 4.3.6 26-11-05
 - Deleted empty common settings array entries on save
 - Deleted all keys ending with "*_prepared" from component datastore on save

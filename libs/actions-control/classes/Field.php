@@ -96,6 +96,6 @@ class Field extends Base_Field {
 	 * @param mixed[] $source The source which the value of the field would be available in.
 	 */
 	public function save( $source ) {
-		// Nothing to do here really...
+		$this->datastore->forget( $this->name );
 	}
 }
