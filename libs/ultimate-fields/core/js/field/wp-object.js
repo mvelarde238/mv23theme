@@ -23,13 +23,26 @@
 		 * When a datastore is set, load items from it.
 		 */
 		setDatastore: function( datastore ) {
-			var selected;
+			var that = this, value, data;
 
 			field.Model.prototype.setDatastore.apply( this, arguments );
 
-			if( selected = this.getValue() ) {
-				selected = this.getItemData( selected );
-				this.get( 'chosen' ).add( selected );
+			if( value = this.getValue() ) {
+				if( data = this.getItemData( value ) ) {
+					this.get( 'chosen' ).add( data );
+				} else {
+					// Neither "*_prepared" nor the in-memory cache have this item (e.g. it was
+					// stripped before saving, or this is a fresh session): fetch it via AJAX
+					// instead of leaving the field without a preview, mv23.
+					this.loadItems( 'initial', {}, function() {
+						var fetched = that.getItemData( value );
+
+						if( fetched && value == that.getValue() ) {
+							that.get( 'chosen' ).add( fetched );
+							that.trigger( 'save' );
+						}
+					});
+				}
 			}
 		},
 

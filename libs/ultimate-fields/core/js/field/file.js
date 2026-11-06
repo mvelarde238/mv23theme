@@ -517,11 +517,12 @@
 		 * Prepares data for attachment(s), while checking the cache for existing data.
 		 */
 		loadFiles: function( file_ids, callback ) {
-			var that = this, prepared, missing, needed = 0;
+			var that = this, prepared, missing, missingIndexes, needed = 0;
 
 			// Check if there are cached items and which ones
-			prepared = [];
-			missing  = [];
+			prepared       = [];
+			missing        = [];
+			missingIndexes = [];
 
 			_.each( file_ids, function( id, index ){
 				if( fileField.Cache.get( id ) ) {
@@ -529,6 +530,7 @@
 				} else {
 					prepared.push( false );
 					missing.push( id );
+					missingIndexes.push( index );
 					needed++;
 				}
 			});
@@ -536,6 +538,38 @@
 			// If nothing is needed, just proceed
 			if( 0 == needed ) {
 				callback( prepared );
+				return;
+			}
+
+			// Fetch missing attachments directly through wp.media, mv23.
+			//
+			// This is needed because fields used inside the builder's popup containers
+			// (actions_container, common_settings_container, etc.) are never part of the
+			// uf_head() containers list in Ultimate_Builder::print_editor(), so UF's own
+			// "file_preview_*" AJAX action below (Form::maybe_ajax()) is never reached for
+			// them and can't be relied on to restore the preview once "*_prepared" is
+			// stripped before saving.
+			if( wp && wp.media ) {
+				var remaining = missing.length;
+
+				_.each( missing, function( id, i ) {
+					var attachment = wp.media.attachment( id );
+
+					attachment.fetch().always( function() {
+						var found = !! attachment.get( 'id' );
+
+						prepared[ missingIndexes[ i ] ] = found ? attachment : { missing: true, id: id };
+
+						if( found ) {
+							fileField.Cache.add( attachment );
+						}
+
+						if( 0 === --remaining ) {
+							callback( prepared );
+						}
+					});
+				});
+
 				return;
 			}
 

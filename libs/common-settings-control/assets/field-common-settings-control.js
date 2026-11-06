@@ -290,15 +290,29 @@
 			}
 
 			if( container_name == 'actions_container' ){
-				let clear_all = false;
-				Object.entries(raw_data).forEach(entry => {
-					if( entry[0] == 'action' && entry[1] == '' ){
-						clear_all = true;
-					}
-				});
-				if( clear_all ){
+				if( raw_data.action == '' ){
 					return {};
 				}
+
+				// raw_data is the live reference stored in the field's datastore (not a copy),
+				// so work on a deep clone: fields such as "file"/"video" keep their "*_prepared"
+				// cache in that same datastore to render previews, and stripping it in place
+				// would wipe the preview as soon as the popup re-opens in the same session.
+				raw_data = $.extend( true, {}, raw_data );
+
+				// recursively remove entries ending with "_prepared" from the data being saved,
+				// they're only used as a client-side cache and shouldn't be persisted to the DB.
+				const remove_prepared = obj => {
+					if( !_.isObject(obj) ) return;
+					Object.keys(obj).forEach(key => {
+						if( key.endsWith('_prepared') ){
+							delete obj[key];
+						} else {
+							remove_prepared(obj[key]);
+						}
+					});
+				};
+				remove_prepared(raw_data);
 			}
 
 			if( container_name == 'scroll_animations_container' ){

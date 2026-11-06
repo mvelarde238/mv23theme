@@ -192,6 +192,38 @@ class Core{
 		wp_localize_script( 'uf-field-common-settings-control', 'POPUP_CONTAINERS', $popup_containers);
     }
 
+    /**
+     * Lets fields inside the builder's popup containers (actions, common_settings,
+     * scroll_animations, visibility) respond to UF's own AJAX actions.
+     *
+     * These containers are only rendered/handled client-side by the builder's JS (see
+     * register_popup_containers()) and are never passed to uf_head()'s "containers" argument
+     * in Ultimate_Builder::print_editor(), so Ultimate_Fields\Form::maybe_ajax() never reaches
+     * their fields. Without this, any field relying on its own AJAX action to restore a preview
+     * (e.g. file/video "file_preview_*" or wp_object "get_objects_*") would be unable to do so
+     * once "*_prepared" cached data isn't present in the datastore anymore.
+     *
+     * @since 1.0
+     *
+     * @param string $action The action that is being performed.
+     * @param mixed  $item   The item that is currently being displayed (unused by the fields below).
+     */
+    public function perform_popup_containers_ajax( $action, $item ){
+        if( ! isset( $_GET['action'] ) || 'ultimate-builder' !== $_GET['action'] ) return;
+
+        foreach( Container::get_registered() as $container ) {
+            $container_id = $container->get_id();
+
+            if( ! in_array( str_replace( '_container', '', $container_id ), self::$popup_containers ) ) {
+                continue;
+            }
+
+            foreach( $container->get_fields() as $field ) {
+                $field->perform_ajax( $action, $item );
+            }
+        }
+    }
+
     public function init_components(){
         foreach( self::$core_components as $category => $components_group ) {
             do_action('theme_init_components_before_'.$category.'_category');
