@@ -6,6 +6,15 @@ window.gjsCompWrapper = function(editor) {
     const __ = editor.createTranslator(editor);
     const compName = __('Wrapper');
 
+    const updateHighlight = (el, model, changedStyles = {}) => {
+        const hasComponents = model.components().length > 0;
+        const hasStyles = Object.keys(model.getStyle() || {}).length > 0 ||
+            Object.entries(changedStyles).some(([property, value]) =>
+                !property.startsWith('__') && value != null && value !== ''
+            );
+        el.classList.toggle('highlight-on-empty', !hasComponents && !hasStyles);
+    };
+
     // Define the component
     domc.addType(compClass, {
         isComponent: el => el.classList && el.classList.contains(compClass),
@@ -26,6 +35,17 @@ window.gjsCompWrapper = function(editor) {
                 `,
             },
         },
+        view: {
+            onRender({el, model}) {
+                updateHighlight(el, model);
+            }
+        }
+    });
+
+    editor.on('component:styleUpdate', (model, {style} = {}) => {
+        if (!model.is(compClass)) return;
+        const el = model.getEl();
+        if (el) updateHighlight(el, model, style);
     });
 
     // Remove the component styles before saving as they are only needed to be presented in the style manager

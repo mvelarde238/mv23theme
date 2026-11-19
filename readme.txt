@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+4.3.8 26-11-19
+- Updated components-wrapper to highlight just when empty or has no styles applied
+
 4.3.7 26-11-06
 - Actions_Control field updated to ensure no values are saved for this field type
 
