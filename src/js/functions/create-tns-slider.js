@@ -61,6 +61,7 @@ function create_tns_slider(slider){
     var show_controls = toBool(slider.dataset['showControls'] ?? false),
         controls_position = slider.dataset['controlsPosition'] ?? 'center',
         nav_position = slider.dataset['navPosition'] ?? 'bottom',
+        nav_container = slider.dataset['navContainer'] ?? '',
         show_nav = toBool(slider.dataset['showNav'] ?? false),
         autoplay = toBool(slider.dataset['autoplay'] ?? false),
         autoplay_button_output = toBool(slider.dataset['autoplayButtonOutput'] ?? true),
@@ -145,6 +146,7 @@ function create_tns_slider(slider){
     if (hasData(slider, 'controlsPosition')) slider_options.controlsPosition = controls_position;
     if (hasData(slider, 'showNav')) slider_options.nav = show_nav;
     if (hasData(slider, 'navPosition')) slider_options.navPosition = nav_position;
+    if (hasData(slider, 'navContainer')) slider_options.navContainer = nav_container;
     if (hasData(slider, 'freezable')) slider_options.freezable = freezable;
     if (hasData(slider, 'preventScrollOnTouch')) slider_options.preventScrollOnTouch = prevent_scroll_on_touch;
     if (hasData(slider, 'startIndex')) slider_options.startIndex = resolveStartIndex(start_index, slider);

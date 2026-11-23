@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+4.3.9 26-11-20
+- Updated Slider component to support navContainer attribute
+
 4.3.8 26-11-19
 - Updated components-wrapper to highlight just when empty or has no styles applied
 

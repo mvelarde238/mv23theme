@@ -64,7 +64,7 @@ class Slider_Settings extends Repeater_Table
             ['key' => 'mouse_drag', 'label' => __('Mouse Drag', 'mv23theme'), 'type' => 'boolean', 'default' => true],
             ['key' => 'nav', 'label' => __('Navigation', 'mv23theme'), 'type' => 'boolean', 'default' => false],
             // ['key' => 'navAsThumbnails', 'label' => __('Nav as Thumbnails', 'mv23theme'), 'type' => 'boolean', 'default' => false],
-            // ['key' => 'navContainer', 'label' => __('Nav Container Selector', 'mv23theme'), 'type' => 'text'],
+            ['key' => 'nav_container', 'label' => __('Nav Container Selector', 'mv23theme'), 'type' => 'text'],
             ['key' => 'nav_position', 'label' => __('Navigation Position', 'mv23theme'), 'type' => 'select', 'default' => 'bottom', 'options' => [
                     'top' => __('Top', 'mv23theme'),
                     'bottom' => __('Bottom', 'mv23theme')
@@ -164,6 +164,7 @@ class Slider_Settings extends Repeater_Table
             'controls_position' => 'data-controls-position',
             'nav' => 'data-show-nav',
             'nav_position' => 'data-nav-position',
+            'nav_container' => 'data-nav-container',
             'speed' => 'data-speed',
             'autoplay' => 'data-autoplay',
             'autoplay_button_output' => 'data-autoplay-button-output',
