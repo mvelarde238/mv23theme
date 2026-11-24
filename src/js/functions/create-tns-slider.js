@@ -57,6 +57,36 @@ function hasData(slider, key) {
     return Object.prototype.hasOwnProperty.call(slider.dataset, key);
 }
 
+function setupSliderProgress(selector, slider_options) {
+    var container;
+    try {
+        container = document.querySelector(selector);
+    } catch (error) {
+        if (error.name !== 'SyntaxError') throw error;
+        console.warn('Invalid slider progress container selector:', selector);
+        return;
+    }
+
+    if (!container || !container.firstElementChild) {
+        console.warn('Slider progress container must exist and have a child element:', selector);
+        return;
+    }
+
+    var progress = container.firstElementChild;
+    function updateProgress(running, duration) {
+        progress.style.transition = 'none';
+        progress.style.width = '0%';
+        if (running) {
+            progress.offsetWidth;
+            progress.style.transition = 'width ' + duration + 'ms linear';
+            progress.style.width = '100%';
+        }
+    }
+
+    updateProgress(false);
+    slider_options.onAutoplayTimer = updateProgress;
+}
+
 function create_tns_slider(slider){   
     var show_controls = toBool(slider.dataset['showControls'] ?? false),
         controls_position = slider.dataset['controlsPosition'] ?? 'center',
@@ -154,6 +184,9 @@ function create_tns_slider(slider){
     if (hasData(slider, 'animateOut')) slider_options.animateOut = animate_out;
     if (hasData(slider, 'animateNormal')) slider_options.animateNormal = animate_normal;
     if (hasData(slider, 'animateDelay') && animate_delay !== undefined) slider_options.animateDelay = animate_delay;
+    if (hasData(slider, 'progressContainer')) {
+        setupSliderProgress(slider.dataset['progressContainer'], slider_options);
+    }
 
     if (hasData(slider, 'showControls') && show_controls) {
         slider_options.controlsText = [prev_icon, next_icon];

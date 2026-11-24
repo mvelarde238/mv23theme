@@ -4,6 +4,22 @@ CHANGELOG
 
 4.3.9 26-11-20
 - Updated Slider component to support navContainer attribute
+- Slider settings support `progress_container`, a CSS selector for an existing wrapper whose first
+  child is the progress bar. Enable autoplay and style the wrapper and child as desired; the child
+  width advances from 0% to 100% over each autoplay timeout and resets when autoplay stops.
+  Navigation restarts a running autoplay; an explicitly paused autoplay remains paused.
+- Local modifications to `src/js/libs/tiny-slider.js` for the progress bar:
+  - Added the non-standard `onAutoplayTimer(running, timeout)` option. It is called when the autoplay
+    timer starts, on each interval, and when it stops; `timeout` is in milliseconds. The progress
+    helper in `src/js/functions/create-tns-slider.js` uses it to update the bar.
+  - With this callback configured, navigation clicks and keyboard interaction restart a running
+    autoplay instead of leaving it stopped. Explicit, hover and visibility pauses are respected.
+  - With this callback configured, ending a drag resumes autoplay only if the drag paused it and
+    no explicit, hover or visibility pause is active. Mouse leave alone does not resume a pause.
+  - Destroying an animating slider stops the timer through `stopAutoplayTimer()` so the callback
+    can reset the progress bar.
+  These changes are not part of upstream Tiny Slider. Reapply and verify them when updating the
+  library, then run `gulp js` from `src` to rebuild `assets/js/scripts.js`.
 
 4.3.8 26-11-19
 - Updated components-wrapper to highlight just when empty or has no styles applied

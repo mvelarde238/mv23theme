@@ -922,6 +922,7 @@ var tns = function (options) {
     var initPosition = {},
         lastPosition = {},
         translateInit,
+        panAutoplayPaused = false,
         panStart = false,
         rafIndex,
         getDist = horizontal ? function (a, b) {
@@ -1805,8 +1806,8 @@ var tns = function (options) {
       });
     }
 
-    if (autoplay) {
-      clearInterval(autoplayTimer);
+    if (animating) {
+      stopAutoplayTimer();
     } // container
 
 
@@ -2989,6 +2990,7 @@ var tns = function (options) {
 
       if (animating && e && ['click', 'keydown'].indexOf(e.type) >= 0) {
         stopAutoplay();
+        restartAutoplayAfterInteraction();
       }
 
       running = true;
@@ -3213,6 +3215,7 @@ var tns = function (options) {
       if (navCurrentIndex === navIndex) {
         if (animating) {
           stopAutoplay();
+          restartAutoplayAfterInteraction();
         }
 
         navClicked = -1; // reset navClicked
@@ -3223,14 +3226,23 @@ var tns = function (options) {
 
   function setAutoplayTimer() {
     autoplayTimer = setInterval(function () {
+      if (typeof options.onAutoplayTimer === 'function') {
+        options.onAutoplayTimer(true, autoplayTimeout);
+      }
       onControlsClick(null, autoplayDirection);
     }, autoplayTimeout);
     animating = true;
+    if (typeof options.onAutoplayTimer === 'function') {
+      options.onAutoplayTimer(true, autoplayTimeout);
+    }
   }
 
   function stopAutoplayTimer() {
     clearInterval(autoplayTimer);
     animating = false;
+    if (typeof options.onAutoplayTimer === 'function') {
+      options.onAutoplayTimer(false, autoplayTimeout);
+    }
   }
 
   function updateAutoplayButton(action, txt) {
@@ -3256,6 +3268,12 @@ var tns = function (options) {
     }
   } // programaitcally play/pause the slider
 
+  function restartAutoplayAfterInteraction() {
+    if (typeof options.onAutoplayTimer === 'function' && autoplay &&
+        !autoplayUserPaused && !autoplayHoverPaused && !autoplayVisibilityPaused) {
+      startAutoplay();
+    }
+  }
 
   function play() {
     if (autoplay && !animating) {
@@ -3397,8 +3415,10 @@ var tns = function (options) {
       }
     }
 
+    panAutoplayPaused = false;
     if (autoplay && animating) {
       stopAutoplayTimer();
+      panAutoplayPaused = true;
     }
 
     panStart = true;
@@ -3577,9 +3597,11 @@ var tns = function (options) {
       moveDirectionExpected = '?';
     }
 
-    if (autoplay && !animating) {
+    if (autoplay && !animating && (typeof options.onAutoplayTimer !== 'function' ||
+        panAutoplayPaused && !autoplayUserPaused && !autoplayHoverPaused && !autoplayVisibilityPaused)) {
       setAutoplayTimer();
     }
+    panAutoplayPaused = false;
   } // === RESIZE FUNCTIONS === //
   // (slidePositions, index, items) => vertical_conentWrapper.height
 

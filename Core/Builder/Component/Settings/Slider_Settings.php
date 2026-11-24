@@ -84,6 +84,7 @@ class Slider_Settings extends Repeater_Table
                     'force' => __('Force', 'mv23theme')
                 ]
             ],
+            ['key' => 'progress_container', 'label' => __('Progress Container Selector', 'mv23theme'), 'type' => 'text'],
             // ['key' => 'prevButton', 'label' => __('Previous Button Selector', 'mv23theme'), 'type' => 'text'],
             ['key' => 'rewind', 'label' => __('Rewind', 'mv23theme'), 'type' => 'boolean', 'default' => true],
             // ['key' => 'responsive', 'label' => __('Responsive Options', 'mv23theme'), 'type' => 'text'],
@@ -165,6 +166,7 @@ class Slider_Settings extends Repeater_Table
             'nav' => 'data-show-nav',
             'nav_position' => 'data-nav-position',
             'nav_container' => 'data-nav-container',
+            'progress_container' => 'data-progress-container',
             'speed' => 'data-speed',
             'autoplay' => 'data-autoplay',
             'autoplay_button_output' => 'data-autoplay-button-output',
