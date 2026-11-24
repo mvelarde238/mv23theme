@@ -23,8 +23,8 @@ class User extends Form_Object {
 	 */
 	public static function get_keywords() {
 		$keywords = array(
-			'WP_User' => get_class(),
-			'user'    => get_class()
+			'WP_User' => __CLASS__,
+			'user'    => __CLASS__
 		);
 
 		return $keywords;

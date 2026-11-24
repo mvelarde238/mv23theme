@@ -61,11 +61,11 @@ class WYSIWYG extends Textarea {
 		$template = Template::instance()->add_template( 'field-wysiwyg', $template );
 
 		# Add the action, that will force a standard editor in order to load all scripts.
-		add_action( 'admin_footer', array( get_class(), 'dummy_editor' ) );
+		add_action( 'admin_footer', array( __CLASS__, 'dummy_editor' ) );
 		if( is_customize_preview() ) {
-			add_action( 'customize_controls_print_scripts', array( get_class(), 'dummy_editor' ) );
+			add_action( 'customize_controls_print_scripts', array( __CLASS__, 'dummy_editor' ) );
 		} else {
-			add_action( 'wp_footer', array( get_class(), 'dummy_editor' ) );
+			add_action( 'wp_footer', array( __CLASS__, 'dummy_editor' ) );
 		}
 
 		$done = true;

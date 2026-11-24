@@ -4,6 +4,7 @@ CHANGELOG
 
 4.3.10 26-11-24
 - Improved components-wrapper to highlight just when empty or has no styles applied
+- UF lib updated: Replaced get_class() with __CLASS__ for compatibility with php 8.5
 
 4.3.9 26-11-23
 - Updated Slider component to support navContainer attribute

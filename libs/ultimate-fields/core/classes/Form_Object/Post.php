@@ -31,11 +31,11 @@ class Post extends Form_Object {
 	 */
 	public static function get_keywords() {
 		$keywords = array(
-			'WP_Post' => get_class()
+			'WP_Post' => __CLASS__
 		);
 
 		foreach( get_post_types() as $pt ) {
-			$keywords[ $pt ] = get_class();
+			$keywords[ $pt ] = __CLASS__;
 		}
 
 		return $keywords;

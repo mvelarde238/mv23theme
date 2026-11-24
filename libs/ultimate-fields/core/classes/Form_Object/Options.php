@@ -20,7 +20,7 @@ class Options extends Form_Object {
 	 */
 	public static function get_keywords() {
 		return array(
-			'options' => get_class()
+			'options' => __CLASS__
 		);
 	}
 

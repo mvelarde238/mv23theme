@@ -51,7 +51,7 @@ class Fields_Collection implements ArrayAccess, Iterator, Countable {
 				continue;
 			}
 
-			if( is_a( $field, get_class() ) ) {
+			if( is_a( $field, __CLASS__ ) ) {
 				foreach( $field->export() as $sub_field ) {
 					$this->fields[] = $sub_field;
 					$this->map[ $sub_field->get_name() ] = $sub_field;

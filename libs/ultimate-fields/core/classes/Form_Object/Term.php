@@ -31,11 +31,11 @@ class Term extends Form_Object {
 	 */
 	public static function get_keywords() {
 		$keywords = array(
-			'WP_term' => get_class()
+			'WP_term' => __CLASS__
 		);
 
 		foreach( get_taxonomies() as $tax ) {
-			$keywords[ $tax ] = get_class();
+			$keywords[ $tax ] = __CLASS__;
 		}
 
 		return $keywords;

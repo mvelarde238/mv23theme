@@ -23,8 +23,8 @@ class Comment extends Form_Object {
 	 */
 	public static function get_keywords() {
 		return array(
-			'WP_Comment' => get_class(),
-			'comment'    => get_class()
+			'WP_Comment' => __CLASS__,
+			'comment'    => __CLASS__
 		);
 	}
 
