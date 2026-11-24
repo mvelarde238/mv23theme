@@ -5,13 +5,14 @@ window.gjsCompWrapper = function(editor) {
     // Labels for the ui, using the editor's translator for internationalization
     const __ = editor.createTranslator(editor);
     const compName = __('Wrapper');
+    const layoutProperties = ['display', 'flex-direction', 'justify-content', 'flex-wrap', 'gap'];
 
     const updateHighlight = (el, model, changedStyles = {}) => {
         const hasComponents = model.components().length > 0;
-        const hasStyles = Object.keys(model.getStyle() || {}).length > 0 ||
-            Object.entries(changedStyles).some(([property, value]) =>
-                !property.startsWith('__') && value != null && value !== ''
-            );
+        const hasStyles = Object.keys(model.getStyle() || {}).some(property => !layoutProperties.includes(property)) ||
+            Object.entries(changedStyles).some(([property, value]) => {
+                return !layoutProperties.includes(property) && !property.startsWith('__') && value != null && value !== '';
+            });
         el.classList.toggle('highlight-on-empty', !hasComponents && !hasStyles);
     };
 

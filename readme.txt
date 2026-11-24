@@ -2,7 +2,10 @@
 CHANGELOG
 **************************************************************************************************
 
-4.3.9 26-11-20
+4.3.10 26-11-24
+- Improved components-wrapper to highlight just when empty or has no styles applied
+
+4.3.9 26-11-23
 - Updated Slider component to support navContainer attribute
 - Slider settings support `progress_container`, a CSS selector for an existing wrapper whose first
   child is the progress bar. Enable autoplay and style the wrapper and child as desired; the child
