@@ -5,6 +5,7 @@ CHANGELOG
 4.3.11 26-11-25
 - Filter out invalid term objects in the megamenu generation
 - Added heading style 12 with top line highlight
+- Added support for deregistering global styles in the Classic Editor integration
 
 4.3.10 26-11-24
 - Improved components-wrapper to highlight just when empty or has no styles applied

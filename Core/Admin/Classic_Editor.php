@@ -42,6 +42,8 @@ class Classic_Editor {
         // ---------- Optional: strip block CSS from frontend ----------
         if ( get_option( 'disable_gutenberg_frontend_styles', false ) ) {
             add_action( 'wp_enqueue_scripts', array( $this, 'disable_block_styles' ) );
+            remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
+            remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
         }
     }
 
