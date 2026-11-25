@@ -356,6 +356,9 @@ class Nav_Walker extends Walker_Nav_Menu{
                         $terms = get_terms($terms_args);
                         if ($terms) {
                             foreach ($terms as $term) :
+                                if( is_array($term) ){ // filter out invalid term objects
+                                    continue;
+                                }
                                 echo '<ul style="display:none;" class="dynamic-megamenu-list dynamic-megamenu-term-'.$term->term_id.'">';
                                 $term_args = array(
                                     'post_type' => $posttype,
