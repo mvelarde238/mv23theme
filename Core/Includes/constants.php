@@ -108,6 +108,9 @@ if ( ! defined( 'NEXT_CAROUSEL_ICON' ) ) define( 'NEXT_CAROUSEL_ICON', 'fa-angle
 // OTHER ICONS
 if ( ! defined( 'GO_TOP_ICON' ) ) define( 'GO_TOP_ICON', 'fa-angle-up' );
 
+// HEADING COMPONENT CONSTANTS
+if( !defined('DEFAULT_HEADING_PRESET_STYLE') ) define( 'DEFAULT_HEADING_PRESET_STYLE', 'style1' );
+
 // BUILDER CONSTANTS
 if( !defined('BUILDER_DEV_MODE') ) define ('BUILDER_DEV_MODE', false);
 define ('ULTIMATE_FIELDS_DISABLE_UI', get_option('uf_disable_ui', false) );

@@ -1,0 +1,29 @@
+.heading--style12
+    @extend %basic-global-heading-styles
+    --line-thickness: 6px
+    --line-width: 80px
+    --accent-color: currentColor
+
+    .highlighted
+        padding-top: calc( var(--line-thickness) + 1.25em )
+        position: relative
+        &:after
+            content: ''
+            position: absolute
+            left: 0
+            top: 0
+            height: var(--line-thickness)
+            background: var(--accent-color)
+            width: var(--line-width)
+    
+    &.right-align
+        .highlighted
+            &:after
+                left: initial
+                right: 0
+    
+    &.center-align
+        .highlighted
+            &:after
+                margin: auto
+                right: 0

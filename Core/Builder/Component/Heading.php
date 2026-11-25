@@ -71,6 +71,10 @@ class Heading extends Component {
                 'style11'  => array(
                     'label' => 'Style 11',
                     'image' => BUILDER_PATH . '/assets/images/headings/style11.png'
+                ),
+                'style12'  => array(
+                    'label' => 'Style 12',
+                    'image' => BUILDER_PATH . '/assets/images/headings/style12.png'
                 )
             )
         );
@@ -151,7 +155,7 @@ class Heading extends Component {
             Field::create( 'image_select', 'preset', __('Preset Style', 'mv23theme') )
                 ->add_options($preset_styles)
                 ->hide_label()
-                ->set_default_value('style1'),
+                ->set_default_value(DEFAULT_HEADING_PRESET_STYLE),
                 // ->set_attr( 'class', 'image-select-2-cols' ),
 
             Field::create( 'tab', 'preset_settings', __( 'Preset settings', 'mv23theme' ) ),
