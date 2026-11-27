@@ -4074,7 +4074,7 @@ h2.uf-add-term-title {
   top: 36px;
   left: initial;
   left: 0;
-  z-index: 99999;
+  z-index: 99999999;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
