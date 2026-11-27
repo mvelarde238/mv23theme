@@ -7,6 +7,9 @@ CHANGELOG
 - Add timeout before initializing the stycky header on builder canvas
 - Increased z-index for repeater group context menu to prevent it from being hidden behind other elements
 - Toggle group types visibility for posttype changes in listing component
+- App.js updated:
+  - **Layer Manager**: Component layer names can now be edited inline with the rename button; 
+    Enter or blur saves the name, while Escape cancels.
 
 4.3.11 26-11-25
 - Filter out invalid term objects in the megamenu generation
