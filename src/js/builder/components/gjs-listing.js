@@ -148,12 +148,17 @@ window.gjsListing = function (editor) {
                     'postcard_settings',
                     'pagination_type',
                 ];
+
+                const datastore = editor.getComponentDatastore(model);
+                const {listing_template, columns, slider_settings, columns_gap, posttype} = datastore.toJSON();
+
+                if (changed_keys[0] === 'posttype') {
+                    this.toggle_group_types_visibility(posttype);
+                }
+
                 if ( $rerender_listing_on_change.includes( changed_keys[0] ) ) {
                     this.render();
                 }
-
-                const datastore = editor.getComponentDatastore(model);
-                const {listing_template, columns, slider_settings, columns_gap,} = datastore.toJSON();
 
                 // if listing template is masonry and columns value changed, re-render to update masonry layout
                 if (changed_keys[0] === 'columns' && listing_template === 'masonry'){
@@ -185,7 +190,7 @@ window.gjsListing = function (editor) {
                     carouselWrapper.view.custom_datastore_change_callback({'slider_settings': slider_settings});
                 }
 
-                this.toggle_group_types_visibility(data.posttype);
+                this.toggle_group_types_visibility(posttype);
             },
             toggle_group_types_visibility(posttype) {
                 const model = this.model;

@@ -6,6 +6,7 @@ CHANGELOG
 - Fix theme navbar initialization issue when menu is not present
 - Add timeout before initializing the stycky header on builder canvas
 - Increased z-index for repeater group context menu to prevent it from being hidden behind other elements
+- Toggle group types visibility for posttype changes in listing component
 
 4.3.11 26-11-25
 - Filter out invalid term objects in the megamenu generation
