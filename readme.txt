@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+4.3.12 26-11-27
+- Fix theme navbar initialization issue when menu is not present
+
 4.3.11 26-11-25
 - Filter out invalid term objects in the megamenu generation
 - Added heading style 12 with top line highlight

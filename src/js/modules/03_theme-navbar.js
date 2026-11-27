@@ -7,6 +7,9 @@ window['Theme_Navbars'] = (function(){
     function Theme_Navbar( el ){
         this.el = el;
         this.menu = this.el.querySelector('.menu');
+
+        if (!this.menu) return;
+        
         this.focusedItem = null;
         this.orientation = this.menu.classList.contains('horizontal-nav') ? 'horizontal' : 'vertical';
     
