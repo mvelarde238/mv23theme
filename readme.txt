@@ -10,6 +10,7 @@ CHANGELOG
 - App.js updated:
   - **Layer Manager**: Component layer names can now be edited inline with the rename button; 
     Enter or blur saves the name, while Escape cancels.
+- Fixed issue with empty containers, columns, editable areas, and Woo product wrappers not having proper padding
 
 4.3.11 26-11-25
 - Filter out invalid term objects in the megamenu generation

@@ -52,13 +52,13 @@ img.gjs-plh-image
     object-fit: cover
 
 /* force a space to drag components */
-[data-gjs-type="container"],
-[data-gjs-type="column"],
-[data-gjs-type="editable-area"],
-[data-gjs-type="woo-product-wrapper"],
-[data-gjs-type="woo-product-summary"]
-    padding-top: 10px
-    padding-bottom: 10px
+[data-gjs-type="container"]:empty,
+[data-gjs-type="column"]:empty,
+[data-gjs-type="editable-area"]:empty,
+[data-gjs-type="woo-product-wrapper"]:empty,
+[data-gjs-type="woo-product-summary"]:empty
+    padding-top: 15px
+    padding-bottom: 15px
 
 /* highlight selected parent when component is dragged */
 .gjs-selected-parent
