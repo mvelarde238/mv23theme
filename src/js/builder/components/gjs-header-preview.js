@@ -56,11 +56,13 @@ window.gjsHeaderPreview = function (editor, options) {
                     el.innerHTML = response.data;
                     
                     // Init sticky header
-                    stickyHeader.init(
-                        el.querySelector('.header'), 
-                        editor.Canvas.getWindow(), 
-                        BUILDER_GLOBALS.stickyHeaderBreakpoint
-                    );
+                    setTimeout(() => {
+                        stickyHeader.init(
+                            el.querySelector('.header'), 
+                            editor.Canvas.getWindow(), 
+                            BUILDER_GLOBALS.stickyHeaderBreakpoint
+                        );
+                    }, 500);
                 }
             }),
         },

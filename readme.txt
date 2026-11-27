@@ -4,6 +4,7 @@ CHANGELOG
 
 4.3.12 26-11-27
 - Fix theme navbar initialization issue when menu is not present
+- Add timeout before initializing the stycky header on builder canvas
 
 4.3.11 26-11-25
 - Filter out invalid term objects in the megamenu generation
