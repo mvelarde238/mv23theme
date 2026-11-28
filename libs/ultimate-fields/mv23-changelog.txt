@@ -1,6 +1,21 @@
 mv23 changelog-------------------------
 
-- 3.2.25 24-11-2026
+- 3.2.27 28-11-2026
+- Feature: Field::preserve_value_when_hidden() allows a dependency (add_dependency) to work as a
+    purely visual/UI switch (ex. a device/breakpoint preview selector like "device_switch" in
+    mv23theme Global Styles) without losing its value.
+    Previously, Container::purge_hidden_values() deleted (via datastore->forget()) the value of
+    ANY field hidden by conditional logic on every save, which is correct for "real" conditional
+    fields but was wiping out the other, currently non-visible breakpoints' settings on every
+    save of the Global Styles options page.
+    Fields marked with ->preserve_value_when_hidden() keep their dependency-driven show/hide
+    behavior (JS and is_hidden()/validation are untouched) but are now skipped by
+    purge_hidden_values(), so their stored value survives even while hidden.
+    (core/classes/Field.php: $preserve_value_when_hidden, preserve_value_when_hidden(),
+     should_preserve_value_when_hidden())
+    (core/classes/Container.php: purge_hidden_values())
+
+- 3.2.26 24-11-2026
 - Replaced get_class() with __CLASS__ for compatibility with php 8.5
 
 - 3.2.25 31-10-2026

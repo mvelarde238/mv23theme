@@ -161,6 +161,9 @@ class Global_Styles {
             ->set_default_value( $defaults )
             ->add_fields( self::get_css_properties_fields( $type, $defaults ) )
             ->add_dependency('device_switch', $breakpoint)
+            // device_switch is just a visual preview switcher, so every breakpoint
+            // must still be saved even when it's not the one currently visible.
+            ->preserve_value_when_hidden()
             ->rows_layout();
 
         if( isset($_GET['action']) && $_GET['action'] === 'ultimate-builder') {

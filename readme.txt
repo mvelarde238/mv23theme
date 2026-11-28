@@ -2,6 +2,9 @@
 CHANGELOG
 **************************************************************************************************
 
+4.3.13 26-11-28
+- Added preserve_value_when_hidden() for complex fields with device switcher
+
 4.3.12 26-11-27
 - Fix theme navbar initialization issue when menu is not present
 - Add timeout before initializing the stycky header on builder canvas

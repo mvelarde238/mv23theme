@@ -57,6 +57,20 @@ abstract class Field {
 	protected $dependencies;
 
 	/**
+	 * Indicates if the value of the field should be kept in the datastore even
+	 * when the field is hidden by its dependencies.
+	 *
+	 * This allows a dependency to work purely as a visual/UI switch (ex. a
+	 * device/breakpoint preview selector) without Container::purge_hidden_values()
+	 * deleting the value of the field just because it isn't the one currently visible.
+	 *
+	 * @see Ultimate_Fields\Field::preserve_value_when_hidden()
+	 * @since 3.2.27
+	 * @var bool
+	 */
+	protected $preserve_value_when_hidden = false;
+
+	/**
 	 * Holds the name of the tab the field belongs to, if any.
 	 *
 	 * @since 3.0
@@ -396,6 +410,37 @@ abstract class Field {
 		$this->dependencies[] = $group;
 
 		return $this;
+	}
+
+	/**
+	 * Marks the field so its value is never purged from the datastore when
+	 * the field is hidden by its dependencies (@see Container::purge_hidden_values()).
+	 *
+	 * Use this when a dependency only works as a visual switch (ex. a
+	 * device/breakpoint selector) and every possible value of the field must
+	 * always be persisted, no matter which one is currently visible.
+	 *
+	 * @since 3.2.27
+	 *
+	 * @param bool $preserve Whether to preserve the value. Defaults to true.
+	 * @return Ultimate_Fields\Field The instance of the field.
+	 */
+	public function preserve_value_when_hidden( $preserve = true ) {
+		$this->preserve_value_when_hidden = $preserve;
+
+		return $this;
+	}
+
+	/**
+	 * Indicates if the field opted out of the hidden-values purge that
+	 * normally happens on save (@see Container::purge_hidden_values()).
+	 *
+	 * @since 3.2.27
+	 *
+	 * @return bool
+	 */
+	public function should_preserve_value_when_hidden() {
+		return (bool) $this->preserve_value_when_hidden;
 	}
 
 	public function set_dependencies( $raw ) {

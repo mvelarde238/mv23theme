@@ -882,6 +882,12 @@ class Container {
 				continue;
 			}
 
+			# Fields using a purely visual dependency (ex. a device/breakpoint
+			# switcher) must keep their stored value even while hidden.
+			if( $field->should_preserve_value_when_hidden() ) {
+				continue;
+			}
+
 			$hidden[] = $field->get_name();
 		}
 
